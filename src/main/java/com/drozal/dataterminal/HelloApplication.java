@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Data Terminal");
         stage.setScene(scene);
         stage.show();
-    } //TESTING TESTING
+    } 
 
     public static void main(String[] args) {
         launch();

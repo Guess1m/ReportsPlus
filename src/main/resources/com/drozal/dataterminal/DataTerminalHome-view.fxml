@@ -6,10 +6,20 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
@@ -28,24 +38,24 @@
                     <Font name="Arial Black" size="35.0" />
                 </font>
             </Label>
-            <AnchorPane prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: #464b6d;">
+            <AnchorPane layoutX="6.0" prefHeight="763.0" prefWidth="201.0" style="-fx-background-color: #464b6d;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <Label layoutX="11.0" prefHeight="109.0" prefWidth="193.0" text="LSPD" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                         <font>
                             <Font name="Arial Black" size="63.0" />
                         </font>
                     </Label>
-                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutX="3.0" layoutY="156.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@buttonstyle.css" text="Shift Information" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="149.0">
+                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutX="3.0" layoutY="156.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@css/buttonstyle.css" text="Shift Information" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="149.0">
                         <font>
                             <Font name="Arial" size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="notesButton" alignment="CENTER" layoutX="3.0" layoutY="205.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@buttonstyle.css" text="Notes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Button fx:id="notesButton" alignment="CENTER" layoutX="3.0" layoutY="205.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@css/buttonstyle.css" text="Notes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
                             <Font name="Arial" size="18.0" />
                         </font>
                     </Button>
-                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="261.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" styleClass="menu-1" stylesheets="@menuStyle.css" text="Create Report" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="261.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Create Report" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <items>
                             <MenuItem mnemonicParsing="false" text="Callout Report" />
                             <MenuItem mnemonicParsing="false" text="Traffic Stop Report" />
@@ -53,7 +63,7 @@
                             <MenuItem mnemonicParsing="false" text="Search Report" />
                             <MenuItem mnemonicParsing="false" text="Arrest Report" />
                             <MenuItem mnemonicParsing="false" text="Patrol Report" />
-                     <SeparatorMenuItem mnemonicParsing="false" />
+                            <SeparatorMenuItem mnemonicParsing="false" />
                             <MenuItem mnemonicParsing="false" text="Traffic Citation" />
                             <MenuItem mnemonicParsing="false" text="Parking Citation" />
                             <MenuItem mnemonicParsing="false" text="Impound Report" />
@@ -62,31 +72,31 @@
                             <Font name="Arial" size="18.0" />
                         </font>
                     </MenuButton>
-                    <Label layoutX="28.0" layoutY="666.0" prefHeight="27.0" prefWidth="145.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
+                    <Label layoutX="24.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
                         <font>
                             <Font name="System Bold" size="18.0" />
                         </font>
                     </Label>
-                    <Label layoutX="49.0" layoutY="690.0" prefHeight="21.0" prefWidth="102.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="50.0">
+                    <Label layoutX="44.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
                     </Label>
-                    <Label layoutX="4.0" layoutY="708.0" prefHeight="21.0" prefWidth="193.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
+                    <Label layoutX="9.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
                         <font>
-                            <Font size="14.0" />
+                            <Font size="13.0" />
                         </font>
                     </Label>
-                    <Label layoutX="24.0" layoutY="727.0" prefHeight="21.0" prefWidth="160.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="16.0">
+                    <Label layoutX="20.0" layoutY="736.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
                     </Label>
-               <Button fx:id="codeButton" alignment="CENTER" layoutX="51.0" layoutY="318.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@buttonstyle.css" text="Codes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                  <font>
-                     <Font name="Arial" size="18.0" />
-                  </font>
-               </Button>
+                    <Button fx:id="codeButton" alignment="CENTER" layoutX="51.0" layoutY="318.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="98.0" style="-fx-font-weight: normal;" styleClass="button-16" stylesheets="@css/buttonstyle.css" text="Codes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <font>
+                            <Font name="Arial" size="18.0" />
+                        </font>
+                    </Button>
                 </children>
             </AnchorPane>
             <Label layoutX="951.0" layoutY="92.0" text="V.1" textAlignment="RIGHT" textFill="LIGHTGRAY">
@@ -94,72 +104,467 @@
                     <Font name="Arial Narrow" size="13.0" />
                 </font>
             </Label>
-         <StackPane id="DefaultPane" fx:id="defaultPane" layoutX="200.0" layoutY="109.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="109.0">
-            <children>
-               <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: #3c4059;">
-                  <children>
-                     <Label layoutX="14.0" layoutY="14.0" text="Officer Number" textFill="WHITE">
+            <StackPane id="DefaultPane" fx:id="defaultPane" disable="true" layoutX="210.0" layoutY="109.0" prefHeight="654.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="109.0">
+                <children>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: #3c4059;">
+                        <children>
+                            <Label layoutX="14.0" layoutY="14.0" text="Officer Number" textFill="WHITE">
+                                <font>
+                                    <Font size="27.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="15.0" layoutY="144.0" text="Officer Name" textFill="WHITE">
+                                <font>
+                                    <Font size="27.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="21.0" layoutY="273.0" text="Officer Rank" textFill="WHITE">
+                                <font>
+                                    <Font size="27.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="16.0" layoutY="386.0" text="Officer Division" textFill="WHITE">
+                                <font>
+                                    <Font size="27.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="19.0" layoutY="491.0" text="Officer Agency" textFill="WHITE">
+                                <font>
+                                    <Font size="27.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="numberField" layoutX="33.0" layoutY="71.0" />
+                            <TextField fx:id="nameField" layoutX="33.0" layoutY="202.0" />
+                            <TextField fx:id="rankField" layoutX="33.0" layoutY="326.0" />
+                            <TextField fx:id="divisionField" layoutX="33.0" layoutY="443.0" />
+                            <TextField fx:id="agencyField" layoutX="33.0" layoutY="547.0" />
+                            <Button fx:id="submitLoginBtn" layoutX="571.0" layoutY="468.0" mnemonicParsing="false" onAction="#onSubmitLoginButtonClicked" text="Submit" />
+                        </children>
+                        <StackPane.margin>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </StackPane.margin>
+                    </AnchorPane>
+                </children>
+            </StackPane>
+            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <children>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: #d3d3d3;">
+                        <children>
+                     <TabPane layoutX="24.0" layoutY="15.0" prefHeight="579.0" prefWidth="722.0" style="-fx-border-color: #b4b4b4;" tabClosingPolicy="UNAVAILABLE">
+                       <tabs>
+                         <Tab text="Tab 1">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea layoutX="10.0" layoutY="10.0" prefHeight="504.0" prefWidth="720.0" promptText="Type Here.." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <effect>
+                                             <DropShadow />
+                                          </effect>
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                       <ImageView fitHeight="92.0" fitWidth="110.0" layoutX="628.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@imgs/emblem_512.png" />
+                                          </image>
+                                       </ImageView>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+                         <Tab text="Tab 2">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea prefHeight="171.0" prefWidth="200.0" promptText="Type Here.." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                       <ImageView fitHeight="92.0" fitWidth="110.0" layoutX="628.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@imgs/emblem_512.png" />
+                                          </image>
+                                       </ImageView>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+                           <Tab text="Tab 3">
+                              <content>
+                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <TextArea layoutX="10.0" layoutY="10.0" prefHeight="504.0" prefWidth="720.0" promptText="Type Here.." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <effect>
+                                             <DropShadow />
+                                          </effect>
+                                          <font>
+                                             <Font size="20.0" />
+                                          </font>
+                                       </TextArea>
+                                       <ImageView fitHeight="92.0" fitWidth="110.0" layoutX="628.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@imgs/emblem_512.png" />
+                                          </image>
+                                       </ImageView>
+                                    </children>
+                                 </AnchorPane>
+                              </content>
+                           </Tab>
+                       </tabs>
+                     </TabPane>
+                     <Label layoutX="605.0" layoutY="24.0" text="Los Santos PD." textFill="#6b6b6b">
                         <font>
-                           <Font size="27.0" />
+                           <Font name="Consolas Bold" size="18.0" />
                         </font>
                      </Label>
-                     <Label layoutX="15.0" layoutY="144.0" text="Officer Name" textFill="WHITE">
+                     <Label layoutX="287.0" layoutY="13.0" text="Notes Terminal" textFill="#434343">
                         <font>
-                           <Font size="27.0" />
+                           <Font name="Candara Bold" size="30.0" />
                         </font>
                      </Label>
-                     <Label layoutX="21.0" layoutY="273.0" text="Officer Rank" textFill="WHITE">
+                        </children>
+                        <StackPane.margin>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </StackPane.margin>
+                    </AnchorPane>
+                </children>
+            </StackPane>
+            <StackPane id="CodesPane" fx:id="codesPane" layoutX="199.0" layoutY="109.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <children>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
+                        <children>
+                     <TextArea editable="false" layoutX="387.0" layoutY="98.0" prefHeight="308.0" prefWidth="197.0" style="-fx-background-color: none; -fx-border-color: none;" text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;" wrapText="true">
                         <font>
-                           <Font size="27.0" />
+                           <Font name="Consolas Bold" size="21.0" />
+                        </font>
+                     </TextArea>
+                     <TextArea editable="false" layoutX="30.0" layoutY="99.0" prefHeight="308.0" prefWidth="179.0" style="-fx-background-color: none; -fx-border-color: none;" text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;" wrapText="true">
+                        <font>
+                           <Font name="Consolas Bold" size="21.0" />
+                        </font>
+                     </TextArea>
+                     <TextArea editable="false" layoutX="197.0" layoutY="98.0" prefHeight="279.0" prefWidth="193.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose" wrapText="true">
+                        <font>
+                           <Font name="Consolas" size="21.0" />
+                        </font>
+                     </TextArea>
+                     <Label layoutX="19.0" layoutY="18.0" text="10-Codes" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas Bold" size="34.0" />
                         </font>
                      </Label>
-                     <Label layoutX="16.0" layoutY="386.0" text="Officer Division" textFill="WHITE">
+                     <Label layoutX="31.0" layoutY="69.0" text="Backup Codes" textAlignment="CENTER">
                         <font>
-                           <Font size="27.0" />
+                           <Font name="Consolas Bold" size="23.0" />
                         </font>
                      </Label>
-                     <Label layoutX="19.0" layoutY="491.0" text="Officer Agency" textFill="WHITE">
+                     <Line endX="247.0" fill="BLACK" layoutX="128.0" layoutY="100.0" startX="-96.0" strokeWidth="0.7" />
+                     <TextArea editable="false" layoutX="564.0" layoutY="98.0" prefHeight="292.0" prefWidth="174.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5" wrapText="true">
                         <font>
-                           <Font size="27.0" />
+                           <Font name="Consolas" size="21.0" />
+                        </font>
+                     </TextArea>
+                     <Label layoutX="396.0" layoutY="68.0" text="Response Codes" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas Bold" size="23.0" />
                         </font>
                      </Label>
-                     <TextField fx:id="numberField" layoutX="33.0" layoutY="71.0" />
-                     <TextField fx:id="nameField" layoutX="33.0" layoutY="202.0" />
-                     <TextField fx:id="rankField" layoutX="33.0" layoutY="326.0" />
-                     <TextField fx:id="divisionField" layoutX="33.0" layoutY="443.0" />
-                     <TextField fx:id="agencyField" layoutX="33.0" layoutY="547.0" />
-                     <Button fx:id="submitLoginBtn" layoutX="571.0" layoutY="468.0" mnemonicParsing="false" onAction="#onSubmitLoginButtonClicked" text="Submit" />
-                  </children>
-                  <StackPane.margin>
-                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                  </StackPane.margin>
-               </AnchorPane>
-            </children></StackPane>
-         <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <Line endX="269.0" fill="BLACK" layoutX="469.0" layoutY="100.0" startX="-94.0" strokeWidth="0.7" />
+                     <ImageView fitHeight="122.0" fitWidth="139.0" layoutX="641.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@imgs/lssdLogo.png" />
+                        </image>
+                     </ImageView>
+                     <TextArea editable="false" layoutX="37.0" layoutY="383.0" prefHeight="225.0" prefWidth="183.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" text="A&#9;Adam&#10;B&#9;Boy&#10;C&#9;Charles&#10;D&#9;David&#10;E&#9;Edward&#10;F&#9;Frank&#10;G&#9;George&#10;H&#9;Henry&#10;I&#9;Ida" wrapText="true">
+                        <font>
+                           <Font name="Consolas" size="17.0" />
+                        </font>
+                     </TextArea>
+                     <TextArea editable="false" layoutX="218.0" layoutY="383.0" prefHeight="225.0" prefWidth="183.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" text="J&#9;John&#10;K&#9;King&#10;L&#9;Lincoln&#10;M&#9;Mary&#10;N&#9;Nora&#10;O&#9;Ocean&#10;P&#9;Paul&#10;Q&#9;Queen&#10;R&#9;Robert" wrapText="true">
+                        <font>
+                           <Font name="Consolas" size="17.0" />
+                        </font>
+                     </TextArea>
+                     <TextArea editable="false" layoutX="399.0" layoutY="383.0" prefHeight="225.0" prefWidth="183.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" text="S&#9;Sam&#10;T&#9;Tom&#10;U&#9;Union&#10;V&#9;Victor&#10;W&#9;William&#10;X&#9;X-Ray&#10;Y&#9;Young&#10;Z&#9;Zebra" wrapText="true">
+                        <font>
+                           <Font name="Consolas" size="17.0" />
+                        </font>
+                     </TextArea>
+                     <Line endX="237.0" endY="-1.0" fill="BLACK" layoutX="344.0" layoutY="385.0" startX="-305.0" startY="-1.0" strokeWidth="0.7" />
+                        </children>
+                        <StackPane.margin>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </StackPane.margin>
+                    </AnchorPane>
+                </children>
+            </StackPane>
+         <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false">
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                   <children>
-                     <Label layoutX="196.0" layoutY="197.0" text="NOTES Page">
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutX="29.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" style="-fx-arc-height: 10; -fx-fill: none;" width="716.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="28.0" />
+                     <Label layoutX="235.0" layoutY="14.0" text="Users Currently Logged In">
                         <font>
-                           <Font size="73.0" />
+                           <Font name="Consolas Bold" size="22.0" />
                         </font>
                      </Label>
-                  </children>
-                  <StackPane.margin>
-                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                  </StackPane.margin>
-               </AnchorPane>
-            </children>
-         </StackPane>
-         <StackPane id="CodesPane" fx:id="codesPane" disable="true" layoutX="199.0" layoutY="109.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <children>
-               <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
-                  <children>
-                     <Label layoutX="112.0" layoutY="208.0" text="CODES PAGE">
+                     <Label layoutX="51.0" layoutY="133.0" text="Name">
                         <font>
-                           <Font size="96.0" />
+                           <Font name="Candara Bold" size="15.0" />
                         </font>
                      </Label>
+                     <Label fx:id="generatedByTag" layoutX="35.0" layoutY="53.0" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas" size="13.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="generatedDateTag" layoutX="563.0" layoutY="53.0" prefHeight="17.0" prefWidth="174.0" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas" size="13.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="299.0" layoutY="53.0" text="Officer Shift Information" textAlignment="CENTER" AnchorPane.bottomAnchor="544.0" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="295.0" AnchorPane.topAnchor="53.0">
+                        <font>
+                           <Font name="Consolas Bold" size="13.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="29.0" layoutY="89.0" text="Officer Shift Information" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas Bold" size="19.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoName" editable="false" layoutX="101.0" layoutY="129.0" prefHeight="25.0" prefWidth="235.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="377.0" layoutY="133.0" text="Rank">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoRank" editable="false" layoutX="425.0" layoutY="130.0" prefHeight="25.0" prefWidth="201.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="49.0" layoutY="180.0" text="Number">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoNumber" editable="false" layoutX="116.0" layoutY="176.0" prefHeight="25.0" prefWidth="218.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="378.0" layoutY="180.0" text="Callsign">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoCallsign" layoutX="442.0" layoutY="177.0" prefHeight="25.0" prefWidth="182.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Line endX="161.0" fill="BLACK" layoutX="130.0" layoutY="113.0" startX="-100.0" />
+                     <Label layoutX="51.0" layoutY="228.0" text="Agency">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoAgency" editable="false" layoutX="115.0" layoutY="224.0" prefHeight="25.0" prefWidth="218.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="379.0" layoutY="229.0" text="Division">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="OfficerInfoDivision" editable="false" layoutX="444.0" layoutY="225.0" prefHeight="25.0" prefWidth="179.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="29.0" layoutY="282.0" text="Patrol Information" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas Bold" size="17.5" />
+                        </font>
+                     </Label>
+                     <Line endX="73.0" fill="BLACK" layoutX="130.0" layoutY="306.0" startX="-100.0" />
+                     <Label layoutX="51.0" layoutY="327.0" text="Patrol Start Time">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="PatrolInfoStartTime" layoutX="176.0" layoutY="324.0" prefHeight="25.0" prefWidth="194.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Label layoutX="51.0" layoutY="375.0" text="Patrol Stop Time">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="PatrolInfoStopTime" layoutX="175.0" layoutY="371.0" prefHeight="25.0" prefWidth="194.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></TextField>
+                     <Button fx:id="PatrolInfoStartTimeBtn" layoutX="380.0" layoutY="324.0" mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick" prefHeight="25.0" prefWidth="24.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect></Button>
+                     <Button fx:id="PatrolInfoStopTimeBtn" layoutX="380.0" layoutY="371.0" mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick" prefHeight="25.0" prefWidth="24.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect>
+                     </Button>
+                     <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="51.0" layoutY="412.0" prefHeight="188.0" prefWidth="716.0" promptText="Quick Note" wrapText="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="368.0" AnchorPane.topAnchor="412.0">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect>
+                     </TextArea>
+                     <Label layoutX="444.0" layoutY="327.0" text="Activity Summary" textAlignment="CENTER">
+                        <font>
+                           <Font name="Consolas Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Line endX="25.0" fill="BLACK" layoutX="543.0" layoutY="346.0" startX="-100.0" />
+                     <Label layoutX="442.0" layoutY="366.0" text="Callouts">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="442.0" layoutY="404.0" text="Traffic Stops">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="444.0" layoutY="443.0" text="Incidents">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="445.0" layoutY="480.0" text="Searches">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="445.0" layoutY="517.0" text="Arrests">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="446.0" layoutY="557.0" text="Patrols">
+                        <font>
+                           <Font name="Candara Bold" size="15.0" />
+                        </font>
+                     </Label>
+                     <Spinner fx:id="calloutSpinner" editable="true" layoutX="539.0" layoutY="363.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                            <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                                <color>
+                                    <Color opacity="0.2786259651184082" />
+                                </color>
+                            </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="539.0" layoutY="401.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                           <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                              <color>
+                                 <Color opacity="0.2786259651184082" />
+                              </color>
+                           </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <Spinner fx:id="IncidentSpinner" editable="true" layoutX="539.0" layoutY="441.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                           <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                              <color>
+                                 <Color opacity="0.2786259651184082" />
+                              </color>
+                           </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <Spinner fx:id="SearchesSpinner" editable="true" layoutX="539.0" layoutY="479.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                           <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                              <color>
+                                 <Color opacity="0.2786259651184082" />
+                              </color>
+                           </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="539.0" layoutY="517.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                           <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                              <color>
+                                 <Color opacity="0.2786259651184082" />
+                              </color>
+                           </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="539.0" layoutY="555.0" prefHeight="25.0" prefWidth="82.0">
+                        <effect>
+                           <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
+                              <color>
+                                 <Color opacity="0.2786259651184082" />
+                              </color>
+                           </DropShadow>
+                        </effect>
+                     </Spinner>
+                     <ImageView fitHeight="122.0" fitWidth="139.0" layoutX="641.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@imgs/lssdLogo.png" />
+                        </image>
+                     </ImageView>
                   </children>
                   <StackPane.margin>
                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

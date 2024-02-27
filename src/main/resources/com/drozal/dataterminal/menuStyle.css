@@ -1,24 +1,23 @@
 /* CSS */
-.button-16 {
+.menu-1 {
   -fx-background-color: none;
   -fx-font-size: 18;
   -fx-border-color: none;
-  -fx-font-weight: none;
 }
 
-.button-16 {
+.menu-1:hover {
   -fx-font-weight: bold;
   -fx-border-color: none;
   -fx-background-color: none;
   -fx-font-size: 18;
 }
 
-.button-16 {
+.menu-1:active {
   -fx-font-weight: bold;
   -fx-font-size: 19;
 }
 
-.button-16 {
+.menu-1:focus {
   -fx-font-weight: bold;
   -fx-font-size: 19;
 }

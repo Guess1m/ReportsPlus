@@ -1,0 +1,25 @@
+/* CSS */
+.button-16 {
+  -fx-background-color: white;
+  -fx-text-fill: #3d3d3d;
+  -fx-font-size: 18;
+  -fx-border-color: #ebebeb;
+}
+
+.button-16:hover {
+  -fx-font-weight: bold;
+  -fx-border-color: #d9d9d9;
+  -fx-background-color: #eeeeee;
+  -fx-text-fill: black;
+  -fx-font-size: 18;
+}
+
+.button-16:active {
+  -fx-font-weight: bold;
+  -fx-font-size: 19;
+}
+
+.button-16:focus {
+  -fx-font-weight: bold;
+  -fx-font-size: 19;
+}

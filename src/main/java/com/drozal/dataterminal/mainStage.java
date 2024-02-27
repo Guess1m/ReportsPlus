@@ -27,6 +27,7 @@ public class mainStage extends Stage {
         mainRT.setTitle("Data Terminal");
         mainRT.setScene(newScene);
         mainRT.initStyle(StageStyle.UTILITY);
+        mainRT.setResizable(false);
         mainRT.show();
 
     }

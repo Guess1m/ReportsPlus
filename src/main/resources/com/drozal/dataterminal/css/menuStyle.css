@@ -14,10 +14,10 @@
 
 .menu-1:active {
   -fx-font-weight: bold;
-  -fx-font-size: 19;
+  -fx-font-size: 18;
 }
 
 .menu-1:focus {
   -fx-font-weight: bold;
-  -fx-font-size: 19;
+  -fx-font-size: 18;
 }

@@ -3,11 +3,18 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DataTerminalHomeApplication extends Application {
     public static Boolean isLoggedIn;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public static String getDate(){
         LocalDateTime currentTime = LocalDateTime.now();
@@ -42,12 +51,44 @@ public class DataTerminalHomeApplication extends Application {
     public void start(Stage stage) throws IOException {
 
 
-        Stage stage1 = new mainStage();
+        mainStage.mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
-        Scene newScene = new Scene(root);
 
-        mainStage.mainRT.setScene(newScene);
+
+
+// Simulate custom title bar with a colored region
+        VBox customTitleBar = new VBox();
+
+        // Add title label to the custom title bar
+        Label titleLabel = new Label("Data Terminal V.1");
+        titleLabel.setTextFill(Color.WHITE); // Set text color to black
+        titleLabel.setPadding(new Insets(4, 0, 0, 20)); // Adjust left padding as needed
+        titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 16)); // Set font to Consolas and bold, adjust size as needed
+
+        customTitleBar.getChildren().add(titleLabel);
+        customTitleBar.setMinHeight(30); // Adjust the height as needed
+        customTitleBar.setStyle("-fx-background-color: #6f77a4"); // Change this to the desired color
+
+        VBox content = new VBox(customTitleBar, root);
+        Scene scene = new Scene(content);
+
+// Set stage transparent and remove default window decorations
+        mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);
+        mainStage.mainRT.setScene(scene);
+        mainStage.mainRT.setTitle("Data Terminal");
+
+        // Set up event handlers for mouse pressed, dragged, and released events
+        customTitleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        customTitleBar.setOnMouseDragged(event -> {
+            mainStage.mainRT.setX(event.getScreenX() - xOffset);
+            mainStage.mainRT.setY(event.getScreenY() - yOffset);
+        });
+        mainStage.mainRT.setResizable(false);
         mainStage.mainRT.show();
         mainStage.mainRT.centerOnScreen();
         mainStage.mainRT.setY(mainStage.mainRT.getY() * 3f / 2f);

@@ -16,7 +16,7 @@
     </padding>
    <AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: white;">
       <children>
-         <Label layoutX="749.0" layoutY="64.0" text="&quot;TO PROTECT AND SERVE&quot;" textAlignment="RIGHT">
+         <Label layoutX="727.0" layoutY="61.0" text="&quot;TO PROTECT AND SERVE&quot;" textAlignment="RIGHT">
             <font>
                <Font name="Arial Narrow Italic" size="21.0" />
             </font>
@@ -29,7 +29,7 @@
          <AnchorPane prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: white;">
             <children>
                <Line endX="13.499954223632812" endY="7.62939453125E-6" layoutX="186.0" layoutY="109.0" startX="-185.0" startY="7.62939453125E-6" stroke="#d0d0d0" strokeWidth="2.0" />
-               <Label layoutX="11.0" prefHeight="109.0" prefWidth="193.0" text="LSPD" textAlignment="RIGHT" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
+               <Label layoutX="11.0" prefHeight="109.0" prefWidth="193.0" text="LSPD" textAlignment="RIGHT" textFill="RED" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                   <font>
                      <Font name="Arial Black" size="63.0" />
                   </font>

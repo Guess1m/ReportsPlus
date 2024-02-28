@@ -300,7 +300,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-         <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;" visible="false">
+         <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;">
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                   <children>

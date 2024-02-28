@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -235,6 +237,15 @@ public class actionController {
         PatrolInfoStartTime.setText(DataTerminalHomeApplication.getTime());
     }
 
-    public void onCalloutReportButtonClick(ActionEvent actionEvent) {
+    public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("calloutReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Data Terminal");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.show();
     }
 }

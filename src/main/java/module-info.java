@@ -9,7 +9,11 @@ module com.drozal.dataterminal {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires jakarta.activation;
+    requires jakarta.xml.bind;
 
     opens com.drozal.dataterminal to javafx.fxml;
+    opens com.drozal.dataterminal.logs to jakarta.xml.bind;
     exports com.drozal.dataterminal;
+    exports com.drozal.dataterminal.logs;
 }

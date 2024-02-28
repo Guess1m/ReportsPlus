@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class mainStage extends Stage {
 
@@ -16,8 +14,6 @@ public class mainStage extends Stage {
 
 
     public mainStage() throws IOException {
-
-
 
 
         mainRT = new Stage();

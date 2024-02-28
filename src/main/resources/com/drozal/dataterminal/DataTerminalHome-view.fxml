@@ -52,37 +52,37 @@
                     </Button>
                     <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="265.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Create Report" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Callout Report" />
-                            <MenuItem mnemonicParsing="false" text="Traffic Stop Report" />
-                            <MenuItem mnemonicParsing="false" text="Incident Report" />
-                            <MenuItem mnemonicParsing="false" text="Search Report" />
-                            <MenuItem mnemonicParsing="false" text="Arrest Report" />
-                            <MenuItem mnemonicParsing="false" text="Patrol Report" />
+                            <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
+                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" text="Traffic Stop Report" />
+                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" text="Incident Report" />
+                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" text="Search Report" />
+                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report" />
+                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report" />
                             <SeparatorMenuItem mnemonicParsing="false" />
-                            <MenuItem mnemonicParsing="false" text="Traffic Citation" />
-                            <MenuItem mnemonicParsing="false" text="Parking Citation" />
-                            <MenuItem mnemonicParsing="false" text="Impound Report" />
+                            <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false" text="Traffic Citation" />
+                            <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false" text="Parking Citation" />
+                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false" text="Impound Report" />
                         </items>
                         <font>
                             <Font name="Arial" size="18.0" />
                         </font>
                     </MenuButton>
-                    <Label layoutX="24.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+                    <Label layoutX="26.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="22.0">
                         <font>
                             <Font name="System Bold" size="18.0" />
                         </font>
                     </Label>
-                    <Label layoutX="44.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
+                    <Label layoutX="47.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="40.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
                     </Label>
-                    <Label layoutX="9.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
+                    <Label layoutX="12.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="6.0">
                         <font>
                             <Font size="13.0" />
                         </font>
                     </Label>
-                    <Label layoutX="20.0" layoutY="736.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                    <Label layoutX="24.0" layoutY="736.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="16.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
@@ -104,7 +104,7 @@
                     <Font name="Arial Narrow" size="13.0" />
                 </font>
             </Label>
-            <StackPane id="DefaultPane" fx:id="defaultPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="109.0">
+            <StackPane id="DefaultPane" fx:id="defaultPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="109.0">
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: #3c4059;">
                         <children>
@@ -146,7 +146,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="NotesPane" fx:id="notesPane" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: #d3d3d3;">
                         <children>
@@ -231,7 +231,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="CodesPane" fx:id="codesPane" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <StackPane id="CodesPane" fx:id="codesPane" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                         <children>
@@ -300,7 +300,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-         <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: #26293c;" visible="false">
+         <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="210.0" layoutY="119.0" prefHeight="644.0" prefWidth="803.0" style="-fx-background-color: none;" visible="false">
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                   <children>

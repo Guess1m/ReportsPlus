@@ -52,7 +52,7 @@ public class actionController {
 
     @FXML
     protected void onHelloButtonClick() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("second-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("calloutReport-view.fxml"));
         Scene scene = new Scene(root);
 
         mainStage.mainRT.setScene(scene);
@@ -233,5 +233,8 @@ public class actionController {
 
     public void onPatrolInfoStartTimeBtnClick(ActionEvent actionEvent) {
         PatrolInfoStartTime.setText(DataTerminalHomeApplication.getTime());
+    }
+
+    public void onCalloutReportButtonClick(ActionEvent actionEvent) {
     }
 }

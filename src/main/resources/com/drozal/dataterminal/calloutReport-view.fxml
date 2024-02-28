@@ -227,7 +227,7 @@
                   <Font name="Arial Bold" size="17.5" />
                </font>
             </Label>
-            <Button fx:id="PatrolInfoStartTimeBtn" layoutX="365.0" layoutY="759.0" mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick" prefHeight="30.0" prefWidth="104.0" text="Submit" textFill="#282828">
+            <Button fx:id="PatrolInfoStartTimeBtn" layoutX="365.0" layoutY="759.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="104.0" text="Submit" textFill="#282828">
                <effect>
                   <DropShadow height="3.46" offsetX="1.0" offsetY="2.0" radius="1.23" spread="1.0" width="3.46">
                      <color>

@@ -238,8 +238,11 @@ public class actionController {
     }
 
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
+        System.out.println("out");
         Stage stage = new Stage();
+        System.out.println("before");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("calloutReport-view.fxml"));
+        System.out.println("after");
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         stage.setTitle("Data Terminal");

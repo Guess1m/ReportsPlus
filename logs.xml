@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calloutReportLogs>
+    <log2>
+        <level>Info</level>
+        <message>Log2 started</message>
+    </log2>
+    <log2>
+        <level>Error</level>
+        <message>Log2 encountered an error</message>
+    </log2>
+    <logs>
+        <level>Info</level>
+        <message>Application started</message>
+    </logs>
+    <logs>
+        <level>Warning</level>
+        <message>Memory usage high</message>
+    </logs>
+</calloutReportLogs>

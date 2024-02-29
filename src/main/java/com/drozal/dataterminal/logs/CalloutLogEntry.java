@@ -1,13 +1,5 @@
 package com.drozal.dataterminal.logs;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-
-import java.util.List;
-
 // Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;
@@ -21,23 +13,29 @@ public class CalloutLogEntry {
     public String Number;
     public String Rank;
     public String Name;
+    public String Address;
+    public String County;
+    public String Area;
 
-    public CalloutLogEntry(){
+    public CalloutLogEntry() {
 
     }
 
-    public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes) {
-        this.Date=date;
-        this.Time=time;
-        this.Name=name;
-        this.Rank=rank;
-        this.Number=number;
-        this.Division=division;
-        this.Agency=agency;
-        this.ResponeType=responseType;
-        this.ResponseGrade=responseGrade;
-        this.CalloutNumber=cNumber;
-        this.NotesTextArea=notes;
+    public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes, String address, String county, String area) {
+        this.Date = date;
+        this.Time = time;
+        this.Name = name;
+        this.Rank = rank;
+        this.Number = number;
+        this.Division = division;
+        this.Agency = agency;
+        this.ResponeType = responseType;
+        this.ResponseGrade = responseGrade;
+        this.CalloutNumber = cNumber;
+        this.NotesTextArea = notes;
+        this.Address = address;
+        this.County = county;
+        this.Area = area;
     }
 }
 

@@ -3,20 +3,16 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CalloutLogEntry;
 import com.drozal.dataterminal.logs.CalloutReportLogs;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
@@ -35,6 +31,10 @@ public class reportController {
     public TextField calloutReportNumber;
     public TextField calloutReportRank;
     public TextField calloutReportName;
+    public boolean mouseEnteredScreenAlready = false;
+    public TextField calloutReportResponseArea;
+    public TextField calloutReportResponseCounty;
+    public TextField calloutReportResponseAddress;
 
     public Spinner getCalloutReportSpinner() {
         return calloutReportSpinner;
@@ -76,9 +76,6 @@ public class reportController {
         return calloutReportName;
     }
 
-    public boolean mouseEnteredScreenAlready=false;
-
-
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         // Load existing logs from XML
         CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
@@ -96,7 +93,11 @@ public class reportController {
                 calloutReportResponeType.getText(),
                 calloutReportResponseGrade.getText(),
                 calloutReportSpinner.getValue().toString(),
-                calloutReportNotesTextArea.getText()
+                calloutReportNotesTextArea.getText(),
+                calloutReportResponseAddress.getText(),
+                calloutReportResponseCounty.getText(),
+                calloutReportResponseArea.getText()
+
         ));
 
         // Save logs to XML
@@ -106,7 +107,7 @@ public class reportController {
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
         //values set
-        if(mouseEnteredScreenAlready){
+        if (mouseEnteredScreenAlready) {
 
         } else {
             //CODE HERE
@@ -131,6 +132,22 @@ public class reportController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        mouseEnteredScreenAlready=true;
+        mouseEnteredScreenAlready = true;
+    }
+
+    public void onCopyClick(ActionEvent actionEvent) {
+        String textToCopy = calloutReportNotesTextArea.getText();
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(textToCopy);
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        clipboard.setContent(clipboardContent);
+    }
+
+    public void onPasteClick(ActionEvent actionEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        if (clipboard.hasString()) {
+            String clipboardContent = clipboard.getString();
+            calloutReportNotesTextArea.appendText(clipboardContent);
+        }
     }
 }

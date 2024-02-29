@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="974.0" prefWidth="739.0" style="-fx-background-color: #143d6b;"
+      xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.mapController">
+    <padding>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
+    </padding>
+    <children>
+        <ImageView fx:id="losSantosMap" fitHeight="1019.0" fitWidth="744.0" onMouseDragged="#mapMouseDrag"
+                   onMousePressed="#mapMousePress" onScroll="#onLosSantosMapScroll" pickOnBounds="true">
+            <image>
+                <Image url="@imgs/losSantos.jpg"/>
+            </image>
+        </ImageView>
+    </children>
+</VBox>

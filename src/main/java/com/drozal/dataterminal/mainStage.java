@@ -15,7 +15,6 @@ public class mainStage extends Stage {
 
     public mainStage() throws IOException {
 
-
         mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
@@ -25,8 +24,5 @@ public class mainStage extends Stage {
         mainRT.initStyle(StageStyle.UTILITY);
         mainRT.setResizable(false);
         mainRT.show();
-
     }
-
-
 }

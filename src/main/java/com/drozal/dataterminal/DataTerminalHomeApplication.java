@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataTerminalHomeApplication extends Application {
-    public static Boolean isLoggedIn;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -58,8 +57,7 @@ public class DataTerminalHomeApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
 
-
-// Simulate custom title bar with a colored region
+        // Simulate custom title bar with a colored region
         VBox customTitleBar = new VBox();
 
         // Add title label to the custom title bar
@@ -97,7 +95,6 @@ public class DataTerminalHomeApplication extends Application {
 
 
         actionController controller = loader.getController();
-        StackPane defaultPane = controller.getDefaultPane();
         StackPane notesPane = controller.getNotesPane();
         StackPane codesPane = controller.getCodesPane();
         Label generatedByTag = controller.getGeneratedByTag();
@@ -124,11 +121,6 @@ public class DataTerminalHomeApplication extends Application {
         createSpinner(patrolsSpinner, 0, 999, 0);
         createSpinner(trafficStopsSpinner, 0, 999, 0);
 
-        //Check for previous Login
-        boolean configExists = ConfigReader.doesConfigExist();
-        if (configExists) {
-            isLoggedIn = true;
-            //already was a config
             shiftInfoPane.setVisible(true);
             shiftInfoPane.setDisable(false);
 
@@ -137,8 +129,6 @@ public class DataTerminalHomeApplication extends Application {
 
             codesPane.setVisible(false);
             codesPane.setDisable(true);
-            defaultPane.setDisable(true);
-            defaultPane.setVisible(false);
 
             String name = ConfigReader.configRead("Name");
             String division = ConfigReader.configRead("Division");
@@ -159,22 +149,6 @@ public class DataTerminalHomeApplication extends Application {
 
             System.out.println("Shift Info should be showing since there already was a config");
 
-        } else {
-            //blank config
-            //disable buttons??
-            isLoggedIn = false;
-            defaultPane.setVisible(true);
-            defaultPane.setDisable(false);
-
-            codesPane.setVisible(false);
-            codesPane.setDisable(true);
-            notesPane.setDisable(true);
-            notesPane.setVisible(false);
-            shiftInfoPane.setDisable(true);
-            shiftInfoPane.setVisible(false);
-
-            System.out.println("login should be showing since there was no config");
-        }
 
 
     }

@@ -1,0 +1,17 @@
+.text-field-custom {
+    -fx-text-inner-color: white;
+}
+
+.combo-box-custom .text {
+    /* Add more styles as needed */
+    -fx-font-size: 19;
+    -fx-font-family: "Corbel";
+}
+
+.combo-box-custom .list-cell {
+    -fx-text-fill: white; /* Set the text color */
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: black; /* Text color only for dropdown options */
+}

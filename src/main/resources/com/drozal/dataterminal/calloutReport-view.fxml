@@ -147,7 +147,7 @@
                         <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="358.0" layoutY="50.0" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@imgs/emblem_512.png"/>
+                                <Image url="@imgs/LSPDEmblem.png"/>
                             </image>
                         </ImageView>
                         <Label contentDisplay="CENTER" layoutX="15.0" layoutY="79.0"

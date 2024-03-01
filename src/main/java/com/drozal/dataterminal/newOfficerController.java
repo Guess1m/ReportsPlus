@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

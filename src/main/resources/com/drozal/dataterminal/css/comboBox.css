@@ -4,12 +4,12 @@
 
 .combo-box-custom .text {
     /* Add more styles as needed */
-    -fx-font-size: 19;
-    -fx-font-family: "Lucida Console";
+    -fx-font-size: 17;
+    -fx-font-family: "Segoe UI Semibold";
 }
 
 .combo-box-custom .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill:  #004266; /* Set the text color */
 }
 
 .combo-box-popup .list-view .list-cell {

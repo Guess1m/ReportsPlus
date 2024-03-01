@@ -1,7 +1,6 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 

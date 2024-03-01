@@ -16,4 +16,6 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.logs to jakarta.xml.bind;
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs;
+    exports com.drozal.dataterminal.util;
+    opens com.drozal.dataterminal.util to javafx.fxml;
 }

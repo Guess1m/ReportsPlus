@@ -2,6 +2,10 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +13,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
+
+import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 
 public class actionController {
 
@@ -23,24 +32,18 @@ public class actionController {
     public Button codeButton;
     public StackPane notesPane;
     public Button shiftInfoBtn;
-    public TextField numberField;
-    public TextField nameField;
-    public TextField rankField;
-    public TextField divisionField;
-    public TextField agencyField;
-    public Button submitLoginBtn;
     public StackPane shiftInformationPane;
     public TextField OfficerInfoName;
-    public TextField OfficerInfoDivision;
+    public ComboBox OfficerInfoDivision;
     public TextField PatrolInfoStartTime;
     public TextField PatrolInfoStopTime;
     public Button PatrolInfoStartTimeBtn;
     public Button PatrolInfoStopTimeBtn;
     public TextArea ShiftInfoNotesTextArea;
-    public TextField OfficerInfoAgency;
+    public ComboBox OfficerInfoAgency;
     public TextField OfficerInfoCallsign;
     public TextField OfficerInfoNumber;
-    public TextField OfficerInfoRank;
+    public ComboBox OfficerInfoRank;
     public Label generatedDateTag;
     public Label generatedByTag;
     public Spinner calloutSpinner;
@@ -49,20 +52,12 @@ public class actionController {
     public Spinner SearchesSpinner;
     public Spinner ArrestsSpinner;
     public Spinner PatrolsSpinner;
-    public ImageView losSantosMap;
     public StackPane infoPane;
+    public TextArea notepadTextArea;
+    public Label profileName;
+    public Label profileRank;
+    public Label updatedNotification;
     boolean hasEntered = false;
-
-
-    @FXML
-    protected void onHelloButtonClick() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("calloutReport-view.fxml"));
-        Scene scene = new Scene(root);
-
-        mainStage.mainRT.setScene(scene);
-        mainStage.mainRT.setTitle("Second Window");
-        mainStage.mainRT.show();
-    }
 
     public void setDisable(StackPane pane) {
         pane.setVisible(false);
@@ -78,6 +73,7 @@ public class actionController {
             setActive(codesPane);
             setDisable(notesPane);
             setDisable(shiftInformationPane);
+            setDisable(infoPane);
 
     }
 
@@ -85,6 +81,8 @@ public class actionController {
             setDisable(codesPane);
             setActive(notesPane);
             setDisable(shiftInformationPane);
+        setDisable(infoPane);
+
     }
 
 
@@ -92,6 +90,8 @@ public class actionController {
             setDisable(codesPane);
             setDisable(notesPane);
             setActive(shiftInformationPane);
+        setDisable(infoPane);
+
 
     }
 
@@ -119,35 +119,15 @@ public class actionController {
         return trafficStopSpinner;
     }
 
-    public Button getPatrolInfoStartTimeBtn() {
-        return PatrolInfoStartTimeBtn;
-    }
-
-    public Button getPatrolInfoStopTimeBtn() {
-        return PatrolInfoStopTimeBtn;
-    }
-
-    public TextField getPatrolInfoStartTime() {
-        return PatrolInfoStartTime;
-    }
-
-    public TextField getPatrolInfoStopTime() {
-        return PatrolInfoStopTime;
-    }
-
     public StackPane getCodesPane() {
         return codesPane;
     }
 
-    public TextField getOfficerInfoAgency() {
+    public ComboBox getOfficerInfoAgency() {
         return OfficerInfoAgency;
     }
 
-    public TextField getOfficerInfoCallsign() {
-        return OfficerInfoCallsign;
-    }
-
-    public TextField getOfficerInfoDivision() {
+    public ComboBox getOfficerInfoDivision() {
         return OfficerInfoDivision;
     }
 
@@ -159,7 +139,7 @@ public class actionController {
         return OfficerInfoNumber;
     }
 
-    public TextField getOfficerInfoRank() {
+    public ComboBox getOfficerInfoRank() {
         return OfficerInfoRank;
     }
 
@@ -179,26 +159,8 @@ public class actionController {
         return shiftInformationPane;
     }
 
-    public void onSubmitLoginButtonClicked(ActionEvent actionEvent) throws IOException {
-
-        String name = ConfigReader.configRead("Name");
-        String division = ConfigReader.configRead("Division");
-        String rank = ConfigReader.configRead("Rank");
-        String number = ConfigReader.configRead("Number");
-        String agency = ConfigReader.configRead("Agency");
-
-        OfficerInfoName.setText(name);
-        OfficerInfoDivision.setText(division);
-        OfficerInfoRank.setText(rank);
-        OfficerInfoAgency.setText(agency);
-        OfficerInfoNumber.setText(number);
-
-        //Top Generations
-        generatedByTag.setText("Generated By: " + name);
-        String date = DataTerminalHomeApplication.getDate();
-        generatedDateTag.setText("Generated On: " + date);
-
-
+    public StackPane getInfoPane() {
+        return infoPane;
     }
 
     public void onPatrolInfoStopTimeBtnClick(ActionEvent actionEvent) {
@@ -252,14 +214,28 @@ public class actionController {
             String number = ConfigReader.configRead("Number");
             String agency = ConfigReader.configRead("Agency");
 
+            getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
+            getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
+            getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
+
             OfficerInfoName.setText(name);
-            OfficerInfoDivision.setText(division);
-            OfficerInfoRank.setText(rank);
-            OfficerInfoAgency.setText(agency);
+            OfficerInfoDivision.setPromptText(division);
+            OfficerInfoRank.setPromptText(rank);
+            OfficerInfoAgency.setPromptText(agency);
             OfficerInfoNumber.setText(number);
 
+            createSpinner(calloutSpinner, 0, 999, 0);
+            createSpinner(getArrestsSpinner(), 0, 999, 0);
+            createSpinner(getSearchesSpinner(), 0, 999, 0);
+            createSpinner(getIncidentSpinner(), 0, 999, 0);
+            createSpinner(getPatrolsSpinner(), 0, 999, 0);
+            createSpinner(trafficStopSpinner, 0, 999, 0);
+
+            profileRank.setText(rank);
+            profileName.setText(name);
+
             //Top Generations
-            generatedByTag.setText("Generated By: " + name);
+            generatedByTag.setText("Generated By:" + " " + name);
             String date = DataTerminalHomeApplication.getDate();
             generatedDateTag.setText("Generated On: " + date);
         }
@@ -267,5 +243,73 @@ public class actionController {
 
     public void onMouseExit(MouseEvent mouseEvent) {
         hasEntered=true;
+    }
+
+    public void onclearclick(ActionEvent actionEvent) {
+        notepadTextArea.setText("");
+    }
+
+    public void oncopyclick(ActionEvent actionEvent) {
+        String textToCopy = notepadTextArea.getText();
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(textToCopy);
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        clipboard.setContent(clipboardContent);
+    }
+
+    public void onpasteclick(ActionEvent actionEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        if (clipboard.hasString()) {
+            String clipboardContent = clipboard.getString();
+            notepadTextArea.appendText(clipboardContent);
+        }
+    }
+
+    public void updateInfoButtonClick(ActionEvent actionEvent) {
+
+        if (getOfficerInfoAgency().getValue()==null || getOfficerInfoDivision().getValue()==null ||
+                getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() ||
+                getOfficerInfoNumber().getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+
+
+
+            updatedNotification.setText("Fill Out Form.");
+            updatedNotification.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                updatedNotification.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            System.out.println(getOfficerInfoAgency().getValue());
+            System.out.println(getOfficerInfoDivision().getValue());
+            System.out.println(getOfficerInfoRank().getValue());
+            System.out.println(getOfficerInfoName().getText());
+            System.out.println(getOfficerInfoNumber().getText());
+
+        ConfigWriter.configwrite("Agency", getOfficerInfoAgency().getValue().toString());
+        ConfigWriter.configwrite("Division", getOfficerInfoDivision().getValue().toString());
+        ConfigWriter.configwrite("Name", getOfficerInfoName().getText());
+        ConfigWriter.configwrite("Rank", getOfficerInfoRank().getValue().toString());
+        ConfigWriter.configwrite("Number", getOfficerInfoNumber().getText());
+
+        generatedByTag.setText("Generated By:" + " " + getOfficerInfoName().getText());
+
+        profileRank.setText(getOfficerInfoRank().getValue().toString());
+        profileName.setText(getOfficerInfoName().getText());
+
+        updatedNotification.setText("updated.");
+        updatedNotification.setVisible(true);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+            updatedNotification.setVisible(false);
+        }));
+        timeline.play();
+
+    }
+    }
+
+    public void onExitButtonClick(ActionEvent actionEvent) {
+        Platform.exit();
+
     }
 }

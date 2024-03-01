@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.util;
 
 import java.util.Arrays;
 import java.util.List;

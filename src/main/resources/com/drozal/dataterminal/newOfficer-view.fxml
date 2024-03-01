@@ -6,81 +6,93 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vboxid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="459.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.newOfficerController">
+<VBox fx:id="vboxid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="478.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.newOfficerController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
    <children>
-      <AnchorPane prefHeight="97.0" prefWidth="480.0" style="-fx-background-color: #525c69;">
+      <AnchorPane prefHeight="82.0" prefWidth="717.0" style="-fx-background-color: white;">
          <children>
-            <Label layoutX="13.0" layoutY="9.0" text="DataTerminal Report Applicaton" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="14.0" text="DataTerminal Report Applicaton" textFill="#7c7c7c">
                <font>
-                  <Font name="Corbel Bold" size="32.0" />
+                  <Font name="Segoe UI Black" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="46.0" text="Officer Sign In" textFill="#ebebeb">
+            <Label layoutX="14.0" layoutY="48.0" text="Officer Sign In" textFill="#008cd7">
                <font>
-                  <Font name="Corbel Bold" size="23.0" />
+                  <Font name="Segoe UI Bold" size="23.0" />
                </font>
             </Label>
-            <Line endX="374.0" layoutX="101.0" layoutY="91.0" opacity="0.68" startX="-100.0" stroke="#d3d3d3" strokeWidth="10.0" />
+            <Line endX="612.0" layoutX="100.0" layoutY="91.0" opacity="0.68" startX="-100.0" stroke="#d3d3d3" strokeWidth="10.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="378.0" prefWidth="480.0" style="-fx-background-color: #343f4e;">
+      <AnchorPane prefHeight="491.0" prefWidth="797.0" style="-fx-background-color: #edf1f3;">
          <children>
-            <TextField fx:id="nameField" layoutX="17.0" layoutY="14.0" prefHeight="35.0" prefWidth="278.0" promptText="Name" style="-fx-background-color: none;" styleClass="text-field-custom" stylesheets="@css/style.css">
+            <TextField fx:id="nameField" layoutX="14.0" layoutY="37.0" prefHeight="35.0" prefWidth="208.0" promptText="Name" style="-fx-background-color: none;" styleClass="text-field-custom" stylesheets="@css/style.css">
                <font>
-                  <Font name="Corbel" size="19.0" />
+                  <Font name="Lucida Console" size="19.0" />
                </font>
             </TextField>
-            <Label layoutX="415.0" layoutY="21.0" opacity="0.64" text="Name" textFill="#b9b9b9">
+            <Label layoutX="219.0" layoutY="44.0" opacity="0.64" text="Name" textFill="#0074b3">
                <font>
                   <Font name="Corbel Bold" size="17.0" />
                </font>
             </Label>
-            <Separator layoutX="28.0" layoutY="46.0" opacity="0.52" prefHeight="3.0" prefWidth="432.0" />
-            <TextField fx:id="numberField" layoutX="17.0" layoutY="71.0" prefHeight="35.0" prefWidth="262.0" promptText="Number" style="-fx-background-color: none;" styleClass="text-field-custom" stylesheets="@css/style.css">
+            <Separator layoutX="22.0" layoutY="69.0" opacity="0.36" prefHeight="3.0" prefWidth="241.0" style="-fx-background-color: #008cd7;" />
+            <TextField fx:id="numberField" layoutX="298.0" layoutY="37.0" prefHeight="35.0" prefWidth="108.0" promptText="Number" style="-fx-background-color: none;" styleClass="text-field-custom" stylesheets="@css/style.css">
                <font>
-                  <Font name="Corbel" size="19.0" />
+                  <Font name="Lucida Console" size="19.0" />
                </font>
             </TextField>
-            <Label layoutX="400.0" layoutY="78.0" opacity="0.64" text="Number" textFill="#b9b9b9">
+            <Label layoutX="396.0" layoutY="44.0" opacity="0.64" text="Number" textFill="#0074b3">
                <font>
                   <Font name="Corbel Bold" size="17.0" />
                </font>
             </Label>
-            <Separator layoutX="28.0" layoutY="103.0" opacity="0.52" prefHeight="3.0" prefWidth="432.0" />
-            <Label layoutX="422.0" layoutY="137.0" opacity="0.64" text="Rank" textFill="#b9b9b9">
+            <Separator layoutX="309.0" layoutY="69.0" opacity="0.36" prefHeight="3.0" prefWidth="147.0" style="-fx-background-color: #008cd7;" />
+            <Label layoutX="415.0" layoutY="104.0" opacity="0.64" text="Rank" textFill="#0074b3">
                <font>
                   <Font name="Corbel Bold" size="17.0" />
                </font>
             </Label>
-            <Separator layoutX="28.0" layoutY="162.0" opacity="0.52" prefHeight="3.0" prefWidth="432.0" />
-            <Label layoutX="405.0" layoutY="198.0" opacity="0.64" text="Agency" textFill="#b9b9b9">
+            <Separator layoutX="21.0" layoutY="129.0" opacity="0.36" prefHeight="3.0" prefWidth="432.0" style="-fx-background-color: #008cd7;" />
+            <Label layoutX="401.0" layoutY="179.0" opacity="0.64" text="Agency" textFill="#0074b3">
                <font>
                   <Font name="Corbel Bold" size="17.0" />
                </font>
             </Label>
-            <Separator layoutX="28.0" layoutY="223.0" opacity="0.52" prefHeight="3.0" prefWidth="432.0" />
-            <ComboBox fx:id="rankDropdown" layoutX="21.0" layoutY="131.0" prefHeight="36.0" prefWidth="401.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
-            <Label layoutX="404.0" layoutY="261.0" opacity="0.64" text="Division" textFill="#b9b9b9">
+            <Separator layoutX="24.0" layoutY="204.0" opacity="0.36" prefHeight="3.0" prefWidth="432.0" style="-fx-background-color: #008cd7;" />
+            <ComboBox fx:id="rankDropdown" layoutX="14.0" layoutY="98.0" prefHeight="36.0" prefWidth="401.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
+            <Label layoutX="401.0" layoutY="250.0" opacity="0.64" text="Division" textFill="#0074b3">
                <font>
                   <Font name="Corbel Bold" size="17.0" />
                </font>
             </Label>
-            <Separator layoutX="28.0" layoutY="286.0" opacity="0.52" prefHeight="3.0" prefWidth="432.0" />
-            <ComboBox fx:id="agencyDropDown" layoutX="22.0" layoutY="192.0" prefHeight="36.0" prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
-            <ComboBox fx:id="divisionDropDown" layoutX="21.0" layoutY="254.0" prefHeight="36.0" prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
-            <Button fx:id="loginBtn" layoutX="380.0" layoutY="308.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="37.0" prefWidth="85.0" style="-fx-background-color: none; -fx-border-color: #b9b9b9; -fx-border-radius: 12; -fx-border-width: 1.5;" text="LOGIN" textFill="WHITE">
+            <Separator layoutX="25.0" layoutY="275.0" opacity="0.36" prefHeight="3.0" prefWidth="432.0" style="-fx-background-color: #008cd7;" />
+            <ComboBox fx:id="agencyDropDown" layoutX="18.0" layoutY="173.0" prefHeight="36.0" prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
+            <ComboBox fx:id="divisionDropDown" layoutX="18.0" layoutY="243.0" prefHeight="36.0" prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/style.css" visibleRowCount="14" />
+            <Button fx:id="loginBtn" layoutX="373.0" layoutY="312.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="37.0" prefWidth="85.0" style="-fx-background-color: none; -fx-border-color: #008cd7; -fx-border-radius: 12; -fx-border-width: 1.5;" text="LOGIN" textFill="#008cd7">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
             </Button>
+            <Label layoutX="24.0" layoutY="315.0" text="Los Santos Police Department" textFill="#7c7c7c">
+               <font>
+                  <Font name="Segoe UI Black" size="22.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="236.0" fitWidth="228.0" layoutX="473.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imgs/LSPDEmblem.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

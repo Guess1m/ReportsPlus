@@ -217,9 +217,9 @@
                </ImageView>
                 </children>
             </AnchorPane>
-         <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="251.0" layoutY="143.0" prefHeight="577.0" prefWidth="716.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="143.0">
+         <StackPane id="DefaultPane" fx:id="infoPane" layoutX="251.0" layoutY="152.0" prefHeight="577.0" prefWidth="717.0" style="-fx-background-color: none;" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="152.0">
             <children>
-               <AnchorPane prefHeight="607.0" prefWidth="734.0" style="-fx-background-radius: 10; -fx-background-color: white; -fx-border-color: rgb(0, 99, 153, 0.4); -fx-border-radius: 10;">
+               <AnchorPane prefHeight="570.0" prefWidth="687.0" style="-fx-background-radius: 10; -fx-background-color: white; -fx-border-color: none; -fx-border-radius: 10;">
                   <StackPane.margin>
                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                   </StackPane.margin>
@@ -301,7 +301,7 @@
                 <children>
                     <AnchorPane prefHeight="625.0" prefWidth="888.0" style="-fx-background-color: none;">
                         <children>
-                     <Pane layoutX="414.0" layoutY="1.0" prefHeight="330.0" prefWidth="355.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4); -fx-border-radius: 10;">
+                     <Pane layoutX="414.0" layoutY="1.0" prefHeight="330.0" prefWidth="355.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                         <children>
                                   <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0" prefWidth="197.0" style="-fx-background-color: none; -fx-border-color: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;" wrapText="true">
                                       <font>
@@ -328,7 +328,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="3.0" layoutY="1.0" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4); -fx-border-radius: 10;">
+                     <Pane layoutX="3.0" layoutY="1.0" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                         <children>
                                   <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="292.0" prefWidth="218.0" style="-fx-background-color: none; -fx-border-color: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;" wrapText="true">
                                       <font>
@@ -355,7 +355,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="165.0" layoutY="352.0" prefHeight="274.0" prefWidth="477.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4); -fx-border-radius: 10;">
+                     <Pane layoutX="165.0" layoutY="352.0" prefHeight="274.0" prefWidth="477.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                         <children>
                                   <TextArea editable="false" layoutX="31.0" layoutY="26.0" prefHeight="238.0" prefWidth="218.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="A&#9;Adam&#10;B&#9;Boy&#10;C&#9;Charles&#10;D&#9;David&#10;E&#9;Edward&#10;F&#9;Frank&#10;G&#9;George&#10;H&#9;Henry&#10;I&#9;Ida" wrapText="true">
                                       <font>
@@ -398,7 +398,7 @@
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>
-                     <Pane layoutX="29.0" prefHeight="40.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4);">
+                     <Pane layoutX="29.0" prefHeight="40.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
                         <children>
                                   <Label fx:id="generatedByTag" layoutX="7.0" layoutY="1.0" prefHeight="38.0" prefWidth="271.0" textAlignment="CENTER" textFill="#6f6f6f">
                                       <font>
@@ -424,7 +424,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4);">
+                     <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
                         <children>
                                   <Label layoutX="31.0" layoutY="15.0" text="Officer Information" textAlignment="CENTER" textFill="#0074b3">
                                       <font>
@@ -512,7 +512,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="477.0" layoutY="71.0" prefHeight="268.0" prefWidth="271.0" style="-fx-border-color: rgb(0, 99, 153, 0.4); -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
+                     <Pane layoutX="477.0" layoutY="71.0" prefHeight="268.0" prefWidth="271.0" style="-fx-border-color: none; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
                         <children>
                                   <Label layoutX="28.0" layoutY="8.0" text="Activity Summary" textAlignment="CENTER" textFill="#0074b3">
                                       <font>
@@ -613,7 +613,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="29.0" layoutY="470.0" prefHeight="133.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 140, 215, 0.4); -fx-border-radius: 10;">
+                     <Pane layoutX="29.0" layoutY="470.0" prefHeight="133.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                         <children>
                                   <Label layoutX="33.0" layoutY="13.0" text="Patrol Information" textAlignment="CENTER" textFill="#0074b3">
                                       <font>
@@ -670,7 +670,7 @@
                            </DropShadow>
                         </effect>
                      </Pane>
-                     <Pane layoutX="476.0" layoutY="366.0" prefHeight="238.0" prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 140, 215, 0.4); -fx-border-radius: 10;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="366.0">
+                     <Pane layoutX="476.0" layoutY="366.0" prefHeight="238.0" prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="366.0">
                         <children>
                                   <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="15.0" layoutY="1.0" prefHeight="238.0" prefWidth="246.0" promptText="Quick Note..." style="-fx-background-radius: 10; -fx-background-color: white; -fx-text-fill: #696969;" styleClass="text-area" stylesheets="@css/textArea.css" wrapText="true">
                                       <font>
@@ -750,7 +750,7 @@
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
-                     <Pane layoutX="46.0" layoutY="46.0" prefHeight="568.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: rgb(0, 99, 153, 0.4); -fx-border-radius: 10;">
+                     <Pane layoutX="46.0" layoutY="46.0" prefHeight="568.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                         <children>
                            <TextArea fx:id="notepadTextArea" layoutX="41.0" layoutY="22.0" prefHeight="474.0" prefWidth="635.0" promptText="Notes.." styleClass="text-area" stylesheets="@css/textArea.css" wrapText="true">
                               <font>

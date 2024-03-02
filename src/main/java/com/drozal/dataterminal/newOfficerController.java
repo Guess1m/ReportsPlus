@@ -35,7 +35,7 @@ public class newOfficerController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered=true;
+        hasEntered = true;
     }
 
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
@@ -70,6 +70,12 @@ public class newOfficerController {
             stage.initStyle(StageStyle.UTILITY);
             stage.setResizable(false);
             stage.show();
+
+            actionController actionController = loader.getController();
+            actionController.getInfoPane().setDisable(true);
+            actionController.getInfoPane().setVisible(false);
+            actionController.getShiftInformationPane().setDisable(false);
+            actionController.getShiftInformationPane().setVisible(true);
         }
     }
 }

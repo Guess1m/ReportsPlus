@@ -1,0 +1,8 @@
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 20px; /* Set the preferred width for vertical scrollbar */
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-pref-height: 20px; /* Set the preferred height for horizontal scrollbar */
+    -fx-background-color: #bfbfbf;
+}

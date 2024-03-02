@@ -3,6 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CalloutLogEntry;
 import com.drozal.dataterminal.logs.CalloutReportLogs;
+import com.drozal.dataterminal.util.LoggingUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
@@ -79,7 +80,7 @@ public class reportController {
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         // Load existing logs from XML
         CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
-        List<CalloutLogEntry> logs = calloutReportLogs.loadLogsFromXML();
+        List<CalloutLogEntry> logs = LoggingUtils.loadLogsFromXML();
 
         // Add new entry
         logs.add(new CalloutLogEntry(
@@ -99,9 +100,8 @@ public class reportController {
                 calloutReportResponseArea.getText()
 
         ));
-
         // Save logs to XML
-        calloutReportLogs.saveLogsToXML(logs);
+        LoggingUtils.saveLogsToXML(logs);
 
     }
 

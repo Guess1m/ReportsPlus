@@ -5,25 +5,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="974.0" prefWidth="739.0" style="-fx-background-color: #143d6b;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.mapController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="974.0" prefWidth="739.0" style="-fx-background-color: #143d6b;"
+      xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.mapController">
     <padding>
-        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
     <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-              <ImageView fx:id="losSantosMap" fitHeight="1019.0" fitWidth="744.0" onMouseDragged="#mapMouseDrag" onMousePressed="#mapMousePress" onScroll="#onLosSantosMapScroll" pickOnBounds="true">
-                  <image>
-                      <Image url="@imgs/losSantos.jpg" />
-                  </image>
-              </ImageView>
-            <ImageView fitHeight="105.0" fitWidth="103.0" layoutX="627.0" layoutY="36.0" opacity="0.82" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgs/Compass.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ImageView fx:id="losSantosMap" fitHeight="1019.0" fitWidth="744.0" onMouseDragged="#mapMouseDrag"
+                           onMousePressed="#mapMousePress" onScroll="#onLosSantosMapScroll" pickOnBounds="true">
+                    <image>
+                        <Image url="@imgs/losSantos.jpg"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="105.0" fitWidth="103.0" layoutX="627.0" layoutY="36.0" opacity="0.82"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgs/Compass.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
     </children>
 </VBox>

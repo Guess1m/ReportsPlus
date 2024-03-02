@@ -9,7 +9,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
       minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="798.0"
       prefWidth="476.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.reportController">
@@ -144,12 +145,6 @@
                         <Line endX="1336.5" layoutX="-853.5" layoutY="161.0" startX="847.0" AnchorPane.leftAnchor="-7.0"
                               AnchorPane.rightAnchor="-7.5"/>
                         <Line endX="1315.5" layoutX="-858.0" layoutY="44.0" startX="875.0"/>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="358.0" layoutY="50.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/LSPDEmblem.png"/>
-                            </image>
-                        </ImageView>
                         <Label contentDisplay="CENTER" layoutX="15.0" layoutY="79.0"
                                text="&quot;To Protect and Serve&quot;">
                             <font>

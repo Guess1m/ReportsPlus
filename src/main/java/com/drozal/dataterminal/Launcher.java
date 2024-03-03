@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
+        System.out.println("java.runtime.version: " + System.getProperty("java.runtime.version", "(undefined)"));
+        System.out.println("javafx.version: " + System.getProperty("javafx.version", "(undefined)"));
 
         if (ConfigReader.doesConfigExist()) {
 

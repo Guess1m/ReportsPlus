@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.logs;
+package com.drozal.dataterminal.logs.Callout;
 
 // Data model for a log entry
 public class CalloutLogEntry {

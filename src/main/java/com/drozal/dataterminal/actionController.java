@@ -2,7 +2,10 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.logs.CalloutLogEntry;
+import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
+import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.stringUtil;
 import jakarta.xml.bind.JAXBException;
@@ -30,7 +33,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
-import static com.drozal.dataterminal.util.LoggingUtils.extractLogEntries;
 
 public class actionController {
 
@@ -66,6 +68,7 @@ public class actionController {
     public Label updatedNotification;
     public TabPane logPane;
     public GridPane logGrid;
+    public GridPane trafficStopGrid;
     boolean hasEntered = false;
 
 
@@ -200,7 +203,7 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("calloutReport-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        stage.setTitle("Data Terminal");
+        stage.setTitle("Callout Report");
         stage.setScene(newScene);
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
@@ -342,11 +345,117 @@ public class actionController {
         logPane.setDisable(false);
 
         logGrid.getChildren().clear();
+        trafficStopGrid.getChildren().clear();
+
+
+
+
+        // Check if the file exists before extracting log entries
+        if (Files.exists(Paths.get(stringUtil.trafficstopLogURL))) {
+            // Extract log entries from XML file
+            List<TrafficStopLogEntry> logEntries = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
+
+            // Add log entries to the GridPane
+            int row = 1;
+            for (TrafficStopLogEntry logEntry : logEntries) {
+                trafficStopGrid.add(new Label(logEntry.StopNumber), 0, row);
+                trafficStopGrid.add(new Label(logEntry.Date), 1, row);
+                trafficStopGrid.add(new Label(logEntry.Time), 2, row);
+                trafficStopGrid.add(new Label(logEntry.PlateNumber), 3, row);
+                trafficStopGrid.add(new Label(logEntry.Color), 4, row);
+                trafficStopGrid.add(new Label(logEntry.Type), 5, row);
+                trafficStopGrid.add(new Label(logEntry.Rank), 6, row);
+                trafficStopGrid.add(new Label(logEntry.Name), 7, row);
+                trafficStopGrid.add(new Label(logEntry.Division), 8, row);
+                trafficStopGrid.add(new Label(logEntry.Agency), 9, row);
+                trafficStopGrid.add(new Label(logEntry.Number), 10, row);
+                trafficStopGrid.add(new Label(logEntry.Street), 11, row);
+                trafficStopGrid.add(new Label(logEntry.County), 12, row);
+                trafficStopGrid.add(new Label(logEntry.Area), 13, row);
+                trafficStopGrid.add(new Label(logEntry.ViolationsTextArea), 14, row);
+                trafficStopGrid.add(new Label(logEntry.ActionsTextArea), 15, row);
+                trafficStopGrid.add(new Label(logEntry.CommentsTextArea), 16, row);
+                row++;
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
+        // Add ColumnConstraints for all columns
+        ColumnConstraints columnConstraints1 = new ColumnConstraints();
+        columnConstraints1.setHgrow(Priority.ALWAYS);
+        columnConstraints1.setFillWidth(true);
+        trafficStopGrid.getColumnConstraints().add(columnConstraints1);
+        trafficStopGrid.add(new Label("Traffic Stop #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 0, 0);
+        trafficStopGrid.add(new Label("Date: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 1, 0);
+        trafficStopGrid.add(new Label("Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 2, 0);
+        trafficStopGrid.add(new Label("Plate #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 3, 0);
+        trafficStopGrid.add(new Label("Color: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 4, 0);
+        trafficStopGrid.add(new Label("Type: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 5, 0);
+        trafficStopGrid.add(new Label("Rank: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 6, 0);
+        trafficStopGrid.add(new Label("Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 7, 0);
+        trafficStopGrid.add(new Label("Division: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 8, 0);
+        trafficStopGrid.add(new Label("Agency: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 9, 0);
+        trafficStopGrid.add(new Label("Number: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 10, 0);
+        trafficStopGrid.add(new Label("Street: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 11, 0);
+        trafficStopGrid.add(new Label("County: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 12, 0);
+        trafficStopGrid.add(new Label("Area: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 13, 0);
+        trafficStopGrid.add(new Label("Violations: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 14, 0);
+        trafficStopGrid.add(new Label("Action Taken: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 15, 0);
+        trafficStopGrid.add(new Label("Comments: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 16, 0);
+        // Set row constraints to apply to all rows
+        RowConstraints rowConstraints1 = new RowConstraints();
+        rowConstraints1.setVgrow(Priority.ALWAYS); // Allow vertical growth
+        rowConstraints1.setMinHeight(100); // Set the minimum height
+        rowConstraints1.setPrefHeight(100); // Set the preferred height
+        rowConstraints1.setMaxHeight(100); // Set the maximum height
+// Add row constraints to all rows in the GridPane
+        int numRows1 = trafficStopGrid.getRowConstraints().size();
+        for (int i = 0; i < numRows1; i++) {
+            trafficStopGrid.getRowConstraints().add(rowConstraints1);
+        }
+
+
+
+
 
 // Check if the file exists before extracting log entries
         if (Files.exists(Paths.get(stringUtil.calloutLogURL))) {
             // Extract log entries from XML file
-            List<CalloutLogEntry> logEntries = extractLogEntries(stringUtil.calloutLogURL);
+            List<CalloutLogEntry> logEntries = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
 
             // Add log entries to the GridPane
             int row = 1;
@@ -367,21 +476,15 @@ public class actionController {
                 logGrid.add(new Label(logEntry.NotesTextArea), 13, row);
                 row++;
             }
-
-
         } else {
             System.out.println("File does not exist.");
-
         }
-
-
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setHgrow(Priority.ALWAYS);
         columnConstraints.setFillWidth(true);
         logGrid.getColumnConstraints().add(columnConstraints);
-
-        logGrid.add(new Label("Log Index: ") {{
+        logGrid.add(new Label("Callout #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
         logGrid.add(new Label("Date: ") {{
@@ -423,21 +526,31 @@ public class actionController {
         logGrid.add(new Label("Notes: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 13, 0);
-
-
         // Set row constraints to apply to all rows
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setVgrow(Priority.ALWAYS); // Allow vertical growth
         rowConstraints.setMinHeight(100); // Set the minimum height
         rowConstraints.setPrefHeight(100); // Set the preferred height
         rowConstraints.setMaxHeight(100); // Set the maximum height
-
 // Add row constraints to all rows in the GridPane
         int numRows = logGrid.getRowConstraints().size();
         for (int i = 0; i < numRows; i++) {
             logGrid.getRowConstraints().add(rowConstraints);
         }
 
+
+    }
+
+    public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficStopReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Traffic Stop Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.show();
 
     }
 }

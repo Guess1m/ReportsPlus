@@ -1,8 +1,9 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.logs.CalloutLogEntry;
-import com.drozal.dataterminal.logs.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
+import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.LoggingUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -83,7 +84,7 @@ public class reportController {
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         // Load existing logs from XML
         CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
-        List<CalloutLogEntry> logs = LoggingUtils.loadLogsFromXML();
+        List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 
         // Add new entry
         logs.add(new CalloutLogEntry(
@@ -104,7 +105,7 @@ public class reportController {
 
         ));
         // Save logs to XML
-        LoggingUtils.saveLogsToXML(logs);
+        CalloutReportLogs.saveLogsToXML(logs);
 
         Stage stag = (Stage) vbox.getScene().getWindow();
         stag.close();

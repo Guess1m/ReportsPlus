@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="837.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.trafficStopReportController">
+    <padding>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+    </padding>
+    <children>
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="709.0" style="-fx-background-color: white;">
+            <children>
+                <Pane layoutX="23.0" layoutY="85.0" prefHeight="93.0" prefWidth="676.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0">
+                    <children>
+                        <TextField fx:id="calloutReportDate" layoutX="14.0" layoutY="41.0" prefHeight="30.0" prefWidth="281.0" promptText="Date" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="calloutReportTime" layoutX="381.0" layoutY="40.0" prefHeight="30.0" prefWidth="201.0" promptText="Time" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutY="8.0" text="Timestamp Info" textAlignment="CENTER" textFill="#616161">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="302.0" layoutY="49.0" opacity="0.8" text="Stop Date" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="587.0" layoutY="49.0" opacity="0.8" text="Stop Time" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Line endX="256.0" layoutX="112.0" layoutY="69.0" startX="-97.0" stroke="#008cd7" />
+                        <Line endX="148.0" layoutX="507.0" layoutY="69.0" startX="-126.0" stroke="#008cd7" />
+                  <Separator layoutX="3.0" layoutY="83.0" prefHeight="1.0" prefWidth="661.0" />
+                    </children>
+                </Pane>
+                <Pane layoutX="23.0" layoutY="170.0" prefHeight="130.0" prefWidth="676.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0">
+                    <children>
+                        <TextField fx:id="Name" editable="false" layoutX="14.0" layoutY="31.0" prefHeight="30.0" prefWidth="201.0" promptText="Name" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="Rank" editable="false" layoutX="280.0" layoutY="31.0" prefHeight="30.0" prefWidth="336.0" promptText="Rank" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="Number" editable="false" layoutX="14.0" layoutY="82.0" prefHeight="30.0" prefWidth="47.0" promptText="#" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="Division" editable="false" layoutX="131.0" layoutY="83.0" prefHeight="25.0" prefWidth="217.0" promptText="Division" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="Agency" editable="false" layoutX="421.0" layoutY="83.0" prefHeight="25.0" prefWidth="179.0" promptText="Agency" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutY="2.0" text="Officer Info" textAlignment="CENTER" textFill="#616161">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="227.0" layoutY="41.0" opacity="0.8" text="Name" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="625.0" layoutY="42.0" opacity="0.8" text="Rank" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="66.0" layoutY="93.0" opacity="0.8" text="Number" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="608.0" layoutY="93.0" opacity="0.8" text="Agency" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="356.0" layoutY="93.0" opacity="0.8" text="Division" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Line endX="153.0" layoutX="113.0" layoutY="61.0" startX="-99.0" stroke="#008cd7" />
+                        <Line endX="280.0" layoutX="378.0" layoutY="61.0" startX="-98.0" stroke="#008cd7" />
+                        <Line endX="5.0" layoutX="117.0" layoutY="112.0" startX="-102.0" stroke="#008cd7" />
+                        <Line endX="73.5" layoutX="585.0" layoutY="112.0" startX="-163.0" stroke="#008cd7" />
+                        <Line endX="182.0" layoutX="227.0" layoutY="112.0" startX="-95.0" stroke="#008cd7" />
+                    </children>
+                </Pane>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="722.0" style="-fx-background-color: #008cd7;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Line endX="1568.0" layoutX="-847.0" layoutY="82.0" opacity="0.83" startX="847.0" stroke="#434343" strokeWidth="10.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="-4.0" />
+                        <Label layoutX="12.0" layoutY="9.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                        <Label layoutX="12.0" layoutY="44.0" text="Record Tool" textAlignment="CENTER" textFill="#dadada">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                      <Label alignment="CENTER" layoutX="260.0" layoutY="17.0" prefHeight="51.0" prefWidth="407.0" text="Traffic Stop Report" textAlignment="CENTER" textFill="#d4eaff" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="55.0">
+                          <font>
+                              <Font name="System Bold" size="27.0" />
+                          </font>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.6399999856948853" green="0.6399999856948853" blue="0.6399999856948853" opacity="0.4198473393917084" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                      </Label>
+                    </children>
+                </AnchorPane>
+                <Pane layoutX="23.0" layoutY="300.0" prefHeight="115.0" prefWidth="676.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0">
+                    <children>
+                        <TextField fx:id="ResponseCounty" layoutX="11.0" layoutY="34.0" prefHeight="30.0" prefWidth="294.0" promptText="County" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="ResponseArea" layoutX="378.0" layoutY="34.0" prefHeight="30.0" prefWidth="238.0" promptText="Area" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="ResponseStreet" layoutX="11.0" layoutY="76.0" prefHeight="31.0" prefWidth="407.0" promptText="Street" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </TextField>
+                        <Spinner fx:id="Spinner" editable="true" layoutX="596.0" layoutY="83.0" prefHeight="18.0" prefWidth="64.0">
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.2671755850315094" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Spinner>
+                        <Label layoutX="544.0" layoutY="87.0" opacity="0.82" text="Stop #" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="428.0" layoutY="86.0" opacity="0.8" text="Street Name" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="313.0" layoutY="45.0" opacity="0.8" text="County" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="627.0" layoutY="45.0" opacity="0.8" text="Area" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutY="3.0" text="Stop Location Info" textAlignment="CENTER" textFill="#616161">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Line endX="229.0" layoutX="132.0" layoutY="65.0" startX="-119.0" stroke="#008cd7" />
+                        <Line endX="113.0" layoutX="546.0" layoutY="65.0" startX="-167.0" stroke="#008cd7" />
+                        <Line endX="419.318359375" layoutX="92.0" layoutY="106.0" startX="-81.0" stroke="#008cd7" />
+                    </children>
+                </Pane>
+            <Pane layoutX="23.0" layoutY="424.0" prefHeight="79.0" prefWidth="661.0">
+               <children>
+                        <TextField fx:id="ReponsePlateNumber" layoutX="11.0" layoutY="38.0" prefHeight="30.0" prefWidth="148.0" promptText="Plate #" style="-fx-background-color: #edf1f3; -fx-border-color: none; -fx-text-fill: #004266;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                  <ComboBox fx:id="ReponseType" layoutX="276.0" layoutY="37.0" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #edf1f3;" styleClass="combo-box-custom" stylesheets="@css/comboBox.css" visibleRowCount="14" />
+                  <ComboBox fx:id="ResponseColor" layoutX="480.0" layoutY="37.0" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #edf1f3;" styleClass="combo-box-custom" stylesheets="@css/comboBox.css" visibleRowCount="14" />
+                        <Label layoutX="625.0" layoutY="48.0" opacity="0.8" text="Color" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="163.0" layoutY="48.0" opacity="0.8" text="Plate Number" textFill="#6f6f6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Line endX="119.0" layoutX="135.0" layoutY="68.0" startX="-123.0" stroke="#008cd7" />
+                  <Label layoutY="2.0" text="Vehicle Information" textAlignment="CENTER" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="268.0" layoutX="392.0" layoutY="68.0" startX="90.0" stroke="#008cd7" />
+                  <Label layoutX="421.0" layoutY="47.0" opacity="0.8" text="Type" textFill="#6f6f6f">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Line endX="47.0" layoutX="408.0" layoutY="68.0" startX="-132.0" stroke="#008cd7" />
+               </children>
+            </Pane>
+            <Pane layoutX="23.0" layoutY="512.0" prefHeight="272.0" prefWidth="661.0" style="-fx-background-color: #edf1f3;">
+               <children>
+                      <TextArea fx:id="violationsNotes" layoutX="9.0" layoutY="31.0" prefHeight="85.0" prefWidth="642.0" promptText="In Violation of.." style="-fx-background-color: none;" stylesheets="@css/textArea.css" wrapText="true">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </TextArea>
+                      <Label layoutX="12.0" layoutY="5.0" prefHeight="25.0" prefWidth="451.0" text="Violations:" textAlignment="CENTER" textFill="#616161">
+                          <font>
+                              <Font name="System Bold" size="17.0" />
+                          </font>
+                      </Label>
+                  <Label layoutX="10.0" layoutY="128.0" text="ACTION(S) TAKEN:" textAlignment="CENTER" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="11.0" layoutY="163.0" prefHeight="26.0" prefWidth="105.0" text="Comments:" textAlignment="CENTER" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="actionsTakenNotes" layoutX="227.0" layoutY="131.0" prefHeight="30.0" prefWidth="423.0" promptText="Action(s)" style="-fx-background-color: white; -fx-border-color: none; -fx-text-fill: #004266;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextArea fx:id="comments" layoutX="9.0" layoutY="190.0" prefHeight="71.0" prefWidth="642.0" promptText="Comments" style="-fx-background-color: none;" stylesheets="@css/textArea.css" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </Pane>
+                <Button fx:id="SubmitBtn" layoutX="605.0" layoutY="791.0" mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick" prefHeight="33.0" prefWidth="94.0" style="-fx-border-color: none; -fx-background-color: #edf1f3;" text="Submit" textFill="#008cd7" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="23.0">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <effect>
+                        <DropShadow>
+                            <color>
+                                <Color red="0.5600000023841858" green="0.5600000023841858" blue="0.5600000023841858" opacity="0.3969465494155884" />
+                            </color>
+                        </DropShadow>
+                    </effect>
+                </Button>
+            <Separator layoutX="25.0" layoutY="299.0" prefHeight="1.0" prefWidth="661.0" />
+            <Separator layoutX="25.0" layoutY="422.0" prefHeight="1.0" prefWidth="661.0" />
+            <Separator layoutX="26.0" layoutY="502.0" prefHeight="1.0" prefWidth="661.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

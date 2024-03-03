@@ -62,7 +62,7 @@
                     <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1.0" layoutY="266.0" mnemonicParsing="false" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Create Report" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <items>
                             <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
-                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" text="Traffic Stop Report" />
+                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" onAction="#trafficStopReportButtonClick" text="Traffic Stop Report" />
                             <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" text="Incident Report" />
                             <MenuItem fx:id="searchReportButton" mnemonicParsing="false" text="Search Report" />
                             <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report" />
@@ -207,7 +207,7 @@
                             </DropShadow>
                         </effect>
                     </Button>
-                    <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="65.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="65.0" layoutY="623.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@imgs/icons/exit.png" />
                         </image>
@@ -410,7 +410,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" style="-fx-background-color: none;">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>
@@ -823,7 +823,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <TabPane fx:id="logPane" disable="true" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <TabPane fx:id="logPane" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                 <tabs>
                     <Tab closable="false" text="Callout Logs">
                         <content>
@@ -838,6 +838,19 @@
                             </ScrollPane>
                         </content>
                     </Tab>
+               <Tab closable="false" text="Traffic Stop Logs">
+                  <content>
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                        <content>
+                           <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
+                              <padding>
+                                 <Insets left="20.0" right="20.0" top="20.0" />
+                              </padding>
+                           </GridPane>
+                        </content>
+                     </ScrollPane>
+                  </content>
+               </Tab>
                 </tabs>
             </TabPane>
         </children>

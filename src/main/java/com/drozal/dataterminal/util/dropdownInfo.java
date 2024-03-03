@@ -5,6 +5,37 @@ import java.util.List;
 
 public class dropdownInfo {
 
+    public static final List<String> carColors = Arrays.asList(
+            "Black",
+            "White",
+            "Silver",
+            "Gray",
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow",
+            "Orange",
+            "Brown"
+    );
+
+    public static final List<String> vehicleTypes = Arrays.asList(
+            "Car",
+            "Truck",
+            "Motorcycle",
+            "Bus",
+            "Van",
+            "SUV",
+            "Pickup Truck",
+            "Bicycle",
+            "Tractor",
+            "RV",
+            "Taxi",
+            "Ambulance",
+            "Fire Truck",
+            "Police Car",
+            "Limousine"
+    );
+
     public static final List<String> divisions = Arrays.asList(
             "_______________/ LSPD \\_______________",
             "___/OFFICE OF OPERATIONS\\___",

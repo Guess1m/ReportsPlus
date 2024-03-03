@@ -5,6 +5,33 @@ import java.util.List;
 
 public class dropdownInfo {
 
+    public static final List<String> searchMethods = Arrays.asList(
+            "Search Warrant",
+            "Probable Cause",
+            "Consent Search",
+            "Exigent Circumstances",
+            "Plain View Doctrine",
+            "Incident to Arrest",
+            "Inventory Search",
+            "Stop and Frisk",
+            "Terry Frisk",
+            "K-9 Search",
+            "Electronic Surveillance",
+            "Field Sobriety Test"
+    );
+    public static final List<String> searchTypes = Arrays.asList(
+            "Vehicle Search",
+            "Personal Search",
+            "Premises Search",
+            "Pat-down Search",
+            "Baggage Search",
+            "Strip Search",
+            "Digital Search",
+            "Probable Cause Search",
+            "Consent Search",
+            "Inventory Search",
+            "Exigent Circumstances Search"
+    );
     public static final List<String> carColors = Arrays.asList(
             "Black",
             "White",

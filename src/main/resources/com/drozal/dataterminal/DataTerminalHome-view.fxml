@@ -63,8 +63,8 @@
                         <items>
                             <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
                             <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" onAction="#trafficStopReportButtonClick" text="Traffic Stop Report" />
-                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" text="Incident Report" />
-                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" text="Search Report" />
+                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" onAction="#onIncidentReportBtnClick" text="Incident Report" />
+                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" onAction="#onSearchReportBtnClick" text="Search Report" />
                             <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report" />
                             <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report" />
                             <SeparatorMenuItem mnemonicParsing="false" />
@@ -838,11 +838,37 @@
                             </ScrollPane>
                         </content>
                     </Tab>
-               <Tab closable="false" text="Traffic Stop Logs">
+                    <Tab closable="false" text="Traffic Stop Logs">
+                        <content>
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                                <content>
+                                    <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
+                                        <padding>
+                                            <Insets left="20.0" right="20.0" top="20.0" />
+                                        </padding>
+                                    </GridPane>
+                                </content>
+                            </ScrollPane>
+                        </content>
+                    </Tab>
+               <Tab closable="false" text="Incident Logs">
                   <content>
                      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
                         <content>
-                           <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
+                           <GridPane fx:id="incidentGrid" hgap="25.0" vgap="25.0">
+                              <padding>
+                                 <Insets left="20.0" right="20.0" top="20.0" />
+                              </padding>
+                           </GridPane>
+                        </content>
+                     </ScrollPane>
+                  </content>
+               </Tab>
+               <Tab closable="false" text="Search Logs">
+                  <content>
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                        <content>
+                           <GridPane fx:id="searchGrid" hgap="25.0" vgap="25.0">
                               <padding>
                                  <Insets left="20.0" right="20.0" top="20.0" />
                               </padding>

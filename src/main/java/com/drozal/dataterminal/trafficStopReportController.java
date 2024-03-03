@@ -1,14 +1,11 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
-import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -40,7 +37,7 @@ public class trafficStopReportController {
     public TextArea comments;
     public TextArea violationsNotes;
     public VBox vbox;
-    private boolean hasEntered=false;
+    private boolean hasEntered = false;
 
     public ComboBox getReponseType() {
         return ReponseType;
@@ -78,7 +75,7 @@ public class trafficStopReportController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered=true;
+        hasEntered = true;
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {

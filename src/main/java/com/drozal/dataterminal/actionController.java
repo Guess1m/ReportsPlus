@@ -4,6 +4,10 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
+import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import com.drozal.dataterminal.logs.Search.SearchLogEntry;
+import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
@@ -14,6 +18,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -69,6 +74,8 @@ public class actionController {
     public TabPane logPane;
     public GridPane logGrid;
     public GridPane trafficStopGrid;
+    public GridPane incidentGrid;
+    public GridPane searchGrid;
     boolean hasEntered = false;
 
 
@@ -346,9 +353,211 @@ public class actionController {
 
         logGrid.getChildren().clear();
         trafficStopGrid.getChildren().clear();
+        incidentGrid.getChildren().clear();
+        searchGrid.getChildren().clear();
 
 
+        // Check if the file exists before extracting log entries
+        if (Files.exists(Paths.get(stringUtil.searchLogURL))) {
+            // Extract log entries from XML file
+            List<SearchLogEntry> logEntries3 = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
 
+            // Add log entries to the GridPane
+            int row = 1;
+            for (SearchLogEntry logEntry : logEntries3) {
+                searchGrid.add(new Label(logEntry.SearchNumber), 0, row);
+                searchGrid.add(new Label(logEntry.searchDate), 1, row);
+                searchGrid.add(new Label(logEntry.searchTime), 2, row);
+                searchGrid.add(new Label(logEntry.searchSeizedItems), 3, row);
+                searchGrid.add(new Label(logEntry.searchGrounds), 4, row);
+                searchGrid.add(new Label(logEntry.searchType), 5, row);
+                searchGrid.add(new Label(logEntry.searchMethod), 6, row);
+                searchGrid.add(new Label(logEntry.searchWitnesses), 7, row);
+                searchGrid.add(new Label(logEntry.officerRank), 8, row);
+                searchGrid.add(new Label(logEntry.officerName), 9, row);
+                searchGrid.add(new Label(logEntry.officerNumber), 10, row);
+                searchGrid.add(new Label(logEntry.officerAgency), 11, row);
+                searchGrid.add(new Label(logEntry.officerDivision), 12, row);
+                searchGrid.add(new Label(logEntry.searchStreet), 13, row);
+                searchGrid.add(new Label(logEntry.searchArea), 14, row);
+                searchGrid.add(new Label(logEntry.searchCounty), 15, row);
+                searchGrid.add(new Label(logEntry.searchComments), 16, row);
+
+                row++;
+            }
+
+        } else {
+            System.out.println("File does not exist.");
+        }
+        // Add ColumnConstraints for all columns
+        ColumnConstraints columnConstraints3 = new ColumnConstraints();
+        columnConstraints3.setHgrow(Priority.ALWAYS);
+        columnConstraints3.setFillWidth(true);
+        searchGrid.getColumnConstraints().add(columnConstraints3);
+        searchGrid.add(new Label("Search #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 0, 0);
+        searchGrid.add(new Label("Date: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 1, 0);
+        searchGrid.add(new Label("Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 2, 0);
+        searchGrid.add(new Label("Seized Items: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 3, 0);
+        searchGrid.add(new Label("Grounds: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 4, 0);
+        searchGrid.add(new Label("Type: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 5, 0);
+        searchGrid.add(new Label("Method: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 6, 0);
+        searchGrid.add(new Label("Witnesses: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 7, 0);
+        searchGrid.add(new Label("Rank: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 8, 0);
+        searchGrid.add(new Label("Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 9, 0);
+        searchGrid.add(new Label("Number: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 10, 0);
+        searchGrid.add(new Label("Agency: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 11, 0);
+        searchGrid.add(new Label("Division: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 12, 0);
+        searchGrid.add(new Label("Street: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 13, 0);
+        searchGrid.add(new Label("Area: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 14, 0);
+        searchGrid.add(new Label("County: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 15, 0);
+        searchGrid.add(new Label("Comments: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 16, 0);
+
+
+        // Set row constraints to apply to all rows
+        RowConstraints rowConstraints3 = new RowConstraints();
+        rowConstraints3.setVgrow(Priority.ALWAYS); // Allow vertical growth
+        rowConstraints3.setMinHeight(100); // Set the minimum height
+        rowConstraints3.setPrefHeight(100); // Set the preferred height
+        rowConstraints3.setMaxHeight(100); // Set the maximum height
+
+
+        // Add row constraints to all rows in the GridPane
+        int numRows3 = searchGrid.getRowConstraints().size();
+        for (int i = 0; i < numRows3; i++) {
+            searchGrid.getRowConstraints().add(rowConstraints3);
+        }
+
+
+        // Check if the file exists before extracting log entries
+        if (Files.exists(Paths.get(stringUtil.incidentLogURL))) {
+            // Extract log entries from XML file
+            List<IncidentLogEntry> logEntries2 = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
+
+            // Add log entries to the GridPane
+            int row = 1;
+            for (IncidentLogEntry logEntry : logEntries2) {
+                incidentGrid.add(new Label(logEntry.incidentNumber), 0, row);
+                incidentGrid.add(new Label(logEntry.incidentDate), 1, row);
+                incidentGrid.add(new Label(logEntry.incidentTime), 2, row);
+                incidentGrid.add(new Label(logEntry.incidentStatement), 3, row);
+                incidentGrid.add(new Label(logEntry.incidentWitnesses), 4, row);
+                incidentGrid.add(new Label(logEntry.incidentVictims), 5, row);
+                incidentGrid.add(new Label(logEntry.officerName), 6, row);
+                incidentGrid.add(new Label(logEntry.officerRank), 7, row);
+                incidentGrid.add(new Label(logEntry.officerNumber), 8, row);
+                incidentGrid.add(new Label(logEntry.officerAgency), 9, row);
+                incidentGrid.add(new Label(logEntry.officerDivision), 10, row);
+                incidentGrid.add(new Label(logEntry.incidentStreet), 11, row);
+                incidentGrid.add(new Label(logEntry.incidentArea), 12, row);
+                incidentGrid.add(new Label(logEntry.incidentCounty), 13, row);
+                incidentGrid.add(new Label(logEntry.incidentActionsTaken), 14, row);
+                incidentGrid.add(new Label(logEntry.incidentComments), 15, row);
+
+                row++;
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
+        // Add ColumnConstraints for all columns
+        ColumnConstraints columnConstraints2 = new ColumnConstraints();
+        columnConstraints2.setHgrow(Priority.ALWAYS);
+        columnConstraints2.setFillWidth(true);
+        incidentGrid.getColumnConstraints().add(columnConstraints2);
+        incidentGrid.add(new Label("Incident #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 0, 0);
+        incidentGrid.add(new Label("Date: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 1, 0);
+        incidentGrid.add(new Label("Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 2, 0);
+        incidentGrid.add(new Label("Statement: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 3, 0);
+        incidentGrid.add(new Label("Witnesses: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 4, 0);
+        incidentGrid.add(new Label("Victims: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 5, 0);
+        incidentGrid.add(new Label("Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 6, 0);
+        incidentGrid.add(new Label("Rank: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 7, 0);
+        incidentGrid.add(new Label("Number: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 8, 0);
+        incidentGrid.add(new Label("Agency: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 9, 0);
+        incidentGrid.add(new Label("Division: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 10, 0);
+        incidentGrid.add(new Label("Street: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 11, 0);
+        incidentGrid.add(new Label("Area: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 12, 0);
+        incidentGrid.add(new Label("County: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 13, 0);
+        incidentGrid.add(new Label("Actions Taken: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 14, 0);
+        incidentGrid.add(new Label("Comments: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 15, 0);
+
+        // Set row constraints to apply to all rows
+        RowConstraints rowConstraints2 = new RowConstraints();
+        rowConstraints2.setVgrow(Priority.ALWAYS); // Allow vertical growth
+        rowConstraints2.setMinHeight(100); // Set the minimum height
+        rowConstraints2.setPrefHeight(100); // Set the preferred height
+        rowConstraints2.setMaxHeight(100); // Set the maximum height
+
+        // Add row constraints to all rows in the GridPane
+        int numRows2 = incidentGrid.getRowConstraints().size();
+        for (int i = 0; i < numRows2; i++) {
+            incidentGrid.getRowConstraints().add(rowConstraints2);
+        }
 
         // Check if the file exists before extracting log entries
         if (Files.exists(Paths.get(stringUtil.trafficstopLogURL))) {
@@ -442,19 +651,15 @@ public class actionController {
         rowConstraints1.setMinHeight(100); // Set the minimum height
         rowConstraints1.setPrefHeight(100); // Set the preferred height
         rowConstraints1.setMaxHeight(100); // Set the maximum height
-// Add row constraints to all rows in the GridPane
+        // Add row constraints to all rows in the GridPane
         int numRows1 = trafficStopGrid.getRowConstraints().size();
         for (int i = 0; i < numRows1; i++) {
             trafficStopGrid.getRowConstraints().add(rowConstraints1);
         }
 
 
-
-
-
-// Check if the file exists before extracting log entries
+        // Check if the file exists before extracting log entries
         if (Files.exists(Paths.get(stringUtil.calloutLogURL))) {
-            // Extract log entries from XML file
             List<CalloutLogEntry> logEntries = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
 
             // Add log entries to the GridPane
@@ -532,13 +737,11 @@ public class actionController {
         rowConstraints.setMinHeight(100); // Set the minimum height
         rowConstraints.setPrefHeight(100); // Set the preferred height
         rowConstraints.setMaxHeight(100); // Set the maximum height
-// Add row constraints to all rows in the GridPane
+        // Add row constraints to all rows in the GridPane
         int numRows = logGrid.getRowConstraints().size();
         for (int i = 0; i < numRows; i++) {
             logGrid.getRowConstraints().add(rowConstraints);
         }
-
-
     }
 
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
@@ -551,6 +754,29 @@ public class actionController {
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
         stage.show();
+    }
 
+    public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("incidentReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Incident Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Search Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.show();
     }
 }

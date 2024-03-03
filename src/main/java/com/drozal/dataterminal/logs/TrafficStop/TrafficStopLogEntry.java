@@ -1,7 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficStop;
 
-import java.util.List;
-
 // Data model for a log entry
 public class TrafficStopLogEntry {
     public String PlateNumber;

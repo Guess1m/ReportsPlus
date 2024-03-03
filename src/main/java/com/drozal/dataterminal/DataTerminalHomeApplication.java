@@ -37,6 +37,7 @@ public class DataTerminalHomeApplication extends Application {
     }
 
     public static void main(String[] args) {
+
         launch();
     }
 
@@ -55,6 +56,7 @@ public class DataTerminalHomeApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
 
+
         // Simulate custom title bar with a colored region
         VBox customTitleBar = new VBox();
 
@@ -70,6 +72,7 @@ public class DataTerminalHomeApplication extends Application {
 
         VBox content = new VBox(customTitleBar, root);
         Scene scene = new Scene(content);
+
 
 // Set stage transparent and remove default window decorations
         mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);

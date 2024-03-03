@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<incidentReportLogs>
+    <logs>
+        <incidentNumber>1</incidentNumber>
+        <incidentDate>2024-03-03</incidentDate>
+        <incidentTime>10:40:02 PM</incidentTime>
+        <incidentStatement>statement</incidentStatement>
+        <incidentWitnesses>witness</incidentWitnesses>
+        <incidentVictims>victim</incidentVictims>
+        <officerName>Drozal</officerName>
+        <officerRank>Chief of Police</officerRank>
+        <officerNumber>1-18</officerNumber>
+        <officerAgency>Los Santos Police Department</officerAgency>
+        <officerDivision>Central Area Patrol Division</officerDivision>
+        <incidentStreet>street</incidentStreet>
+        <incidentArea>area</incidentArea>
+        <incidentCounty>county</incidentCounty>
+        <incidentActionsTaken>actions</incidentActionsTaken>
+        <incidentComments>comments</incidentComments>
+    </logs>
+    <logs>
+        <incidentNumber>2</incidentNumber>
+        <incidentDate>2024-03-03</incidentDate>
+        <incidentTime>11:36:25 PM</incidentTime>
+        <incidentStatement>dfsadsf</incidentStatement>
+        <incidentWitnesses>dsfadfas</incidentWitnesses>
+        <incidentVictims>fdsadfsafds</incidentVictims>
+        <officerName>Drozal</officerName>
+        <officerRank>Chief of Police</officerRank>
+        <officerNumber>1-18</officerNumber>
+        <officerAgency>Los Santos Police Department</officerAgency>
+        <officerDivision>Central Area Patrol Division</officerDivision>
+        <incidentStreet>fdsafdsa</incidentStreet>
+        <incidentArea>fdsadfsa</incidentArea>
+        <incidentCounty>asdffdas</incidentCounty>
+        <incidentActionsTaken>dsfasdfa</incidentActionsTaken>
+        <incidentComments>sdfafdsa</incidentComments>
+    </logs>
+</incidentReportLogs>

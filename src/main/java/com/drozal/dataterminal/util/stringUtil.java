@@ -5,5 +5,7 @@ public class stringUtil {
     public static String name = "DataTerminal";
     public static String calloutLogURL = "DataLogs/calloutLogs.xml";
     public static String trafficstopLogURL = "DataLogs/trafficStopLogs.xml";
+    public static String incidentLogURL = "DataLogs/incidentLogs.xml";
+    public static String searchLogURL = "DataLogs/searchLogs.xml";
 
 }

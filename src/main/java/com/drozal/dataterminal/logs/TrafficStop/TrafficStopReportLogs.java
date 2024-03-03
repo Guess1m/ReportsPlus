@@ -32,14 +32,6 @@ public class TrafficStopReportLogs {
     public TrafficStopReportLogs() {
     }
 
-    public List<TrafficStopLogEntry> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<TrafficStopLogEntry> logs) {
-        this.logs = logs;
-    }
-
     public static List<TrafficStopLogEntry> extractLogEntries(String filePath) {
         List<TrafficStopLogEntry> logEntries = new ArrayList<>();
 
@@ -159,6 +151,14 @@ public class TrafficStopReportLogs {
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<TrafficStopLogEntry> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<TrafficStopLogEntry> logs) {
+        this.logs = logs;
     }
 
 }

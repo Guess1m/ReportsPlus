@@ -32,14 +32,6 @@ public class CalloutReportLogs {
     public CalloutReportLogs() {
     }
 
-    public List<CalloutLogEntry> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<CalloutLogEntry> logs) {
-        this.logs = logs;
-    }
-
     public static List<CalloutLogEntry> extractLogEntries(String filePath) {
         List<CalloutLogEntry> logEntries = new ArrayList<>();
 
@@ -150,5 +142,13 @@ public class CalloutReportLogs {
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<CalloutLogEntry> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<CalloutLogEntry> logs) {
+        this.logs = logs;
     }
 }

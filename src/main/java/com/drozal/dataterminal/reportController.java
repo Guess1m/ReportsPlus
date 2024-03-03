@@ -3,8 +3,6 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.LoggingUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;

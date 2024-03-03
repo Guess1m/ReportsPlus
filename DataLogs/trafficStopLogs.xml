@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trafficStopReportLogs>
+    <logs>
+        <PlateNumber>sfadfsad</PlateNumber>
+        <Color>Gray</Color>
+        <Type>Van</Type>
+        <StopNumber>1</StopNumber>
+        <ViolationsTextArea>sfdafds</ViolationsTextArea>
+        <ActionsTextArea>dsfsfd</ActionsTextArea>
+        <CommentsTextArea>dsfsdf</CommentsTextArea>
+        <Time>01:12:33 PM</Time>
+        <Date>2024-03-03</Date>
+        <Division>CENTRAL BUREAU</Division>
+        <Agency>Blaine County Sheriff's Office</Agency>
+        <Number>gds</Number>
+        <Rank>Police Officer III+1</Rank>
+        <Name>hrte</Name>
+        <County>sdafasdf</County>
+        <Area>dfsasafd</Area>
+        <Street>sdfasfd</Street>
+    </logs>
+</trafficStopReportLogs>

@@ -4,7 +4,6 @@ module com.drozal.dataterminal {
     requires javafx.web;
 
     requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
@@ -15,6 +14,8 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal to javafx.fxml;
     opens com.drozal.dataterminal.logs.Callout to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.TrafficStop to javafx.fxml, jakarta.xml.bind;
+    opens com.drozal.dataterminal.logs.Incident to jakarta.xml.bind;
+    opens com.drozal.dataterminal.logs.Search to jakarta.xml.bind;
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;
     exports com.drozal.dataterminal.util;

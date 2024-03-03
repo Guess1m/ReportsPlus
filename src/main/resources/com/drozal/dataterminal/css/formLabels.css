@@ -1,0 +1,8 @@
+/* Modern Subheader Style */
+.subheader {
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}

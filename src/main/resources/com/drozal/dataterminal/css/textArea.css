@@ -1,22 +1,20 @@
 .text-area {
-    -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: white
 }
 
 .text-area .content {
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: #edf1f3;
+    -fx-text-fill: #9e9e9e;
+    -fx-highlight-fill: #7ecfff;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 14px;
 }
 
 .text-area:focused .content {
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: white;
 }
 
 .text-area:focused {
-    -fx-highlight-fill: #7ecfff;
-}
-
-.text-area .content {
-    -fx-padding: 10px;
-    -fx-text-fill: gray;
+    -fx-text-fill: black;
     -fx-highlight-fill: #7ecfff;
 }

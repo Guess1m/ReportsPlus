@@ -1,1037 +1,811 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0"
-      spacing="20.0" xmlns="http://javafx.com/javafx/21"
-      fx:controller="com.drozal.dataterminal.actionController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <padding>
-        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
     <AnchorPane prefHeight="764.0" prefWidth="996.0" style="-fx-background-color: #edf1f3;">
         <children>
-            <AnchorPane layoutX="4.0" layoutY="6.0" prefHeight="763.0" prefWidth="203.0"
-                        style="-fx-background-color: #008cd7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0"
-                        AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="4.0" layoutY="6.0" prefHeight="763.0" prefWidth="203.0" style="-fx-background-color: #008cd7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutY="166.0" mnemonicParsing="false"
-                            onAction="#onShiftInfoBtnClicked" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="Shift Information" textFill="WHITE"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="166.0">
+                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutY="166.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Shift Information" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="166.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <Button fx:id="notesButton" alignment="CENTER" layoutY="216.0" mnemonicParsing="false"
-                            onAction="#onNotesButtonClicked" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="Notes" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0">
+                    <Button fx:id="notesButton" alignment="CENTER" layoutY="216.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Notes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1.0" layoutY="266.0"
-                                mnemonicParsing="false" prefHeight="50.0" styleClass="menu-1"
-                                stylesheets="@css/menuStyle.css" text="Create Report" textFill="WHITE"
-                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1.0" layoutY="266.0" mnemonicParsing="false" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Create Report" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <items>
-                            <MenuItem fx:id="calloutReportButton" mnemonicParsing="false"
-                                      onAction="#onCalloutReportButtonClick" text="Callout Report"/>
-                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" text="Traffic Stop Report"/>
-                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" text="Incident Report"/>
-                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" text="Search Report"/>
-                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report"/>
-                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
-                                      text="Traffic Citation"/>
-                            <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false"
-                                      text="Parking Citation"/>
-                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false" text="Impound Report"/>
+                            <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
+                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" text="Traffic Stop Report" />
+                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" text="Incident Report" />
+                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" text="Search Report" />
+                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report" />
+                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report" />
+                            <SeparatorMenuItem mnemonicParsing="false" />
+                            <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false" text="Traffic Citation" />
+                            <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false" text="Parking Citation" />
+                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false" text="Impound Report" />
                         </items>
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </MenuButton>
-                    <Button fx:id="codeButton" alignment="CENTER" layoutY="366.0" mnemonicParsing="false"
-                            onAction="#onCodeButtonClick" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="Codes" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0">
+                    <Button fx:id="codeButton" alignment="CENTER" layoutY="366.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Codes" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <Label alignment="CENTER" layoutX="24.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0"
-                           text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="24.0"
-                           AnchorPane.rightAnchor="24.0">
+                    <Label alignment="CENTER" layoutX="24.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
                         <font>
-                            <Font name="System Bold" size="18.0"/>
+                            <Font name="System Bold" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.42105263471603394" green="0.42105263471603394"
-                                           blue="0.42105263471603394" opacity="0.3700000047683716"/>
+                                    <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" opacity="0.3700000047683716" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="44.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0"
-                           text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="44.0"
-                           AnchorPane.rightAnchor="43.0">
+                    <Label alignment="CENTER" layoutX="44.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#d3d3d3" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
                         <font>
-                            <Font name="Arial Narrow" size="15.0"/>
+                            <Font name="Arial Narrow" size="15.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.42105263471603394" green="0.42105263471603394"
-                                           blue="0.42105263471603394" opacity="0.3700000047683716"/>
+                                    <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" opacity="0.3700000047683716" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="9.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0"
-                           text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY"
-                           AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
+                    <Label alignment="CENTER" layoutX="9.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
                         <font>
-                            <Font size="13.0"/>
+                            <Font size="13.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.42105263471603394" green="0.42105263471603394"
-                                           blue="0.42105263471603394" opacity="0.3700000047683716"/>
+                                    <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" opacity="0.3700000047683716" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="20.0" layoutY="735.0" text="lspdonline@gmail.com"
-                           textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="20.0"
-                           AnchorPane.rightAnchor="20.0">
+                    <Label alignment="CENTER" layoutX="20.0" layoutY="735.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="LIGHTGRAY" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                         <font>
-                            <Font name="Arial Narrow" size="15.0"/>
+                            <Font name="Arial Narrow" size="15.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.42105263471603394" green="0.42105263471603394"
-                                           blue="0.42105263471603394" opacity="0.3700000047683716"/>
+                                    <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" opacity="0.3700000047683716" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Button fx:id="mapButton" alignment="CENTER" layoutX="1.0" layoutY="416.0" mnemonicParsing="false"
-                            onAction="#onMapButtonClick" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="Map" textFill="WHITE" AnchorPane.leftAnchor="1.0"
-                            AnchorPane.rightAnchor="-1.0">
+                    <Button fx:id="mapButton" alignment="CENTER" layoutX="1.0" layoutY="416.0" mnemonicParsing="false" onAction="#onMapButtonClick" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Map" textFill="WHITE" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutY="466.0" mnemonicParsing="false"
-                            onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="DataTerminal Info" textFill="WHITE"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutY="466.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="DataTerminal Info" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <Separator layoutX="41.0" layoutY="95.0" opacity="0.68" prefHeight="1.0" prefWidth="122.0"/>
+                    <Separator layoutX="41.0" layoutY="95.0" opacity="0.68" prefHeight="1.0" prefWidth="122.0" />
                     <Label layoutX="21.0" layoutY="23.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                         <font>
-                            <Font name="Segoe UI Black" size="24.0"/>
+                            <Font name="Segoe UI Black" size="24.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982"
-                                           opacity="0.5"/>
+                                    <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
                     <Label layoutX="22.0" layoutY="56.0" text="Record Tool" textAlignment="CENTER" textFill="#e1e1e1">
                         <font>
-                            <Font name="Segoe UI Black" size="17.0"/>
+                            <Font name="Segoe UI Black" size="17.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982"
-                                           opacity="0.5"/>
+                                    <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Button fx:id="exitButton" alignment="CENTER" layoutX="1.0" layoutY="610.0" mnemonicParsing="false"
-                            onAction="#onExitButtonClick" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="EXIT" textFill="WHITE" AnchorPane.leftAnchor="1.0"
-                            AnchorPane.rightAnchor="-1.0">
+                    <Button fx:id="exitButton" alignment="CENTER" layoutX="1.0" layoutY="610.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="EXIT" textFill="WHITE" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <padding>
-                            <Insets left="20.0"/>
+                            <Insets left="20.0" />
                         </padding>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color opacity="0.5799999833106995"/>
+                                    <Color opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
-                    <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="65.0" layoutY="623.0" pickOnBounds="true"
-                               preserveRatio="true">
+                    <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="65.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@imgs/icons/exit.png"/>
+                            <Image url="@imgs/icons/exit.png" />
                         </image>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.4000000059604645" green="0.4000000059604645" blue="0.4000000059604645"
-                                           opacity="0.7448855042457581"/>
+                                    <Color red="0.4000000059604645" green="0.4000000059604645" blue="0.4000000059604645" opacity="0.7448855042457581" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </ImageView>
-                    <Button fx:id="logsButton" alignment="CENTER" layoutX="1.0" layoutY="316.0" mnemonicParsing="false"
-                            onAction="#onLogsButtonClick" prefHeight="50.0" styleClass="menu-1"
-                            stylesheets="@css/menuStyle.css" text="Browse Logs" textFill="WHITE"
-                            AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
+                    <Button fx:id="logsButton" alignment="CENTER" layoutX="1.0" layoutY="316.0" mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" styleClass="menu-1" stylesheets="@css/menuStyle.css" text="Browse Logs" textFill="WHITE" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
                         <font>
-                            <Font name="Arial" size="18.0"/>
+                            <Font name="Arial" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018"
-                                           opacity="0.5799999833106995"/>
+                                    <Color red="0.2631579041481018" green="0.2631579041481018" blue="0.2631579041481018" opacity="0.5799999833106995" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Button>
                 </children>
             </AnchorPane>
-            <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="251.0" layoutY="152.0"
-                       prefHeight="577.0" prefWidth="717.0" style="-fx-background-color: none;" visible="false"
-                       AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="46.0"
-                       AnchorPane.topAnchor="152.0">
+            <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="251.0" layoutY="152.0" prefHeight="577.0" prefWidth="717.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="152.0">
                 <children>
-                    <AnchorPane prefHeight="570.0" prefWidth="687.0"
-                                style="-fx-background-radius: 10; -fx-background-color: white; -fx-border-color: none; -fx-border-radius: 10;">
+                    <AnchorPane prefHeight="570.0" prefWidth="687.0" style="-fx-background-radius: 10; -fx-background-color: white; -fx-border-color: none; -fx-border-radius: 10;">
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                         <children>
                             <Label layoutX="20.0" layoutY="92.0" text="Program Name:" textAlignment="CENTER">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
                             <Label layoutX="21.0" layoutY="117.0" text="Version:" textAlignment="CENTER">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
                             <Label layoutX="19.0" layoutY="145.0" text="Description:" textAlignment="CENTER">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
-                            <TextField alignment="CENTER" layoutX="142.0" layoutY="88.0"
-                                       style="-fx-background-color: #edf1f3;" text="DataTerminal">
+                            <TextField alignment="CENTER" layoutX="142.0" layoutY="88.0" style="-fx-background-color: #edf1f3;" text="DataTerminal">
                                 <font>
-                                    <Font name="Lucida Console" size="13.0"/>
+                                    <Font name="Lucida Console" size="13.0" />
                                 </font>
                             </TextField>
-                            <TextField alignment="CENTER" layoutX="94.0" layoutY="114.0" prefHeight="22.0"
-                                       prefWidth="38.0" style="-fx-background-color: #edf1f3;" text="V.1">
+                            <TextField alignment="CENTER" layoutX="94.0" layoutY="114.0" prefHeight="22.0" prefWidth="38.0" style="-fx-background-color: #edf1f3;" text="V.1">
                                 <font>
-                                    <Font name="Lucida Console" size="13.0"/>
+                                    <Font name="Lucida Console" size="13.0" />
                                 </font>
                             </TextField>
-                            <TextField alignment="CENTER" layoutX="126.0" layoutY="144.0" prefHeight="22.0"
-                                       prefWidth="525.0" style="-fx-background-color: #edf1f3;"
-                                       text="Software tool for creation of reports and manage logs for LSPDFR.">
+                            <TextField alignment="CENTER" layoutX="126.0" layoutY="144.0" prefHeight="22.0" prefWidth="525.0" style="-fx-background-color: #edf1f3;" text="Software tool for creation of reports and manage logs for LSPDFR.">
                                 <font>
-                                    <Font name="Lucida Console" size="13.0"/>
+                                    <Font name="Lucida Console" size="13.0" />
                                 </font>
                             </TextField>
-                            <Label layoutX="21.0" layoutY="210.0" prefHeight="68.0" prefWidth="612.0"
-                                   text="* I plan on adding more compatability in the future, I woud like to add the ability to implement CompuLite/Computer+ Cases."
-                                   textFill="#404040" wrapText="true">
+                            <Label layoutX="21.0" layoutY="210.0" prefHeight="68.0" prefWidth="612.0" text="* I plan on adding more compatability in the future, I woud like to add the ability to implement CompuLite/Computer+ Cases." textFill="#404040" wrapText="true">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
-                            <Separator layoutX="21.0" layoutY="180.0" prefHeight="1.0" prefWidth="649.0"/>
-                            <Label layoutX="21.0" layoutY="264.0" prefHeight="94.0" prefWidth="604.0"
-                                   text="** I would also like to implement a local database system rather than using a JAXB XML System, I only really did this in the first place since it is what I am familiar with using."
-                                   textFill="#404040" wrapText="true">
+                            <Separator layoutX="21.0" layoutY="180.0" prefHeight="1.0" prefWidth="649.0" />
+                            <Label layoutX="21.0" layoutY="264.0" prefHeight="94.0" prefWidth="604.0" text="** I would also like to implement a local database system rather than using a JAXB XML System, I only really did this in the first place since it is what I am familiar with using." textFill="#404040" wrapText="true">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
-                            <Label layoutX="30.0" layoutY="439.0" prefHeight="78.0" prefWidth="595.0"
-                                   text="*** Please reach out with issues/Requests (Especially New Features/UI Changes) I had never planned to release this to the public I mainly made it for myself since I could not find anything like it, other than the discontinued PaperWorkPlus which I got many ideas from."
-                                   wrapText="true">
+                            <Label layoutX="30.0" layoutY="439.0" prefHeight="78.0" prefWidth="595.0" text="*** Please reach out with issues/Requests (Especially New Features/UI Changes) I had never planned to release this to the public I mainly made it for myself since I could not find anything like it, other than the discontinued PaperWorkPlus which I got many ideas from." wrapText="true">
                                 <font>
-                                    <Font name="Lucida Console" size="12.0"/>
+                                    <Font name="Lucida Console" size="12.0" />
                                 </font>
                             </Label>
                             <Label layoutX="19.0" layoutY="190.0" text="Future Plans:" textAlignment="CENTER">
                                 <font>
-                                    <Font name="Lucida Console" size="18.0"/>
+                                    <Font name="Lucida Console" size="18.0" />
                                 </font>
                             </Label>
-                            <Label layoutX="21.0" layoutY="350.0" prefHeight="94.0" prefWidth="595.0"
-                                   text="*** The main thing I would like to change is the UI design, this is not something I am good at but I am not currently happy with how it sits. I will be trying out different designs for the future."
-                                   textFill="#404040" wrapText="true">
+                            <Label layoutX="21.0" layoutY="350.0" prefHeight="94.0" prefWidth="595.0" text="*** The main thing I would like to change is the UI design, this is not something I am good at but I am not currently happy with how it sits. I will be trying out different designs for the future." textFill="#404040" wrapText="true">
                                 <font>
-                                    <Font name="Lucida Console" size="15.0"/>
+                                    <Font name="Lucida Console" size="15.0" />
                                 </font>
                             </Label>
-                            <Label layoutX="39.0" layoutY="1.0" prefHeight="87.0" prefWidth="560.0"
-                                   text="===================================         DataTerminal Info         ==================================="
-                                   wrapText="true" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="39.0"
-                                   AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="1.0">
+                            <Label layoutX="39.0" layoutY="1.0" prefHeight="87.0" prefWidth="560.0" text="===================================         DataTerminal Info         ===================================" wrapText="true" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="1.0">
                                 <font>
-                                    <Font name="Lucida Console" size="22.0"/>
+                                    <Font name="Lucida Console" size="22.0" />
                                 </font>
                             </Label>
-                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutY="24.0"
-                                       stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="24.0"/>
+                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="24.0" />
                         </children>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.6313725709915161" green="0.6313725709915161"
-                                           blue="0.6313725709915161"/>
+                                    <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="CodesPane" fx:id="codesPane" disable="true" layoutX="210.0" layoutY="100.0"
-                       prefHeight="663.0" prefWidth="804.0" style="-fx-background-color: none;" visible="false"
-                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="100.0">
+            <StackPane id="CodesPane" fx:id="codesPane" disable="true" layoutX="210.0" layoutY="100.0" prefHeight="663.0" prefWidth="804.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                 <children>
                     <AnchorPane prefHeight="625.0" prefWidth="888.0" style="-fx-background-color: none;">
                         <children>
-                            <Pane layoutX="414.0" layoutY="1.0" prefHeight="330.0" prefWidth="355.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="414.0" layoutY="1.0" prefHeight="330.0" prefWidth="355.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
-                                    <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="197.0"
-                                              style="-fx-background-color: none; -fx-border-color: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0" prefWidth="197.0" style="-fx-background-color: none; -fx-border-color: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;" wrapText="true">
                                         <font>
-                                            <Font name="Consolas Bold" size="21.0"/>
+                                            <Font name="Consolas Bold" size="21.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="165.0"
-                                              style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0" prefWidth="165.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5" wrapText="true">
                                         <font>
-                                            <Font name="Consolas" size="21.0"/>
+                                            <Font name="Consolas" size="21.0" />
                                         </font>
                                     </TextArea>
-                                    <Label layoutX="53.5" layoutY="7.0" text="Response Codes" textAlignment="CENTER"
-                                           textFill="#0074b3">
+                                    <Label layoutX="53.5" layoutY="7.0" text="Response Codes" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="3.0" layoutY="1.0" prefHeight="330.0" prefWidth="400.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="3.0" layoutY="1.0" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
-                                    <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="218.0"
-                                              style="-fx-background-color: none; -fx-border-color: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="292.0" prefWidth="218.0" style="-fx-background-color: none; -fx-border-color: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;" wrapText="true">
                                         <font>
-                                            <Font name="Consolas Bold" size="21.0"/>
+                                            <Font name="Consolas Bold" size="21.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="203.0"
-                                              style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0" prefWidth="203.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose" wrapText="true">
                                         <font>
-                                            <Font name="Consolas" size="21.0"/>
+                                            <Font name="Consolas" size="21.0" />
                                         </font>
                                     </TextArea>
-                                    <Label layoutX="54.0" layoutY="7.0" text="Backup Codes" textAlignment="CENTER"
-                                           textFill="#0074b3">
+                                    <Label layoutX="54.0" layoutY="7.0" text="Backup Codes" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutX="1.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE"
-                                               strokeWidth="0.0" width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutX="1.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="165.0" layoutY="352.0" prefHeight="274.0" prefWidth="477.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="165.0" layoutY="352.0" prefHeight="274.0" prefWidth="477.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
-                                    <TextArea editable="false" layoutX="31.0" layoutY="26.0" prefHeight="238.0"
-                                              prefWidth="218.0"
-                                              style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="A&#9;Adam&#10;B&#9;Boy&#10;C&#9;Charles&#10;D&#9;David&#10;E&#9;Edward&#10;F&#9;Frank&#10;G&#9;George&#10;H&#9;Henry&#10;I&#9;Ida"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="31.0" layoutY="26.0" prefHeight="238.0" prefWidth="218.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="A&#9;Adam&#10;B&#9;Boy&#10;C&#9;Charles&#10;D&#9;David&#10;E&#9;Edward&#10;F&#9;Frank&#10;G&#9;George&#10;H&#9;Henry&#10;I&#9;Ida" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="16.0"/>
+                                            <Font name="Segoe UI Semibold" size="16.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="186.0" layoutY="26.0" prefHeight="238.0"
-                                              prefWidth="218.0"
-                                              style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="J&#9;John&#10;K&#9;King&#10;L&#9;Lincoln&#10;M&#9;Mary&#10;N&#9;Nora&#10;O&#9;Ocean&#10;P&#9;Paul&#10;Q&#9;Queen&#10;R&#9;Robert"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="186.0" layoutY="26.0" prefHeight="238.0" prefWidth="218.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="J&#9;John&#10;K&#9;King&#10;L&#9;Lincoln&#10;M&#9;Mary&#10;N&#9;Nora&#10;O&#9;Ocean&#10;P&#9;Paul&#10;Q&#9;Queen&#10;R&#9;Robert" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="16.0"/>
+                                            <Font name="Segoe UI Semibold" size="16.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="345.0" layoutY="26.0" prefHeight="238.0"
-                                              prefWidth="116.0"
-                                              style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css"
-                                              text="S&#9;Sam&#10;T&#9;Tom&#10;U&#9;Union&#10;V&#9;Victor&#10;W&#9;William&#10;X&#9;X-Ray&#10;Y&#9;Young&#10;Z&#9;Zebra"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="345.0" layoutY="26.0" prefHeight="238.0" prefWidth="116.0" style="-fx-background-color: none; -fx-border-color: none; -fx-region-background: none;" styleClass="text-area" stylesheets="@css/textArea.css" text="S&#9;Sam&#10;T&#9;Tom&#10;U&#9;Union&#10;V&#9;Victor&#10;W&#9;William&#10;X&#9;X-Ray&#10;Y&#9;Young&#10;Z&#9;Zebra" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="16.0"/>
+                                            <Font name="Segoe UI Semibold" size="16.0" />
                                         </font>
                                     </TextArea>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
-                                    <Label layoutX="41.0" layoutY="3.0" text="phonetic alphabet" textAlignment="CENTER"
-                                           textFill="#0074b3">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
+                                    <Label layoutX="41.0" layoutY="3.0" text="phonetic alphabet" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="20.0"/>
+                                            <Font name="Segoe UI Black" size="20.0" />
                                         </font>
                                     </Label>
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
                         </children>
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="100.0"
-                       prefHeight="663.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" style="-fx-background-color: none;">
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>
-                            <Pane layoutX="29.0" prefHeight="40.0" prefWidth="716.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
+                            <Pane layoutX="29.0" prefHeight="40.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
                                 <children>
-                                    <Label fx:id="generatedByTag" layoutX="7.0" layoutY="1.0" prefHeight="38.0"
-                                           prefWidth="271.0" textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Label fx:id="generatedByTag" layoutX="7.0" layoutY="1.0" prefHeight="38.0" prefWidth="271.0" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Label fx:id="generatedDateTag" alignment="CENTER_RIGHT" layoutX="437.0"
-                                           layoutY="1.0" prefHeight="38.0" prefWidth="271.0" textAlignment="CENTER"
-                                           textFill="#6f6f6f">
+                                    <Label fx:id="generatedDateTag" alignment="CENTER_RIGHT" layoutX="437.0" layoutY="1.0" prefHeight="38.0" prefWidth="271.0" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="238.0" layoutY="1.0" prefHeight="39.0" prefWidth="234.0"
-                                           text="Officer Shift Information" textAlignment="CENTER" textFill="#006094">
+                                    <Label layoutX="238.0" layoutY="1.0" prefHeight="39.0" prefWidth="234.0" text="Officer Shift Information" textAlignment="CENTER" textFill="#006094">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
+                            <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
                                 <children>
-                                    <Label layoutX="31.0" layoutY="15.0" text="Officer Information"
-                                           textAlignment="CENTER" textFill="#0074b3">
+                                    <Label layoutX="31.0" layoutY="15.0" text="Officer Information" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="OfficerInfoName" layoutX="19.0" layoutY="53.0" prefHeight="31.0"
-                                               prefWidth="329.0" promptText="Name"
-                                               style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
+                                    <TextField fx:id="OfficerInfoName" layoutX="19.0" layoutY="53.0" prefHeight="31.0" prefWidth="329.0" promptText="Name" style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="17.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoNumber" layoutX="247.0" layoutY="112.0"
-                                               prefHeight="31.0" prefWidth="86.0" promptText="Number"
-                                               style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
+                                    <TextField fx:id="OfficerInfoNumber" layoutX="247.0" layoutY="112.0" prefHeight="31.0" prefWidth="86.0" promptText="Number" style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="17.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoCallsign" layoutX="21.0" layoutY="112.0"
-                                               prefHeight="31.0" prefWidth="145.0" promptText="Callsign"
-                                               style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
+                                    <TextField fx:id="OfficerInfoCallsign" layoutX="21.0" layoutY="112.0" prefHeight="31.0" prefWidth="145.0" promptText="Callsign" style="-fx-background-color: none; -fx-border-color: none; -fx-text-fill: #004266;">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="17.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <Line endX="254.0" layoutX="131.0" layoutY="84.0" startX="-100.0" stroke="#008cd7"/>
-                                    <Line endX="268.0" layoutX="117.0" layoutY="144.0" startX="139.0" stroke="#008cd7"/>
-                                    <Label layoutX="349.0" layoutY="59.0" opacity="0.88" text="Name"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Line endX="254.0" layoutX="131.0" layoutY="84.0" startX="-100.0" stroke="#008cd7" />
+                                    <Line endX="268.0" layoutX="117.0" layoutY="144.0" startX="139.0" stroke="#008cd7" />
+                                    <Label layoutX="349.0" layoutY="59.0" opacity="0.88" text="Name" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="333.0" layoutY="119.0" opacity="0.88" text="Number"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Label layoutX="333.0" layoutY="119.0" opacity="0.88" text="Number" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Line endX="84.0" layoutX="131.0" layoutY="144.0" startX="-100.0" stroke="#008cd7"/>
-                                    <Line endX="493.0" layoutX="-107.0" layoutY="201.0" startX="139.0"
-                                          stroke="#008cd7"/>
-                                    <Label layoutX="166.0" layoutY="119.0" opacity="0.88" text="Callsign"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Line endX="84.0" layoutX="131.0" layoutY="144.0" startX="-100.0" stroke="#008cd7" />
+                                    <Line endX="493.0" layoutX="-107.0" layoutY="201.0" startX="139.0" stroke="#008cd7" />
+                                    <Label layoutX="166.0" layoutY="119.0" opacity="0.88" text="Callsign" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="352.0" layoutY="175.0" opacity="0.88" text="Rank"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Label layoutX="352.0" layoutY="175.0" opacity="0.88" text="Rank" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Line endX="493.0" layoutX="-107.0" layoutY="257.0" startX="139.0"
-                                          stroke="#008cd7"/>
-                                    <Label layoutX="333.0" layoutY="231.0" opacity="0.88" text="Division"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Line endX="493.0" layoutX="-107.0" layoutY="257.0" startX="139.0" stroke="#008cd7" />
+                                    <Label layoutX="333.0" layoutY="231.0" opacity="0.88" text="Division" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Line endX="493.0" layoutX="-107.0" layoutY="310.0" startX="139.0"
-                                          stroke="#008cd7"/>
-                                    <Label layoutX="338.0" layoutY="284.0" opacity="0.88" text="Agency"
-                                           textAlignment="CENTER" textFill="#6f6f6f">
+                                    <Line endX="493.0" layoutX="-107.0" layoutY="310.0" startX="139.0" stroke="#008cd7" />
+                                    <Label layoutX="338.0" layoutY="284.0" opacity="0.88" text="Agency" textAlignment="CENTER" textFill="#6f6f6f">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="29.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
-                                    <Button layoutX="304.0" layoutY="329.0" mnemonicParsing="false"
-                                            onAction="#updateInfoButtonClick" prefHeight="31.0" prefWidth="82.0"
-                                            style="-fx-background-color: #F5F5F5;" text="Update" textFill="#0074b3">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="29.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
+                                    <Button layoutX="304.0" layoutY="329.0" mnemonicParsing="false" onAction="#updateInfoButtonClick" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: #F5F5F5;" text="Update" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7236841917037964" green="0.7236841917037964"
-                                                           blue="0.7236841917037964"/>
+                                                    <Color red="0.7236841917037964" green="0.7236841917037964" blue="0.7236841917037964" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Button>
-                                    <Label fx:id="updatedNotification" alignment="CENTER_RIGHT" layoutX="136.0"
-                                           layoutY="335.0" prefHeight="19.0" prefWidth="161.0" text="updated."
-                                           textFill="#707070a2" visible="false">
+                                    <Label fx:id="updatedNotification" alignment="CENTER_RIGHT" layoutX="136.0" layoutY="335.0" prefHeight="19.0" prefWidth="161.0" text="updated." textFill="#707070a2" visible="false">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <ComboBox fx:id="OfficerInfoRank" layoutX="23.0" layoutY="170.0" prefHeight="36.0"
-                                              prefWidth="329.0" style="-fx-background-color: none;"
-                                              styleClass="combo-box-custom" stylesheets="@css/comboBox.css"
-                                              visibleRowCount="14"/>
-                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="24.0" layoutY="226.0"
-                                              prefHeight="36.0" prefWidth="310.0" style="-fx-background-color: none;"
-                                              styleClass="combo-box-custom" stylesheets="@css/comboBox.css"
-                                              visibleRowCount="14"/>
-                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="25.0" layoutY="279.0" prefHeight="36.0"
-                                              prefWidth="310.0" style="-fx-background-color: none;"
-                                              styleClass="combo-box-custom" stylesheets="@css/comboBox.css"
-                                              visibleRowCount="14"/>
+                                    <ComboBox fx:id="OfficerInfoRank" layoutX="23.0" layoutY="170.0" prefHeight="36.0" prefWidth="329.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/comboBox.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="24.0" layoutY="226.0" prefHeight="36.0" prefWidth="310.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/comboBox.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="25.0" layoutY="279.0" prefHeight="36.0" prefWidth="310.0" style="-fx-background-color: none;" styleClass="combo-box-custom" stylesheets="@css/comboBox.css" visibleRowCount="14" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="477.0" layoutY="71.0" prefHeight="268.0" prefWidth="271.0"
-                                  style="-fx-border-color: none; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <Pane layoutX="477.0" layoutY="71.0" prefHeight="268.0" prefWidth="271.0" style="-fx-border-color: none; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
                                 <children>
-                                    <Label layoutX="28.0" layoutY="8.0" text="Activity Summary" textAlignment="CENTER"
-                                           textFill="#0074b3">
+                                    <Label layoutX="28.0" layoutY="8.0" text="Activity Summary" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="44.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Callouts" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="44.0" prefHeight="21.0" prefWidth="122.0" text="Callouts" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="83.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Traffic Stops" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="83.0" prefHeight="21.0" prefWidth="122.0" text="Traffic Stops" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="123.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Incidents" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="123.0" prefHeight="21.0" prefWidth="122.0" text="Incidents" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="160.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Searches" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="160.0" prefHeight="21.0" prefWidth="122.0" text="Searches" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="198.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Arrests" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="198.0" prefHeight="21.0" prefWidth="122.0" text="Arrests" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="236.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Patrols" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="236.0" prefHeight="21.0" prefWidth="122.0" text="Patrols" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Spinner fx:id="calloutSpinner" editable="true" layoutX="147.0" layoutY="42.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="calloutSpinner" editable="true" layoutX="147.0" layoutY="42.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="147.0" layoutY="81.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="147.0" layoutY="81.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Spinner fx:id="IncidentSpinner" editable="true" layoutX="147.0" layoutY="121.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="IncidentSpinner" editable="true" layoutX="147.0" layoutY="121.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Spinner fx:id="SearchesSpinner" editable="true" layoutX="147.0" layoutY="158.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="SearchesSpinner" editable="true" layoutX="147.0" layoutY="158.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="147.0" layoutY="196.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="147.0" layoutY="196.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="147.0" layoutY="234.0"
-                                             prefHeight="25.0" prefWidth="82.0">
+                                    <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="147.0" layoutY="234.0" prefHeight="25.0" prefWidth="82.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7882353067398071" green="0.7882353067398071"
-                                                           blue="0.7882353067398071"/>
+                                                    <Color red="0.7882353067398071" green="0.7882353067398071" blue="0.7882353067398071" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Spinner>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="29.0" layoutY="470.0" prefHeight="133.0" prefWidth="400.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="29.0" layoutY="470.0" prefHeight="133.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
-                                    <Label layoutX="33.0" layoutY="13.0" text="Patrol Information"
-                                           textAlignment="CENTER" textFill="#0074b3">
+                                    <Label layoutX="33.0" layoutY="13.0" text="Patrol Information" textAlignment="CENTER" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="54.0"
-                                           text="Patrol Start Time" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="54.0" text="Patrol Start Time" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="PatrolInfoStartTime" layoutX="150.0" layoutY="51.0"
-                                               prefHeight="25.0" prefWidth="194.0"
-                                               style="-fx-background-color: none; -fx-text-fill: #004266;">
+                                    <TextField fx:id="PatrolInfoStartTime" layoutX="150.0" layoutY="51.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-color: none; -fx-text-fill: #004266;">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="14.0"/>
+                                            <Font name="Segoe UI Semibold" size="14.0" />
                                         </font>
                                     </TextField>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="92.0"
-                                           text="Patrol Stop Time" textFill="#727272">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="92.0" text="Patrol Stop Time" textFill="#727272">
                                         <font>
-                                            <Font name="Segoe UI Black" size="15.0"/>
+                                            <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="PatrolInfoStopTime" layoutX="149.0" layoutY="88.0"
-                                               prefHeight="25.0" prefWidth="194.0"
-                                               style="-fx-background-color: none; -fx-text-fill: #004266;">
+                                    <TextField fx:id="PatrolInfoStopTime" layoutX="149.0" layoutY="88.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-color: none; -fx-text-fill: #004266;">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="14.0"/>
+                                            <Font name="Segoe UI Semibold" size="14.0" />
                                         </font>
                                     </TextField>
-                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="339.0" layoutY="52.0"
-                                            mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick"
-                                            prefHeight="25.0" prefWidth="24.0">
+                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="339.0" layoutY="52.0" mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick" prefHeight="25.0" prefWidth="24.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7372549176216125" green="0.7372549176216125"
-                                                           blue="0.7372549176216125"/>
+                                                    <Color red="0.7372549176216125" green="0.7372549176216125" blue="0.7372549176216125" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Button>
-                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="339.0" layoutY="92.0"
-                                            mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick"
-                                            prefHeight="25.0" prefWidth="24.0">
+                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="339.0" layoutY="92.0" mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick" prefHeight="25.0" prefWidth="24.0">
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7372549176216125" green="0.7372549176216125"
-                                                           blue="0.7372549176216125"/>
+                                                    <Color red="0.7372549176216125" green="0.7372549176216125" blue="0.7372549176216125" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Button>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="23.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
-                                    <Line endX="397.0" layoutX="-79.0" layoutY="77.0" startX="236.0" stroke="#008cd7"/>
-                                    <Line endX="397.0" layoutX="-79.0" layoutY="114.0" startX="236.0" stroke="#008cd7"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="23.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
+                                    <Line endX="397.0" layoutX="-79.0" layoutY="77.0" startX="236.0" stroke="#008cd7" />
+                                    <Line endX="397.0" layoutX="-79.0" layoutY="114.0" startX="236.0" stroke="#008cd7" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
-                            <Pane layoutX="476.0" layoutY="366.0" prefHeight="238.0" prefWidth="271.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;"
-                                  AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="476.0"
-                                  AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="366.0">
+                            <Pane layoutX="476.0" layoutY="366.0" prefHeight="238.0" prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="366.0">
                                 <children>
-                                    <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="15.0" layoutY="1.0"
-                                              prefHeight="238.0" prefWidth="246.0" promptText="Quick Note..."
-                                              style="-fx-background-radius: 10; -fx-background-color: white; -fx-text-fill: #696969;"
-                                              styleClass="text-area" stylesheets="@css/textArea.css" wrapText="true">
+                                    <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="15.0" layoutY="1.0" prefHeight="238.0" prefWidth="246.0" promptText="Quick Note..." style="-fx-background-radius: 10; -fx-background-color: white; -fx-text-fill: #696969;" styleClass="text-area" stylesheets="@css/textArea.css" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="17.0"/>
+                                            <Font name="Segoe UI Semibold" size="17.0" />
                                         </font>
                                     </TextArea>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
-                                               layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </Pane>
                         </children>
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                     </AnchorPane>
                 </children>
             </StackPane>
-            <AnchorPane layoutX="207.0" prefHeight="100.0" prefWidth="807.0" style="-fx-background-color: white;"
-                        AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="207.0" prefHeight="100.0" prefWidth="807.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <Label layoutX="24.0" layoutY="51.0" text="&quot;TO PROTECT AND SERVE&quot;" textAlignment="RIGHT"
-                           textFill="#0074b3">
+                    <Label layoutX="24.0" layoutY="51.0" text="&quot;TO PROTECT AND SERVE&quot;" textAlignment="RIGHT" textFill="#0074b3">
                         <font>
-                            <Font name="Segoe UI Black" size="18.0"/>
+                            <Font name="Segoe UI Black" size="18.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.6800000071525574" green="0.6800000071525574" blue="0.6800000071525574"
-                                           opacity="0.3778626024723053"/>
+                                    <Color red="0.6800000071525574" green="0.6800000071525574" blue="0.6800000071525574" opacity="0.3778626024723053" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
                     <Label layoutX="24.0" layoutY="23.0" text="LOS SANTOS POLICE DEPARTMENT" textFill="#7c7c7c">
                         <font>
-                            <Font name="Segoe UI Black" size="22.0"/>
+                            <Font name="Segoe UI Black" size="22.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.6800000071525574" green="0.6800000071525574" blue="0.6800000071525574"
-                                           opacity="0.3778626024723053"/>
+                                    <Color red="0.6800000071525574" green="0.6800000071525574" blue="0.6800000071525574" opacity="0.3778626024723053" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Separator layoutX="663.0" layoutY="21.0" orientation="VERTICAL" prefHeight="61.0" prefWidth="0.0"/>
-                    <ImageView fitHeight="61.0" fitWidth="59.0" layoutX="707.0" layoutY="9.0" opacity="0.68"
-                               pickOnBounds="true" preserveRatio="true">
+                    <Separator layoutX="663.0" layoutY="21.0" orientation="VERTICAL" prefHeight="61.0" prefWidth="0.0" />
+                    <ImageView fitHeight="61.0" fitWidth="59.0" layoutX="707.0" layoutY="9.0" opacity="0.68" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@imgs/Profile-PNG-File.png"/>
+                            <Image url="@imgs/Profile-PNG-File.png" />
                         </image>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color red="0.7894737124443054" green="0.7894737124443054"
-                                           blue="0.7894737124443054"/>
+                                    <Color red="0.7894737124443054" green="0.7894737124443054" blue="0.7894737124443054" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </ImageView>
-                    <Label fx:id="profileName" alignment="CENTER" layoutX="665.0" layoutY="61.0" prefHeight="20.0"
-                           prefWidth="141.0" textAlignment="CENTER" textFill="#6f6f6f" AnchorPane.leftAnchor="665.0"
-                           AnchorPane.rightAnchor="1.0">
+                    <Label fx:id="profileName" alignment="CENTER" layoutX="665.0" layoutY="61.0" prefHeight="20.0" prefWidth="141.0" textAlignment="CENTER" textFill="#6f6f6f" AnchorPane.leftAnchor="665.0" AnchorPane.rightAnchor="1.0">
                         <font>
-                            <Font name="Segoe UI Semibold" size="14.0"/>
+                            <Font name="Segoe UI Semibold" size="14.0" />
                         </font>
                     </Label>
-                    <Label fx:id="profileRank" alignment="CENTER" layoutX="665.0" layoutY="74.0" prefHeight="20.0"
-                           prefWidth="141.0" textAlignment="CENTER" textFill="#008cd7">
+                    <Label fx:id="profileRank" alignment="CENTER" layoutX="665.0" layoutY="74.0" prefHeight="20.0" prefWidth="141.0" textAlignment="CENTER" textFill="#008cd7">
                         <font>
-                            <Font name="Segoe UI Semibold" size="10.0"/>
+                            <Font name="Segoe UI Semibold" size="10.0" />
                         </font>
                     </Label>
-                    <Line endX="466.0" layoutX="339.0" layoutY="98.0" opacity="0.08" startX="-339.0" strokeWidth="4.0"/>
+                    <Line endX="466.0" layoutX="339.0" layoutY="98.0" opacity="0.08" startX="-339.0" strokeWidth="4.0" />
                 </children>
             </AnchorPane>
-            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="205.0" layoutY="100.0"
-                       style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0"
-                       AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="205.0" layoutY="100.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                            <Pane layoutX="46.0" layoutY="46.0" prefHeight="568.0" prefWidth="716.0"
-                                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="46.0" layoutY="46.0" prefHeight="568.0" prefWidth="716.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
-                                    <TextArea fx:id="notepadTextArea" layoutX="41.0" layoutY="22.0" prefHeight="474.0"
-                                              prefWidth="635.0" promptText="Notes.." styleClass="text-area"
-                                              stylesheets="@css/textArea.css" wrapText="true">
+                                    <TextArea fx:id="notepadTextArea" layoutX="41.0" layoutY="22.0" prefHeight="474.0" prefWidth="635.0" promptText="Notes.." styleClass="text-area" stylesheets="@css/textArea.css" wrapText="true">
                                         <font>
-                                            <Font size="19.0"/>
+                                            <Font size="19.0" />
                                         </font>
                                     </TextArea>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
-                                               layoutY="43.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="24.0"/>
-                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="482.0" layoutY="512.0"
-                                            mnemonicParsing="false" onAction="#onpasteclick"
-                                            style="-fx-background-color: #F5F5F5;" text="Paste" textFill="#0074b3">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutY="43.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="24.0" />
+                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="482.0" layoutY="512.0" mnemonicParsing="false" onAction="#onpasteclick" style="-fx-background-color: #F5F5F5;" text="Paste" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7105262875556946" green="0.7105262875556946"
-                                                           blue="0.7105262875556946"/>
+                                                    <Color red="0.7105262875556946" green="0.7105262875556946" blue="0.7105262875556946" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Button>
-                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="380.0" layoutY="512.0"
-                                            mnemonicParsing="false" onAction="#oncopyclick"
-                                            style="-fx-background-color: #F5F5F5;" text="Copy" textFill="#0074b3">
+                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="380.0" layoutY="512.0" mnemonicParsing="false" onAction="#oncopyclick" style="-fx-background-color: #F5F5F5;" text="Copy" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7105262875556946" green="0.7105262875556946"
-                                                           blue="0.7105262875556946"/>
+                                                    <Color red="0.7105262875556946" green="0.7105262875556946" blue="0.7105262875556946" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
                                     </Button>
-                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="583.0" layoutY="512.0"
-                                            mnemonicParsing="false" onAction="#onclearclick"
-                                            style="-fx-background-color: #F5F5F5;" text="Clear" textFill="#0074b3">
+                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="583.0" layoutY="512.0" mnemonicParsing="false" onAction="#onclearclick" style="-fx-background-color: #F5F5F5;" text="Clear" textFill="#0074b3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                         <effect>
                                             <DropShadow>
                                                 <color>
-                                                    <Color red="0.7105262875556946" green="0.7105262875556946"
-                                                           blue="0.7105262875556946"/>
+                                                    <Color red="0.7105262875556946" green="0.7105262875556946" blue="0.7105262875556946" />
                                                 </color>
                                             </DropShadow>
                                         </effect>
@@ -1040,8 +814,7 @@
                                 <effect>
                                     <DropShadow>
                                         <color>
-                                            <Color red="0.6313725709915161" green="0.6313725709915161"
-                                                   blue="0.6313725709915161"/>
+                                            <Color red="0.6313725709915161" green="0.6313725709915161" blue="0.6313725709915161" />
                                         </color>
                                     </DropShadow>
                                 </effect>
@@ -1050,19 +823,15 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <TabPane fx:id="logPane" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0"
-                     AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <TabPane fx:id="logPane" disable="true" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                 <tabs>
                     <Tab closable="false" text="Callout Logs">
                         <content>
-                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0"
-                                        style="-fx-border-color: none;" styleClass="scroll-bar"
-                                        stylesheets="@css/scrollpane.css">
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
                                 <content>
                                     <GridPane fx:id="logGrid" hgap="25.0" vgap="25.0">
                                         <padding>
-                                            <Insets left="20.0" right="20.0" top="20.0"/>
+                                            <Insets left="20.0" right="20.0" top="20.0" />
                                         </padding>
                                     </GridPane>
                                 </content>

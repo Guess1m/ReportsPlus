@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calloutReportLogs>
+    <logs>
+        <CalloutNumber>1</CalloutNumber>
+        <NotesTextArea>House Fire</NotesTextArea>
+        <ResponseGrade>Code 3</ResponseGrade>
+        <ResponeType>Fire</ResponeType>
+        <Time>08:54:12 PM</Time>
+        <Date>2024-03-02</Date>
+        <Division> Northern Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
+        <Number>1-18</Number>
+        <Rank>SAHP Chief</Rank>
+        <Name>Drozal</Name>
+        <Address>126 Forum Drive</Address>
+        <County>Los Santos</County>
+        <Area>Strawberry</Area>
+    </logs>
+    <logs>
+        <CalloutNumber>1</CalloutNumber>
+        <NotesTextArea>safd</NotesTextArea>
+        <ResponseGrade>fsda</ResponseGrade>
+        <ResponeType>safd</ResponeType>
+        <Time>08:56:44 PM</Time>
+        <Date>2024-03-02</Date>
+        <Division> Northern Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
+        <Number>1-18</Number>
+        <Rank>SAHP Chief</Rank>
+        <Name>Drozal</Name>
+        <Address>sfda</Address>
+        <County>fsda</County>
+        <Area>fsda</Area>
+    </logs>
+    <logs>
+        <CalloutNumber>11</CalloutNumber>
+        <NotesTextArea>Vehicle Fire</NotesTextArea>
+        <ResponseGrade>Code 3</ResponseGrade>
+        <ResponeType>Fire</ResponeType>
+        <Time>09:19:47 PM</Time>
+        <Date>2024-03-02</Date>
+        <Division> Northern Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
+        <Number>1-18</Number>
+        <Rank>SAHP Chief</Rank>
+        <Name>Drozal</Name>
+        <Address>126 Forum Drive</Address>
+        <County>Los Santos</County>
+        <Area>Strawberry</Area>
+    </logs>
+</calloutReportLogs>

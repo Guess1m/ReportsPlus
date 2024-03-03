@@ -27,7 +27,6 @@ public class newOfficerController {
     public void onMouseEnter(MouseEvent mouseEvent) {
         if (hasEntered) {
         } else {
-            System.out.println("mouse hasnt entered, setting values");
             rankDropdown.getItems().addAll(dropdownInfo.ranks);
             divisionDropDown.getItems().addAll(dropdownInfo.divisions);
             agencyDropDown.getItems().addAll(dropdownInfo.agencies);
@@ -43,7 +42,6 @@ public class newOfficerController {
         if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null ||
                 rankDropdown.getValue() == null || nameField.getText().isEmpty() ||
                 numberField.getText().isEmpty()) {
-            System.out.println("Some fields are empty");
         } else {
             // Access the values only if they are not null
             String agency = agencyDropDown.getValue().toString();

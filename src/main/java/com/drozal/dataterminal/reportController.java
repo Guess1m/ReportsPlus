@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +38,7 @@ public class reportController {
     public TextField calloutReportResponseArea;
     public TextField calloutReportResponseCounty;
     public TextField calloutReportResponseAddress;
+    public VBox vbox;
 
     public Spinner getCalloutReportSpinner() {
         return calloutReportSpinner;
@@ -103,6 +106,8 @@ public class reportController {
         // Save logs to XML
         LoggingUtils.saveLogsToXML(logs);
 
+        Stage stag = (Stage) vbox.getScene().getWindow();
+        stag.close();
     }
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {

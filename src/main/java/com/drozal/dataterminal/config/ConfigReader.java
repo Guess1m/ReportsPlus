@@ -17,13 +17,10 @@ public class ConfigReader {
 
         // check if its blank
         if (prop.getProperty("database." + database).isBlank()) {
-            System.out.println("blank");
             return false;
         } else if (prop.getProperty("database." + database).isEmpty()) {
-            System.out.println("empty");
             return false;
         } else if (prop.getProperty("database." + database).matches("value")) {
-            System.out.println("matches");
             return true;
         }
 
@@ -50,12 +47,9 @@ public class ConfigReader {
 
     public static boolean doesConfigExist() {
         File file = new File("config.properties");
-        System.out.println("File path: " + file.getAbsolutePath()); // Print file path for debugging
         if (file.exists()) {
-            System.out.println("Properties file already exists.");
             return true;
         } else if (file.exists() == false) {
-            System.out.println("No properties file, creating..");
             try {
                 Properties prop = new Properties();
                 OutputStream output = new FileOutputStream("config.properties");
@@ -67,7 +61,6 @@ public class ConfigReader {
                 return false;
             }
         } else {
-            System.out.println("else statement");
             return false;
         }
     }

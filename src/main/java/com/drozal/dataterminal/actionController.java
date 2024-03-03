@@ -233,7 +233,6 @@ public class actionController {
         if (hasEntered) {
 
         } else {
-            System.out.println("Mouse hasn't entered, setting values");
             String name = ConfigReader.configRead("Name");
             String division = ConfigReader.configRead("Division");
             String rank = ConfigReader.configRead("Rank");
@@ -307,11 +306,6 @@ public class actionController {
             }));
             timeline1.play();
         } else {
-            System.out.println(getOfficerInfoAgency().getValue());
-            System.out.println(getOfficerInfoDivision().getValue());
-            System.out.println(getOfficerInfoRank().getValue());
-            System.out.println(getOfficerInfoName().getText());
-            System.out.println(getOfficerInfoNumber().getText());
 
             ConfigWriter.configwrite("Agency", getOfficerInfoAgency().getValue().toString());
             ConfigWriter.configwrite("Division", getOfficerInfoDivision().getValue().toString());

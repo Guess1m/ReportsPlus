@@ -18,6 +18,5 @@ module com.drozal.dataterminal {
     exports com.drozal.dataterminal.logs;
     exports com.drozal.dataterminal.util;
     opens com.drozal.dataterminal.util to javafx.fxml;
-    exports com.drozal.dataterminal.test;
-    opens com.drozal.dataterminal.test to javafx.fxml;
+
 }

@@ -9,7 +9,6 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
 
         if (ConfigReader.doesConfigExist()) {
-            System.out.println("config exists");
 
             // Specify the path of the folder to be created
             String folderPath = "DataLogs";
@@ -35,7 +34,6 @@ public class Launcher {
 
             }
         } else {
-            System.out.println("no config, showing login");
 
             String folderPath = "DataLogs";
 

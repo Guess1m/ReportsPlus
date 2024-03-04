@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -231,6 +232,7 @@
                             </DropShadow>
                         </effect>
                     </Button>
+               <MFXButton buttonType="RAISED" depthLevel="LEVEL3" layoutX="75.0" layoutY="552.0" />
                 </children>
             </AnchorPane>
             <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="251.0" layoutY="152.0" prefHeight="577.0" prefWidth="717.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="152.0">
@@ -823,7 +825,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <TabPane fx:id="logPane" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <TabPane fx:id="logPane" disable="true" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                 <tabs>
                     <Tab closable="false" text="Callout Logs">
                         <content>

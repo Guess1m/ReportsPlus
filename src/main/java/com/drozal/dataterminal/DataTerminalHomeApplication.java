@@ -21,8 +21,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataTerminalHomeApplication extends Application {
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     public static String getDate() {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -56,39 +54,19 @@ public class DataTerminalHomeApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
 
-
-        // Simulate custom title bar with a colored region
-        VBox customTitleBar = new VBox();
-
         // Add title label to the custom title bar
         Label titleLabel = new Label("Data Terminal " + stringUtil.version);
         titleLabel.setTextFill(Color.WHITE); // Set text color to black
         titleLabel.setPadding(new Insets(0, 0, 0, 20)); // Adjust left padding as needed
         titleLabel.setFont(Font.font("Segoe UI Black", FontWeight.BOLD, 16)); // Set font to Consolas and bold, adjust size as needed
 
-        customTitleBar.getChildren().add(titleLabel);
-        customTitleBar.setMinHeight(30); // Adjust the height as needed
-        customTitleBar.setStyle("-fx-background-color: #0074b3"); // Change this to the desired color
-
-        VBox content = new VBox(customTitleBar, root);
+        VBox content = new VBox(root);
         Scene scene = new Scene(content);
 
 
 // Set stage transparent and remove default window decorations
         mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);
         mainStage.mainRT.setScene(scene);
-        mainStage.mainRT.setTitle(stringUtil.name);
-
-        // Set up event handlers for mouse pressed, dragged, and released events
-        customTitleBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-
-        customTitleBar.setOnMouseDragged(event -> {
-            mainStage.mainRT.setX(event.getScreenX() - xOffset);
-            mainStage.mainRT.setY(event.getScreenY() - yOffset);
-        });
         mainStage.mainRT.setResizable(false);
         mainStage.mainRT.show();
         mainStage.mainRT.centerOnScreen();

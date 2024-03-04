@@ -256,10 +256,10 @@
                         </TextField>
                         <ComboBox fx:id="ReponseType" layoutX="276.0" layoutY="37.0" prefHeight="31.0" prefWidth="140.0"
                                   style="-fx-background-color: #edf1f3;" styleClass="combo-box-custom"
-                                  stylesheets="@css/comboBox.css" visibleRowCount="14"/>
+                                  stylesheets="@css/main/menuComboBox.css" visibleRowCount="14"/>
                         <ComboBox fx:id="ResponseColor" layoutX="480.0" layoutY="37.0" prefHeight="31.0"
                                   prefWidth="140.0" style="-fx-background-color: #edf1f3;" styleClass="combo-box-custom"
-                                  stylesheets="@css/comboBox.css" visibleRowCount="14"/>
+                                  stylesheets="@css/main/menuComboBox.css" visibleRowCount="14"/>
                         <Label layoutX="625.0" layoutY="48.0" opacity="0.8" text="Color" textFill="#6f6f6f">
                             <font>
                                 <Font name="System Bold" size="14.0"/>
@@ -290,7 +290,7 @@
                     <children>
                         <TextArea fx:id="violationsNotes" layoutX="9.0" layoutY="31.0" prefHeight="85.0"
                                   prefWidth="642.0" promptText="In Violation of.." style="-fx-background-color: none;"
-                                  stylesheets="@css/textArea.css" wrapText="true">
+                                  stylesheets="@css/form/formTextArea.css" wrapText="true">
                             <font>
                                 <Font size="14.0"/>
                             </font>
@@ -322,7 +322,7 @@
                         </TextField>
                         <TextArea fx:id="comments" layoutX="9.0" layoutY="190.0" prefHeight="71.0" prefWidth="642.0"
                                   promptText="Comments" style="-fx-background-color: none;"
-                                  stylesheets="@css/textArea.css" wrapText="true">
+                                  stylesheets="@css/form/formTextArea.css" wrapText="true">
                             <font>
                                 <Font size="14.0"/>
                             </font>

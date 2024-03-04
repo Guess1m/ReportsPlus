@@ -1,0 +1,24 @@
+/* Style the button */
+.button {
+    -fx-background-color: none; /* Default button background color */
+}
+
+.button > .label {
+    -fx-text-fill: #828797; /* Change the text color to red */
+}
+}
+/* Style the button when pressed */
+.button:pressed {
+    -fx-background-color: red; /* Button background color when pressed */
+}
+.button:hover {
+    -fx-background-color:  #3b4254; /* Hover background color */
+        -fx-text-fill: #1e90ff;
+}
+.button:hover > .label {
+        -fx-text-fill: #1e90ff;
+}
+.button:focused {
+    -fx-background-color:  #3b4254; /* Hover background color */
+        -fx-text-fill: #1e90ff;
+}

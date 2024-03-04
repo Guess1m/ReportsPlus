@@ -104,7 +104,7 @@
                         </Label>
                         <ComboBox fx:id="rankDropdown" layoutX="23.0" layoutY="142.0" prefHeight="36.0"
                                   prefWidth="401.0" style="-fx-background-color: none;" styleClass="combo-box-custom"
-                                  stylesheets="@css/comboBox.css" visibleRowCount="14"/>
+                                  stylesheets="@css/main/menuComboBox.css" visibleRowCount="14"/>
                         <Label layoutX="405.0" layoutY="297.0" opacity="0.64" text="Division" textFill="#6f6f6f">
                             <font>
                                 <Font name="Segoe UI Black" size="15.0"/>
@@ -112,10 +112,10 @@
                         </Label>
                         <ComboBox fx:id="agencyDropDown" layoutX="27.0" layoutY="217.0" prefHeight="36.0"
                                   prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom"
-                                  stylesheets="@css/comboBox.css" visibleRowCount="14"/>
+                                  stylesheets="@css/main/menuComboBox.css" visibleRowCount="14"/>
                         <ComboBox fx:id="divisionDropDown" layoutX="27.0" layoutY="287.0" prefHeight="36.0"
                                   prefWidth="381.0" style="-fx-background-color: none;" styleClass="combo-box-custom"
-                                  stylesheets="@css/comboBox.css" visibleRowCount="14"/>
+                                  stylesheets="@css/main/menuComboBox.css" visibleRowCount="14"/>
                         <Button fx:id="loginBtn" layoutX="382.0" layoutY="357.0" mnemonicParsing="false"
                                 onAction="#loginButtonClick" prefHeight="37.0" prefWidth="85.0"
                                 style="-fx-background-color: none; -fx-border-color: #008cd7; -fx-border-radius: 12; -fx-border-width: 1.5;"

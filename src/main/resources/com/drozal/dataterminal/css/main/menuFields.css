@@ -1,0 +1,21 @@
+/* Material Design TextField */
+.text-field {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: none;
+    -fx-prompt-text-fill: #9e9e9e;
+    -fx-background-insets: 0;
+    -fx-padding: 8px;
+    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
+    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
+    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 3, 0.0, 0, 1); /* black shadow with raised depth */
+}
+
+.text-field:focused {
+    -fx-border-color: #2979ff; /* Change border color when focused */
+    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-background-color: none;
+    -fx-effect: none;
+}

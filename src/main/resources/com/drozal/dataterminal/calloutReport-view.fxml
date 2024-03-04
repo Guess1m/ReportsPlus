@@ -280,7 +280,7 @@
                     <children>
                         <TextArea fx:id="calloutReportNotesTextArea" layoutX="9.0" layoutY="31.0" prefHeight="115.0"
                                   prefWidth="661.0" promptText="Notes.." style="-fx-background-color: none;"
-                                  stylesheets="@css/textArea.css" wrapText="true">
+                                  stylesheets="@css/form/formTextArea.css" wrapText="true">
                             <font>
                                 <Font size="14.0"/>
                             </font>

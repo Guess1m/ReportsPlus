@@ -19,37 +19,37 @@
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
     <children>
-        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="684.0" style="-fx-background-color: white;">
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="684.0" style="-fx-background-color: #2a2e3d;">
             <children>
                 <Pane layoutX="13.0" layoutY="93.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp/Location Information" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp/Location Information" textAlignment="CENTER" textFill="#d7d7d7">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                  <TextField fx:id="incidentDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0" promptText="Incident Date" styleClass="text-field" stylesheets="@css/form/formFields.css" />
-                  <TextField fx:id="incidentTime" layoutX="357.0" layoutY="28.0" prefHeight="36.0" prefWidth="310.0" promptText="Incident Time" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                  <TextField fx:id="incidentDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0" promptText="Incident Date" styleClass="text-field" stylesheets="@css/main/menuFields.css" />
+                  <TextField fx:id="incidentTime" layoutX="357.0" layoutY="28.0" prefHeight="36.0" prefWidth="310.0" promptText="Incident Time" styleClass="text-field" stylesheets="@css/main/menuFields.css" />
                     </children>
                 </Pane>
                 <Pane layoutX="13.0" layoutY="169.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="incidentCounty" layoutX="20.0" prefHeight="36.0" prefWidth="338.0" promptText="County" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="incidentCounty" layoutX="20.0" prefHeight="36.0" prefWidth="338.0" promptText="County" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="incidentArea" layoutX="378.0" prefHeight="36.0" prefWidth="289.0" promptText="Area" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="incidentArea" layoutX="378.0" prefHeight="36.0" prefWidth="289.0" promptText="Area" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="incidentStreet" layoutX="20.0" layoutY="47.0" prefHeight="36.0" prefWidth="460.0" promptText="Street" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="incidentStreet" layoutX="20.0" layoutY="47.0" prefHeight="36.0" prefWidth="460.0" promptText="Street" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </TextField>
-                        <Spinner fx:id="Spinner" editable="true" layoutX="585.0" layoutY="53.0" prefHeight="26.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                        <Spinner fx:id="Spinner" editable="true" layoutX="585.0" layoutY="53.0" prefHeight="26.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                             <effect>
                                 <DropShadow>
                                     <color>
@@ -67,32 +67,32 @@
                 </Pane>
                 <Pane layoutX="13.0" layoutY="260.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="officerName" editable="false" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="305.0" promptText="Name" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="officerName" editable="false" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="305.0" promptText="Name" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="officerRank" editable="false" layoutX="344.0" layoutY="28.0" prefHeight="36.0" prefWidth="321.0" promptText="Rank" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="officerRank" editable="false" layoutX="344.0" layoutY="28.0" prefHeight="36.0" prefWidth="321.0" promptText="Rank" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="officerNumber" editable="false" layoutX="20.0" layoutY="76.0" prefHeight="36.0" prefWidth="114.0" promptText="Number" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="officerNumber" editable="false" layoutX="20.0" layoutY="76.0" prefHeight="36.0" prefWidth="114.0" promptText="Number" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="officerDivision" editable="false" layoutX="155.0" layoutY="76.0" prefHeight="36.0" prefWidth="290.0" promptText="Division" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="officerDivision" editable="false" layoutX="155.0" layoutY="76.0" prefHeight="36.0" prefWidth="290.0" promptText="Division" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="officerAgency" editable="false" layoutX="463.0" layoutY="76.0" prefHeight="36.0" prefWidth="203.0" promptText="Agency" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="officerAgency" editable="false" layoutX="463.0" layoutY="76.0" prefHeight="36.0" prefWidth="203.0" promptText="Agency" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Reporting Officer Information" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Reporting Officer Information" textAlignment="CENTER" textFill="#d7d7d7">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -142,22 +142,22 @@
                 </AnchorPane>
                 <Pane layoutY="379.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="incidentWitnesses" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0" promptText="Witness(s)" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="incidentWitnesses" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0" promptText="Witness(s)" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Involved Parties" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Involved Parties" textAlignment="CENTER" textFill="#d7d7d7">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                  <TextField fx:id="incidentVictims" layoutX="356.0" layoutY="28.0" prefHeight="36.0" prefWidth="310.0" promptText="Victim(s)" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                  <TextField fx:id="incidentVictims" layoutX="356.0" layoutY="28.0" prefHeight="36.0" prefWidth="310.0" promptText="Victim(s)" styleClass="text-field" stylesheets="@css/main/menuFields.css">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                        <TextArea fx:id="incidentStatement" layoutX="20.0" layoutY="75.0" prefHeight="121.0" prefWidth="647.0" promptText="Statement.." style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
+                        <TextArea fx:id="incidentStatement" layoutX="20.0" layoutY="75.0" prefHeight="121.0" prefWidth="647.0" promptText="Statement.." style="-fx-background-color: none;" stylesheets="@css/main/transparentTextArea.css" wrapText="true">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -166,24 +166,24 @@
                 </Pane>
             <Pane layoutY="577.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Summary" textAlignment="CENTER" textFill="#616161">
+                  <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Summary" textAlignment="CENTER" textFill="#d7d7d7">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="incidentActionsTaken" layoutX="20.0" layoutY="28.0" prefHeight="85.0" prefWidth="647.0" promptText="Actions Taken.." style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
+                  <TextArea fx:id="incidentActionsTaken" layoutX="20.0" layoutY="28.0" prefHeight="85.0" prefWidth="647.0" promptText="Actions Taken.." style="-fx-background-color: none;" stylesheets="@css/main/transparentTextArea.css" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="incidentComments" layoutX="22.0" layoutY="117.0" prefHeight="85.0" prefWidth="647.0" promptText="Comments.." style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
+                  <TextArea fx:id="incidentComments" layoutX="22.0" layoutY="117.0" prefHeight="85.0" prefWidth="647.0" promptText="Comments.." style="-fx-background-color: none;" stylesheets="@css/main/transparentTextArea.css" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextArea>
                </children>
             </Pane>
-                <Button fx:id="SubmitBtn" layoutX="553.0" layoutY="786.0" mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0" stylesheets="@css/form/formButton.css" text="Submit" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="17.0">
+                <Button fx:id="SubmitBtn" layoutX="553.0" layoutY="786.0" mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0" stylesheets="@css/main/menuButton2.css" text="Submit" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="17.0">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>

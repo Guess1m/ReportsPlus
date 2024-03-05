@@ -1,5 +1,6 @@
 .text-area {
-    -fx-background-color: rgba(53,89,119,0.4);
+    -fx-background-color: none;
+    -fx-text-fill: #b5b5b5;
 }
 
 .text-area .scroll-pane {

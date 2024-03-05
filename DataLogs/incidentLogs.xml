@@ -36,4 +36,40 @@
         <incidentActionsTaken>dsfasdfa</incidentActionsTaken>
         <incidentComments>sdfafdsa</incidentComments>
     </logs>
+    <logs>
+        <incidentNumber>4</incidentNumber>
+        <incidentDate>2024-03-04</incidentDate>
+        <incidentTime>09:43:46 PM</incidentTime>
+        <incidentStatement>sdfafdsa</incidentStatement>
+        <incidentWitnesses>Witnesses</incidentWitnesses>
+        <incidentVictims>Victims</incidentVictims>
+        <officerName>Drozal</officerName>
+        <officerRank>Chief of Police</officerRank>
+        <officerNumber>1-18</officerNumber>
+        <officerAgency>Los Santos Police Department</officerAgency>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <incidentStreet>Street</incidentStreet>
+        <incidentArea>Area</incidentArea>
+        <incidentCounty>County</incidentCounty>
+        <incidentActionsTaken>asdffdsa</incidentActionsTaken>
+        <incidentComments>sfdsdf</incidentComments>
+    </logs>
+    <logs>
+        <incidentNumber>0</incidentNumber>
+        <incidentDate>2024-03-04</incidentDate>
+        <incidentTime>09:46:35 PM</incidentTime>
+        <incidentStatement>dhfgdfhgdfg</incidentStatement>
+        <incidentWitnesses>Witnesses</incidentWitnesses>
+        <incidentVictims>Victims</incidentVictims>
+        <officerName>Drozal</officerName>
+        <officerRank>Chief of Police</officerRank>
+        <officerNumber>1-18</officerNumber>
+        <officerAgency>Los Santos Police Department</officerAgency>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <incidentStreet></incidentStreet>
+        <incidentArea></incidentArea>
+        <incidentCounty></incidentCounty>
+        <incidentActionsTaken>gfdgdf</incidentActionsTaken>
+        <incidentComments>gfdfdg</incidentComments>
+    </logs>
 </incidentReportLogs>

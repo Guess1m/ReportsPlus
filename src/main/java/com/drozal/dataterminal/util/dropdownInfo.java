@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class dropdownInfo {
-
+    public static final List<String> genders = Arrays.asList(
+            "Male",
+            "Female",
+            "Other"
+    );
     public static final List<String> searchMethods = Arrays.asList(
             "Search Warrant",
             "Probable Cause",

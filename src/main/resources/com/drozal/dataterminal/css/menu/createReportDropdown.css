@@ -22,3 +22,11 @@
     -fx-background-color:  #3b4254; /* Hover background color */
         -fx-text-fill: #1e90ff;
 }
+/* Style the menu */
+.context-menu {
+    -fx-background-color:  #2a2e3d; /* Set the background color */
+}
+.context-menu .label {
+    -fx-text-fill:  white; /* Set the background color */
+    -fx-font-size: 15px;
+}

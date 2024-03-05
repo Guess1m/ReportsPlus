@@ -7,5 +7,6 @@ public class stringUtil {
     public static String trafficstopLogURL = "DataLogs/trafficStopLogs.xml";
     public static String incidentLogURL = "DataLogs/incidentLogs.xml";
     public static String searchLogURL = "DataLogs/searchLogs.xml";
+    public static String arrestLogURL = "DataLogs/arrestLogs.xml";
 
 }

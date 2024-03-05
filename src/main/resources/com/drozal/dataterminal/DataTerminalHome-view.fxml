@@ -48,7 +48,7 @@
                             <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" onAction="#trafficStopReportButtonClick" text="Traffic Stop Report" />
                             <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" onAction="#onIncidentReportBtnClick" text="Incident Report" />
                             <MenuItem fx:id="searchReportButton" mnemonicParsing="false" onAction="#onSearchReportBtnClick" text="Search Report" />
-                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" text="Arrest Report" />
+                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" onAction="#onArrestReportBtnClick" text="Arrest Report" />
                             <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report" />
                             <SeparatorMenuItem mnemonicParsing="false" />
                             <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false" text="Traffic Citation" />
@@ -64,7 +64,7 @@
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Label alignment="CENTER" layoutX="24.0" layoutY="679.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="#828797" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+                    <Label alignment="CENTER" layoutX="24.0" layoutY="672.0" prefHeight="27.0" prefWidth="146.0" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="#828797" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
                         <font>
                             <Font name="System Bold" size="18.0" />
                         </font>
@@ -76,7 +76,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="44.0" layoutY="702.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
+                    <Label alignment="CENTER" layoutX="44.0" layoutY="697.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
@@ -88,7 +88,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="9.0" layoutY="718.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
+                    <Label alignment="CENTER" layoutX="9.0" layoutY="714.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="13.0" />
                         </font>
@@ -100,7 +100,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="20.0" layoutY="735.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                    <Label alignment="CENTER" layoutX="20.0" layoutY="732.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                         <font>
                             <Font name="Arial Narrow" size="15.0" />
                         </font>
@@ -326,7 +326,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="37.0" prefHeight="726.0" prefWidth="808.0" style="-fx-background-color: none;">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="37.0" prefHeight="726.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>
@@ -591,11 +591,11 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <TabPane fx:id="logPane" disable="true" layoutX="237.0" layoutY="100.0" prefHeight="663.0" prefWidth="808.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <TabPane fx:id="logPane" layoutX="237.0" layoutY="61.0" prefHeight="681.0" prefWidth="745.0" stylesheets="@css/main/Logtabpane.css" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="61.0">
                 <tabs>
                     <Tab closable="false" text="Callout Logs">
                         <content>
-                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="745.0" stylesheets="@css/main/Logscrollpane.css">
                                 <content>
                                     <GridPane fx:id="logGrid" hgap="25.0" vgap="25.0">
                                         <padding>
@@ -608,7 +608,7 @@
                     </Tab>
                     <Tab closable="false" text="Traffic Stop Logs">
                         <content>
-                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="746.0" stylesheets="@css/main/Logscrollpane.css">
                                 <content>
                                     <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
                                         <padding>
@@ -621,7 +621,7 @@
                     </Tab>
                <Tab closable="false" text="Incident Logs">
                   <content>
-                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="746.0" stylesheets="@css/main/Logscrollpane.css">
                         <content>
                            <GridPane fx:id="incidentGrid" hgap="25.0" vgap="25.0">
                               <padding>
@@ -634,7 +634,7 @@
                </Tab>
                <Tab closable="false" text="Search Logs">
                   <content>
-                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="746.0" stylesheets="@css/main/Logscrollpane.css">
                         <content>
                            <GridPane fx:id="searchGrid" hgap="25.0" vgap="25.0">
                               <padding>
@@ -645,7 +645,23 @@
                      </ScrollPane>
                   </content>
                </Tab>
+               <Tab closable="false" text="Arrest Logs">
+                  <content>
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="745.0" stylesheets="@css/main/Logscrollpane.css">
+                        <content>
+                           <GridPane fx:id="arrestGrid" hgap="25.0" vgap="25.0">
+                              <padding>
+                                 <Insets left="20.0" right="20.0" top="20.0" />
+                              </padding>
+                           </GridPane>
+                        </content>
+                     </ScrollPane>
+                  </content>
+               </Tab>
                 </tabs>
+            <effect>
+               <DropShadow />
+            </effect>
             </TabPane>
         </children>
     </AnchorPane>

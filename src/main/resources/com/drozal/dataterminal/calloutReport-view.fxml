@@ -20,6 +20,25 @@
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="675.0" style="-fx-background-color: #2a2e3d;">
             <children>
+                <Pane layoutX="23.0" layoutY="77.0" prefWidth="661.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <TextField fx:id="calloutReportDate" layoutX="20.0" layoutY="32.0" prefHeight="38.0" prefWidth="340.0" promptText="Date" stylesheets="@css/form/formFields.css">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="calloutReportTime" layoutX="373.0" layoutY="32.0" prefHeight="38.0" prefWidth="288.0" promptText="Time" stylesheets="@css/form/formFields.css">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="20.0" layoutY="2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp Info" textAlignment="CENTER" textFill="#616161">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
                 <Pane layoutY="153.0" prefWidth="0.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <TextField fx:id="calloutReportName" layoutX="20.0" layoutY="27.0" prefHeight="38.0" prefWidth="247.0" promptText="Name" stylesheets="@css/form/formFields.css">
@@ -48,25 +67,6 @@
                             </font>
                         </TextField>
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Officer Info" textAlignment="CENTER" textFill="#616161">
-                            <font>
-                                <Font name="System Bold" size="20.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </Pane>
-                <Pane layoutX="23.0" layoutY="77.0" prefWidth="661.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <children>
-                        <TextField fx:id="calloutReportDate" layoutX="20.0" layoutY="32.0" prefHeight="38.0" prefWidth="340.0" promptText="Date" stylesheets="@css/form/formFields.css">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </TextField>
-                        <TextField fx:id="calloutReportTime" layoutX="373.0" layoutY="32.0" prefHeight="38.0" prefWidth="288.0" promptText="Time" stylesheets="@css/form/formFields.css">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </TextField>
-                        <Label layoutX="20.0" layoutY="2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp Info" textAlignment="CENTER" textFill="#616161">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -107,6 +107,15 @@
                                 <Font size="14.0" />
                             </font>
                         </TextField>
+                        <Spinner fx:id="calloutReportSpinner" editable="true" layoutX="598.0" layoutY="33.0" prefHeight="18.0" prefWidth="64.0" stylesheets="@css/form/formSpinner.css">
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.2671755850315094" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Spinner>
                         <TextField fx:id="calloutReportResponseCounty" layoutX="20.0" layoutY="76.0" prefHeight="38.0" prefWidth="294.0" promptText="County" stylesheets="@css/form/formFields.css">
                             <font>
                                 <Font size="14.0" />
@@ -122,15 +131,6 @@
                                 <Font size="15.0" />
                             </font>
                         </TextField>
-                        <Spinner fx:id="calloutReportSpinner" editable="true" layoutX="598.0" layoutY="33.0" prefHeight="18.0" prefWidth="64.0" stylesheets="@css/form/formSpinner.css">
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color opacity="0.2671755850315094" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
-                        </Spinner>
                         <Label layoutX="537.0" layoutY="37.0" opacity="0.82" text="Callout #" textFill="#6f6f6f">
                             <font>
                                 <Font name="System Bold" size="14.0" />

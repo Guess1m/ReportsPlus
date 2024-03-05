@@ -16,6 +16,6 @@
 .text-field:focused {
     -fx-border-color: #2979ff; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
-    -fx-background-color: none;
+    -fx-background-color: #495069;
     -fx-effect: none;
 }

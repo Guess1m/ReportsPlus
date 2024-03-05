@@ -1,0 +1,19 @@
+/* Styles for the overall slider */
+.slider {
+    -fx-background-color: transparent; /* Set background color of the slider track */
+}
+
+/* Styles for the track of the slider */
+.slider .track {
+    -fx-background-color: #34394b; /* Set background color of the slider track */
+}
+
+/* Styles for the thumb of the slider */
+.slider .thumb {
+    -fx-background-color: #0085cc; /* Set background color of the slider thumb */
+}
+
+/* Styles for the thumb when pressed */
+.slider .thumb:pressed {
+    -fx-background-color: #008cd7; /* Set background color of the slider thumb when pressed */
+}

@@ -2,6 +2,8 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -40,6 +42,7 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 
 public class actionController {
+    public GridPane arrestGrid;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -352,18 +355,119 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(true);
         logPane.setDisable(false);
-
         logGrid.getChildren().clear();
         trafficStopGrid.getChildren().clear();
         incidentGrid.getChildren().clear();
         searchGrid.getChildren().clear();
+        arrestGrid.getChildren().clear();
+
+
+        // Check if the file exists before extracting log entries
+        if (Files.exists(Paths.get(stringUtil.searchLogURL))) {
+            // Extract log entries from XML file
+            List<ArrestLogEntry> logEntries4 = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
+            // Add log entries to the GridPane
+            int row = 1;
+            for (ArrestLogEntry logEntry : logEntries4) {
+                arrestGrid.add(new Label(logEntry.arrestNumber), 0, row);
+                arrestGrid.add(new Label(logEntry.arrestDate), 1, row);
+                arrestGrid.add(new Label(logEntry.arrestTime), 2, row);
+                arrestGrid.add(new Label(logEntry.arrestCounty), 3, row);
+                arrestGrid.add(new Label(logEntry.arrestArea), 4, row);
+                arrestGrid.add(new Label(logEntry.arrestStreet), 5, row);
+                arrestGrid.add(new Label(logEntry.arresteeName), 6, row);
+                arrestGrid.add(new Label(logEntry.arresteeAge), 7, row);
+                arrestGrid.add(new Label(logEntry.arresteeGender), 8, row);
+                arrestGrid.add(new Label(logEntry.arresteeEthnicity), 9, row);
+                arrestGrid.add(new Label(logEntry.arresteeDescription), 10, row);
+                arrestGrid.add(new Label(logEntry.arresteeMedicalInformation), 11, row);
+                arrestGrid.add(new Label(logEntry.arrestDetails), 12, row);
+                arrestGrid.add(new Label(logEntry.officerRank), 13, row);
+                arrestGrid.add(new Label(logEntry.officerName), 14, row);
+                arrestGrid.add(new Label(logEntry.officerNumber), 15, row);
+                arrestGrid.add(new Label(logEntry.officerAgency), 16, row);
+                arrestGrid.add(new Label(logEntry.officerDivision), 17, row);
+                row++;
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
+        // Add ColumnConstraints for all columns
+        ColumnConstraints columnConstraints4 = new ColumnConstraints();
+        columnConstraints4.setHgrow(Priority.ALWAYS);
+        columnConstraints4.setFillWidth(true);
+        arrestGrid.getColumnConstraints().add(columnConstraints4);
+        arrestGrid.add(new Label("Arrest #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 0, 0);
+        arrestGrid.add(new Label("Date: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 1, 0);
+        arrestGrid.add(new Label("Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 2, 0);
+        arrestGrid.add(new Label("County: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 3, 0);
+        arrestGrid.add(new Label("Area: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 4, 0);
+        arrestGrid.add(new Label("Street: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 5, 0);
+        arrestGrid.add(new Label("Arrestee Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 6, 0);
+        arrestGrid.add(new Label("Arrestee Age: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 7, 0);
+        arrestGrid.add(new Label("Arrestee Gender: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 8, 0);
+        arrestGrid.add(new Label("Arrestee Ethnicity: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 9, 0);
+        arrestGrid.add(new Label("Arrestee Description: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 10, 0);
+        arrestGrid.add(new Label("Arrestee Medical Information: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 11, 0);
+        arrestGrid.add(new Label("Arrest Details: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 12, 0);
+        arrestGrid.add(new Label("Officer Rank: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 13, 0);
+        arrestGrid.add(new Label("Officer Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 14, 0);
+        arrestGrid.add(new Label("Officer Number: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 15, 0);
+        arrestGrid.add(new Label("Officer Agency: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 16, 0);
+        arrestGrid.add(new Label("Officer Division: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 17, 0);
+        // Set row constraints to apply to all rows
+        RowConstraints rowConstraints4 = new RowConstraints();
+        rowConstraints4.setVgrow(Priority.ALWAYS); // Allow vertical growth
+        rowConstraints4.setMinHeight(100); // Set the minimum height
+        rowConstraints4.setPrefHeight(100); // Set the preferred height
+        rowConstraints4.setMaxHeight(100); // Set the maximum height
+        // Add row constraints to all rows in the GridPane
+        int numRows4 = arrestGrid.getRowConstraints().size();
+        for (int i = 0; i < numRows4; i++) {
+            arrestGrid.getRowConstraints().add(rowConstraints4);
+        }
 
 
         // Check if the file exists before extracting log entries
         if (Files.exists(Paths.get(stringUtil.searchLogURL))) {
             // Extract log entries from XML file
             List<SearchLogEntry> logEntries3 = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
-
             // Add log entries to the GridPane
             int row = 1;
             for (SearchLogEntry logEntry : logEntries3) {
@@ -385,11 +489,8 @@ public class actionController {
                 searchGrid.add(new Label(logEntry.searchArea), 15, row);
                 searchGrid.add(new Label(logEntry.searchCounty), 16, row);
                 searchGrid.add(new Label(logEntry.searchComments), 17, row);
-
-
                 row++;
             }
-
         } else {
             System.out.println("File does not exist.");
         }
@@ -401,85 +502,63 @@ public class actionController {
         searchGrid.add(new Label("Search #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
-
         searchGrid.add(new Label("Searched Person(s): ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 1, 0);
-
         searchGrid.add(new Label("Date: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 2, 0);
-
         searchGrid.add(new Label("Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 3, 0);
-
         searchGrid.add(new Label("Seized Items: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 4, 0);
-
         searchGrid.add(new Label("Grounds: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 5, 0);
-
         searchGrid.add(new Label("Type: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
-
         searchGrid.add(new Label("Method: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 7, 0);
-
         searchGrid.add(new Label("Witnesses: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 8, 0);
-
         searchGrid.add(new Label("Rank: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 9, 0);
-
         searchGrid.add(new Label("Name: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 10, 0);
-
         searchGrid.add(new Label("Number: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
-
         searchGrid.add(new Label("Agency: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 12, 0);
-
         searchGrid.add(new Label("Division: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 13, 0);
-
         searchGrid.add(new Label("Street: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 14, 0);
-
         searchGrid.add(new Label("Area: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 15, 0);
-
         searchGrid.add(new Label("County: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 16, 0);
-
         searchGrid.add(new Label("Comments: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 17, 0);
-
-
-
         // Set row constraints to apply to all rows
         RowConstraints rowConstraints3 = new RowConstraints();
         rowConstraints3.setVgrow(Priority.ALWAYS); // Allow vertical growth
         rowConstraints3.setMinHeight(100); // Set the minimum height
         rowConstraints3.setPrefHeight(100); // Set the preferred height
         rowConstraints3.setMaxHeight(100); // Set the maximum height
-
-
         // Add row constraints to all rows in the GridPane
         int numRows3 = searchGrid.getRowConstraints().size();
         for (int i = 0; i < numRows3; i++) {
@@ -823,5 +902,17 @@ public class actionController {
     public void onSideDrag(MouseEvent mouseEvent) {
         mainStage.mainRT.setX(mouseEvent.getScreenX() - xOffset);
         mainStage.mainRT.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
+    public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("arrestReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Arrest Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
     }
 }

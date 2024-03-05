@@ -1,6 +1,7 @@
 /* Define styles for the scroll pane */
 .scroll-pane {
-    -fx-background: transparent; /* Transparent background */
+    -fx-background:  #2a2e3d; /* Transparent background */
+
 }
 .scroll-pane .corner {
     -fx-background-color: transparent;
@@ -13,7 +14,7 @@
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #a6a6a6; /* Thumb color */
+    -fx-background-color: #4d4d4d; /* Thumb color */
     -fx-min-height: 15px; /* Thicker thumb */
 }
 
@@ -29,7 +30,7 @@
 }
 
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: #a6a6a6; /* Thumb color */
+    -fx-background-color: #4d4d4d; /* Thumb color */
     -fx-min-width: 15px; /* Thicker thumb */
 }
 

@@ -3,16 +3,16 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,11 +32,12 @@ public class reportController {
     public TextField calloutReportNumber;
     public TextField calloutReportRank;
     public TextField calloutReportName;
-    public boolean mouseEnteredScreenAlready = false;
     public TextField calloutReportResponseArea;
     public TextField calloutReportResponseCounty;
     public TextField calloutReportResponseAddress;
     public VBox vbox;
+    public boolean mouseEnteredScreenAlready = false;
+    public Label incompleteLabel;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -81,33 +82,58 @@ public class reportController {
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        // Load existing logs from XML
-        CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
-        List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+        if (calloutReportSpinner.getValue() == null
+                || calloutReportNotesTextArea.getText().isEmpty()
+                || calloutReportResponseGrade.getText().isEmpty()
+                || calloutReportResponeType.getText().isEmpty()
+                || calloutReportTime.getText().isEmpty()
+                || calloutReportDate.getText().isEmpty()
+                || calloutReportDivision.getText().isEmpty()
+                || calloutReportAgency.getText().isEmpty()
+                || calloutReportNumber.getText().isEmpty()
+                || calloutReportRank.getText().isEmpty()
+                || calloutReportName.getText().isEmpty()
+                || calloutReportResponseArea.getText().isEmpty()
+                || calloutReportResponseCounty.getText().isEmpty()
+                || calloutReportResponseAddress.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            System.out.println("nothing empty, printing values");
+            // Load existing logs from XML
+            CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 
-        // Add new entry
-        logs.add(new CalloutLogEntry(
-                calloutReportDate.getText(),
-                calloutReportTime.getText(),
-                calloutReportName.getText(),
-                calloutReportRank.getText(),
-                calloutReportNumber.getText(),
-                calloutReportDivision.getText(),
-                calloutReportAgency.getText(),
-                calloutReportResponeType.getText(),
-                calloutReportResponseGrade.getText(),
-                calloutReportSpinner.getValue().toString(),
-                calloutReportNotesTextArea.getText(),
-                calloutReportResponseAddress.getText(),
-                calloutReportResponseCounty.getText(),
-                calloutReportResponseArea.getText()
+            // Add new entry
+            logs.add(new CalloutLogEntry(
+                    calloutReportDate.getText(),
+                    calloutReportTime.getText(),
+                    calloutReportName.getText(),
+                    calloutReportRank.getText(),
+                    calloutReportNumber.getText(),
+                    calloutReportDivision.getText(),
+                    calloutReportAgency.getText(),
+                    calloutReportResponeType.getText(),
+                    calloutReportResponseGrade.getText(),
+                    calloutReportSpinner.getValue().toString(),
+                    calloutReportNotesTextArea.getText(),
+                    calloutReportResponseAddress.getText(),
+                    calloutReportResponseCounty.getText(),
+                    calloutReportResponseArea.getText()
 
-        ));
-        // Save logs to XML
-        CalloutReportLogs.saveLogsToXML(logs);
+            ));
+            // Save logs to XML
+            CalloutReportLogs.saveLogsToXML(logs);
 
-        Stage stag = (Stage) vbox.getScene().getWindow();
-        stag.close();
+            Stage stag = (Stage) vbox.getScene().getWindow();
+            stag.close();
+        }
     }
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {

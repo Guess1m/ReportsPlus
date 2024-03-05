@@ -4,16 +4,16 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,6 +40,7 @@ public class SearchReportController {
     public TextField searchCounty;
     public TextArea searchComments;
     public VBox vbox;
+    public Label incompleteLabel;
     boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -76,39 +77,66 @@ public class SearchReportController {
     }
 
     public void onSearchReportSubmitBtnClick(ActionEvent actionEvent) {
-        // Load existing logs from XML
-        SearchReportLogs searchReportLogs = new SearchReportLogs();
-        List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
+        if (SearchNumber.getValue() == null
+                || searchedPersons.getText().isEmpty()
+                || searchDate.getText().isEmpty()
+                || searchTime.getText().isEmpty()
+                || searchSeizedItems.getText().isEmpty()
+                || searchGrounds.getText().isEmpty()
+                || searchType.getSelectionModel().isEmpty() || searchType.getValue() == null
+                || searchMethod.getSelectionModel().isEmpty() || searchMethod.getValue() == null
+                || searchWitnesses.getText().isEmpty()
+                || officerRank.getText().isEmpty()
+                || officerName.getText().isEmpty()
+                || officerNumber.getText().isEmpty()
+                || officerAgency.getText().isEmpty()
+                || officerDivision.getText().isEmpty()
+                || searchStreet.getText().isEmpty()
+                || searchArea.getText().isEmpty()
+                || searchCounty.getText().isEmpty()
+                || searchComments.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            SearchReportLogs searchReportLogs = new SearchReportLogs();
+            List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 
 // Add new entry
-        logs.add(new SearchLogEntry(
-                SearchNumber.getValue().toString(),
-                searchedPersons.getText(),
-                searchDate.getText(),
-                searchTime.getText(),
-                searchSeizedItems.getText(),
-                searchGrounds.getText(),
-                searchType.getValue().toString(),
-                searchMethod.getValue().toString(),
-                searchWitnesses.getText(),
-                officerRank.getText(),
-                officerName.getText(),
-                officerNumber.getText(),
-                officerAgency.getText(),
-                officerDivision.getText(),
-                searchStreet.getText(),
-                searchArea.getText(),
-                searchCounty.getText(),
-                searchComments.getText()
-        ));
+            logs.add(new SearchLogEntry(
+                    SearchNumber.getValue().toString(),
+                    searchedPersons.getText(),
+                    searchDate.getText(),
+                    searchTime.getText(),
+                    searchSeizedItems.getText(),
+                    searchGrounds.getText(),
+                    searchType.getValue().toString(),
+                    searchMethod.getValue().toString(),
+                    searchWitnesses.getText(),
+                    officerRank.getText(),
+                    officerName.getText(),
+                    officerNumber.getText(),
+                    officerAgency.getText(),
+                    officerDivision.getText(),
+                    searchStreet.getText(),
+                    searchArea.getText(),
+                    searchCounty.getText(),
+                    searchComments.getText()
+            ));
 
 // Save logs to XML
-        SearchReportLogs.saveLogsToXML(logs);
+            SearchReportLogs.saveLogsToXML(logs);
 
 // Close the stage
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        stage.close();
-
+            Stage stage = (Stage) vbox.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

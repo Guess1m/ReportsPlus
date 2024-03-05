@@ -3,8 +3,11 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +40,7 @@ public class IncidentReportController {
     public TextArea incidentActionsTaken;
     public TextArea incidentComments;
     public VBox vbox;
+    public Label incompleteLabel;
     Boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -69,36 +74,61 @@ public class IncidentReportController {
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        // Load existing logs from XML
-        IncidentReportLogs calloutReportLogs = new IncidentReportLogs();
-        List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+        if (Spinner.getValue() == null
+                || incidentDate.getText().isEmpty()
+                || incidentTime.getText().isEmpty()
+                || incidentStatement.getText().isEmpty()
+                || incidentWitnesses.getText().isEmpty()
+                || incidentVictims.getText().isEmpty()
+                || officerName.getText().isEmpty()
+                || officerRank.getText().isEmpty()
+                || officerNumber.getText().isEmpty()
+                || officerAgency.getText().isEmpty()
+                || officerDivision.getText().isEmpty()
+                || incidentStreet.getText().isEmpty()
+                || incidentArea.getText().isEmpty()
+                || incidentCounty.getText().isEmpty()
+                || incidentActionsTaken.getText().isEmpty()
+                || incidentComments.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            IncidentReportLogs calloutReportLogs = new IncidentReportLogs();
+            List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 
-        // Add new entry
-        logs.add(new IncidentLogEntry(
-                Spinner.getValue().toString(),
-                incidentDate.getText(),
-                incidentTime.getText(),
-                incidentStatement.getText(),
-                incidentWitnesses.getText(),
-                incidentVictims.getText(),
-                officerName.getText(),
-                officerRank.getText(),
-                officerNumber.getText(),
-                officerAgency.getText(),
-                officerDivision.getText(),
-                incidentStreet.getText(),
-                incidentArea.getText(),
-                incidentCounty.getText(),
-                incidentActionsTaken.getText(),
-                incidentComments.getText()
-        ));
+            // Add new entry
+            logs.add(new IncidentLogEntry(
+                    Spinner.getValue().toString(),
+                    incidentDate.getText(),
+                    incidentTime.getText(),
+                    incidentStatement.getText(),
+                    incidentWitnesses.getText(),
+                    incidentVictims.getText(),
+                    officerName.getText(),
+                    officerRank.getText(),
+                    officerNumber.getText(),
+                    officerAgency.getText(),
+                    officerDivision.getText(),
+                    incidentStreet.getText(),
+                    incidentArea.getText(),
+                    incidentCounty.getText(),
+                    incidentActionsTaken.getText(),
+                    incidentComments.getText()
+            ));
 
-        // Save logs to XML
-        IncidentReportLogs.saveLogsToXML(logs);
+            // Save logs to XML
+            IncidentReportLogs.saveLogsToXML(logs);
 
-        Stage stag = (Stage) vbox.getScene().getWindow();
-        stag.close();
-
+            Stage stag = (Stage) vbox.getScene().getWindow();
+            stag.close();
+        }
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

@@ -3,8 +3,11 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +36,7 @@ public class patrolReportController {
     public TextField officerAgency;
     public TextField officerVehicle;
     public TextArea patrolComments;
+    public Label incompleteLabel;
     boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -65,30 +70,52 @@ public class patrolReportController {
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
-// Load existing logs from XML
-        PatrolReportLogs searchReportLogs = new PatrolReportLogs();
-        List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
+        if (patrolNumber.getValue() == null
+                || patrolDate.getText().isEmpty()
+                || patrolLength.getText().isEmpty()
+                || patrolStartTime.getText().isEmpty()
+                || patrolStopTime.getText().isEmpty()
+                || officerRank.getText().isEmpty()
+                || officerName.getText().isEmpty()
+                || officerNumber.getText().isEmpty()
+                || officerDivision.getText().isEmpty()
+                || officerAgency.getText().isEmpty()
+                || officerVehicle.getText().isEmpty()
+                || patrolComments.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            PatrolReportLogs searchReportLogs = new PatrolReportLogs();
+            List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
 
-        // Add new entry
-        logs.add(new PatrolLogEntry(
-                patrolNumber.getValue().toString(),
-                patrolDate.getText(),
-                patrolLength.getText(),
-                patrolStartTime.getText(),
-                patrolStopTime.getText(),
-                officerRank.getText(),
-                officerName.getText(),
-                officerNumber.getText(),
-                officerDivision.getText(),
-                officerAgency.getText(),
-                officerVehicle.getText(),
-                patrolComments.getText()
-        ));
-        // Save logs to XML
-        PatrolReportLogs.saveLogsToXML(logs);
-        // Close the stage
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        stage.close();
+            // Add new entry
+            logs.add(new PatrolLogEntry(
+                    patrolNumber.getValue().toString(),
+                    patrolDate.getText(),
+                    patrolLength.getText(),
+                    patrolStartTime.getText(),
+                    patrolStopTime.getText(),
+                    officerRank.getText(),
+                    officerName.getText(),
+                    officerNumber.getText(),
+                    officerDivision.getText(),
+                    officerAgency.getText(),
+                    officerVehicle.getText(),
+                    patrolComments.getText()
+            ));
+            // Save logs to XML
+            PatrolReportLogs.saveLogsToXML(logs);
+            // Close the stage
+            Stage stage = (Stage) vbox.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

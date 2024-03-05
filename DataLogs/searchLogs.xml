@@ -40,4 +40,44 @@
         <searchComments>fdsfds</searchComments>
         <searchedPersons>fdsfds</searchedPersons>
     </logs>
+    <logs>
+        <SearchNumber>0</SearchNumber>
+        <searchDate>2024-03-05</searchDate>
+        <searchTime>03:46:17 PM</searchTime>
+        <searchSeizedItems>ads</searchSeizedItems>
+        <searchGrounds>asd</searchGrounds>
+        <searchType>Baggage Search</searchType>
+        <searchMethod>Consent Search</searchMethod>
+        <searchWitnesses>s</searchWitnesses>
+        <officerRank>Police Officer III+1</officerRank>
+        <officerName>asdfafds</officerName>
+        <officerNumber>afsdfdsa</officerNumber>
+        <officerAgency>Federal Investigation Bureau</officerAgency>
+        <officerDivision> Southcentral Patrol Division</officerDivision>
+        <searchStreet>ads</searchStreet>
+        <searchArea>ads</searchArea>
+        <searchCounty>ads</searchCounty>
+        <searchComments>ads</searchComments>
+        <searchedPersons>s</searchedPersons>
+    </logs>
+    <logs>
+        <SearchNumber>0</SearchNumber>
+        <searchDate>2024-03-05</searchDate>
+        <searchTime>03:46:34 PM</searchTime>
+        <searchSeizedItems>sad</searchSeizedItems>
+        <searchGrounds>asd</searchGrounds>
+        <searchType>Pat-down Search</searchType>
+        <searchMethod>Exigent Circumstances</searchMethod>
+        <searchWitnesses>asd</searchWitnesses>
+        <officerRank>Police Officer III+1</officerRank>
+        <officerName>asdfafds</officerName>
+        <officerNumber>afsdfdsa</officerNumber>
+        <officerAgency>Federal Investigation Bureau</officerAgency>
+        <officerDivision> Southcentral Patrol Division</officerDivision>
+        <searchStreet>das</searchStreet>
+        <searchArea>ads</searchArea>
+        <searchCounty>asd</searchCounty>
+        <searchComments>sad</searchComments>
+        <searchedPersons>ads</searchedPersons>
+    </logs>
 </searchReportLogs>

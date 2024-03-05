@@ -1,214 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit"
-      prefHeight="704.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21"
-      fx:controller="com.drozal.dataterminal.reportController">
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="704.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.reportController">
     <padding>
-        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
     <children>
-        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="705.0" prefWidth="675.0" style="-fx-background-color: #2a2e3d;">
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="675.0" style="-fx-background-color: #2a2e3d;">
             <children>
-                <Pane layoutX="23.0" layoutY="77.0" prefWidth="661.0" style="-fx-background-color: none;"
-                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Pane layoutX="23.0" layoutY="77.0" prefWidth="661.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="calloutReportDate" layoutX="20.0" layoutY="32.0" prefHeight="38.0"
-                                   prefWidth="340.0" promptText="Date" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportDate" layoutX="20.0" layoutY="32.0" prefHeight="38.0" prefWidth="340.0" promptText="Date" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportTime" layoutX="373.0" layoutY="32.0" prefHeight="38.0"
-                                   prefWidth="288.0" promptText="Time" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportTime" layoutX="373.0" layoutY="32.0" prefHeight="38.0" prefWidth="288.0" promptText="Time" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" layoutY="2.0" styleClass="subheader"
-                               stylesheets="@css/form/formLabels.css" text="Timestamp Info" textAlignment="CENTER"
-                               textFill="#616161">
+                        <Label layoutX="20.0" layoutY="2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
                     </children>
                 </Pane>
-                <Pane layoutY="153.0" prefWidth="0.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="153.0" prefWidth="0.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="calloutReportName" layoutX="20.0" layoutY="27.0" prefHeight="38.0"
-                                   prefWidth="247.0" promptText="Name" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportName" layoutX="20.0" layoutY="27.0" prefHeight="38.0" prefWidth="247.0" promptText="Name" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportRank" layoutX="282.0" layoutY="27.0" prefHeight="38.0"
-                                   prefWidth="380.0" promptText="Rank" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportRank" layoutX="282.0" layoutY="27.0" prefHeight="38.0" prefWidth="380.0" promptText="Rank" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportNumber" layoutX="20.0" layoutY="75.0" prefHeight="38.0"
-                                   prefWidth="88.0" promptText="#" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportNumber" layoutX="20.0" layoutY="75.0" prefHeight="38.0" prefWidth="88.0" promptText="#" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportDivision" layoutX="125.0" layoutY="76.0" prefHeight="38.0"
-                                   prefWidth="280.0" promptText="Division" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportDivision" layoutX="125.0" layoutY="76.0" prefHeight="38.0" prefWidth="280.0" promptText="Division" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportAgency" layoutX="421.0" layoutY="76.0" prefHeight="38.0"
-                                   prefWidth="241.0" promptText="Agency" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportAgency" layoutX="421.0" layoutY="76.0" prefHeight="38.0" prefWidth="241.0" promptText="Agency" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
-                               text="Officer Info" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Officer Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
                     </children>
                 </Pane>
-                <AnchorPane layoutX="3.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                            minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMouseDrag"
-                            onMousePressed="#onMousePress" prefHeight="76.0" prefWidth="675.0"
-                            style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane layoutX="3.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="76.0" prefWidth="675.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label layoutX="12.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="28.0"/>
+                                <Font name="System Bold" size="28.0" />
                             </font>
                         </Label>
-                        <Label layoutX="12.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
-                               textFill="#00a2ff">
+                        <Label layoutX="12.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER" textFill="#00a2ff">
                             <font>
-                                <Font name="System Bold" size="22.0"/>
+                                <Font name="System Bold" size="22.0" />
                             </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="194.0" layoutY="15.0" prefHeight="51.0" prefWidth="451.0"
-                               text="New Callout Report" textAlignment="CENTER" textFill="#c6c6c6"
-                               AnchorPane.leftAnchor="194.0" AnchorPane.rightAnchor="30.0">
+                        <Label alignment="CENTER" layoutX="194.0" layoutY="15.0" prefHeight="51.0" prefWidth="451.0" text="New Callout Report" textAlignment="CENTER" textFill="#c6c6c6" AnchorPane.leftAnchor="194.0" AnchorPane.rightAnchor="30.0">
                             <font>
-                                <Font name="System Bold" size="27.0"/>
+                                <Font name="System Bold" size="27.0" />
                             </font>
                         </Label>
-                        <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="631.0" layoutY="28.0"
-                                   onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
-                                   AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="631.0" layoutY="28.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                             <image>
-                                <Image url="@imgs/icons/cross.png"/>
+                                <Image url="@imgs/icons/cross.png" />
                             </image>
                         </ImageView>
                     </children>
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </AnchorPane>
-                <Pane layoutY="271.0" prefWidth="0.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="271.0" prefWidth="0.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextField fx:id="calloutReportResponeType" layoutX="20.0" layoutY="27.0" prefHeight="38.0"
-                                   prefWidth="294.0" promptText="Type" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportResponeType" layoutX="20.0" layoutY="27.0" prefHeight="38.0" prefWidth="294.0" promptText="Type" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportResponseGrade" layoutX="329.0" layoutY="27.0" prefHeight="38.0"
-                                   prefWidth="190.0" promptText="Code" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportResponseGrade" layoutX="329.0" layoutY="27.0" prefHeight="38.0" prefWidth="190.0" promptText="Code" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Spinner fx:id="calloutReportSpinner" editable="true" layoutX="598.0" layoutY="33.0"
-                                 prefHeight="18.0" prefWidth="64.0" stylesheets="@css/form/formSpinner.css">
+                        <Spinner fx:id="calloutReportSpinner" editable="true" layoutX="598.0" layoutY="33.0" prefHeight="18.0" prefWidth="64.0" stylesheets="@css/form/formSpinner.css">
                             <effect>
                                 <DropShadow>
                                     <color>
-                                        <Color opacity="0.2671755850315094"/>
+                                        <Color opacity="0.2671755850315094" />
                                     </color>
                                 </DropShadow>
                             </effect>
                         </Spinner>
-                        <TextField fx:id="calloutReportResponseCounty" layoutX="20.0" layoutY="76.0" prefHeight="38.0"
-                                   prefWidth="294.0" promptText="County" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportResponseCounty" layoutX="20.0" layoutY="76.0" prefHeight="38.0" prefWidth="294.0" promptText="County" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportResponseArea" layoutX="328.0" layoutY="76.0" prefHeight="38.0"
-                                   prefWidth="333.0" promptText="Area" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportResponseArea" layoutX="328.0" layoutY="76.0" prefHeight="38.0" prefWidth="333.0" promptText="Area" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="calloutReportResponseAddress" layoutX="20.0" layoutY="125.0" prefHeight="38.0"
-                                   prefWidth="641.0" promptText="Address" stylesheets="@css/form/formFields.css">
+                        <TextField fx:id="calloutReportResponseAddress" layoutX="20.0" layoutY="125.0" prefHeight="38.0" prefWidth="641.0" promptText="Address" stylesheets="@css/form/formFields.css">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </TextField>
                         <Label layoutX="537.0" layoutY="37.0" opacity="0.82" text="Callout #" textFill="#6f6f6f">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
-                               text="Callout Info" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Callout Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
                     </children>
                 </Pane>
                 <Pane layoutY="440.0" prefWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <TextArea fx:id="calloutReportNotesTextArea" layoutX="20.0" layoutY="31.0" prefHeight="163.0"
-                                  prefWidth="641.0" promptText="Notes.." style="-fx-background-color: none;"
-                                  stylesheets="@css/form/formTextArea.css" wrapText="true">
+                        <TextArea fx:id="calloutReportNotesTextArea" layoutX="20.0" layoutY="31.0" prefHeight="163.0" prefWidth="641.0" promptText="Notes.." style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </TextArea>
-                        <Label layoutX="20.0" prefHeight="25.0" prefWidth="451.0" styleClass="subheader"
-                               stylesheets="@css/form/formLabels.css" text="Event Info/Details" textAlignment="CENTER"
-                               textFill="#616161">
+                        <Label layoutX="20.0" prefHeight="25.0" prefWidth="451.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Event Info/Details" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
                     </children>
                 </Pane>
-                <Button fx:id="calloutReportSubmitBtn" layoutX="558.0" layoutY="646.0" mnemonicParsing="false"
-                        onAction="#onCalloutReportSubmitBtnClick" stylesheets="@css/main/mainBtn.css" text="Submit"
-                        textFill="#008cd7" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="22.0">
+                <Button fx:id="calloutReportSubmitBtn" layoutX="558.0" layoutY="646.0" mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick" stylesheets="@css/main/mainBtn.css" text="Submit" textFill="#008cd7" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="22.0">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="System Bold" size="16.0" />
                     </font>
                     <effect>
                         <DropShadow>
                             <color>
-                                <Color red="0.5600000023841858" green="0.5600000023841858" blue="0.5600000023841858"
-                                       opacity="0.3969465494155884"/>
+                                <Color red="0.5600000023841858" green="0.5600000023841858" blue="0.5600000023841858" opacity="0.3969465494155884" />
                             </color>
                         </DropShadow>
                     </effect>
                 </Button>
+            <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="311.0" layoutY="632.0" prefHeight="76.0" prefWidth="247.0" textFill="#3ab93abf" visible="false">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </children>

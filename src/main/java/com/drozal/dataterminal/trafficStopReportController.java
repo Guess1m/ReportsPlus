@@ -4,15 +4,19 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +42,7 @@ public class trafficStopReportController {
     public TextArea comments;
     public TextArea violationsNotes;
     public VBox vbox;
+    public Label incompleteLabel;
     private double xOffset = 0;
     private double yOffset = 0;
     private boolean hasEntered = false;
@@ -82,36 +87,62 @@ public class trafficStopReportController {
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        // Load existing logs from XML
-        TrafficStopReportLogs calloutReportLogs = new TrafficStopReportLogs();
-        List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
+        if (ResponseColor.getSelectionModel().isEmpty() || ResponseColor.getValue() == null
+                || ReponseType.getSelectionModel().isEmpty() || ReponseType.getValue() == null
+                || ReponsePlateNumber.getText().isEmpty()
+                || Spinner.getValue() == null
+                || ResponseStreet.getText().isEmpty()
+                || ResponseArea.getText().isEmpty()
+                || ResponseCounty.getText().isEmpty()
+                || Agency.getText().isEmpty()
+                || Division.getText().isEmpty()
+                || Number.getText().isEmpty()
+                || Rank.getText().isEmpty()
+                || Name.getText().isEmpty()
+                || calloutReportTime.getText().isEmpty()
+                || calloutReportDate.getText().isEmpty()
+                || actionsTakenNotes.getText().isEmpty()
+                || comments.getText().isEmpty()
+                || violationsNotes.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            TrafficStopReportLogs calloutReportLogs = new TrafficStopReportLogs();
+            List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 
-        // Add new entry
-        logs.add(new TrafficStopLogEntry(
-                calloutReportDate.getText(),
-                calloutReportTime.getText(),
-                Name.getText(),
-                Rank.getText(),
-                Number.getText(),
-                Division.getText(),
-                Agency.getText(),
-                Spinner.getValue().toString(),
-                violationsNotes.getText(),
-                comments.getText(),
-                actionsTakenNotes.getText(),
-                ResponseStreet.getText(),
-                ResponseCounty.getText(),
-                ResponseArea.getText(),
-                ReponsePlateNumber.getText(),
-                getResponseColor().getValue().toString(),
-                getReponseType().getValue().toString()
-        ));
-        // Save logs to XML
-        TrafficStopReportLogs.saveLogsToXML(logs);
+            // Add new entry
+            logs.add(new TrafficStopLogEntry(
+                    calloutReportDate.getText(),
+                    calloutReportTime.getText(),
+                    Name.getText(),
+                    Rank.getText(),
+                    Number.getText(),
+                    Division.getText(),
+                    Agency.getText(),
+                    Spinner.getValue().toString(),
+                    violationsNotes.getText(),
+                    comments.getText(),
+                    actionsTakenNotes.getText(),
+                    ResponseStreet.getText(),
+                    ResponseCounty.getText(),
+                    ResponseArea.getText(),
+                    ReponsePlateNumber.getText(),
+                    getResponseColor().getValue().toString(),
+                    getReponseType().getValue().toString()
+            ));
+            // Save logs to XML
+            TrafficStopReportLogs.saveLogsToXML(logs);
 
-        Stage stag = (Stage) vbox.getScene().getWindow();
-        stag.close();
-
+            Stage stag = (Stage) vbox.getScene().getWindow();
+            stag.close();
+        }
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

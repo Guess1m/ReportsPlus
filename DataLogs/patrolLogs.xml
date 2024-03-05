@@ -28,4 +28,18 @@
         <officerVehicle>Dodge Charger</officerVehicle>
         <patrolComments>n/a</patrolComments>
     </logs>
+    <logs>
+        <patrolNumber>1</patrolNumber>
+        <patrolDate>2024-03-05</patrolDate>
+        <patrolLength>s</patrolLength>
+        <patrolStartTime>sfd</patrolStartTime>
+        <patrolStopTime>03:43:46 PM</patrolStopTime>
+        <officerRank>Police Officer III+1</officerRank>
+        <officerName>asdfafds</officerName>
+        <officerNumber>afsdfdsa</officerNumber>
+        <officerDivision> Southcentral Patrol Division</officerDivision>
+        <officerAgency>Federal Investigation Bureau</officerAgency>
+        <officerVehicle>sdf</officerVehicle>
+        <patrolComments>s</patrolComments>
+    </logs>
 </patrolReportLogs>

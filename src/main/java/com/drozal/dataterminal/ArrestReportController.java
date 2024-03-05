@@ -4,6 +4,8 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -11,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,6 +42,7 @@ public class ArrestReportController {
     public TextField officerNumber;
     public TextField officerDivision;
     public TextField officerAgency;
+    public Label incompleteLabel;
     boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -75,36 +79,66 @@ public class ArrestReportController {
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
-        // Load existing logs from XML
-        ArrestReportLogs searchReportLogs = new ArrestReportLogs();
-        List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
 
-        // Add new entry
-        logs.add(new ArrestLogEntry(
-                arrestNumber.getValue().toString(),
-                arrestDate.getText(),
-                arrestTime.getText(),
-                arrestCounty.getText(),
-                arrestArea.getText(),
-                arrestStreet.getText(),
-                arresteeName.getText(),
-                arresteeAge.getText(),
-                arresteeGender.getValue().toString(),
-                arresteeEthnicity.getText(),
-                arresteeDescription.getText(),
-                arresteeMedicalInformation.getText(),
-                arrestDetails.getText(),
-                officerRank.getText(),
-                officerName.getText(),
-                officerNumber.getText(),
-                officerDivision.getText(),
-                officerAgency.getText()
-        ));
-        // Save logs to XML
-        ArrestReportLogs.saveLogsToXML(logs);
-        // Close the stage
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        stage.close();
+        if (arrestNumber.getValue() == null
+                || arrestDate.getText().isEmpty()
+                || arrestTime.getText().isEmpty()
+                || arrestCounty.getText().isEmpty()
+                || arrestArea.getText().isEmpty()
+                || arrestStreet.getText().isEmpty()
+                || arresteeName.getText().isEmpty()
+                || arresteeAge.getText().isEmpty()
+                || arresteeGender.getValue() == null
+                || arresteeEthnicity.getText().isEmpty()
+                || arresteeDescription.getText().isEmpty()
+                || arresteeMedicalInformation.getText().isEmpty()
+                || arrestDetails.getText().isEmpty()
+                || officerRank.getText().isEmpty()
+                || officerName.getText().isEmpty()
+                || officerNumber.getText().isEmpty()
+                || officerDivision.getText().isEmpty()
+                || officerAgency.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            System.out.println("nothing empty, printing values");
+            // Load existing logs from XML
+            ArrestReportLogs searchReportLogs = new ArrestReportLogs();
+            List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+
+            // Add new entry
+            logs.add(new ArrestLogEntry(
+                    arrestNumber.getValue().toString(),
+                    arrestDate.getText(),
+                    arrestTime.getText(),
+                    arrestCounty.getText(),
+                    arrestArea.getText(),
+                    arrestStreet.getText(),
+                    arresteeName.getText(),
+                    arresteeAge.getText(),
+                    arresteeGender.getValue().toString(),
+                    arresteeEthnicity.getText(),
+                    arresteeDescription.getText(),
+                    arresteeMedicalInformation.getText(),
+                    arrestDetails.getText(),
+                    officerRank.getText(),
+                    officerName.getText(),
+                    officerNumber.getText(),
+                    officerDivision.getText(),
+                    officerAgency.getText()
+            ));
+            // Save logs to XML
+            ArrestReportLogs.saveLogsToXML(logs);
+            // Close the stage
+            Stage stage = (Stage) vbox.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

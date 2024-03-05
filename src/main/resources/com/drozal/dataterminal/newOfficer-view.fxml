@@ -69,7 +69,7 @@
                     <children>
                         <TextField fx:id="nameField" layoutX="23.0" layoutY="81.0" prefHeight="35.0" prefWidth="208.0"
                                    promptText="Name" style="-fx-background-color: none; -fx-text-fill: #004266;"
-                                   styleClass="text-field-custom" stylesheets="@css/style.css">
+                                   styleClass="text-field-custom" stylesheets="@css/main/style.css">
                             <font>
                                 <Font name="Segoe UI Semibold" size="19.0"/>
                             </font>
@@ -82,7 +82,7 @@
                         <TextField fx:id="numberField" layoutX="307.0" layoutY="81.0" prefHeight="35.0"
                                    prefWidth="108.0" promptText="Number"
                                    style="-fx-background-color: none; -fx-text-fill: #004266;"
-                                   styleClass="text-field-custom" stylesheets="@css/style.css">
+                                   styleClass="text-field-custom" stylesheets="@css/main/style.css">
                             <font>
                                 <Font name="Segoe UI Semibold" size="19.0"/>
                             </font>

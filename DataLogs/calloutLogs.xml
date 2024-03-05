@@ -150,4 +150,34 @@
         <responseGrade>asfd</responseGrade>
         <time>12:25:41 PM</time>
     </logs>
+    <logs>
+        <CalloutNumber>1</CalloutNumber>
+        <NotesTextArea>lsakdjflaksjflkjasdf</NotesTextArea>
+        <ResponseGrade>code</ResponseGrade>
+        <ResponeType>type</ResponeType>
+        <Time>01:42:30 AM</Time>
+        <Date>2024-03-05</Date>
+        <Division> Central Area Patrol Division</Division>
+        <Agency>Los Santos Police Department</Agency>
+        <Number>1-18</Number>
+        <Rank>Chief of Police</Rank>
+        <Name>Drozal</Name>
+        <Address>address</Address>
+        <County>counmty</County>
+        <Area>area</Area>
+        <address>address</address>
+        <agency>Los Santos Police Department</agency>
+        <area>area</area>
+        <calloutNumber>1</calloutNumber>
+        <county>counmty</county>
+        <date>2024-03-05</date>
+        <division> Central Area Patrol Division</division>
+        <name>Drozal</name>
+        <notesTextArea>lsakdjflaksjflkjasdf</notesTextArea>
+        <number>1-18</number>
+        <rank>Chief of Police</rank>
+        <responeType>type</responeType>
+        <responseGrade>code</responseGrade>
+        <time>01:42:30 AM</time>
+    </logs>
 </calloutReportLogs>

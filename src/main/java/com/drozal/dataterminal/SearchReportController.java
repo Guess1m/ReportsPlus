@@ -20,6 +20,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class SearchReportController {
     public Spinner SearchNumber;
+    public TextField searchedPersons;
     public TextField searchDate;
     public TextField searchTime;
     public TextArea searchSeizedItems;
@@ -36,6 +37,7 @@ public class SearchReportController {
     public TextField searchArea;
     public TextField searchCounty;
     public TextArea searchComments;
+
 
     boolean hasEntered = false;
     public VBox vbox;
@@ -79,6 +81,7 @@ public class SearchReportController {
 // Add new entry
         logs.add(new SearchLogEntry(
                 SearchNumber.getValue().toString(),
+                searchedPersons.getText(),
                 searchDate.getText(),
                 searchTime.getText(),
                 searchSeizedItems.getText(),

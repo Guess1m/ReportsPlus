@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <searchReportLogs>
     <logs>
-        <SearchNumber>1</SearchNumber>
-        <searchDate>2024-03-04</searchDate>
-        <searchTime>12:32:00 AM</searchTime>
-        <searchSeizedItems>seqized items</searchSeizedItems>
-        <searchGrounds>grounds</searchGrounds>
+        <SearchNumber>4</SearchNumber>
+        <searchDate>2024-03-05</searchDate>
+        <searchTime>01:10:42 AM</searchTime>
+        <searchSeizedItems>fdsfdsfds</searchSeizedItems>
+        <searchGrounds>dsffdsfds</searchGrounds>
         <searchType>Pat-down Search</searchType>
-        <searchMethod>Probable Cause</searchMethod>
-        <searchWitnesses>witnesses</searchWitnesses>
+        <searchMethod>Exigent Circumstances</searchMethod>
+        <searchWitnesses>fdsfds</searchWitnesses>
         <officerRank>Chief of Police</officerRank>
         <officerName>Drozal</officerName>
         <officerNumber>1-18</officerNumber>
         <officerAgency>Los Santos Police Department</officerAgency>
         <officerDivision> Central Area Patrol Division</officerDivision>
-        <searchStreet>street</searchStreet>
-        <searchArea>area</searchArea>
-        <searchCounty>county</searchCounty>
-        <searchComments>comments</searchComments>
+        <searchStreet>fdsfdsdfsfds</searchStreet>
+        <searchArea>fdsfdsfds</searchArea>
+        <searchCounty>sdfafdsafds</searchCounty>
+        <searchComments>fdsfdsfds</searchComments>
+        <searchedPersons>fdsfdsfdsSEARCHED PERSON</searchedPersons>
     </logs>
     <logs>
-        <SearchNumber>2</SearchNumber>
-        <searchDate>2024-03-04</searchDate>
-        <searchTime>12:34:17 AM</searchTime>
-        <searchSeizedItems>asdffdasadsf</searchSeizedItems>
-        <searchGrounds>sadfjnlkfdsaljkfdsakljh</searchGrounds>
-        <searchType>Exigent Circumstances Search</searchType>
-        <searchMethod>Exigent Circumstances</searchMethod>
-        <searchWitnesses></searchWitnesses>
+        <SearchNumber>3</SearchNumber>
+        <searchDate>2024-03-05</searchDate>
+        <searchTime>01:12:51 AM</searchTime>
+        <searchSeizedItems>fdsfds</searchSeizedItems>
+        <searchGrounds>sfdfds</searchGrounds>
+        <searchType>Baggage Search</searchType>
+        <searchMethod>Stop and Frisk</searchMethod>
+        <searchWitnesses>fdsfds</searchWitnesses>
         <officerRank>Chief of Police</officerRank>
         <officerName>Drozal</officerName>
         <officerNumber>1-18</officerNumber>
         <officerAgency>Los Santos Police Department</officerAgency>
         <officerDivision> Central Area Patrol Division</officerDivision>
-        <searchStreet>streetasfdafdsfads</searchStreet>
-        <searchArea>areaafsdfsda</searchArea>
-        <searchCounty>asdfdasfdsfa</searchCounty>
-        <searchComments>sdfadsfadsafsafd</searchComments>
+        <searchStreet>fdsfdsfds</searchStreet>
+        <searchArea>fds</searchArea>
+        <searchCounty>sffds</searchCounty>
+        <searchComments>fdsfds</searchComments>
+        <searchedPersons>fdsfds</searchedPersons>
     </logs>
 </searchReportLogs>

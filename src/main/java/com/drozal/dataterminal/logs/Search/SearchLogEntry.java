@@ -19,12 +19,14 @@ public class SearchLogEntry {
     public String searchArea;
     public String searchCounty;
     public String searchComments;
+    public String searchedPersons;
 
     public SearchLogEntry() {
     }
 
-    public SearchLogEntry(String searchNumber, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
+    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
         this.SearchNumber = searchNumber;
+        this.searchedPersons = searchedPersons;
         this.searchDate = searchDate;
         this.searchTime = searchTime;
         this.searchSeizedItems = searchSeizedItems;

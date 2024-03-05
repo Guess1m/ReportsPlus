@@ -50,6 +50,7 @@ public class SearchReportLogs {
                     Element logsElement = (Element) logsNode;
                     SearchLogEntry logEntry = new SearchLogEntry();
                     logEntry.SearchNumber = getTagValue(logsElement, "SearchNumber");
+                    logEntry.searchedPersons = getTagValue(logsElement, "searchedPersons");
                     logEntry.searchDate = getTagValue(logsElement, "searchDate");
                     logEntry.searchTime = getTagValue(logsElement, "searchTime");
                     logEntry.searchSeizedItems = getTagValue(logsElement, "searchSeizedItems");
@@ -80,6 +81,7 @@ public class SearchReportLogs {
     public static void addLogEntryToGrid(GridPane gridPane, SearchLogEntry logEntry, int rowIndex) {
         // Create labels for each log entry field
         Label spinnerLabel = createLabel(logEntry.SearchNumber);
+        Label searchedPersonsLabel = createLabel(logEntry.searchedPersons);
         Label incidentDateLabel = createLabel(logEntry.searchDate);
         Label incidentTimeLabel = createLabel(logEntry.searchTime);
         Label incidentStatementLabel = createLabel(logEntry.searchSeizedItems);
@@ -97,7 +99,7 @@ public class SearchReportLogs {
         Label incidentCommentsLabel = createLabel(logEntry.searchCounty);
 
 // Add labels to the GridPane
-        gridPane.addRow(rowIndex, spinnerLabel, incidentDateLabel, incidentTimeLabel, incidentStatementLabel,
+        gridPane.addRow(rowIndex, spinnerLabel, searchedPersonsLabel, incidentDateLabel, incidentTimeLabel, incidentStatementLabel,
                 incidentWitnessesLabel, incidentVictimsLabel, officerNameLabel, officerRankLabel, officerNumberLabel,
                 officerAgencyLabel, officerDivisionLabel, incidentStreetLabel, incidentAreaLabel, incidentCountyLabel,
                 incidentActionsTakenLabel, incidentCommentsLabel);

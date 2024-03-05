@@ -72,4 +72,22 @@
         <incidentActionsTaken>gfdgdf</incidentActionsTaken>
         <incidentComments>gfdfdg</incidentComments>
     </logs>
+    <logs>
+        <incidentNumber>7</incidentNumber>
+        <incidentDate>2024-03-05</incidentDate>
+        <incidentTime>12:46:26 AM</incidentTime>
+        <incidentStatement>laksjdflkasjflk;asdjfl;kasdjfl;kajslkfjaslkjlk;sadjflkasdjfk</incidentStatement>
+        <incidentWitnesses>Witness</incidentWitnesses>
+        <incidentVictims>Victims</incidentVictims>
+        <officerName>Drozal</officerName>
+        <officerRank>Chief of Police</officerRank>
+        <officerNumber>1-18</officerNumber>
+        <officerAgency>Los Santos Police Department</officerAgency>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <incidentStreet>Street</incidentStreet>
+        <incidentArea>Area</incidentArea>
+        <incidentCounty>County</incidentCounty>
+        <incidentActionsTaken>asfedfdasfdsaasfddasfdsaffdsaasdf</incidentActionsTaken>
+        <incidentComments>fdsadfsaadfsadfsafdsafdsfadsafdsdafsfdas</incidentComments>
+    </logs>
 </incidentReportLogs>

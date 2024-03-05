@@ -138,20 +138,4 @@ public class reportController {
     public void onMouseExit(MouseEvent mouseEvent) {
         mouseEnteredScreenAlready = true;
     }
-
-    public void onCopyClick(ActionEvent actionEvent) {
-        String textToCopy = calloutReportNotesTextArea.getText();
-        ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(textToCopy);
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        clipboard.setContent(clipboardContent);
-    }
-
-    public void onPasteClick(ActionEvent actionEvent) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        if (clipboard.hasString()) {
-            String clipboardContent = clipboard.getString();
-            calloutReportNotesTextArea.appendText(clipboardContent);
-        }
-    }
 }

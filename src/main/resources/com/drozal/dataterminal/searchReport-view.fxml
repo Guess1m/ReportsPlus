@@ -12,19 +12,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="776.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.SearchReportController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="805.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.SearchReportController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
     <children>
-        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="777.0" prefWidth="684.0" style="-fx-background-color: white;">
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="684.0" style="-fx-background-color: #2a2e3d;">
             <children>
-                <Pane layoutX="13.0" layoutY="93.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="81.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp/Location Information" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp/Location Information" textAlignment="CENTER" textFill="#616161">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -33,7 +32,7 @@
                   <TextField fx:id="searchTime" layoutX="357.0" layoutY="28.0" prefHeight="36.0" prefWidth="310.0" promptText="Search Time" styleClass="text-field" stylesheets="@css/form/formFields.css" />
                     </children>
                 </Pane>
-                <Pane layoutX="13.0" layoutY="169.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="157.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <TextField fx:id="searchCounty" layoutX="20.0" prefHeight="36.0" prefWidth="338.0" promptText="County" styleClass="text-field" stylesheets="@css/form/formFields.css">
                             <font>
@@ -66,7 +65,7 @@
                         </Label>
                     </children>
                 </Pane>
-                <Pane layoutX="13.0" layoutY="260.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="248.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <TextField fx:id="officerName" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="305.0" promptText="Name" styleClass="text-field" stylesheets="@css/form/formFields.css">
                             <font>
@@ -93,62 +92,43 @@
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Reporting Officer" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Reporting Officer" textAlignment="CENTER" textFill="#616161">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
                     </children>
                 </Pane>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="686.0" style="-fx-background-color: #008cd7;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="684.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Line endX="1568.0" layoutX="-847.0" layoutY="82.0" opacity="0.83" startX="847.0" stroke="#434343" strokeWidth="10.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="-4.0" />
-                        <Label layoutX="15.0" layoutY="6.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                        <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="28.0" />
                             </font>
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
                         </Label>
-                        <Label layoutX="15.0" layoutY="41.0" text="Record Tool" textAlignment="CENTER" textFill="#dadada">
+                        <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER" textFill="#00a2ff">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" opacity="0.5" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
                         </Label>
-                        <Label alignment="CENTER" layoutX="191.0" layoutY="15.0" prefHeight="51.0" prefWidth="492.0" text="Search Report" textAlignment="CENTER" textFill="#d4eaff" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="1.0">
+                        <Label alignment="CENTER" layoutX="191.0" layoutY="12.0" prefHeight="51.0" prefWidth="492.0" text="Search Report" textAlignment="CENTER" textFill="#c6c6c6" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="1.0">
                             <font>
                                 <Font name="System Bold" size="33.0" />
                             </font>
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color red="0.6399999856948853" green="0.6399999856948853" blue="0.6399999856948853" opacity="0.4198473393917084" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
                         </Label>
                     </children>
+               <effect>
+                  <DropShadow />
+               </effect>
                 </AnchorPane>
-                <Pane layoutY="379.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Pane layoutY="367.0" prefHeight="174.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <TextField fx:id="searchGrounds" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="314.0" promptText="Grounds for search" styleClass="text-field" stylesheets="@css/form/formFields.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Search Information" textAlignment="CENTER" textFill="#616161">
+                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Search Information" textAlignment="CENTER" textFill="#616161">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -160,28 +140,33 @@
                      </font>
                   </TextField>
                   <ComboBox fx:id="searchMethod" layoutX="377.0" layoutY="76.0" prefHeight="38.0" prefWidth="290.0" promptText="Search Method" styleClass="combo-box" stylesheets="@css/form/formComboBox.css" />
+                  <TextField fx:id="searchedPersons" layoutX="20.0" layoutY="126.0" prefHeight="38.0" prefWidth="647.0" promptText="Searched Person(s)" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
                     </children>
                 </Pane>
-            <Pane layoutY="500.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Pane layoutY="536.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Summary" textAlignment="CENTER" textFill="#616161">
+                  <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Summary" textAlignment="CENTER" textFill="#616161">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="searchSeizedItems" layoutX="20.0" layoutY="28.0" prefHeight="85.0" prefWidth="647.0" promptText="Seized Item(s)" style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
+                  <TextArea fx:id="searchSeizedItems" layoutX="20.0" layoutY="28.0" prefHeight="85.0" prefWidth="647.0" promptText="Seized Item(s)" stylesheets="@css/form/formTextArea.css" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="searchComments" layoutX="22.0" layoutY="124.0" prefHeight="85.0" prefWidth="647.0" promptText="Comments.." style="-fx-background-color: none;" stylesheets="@css/form/formTextArea.css" wrapText="true">
+                  <TextArea fx:id="searchComments" layoutX="20.0" layoutY="124.0" prefHeight="85.0" prefWidth="647.0" promptText="Comments.." stylesheets="@css/form/formTextArea.css" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextArea>
                </children>
             </Pane>
-                <Button fx:id="SubmitBtn" layoutX="553.0" layoutY="721.0" mnemonicParsing="false" onAction="#onSearchReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0" stylesheets="@css/form/formButton.css" text="Submit" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="17.0">
+                <Button fx:id="SubmitBtn" layoutX="553.0" layoutY="756.0" mnemonicParsing="false" onAction="#onSearchReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0" stylesheets="@css/main/mainBtn.css" text="Submit" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="17.0">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>

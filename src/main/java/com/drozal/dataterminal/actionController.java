@@ -368,22 +368,24 @@ public class actionController {
             int row = 1;
             for (SearchLogEntry logEntry : logEntries3) {
                 searchGrid.add(new Label(logEntry.SearchNumber), 0, row);
-                searchGrid.add(new Label(logEntry.searchDate), 1, row);
-                searchGrid.add(new Label(logEntry.searchTime), 2, row);
-                searchGrid.add(new Label(logEntry.searchSeizedItems), 3, row);
-                searchGrid.add(new Label(logEntry.searchGrounds), 4, row);
-                searchGrid.add(new Label(logEntry.searchType), 5, row);
-                searchGrid.add(new Label(logEntry.searchMethod), 6, row);
-                searchGrid.add(new Label(logEntry.searchWitnesses), 7, row);
-                searchGrid.add(new Label(logEntry.officerRank), 8, row);
-                searchGrid.add(new Label(logEntry.officerName), 9, row);
-                searchGrid.add(new Label(logEntry.officerNumber), 10, row);
-                searchGrid.add(new Label(logEntry.officerAgency), 11, row);
-                searchGrid.add(new Label(logEntry.officerDivision), 12, row);
-                searchGrid.add(new Label(logEntry.searchStreet), 13, row);
-                searchGrid.add(new Label(logEntry.searchArea), 14, row);
-                searchGrid.add(new Label(logEntry.searchCounty), 15, row);
-                searchGrid.add(new Label(logEntry.searchComments), 16, row);
+                searchGrid.add(new Label(logEntry.searchedPersons), 1, row);
+                searchGrid.add(new Label(logEntry.searchDate), 2, row);
+                searchGrid.add(new Label(logEntry.searchTime), 3, row);
+                searchGrid.add(new Label(logEntry.searchSeizedItems), 4, row);
+                searchGrid.add(new Label(logEntry.searchGrounds), 5, row);
+                searchGrid.add(new Label(logEntry.searchType), 6, row);
+                searchGrid.add(new Label(logEntry.searchMethod), 7, row);
+                searchGrid.add(new Label(logEntry.searchWitnesses), 8, row);
+                searchGrid.add(new Label(logEntry.officerRank), 9, row);
+                searchGrid.add(new Label(logEntry.officerName), 10, row);
+                searchGrid.add(new Label(logEntry.officerNumber), 11, row);
+                searchGrid.add(new Label(logEntry.officerAgency), 12, row);
+                searchGrid.add(new Label(logEntry.officerDivision), 13, row);
+                searchGrid.add(new Label(logEntry.searchStreet), 14, row);
+                searchGrid.add(new Label(logEntry.searchArea), 15, row);
+                searchGrid.add(new Label(logEntry.searchCounty), 16, row);
+                searchGrid.add(new Label(logEntry.searchComments), 17, row);
+
 
                 row++;
             }
@@ -399,54 +401,75 @@ public class actionController {
         searchGrid.add(new Label("Search #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
-        searchGrid.add(new Label("Date: ") {{
+
+        searchGrid.add(new Label("Searched Person(s): ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 1, 0);
-        searchGrid.add(new Label("Time: ") {{
+
+        searchGrid.add(new Label("Date: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 2, 0);
-        searchGrid.add(new Label("Seized Items: ") {{
+
+        searchGrid.add(new Label("Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 3, 0);
-        searchGrid.add(new Label("Grounds: ") {{
+
+        searchGrid.add(new Label("Seized Items: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 4, 0);
-        searchGrid.add(new Label("Type: ") {{
+
+        searchGrid.add(new Label("Grounds: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 5, 0);
-        searchGrid.add(new Label("Method: ") {{
+
+        searchGrid.add(new Label("Type: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
-        searchGrid.add(new Label("Witnesses: ") {{
+
+        searchGrid.add(new Label("Method: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 7, 0);
-        searchGrid.add(new Label("Rank: ") {{
+
+        searchGrid.add(new Label("Witnesses: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 8, 0);
-        searchGrid.add(new Label("Name: ") {{
+
+        searchGrid.add(new Label("Rank: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 9, 0);
-        searchGrid.add(new Label("Number: ") {{
+
+        searchGrid.add(new Label("Name: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 10, 0);
-        searchGrid.add(new Label("Agency: ") {{
+
+        searchGrid.add(new Label("Number: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
-        searchGrid.add(new Label("Division: ") {{
+
+        searchGrid.add(new Label("Agency: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 12, 0);
-        searchGrid.add(new Label("Street: ") {{
+
+        searchGrid.add(new Label("Division: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 13, 0);
-        searchGrid.add(new Label("Area: ") {{
+
+        searchGrid.add(new Label("Street: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 14, 0);
-        searchGrid.add(new Label("County: ") {{
+
+        searchGrid.add(new Label("Area: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 15, 0);
-        searchGrid.add(new Label("Comments: ") {{
+
+        searchGrid.add(new Label("County: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 16, 0);
+
+        searchGrid.add(new Label("Comments: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 17, 0);
+
 
 
         // Set row constraints to apply to all rows

@@ -32,17 +32,17 @@
         <children>
             <AnchorPane layoutX="4.0" layoutY="6.0" onMouseDragged="#onSideDrag" onMousePressed="#onSideClick" prefHeight="763.0" prefWidth="203.0" style="-fx-background-color: #1e222c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutY="52.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="Shift Information" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="52.0">
+                    <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutY="52.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Shift Information" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="52.0">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="notesButton" alignment="CENTER" layoutX="10.0" layoutY="113.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="Notes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="notesButton" alignment="CENTER" layoutX="10.0" layoutY="113.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Notes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="174.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0" styleClass="button" stylesheets="@css/menu/menuButton.css" text="Create Report" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <MenuButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="174.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0" styleClass="button" stylesheets="@css/menu/createReportDropdown.css" text="Create Report" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <items>
                             <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
                             <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" onAction="#trafficStopReportButtonClick" text="Traffic Stop Report" />
@@ -59,7 +59,7 @@
                             <Font size="18.0" />
                         </font>
                     </MenuButton>
-                    <Button fx:id="codeButton" alignment="CENTER" layoutX="10.0" layoutY="297.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="Codes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="codeButton" alignment="CENTER" layoutX="10.0" layoutY="297.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Codes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -112,22 +112,22 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Button fx:id="mapButton" alignment="CENTER" layoutX="10.0" layoutY="358.0" mnemonicParsing="false" onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="Map" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="mapButton" alignment="CENTER" layoutX="10.0" layoutY="358.0" mnemonicParsing="false" onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Map" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutX="10.0" layoutY="419.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="DataTerminal Info" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutX="10.0" layoutY="419.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="DataTerminal Info" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="exitButton" alignment="CENTER" layoutX="10.0" layoutY="623.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="50.0" prefWidth="184.0" style="-fx-text-fill: #b30000;" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="EXIT" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="exitButton" alignment="CENTER" layoutX="10.0" layoutY="623.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="50.0" prefWidth="184.0" style="-fx-text-fill: #b30000;" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="EXIT" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font name="Arial" size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="logsButton" alignment="CENTER" layoutX="10.0" layoutY="236.0" mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/menuStyle.css" text="Browse Logs" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                    <Button fx:id="logsButton" alignment="CENTER" layoutX="10.0" layoutY="236.0" mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -364,22 +364,22 @@
                                         </font>
                                     </Label>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="29.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
-                                    <Button layoutX="279.0" layoutY="331.0" mnemonicParsing="false" onAction="#updateInfoButtonClick" prefHeight="39.0" prefWidth="99.0" stylesheets="@css/main/menuButton2.css" text="Update" textFill="#b2b2b2c7">
+                                    <Button layoutX="279.0" layoutY="331.0" mnemonicParsing="false" onAction="#updateInfoButtonClick" prefHeight="39.0" prefWidth="99.0" stylesheets="@css/main/mainBtn.css" text="Update" textFill="#b2b2b2c7">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Button>
-                                    <TextField fx:id="OfficerInfoName" layoutX="23.0" layoutY="53.0" prefHeight="38.0" prefWidth="355.0" promptText="Name" styleClass="text-field" stylesheets="@css/main/menuFields.css">
+                                    <TextField fx:id="OfficerInfoName" layoutX="23.0" layoutY="53.0" prefHeight="38.0" prefWidth="355.0" promptText="Name" styleClass="text-field" stylesheets="@css/form/formFields.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoCallsign" layoutX="23.0" layoutY="112.0" prefHeight="38.0" prefWidth="203.0" promptText="Callsign" styleClass="text-field" stylesheets="@css/main/menuFields.css">
+                                    <TextField fx:id="OfficerInfoCallsign" layoutX="23.0" layoutY="112.0" prefHeight="38.0" prefWidth="203.0" promptText="Callsign" styleClass="text-field" stylesheets="@css/form/formFields.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoNumber" layoutX="252.0" layoutY="112.0" prefHeight="38.0" prefWidth="126.0" promptText="Number" styleClass="text-field" stylesheets="@css/main/menuFields.css">
+                                    <TextField fx:id="OfficerInfoNumber" layoutX="252.0" layoutY="112.0" prefHeight="38.0" prefWidth="126.0" promptText="Number" styleClass="text-field" stylesheets="@css/form/formFields.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
@@ -389,9 +389,9 @@
                                             <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <ComboBox fx:id="OfficerInfoRank" layoutX="23.0" layoutY="170.0" prefHeight="38.0" prefWidth="355.0" promptText="Rank" style="-fx-background-color: none;" styleClass="combo-box" stylesheets="@css/main/menuComboBox.css" visibleRowCount="14" />
-                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="23.0" layoutY="226.0" prefHeight="38.0" prefWidth="355.0" promptText="Division" style="-fx-background-color: none;" stylesheets="@css/main/menuComboBox.css" visibleRowCount="14" />
-                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="23.0" layoutY="279.0" prefHeight="38.0" prefWidth="355.0" promptText="Agency" style="-fx-background-color: none;" stylesheets="@css/main/menuComboBox.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoRank" layoutX="23.0" layoutY="170.0" prefHeight="38.0" prefWidth="355.0" promptText="Rank" style="-fx-background-color: none;" styleClass="combo-box" stylesheets="@css/form/formComboBox.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="23.0" layoutY="226.0" prefHeight="38.0" prefWidth="355.0" promptText="Division" style="-fx-background-color: none;" stylesheets="@css/form/formComboBox.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="23.0" layoutY="279.0" prefHeight="38.0" prefWidth="355.0" promptText="Agency" style="-fx-background-color: none;" stylesheets="@css/form/formComboBox.css" visibleRowCount="14" />
                                 </children>
                         <effect>
                            <DropShadow />
@@ -434,7 +434,7 @@
                                             <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Spinner fx:id="calloutSpinner" editable="true" layoutX="147.0" layoutY="50.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="calloutSpinner" editable="true" layoutX="147.0" layoutY="50.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -442,7 +442,7 @@
                                     </color>
                                  </DropShadow>
                               </effect></Spinner>
-                                    <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="147.0" layoutY="92.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="147.0" layoutY="92.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -450,7 +450,7 @@
                                     </color>
                                  </DropShadow>
                               </effect></Spinner>
-                                    <Spinner fx:id="IncidentSpinner" editable="true" layoutX="147.0" layoutY="135.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="IncidentSpinner" editable="true" layoutX="147.0" layoutY="135.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -458,7 +458,7 @@
                                     </color>
                                  </DropShadow>
                               </effect></Spinner>
-                                    <Spinner fx:id="SearchesSpinner" editable="true" layoutX="147.0" layoutY="175.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="SearchesSpinner" editable="true" layoutX="147.0" layoutY="175.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -466,7 +466,7 @@
                                     </color>
                                  </DropShadow>
                               </effect></Spinner>
-                                    <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="147.0" layoutY="216.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="147.0" layoutY="216.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -474,7 +474,7 @@
                                     </color>
                                  </DropShadow>
                               </effect></Spinner>
-                                    <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="147.0" layoutY="257.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
+                                    <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="147.0" layoutY="257.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
                               <effect>
                                  <DropShadow>
                                     <color>
@@ -500,7 +500,7 @@
                                             <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="PatrolInfoStartTime" layoutX="150.0" layoutY="58.0" prefHeight="25.0" prefWidth="194.0" style="-fx-prompt-text-fill: rgb(181, 181, 181,0.4); -fx-text-fill: #b5b5b5;" stylesheets="@css/main/menuFields.css">
+                                    <TextField fx:id="PatrolInfoStartTime" layoutX="150.0" layoutY="58.0" prefHeight="25.0" prefWidth="194.0" stylesheets="@css/form/formFields.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="14.0" />
                                         </font>
@@ -510,13 +510,13 @@
                                             <Font name="Segoe UI Black" size="15.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="PatrolInfoStopTime" layoutX="149.0" layoutY="120.0" prefHeight="25.0" prefWidth="194.0" style="-fx-prompt-text-fill: rgb(181, 181, 181,0.4); -fx-text-fill: #b5b5b5;" stylesheets="@css/main/menuFields.css">
+                                    <TextField fx:id="PatrolInfoStopTime" layoutX="149.0" layoutY="120.0" prefHeight="25.0" prefWidth="194.0" style="-fx-prompt-text-fill: rgb(181, 181, 181,0.4); -fx-text-fill: #b5b5b5;" stylesheets="@css/form/formFields.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="14.0" />
                                         </font>
                                     </TextField>
-                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="357.0" layoutY="68.0" mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick" prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;" stylesheets="@css/main/menuButton2.css" />
-                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="357.0" layoutY="137.0" mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick" prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;" stylesheets="@css/main/menuButton2.css" />
+                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="357.0" layoutY="68.0" mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick" prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;" stylesheets="@css/main/mainBtn.css" />
+                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="357.0" layoutY="137.0" mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick" prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;" stylesheets="@css/main/mainBtn.css" />
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutY="23.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                         <effect>
@@ -543,9 +543,9 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <AnchorPane layoutX="4.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick" prefHeight="36.0" prefWidth="1013.0" style="-fx-background-color: #404040;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="4.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick" prefHeight="36.0" prefWidth="1013.0" style="-fx-background-color: #3e465b;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <Label layoutX="14.0" layoutY="11.0" text="Data Terminal Report Manager" textFill="DODGERBLUE">
+                    <Label layoutX="15.0" layoutY="12.0" text="Data Terminal Report Manager" textFill="DODGERBLUE">
                         <font>
                             <Font size="14.0" />
                         </font>
@@ -562,17 +562,17 @@
                             <Pane layoutX="62.0" layoutY="57.0" prefHeight="604.0" prefWidth="686.0" style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutY="43.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="24.0" />
-                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="500.0" layoutY="545.0" mnemonicParsing="false" onAction="#onpasteclick" stylesheets="@css/main/menuButton2.css" text="Paste" textFill="#0074b3">
+                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="500.0" layoutY="545.0" mnemonicParsing="false" onAction="#onpasteclick" stylesheets="@css/main/mainBtn.css" text="Paste" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                     </Button>
-                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="405.0" layoutY="545.0" mnemonicParsing="false" onAction="#oncopyclick" stylesheets="@css/main/menuButton2.css" text="Copy" textFill="#0074b3">
+                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="405.0" layoutY="545.0" mnemonicParsing="false" onAction="#oncopyclick" stylesheets="@css/main/mainBtn.css" text="Copy" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                     </Button>
-                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="596.0" layoutY="545.0" mnemonicParsing="false" onAction="#onclearclick" stylesheets="@css/main/menuButton2.css" text="Clear" textFill="#0074b3">
+                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="596.0" layoutY="545.0" mnemonicParsing="false" onAction="#onclearclick" stylesheets="@css/main/mainBtn.css" text="Clear" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
@@ -595,7 +595,7 @@
                 <tabs>
                     <Tab closable="false" text="Callout Logs">
                         <content>
-                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
                                 <content>
                                     <GridPane fx:id="logGrid" hgap="25.0" vgap="25.0">
                                         <padding>
@@ -608,7 +608,7 @@
                     </Tab>
                     <Tab closable="false" text="Traffic Stop Logs">
                         <content>
-                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
                                 <content>
                                     <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
                                         <padding>
@@ -621,7 +621,7 @@
                     </Tab>
                <Tab closable="false" text="Incident Logs">
                   <content>
-                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
                         <content>
                            <GridPane fx:id="incidentGrid" hgap="25.0" vgap="25.0">
                               <padding>
@@ -634,7 +634,7 @@
                </Tab>
                <Tab closable="false" text="Search Logs">
                   <content>
-                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/scrollpane.css">
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="801.0" style="-fx-border-color: none;" styleClass="scroll-bar" stylesheets="@css/main/scrollpane.css">
                         <content>
                            <GridPane fx:id="searchGrid" hgap="25.0" vgap="25.0">
                               <padding>

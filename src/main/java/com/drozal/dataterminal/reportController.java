@@ -3,15 +3,12 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,9 +20,6 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 
 public class reportController {
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public Spinner calloutReportSpinner;
     public Button calloutReportSubmitBtn;
     public TextArea calloutReportNotesTextArea;
@@ -43,6 +37,8 @@ public class reportController {
     public TextField calloutReportResponseCounty;
     public TextField calloutReportResponseAddress;
     public VBox vbox;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public Spinner getCalloutReportSpinner() {
         return calloutReportSpinner;
@@ -139,6 +135,7 @@ public class reportController {
         }
 
     }
+
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);

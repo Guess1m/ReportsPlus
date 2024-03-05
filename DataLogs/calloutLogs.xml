@@ -157,7 +157,7 @@
         <ResponeType>type</ResponeType>
         <Time>01:42:30 AM</Time>
         <Date>2024-03-05</Date>
-        <Division> Central Area Patrol Division</Division>
+        <Division>Central Area Patrol Division</Division>
         <Agency>Los Santos Police Department</Agency>
         <Number>1-18</Number>
         <Rank>Chief of Police</Rank>
@@ -171,7 +171,7 @@
         <calloutNumber>1</calloutNumber>
         <county>counmty</county>
         <date>2024-03-05</date>
-        <division> Central Area Patrol Division</division>
+        <division>Central Area Patrol Division</division>
         <name>Drozal</name>
         <notesTextArea>lsakdjflaksjflkjasdf</notesTextArea>
         <number>1-18</number>

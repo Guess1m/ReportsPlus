@@ -3,10 +3,6 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.dropdownInfo;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
@@ -23,9 +19,6 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class IncidentReportController {
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public Spinner Spinner;
     public TextField incidentDate;
     public TextField incidentTime;
@@ -44,6 +37,8 @@ public class IncidentReportController {
     public TextArea incidentComments;
     public VBox vbox;
     Boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
         if (hasEntered) {
@@ -69,7 +64,9 @@ public class IncidentReportController {
         }
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {hasEntered=true;}
+    public void onMouseExit(MouseEvent mouseEvent) {
+        hasEntered = true;
+    }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         // Load existing logs from XML
@@ -103,6 +100,7 @@ public class IncidentReportController {
         stag.close();
 
     }
+
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);

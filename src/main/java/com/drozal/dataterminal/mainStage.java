@@ -9,12 +9,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class mainStage extends Stage {
-
     public static Stage mainRT;
 
-
     public mainStage() throws IOException {
-
         mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();

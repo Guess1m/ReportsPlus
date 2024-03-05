@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
-        System.out.println("java.runtime.version: " + System.getProperty("java.runtime.version", "(undefined)"));
-        System.out.println("javafx.version: " + System.getProperty("javafx.version", "(undefined)"));
 
         if (ConfigReader.doesConfigExist()) {
 
@@ -38,15 +36,12 @@ public class Launcher {
         } else {
 
             String folderPath = "DataLogs";
-
             // Create a File object representing the folder
             File folder = new File(folderPath);
-
             // Check if the folder already exists
             if (!folder.exists()) {
                 // If the folder does not exist, create it
                 boolean folderCreated = folder.mkdirs(); // Use mkdir() for a single directory
-
                 if (folderCreated) {
                     System.out.println("Folder created successfully.");
                     newOfficerApplication.main(args);
@@ -57,7 +52,6 @@ public class Launcher {
                 System.out.println("Folder already exists.");
                 newOfficerApplication.main(args);
             }
-
 
         }
     }

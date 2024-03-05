@@ -4,7 +4,6 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -22,9 +21,6 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class SearchReportController {
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public Spinner SearchNumber;
     public TextField searchedPersons;
     public TextField searchDate;
@@ -43,10 +39,10 @@ public class SearchReportController {
     public TextField searchArea;
     public TextField searchCounty;
     public TextArea searchComments;
-
-
-    boolean hasEntered = false;
     public VBox vbox;
+    boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
         if (hasEntered) {
@@ -76,7 +72,7 @@ public class SearchReportController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered=true;
+        hasEntered = true;
     }
 
     public void onSearchReportSubmitBtnClick(ActionEvent actionEvent) {
@@ -114,6 +110,7 @@ public class SearchReportController {
         stage.close();
 
     }
+
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);

@@ -67,7 +67,6 @@ public class IncidentReportLogs {
                     logEntry.incidentComments = getTagValue(logsElement, "incidentComments");
 
 
-
                     logEntries.add(logEntry);
                 }
             }

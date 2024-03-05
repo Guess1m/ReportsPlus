@@ -2,17 +2,24 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 
 public class newOfficerController {
@@ -22,7 +29,10 @@ public class newOfficerController {
     public ComboBox agencyDropDown;
     public ComboBox divisionDropDown;
     public VBox vboxid;
+    public Label incompleteLabel;
     boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEnter(MouseEvent mouseEvent) {
         if (hasEntered) {
@@ -42,7 +52,27 @@ public class newOfficerController {
         if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null ||
                 rankDropdown.getValue() == null || nameField.getText().isEmpty() ||
                 numberField.getText().isEmpty()) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
         } else {
+            File file = new File("config.properties");
+            if (file.exists()) {
+                System.out.println("exists, printing values");
+            } else {
+                System.out.println("doesnt exist");
+                try {
+                    file.createNewFile();
+                    System.out.println("Config file created, printing values");
+                } catch (IOException e) {
+                    System.out.println("Failed to create config file: " + e.getMessage());
+                }
+            }
             // Access the values only if they are not null
             String agency = agencyDropDown.getValue().toString();
             String division = divisionDropDown.getValue().toString();
@@ -58,14 +88,13 @@ public class newOfficerController {
             Stage stag = (Stage) vboxid.getScene().getWindow();
             stag.close();
 
-
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
             stage.setTitle("Data Terminal");
             stage.setScene(newScene);
-            stage.initStyle(StageStyle.UTILITY);
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setResizable(false);
             stage.show();
 
@@ -74,6 +103,22 @@ public class newOfficerController {
             actionController.getInfoPane().setVisible(false);
             actionController.getShiftInformationPane().setDisable(false);
             actionController.getShiftInformationPane().setVisible(true);
+
         }
+    }
+
+    public void onMouseDrag(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
+    public void onMousePress(MouseEvent mouseEvent) {
+        xOffset = mouseEvent.getSceneX();
+        yOffset = mouseEvent.getSceneY();
+    }
+
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        Platform.exit();
     }
 }

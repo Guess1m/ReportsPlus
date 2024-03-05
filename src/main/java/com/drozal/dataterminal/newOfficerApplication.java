@@ -21,7 +21,7 @@ public class newOfficerApplication extends Application {
         Scene newScene = new Scene(root);
         newOfficerStage.setTitle("New Officer Sign In");
         newOfficerStage.setScene(newScene);
-        newOfficerStage.initStyle(StageStyle.UTILITY);
+        newOfficerStage.initStyle(StageStyle.TRANSPARENT);
         newOfficerStage.setResizable(false);
         newOfficerStage.show();
     }

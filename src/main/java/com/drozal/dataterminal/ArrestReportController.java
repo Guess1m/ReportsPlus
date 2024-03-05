@@ -3,10 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.logs.Search.SearchLogEntry;
-import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -24,12 +21,6 @@ public class ArrestReportController {
 
     public VBox vbox;
     public Slider arresteeAgeSlider;
-    boolean hasEntered = false;
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-
-
     public Spinner arrestNumber;
     public TextField arrestDate;
     public TextField arrestTime;
@@ -48,6 +39,9 @@ public class ArrestReportController {
     public TextField officerNumber;
     public TextField officerDivision;
     public TextField officerAgency;
+    boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
         if (hasEntered) {
@@ -77,40 +71,40 @@ public class ArrestReportController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered=true;
+        hasEntered = true;
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
-            // Load existing logs from XML
-            ArrestReportLogs searchReportLogs = new ArrestReportLogs();
-            List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+        // Load existing logs from XML
+        ArrestReportLogs searchReportLogs = new ArrestReportLogs();
+        List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
 
-            // Add new entry
-            logs.add(new ArrestLogEntry(
-                    arrestNumber.getValue().toString(),
-                    arrestDate.getText(),
-                    arrestTime.getText(),
-                    arrestCounty.getText(),
-                    arrestArea.getText(),
-                    arrestStreet.getText(),
-                    arresteeName.getText(),
-                    arresteeAge.getText(),
-                    arresteeGender.getValue().toString(),
-                    arresteeEthnicity.getText(),
-                    arresteeDescription.getText(),
-                    arresteeMedicalInformation.getText(),
-                    arrestDetails.getText(),
-                    officerRank.getText(),
-                    officerName.getText(),
-                    officerNumber.getText(),
-                    officerDivision.getText(),
-                    officerAgency.getText()
-                    ));
-            // Save logs to XML
-            ArrestReportLogs.saveLogsToXML(logs);
-            // Close the stage
-            Stage stage = (Stage) vbox.getScene().getWindow();
-            stage.close();
+        // Add new entry
+        logs.add(new ArrestLogEntry(
+                arrestNumber.getValue().toString(),
+                arrestDate.getText(),
+                arrestTime.getText(),
+                arrestCounty.getText(),
+                arrestArea.getText(),
+                arrestStreet.getText(),
+                arresteeName.getText(),
+                arresteeAge.getText(),
+                arresteeGender.getValue().toString(),
+                arresteeEthnicity.getText(),
+                arresteeDescription.getText(),
+                arresteeMedicalInformation.getText(),
+                arrestDetails.getText(),
+                officerRank.getText(),
+                officerName.getText(),
+                officerNumber.getText(),
+                officerDivision.getText(),
+                officerAgency.getText()
+        ));
+        // Save logs to XML
+        ArrestReportLogs.saveLogsToXML(logs);
+        // Close the stage
+        Stage stage = (Stage) vbox.getScene().getWindow();
+        stage.close();
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

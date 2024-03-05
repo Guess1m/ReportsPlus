@@ -1,11 +1,8 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
-import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
-import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
@@ -23,10 +20,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class patrolReportController {
     public VBox vbox;
-    boolean hasEntered = false;
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public Spinner patrolNumber;
     public TextField patrolDate;
     public TextField patrolLength;
@@ -39,6 +32,9 @@ public class patrolReportController {
     public TextField officerAgency;
     public TextField officerVehicle;
     public TextArea patrolComments;
+    boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
         if (hasEntered) {
@@ -61,7 +57,7 @@ public class patrolReportController {
     }
 
     public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered=true;
+        hasEntered = true;
     }
 
     public void onStopTimeBtnPress(ActionEvent actionEvent) {

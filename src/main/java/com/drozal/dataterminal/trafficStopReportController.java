@@ -4,7 +4,6 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -21,9 +20,6 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class trafficStopReportController {
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public ComboBox ResponseColor;
     public ComboBox ReponseType;
     public TextField ReponsePlateNumber;
@@ -42,6 +38,8 @@ public class trafficStopReportController {
     public TextArea comments;
     public TextArea violationsNotes;
     public VBox vbox;
+    private double xOffset = 0;
+    private double yOffset = 0;
     private boolean hasEntered = false;
 
     public ComboBox getReponseType() {

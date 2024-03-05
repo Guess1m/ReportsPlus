@@ -8,7 +8,6 @@ import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

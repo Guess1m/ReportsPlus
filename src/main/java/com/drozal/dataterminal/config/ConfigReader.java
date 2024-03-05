@@ -1,6 +1,9 @@
 package com.drozal.dataterminal.config;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -30,37 +33,22 @@ public class ConfigReader {
     }
 
     public static String configRead(String property) throws IOException {
-
         Properties prop = new Properties();
         InputStream input = null;
-
         input = new FileInputStream("config.properties");
-
-
         // Load a properties file
         prop.load(input);
-
         // Retrieve properties
         return prop.getProperty("database." + property);
-
     }
 
     public static boolean doesConfigExist() {
         File file = new File("config.properties");
         if (file.exists()) {
+            System.out.println("exists");
             return true;
-        } else if (file.exists() == false) {
-            try {
-                Properties prop = new Properties();
-                OutputStream output = new FileOutputStream("config.properties");
-                prop.store(output, null);
-                output.close();
-                return false;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
         } else {
+            System.out.println("doesnt exist");
             return false;
         }
     }

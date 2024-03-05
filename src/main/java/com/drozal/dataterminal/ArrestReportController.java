@@ -6,12 +6,14 @@ import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.List;
@@ -120,5 +122,13 @@ public class ArrestReportController {
     public void onMousePress(MouseEvent mouseEvent) {
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();
+    }
+
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        // Get the window associated with the scene
+        Window window = vbox.getScene().getWindow();
+
+        // Close the window
+        window.hide(); // or window.close() if you want to force close
     }
 }

@@ -4,13 +4,16 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,6 +21,8 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class trafficStopReportController {
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public ComboBox ResponseColor;
     public ComboBox ReponseType;
@@ -111,4 +116,22 @@ public class trafficStopReportController {
 
     }
 
+    public void onMouseDrag(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
+    public void onMousePress(MouseEvent mouseEvent) {
+        xOffset = mouseEvent.getSceneX();
+        yOffset = mouseEvent.getSceneY();
+    }
+
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        // Get the window associated with the scene
+        Window window = vbox.getScene().getWindow();
+
+        // Close the window
+        window.hide(); // or window.close() if you want to force close
+    }
 }

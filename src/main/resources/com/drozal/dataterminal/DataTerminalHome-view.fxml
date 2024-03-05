@@ -15,6 +15,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -120,11 +122,6 @@
                     <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutX="10.0" layoutY="419.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="DataTerminal Info" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="exitButton" alignment="CENTER" layoutX="10.0" layoutY="623.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="50.0" prefWidth="184.0" style="-fx-text-fill: #b30000;" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="EXIT" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
-                        <font>
-                            <Font name="Arial" size="18.0" />
                         </font>
                     </Button>
                     <Button fx:id="logsButton" alignment="CENTER" layoutX="10.0" layoutY="236.0" mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
@@ -550,6 +547,11 @@
                             <Font size="14.0" />
                         </font>
                     </Label>
+               <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="973.0" layoutY="12.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@imgs/icons/cross.png" />
+                  </image>
+               </ImageView>
                 </children>
             <effect>
                <DropShadow />

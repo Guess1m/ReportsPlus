@@ -4,7 +4,9 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +22,9 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class SearchReportController {
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     public Spinner SearchNumber;
     public TextField searchedPersons;
     public TextField searchDate;
@@ -107,5 +113,23 @@ public class SearchReportController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         stage.close();
 
+    }
+    public void onMouseDrag(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
+    public void onMousePress(MouseEvent mouseEvent) {
+        xOffset = mouseEvent.getSceneX();
+        yOffset = mouseEvent.getSceneY();
+    }
+
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        // Get the window associated with the scene
+        Window window = vbox.getScene().getWindow();
+
+        // Close the window
+        window.hide(); // or window.close() if you want to force close
     }
 }

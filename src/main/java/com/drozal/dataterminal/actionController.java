@@ -217,7 +217,7 @@ public class actionController {
         Scene newScene = new Scene(root);
         stage.setTitle("Callout Report");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
 
@@ -343,9 +343,8 @@ public class actionController {
         }
     }
 
-    public void onExitButtonClick(ActionEvent actionEvent) {
+    public void onExitButtonClick(MouseEvent actionEvent) {
         Platform.exit();
-
     }
 
     public void onLogsButtonClick(ActionEvent actionEvent) throws IOException, JAXBException, ParserConfigurationException, TransformerException {
@@ -855,7 +854,7 @@ public class actionController {
         Scene newScene = new Scene(root);
         stage.setTitle("Traffic Stop Report");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
     }
@@ -867,7 +866,7 @@ public class actionController {
         Scene newScene = new Scene(root);
         stage.setTitle("Incident Report");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
     }
@@ -879,7 +878,7 @@ public class actionController {
         Scene newScene = new Scene(root);
         stage.setTitle("Search Report");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
     }

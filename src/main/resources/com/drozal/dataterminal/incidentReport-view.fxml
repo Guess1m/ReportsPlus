@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -98,7 +100,7 @@
                         </Label>
                     </children>
                 </Pane>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="684.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="75.0" prefWidth="684.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <Label layoutX="15.0" layoutY="5.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
@@ -110,11 +112,16 @@
                                 <Font name="System Bold" size="22.0" />
                             </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="191.0" layoutY="12.0" prefHeight="51.0" prefWidth="492.0" text="Incident Report" textAlignment="CENTER" textFill="#d7d7d7" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="1.0">
+                        <Label alignment="CENTER" layoutX="191.0" layoutY="12.0" prefHeight="51.0" prefWidth="460.0" text="New Incident Report" textAlignment="CENTER" textFill="#d7d7d7" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="33.0">
                             <font>
                                 <Font name="System Bold" size="33.0" />
                             </font>
                         </Label>
+                  <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="637.0" layoutY="24.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <image>
+                        <Image url="@imgs/icons/cross.png" />
+                     </image>
+                  </ImageView>
                     </children>
                <effect>
                   <DropShadow />

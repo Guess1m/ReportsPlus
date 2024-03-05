@@ -17,6 +17,7 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.logs.Incident to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Search to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Arrest to jakarta.xml.bind;
+    opens com.drozal.dataterminal.logs.Patrol to jakarta.xml.bind;
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;
     exports com.drozal.dataterminal.util;

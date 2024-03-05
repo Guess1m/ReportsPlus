@@ -51,7 +51,7 @@
                             <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" onAction="#onIncidentReportBtnClick" text="Incident Report" />
                             <MenuItem fx:id="searchReportButton" mnemonicParsing="false" onAction="#onSearchReportBtnClick" text="Search Report" />
                             <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" onAction="#onArrestReportBtnClick" text="Arrest Report" />
-                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" text="Patrol Report" />
+                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" onAction="#onPatrolButtonClick" text="Patrol Report" />
                             <SeparatorMenuItem mnemonicParsing="false" />
                             <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false" text="Traffic Citation" />
                             <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false" text="Parking Citation" />
@@ -652,6 +652,19 @@
                      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="745.0" stylesheets="@css/main/Logscrollpane.css">
                         <content>
                            <GridPane fx:id="arrestGrid" hgap="25.0" vgap="25.0">
+                              <padding>
+                                 <Insets left="20.0" right="20.0" top="20.0" />
+                              </padding>
+                           </GridPane>
+                        </content>
+                     </ScrollPane>
+                  </content>
+               </Tab>
+               <Tab closable="false" text="Patrol Logs">
+                  <content>
+                     <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="745.0" stylesheets="@css/main/Logscrollpane.css">
+                        <content>
+                           <GridPane fx:id="patrolGrid" hgap="25.0" vgap="25.0">
                               <padding>
                                  <Insets left="20.0" right="20.0" top="20.0" />
                               </padding>

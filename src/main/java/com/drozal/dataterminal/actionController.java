@@ -8,6 +8,8 @@ import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
+import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
@@ -42,7 +44,6 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 
 public class actionController {
-    public GridPane arrestGrid;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -73,14 +74,14 @@ public class actionController {
     public Spinner PatrolsSpinner;
     public StackPane infoPane;
     public TextArea notepadTextArea;
-    public Label profileName;
-    public Label profileRank;
     public Label updatedNotification;
     public TabPane logPane;
     public GridPane logGrid;
     public GridPane trafficStopGrid;
     public GridPane incidentGrid;
     public GridPane searchGrid;
+    public GridPane arrestGrid;
+    public GridPane patrolGrid;
     boolean hasEntered = false;
 
 
@@ -359,6 +360,87 @@ public class actionController {
         incidentGrid.getChildren().clear();
         searchGrid.getChildren().clear();
         arrestGrid.getChildren().clear();
+        patrolGrid.getChildren().clear();
+
+
+        // Check if the file exists before extracting log entries
+        if (Files.exists(Paths.get(stringUtil.patrolLogURL))) {
+            // Extract log entries from XML file
+            List<PatrolLogEntry> logEntries5 = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
+            // Add log entries to the GridPane
+            int row = 1;
+            for (PatrolLogEntry logEntry : logEntries5) {
+                patrolGrid.add(new Label(logEntry.patrolNumber), 0, row);
+                patrolGrid.add(new Label(logEntry.patrolDate), 1, row);
+                patrolGrid.add(new Label(logEntry.patrolLength), 2, row);
+                patrolGrid.add(new Label(logEntry.patrolStartTime), 3, row);
+                patrolGrid.add(new Label(logEntry.patrolStopTime), 4, row);
+                patrolGrid.add(new Label(logEntry.officerRank), 5, row);
+                patrolGrid.add(new Label(logEntry.officerName), 6, row);
+                patrolGrid.add(new Label(logEntry.officerNumber), 7, row);
+                patrolGrid.add(new Label(logEntry.officerDivision), 8, row);
+                patrolGrid.add(new Label(logEntry.officerAgency), 9, row);
+                patrolGrid.add(new Label(logEntry.officerVehicle), 10, row);
+                patrolGrid.add(new Label(logEntry.patrolComments), 11, row);
+
+                row++;
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
+        // Add ColumnConstraints for all columns
+        ColumnConstraints columnConstraints5 = new ColumnConstraints();
+        columnConstraints5.setHgrow(Priority.ALWAYS);
+        columnConstraints5.setFillWidth(true);
+        patrolGrid.getColumnConstraints().add(columnConstraints5);
+        patrolGrid.add(new Label("Patrol #: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 0, 0);
+        patrolGrid.add(new Label("Date: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 1, 0);
+        patrolGrid.add(new Label("Length: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 2, 0);
+        patrolGrid.add(new Label("Start Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 3, 0);
+        patrolGrid.add(new Label("Stop Time: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 4, 0);
+        patrolGrid.add(new Label("Officer Rank: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 5, 0);
+        patrolGrid.add(new Label("Officer Name: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 6, 0);
+        patrolGrid.add(new Label("Officer Number: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 7, 0);
+        patrolGrid.add(new Label("Officer Division: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 8, 0);
+        patrolGrid.add(new Label("Officer Agency: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 9, 0);
+        patrolGrid.add(new Label("Officer Vehicle: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 10, 0);
+        patrolGrid.add(new Label("Patrol Comments: ") {{
+            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        }}, 11, 0);
+
+        // Set row constraints to apply to all rows
+        RowConstraints rowConstraints5 = new RowConstraints();
+        rowConstraints5.setVgrow(Priority.ALWAYS); // Allow vertical growth
+        rowConstraints5.setMinHeight(100); // Set the minimum height
+        rowConstraints5.setPrefHeight(100); // Set the preferred height
+        rowConstraints5.setMaxHeight(100); // Set the maximum height
+        // Add row constraints to all rows in the GridPane
+        int numRows5 = patrolGrid.getRowConstraints().size();
+        for (int i = 0; i < numRows5; i++) {
+            patrolGrid.getRowConstraints().add(rowConstraints5);
+        }
 
 
         // Check if the file exists before extracting log entries
@@ -906,6 +988,18 @@ public class actionController {
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("arrestReport-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Arrest Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("patrolReport-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         stage.setTitle("Arrest Report");

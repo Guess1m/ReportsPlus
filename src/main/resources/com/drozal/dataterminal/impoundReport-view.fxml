@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit" prefHeight="662.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.ImpoundReportController">
+    <padding>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+    </padding>
+    <children>
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="670.0" style="-fx-background-color: #2a2e3d;">
+            <children>
+                <ScrollPane layoutY="79.0" pannable="true" prefHeight="592.0" prefWidth="670.0" style="-fx-background-color: #2a2e3d;" stylesheets="@css/main/scrollpane.css">
+                    <content>
+                        <Pane prefHeight="588.0" prefWidth="667.0" style="-fx-background-color: #2a2e3d;">
+                            <children>
+                                <Pane layoutY="2.0" prefHeight="121.0" prefWidth="656.0" style="-fx-background-color: none;">
+                                    <children>
+                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Timestamp/Officer Information" textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="System Bold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="impoundDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0" promptText="Impound Date" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                                        <TextField fx:id="impoundTime" layoutX="351.0" layoutY="28.0" prefHeight="38.0" prefWidth="305.0" promptText="Impound Time" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                                    </children>
+                                </Pane>
+                                <Pane layoutY="79.0" style="-fx-background-color: none;">
+                                    <children>
+                                        <TextField fx:id="officerName" layoutX="20.0" layoutY="1.0" prefHeight="36.0" prefWidth="305.0" promptText="Name" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="officerRank" layoutX="344.0" layoutY="1.0" prefHeight="38.0" prefWidth="309.0" promptText="Rank" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="officerNumber" layoutX="20.0" layoutY="49.0" prefHeight="36.0" prefWidth="114.0" promptText="Number" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="officerDivision" layoutX="155.0" layoutY="49.0" prefHeight="36.0" prefWidth="288.0" promptText="Division" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="officerAgency" layoutX="463.0" layoutY="49.0" prefHeight="38.0" prefWidth="190.0" promptText="Agency" styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                </Pane>
+                        <Pane layoutY="170.0" prefHeight="121.0" prefWidth="656.0" style="-fx-background-color: none;">
+                           <children>
+                              <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Owner Information" textAlignment="CENTER" textFill="#616161">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="ownerName" layoutX="20.0" layoutY="28.0" prefHeight="38.0" prefWidth="362.0" promptText="Name" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                              <ComboBox fx:id="ownerGender" layoutX="400.0" layoutY="28.0" prefHeight="38.0" prefWidth="255.0" promptText="Gender" styleClass="combo-box" stylesheets="@css/form/formComboBox.css" />
+                              <TextField fx:id="ownerAddress" layoutX="20.0" layoutY="77.0" prefHeight="38.0" prefWidth="450.0" promptText="Address" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                              <Label fx:id="ownerAge" alignment="CENTER" layoutX="534.0" layoutY="73.0" mouseTransparent="true" opacity="0.82" prefHeight="25.0" prefWidth="115.0" style="-fx-text-fill: #00a2ff;" text="0" textFill="#00a2ff">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="ownerAgeSlider" layoutX="528.0" layoutY="94.0" prefHeight="14.0" prefWidth="125.0" stylesheets="@css/form/formSlider.css" />
+                              <Label layoutX="487.0" layoutY="86.0" opacity="0.82" style="-fx-text-fill: #7c7c7c;" text="Age:" textFill="#7c7c7c">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="289.0" prefHeight="121.0" prefWidth="656.0" style="-fx-background-color: none;">
+                           <children>
+                              <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Vehicle Information" textAlignment="CENTER" textFill="#616161">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="impoundPlateNumber" layoutX="20.0" layoutY="28.0" prefHeight="38.0" prefWidth="163.0" promptText="Plate #" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                              <ComboBox fx:id="impoundType" layoutX="198.0" layoutY="28.0" prefHeight="38.0" prefWidth="229.0" promptText="Type" styleClass="combo-box" stylesheets="@css/form/formComboBox.css" />
+                              <ComboBox fx:id="impoundColor" layoutX="442.0" layoutY="28.0" prefHeight="38.0" prefWidth="214.0" promptText="Color" styleClass="combo-box" stylesheets="@css/form/formComboBox.css" />
+                              <TextField fx:id="impoundMake" layoutX="20.0" layoutY="77.0" prefHeight="38.0" prefWidth="178.0" promptText="Make" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                              <TextField fx:id="impoundModel" layoutX="217.0" layoutY="77.0" prefHeight="38.0" prefWidth="258.0" promptText="Model" styleClass="text-field" stylesheets="@css/form/formFields.css" />
+                              <Label layoutX="483.0" layoutY="84.0" opacity="0.82" style="-fx-text-fill: #7c7c7c;" text="Impound #:" textFill="#7c7c7c">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Spinner fx:id="impoundNumber" editable="true" layoutX="573.0" layoutY="82.0" prefHeight="26.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css" />
+                           </children>
+                        </Pane>
+                                <Pane layoutY="408.0" prefWidth="660.0">
+                                    <children>
+                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader" stylesheets="@css/form/formLabels.css" text="Comments" textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="System Bold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="impoundComments" layoutX="20.0" layoutY="30.0" prefHeight="75.0" prefWidth="635.0" promptText="Additional Details.." stylesheets="@css/form/formTextArea.css" wrapText="true">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </TextArea>
+                                    </children>
+                                </Pane>
+                        <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="255.0" layoutY="515.0" prefHeight="75.0" prefWidth="286.0" textFill="#3ab93abf" visible="false">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                                  <Button layoutX="541.0" layoutY="527.0" mnemonicParsing="false" onAction="#onArrestReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0" stylesheets="@css/main/mainBtn.css" text="Submit">
+                                      <font>
+                                          <Font name="System Bold" size="16.0" />
+                                      </font>
+                                      <effect>
+                                          <DropShadow>
+                                              <color>
+                                                  <Color red="0.5600000023841858" green="0.5600000023841858" blue="0.5600000023841858" opacity="0.3969465494155884" />
+                                              </color>
+                                          </DropShadow>
+                                      </effect>
+                                  </Button>
+                            </children>
+                        </Pane>
+                    </content>
+                </ScrollPane>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="75.0" prefWidth="684.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER" textFill="#00a2ff">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="189.0" layoutY="13.0" prefHeight="51.0" prefWidth="464.0" text="New Impound Report" textAlignment="CENTER" textFill="#c6c6c6" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="31.0">
+                            <font>
+                                <Font name="System Bold" size="33.0" />
+                            </font>
+                        </Label>
+                        <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="657.0" layoutY="7.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <image>
+                                <Image url="@imgs/icons/cross.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

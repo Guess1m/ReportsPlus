@@ -38,7 +38,7 @@
                                stylesheets="@css/form/formLabels.css" text="Timestamp Info" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -79,7 +79,7 @@
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Officer Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -92,20 +92,20 @@
                     <children>
                         <Label layoutX="12.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="28.0"/>
+                                <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
                         <Label layoutX="12.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
-                                <Font name="System Bold" size="22.0"/>
+                                <Font name="Candara" size="22.0"/>
                             </font>
                         </Label>
                         <Label alignment="CENTER" layoutX="194.0" layoutY="15.0" prefHeight="51.0" prefWidth="451.0"
                                text="New Callout Report" textAlignment="CENTER" textFill="#c6c6c6"
                                AnchorPane.leftAnchor="194.0" AnchorPane.rightAnchor="30.0">
                             <font>
-                                <Font name="System Bold" size="27.0"/>
+                                <Font name="Candara" size="27.0"/>
                             </font>
                         </Label>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="631.0" layoutY="28.0"
@@ -165,13 +165,13 @@
                         </TextField>
                         <Label layoutX="537.0" layoutY="37.0" opacity="0.82" text="Callout #" textFill="#6f6f6f">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="Candara" size="14.0"/>
                             </font>
                         </Label>
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Callout Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -189,7 +189,7 @@
                                stylesheets="@css/form/formLabels.css" text="Event Info/Details" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -198,7 +198,7 @@
                         onAction="#onCalloutReportSubmitBtnClick" stylesheets="@css/main/mainBtn.css" text="Submit"
                         textFill="#008cd7" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="22.0">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="Candara" size="16.0"/>
                     </font>
                     <effect>
                         <DropShadow>
@@ -212,7 +212,7 @@
                 <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="311.0" layoutY="632.0" prefHeight="76.0"
                        prefWidth="247.0" textFill="#3ab93abf" visible="false">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="Candara" size="15.0"/>
                     </font>
                 </Label>
             </children>

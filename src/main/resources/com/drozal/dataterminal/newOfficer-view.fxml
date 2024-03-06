@@ -63,14 +63,14 @@
                                 <Label alignment="CENTER" layoutX="20.0" layoutY="261.0" prefHeight="32.0"
                                        prefWidth="376.0" textAlignment="CENTER" textFill="#727272">
                                     <font>
-                                        <Font name="System Bold" size="22.0"/>
+                                        <Font name="Candara" size="22.0"/>
                                     </font>
                                 </Label>
                                 <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="20.0" layoutY="236.0"
                                        prefHeight="79.0" prefWidth="376.0" text="Please Fill Out the Form Completely."
                                        textAlignment="CENTER" textFill="#ff3c3c" visible="false">
                                     <font>
-                                        <Font name="System Bold" size="16.0"/>
+                                        <Font name="Candara" size="16.0"/>
                                     </font>
                                 </Label>
                             </children>
@@ -92,19 +92,19 @@
                                 <Label layoutX="20.0" layoutY="6.0" text="DataTerminal" textAlignment="CENTER"
                                        textFill="WHITE">
                                     <font>
-                                        <Font name="System Bold" size="28.0"/>
+                                        <Font name="Candara" size="28.0"/>
                                     </font>
                                 </Label>
                                 <Label layoutX="20.0" layoutY="41.0" text="Record Tool" textAlignment="CENTER"
                                        textFill="#00a2ff">
                                     <font>
-                                        <Font name="System Bold" size="22.0"/>
+                                        <Font name="Candara" size="22.0"/>
                                     </font>
                                 </Label>
                                 <Label alignment="CENTER" layoutX="198.0" prefHeight="79.0" prefWidth="264.0"
                                        text="New Officer Sign In" textAlignment="CENTER" textFill="#c6c6c6">
                                     <font>
-                                        <Font name="System Bold" size="24.0"/>
+                                        <Font name="Candara" size="24.0"/>
                                     </font>
                                 </Label>
                                 <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="466.0"

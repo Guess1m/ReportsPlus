@@ -37,7 +37,7 @@
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Timestamp Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -78,7 +78,7 @@
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Officer Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -90,20 +90,20 @@
                     <children>
                         <Label layoutX="12.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="28.0"/>
+                                <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
                         <Label layoutX="12.0" layoutY="36.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
-                                <Font name="System Bold" size="22.0"/>
+                                <Font name="Candara" size="22.0"/>
                             </font>
                         </Label>
                         <Label alignment="CENTER" layoutX="189.0" layoutY="12.0" prefHeight="51.0" prefWidth="491.0"
                                text="New Traffic Stop Report" textAlignment="CENTER" textFill="#c6c6c6"
                                AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="29.0">
                             <font>
-                                <Font name="System Bold" size="27.0"/>
+                                <Font name="Candara" size="27.0"/>
                             </font>
                         </Label>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="668.0" layoutY="13.0"
@@ -143,13 +143,13 @@
                                  prefWidth="64.0" stylesheets="@css/form/formSpinner.css"/>
                         <Label layoutX="574.0" layoutY="89.0" opacity="0.82" text="Stop #" textFill="#6f6f6f">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="Candara" size="14.0"/>
                             </font>
                         </Label>
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Stop Location Info" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -170,7 +170,7 @@
                         <Label layoutX="20.0" styleClass="subheader" stylesheets="@css/form/formLabels.css"
                                text="Vehicle Information" textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -188,20 +188,20 @@
                                stylesheets="@css/form/formLabels.css" text="Violations:" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="17.0"/>
+                                <Font name="Candara" size="17.0"/>
                             </font>
                         </Label>
                         <Label layoutX="20.0" layoutY="157.0" text="ACTION(S) TAKEN:" textAlignment="CENTER"
                                textFill="#a1a1a1">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="Candara" size="18.0"/>
                             </font>
                         </Label>
                         <Label layoutX="20.0" layoutY="183.0" prefHeight="26.0" prefWidth="105.0" styleClass="subheader"
                                stylesheets="@css/form/formLabels.css" text="Comments:" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="16.0"/>
+                                <Font name="Candara" size="16.0"/>
                             </font>
                         </Label>
                         <TextField fx:id="actionsTakenNotes" layoutX="190.0" layoutY="153.0" prefHeight="38.0"
@@ -224,7 +224,7 @@
                         stylesheets="@css/main/mainBtn.css" text="Submit" textFill="#008cd7"
                         AnchorPane.leftAnchor="581.0" AnchorPane.rightAnchor="23.0">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="Candara" size="16.0"/>
                     </font>
                     <effect>
                         <DropShadow>
@@ -238,7 +238,7 @@
                 <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="308.0" layoutY="771.0" prefHeight="59.0"
                        prefWidth="273.0" textFill="#3ab93abf" visible="false">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="Candara" size="15.0"/>
                     </font>
                 </Label>
             </children>

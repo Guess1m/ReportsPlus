@@ -26,7 +26,7 @@
                                stylesheets="@css/form/formLabels.css" text="Timestamp/Location Information"
                                textAlignment="CENTER" textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                         <TextField fx:id="searchDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0" prefWidth="316.0"
@@ -72,7 +72,7 @@
                         </Spinner>
                         <Label layoutX="514.0" layoutY="54.0" opacity="0.82" text="Search #" textFill="#6f6f6f">
                             <font>
-                                <Font name="System Bold" size="16.0"/>
+                                <Font name="Candara" size="16.0"/>
                             </font>
                         </Label>
                     </children>
@@ -118,7 +118,7 @@
                                stylesheets="@css/form/formLabels.css" text="Reporting Officer" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                     </children>
@@ -130,20 +130,20 @@
                     <children>
                         <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="28.0"/>
+                                <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
                         <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
-                                <Font name="System Bold" size="22.0"/>
+                                <Font name="Candara" size="22.0"/>
                             </font>
                         </Label>
                         <Label alignment="CENTER" layoutX="191.0" layoutY="13.0" prefHeight="51.0" prefWidth="466.0"
                                text="New Search Report" textAlignment="CENTER" textFill="#c6c6c6"
                                AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="27.0">
                             <font>
-                                <Font name="System Bold" size="33.0"/>
+                                <Font name="Candara" size="33.0"/>
                             </font>
                         </Label>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="629.0" layoutY="29.0"
@@ -172,7 +172,7 @@
                                stylesheets="@css/form/formLabels.css" text="Search Information" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                         <ComboBox fx:id="searchType" layoutX="356.0" layoutY="28.0" prefHeight="38.0" prefWidth="310.0"
@@ -203,7 +203,7 @@
                                stylesheets="@css/form/formLabels.css" text="Summary" textAlignment="CENTER"
                                textFill="#616161">
                             <font>
-                                <Font name="System Bold" size="20.0"/>
+                                <Font name="Candara" size="20.0"/>
                             </font>
                         </Label>
                         <TextArea fx:id="searchSeizedItems" layoutX="20.0" layoutY="28.0" prefHeight="85.0"
@@ -227,7 +227,7 @@
                         stylesheets="@css/main/mainBtn.css" text="Submit" AnchorPane.leftAnchor="553.0"
                         AnchorPane.rightAnchor="17.0">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="Candara" size="16.0"/>
                     </font>
                     <effect>
                         <DropShadow>
@@ -241,7 +241,7 @@
                 <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="285.0" layoutY="741.0" prefHeight="68.0"
                        prefWidth="270.0" textFill="#3ab93abf" visible="false">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="Candara" size="15.0"/>
                     </font>
                 </Label>
             </children>

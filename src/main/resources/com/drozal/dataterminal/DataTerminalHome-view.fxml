@@ -81,7 +81,7 @@
                            text="LOS SANTOS P.D" textAlignment="CENTER" textFill="#828797" AnchorPane.leftAnchor="24.0"
                            AnchorPane.rightAnchor="24.0">
                         <font>
-                            <Font name="System Bold" size="18.0"/>
+                            <Font name="Candara" size="18.0"/>
                         </font>
                         <effect>
                             <DropShadow>
@@ -237,7 +237,7 @@
                                     <Label layoutX="23.0" layoutY="194.0" style="-fx-padding: 6;" text="Future Plans:"
                                            textAlignment="CENTER" textFill="DODGERBLUE">
                                         <font>
-                                            <Font name="System Bold" size="21.0"/>
+                                            <Font name="Candara" size="21.0"/>
                                         </font>
                                     </Label>
                                     <Label layoutX="31.0" layoutY="392.0" prefWidth="595.0" style="-fx-padding: 6;"
@@ -351,7 +351,7 @@
                                               text="Adam&#10;Boy&#10;Charles&#10;David&#10;Edward&#10;Frank"
                                               wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
@@ -368,7 +368,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="A&#10;B&#10;C&#10;D&#10;E&#10;F" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="194.0" layoutY="45.0" prefHeight="366.0"
@@ -378,7 +378,7 @@
                                               text="George&#10;Henry&#10;Ida&#10;John&#10;King&#10;Lincoln"
                                               wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="162.0" layoutY="45.0" prefHeight="263.0"
@@ -386,7 +386,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="G&#10;H&#10;I&#10;J&#10;K&#10;L" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="352.0" layoutY="45.0" prefHeight="366.0"
@@ -396,7 +396,7 @@
                                               text="Mary&#10;Nora&#10;Ocean&#10;Paul&#10;Queen&#10;Robert"
                                               wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="320.0" layoutY="45.0" prefHeight="263.0"
@@ -404,7 +404,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="M&#10;N&#10;O&#10;P&#10;Q&#10;R" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="505.0" layoutY="45.0" prefHeight="366.0"
@@ -414,7 +414,7 @@
                                               text="Sam&#10;Tom&#10;Union&#10;Victor&#10;William&#10;X-ray"
                                               wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="473.0" layoutY="45.0" prefHeight="263.0"
@@ -422,7 +422,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="S&#10;T&#10;U&#10;V&#10;W&#10;X" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="642.0" layoutY="45.0" prefHeight="366.0"
@@ -431,7 +431,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Young&#10;Zebra" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="610.0" layoutY="45.0" prefHeight="263.0"
@@ -439,7 +439,7 @@
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Y&#10;Z" wrapText="true">
                                         <font>
-                                            <Font name="System Bold" size="26.0"/>
+                                            <Font name="Candara" size="26.0"/>
                                         </font>
                                     </TextArea>
                                 </children>

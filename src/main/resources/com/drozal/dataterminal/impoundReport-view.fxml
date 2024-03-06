@@ -32,7 +32,7 @@
                                                text="Timestamp/Officer Information" textAlignment="CENTER"
                                                textFill="#616161">
                                             <font>
-                                                <Font name="System Bold" size="20.0"/>
+                                                <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="impoundDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0"
@@ -89,7 +89,7 @@
                                                stylesheets="@css/form/formLabels.css" text="Owner Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
-                                                <Font name="System Bold" size="20.0"/>
+                                                <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="ownerName" layoutX="20.0" layoutY="28.0" prefHeight="38.0"
@@ -106,7 +106,7 @@
                                                prefWidth="115.0" style="-fx-text-fill: #00a2ff;" text="0"
                                                textFill="#00a2ff">
                                             <font>
-                                                <Font name="System Bold" size="14.0"/>
+                                                <Font name="Candara" size="14.0"/>
                                             </font>
                                         </Label>
                                         <Slider fx:id="ownerAgeSlider" layoutX="528.0" layoutY="94.0" prefHeight="14.0"
@@ -114,7 +114,7 @@
                                         <Label layoutX="487.0" layoutY="86.0" opacity="0.82"
                                                style="-fx-text-fill: #7c7c7c;" text="Age:" textFill="#7c7c7c">
                                             <font>
-                                                <Font name="System Bold" size="16.0"/>
+                                                <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -126,7 +126,7 @@
                                                stylesheets="@css/form/formLabels.css" text="Vehicle Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
-                                                <Font name="System Bold" size="20.0"/>
+                                                <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="impoundPlateNumber" layoutX="20.0" layoutY="28.0"
@@ -147,7 +147,7 @@
                                         <Label layoutX="483.0" layoutY="84.0" opacity="0.82"
                                                style="-fx-text-fill: #7c7c7c;" text="Impound #:" textFill="#7c7c7c">
                                             <font>
-                                                <Font name="System Bold" size="16.0"/>
+                                                <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
                                         <Spinner fx:id="impoundNumber" editable="true" layoutX="573.0" layoutY="82.0"
@@ -161,7 +161,7 @@
                                                stylesheets="@css/form/formLabels.css" text="Comments"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
-                                                <Font name="System Bold" size="20.0"/>
+                                                <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                         <TextArea fx:id="impoundComments" layoutX="20.0" layoutY="30.0"
@@ -176,14 +176,14 @@
                                 <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="255.0" layoutY="515.0"
                                        prefHeight="75.0" prefWidth="286.0" textFill="#3ab93abf" visible="false">
                                     <font>
-                                        <Font name="System Bold" size="15.0"/>
+                                        <Font name="Candara" size="15.0"/>
                                     </font>
                                 </Label>
                                 <Button layoutX="541.0" layoutY="527.0" mnemonicParsing="false"
                                         onAction="#onArrestReportSubmitBtnClick" prefHeight="43.0" prefWidth="114.0"
                                         stylesheets="@css/main/mainBtn.css" text="Submit">
                                     <font>
-                                        <Font name="System Bold" size="16.0"/>
+                                        <Font name="Candara" size="16.0"/>
                                     </font>
                                     <effect>
                                         <DropShadow>
@@ -205,20 +205,20 @@
                     <children>
                         <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="28.0"/>
+                                <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
                         <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
-                                <Font name="System Bold" size="22.0"/>
+                                <Font name="Candara" size="22.0"/>
                             </font>
                         </Label>
                         <Label alignment="CENTER" layoutX="189.0" layoutY="13.0" prefHeight="51.0" prefWidth="464.0"
                                text="New Impound Report" textAlignment="CENTER" textFill="#c6c6c6"
                                AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="31.0">
                             <font>
-                                <Font name="System Bold" size="33.0"/>
+                                <Font name="Candara" size="33.0"/>
                             </font>
                         </Label>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="657.0" layoutY="7.0"

@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.IOException;

@@ -89,9 +89,9 @@ public class trafficStopReportController {
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (ResponseColor.getSelectionModel().isEmpty() || ResponseColor.getValue() == null
                 || ReponseType.getSelectionModel().isEmpty() || ReponseType.getValue() == null
-                || ReponsePlateNumber.getText().isEmpty()
+                /*|| ReponsePlateNumber.getText().isEmpty()*/
                 || Spinner.getValue() == null
-                || ResponseStreet.getText().isEmpty()
+                /*|| ResponseStreet.getText().isEmpty()
                 || ResponseArea.getText().isEmpty()
                 || ResponseCounty.getText().isEmpty()
                 || Agency.getText().isEmpty()
@@ -103,7 +103,7 @@ public class trafficStopReportController {
                 || calloutReportDate.getText().isEmpty()
                 || actionsTakenNotes.getText().isEmpty()
                 || comments.getText().isEmpty()
-                || violationsNotes.getText().isEmpty()) {
+                || violationsNotes.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

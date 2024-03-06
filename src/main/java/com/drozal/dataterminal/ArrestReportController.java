@@ -81,15 +81,15 @@ public class ArrestReportController {
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
 
         if (arrestNumber.getValue() == null
-                || arrestDate.getText().isEmpty()
+                /*|| arrestDate.getText().isEmpty()
                 || arrestTime.getText().isEmpty()
                 || arrestCounty.getText().isEmpty()
                 || arrestArea.getText().isEmpty()
                 || arrestStreet.getText().isEmpty()
                 || arresteeName.getText().isEmpty()
-                || arresteeAge.getText().isEmpty()
+                || arresteeAge.getText().isEmpty()*/
                 || arresteeGender.getValue() == null
-                || arresteeEthnicity.getText().isEmpty()
+                /*|| arresteeEthnicity.getText().isEmpty()
                 || arresteeDescription.getText().isEmpty()
                 || arresteeMedicalInformation.getText().isEmpty()
                 || arrestDetails.getText().isEmpty()
@@ -97,7 +97,7 @@ public class ArrestReportController {
                 || officerName.getText().isEmpty()
                 || officerNumber.getText().isEmpty()
                 || officerDivision.getText().isEmpty()
-                || officerAgency.getText().isEmpty()) {
+                || officerAgency.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

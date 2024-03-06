@@ -120,7 +120,7 @@ public class TrafficCitationReportLogs {
                 officerAgencyLabel, citationCommentsLabel);
     }
 
-        public static Label createLabel(String text) {
+    public static Label createLabel(String text) {
         Label label = new Label(text);
         label.setFont(new Font("Arial", 14));
         label.setWrapText(true); // Allow text wrapping

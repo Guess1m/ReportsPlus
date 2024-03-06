@@ -1,19 +1,14 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
-import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,7 +55,8 @@ public class TrafficCitationController {
     private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {} else {
+        if (hasEntered) {
+        } else {
             offenderAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
                 offenderAge.setText(String.valueOf(newValue.intValue())); // Update the text of the label
             });
@@ -84,26 +80,27 @@ public class TrafficCitationController {
         }
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {hasEntered=true;
+    public void onMouseExit(MouseEvent mouseEvent) {
+        hasEntered = true;
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (citationNumber.getValue() == null
-                || citationDate.getText().isEmpty()
+                /*|| citationDate.getText().isEmpty()
                 || citationTime.getText().isEmpty()
                 || citationCounty.getText().isEmpty()
                 || citationArea.getText().isEmpty()
                 || citationStreet.getText().isEmpty()
-                || offenderName.getText().isEmpty()
+                || offenderName.getText().isEmpty()*/
                 || offenderGender.getValue() == null
-                || offenderEthnicity.getText().isEmpty()
+                /*|| offenderEthnicity.getText().isEmpty()
                 || offenderAge.getText().isEmpty()
                 || offenderDescription.getText().isEmpty()
                 || offenderVehicleMake.getText().isEmpty()
-                || offenderVehicleModel.getText().isEmpty()
+                || offenderVehicleModel.getText().isEmpty()*/
                 || offenderVehicleColor.getValue() == null
                 || offenderVehicleType.getValue() == null
-                || offenderVehiclePlate.getText().isEmpty()
+                /*|| offenderVehiclePlate.getText().isEmpty()
                 || offenderVehicleOther.getText().isEmpty()
                 || offenderViolations.getText().isEmpty()
                 || offenderActionsTaken.getText().isEmpty()
@@ -112,7 +109,7 @@ public class TrafficCitationController {
                 || officerNumber.getText().isEmpty()
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()
-                || citationComments.getText().isEmpty()) {
+                || citationComments.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

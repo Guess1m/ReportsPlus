@@ -75,7 +75,7 @@ public class IncidentReportController {
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (Spinner.getValue() == null
-                || incidentDate.getText().isEmpty()
+                /*|| incidentDate.getText().isEmpty()
                 || incidentTime.getText().isEmpty()
                 || incidentStatement.getText().isEmpty()
                 || incidentWitnesses.getText().isEmpty()
@@ -89,7 +89,7 @@ public class IncidentReportController {
                 || incidentArea.getText().isEmpty()
                 || incidentCounty.getText().isEmpty()
                 || incidentActionsTaken.getText().isEmpty()
-                || incidentComments.getText().isEmpty()) {
+                || incidentComments.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

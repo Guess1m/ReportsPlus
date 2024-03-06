@@ -71,7 +71,7 @@ public class patrolReportController {
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (patrolNumber.getValue() == null
-                || patrolDate.getText().isEmpty()
+                /*|| patrolDate.getText().isEmpty()
                 || patrolLength.getText().isEmpty()
                 || patrolStartTime.getText().isEmpty()
                 || patrolStopTime.getText().isEmpty()
@@ -81,7 +81,7 @@ public class patrolReportController {
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()
                 || officerVehicle.getText().isEmpty()
-                || patrolComments.getText().isEmpty()) {
+                || patrolComments.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

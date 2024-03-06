@@ -78,14 +78,14 @@ public class SearchReportController {
 
     public void onSearchReportSubmitBtnClick(ActionEvent actionEvent) {
         if (SearchNumber.getValue() == null
-                || searchedPersons.getText().isEmpty()
+                /*|| searchedPersons.getText().isEmpty()
                 || searchDate.getText().isEmpty()
                 || searchTime.getText().isEmpty()
                 || searchSeizedItems.getText().isEmpty()
-                || searchGrounds.getText().isEmpty()
+                || searchGrounds.getText().isEmpty()*/
                 || searchType.getSelectionModel().isEmpty() || searchType.getValue() == null
                 || searchMethod.getSelectionModel().isEmpty() || searchMethod.getValue() == null
-                || searchWitnesses.getText().isEmpty()
+                /*|| searchWitnesses.getText().isEmpty()
                 || officerRank.getText().isEmpty()
                 || officerName.getText().isEmpty()
                 || officerNumber.getText().isEmpty()
@@ -94,7 +94,7 @@ public class SearchReportController {
                 || searchStreet.getText().isEmpty()
                 || searchArea.getText().isEmpty()
                 || searchCounty.getText().isEmpty()
-                || searchComments.getText().isEmpty()) {
+                || searchComments.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

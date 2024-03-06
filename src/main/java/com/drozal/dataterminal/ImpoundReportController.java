@@ -3,8 +3,6 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,16 +39,16 @@ public class ImpoundReportController {
     public TextField officerNumber;
     public TextField officerDivision;
     public TextField officerAgency;
-
-    boolean hasEntered = false;
-    private double xOffset = 0;
-    private double yOffset = 0;
     public Label incompleteLabel;
     public Slider ownerAgeSlider;
     public VBox vbox;
+    boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {} else {
+        if (hasEntered) {
+        } else {
             ownerAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
                 ownerAge.setText(String.valueOf(newValue.intValue())); // Update the text of the label
             });
@@ -74,70 +72,71 @@ public class ImpoundReportController {
         }
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {hasEntered=true;
+    public void onMouseExit(MouseEvent mouseEvent) {
+        hasEntered = true;
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
-            if (impoundNumber.getValue() == null ||
-                impoundDate.getText().isEmpty() ||
+        if (impoundNumber.getValue() == null ||
+                /*impoundDate.getText().isEmpty() ||
                 impoundTime.getText().isEmpty() ||
                 ownerName.getText().isEmpty() ||
-                ownerAge.getText().isEmpty() ||
+                ownerAge.getText().isEmpty() ||*/
                 ownerGender.getValue() == null ||
-                ownerAddress.getText().isEmpty() ||
+                /*ownerAddress.getText().isEmpty() ||
                 impoundPlateNumber.getText().isEmpty() ||
                 impoundMake.getText().isEmpty() ||
-                impoundModel.getText().isEmpty() ||
+                impoundModel.getText().isEmpty() ||*/
                 impoundType.getValue() == null ||
-                impoundColor.getValue() == null ||
+                impoundColor.getValue() == null /*||
                 impoundComments.getText().isEmpty() ||
                 officerRank.getText().isEmpty() ||
                 officerName.getText().isEmpty() ||
                 officerNumber.getText().isEmpty() ||
                 officerDivision.getText().isEmpty() ||
-                officerAgency.getText().isEmpty()){
-                System.out.println("Some fields are empty");
-                incompleteLabel.setText("Fill Out Form.");
-                incompleteLabel.setStyle("-fx-text-fill: red;");
-                incompleteLabel.setVisible(true);
-                Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-                    incompleteLabel.setVisible(false);
-                }));
-                timeline1.play();
-            } else {
-                System.out.println("nothing empty, printing values");
-                // Load existing logs from XML
-                ImpoundReportLogs searchReportLogs = new ImpoundReportLogs();
-                List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+                officerAgency.getText().isEmpty()*/) {
+            System.out.println("Some fields are empty");
+            incompleteLabel.setText("Fill Out Form.");
+            incompleteLabel.setStyle("-fx-text-fill: red;");
+            incompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            System.out.println("nothing empty, printing values");
+            // Load existing logs from XML
+            ImpoundReportLogs searchReportLogs = new ImpoundReportLogs();
+            List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                // Add new entry
-                logs.add(new ImpoundLogEntry(
-                        impoundNumber.getValue().toString(),
-                        impoundDate.getText(),
-                        impoundTime.getText(),
-                        ownerName.getText(),
-                        ownerAge.getText(),
-                        ownerGender.getValue().toString(),
-                        ownerAddress.getText(),
-                        impoundPlateNumber.getText(),
-                        impoundMake.getText(),
-                        impoundModel.getText(),
-                        impoundType.getValue().toString(),
-                        impoundColor.getValue().toString(),
-                        impoundComments.getText(),
-                        officerRank.getText(),
-                        officerName.getText(),
-                        officerNumber.getText(),
-                        officerDivision.getText(),
-                        officerAgency.getText()
-                ));
-                // Save logs to XML
-                ImpoundReportLogs.saveLogsToXML(logs);
-                // Close the stage
-                Stage stage = (Stage) vbox.getScene().getWindow();
-                stage.close();
+            // Add new entry
+            logs.add(new ImpoundLogEntry(
+                    impoundNumber.getValue().toString(),
+                    impoundDate.getText(),
+                    impoundTime.getText(),
+                    ownerName.getText(),
+                    ownerAge.getText(),
+                    ownerGender.getValue().toString(),
+                    ownerAddress.getText(),
+                    impoundPlateNumber.getText(),
+                    impoundMake.getText(),
+                    impoundModel.getText(),
+                    impoundType.getValue().toString(),
+                    impoundColor.getValue().toString(),
+                    impoundComments.getText(),
+                    officerRank.getText(),
+                    officerName.getText(),
+                    officerNumber.getText(),
+                    officerDivision.getText(),
+                    officerAgency.getText()
+            ));
+            // Save logs to XML
+            ImpoundReportLogs.saveLogsToXML(logs);
+            // Close the stage
+            Stage stage = (Stage) vbox.getScene().getWindow();
+            stage.close();
         }
-}
+    }
 
 
     public void onMouseDrag(MouseEvent mouseEvent) {

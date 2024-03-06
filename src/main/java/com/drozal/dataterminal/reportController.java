@@ -83,7 +83,7 @@ public class reportController {
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (calloutReportSpinner.getValue() == null
-                || calloutReportNotesTextArea.getText().isEmpty()
+                /*|| calloutReportNotesTextArea.getText().isEmpty()
                 || calloutReportResponseGrade.getText().isEmpty()
                 || calloutReportResponeType.getText().isEmpty()
                 || calloutReportTime.getText().isEmpty()
@@ -95,7 +95,7 @@ public class reportController {
                 || calloutReportName.getText().isEmpty()
                 || calloutReportResponseArea.getText().isEmpty()
                 || calloutReportResponseCounty.getText().isEmpty()
-                || calloutReportResponseAddress.getText().isEmpty()) {
+                || calloutReportResponseAddress.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

@@ -3,8 +3,6 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.ParkingCitation.ParkingCitationLogEntry;
 import com.drozal.dataterminal.logs.ParkingCitation.ParkingCitationReportLogs;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,10 +24,6 @@ public class ParkingCitationController {
     public VBox vbox;
     public Slider offenderAgeSlider;
     public Label incompleteLabel;
-    boolean hasEntered = false;
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public Spinner citationNumber;
     public TextField citationDate;
     public TextField citationTime;
@@ -56,9 +50,13 @@ public class ParkingCitationController {
     public TextArea offenderViolations;
     public TextField offenderActionsTaken;
     public TextArea citationComments;
+    boolean hasEntered = false;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {} else {
+        if (hasEntered) {
+        } else {
             offenderAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
                 offenderAge.setText(String.valueOf(newValue.intValue())); // Update the text of the label
             });
@@ -83,7 +81,8 @@ public class ParkingCitationController {
         }
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {hasEntered=true;
+    public void onMouseExit(MouseEvent mouseEvent) {
+        hasEntered = true;
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {
@@ -107,21 +106,21 @@ public class ParkingCitationController {
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (citationNumber.getValue() == null
-                || citationDate.getText().isEmpty()
+                /*|| citationDate.getText().isEmpty()
                 || citationTime.getText().isEmpty()
                 || citationCounty.getText().isEmpty()
                 || citationArea.getText().isEmpty()
                 || citationStreet.getText().isEmpty()
-                || offenderName.getText().isEmpty()
+                || offenderName.getText().isEmpty()*/
                 || offenderGender.getValue() == null
-                || offenderEthnicity.getText().isEmpty()
+                /*|| offenderEthnicity.getText().isEmpty()
                 || offenderAge.getText().isEmpty()
                 || offenderDescription.getText().isEmpty()
                 || offenderVehicleMake.getText().isEmpty()
-                || offenderVehicleModel.getText().isEmpty()
+                || offenderVehicleModel.getText().isEmpty()*/
                 || offenderVehicleColor.getValue() == null
                 || offenderVehicleType.getValue() == null
-                || offenderVehiclePlate.getText().isEmpty()
+                /*|| offenderVehiclePlate.getText().isEmpty()
                 || offenderVehicleOther.getText().isEmpty()
                 || offenderViolations.getText().isEmpty()
                 || offenderActionsTaken.getText().isEmpty()
@@ -130,7 +129,7 @@ public class ParkingCitationController {
                 || officerNumber.getText().isEmpty()
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()
-                || citationComments.getText().isEmpty()) {
+                || citationComments.getText().isEmpty()*/) {
             System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

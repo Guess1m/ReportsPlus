@@ -2,6 +2,8 @@ module com.drozal.dataterminal {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires transitive javafx.graphics;
+    requires transitive javafx.base;
 
     requires org.controlsfx.controls;
     requires net.synedra.validatorfx;
@@ -21,9 +23,9 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.logs.Impound to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.ParkingCitation to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.TrafficCitation to jakarta.xml.bind;
+    opens com.drozal.dataterminal.util to javafx.fxml;
+
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;
     exports com.drozal.dataterminal.util;
-    opens com.drozal.dataterminal.util to javafx.fxml;
-
 }

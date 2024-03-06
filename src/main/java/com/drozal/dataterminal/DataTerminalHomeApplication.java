@@ -48,8 +48,6 @@ public class DataTerminalHomeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Font.loadFont(getClass().getResourceAsStream("fonts/seguibl.ttf"), 14);
-
         mainStage.mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();

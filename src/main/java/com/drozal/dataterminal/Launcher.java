@@ -7,8 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class Launcher {
-    public static void main(String[] args) throws IOException {
 
+    public static void loadFonts() {
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/SansSerifFLF.otf"), 14);
+    }
+
+    public static void main(String[] args) throws IOException {
+        loadFonts();
         if (ConfigReader.doesConfigExist()) {
 
             // Specify the path of the folder to be created

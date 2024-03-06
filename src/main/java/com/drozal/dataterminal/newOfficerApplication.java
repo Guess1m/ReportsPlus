@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -16,7 +15,6 @@ public class newOfficerApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Font.loadFont(getClass().getResourceAsStream("fonts/seguibl.ttf"), 14);
         Stage newOfficerStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newOfficer-view.fxml"));
         Parent root = loader.load();

@@ -74,7 +74,7 @@ public class actionController {
     public StackPane infoPane;
     public TextArea notepadTextArea;
     public Label updatedNotification;
-    public TabPane logPane;
+    public StackPane logPane;
     public GridPane logGrid;
     public GridPane trafficStopGrid;
     public GridPane incidentGrid;
@@ -88,7 +88,7 @@ public class actionController {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public TabPane getLogPane() {
+    public StackPane getLogPane() {
         return logPane;
     }
 

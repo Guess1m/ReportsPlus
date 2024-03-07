@@ -1,6 +1,6 @@
 /* Define styles for the scroll pane */
 .scroll-pane {
-    -fx-background:  #2a2e3d; /* Transparent background */
+    -fx-background:  white; /* Transparent background */
 
 }
 .scroll-pane .corner {

@@ -77,7 +77,7 @@ public class DataTerminalHomeApplication extends Application {
         Label generatedOnTag = controller.getGeneratedDateTag();
         StackPane shiftInfoPane = controller.getShiftInformationPane();
         StackPane informationPane = controller.getInfoPane();
-        TabPane logsPane = controller.getLogPane();
+        StackPane logsPane = controller.getLogPane();
 
         TextField OfficerInfoName = controller.getOfficerInfoName();
         ComboBox OfficerInfoDivision = controller.getOfficerInfoDivision();

@@ -1,28 +1,31 @@
 .tab-pane {
-    -fx-background-color:  #3e465b; /* Background color */
+    -fx-background-color:  transparent; /* Background color */
 }
 
 .tab {
     -fx-font-size: 15px; /* Font size of tab labels */
+    -fx-font-family: "Segoe UI";
     -fx-font-weight: none; /* Bold font for tab labels */
-    -fx-background-color: #34394b; /* Background color of the selected tab */
+    -fx-background-color: #665cb6; /* Background color of the selected tab */
     -fx-text-fill: white !important; /* Text color of tabs */
-    -fx-padding: 3px 9px; /* Padding on the left and right of each tab */
+    -fx-padding: 3px 10px; /* Padding on the left and right of each tab */
     -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
+    -fx-border-color: black; /* Change border color when focused */
+            -fx-border-width: 0 0 1px 0; /* Increase bottom border width when focused */
 }
 .tab-label{
-    -fx-text-fill: #b5b5b5; /* Text color of tabs */
+    -fx-text-fill: white; /* Text color of tabs */
 }
 .tab:selected .tab-label {
-    -fx-text-fill: #cccccc; /* Text color of the selected tab */
+    -fx-text-fill: white; /* Text color of the selected tab */
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 
 .tab:selected {
-    -fx-background-color: #495069; /* Background color of the selected tab */
-    -fx-border-color: #2979ff; /* Change border color when focused */
-        -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-background-color: #524992; /* Background color of the selected tab */
+    -fx-border-color: #8c84c8; /* Change border color when focused */
+        -fx-border-width: 0 0 2px 0; /* Increase bottom border width when focused */
         -fx-padding: 4 12px; /* Padding on the left and right of each tab */
 }
 .tab:selected .focus-indicator {
@@ -30,11 +33,11 @@
 }
 
 .tab:hover {
-    -fx-background-color: #495069; /* Background color of the selected tab */
+    -fx-background-color: #665cb6; /* Background color of the selected tab */
 }
 .tab:hover .tab-label {
     /*-fx-text-fill: #b5b5b5;  Text color of the selected tab */
 }
 .tab-header-background {
-    -fx-background-color: #182039; /* Background color of the selected tab header */
+    -fx-background-color: transparent; /* Background color of the selected tab header */
 }

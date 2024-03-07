@@ -1,5 +1,7 @@
 package com.drozal.dataterminal.logs.Callout;
 
+import javafx.beans.value.ObservableValue;
+
 // Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;
@@ -149,5 +151,6 @@ public class CalloutLogEntry {
     public void setCalloutNumber(String calloutNumber) {
         CalloutNumber = calloutNumber;
     }
+
 }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trafficStopReportLogs>
+    <logs>
+        <PlateNumber>sadfsadfsd</PlateNumber>
+        <Color>Green</Color>
+        <Type>Bus</Type>
+        <StopNumber>4</StopNumber>
+        <ViolationsTextArea>sadfsdf</ViolationsTextArea>
+        <ActionsTextArea>sadfasdf</ActionsTextArea>
+        <CommentsTextArea>sdfafsdaf</CommentsTextArea>
+        <Time>09:01:20 PM</Time>
+        <Date>2024-03-07</Date>
+        <Division> Central Area Patrol Division</Division>
+        <Agency>International Affairs Agency</Agency>
+        <Number>sdads</Number>
+        <Rank>Police Officer II</Rank>
+        <Name>asadsds</Name>
+        <County>asdfasdf</County>
+        <Area>sadfsadf</Area>
+        <Street>asdfsadf</Street>
+    </logs>
+    <logs>
+        <PlateNumber></PlateNumber>
+        <Color>Red</Color>
+        <Type>Motorcycle</Type>
+        <StopNumber>0</StopNumber>
+        <ViolationsTextArea></ViolationsTextArea>
+        <ActionsTextArea></ActionsTextArea>
+        <CommentsTextArea></CommentsTextArea>
+        <Time>09:01:58 PM</Time>
+        <Date>2024-03-07</Date>
+        <Division> Central Area Patrol Division</Division>
+        <Agency>International Affairs Agency</Agency>
+        <Number>sdads</Number>
+        <Rank>Police Officer II</Rank>
+        <Name>asadsds</Name>
+        <County></County>
+        <Area></Area>
+        <Street></Street>
+    </logs>
+    <logs>
+        <PlateNumber></PlateNumber>
+        <Color>Blue</Color>
+        <Type>Truck</Type>
+        <StopNumber>0</StopNumber>
+        <ViolationsTextArea></ViolationsTextArea>
+        <ActionsTextArea></ActionsTextArea>
+        <CommentsTextArea></CommentsTextArea>
+        <Time>09:03:04 PM</Time>
+        <Date>2024-03-07</Date>
+        <Division> Central Area Patrol Division</Division>
+        <Agency>International Affairs Agency</Agency>
+        <Number>sdads</Number>
+        <Rank>Police Officer II</Rank>
+        <Name>asadsds</Name>
+        <County></County>
+        <Area></Area>
+        <Street></Street>
+    </logs>
+    <logs>
+        <PlateNumber>plate#</PlateNumber>
+        <Color>Yellow</Color>
+        <Type>Bicycle</Type>
+        <StopNumber>232</StopNumber>
+        <ViolationsTextArea>violationslaksdfokansdofnadsofnaosdknfasd</ViolationsTextArea>
+        <ActionsTextArea>actionsolksdfoasnfasdnfdsn</ActionsTextArea>
+        <CommentsTextArea>commentsansdofnasodfnsojanfas</CommentsTextArea>
+        <Time>10:08:15 PM</Time>
+        <Date>2024-03-08</Date>
+        <Division> Central Area Patrol Division</Division>
+        <Agency>International Affairs Agency</Agency>
+        <Number>num</Number>
+        <Rank>Police Officer II</Rank>
+        <Name>name</Name>
+        <County>county</County>
+        <Area>area</Area>
+        <Street>street</Street>
+    </logs>
+</trafficStopReportLogs>

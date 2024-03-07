@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
@@ -29,7 +30,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
@@ -282,12 +283,12 @@
                                 <children>
                                     <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0" prefWidth="295.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;" wrapText="true">
                                         <font>
-                                            <Font name="Consolas Bold" size="21.0" />
+                                            <Font name="Roboto" size="21.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0" prefWidth="176.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5" wrapText="true">
                                         <font>
-                                            <Font name="Consolas" size="21.0" />
+                                            <Font name="Roboto" size="21.0" />
                                         </font>
                                     </TextArea>
                                     <Label layoutX="24.5" layoutY="7.0" text="Response Codes" textAlignment="CENTER" textFill="#d7d7d7">
@@ -305,12 +306,12 @@
                                 <children>
                                     <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="308.0" prefWidth="355.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;" wrapText="true">
                                         <font>
-                                            <Font name="Consolas Bold" size="21.0" />
+                                            <Font name="Roboto" size="21.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0" prefWidth="234.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose" wrapText="true">
                                         <font>
-                                            <Font name="Consolas" size="21.0" />
+                                            <Font name="Roboto" size="21.0" />
                                         </font>
                                     </TextArea>
                                     <Label layoutX="27.0" layoutY="7.0" text="Backup Codes" textAlignment="CENTER" textFill="#d7d7d7">
@@ -339,47 +340,47 @@
                                     </Label>
                                     <TextArea editable="false" layoutX="13.0" layoutY="45.0" prefHeight="263.0" prefWidth="150.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="A&#10;B&#10;C&#10;D&#10;E&#10;F" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="194.0" layoutY="45.0" prefHeight="366.0" prefWidth="167.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="George&#10;Henry&#10;Ida&#10;John&#10;King&#10;Lincoln" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="162.0" layoutY="45.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="G&#10;H&#10;I&#10;J&#10;K&#10;L" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="352.0" layoutY="45.0" prefHeight="366.0" prefWidth="176.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Mary&#10;Nora&#10;Ocean&#10;Paul&#10;Queen&#10;Robert" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="320.0" layoutY="45.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="M&#10;N&#10;O&#10;P&#10;Q&#10;R" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="505.0" layoutY="45.0" prefHeight="366.0" prefWidth="184.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Sam&#10;Tom&#10;Union&#10;Victor&#10;William&#10;X-ray" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="473.0" layoutY="45.0" prefHeight="263.0" prefWidth="174.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="S&#10;T&#10;U&#10;V&#10;W&#10;X" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="642.0" layoutY="45.0" prefHeight="366.0" prefWidth="155.0" style="-fx-text-fill: #1e90ff; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Young&#10;Zebra" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="610.0" layoutY="45.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Y&#10;Z" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0" />
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                 </children>
@@ -394,143 +395,116 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-         <StackPane fx:id="logPane" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
+         <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
             <children>
                <Pane style="-fx-background-color: #f2f2f2;">
                   <children>
-                        <TabPane layoutY="67.0" prefHeight="617.0" prefWidth="808.0" stylesheets="@css/main/Logtabpane.css">
+                        <TabPane layoutX="14.0" layoutY="67.0" prefHeight="603.0" prefWidth="779.0" stylesheets="@css/main/Logtabpane.css">
                             <tabs>
-                                <Tab closable="false" text="Callouts">
+                           <Tab closable="false" text="Callouts">
+                              <content>
+                                 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="logGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
-                                        </ScrollPane>
+                                       <TableView fx:id="calloutTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                     </content>
-                                </Tab>
+                                 </ScrollPane>
+                              </content>
+                           </Tab>
                                 <Tab closable="false" text="Traffic Stops">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="trafficStopGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="trafficStopTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Incidents">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="incidentGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="incidentTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Searches">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="searchGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="searchTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Arrests">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="arrestGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="arrestTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Patrols">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="patrolGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="patrolTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Citations">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="citationGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="citationTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Impounds">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="impoundGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="impoundTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                                 <Tab closable="false" text="Parking Citations">
                                     <content>
-                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="806.0" stylesheets="@css/main/Logscrollpane.css">
-                                            <content>
-                                                <GridPane fx:id="parkingCitationGrid" hgap="25.0" vgap="25.0">
-                                                    <padding>
-                                                        <Insets left="20.0" right="20.0" top="20.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </content>
+                                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
+                                    <content>
+                                       <TableView fx:id="parkingCitationTable" prefHeight="567.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
+                                    </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
                             </tabs>
                             <effect>
-                                <DropShadow>
+                                <DropShadow height="0.0" radius="0.0" width="0.0">
                               <color>
-                                 <Color opacity="0.15679389238357544" />
+                                 <Color opacity="0.0" />
                               </color>
                            </DropShadow>
                             </effect>
                         </TabPane>
-                     <Label alignment="CENTER" layoutX="31.0" layoutY="18.0" prefHeight="35.0" prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Log Reports" textAlignment="CENTER" textFill="WHITE">
-                        <font>
-                           <Font name="Segoe UI Black" size="19.0" />
-                        </font>
-                     </Label>
+                     <AnchorPane layoutX="1.0" layoutY="4.0" prefHeight="70.0" prefWidth="806.0">
+                        <children>
+                           <Label layoutX="26.0" prefHeight="81.0" prefWidth="253.0" style="-fx-font-family: segoe ui semibold;" text="DatabaseReport" textFill="#665cb6">
+                              <font>
+                                 <Font name="Adelle Sans Devanagari Thin" size="36.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="280.0" layoutY="7.0" prefHeight="74.0" prefWidth="244.0" style="-fx-font-family: segoe ui semibold;" text="Viewer" textFill="#616161">
+                              <font>
+                                 <Font name="Adelle Sans Devanagari Thin" size="24.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </AnchorPane>
                   </children>
                </Pane>
             </children>
@@ -585,7 +559,7 @@
                             </ImageView>
                         </graphic>
                     </MenuButton>
-                    <Button fx:id="codeButton" graphicTextGap="10.0" layoutX="10.0" layoutY="407.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Codes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="420.0">
+                    <Button fx:id="codeButton" graphicTextGap="10.0" layoutX="10.0" layoutY="407.0" mnemonicParsing="false" onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Codes" textFill="#828797" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="420.0">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -599,12 +573,12 @@
                     </Button>
                     <Label alignment="CENTER" layoutY="649.0" prefHeight="27.0" prefWidth="193.0" style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Segoe UI Bold" size="19.0" />
+                            <Font name="Roboto" size="17.0" />
                         </font>
                     </Label>
                     <Label alignment="CENTER" layoutY="679.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Segoe UI" size="15.0" />
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
@@ -616,7 +590,7 @@
                     </Label>
                     <Label alignment="CENTER" layoutY="702.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Segoe UI" size="15.0" />
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
@@ -628,7 +602,7 @@
                     </Label>
                     <Label alignment="CENTER" layoutY="727.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Segoe UI" size="15.0" />
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
@@ -650,7 +624,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="dataTerminalInfoButton" graphicTextGap="10.0" layoutX="10.0" layoutY="450.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="DT Info" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="483.0">
+                    <Button fx:id="dataTerminalInfoButton" graphicTextGap="10.0" layoutX="10.0" layoutY="450.0" mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="DT Info" textFill="#828797" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="483.0">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -683,7 +657,7 @@
                 <children>
                     <Label layoutX="103.0" layoutY="26.0" text="Data Terminal" textFill="WHITE" AnchorPane.bottomAnchor="24.0" AnchorPane.topAnchor="26.0">
                         <font>
-                            <Font name="Consolas" size="27.0" />
+                            <Font name="Roboto" size="27.0" />
                         </font>
                     </Label>
                     <ImageView fx:id="exitButton" fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="16.0">

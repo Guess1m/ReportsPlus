@@ -72,4 +72,29 @@ public class mapController {
         lastX = mouseEvent.getSceneX();
         lastY = mouseEvent.getSceneY();
     }
+
+    public void onZoomInPressed(MouseEvent mouseEvent) {
+        zoom(losSantosMap, 1.5);
+    }
+
+    public void onZoomOutPressed(MouseEvent mouseEvent) {
+        zoom(losSantosMap, 0.5);
+    }
+
+    private void zoom(ImageView imageView, double factor) {
+        double currentScaleX = imageView.getScaleX();
+        double currentScaleY = imageView.getScaleY();
+
+        double newScaleX = currentScaleX * factor;
+        double newScaleY = currentScaleY * factor;
+
+        // Clamp the scale to avoid zooming out too much or zooming in too much
+        double MIN_SCALE = 1.0;
+        double MAX_SCALE = 10.0;
+        newScaleX = clamp(newScaleX, MIN_SCALE, MAX_SCALE);
+        newScaleY = clamp(newScaleY, MIN_SCALE, MAX_SCALE);
+
+        imageView.setScaleX(newScaleX);
+        imageView.setScaleY(newScaleY);
+    }
 }

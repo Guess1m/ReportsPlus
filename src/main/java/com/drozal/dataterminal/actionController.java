@@ -32,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
@@ -75,15 +76,21 @@ public class actionController {
     public TextArea notepadTextArea;
     public Label updatedNotification;
     public StackPane logPane;
-    public GridPane logGrid;
-    public GridPane trafficStopGrid;
-    public GridPane incidentGrid;
-    public GridPane searchGrid;
-    public GridPane arrestGrid;
-    public GridPane patrolGrid;
-    public GridPane citationGrid;
-    public GridPane impoundGrid;
-    public GridPane parkingCitationGrid;
+    public TableView trafficStopTable;
+    public TableView incidentTable;
+    public TableView searchTable;
+    public TableView arrestTable;
+    public TableView patrolTable;
+    public TableView citationTable;
+    public TableView impoundTable;
+    public TableView parkingCitationTable;
+
+    public TableView getCalloutTable() {
+        return calloutTable;
+    }
+
+    public VBox vbox;
+    public TableView calloutTable;
     boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -92,9 +99,9 @@ public class actionController {
         return logPane;
     }
 
-    public GridPane getLogGrid() {
-        return logGrid;
+    public void initialize() {
     }
+
 
     public void setDisable(StackPane pane) {
         pane.setVisible(false);
@@ -125,7 +132,6 @@ public class actionController {
         logPane.setDisable(true);
 
     }
-
 
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
         setDisable(codesPane);
@@ -339,17 +345,8 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(true);
         logPane.setDisable(false);
-        logGrid.getChildren().clear();
-        trafficStopGrid.getChildren().clear();
-        incidentGrid.getChildren().clear();
-        searchGrid.getChildren().clear();
-        arrestGrid.getChildren().clear();
-        patrolGrid.getChildren().clear();
-        citationGrid.getChildren().clear();
-        impoundGrid.getChildren().clear();
-        parkingCitationGrid.getChildren().clear();
 
-        /*Parking CITATION*/
+        /*Parking CITATION*//*
         if (Files.exists(Paths.get(stringUtil.parkingCitationLogURL))) {
             // Extract log entries from XML file
             List<ParkingCitationLogEntry> logEntries8 = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
@@ -386,7 +383,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints8 = new ColumnConstraints();
@@ -483,7 +480,7 @@ public class actionController {
             parkingCitationGrid.getRowConstraints().add(rowConstraints8);
         }
 
-        /*Impound */
+        *//*Impound *//*
         if (Files.exists(Paths.get(stringUtil.impoundLogURL))) {
             // Extract log entries from XML file
             List<ImpoundLogEntry> logEntries7 = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
@@ -512,7 +509,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints7 = new ColumnConstraints();
@@ -585,7 +582,7 @@ public class actionController {
             impoundGrid.getRowConstraints().add(rowConstraints7);
         }
 
-        /*TRAFFIC CITATION*/
+        *//*TRAFFIC CITATION*//*
         if (Files.exists(Paths.get(stringUtil.trafficCitationLogURL))) {
             // Extract log entries from XML file
             List<TrafficCitationLogEntry> logEntries6 = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
@@ -622,7 +619,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints6 = new ColumnConstraints();
@@ -739,7 +736,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints5 = new ColumnConstraints();
@@ -823,7 +820,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints4 = new ColumnConstraints();
@@ -925,7 +922,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints3 = new ColumnConstraints();
@@ -1027,7 +1024,7 @@ public class actionController {
                 row++;
             }
         } else {
-            System.out.println("File does not exist.");
+            //System.out.println("File does not exist.");
         }
         // Add ColumnConstraints for all columns
         ColumnConstraints columnConstraints2 = new ColumnConstraints();
@@ -1094,192 +1091,622 @@ public class actionController {
         int numRows2 = incidentGrid.getRowConstraints().size();
         for (int i = 0; i < numRows2; i++) {
             incidentGrid.getRowConstraints().add(rowConstraints2);
-        }
+        }*/
 
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.trafficstopLogURL))) {
-            // Extract log entries from XML file
-            List<TrafficStopLogEntry> logEntries = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
-
-            // Add log entries to the GridPane
-            int row = 1;
-            for (TrafficStopLogEntry logEntry : logEntries) {
-                trafficStopGrid.add(new Label(logEntry.StopNumber), 0, row);
-                trafficStopGrid.add(new Label(logEntry.Date), 1, row);
-                trafficStopGrid.add(new Label(logEntry.Time), 2, row);
-                trafficStopGrid.add(new Label(logEntry.PlateNumber), 3, row);
-                trafficStopGrid.add(new Label(logEntry.Color), 4, row);
-                trafficStopGrid.add(new Label(logEntry.Type), 5, row);
-                trafficStopGrid.add(new Label(logEntry.Rank), 6, row);
-                trafficStopGrid.add(new Label(logEntry.Name), 7, row);
-                trafficStopGrid.add(new Label(logEntry.Division), 8, row);
-                trafficStopGrid.add(new Label(logEntry.Agency), 9, row);
-                trafficStopGrid.add(new Label(logEntry.Number), 10, row);
-                trafficStopGrid.add(new Label(logEntry.Street), 11, row);
-                trafficStopGrid.add(new Label(logEntry.County), 12, row);
-                trafficStopGrid.add(new Label(logEntry.Area), 13, row);
-                trafficStopGrid.add(new Label(logEntry.ViolationsTextArea), 14, row);
-                trafficStopGrid.add(new Label(logEntry.ActionsTextArea), 15, row);
-                trafficStopGrid.add(new Label(logEntry.CommentsTextArea), 16, row);
-                row++;
-            }
-        } else {
-            System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints1 = new ColumnConstraints();
-        columnConstraints1.setHgrow(Priority.ALWAYS);
-        columnConstraints1.setFillWidth(true);
-        trafficStopGrid.getColumnConstraints().add(columnConstraints1);
-        trafficStopGrid.add(new Label("Traffic Stop #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        trafficStopGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        trafficStopGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        trafficStopGrid.add(new Label("Plate #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        trafficStopGrid.add(new Label("Color: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        trafficStopGrid.add(new Label("Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        trafficStopGrid.add(new Label("Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        trafficStopGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        trafficStopGrid.add(new Label("Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        trafficStopGrid.add(new Label("Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        trafficStopGrid.add(new Label("Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        trafficStopGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        trafficStopGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        trafficStopGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        trafficStopGrid.add(new Label("Violations: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        trafficStopGrid.add(new Label("Action Taken: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        trafficStopGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints1 = new RowConstraints();
-        rowConstraints1.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints1.setMinHeight(100); // Set the minimum height
-        rowConstraints1.setPrefHeight(100); // Set the preferred height
-        rowConstraints1.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows1 = trafficStopGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows1; i++) {
-            trafficStopGrid.getRowConstraints().add(rowConstraints1);
-        }
-
-
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.calloutLogURL))) {
-            List<CalloutLogEntry> logEntries = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
-
-            // Add log entries to the GridPane
-            int row = 1;
-            for (CalloutLogEntry logEntry : logEntries) {
-                logGrid.add(new Label(logEntry.CalloutNumber), 0, row);
-                logGrid.add(new Label(logEntry.Date), 1, row);
-                logGrid.add(new Label(logEntry.Time), 2, row);
-                logGrid.add(new Label(logEntry.ResponeType), 3, row);
-                logGrid.add(new Label(logEntry.ResponseGrade), 4, row);
-                logGrid.add(new Label(logEntry.Address), 5, row);
-                logGrid.add(new Label(logEntry.County), 6, row);
-                logGrid.add(new Label(logEntry.Area), 7, row);
-                logGrid.add(new Label(logEntry.Rank), 8, row);
-                logGrid.add(new Label(logEntry.Name), 9, row);
-                logGrid.add(new Label(logEntry.Number), 10, row);
-                logGrid.add(new Label(logEntry.Agency), 11, row);
-                logGrid.add(new Label(logEntry.Division), 12, row);
-                logGrid.add(new Label(logEntry.NotesTextArea), 13, row);
-                row++;
-            }
-        } else {
-            System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.ALWAYS);
-        columnConstraints.setFillWidth(true);
-        logGrid.getColumnConstraints().add(columnConstraints);
-        logGrid.add(new Label("Callout #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        logGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        logGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        logGrid.add(new Label("Response Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        logGrid.add(new Label("Response Grade: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        logGrid.add(new Label("Address: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        logGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        logGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        logGrid.add(new Label("Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        logGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        logGrid.add(new Label("Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        logGrid.add(new Label("Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        logGrid.add(new Label("Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        logGrid.add(new Label("Notes: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints.setMinHeight(100); // Set the minimum height
-        rowConstraints.setPrefHeight(100); // Set the preferred height
-        rowConstraints.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows = logGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows; i++) {
-            logGrid.getRowConstraints().add(rowConstraints);
-        }
+        //IncidentTable
+        List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
+        incidentLogUpdate(incidentLogEntryList);
+        //TrafficStopTable
+        List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
+        trafficStopLogUpdate(trafficLogEntryList);
+        //CalloutTable
+        List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
+        calloutLogUpdate(calloutLogEntryList);
     }
+
+    public void parkingCitationLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void impoundLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void citationLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void patrolLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void arrestLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void searchLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+    public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
+        // Clear existing data
+        incidentTable.getItems().clear();
+
+        // Create columns for each property of IncidentLogEntry
+        TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident Number");
+        incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
+
+        TableColumn<IncidentLogEntry, String> incidentDateColumn = new TableColumn<>("Date");
+        incidentDateColumn.setCellValueFactory(new PropertyValueFactory<>("incidentDate"));
+
+        TableColumn<IncidentLogEntry, String> incidentTimeColumn = new TableColumn<>("Time");
+        incidentTimeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentTime"));
+
+        TableColumn<IncidentLogEntry, String> incidentStatementColumn = new TableColumn<>("Statement");
+        incidentStatementColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStatement"));
+
+        TableColumn<IncidentLogEntry, String> incidentWitnessesColumn = new TableColumn<>("Witnesses");
+        incidentWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("incidentWitnesses"));
+
+        TableColumn<IncidentLogEntry, String> incidentVictimsColumn = new TableColumn<>("Victims");
+        incidentVictimsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentVictims"));
+
+        TableColumn<IncidentLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+
+        TableColumn<IncidentLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
+
+        TableColumn<IncidentLogEntry, String> officerNumberColumn = new TableColumn<>("Officer Number");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+
+        TableColumn<IncidentLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
+
+        TableColumn<IncidentLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
+
+        TableColumn<IncidentLogEntry, String> incidentStreetColumn = new TableColumn<>("Incident Street");
+        incidentStreetColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStreet"));
+
+        TableColumn<IncidentLogEntry, String> incidentAreaColumn = new TableColumn<>("Incident Area");
+        incidentAreaColumn.setCellValueFactory(new PropertyValueFactory<>("incidentArea"));
+
+        TableColumn<IncidentLogEntry, String> incidentCountyColumn = new TableColumn<>("Incident County");
+        incidentCountyColumn.setCellValueFactory(new PropertyValueFactory<>("incidentCounty"));
+
+        TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Actions Taken");
+        incidentActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("incidentActionsTaken"));
+
+        TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
+        incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
+
+        // Add columns to the table view
+        incidentTable.getColumns().addAll(
+                incidentNumberColumn,
+                incidentDateColumn,
+                incidentTimeColumn,
+                incidentStatementColumn,
+                incidentWitnessesColumn,
+                incidentVictimsColumn,
+                officerNameColumn,
+                officerRankColumn,
+                officerNumberColumn,
+                officerAgencyColumn,
+                officerDivisionColumn,
+                incidentStreetColumn,
+                incidentAreaColumn,
+                incidentCountyColumn,
+                incidentActionsTakenColumn,
+                incidentCommentsColumn
+        );
+
+        incidentTable.getItems().addAll(logEntries);
+    }
+
+
+        public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
+        // Clear existing data
+        trafficStopTable.getItems().clear();
+
+        // Create columns for each property of TrafficStopLogEntry
+        TableColumn<TrafficStopLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<TrafficStopLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<TrafficStopLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<TrafficStopLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<TrafficStopLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<TrafficStopLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<TrafficStopLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<TrafficStopLogEntry, String> stopNumberColumn = new TableColumn<>("Stop Number");
+        stopNumberColumn.setCellValueFactory(new PropertyValueFactory<>("StopNumber"));
+
+        TableColumn<TrafficStopLogEntry, String> violationsTextAreaColumn = new TableColumn<>("Violations");
+        violationsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("ViolationsTextArea"));
+
+        TableColumn<TrafficStopLogEntry, String> commentsTextAreaColumn = new TableColumn<>("Comments");
+        commentsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("CommentsTextArea"));
+
+        TableColumn<TrafficStopLogEntry, String> actionsTextAreaColumn = new TableColumn<>("Actions");
+        actionsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("ActionsTextArea"));
+
+        TableColumn<TrafficStopLogEntry, String> streetColumn = new TableColumn<>("Street");
+        streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
+
+        TableColumn<TrafficStopLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<TrafficStopLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        TableColumn<TrafficStopLogEntry, String> plateNumberColumn = new TableColumn<>("Plate Number");
+        plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
+
+        TableColumn<TrafficStopLogEntry, String> colorColumn = new TableColumn<>("Color");
+        colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
+
+        TableColumn<TrafficStopLogEntry, String> typeColumn = new TableColumn<>("Type");
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+
+        trafficStopTable.getColumns().addAll(
+                plateNumberColumn,
+                dateColumn,
+                timeColumn,
+                nameColumn,
+                rankColumn,
+                numberColumn,
+                divisionColumn,
+                agencyColumn,
+                stopNumberColumn,
+                violationsTextAreaColumn,
+                commentsTextAreaColumn,
+                actionsTextAreaColumn,
+                streetColumn,
+                countyColumn,
+                areaColumn,
+                colorColumn,
+                typeColumn
+        );
+        trafficStopTable.getItems().addAll(logEntries);
+    }
+    public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
+        // Clear existing data
+        calloutTable.getItems().clear();
+        // Create columns for each property of CalloutLogEntry
+        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+
+        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+
+        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+
+        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
+        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+
+        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+
+        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+
+        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+
+        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+
+        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+
+        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+
+        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+
+        calloutTable.getColumns().addAll(
+                calloutNumberColumn,
+                notesTextAreaColumn,
+                responseGradeColumn,
+                responseTypeColumn,
+                timeColumn,
+                dateColumn,
+                divisionColumn,
+                agencyColumn,
+                numberColumn,
+                rankColumn,
+                nameColumn,
+                addressColumn,
+                countyColumn,
+                areaColumn
+        );
+        calloutTable.getItems().addAll(logEntries);
+    }
+
 
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -1398,4 +1825,5 @@ public class actionController {
         stage.setResizable(false);
         stage.show();
     }
+
 }

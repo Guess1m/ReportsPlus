@@ -24,19 +24,19 @@
     -fx-border-radius: 4px; /* Border radius */
     -fx-border-color: rgb(102, 92, 182,0.4); /* Border color */
     -fx-text-fill: black;
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 15px;
 }
 .menuButton:hover {
     -fx-background-color:  #7b72c0; /* Hover background color */
     -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 15px;
 }
 .menuButton:pressed {
     -fx-background-color: #a497ce; /* Pressed background color */
     -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 15px;
 }
 
@@ -137,19 +137,19 @@
     -fx-padding: 8px 16px; /* Padding */
     -fx-background-radius: 7px; /* Border radius */
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI Bold" !important;
+    -fx-font-family: "Segoe UI SemiBold" !important;
         -fx-font-size: 16px;
 
 }
 .purpleButton:hover {
     -fx-background-color:  rgb(102, 92, 182,0.8); /* Hover background color */
     -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI Bold" !important;
+    -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
 }
 .purpleButton:pressed {
     -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
     -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI SemiBold";
         -fx-font-size: 16px;
 }

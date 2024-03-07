@@ -24,6 +24,74 @@ public class TrafficStopLogEntry {
 
     }
 
+    public String getPlateNumber() {
+        return PlateNumber;
+    }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public String getStopNumber() {
+        return StopNumber;
+    }
+
+    public String getViolationsTextArea() {
+        return ViolationsTextArea;
+    }
+
+    public String getActionsTextArea() {
+        return ActionsTextArea;
+    }
+
+    public String getCommentsTextArea() {
+        return CommentsTextArea;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public String getDivision() {
+        return Division;
+    }
+
+    public String getAgency() {
+        return Agency;
+    }
+
+    public String getNumber() {
+        return Number;
+    }
+
+    public String getRank() {
+        return Rank;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public String getCounty() {
+        return County;
+    }
+
+    public String getArea() {
+        return Area;
+    }
+
+    public String getStreet() {
+        return Street;
+    }
+
     public TrafficStopLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
         this.Date = date;
         this.Time = time;

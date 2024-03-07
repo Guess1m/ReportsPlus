@@ -1,0 +1,55 @@
+.calloutTABLE{
+   -fx-background-color: transparent;
+}
+.calloutTABLE:focused{
+    -fx-background-color: transparent;
+}
+.calloutTABLE .column-header-background{
+    -fx-background-color: rgb(102, 92, 182,0.7);
+}
+.calloutTABLE .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI SemiBold"; /* Change the font family */
+}
+.calloutTABLE .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 0;
+}
+.calloutTABLE .table-cell{
+    -fx-text-fill: #262626;
+    -fx-font-family: "Segoe UI"; /* Change the font family */
+    -fx-alignment: center; /* Center text horizontally */
+    -fx-padding: 0 30px; /* Add padding to the left and right of the cells */
+}
+.calloutTABLE .table-row-cell{
+    -fx-table-cell-border-color: transparent;
+    -fx-cell-size: 40px; /* Adjust the row height as needed */
+    -fx-alignment: center; /* Center text horizontally */
+}
+.calloutTABLE .table-row-cell:odd{
+    -fx-background-color: white;
+    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
+        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
+}
+.calloutTABLE .table-row-cell:even{
+    -fx-background-color: white;
+    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
+        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
+}
+.calloutTABLE .table-row-cell:selected {
+    -fx-background-color: rgb(102, 92, 182,0.3);
+}
+.calloutTABLE > .virtual-flow > .scroll-bar:vertical,
+.calloutTABLE > .virtual-flow > .scroll-bar:vertical > .track,
+.calloutTABLE > .virtual-flow > .scroll-bar:vertical > .track-background,
+.calloutTABLE > .virtual-flow > .scroll-bar:horizontal,
+.calloutTABLE > .virtual-flow > .scroll-bar:horizontal > .track,
+.calloutTABLE > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+.calloutTABLE > .virtual-flow > .scroll-bar > .increment-button,
+.calloutTABLE > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}

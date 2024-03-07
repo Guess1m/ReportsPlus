@@ -18,6 +18,10 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLA.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLAB.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/arial.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
+
     }
 
     public static void main(String[] args) throws IOException {

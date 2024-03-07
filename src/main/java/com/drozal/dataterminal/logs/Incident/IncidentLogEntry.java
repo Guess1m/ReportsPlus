@@ -22,6 +22,70 @@ public class IncidentLogEntry {
     public IncidentLogEntry() {
     }
 
+    public String getIncidentNumber() {
+        return incidentNumber;
+    }
+
+    public String getIncidentDate() {
+        return incidentDate;
+    }
+
+    public String getIncidentTime() {
+        return incidentTime;
+    }
+
+    public String getIncidentStatement() {
+        return incidentStatement;
+    }
+
+    public String getIncidentWitnesses() {
+        return incidentWitnesses;
+    }
+
+    public String getIncidentVictims() {
+        return incidentVictims;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getIncidentStreet() {
+        return incidentStreet;
+    }
+
+    public String getIncidentArea() {
+        return incidentArea;
+    }
+
+    public String getIncidentCounty() {
+        return incidentCounty;
+    }
+
+    public String getIncidentActionsTaken() {
+        return incidentActionsTaken;
+    }
+
+    public String getIncidentComments() {
+        return incidentComments;
+    }
+
     public IncidentLogEntry(String incidentNumber, String incidentDate, String incidentTime, String incidentStatement, String incidentWitnesses, String incidentVictims, String officerName, String officerRank, String officerNumber, String officerAgency, String officerDivision, String incidentStreet, String incidentArea, String incidentCounty, String incidentActionsTaken, String incidentComments) {
         this.incidentNumber = incidentNumber;
         this.incidentDate = incidentDate;

@@ -5,13 +5,9 @@ module com.drozal.dataterminal {
     requires transitive javafx.graphics;
     requires transitive javafx.base;
 
-    requires org.controlsfx.controls;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires com.almasb.fxgl.all;
     requires jakarta.activation;
     requires jakarta.xml.bind;
+    requires org.controlsfx.controls;
 
     opens com.drozal.dataterminal to javafx.fxml;
     opens com.drozal.dataterminal.logs.Callout to jakarta.xml.bind;

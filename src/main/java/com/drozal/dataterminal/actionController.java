@@ -408,22 +408,22 @@ public class actionController {
         parkingCitationGrid.add(new Label("Citation #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
-        parkingCitationGrid.add(new Label("Citation Date: ") {{
+        parkingCitationGrid.add(new Label("Date: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 1, 0);
-        parkingCitationGrid.add(new Label("Citation Time: ") {{
+        parkingCitationGrid.add(new Label("Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 2, 0);
         parkingCitationGrid.add(new Label("Meter #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 3, 0);
-        parkingCitationGrid.add(new Label("Citation County: ") {{
+        parkingCitationGrid.add(new Label("County: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 4, 0);
-        parkingCitationGrid.add(new Label("Citation Area: ") {{
+        parkingCitationGrid.add(new Label("Area: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 5, 0);
-        parkingCitationGrid.add(new Label("Citation Street: ") {{
+        parkingCitationGrid.add(new Label("Street: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
         parkingCitationGrid.add(new Label("Offender Name: ") {{
@@ -441,28 +441,28 @@ public class actionController {
         parkingCitationGrid.add(new Label("Offender Description: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Make: ") {{
+        parkingCitationGrid.add(new Label("Make: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 12, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Model: ") {{
+        parkingCitationGrid.add(new Label("Model: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 13, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Color: ") {{
+        parkingCitationGrid.add(new Label("Color: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 14, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Type: ") {{
+        parkingCitationGrid.add(new Label("Type: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 15, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Plate: ") {{
+        parkingCitationGrid.add(new Label("Plate: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 16, 0);
-        parkingCitationGrid.add(new Label("Offender Vehicle Other: ") {{
+        parkingCitationGrid.add(new Label("Other: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 17, 0);
-        parkingCitationGrid.add(new Label("Offender Violations: ") {{
+        parkingCitationGrid.add(new Label("Violations: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 18, 0);
-        parkingCitationGrid.add(new Label("Offender Actions Taken: ") {{
+        parkingCitationGrid.add(new Label("Actions Taken: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 19, 0);
         parkingCitationGrid.add(new Label("Officer Rank: ") {{
@@ -480,7 +480,7 @@ public class actionController {
         parkingCitationGrid.add(new Label("Officer Agency: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 24, 0);
-        parkingCitationGrid.add(new Label("Citation Comments: ") {{
+        parkingCitationGrid.add(new Label("Comments: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 25, 0);
         // Set row constraints to apply to all rows
@@ -494,9 +494,6 @@ public class actionController {
         for (int i = 0; i < numRows8; i++) {
             parkingCitationGrid.getRowConstraints().add(rowConstraints8);
         }
-
-
-
 
         /*Impound */
         if (Files.exists(Paths.get(stringUtil.impoundLogURL))) {
@@ -537,10 +534,10 @@ public class actionController {
         impoundGrid.add(new Label("Impound #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
-        impoundGrid.add(new Label("Impound Date: ") {{
+        impoundGrid.add(new Label("Date: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 1, 0);
-        impoundGrid.add(new Label("Impound Time: ") {{
+        impoundGrid.add(new Label("Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 2, 0);
         impoundGrid.add(new Label("Owner Name: ") {{
@@ -555,22 +552,22 @@ public class actionController {
         impoundGrid.add(new Label("Owner Address: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
-        impoundGrid.add(new Label("Impound Plate Number: ") {{
+        impoundGrid.add(new Label("Plate Number: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 7, 0);
-        impoundGrid.add(new Label("Impound Make: ") {{
+        impoundGrid.add(new Label("Make: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 8, 0);
-        impoundGrid.add(new Label("Impound Model: ") {{
+        impoundGrid.add(new Label("Model: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 9, 0);
-        impoundGrid.add(new Label("Impound Type: ") {{
+        impoundGrid.add(new Label("Type: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 10, 0);
-        impoundGrid.add(new Label("Impound Color: ") {{
+        impoundGrid.add(new Label("Color: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
-        impoundGrid.add(new Label("Impound Comments: ") {{
+        impoundGrid.add(new Label("Comments: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 12, 0);
         impoundGrid.add(new Label("Officer Rank: ") {{
@@ -647,58 +644,58 @@ public class actionController {
         citationGrid.add(new Label("Citation #: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 0, 0);
-        citationGrid.add(new Label("Citation Date: ") {{
+        citationGrid.add(new Label("Date: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 1, 0);
-        citationGrid.add(new Label("Citation Time: ") {{
+        citationGrid.add(new Label("Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 2, 0);
-        citationGrid.add(new Label("Citation County: ") {{
+        citationGrid.add(new Label("County: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 3, 0);
-        citationGrid.add(new Label("Citation Area: ") {{
+        citationGrid.add(new Label("Area: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 4, 0);
-        citationGrid.add(new Label("Citation Street: ") {{
+        citationGrid.add(new Label("Street: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 5, 0);
-        citationGrid.add(new Label("Offender Name: ") {{
+        citationGrid.add(new Label("Name: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
-        citationGrid.add(new Label("Offender Gender: ") {{
+        citationGrid.add(new Label("Gender: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 7, 0);
-        citationGrid.add(new Label("Offender Ethnicity: ") {{
+        citationGrid.add(new Label("Ethnicity: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 8, 0);
-        citationGrid.add(new Label("Offender Age: ") {{
+        citationGrid.add(new Label("Age: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 9, 0);
-        citationGrid.add(new Label("Offender Description: ") {{
+        citationGrid.add(new Label("Description: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 10, 0);
-        citationGrid.add(new Label("Offender Vehicle Make: ") {{
+        citationGrid.add(new Label("Vehicle Make: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
-        citationGrid.add(new Label("Offender Vehicle Model: ") {{
+        citationGrid.add(new Label("Vehicle Model: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 12, 0);
-        citationGrid.add(new Label("Offender Vehicle Color: ") {{
+        citationGrid.add(new Label("Vehicle Color: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 13, 0);
-        citationGrid.add(new Label("Offender Vehicle Type: ") {{
+        citationGrid.add(new Label("Vehicle Type: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 14, 0);
-        citationGrid.add(new Label("Offender Vehicle Plate: ") {{
+        citationGrid.add(new Label("Vehicle Plate: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 15, 0);
-        citationGrid.add(new Label("Offender Vehicle Other: ") {{
+        citationGrid.add(new Label("Vehicle Other: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 16, 0);
-        citationGrid.add(new Label("Offender Violations: ") {{
+        citationGrid.add(new Label("Violations: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 17, 0);
-        citationGrid.add(new Label("Offender Actions Taken: ") {{
+        citationGrid.add(new Label("Actions Taken: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 18, 0);
         citationGrid.add(new Label("Officer Rank: ") {{
@@ -716,7 +713,7 @@ public class actionController {
         citationGrid.add(new Label("Officer Agency: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 23, 0);
-        citationGrid.add(new Label("Citation Comments: ") {{
+        citationGrid.add(new Label("Comments: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 24, 0);
         // Set row constraints to apply to all rows
@@ -776,25 +773,25 @@ public class actionController {
         patrolGrid.add(new Label("Stop Time: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 4, 0);
-        patrolGrid.add(new Label("Officer Rank: ") {{
+        patrolGrid.add(new Label("Rank: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 5, 0);
-        patrolGrid.add(new Label("Officer Name: ") {{
+        patrolGrid.add(new Label("Name: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 6, 0);
-        patrolGrid.add(new Label("Officer Number: ") {{
+        patrolGrid.add(new Label("Number: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 7, 0);
-        patrolGrid.add(new Label("Officer Division: ") {{
+        patrolGrid.add(new Label("Division: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 8, 0);
-        patrolGrid.add(new Label("Officer Agency: ") {{
+        patrolGrid.add(new Label("Agency: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 9, 0);
-        patrolGrid.add(new Label("Officer Vehicle: ") {{
+        patrolGrid.add(new Label("Vehicle: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 10, 0);
-        patrolGrid.add(new Label("Patrol Comments: ") {{
+        patrolGrid.add(new Label("Comments: ") {{
             setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
         }}, 11, 0);
         // Set row constraints to apply to all rows

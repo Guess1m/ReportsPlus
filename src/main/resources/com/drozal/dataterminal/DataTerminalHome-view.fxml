@@ -273,7 +273,7 @@
                                   style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
                                     <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="197.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="295.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;"
                                               wrapText="true">
@@ -282,7 +282,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="165.0"
+                                              prefWidth="176.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5"
@@ -309,7 +309,7 @@
                                   style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
                                     <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="308.0"
-                                              prefWidth="218.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="355.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;"
                                               wrapText="true">
@@ -318,7 +318,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="191.0"
+                                              prefWidth="234.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose"
@@ -345,7 +345,7 @@
                                   style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
                                 <children>
                                     <TextArea editable="false" layoutX="45.0" layoutY="45.0" prefHeight="366.0"
-                                              prefWidth="155.0"
+                                              prefWidth="174.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Adam&#10;Boy&#10;Charles&#10;David&#10;Edward&#10;Frank"
@@ -364,7 +364,7 @@
                                         </font>
                                     </Label>
                                     <TextArea editable="false" layoutX="13.0" layoutY="45.0" prefHeight="263.0"
-                                              prefWidth="93.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="150.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="A&#10;B&#10;C&#10;D&#10;E&#10;F" wrapText="true">
                                         <font>
@@ -372,7 +372,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="194.0" layoutY="45.0" prefHeight="366.0"
-                                              prefWidth="155.0"
+                                              prefWidth="167.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="George&#10;Henry&#10;Ida&#10;John&#10;King&#10;Lincoln"
@@ -382,7 +382,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="162.0" layoutY="45.0" prefHeight="263.0"
-                                              prefWidth="93.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="G&#10;H&#10;I&#10;J&#10;K&#10;L" wrapText="true">
                                         <font>
@@ -390,7 +390,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="352.0" layoutY="45.0" prefHeight="366.0"
-                                              prefWidth="155.0"
+                                              prefWidth="176.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Mary&#10;Nora&#10;Ocean&#10;Paul&#10;Queen&#10;Robert"
@@ -400,7 +400,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="320.0" layoutY="45.0" prefHeight="263.0"
-                                              prefWidth="93.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="M&#10;N&#10;O&#10;P&#10;Q&#10;R" wrapText="true">
                                         <font>
@@ -408,7 +408,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="505.0" layoutY="45.0" prefHeight="366.0"
-                                              prefWidth="155.0"
+                                              prefWidth="184.0"
                                               style="-fx-text-fill: #1e90ff; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Sam&#10;Tom&#10;Union&#10;Victor&#10;William&#10;X-ray"
@@ -418,7 +418,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="473.0" layoutY="45.0" prefHeight="263.0"
-                                              prefWidth="93.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="174.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="S&#10;T&#10;U&#10;V&#10;W&#10;X" wrapText="true">
                                         <font>
@@ -435,7 +435,7 @@
                                         </font>
                                     </TextArea>
                                     <TextArea editable="false" layoutX="610.0" layoutY="45.0" prefHeight="263.0"
-                                              prefWidth="93.0" style="-fx-text-fill: grey; -fx-background-color: none;"
+                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               text="Y&#10;Z" wrapText="true">
                                         <font>
@@ -454,8 +454,8 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="37.0" prefHeight="726.0"
-                       prefWidth="808.0" style="-fx-background-color: none;">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="37.0"
+                       prefHeight="726.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>

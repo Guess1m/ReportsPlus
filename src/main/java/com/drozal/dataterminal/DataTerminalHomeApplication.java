@@ -56,7 +56,7 @@ public class DataTerminalHomeApplication extends Application {
         Label titleLabel = new Label("Data Terminal " + stringUtil.version);
         titleLabel.setTextFill(Color.WHITE); // Set text color to black
         titleLabel.setPadding(new Insets(0, 0, 0, 20)); // Adjust left padding as needed
-        titleLabel.setFont(Font.font("Segoe UI Black", FontWeight.BOLD, 16)); // Set font to Consolas and bold, adjust size as needed
+        titleLabel.setFont(Font.font("Segoe UI Black", 16)); // Set font to Consolas and bold, adjust size as needed
 
         VBox content = new VBox(root);
         Scene scene = new Scene(content);

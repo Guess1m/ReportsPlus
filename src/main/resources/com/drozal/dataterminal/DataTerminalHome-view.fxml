@@ -9,8 +9,10 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0"
+      prefWidth="1000.0"
       spacing="20.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.actionController">
     <padding>
@@ -75,11 +77,11 @@
                             <Font size="18.0"/>
                         </font>
                     </Button>
-                    <Label alignment="CENTER" layoutX="24.0" layoutY="672.0" prefHeight="27.0" prefWidth="146.0"
+                    <Label alignment="CENTER" layoutX="24.0" layoutY="667.0" prefHeight="27.0" prefWidth="146.0"
                            text="LOS SANTOS P.D" textAlignment="CENTER" textFill="#828797" AnchorPane.leftAnchor="24.0"
                            AnchorPane.rightAnchor="24.0">
                         <font>
-                            <Font name="Candara" size="18.0"/>
+                            <Font name="Candara Bold" size="18.0"/>
                         </font>
                         <effect>
                             <DropShadow>
@@ -89,7 +91,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="44.0" layoutY="697.0" prefHeight="21.0" prefWidth="107.0"
+                    <Label alignment="CENTER" layoutX="44.0" layoutY="693.0" prefHeight="21.0" prefWidth="107.0"
                            text="(877)-275-5273" textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="44.0"
                            AnchorPane.rightAnchor="43.0">
                         <font>
@@ -103,7 +105,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="9.0" layoutY="714.0" prefHeight="20.0" prefWidth="176.0"
+                    <Label alignment="CENTER" layoutX="9.0" layoutY="713.0" prefHeight="20.0" prefWidth="176.0"
                            text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="#828797"
                            AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
                         <font>
@@ -117,7 +119,7 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutX="20.0" layoutY="732.0" text="lspdonline@gmail.com"
+                    <Label alignment="CENTER" layoutX="20.0" layoutY="733.0" text="lspdonline@gmail.com"
                            textAlignment="RIGHT" textFill="#828797" AnchorPane.leftAnchor="20.0"
                            AnchorPane.rightAnchor="20.0">
                         <font>

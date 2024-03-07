@@ -17,7 +17,8 @@
     </padding>
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="830.0" prefWidth="709.0" style="-fx-background-color: #2a2e3d;">
+                    minWidth="-Infinity" prefHeight="830.0" prefWidth="709.0" styleClass="pane"
+                    stylesheets="@css/form/formPaneBackground.css">
             <children>
                 <Pane layoutY="72.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0"
                       AnchorPane.rightAnchor="0.0">
@@ -85,15 +86,16 @@
                 </Pane>
                 <AnchorPane layoutY="-3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                             minWidth="-Infinity" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress"
-                            prefHeight="74.0" prefWidth="709.0" style="-fx-background-color: #3f455a;"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                            prefHeight="74.0" prefWidth="709.0" styleClass="pane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                     <children>
-                        <Label layoutX="12.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                        <Label layoutX="12.0" layoutY="7.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="12.0" layoutY="36.0" text="Record Tool" textAlignment="CENTER"
+                        <Label layoutX="12.0" layoutY="40.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
                                 <Font name="Candara" size="22.0"/>

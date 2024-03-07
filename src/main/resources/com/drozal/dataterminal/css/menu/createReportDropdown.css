@@ -1,6 +1,6 @@
 /* Style the button */
 .button {
-    -fx-background-color: none; /* Default button background color */
+    -fx-background-color: transparent; /* Default button background color */
 }
 
 .button > .label {
@@ -12,7 +12,7 @@
     -fx-background-color: red; /* Button background color when pressed */
 }
 .button:hover {
-    -fx-background-color:  #3b4254; /* Hover background color */
+    -fx-background-color:  #273259; /* Hover background color */
         -fx-text-fill: #1e90ff;
 }
 .button:hover > .label {

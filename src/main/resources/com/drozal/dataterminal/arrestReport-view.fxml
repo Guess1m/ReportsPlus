@@ -10,20 +10,20 @@
 <?import javafx.scene.text.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit"
-      prefHeight="792.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21"
+      prefHeight="792.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.ArrestReportController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="793.0" prefWidth="684.0" styleClass="pane"
+                    minWidth="-Infinity" prefHeight="793.0" prefWidth="678.0" styleClass="pane"
                     stylesheets="@css/form/formPaneBackground.css">
             <children>
-                <ScrollPane layoutY="79.0" pannable="true" prefHeight="700.0" prefWidth="682.0" styleClass="pane"
-                            stylesheets="@css/main/scrollpane.css">
+                <ScrollPane layoutY="79.0" pannable="true" prefHeight="700.0" prefWidth="678.0" styleClass="pane"
+                            stylesheets="@css/form/formscrollpane.css">
                     <content>
-                        <Pane prefHeight="792.0" prefWidth="665.0" styleClass="pane"
+                        <Pane prefHeight="792.0" prefWidth="659.0" styleClass="pane"
                               stylesheets="@css/form/formPaneBackground.css">
                             <children>
                                 <Pane layoutY="2.0" style="-fx-background-color: none;">
@@ -173,12 +173,12 @@
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="arresteeAge" alignment="CENTER" layoutX="507.0" layoutY="70.0"
+                                        <Label fx:id="arresteeAge" alignment="CENTER" layoutX="507.0" layoutY="66.0"
                                                mouseTransparent="true" opacity="0.82" prefHeight="25.0"
                                                prefWidth="142.0" style="-fx-text-fill: #00a2ff;" text="0"
                                                textFill="#00a2ff">
                                             <font>
-                                                <Font name="Candara" size="14.0"/>
+                                                <Font name="Candara" size="21.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -232,12 +232,12 @@
                             prefWidth="684.0" styleClass="pane" stylesheets="@css/form/formPaneHeader.css"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                        <Label layoutX="15.0" layoutY="5.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
+                        <Label layoutX="15.0" layoutY="40.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
                                 <Font name="Candara" size="22.0"/>

@@ -9,19 +9,17 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity"
-      minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0"
-      prefWidth="1000.0"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="750.0" prefWidth="1000.0"
       spacing="20.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.actionController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
-    <AnchorPane prefHeight="740.0" prefWidth="1013.0" style="-fx-background-color: #14171f;">
+    <AnchorPane prefHeight="740.0" prefWidth="1013.0" styleClass="pane" stylesheets="@css/menu/menuBackground.css">
         <children>
             <AnchorPane layoutX="4.0" layoutY="6.0" onMouseDragged="#onSideDrag" onMousePressed="#onSideClick"
-                        prefHeight="763.0" prefWidth="203.0" style="-fx-background-color: #1e222c;"
+                        prefHeight="763.0" prefWidth="203.0" styleClass="pane" stylesheets="@css/menu/menuSidePanel.css"
                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <Button fx:id="shiftInfoBtn" alignment="CENTER" layoutY="52.0" mnemonicParsing="false"
@@ -69,9 +67,9 @@
                             <Font size="18.0"/>
                         </font>
                     </MenuButton>
-                    <Button fx:id="codeButton" alignment="CENTER" layoutX="10.0" layoutY="297.0" mnemonicParsing="false"
+                    <Button fx:id="codeButton" alignment="CENTER" layoutX="10.0" layoutY="382.0" mnemonicParsing="false"
                             onAction="#onCodeButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu"
-                            stylesheets="@css/menu/sidepanelBtns.css" text="Codes" textFill="#828797"
+                            stylesheets="@css/menu/sidepanelBtns.css" text="Codes" textFill="#828797" visible="false"
                             AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0"/>
@@ -133,18 +131,18 @@
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Button fx:id="mapButton" alignment="CENTER" layoutX="10.0" layoutY="358.0" mnemonicParsing="false"
+                    <Button fx:id="mapButton" alignment="CENTER" layoutX="10.0" layoutY="297.0" mnemonicParsing="false"
                             onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu"
                             stylesheets="@css/menu/sidepanelBtns.css" text="Map" textFill="#828797"
-                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                         <font>
                             <Font size="18.0"/>
                         </font>
                     </Button>
-                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutX="10.0" layoutY="419.0"
+                    <Button fx:id="dataTerminalInfoButton" alignment="CENTER" layoutX="10.0" layoutY="450.0"
                             mnemonicParsing="false" onAction="#onDataTerminalInfoButtonClick" prefHeight="50.0"
                             prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css"
-                            text="DataTerminal Info" textFill="#828797" AnchorPane.leftAnchor="10.0"
+                            text="DataTerminal Info" textFill="#828797" visible="false" AnchorPane.leftAnchor="10.0"
                             AnchorPane.rightAnchor="9.0">
                         <font>
                             <Font size="18.0"/>
@@ -454,13 +452,14 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="37.0"
-                       prefHeight="726.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="37.0" prefHeight="726.0"
+                       prefWidth="808.0">
                 <children>
                     <AnchorPane prefHeight="632.0" prefWidth="773.0" style="-fx-background-radius: 15;">
                         <children>
                             <Pane layoutX="29.0" prefHeight="40.0" prefWidth="716.0"
-                                  style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
+                                  style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;"
+                                  styleClass="pane" stylesheets="@css/menu/menuPane.css">
                                 <children>
                                     <Label fx:id="generatedByTag" layoutX="7.0" layoutY="1.0" prefHeight="38.0"
                                            prefWidth="271.0" textAlignment="CENTER" textFill="#979797">
@@ -475,27 +474,22 @@
                                             <Font name="Segoe UI Black" size="13.0"/>
                                         </font>
                                     </Label>
-                                    <Label layoutX="238.0" layoutY="1.0" prefHeight="39.0" prefWidth="234.0"
-                                           text="Officer Shift Information" textAlignment="CENTER"
-                                           textFill="DODGERBLUE">
+                                    <Label alignment="CENTER" layoutX="238.0" layoutY="1.0" prefHeight="39.0"
+                                           prefWidth="234.0" styleClass="headingBig"
+                                           stylesheets="@css/menu/menuLabels.css" text="Officer Shift Information"
+                                           textAlignment="CENTER" textFill="WHITE">
                                         <font>
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
                                     </Label>
                                 </children>
-                                <effect>
-                                    <DropShadow height="15.14" radius="7.07" spread="0.59" width="15.14">
-                                        <color>
-                                            <Color opacity="0.43893128633499146"/>
-                                        </color>
-                                    </DropShadow>
-                                </effect>
                             </Pane>
-                            <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0"
-                                  style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: none;">
+                            <Pane layoutX="29.0" layoutY="71.0" prefHeight="377.0" prefWidth="400.0" styleClass="pane"
+                                  stylesheets="@css/menu/menuPane.css">
                                 <children>
-                                    <Label layoutX="108.0" layoutY="6.0" text="Officer Information"
-                                           textAlignment="CENTER" textFill="#b5b5b5">
+                                    <Label alignment="CENTER" layoutX="-3.0" layoutY="8.0" prefHeight="33.0"
+                                           prefWidth="400.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css"
+                                           text="Officer Information" textAlignment="CENTER" textFill="WHITE">
                                         <font>
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
@@ -503,7 +497,7 @@
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0"
                                                layoutY="29.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
                                                width="17.0"/>
-                                    <Button layoutX="279.0" layoutY="331.0" mnemonicParsing="false"
+                                    <Button layoutX="279.0" layoutY="329.0" mnemonicParsing="false"
                                             onAction="#updateInfoButtonClick" prefHeight="39.0" prefWidth="99.0"
                                             stylesheets="@css/main/mainBtn.css" text="Update" textFill="#b2b2b2c7">
                                         <font>
@@ -512,21 +506,21 @@
                                     </Button>
                                     <TextField fx:id="OfficerInfoName" layoutX="23.0" layoutY="53.0" prefHeight="38.0"
                                                prefWidth="355.0" promptText="Name" styleClass="text-field"
-                                               stylesheets="@css/form/formFields.css">
+                                               stylesheets="@css/menu/menuField.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5"/>
                                         </font>
                                     </TextField>
                                     <TextField fx:id="OfficerInfoCallsign" layoutX="23.0" layoutY="112.0"
                                                prefHeight="38.0" prefWidth="203.0" promptText="Callsign"
-                                               styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                               styleClass="text-field" stylesheets="@css/menu/menuField.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5"/>
                                         </font>
                                     </TextField>
                                     <TextField fx:id="OfficerInfoNumber" layoutX="252.0" layoutY="112.0"
                                                prefHeight="38.0" prefWidth="126.0" promptText="Number"
-                                               styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                               styleClass="text-field" stylesheets="@css/menu/menuField.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="15.5"/>
                                         </font>
@@ -539,68 +533,71 @@
                                         </font>
                                     </Label>
                                     <ComboBox fx:id="OfficerInfoRank" layoutX="23.0" layoutY="170.0" prefHeight="38.0"
-                                              prefWidth="355.0" promptText="Rank" style="-fx-background-color: none;"
-                                              styleClass="combo-box" stylesheets="@css/form/formComboBox.css"
-                                              visibleRowCount="14"/>
+                                              prefWidth="355.0" promptText="Rank" styleClass="combo-box"
+                                              stylesheets="@css/menu/menuComboBox.css" visibleRowCount="14"/>
                                     <ComboBox fx:id="OfficerInfoDivision" layoutX="23.0" layoutY="226.0"
                                               prefHeight="38.0" prefWidth="355.0" promptText="Division"
-                                              style="-fx-background-color: none;"
-                                              stylesheets="@css/form/formComboBox.css" visibleRowCount="14"/>
+                                              stylesheets="@css/menu/menuComboBox.css" visibleRowCount="14"/>
                                     <ComboBox fx:id="OfficerInfoAgency" layoutX="23.0" layoutY="279.0" prefHeight="38.0"
-                                              prefWidth="355.0" promptText="Agency" style="-fx-background-color: none;"
-                                              stylesheets="@css/form/formComboBox.css" visibleRowCount="14"/>
+                                              prefWidth="355.0" promptText="Agency"
+                                              stylesheets="@css/menu/menuComboBox.css" visibleRowCount="14"/>
                                 </children>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </Pane>
-                            <Pane layoutX="477.0" layoutY="71.0" prefHeight="301.0" prefWidth="271.0"
-                                  style="-fx-border-color: none; -fx-background-color: #2a2e3d; -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <Pane layoutX="477.0" layoutY="71.0" prefHeight="301.0" prefWidth="271.0" styleClass="pane"
+                                  stylesheets="@css/menu/menuPane.css">
                                 <children>
-                                    <Label layoutX="52.0" layoutY="6.0" text="Activity Summary" textAlignment="CENTER"
-                                           textFill="#b5b5b5">
+                                    <Label alignment="CENTER" layoutY="8.0" prefHeight="33.0" prefWidth="271.0"
+                                           styleClass="heading" stylesheets="@css/menu/menuLabels.css"
+                                           text="Activity Summary" textAlignment="CENTER" textFill="WHITE">
                                         <font>
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="52.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Callouts" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="49.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Callouts" textFill="#bfbfbf">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="94.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Traffic Stops" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="91.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Traffic Stops"
+                                           textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="137.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Incidents" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="135.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Incidents" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="177.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Searches" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="174.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Searches" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="218.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Arrests" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="216.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Arrests" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="259.0" prefHeight="21.0"
-                                           prefWidth="122.0" text="Patrols" textFill="#808080">
+                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="257.0" prefHeight="21.0"
+                                           prefWidth="122.0" styleClass="sub-heading"
+                                           stylesheets="@css/menu/menuLabels.css" text="Patrols" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
                                     <Spinner fx:id="calloutSpinner" editable="true" layoutX="147.0" layoutY="50.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -610,7 +607,7 @@
                                         </effect>
                                     </Spinner>
                                     <Spinner fx:id="trafficStopSpinner" editable="true" layoutX="147.0" layoutY="92.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -620,7 +617,7 @@
                                         </effect>
                                     </Spinner>
                                     <Spinner fx:id="IncidentSpinner" editable="true" layoutX="147.0" layoutY="135.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -630,7 +627,7 @@
                                         </effect>
                                     </Spinner>
                                     <Spinner fx:id="SearchesSpinner" editable="true" layoutX="147.0" layoutY="175.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -640,7 +637,7 @@
                                         </effect>
                                     </Spinner>
                                     <Spinner fx:id="ArrestsSpinner" editable="true" layoutX="147.0" layoutY="216.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -650,7 +647,7 @@
                                         </effect>
                                     </Spinner>
                                     <Spinner fx:id="PatrolsSpinner" editable="true" layoutX="147.0" layoutY="257.0"
-                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/form/formSpinner.css">
+                                             prefHeight="25.0" prefWidth="82.0" stylesheets="@css/menu/menuSpinner.css">
                                         <effect>
                                             <DropShadow>
                                                 <color>
@@ -663,34 +660,34 @@
                                                layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
                                                width="17.0"/>
                                 </children>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </Pane>
-                            <Pane layoutX="29.0" layoutY="470.0" prefHeight="198.0" prefWidth="400.0"
-                                  style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="29.0" layoutY="470.0" prefHeight="198.0" prefWidth="400.0" styleClass="pane"
+                                  stylesheets="@css/menu/menuPane.css">
                                 <children>
-                                    <Label layoutX="112.0" layoutY="9.0" text="Patrol Information"
-                                           textAlignment="CENTER" textFill="#b5b5b5">
+                                    <Label alignment="CENTER" layoutX="-1.0" layoutY="9.0" prefHeight="33.0"
+                                           prefWidth="400.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css"
+                                           text="Patrol Information" textAlignment="CENTER" textFill="WHITE">
                                         <font>
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="71.0"
-                                           text="Patrol Start Time" textFill="GREY">
+                                    <Label alignment="CENTER_RIGHT" layoutX="24.0" layoutY="63.0"
+                                           styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
+                                           text="Patrol Start Time" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
                                     </Label>
                                     <TextField fx:id="PatrolInfoStartTime" layoutX="150.0" layoutY="58.0"
                                                prefHeight="25.0" prefWidth="194.0"
-                                               stylesheets="@css/form/formFields.css">
+                                               stylesheets="@css/menu/menuField.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="14.0"/>
                                         </font>
                                     </TextField>
-                                    <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="134.0"
-                                           text="Patrol Stop Time" textFill="GREY">
+                                    <Label alignment="CENTER_RIGHT" layoutX="24.0" layoutY="126.0"
+                                           styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
+                                           text="Patrol Stop Time" textFill="#9e9e9e">
                                         <font>
                                             <Font name="Segoe UI Black" size="15.0"/>
                                         </font>
@@ -698,16 +695,16 @@
                                     <TextField fx:id="PatrolInfoStopTime" layoutX="149.0" layoutY="120.0"
                                                prefHeight="25.0" prefWidth="194.0"
                                                style="-fx-prompt-text-fill: rgb(181, 181, 181,0.4); -fx-text-fill: #b5b5b5;"
-                                               stylesheets="@css/form/formFields.css">
+                                               stylesheets="@css/menu/menuField.css">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="14.0"/>
                                         </font>
                                     </TextField>
-                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="357.0" layoutY="68.0"
+                                    <Button fx:id="PatrolInfoStartTimeBtn" layoutX="357.0" layoutY="66.0"
                                             mnemonicParsing="false" onAction="#onPatrolInfoStartTimeBtnClick"
                                             prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;"
                                             stylesheets="@css/main/mainBtn.css"/>
-                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="357.0" layoutY="137.0"
+                                    <Button fx:id="PatrolInfoStopTimeBtn" layoutX="357.0" layoutY="128.0"
                                             mnemonicParsing="false" onAction="#onPatrolInfoStopTimeBtnClick"
                                             prefHeight="21.0" prefWidth="17.0" style="-fx-padding: 0;"
                                             stylesheets="@css/main/mainBtn.css"/>
@@ -715,14 +712,11 @@
                                                layoutY="23.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
                                                width="17.0"/>
                                 </children>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </Pane>
-                            <Pane layoutX="476.0" layoutY="393.0" prefHeight="274.0" prefWidth="271.0"
-                                  style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;"
-                                  AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="476.0"
-                                  AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="393.0">
+                            <Pane layoutX="476.0" layoutY="393.0" prefHeight="274.0" prefWidth="271.0" styleClass="pane"
+                                  stylesheets="@css/menu/menuPane.css" AnchorPane.bottomAnchor="29.0"
+                                  AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="31.0"
+                                  AnchorPane.topAnchor="393.0">
                                 <children>
                                     <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="15.0" layoutY="11.0"
                                               prefHeight="256.0" prefWidth="246.0" promptText="Quick Note..."
@@ -736,9 +730,6 @@
                                                layoutY="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
                                                width="17.0"/>
                                 </children>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </Pane>
                         </children>
                         <StackPane.margin>
@@ -748,8 +739,8 @@
                 </children>
             </StackPane>
             <AnchorPane layoutX="4.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick" prefHeight="36.0"
-                        prefWidth="1013.0" style="-fx-background-color: #3e465b;" AnchorPane.leftAnchor="4.0"
-                        AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+                        prefWidth="1013.0" styleClass="pane" stylesheets="@css/menu/menuTop.css"
+                        AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <Label layoutX="15.0" layoutY="12.0" text="Data Terminal Report Manager" textFill="DODGERBLUE">
                         <font>
@@ -774,35 +765,36 @@
                 <children>
                     <AnchorPane prefHeight="687.0" prefWidth="808.0">
                         <children>
-                            <Pane layoutX="62.0" layoutY="57.0" prefHeight="604.0" prefWidth="686.0"
-                                  style="-fx-background-color: #2a2e3d; -fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;">
+                            <Pane layoutX="22.0" layoutY="19.0" prefHeight="688.0" prefWidth="764.0"
+                                  style="-fx-background-radius: 10; -fx-border-color: none; -fx-border-radius: 10;"
+                                  styleClass="pane" stylesheets="@css/menu/menuPane.css">
                                 <children>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
                                                layoutY="43.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
                                                width="24.0"/>
-                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="500.0" layoutY="545.0"
+                                    <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="564.0" layoutY="630.0"
                                             mnemonicParsing="false" onAction="#onpasteclick"
                                             stylesheets="@css/main/mainBtn.css" text="Paste" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0"/>
                                         </font>
                                     </Button>
-                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="405.0" layoutY="545.0"
+                                    <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="469.0" layoutY="630.0"
                                             mnemonicParsing="false" onAction="#oncopyclick"
                                             stylesheets="@css/main/mainBtn.css" text="Copy" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0"/>
                                         </font>
                                     </Button>
-                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="596.0" layoutY="545.0"
+                                    <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="660.0" layoutY="630.0"
                                             mnemonicParsing="false" onAction="#onclearclick"
                                             stylesheets="@css/main/mainBtn.css" text="Clear" textFill="#0074b3">
                                         <font>
                                             <Font name="Segoe UI Semibold" size="18.0"/>
                                         </font>
                                     </Button>
-                                    <TextArea fx:id="notepadTextArea" layoutX="26.0" layoutY="14.0" prefHeight="524.0"
-                                              prefWidth="636.0" promptText="Notes.."
+                                    <TextArea fx:id="notepadTextArea" layoutX="26.0" layoutY="14.0" prefHeight="605.0"
+                                              prefWidth="716.0" promptText="Notes.."
                                               style="-fx-text-fill: #b5b5b5; -fx-background-color: none;"
                                               styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
                                               wrapText="true">

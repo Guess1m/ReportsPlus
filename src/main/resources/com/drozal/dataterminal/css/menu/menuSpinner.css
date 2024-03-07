@@ -1,0 +1,39 @@
+/* Material Design Spinner */
+.spinner {
+    -fx-progress-color: #2196f3; /* Color of the spinner */
+    -fx-background-color: transparent; /* Set background to transparent */
+    -fx-border-color: rgb(128, 128, 128,0.3);
+    -fx-border-radius: 3;
+    -fx-base:  #2f3d6a;
+}
+
+.spinner .spinner-content {
+    -fx-padding: 4px;
+    -fx-background-color: transparent;
+}
+.spinner .spinner-content .spinner-icon {
+    -fx-background-color: transparent;
+    -fx-shape: "M 15.5 2.5 L 15.5 7.5 L 17.5 7.5 L 17.5 2.5 Z";
+    -fx-fill: #2196f3; /* Color of the spinner icon */
+}
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: grey;
+}
+.spinner .increment-arrow-button {
+    -fx-background-color: transparent; /* Set background to transparent */
+    -fx-border-color: rgb(128, 128, 128, 0.5);
+    -fx-border-radius: 1;
+}
+.spinner .decrement-arrow-button {
+    -fx-background-color: transparent; /* Set background to transparent */
+    -fx-border-color: rgb(128, 128, 128, 0.5);
+}
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: grey;
+}
+.spinner:focused .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: #008cd7;
+}
+.spinner:focused .increment-arrow-button .increment-arrow {
+    -fx-background-color: #008cd7;
+}

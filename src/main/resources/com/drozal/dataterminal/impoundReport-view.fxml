@@ -17,12 +17,14 @@
     </padding>
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="664.0" prefWidth="670.0" style="-fx-background-color: #2a2e3d;">
+                    minWidth="-Infinity" prefHeight="664.0" prefWidth="670.0" styleClass="pane"
+                    stylesheets="@css/form/formPaneBackground.css">
             <children>
                 <ScrollPane layoutY="79.0" pannable="true" prefHeight="592.0" prefWidth="670.0"
-                            style="-fx-background-color: #2a2e3d;" stylesheets="@css/main/scrollpane.css">
+                            style="-fx-background-color: none;" stylesheets="@css/main/scrollpane.css">
                     <content>
-                        <Pane prefHeight="588.0" prefWidth="667.0" style="-fx-background-color: #2a2e3d;">
+                        <Pane prefHeight="588.0" prefWidth="667.0" styleClass="pane"
+                              stylesheets="@css/form/formPaneBackground.css">
                             <children>
                                 <Pane layoutY="2.0" prefHeight="121.0" prefWidth="656.0"
                                       style="-fx-background-color: none;">
@@ -101,12 +103,12 @@
                                         <TextField fx:id="ownerAddress" layoutX="20.0" layoutY="77.0" prefHeight="38.0"
                                                    prefWidth="450.0" promptText="Address" styleClass="text-field"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <Label fx:id="ownerAge" alignment="CENTER" layoutX="534.0" layoutY="73.0"
+                                        <Label fx:id="ownerAge" alignment="CENTER" layoutX="533.0" layoutY="71.0"
                                                mouseTransparent="true" opacity="0.82" prefHeight="25.0"
                                                prefWidth="115.0" style="-fx-text-fill: #00a2ff;" text="0"
                                                textFill="#00a2ff">
                                             <font>
-                                                <Font name="Candara" size="14.0"/>
+                                                <Font name="Candara" size="21.0"/>
                                             </font>
                                         </Label>
                                         <Slider fx:id="ownerAgeSlider" layoutX="528.0" layoutY="94.0" prefHeight="14.0"
@@ -200,15 +202,15 @@
                 </ScrollPane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                             onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="75.0"
-                            prefWidth="684.0" style="-fx-background-color: #3f455a;" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0">
+                            prefWidth="684.0" styleClass="pane" stylesheets="@css/form/formPaneHeader.css"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="15.0" layoutY="3.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
+                        <Label layoutX="15.0" layoutY="7.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Candara" size="28.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="15.0" layoutY="38.0" text="Record Tool" textAlignment="CENTER"
+                        <Label layoutX="15.0" layoutY="42.0" text="Record Tool" textAlignment="CENTER"
                                textFill="#00a2ff">
                             <font>
                                 <Font name="Candara" size="22.0"/>

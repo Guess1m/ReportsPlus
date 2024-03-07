@@ -1,24 +1,25 @@
 /* Modern Subheader Style */
 .headingBig {
-    -fx-font-family: "Roboto", sans-serif;
-    -fx-font-size: 17.5px;
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill:   white; /* Dark grey color */
+    -fx-text-fill:   #665cb6; /* Dark grey color */
     -fx-padding: 4px 0; /* Adjust padding as needed */
 }
 
 .heading {
-    -fx-font-family: "Roboto", sans-serif;
-    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Bold";
+    -fx-background-color: rgb(102, 92, 182,0.75);
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill:   white; /* Dark grey color */
     -fx-padding: 4px 0; /* Adjust padding as needed */
 }
 
 .sub-heading {
-    -fx-font-family: "Roboto", sans-serif;
-    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI Bold";
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill:   #bfbfbf; /* Dark grey color */
+    -fx-text-fill:   #404040; /* Dark grey color */
     -fx-padding: 4px 0; /* Adjust padding as needed */
 }

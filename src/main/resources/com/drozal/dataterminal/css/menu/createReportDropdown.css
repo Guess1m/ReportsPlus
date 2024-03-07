@@ -4,27 +4,31 @@
 }
 
 .button > .label {
-    -fx-text-fill: #828797; /* Change the text color to red */
+    -fx-text-fill: white; /* Change the text color to red */
+    -fx-alignment: center-left;
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 0 10.5;
 }
+.button .arrow {
+    -fx-background-color: white;
 }
 /* Style the button when pressed */
 .button:pressed {
     -fx-background-color: red; /* Button background color when pressed */
 }
 .button:hover {
-    -fx-background-color:  #273259; /* Hover background color */
-        -fx-text-fill: #1e90ff;
+    -fx-background-color:  #7b72c0; /* Hover background color */
 }
 .button:hover > .label {
-        -fx-text-fill: #1e90ff;
+        /*-fx-text-fill: #1e90ff;*/
 }
 .button:focused {
-    -fx-background-color:  #3b4254; /* Hover background color */
-        -fx-text-fill: #1e90ff;
+    -fx-background-color:  #7b72c0; /* Hover background color */
 }
 /* Style the menu */
 .context-menu {
-    -fx-background-color:  #2a2e3d; /* Set the background color */
+    -fx-background-color:  #3f377b; /* Set the background color */
+
 }
 .context-menu .label {
     -fx-text-fill:  white; /* Set the background color */

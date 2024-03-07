@@ -58,10 +58,6 @@ public class actionController {
     public StackPane shiftInformationPane;
     public TextField OfficerInfoName;
     public ComboBox OfficerInfoDivision;
-    public TextField PatrolInfoStartTime;
-    public TextField PatrolInfoStopTime;
-    public Button PatrolInfoStartTimeBtn;
-    public Button PatrolInfoStopTimeBtn;
     public TextArea ShiftInfoNotesTextArea;
     public ComboBox OfficerInfoAgency;
     public TextField OfficerInfoCallsign;
@@ -208,14 +204,6 @@ public class actionController {
 
     public StackPane getInfoPane() {
         return infoPane;
-    }
-
-    public void onPatrolInfoStopTimeBtnClick(ActionEvent actionEvent) {
-        PatrolInfoStopTime.setText(DataTerminalHomeApplication.getTime());
-    }
-
-    public void onPatrolInfoStartTimeBtnClick(ActionEvent actionEvent) {
-        PatrolInfoStartTime.setText(DataTerminalHomeApplication.getTime());
     }
 
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {

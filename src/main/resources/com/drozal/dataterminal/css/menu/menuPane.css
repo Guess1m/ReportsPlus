@@ -1,4 +1,0 @@
-.pane {
-    -fx-background-color:  #1e2745;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0.0, 0, 1);
-}

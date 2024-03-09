@@ -1,6 +1,7 @@
 .text-area {
     -fx-background-color: none;
     -fx-text-fill: black;
+    -fx-font-size: 16px;
 }
 
 .text-area .scroll-pane {

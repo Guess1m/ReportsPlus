@@ -15,6 +15,24 @@ public class PatrolLogEntry {
     public String officerVehicle;
     public String patrolComments;
 
+    public PatrolLogEntry() {
+    }
+
+    public PatrolLogEntry(String patrolNumber, String patrolDate, String patrolLength, String patrolStartTime, String patrolStopTime, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency, String officerVehicle, String patrolComments) {
+        this.patrolNumber = patrolNumber;
+        this.patrolDate = patrolDate;
+        this.patrolLength = patrolLength;
+        this.patrolStartTime = patrolStartTime;
+        this.patrolStopTime = patrolStopTime;
+        this.officerRank = officerRank;
+        this.officerName = officerName;
+        this.officerNumber = officerNumber;
+        this.officerDivision = officerDivision;
+        this.officerAgency = officerAgency;
+        this.officerVehicle = officerVehicle;
+        this.patrolComments = patrolComments;
+    }
+
     public String getPatrolNumber() {
         return patrolNumber;
     }
@@ -61,23 +79,5 @@ public class PatrolLogEntry {
 
     public String getPatrolComments() {
         return patrolComments;
-    }
-
-    public PatrolLogEntry() {
-    }
-
-    public PatrolLogEntry(String patrolNumber, String patrolDate, String patrolLength, String patrolStartTime, String patrolStopTime, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency, String officerVehicle, String patrolComments) {
-        this.patrolNumber = patrolNumber;
-        this.patrolDate = patrolDate;
-        this.patrolLength = patrolLength;
-        this.patrolStartTime = patrolStartTime;
-        this.patrolStopTime = patrolStopTime;
-        this.officerRank = officerRank;
-        this.officerName = officerName;
-        this.officerNumber = officerNumber;
-        this.officerDivision = officerDivision;
-        this.officerAgency = officerAgency;
-        this.officerVehicle = officerVehicle;
-        this.patrolComments = patrolComments;
     }
 }

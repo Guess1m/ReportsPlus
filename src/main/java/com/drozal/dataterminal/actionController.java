@@ -36,7 +36,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -44,8 +45,6 @@ import javafx.util.Duration;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
@@ -84,24 +83,61 @@ public class actionController {
     public TableView citationTable;
     public TableView impoundTable;
     public TableView parkingCitationTable;
-
-    public TableView getCalloutTable() {
-        return calloutTable;
-    }
-
     public VBox vbox;
     public TableView calloutTable;
     boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
 
+    public TableView getCalloutTable() {
+        return calloutTable;
+    }
+
     public StackPane getLogPane() {
         return logPane;
     }
 
     public void initialize() {
+        initializeCalloutColumns();
+        initializeArrestColumns();
+        initializeCitationColumns();
+        initializeImpoundColumns();
+        initializeIncidentColumns();
+        initializePatrolColumns();
+        initializeSearchColumns();
+        initializeTrafficStopColumns();
+        initializeParkingCitationColumns();
+        loadLogs();
     }
 
+    private void loadLogs() {
+        //ParkingCitationTable
+        List<ParkingCitationLogEntry> parkingCitationLogEntryList = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
+        parkingCitationLogUpdate(parkingCitationLogEntryList);
+        //ImpoundTable
+        List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
+        impoundLogUpdate(impoundLogEntryList);
+        //TrafficCitationTable
+        List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
+        citationLogUpdate(citationLogEntryList);
+        //PatrolTable
+        List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
+        patrolLogUpdate(patrolLogEntryList);
+        //ArrestTable
+        List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
+        arrestLogUpdate(arrestLogEntryList);
+        //SearchTable
+        List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
+        searchLogUpdate(searchLogEntryList);
+        //IncidentTable
+        List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
+        incidentLogUpdate(incidentLogEntryList);
+        //TrafficStopTable
+        List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
+        trafficStopLogUpdate(trafficLogEntryList);
+        List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
+        calloutLogUpdate(calloutLogEntryList);
+    }
 
     public void setDisable(StackPane pane) {
         pane.setVisible(false);
@@ -222,7 +258,8 @@ public class actionController {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
-
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
@@ -345,786 +382,16 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(true);
         logPane.setDisable(false);
-
-        /*Parking CITATION*//*
-        if (Files.exists(Paths.get(stringUtil.parkingCitationLogURL))) {
-            // Extract log entries from XML file
-            List<ParkingCitationLogEntry> logEntries8 = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (ParkingCitationLogEntry logEntry : logEntries8) {
-                parkingCitationGrid.add(new Label(logEntry.citationNumber), 0, row);
-                parkingCitationGrid.add(new Label(logEntry.citationDate), 1, row);
-                parkingCitationGrid.add(new Label(logEntry.citationTime), 2, row);
-                parkingCitationGrid.add(new Label(logEntry.meterNumber), 3, row);
-                parkingCitationGrid.add(new Label(logEntry.citationCounty), 4, row);
-                parkingCitationGrid.add(new Label(logEntry.citationArea), 5, row);
-                parkingCitationGrid.add(new Label(logEntry.citationStreet), 6, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderName), 7, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderGender), 8, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderEthnicity), 9, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderAge), 10, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderDescription), 11, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehicleMake), 12, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehicleModel), 13, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehicleColor), 14, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehicleType), 15, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehiclePlate), 16, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderVehicleOther), 17, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderViolations), 18, row);
-                parkingCitationGrid.add(new Label(logEntry.offenderActionsTaken), 19, row);
-                parkingCitationGrid.add(new Label(logEntry.officerRank), 20, row);
-                parkingCitationGrid.add(new Label(logEntry.officerName), 21, row);
-                parkingCitationGrid.add(new Label(logEntry.officerNumber), 22, row);
-                parkingCitationGrid.add(new Label(logEntry.officerDivision), 23, row);
-                parkingCitationGrid.add(new Label(logEntry.officerAgency), 24, row);
-                parkingCitationGrid.add(new Label(logEntry.citationComments), 25, row);
-
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints8 = new ColumnConstraints();
-        columnConstraints8.setHgrow(Priority.ALWAYS);
-        columnConstraints8.setFillWidth(true);
-        parkingCitationGrid.getColumnConstraints().add(columnConstraints8);
-        parkingCitationGrid.add(new Label("Citation #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        parkingCitationGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        parkingCitationGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        parkingCitationGrid.add(new Label("Meter #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        parkingCitationGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        parkingCitationGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        parkingCitationGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        parkingCitationGrid.add(new Label("Offender Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        parkingCitationGrid.add(new Label("Offender Gender: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        parkingCitationGrid.add(new Label("Offender Ethnicity: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        parkingCitationGrid.add(new Label("Offender Age: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        parkingCitationGrid.add(new Label("Offender Description: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        parkingCitationGrid.add(new Label("Make: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        parkingCitationGrid.add(new Label("Model: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        parkingCitationGrid.add(new Label("Color: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        parkingCitationGrid.add(new Label("Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        parkingCitationGrid.add(new Label("Plate: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        parkingCitationGrid.add(new Label("Other: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 17, 0);
-        parkingCitationGrid.add(new Label("Violations: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 18, 0);
-        parkingCitationGrid.add(new Label("Actions Taken: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 19, 0);
-        parkingCitationGrid.add(new Label("Officer Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 20, 0);
-        parkingCitationGrid.add(new Label("Officer Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 21, 0);
-        parkingCitationGrid.add(new Label("Officer Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 22, 0);
-        parkingCitationGrid.add(new Label("Officer Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 23, 0);
-        parkingCitationGrid.add(new Label("Officer Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 24, 0);
-        parkingCitationGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 25, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints8 = new RowConstraints();
-        rowConstraints8.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints8.setMinHeight(100); // Set the minimum height
-        rowConstraints8.setPrefHeight(100); // Set the preferred height
-        rowConstraints8.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows8 = parkingCitationGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows8; i++) {
-            parkingCitationGrid.getRowConstraints().add(rowConstraints8);
-        }
-
-        *//*Impound *//*
-        if (Files.exists(Paths.get(stringUtil.impoundLogURL))) {
-            // Extract log entries from XML file
-            List<ImpoundLogEntry> logEntries7 = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (ImpoundLogEntry logEntry : logEntries7) {
-                impoundGrid.add(new Label(logEntry.impoundNumber), 0, row);
-                impoundGrid.add(new Label(logEntry.impoundDate), 1, row);
-                impoundGrid.add(new Label(logEntry.impoundTime), 2, row);
-                impoundGrid.add(new Label(logEntry.ownerName), 3, row);
-                impoundGrid.add(new Label(logEntry.ownerAge), 4, row);
-                impoundGrid.add(new Label(logEntry.ownerGender), 5, row);
-                impoundGrid.add(new Label(logEntry.ownerAddress), 6, row);
-                impoundGrid.add(new Label(logEntry.impoundPlateNumber), 7, row);
-                impoundGrid.add(new Label(logEntry.impoundMake), 8, row);
-                impoundGrid.add(new Label(logEntry.impoundModel), 9, row);
-                impoundGrid.add(new Label(logEntry.impoundType), 10, row);
-                impoundGrid.add(new Label(logEntry.impoundColor), 11, row);
-                impoundGrid.add(new Label(logEntry.impoundComments), 12, row);
-                impoundGrid.add(new Label(logEntry.officerRank), 13, row);
-                impoundGrid.add(new Label(logEntry.officerName), 14, row);
-                impoundGrid.add(new Label(logEntry.officerNumber), 15, row);
-                impoundGrid.add(new Label(logEntry.officerDivision), 16, row);
-                impoundGrid.add(new Label(logEntry.officerAgency), 17, row);
-
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints7 = new ColumnConstraints();
-        columnConstraints7.setHgrow(Priority.ALWAYS);
-        columnConstraints7.setFillWidth(true);
-        impoundGrid.getColumnConstraints().add(columnConstraints7);
-        impoundGrid.add(new Label("Impound #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        impoundGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        impoundGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        impoundGrid.add(new Label("Owner Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        impoundGrid.add(new Label("Owner Age: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        impoundGrid.add(new Label("Owner Gender: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        impoundGrid.add(new Label("Owner Address: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        impoundGrid.add(new Label("Plate Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        impoundGrid.add(new Label("Make: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        impoundGrid.add(new Label("Model: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        impoundGrid.add(new Label("Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        impoundGrid.add(new Label("Color: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        impoundGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        impoundGrid.add(new Label("Officer Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        impoundGrid.add(new Label("Officer Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        impoundGrid.add(new Label("Officer Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        impoundGrid.add(new Label("Officer Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        impoundGrid.add(new Label("Officer Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 17, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints7 = new RowConstraints();
-        rowConstraints7.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints7.setMinHeight(100); // Set the minimum height
-        rowConstraints7.setPrefHeight(100); // Set the preferred height
-        rowConstraints7.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows7 = impoundGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows7; i++) {
-            impoundGrid.getRowConstraints().add(rowConstraints7);
-        }
-
-        *//*TRAFFIC CITATION*//*
-        if (Files.exists(Paths.get(stringUtil.trafficCitationLogURL))) {
-            // Extract log entries from XML file
-            List<TrafficCitationLogEntry> logEntries6 = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (TrafficCitationLogEntry logEntry : logEntries6) {
-                citationGrid.add(new Label(logEntry.citationNumber), 0, row);
-                citationGrid.add(new Label(logEntry.citationDate), 1, row);
-                citationGrid.add(new Label(logEntry.citationTime), 2, row);
-                citationGrid.add(new Label(logEntry.citationCounty), 3, row);
-                citationGrid.add(new Label(logEntry.citationArea), 4, row);
-                citationGrid.add(new Label(logEntry.citationStreet), 5, row);
-                citationGrid.add(new Label(logEntry.offenderName), 6, row);
-                citationGrid.add(new Label(logEntry.offenderGender), 7, row);
-                citationGrid.add(new Label(logEntry.offenderEthnicity), 8, row);
-                citationGrid.add(new Label(logEntry.offenderAge), 9, row);
-                citationGrid.add(new Label(logEntry.offenderDescription), 10, row);
-                citationGrid.add(new Label(logEntry.offenderVehicleMake), 11, row);
-                citationGrid.add(new Label(logEntry.offenderVehicleModel), 12, row);
-                citationGrid.add(new Label(logEntry.offenderVehicleColor), 13, row);
-                citationGrid.add(new Label(logEntry.offenderVehicleType), 14, row);
-                citationGrid.add(new Label(logEntry.offenderVehiclePlate), 15, row);
-                citationGrid.add(new Label(logEntry.offenderVehicleOther), 16, row);
-                citationGrid.add(new Label(logEntry.offenderViolations), 17, row);
-                citationGrid.add(new Label(logEntry.offenderActionsTaken), 18, row);
-                citationGrid.add(new Label(logEntry.officerRank), 19, row);
-                citationGrid.add(new Label(logEntry.officerName), 20, row);
-                citationGrid.add(new Label(logEntry.officerNumber), 21, row);
-                citationGrid.add(new Label(logEntry.officerDivision), 22, row);
-                citationGrid.add(new Label(logEntry.officerAgency), 23, row);
-                citationGrid.add(new Label(logEntry.citationComments), 24, row);
-
-
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints6 = new ColumnConstraints();
-        columnConstraints6.setHgrow(Priority.ALWAYS);
-        columnConstraints6.setFillWidth(true);
-        citationGrid.getColumnConstraints().add(columnConstraints6);
-        citationGrid.add(new Label("Citation #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        citationGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        citationGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        citationGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        citationGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        citationGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        citationGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        citationGrid.add(new Label("Gender: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        citationGrid.add(new Label("Ethnicity: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        citationGrid.add(new Label("Age: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        citationGrid.add(new Label("Description: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        citationGrid.add(new Label("Vehicle Make: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        citationGrid.add(new Label("Vehicle Model: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        citationGrid.add(new Label("Vehicle Color: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        citationGrid.add(new Label("Vehicle Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        citationGrid.add(new Label("Vehicle Plate: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        citationGrid.add(new Label("Vehicle Other: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        citationGrid.add(new Label("Violations: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 17, 0);
-        citationGrid.add(new Label("Actions Taken: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 18, 0);
-        citationGrid.add(new Label("Officer Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 19, 0);
-        citationGrid.add(new Label("Officer Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 20, 0);
-        citationGrid.add(new Label("Officer Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 21, 0);
-        citationGrid.add(new Label("Officer Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 22, 0);
-        citationGrid.add(new Label("Officer Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 23, 0);
-        citationGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 24, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints6 = new RowConstraints();
-        rowConstraints6.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints6.setMinHeight(100); // Set the minimum height
-        rowConstraints6.setPrefHeight(100); // Set the preferred height
-        rowConstraints6.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows6 = citationGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows6; i++) {
-            citationGrid.getRowConstraints().add(rowConstraints6);
-        }
-
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.patrolLogURL))) {
-            // Extract log entries from XML file
-            List<PatrolLogEntry> logEntries5 = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (PatrolLogEntry logEntry : logEntries5) {
-                patrolGrid.add(new Label(logEntry.patrolNumber), 0, row);
-                patrolGrid.add(new Label(logEntry.patrolDate), 1, row);
-                patrolGrid.add(new Label(logEntry.patrolLength), 2, row);
-                patrolGrid.add(new Label(logEntry.patrolStartTime), 3, row);
-                patrolGrid.add(new Label(logEntry.patrolStopTime), 4, row);
-                patrolGrid.add(new Label(logEntry.officerRank), 5, row);
-                patrolGrid.add(new Label(logEntry.officerName), 6, row);
-                patrolGrid.add(new Label(logEntry.officerNumber), 7, row);
-                patrolGrid.add(new Label(logEntry.officerDivision), 8, row);
-                patrolGrid.add(new Label(logEntry.officerAgency), 9, row);
-                patrolGrid.add(new Label(logEntry.officerVehicle), 10, row);
-                patrolGrid.add(new Label(logEntry.patrolComments), 11, row);
-
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints5 = new ColumnConstraints();
-        columnConstraints5.setHgrow(Priority.ALWAYS);
-        columnConstraints5.setFillWidth(true);
-        patrolGrid.getColumnConstraints().add(columnConstraints5);
-        patrolGrid.add(new Label("Patrol #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        patrolGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        patrolGrid.add(new Label("Length: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        patrolGrid.add(new Label("Start Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        patrolGrid.add(new Label("Stop Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        patrolGrid.add(new Label("Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        patrolGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        patrolGrid.add(new Label("Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        patrolGrid.add(new Label("Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        patrolGrid.add(new Label("Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        patrolGrid.add(new Label("Vehicle: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        patrolGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints5 = new RowConstraints();
-        rowConstraints5.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints5.setMinHeight(100); // Set the minimum height
-        rowConstraints5.setPrefHeight(100); // Set the preferred height
-        rowConstraints5.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows5 = patrolGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows5; i++) {
-            patrolGrid.getRowConstraints().add(rowConstraints5);
-        }
-
-
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.searchLogURL))) {
-            // Extract log entries from XML file
-            List<ArrestLogEntry> logEntries4 = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (ArrestLogEntry logEntry : logEntries4) {
-                arrestGrid.add(new Label(logEntry.arrestNumber), 0, row);
-                arrestGrid.add(new Label(logEntry.arrestDate), 1, row);
-                arrestGrid.add(new Label(logEntry.arrestTime), 2, row);
-                arrestGrid.add(new Label(logEntry.arrestCounty), 3, row);
-                arrestGrid.add(new Label(logEntry.arrestArea), 4, row);
-                arrestGrid.add(new Label(logEntry.arrestStreet), 5, row);
-                arrestGrid.add(new Label(logEntry.arresteeName), 6, row);
-                arrestGrid.add(new Label(logEntry.arresteeAge), 7, row);
-                arrestGrid.add(new Label(logEntry.arresteeGender), 8, row);
-                arrestGrid.add(new Label(logEntry.arresteeEthnicity), 9, row);
-                arrestGrid.add(new Label(logEntry.arresteeDescription), 10, row);
-                arrestGrid.add(new Label(logEntry.arresteeMedicalInformation), 11, row);
-                arrestGrid.add(new Label(logEntry.arrestDetails), 12, row);
-                arrestGrid.add(new Label(logEntry.officerRank), 13, row);
-                arrestGrid.add(new Label(logEntry.officerName), 14, row);
-                arrestGrid.add(new Label(logEntry.officerNumber), 15, row);
-                arrestGrid.add(new Label(logEntry.officerAgency), 16, row);
-                arrestGrid.add(new Label(logEntry.officerDivision), 17, row);
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints4 = new ColumnConstraints();
-        columnConstraints4.setHgrow(Priority.ALWAYS);
-        columnConstraints4.setFillWidth(true);
-        arrestGrid.getColumnConstraints().add(columnConstraints4);
-        arrestGrid.add(new Label("Arrest #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        arrestGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        arrestGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        arrestGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        arrestGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        arrestGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        arrestGrid.add(new Label("Arrestee Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        arrestGrid.add(new Label("Arrestee Age: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        arrestGrid.add(new Label("Arrestee Gender: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        arrestGrid.add(new Label("Arrestee Ethnicity: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        arrestGrid.add(new Label("Arrestee Description: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        arrestGrid.add(new Label("Arrestee Medical Information: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        arrestGrid.add(new Label("Arrest Details: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        arrestGrid.add(new Label("Officer Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        arrestGrid.add(new Label("Officer Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        arrestGrid.add(new Label("Officer Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        arrestGrid.add(new Label("Officer Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        arrestGrid.add(new Label("Officer Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 17, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints4 = new RowConstraints();
-        rowConstraints4.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints4.setMinHeight(100); // Set the minimum height
-        rowConstraints4.setPrefHeight(100); // Set the preferred height
-        rowConstraints4.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows4 = arrestGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows4; i++) {
-            arrestGrid.getRowConstraints().add(rowConstraints4);
-        }
-
-
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.searchLogURL))) {
-            // Extract log entries from XML file
-            List<SearchLogEntry> logEntries3 = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
-            // Add log entries to the GridPane
-            int row = 1;
-            for (SearchLogEntry logEntry : logEntries3) {
-                searchGrid.add(new Label(logEntry.SearchNumber), 0, row);
-                searchGrid.add(new Label(logEntry.searchedPersons), 1, row);
-                searchGrid.add(new Label(logEntry.searchDate), 2, row);
-                searchGrid.add(new Label(logEntry.searchTime), 3, row);
-                searchGrid.add(new Label(logEntry.searchSeizedItems), 4, row);
-                searchGrid.add(new Label(logEntry.searchGrounds), 5, row);
-                searchGrid.add(new Label(logEntry.searchType), 6, row);
-                searchGrid.add(new Label(logEntry.searchMethod), 7, row);
-                searchGrid.add(new Label(logEntry.searchWitnesses), 8, row);
-                searchGrid.add(new Label(logEntry.officerRank), 9, row);
-                searchGrid.add(new Label(logEntry.officerName), 10, row);
-                searchGrid.add(new Label(logEntry.officerNumber), 11, row);
-                searchGrid.add(new Label(logEntry.officerAgency), 12, row);
-                searchGrid.add(new Label(logEntry.officerDivision), 13, row);
-                searchGrid.add(new Label(logEntry.searchStreet), 14, row);
-                searchGrid.add(new Label(logEntry.searchArea), 15, row);
-                searchGrid.add(new Label(logEntry.searchCounty), 16, row);
-                searchGrid.add(new Label(logEntry.searchComments), 17, row);
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints3 = new ColumnConstraints();
-        columnConstraints3.setHgrow(Priority.ALWAYS);
-        columnConstraints3.setFillWidth(true);
-        searchGrid.getColumnConstraints().add(columnConstraints3);
-        searchGrid.add(new Label("Search #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        searchGrid.add(new Label("Searched Person(s): ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        searchGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        searchGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        searchGrid.add(new Label("Seized Items: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        searchGrid.add(new Label("Grounds: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        searchGrid.add(new Label("Type: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        searchGrid.add(new Label("Method: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        searchGrid.add(new Label("Witnesses: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        searchGrid.add(new Label("Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        searchGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        searchGrid.add(new Label("Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        searchGrid.add(new Label("Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        searchGrid.add(new Label("Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        searchGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        searchGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-        searchGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 16, 0);
-        searchGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 17, 0);
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints3 = new RowConstraints();
-        rowConstraints3.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints3.setMinHeight(100); // Set the minimum height
-        rowConstraints3.setPrefHeight(100); // Set the preferred height
-        rowConstraints3.setMaxHeight(100); // Set the maximum height
-        // Add row constraints to all rows in the GridPane
-        int numRows3 = searchGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows3; i++) {
-            searchGrid.getRowConstraints().add(rowConstraints3);
-        }
-
-
-        // Check if the file exists before extracting log entries
-        if (Files.exists(Paths.get(stringUtil.incidentLogURL))) {
-            // Extract log entries from XML file
-            List<IncidentLogEntry> logEntries2 = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
-
-            // Add log entries to the GridPane
-            int row = 1;
-            for (IncidentLogEntry logEntry : logEntries2) {
-                incidentGrid.add(new Label(logEntry.incidentNumber), 0, row);
-                incidentGrid.add(new Label(logEntry.incidentDate), 1, row);
-                incidentGrid.add(new Label(logEntry.incidentTime), 2, row);
-                incidentGrid.add(new Label(logEntry.incidentStatement), 3, row);
-                incidentGrid.add(new Label(logEntry.incidentWitnesses), 4, row);
-                incidentGrid.add(new Label(logEntry.incidentVictims), 5, row);
-                incidentGrid.add(new Label(logEntry.officerName), 6, row);
-                incidentGrid.add(new Label(logEntry.officerRank), 7, row);
-                incidentGrid.add(new Label(logEntry.officerNumber), 8, row);
-                incidentGrid.add(new Label(logEntry.officerAgency), 9, row);
-                incidentGrid.add(new Label(logEntry.officerDivision), 10, row);
-                incidentGrid.add(new Label(logEntry.incidentStreet), 11, row);
-                incidentGrid.add(new Label(logEntry.incidentArea), 12, row);
-                incidentGrid.add(new Label(logEntry.incidentCounty), 13, row);
-                incidentGrid.add(new Label(logEntry.incidentActionsTaken), 14, row);
-                incidentGrid.add(new Label(logEntry.incidentComments), 15, row);
-
-                row++;
-            }
-        } else {
-            //System.out.println("File does not exist.");
-        }
-        // Add ColumnConstraints for all columns
-        ColumnConstraints columnConstraints2 = new ColumnConstraints();
-        columnConstraints2.setHgrow(Priority.ALWAYS);
-        columnConstraints2.setFillWidth(true);
-        incidentGrid.getColumnConstraints().add(columnConstraints2);
-        incidentGrid.add(new Label("Incident #: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 0, 0);
-        incidentGrid.add(new Label("Date: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 1, 0);
-        incidentGrid.add(new Label("Time: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 2, 0);
-        incidentGrid.add(new Label("Statement: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 3, 0);
-        incidentGrid.add(new Label("Witnesses: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 4, 0);
-        incidentGrid.add(new Label("Victims: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 5, 0);
-        incidentGrid.add(new Label("Name: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 6, 0);
-        incidentGrid.add(new Label("Rank: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 7, 0);
-        incidentGrid.add(new Label("Number: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 8, 0);
-        incidentGrid.add(new Label("Agency: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 9, 0);
-        incidentGrid.add(new Label("Division: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 10, 0);
-        incidentGrid.add(new Label("Street: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 11, 0);
-        incidentGrid.add(new Label("Area: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 12, 0);
-        incidentGrid.add(new Label("County: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 13, 0);
-        incidentGrid.add(new Label("Actions Taken: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 14, 0);
-        incidentGrid.add(new Label("Comments: ") {{
-            setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        }}, 15, 0);
-
-        // Set row constraints to apply to all rows
-        RowConstraints rowConstraints2 = new RowConstraints();
-        rowConstraints2.setVgrow(Priority.ALWAYS); // Allow vertical growth
-        rowConstraints2.setMinHeight(100); // Set the minimum height
-        rowConstraints2.setPrefHeight(100); // Set the preferred height
-        rowConstraints2.setMaxHeight(100); // Set the maximum height
-
-        // Add row constraints to all rows in the GridPane
-        int numRows2 = incidentGrid.getRowConstraints().size();
-        for (int i = 0; i < numRows2; i++) {
-            incidentGrid.getRowConstraints().add(rowConstraints2);
-        }*/
-
-        //ParkingCitationTable
-        List<ParkingCitationLogEntry> parkingCitationLogEntryList = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
-        parkingCitationLogUpdate(parkingCitationLogEntryList);
-        //ImpoundTable
-        List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
-        impoundLogUpdate(impoundLogEntryList);
-        //TrafficCitationTable
-        List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
-        citationLogUpdate(citationLogEntryList);
-        //PatrolTable
-        List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
-        patrolLogUpdate(patrolLogEntryList);
-        //ArrestTable
-        List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
-        arrestLogUpdate(arrestLogEntryList);
-        //SearchTable
-        List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
-        searchLogUpdate(searchLogEntryList);
-        //IncidentTable
-        List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
-        incidentLogUpdate(incidentLogEntryList);
-        //TrafficStopTable
-        List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
-        trafficStopLogUpdate(trafficLogEntryList);
-        //CalloutTable
-        List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
-        calloutLogUpdate(calloutLogEntryList);
     }
 
     public void parkingCitationLogUpdate(List<ParkingCitationLogEntry> logEntries) {
         // Clear existing data
         parkingCitationTable.getItems().clear();
+        parkingCitationTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeParkingCitationColumns() {
+
 
         // Create columns for each property of ParkingCitationLogEntry
         TableColumn<ParkingCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
@@ -1234,13 +501,18 @@ public class actionController {
                 officerAgencyColumn,
                 citationCommentsColumn
         );
-
         // Add items to the table
-        parkingCitationTable.getItems().addAll(logEntries);
     }
+
     public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
         // Clear existing data
         impoundTable.getItems().clear();
+        // Add data to the table
+        impoundTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeImpoundColumns() {
+
 
         // Create columns for each property of ImpoundLogEntry
         TableColumn<ImpoundLogEntry, String> impoundNumberColumn = new TableColumn<>("Impound #");
@@ -1318,13 +590,15 @@ public class actionController {
                 officerDivisionColumn,
                 officerAgencyColumn
         );
-
-        // Add data to the table
-        impoundTable.getItems().addAll(logEntries);
     }
+
     public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
         // Clear existing data
         citationTable.getItems().clear();
+        citationTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeCitationColumns() {
 
         // Create columns for each property of TrafficCitationLogEntry
         TableColumn<TrafficCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
@@ -1429,12 +703,15 @@ public class actionController {
                 officerAgencyColumn,
                 citationCommentsColumn
         );
-
-        citationTable.getItems().addAll(logEntries);
     }
+
     public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
         // Clear existing data
         patrolTable.getItems().clear();
+        patrolTable.getItems().addAll(logEntries);
+    }
+
+    public void initializePatrolColumns() {
 
         // Create columns for each property of PatrolLogEntry
         TableColumn<PatrolLogEntry, String> patrolNumberColumn = new TableColumn<>("Patrol #");
@@ -1487,12 +764,16 @@ public class actionController {
                 officerVehicleColumn,
                 patrolCommentsColumn
         );
-
-        patrolTable.getItems().addAll(logEntries);
     }
+
     public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
         // Clear existing data
         arrestTable.getItems().clear();
+        arrestTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeArrestColumns() {
+
 
         // Create columns for each property of ArrestLogEntry
         TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");
@@ -1570,11 +851,15 @@ public class actionController {
                 officerAgencyColumn
         );
 
-        arrestTable.getItems().addAll(logEntries);
     }
+
     public void searchLogUpdate(List<SearchLogEntry> logEntries) {
         // Clear existing data
         searchTable.getItems().clear();
+        searchTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeSearchColumns() {
 
         // Create columns for each property of SearchLogEntry
         TableColumn<SearchLogEntry, String> searchNumberColumn = new TableColumn<>("Search #");
@@ -1651,13 +936,15 @@ public class actionController {
                 searchCommentsColumn,
                 searchedPersonsColumn
         );
-
-        searchTable.getItems().addAll(logEntries);
     }
+
     public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
         // Clear existing data
         incidentTable.getItems().clear();
+        incidentTable.getItems().addAll(logEntries);
+    }
 
+    public void initializeIncidentColumns() {
         // Create columns for each property of IncidentLogEntry
         TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident #");
         incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
@@ -1726,14 +1013,15 @@ public class actionController {
                 incidentActionsTakenColumn,
                 incidentCommentsColumn
         );
-
-        incidentTable.getItems().addAll(logEntries);
     }
+
     public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
         // Clear existing data
         trafficStopTable.getItems().clear();
+        trafficStopTable.getItems().addAll(logEntries);
+    }
 
-        // Create columns for each property of TrafficStopLogEntry
+    public void initializeTrafficStopColumns() {// Create columns for each property of TrafficStopLogEntry
         TableColumn<TrafficStopLogEntry, String> dateColumn = new TableColumn<>("Date");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
@@ -1804,11 +1092,15 @@ public class actionController {
                 colorColumn,
                 typeColumn
         );
-        trafficStopTable.getItems().addAll(logEntries);
     }
+
     public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
         // Clear existing data
         calloutTable.getItems().clear();
+        calloutTable.getItems().addAll(logEntries);
+    }
+
+    public void initializeCalloutColumns() {
         // Create columns for each property of CalloutLogEntry
         TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
         calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
@@ -1868,9 +1160,7 @@ public class actionController {
                 countyColumn,
                 areaColumn
         );
-        calloutTable.getItems().addAll(logEntries);
     }
-
 
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -1990,4 +1280,7 @@ public class actionController {
         stage.show();
     }
 
+    public void onRefreshButtonClick(ActionEvent actionEvent) {
+        loadLogs();
+    }
 }

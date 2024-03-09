@@ -6,9 +6,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.util.List;

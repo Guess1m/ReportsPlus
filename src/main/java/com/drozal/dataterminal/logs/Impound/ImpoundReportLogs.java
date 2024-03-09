@@ -37,6 +37,13 @@ public class ImpoundReportLogs {
 
         try {
             File file = new File(filePath);
+
+            // Check if the file exists
+            if (!file.exists()) {
+                System.err.println("File not found: " + filePath);
+                return logEntries; // Return an empty list
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -68,8 +75,6 @@ public class ImpoundReportLogs {
                     logEntry.officerDivision = getTagValue(logsElement, "officerDivision");
                     logEntry.officerAgency = getTagValue(logsElement, "officerAgency");
                     logEntries.add(logEntry);
-
-
                 }
             }
         } catch (Exception e) {

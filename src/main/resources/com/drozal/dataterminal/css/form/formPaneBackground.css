@@ -1,3 +1,5 @@
-.pane {
-    -fx-background-color:darkgrey;
+.formPane {
+    -fx-background-color:  #f2f2f2;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 3, 0.0, 0, 1);
 }

@@ -1,5 +1,6 @@
 .calloutTABLE{
    -fx-background-color: transparent;
+
 }
 .calloutTABLE:focused{
     -fx-background-color: transparent;
@@ -15,9 +16,9 @@
 }
 .calloutTABLE .column-header {
     -fx-background-color: transparent;
-    -fx-padding: 10px 0;
     -fx-border-width: 0 1.5px 0 0px; /* top right bottom left */
     -fx-border-color: white;
+
 }
 .calloutTABLE .table-cell{
     -fx-text-fill: #262626;

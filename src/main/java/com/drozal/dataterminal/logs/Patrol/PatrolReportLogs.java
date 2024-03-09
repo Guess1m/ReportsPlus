@@ -37,6 +37,13 @@ public class PatrolReportLogs {
 
         try {
             File file = new File(filePath);
+
+            // Check if the file exists
+            if (!file.exists()) {
+                System.err.println("File not found: " + filePath);
+                return logEntries; // Return an empty list
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -62,7 +69,6 @@ public class PatrolReportLogs {
                     logEntry.officerVehicle = getTagValue(logsElement, "officerVehicle");
                     logEntry.patrolComments = getTagValue(logsElement, "patrolComments");
                     logEntries.add(logEntry);
-
                 }
             }
         } catch (Exception e) {

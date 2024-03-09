@@ -1,38 +1,42 @@
-/* Material Design Spinner */
-.spinner {
+/*Spinner*/
+.formSpinner {
     -fx-progress-color: #2196f3; /* Color of the spinner */
     -fx-background-color: transparent; /* Set background to transparent */
     -fx-border-color: rgb(128, 128, 128,0.3);
     -fx-border-radius: 3;
-    -fx-base:  #6b6b6b;
+    -fx-base:  #665cb6;
 }
 
-.spinner .spinner-content {
+.formSpinner .spinner-content {
     -fx-padding: 4px;
+    -fx-background-color: transparent;
 }
-.spinner .spinner-content .spinner-icon {
+.formSpinner .spinner-content .spinner-icon {
     -fx-background-color: transparent;
     -fx-shape: "M 15.5 2.5 L 15.5 7.5 L 17.5 7.5 L 17.5 2.5 Z";
     -fx-fill: #2196f3; /* Color of the spinner icon */
 }
-.spinner .increment-arrow-button .increment-arrow {
-    -fx-background-color: grey;
+.formSpinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: black;
 }
-.spinner .increment-arrow-button {
-    -fx-background-color: transparent; /* Set background to transparent */
-    -fx-border-color: rgb(128, 128, 128, 0.5);
-    -fx-border-radius: 1;
+.formSpinner .increment-arrow-button {
+    -fx-background-color: #f2f2f2; /* Set background to transparent */
+    -fx-border-color: black;
+    -fx-border-width: 0 0 0 0.5; /* top right bottom left */
+    -fx-border-radius: 2;
 }
-.spinner .decrement-arrow-button {
-    -fx-background-color: transparent; /* Set background to transparent */
-    -fx-border-color: rgb(128, 128, 128, 0.5);
+.formSpinner .decrement-arrow-button {
+    -fx-background-color: #f2f2f2; /* Set background to transparent */
+        -fx-border-color: black;
+            -fx-border-width: 0 0 0 0.5; /* top right bottom left */
+        -fx-border-radius: 2;
 }
-.spinner .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: grey;
+.formSpinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: black;
 }
-.spinner:focused .decrement-arrow-button .decrement-arrow {
+.formSpinner:focused .decrement-arrow-button .decrement-arrow {
     -fx-background-color: #008cd7;
 }
-.spinner:focused .increment-arrow-button .increment-arrow {
+.formSpinner:focused .increment-arrow-button .increment-arrow {
     -fx-background-color: #008cd7;
 }

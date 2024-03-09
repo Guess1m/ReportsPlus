@@ -24,6 +24,27 @@ public class SearchLogEntry {
     public SearchLogEntry() {
     }
 
+    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
+        this.SearchNumber = searchNumber;
+        this.searchedPersons = searchedPersons;
+        this.searchDate = searchDate;
+        this.searchTime = searchTime;
+        this.searchSeizedItems = searchSeizedItems;
+        this.searchGrounds = searchGrounds;
+        this.searchType = searchType;
+        this.searchMethod = searchMethod;
+        this.searchWitnesses = searchWitnesses;
+        this.officerRank = officerRank;
+        this.officerName = officerName;
+        this.officerNumber = officerNumber;
+        this.officerAgency = officerAgency;
+        this.officerDivision = officerDivision;
+        this.searchStreet = searchStreet;
+        this.searchArea = searchArea;
+        this.searchCounty = searchCounty;
+        this.searchComments = searchComments;
+    }
+
     public String getSearchNumber() {
         return SearchNumber;
     }
@@ -94,26 +115,5 @@ public class SearchLogEntry {
 
     public String getSearchedPersons() {
         return searchedPersons;
-    }
-
-    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
-        this.SearchNumber = searchNumber;
-        this.searchedPersons = searchedPersons;
-        this.searchDate = searchDate;
-        this.searchTime = searchTime;
-        this.searchSeizedItems = searchSeizedItems;
-        this.searchGrounds = searchGrounds;
-        this.searchType = searchType;
-        this.searchMethod = searchMethod;
-        this.searchWitnesses = searchWitnesses;
-        this.officerRank = officerRank;
-        this.officerName = officerName;
-        this.officerNumber = officerNumber;
-        this.officerAgency = officerAgency;
-        this.officerDivision = officerDivision;
-        this.searchStreet = searchStreet;
-        this.searchArea = searchArea;
-        this.searchCounty = searchCounty;
-        this.searchComments = searchComments;
     }
 }

@@ -37,6 +37,13 @@ public class ParkingCitationReportLogs {
 
         try {
             File file = new File(filePath);
+
+            // Check if the file exists
+            if (!file.exists()) {
+                System.err.println("File not found: " + filePath);
+                return logEntries; // Return an empty list
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -83,6 +90,7 @@ public class ParkingCitationReportLogs {
         }
         return logEntries;
     }
+
 
     public static void addLogEntryToGrid(GridPane gridPane, ParkingCitationLogEntry logEntry, int rowIndex) {
         // Create labels for each log entry field

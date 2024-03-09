@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -36,6 +37,11 @@ public class CalloutReportLogs {
 
         try {
             File file = new File(filePath);
+            if (!file.exists()) {
+                System.err.println("Error: File not found at " + filePath);
+                return logEntries; // Return an empty list if the file doesn't exist
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -66,11 +72,12 @@ public class CalloutReportLogs {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error extracting callout log entries: " + e.getMessage());
         }
 
         return logEntries;
     }
+
 
     public static void addLogEntryToGrid(GridPane gridPane, CalloutLogEntry logEntry, int rowIndex) {
         // Create labels for each log entry field

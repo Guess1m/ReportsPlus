@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-
-<VBox fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="378.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.newOfficerController">
+<?import javafx.scene.text.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter"
+      onMouseExited="#onMouseExit"
+      prefHeight="378.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/21"
+      fx:controller="com.drozal.dataterminal.newOfficerController">
     <padding>
-        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
     <children>
         <AnchorPane prefHeight="381.0" prefWidth="498.0" scaleShape="false" style="-fx-background-color: #edf1f3;">
@@ -25,68 +22,92 @@
                     <children>
                         <Pane layoutX="9.0" layoutY="77.0" prefHeight="305.0" prefWidth="498.0">
                             <children>
-                                <Pane layoutY="-10.0" prefHeight="315.0" prefWidth="498.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css">
+                                <Pane layoutY="-10.0" prefHeight="315.0" prefWidth="498.0" styleClass="menuBackground"
+                                      stylesheets="@css/menu/menuStyles.css">
                                     <children>
-                                        <TextField fx:id="nameField" layoutX="29.0" layoutY="60.0" prefHeight="38.0" prefWidth="255.0" promptText="Name" styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
+                                        <TextField fx:id="nameField" layoutX="29.0" layoutY="60.0" prefHeight="38.0"
+                                                   prefWidth="255.0" promptText="Name" styleClass="menuField"
+                                                   stylesheets="@css/menu/menuStyles.css">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
+                                                <Font name="Segoe UI Semibold" size="19.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="numberField" layoutX="296.0" layoutY="60.0" prefHeight="38.0" prefWidth="175.0" promptText="Number" styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
+                                        <TextField fx:id="numberField" layoutX="296.0" layoutY="60.0" prefHeight="38.0"
+                                                   prefWidth="175.0" promptText="Number" styleClass="menuField"
+                                                   stylesheets="@css/menu/menuStyles.css">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
+                                                <Font name="Segoe UI Semibold" size="19.0"/>
                                             </font>
                                         </TextField>
-                                        <ComboBox fx:id="rankDropdown" layoutX="28.0" layoutY="112.0" prefHeight="38.0" prefWidth="442.0" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
-                                        <ComboBox fx:id="agencyDropDown" layoutX="28.0" layoutY="164.0" prefHeight="38.0" prefWidth="442.0" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
-                                        <ComboBox fx:id="divisionDropDown" layoutX="28.0" layoutY="216.0" prefHeight="38.0" prefWidth="442.0" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
-                                        <Label alignment="CENTER" layoutX="20.0" layoutY="7.0" prefHeight="38.0" prefWidth="460.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Sign In" />
-                                      <Button fx:id="loginBtn" layoutX="374.0" layoutY="264.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0" styleClass="menuButton" stylesheets="@css/menu/menuStyles.css" text="LOGIN" textFill="#008cd7">
-                                          <font>
-                                              <Font name="Candara Bold" size="18.0" />
-                                          </font>
-                                      </Button>
+                                        <ComboBox fx:id="rankDropdown" layoutX="28.0" layoutY="112.0" prefHeight="38.0"
+                                                  prefWidth="442.0" styleClass="menuCombobox"
+                                                  stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"/>
+                                        <ComboBox fx:id="agencyDropDown" layoutX="28.0" layoutY="164.0"
+                                                  prefHeight="38.0" prefWidth="442.0" styleClass="menuCombobox"
+                                                  stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"/>
+                                        <ComboBox fx:id="divisionDropDown" layoutX="28.0" layoutY="216.0"
+                                                  prefHeight="38.0" prefWidth="442.0" styleClass="menuCombobox"
+                                                  stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"/>
+                                        <Label alignment="CENTER" layoutX="20.0" layoutY="7.0" prefHeight="38.0"
+                                               prefWidth="460.0" styleClass="heading"
+                                               stylesheets="@css/menu/menuLabels.css" text="Sign In"/>
+                                        <Button fx:id="loginBtn" layoutX="374.0" layoutY="264.0" mnemonicParsing="false"
+                                                onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0"
+                                                styleClass="menuButton" stylesheets="@css/menu/menuStyles.css"
+                                                text="LOGIN" textFill="#008cd7">
+                                            <font>
+                                                <Font name="Candara Bold" size="18.0"/>
+                                            </font>
+                                        </Button>
                                     </children>
                                 </Pane>
-                                <Label alignment="CENTER" layoutX="20.0" layoutY="261.0" prefHeight="32.0" prefWidth="376.0" textAlignment="CENTER" textFill="#727272">
+                                <Label alignment="CENTER" layoutX="20.0" layoutY="261.0" prefHeight="32.0"
+                                       prefWidth="376.0" textAlignment="CENTER" textFill="#727272">
                                     <font>
-                                        <Font name="Candara" size="22.0" />
+                                        <Font name="Candara" size="22.0"/>
                                     </font>
                                 </Label>
-                                <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="20.0" layoutY="236.0" prefHeight="79.0" prefWidth="376.0" text="Please Fill Out the Form Completely." textAlignment="CENTER" textFill="#ff3c3c" visible="false">
+                                <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="20.0" layoutY="236.0"
+                                       prefHeight="79.0" prefWidth="376.0" text="Please Fill Out the Form Completely."
+                                       textAlignment="CENTER" textFill="#ff3c3c" visible="false">
                                     <font>
-                                        <Font name="Candara" size="16.0" />
+                                        <Font name="Candara" size="16.0"/>
                                     </font>
                                 </Label>
                             </children>
                             <effect>
                                 <DropShadow>
                                     <color>
-                                        <Color red="0.46052631735801697" green="0.46052631735801697" blue="0.46052631735801697" />
+                                        <Color red="0.46052631735801697" green="0.46052631735801697"
+                                               blue="0.46052631735801697"/>
                                     </color>
                                 </DropShadow>
                             </effect>
                         </Pane>
-                        <Pane layoutX="9.0" layoutY="-1.0" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="69.0" prefWidth="498.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css">
+                        <Pane layoutX="9.0" layoutY="-1.0" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress"
+                              prefHeight="69.0" prefWidth="498.0" styleClass="menuTopBar"
+                              stylesheets="@css/menu/menuStyles.css">
                             <effect>
-                                <DropShadow />
+                                <DropShadow/>
                             </effect>
                             <children>
-                                <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="466.0" layoutY="11.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="466.0"
+                                           layoutY="11.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true"
+                                           preserveRatio="true">
                                     <image>
-                                        <Image url="@imgs/icons/cross.png" />
+                                        <Image url="@imgs/icons/cross.png"/>
                                     </image>
                                 </ImageView>
-                        <Label layoutX="80.0" layoutY="21.0" text="Data Terminal" textFill="WHITE">
-                           <font>
-                              <Font name="Roboto" size="27.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="21.0" layoutY="9.0" text="Dt" textFill="WHITE">
-                           <font>
-                              <Font name="Blanka-Regular" size="37.0" />
-                           </font>
-                        </Label>
+                                <Label layoutX="80.0" layoutY="21.0" text="Data Terminal" textFill="WHITE">
+                                    <font>
+                                        <Font name="Roboto" size="27.0"/>
+                                    </font>
+                                </Label>
+                                <Label layoutX="21.0" layoutY="9.0" text="Dt" textFill="WHITE">
+                                    <font>
+                                        <Font name="Blanka-Regular" size="37.0"/>
+                                    </font>
+                                </Label>
                             </children>
                         </Pane>
                     </children>

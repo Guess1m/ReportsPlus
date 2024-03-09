@@ -22,6 +22,25 @@ public class IncidentLogEntry {
     public IncidentLogEntry() {
     }
 
+    public IncidentLogEntry(String incidentNumber, String incidentDate, String incidentTime, String incidentStatement, String incidentWitnesses, String incidentVictims, String officerName, String officerRank, String officerNumber, String officerAgency, String officerDivision, String incidentStreet, String incidentArea, String incidentCounty, String incidentActionsTaken, String incidentComments) {
+        this.incidentNumber = incidentNumber;
+        this.incidentDate = incidentDate;
+        this.incidentTime = incidentTime;
+        this.incidentStatement = incidentStatement;
+        this.incidentWitnesses = incidentWitnesses;
+        this.incidentVictims = incidentVictims;
+        this.officerName = officerName;
+        this.officerRank = officerRank;
+        this.officerNumber = officerNumber;
+        this.officerAgency = officerAgency;
+        this.officerDivision = officerDivision;
+        this.incidentStreet = incidentStreet;
+        this.incidentArea = incidentArea;
+        this.incidentCounty = incidentCounty;
+        this.incidentActionsTaken = incidentActionsTaken;
+        this.incidentComments = incidentComments;
+    }
+
     public String getIncidentNumber() {
         return incidentNumber;
     }
@@ -84,24 +103,5 @@ public class IncidentLogEntry {
 
     public String getIncidentComments() {
         return incidentComments;
-    }
-
-    public IncidentLogEntry(String incidentNumber, String incidentDate, String incidentTime, String incidentStatement, String incidentWitnesses, String incidentVictims, String officerName, String officerRank, String officerNumber, String officerAgency, String officerDivision, String incidentStreet, String incidentArea, String incidentCounty, String incidentActionsTaken, String incidentComments) {
-        this.incidentNumber = incidentNumber;
-        this.incidentDate = incidentDate;
-        this.incidentTime = incidentTime;
-        this.incidentStatement = incidentStatement;
-        this.incidentWitnesses = incidentWitnesses;
-        this.incidentVictims = incidentVictims;
-        this.officerName = officerName;
-        this.officerRank = officerRank;
-        this.officerNumber = officerNumber;
-        this.officerAgency = officerAgency;
-        this.officerDivision = officerDivision;
-        this.incidentStreet = incidentStreet;
-        this.incidentArea = incidentArea;
-        this.incidentCounty = incidentCounty;
-        this.incidentActionsTaken = incidentActionsTaken;
-        this.incidentComments = incidentComments;
     }
 }

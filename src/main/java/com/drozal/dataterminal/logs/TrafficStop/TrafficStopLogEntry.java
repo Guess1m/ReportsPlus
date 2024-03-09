@@ -24,6 +24,26 @@ public class TrafficStopLogEntry {
 
     }
 
+    public TrafficStopLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
+        this.Date = date;
+        this.Time = time;
+        this.Name = name;
+        this.Rank = rank;
+        this.Number = number;
+        this.Division = division;
+        this.Agency = agency;
+        this.StopNumber = sNumber;
+        this.ViolationsTextArea = violation;
+        this.CommentsTextArea = comments;
+        this.ActionsTextArea = actions;
+        this.Street = street;
+        this.County = county;
+        this.Area = area;
+        this.PlateNumber = plateN;
+        this.Color = color;
+        this.Type = type;
+    }
+
     public String getPlateNumber() {
         return PlateNumber;
     }
@@ -90,26 +110,6 @@ public class TrafficStopLogEntry {
 
     public String getStreet() {
         return Street;
-    }
-
-    public TrafficStopLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
-        this.Date = date;
-        this.Time = time;
-        this.Name = name;
-        this.Rank = rank;
-        this.Number = number;
-        this.Division = division;
-        this.Agency = agency;
-        this.StopNumber = sNumber;
-        this.ViolationsTextArea = violation;
-        this.CommentsTextArea = comments;
-        this.ActionsTextArea = actions;
-        this.Street = street;
-        this.County = county;
-        this.Area = area;
-        this.PlateNumber = plateN;
-        this.Color = color;
-        this.Type = type;
     }
 
 

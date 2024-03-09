@@ -1,10 +1,8 @@
 package com.drozal.dataterminal;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.KeyCode;
 
 import static org.controlsfx.tools.Utils.clamp;
 

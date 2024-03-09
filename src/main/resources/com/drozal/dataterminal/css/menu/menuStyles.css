@@ -17,6 +17,9 @@
     -fx-background-color:  white;
     -fx-background-radius: 0;
 }
+.offWhiteBackground{
+-fx-background-color: #f2f2f2;
+}
 /*Button*/
 .menuButton {
     -fx-background-color: rgb(242, 242, 242, 0.6); /* Background color */

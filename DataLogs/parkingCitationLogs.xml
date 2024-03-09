@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<parkingCitationReportLogs>
+    <logs>
+        <citationNumber>9</citationNumber>
+        <citationDate>2024-03-09</citationDate>
+        <citationTime>11:51:48 AM</citationTime>
+        <meterNumber>10</meterNumber>
+        <citationCounty>asdfsadf</citationCounty>
+        <citationArea>asdfsdafsadd</citationArea>
+        <citationStreet>fadsfasdfas</citationStreet>
+        <offenderName>safsad</offenderName>
+        <offenderGender>Male</offenderGender>
+        <offenderEthnicity>fasfsad</offenderEthnicity>
+        <offenderAge>52</offenderAge>
+        <offenderDescription>fasdf</offenderDescription>
+        <offenderVehicleMake>fasdf</offenderVehicleMake>
+        <offenderVehicleModel>fsadfsa</offenderVehicleModel>
+        <offenderVehicleColor>Silver</offenderVehicleColor>
+        <offenderVehicleType>Motorcycle</offenderVehicleType>
+        <offenderVehiclePlate>asdfasd</offenderVehiclePlate>
+        <offenderVehicleOther>asdfasd</offenderVehicleOther>
+        <offenderViolations>asdfdsa</offenderViolations>
+        <offenderActionsTaken>fdsafas</offenderActionsTaken>
+        <officerRank>Police Officer II</officerRank>
+        <officerName>asadsds</officerName>
+        <officerNumber>sdads</officerNumber>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <officerAgency>International Affairs Agency</officerAgency>
+        <citationComments>dfasfs</citationComments>
+    </logs>
+</parkingCitationReportLogs>

@@ -16,6 +16,8 @@
 .calloutTABLE .column-header {
     -fx-background-color: transparent;
     -fx-padding: 10px 0;
+    -fx-border-width: 0 1.5px 0 0px; /* top right bottom left */
+    -fx-border-color: white;
 }
 .calloutTABLE .table-cell{
     -fx-text-fill: #262626;
@@ -52,4 +54,15 @@
 .calloutTABLE > .virtual-flow > .scroll-bar > .increment-button,
 .calloutTABLE > .virtual-flow > .scroll-bar > .decrement-button {
     -fx-opacity: 0;
+}
+
+.databaseReportLabel {
+    -fx-text-fill: #665cb6;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 30px;
+}
+.viewerLabel {
+    -fx-text-fill: grey;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 24px;
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<patrolReportLogs>
+    <logs>
+        <patrolNumber>6</patrolNumber>
+        <patrolDate>2024-03-09</patrolDate>
+        <patrolLength>asdfasdfasd</patrolLength>
+        <patrolStartTime>asdfasdf</patrolStartTime>
+        <patrolStopTime>11:51:37 AM</patrolStopTime>
+        <officerRank>Police Officer II</officerRank>
+        <officerName>asadsds</officerName>
+        <officerNumber>sdads</officerNumber>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <officerAgency>International Affairs Agency</officerAgency>
+        <officerVehicle>asdfasdfasdf</officerVehicle>
+        <patrolComments>asfdasdfasdfsad</patrolComments>
+    </logs>
+</patrolReportLogs>

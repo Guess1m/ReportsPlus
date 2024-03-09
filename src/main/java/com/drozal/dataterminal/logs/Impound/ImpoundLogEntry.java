@@ -45,4 +45,75 @@ public class ImpoundLogEntry {
         this.officerAgency = officerAgency;
     }
 
+    public String getImpoundNumber() {
+        return impoundNumber;
+    }
+
+    public String getImpoundDate() {
+        return impoundDate;
+    }
+
+    public String getImpoundTime() {
+        return impoundTime;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getOwnerAge() {
+        return ownerAge;
+    }
+
+    public String getOwnerGender() {
+        return ownerGender;
+    }
+
+    public String getOwnerAddress() {
+        return ownerAddress;
+    }
+
+    public String getImpoundPlateNumber() {
+        return impoundPlateNumber;
+    }
+
+    public String getImpoundMake() {
+        return impoundMake;
+    }
+
+    public String getImpoundModel() {
+        return impoundModel;
+    }
+
+    public String getImpoundType() {
+        return impoundType;
+    }
+
+    public String getImpoundColor() {
+        return impoundColor;
+    }
+
+    public String getImpoundComments() {
+        return impoundComments;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
 }

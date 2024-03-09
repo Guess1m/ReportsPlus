@@ -9,6 +9,111 @@ public class ParkingCitationLogEntry {
     public String citationCounty;
     public String citationArea;
     public String citationStreet;
+
+    public String getCitationNumber() {
+        return citationNumber;
+    }
+
+    public String getCitationDate() {
+        return citationDate;
+    }
+
+    public String getCitationTime() {
+        return citationTime;
+    }
+
+    public String getMeterNumber() {
+        return meterNumber;
+    }
+
+    public String getCitationCounty() {
+        return citationCounty;
+    }
+
+    public String getCitationArea() {
+        return citationArea;
+    }
+
+    public String getCitationStreet() {
+        return citationStreet;
+    }
+
+    public String getOffenderName() {
+        return offenderName;
+    }
+
+    public String getOffenderGender() {
+        return offenderGender;
+    }
+
+    public String getOffenderEthnicity() {
+        return offenderEthnicity;
+    }
+
+    public String getOffenderAge() {
+        return offenderAge;
+    }
+
+    public String getOffenderDescription() {
+        return offenderDescription;
+    }
+
+    public String getOffenderVehicleMake() {
+        return offenderVehicleMake;
+    }
+
+    public String getOffenderVehicleModel() {
+        return offenderVehicleModel;
+    }
+
+    public String getOffenderVehicleColor() {
+        return offenderVehicleColor;
+    }
+
+    public String getOffenderVehicleType() {
+        return offenderVehicleType;
+    }
+
+    public String getOffenderVehiclePlate() {
+        return offenderVehiclePlate;
+    }
+
+    public String getOffenderVehicleOther() {
+        return offenderVehicleOther;
+    }
+
+    public String getOffenderViolations() {
+        return offenderViolations;
+    }
+
+    public String getOffenderActionsTaken() {
+        return offenderActionsTaken;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public String getCitationComments() {
+        return citationComments;
+    }
+
     public String offenderName;
     public String offenderGender;
     public String offenderEthnicity;

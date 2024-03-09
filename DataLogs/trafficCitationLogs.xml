@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trafficCitationReportLogs>
+    <logs>
+        <citationNumber>4</citationNumber>
+        <citationDate>2024-03-09</citationDate>
+        <citationTime>11:55:25 AM</citationTime>
+        <citationCounty>sfsad</citationCounty>
+        <citationArea>fasfas</citationArea>
+        <citationStreet>dfasfdsa</citationStreet>
+        <offenderName>asdfasdf</offenderName>
+        <offenderGender>Female</offenderGender>
+        <offenderEthnicity>asdfasdf</offenderEthnicity>
+        <offenderAge>26</offenderAge>
+        <offenderDescription>asdfasdfas</offenderDescription>
+        <offenderVehicleMake>asfdsad</offenderVehicleMake>
+        <offenderVehicleModel>asdfasdfsad</offenderVehicleModel>
+        <offenderVehicleColor>Silver</offenderVehicleColor>
+        <offenderVehicleType>Bus</offenderVehicleType>
+        <offenderVehiclePlate>sadfsadf</offenderVehiclePlate>
+        <offenderVehicleOther>fasdf</offenderVehicleOther>
+        <offenderViolations>sdfsdf</offenderViolations>
+        <offenderActionsTaken>sdfsdf</offenderActionsTaken>
+        <officerRank>Police Officer II</officerRank>
+        <officerName>asadsds</officerName>
+        <officerNumber>sdads</officerNumber>
+        <officerDivision> Central Area Patrol Division</officerDivision>
+        <officerAgency>International Affairs Agency</officerAgency>
+        <citationComments>dsfsdfsdf</citationComments>
+    </logs>
+</trafficCitationReportLogs>

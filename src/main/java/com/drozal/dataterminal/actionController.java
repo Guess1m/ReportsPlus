@@ -1093,6 +1093,24 @@ public class actionController {
             incidentGrid.getRowConstraints().add(rowConstraints2);
         }*/
 
+        //ParkingCitationTable
+        List<ParkingCitationLogEntry> parkingCitationLogEntryList = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
+        parkingCitationLogUpdate(parkingCitationLogEntryList);
+        //ImpoundTable
+        List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
+        impoundLogUpdate(impoundLogEntryList);
+        //TrafficCitationTable
+        List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
+        citationLogUpdate(citationLogEntryList);
+        //PatrolTable
+        List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
+        patrolLogUpdate(patrolLogEntryList);
+        //ArrestTable
+        List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
+        arrestLogUpdate(arrestLogEntryList);
+        //SearchTable
+        List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
+        searchLogUpdate(searchLogEntryList);
         //IncidentTable
         List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
         incidentLogUpdate(incidentLogEntryList);
@@ -1104,396 +1122,544 @@ public class actionController {
         calloutLogUpdate(calloutLogEntryList);
     }
 
-    public void parkingCitationLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void parkingCitationLogUpdate(List<ParkingCitationLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        parkingCitationTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of ParkingCitationLogEntry
+        TableColumn<ParkingCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
+        citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<ParkingCitationLogEntry, String> citationDateColumn = new TableColumn<>("Citation Date");
+        citationDateColumn.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<ParkingCitationLogEntry, String> citationTimeColumn = new TableColumn<>("Citation Time");
+        citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<ParkingCitationLogEntry, String> meterNumberColumn = new TableColumn<>("Meter #");
+        meterNumberColumn.setCellValueFactory(new PropertyValueFactory<>("meterNumber"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<ParkingCitationLogEntry, String> citationCountyColumn = new TableColumn<>("County");
+        citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<ParkingCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Area");
+        citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<ParkingCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Street");
+        citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<ParkingCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Offender Name");
+        offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<ParkingCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Offender Gender");
+        offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<ParkingCitationLogEntry, String> offenderEthnicityColumn = new TableColumn<>("Offender Ethnicity");
+        offenderEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("offenderEthnicity"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<ParkingCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Offender Age");
+        offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<ParkingCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Offender Desc.");
+        offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        TableColumn<ParkingCitationLogEntry, String> offenderVehicleMakeColumn = new TableColumn<>("Vehicle Make");
+        offenderVehicleMakeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleMake"));
 
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        TableColumn<ParkingCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Vehicle Model");
+        offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Vehicle Color");
+        offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Vehicle Type");
+        offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("License Plate");
+        offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Other Veh. Info");
+        offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderViolationsColumn = new TableColumn<>("Violations");
+        offenderViolationsColumn.setCellValueFactory(new PropertyValueFactory<>("offenderViolations"));
+
+        TableColumn<ParkingCitationLogEntry, String> offenderActionsTakenColumn = new TableColumn<>("Actions Taken");
+        offenderActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("offenderActionsTaken"));
+
+        TableColumn<ParkingCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
+
+        TableColumn<ParkingCitationLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+
+        TableColumn<ParkingCitationLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+
+        TableColumn<ParkingCitationLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
+
+        TableColumn<ParkingCitationLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
+
+        TableColumn<ParkingCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
+        citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
+
+        // Add columns to the table
+        parkingCitationTable.getColumns().addAll(
+                citationNumberColumn,
+                citationDateColumn,
+                citationTimeColumn,
+                meterNumberColumn,
+                citationCountyColumn,
+                citationAreaColumn,
+                citationStreetColumn,
+                offenderNameColumn,
+                offenderGenderColumn,
+                offenderEthnicityColumn,
+                offenderAgeColumn,
+                offenderDescriptionColumn,
+                offenderVehicleMakeColumn,
+                offenderVehicleModelColumn,
+                offenderVehicleColorColumn,
+                offenderVehicleTypeColumn,
+                offenderVehiclePlateColumn,
+                offenderVehicleOtherColumn,
+                offenderViolationsColumn,
+                offenderActionsTakenColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerDivisionColumn,
+                officerAgencyColumn,
+                citationCommentsColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        // Add items to the table
+        parkingCitationTable.getItems().addAll(logEntries);
     }
-    public void impoundLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        impoundTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of ImpoundLogEntry
+        TableColumn<ImpoundLogEntry, String> impoundNumberColumn = new TableColumn<>("Impound #");
+        impoundNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<ImpoundLogEntry, String> impoundDateColumn = new TableColumn<>("Impound Date");
+        impoundDateColumn.setCellValueFactory(new PropertyValueFactory<>("impoundDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<ImpoundLogEntry, String> impoundTimeColumn = new TableColumn<>("Impound Time");
+        impoundTimeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundTime"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<ImpoundLogEntry, String> ownerNameColumn = new TableColumn<>("Owner Name");
+        ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<ImpoundLogEntry, String> ownerAgeColumn = new TableColumn<>("Owner Age");
+        ownerAgeColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAge"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<ImpoundLogEntry, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
+        ownerGenderColumn.setCellValueFactory(new PropertyValueFactory<>("ownerGender"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<ImpoundLogEntry, String> ownerAddressColumn = new TableColumn<>("Owner Address");
+        ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAddress"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<ImpoundLogEntry, String> impoundPlateNumberColumn = new TableColumn<>("Impound Plate Number");
+        impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<ImpoundLogEntry, String> impoundMakeColumn = new TableColumn<>("Impound Make");
+        impoundMakeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundMake"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<ImpoundLogEntry, String> impoundModelColumn = new TableColumn<>("Impound Model");
+        impoundModelColumn.setCellValueFactory(new PropertyValueFactory<>("impoundModel"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<ImpoundLogEntry, String> impoundTypeColumn = new TableColumn<>("Impound Type");
+        impoundTypeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundType"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<ImpoundLogEntry, String> impoundColorColumn = new TableColumn<>("Impound Color");
+        impoundColorColumn.setCellValueFactory(new PropertyValueFactory<>("impoundColor"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        TableColumn<ImpoundLogEntry, String> impoundCommentsColumn = new TableColumn<>("Impound Comments");
+        impoundCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("impoundComments"));
 
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        TableColumn<ImpoundLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
+
+        TableColumn<ImpoundLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+
+        TableColumn<ImpoundLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+
+        TableColumn<ImpoundLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
+
+        TableColumn<ImpoundLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
+
+        // Add columns to the table
+        impoundTable.getColumns().addAll(
+                impoundNumberColumn,
+                impoundDateColumn,
+                impoundTimeColumn,
+                ownerNameColumn,
+                ownerAgeColumn,
+                ownerGenderColumn,
+                ownerAddressColumn,
+                impoundPlateNumberColumn,
+                impoundMakeColumn,
+                impoundModelColumn,
+                impoundTypeColumn,
+                impoundColorColumn,
+                impoundCommentsColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerDivisionColumn,
+                officerAgencyColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        // Add data to the table
+        impoundTable.getItems().addAll(logEntries);
     }
-    public void citationLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        citationTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of TrafficCitationLogEntry
+        TableColumn<TrafficCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
+        citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<TrafficCitationLogEntry, String> citationDateColumn = new TableColumn<>("Citation Date");
+        citationDateColumn.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<TrafficCitationLogEntry, String> citationTimeColumn = new TableColumn<>("Citation Time");
+        citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<TrafficCitationLogEntry, String> citationCountyColumn = new TableColumn<>("Citation County");
+        citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<TrafficCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Citation Area");
+        citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<TrafficCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Citation Street");
+        citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<TrafficCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Offender Name");
+        offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<TrafficCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Offender Gender");
+        offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<TrafficCitationLogEntry, String> offenderEthnicityColumn = new TableColumn<>("Offender Ethnicity");
+        offenderEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("offenderEthnicity"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<TrafficCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Offender Age");
+        offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<TrafficCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Offender Description");
+        offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleMakeColumn = new TableColumn<>("Offender Vehicle Make");
+        offenderVehicleMakeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleMake"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Offender Vehicle Model");
+        offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
 
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Offender Vehicle Color");
+        offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
+
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Offender Vehicle Type");
+        offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
+
+        TableColumn<TrafficCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("Offender Vehicle Plate");
+        offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
+
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Offender Vehicle Other");
+        offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
+
+        TableColumn<TrafficCitationLogEntry, String> offenderViolationsColumn = new TableColumn<>("Offender Violations");
+        offenderViolationsColumn.setCellValueFactory(new PropertyValueFactory<>("offenderViolations"));
+
+        TableColumn<TrafficCitationLogEntry, String> offenderActionsTakenColumn = new TableColumn<>("Offender Actions Taken");
+        offenderActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("offenderActionsTaken"));
+
+        TableColumn<TrafficCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
+
+        TableColumn<TrafficCitationLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+
+        TableColumn<TrafficCitationLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+
+        TableColumn<TrafficCitationLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
+
+        TableColumn<TrafficCitationLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
+
+        TableColumn<TrafficCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
+        citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
+
+        citationTable.getColumns().addAll(
+                citationNumberColumn,
+                citationDateColumn,
+                citationTimeColumn,
+                citationCountyColumn,
+                citationAreaColumn,
+                citationStreetColumn,
+                offenderNameColumn,
+                offenderGenderColumn,
+                offenderEthnicityColumn,
+                offenderAgeColumn,
+                offenderDescriptionColumn,
+                offenderVehicleMakeColumn,
+                offenderVehicleModelColumn,
+                offenderVehicleColorColumn,
+                offenderVehicleTypeColumn,
+                offenderVehiclePlateColumn,
+                offenderVehicleOtherColumn,
+                offenderViolationsColumn,
+                offenderActionsTakenColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerDivisionColumn,
+                officerAgencyColumn,
+                citationCommentsColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        citationTable.getItems().addAll(logEntries);
     }
-    public void patrolLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        patrolTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of PatrolLogEntry
+        TableColumn<PatrolLogEntry, String> patrolNumberColumn = new TableColumn<>("Patrol #");
+        patrolNumberColumn.setCellValueFactory(new PropertyValueFactory<>("patrolNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<PatrolLogEntry, String> patrolDateColumn = new TableColumn<>("Patrol Date");
+        patrolDateColumn.setCellValueFactory(new PropertyValueFactory<>("patrolDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<PatrolLogEntry, String> patrolLengthColumn = new TableColumn<>("Patrol Length");
+        patrolLengthColumn.setCellValueFactory(new PropertyValueFactory<>("patrolLength"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<PatrolLogEntry, String> patrolStartTimeColumn = new TableColumn<>("Patrol Start Time");
+        patrolStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStartTime"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<PatrolLogEntry, String> patrolStopTimeColumn = new TableColumn<>("Patrol Stop Time");
+        patrolStopTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStopTime"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<PatrolLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<PatrolLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<PatrolLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<PatrolLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<PatrolLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<PatrolLogEntry, String> officerVehicleColumn = new TableColumn<>("Officer Vehicle");
+        officerVehicleColumn.setCellValueFactory(new PropertyValueFactory<>("officerVehicle"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Patrol Comments");
+        patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
-
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        patrolTable.getColumns().addAll(
+                patrolNumberColumn,
+                patrolDateColumn,
+                patrolLengthColumn,
+                patrolStartTimeColumn,
+                patrolStopTimeColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerDivisionColumn,
+                officerAgencyColumn,
+                officerVehicleColumn,
+                patrolCommentsColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        patrolTable.getItems().addAll(logEntries);
     }
-    public void arrestLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        arrestTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of ArrestLogEntry
+        TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");
+        arrestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("arrestNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<ArrestLogEntry, String> arrestDateColumn = new TableColumn<>("Arrest Date");
+        arrestDateColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<ArrestLogEntry, String> arrestTimeColumn = new TableColumn<>("Arrest Time");
+        arrestTimeColumn.setCellValueFactory(new PropertyValueFactory<>("arrestTime"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<ArrestLogEntry, String> arrestCountyColumn = new TableColumn<>("Arrest County");
+        arrestCountyColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCounty"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<ArrestLogEntry, String> arrestAreaColumn = new TableColumn<>("Arrest Area");
+        arrestAreaColumn.setCellValueFactory(new PropertyValueFactory<>("arrestArea"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<ArrestLogEntry, String> arrestStreetColumn = new TableColumn<>("Arrest Street");
+        arrestStreetColumn.setCellValueFactory(new PropertyValueFactory<>("arrestStreet"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<ArrestLogEntry, String> arresteeNameColumn = new TableColumn<>("Arrestee Name");
+        arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Arrestee Age");
+        arresteeAgeColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeAge"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Arrestee Gender");
+        arresteeGenderColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeGender"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<ArrestLogEntry, String> arresteeEthnicityColumn = new TableColumn<>("Arrestee Ethnicity");
+        arresteeEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeEthnicity"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Arrestee Description");
+        arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<ArrestLogEntry, String> arresteeMedicalInformationColumn = new TableColumn<>("Medical Information");
+        arresteeMedicalInformationColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeMedicalInformation"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        TableColumn<ArrestLogEntry, String> arrestDetailsColumn = new TableColumn<>("Arrest Details");
+        arrestDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDetails"));
 
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        TableColumn<ArrestLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
+
+        TableColumn<ArrestLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+
+        TableColumn<ArrestLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+
+        TableColumn<ArrestLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
+
+        TableColumn<ArrestLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
+
+        arrestTable.getColumns().addAll(
+                arrestNumberColumn,
+                arrestDateColumn,
+                arrestTimeColumn,
+                arrestCountyColumn,
+                arrestAreaColumn,
+                arrestStreetColumn,
+                arresteeNameColumn,
+                arresteeAgeColumn,
+                arresteeGenderColumn,
+                arresteeEthnicityColumn,
+                arresteeDescriptionColumn,
+                arresteeMedicalInformationColumn,
+                arrestDetailsColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerDivisionColumn,
+                officerAgencyColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        arrestTable.getItems().addAll(logEntries);
     }
-    public void searchLogUpdate(List<CalloutLogEntry> logEntries) {
+    public void searchLogUpdate(List<SearchLogEntry> logEntries) {
         // Clear existing data
-        calloutTable.getItems().clear();
-        // Create columns for each property of CalloutLogEntry
-        TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
-        calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+        searchTable.getItems().clear();
 
-        TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
-        notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+        // Create columns for each property of SearchLogEntry
+        TableColumn<SearchLogEntry, String> searchNumberColumn = new TableColumn<>("Search #");
+        searchNumberColumn.setCellValueFactory(new PropertyValueFactory<>("SearchNumber"));
 
-        TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
-        responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+        TableColumn<SearchLogEntry, String> searchDateColumn = new TableColumn<>("Search Date");
+        searchDateColumn.setCellValueFactory(new PropertyValueFactory<>("searchDate"));
 
-        TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-        responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+        TableColumn<SearchLogEntry, String> searchTimeColumn = new TableColumn<>("Search Time");
+        searchTimeColumn.setCellValueFactory(new PropertyValueFactory<>("searchTime"));
 
-        TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+        TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Seized Items");
+        searchSeizedItemsColumn.setCellValueFactory(new PropertyValueFactory<>("searchSeizedItems"));
 
-        TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<SearchLogEntry, String> searchGroundsColumn = new TableColumn<>("Grounds");
+        searchGroundsColumn.setCellValueFactory(new PropertyValueFactory<>("searchGrounds"));
 
-        TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        TableColumn<SearchLogEntry, String> searchTypeColumn = new TableColumn<>("Search Type");
+        searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
 
-        TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
-        agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
+        TableColumn<SearchLogEntry, String> searchMethodColumn = new TableColumn<>("Search Method");
+        searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
 
-        TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        TableColumn<SearchLogEntry, String> searchWitnessesColumn = new TableColumn<>("Witnesses");
+        searchWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("searchWitnesses"));
 
-        TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
-        rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        TableColumn<SearchLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 
-        TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn<SearchLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 
-        TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        TableColumn<SearchLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 
-        TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
-        countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+        TableColumn<SearchLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        TableColumn<SearchLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 
-        calloutTable.getColumns().addAll(
-                calloutNumberColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                timeColumn,
-                dateColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
+        TableColumn<SearchLogEntry, String> searchStreetColumn = new TableColumn<>("Search Street");
+        searchStreetColumn.setCellValueFactory(new PropertyValueFactory<>("searchStreet"));
+
+        TableColumn<SearchLogEntry, String> searchAreaColumn = new TableColumn<>("Search Area");
+        searchAreaColumn.setCellValueFactory(new PropertyValueFactory<>("searchArea"));
+
+        TableColumn<SearchLogEntry, String> searchCountyColumn = new TableColumn<>("Search County");
+        searchCountyColumn.setCellValueFactory(new PropertyValueFactory<>("searchCounty"));
+
+        TableColumn<SearchLogEntry, String> searchCommentsColumn = new TableColumn<>("Comments");
+        searchCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("searchComments"));
+
+        TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Searched Persons");
+        searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
+
+        searchTable.getColumns().addAll(
+                searchNumberColumn,
+                searchDateColumn,
+                searchTimeColumn,
+                searchSeizedItemsColumn,
+                searchGroundsColumn,
+                searchTypeColumn,
+                searchMethodColumn,
+                searchWitnessesColumn,
+                officerRankColumn,
+                officerNameColumn,
+                officerNumberColumn,
+                officerAgencyColumn,
+                officerDivisionColumn,
+                searchStreetColumn,
+                searchAreaColumn,
+                searchCountyColumn,
+                searchCommentsColumn,
+                searchedPersonsColumn
         );
-        calloutTable.getItems().addAll(logEntries);
+
+        searchTable.getItems().addAll(logEntries);
     }
     public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
         // Clear existing data
         incidentTable.getItems().clear();
 
         // Create columns for each property of IncidentLogEntry
-        TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident Number");
+        TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident #");
         incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
 
         TableColumn<IncidentLogEntry, String> incidentDateColumn = new TableColumn<>("Date");
@@ -1563,9 +1729,7 @@ public class actionController {
 
         incidentTable.getItems().addAll(logEntries);
     }
-
-
-        public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
+    public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
         // Clear existing data
         trafficStopTable.getItems().clear();
 
@@ -1591,7 +1755,7 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> agencyColumn = new TableColumn<>("Agency");
         agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
 
-        TableColumn<TrafficStopLogEntry, String> stopNumberColumn = new TableColumn<>("Stop Number");
+        TableColumn<TrafficStopLogEntry, String> stopNumberColumn = new TableColumn<>("Stop #");
         stopNumberColumn.setCellValueFactory(new PropertyValueFactory<>("StopNumber"));
 
         TableColumn<TrafficStopLogEntry, String> violationsTextAreaColumn = new TableColumn<>("Violations");
@@ -1622,7 +1786,7 @@ public class actionController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
 
         trafficStopTable.getColumns().addAll(
-                plateNumberColumn,
+                stopNumberColumn,
                 dateColumn,
                 timeColumn,
                 nameColumn,
@@ -1630,13 +1794,13 @@ public class actionController {
                 numberColumn,
                 divisionColumn,
                 agencyColumn,
-                stopNumberColumn,
                 violationsTextAreaColumn,
                 commentsTextAreaColumn,
                 actionsTextAreaColumn,
                 streetColumn,
                 countyColumn,
                 areaColumn,
+                plateNumberColumn,
                 colorColumn,
                 typeColumn
         );
@@ -1690,11 +1854,11 @@ public class actionController {
 
         calloutTable.getColumns().addAll(
                 calloutNumberColumn,
+                dateColumn,
+                timeColumn,
                 notesTextAreaColumn,
                 responseGradeColumn,
                 responseTypeColumn,
-                timeColumn,
-                dateColumn,
                 divisionColumn,
                 agencyColumn,
                 numberColumn,

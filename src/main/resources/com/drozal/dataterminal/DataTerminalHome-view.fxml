@@ -395,7 +395,7 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-         <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
+         <StackPane fx:id="logPane" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
             <children>
                <Pane style="-fx-background-color: #f2f2f2;">
                   <children>
@@ -493,12 +493,12 @@
                         </TabPane>
                      <AnchorPane layoutX="1.0" layoutY="4.0" prefHeight="70.0" prefWidth="806.0">
                         <children>
-                           <Label layoutX="26.0" prefHeight="81.0" prefWidth="253.0" style="-fx-font-family: segoe ui semibold;" text="DatabaseReport" textFill="#665cb6">
+                           <Label layoutX="26.0" prefHeight="81.0" prefWidth="288.0" styleClass="databaseReportLabel" stylesheets="@css/tableCss.css" text="DatabaseReport" textFill="#665cb6">
                               <font>
                                  <Font name="Adelle Sans Devanagari Thin" size="36.0" />
                               </font>
                            </Label>
-                           <Label layoutX="280.0" layoutY="7.0" prefHeight="74.0" prefWidth="244.0" style="-fx-font-family: segoe ui semibold;" text="Viewer" textFill="#616161">
+                           <Label layoutX="251.0" layoutY="6.0" prefHeight="74.0" prefWidth="244.0" styleClass="viewerLabel" stylesheets="@css/tableCss.css" text="Viewer" textFill="#616161">
                               <font>
                                  <Font name="Adelle Sans Devanagari Thin" size="24.0" />
                               </font>

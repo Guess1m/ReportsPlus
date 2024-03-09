@@ -24,6 +24,78 @@ public class SearchLogEntry {
     public SearchLogEntry() {
     }
 
+    public String getSearchNumber() {
+        return SearchNumber;
+    }
+
+    public String getSearchDate() {
+        return searchDate;
+    }
+
+    public String getSearchTime() {
+        return searchTime;
+    }
+
+    public String getSearchSeizedItems() {
+        return searchSeizedItems;
+    }
+
+    public String getSearchGrounds() {
+        return searchGrounds;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public String getSearchMethod() {
+        return searchMethod;
+    }
+
+    public String getSearchWitnesses() {
+        return searchWitnesses;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getSearchStreet() {
+        return searchStreet;
+    }
+
+    public String getSearchArea() {
+        return searchArea;
+    }
+
+    public String getSearchCounty() {
+        return searchCounty;
+    }
+
+    public String getSearchComments() {
+        return searchComments;
+    }
+
+    public String getSearchedPersons() {
+        return searchedPersons;
+    }
+
     public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
         this.SearchNumber = searchNumber;
         this.searchedPersons = searchedPersons;

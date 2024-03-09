@@ -11,8 +11,8 @@ module com.drozal.dataterminal {
 
     opens com.drozal.dataterminal to javafx.fxml;
     opens com.drozal.dataterminal.logs.Callout to jakarta.xml.bind;
-    opens com.drozal.dataterminal.logs.TrafficStop to jakarta.xml.bind, javafx.base;
-    opens com.drozal.dataterminal.logs.Incident to jakarta.xml.bind, javafx.base;
+    opens com.drozal.dataterminal.logs.TrafficStop to jakarta.xml.bind;
+    opens com.drozal.dataterminal.logs.Incident to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Search to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Arrest to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Patrol to jakarta.xml.bind;
@@ -23,5 +23,13 @@ module com.drozal.dataterminal {
 
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;
+    exports com.drozal.dataterminal.logs.TrafficStop;
+    exports com.drozal.dataterminal.logs.Incident;
+    exports com.drozal.dataterminal.logs.Search;
+    exports com.drozal.dataterminal.logs.Arrest;
+    exports com.drozal.dataterminal.logs.Patrol;
+    exports com.drozal.dataterminal.logs.Impound;
+    exports com.drozal.dataterminal.logs.ParkingCitation;
+    exports com.drozal.dataterminal.logs.TrafficCitation;
     exports com.drozal.dataterminal.util;
 }

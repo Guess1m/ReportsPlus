@@ -15,6 +15,54 @@ public class PatrolLogEntry {
     public String officerVehicle;
     public String patrolComments;
 
+    public String getPatrolNumber() {
+        return patrolNumber;
+    }
+
+    public String getPatrolDate() {
+        return patrolDate;
+    }
+
+    public String getPatrolLength() {
+        return patrolLength;
+    }
+
+    public String getPatrolStartTime() {
+        return patrolStartTime;
+    }
+
+    public String getPatrolStopTime() {
+        return patrolStopTime;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public String getOfficerVehicle() {
+        return officerVehicle;
+    }
+
+    public String getPatrolComments() {
+        return patrolComments;
+    }
+
     public PatrolLogEntry() {
     }
 

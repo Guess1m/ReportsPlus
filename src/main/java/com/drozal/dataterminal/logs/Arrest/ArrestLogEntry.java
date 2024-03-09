@@ -10,6 +10,79 @@ public class ArrestLogEntry {
     public String arrestStreet;
     public String arresteeName;
     public String arresteeAge;
+
+    public String getArrestNumber() {
+        return arrestNumber;
+    }
+
+    public String getArrestDate() {
+        return arrestDate;
+    }
+
+    public String getArrestTime() {
+        return arrestTime;
+    }
+
+    public String getArrestCounty() {
+        return arrestCounty;
+    }
+
+    public String getArrestArea() {
+        return arrestArea;
+    }
+
+    public String getArrestStreet() {
+        return arrestStreet;
+    }
+
+    public String getArresteeName() {
+        return arresteeName;
+    }
+
+    public String getArresteeAge() {
+        return arresteeAge;
+    }
+
+    public String getArresteeGender() {
+        return arresteeGender;
+    }
+
+    public String getArresteeEthnicity() {
+        return arresteeEthnicity;
+    }
+
+    public String getArresteeDescription() {
+        return arresteeDescription;
+    }
+
+    public String getArresteeMedicalInformation() {
+        return arresteeMedicalInformation;
+    }
+
+    public String getArrestDetails() {
+        return arrestDetails;
+    }
+
+    public String getOfficerRank() {
+        return officerRank;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public String getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public String getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public String getOfficerAgency() {
+        return officerAgency;
+    }
+
     public String arresteeGender;
     public String arresteeEthnicity;
     public String arresteeDescription;

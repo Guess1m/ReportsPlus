@@ -587,10 +587,10 @@
                                     <Tab closable="false" text="Callouts">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="calloutTable" prefHeight="567.0" prefWidth="779.0"
+                                                    <TableView fx:id="calloutTable" prefHeight="556.0" prefWidth="779.0"
                                                                styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -600,10 +600,10 @@
                                     <Tab closable="false" text="Traffic Stops">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="trafficStopTable" prefHeight="567.0"
+                                                    <TableView fx:id="trafficStopTable" prefHeight="556.0"
                                                                prefWidth="779.0" styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -613,10 +613,10 @@
                                     <Tab closable="false" text="Incidents">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="incidentTable" prefHeight="567.0"
+                                                    <TableView fx:id="incidentTable" prefHeight="556.0"
                                                                prefWidth="779.0" styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -626,10 +626,10 @@
                                     <Tab closable="false" text="Searches">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="searchTable" prefHeight="567.0" prefWidth="779.0"
+                                                    <TableView fx:id="searchTable" prefHeight="556.0" prefWidth="779.0"
                                                                styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -639,10 +639,10 @@
                                     <Tab closable="false" text="Arrests">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="arrestTable" prefHeight="567.0" prefWidth="779.0"
+                                                    <TableView fx:id="arrestTable" prefHeight="556.0" prefWidth="779.0"
                                                                styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -652,10 +652,10 @@
                                     <Tab closable="false" text="Patrols">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="patrolTable" prefHeight="567.0" prefWidth="779.0"
+                                                    <TableView fx:id="patrolTable" prefHeight="556.0" prefWidth="779.0"
                                                                styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -665,10 +665,10 @@
                                     <Tab closable="false" text="Citations">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="citationTable" prefHeight="567.0"
+                                                    <TableView fx:id="citationTable" prefHeight="556.0"
                                                                prefWidth="779.0" styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -678,10 +678,10 @@
                                     <Tab closable="false" text="Impounds">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="impoundTable" prefHeight="567.0" prefWidth="779.0"
+                                                    <TableView fx:id="impoundTable" prefHeight="556.0" prefWidth="779.0"
                                                                styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>
@@ -691,10 +691,10 @@
                                     <Tab closable="false" text="Parking Citations">
                                         <content>
                                             <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0"
+                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
                                                         stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="parkingCitationTable" prefHeight="567.0"
+                                                    <TableView fx:id="parkingCitationTable" prefHeight="556.0"
                                                                prefWidth="779.0" styleClass="calloutTABLE"
                                                                stylesheets="@css/tableCss.css"/>
                                                 </content>

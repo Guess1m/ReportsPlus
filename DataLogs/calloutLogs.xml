@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calloutReportLogs>
+    <logs>
+        <CalloutNumber>0</CalloutNumber>
+        <NotesTextArea>Brush Fire.</NotesTextArea>
+        <ResponseGrade>Code 3</ResponseGrade>
+        <ResponeType>Fire</ResponeType>
+        <Time>10:50:22 AM</Time>
+        <Date>2024-03-10</Date>
+        <Division>EAST PATROL DIVISION</Division>
+        <Agency>Los Santos Sheriff's Office</Agency>
+        <Number>1-18</Number>
+        <Rank>Los Santos County Sheriff</Rank>
+        <Name>Drozal</Name>
+        <Address>128 Ebony Drive</Address>
+        <County>Los Santos</County>
+        <Area>Strawberry</Area>
+        <address>128 Ebony Drive</address>
+        <agency>Los Santos Sheriff's Office</agency>
+        <area>Strawberry</area>
+        <calloutNumber>0</calloutNumber>
+        <county>Los Santos</county>
+        <date>2024-03-10</date>
+        <division>EAST PATROL DIVISION</division>
+        <name>Drozal</name>
+        <notesTextArea>Brush Fire.</notesTextArea>
+        <number>1-18</number>
+        <rank>Los Santos County Sheriff</rank>
+        <responeType>Fire</responeType>
+        <responseGrade>Code 3</responseGrade>
+        <time>10:50:22 AM</time>
+    </logs>
+    <logs>
+        <CalloutNumber>0</CalloutNumber>
+        <NotesTextArea>sadfsdafasdfsdafasfdfdsafds</NotesTextArea>
+        <ResponseGrade>fsadfdsafsdaf</ResponseGrade>
+        <ResponeType>sdafsadfsadf</ResponeType>
+        <Time>10:55:13 AM</Time>
+        <Date>2024-03-10asdfhapkdosijfhkaojpdshfkjpasdhfkjpasdhf</Date>
+        <Division>EAST PATROL DIVISION</Division>
+        <Agency>Los Santos Sheriff's Office</Agency>
+        <Number>1-18</Number>
+        <Rank>Los Santos County Sheriff</Rank>
+        <Name>Drozal</Name>
+        <Address>fasdfdsafasdf</Address>
+        <County>asdfasd</County>
+        <Area>sdafsda</Area>
+        <address>fasdfdsafasdf</address>
+        <agency>Los Santos Sheriff's Office</agency>
+        <area>sdafsda</area>
+        <calloutNumber>0</calloutNumber>
+        <county>asdfasd</county>
+        <date>2024-03-10asdfhapkdosijfhkaojpdshfkjpasdhfkjpasdhf</date>
+        <division>EAST PATROL DIVISION</division>
+        <name>Drozal</name>
+        <notesTextArea>sadfsdafasdfsdafasfdfdsafds</notesTextArea>
+        <number>1-18</number>
+        <rank>Los Santos County Sheriff</rank>
+        <responeType>sdafsadfsadf</responeType>
+        <responseGrade>fsadfdsafsdaf</responseGrade>
+        <time>10:55:13 AM</time>
+    </logs>
+</calloutReportLogs>

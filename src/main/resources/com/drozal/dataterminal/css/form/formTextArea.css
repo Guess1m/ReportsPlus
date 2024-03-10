@@ -1,5 +1,9 @@
 .text-area {
-    -fx-background-color: #e6e6e6;
+    -fx-background-color: white;
+    -fx-border-width: 0.5 0.5 0.5 0.5; /* Set bottom border width */
+    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
+    -fx-background-radius: 5;
     -fx-text-fill: black;
     -fx-font-size: 16px;
 }

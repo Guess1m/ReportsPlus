@@ -26,6 +26,8 @@ import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -86,6 +88,7 @@ public class actionController {
     public VBox vbox;
     public TableView calloutTable;
     boolean hasEntered = false;
+    double minColumnWidth = 200.0; // Adjust this value according to your needs
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -473,7 +476,8 @@ public class actionController {
         citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 
         // Add columns to the table
-        parkingCitationTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for parkingCitationTable
+        ObservableList<TableColumn<ParkingCitationLogEntry, ?>> parkingCitationColumns = FXCollections.observableArrayList(
                 citationNumberColumn,
                 citationDateColumn,
                 citationTimeColumn,
@@ -501,7 +505,14 @@ public class actionController {
                 officerAgencyColumn,
                 citationCommentsColumn
         );
-        // Add items to the table
+
+// Add all columns to parkingCitationTable
+        parkingCitationTable.getColumns().addAll(parkingCitationColumns);
+
+// Set minimum width for each column
+        for (TableColumn<ParkingCitationLogEntry, ?> column : parkingCitationColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
@@ -570,7 +581,8 @@ public class actionController {
         officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
         // Add columns to the table
-        impoundTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for impoundTable
+        ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(
                 impoundNumberColumn,
                 impoundDateColumn,
                 impoundTimeColumn,
@@ -590,6 +602,14 @@ public class actionController {
                 officerDivisionColumn,
                 officerAgencyColumn
         );
+
+// Add all columns to impoundTable
+        impoundTable.getColumns().addAll(impoundColumns);
+
+// Set minimum width for each column
+        for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
@@ -676,7 +696,8 @@ public class actionController {
         TableColumn<TrafficCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
         citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 
-        citationTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for citationTable
+        ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(
                 citationNumberColumn,
                 citationDateColumn,
                 citationTimeColumn,
@@ -703,6 +724,14 @@ public class actionController {
                 officerAgencyColumn,
                 citationCommentsColumn
         );
+
+// Add all columns to citationTable
+        citationTable.getColumns().addAll(citationColumns);
+
+// Set minimum width for each column
+        for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
@@ -750,7 +779,8 @@ public class actionController {
         TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Patrol Comments");
         patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 
-        patrolTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for patrolTable
+        ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(
                 patrolNumberColumn,
                 patrolDateColumn,
                 patrolLengthColumn,
@@ -764,6 +794,14 @@ public class actionController {
                 officerVehicleColumn,
                 patrolCommentsColumn
         );
+
+// Add all columns to patrolTable
+        patrolTable.getColumns().addAll(patrolColumns);
+
+// Set minimum width for each column
+        for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
@@ -830,7 +868,8 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
         officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        arrestTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for arrestTable
+        ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(
                 arrestNumberColumn,
                 arrestDateColumn,
                 arrestTimeColumn,
@@ -850,6 +889,14 @@ public class actionController {
                 officerDivisionColumn,
                 officerAgencyColumn
         );
+
+// Add all columns to arrestTable
+        arrestTable.getColumns().addAll(arrestColumns);
+
+// Set minimum width for each column
+        for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
 
     }
 
@@ -916,7 +963,8 @@ public class actionController {
         TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Searched Persons");
         searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 
-        searchTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for searchTable
+        ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(
                 searchNumberColumn,
                 searchDateColumn,
                 searchTimeColumn,
@@ -936,6 +984,13 @@ public class actionController {
                 searchCommentsColumn,
                 searchedPersonsColumn
         );
+
+// Add all columns to searchTable
+        searchTable.getColumns().addAll(searchColumns);
+
+        for (TableColumn<SearchLogEntry, ?> column : searchColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
@@ -994,8 +1049,8 @@ public class actionController {
         TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
         incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
 
-        // Add columns to the table view
-        incidentTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for incidentTable
+        ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(
                 incidentNumberColumn,
                 incidentDateColumn,
                 incidentTimeColumn,
@@ -1013,6 +1068,12 @@ public class actionController {
                 incidentActionsTakenColumn,
                 incidentCommentsColumn
         );
+
+// Add all columns to incidentTable
+        incidentTable.getColumns().addAll(incidentColumns);
+        for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
@@ -1073,7 +1134,8 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
 
-        trafficStopTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances for trafficStopTable
+        ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(
                 stopNumberColumn,
                 dateColumn,
                 timeColumn,
@@ -1092,6 +1154,12 @@ public class actionController {
                 colorColumn,
                 typeColumn
         );
+
+// Add all columns to trafficStopTable
+        trafficStopTable.getColumns().addAll(trafficStopColumns);
+        for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
@@ -1144,7 +1212,8 @@ public class actionController {
         TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 
-        calloutTable.getColumns().addAll(
+        // Create a list to hold all the TableColumn instances
+        ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(
                 calloutNumberColumn,
                 dateColumn,
                 timeColumn,
@@ -1160,6 +1229,10 @@ public class actionController {
                 countyColumn,
                 areaColumn
         );
+        calloutTable.getColumns().addAll(columns);
+        for (TableColumn<CalloutLogEntry, ?> column : columns) {
+            column.setMinWidth(minColumnWidth);
+        }
     }
 
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {

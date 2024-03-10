@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trafficStopReportLogs>
+    <logs>
+        <PlateNumber>dfsadfsadfsadfsadsfa</PlateNumber>
+        <Color>Gray</Color>
+        <Type>Motorcycle</Type>
+        <StopNumber>8</StopNumber>
+        <ViolationsTextArea>asdffdsaaaaaaaaaaaaaaaaaaaaaaaaaaa</ViolationsTextArea>
+        <ActionsTextArea>fdasfadsfadsfadsasdfasdfsdafdfsa</ActionsTextArea>
+        <CommentsTextArea>adsfdsafdfasdsfadfsadfsadasfdasf</CommentsTextArea>
+        <Time>10:57:00 AM</Time>
+        <Date>2024-03-10</Date>
+        <Division>EAST PATROL DIVISION</Division>
+        <Agency>Los Santos Sheriff's Office</Agency>
+        <Number>1-18</Number>
+        <Rank>Los Santos County Sheriff</Rank>
+        <Name>Drozal</Name>
+        <County>asdfasdfsdafasdfas</County>
+        <Area>dfasdfsaddsfafdsdfsdfsafdsa</Area>
+        <Street>fdsadfsafdsadfsa</Street>
+    </logs>
+</trafficStopReportLogs>

@@ -575,9 +575,9 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane fx:id="logPane" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0"
-                       AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="81.0">
+            <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0"
+                       prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
                 <children>
                     <Pane style="-fx-background-color: #f2f2f2;">
                         <children>
@@ -719,7 +719,7 @@
                                             <Font name="Adelle Sans Devanagari Thin" size="36.0"/>
                                         </font>
                                     </Label>
-                                    <Label layoutX="252.0" layoutY="6.0" prefHeight="74.0" prefWidth="244.0"
+                                    <Label layoutX="252.0" layoutY="5.0" prefHeight="74.0" prefWidth="244.0"
                                            styleClass="viewerLabel" stylesheets="@css/tableCss.css" text="Viewer"
                                            textFill="#616161">
                                         <font>

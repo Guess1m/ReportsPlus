@@ -65,7 +65,6 @@ public class SearchReportController {
             officerNumber.setText(number);
 
             createSpinner(SearchNumber, 0, 999, 0);
-            System.out.println("setting");
             searchTime.setText(getTime());
             searchDate.setText(getDate());
 
@@ -95,7 +94,6 @@ public class SearchReportController {
                 || searchArea.getText().isEmpty()
                 || searchCounty.getText().isEmpty()
                 || searchComments.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

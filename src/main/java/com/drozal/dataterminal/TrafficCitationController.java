@@ -76,7 +76,6 @@ public class TrafficCitationController {
             citationTime.setText(getTime());
             citationDate.setText(getDate());
             createSpinner(citationNumber, 0, 999, 0);
-            System.out.println("setting");
         }
     }
 
@@ -110,7 +109,6 @@ public class TrafficCitationController {
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()
                 || citationComments.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -119,7 +117,6 @@ public class TrafficCitationController {
             }));
             timeline1.play();
         } else {
-            System.out.println("nothing empty, printing values");
             // Load existing logs from XML
             TrafficCitationReportLogs searchReportLogs = new TrafficCitationReportLogs();
             List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();

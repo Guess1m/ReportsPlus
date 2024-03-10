@@ -80,8 +80,8 @@
     -fx-text-fill:  black; /* Set the text color */
 }
 .menuCombobox .list-view .list-cell {
-    -fx-text-fill: white; /* Text color only for dropdown options */
-    -fx-background-color:  #2a2e3d;
+    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-background-color:  #f2f2f2;
     -fx-border-color: none;
 }
 .menuCombobox:focused {

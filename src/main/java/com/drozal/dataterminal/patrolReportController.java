@@ -55,7 +55,6 @@ public class patrolReportController {
             officerAgency.setText(agency);
             officerNumber.setText(number);
             createSpinner(patrolNumber, 0, 999, 0);
-            System.out.println("setting");
             patrolStopTime.setText(getTime());
             patrolDate.setText(getDate());
         }
@@ -82,7 +81,6 @@ public class patrolReportController {
                 || officerAgency.getText().isEmpty()
                 || officerVehicle.getText().isEmpty()
                 || patrolComments.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

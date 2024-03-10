@@ -62,7 +62,6 @@ public class IncidentReportController {
             officerNumber.setText(number);
 
             createSpinner(Spinner, 0, 999, 0);
-            System.out.println("setting");
             incidentTime.setText(getTime());
             incidentDate.setText(getDate());
 
@@ -90,7 +89,6 @@ public class IncidentReportController {
                 || incidentCounty.getText().isEmpty()
                 || incidentActionsTaken.getText().isEmpty()
                 || incidentComments.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

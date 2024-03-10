@@ -52,7 +52,6 @@ public class newOfficerController {
         if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null ||
                 rankDropdown.getValue() == null || nameField.getText().isEmpty() ||
                 numberField.getText().isEmpty()) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

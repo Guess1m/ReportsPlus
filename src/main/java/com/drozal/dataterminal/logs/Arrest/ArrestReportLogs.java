@@ -40,7 +40,6 @@ public class ArrestReportLogs {
 
             // Check if the file exists
             if (!file.exists()) {
-                System.err.println("File not found: " + filePath);
                 return logEntries; // Return an empty list
             }
 

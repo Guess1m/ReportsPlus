@@ -4,8 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="790.0" prefWidth="639.0" style="-fx-background-color: #143d6b;"
       xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.mapController">
     <padding>
@@ -21,7 +20,7 @@
                         <Image url="@imgs/losSantos.jpg"/>
                     </image>
                 </ImageView>
-                <ImageView fitHeight="105.0" fitWidth="103.0" layoutX="534.0" layoutY="21.0" opacity="0.82"
+                <ImageView fitHeight="90.0" fitWidth="95.0" layoutX="542.0" layoutY="21.0" opacity="0.82"
                            pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imgs/Compass.png"/>

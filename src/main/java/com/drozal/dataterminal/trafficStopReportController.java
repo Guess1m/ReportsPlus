@@ -104,7 +104,6 @@ public class trafficStopReportController {
                 || actionsTakenNotes.getText().isEmpty()
                 || comments.getText().isEmpty()
                 || violationsNotes.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

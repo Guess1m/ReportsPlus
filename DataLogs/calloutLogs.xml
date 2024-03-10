@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <calloutReportLogs>
     <logs>
-        <CalloutNumber>0</CalloutNumber>
-        <NotesTextArea>Brush Fire.</NotesTextArea>
+        <CalloutNumber>489</CalloutNumber>
+        <NotesTextArea>Responding to a house fire on Forum Drive. House # 126.</NotesTextArea>
         <ResponseGrade>Code 3</ResponseGrade>
         <ResponeType>Fire</ResponeType>
-        <Time>10:50:22 AM</Time>
+        <Time>12:50:02 PM</Time>
         <Date>2024-03-10</Date>
-        <Division>EAST PATROL DIVISION</Division>
-        <Agency>Los Santos Sheriff's Office</Agency>
+        <Division>City Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
         <Number>1-18</Number>
-        <Rank>Los Santos County Sheriff</Rank>
+        <Rank>SAHP Deputy Commissioner</Rank>
         <Name>Drozal</Name>
-        <Address>128 Ebony Drive</Address>
+        <Address>126 Forum Drive</Address>
         <County>Los Santos</County>
         <Area>Strawberry</Area>
-        <address>128 Ebony Drive</address>
-        <agency>Los Santos Sheriff's Office</agency>
+        <address>126 Forum Drive</address>
+        <agency>San Andreas Highway Patrol</agency>
         <area>Strawberry</area>
-        <calloutNumber>0</calloutNumber>
+        <calloutNumber>489</calloutNumber>
         <county>Los Santos</county>
         <date>2024-03-10</date>
-        <division>EAST PATROL DIVISION</division>
+        <division>City Division</division>
         <name>Drozal</name>
-        <notesTextArea>Brush Fire.</notesTextArea>
+        <notesTextArea>Responding to a house fire on Forum Drive. House # 126.</notesTextArea>
         <number>1-18</number>
-        <rank>Los Santos County Sheriff</rank>
+        <rank>SAHP Deputy Commissioner</rank>
         <responeType>Fire</responeType>
         <responseGrade>Code 3</responseGrade>
-        <time>10:50:22 AM</time>
+        <time>12:50:02 PM</time>
     </logs>
     <logs>
-        <CalloutNumber>0</CalloutNumber>
-        <NotesTextArea>sadfsdafasdfsdafasfdfdsafds</NotesTextArea>
-        <ResponseGrade>fsadfdsafsdaf</ResponseGrade>
-        <ResponeType>sdafsadfsadf</ResponeType>
-        <Time>10:55:13 AM</Time>
-        <Date>2024-03-10asdfhapkdosijfhkaojpdshfkjpasdhfkjpasdhf</Date>
-        <Division>EAST PATROL DIVISION</Division>
-        <Agency>Los Santos Sheriff's Office</Agency>
+        <CalloutNumber>3</CalloutNumber>
+        <NotesTextArea></NotesTextArea>
+        <ResponseGrade></ResponseGrade>
+        <ResponeType></ResponeType>
+        <Time>10:21:20 AM</Time>
+        <Date>2024-03-11</Date>
+        <Division>City Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
         <Number>1-18</Number>
-        <Rank>Los Santos County Sheriff</Rank>
+        <Rank>SAHP Deputy Commissioner</Rank>
         <Name>Drozal</Name>
-        <Address>fasdfdsafasdf</Address>
-        <County>asdfasd</County>
-        <Area>sdafsda</Area>
-        <address>fasdfdsafasdf</address>
-        <agency>Los Santos Sheriff's Office</agency>
-        <area>sdafsda</area>
-        <calloutNumber>0</calloutNumber>
-        <county>asdfasd</county>
-        <date>2024-03-10asdfhapkdosijfhkaojpdshfkjpasdhfkjpasdhf</date>
-        <division>EAST PATROL DIVISION</division>
+        <Address></Address>
+        <County></County>
+        <Area></Area>
+        <address></address>
+        <agency>San Andreas Highway Patrol</agency>
+        <area></area>
+        <calloutNumber>3</calloutNumber>
+        <county></county>
+        <date>2024-03-11</date>
+        <division>City Division</division>
         <name>Drozal</name>
-        <notesTextArea>sadfsdafasdfsdafasfdfdsafds</notesTextArea>
+        <notesTextArea></notesTextArea>
         <number>1-18</number>
-        <rank>Los Santos County Sheriff</rank>
-        <responeType>sdafsadfsadf</responeType>
-        <responseGrade>fsadfdsafsdaf</responseGrade>
-        <time>10:55:13 AM</time>
+        <rank>SAHP Deputy Commissioner</rank>
+        <responeType></responeType>
+        <responseGrade></responseGrade>
+        <time>10:21:20 AM</time>
     </logs>
 </calloutReportLogs>

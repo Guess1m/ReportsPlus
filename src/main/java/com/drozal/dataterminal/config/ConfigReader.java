@@ -45,10 +45,8 @@ public class ConfigReader {
     public static boolean doesConfigExist() {
         File file = new File("config.properties");
         if (file.exists()) {
-            System.out.println("exists");
             return true;
         } else {
-            System.out.println("doesnt exist");
             return false;
         }
     }

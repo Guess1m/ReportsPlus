@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <trafficStopReportLogs>
     <logs>
-        <PlateNumber>dfsadfsadfsadfsadsfa</PlateNumber>
-        <Color>Gray</Color>
-        <Type>Motorcycle</Type>
-        <StopNumber>8</StopNumber>
-        <ViolationsTextArea>asdffdsaaaaaaaaaaaaaaaaaaaaaaaaaaa</ViolationsTextArea>
-        <ActionsTextArea>fdasfadsfadsfadsasdfasdfsdafdfsa</ActionsTextArea>
-        <CommentsTextArea>adsfdsafdfasdsfadfsadfsadasfdasf</CommentsTextArea>
-        <Time>10:57:00 AM</Time>
+        <PlateNumber>LHSD2830</PlateNumber>
+        <Color>Yellow</Color>
+        <Type>Pickup Truck</Type>
+        <StopNumber>3</StopNumber>
+        <ViolationsTextArea>Crossing on a double yellow</ViolationsTextArea>
+        <ActionsTextArea>Warning</ActionsTextArea>
+        <CommentsTextArea>na</CommentsTextArea>
+        <Time>12:51:23 PM</Time>
         <Date>2024-03-10</Date>
-        <Division>EAST PATROL DIVISION</Division>
-        <Agency>Los Santos Sheriff's Office</Agency>
+        <Division>City Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
         <Number>1-18</Number>
-        <Rank>Los Santos County Sheriff</Rank>
+        <Rank>SAHP Deputy Commissioner</Rank>
         <Name>Drozal</Name>
-        <County>asdfasdfsdafasdfas</County>
-        <Area>dfasdfsaddsfafdsdfsdfsafdsa</Area>
-        <Street>fdsadfsafdsadfsa</Street>
+        <County>Los Santos</County>
+        <Area>Strawberry</Area>
+        <Street>126 Forum Drive</Street>
+    </logs>
+    <logs>
+        <PlateNumber>LSP2819</PlateNumber>
+        <Color>Blue</Color>
+        <Type>Motorcycle</Type>
+        <StopNumber>114</StopNumber>
+        <ViolationsTextArea>Violations...aslkdfjaslkfjlkasjflkjsa</ViolationsTextArea>
+        <ActionsTextArea>Actions:alskjdflkasdjflkasdflkjas</ActionsTextArea>
+        <CommentsTextArea>Cmts..asdflkasfjlkasdfjlkasjlfksajf</CommentsTextArea>
+        <Time>11:52:03 AM</Time>
+        <Date>2024-03-11</Date>
+        <Division>City Division</Division>
+        <Agency>San Andreas Highway Patrol</Agency>
+        <Number>1-18</Number>
+        <Rank>SAHP Deputy Commissioner</Rank>
+        <Name>Drozal</Name>
+        <County>County</County>
+        <Area>Area</Area>
+        <Street>Street</Street>
     </logs>
 </trafficStopReportLogs>

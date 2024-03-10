@@ -96,7 +96,6 @@ public class reportController {
                 || calloutReportResponseArea.getText().isEmpty()
                 || calloutReportResponseCounty.getText().isEmpty()
                 || calloutReportResponseAddress.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -104,9 +103,7 @@ public class reportController {
                 incompleteLabel.setVisible(false);
             }));
             timeline1.play();
-        } else {
-            System.out.println("nothing empty, printing values");
-            // Load existing logs from XML
+        } else {// Load existing logs from XML
             CalloutReportLogs calloutReportLogs = new CalloutReportLogs();
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 

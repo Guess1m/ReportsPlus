@@ -57,45 +57,44 @@
                                 <Pane prefHeight="305.0" prefWidth="475.0" styleClass="formPane2"
                                       stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="calloutReportResponeType" layoutX="28.0" layoutY="49.0"
+                                        <TextField fx:id="calloutReportResponeType" layoutX="25.0" layoutY="49.0"
                                                    prefHeight="39.0" prefWidth="428.0" promptText="Type"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportResponseCounty" layoutX="28.0" layoutY="98.0"
+                                        <TextField fx:id="calloutReportResponseCounty" layoutX="25.0" layoutY="98.0"
                                                    prefHeight="39.0" prefWidth="428.0" promptText="County"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportResponseAddress" layoutX="28.0" layoutY="148.0"
+                                        <TextField fx:id="calloutReportResponseAddress" layoutX="25.0" layoutY="148.0"
                                                    prefHeight="39.0" prefWidth="428.0" promptText="Address"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportResponseArea" layoutX="28.0" layoutY="197.0"
+                                        <TextField fx:id="calloutReportResponseArea" layoutX="25.0" layoutY="197.0"
                                                    prefHeight="39.0" prefWidth="428.0" promptText="Area"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportResponseGrade" layoutX="28.0" layoutY="246.0"
+                                        <TextField fx:id="calloutReportResponseGrade" layoutX="25.0" layoutY="246.0"
                                                    prefHeight="39.0" prefWidth="428.0" promptText="Code"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="38.0"
-                                               prefWidth="220.0" styleClass="headingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Callout Information"
-                                               textAlignment="CENTER" textFill="#616161">
+                                        <Label alignment="CENTER" layoutX="15.0" layoutY="1.0" prefHeight="38.0"
+                                               styleClass="headingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Callout Information" textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
@@ -113,10 +112,9 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
-                                        <Label alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="38.0"
-                                               prefWidth="147.0" styleClass="headingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Event Notes"
-                                               textAlignment="CENTER" textFill="#616161">
+                                        <Label alignment="CENTER" layoutX="15.0" layoutY="1.0" prefHeight="38.0"
+                                               styleClass="headingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Event Notes" textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
@@ -136,21 +134,21 @@
                                 <Pane prefHeight="156.0" prefWidth="492.0" styleClass="formPane2"
                                       stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="calloutReportDate" layoutX="30.0" layoutY="49.0"
+                                        <TextField fx:id="calloutReportDate" layoutX="25.0" layoutY="49.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Date"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportTime" layoutX="30.0" layoutY="98.0"
+                                        <TextField fx:id="calloutReportTime" layoutX="25.0" layoutY="98.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Time"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label alignment="CENTER" layoutY="1.0" prefHeight="38.0" prefWidth="264.0"
+                                        <Label alignment="CENTER" layoutX="15.0" layoutY="1.0" prefHeight="38.0"
                                                styleClass="headingBig" stylesheets="@css/form/formLabels.css"
                                                text="Timestamp Information" textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -162,45 +160,44 @@
                                 <Pane layoutY="155.0" prefHeight="408.0" prefWidth="492.0" styleClass="formPane2"
                                       stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="calloutReportName" layoutX="30.0" layoutY="46.0"
+                                        <TextField fx:id="calloutReportName" layoutX="25.0" layoutY="46.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Name"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportRank" layoutX="30.0" layoutY="104.0"
+                                        <TextField fx:id="calloutReportRank" layoutX="25.0" layoutY="104.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Rank"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportNumber" layoutX="30.0" layoutY="162.0"
+                                        <TextField fx:id="calloutReportNumber" layoutX="25.0" layoutY="162.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Officer Number"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportDivision" layoutX="30.0" layoutY="220.0"
+                                        <TextField fx:id="calloutReportDivision" layoutX="25.0" layoutY="220.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Division"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="calloutReportAgency" layoutX="30.0" layoutY="279.0"
+                                        <TextField fx:id="calloutReportAgency" layoutX="25.0" layoutY="279.0"
                                                    prefHeight="39.0" prefWidth="441.0" promptText="Agency"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="38.0"
-                                               prefWidth="220.0" styleClass="headingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Officer Information"
-                                               textAlignment="CENTER" textFill="#616161">
+                                        <Label alignment="CENTER" layoutX="15.0" layoutY="1.0" prefHeight="38.0"
+                                               styleClass="headingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Officer Information" textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>

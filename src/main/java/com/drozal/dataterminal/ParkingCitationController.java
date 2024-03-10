@@ -77,7 +77,6 @@ public class ParkingCitationController {
             citationDate.setText(getDate());
             createSpinner(citationNumber, 0, 999, 0);
             createSpinner(meterNumber, 0, 999, 0);
-            System.out.println("setting");
         }
     }
 
@@ -130,7 +129,6 @@ public class ParkingCitationController {
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()
                 || citationComments.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -139,7 +137,6 @@ public class ParkingCitationController {
             }));
             timeline1.play();
         } else {
-            System.out.println("nothing empty, printing values");
             // Load existing logs from XML
             ParkingCitationReportLogs searchReportLogs = new ParkingCitationReportLogs();
             List<ParkingCitationLogEntry> logs = ParkingCitationReportLogs.loadLogsFromXML();

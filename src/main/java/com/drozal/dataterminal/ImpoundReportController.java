@@ -68,7 +68,6 @@ public class ImpoundReportController {
             impoundTime.setText(getTime());
             impoundDate.setText(getDate());
             createSpinner(impoundNumber, 0, 999, 0);
-            System.out.println("setting");
         }
     }
 
@@ -95,7 +94,6 @@ public class ImpoundReportController {
                 officerNumber.getText().isEmpty() ||
                 officerDivision.getText().isEmpty() ||
                 officerAgency.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -104,7 +102,6 @@ public class ImpoundReportController {
             }));
             timeline1.play();
         } else {
-            System.out.println("nothing empty, printing values");
             // Load existing logs from XML
             ImpoundReportLogs searchReportLogs = new ImpoundReportLogs();
             List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();

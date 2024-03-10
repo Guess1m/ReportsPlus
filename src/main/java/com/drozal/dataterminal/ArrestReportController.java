@@ -67,7 +67,6 @@ public class ArrestReportController {
             officerAgency.setText(agency);
             officerNumber.setText(number);
             createSpinner(arrestNumber, 0, 999, 0);
-            System.out.println("setting");
             arrestTime.setText(getTime());
             arrestDate.setText(getDate());
 
@@ -98,7 +97,6 @@ public class ArrestReportController {
                 || officerNumber.getText().isEmpty()
                 || officerDivision.getText().isEmpty()
                 || officerAgency.getText().isEmpty()*/) {
-            System.out.println("Some fields are empty");
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -107,7 +105,6 @@ public class ArrestReportController {
             }));
             timeline1.play();
         } else {
-            System.out.println("nothing empty, printing values");
             // Load existing logs from XML
             ArrestReportLogs searchReportLogs = new ArrestReportLogs();
             List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();

@@ -38,7 +38,6 @@ public class CalloutReportLogs {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                System.err.println("Error: File not found at " + filePath);
                 return logEntries; // Return an empty list if the file doesn't exist
             }
 

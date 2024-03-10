@@ -349,7 +349,6 @@ public class actionController {
         if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null ||
                 getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() ||
                 getOfficerInfoNumber().getText().isEmpty()) {
-            System.out.println("Some fields are empty");
             updatedNotification.setText("Fill Out Form.");
             updatedNotification.setStyle("-fx-text-fill: red;");
             updatedNotification.setVisible(true);

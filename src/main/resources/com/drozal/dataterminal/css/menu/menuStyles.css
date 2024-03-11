@@ -84,6 +84,9 @@
     -fx-background-color:  #f2f2f2;
     -fx-border-color: none;
 }
+.menuCombobox .list-view .list-cell:hover {
+    -fx-background-color: #ada7d7; /* Set the hover background color */
+}
 .menuCombobox:focused {
     -fx-border-color:#665cb6; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */

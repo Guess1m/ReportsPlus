@@ -24,7 +24,7 @@
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                     <content>
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                    minWidth="-Infinity" prefHeight="705.0" prefWidth="997.0"
+                                    minWidth="-Infinity" prefHeight="936.0" prefWidth="997.0"
                                     styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css">
                             <children>
                                 <Pane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="285.0"
@@ -151,7 +151,7 @@
                                       AnchorPane.leftAnchor="481.0" AnchorPane.rightAnchor="10.0">
                                     <children>
                                         <ComboBox fx:id="ReponseType" layoutX="25.0" layoutY="33.0" prefWidth="249.0"
-                                                  promptText="Vehicle Type" stylesheets="@css/form/formComboBox.css"
+                                                  promptText="Vehicle Type *" stylesheets="@css/form/formComboBox.css"
                                                   visibleRowCount="14"/>
                                         <TextField fx:id="ResponseMake" layoutX="285.0" layoutY="33.0" prefHeight="38.0"
                                                    prefWidth="198.0" promptText="Vehicle Make" styleClass="formField"
@@ -161,7 +161,7 @@
                                             </font>
                                         </TextField>
                                         <ComboBox fx:id="ResponseColor" layoutX="25.0" layoutY="80.0" prefWidth="249.0"
-                                                  promptText="Vehicle Color" stylesheets="@css/form/formComboBox.css"
+                                                  promptText="Vehicle Color *" stylesheets="@css/form/formComboBox.css"
                                                   visibleRowCount="14"/>
                                         <TextField fx:id="ResponseModel" layoutX="285.0" layoutY="80.0"
                                                    prefHeight="38.0" prefWidth="198.0" promptText="Vehicle Model"
@@ -193,7 +193,7 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <Pane layoutX="14.0" layoutY="422.0" prefHeight="276.0" prefWidth="524.0"
+                                <Pane layoutX="14.0" layoutY="646.0" prefHeight="276.0" prefWidth="524.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css"
                                       AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="459.0">
                                     <children>
@@ -251,7 +251,43 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <Pane layoutX="537.0" layoutY="422.0" prefHeight="276.0" prefWidth="450.0"
+                                <Pane layoutX="14.0" layoutY="422.0" prefHeight="225.0" prefWidth="524.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                                    <children>
+                                        <TextField fx:id="operatorName" layoutX="25.0" layoutY="33.0" prefHeight="37.0"
+                                                   prefWidth="476.0" promptText="Name" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="operatorDescription" layoutX="25.0" layoutY="128.0"
+                                                   prefHeight="38.0" prefWidth="476.0" promptText="Physical Description"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="15.0" styleClass="headingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Operator Information"
+                                               textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <ComboBox fx:id="operatorGender" layoutX="25.0" layoutY="79.0" prefHeight="40.0"
+                                                  prefWidth="476.0" promptText="Gender *"
+                                                  stylesheets="@css/form/formComboBox.css" visibleRowCount="14"/>
+                                        <TextField fx:id="operatorAddress" layoutX="25.0" layoutY="176.0"
+                                                   prefHeight="38.0" prefWidth="476.0" promptText="Home Address"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                </Pane>
+                                <Pane layoutX="537.0" layoutY="422.0" prefHeight="500.0" prefWidth="450.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <Label layoutX="15.0" prefHeight="26.0" prefWidth="105.0"
@@ -261,7 +297,7 @@
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <TextArea fx:id="comments" layoutX="25.0" layoutY="33.0" prefHeight="228.0"
+                                        <TextArea fx:id="comments" layoutX="25.0" layoutY="33.0" prefHeight="450.0"
                                                   prefWidth="402.0" promptText="Comments" styleClass="text-area"
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true">
                                             <font>
@@ -300,7 +336,7 @@
                                 <Font name="Blanka-Regular" size="37.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="369.0" layoutY="18.0" text="New Traffic Stop Report" textFill="WHITE">
+                        <Label layoutX="618.0" layoutY="18.0" text="New Traffic Stop Report" textFill="WHITE">
                             <font>
                                 <Font name="Roboto" size="27.0"/>
                             </font>

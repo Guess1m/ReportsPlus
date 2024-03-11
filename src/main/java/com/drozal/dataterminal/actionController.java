@@ -1133,11 +1133,39 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
 
+        TableColumn<TrafficStopLogEntry, String> makeColumn = new TableColumn<>("Make");
+        makeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseMake"));
+
+        TableColumn<TrafficStopLogEntry, String> modelColumn = new TableColumn<>("Model");
+        modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
+
+        TableColumn<TrafficStopLogEntry, String> otherInfoColumn = new TableColumn<>("Other Info");
+        otherInfoColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseOtherInfo"));
+
+        TableColumn<TrafficStopLogEntry, String> operatorNameColumn = new TableColumn<>("Operator Name");
+        operatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
+
+        TableColumn<TrafficStopLogEntry, String> operatorGenderColumn = new TableColumn<>("Operator Gender");
+        operatorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("operatorGender"));
+
+        TableColumn<TrafficStopLogEntry, String> operatorDescriptionColumn = new TableColumn<>("Operator Description");
+        operatorDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("operatorDescription"));
+
+        TableColumn<TrafficStopLogEntry, String> operatorAddressColumn = new TableColumn<>("Operator Address");
+        operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
+
         // Create a list to hold all the TableColumn instances for trafficStopTable
         ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(
                 stopNumberColumn,
                 dateColumn,
                 timeColumn,
+                makeColumn,
+                modelColumn,
+                otherInfoColumn,
+                operatorNameColumn,
+                operatorAddressColumn,
+                operatorDescriptionColumn,
+                operatorGenderColumn,
                 nameColumn,
                 rankColumn,
                 numberColumn,
@@ -1154,7 +1182,7 @@ public class actionController {
                 typeColumn
         );
 
-// Add all columns to trafficStopTable
+        // Add all columns to trafficStopTable
         trafficStopTable.getColumns().addAll(trafficStopColumns);
         for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
             column.setMinWidth(minColumnWidth);

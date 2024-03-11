@@ -61,6 +61,13 @@ public class TrafficStopReportLogs {
                     logEntry.PlateNumber = getTagValue(logsElement, "PlateNumber");
                     logEntry.Color = getTagValue(logsElement, "Color");
                     logEntry.Type = getTagValue(logsElement, "Type");
+                    logEntry.ResponseModel = getTagValue(logsElement, "ResponseModel");
+                    logEntry.ResponseMake = getTagValue(logsElement, "ResponseMake");
+                    logEntry.ResponseOtherInfo = getTagValue(logsElement, "ResponseOtherInfo");
+                    logEntry.operatorName = getTagValue(logsElement, "operatorName");
+                    logEntry.operatorGender = getTagValue(logsElement, "operatorGender");
+                    logEntry.operatorDescription = getTagValue(logsElement, "operatorDescription");
+                    logEntry.operatorAddress = getTagValue(logsElement, "operatorAddress");
                     logEntry.Rank = getTagValue(logsElement, "Rank");
                     logEntry.Name = getTagValue(logsElement, "Name");
                     logEntry.Division = getTagValue(logsElement, "Division");

@@ -43,6 +43,13 @@ public class trafficStopReportController {
     public TextArea violationsNotes;
     public VBox vbox;
     public Label incompleteLabel;
+    public TextField ResponseMake;
+    public TextField ResponseModel;
+    public TextField ResponseOtherInfo;
+    public TextField operatorName;
+    public TextField operatorDescription;
+    public ComboBox operatorGender;
+    public TextField operatorAddress;
     private double xOffset = 0;
     private double yOffset = 0;
     private boolean hasEntered = false;
@@ -53,6 +60,10 @@ public class trafficStopReportController {
 
     public ComboBox getResponseColor() {
         return ResponseColor;
+    }
+
+    public ComboBox getOperatorGender() {
+        return operatorGender;
     }
 
     public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
@@ -67,6 +78,8 @@ public class trafficStopReportController {
 
             getReponseType().getItems().addAll(dropdownInfo.vehicleTypes);
             getResponseColor().getItems().addAll(dropdownInfo.carColors);
+            getOperatorGender().getItems().addAll(dropdownInfo.genders);
+
 
             Name.setText(name);
             Division.setText(division);
@@ -120,6 +133,13 @@ public class trafficStopReportController {
             logs.add(new TrafficStopLogEntry(
                     calloutReportDate.getText(),
                     calloutReportTime.getText(),
+                    ResponseMake.getText(),
+                    ResponseModel.getText(),
+                    ResponseOtherInfo.getText(),
+                    operatorName.getText(),
+                    operatorAddress.getText(),
+                    operatorDescription.getText(),
+                    operatorGender.getValue().toString(),
                     Name.getText(),
                     Rank.getText(),
                     Number.getText(),
@@ -158,8 +178,7 @@ public class trafficStopReportController {
     public void onExitButtonClick(MouseEvent actionEvent) {
         // Get the window associated with the scene
         Window window = vbox.getScene().getWindow();
-
         // Close the window
-        window.hide(); // or window.close() if you want to force close
+        window.hide();
     }
 }

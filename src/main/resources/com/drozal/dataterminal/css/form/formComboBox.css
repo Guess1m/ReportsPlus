@@ -15,13 +15,14 @@
 .combo-box .list-cell {
     -fx-text-fill:  black; /* Set the text color */
 }
-
 .combo-box-popup .list-view .list-cell {
     -fx-text-fill: black; /* Text color only for dropdown options */
     -fx-background-color:  #f2f2f2;
     -fx-border-color: none;
 }
-
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #ada7d7; /* Set the hover background color */
+}
 .combo-box:focused {
     -fx-border-color: #665cb6; /* Change border color when focused */
         -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */

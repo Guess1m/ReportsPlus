@@ -8,6 +8,9 @@ public class TrafficStopLogEntry {
     public String StopNumber;
     public String ViolationsTextArea;
     public String ActionsTextArea;
+    public String ResponseMake;
+    public String ResponseModel;
+    public String ResponseOtherInfo;
     public String CommentsTextArea;
     public String Time;
     public String Date;
@@ -19,14 +22,26 @@ public class TrafficStopLogEntry {
     public String County;
     public String Area;
     public String Street;
+    public String operatorName;
+    public String operatorDescription;
+    public String operatorAddress;
+    public String operatorGender;
+
 
     public TrafficStopLogEntry() {
 
     }
 
-    public TrafficStopLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
+    public TrafficStopLogEntry(String date, String time, String make, String model, String otherInfo, String oName, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
         this.Date = date;
         this.Time = time;
+        this.ResponseMake = make;
+        this.ResponseModel = model;
+        this.ResponseOtherInfo = otherInfo;
+        this.operatorName = oName;
+        this.operatorAddress = oAddress;
+        this.operatorDescription = oDescription;
+        this.operatorGender = oGender;
         this.Name = name;
         this.Rank = rank;
         this.Number = number;
@@ -42,6 +57,22 @@ public class TrafficStopLogEntry {
         this.PlateNumber = plateN;
         this.Color = color;
         this.Type = type;
+    }
+
+    public String getOperatorName() {
+        return operatorName;
+    }
+
+    public String getOperatorDescription() {
+        return operatorDescription;
+    }
+
+    public String getOperatorAddress() {
+        return operatorAddress;
+    }
+
+    public String getOperatorGender() {
+        return operatorGender;
     }
 
     public String getPlateNumber() {
@@ -112,6 +143,17 @@ public class TrafficStopLogEntry {
         return Street;
     }
 
+    public String getResponseMake() {
+        return ResponseMake;
+    }
+
+    public String getResponseModel() {
+        return ResponseModel;
+    }
+
+    public String getResponseOtherInfo() {
+        return ResponseOtherInfo;
+    }
 
 }
 

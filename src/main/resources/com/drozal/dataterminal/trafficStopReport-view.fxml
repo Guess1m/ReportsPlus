@@ -243,8 +243,8 @@
                                             </effect>
                                         </Button>
                                         <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="198.0"
-                                               layoutY="219.0" prefHeight="43.0" prefWidth="198.0" text="asdfasf"
-                                               textFill="#3ab93abf">
+                                               layoutY="219.0" prefHeight="43.0" prefWidth="198.0" textFill="#3ab93abf"
+                                               visible="false">
                                             <font>
                                                 <Font name="Candara" size="15.0"/>
                                             </font>

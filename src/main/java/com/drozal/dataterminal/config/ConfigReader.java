@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -40,10 +41,22 @@ public class ConfigReader {
     }
 
     public static boolean doesConfigExist() {
-        File file = new File("config.properties");
-        if (file.exists()) {
-            return true;
-        } else {
+        try {
+            // Get the location of the JAR file
+            String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+
+            // Extract the directory path from the JAR path
+            String jarDir = new File(jarPath).getParent();
+
+            // Construct the path for the config.properties file
+            String configFilePath = jarDir + File.separator + "config.properties";
+
+            // Check if the config.properties file exists
+            File configFile = new File(configFilePath);
+            return configFile.exists();
+        } catch (URISyntaxException e) {
+            // Handle exception if URI syntax is incorrect
+            e.printStackTrace();
             return false;
         }
     }

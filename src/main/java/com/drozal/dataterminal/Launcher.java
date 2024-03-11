@@ -21,7 +21,6 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -41,18 +40,18 @@ public class Launcher {
 
                 if (folderCreated) {
                     System.out.println("Folder created successfully.");
+                    System.out.println(folder.getAbsolutePath());
                     DataTerminalHomeApplication.main(args);
-
                 } else {
                     System.out.println("Failed to create the folder.");
+                    System.out.println(folder.getAbsolutePath());
                 }
             } else {
                 System.out.println("Folder already exists.");
+                System.out.println(folder.getAbsolutePath());
                 DataTerminalHomeApplication.main(args);
-
             }
         } else {
-
             String folderPath = "DataLogs";
             // Create a File object representing the folder
             File folder = new File(folderPath);
@@ -62,12 +61,15 @@ public class Launcher {
                 boolean folderCreated = folder.mkdirs(); // Use mkdir() for a single directory
                 if (folderCreated) {
                     System.out.println("Folder created successfully.");
+                    System.out.println(folder.getAbsolutePath());
                     newOfficerApplication.main(args);
                 } else {
                     System.out.println("Failed to create the folder.");
+                    System.out.println(folder.getAbsolutePath());
                 }
             } else {
                 System.out.println("Folder already exists.");
+                System.out.println(folder.getAbsolutePath());
                 newOfficerApplication.main(args);
             }
 

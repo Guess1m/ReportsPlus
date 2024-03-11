@@ -26,9 +26,6 @@ public class ConfigReader {
         } else if (prop.getProperty("database." + database).matches("value")) {
             return true;
         }
-
-        // Do something with the retrieved properties
-
         return null;
     }
 

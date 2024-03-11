@@ -11,7 +11,6 @@ public class ConfigWriter {
         Properties prop = new Properties();
         OutputStream output = null;
         FileInputStream input = null;
-
         try {
             // Load existing properties
             input = new FileInputStream("config.properties");
@@ -27,7 +26,6 @@ public class ConfigWriter {
                 }
             }
         }
-
         try {
             // Append or overwrite the property value
             output = new FileOutputStream("config.properties");

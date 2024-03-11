@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Launcher {
 
@@ -26,51 +27,40 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException {
         loadFonts();
-        if (ConfigReader.doesConfigExist()) {
+        String folderPath = "";
 
-            // Specify the path of the folder to be created
-            String folderPath = "DataLogs";
+        try {
+            // Get the directory path where the JAR file is located
+            String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            File jarFile = new File(jarPath);
+            String jarDir = jarFile.getParent();
 
-            // Create a File object representing the folder
-            File folder = new File(folderPath);
+            // Append the folder name to the directory path
+            folderPath = jarDir + File.separator + "DataLogs";
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
-            // Check if the folder already exists
-            if (!folder.exists()) {
-                // If the folder does not exist, create it
-                boolean folderCreated = folder.mkdirs(); // Use mkdir() for a single directory
+        // Create a File object representing the folder
+        File folder = new File(folderPath);
 
-                if (folderCreated) {
-                    System.out.println("Folder created successfully.");
-                    DataTerminalHomeApplication.main(args);
-
-                } else {
-                    System.out.println("Failed to create the folder.");
-                }
+        // Check if the folder already exists
+        if (!folder.exists()) {
+            // If the folder does not exist, create it
+            boolean folderCreated = folder.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
+            if (folderCreated) {
+                System.out.println("Folder created successfully.");
             } else {
-                System.out.println("Folder already exists.");
-                DataTerminalHomeApplication.main(args);
-
+                System.out.println("Failed to create the folder.");
             }
         } else {
+            System.out.println("Folder already exists.");
+        }
 
-            String folderPath = "DataLogs";
-            // Create a File object representing the folder
-            File folder = new File(folderPath);
-            // Check if the folder already exists
-            if (!folder.exists()) {
-                // If the folder does not exist, create it
-                boolean folderCreated = folder.mkdirs(); // Use mkdir() for a single directory
-                if (folderCreated) {
-                    System.out.println("Folder created successfully.");
-                    newOfficerApplication.main(args);
-                } else {
-                    System.out.println("Failed to create the folder.");
-                }
-            } else {
-                System.out.println("Folder already exists.");
-                newOfficerApplication.main(args);
-            }
-
+        if (ConfigReader.doesConfigExist()) {
+            DataTerminalHomeApplication.main(args);
+        } else {
+            newOfficerApplication.main(args);
         }
     }
 }

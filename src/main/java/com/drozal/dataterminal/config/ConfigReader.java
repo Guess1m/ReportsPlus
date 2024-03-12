@@ -53,6 +53,7 @@ public class ConfigReader {
 
             // Check if the config.properties file exists
             File configFile = new File(configFilePath);
+            System.out.println(configFile.getAbsolutePath());
             return configFile.exists();
         } catch (URISyntaxException e) {
             // Handle exception if URI syntax is incorrect

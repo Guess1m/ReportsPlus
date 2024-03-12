@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter"
-      onMouseExited="#onMouseExit"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit"
       prefHeight="378.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.newOfficerController">
     <padding>
@@ -53,7 +52,7 @@
                                                stylesheets="@css/menu/menuLabels.css" text="Sign In"/>
                                         <Button fx:id="loginBtn" layoutX="374.0" layoutY="264.0" mnemonicParsing="false"
                                                 onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0"
-                                                styleClass="menuButton" stylesheets="@css/menu/menuStyles.css"
+                                                styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
                                                 text="LOGIN" textFill="#008cd7">
                                             <font>
                                                 <Font name="Candara Bold" size="18.0"/>

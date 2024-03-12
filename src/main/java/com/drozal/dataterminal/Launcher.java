@@ -9,22 +9,6 @@ import java.net.URISyntaxException;
 
 public class Launcher {
 
-    public static void loadFonts() {
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara_Bold.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/SansSerifFLF.otf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLA.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLAB.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/arial.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
-
-    }
-
     public static void main(String[] args) throws IOException {
         loadFonts();
         String folderPath = "";
@@ -65,5 +49,21 @@ public class Launcher {
         } else {
             newOfficerApplication.main(args);
         }
+    }
+
+    public static void loadFonts() {
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara_Bold.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/SansSerifFLF.otf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLA.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLAB.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/arial.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
+
     }
 }

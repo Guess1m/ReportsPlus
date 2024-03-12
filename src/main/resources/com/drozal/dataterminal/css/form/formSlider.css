@@ -10,10 +10,10 @@
 
 /* Styles for the thumb of the slider */
 .slider .thumb {
-    -fx-background-color: #0085cc; /* Set background color of the slider thumb */
+    -fx-background-color: rgb(102, 92, 182); /* Set background color of the slider thumb */
 }
 
 /* Styles for the thumb when pressed */
 .slider .thumb:pressed {
-    -fx-background-color: #008cd7; /* Set background color of the slider thumb when pressed */
+    -fx-background-color: rgb(102, 92, 182, 0.8); /* Set background color of the slider thumb when pressed */
 }

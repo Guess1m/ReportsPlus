@@ -1,6 +1,5 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
@@ -83,44 +82,44 @@ public class newOfficerController {
                 try {
                     // Create the config.properties file in the JAR directory
                     configFile.createNewFile();
-                    System.out.println("Config file created, printing values, located at: "+configFile.getAbsolutePath());
+                    System.out.println("Config file created, printing values, located at: " + configFile.getAbsolutePath());
                 } catch (IOException e) {
                     System.out.println("Failed to create config file: " + e.getMessage());
                 }
             }
         }
-            // Access the values only if they are not null
-            String agency = agencyDropDown.getValue().toString();
-            String division = divisionDropDown.getValue().toString();
-            String rank = rankDropdown.getValue().toString();
+        // Access the values only if they are not null
+        String agency = agencyDropDown.getValue().toString();
+        String division = divisionDropDown.getValue().toString();
+        String rank = rankDropdown.getValue().toString();
 
-            // Proceed with further processing
-            ConfigWriter.configwrite("Agency", agency);
-            ConfigWriter.configwrite("Division", division);
-            ConfigWriter.configwrite("Name", nameField.getText());
-            ConfigWriter.configwrite("Rank", rank);
-            ConfigWriter.configwrite("Number", numberField.getText());
+        // Proceed with further processing
+        ConfigWriter.configwrite("Agency", agency);
+        ConfigWriter.configwrite("Division", division);
+        ConfigWriter.configwrite("Name", nameField.getText());
+        ConfigWriter.configwrite("Rank", rank);
+        ConfigWriter.configwrite("Number", numberField.getText());
 
-            Stage stag = (Stage) vboxid.getScene().getWindow();
-            stag.close();
+        Stage stag = (Stage) vboxid.getScene().getWindow();
+        stag.close();
 
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
-            Parent root = loader.load();
-            Scene newScene = new Scene(root);
-            stage.setTitle("Data Terminal");
-            stage.setScene(newScene);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setResizable(false);
-            stage.show();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Data Terminal");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
 
-            actionController actionController = loader.getController();
-            actionController.getInfoPane().setDisable(true);
-            actionController.getInfoPane().setVisible(false);
-            actionController.getShiftInformationPane().setDisable(false);
-            actionController.getShiftInformationPane().setVisible(true);
+        actionController actionController = loader.getController();
+        actionController.getInfoPane().setDisable(true);
+        actionController.getInfoPane().setVisible(false);
+        actionController.getShiftInformationPane().setDisable(false);
+        actionController.getShiftInformationPane().setVisible(true);
 
-        }
+    }
 
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();

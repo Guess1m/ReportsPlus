@@ -1,10 +1,8 @@
 package com.drozal.dataterminal.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -45,6 +43,9 @@ public class ConfigReader {
             // Get the location of the JAR file
             String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 
+            // Decode the URI path to handle spaces or special characters
+            jarPath = URLDecoder.decode(jarPath, "UTF-8");
+
             // Extract the directory path from the JAR path
             String jarDir = new File(jarPath).getParent();
 
@@ -55,8 +56,8 @@ public class ConfigReader {
             File configFile = new File(configFilePath);
             System.out.println(configFile.getAbsolutePath());
             return configFile.exists();
-        } catch (URISyntaxException e) {
-            // Handle exception if URI syntax is incorrect
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            // Handle exception if URI syntax is incorrect or decoding fails
             e.printStackTrace();
             return false;
         }

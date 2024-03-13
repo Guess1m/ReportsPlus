@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
@@ -21,6 +22,8 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 public class newOfficerController {
     public TextField numberField;
@@ -60,18 +63,32 @@ public class newOfficerController {
             }));
             timeline1.play();
         } else {
-            File file = new File("config.properties");
-            if (file.exists()) {
+            String jarPath = null;
+            try {
+                jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            // Decode the URI path to handle spaces or special characters
+            jarPath = URLDecoder.decode(jarPath, "UTF-8");
+            // Extract the directory path from the JAR path
+            String jarDir = new File(jarPath).getParent();
+            // Construct the path for the config.properties file in the JAR directory
+            String configFilePath = jarDir + File.separator + "config.properties";
+            File configFile = new File(configFilePath);
+            if (configFile.exists()) {
                 System.out.println("exists, printing values");
             } else {
                 System.out.println("doesnt exist");
                 try {
-                    file.createNewFile();
-                    System.out.println("Config file created, printing values");
+                    // Create the config.properties file in the JAR directory
+                    configFile.createNewFile();
+                    System.out.println("Config file created, printing values, located at: "+configFile.getAbsolutePath());
                 } catch (IOException e) {
                     System.out.println("Failed to create config file: " + e.getMessage());
                 }
             }
+        }
             // Access the values only if they are not null
             String agency = agencyDropDown.getValue().toString();
             String division = divisionDropDown.getValue().toString();
@@ -104,7 +121,6 @@ public class newOfficerController {
             actionController.getShiftInformationPane().setVisible(true);
 
         }
-    }
 
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();

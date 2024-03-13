@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,103 +11,79 @@
 <?import javafx.scene.text.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit"
-      prefHeight="717.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21"
+      prefHeight="685.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.TrafficCitationController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="719.0" prefWidth="680.0" styleClass="pane"
+                    minWidth="-Infinity" prefHeight="685.0" prefWidth="1013.0" styleClass="pane"
                     stylesheets="@css/form/formPaneBackground.css">
             <children>
-                <ScrollPane layoutY="79.0" pannable="true" prefHeight="640.0" prefWidth="680.0" styleClass="pane"
-                            stylesheets="@css/form/formscrollpane.css" AnchorPane.leftAnchor="0.0">
+                <ScrollPane layoutY="74.0" pannable="true" prefHeight="610.0" prefWidth="1013.0"
+                            stylesheets="@css/main/Logscrollpane.css" AnchorPane.leftAnchor="0.0">
                     <content>
-                        <Pane prefHeight="956.0" prefWidth="667.0" styleClass="pane"
-                              stylesheets="@css/form/formPaneBackground.css">
+                        <Pane prefHeight="860.0" prefWidth="993.0">
                             <children>
-                                <Pane layoutY="2.0" prefHeight="172.0" prefWidth="656.0"
-                                      style="-fx-background-color: none;">
+                                <Pane layoutX="19.0" layoutY="15.0" prefHeight="141.0" prefWidth="454.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
-                                               stylesheets="@css/form/formLabels.css"
-                                               text="Timestamp/Location Information" textAlignment="CENTER"
-                                               textFill="#616161">
+                                        <Label layoutX="15.0" styleClass="headingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Timestamp Information"
+                                               textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="citationDate" layoutX="20.0" layoutY="28.0" prefHeight="36.0"
-                                                   prefWidth="316.0" promptText="Offense Date" styleClass="text-field"
+                                        <TextField fx:id="citationDate" layoutX="25.0" layoutY="32.0" prefHeight="38.0"
+                                                   prefWidth="405.0" promptText="Offense Date" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <TextField fx:id="citationTime" layoutX="351.0" layoutY="28.0" prefHeight="38.0"
-                                                   prefWidth="305.0" promptText="Offense Time" styleClass="text-field"
+                                        <TextField fx:id="citationTime" layoutX="25.0" layoutY="79.0" prefHeight="38.0"
+                                                   prefWidth="405.0" promptText="Offense Time" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <Pane layoutX="18.0" layoutY="75.0">
-                                            <children>
-                                                <TextField fx:id="citationCounty" layoutX="2.0" layoutY="1.0"
-                                                           prefHeight="38.0" prefWidth="316.0" promptText="County"
-                                                           styleClass="text-field"
-                                                           stylesheets="@css/form/formFields.css"/>
-                                                <TextField fx:id="citationArea" layoutX="333.0" layoutY="1.0"
-                                                           prefHeight="38.0" prefWidth="305.0" promptText="Area"
-                                                           styleClass="text-field"
-                                                           stylesheets="@css/form/formFields.css"/>
-                                            </children>
-                                        </Pane>
-                                        <TextField fx:id="citationStreet" layoutX="20.0" layoutY="126.0"
-                                                   prefHeight="38.0" prefWidth="457.0" promptText="Street"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css"/>
-                                        <Label layoutX="491.0" layoutY="133.0" opacity="0.82"
-                                               style="-fx-text-fill: #7c7c7c;" text="Citation #:" textFill="#7c7c7c">
-                                            <font>
-                                                <Font name="Candara" size="16.0"/>
-                                            </font>
-                                        </Label>
-                                        <Spinner fx:id="citationNumber" editable="true" layoutX="573.0" layoutY="132.0"
-                                                 prefHeight="26.0" prefWidth="82.0"
-                                                 stylesheets="@css/form/formSpinner.css"/>
+                                        <Pane layoutX="18.0" layoutY="75.0"/>
                                     </children>
                                 </Pane>
-                                <Pane layoutY="172.0" style="-fx-background-color: none;">
+                                <Pane layoutX="19.0" layoutY="155.0" prefHeight="234.0" prefWidth="454.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="officerName" layoutX="20.0" layoutY="28.0" prefHeight="36.0"
-                                                   prefWidth="305.0" promptText="Name" styleClass="text-field"
+                                        <TextField fx:id="officerName" layoutX="25.0" layoutY="32.0" prefHeight="36.0"
+                                                   prefWidth="259.0" promptText="Name" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="officerRank" layoutX="344.0" layoutY="28.0" prefHeight="38.0"
-                                                   prefWidth="309.0" promptText="Rank" styleClass="text-field"
+                                        <TextField fx:id="officerNumber" layoutX="296.0" layoutY="32.0"
+                                                   prefHeight="36.0" prefWidth="132.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="officerRank" layoutX="25.0" layoutY="78.0" prefHeight="38.0"
+                                                   prefWidth="402.0" promptText="Rank" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="officerNumber" layoutX="20.0" layoutY="76.0" prefHeight="36.0"
-                                                   prefWidth="114.0" promptText="Number" styleClass="text-field"
-                                                   stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="officerDivision" layoutX="25.0" layoutY="125.0"
+                                                   prefHeight="36.0" prefWidth="402.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="officerDivision" layoutX="155.0" layoutY="76.0"
-                                                   prefHeight="36.0" prefWidth="288.0" promptText="Division"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="officerAgency" layoutX="25.0" layoutY="171.0"
+                                                   prefHeight="38.0" prefWidth="402.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="officerAgency" layoutX="463.0" layoutY="76.0"
-                                                   prefHeight="38.0" prefWidth="190.0" promptText="Agency"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
+                                        <Label layoutX="15.0" styleClass="headingBig"
                                                stylesheets="@css/form/formLabels.css" text="Reporting Officer"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -115,153 +92,190 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <Pane layoutY="291.0" prefWidth="652.0" style="-fx-background-color: none;">
+                                <Pane layoutX="472.0" layoutY="15.0" prefHeight="187.0" prefWidth="510.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="offenderName" layoutX="20.0" layoutY="28.0" prefHeight="38.0"
-                                                   prefWidth="316.0" promptText="Name" styleClass="text-field"
+                                        <TextField fx:id="citationCounty" layoutX="25.0" layoutY="32.0"
+                                                   prefHeight="38.0" prefWidth="461.0" promptText="County"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"/>
+                                        <TextField fx:id="citationArea" layoutX="25.0" layoutY="79.0" prefHeight="38.0"
+                                                   prefWidth="461.0" promptText="Area" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css"/>
+                                        <TextField fx:id="citationStreet" layoutX="25.0" layoutY="126.0"
+                                                   prefHeight="38.0" prefWidth="461.0" promptText="Street"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"/>
+                                        <Label layoutX="15.0" styleClass="headingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Location Information"
+                                               textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </Pane>
+                                <Pane layoutX="472.0" layoutY="201.0" prefHeight="188.0" prefWidth="510.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                                    <children>
+                                        <TextField fx:id="offenderName" layoutX="25.0" layoutY="32.0" prefHeight="38.0"
+                                                   prefWidth="274.0" promptText="Name" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <ComboBox fx:id="offenderGender" layoutX="355.0" layoutY="28.0"
-                                                  prefHeight="38.0" prefWidth="297.0" promptText="Gender"
+                                        <ComboBox fx:id="offenderGender" layoutX="314.0" layoutY="31.0"
+                                                  prefHeight="40.0" prefWidth="173.0" promptText="Gender"
                                                   styleClass="combo-box" stylesheets="@css/form/formComboBox.css"/>
-                                        <TextField fx:id="offenderEthnicity" layoutX="20.0" layoutY="76.0"
-                                                   prefHeight="38.0" prefWidth="426.0" promptText="Ethnicity"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderEthnicity" layoutX="25.0" layoutY="78.0"
+                                                   prefHeight="38.0" prefWidth="265.0" promptText="Ethnicity"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
+                                        <Label layoutX="15.0" styleClass="headingBig"
                                                stylesheets="@css/form/formLabels.css" text="Offender Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <Slider fx:id="offenderAgeSlider" layoutX="503.0" layoutY="90.0"
+                                        <Slider fx:id="offenderAgeSlider" layoutX="342.0" layoutY="99.0"
                                                 prefHeight="14.0" prefWidth="148.0"
                                                 stylesheets="@css/form/formSlider.css"/>
-                                        <Label layoutX="465.0" layoutY="83.0" opacity="0.82"
-                                               style="-fx-text-fill: #7c7c7c;" text="Age:" textFill="#7c7c7c">
+                                        <Label layoutX="302.0" layoutY="88.0" opacity="0.82" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Age:" textFill="#7c7c7c">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="offenderAge" alignment="CENTER" layoutX="505.0" layoutY="67.0"
+                                        <Label fx:id="offenderAge" alignment="CENTER" layoutX="344.0" layoutY="73.0"
                                                mouseTransparent="true" opacity="0.82" prefHeight="25.0"
-                                               prefWidth="142.0" style="-fx-text-fill: #00a2ff;" text="0"
-                                               textFill="#00a2ff">
+                                               prefWidth="142.0" style="-fx-text-fill: #665cb6;" text="0"
+                                               textFill="#665cb6">
                                             <font>
-                                                <Font name="Candara" size="21.0"/>
+                                                <Font size="24.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="offenderDescription" layoutX="20.0" layoutY="124.0"
-                                                   prefHeight="38.0" prefWidth="632.0" promptText="Physical Description"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderDescription" layoutX="25.0" layoutY="125.0"
+                                                   prefHeight="38.0" prefWidth="462.0" promptText="Physical Description"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                     </children>
                                 </Pane>
-                                <Pane layoutY="457.0" prefWidth="652.0" style="-fx-background-color: none;">
+                                <Pane layoutX="19.0" layoutY="388.0" prefHeight="255.0" prefWidth="495.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <TextField fx:id="offenderVehiclePlate" layoutX="20.0" layoutY="28.0"
-                                                   prefHeight="38.0" prefWidth="178.0" promptText="Plate #"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderVehicleMake" layoutX="25.0" layoutY="36.0"
+                                                   prefHeight="38.0" prefWidth="216.0" promptText="Make"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <ComboBox fx:id="offenderVehicleColor" layoutX="212.0" layoutY="28.0"
-                                                  prefHeight="38.0" prefWidth="212.0" promptText="Color"
-                                                  styleClass="combo-box" stylesheets="@css/form/formComboBox.css"/>
-                                        <ComboBox fx:id="offenderVehicleType" layoutX="439.0" layoutY="28.0"
-                                                  prefHeight="38.0" prefWidth="212.0" promptText="Type"
-                                                  styleClass="combo-box" stylesheets="@css/form/formComboBox.css"/>
-                                        <TextField fx:id="offenderVehicleMake" layoutX="20.0" layoutY="76.0"
-                                                   prefHeight="38.0" prefWidth="264.0" promptText="Make"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderVehicleModel" layoutX="255.0" layoutY="36.0"
+                                                   prefHeight="38.0" prefWidth="214.0" promptText="Model"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
+                                        <TextField fx:id="offenderVehiclePlate" layoutX="25.0" layoutY="86.0"
+                                                   prefHeight="38.0" prefWidth="171.0" promptText="Plate #"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <ComboBox fx:id="offenderVehicleColor" layoutX="208.0" layoutY="86.0"
+                                                  prefHeight="40.0" prefWidth="261.0" promptText="Color"
+                                                  styleClass="combo-box" stylesheets="@css/form/formComboBox.css"/>
+                                        <ComboBox fx:id="offenderVehicleType" layoutX="25.0" layoutY="137.0"
+                                                  prefHeight="40.0" prefWidth="444.0" promptText="Type"
+                                                  styleClass="combo-box" stylesheets="@css/form/formComboBox.css"/>
+                                        <Label layoutX="15.0" styleClass="headingBig"
                                                stylesheets="@css/form/formLabels.css" text="Vehicle Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="offenderVehicleModel" layoutX="298.0" layoutY="76.0"
-                                                   prefHeight="38.0" prefWidth="353.0" promptText="Model"
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="offenderVehicleOther" layoutX="20.0" layoutY="124.0"
-                                                   prefHeight="38.0" prefWidth="632.0" promptText="Other.."
-                                                   styleClass="text-field" stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderVehicleOther" layoutX="25.0" layoutY="191.0"
+                                                   prefHeight="38.0" prefWidth="444.0" promptText="Other.."
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                     </children>
                                 </Pane>
-                                <Pane layoutY="623.0" prefHeight="230.0" prefWidth="660.0">
+                                <Pane layoutX="513.0" layoutY="388.0" prefHeight="255.0" prefWidth="469.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
+                                        <Label layoutX="15.0" styleClass="headingBig"
                                                stylesheets="@css/form/formLabels.css" text="Violation(s)"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <TextArea fx:id="offenderViolations" layoutX="20.0" layoutY="30.0"
-                                                  prefHeight="75.0" prefWidth="635.0" promptText="Details.."
+                                        <TextArea fx:id="offenderViolations" layoutX="25.0" layoutY="36.0"
+                                                  prefHeight="84.0" prefWidth="420.0" promptText="Details.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
-                                        <Label layoutX="20.0" layoutY="119.0" style="-fx-text-fill: #a1a1a1;"
-                                               text="ACTION(S) TAKEN:" textAlignment="CENTER" textFill="#a1a1a1">
+                                        <Label layoutX="15.0" layoutY="124.0" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="ACTION(S) TAKEN:"
+                                               textAlignment="CENTER" textFill="#a1a1a1">
                                             <font>
                                                 <Font name="Candara" size="18.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="offenderActionsTaken" layoutX="190.0" layoutY="115.0"
-                                                   prefHeight="38.0" prefWidth="464.0" promptText="Action(s)"
-                                                   stylesheets="@css/form/formFields.css">
+                                        <TextField fx:id="offenderActionsTaken" layoutX="25.0" layoutY="159.0"
+                                                   prefHeight="38.0" prefWidth="420.0" promptText="Action(s)"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
+                                        <Label layoutX="148.0" layoutY="210.0" opacity="0.82" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Citation #:"
+                                               textFill="#7c7c7c">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        <Spinner fx:id="citationNumber" editable="true" layoutX="239.0" layoutY="213.0"
+                                                 prefHeight="26.0" prefWidth="96.0"
+                                                 stylesheets="@css/form/formSpinner.css"/>
                                     </children>
                                 </Pane>
-                                <Pane layoutY="770.0" prefWidth="660.0">
+                                <Pane layoutX="19.0" layoutY="642.0" prefHeight="201.0" prefWidth="963.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="20.0" layoutY="-2.0" styleClass="subheader"
+                                        <Label layoutX="15.0" styleClass="headingBig"
                                                stylesheets="@css/form/formLabels.css" text="Comments"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <TextArea fx:id="citationComments" layoutX="20.0" layoutY="30.0"
-                                                  prefHeight="95.0" prefWidth="635.0" promptText="Additional Details.."
+                                        <TextArea fx:id="citationComments" layoutX="25.0" layoutY="33.0"
+                                                  prefHeight="110.0" prefWidth="914.0" promptText="Additional Details.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
-                                        <Button layoutX="541.0" layoutY="134.0" mnemonicParsing="false"
+                                        <Button layoutX="823.0" layoutY="150.0" mnemonicParsing="false"
                                                 onAction="#onArrestReportSubmitBtnClick" prefHeight="43.0"
-                                                prefWidth="114.0" stylesheets="@css/main/mainBtn.css" text="Submit">
+                                                prefWidth="114.0" styleClass="purpleButton"
+                                                stylesheets="@css/menu/menuStyles.css" text="Submit">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
@@ -274,14 +288,15 @@
                                                 </DropShadow>
                                             </effect>
                                         </Button>
+                                        <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="576.0"
+                                               layoutY="149.0" prefHeight="46.0" prefWidth="248.0" textFill="#3ab93abf"
+                                               visible="false">
+                                            <font>
+                                                <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
                                     </children>
                                 </Pane>
-                                <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="268.0" layoutY="895.0"
-                                       prefHeight="61.0" prefWidth="272.0" textFill="#3ab93abf">
-                                    <font>
-                                        <Font name="Candara" size="15.0"/>
-                                    </font>
-                                </Label>
                             </children>
                         </Pane>
                     </content>
@@ -291,31 +306,31 @@
                             prefWidth="684.0" styleClass="pane" stylesheets="@css/form/formPaneHeader.css"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="15.0" layoutY="8.0" text="DataTerminal" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Candara" size="28.0"/>
-                            </font>
-                        </Label>
-                        <Label layoutX="15.0" layoutY="43.0" text="Record Tool" textAlignment="CENTER"
-                               textFill="#00a2ff">
-                            <font>
-                                <Font name="Candara" size="22.0"/>
-                            </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="189.0" layoutY="13.0" prefHeight="51.0" prefWidth="464.0"
-                               text="New Traffic Citation" textAlignment="CENTER" textFill="#c6c6c6"
-                               AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="31.0">
-                            <font>
-                                <Font name="Candara" size="33.0"/>
-                            </font>
-                        </Label>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="657.0" layoutY="7.0"
                                    onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
                                    AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                             <image>
                                 <Image url="@imgs/icons/cross.png"/>
                             </image>
+                            <effect>
+                                <ColorAdjust brightness="1.0"/>
+                            </effect>
                         </ImageView>
+                        <Label layoutX="83.0" layoutY="22.0" text="Data Terminal" textFill="WHITE">
+                            <font>
+                                <Font name="Roboto" size="27.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="33.0" layoutY="15.0" text="Dt" textFill="WHITE">
+                            <font>
+                                <Font name="Blanka-Regular" size="37.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="680.0" layoutY="21.0" text="New Traffic Citation" textFill="WHITE">
+                            <font>
+                                <Font name="Roboto" size="27.0"/>
+                            </font>
+                        </Label>
                     </children>
                     <effect>
                         <DropShadow/>

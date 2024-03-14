@@ -2,7 +2,10 @@ package com.drozal.dataterminal.config;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLDecoder;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -30,12 +33,24 @@ public class ConfigReader {
 
     public static String configRead(String property) throws IOException {
         Properties prop = new Properties();
-        InputStream input = null;
-        input = new FileInputStream("config.properties");
-        // Load a properties file
-        prop.load(input);
-        // Retrieve properties
-        return prop.getProperty("database." + property);
+        try {
+            ProtectionDomain protectionDomain = ConfigReader.class.getProtectionDomain();
+            CodeSource codeSource = protectionDomain.getCodeSource();
+            if (codeSource != null) {
+                URL jarUrl = codeSource.getLocation();
+                String jarDirPath = new File(jarUrl.toURI()).getParent();
+                try (InputStream input = new FileInputStream(jarDirPath + File.separator + "config.properties")) {
+                    // Load a properties file
+                    prop.load(input);
+                    // Retrieve properties
+                    return prop.getProperty("database." + property);
+                }
+            } else {
+                throw new IOException("Unable to determine the location of the JAR file.");
+            }
+        } catch (URISyntaxException e) {
+            throw new IOException("Error reading config.properties file.", e);
+        }
     }
 
     public static boolean doesConfigExist() {

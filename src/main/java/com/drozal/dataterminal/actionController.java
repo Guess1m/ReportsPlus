@@ -35,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
@@ -46,7 +47,10 @@ import javafx.util.Duration;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
@@ -92,8 +96,61 @@ public class actionController {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public TableView getCalloutTable() {
-        return calloutTable;
+    public static String getDataLogsFolderPath() {
+        try {
+            // Get the location of the JAR file
+            String jarPath = stringUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+
+            // Extract the directory path from the JAR path
+            String jarDir = new File(jarPath).getParent();
+
+            // Construct the path for the DataLogs folder
+            return jarDir + File.separator + "DataLogs" + File.separator;
+        } catch (URISyntaxException e) {
+            // Handle exception if URI syntax is incorrect
+            e.printStackTrace();
+            return ""; // Return empty string if an error occurs
+        }
+    }
+
+    public static String getJarDirectoryPath() {
+        try {
+            // Get the location of the JAR file
+            String jarPath = actionController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+
+            // Extract the directory path from the JAR path
+            return new File(jarPath).getParent();
+        } catch (Exception e) {
+            // Handle exception if URI syntax is incorrect
+            e.printStackTrace();
+            return ""; // Return empty string if an error occurs
+        }
+    }
+
+    public static void clearConfig() {
+        try {
+            // Get the path to the config.properties file
+            String configFilePath = getJarDirectoryPath() + File.separator + "config.properties";
+            File configFile = new File(configFilePath);
+
+            // Check if the config.properties file exists
+            if (configFile.exists() && configFile.isFile()) {
+                // Delete the config.properties file
+                try {
+                    Files.deleteIfExists(configFile.toPath());
+                    System.out.println("Deleted config.properties file.");
+                } catch (IOException e) {
+                    System.err.println("Failed to delete config.properties file: " + e.getMessage());
+                }
+            } else {
+                System.out.println("config.properties file does not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the application after deleting the files
+            Platform.exit();
+        }
     }
 
     public StackPane getLogPane() {
@@ -260,6 +317,10 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1271,7 +1332,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
@@ -1283,7 +1350,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
@@ -1295,7 +1368,14 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
+        ;
     }
 
     public void onTopCLick(MouseEvent mouseEvent) {
@@ -1329,7 +1409,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
@@ -1341,7 +1427,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
@@ -1353,7 +1445,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
@@ -1365,7 +1463,13 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onParkingCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
@@ -1377,10 +1481,74 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 
     public void onRefreshButtonClick(ActionEvent actionEvent) {
         loadLogs();
+    }
+
+    public void aboutBtnClick(ActionEvent actionEvent) {
+        setDisable(codesPane);
+        setDisable(notesPane);
+        setDisable(shiftInformationPane);
+        setActive(infoPane);
+        logPane.setVisible(false);
+        logPane.setDisable(true);
+    }
+
+    public void clearDataLogs() {
+        try {
+            // Get the path to the DataLogs folder
+            String dataLogsFolderPath = getDataLogsFolderPath();
+
+            // Print the path for debugging
+            System.out.println("DataLogs folder path: " + dataLogsFolderPath);
+
+            // Check if the DataLogs folder exists
+            File dataLogsFolder = new File(dataLogsFolderPath);
+            if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
+                System.out.println("DataLogs folder exists.");
+
+                // Get a list of files in the DataLogs folder
+                File[] files = dataLogsFolder.listFiles();
+
+                if (files != null) {
+                    // Delete each file in the DataLogs folder
+                    for (File file : files) {
+                        if (file.isFile()) {
+                            try {
+                                Files.deleteIfExists(file.toPath());
+                                System.out.println("Deleted file: " + file.getName());
+                            } catch (IOException e) {
+                                System.err.println("Failed to delete file: " + file.getName() + " " + e.getMessage());
+                            }
+                        }
+                    }
+                    System.out.println("All files in DataLogs folder deleted successfully.");
+                } else {
+                    System.out.println("DataLogs folder is empty.");
+                }
+            } else {
+                System.out.println("DataLogs folder does not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clearLogsBtnClick(ActionEvent actionEvent) {
+        clearDataLogs();
+    }
+
+    public void clearAllSaveDataBtnClick(ActionEvent actionEvent) {
+        clearDataLogs();
+        clearConfig();
     }
 }

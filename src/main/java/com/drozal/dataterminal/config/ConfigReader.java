@@ -10,6 +10,7 @@ import java.util.Properties;
 
 public class ConfigReader {
 
+    // TODO: Get rid of checkforValue not in use
     public static Boolean checkforValue(String database, String value) throws IOException {
 
         Properties prop = new Properties();

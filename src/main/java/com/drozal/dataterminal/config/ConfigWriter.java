@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import java.util.Properties;
 
 public class ConfigWriter {
+
     public static void configwrite(String database, String value) {
         Properties prop = new Properties();
         OutputStream output = null;

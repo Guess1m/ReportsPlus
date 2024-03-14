@@ -17,8 +17,8 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -153,8 +153,12 @@ public class ArrestReportLogs {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             ArrestReportLogs logList = new ArrestReportLogs();
             logList.setLogs(logs);
-            marshaller.marshal(logList, new FileOutputStream(stringUtil.arrestLogURL));
-        } catch (JAXBException | FileNotFoundException e) {
+
+            // Use try-with-resources to ensure FileOutputStream is closed properly
+            try (FileOutputStream fos = new FileOutputStream(stringUtil.arrestLogURL)) {
+                marshaller.marshal(logList, fos);
+            }
+        } catch (JAXBException | IOException e) {
             e.printStackTrace();
         }
     }

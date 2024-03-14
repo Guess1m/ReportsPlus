@@ -11,4 +11,7 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_20" project-jdk-name="21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/../compilerOUT" />
   </component>
+  <component name="com.itcodebox.notebooks.projectservice.ProjectUIState">
+    <option name="selectedNotebookId" value="1" />
+  </component>
 </project>

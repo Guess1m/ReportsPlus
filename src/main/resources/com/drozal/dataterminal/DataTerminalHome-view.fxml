@@ -803,13 +803,13 @@
                                       onAction="#onArrestReportBtnClick" text="Arrest Report"/>
                             <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" onAction="#onPatrolButtonClick"
                                       text="Patrol Report"/>
+                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false"
+                                      onAction="#onImpoundReportBtnClick" text="Impound Report"/>
                             <SeparatorMenuItem mnemonicParsing="false"/>
                             <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
                                       onAction="#onCitationReportBtnClick" text="Traffic Citation"/>
                             <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false"
                                       onAction="#onParkingCitationReportBtnClick" text="Parking Citation"/>
-                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false"
-                                      onAction="#onImpoundReportBtnClick" text="Impound Report"/>
                         </items>
                         <font>
                             <Font size="18.0"/>
@@ -969,6 +969,27 @@
                             <Font name="Blanka-Regular" size="37.0"/>
                         </font>
                     </Label>
+                    <MenuButton alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="838.0" layoutY="13.0"
+                                mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" styleClass="button"
+                                stylesheets="@css/menu/settingsDropdown.css" text="Settings" textFill="#828797">
+                        <graphic>
+                            <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@imgs/icons/settings.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <font>
+                            <Font size="9.0"/>
+                        </font>
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
+                            <SeparatorMenuItem mnemonicParsing="false"/>
+                            <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
+                            <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
+                                      text="Clear All Save Data"/>
+                        </items>
+                    </MenuButton>
                 </children>
                 <effect>
                     <DropShadow/>

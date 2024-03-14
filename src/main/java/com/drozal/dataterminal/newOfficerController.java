@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -111,6 +112,10 @@ public class newOfficerController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/icon.png"));
+        // Set the icon for the primary stage
+        stage.getIcons().add(icon);
         stage.show();
 
         actionController actionController = loader.getController();

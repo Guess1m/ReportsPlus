@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -65,6 +66,10 @@ public class DataTerminalHomeApplication extends Application {
         mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);
         mainStage.mainRT.setScene(scene);
         mainStage.mainRT.setResizable(false);
+        // Load the icon image
+        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/icon.png"));
+        // Set the icon for the primary stage
+        mainStage.mainRT.getIcons().add(icon);
         mainStage.mainRT.show();
         mainStage.mainRT.centerOnScreen();
         mainStage.mainRT.setY(mainStage.mainRT.getY() * 3f / 2f);

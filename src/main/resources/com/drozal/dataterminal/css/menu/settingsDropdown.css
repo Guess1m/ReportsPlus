@@ -1,0 +1,60 @@
+/* Style the button */
+.button {
+    -fx-background-color: transparent; /* Default button background color */
+}
+
+.button > .label {
+    -fx-text-fill: white; /* Change the text color to white */
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 0 10.5;
+}
+
+.button .arrow {
+    -fx-background-color: white;
+}
+
+/* Style the button when pressed */
+.button:pressed {
+    -fx-background-color: red; /* Button background color when pressed */
+}
+
+.button:hover {
+    -fx-background-color:  #7b72c0; /* Hover background color */
+}
+
+.button:focused {
+    -fx-background-color:  #7b72c0; /* Hover background color */
+}
+
+/* Style the menu */
+.context-menu {
+    -fx-background-color:  #f2f2f2; /* Set the background color */
+}
+
+.context-menu .label {
+    -fx-text-fill:  black; /* Set the text color */
+    -fx-font-size: 13px;
+}
+
+/* Style the menu item */
+.menu-item {
+    -fx-text-fill: white; /* Set the text color for menu items */
+}
+
+/* Style the menu item on hover */
+.menu-item:hover {
+    -fx-background-color: #7b72c0; /* Hover background color for menu items */
+}
+
+/* Style the text color of menu items on hover */
+.menu-item:hover .label {
+    -fx-text-fill: white; /* Set the text color to white on hover */
+}
+/* Style the menu item when not hovered */
+.menu-item:focused {
+    -fx-background-color: #7b72c0; /* Set default background color for menu items */
+}
+.menu-item:focused .label {
+    -fx-text-fill: white; /* Set the text color to white on hover */
+}

@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 public class newOfficerController {
     public TextField numberField;
@@ -70,7 +71,7 @@ public class newOfficerController {
                 throw new RuntimeException(e);
             }
             // Decode the URI path to handle spaces or special characters
-            jarPath = URLDecoder.decode(jarPath, "UTF-8");
+            jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
             // Extract the directory path from the JAR path
             String jarDir = new File(jarPath).getParent();
             // Construct the path for the config.properties file in the JAR directory

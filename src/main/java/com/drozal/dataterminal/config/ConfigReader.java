@@ -1,9 +1,13 @@
 package com.drozal.dataterminal.config;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
@@ -60,7 +64,7 @@ public class ConfigReader {
             String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 
             // Decode the URI path to handle spaces or special characters
-            jarPath = URLDecoder.decode(jarPath, "UTF-8");
+            jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
 
             // Extract the directory path from the JAR path
             String jarDir = new File(jarPath).getParent();
@@ -71,7 +75,7 @@ public class ConfigReader {
             // Check if the config.properties file exists
             File configFile = new File(configFilePath);
             return configFile.exists();
-        } catch (URISyntaxException | UnsupportedEncodingException e) {
+        } catch (URISyntaxException e) {
             // Handle exception if URI syntax is incorrect or decoding fails
             e.printStackTrace();
             return false;

@@ -1363,7 +1363,6 @@ public class actionController {
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
-        ;
     }
 
     public void onTopCLick(MouseEvent mouseEvent) {

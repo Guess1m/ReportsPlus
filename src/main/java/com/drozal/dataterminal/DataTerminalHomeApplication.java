@@ -66,10 +66,7 @@ public class DataTerminalHomeApplication extends Application {
         mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);
         mainStage.mainRT.setScene(scene);
         mainStage.mainRT.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/icon.png"));
-        // Set the icon for the primary stage
-        mainStage.mainRT.getIcons().add(icon);
+        mainStage.mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainStage.mainRT.show();
         mainStage.mainRT.centerOnScreen();
         mainStage.mainRT.setY(mainStage.mainRT.getY() * 3f / 2f);

@@ -24,10 +24,7 @@ public class newOfficerApplication extends Application {
         newOfficerStage.setScene(newScene);
         newOfficerStage.initStyle(StageStyle.TRANSPARENT);
         newOfficerStage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/icon.png"));
-        // Set the icon for the primary stage
-        newOfficerStage.getIcons().add(icon);
+        newOfficerStage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         newOfficerStage.show();
     }
 }

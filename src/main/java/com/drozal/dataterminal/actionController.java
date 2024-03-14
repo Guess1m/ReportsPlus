@@ -317,10 +317,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1332,10 +1329,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1350,10 +1344,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1368,10 +1359,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1409,10 +1397,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1427,10 +1412,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1445,10 +1427,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1463,10 +1442,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
@@ -1481,10 +1457,7 @@ public class actionController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/terminal.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);

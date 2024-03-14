@@ -112,10 +112,7 @@ public class newOfficerController {
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
-        // Load the icon image
-        Image icon = new Image(getClass().getResourceAsStream("imgs/icons/icon.png"));
-        // Set the icon for the primary stage
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         stage.show();
 
         actionController actionController = loader.getController();

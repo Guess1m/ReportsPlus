@@ -58,7 +58,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 public class actionController {
     public StackPane codesPane;
     public Button notesButton;
-    public Button codeButton;
     public StackPane notesPane;
     public Button shiftInfoBtn;
     public StackPane shiftInformationPane;
@@ -209,16 +208,6 @@ public class actionController {
         pane.setDisable(false);
     }
 
-    public void onCodeButtonClick(ActionEvent actionEvent) {
-        setActive(codesPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
-        setDisable(notesPane);
-        setDisable(shiftInformationPane);
-        setDisable(infoPane);
-
-    }
-
     public void onNotesButtonClicked(ActionEvent actionEvent) {
         setDisable(codesPane);
         setActive(notesPane);
@@ -236,8 +225,6 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
-
-
     }
 
     public Spinner getCalloutSpinner() {
@@ -333,15 +320,6 @@ public class actionController {
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
         stage.show();
-    }
-
-    public void onDataTerminalInfoButtonClick(ActionEvent actionEvent) {
-        setDisable(codesPane);
-        setDisable(notesPane);
-        setDisable(shiftInformationPane);
-        setActive(infoPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
     }
 
     public void onMouseEnter(MouseEvent mouseEvent) throws IOException {
@@ -1363,7 +1341,6 @@ public class actionController {
         stage.show();
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
-        ;
     }
 
     public void onTopCLick(MouseEvent mouseEvent) {
@@ -1523,5 +1500,14 @@ public class actionController {
     public void clearAllSaveDataBtnClick(ActionEvent actionEvent) {
         clearDataLogs();
         clearConfig();
+    }
+
+    public void TenCodesBtnClick(ActionEvent actionEvent) {
+        setActive(codesPane);
+        logPane.setVisible(false);
+        logPane.setDisable(true);
+        setDisable(notesPane);
+        setDisable(shiftInformationPane);
+        setDisable(infoPane);
     }
 }

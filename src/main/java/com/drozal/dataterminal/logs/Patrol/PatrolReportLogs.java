@@ -6,9 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -74,35 +71,6 @@ public class PatrolReportLogs {
             e.printStackTrace();
         }
         return logEntries;
-    }
-
-    public static void addLogEntryToGrid(GridPane gridPane, PatrolLogEntry logEntry, int rowIndex) {
-        // Create labels for each log entry field
-        Label patrolNumberLabel = createLabel(logEntry.patrolNumber);
-        Label patrolDateLabel = createLabel(logEntry.patrolDate);
-        Label patrolTimeLabel = createLabel(logEntry.patrolLength);
-        Label patrolStartTimeLabel = createLabel(logEntry.patrolStartTime);
-        Label patrolStopTimeLabel = createLabel(logEntry.patrolStopTime);
-        Label officerRankLabel = createLabel(logEntry.officerRank);
-        Label officerNameLabel = createLabel(logEntry.officerName);
-        Label officerNumberLabel = createLabel(logEntry.officerNumber);
-        Label officerDivisionLabel = createLabel(logEntry.officerDivision);
-        Label officerAgencyLabel = createLabel(logEntry.officerAgency);
-        Label officerVehicleLabel = createLabel(logEntry.officerVehicle);
-        Label patrolCommentsLabel = createLabel(logEntry.patrolComments);
-
-// Add labels to the GridPane
-        gridPane.addRow(rowIndex, patrolNumberLabel, patrolDateLabel, patrolTimeLabel, patrolStartTimeLabel, patrolStopTimeLabel,
-                officerRankLabel, officerNameLabel, officerNumberLabel, officerAgencyLabel, officerDivisionLabel, officerVehicleLabel, patrolCommentsLabel);
-
-    }
-
-    public static Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setFont(new Font("Arial", 14));
-        label.setWrapText(true); // Allow text wrapping
-        label.setMaxWidth(Double.MAX_VALUE); // Allow label to grow horizontally
-        return label;
     }
 
     public static String getTagValue(Element element, String tagName) {

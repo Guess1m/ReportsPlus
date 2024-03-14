@@ -77,23 +77,9 @@ public class ImpoundReportController {
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (impoundNumber.getValue() == null ||
-                /*impoundDate.getText().isEmpty() ||
-                impoundTime.getText().isEmpty() ||
-                ownerName.getText().isEmpty() ||
-                ownerAge.getText().isEmpty() ||*/
                 ownerGender.getValue() == null ||
-                /*ownerAddress.getText().isEmpty() ||
-                impoundPlateNumber.getText().isEmpty() ||
-                impoundMake.getText().isEmpty() ||
-                impoundModel.getText().isEmpty() ||*/
                 impoundType.getValue() == null ||
-                impoundColor.getValue() == null /*||
-                impoundComments.getText().isEmpty() ||
-                officerRank.getText().isEmpty() ||
-                officerName.getText().isEmpty() ||
-                officerNumber.getText().isEmpty() ||
-                officerDivision.getText().isEmpty() ||
-                officerAgency.getText().isEmpty()*/) {
+                impoundColor.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

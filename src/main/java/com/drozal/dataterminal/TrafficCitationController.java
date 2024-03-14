@@ -85,30 +85,9 @@ public class TrafficCitationController {
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (citationNumber.getValue() == null
-                /*|| citationDate.getText().isEmpty()
-                || citationTime.getText().isEmpty()
-                || citationCounty.getText().isEmpty()
-                || citationArea.getText().isEmpty()
-                || citationStreet.getText().isEmpty()
-                || offenderName.getText().isEmpty()*/
                 || offenderGender.getValue() == null
-                /*|| offenderEthnicity.getText().isEmpty()
-                || offenderAge.getText().isEmpty()
-                || offenderDescription.getText().isEmpty()
-                || offenderVehicleMake.getText().isEmpty()
-                || offenderVehicleModel.getText().isEmpty()*/
                 || offenderVehicleColor.getValue() == null
-                || offenderVehicleType.getValue() == null
-                /*|| offenderVehiclePlate.getText().isEmpty()
-                || offenderVehicleOther.getText().isEmpty()
-                || offenderViolations.getText().isEmpty()
-                || offenderActionsTaken.getText().isEmpty()
-                || officerRank.getText().isEmpty()
-                || officerName.getText().isEmpty()
-                || officerNumber.getText().isEmpty()
-                || officerDivision.getText().isEmpty()
-                || officerAgency.getText().isEmpty()
-                || citationComments.getText().isEmpty()*/) {
+                || offenderVehicleType.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

@@ -6,9 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -88,42 +85,6 @@ public class TrafficStopReportLogs {
         }
 
         return logEntries;
-    }
-
-    public static void addLogEntryToGrid(GridPane gridPane, TrafficStopLogEntry logEntry, int rowIndex) {
-        // Create labels for each log entry field
-        Label calloutNumberLabel = createLabel(logEntry.StopNumber);
-        Label dateLabel = createLabel(logEntry.Date);
-        Label timeLabel = createLabel(logEntry.Time);
-        Label licensePlateNumber = createLabel(logEntry.PlateNumber);
-        Label carColor = createLabel(logEntry.Color);
-        Label carType = createLabel(logEntry.Type);
-        Label rankLabel = createLabel(logEntry.Rank);
-        Label nameLabel = createLabel(logEntry.Name);
-        Label divisionLabel = createLabel(logEntry.Division);
-        Label agencyLabel = createLabel(logEntry.Agency);
-        Label numberLabel = createLabel(logEntry.Number);
-        Label streetLabel = createLabel(logEntry.Street);
-        Label countyLabel = createLabel(logEntry.County);
-        Label areaLabel = createLabel(logEntry.Area);
-        Label violations = createLabel(logEntry.ViolationsTextArea);
-        Label actions = createLabel(logEntry.ActionsTextArea);
-        Label comments = createLabel(logEntry.CommentsTextArea);
-
-
-        // Add labels to the GridPane
-        gridPane.addRow(rowIndex, calloutNumberLabel, violations, actions, carColor, comments, licensePlateNumber, carType, timeLabel, dateLabel,
-                divisionLabel, agencyLabel, numberLabel, rankLabel, nameLabel, streetLabel, countyLabel, areaLabel);
-
-
-    }
-
-    public static Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setFont(new Font("Arial", 14));
-        label.setWrapText(true); // Allow text wrapping
-        label.setMaxWidth(Double.MAX_VALUE); // Allow label to grow horizontally
-        return label;
     }
 
     public static String getTagValue(Element element, String tagName) {

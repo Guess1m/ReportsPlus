@@ -73,22 +73,7 @@ public class IncidentReportController {
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        if (Spinner.getValue() == null
-                /*|| incidentDate.getText().isEmpty()
-                || incidentTime.getText().isEmpty()
-                || incidentStatement.getText().isEmpty()
-                || incidentWitnesses.getText().isEmpty()
-                || incidentVictims.getText().isEmpty()
-                || officerName.getText().isEmpty()
-                || officerRank.getText().isEmpty()
-                || officerNumber.getText().isEmpty()
-                || officerAgency.getText().isEmpty()
-                || officerDivision.getText().isEmpty()
-                || incidentStreet.getText().isEmpty()
-                || incidentArea.getText().isEmpty()
-                || incidentCounty.getText().isEmpty()
-                || incidentActionsTaken.getText().isEmpty()
-                || incidentComments.getText().isEmpty()*/) {
+        if (Spinner.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

@@ -6,9 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -80,44 +77,6 @@ public class ArrestReportLogs {
             e.printStackTrace();
         }
         return logEntries;
-    }
-
-    public static void addLogEntryToGrid(GridPane gridPane, ArrestLogEntry logEntry, int rowIndex) {
-        // Create labels for each log entry field
-        Label arrestNumberLabel = createLabel(logEntry.arrestNumber);
-        Label arrestDateLabel = createLabel(logEntry.arrestDate);
-        Label arrestTimeLabel = createLabel(logEntry.arrestTime);
-        Label arrestCountyLabel = createLabel(logEntry.arrestCounty);
-        Label arrestAreaLabel = createLabel(logEntry.arrestArea);
-        Label arrestStreetLabel = createLabel(logEntry.arrestStreet);
-        Label arresteeNameLabel = createLabel(logEntry.arresteeName);
-        Label arresteeAgeLabel = createLabel(logEntry.arresteeAge);
-        Label arresteeGenderLabel = createLabel(logEntry.arresteeGender);
-        Label arresteeEthnicityLabel = createLabel(logEntry.arresteeEthnicity);
-        Label arresteeDescriptionLabel = createLabel(logEntry.arresteeDescription);
-        Label arresteeMedicalInformationLabel = createLabel(logEntry.arresteeMedicalInformation);
-        Label arrestDetailsLabel = createLabel(logEntry.arrestDetails);
-        Label officerRankLabel = createLabel(logEntry.officerRank);
-        Label officerNameLabel = createLabel(logEntry.officerName);
-        Label officerNumberLabel = createLabel(logEntry.officerNumber);
-        Label officerDivisionLabel = createLabel(logEntry.officerDivision);
-        Label officerAgencyLabel = createLabel(logEntry.officerAgency);
-
-
-// Add labels to the GridPane
-        gridPane.addRow(rowIndex, arrestNumberLabel, arrestDateLabel, arrestTimeLabel, arrestCountyLabel, arrestAreaLabel, arrestStreetLabel,
-                arresteeNameLabel, arresteeAgeLabel, arresteeGenderLabel, arresteeEthnicityLabel, arresteeDescriptionLabel,
-                arresteeMedicalInformationLabel, arrestDetailsLabel, officerRankLabel, officerNameLabel, officerNumberLabel,
-                officerAgencyLabel, officerDivisionLabel);
-
-    }
-
-    public static Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setFont(new Font("Arial", 14));
-        label.setWrapText(true); // Allow text wrapping
-        label.setMaxWidth(Double.MAX_VALUE); // Allow label to grow horizontally
-        return label;
     }
 
     public static String getTagValue(Element element, String tagName) {

@@ -6,9 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -80,40 +77,6 @@ public class IncidentReportLogs {
         }
 
         return logEntries;
-    }
-
-    public static void addLogEntryToGrid(GridPane gridPane, IncidentLogEntry logEntry, int rowIndex) {
-        // Create labels for each log entry field
-        Label spinnerLabel = createLabel(logEntry.incidentNumber);
-        Label incidentDateLabel = createLabel(logEntry.incidentDate);
-        Label incidentTimeLabel = createLabel(logEntry.incidentTime);
-        Label incidentStatementLabel = createLabel(logEntry.incidentStatement);
-        Label incidentWitnessesLabel = createLabel(logEntry.incidentWitnesses);
-        Label incidentVictimsLabel = createLabel(logEntry.incidentVictims);
-        Label officerNameLabel = createLabel(logEntry.officerName);
-        Label officerRankLabel = createLabel(logEntry.officerRank);
-        Label officerNumberLabel = createLabel(logEntry.officerNumber);
-        Label officerAgencyLabel = createLabel(logEntry.officerAgency);
-        Label officerDivisionLabel = createLabel(logEntry.officerDivision);
-        Label incidentStreetLabel = createLabel(logEntry.incidentStreet);
-        Label incidentAreaLabel = createLabel(logEntry.incidentArea);
-        Label incidentCountyLabel = createLabel(logEntry.incidentCounty);
-        Label incidentActionsTakenLabel = createLabel(logEntry.incidentActionsTaken);
-        Label incidentCommentsLabel = createLabel(logEntry.incidentComments);
-
-        // Add labels to the GridPane
-        gridPane.addRow(rowIndex, spinnerLabel, incidentDateLabel, incidentTimeLabel, incidentStatementLabel,
-                incidentWitnessesLabel, incidentVictimsLabel, officerNameLabel, officerRankLabel, officerNumberLabel,
-                officerAgencyLabel, officerDivisionLabel, incidentStreetLabel, incidentAreaLabel, incidentCountyLabel,
-                incidentActionsTakenLabel, incidentCommentsLabel);
-    }
-
-    public static Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setFont(new Font("Arial", 14));
-        label.setWrapText(true); // Allow text wrapping
-        label.setMaxWidth(Double.MAX_VALUE); // Allow label to grow horizontally
-        return label;
     }
 
     public static String getTagValue(Element element, String tagName) {

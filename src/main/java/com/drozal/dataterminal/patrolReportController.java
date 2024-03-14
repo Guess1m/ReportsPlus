@@ -69,18 +69,7 @@ public class patrolReportController {
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
-        if (patrolNumber.getValue() == null
-                /*|| patrolDate.getText().isEmpty()
-                || patrolLength.getText().isEmpty()
-                || patrolStartTime.getText().isEmpty()
-                || patrolStopTime.getText().isEmpty()
-                || officerRank.getText().isEmpty()
-                || officerName.getText().isEmpty()
-                || officerNumber.getText().isEmpty()
-                || officerDivision.getText().isEmpty()
-                || officerAgency.getText().isEmpty()
-                || officerVehicle.getText().isEmpty()
-                || patrolComments.getText().isEmpty()*/) {
+        if (patrolNumber.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

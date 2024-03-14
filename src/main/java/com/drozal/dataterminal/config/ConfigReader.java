@@ -1,36 +1,18 @@
 package com.drozal.dataterminal.config;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
 
 public class ConfigReader {
-
-    // TODO: Get rid of checkforValue not in use
-    public static Boolean checkforValue(String database, String value) throws IOException {
-
-        Properties prop = new Properties();
-        InputStream input = null;
-
-        input = new FileInputStream("config.properties");
-
-        // Load a properties file
-        prop.load(input);
-
-        // check if its blank
-        if (prop.getProperty("database." + database).isBlank()) {
-            return false;
-        } else if (prop.getProperty("database." + database).isEmpty()) {
-            return false;
-        } else if (prop.getProperty("database." + database).matches("value")) {
-            return true;
-        }
-        return null;
-    }
 
     public static String configRead(String property) throws IOException {
         Properties prop = new Properties();
@@ -60,7 +42,7 @@ public class ConfigReader {
             String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 
             // Decode the URI path to handle spaces or special characters
-            jarPath = URLDecoder.decode(jarPath, "UTF-8");
+            jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
 
             // Extract the directory path from the JAR path
             String jarDir = new File(jarPath).getParent();
@@ -71,7 +53,7 @@ public class ConfigReader {
             // Check if the config.properties file exists
             File configFile = new File(configFilePath);
             return configFile.exists();
-        } catch (URISyntaxException | UnsupportedEncodingException e) {
+        } catch (URISyntaxException e) {
             // Handle exception if URI syntax is incorrect or decoding fails
             e.printStackTrace();
             return false;

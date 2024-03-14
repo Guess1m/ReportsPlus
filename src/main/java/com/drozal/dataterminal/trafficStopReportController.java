@@ -102,21 +102,7 @@ public class trafficStopReportController {
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (ResponseColor.getSelectionModel().isEmpty() || ResponseColor.getValue() == null
                 || ReponseType.getSelectionModel().isEmpty() || ReponseType.getValue() == null
-                /*|| ReponsePlateNumber.getText().isEmpty()*/
-                || Spinner.getValue() == null
-                /*|| ResponseStreet.getText().isEmpty()
-                || ResponseArea.getText().isEmpty()
-                || ResponseCounty.getText().isEmpty()
-                || Agency.getText().isEmpty()
-                || Division.getText().isEmpty()
-                || Number.getText().isEmpty()
-                || Rank.getText().isEmpty()
-                || Name.getText().isEmpty()
-                || calloutReportTime.getText().isEmpty()
-                || calloutReportDate.getText().isEmpty()
-                || actionsTakenNotes.getText().isEmpty()
-                || comments.getText().isEmpty()
-                || violationsNotes.getText().isEmpty()*/) {
+                || Spinner.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

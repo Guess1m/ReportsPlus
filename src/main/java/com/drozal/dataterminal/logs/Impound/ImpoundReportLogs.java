@@ -6,9 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -80,43 +77,6 @@ public class ImpoundReportLogs {
             e.printStackTrace();
         }
         return logEntries;
-    }
-
-    public static void addLogEntryToGrid(GridPane gridPane, ImpoundLogEntry logEntry, int rowIndex) {
-        // Create labels for each log entry field
-        Label impoundNumberLabel = createLabel(logEntry.impoundNumber);
-        Label impoundDateLabel = createLabel(logEntry.impoundDate);
-        Label impoundTimeLabel = createLabel(logEntry.impoundTime);
-        Label ownerNameLabel = createLabel(logEntry.ownerName);
-        Label ownerAgeLabel = createLabel(logEntry.ownerAge);
-        Label ownerGenderLabel = createLabel(logEntry.ownerGender);
-        Label ownerAddressLabel = createLabel(logEntry.ownerAddress);
-        Label impoundPlateNumberLabel = createLabel(logEntry.impoundPlateNumber);
-        Label impoundMakeLabel = createLabel(logEntry.impoundMake);
-        Label impoundModelLabel = createLabel(logEntry.impoundModel);
-        Label impoundTypeLabel = createLabel(logEntry.impoundType);
-        Label impoundColorLabel = createLabel(logEntry.impoundColor);
-        Label impoundCommentsLabel = createLabel(logEntry.impoundComments);
-        Label officerRankLabel = createLabel(logEntry.officerRank);
-        Label officerNameLabel = createLabel(logEntry.officerName);
-        Label officerNumberLabel = createLabel(logEntry.officerNumber);
-        Label officerDivisionLabel = createLabel(logEntry.officerDivision);
-        Label officerAgencyLabel = createLabel(logEntry.officerAgency);
-
-// Add labels to the GridPane
-        gridPane.addRow(rowIndex, impoundNumberLabel, impoundDateLabel, impoundTimeLabel, ownerNameLabel, ownerAgeLabel, ownerGenderLabel,
-                ownerAddressLabel, impoundPlateNumberLabel, impoundMakeLabel, impoundModelLabel, impoundTypeLabel, impoundColorLabel,
-                impoundCommentsLabel, officerRankLabel, officerNameLabel, officerNumberLabel, officerDivisionLabel, officerAgencyLabel);
-
-
-    }
-
-    public static Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setFont(new Font("Arial", 14));
-        label.setWrapText(true); // Allow text wrapping
-        label.setMaxWidth(Double.MAX_VALUE); // Allow label to grow horizontally
-        return label;
     }
 
     public static String getTagValue(Element element, String tagName) {

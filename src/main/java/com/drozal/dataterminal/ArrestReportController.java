@@ -79,24 +79,7 @@ public class ArrestReportController {
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
 
-        if (arrestNumber.getValue() == null
-                /*|| arrestDate.getText().isEmpty()
-                || arrestTime.getText().isEmpty()
-                || arrestCounty.getText().isEmpty()
-                || arrestArea.getText().isEmpty()
-                || arrestStreet.getText().isEmpty()
-                || arresteeName.getText().isEmpty()
-                || arresteeAge.getText().isEmpty()*/
-                || arresteeGender.getValue() == null
-                /*|| arresteeEthnicity.getText().isEmpty()
-                || arresteeDescription.getText().isEmpty()
-                || arresteeMedicalInformation.getText().isEmpty()
-                || arrestDetails.getText().isEmpty()
-                || officerRank.getText().isEmpty()
-                || officerName.getText().isEmpty()
-                || officerNumber.getText().isEmpty()
-                || officerDivision.getText().isEmpty()
-                || officerAgency.getText().isEmpty()*/) {
+        if (arrestNumber.getValue() == null || arresteeGender.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

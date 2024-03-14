@@ -139,7 +139,7 @@ public class reportController {
 
         } else {
             //CODE HERE
-            createSpinner(calloutReportSpinner, 0, 999, 0);
+            createSpinner(calloutReportSpinner, 0, 9999, 0);
 
             String name = ConfigReader.configRead("Name");
             String division = ConfigReader.configRead("Division");

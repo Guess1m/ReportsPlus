@@ -66,7 +66,7 @@ public class ArrestReportController {
             officerRank.setText(rank);
             officerAgency.setText(agency);
             officerNumber.setText(number);
-            createSpinner(arrestNumber, 0, 999, 0);
+            createSpinner(arrestNumber, 0, 9999, 0);
             arrestTime.setText(getTime());
             arrestDate.setText(getDate());
 

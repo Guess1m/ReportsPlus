@@ -94,12 +94,12 @@ public class DataTerminalHomeApplication extends Application {
         Spinner<Integer> patrolsSpinner = controller.getPatrolsSpinner();
         Spinner<Integer> trafficStopsSpinner = controller.getTrafficStopSpinner();
 
-        createSpinner(calloutSpinner, 0, 999, 0);
-        createSpinner(arrestsSpinner, 0, 999, 0);
-        createSpinner(searchSpinner, 0, 999, 0);
-        createSpinner(incidentSpinner, 0, 999, 0);
-        createSpinner(patrolsSpinner, 0, 999, 0);
-        createSpinner(trafficStopsSpinner, 0, 999, 0);
+        createSpinner(calloutSpinner, 0, 9999, 0);
+        createSpinner(arrestsSpinner, 0, 9999, 0);
+        createSpinner(searchSpinner, 0, 9999, 0);
+        createSpinner(incidentSpinner, 0, 9999, 0);
+        createSpinner(patrolsSpinner, 0, 9999, 0);
+        createSpinner(trafficStopsSpinner, 0, 9999, 0);
 
         shiftInfoPane.setVisible(true);
         shiftInfoPane.setDisable(false);

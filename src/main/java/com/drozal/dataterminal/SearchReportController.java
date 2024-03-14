@@ -64,7 +64,7 @@ public class SearchReportController {
             officerAgency.setText(agency);
             officerNumber.setText(number);
 
-            createSpinner(SearchNumber, 0, 999, 0);
+            createSpinner(SearchNumber, 0, 9999, 0);
             searchTime.setText(getTime());
             searchDate.setText(getDate());
 

@@ -75,8 +75,8 @@ public class ParkingCitationController {
             officerNumber.setText(number);
             citationTime.setText(getTime());
             citationDate.setText(getDate());
-            createSpinner(citationNumber, 0, 999, 0);
-            createSpinner(meterNumber, 0, 999, 0);
+            createSpinner(citationNumber, 0, 9999, 0);
+            createSpinner(meterNumber, 0, 9999, 0);
         }
     }
 

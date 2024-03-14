@@ -61,7 +61,7 @@ public class IncidentReportController {
             officerAgency.setText(agency);
             officerNumber.setText(number);
 
-            createSpinner(Spinner, 0, 999, 0);
+            createSpinner(Spinner, 0, 9999, 0);
             incidentTime.setText(getTime());
             incidentDate.setText(getDate());
 

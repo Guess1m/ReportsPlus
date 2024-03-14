@@ -67,7 +67,7 @@ public class ImpoundReportController {
             officerNumber.setText(number);
             impoundTime.setText(getTime());
             impoundDate.setText(getDate());
-            createSpinner(impoundNumber, 0, 999, 0);
+            createSpinner(impoundNumber, 0, 9999, 0);
         }
     }
 

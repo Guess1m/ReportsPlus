@@ -75,7 +75,7 @@ public class TrafficCitationController {
             officerNumber.setText(number);
             citationTime.setText(getTime());
             citationDate.setText(getDate());
-            createSpinner(citationNumber, 0, 999, 0);
+            createSpinner(citationNumber, 0, 9999, 0);
         }
     }
 

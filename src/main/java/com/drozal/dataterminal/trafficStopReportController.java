@@ -87,7 +87,7 @@ public class trafficStopReportController {
             Agency.setText(agency);
             Number.setText(number);
 
-            createSpinner(Spinner, 0, 999, 0);
+            createSpinner(Spinner, 0, 9999, 0);
 
             calloutReportTime.setText(getTime());
             calloutReportDate.setText(getDate());

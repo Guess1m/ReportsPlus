@@ -54,7 +54,7 @@ public class patrolReportController {
             officerRank.setText(rank);
             officerAgency.setText(agency);
             officerNumber.setText(number);
-            createSpinner(patrolNumber, 0, 999, 0);
+            createSpinner(patrolNumber, 0, 9999, 0);
             patrolStopTime.setText(getTime());
             patrolDate.setText(getDate());
         }

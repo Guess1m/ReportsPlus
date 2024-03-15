@@ -1,6 +1,8 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.util.stringUtil;
 import javafx.scene.text.Font;
 
 import java.io.File;
@@ -27,7 +29,6 @@ public class Launcher {
 
         // Create a File object representing the folder
         File folder = new File(folderPath);
-
         // Check if the folder already exists
         if (!folder.exists()) {
             // If the folder does not exist, create it

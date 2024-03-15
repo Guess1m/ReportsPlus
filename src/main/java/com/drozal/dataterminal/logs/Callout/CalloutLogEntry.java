@@ -38,117 +38,60 @@ public class CalloutLogEntry {
         this.Area = area;
     }
 
-    public String getNotesTextArea() {
-        return NotesTextArea;
+    public String getCalloutNumber() {
+        return CalloutNumber;
     }
 
-    public void setNotesTextArea(String notesTextArea) {
-        NotesTextArea = notesTextArea;
+    public String getNotesTextArea() {
+        return NotesTextArea;
     }
 
     public String getResponseGrade() {
         return ResponseGrade;
     }
 
-    public void setResponseGrade(String responseGrade) {
-        ResponseGrade = responseGrade;
-    }
-
     public String getResponeType() {
         return ResponeType;
-    }
-
-    public void setResponeType(String responeType) {
-        ResponeType = responeType;
     }
 
     public String getTime() {
         return Time;
     }
 
-    public void setTime(String time) {
-        Time = time;
-    }
-
     public String getDate() {
         return Date;
-    }
-
-    public void setDate(String date) {
-        Date = date;
     }
 
     public String getDivision() {
         return Division;
     }
 
-    public void setDivision(String division) {
-        Division = division;
-    }
-
     public String getAgency() {
         return Agency;
-    }
-
-    public void setAgency(String agency) {
-        Agency = agency;
     }
 
     public String getNumber() {
         return Number;
     }
 
-    public void setNumber(String number) {
-        Number = number;
-    }
-
     public String getRank() {
         return Rank;
-    }
-
-    public void setRank(String rank) {
-        Rank = rank;
     }
 
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public String getAddress() {
         return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
     }
 
     public String getCounty() {
         return County;
     }
 
-    public void setCounty(String county) {
-        County = county;
-    }
-
     public String getArea() {
         return Area;
     }
-
-    public void setArea(String area) {
-        Area = area;
-    }
-
-    public String getCalloutNumber() {
-        return CalloutNumber;
-    }
-
-    public void setCalloutNumber(String calloutNumber) {
-        CalloutNumber = calloutNumber;
-    }
-
 }
 

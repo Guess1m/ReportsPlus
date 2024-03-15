@@ -82,20 +82,7 @@ public class reportController {
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        if (calloutReportSpinner.getValue() == null
-                /*|| calloutReportNotesTextArea.getText().isEmpty()
-                || calloutReportResponseGrade.getText().isEmpty()
-                || calloutReportResponeType.getText().isEmpty()
-                || calloutReportTime.getText().isEmpty()
-                || calloutReportDate.getText().isEmpty()
-                || calloutReportDivision.getText().isEmpty()
-                || calloutReportAgency.getText().isEmpty()
-                || calloutReportNumber.getText().isEmpty()
-                || calloutReportRank.getText().isEmpty()
-                || calloutReportName.getText().isEmpty()
-                || calloutReportResponseArea.getText().isEmpty()
-                || calloutReportResponseCounty.getText().isEmpty()
-                || calloutReportResponseAddress.getText().isEmpty()*/) {
+        if (calloutReportSpinner.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);

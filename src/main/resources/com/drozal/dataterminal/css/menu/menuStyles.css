@@ -159,3 +159,28 @@
     -fx-font-family: "Segoe UI SemiBold";
         -fx-font-size: 16px;
 }
+
+/* ToggleButton style */
+.togglePurpleButton {
+    -fx-background-color: transparent;
+    -fx-border-color: #68469c;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-padding: 5px;
+    -fx-text-fill: #68469c;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.togglePurpleButton:hover {
+    -fx-background-color: #68469c;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px;
+}
+
+.togglePurpleButton:selected {
+    -fx-background-color: #68469c;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px; /* Ensure consistent border radius */
+}
+

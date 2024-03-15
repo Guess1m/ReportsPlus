@@ -81,6 +81,18 @@ public class PatrolReportLogs {
         return "";
     }
 
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
+    }
+
     public static List<PatrolLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.patrolLogURL);

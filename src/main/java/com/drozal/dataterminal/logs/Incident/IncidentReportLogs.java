@@ -87,6 +87,18 @@ public class IncidentReportLogs {
         return "";
     }
 
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
+    }
+
     public static List<IncidentLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.incidentLogURL);

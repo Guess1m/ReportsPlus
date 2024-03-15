@@ -2,14 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter"
-      onMouseExited="#onMouseExit"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxid" alignment="CENTER" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit"
       prefHeight="378.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/21"
       fx:controller="com.drozal.dataterminal.newOfficerController">
     <padding>
@@ -97,6 +97,9 @@
                                     <image>
                                         <Image url="@imgs/icons/cross.png"/>
                                     </image>
+                                    <effect>
+                                        <ColorAdjust brightness="1.0"/>
+                                    </effect>
                                 </ImageView>
                                 <Label layoutX="80.0" layoutY="21.0" text="Data Terminal" textFill="WHITE">
                                     <font>

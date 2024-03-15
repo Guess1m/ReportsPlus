@@ -95,6 +95,18 @@ public class ParkingCitationReportLogs {
         return "";
     }
 
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<ParkingCitationLogEntry> logs = ParkingCitationReportLogs.loadLogsFromXML();
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
+    }
+
     public static List<ParkingCitationLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.parkingCitationLogURL);

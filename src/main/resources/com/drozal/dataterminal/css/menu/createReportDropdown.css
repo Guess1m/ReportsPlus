@@ -34,7 +34,7 @@
 
 .context-menu .label {
     -fx-text-fill:  black; /* Set the text color */
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
 }
 
 /* Style the menu item */

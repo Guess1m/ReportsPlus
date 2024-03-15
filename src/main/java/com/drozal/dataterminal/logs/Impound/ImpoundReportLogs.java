@@ -87,6 +87,18 @@ public class ImpoundReportLogs {
         return "";
     }
 
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
+    }
+
     public static List<ImpoundLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.impoundLogURL);

@@ -95,6 +95,18 @@ public class TrafficStopReportLogs {
         return "";
     }
 
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
+    }
+
     public static List<TrafficStopLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.trafficstopLogURL);

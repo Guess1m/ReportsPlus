@@ -5,6 +5,7 @@
 
 .button > .label {
     -fx-text-fill: white; /* Change the text color to white */
+    -fx-font-family: "Segoe UI SemiBold";
     -fx-alignment: center-left;
     -fx-font-size: 14px;
     -fx-padding: 0 0 0 10.5;
@@ -15,9 +16,6 @@
 }
 
 /* Style the button when pressed */
-.button:pressed {
-    -fx-background-color: red; /* Button background color when pressed */
-}
 
 .button:hover {
     -fx-background-color:  #7b72c0; /* Hover background color */

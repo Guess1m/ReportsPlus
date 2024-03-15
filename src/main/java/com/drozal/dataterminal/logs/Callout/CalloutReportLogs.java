@@ -33,7 +33,6 @@ public class CalloutReportLogs {
         try {
             // Load logs from XML
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-
             // Count the number of reports
             return logs.size();
         } catch (Exception e) {

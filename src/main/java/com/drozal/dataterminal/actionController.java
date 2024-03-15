@@ -44,7 +44,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -168,6 +167,13 @@ public class actionController {
         initializeTrafficStopColumns();
         initializeParkingCitationColumns();
         loadLogs();
+        /*
+
+        shiftInfoBtn.setStyle("-fx-background-color: red;");
+
+        Initialize Dark/Light mode here
+
+         */
     }
 
     private void loadLogs() {

@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +27,19 @@ public class CalloutReportLogs {
     private List<CalloutLogEntry> logs;
 
     public CalloutReportLogs() {
+    }
+
+    public static int countReports() {
+        try {
+            // Load logs from XML
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+
+            // Count the number of reports
+            return logs.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 to indicate an error
+        }
     }
 
     public static List<CalloutLogEntry> extractLogEntries(String filePath) {

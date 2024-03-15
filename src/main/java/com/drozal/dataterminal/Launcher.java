@@ -1,8 +1,6 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
-import com.drozal.dataterminal.util.stringUtil;
 import javafx.scene.text.Font;
 
 import java.io.File;

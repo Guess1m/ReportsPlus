@@ -88,7 +88,7 @@ public class actionController {
     public Label SearchesStatistic;
     public Label IncidentsStatistic;
     public Label trafficStopStatistic;
-    boolean hasEntered = false;
+    public StackPane UISettingsPane;
     double minColumnWidth = 200.0; // Adjust this value according to your needs
     private double xOffset = 0;
     private double yOffset = 0;
@@ -248,7 +248,7 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
-
+        setDisable(UISettingsPane);
     }
 
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
@@ -258,6 +258,7 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
+        setDisable(UISettingsPane);
     }
 
     public StackPane getCodesPane() {
@@ -390,6 +391,7 @@ public class actionController {
         setDisable(infoPane);
         logPane.setVisible(true);
         logPane.setDisable(false);
+        setDisable(UISettingsPane);
     }
 
     public void parkingCitationLogUpdate(List<ParkingCitationLogEntry> logEntries) {
@@ -1421,6 +1423,7 @@ public class actionController {
         setActive(infoPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
+        setDisable(UISettingsPane);
     }
 
     public void clearDataLogs() {
@@ -1474,6 +1477,17 @@ public class actionController {
 
     public void TenCodesBtnClick(ActionEvent actionEvent) {
         setActive(codesPane);
+        logPane.setVisible(false);
+        logPane.setDisable(true);
+        setDisable(notesPane);
+        setDisable(shiftInformationPane);
+        setDisable(infoPane);
+        setDisable(UISettingsPane);
+    }
+
+    public void UISettingsBtnClick(ActionEvent actionEvent) {
+        setActive(UISettingsPane);
+        setDisable(codesPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
         setDisable(notesPane);

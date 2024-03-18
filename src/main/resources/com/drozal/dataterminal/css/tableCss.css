@@ -32,7 +32,7 @@
     -fx-alignment: center; /* Center text horizontally */
 }
 .calloutTABLE .table-row-cell:odd{
-    -fx-background-color: white;
+    -fx-background-color: rgb(242, 242, 242,0.4);
     -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }

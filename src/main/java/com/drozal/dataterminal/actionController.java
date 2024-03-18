@@ -89,7 +89,7 @@ public class actionController {
     public TableView calloutTable;
     public StackPane UISettingsPane;
     public BarChart reportChart;
-    double minColumnWidth = 200.0; // Adjust this value according to your needs
+    double minColumnWidth = 185.0;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -204,11 +204,10 @@ public class actionController {
         }
     }
 
-
     public void refreshChart() {
         // Clear existing data from the chart
         reportChart.getData().clear();
-        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Citations", "Traffic Citations"};
+        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Cit.", "Traffic Cit."};
         CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
         NumberAxis yAxis = (NumberAxis) getReportChart().getYAxis();
         xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
@@ -227,6 +226,7 @@ public class actionController {
         series1.getData().add(new XYChart.Data<>(categories[8], TrafficCitationReportLogs.countReports())); // Value for "TCitations"
         getReportChart().getData().add(series1);
         getReportChart().setLegendVisible(false);
+        getReportChart().getXAxis().setTickLabelGap(20);
     }
 
     public BarChart getReportChart() {
@@ -1487,6 +1487,7 @@ public class actionController {
     }
 
     public void onRefreshButtonClick(ActionEvent actionEvent) {
+        // Load logs
         loadLogs();
     }
 

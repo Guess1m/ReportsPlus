@@ -81,7 +81,7 @@ public class reportController {
         return calloutReportName;
     }
 
-    public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
+    public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) throws IOException {
         if (calloutReportSpinner.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");

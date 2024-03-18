@@ -33,6 +33,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -51,6 +55,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.List;
 
 public class actionController {
@@ -82,13 +87,8 @@ public class actionController {
     public TableView parkingCitationTable;
     public VBox vbox;
     public TableView calloutTable;
-    public Label calloutStatistic;
-    public Label PatrolsStatistic;
-    public Label arrestsStatistic;
-    public Label SearchesStatistic;
-    public Label IncidentsStatistic;
-    public Label trafficStopStatistic;
     public StackPane UISettingsPane;
+    public BarChart reportChart;
     double minColumnWidth = 200.0; // Adjust this value according to your needs
     private double xOffset = 0;
     private double yOffset = 0;
@@ -154,13 +154,87 @@ public class actionController {
         return logPane;
     }
 
+    public void updateChartIfMismatch(BarChart<String, Number> chart) {
+        XYChart.Series<String, Number> series = null;
+        for (XYChart.Series<String, Number> s : chart.getData()) {
+            if (s.getName().equals("Series 1")) {
+                series = s;
+                break;
+            }
+        }
+
+        if (series != null) {
+            for (int i = 0; i < series.getData().size(); i++) {
+                XYChart.Data<String, Number> data = series.getData().get(i);
+                int reportsCount = 0;
+                switch (i) {
+                    case 0: // Callout
+                        reportsCount = CalloutReportLogs.countReports();
+                        break;
+                    case 1: // Arrests
+                        reportsCount = ArrestReportLogs.countReports();
+                        break;
+                    case 2: // Traffic Stops
+                        reportsCount = TrafficStopReportLogs.countReports();
+                        break;
+                    case 3: // Patrols
+                        reportsCount = PatrolReportLogs.countReports();
+                        break;
+                    case 4: // Searches
+                        reportsCount = SearchReportLogs.countReports();
+                        break;
+                    case 5: // Incidents
+                        reportsCount = IncidentReportLogs.countReports();
+                        break;
+                    case 6: // Impounds
+                        reportsCount = ImpoundReportLogs.countReports();
+                        break;
+                    case 7: // PCitations
+                        reportsCount = ParkingCitationReportLogs.countReports();
+                        break;
+                    case 8: // TCitations
+                        reportsCount = TrafficCitationReportLogs.countReports();
+                        break;
+                }
+                if (data.getYValue().intValue() != reportsCount) {
+                    // Update the data point to match the report count
+                    data.setYValue(reportsCount);
+                }
+            }
+        }
+    }
+
+
+    public void refreshChart() {
+        // Clear existing data from the chart
+        reportChart.getData().clear();
+        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Citations", "Traffic Citations"};
+        CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
+        NumberAxis yAxis = (NumberAxis) getReportChart().getYAxis();
+        xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
+        yAxis.setAutoRanging(true);
+        yAxis.setMinorTickVisible(false);
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("Series 1");
+        series1.getData().add(new XYChart.Data<>(categories[0], CalloutReportLogs.countReports())); // Value for "Callout"
+        series1.getData().add(new XYChart.Data<>(categories[1], ArrestReportLogs.countReports())); // Value for "Arrests"
+        series1.getData().add(new XYChart.Data<>(categories[2], TrafficStopReportLogs.countReports())); // Value for "Traffic Stops"
+        series1.getData().add(new XYChart.Data<>(categories[3], PatrolReportLogs.countReports())); // Value for "Patrols"
+        series1.getData().add(new XYChart.Data<>(categories[4], SearchReportLogs.countReports())); // Value for "Searches"
+        series1.getData().add(new XYChart.Data<>(categories[5], IncidentReportLogs.countReports())); // Value for "Incidents"
+        series1.getData().add(new XYChart.Data<>(categories[6], ImpoundReportLogs.countReports())); // Value for "Impounds"
+        series1.getData().add(new XYChart.Data<>(categories[7], ParkingCitationReportLogs.countReports())); // Value for "PCitations"
+        series1.getData().add(new XYChart.Data<>(categories[8], TrafficCitationReportLogs.countReports())); // Value for "TCitations"
+        getReportChart().getData().add(series1);
+        getReportChart().setLegendVisible(false);
+    }
+
+    public BarChart getReportChart() {
+        return reportChart;
+    }
+
     public void initialize() throws IOException {
-        calloutStatistic.setText(String.valueOf(CalloutReportLogs.countReports()));
-        arrestsStatistic.setText(String.valueOf(ArrestReportLogs.countReports()));
-        trafficStopStatistic.setText(String.valueOf(TrafficStopReportLogs.countReports()));
-        PatrolsStatistic.setText(String.valueOf(PatrolReportLogs.countReports()));
-        SearchesStatistic.setText(String.valueOf(SearchReportLogs.countReports()));
-        IncidentsStatistic.setText(String.valueOf(IncidentReportLogs.countReports()));
+        refreshChart();
 
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
@@ -1493,5 +1567,9 @@ public class actionController {
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
+    }
+
+    public void onMouseEnter(MouseEvent mouseEvent) {
+        updateChartIfMismatch(reportChart);
     }
 }

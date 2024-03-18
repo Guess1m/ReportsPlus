@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -9,8 +12,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1013.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
+      minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEnter" prefHeight="764.0" prefWidth="1013.0"
+      spacing="20.0" xmlns="http://javafx.com/javafx/21"
+      fx:controller="com.drozal.dataterminal.actionController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
@@ -66,8 +70,8 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="82.0"
-                       prefHeight="681.0" prefWidth="808.0" visible="false">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="82.0" prefHeight="681.0"
+                       prefWidth="808.0">
                 <children>
                     <VBox>
                         <children>
@@ -165,96 +169,21 @@
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
                                     </Label>
-                                    <GridPane layoutX="61.0" layoutY="32.0" prefHeight="177.0" prefWidth="672.0"
-                                              styleClass="grid-pane" stylesheets="@css/main/shiftinfoGridPane.css">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0"
-                                                               prefWidth="249.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0"
-                                                               prefWidth="260.0"/>
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                        </rowConstraints>
+                                    <AnchorPane layoutX="55.0" layoutY="32.0" prefHeight="177.0" prefWidth="730.0">
                                         <children>
-                                            <Label fx:id="calloutStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="296.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#bfbfbf"
-                                                   GridPane.halignment="LEFT">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="20.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="trafficStopStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="294.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="IncidentsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="297.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="SearchesStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="309.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="arrestsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="305.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT"
-                                                   GridPane.rowIndex="1">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="PatrolsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="305.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT"
-                                                   GridPane.rowIndex="2">
-                                                <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
-                                                </font>
-                                            </Label>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Callouts:"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Traffic Stops:"
-                                                   GridPane.rowIndex="1"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Incidents:"
-                                                   GridPane.rowIndex="2"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Searches:"
-                                                   GridPane.columnIndex="2"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Arrests:"
-                                                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Patrols:"
-                                                   GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                            <BarChart fx:id="reportChart" layoutX="-56.0" layoutY="-1.0"
+                                                      prefHeight="183.0" prefWidth="799.0"
+                                                      stylesheets="@css/main/chartCSS.css"
+                                                      AnchorPane.bottomAnchor="-5.0" AnchorPane.topAnchor="-1.0">
+                                                <xAxis>
+                                                    <CategoryAxis/>
+                                                </xAxis>
+                                                <yAxis>
+                                                    <NumberAxis side="LEFT"/>
+                                                </yAxis>
+                                            </BarChart>
                                         </children>
-                                    </GridPane>
+                                    </AnchorPane>
                                 </children>
                             </Pane>
                             <Pane prefHeight="226.0" prefWidth="808.0" styleClass="shiftInfoPane"
@@ -942,7 +871,7 @@
                         </graphic>
                         <items>
                             <MenuItem mnemonicParsing="false" onAction="#TenCodesBtnClick" text="10-Codes"/>
-                            <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
+                            <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
                             <SeparatorMenuItem mnemonicParsing="false"/>
                             <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Settings"/>
                             <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>

@@ -1,278 +1,201 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1013.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1013.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <padding>
-        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
+        <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
     </padding>
-    <AnchorPane prefHeight="763.0" prefWidth="1021.0" styleClass="menuBackground"
-                stylesheets="@css/menu/menuStyles.css">
+    <AnchorPane prefHeight="763.0" prefWidth="1021.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css">
         <children>
-            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="230.0" layoutY="106.0"
-                       prefHeight="646.0" prefWidth="763.0" visible="false" AnchorPane.bottomAnchor="11.0"
-                       AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="106.0">
+            <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="230.0" layoutY="106.0" prefHeight="646.0" prefWidth="763.0" visible="false" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="106.0">
                 <children>
                     <AnchorPane prefHeight="636.0" prefWidth="763.0">
                         <children>
-                            <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="127.0" layoutY="595.0"
-                                    mnemonicParsing="false" onAction="#onpasteclick" prefHeight="39.0" prefWidth="80.0"
-                                    styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Paste"
-                                    textFill="#0074b3">
+                            <Button fx:id="pastebtnnotepad" alignment="CENTER" layoutX="127.0" layoutY="595.0" mnemonicParsing="false" onAction="#onpasteclick" prefHeight="39.0" prefWidth="80.0" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Paste" textFill="#0074b3">
                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0"/>
+                                    <Font name="Segoe UI Bold" size="18.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="27.0" layoutY="595.0"
-                                    mnemonicParsing="false" onAction="#oncopyclick" prefHeight="39.0" prefWidth="80.0"
-                                    styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Copy"
-                                    textFill="#0074b3">
+                            <Button fx:id="copybtnnotepad" alignment="CENTER" layoutX="27.0" layoutY="595.0" mnemonicParsing="false" onAction="#oncopyclick" prefHeight="39.0" prefWidth="80.0" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Copy" textFill="#0074b3">
                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0"/>
+                                    <Font name="Segoe UI Bold" size="18.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="656.0" layoutY="595.0"
-                                    mnemonicParsing="false" onAction="#onclearclick" prefHeight="39.0" prefWidth="80.0"
-                                    styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Clear"
-                                    textFill="#0074b3">
+                            <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="656.0" layoutY="595.0" mnemonicParsing="false" onAction="#onclearclick" prefHeight="39.0" prefWidth="80.0" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Clear" textFill="#0074b3">
                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0"/>
+                                    <Font name="Segoe UI Bold" size="18.0" />
                                 </font>
                             </Button>
-                            <TextArea fx:id="notepadTextArea" layoutX="17.0" layoutY="32.0" prefHeight="547.0"
-                                      prefWidth="730.0" promptText="Notes.." style="-fx-background-color: #f2f2f2;"
-                                      styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                      wrapText="true">
+                            <TextArea fx:id="notepadTextArea" layoutX="17.0" layoutY="32.0" prefHeight="547.0" prefWidth="730.0" promptText="Notes.." style="-fx-background-color: #f2f2f2;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" wrapText="true">
                                 <font>
-                                    <Font name="Segoe UI Semibold" size="17.0"/>
+                                    <Font name="Segoe UI Semibold" size="17.0" />
                                 </font>
                             </TextArea>
-                            <Label alignment="CENTER" layoutX="8.0" layoutY="-3.0" prefHeight="35.0" prefWidth="747.0"
-                                   styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Notes"
-                                   textAlignment="CENTER" textFill="WHITE">
+                            <Label alignment="CENTER" layoutX="8.0" layoutY="-3.0" prefHeight="35.0" prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Notes" textAlignment="CENTER" textFill="WHITE">
                                 <font>
-                                    <Font name="Segoe UI Black" size="19.0"/>
+                                    <Font name="Segoe UI Black" size="19.0" />
                                 </font>
                             </Label>
                         </children>
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="82.0"
-                       prefHeight="681.0" prefWidth="808.0" visible="false">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="82.0" prefHeight="681.0" prefWidth="808.0">
                 <children>
                     <VBox>
                         <children>
-                            <Pane prefHeight="45.0" prefWidth="808.0" styleClass="shiftInfoPane"
-                                  stylesheets="@css/menu/menuStyles.css">
+                            <Pane prefHeight="45.0" prefWidth="808.0" styleClass="shiftInfoPane" stylesheets="@css/menu/menuStyles.css">
                                 <children>
-                                    <Label alignment="CENTER" layoutY="1.0" prefHeight="43.0" prefWidth="808.0"
-                                           styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
-                                           text="Officer Shift Information" textAlignment="CENTER" textFill="WHITE">
+                                    <Label alignment="CENTER" layoutY="1.0" prefHeight="43.0" prefWidth="808.0" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Officer Shift Information" textAlignment="CENTER" textFill="WHITE">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <Label fx:id="generatedByTag" alignment="CENTER" layoutX="23.0" layoutY="1.0"
-                                           prefHeight="43.0" prefWidth="259.0" textAlignment="CENTER"
-                                           textFill="#979797">
+                                    <Label fx:id="generatedByTag" alignment="CENTER" layoutX="23.0" layoutY="1.0" prefHeight="43.0" prefWidth="259.0" textAlignment="CENTER" textFill="#979797">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <Label fx:id="generatedDateTag" alignment="CENTER" layoutX="526.0" layoutY="1.0"
-                                           prefHeight="43.0" prefWidth="244.0" textAlignment="CENTER"
-                                           textFill="#979797">
+                                    <Label fx:id="generatedDateTag" alignment="CENTER" layoutX="526.0" layoutY="1.0" prefHeight="43.0" prefWidth="244.0" textAlignment="CENTER" textFill="#979797">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
                                 </children>
                             </Pane>
-                            <Pane prefHeight="202.0" prefWidth="808.0" styleClass="shiftInfoPane"
-                                  stylesheets="@css/menu/menuStyles.css">
+                            <Pane prefHeight="202.0" prefWidth="808.0" styleClass="shiftInfoPane" stylesheets="@css/menu/menuStyles.css">
                                 <children>
-                                    <Label alignment="CENTER" layoutX="23.0" layoutY="-3.0" prefHeight="35.0"
-                                           prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Officer Information" textAlignment="CENTER" textFill="WHITE">
+                                    <Label alignment="CENTER" layoutX="23.0" layoutY="-3.0" prefHeight="35.0" prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Officer Information" textAlignment="CENTER" textFill="WHITE">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <Button layoutX="648.0" layoutY="147.0" mnemonicParsing="false"
-                                            onAction="#updateInfoButtonClick" prefHeight="39.0" prefWidth="108.0"
-                                            styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
-                                            text="Update" textFill="#b2b2b2c7">
+                                    <Button layoutX="648.0" layoutY="147.0" mnemonicParsing="false" onAction="#updateInfoButtonClick" prefHeight="39.0" prefWidth="108.0" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Update" textFill="#b2b2b2c7">
                                         <font>
-                                            <Font name="Consolas Bold" size="15.0"/>
+                                            <Font name="Consolas Bold" size="15.0" />
                                         </font>
                                     </Button>
-                                    <TextField fx:id="OfficerInfoName" layoutX="37.0" layoutY="46.0" prefHeight="39.0"
-                                               prefWidth="355.0" promptText="Name" styleClass="menuField"
-                                               stylesheets="@css/menu/menuStyles.css">
+                                    <TextField fx:id="OfficerInfoName" layoutX="37.0" layoutY="46.0" prefHeight="39.0" prefWidth="355.0" promptText="Name" styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.5"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoCallsign" layoutX="38.0" layoutY="96.0"
-                                               prefHeight="39.0" prefWidth="200.0" promptText="Callsign"
-                                               styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
+                                    <TextField fx:id="OfficerInfoCallsign" layoutX="38.0" layoutY="96.0" prefHeight="39.0" prefWidth="200.0" promptText="Callsign" styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.5"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <TextField fx:id="OfficerInfoNumber" layoutX="252.0" layoutY="96.0"
-                                               prefHeight="39.0" prefWidth="139.0" promptText="Number"
-                                               styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
+                                    <TextField fx:id="OfficerInfoNumber" layoutX="252.0" layoutY="96.0" prefHeight="39.0" prefWidth="139.0" promptText="Number" styleClass="menuField" stylesheets="@css/menu/menuStyles.css">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.5"/>
+                                            <Font name="Segoe UI Semibold" size="15.5" />
                                         </font>
                                     </TextField>
-                                    <Label fx:id="updatedNotification" alignment="CENTER_RIGHT" layoutX="409.0"
-                                           layoutY="145.0" prefHeight="45.0" prefWidth="219.0" text="updated."
-                                           textFill="#3ab93abf" visible="false">
+                                    <Label fx:id="updatedNotification" alignment="CENTER_RIGHT" layoutX="409.0" layoutY="145.0" prefHeight="45.0" prefWidth="219.0" text="updated." textFill="#3ab93abf" visible="false">
                                         <font>
-                                            <Font name="Segoe UI Black" size="13.0"/>
+                                            <Font name="Segoe UI Black" size="13.0" />
                                         </font>
                                     </Label>
-                                    <ComboBox fx:id="OfficerInfoRank" layoutX="37.0" layoutY="147.0" prefHeight="39.0"
-                                              prefWidth="355.0" promptText="Rank" styleClass="menuCombobox"
-                                              stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"/>
-                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="407.0" layoutY="46.0"
-                                              prefHeight="39.0" prefWidth="350.0" promptText="Division"
-                                              styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css"
-                                              visibleRowCount="14"/>
-                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="407.0" layoutY="96.0" prefHeight="39.0"
-                                              prefWidth="350.0" promptText="Agency" styleClass="menuCombobox"
-                                              stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"/>
+                                    <ComboBox fx:id="OfficerInfoRank" layoutX="37.0" layoutY="147.0" prefHeight="39.0" prefWidth="355.0" promptText="Rank" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoDivision" layoutX="407.0" layoutY="46.0" prefHeight="39.0" prefWidth="350.0" promptText="Division" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
+                                    <ComboBox fx:id="OfficerInfoAgency" layoutX="407.0" layoutY="96.0" prefHeight="39.0" prefWidth="350.0" promptText="Agency" styleClass="menuCombobox" stylesheets="@css/menu/menuStyles.css" visibleRowCount="14" />
                                 </children>
                             </Pane>
-                            <Pane prefHeight="208.0" prefWidth="808.0" styleClass="shiftInfoPane"
-                                  stylesheets="@css/menu/menuStyles.css">
+                            <Pane prefHeight="208.0" prefWidth="808.0" styleClass="shiftInfoPane" stylesheets="@css/menu/menuStyles.css">
                                 <children>
-                                    <Label alignment="CENTER" layoutX="23.0" layoutY="-3.0" prefHeight="35.0"
-                                           prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Report Statistics" textAlignment="CENTER" textFill="WHITE">
+                                    <Label alignment="CENTER" layoutX="23.0" layoutY="-3.0" prefHeight="35.0" prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Report Statistics" textAlignment="CENTER" textFill="WHITE">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
-                                    <GridPane layoutX="61.0" layoutY="32.0" prefHeight="177.0" prefWidth="672.0"
-                                              styleClass="grid-pane" stylesheets="@css/main/shiftinfoGridPane.css">
+                                    <GridPane layoutX="61.0" layoutY="32.0" prefHeight="177.0" prefWidth="672.0" styleClass="grid-pane" stylesheets="@css/main/shiftinfoGridPane.css">
                                         <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0"
-                                                               prefWidth="249.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0"
-                                                               prefWidth="260.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="249.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0" prefWidth="260.0" />
                                         </columnConstraints>
                                         <rowConstraints>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                         <children>
-                                            <Label fx:id="calloutStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="296.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#bfbfbf"
-                                                   GridPane.halignment="LEFT">
+                                            <Label fx:id="calloutStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="296.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#bfbfbf" GridPane.halignment="LEFT">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="20.0"/>
+                                                    <Font name="Segoe UI Black" size="20.0" />
                                                 </font>
                                             </Label>
-                                            <Label fx:id="trafficStopStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="294.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                                            <Label fx:id="trafficStopStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="294.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
+                                                    <Font name="Segoe UI Black" size="15.0" />
                                                 </font>
                                             </Label>
-                                            <Label fx:id="IncidentsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="297.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                                            <Label fx:id="IncidentsStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="297.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
+                                                    <Font name="Segoe UI Black" size="15.0" />
                                                 </font>
                                             </Label>
-                                            <Label fx:id="SearchesStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="309.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT">
+                                            <Label fx:id="SearchesStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="309.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e" GridPane.columnIndex="2" GridPane.halignment="LEFT">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
+                                                    <Font name="Segoe UI Black" size="15.0" />
                                                 </font>
                                             </Label>
-                                            <Label fx:id="arrestsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="305.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT"
-                                                   GridPane.rowIndex="1">
+                                            <Label fx:id="arrestsStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="305.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
+                                                    <Font name="Segoe UI Black" size="15.0" />
                                                 </font>
                                             </Label>
-                                            <Label fx:id="PatrolsStatistic" alignment="CENTER" prefHeight="35.0"
-                                                   prefWidth="305.0" styleClass="statisticHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e"
-                                                   GridPane.columnIndex="2" GridPane.halignment="LEFT"
-                                                   GridPane.rowIndex="2">
+                                            <Label fx:id="PatrolsStatistic" alignment="CENTER" prefHeight="35.0" prefWidth="305.0" styleClass="statisticHeading" stylesheets="@css/menu/menuLabels.css" text="0" textFill="#9e9e9e" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                                                 <font>
-                                                    <Font name="Segoe UI Black" size="15.0"/>
+                                                    <Font name="Segoe UI Black" size="15.0" />
                                                 </font>
                                             </Label>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Callouts:"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Traffic Stops:"
-                                                   GridPane.rowIndex="1"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Incidents:"
-                                                   GridPane.rowIndex="2"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Searches:"
-                                                   GridPane.columnIndex="2"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Arrests:"
-                                                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0"
-                                                   styleClass="statisticSubHeading"
-                                                   stylesheets="@css/menu/menuLabels.css" text="Patrols:"
-                                                   GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Callouts:" />
+                                            <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Traffic Stops:" GridPane.rowIndex="1" />
+                                            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Incidents:" GridPane.rowIndex="2" />
+                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Searches:" GridPane.columnIndex="2" />
+                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Arrests:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="120.0" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Patrols:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                         </children>
                                     </GridPane>
                                 </children>
                             </Pane>
-                            <Pane prefHeight="226.0" prefWidth="808.0" styleClass="shiftInfoPane"
-                                  stylesheets="@css/menu/menuStyles.css">
+                            <Pane prefHeight="226.0" prefWidth="808.0" styleClass="shiftInfoPane" stylesheets="@css/menu/menuStyles.css">
                                 <children>
-                                    <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="31.0" layoutY="41.0"
-                                              prefHeight="171.0" prefWidth="730.0" promptText="Notes.."
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              wrapText="true">
+                                    <TextArea fx:id="ShiftInfoNotesTextArea" layoutX="31.0" layoutY="41.0" prefHeight="171.0" prefWidth="730.0" promptText="Notes.." styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="17.0"/>
+                                            <Font name="Segoe UI Semibold" size="17.0" />
                                         </font>
                                     </TextArea>
-                                    <Label alignment="CENTER" layoutX="23.0" prefHeight="35.0" prefWidth="747.0"
-                                           styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Quick Note"
-                                           textAlignment="CENTER" textFill="WHITE">
+                                    <Label alignment="CENTER" layoutX="23.0" prefHeight="35.0" prefWidth="747.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Quick Note" textAlignment="CENTER" textFill="WHITE">
                                         <font>
-                                            <Font name="Segoe UI Black" size="19.0"/>
+                                            <Font name="Segoe UI Black" size="19.0" />
                                         </font>
                                     </Label>
                                 </children>
@@ -281,99 +204,73 @@
                     </VBox>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="205.0" layoutY="82.0"
-                       prefHeight="676.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false"
-                       AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="88.0">
+            <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="205.0" layoutY="82.0" prefHeight="676.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
                 <children>
                     <AnchorPane>
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                         <children>
-                            <Pane layoutX="57.0" layoutY="15.0" prefHeight="617.0" prefWidth="664.0"
-                                  styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                            <Pane layoutX="57.0" layoutY="15.0" prefHeight="617.0" prefWidth="664.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                 <children>
-                                    <Label alignment="CENTER_RIGHT" layoutX="35.0" layoutY="55.0" prefHeight="33.0"
-                                           styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Program Name:" textAlignment="CENTER">
+                                    <Label alignment="CENTER_RIGHT" layoutX="35.0" layoutY="55.0" prefHeight="33.0" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Program Name:" textAlignment="CENTER">
                                         <font>
-                                            <Font size="15.0"/>
+                                            <Font size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="99.0" layoutY="97.0" prefHeight="33.0"
-                                           styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Version:" textAlignment="CENTER">
+                                    <Label alignment="CENTER_RIGHT" layoutX="99.0" layoutY="97.0" prefHeight="33.0" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Version:" textAlignment="CENTER">
                                         <font>
-                                            <Font size="15.0"/>
+                                            <Font size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="67.0" layoutY="139.0" prefHeight="33.0"
-                                           styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Description:" textAlignment="CENTER">
+                                    <Label alignment="CENTER_RIGHT" layoutX="67.0" layoutY="139.0" prefHeight="33.0" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Description:" textAlignment="CENTER">
                                         <font>
-                                            <Font size="15.0"/>
+                                            <Font size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="31.0" layoutY="233.0" prefWidth="612.0" style="-fx-padding: 6;"
-                                           text="* I plan on adding more compatability in the future, I woud like to add the ability to implement CompuLite/Computer+ Cases."
-                                           wrapText="true">
+                                    <Label layoutX="31.0" layoutY="233.0" prefWidth="612.0" style="-fx-padding: 6;" text="* I plan on adding more compatability in the future, I woud like to add the ability to implement CompuLite/Computer+ Cases." wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="31.0" layoutY="299.0" prefWidth="604.0" style="-fx-padding: 6;"
-                                           text="** I would also like to implement a local database system rather than using a JAXB XML System, I only really did this in the first place since it is what I am familiar with using."
-                                           wrapText="true">
+                                    <Label layoutX="31.0" layoutY="299.0" prefWidth="604.0" style="-fx-padding: 6;" text="** I would also like to implement a local database system rather than using a JAXB XML System, I only really did this in the first place since it is what I am familiar with using." wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="31.0" layoutY="492.0" prefWidth="595.0" style="-fx-padding: 6;"
-                                           text="*** Please reach out with issues/Requests (Especially New Features/UI Changes) I had never planned to release this to the public I mainly made it for myself since I could not find anything like it, other than the discontinued PaperWorkPlus which I got many ideas from."
-                                           textFill="#7d5de3" wrapText="true">
+                                    <Label layoutX="31.0" layoutY="492.0" prefWidth="595.0" style="-fx-padding: 6;" text="*** Please reach out with issues/Requests (Especially New Features/UI Changes) I had never planned to release this to the public I mainly made it for myself since I could not find anything like it, other than the discontinued PaperWorkPlus which I got many ideas from." textFill="#7d5de3" wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label alignment="CENTER" layoutX="31.0" layoutY="188.0" prefHeight="35.0"
-                                           prefWidth="612.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css"
-                                           text="Future Plans:" textAlignment="CENTER" textFill="DODGERBLUE">
+                                    <Label alignment="CENTER" layoutX="31.0" layoutY="188.0" prefHeight="35.0" prefWidth="612.0" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Future Plans:" textAlignment="CENTER" textFill="DODGERBLUE">
                                         <font>
-                                            <Font name="Candara" size="21.0"/>
+                                            <Font name="Candara" size="21.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="31.0" layoutY="392.0" prefWidth="595.0" style="-fx-padding: 6;"
-                                           text="*** The main thing I would like to change is the UI design, this is not something I am good at but I am not currently happy with how it sits. I will be trying out different designs for the future."
-                                           wrapText="true">
+                                    <Label layoutX="31.0" layoutY="392.0" prefWidth="595.0" style="-fx-padding: 6;" text="*** The main thing I would like to change is the UI design, this is not something I am good at but I am not currently happy with how it sits. I will be trying out different designs for the future." wrapText="true">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="18.0"/>
+                                            <Font name="Segoe UI Semibold" size="18.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="28.0" layoutY="14.0" prefHeight="40.0" prefWidth="271.0"
-                                           styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
-                                           text="Data Terminal Information" textAlignment="CENTER">
+                                    <Label layoutX="28.0" layoutY="14.0" prefHeight="40.0" prefWidth="271.0" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Data Terminal Information" textAlignment="CENTER">
                                         <font>
-                                            <Font name="Segoe UI Black" size="20.0"/>
+                                            <Font name="Segoe UI Black" size="20.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="178.0" layoutY="56.0" prefHeight="33.0" prefWidth="122.0"
-                                           text="DataTerminal" textAlignment="CENTER" textFill="#7d5de3">
+                                    <Label layoutX="178.0" layoutY="56.0" prefHeight="33.0" prefWidth="122.0" text="DataTerminal" textAlignment="CENTER" textFill="#7d5de3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="178.0" layoutY="98.0" prefHeight="33.0" prefWidth="108.0" text="V.1"
-                                           textAlignment="CENTER" textFill="#7d5de3">
+                                    <Label layoutX="178.0" layoutY="98.0" prefHeight="33.0" prefWidth="108.0" text="V.1" textAlignment="CENTER" textFill="#7d5de3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="178.0" layoutY="141.0" prefHeight="33.0"
-                                           text="Software tool for creation of reports and manage logs for LSPDFR."
-                                           textAlignment="CENTER" textFill="#7d5de3">
+                                    <Label layoutX="178.0" layoutY="141.0" prefHeight="33.0" text="Software tool for creation of reports and manage logs for LSPDFR." textAlignment="CENTER" textFill="#7d5de3">
                                         <font>
-                                            <Font name="Segoe UI Semibold" size="15.0"/>
+                                            <Font name="Segoe UI Semibold" size="15.0" />
                                         </font>
                                     </Label>
                                 </children>
@@ -382,314 +279,200 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="CodesPane" fx:id="codesPane" disable="true" layoutX="205.0" layoutY="88.0" prefHeight="675.0"
-                       prefWidth="808.0" style="-fx-background-color: none;" visible="false"
-                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="88.0">
+            <StackPane id="CodesPane" fx:id="codesPane" disable="true" layoutX="205.0" layoutY="88.0" prefHeight="675.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
                 <children>
                     <AnchorPane prefHeight="625.0" prefWidth="888.0" style="-fx-background-color: none;">
                         <children>
-                            <Pane layoutX="411.0" layoutY="22.0" prefHeight="292.0" prefWidth="355.0"
-                                  styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                            <Pane layoutX="411.0" layoutY="22.0" prefHeight="292.0" prefWidth="355.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                 <children>
-                                    <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="295.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="12.0" layoutY="38.0" prefHeight="292.0" prefWidth="295.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Accept-&#10;Available-&#10;Busy-&#10;Female-&#10;Fight-&#10;Investigating-&#10;MealBreak-&#10;" wrapText="true">
                                         <font>
-                                            <Font size="22.0"/>
+                                            <Font size="22.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="176.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="188.0" layoutY="38.0" prefHeight="292.0" prefWidth="176.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="10-97&#10;10-8&#10;10-6&#10;10-32 Female&#10;10-10&#10;Code 6&#10;10-5" wrapText="true">
                                         <font>
-                                            <Font size="22.0"/>
+                                            <Font size="22.0" />
                                         </font>
                                     </TextArea>
-                                    <Label layoutX="24.5" layoutY="7.0" styleClass="headingBig"
-                                           stylesheets="@css/form/formLabels.css" text="Response Codes"
-                                           textAlignment="CENTER" textFill="#d7d7d7">
+                                    <Label layoutX="24.5" layoutY="7.0" styleClass="headingBig" stylesheets="@css/form/formLabels.css" text="Response Codes" textAlignment="CENTER" textFill="#d7d7d7">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                             </Pane>
-                            <Pane layoutX="13.0" layoutY="22.0" prefHeight="292.0" prefWidth="375.0"
-                                  styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                            <Pane layoutX="13.0" layoutY="22.0" prefHeight="292.0" prefWidth="375.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                 <children>
-                                    <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="308.0"
-                                              prefWidth="355.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="11.0" layoutY="38.0" prefHeight="308.0" prefWidth="355.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Code 2-&#10;Code 3-&#10;Code 3 State-&#10;Coroner-&#10;Ambulance-&#10;Felony Stop-&#10;Fire Dept.-&#10;K9 Unit-&#10;NOOSE-&#10;" wrapText="true">
                                         <font>
-                                            <Font size="22.0"/>
+                                            <Font size="22.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0"
-                                              prefWidth="234.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="196.0" layoutY="38.0" prefHeight="292.0" prefWidth="234.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="10-32 Code 2&#10;10-32 Code 3&#10;10-32 State&#10;10-79&#10;10-52&#10;Code 5 Backup&#10;10-53&#10;10-32 K9&#10;10-32 Noose" wrapText="true">
                                         <font>
-                                            <Font size="22.0"/>
+                                            <Font size="22.0" />
                                         </font>
                                     </TextArea>
-                                    <Label layoutX="27.0" layoutY="7.0" styleClass="headingBig"
-                                           stylesheets="@css/form/formLabels.css" text="Backup Codes"
-                                           textAlignment="CENTER" textFill="#d7d7d7">
+                                    <Label layoutX="27.0" layoutY="7.0" styleClass="headingBig" stylesheets="@css/form/formLabels.css" text="Backup Codes" textAlignment="CENTER" textFill="#d7d7d7">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0" layoutX="1.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0" layoutX="1.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
                                 </children>
                             </Pane>
-                            <Pane layoutX="12.0" layoutY="352.0" prefHeight="278.0" prefWidth="753.0"
-                                  styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                            <Pane layoutX="12.0" layoutY="352.0" prefHeight="278.0" prefWidth="753.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                 <children>
-                                    <TextArea editable="false" layoutX="46.0" layoutY="56.0" prefHeight="366.0"
-                                              prefWidth="174.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Adam&#10;Boy&#10;Charles&#10;David&#10;Edward&#10;Frank"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="46.0" layoutY="56.0" prefHeight="366.0" prefWidth="174.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Adam&#10;Boy&#10;Charles&#10;David&#10;Edward&#10;Frank" wrapText="true">
                                         <font>
-                                            <Font name="Candara" size="26.0"/>
+                                            <Font name="Candara" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
-                                    <Label layoutX="36.0" layoutY="9.0" styleClass="headingBig"
-                                           stylesheets="@css/form/formLabels.css" text="Phonetic Alphabet"
-                                           textAlignment="CENTER" textFill="#d7d7d7">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
+                                    <Label layoutX="36.0" layoutY="9.0" styleClass="headingBig" stylesheets="@css/form/formLabels.css" text="Phonetic Alphabet" textAlignment="CENTER" textFill="#d7d7d7">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
-                                    <TextArea editable="false" layoutX="14.0" layoutY="56.0" prefHeight="263.0"
-                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="A&#10;B&#10;C&#10;D&#10;E&#10;F" wrapText="true">
+                                    <TextArea editable="false" layoutX="14.0" layoutY="56.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="A&#10;B&#10;C&#10;D&#10;E&#10;F" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="195.0" layoutY="56.0" prefHeight="366.0"
-                                              prefWidth="167.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="George&#10;Henry&#10;Ida&#10;John&#10;King&#10;Lincoln"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="195.0" layoutY="56.0" prefHeight="366.0" prefWidth="167.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="George&#10;Henry&#10;Ida&#10;John&#10;King&#10;Lincoln" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="163.0" layoutY="56.0" prefHeight="263.0"
-                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="G&#10;H&#10;I&#10;J&#10;K&#10;L" wrapText="true">
+                                    <TextArea editable="false" layoutX="163.0" layoutY="56.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="G&#10;H&#10;I&#10;J&#10;K&#10;L" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="353.0" layoutY="56.0" prefHeight="366.0"
-                                              prefWidth="176.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Mary&#10;Nora&#10;Ocean&#10;Paul&#10;Queen&#10;Robert"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="353.0" layoutY="56.0" prefHeight="366.0" prefWidth="176.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Mary&#10;Nora&#10;Ocean&#10;Paul&#10;Queen&#10;Robert" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="321.0" layoutY="56.0" prefHeight="263.0"
-                                              prefWidth="102.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="M&#10;N&#10;O&#10;P&#10;Q&#10;R" wrapText="true">
+                                    <TextArea editable="false" layoutX="321.0" layoutY="56.0" prefHeight="263.0" prefWidth="102.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="M&#10;N&#10;O&#10;P&#10;Q&#10;R" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="506.0" layoutY="56.0" prefHeight="366.0"
-                                              prefWidth="184.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Sam&#10;Tom&#10;Union&#10;Victor&#10;William&#10;X-ray"
-                                              wrapText="true">
+                                    <TextArea editable="false" layoutX="506.0" layoutY="56.0" prefHeight="366.0" prefWidth="184.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Sam&#10;Tom&#10;Union&#10;Victor&#10;William&#10;X-ray" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="474.0" layoutY="56.0" prefHeight="263.0"
-                                              prefWidth="87.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="S&#10;T&#10;U&#10;V&#10;W&#10;X" wrapText="true">
+                                    <TextArea editable="false" layoutX="474.0" layoutY="56.0" prefHeight="263.0" prefWidth="87.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="S&#10;T&#10;U&#10;V&#10;W&#10;X" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="643.0" layoutY="56.0" prefHeight="366.0"
-                                              prefWidth="155.0"
-                                              style="-fx-text-fill: #665cb6; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Young&#10;Zebra" wrapText="true">
+                                    <TextArea editable="false" layoutX="643.0" layoutY="56.0" prefHeight="366.0" prefWidth="155.0" style="-fx-text-fill: #665cb6; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Young&#10;Zebra" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
-                                    <TextArea editable="false" layoutX="611.0" layoutY="56.0" prefHeight="263.0"
-                                              prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;"
-                                              styleClass="text-area" stylesheets="@css/main/transparentTextArea.css"
-                                              text="Y&#10;Z" wrapText="true">
+                                    <TextArea editable="false" layoutX="611.0" layoutY="56.0" prefHeight="263.0" prefWidth="127.0" style="-fx-text-fill: grey; -fx-background-color: none;" styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" text="Y&#10;Z" wrapText="true">
                                         <font>
-                                            <Font name="Roboto" size="26.0"/>
+                                            <Font name="Roboto" size="26.0" />
                                         </font>
                                     </TextArea>
                                 </children>
                             </Pane>
                         </children>
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0"
-                       prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
+            <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
                 <children>
                     <Pane style="-fx-background-color: #f2f2f2;">
                         <children>
-                            <TabPane layoutX="11.0" layoutY="66.0" prefHeight="603.0" prefWidth="779.0"
-                                     stylesheets="@css/main/Logtabpane.css">
+                            <TabPane layoutX="11.0" layoutY="66.0" prefHeight="603.0" prefWidth="779.0" stylesheets="@css/main/Logtabpane.css">
                                 <tabs>
                                     <Tab closable="false" text="Callouts">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="calloutTable" prefHeight="556.0" prefWidth="779.0"
-                                                               styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="calloutTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Traffic Stops">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="trafficStopTable" prefHeight="556.0"
-                                                               prefWidth="779.0" styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="trafficStopTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Incidents">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="incidentTable" prefHeight="556.0"
-                                                               prefWidth="779.0" styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="incidentTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Searches">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="searchTable" prefHeight="556.0" prefWidth="779.0"
-                                                               styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="searchTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Arrests">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="arrestTable" prefHeight="556.0" prefWidth="779.0"
-                                                               styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="arrestTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Patrols">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="patrolTable" prefHeight="556.0" prefWidth="779.0"
-                                                               styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="patrolTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Citations">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="citationTable" prefHeight="556.0"
-                                                               prefWidth="779.0" styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="citationTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Impounds">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="impoundTable" prefHeight="556.0" prefWidth="779.0"
-                                                               styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="impoundTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
                                     </Tab>
                                     <Tab closable="false" text="Parking Citations">
                                         <content>
-                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                        minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0"
-                                                        stylesheets="@css/main/Logscrollpane.css">
+                                            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                                 <content>
-                                                    <TableView fx:id="parkingCitationTable" prefHeight="556.0"
-                                                               prefWidth="779.0" styleClass="calloutTABLE"
-                                                               stylesheets="@css/tableCss.css"/>
+                                                    <TableView fx:id="parkingCitationTable" prefHeight="556.0" prefWidth="779.0" styleClass="calloutTABLE" stylesheets="@css/tableCss.css" />
                                                 </content>
                                             </ScrollPane>
                                         </content>
@@ -698,42 +481,34 @@
                                 <effect>
                                     <DropShadow height="0.0" radius="0.0" width="0.0">
                                         <color>
-                                            <Color opacity="0.0"/>
+                                            <Color opacity="0.0" />
                                         </color>
                                     </DropShadow>
                                 </effect>
                             </TabPane>
                             <AnchorPane layoutX="1.0" layoutY="4.0" prefHeight="70.0" prefWidth="806.0">
                                 <children>
-                                    <Label layoutX="26.0" prefHeight="81.0" prefWidth="288.0"
-                                           styleClass="databaseReportLabel" stylesheets="@css/tableCss.css"
-                                           text="DatabaseReport" textFill="#665cb6">
+                                    <Label layoutX="26.0" prefHeight="81.0" prefWidth="288.0" styleClass="databaseReportLabel" stylesheets="@css/tableCss.css" text="DatabaseReport" textFill="#665cb6">
                                         <font>
-                                            <Font name="Adelle Sans Devanagari Thin" size="36.0"/>
+                                            <Font name="Adelle Sans Devanagari Thin" size="36.0" />
                                         </font>
                                     </Label>
-                                    <Label layoutX="252.0" layoutY="5.0" prefHeight="74.0" prefWidth="244.0"
-                                           styleClass="viewerLabel" stylesheets="@css/tableCss.css" text="Viewer"
-                                           textFill="#616161">
+                                    <Label layoutX="252.0" layoutY="5.0" prefHeight="74.0" prefWidth="244.0" styleClass="viewerLabel" stylesheets="@css/tableCss.css" text="Viewer" textFill="#616161">
                                         <font>
-                                            <Font name="Adelle Sans Devanagari Thin" size="24.0"/>
+                                            <Font name="Adelle Sans Devanagari Thin" size="24.0" />
                                         </font>
                                     </Label>
-                                    <Button graphicTextGap="5.0" layoutX="705.0" layoutY="27.0" mnemonicParsing="false"
-                                            onAction="#onRefreshButtonClick" opacity="0.78" prefHeight="32.0"
-                                            prefWidth="87.0" style="-fx-font-size: 11;" styleClass="purpleButton"
-                                            stylesheets="@css/menu/menuStyles.css" text="Refresh" textFill="#828797">
+                                    <Button graphicTextGap="5.0" layoutX="705.0" layoutY="27.0" mnemonicParsing="false" onAction="#onRefreshButtonClick" opacity="0.78" prefHeight="32.0" prefWidth="87.0" style="-fx-font-size: 11;" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Refresh" textFill="#828797">
                                         <font>
-                                            <Font size="18.0"/>
+                                            <Font size="18.0" />
                                         </font>
                                         <graphic>
-                                            <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true"
-                                                       preserveRatio="true">
+                                            <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                    <Image url="@imgs/icons/refresh.png"/>
+                                                    <Image url="@imgs/icons/refresh.png" />
                                                 </image>
                                                 <effect>
-                                                    <ColorAdjust brightness="1.0"/>
+                                                    <ColorAdjust brightness="1.0" />
                                                 </effect>
                                             </ImageView>
                                         </graphic>
@@ -744,240 +519,190 @@
                     </Pane>
                 </children>
             </StackPane>
-            <AnchorPane onMouseDragged="#onSideDrag" onMousePressed="#onSideClick" prefHeight="763.0" prefWidth="203.0"
-                        styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
-                        AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane onMouseDragged="#onSideDrag" onMousePressed="#onSideClick" prefHeight="763.0" prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" layoutX="10.0" layoutY="104.0"
-                            mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0"
-                            prefWidth="127.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css"
-                            text="Shift Info" textFill="#828797" AnchorPane.leftAnchor="10.0"
-                            AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="104.0">
+                    <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" layoutX="10.0" layoutY="104.0" mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="127.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Shift Info" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="104.0">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/shiftInfo.png"/>
+                                    <Image url="@imgs/icons/shiftInfo.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="notesButton" graphicTextGap="10.0" layoutX="10.0" layoutY="167.0"
-                            mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0"
-                            styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Notes" textFill="#828797"
-                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                    <Button fx:id="notesButton" graphicTextGap="10.0" layoutX="10.0" layoutY="167.0" mnemonicParsing="false" onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Notes" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/writing.png"/>
+                                    <Image url="@imgs/icons/writing.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
-                    <MenuButton alignment="CENTER_RIGHT" graphicTextGap="10.0" layoutX="10.0" layoutY="230.0"
-                                mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0" styleClass="button"
-                                stylesheets="@css/menu/createReportDropdown.css" text="Create Report" textFill="#828797"
-                                AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                    <MenuButton alignment="CENTER_RIGHT" graphicTextGap="10.0" layoutX="10.0" layoutY="230.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0" styleClass="button" stylesheets="@css/menu/createReportDropdown.css" text="Create Report" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                         <items>
-                            <MenuItem fx:id="calloutReportButton" mnemonicParsing="false"
-                                      onAction="#onCalloutReportButtonClick" text="Callout Report"/>
-                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false"
-                                      onAction="#trafficStopReportButtonClick" text="Traffic Stop Report"/>
-                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false"
-                                      onAction="#onIncidentReportBtnClick" text="Incident Report"/>
-                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false"
-                                      onAction="#onSearchReportBtnClick" text="Search Report"/>
-                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false"
-                                      onAction="#onArrestReportBtnClick" text="Arrest Report"/>
-                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" onAction="#onPatrolButtonClick"
-                                      text="Patrol Report"/>
-                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false"
-                                      onAction="#onImpoundReportBtnClick" text="Impound Report"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
-                                      onAction="#onCitationReportBtnClick" text="Traffic Citation"/>
-                            <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false"
-                                      onAction="#onParkingCitationReportBtnClick" text="Parking Citation"/>
+                            <MenuItem fx:id="calloutReportButton" mnemonicParsing="false" onAction="#onCalloutReportButtonClick" text="Callout Report" />
+                            <MenuItem fx:id="trafficReportButton" mnemonicParsing="false" onAction="#trafficStopReportButtonClick" text="Traffic Stop Report" />
+                            <MenuItem fx:id="incidentReportButton" mnemonicParsing="false" onAction="#onIncidentReportBtnClick" text="Incident Report" />
+                            <MenuItem fx:id="searchReportButton" mnemonicParsing="false" onAction="#onSearchReportBtnClick" text="Search Report" />
+                            <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" onAction="#onArrestReportBtnClick" text="Arrest Report" />
+                            <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" onAction="#onPatrolButtonClick" text="Patrol Report" />
+                            <MenuItem fx:id="impoundReportButton" mnemonicParsing="false" onAction="#onImpoundReportBtnClick" text="Impound Report" />
+                            <SeparatorMenuItem mnemonicParsing="false" />
+                            <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false" onAction="#onCitationReportBtnClick" text="Traffic Citation" />
+                            <MenuItem fx:id="parkingCitationReportButton" mnemonicParsing="false" onAction="#onParkingCitationReportBtnClick" text="Parking Citation" />
                         </items>
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <graphic>
                             <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/newReport.png"/>
+                                    <Image url="@imgs/icons/newReport.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </MenuButton>
-                    <Label alignment="CENTER" layoutY="649.0" prefHeight="27.0" prefWidth="193.0"
-                           style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D" textAlignment="CENTER"
-                           textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Label alignment="CENTER" layoutY="649.0" prefHeight="27.0" prefWidth="193.0" style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Roboto" size="17.0"/>
+                            <Font name="Roboto" size="17.0" />
                         </font>
                     </Label>
-                    <Label alignment="CENTER" layoutY="679.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273"
-                           textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                           AnchorPane.rightAnchor="0.0">
+                    <Label alignment="CENTER" layoutY="679.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Roboto" size="14.0"/>
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color opacity="0.17534351348876953"/>
+                                    <Color opacity="0.17534351348876953" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutY="702.0" prefHeight="20.0" prefWidth="176.0"
-                           text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="WHITE"
-                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Label alignment="CENTER" layoutY="702.0" prefHeight="20.0" prefWidth="176.0" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Roboto" size="14.0"/>
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color opacity="0.17534351348876953"/>
+                                    <Color opacity="0.17534351348876953" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Label alignment="CENTER" layoutY="727.0" text="lspdonline@gmail.com" textAlignment="RIGHT"
-                           textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Label alignment="CENTER" layoutY="727.0" text="lspdonline@gmail.com" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <font>
-                            <Font name="Roboto" size="14.0"/>
+                            <Font name="Roboto" size="14.0" />
                         </font>
                         <effect>
                             <DropShadow>
                                 <color>
-                                    <Color opacity="0.17534351348876953"/>
+                                    <Color opacity="0.17534351348876953" />
                                 </color>
                             </DropShadow>
                         </effect>
                     </Label>
-                    <Button fx:id="mapButton" graphicTextGap="10.0" layoutX="10.0" layoutY="357.0"
-                            mnemonicParsing="false" onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0"
-                            styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Map" textFill="#828797"
-                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="357.0">
+                    <Button fx:id="mapButton" graphicTextGap="10.0" layoutX="10.0" layoutY="357.0" mnemonicParsing="false" onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Map" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="357.0">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/map.png"/>
+                                    <Image url="@imgs/icons/map.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="logsButton" graphicTextGap="10.0" layoutX="10.0" layoutY="294.0"
-                            mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0"
-                            styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs"
-                            textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-                            AnchorPane.topAnchor="294.0">
+                    <Button fx:id="logsButton" graphicTextGap="10.0" layoutX="10.0" layoutY="294.0" mnemonicParsing="false" onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs" textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="294.0">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/logs.png"/>
+                                    <Image url="@imgs/icons/logs.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
                     <Label layoutX="73.0" layoutY="580.0" text="Dt" textFill="WHITE">
                         <font>
-                            <Font name="Blanka-Regular" size="49.0"/>
+                            <Font name="Blanka-Regular" size="49.0" />
                         </font>
                     </Label>
                 </children>
                 <effect>
-                    <DropShadow/>
+                    <DropShadow />
                 </effect>
             </AnchorPane>
-            <AnchorPane layoutY="-1.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick" prefHeight="80.0"
-                        prefWidth="1013.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css"
-                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+            <AnchorPane layoutY="-1.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick" prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                 <children>
-                    <Label layoutX="103.0" layoutY="26.0" text="Data Terminal" textFill="WHITE"
-                           AnchorPane.bottomAnchor="24.0" AnchorPane.topAnchor="26.0">
+                    <Label layoutX="103.0" layoutY="26.0" text="Data Terminal" textFill="WHITE" AnchorPane.bottomAnchor="24.0" AnchorPane.topAnchor="26.0">
                         <font>
-                            <Font name="Roboto" size="27.0"/>
+                            <Font name="Roboto" size="27.0" />
                         </font>
                     </Label>
-                    <ImageView fx:id="exitButton" fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0"
-                               onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
-                               AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="16.0">
+                    <ImageView fx:id="exitButton" fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="16.0">
                         <image>
-                            <Image url="@imgs/icons/cross.png"/>
+                            <Image url="@imgs/icons/cross.png" />
                         </image>
                         <effect>
-                            <ColorAdjust brightness="1.0"/>
+                            <ColorAdjust brightness="1.0" />
                         </effect>
                     </ImageView>
-                    <Label layoutX="44.0" layoutY="14.0" text="Dt" textFill="WHITE" AnchorPane.bottomAnchor="14.0"
-                           AnchorPane.topAnchor="14.0">
+                    <Label layoutX="44.0" layoutY="14.0" text="Dt" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0">
                         <font>
-                            <Font name="Blanka-Regular" size="37.0"/>
+                            <Font name="Blanka-Regular" size="37.0" />
                         </font>
                     </Label>
-                    <MenuButton alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="854.0" layoutY="12.0"
-                                mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" styleClass="button"
-                                stylesheets="@css/menu/settingsDropdown.css" text="Settings" textFill="#828797">
+                    <MenuButton alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="854.0" layoutY="12.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" styleClass="button" stylesheets="@css/menu/settingsDropdown.css" text="Settings" textFill="#828797">
                         <graphic>
                             <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@imgs/icons/settings.png"/>
+                                    <Image url="@imgs/icons/settings.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#TenCodesBtnClick" text="10-Codes"/>
-                            <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Settings"/>
-                            <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
-                            <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
-                                      text="Clear All Save Data"/>
+                            <MenuItem mnemonicParsing="false" onAction="#TenCodesBtnClick" text="10-Codes" />
+                            <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                            <SeparatorMenuItem mnemonicParsing="false" />
+                            <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Settings" />
+                            <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs" />
+                            <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick" text="Clear All Save Data" />
                         </items>
                     </MenuButton>
                 </children>
                 <effect>
-                    <DropShadow/>
+                    <DropShadow />
                 </effect>
             </AnchorPane>
-            <StackPane fx:id="UISettingsPane" layoutX="205.0" layoutY="88.0" prefHeight="675.0" prefWidth="808.0"
-                       style="-fx-background-color: none;" visible="false">
+            <StackPane fx:id="UISettingsPane" layoutX="205.0" layoutY="88.0" prefHeight="675.0" prefWidth="808.0" style="-fx-background-color: none;" visible="false">
                 <children>
                     <AnchorPane prefHeight="625.0" prefWidth="888.0" style="-fx-background-color: none;">
                         <children>
-                            <Pane layoutX="13.0" layoutY="184.0" prefHeight="278.0" prefWidth="753.0"
-                                  styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                            <Pane layoutX="13.0" layoutY="184.0" prefHeight="278.0" prefWidth="753.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                 <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0"
-                                               layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                                               width="17.0"/>
-                                    <Label layoutX="36.0" layoutY="9.0" styleClass="headingBig"
-                                           stylesheets="@css/form/formLabels.css" text="UI Settings"
-                                           textAlignment="CENTER" textFill="#d7d7d7">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#665cb6" height="27.0" layoutY="21.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="17.0" />
+                                    <Label layoutX="36.0" layoutY="9.0" styleClass="headingBig" stylesheets="@css/form/formLabels.css" text="UI Settings" textAlignment="CENTER" textFill="#d7d7d7">
                                         <font>
-                                            <Font name="Segoe UI Black" size="22.0"/>
+                                            <Font name="Segoe UI Black" size="22.0" />
                                         </font>
                                     </Label>
                                 </children>
                             </Pane>
                         </children>
                         <StackPane.margin>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </StackPane.margin>
                     </AnchorPane>
                 </children>

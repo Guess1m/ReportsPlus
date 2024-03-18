@@ -70,8 +70,8 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="82.0"
-                       prefHeight="681.0" prefWidth="808.0" visible="false">
+            <StackPane id="DefaultPane" fx:id="shiftInformationPane" layoutX="205.0" layoutY="82.0" prefHeight="681.0"
+                       prefWidth="808.0">
                 <children>
                     <VBox>
                         <children>
@@ -169,10 +169,10 @@
                                             <Font name="Segoe UI Black" size="19.0"/>
                                         </font>
                                     </Label>
-                                    <AnchorPane layoutX="55.0" layoutY="32.0" prefHeight="177.0" prefWidth="730.0">
+                                    <AnchorPane layoutX="1.0" layoutY="32.0" prefHeight="177.0" prefWidth="806.0">
                                         <children>
-                                            <BarChart fx:id="reportChart" layoutX="-56.0" layoutY="-1.0"
-                                                      prefHeight="183.0" prefWidth="799.0"
+                                            <BarChart fx:id="reportChart" layoutX="-1.0" layoutY="-1.0"
+                                                      prefHeight="183.0" prefWidth="806.0"
                                                       stylesheets="@css/main/chartCSS.css"
                                                       AnchorPane.bottomAnchor="-5.0" AnchorPane.topAnchor="-1.0">
                                                 <xAxis>
@@ -497,9 +497,9 @@
                     </AnchorPane>
                 </children>
             </StackPane>
-            <StackPane fx:id="logPane" layoutX="207.0" layoutY="81.0" prefHeight="681.0" prefWidth="806.0"
-                       AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="81.0">
+            <StackPane fx:id="logPane" disable="true" layoutX="207.0" layoutY="81.0" prefHeight="681.0"
+                       prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="207.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="81.0">
                 <children>
                     <Pane style="-fx-background-color: #f2f2f2;">
                         <children>

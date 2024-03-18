@@ -45,6 +45,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -210,6 +211,12 @@ public class actionController {
         String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Cit.", "Traffic Cit."};
         CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
         NumberAxis yAxis = (NumberAxis) getReportChart().getYAxis();
+
+        // Setting font for X and Y axis labels
+        Font axisLabelFont = Font.font("Segoe UI Bold", 11.5); // Change the font family and size as needed
+        xAxis.setTickLabelFont(axisLabelFont);
+        yAxis.setTickLabelFont(axisLabelFont);
+
         xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
         yAxis.setAutoRanging(true);
         yAxis.setMinorTickVisible(false);

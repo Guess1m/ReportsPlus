@@ -933,6 +933,8 @@
                                       text="Clear All Save Data"/>
                         </items>
                     </MenuButton>
+                    <Button layoutX="586.0" layoutY="33.0" mnemonicParsing="false" onAction="#testBtnPress"
+                            text="Test"/>
                 </children>
                 <effect>
                     <DropShadow/>

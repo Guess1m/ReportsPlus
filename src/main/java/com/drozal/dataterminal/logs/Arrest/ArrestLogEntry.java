@@ -2,6 +2,11 @@ package com.drozal.dataterminal.logs.Arrest;
 
 // Data model for a log entry
 public class ArrestLogEntry {
+
+    // TODO: ambulance/taser yes no
+    // TODO: home address
+    // TODO: fix medical information to text-field
+
     public String arrestNumber;
     public String arrestDate;
     public String arrestTime;
@@ -13,7 +18,10 @@ public class ArrestLogEntry {
     public String arresteeGender;
     public String arresteeEthnicity;
     public String arresteeDescription;
+    public String ambulanceYesNo;
+    public String TaserYesNo;
     public String arresteeMedicalInformation;
+    public String arresteeHomeAddress;
     public String arrestDetails;
     public String officerRank;
     public String officerName;
@@ -24,7 +32,7 @@ public class ArrestLogEntry {
     public ArrestLogEntry() {
     }
 
-    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String arresteeMedicalInformation, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
+    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation,String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
         this.arrestNumber = arrestNumber;
         this.arrestDate = arrestDate;
         this.arrestTime = arrestTime;
@@ -36,7 +44,10 @@ public class ArrestLogEntry {
         this.arresteeGender = arresteeGender;
         this.arresteeEthnicity = arresteeEthnicity;
         this.arresteeDescription = arresteeDescription;
+        this.ambulanceYesNo = ambulanceYesNo;
+        this.TaserYesNo = taserYesNo;
         this.arresteeMedicalInformation = arresteeMedicalInformation;
+        this.arresteeHomeAddress = arresteeHomeAddress;
         this.arrestDetails = arrestDetails;
         this.officerRank = officerRank;
         this.officerName = officerName;
@@ -45,8 +56,20 @@ public class ArrestLogEntry {
         this.officerAgency = officerAgency;
     }
 
+    public String getAmbulanceYesNo() {
+        return ambulanceYesNo;
+    }
+
+    public String getTaserYesNo() {
+        return TaserYesNo;
+    }
+
     public String getArrestNumber() {
         return arrestNumber;
+    }
+
+    public String getArresteeHomeAddress() {
+        return arresteeHomeAddress;
     }
 
     public String getArrestDate() {

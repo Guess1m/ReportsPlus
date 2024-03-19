@@ -1,0 +1,40 @@
+.formTitledPane .title {
+    -fx-background-color: transparent; /* Background color of the main heading */
+    -fx-border-color: transparent; /* Border color */
+    -fx-border-width: 0px; /* Border width */
+    -fx-font-family: "Segoe UI SemiBold";
+        -fx-font-size: 18px;
+        -fx-font-weight: bold;
+        -fx-text-fill:   #404040; /* Dark grey color */
+        -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
+.formTitledPane .content {
+    -fx-background-color: #f0f0f0; /* Background color */
+}
+.formTitledPane:focused > .title > .arrow-button > .arrow{
+    -fx-effect: null;
+    -fx-border-color: transparent; /* Border color */
+}
+.formTitledPane2 .title {
+    -fx-background-color: #f2f2f2; /* Background color of the main heading */
+    -fx-border-color: grey;
+    -fx-border-width: 0.5;
+    -fx-font-family: "Segoe UI SemiBold";
+        -fx-font-size: 18px;
+        -fx-font-weight: bold;
+        -fx-text-fill:   #404040; /* Dark grey color */
+    -fx-padding: 5px 5 5 15; /* Adjust padding as needed */
+}
+
+.formTitledPane2 .content {
+    -fx-background-color: #f0f0f0; /* Background color */
+    -fx-padding: 0; /* Adjust padding as needed */
+}
+.formTitledPane2 > .title > .arrow-button > .arrow{
+    -fx-effect: null;
+}
+.formTitledPane2:focused > .title > .arrow-button > .arrow{
+    -fx-effect: null;
+    -fx-border-color: transparent; /* Border color */
+}

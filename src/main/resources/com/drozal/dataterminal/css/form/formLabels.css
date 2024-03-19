@@ -24,3 +24,11 @@
     -fx-text-fill:   #404040; /* Dark grey color */
     -fx-padding: 4px 0; /* Adjust padding as needed */
 }
+
+.medicalInformation {
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill:   #404040; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}

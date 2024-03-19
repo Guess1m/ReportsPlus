@@ -22,6 +22,11 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class ImpoundReportController {
     public Spinner impoundNumber;
+
+    public TextField getImpoundDate() {
+        return impoundDate;
+    }
+
     public TextField impoundDate;
     public TextField impoundTime;
     public TextField ownerName;
@@ -37,43 +42,72 @@ public class ImpoundReportController {
     public TextField officerRank;
     public TextField officerName;
     public TextField officerNumber;
+
+    public Spinner getImpoundNumber() {
+        return impoundNumber;
+    }
+
+    public TextField getOwnerName() {
+        return ownerName;
+    }
+
+    public TextField getOwnerAddress() {
+        return ownerAddress;
+    }
+
+    public TextField getImpoundTime() {
+        return impoundTime;
+    }
+
+    public TextField getOfficerRank() {
+        return officerRank;
+    }
+
+    public TextField getOfficerName() {
+        return officerName;
+    }
+
+    public TextField getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public TextField getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public TextField getOfficerAgency() {
+        return officerAgency;
+    }
+
     public TextField officerDivision;
     public TextField officerAgency;
     public Label incompleteLabel;
     public Slider ownerAgeSlider;
     public VBox vbox;
-    boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {
-        } else {
-            ownerAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                ownerAge.setText(String.valueOf(newValue.intValue())); // Update the text of the label
-            });
-            String name = ConfigReader.configRead("Name");
-            String division = ConfigReader.configRead("Division");
-            String rank = ConfigReader.configRead("Rank");
-            String number = ConfigReader.configRead("Number");
-            String agency = ConfigReader.configRead("Agency");
-            ownerGender.getItems().addAll(dropdownInfo.genders);
-            impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
-            impoundColor.getItems().addAll(dropdownInfo.carColors);
-            officerName.setText(name);
-            officerDivision.setText(division);
-            officerRank.setText(rank);
-            officerAgency.setText(agency);
-            officerNumber.setText(number);
-            impoundTime.setText(getTime());
-            impoundDate.setText(getDate());
-            createSpinner(impoundNumber, 0, 9999, 0);
-        }
+    public void initialize() throws IOException {
+        ownerAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        ownerAge.setText(String.valueOf(newValue.intValue()));});
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+        ownerGender.getItems().addAll(dropdownInfo.genders);
+        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
+        impoundColor.getItems().addAll(dropdownInfo.carColors);
+        officerName.setText(name);
+        officerDivision.setText(division);
+        officerRank.setText(rank);
+        officerAgency.setText(agency);
+        officerNumber.setText(number);
+        impoundTime.setText(getTime());
+        impoundDate.setText(getDate());
+        createSpinner(impoundNumber, 0, 9999, 0);
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered = true;
-    }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (impoundNumber.getValue() == null ||

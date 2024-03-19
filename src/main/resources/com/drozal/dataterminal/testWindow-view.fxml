@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="658.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.TestWindowViewController">
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <TreeView fx:id="treeView" layoutX="92.0" layoutY="55.0" onMouseClicked="#onMouseClick"
+                          prefHeight="549.0" prefWidth="451.0"/>
+                <TextField fx:id="chargeField" layoutX="595.0" layoutY="207.0" prefHeight="25.0" prefWidth="292.0"
+                           promptText="charge"/>
+                <TextField fx:id="fineField" layoutX="596.0" layoutY="282.0" prefHeight="25.0" prefWidth="290.0"
+                           promptText="fine"/>
+                <TextField fx:id="probationChance" layoutX="596.0" layoutY="330.0" prefHeight="25.0" prefWidth="290.0"
+                           promptText="probationchance"/>
+                <TextField fx:id="minYears" layoutX="595.0" layoutY="379.0" prefHeight="25.0" prefWidth="86.0"
+                           promptText="MinYears"/>
+                <TextField fx:id="maxYears" layoutX="596.0" layoutY="423.0" prefHeight="25.0" prefWidth="87.0"
+                           promptText="maxyears"/>
+                <TextField fx:id="minMonths" layoutX="756.0" layoutY="379.0" prefHeight="25.0" prefWidth="86.0"
+                           promptText="MinMonths"/>
+                <TextField fx:id="maxMonths" layoutX="763.0" layoutY="423.0" prefHeight="25.0" prefWidth="86.0"
+                           promptText="maxMonths"/>
+            </children>
+        </Pane>
+    </center>
+</BorderPane>

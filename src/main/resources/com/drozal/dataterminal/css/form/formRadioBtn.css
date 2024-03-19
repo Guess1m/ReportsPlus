@@ -1,0 +1,31 @@
+/* Style for deselected state */
+.formRadioBtn .dot {
+    -fx-background-color: transparent; /* Dot color */
+    -fx-border-color: grey; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-radius: 10;
+    -fx-min-width: 14.5px; /* Set the minimum width */
+    -fx-min-height: 14.5px; /* Set the minimum height */
+    -fx-background-radius: 10px;
+}
+
+/* Style for selected state */
+.formRadioBtn:selected .dot {
+    -fx-background-color: #665cb6; /* Transparent background */
+    -fx-border-color: transparent; /* Border color */
+    -fx-border-width: 0px; /* Border width */
+    -fx-min-width: 14.5px; /* Set the minimum width */
+    -fx-min-height: 14.5px; /* Set the minimum height */
+    -fx-background-radius: 10px;
+}
+
+/* Style for the circle */
+.formRadioBtn .radio {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: transparent; /* Border color */
+}
+.formRadioBtn .label {
+    -fx-font-size: 16px; /* Adjust the font size as needed */
+    -fx-text-fill: black; /* Text color */
+    /* Add any other label styles here */
+}

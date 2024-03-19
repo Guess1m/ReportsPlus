@@ -308,6 +308,7 @@ public class actionController {
         //TrafficStopTable
         List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
         trafficStopLogUpdate(trafficLogEntryList);
+        //CalloutTable
         List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
         calloutLogUpdate(calloutLogEntryList);
     }
@@ -482,8 +483,6 @@ public class actionController {
     }
 
     public void initializeParkingCitationColumns() {
-
-
         // Create columns for each property of ParkingCitationLogEntry
         TableColumn<ParkingCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
         citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
@@ -900,6 +899,7 @@ public class actionController {
 
     public void initializeArrestColumns() {
 
+        // TODO: Controller, log entry, report logs, here
 
         // Create columns for each property of ArrestLogEntry
         TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");
@@ -923,7 +923,7 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> arresteeNameColumn = new TableColumn<>("Arrestee Name");
         arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
 
-        TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Arrestee Age");
+        TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Arrestee Age/DOB");
         arresteeAgeColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeAge"));
 
         TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Arrestee Gender");
@@ -935,8 +935,17 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Arrestee Description");
         arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
 
+        TableColumn<ArrestLogEntry, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance Requested");
+        ambulanceYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("ambulanceYesNo"));
+
+        TableColumn<ArrestLogEntry, String> taserYesNoColumn = new TableColumn<>("Taser Deployed");
+        taserYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("TaserYesNo"));
+
         TableColumn<ArrestLogEntry, String> arresteeMedicalInformationColumn = new TableColumn<>("Medical Information");
         arresteeMedicalInformationColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeMedicalInformation"));
+
+        TableColumn<ArrestLogEntry, String> arresteeHomeAddressColumn = new TableColumn<>("Home Address");
+        arresteeHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeHomeAddress"));
 
         TableColumn<ArrestLogEntry, String> arrestDetailsColumn = new TableColumn<>("Arrest Details");
         arrestDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDetails"));
@@ -969,7 +978,10 @@ public class actionController {
                 arresteeGenderColumn,
                 arresteeEthnicityColumn,
                 arresteeDescriptionColumn,
+                ambulanceYesNoColumn,
+                taserYesNoColumn,
                 arresteeMedicalInformationColumn,
+                arresteeHomeAddressColumn,
                 arrestDetailsColumn,
                 officerRankColumn,
                 officerNameColumn,
@@ -1579,5 +1591,20 @@ public class actionController {
 
     public void onMouseEnter(MouseEvent mouseEvent) {
         updateChartIfMismatch(reportChart);
+    }
+
+    public void testBtnPress(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("testWindow-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Test Window");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setResizable(true);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
+        stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
     }
 }

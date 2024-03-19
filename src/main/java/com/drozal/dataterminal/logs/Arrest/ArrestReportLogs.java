@@ -63,7 +63,10 @@ public class ArrestReportLogs {
                     logEntry.arresteeGender = getTagValue(logsElement, "arresteeGender");
                     logEntry.arresteeEthnicity = getTagValue(logsElement, "arresteeEthnicity");
                     logEntry.arresteeDescription = getTagValue(logsElement, "arresteeDescription");
+                    logEntry.ambulanceYesNo = getTagValue(logsElement, "ambulanceYesNo");
+                    logEntry.TaserYesNo = getTagValue(logsElement, "TaserYesNo");
                     logEntry.arresteeMedicalInformation = getTagValue(logsElement, "arresteeMedicalInformation");
+                    logEntry.arresteeHomeAddress = getTagValue(logsElement, "arresteeHomeAddress");
                     logEntry.arrestDetails = getTagValue(logsElement, "arrestDetails");
                     logEntry.officerRank = getTagValue(logsElement, "officerRank");
                     logEntry.officerName = getTagValue(logsElement, "officerName");

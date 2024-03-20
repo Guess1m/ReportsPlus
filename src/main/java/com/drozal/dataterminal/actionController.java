@@ -48,6 +48,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -251,6 +252,23 @@ public class actionController {
 
         getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
         getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
+        getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                            setAlignment(javafx.geometry.Pos.CENTER);
+                        }
+                    }
+                };
+            }
+        });
         getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
 
         OfficerInfoName.setText(name);
@@ -1143,7 +1161,7 @@ public class actionController {
         TableColumn<IncidentLogEntry, String> incidentCountyColumn = new TableColumn<>("Incident County");
         incidentCountyColumn.setCellValueFactory(new PropertyValueFactory<>("incidentCounty"));
 
-        TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Actions Taken");
+        TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Incident Details");
         incidentActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("incidentActionsTaken"));
 
         TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");

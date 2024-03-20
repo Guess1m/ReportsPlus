@@ -156,7 +156,7 @@
                                             </font>
                                         </Label>
                                         <TextArea fx:id="incidentActionsTaken" layoutX="25.0" layoutY="33.0"
-                                                  prefHeight="119.0" prefWidth="471.0" promptText="Actions Taken.."
+                                                  prefHeight="119.0" prefWidth="471.0" promptText="Incident Summary.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true">
                                             <font>
                                                 <Font size="14.0"/>
@@ -182,8 +182,9 @@
                                             </font>
                                         </TextField>
                                         <Label layoutX="15.0" styleClass="headingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Involved Parties"
-                                               textAlignment="CENTER" textFill="#d7d7d7">
+                                               stylesheets="@css/form/formLabels.css"
+                                               text="Involved Parties (If Applicable)" textAlignment="CENTER"
+                                               textFill="#d7d7d7">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>

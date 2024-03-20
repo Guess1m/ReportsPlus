@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="330.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/21"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="313.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.MedicalInformation">
     <children>
-        <RadioButton fx:id="ambulanceYes" layoutX="26.0" layoutY="38.0" mnemonicParsing="false"
+        <RadioButton fx:id="ambulanceYes" layoutX="26.0" layoutY="75.0" mnemonicParsing="false"
                      styleClass="formRadioBtn" stylesheets="@../css/form/formRadioBtn.css" text="Yes">
             <font>
                 <Font name="Segoe UI" size="15.0"/>
@@ -15,16 +15,16 @@
                 <ToggleGroup fx:id="ambulanceRequired"/>
             </toggleGroup>
         </RadioButton>
-        <Label layoutX="26.0" layoutY="8.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
+        <Label layoutX="26.0" layoutY="45.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
                text="Ambulance Required:"/>
-        <RadioButton fx:id="ambulanceNo" layoutX="97.0" layoutY="38.0" mnemonicParsing="false" selected="true"
+        <RadioButton fx:id="ambulanceNo" layoutX="97.0" layoutY="75.0" mnemonicParsing="false" selected="true"
                      styleClass="formRadioBtn" stylesheets="@../css/form/formRadioBtn.css" text="No"
                      toggleGroup="$ambulanceRequired">
             <font>
                 <Font name="Segoe UI" size="15.0"/>
             </font>
         </RadioButton>
-        <RadioButton fx:id="taserYes" layoutX="213.0" layoutY="38.0" mnemonicParsing="false" styleClass="formRadioBtn"
+        <RadioButton fx:id="taserYes" layoutX="213.0" layoutY="75.0" mnemonicParsing="false" styleClass="formRadioBtn"
                      stylesheets="@../css/form/formRadioBtn.css" text="Yes">
             <font>
                 <Font name="Segoe UI" size="15.0"/>
@@ -33,21 +33,23 @@
                 <ToggleGroup fx:id="taserDeployed"/>
             </toggleGroup>
         </RadioButton>
-        <Label layoutX="225.0" layoutY="8.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
+        <Label layoutX="225.0" layoutY="45.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
                text="Taser Deployed"/>
-        <RadioButton fx:id="taserNo" layoutX="284.0" layoutY="38.0" mnemonicParsing="false" selected="true"
+        <RadioButton fx:id="taserNo" layoutX="284.0" layoutY="75.0" mnemonicParsing="false" selected="true"
                      styleClass="formRadioBtn" stylesheets="@../css/form/formRadioBtn.css" text="No"
                      toggleGroup="$taserDeployed">
             <font>
                 <Font name="Segoe UI" size="15.0"/>
             </font>
         </RadioButton>
-        <TextArea fx:id="arresteeMedicalInformation" layoutX="20.0" layoutY="78.0" prefHeight="236.0" prefWidth="338.0"
+        <TextArea fx:id="arresteeMedicalInformation" layoutX="20.0" layoutY="115.0" prefHeight="181.0" prefWidth="338.0"
                   promptText="Medical Information..." styleClass="text-area" stylesheets="@../css/form/formTextArea.css"
                   wrapText="true">
             <font>
                 <Font size="14.0"/>
             </font>
         </TextArea>
+        <Label alignment="CENTER" layoutY="7.0" prefHeight="31.0" prefWidth="376.0" styleClass="heading"
+               stylesheets="@../css/form/formLabels.css" text="Suspect Medical Information"/>
     </children>
 </AnchorPane>

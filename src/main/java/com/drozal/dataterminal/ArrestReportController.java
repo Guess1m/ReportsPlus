@@ -13,17 +13,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.util.treeViewUtils.*;
 
 public class ArrestReportController {
 
@@ -48,6 +56,16 @@ public class ArrestReportController {
     public Label incompleteLabel;
     public TextField arresteeHomeAddress;
     public Button popOverBtn;
+    public TreeView treeView;
+    public TextField chargeField;
+    public TextField probationChance;
+    public TextField minYears;
+    public TextField maxYears;
+    public TextField minMonths;
+    public TextField maxMonths;
+    public Pane trafficChargeInfoPane;
+    public TextField minSuspension;
+    public TextField maxSuspension;
     private double xOffset = 0;
     private double yOffset = 0;
     private MedicalInformation medicalInformationController;
@@ -63,12 +81,12 @@ public class ArrestReportController {
 
         // Optionally configure other properties of the PopOver
         popOver.setDetachable(false);
-        popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_LEFT);
+        popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
 
         return popOver;
     }
 
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, ParserConfigurationException, SAXException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
         loader.load();
         medicalInformationController = loader.getController();
@@ -86,6 +104,20 @@ public class ArrestReportController {
         createSpinner(arrestNumber, 0, 9999, 0);
         arrestTime.setText(getTime());
         arrestDate.setText(getDate());
+
+        //Tree View
+        File file = new File("data/testXML.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        Document document = factory.newDocumentBuilder().parse(file);
+
+        Element root = document.getDocumentElement();
+
+        TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
+
+        parseTreeXML(root, rootItem);
+        treeView.setRoot(rootItem);
+        expandTreeItem(rootItem, "Root");
+        trafficChargeInfoPane.setVisible(false);
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
@@ -176,13 +208,11 @@ public class ArrestReportController {
         stage.centerOnScreen();
         stage.setY(stage.getY() * 3f / 2f);
 
-        // TODO: add all the values transferring over | Including the officer name, event location, date/time, etc. in case they changed it during arrest report
         controller.getImpoundDate().setText(arrestDate.getText());
         controller.getImpoundTime().setText(arrestTime.getText());
 
         int arrestNumberValue = (int) arrestNumber.getValue(); // Extract the value from the source Spinner
         controller.getImpoundNumber().getValueFactory().setValue(arrestNumberValue); // Set the value to the target Spinner's value factory
-
 
         controller.getOfficerAgency().setText(officerAgency.getText());
         controller.getOfficerName().setText(officerName.getText());
@@ -191,6 +221,8 @@ public class ArrestReportController {
         controller.getOfficerNumber().setText(officerNumber.getText());
         controller.getOwnerName().setText(arresteeName.getText());
         controller.getOwnerAddress().setText(arresteeHomeAddress.getText());
+        controller.getOwnerAge().setText(arresteeAge.getText());
+        controller.getOwnerGender().setText(arresteeGender.getText());
     }
 
     public void searchBtnClick(ActionEvent actionEvent) {
@@ -208,4 +240,20 @@ public class ArrestReportController {
         }
     }
 
+    public void onTreeViewMouseClick(MouseEvent mouseEvent) {
+        TreeItem<String> selectedItem = (TreeItem<String>) treeView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && selectedItem.isLeaf()) {
+            chargeField.setText(selectedItem.getValue());
+            // TODO: probably dont use probation chance
+            probationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/testXML.xml"));
+            minYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml"));
+            maxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/testXML.xml"));
+            minMonths.setText(findXMLValue(selectedItem.getValue(), "min_months", "data/testXML.xml"));
+            maxMonths.setText(findXMLValue(selectedItem.getValue(), "max_months", "data/testXML.xml"));
+            minSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/testXML.xml"));
+            maxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/testXML.xml"));
+
+            // TODO: check if the textfield text contains (m) or (f) then put misdemeanor or felony in another text-field
+        }
+    }
 }

@@ -23,6 +23,20 @@
 .combo-box .list-view .list-cell:hover {
     -fx-background-color: #ada7d7; /* Set the hover background color */
 }
+.combo-box .scroll-bar {
+    -fx-background-color: #f2f2f2; /* Transparent background */
+        -fx-pref-width: 11px; /* Thicker width */
+}
+.combo-box .scroll-bar .increment-arrow,
+.combo-box .scroll-bar .decrement-arrow {
+    -fx-background-color: none; /* Change arrow color */
+}
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: #665cb6; /* Change arrow color */
+}
+.combo-box .scroll-bar .thumb:pressed {
+    -fx-background-color: #51479e; /* Change arrow color */
+}
 .combo-box:focused {
     -fx-border-color: #665cb6; /* Change border color when focused */
         -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */

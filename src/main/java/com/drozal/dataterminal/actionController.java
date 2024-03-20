@@ -929,6 +929,9 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> arrestTimeColumn = new TableColumn<>("Arrest Time");
         arrestTimeColumn.setCellValueFactory(new PropertyValueFactory<>("arrestTime"));
 
+        TableColumn<ArrestLogEntry, String> arrestChargesColumn = new TableColumn<>("Charges");
+        arrestChargesColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCharges"));
+
         TableColumn<ArrestLogEntry, String> arrestCountyColumn = new TableColumn<>("Arrest County");
         arrestCountyColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCounty"));
 
@@ -988,6 +991,7 @@ public class actionController {
                 arrestNumberColumn,
                 arrestDateColumn,
                 arrestTimeColumn,
+                arrestChargesColumn,
                 arrestCountyColumn,
                 arrestAreaColumn,
                 arrestStreetColumn,

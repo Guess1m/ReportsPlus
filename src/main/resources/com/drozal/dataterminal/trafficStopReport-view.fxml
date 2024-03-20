@@ -312,7 +312,7 @@
                 </ScrollPane>
                 <AnchorPane layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                             minWidth="-Infinity" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress"
-                            prefHeight="75.0" prefWidth="1013.0" styleClass="pane"
+                            prefHeight="75.0" prefWidth="1013.0" styleClass="trafficstoppane"
                             stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                     <children>

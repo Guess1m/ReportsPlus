@@ -10,6 +10,7 @@ public class ArrestLogEntry {
     public String arrestNumber;
     public String arrestDate;
     public String arrestTime;
+    public String arrestCharges;
     public String arrestCounty;
     public String arrestArea;
     public String arrestStreet;
@@ -32,10 +33,11 @@ public class ArrestLogEntry {
     public ArrestLogEntry() {
     }
 
-    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation, String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
+    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCharges, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation, String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
         this.arrestNumber = arrestNumber;
         this.arrestDate = arrestDate;
         this.arrestTime = arrestTime;
+        this.arrestCharges = arrestCharges;
         this.arrestCounty = arrestCounty;
         this.arrestArea = arrestArea;
         this.arrestStreet = arrestStreet;
@@ -54,6 +56,10 @@ public class ArrestLogEntry {
         this.officerNumber = officerNumber;
         this.officerDivision = officerDivision;
         this.officerAgency = officerAgency;
+    }
+
+    public String getArrestCharges() {
+        return arrestCharges;
     }
 
     public String getAmbulanceYesNo() {

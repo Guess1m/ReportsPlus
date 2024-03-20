@@ -18,7 +18,7 @@
     </padding>
     <children>
         <AnchorPane onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="80.0" prefWidth="1013.0"
-                    styleClass="pane" stylesheets="@css/form/formPaneHeader.css">
+                    styleClass="calloutpane" stylesheets="@css/form/formPaneHeader.css">
             <children>
                 <Label layoutX="78.0" layoutY="20.0" text="Data Terminal" textFill="WHITE">
                     <font>

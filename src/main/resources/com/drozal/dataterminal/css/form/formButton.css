@@ -1,19 +1,18 @@
 .formButton {
-    -fx-background-color: #e2e2e2; /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-border-width: 0.5;
-    -fx-border-color: grey; /* Border color */
-    -fx-text-fill: rgb(0, 0, 0, 0.8);
+    -fx-background-color: rgb(102, 92, 182, 0.85); /* Background color */
+    -fx-border-width: 0 1.5 0 1.5;
+    -fx-border-color: white; /* Border color */
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }
 .formButton:hover {
-    -fx-text-fill: #7b72c0; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 16px;
+    -fx-background-color: #6b61b8; /* Background color */
+    -fx-border-width: 0 0 0 0;
+        -fx-border-color: white; /* Border color */
 }
 .formButton:pressed {
-    -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 16px;
+    -fx-background-color: #5a4fb0; /* Background color */
+    -fx-border-width: 0 0 0 0;
+        -fx-border-color: white; /* Border color */
 }

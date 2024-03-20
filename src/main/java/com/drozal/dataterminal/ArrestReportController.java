@@ -3,16 +3,20 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
+import com.drozal.dataterminal.logs.ChargesData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -66,6 +70,12 @@ public class ArrestReportController {
     public Pane trafficChargeInfoPane;
     public TextField minSuspension;
     public TextField maxSuspension;
+    public Pane monthsPane;
+    public Pane yearsPane;
+    public TableView chargeTable;
+    public TableColumn chargeColumn;
+    public ScrollPane scrollPane;
+    public ScrollPane chargeScrollPane;
     private double xOffset = 0;
     private double yOffset = 0;
     private MedicalInformation medicalInformationController;
@@ -118,6 +128,16 @@ public class ArrestReportController {
         treeView.setRoot(rootItem);
         expandTreeItem(rootItem, "Root");
         trafficChargeInfoPane.setVisible(false);
+        monthsPane.setVisible(false);
+
+        treeView.addEventFilter(ScrollEvent.ANY, event -> {
+            // Consume the scroll event to prevent it from reaching the parent scroll pane
+            event.consume();
+        });
+        chargeScrollPane.addEventFilter(ScrollEvent.ANY, event -> {
+            // Consume the scroll event to prevent it from reaching the parent scroll pane
+            event.consume();
+        });
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
@@ -145,11 +165,27 @@ public class ArrestReportController {
             } else {
                 AmbulanceYesNo = "yes";
             }
+
+            ObservableList<ChargesData> formDataList = chargeTable.getItems();
+            // StringBuilder to build the string with commas
+            StringBuilder stringBuilder = new StringBuilder();
+            // Iterate through formDataList to access each FormData object
+            for (ChargesData formData : formDataList) {
+                // Append the values to the StringBuilder, separated by commas
+                stringBuilder.append(formData.getCharge()).append(" | ");
+                // Add more values as needed, separated by commas
+            }
+            // Remove the trailing comma and space
+            if (stringBuilder.length() > 0) {
+                stringBuilder.setLength(stringBuilder.length() - 2);
+            }
+
             // Add new entry
             logs.add(new ArrestLogEntry(
                     arrestNumber.getValue().toString(),
                     arrestDate.getText(),
                     arrestTime.getText(),
+                    stringBuilder.toString(),
                     arrestCounty.getText(),
                     arrestArea.getText(),
                     arrestStreet.getText(),
@@ -250,10 +286,42 @@ public class ArrestReportController {
             maxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/testXML.xml"));
             minMonths.setText(findXMLValue(selectedItem.getValue(), "min_months", "data/testXML.xml"));
             maxMonths.setText(findXMLValue(selectedItem.getValue(), "max_months", "data/testXML.xml"));
-            minSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/testXML.xml"));
-            maxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/testXML.xml"));
+            if (findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml").isBlank()) {
+                monthsPane.setVisible(true);
+                yearsPane.setVisible(false);
+            } else {
+                monthsPane.setVisible(false);
+                yearsPane.setVisible(true);
+            }
+            if (findXMLValue(selectedItem.getValue(), "traffic", "data/testXML.xml").matches("true")) {
+                minSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/testXML.xml"));
+                maxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/testXML.xml"));
+                trafficChargeInfoPane.setVisible(true);
+            } else {
+                trafficChargeInfoPane.setVisible(false);
+            }
 
             // TODO: check if the textfield text contains (m) or (f) then put misdemeanor or felony in another text-field
+        }
+    }
+
+    public void addChargeBtnPress(ActionEvent actionEvent) {
+        String charge = chargeField.getText();
+        if (!(charge.isBlank() || charge.isEmpty())) {
+            // Create a new FormData object
+            ChargesData formData = new ChargesData(charge);
+            // Add the FormData object to the TableView
+            chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
+            chargeTable.getItems().add(formData);
+        }
+    }
+
+    public void removeChargeBtnPress(ActionEvent actionEvent) {
+        // Get the selected item
+        ChargesData selectedItem = (ChargesData) chargeTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            // Remove the selected item from the TableView
+            chargeTable.getItems().remove(selectedItem);
         }
     }
 }

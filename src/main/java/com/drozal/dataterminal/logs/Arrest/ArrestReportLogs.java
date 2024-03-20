@@ -56,6 +56,7 @@ public class ArrestReportLogs {
                     logEntry.arresteeName = getTagValue(logsElement, "arresteeName");
                     logEntry.arrestDate = getTagValue(logsElement, "arrestDate");
                     logEntry.arrestTime = getTagValue(logsElement, "arrestTime");
+                    logEntry.arrestCharges = getTagValue(logsElement, "arrestCharges");
                     logEntry.arrestCounty = getTagValue(logsElement, "arrestCounty");
                     logEntry.arrestArea = getTagValue(logsElement, "arrestArea");
                     logEntry.arrestStreet = getTagValue(logsElement, "arrestStreet");

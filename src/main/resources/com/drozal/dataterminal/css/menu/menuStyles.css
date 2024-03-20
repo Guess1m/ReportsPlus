@@ -32,13 +32,12 @@
     -fx-font-size: 14.5px;
 }
 .menuButton:hover {
-    -fx-background-color: #a497ce; /* Hover background color */
-    -fx-text-fill: black; /* Text color */
+    -fx-text-fill: #7b72c0; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
 }
 .menuButton:pressed {
-    -fx-background-color: #7b72c0; /* Pressed background color */
+    -fx-background-color: #7b72c0; /* Background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;

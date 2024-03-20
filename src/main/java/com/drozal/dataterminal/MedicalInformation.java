@@ -24,7 +24,7 @@ public class MedicalInformation {
         return arresteeMedicalInformation;
     }
 
-    public void initialize(){
+    public void initialize() {
 
     }
 }

@@ -3,7 +3,6 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -41,7 +39,6 @@ public class ArrestReportController {
     public TextField arresteeGender;
     public TextField arresteeEthnicity;
     public TextField arresteeDescription;
-    public TextArea arresteeMedicalInformation;
     public TextArea arrestDetails;
     public TextField officerRank;
     public TextField officerName;
@@ -106,12 +103,12 @@ public class ArrestReportController {
             List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
             String TaserYesNo;
             String AmbulanceYesNo;
-            if (medicalInformationController.getTaserNo().isSelected()){
+            if (medicalInformationController.getTaserNo().isSelected()) {
                 TaserYesNo = "no";
             } else {
                 TaserYesNo = "yes";
             }
-            if (medicalInformationController.getAmbulanceNo().isSelected()){
+            if (medicalInformationController.getAmbulanceNo().isSelected()) {
                 AmbulanceYesNo = "no";
             } else {
                 AmbulanceYesNo = "yes";

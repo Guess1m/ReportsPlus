@@ -32,7 +32,7 @@ public class ArrestLogEntry {
     public ArrestLogEntry() {
     }
 
-    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation,String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
+    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation, String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
         this.arrestNumber = arrestNumber;
         this.arrestDate = arrestDate;
         this.arrestTime = arrestTime;

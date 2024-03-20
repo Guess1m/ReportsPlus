@@ -22,11 +22,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class ImpoundReportController {
     public Spinner impoundNumber;
-
-    public TextField getImpoundDate() {
-        return impoundDate;
-    }
-
     public TextField impoundDate;
     public TextField impoundTime;
     public TextField ownerName;
@@ -42,6 +37,17 @@ public class ImpoundReportController {
     public TextField officerRank;
     public TextField officerName;
     public TextField officerNumber;
+    public TextField officerDivision;
+    public TextField officerAgency;
+    public Label incompleteLabel;
+    public Slider ownerAgeSlider;
+    public VBox vbox;
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public TextField getImpoundDate() {
+        return impoundDate;
+    }
 
     public Spinner getImpoundNumber() {
         return impoundNumber;
@@ -79,17 +85,10 @@ public class ImpoundReportController {
         return officerAgency;
     }
 
-    public TextField officerDivision;
-    public TextField officerAgency;
-    public Label incompleteLabel;
-    public Slider ownerAgeSlider;
-    public VBox vbox;
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public void initialize() throws IOException {
         ownerAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-        ownerAge.setText(String.valueOf(newValue.intValue()));});
+            ownerAge.setText(String.valueOf(newValue.intValue()));
+        });
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
         String rank = ConfigReader.configRead("Rank");

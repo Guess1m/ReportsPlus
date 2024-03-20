@@ -20,8 +20,6 @@ public class TestWindowViewController {
     @javafx.fxml.FXML
     private TreeView treeView;
     @javafx.fxml.FXML
-    private TextField fineField;
-    @javafx.fxml.FXML
     private TextField chargeField;
     @javafx.fxml.FXML
     private TextField maxYears;
@@ -57,8 +55,6 @@ public class TestWindowViewController {
         TreeItem<String> selectedItem = (TreeItem<String>) treeView.getSelectionModel().getSelectedItem();
         if (selectedItem != null && selectedItem.isLeaf()) {
             chargeField.setText(selectedItem.getValue());
-            // TODO: only use FINE value when in citations not in charges | Fines arent accurate
-            fineField.setText(findXMLValue(selectedItem.getValue(), "fine", "data/testXML.xml"));
             // TODO: probably dont use probation chance
             probationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/testXML.xml"));
             minYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml"));

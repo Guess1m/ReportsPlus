@@ -1,5 +1,5 @@
 /*TextFields*/
-.formField {
+.chargeInfoField {
     -fx-text-fill: black !important;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
@@ -10,9 +10,9 @@
     -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
     -fx-background-radius: 5;
     -fx-border-width: 0.5 0.5 0.5 0.5; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-color: rgb(0,0,0,0.35); /* Set initial border color to transparent */
 }
-.formField:focused {
+.chargeInfoField:focused {
     -fx-border-color: #665cb6; /* Change border color when focused */
     -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */
     -fx-background-color: #f2f2f2;

@@ -10,14 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -43,6 +42,23 @@ public class newOfficerController {
         } else {
             rankDropdown.getItems().addAll(dropdownInfo.ranks);
             divisionDropDown.getItems().addAll(dropdownInfo.divisions);
+            divisionDropDown.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                @Override
+                public ListCell<String> call(ListView<String> p) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null || empty) {
+                                setText(null);
+                            } else {
+                                setText(item);
+                                setAlignment(javafx.geometry.Pos.CENTER);
+                            }
+                        }
+                    };
+                }
+            });
             agencyDropDown.getItems().addAll(dropdownInfo.agencies);
         }
     }

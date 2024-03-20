@@ -57,7 +57,7 @@
             <Charge name="(F)Sodomy of Minor(PEN 286(a)" fine_k="10" probation_chance="0" min_years="10"
                     max_years="20"/>
         </ChargeGroup>
-        <ChargeGroup name="Violent Crimes - Theft/Robery/Burglary">
+        <ChargeGroup name="Violent Crimes - Theft/Robbery/Burglary">
             <Charge name="(F)Burglary(PEN 459)" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
             <Charge name="(F)Bank Robbery(PEN 211)" fine_k="10" probation_chance="0" min_years="5" max_years="15"/>
             <Charge name="(F)Convenient Store Robbery(PEN 211)" fine_k="10" probation_chance="0" min_years="1"
@@ -271,7 +271,7 @@
                     max_months="12"/>
             <Charge name="(F)Illegal Possession of Firearm by Felon" fine_k="5" probation_chance="20" min_years="5"
                     max_years="10"/>
-            <Charge name="(F)Possession of Firearm (Felon in Commision of a Crime)" fine_k="5" probation_chance="20"
+            <Charge name="(F)Possession of Firearm (Felon in Commission of a Crime)" fine_k="5" probation_chance="20"
                     min_years="5" max_years="10"/>
             <Charge name="(F)Possession of Firearm (Not Registered)" fine_k="5" probation_chance="20" min_years="5"
                     max_years="10"/>
@@ -371,7 +371,7 @@
                     max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
         </ChargeGroup>
         <ChargeGroup name="Traffic Crimes - License/Reg/Ins">
-            <Charge name="(F)Driving While License Suspended w Knowlege" traffic="true" fine="1000" susp_chance="0"
+            <Charge name="(F)Driving While License Suspended w Knowledge" traffic="true" fine="1000" susp_chance="0"
                     min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_months="1"
                     max_months="12"/>
             <Charge name="(F)Driving While License Revoked" traffic="true" fine="1000" susp_chance="0" min_susp="12"
@@ -443,7 +443,7 @@
                     min_months="1" max_months="12"/>
             <Charge name="Warrant (Child abuse)" fine_k="3" probation_chance="0" min_years="1" max_years="10"/>
             <Charge name="Warrant (Retail theft)" fine_k="3" probation_chance="60" min_years="1" max_years="5"/>
-            <Charge name="Warrant (Posession of Drugs/Illegal Substances)" fine_k="3" probation_chance="10"
+            <Charge name="Warrant (Possession of Drugs/Illegal Substances)" fine_k="3" probation_chance="10"
                     min_years="1" max_years="10"/>
             <Charge name="Warrant (Lewd and Lascivious Conduct)" fine_k="3" probation_chance="0" min_years="1"
                     max_years="5"/>
@@ -470,12 +470,12 @@
             <Charge name="Warrant (Bribery)" fine="1000" probation_chance="60" min_months="1" max_months="12"/>
             <Charge name="Warrant (Disorderly Conduct)" fine="1000" probation_chance="60" min_months="1"
                     max_months="6"/>
-            <Charge name="Warrant (Attempted Robery)" fine="1000" probation_chance="20" min_years="1" max_years="5"/>
+            <Charge name="Warrant (Attempted Robbery)" fine="1000" probation_chance="20" min_years="1" max_years="5"/>
             <Charge name="Warrant (Carjacking)" fine="1000" probation_chance="20" min_years="1" max_years="7"/>
             <Charge name="Warrant (Attempted Carjacking)" fine="1000" probation_chance="20" min_years="1"
                     max_years="5"/>
             <Charge name="Warrant (Shoplifting)" fine="1000" probation_chance="60" min_months="1" max_months="12"/>
-            <Charge name="Warrant (Grafiti)" fine="1000" probation_chance="80" min_months="1" max_months="12"/>
+            <Charge name="Warrant (Graffiti)" fine="1000" probation_chance="80" min_months="1" max_months="12"/>
             <Charge name="Warrant (Indecent Exposure)" fine="1000" probation_chance="80" min_months="1"
                     max_months="12"/>
         </ChargeGroup>

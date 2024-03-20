@@ -131,28 +131,23 @@
                                         <TextField fx:id="ownerName" layoutX="25.0" layoutY="35.0" prefHeight="38.0"
                                                    prefWidth="523.0" promptText="Name" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <ComboBox fx:id="ownerGender" layoutX="25.0" layoutY="84.0" prefHeight="38.0"
-                                                  prefWidth="304.0" promptText="Gender" styleClass="combo-box"
-                                                  stylesheets="@css/form/formComboBox.css"/>
-                                        <Slider fx:id="ownerAgeSlider" layoutX="406.0" layoutY="99.0" prefHeight="14.0"
-                                                prefWidth="125.0" stylesheets="@css/form/formSlider.css"/>
+                                        <TextField fx:id="ownerGender" layoutX="25.0" layoutY="84.0" prefHeight="39.0"
+                                                   prefWidth="237.0" promptText="Gender" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="ownerAge" layoutX="276.0" layoutY="84.0" prefHeight="39.0"
+                                                   prefWidth="271.0" promptText="Age/D.O.B" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
                                         <TextField fx:id="ownerAddress" layoutX="25.0" layoutY="133.0" prefHeight="38.0"
                                                    prefWidth="523.0" promptText="Address" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <Label fx:id="ownerAge" alignment="CENTER" layoutX="411.0" layoutY="74.0"
-                                               mouseTransparent="true" opacity="0.82" prefHeight="25.0"
-                                               prefWidth="115.0" style="-fx-text-fill: #665cb6;" text="0"
-                                               textFill="#665cb6">
-                                            <font>
-                                                <Font name="Candara" size="24.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label layoutX="358.0" layoutY="85.0" opacity="0.82" styleClass="sub-heading"
-                                               stylesheets="@css/form/formLabels.css" text="Age:" textFill="#7c7c7c">
-                                            <font>
-                                                <Font name="Candara" size="16.0"/>
-                                            </font>
-                                        </Label>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="14.0" layoutY="439.0" prefHeight="210.0" prefWidth="973.0"

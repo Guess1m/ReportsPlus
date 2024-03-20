@@ -25,8 +25,7 @@ public class ImpoundReportController {
     public TextField impoundDate;
     public TextField impoundTime;
     public TextField ownerName;
-    public Label ownerAge;
-    public ComboBox ownerGender;
+    public TextField ownerGender;
     public TextField ownerAddress;
     public TextField impoundPlateNumber;
     public TextField impoundMake;
@@ -40,7 +39,7 @@ public class ImpoundReportController {
     public TextField officerDivision;
     public TextField officerAgency;
     public Label incompleteLabel;
-    public Slider ownerAgeSlider;
+    public TextField ownerAge;
     public VBox vbox;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -86,15 +85,11 @@ public class ImpoundReportController {
     }
 
     public void initialize() throws IOException {
-        ownerAgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ownerAge.setText(String.valueOf(newValue.intValue()));
-        });
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
         String rank = ConfigReader.configRead("Rank");
         String number = ConfigReader.configRead("Number");
         String agency = ConfigReader.configRead("Agency");
-        ownerGender.getItems().addAll(dropdownInfo.genders);
         impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
         impoundColor.getItems().addAll(dropdownInfo.carColors);
         officerName.setText(name);
@@ -107,10 +102,16 @@ public class ImpoundReportController {
         createSpinner(impoundNumber, 0, 9999, 0);
     }
 
+    public TextField getOwnerGender() {
+        return ownerGender;
+    }
+
+    public TextField getOwnerAge() {
+        return ownerAge;
+    }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (impoundNumber.getValue() == null ||
-                ownerGender.getValue() == null ||
                 impoundType.getValue() == null ||
                 impoundColor.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
@@ -121,8 +122,6 @@ public class ImpoundReportController {
             }));
             timeline1.play();
         } else {
-            // Load existing logs from XML
-            ImpoundReportLogs searchReportLogs = new ImpoundReportLogs();
             List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
             // Add new entry
@@ -132,7 +131,7 @@ public class ImpoundReportController {
                     impoundTime.getText(),
                     ownerName.getText(),
                     ownerAge.getText(),
-                    ownerGender.getValue().toString(),
+                    ownerGender.getText(),
                     ownerAddress.getText(),
                     impoundPlateNumber.getText(),
                     impoundMake.getText(),
@@ -154,7 +153,6 @@ public class ImpoundReportController {
         }
     }
 
-
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);
@@ -167,10 +165,7 @@ public class ImpoundReportController {
     }
 
     public void onExitButtonClick(MouseEvent actionEvent) {
-        // Get the window associated with the scene
         Window window = vbox.getScene().getWindow();
-
-        // Close the window
-        window.hide(); // or window.close() if you want to force close
+        window.hide();
     }
 }

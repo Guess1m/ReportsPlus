@@ -60,7 +60,7 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <Pane layoutX="16.0" layoutY="204.0" prefHeight="345.0" prefWidth="492.0"
+                                <Pane layoutX="16.0" layoutY="204.0" prefHeight="365.0" prefWidth="492.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <TextField fx:id="officerName" layoutX="25.0" layoutY="45.0" prefHeight="39.0"
@@ -140,7 +140,141 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <Pane layoutX="16.0" layoutY="586.0" prefHeight="222.0" prefWidth="966.0"
+                                <Pane layoutX="507.0" layoutY="226.0" prefHeight="343.0" prefWidth="475.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                                    <children>
+                                        <TextField fx:id="arresteeName" layoutX="25.0" layoutY="38.0" prefHeight="39.0"
+                                                   prefWidth="250.0" promptText="Name" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="arresteeAge" layoutX="287.0" layoutY="38.0" prefHeight="39.0"
+                                                   prefWidth="166.0" promptText="Age/D.O.B" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="arresteeGender" layoutX="25.0" layoutY="92.0"
+                                                   prefHeight="39.0" prefWidth="150.0" promptText="Gender"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="arresteeEthnicity" layoutX="188.0" layoutY="92.0"
+                                                   prefHeight="39.0" prefWidth="265.0" promptText="Ethnicity"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="arresteeDescription" layoutX="25.0" layoutY="146.0"
+                                                   prefHeight="39.0" prefWidth="428.0" promptText="Physical Description"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="15.0" styleClass="headingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Arrestee Information"
+                                               textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="arresteeHomeAddress" layoutX="25.0" layoutY="200.0"
+                                                   prefHeight="39.0" prefWidth="428.0" promptText="Home Address"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Button fx:id="popOverBtn" graphicTextGap="5.0" layoutX="28.0" layoutY="273.0"
+                                                mnemonicParsing="false" onAction="#onPopOverBtnPress" prefHeight="37.0"
+                                                prefWidth="247.0" styleClass="menuButton"
+                                                stylesheets="@css/menu/menuStyles.css"
+                                                text="Submit Medical Information">
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@imgs/icons/arrow-up.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Label layoutX="31.0" layoutY="253.0" text="(If Applicable)"/>
+                                    </children>
+                                </Pane>
+                                <Pane layoutX="16.0" layoutY="606.0" prefHeight="419.0" prefWidth="966.0"
+                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
+                                    <children>
+                                        <Label layoutX="18.0" layoutY="10.0" style="-fx-font-size: 25;"
+                                               styleClass="sub-heading" stylesheets="@css/form/formLabels.css"
+                                               text="Charges" textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TreeView fx:id="treeView" layoutX="26.0" layoutY="55.0"
+                                                  onMouseClicked="#onTreeViewMouseClick" prefHeight="348.0"
+                                                  prefWidth="515.0"/>
+                                        <TextField fx:id="chargeField" layoutX="571.0" layoutY="94.0" prefHeight="37.0"
+                                                   prefWidth="373.0" promptText="Charge Name and Code"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <TextField fx:id="probationChance" layoutX="571.0" layoutY="148.0"
+                                                   prefHeight="26.0" prefWidth="373.0" promptText="Chance Of Probation"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <TextField fx:id="minMonths" layoutX="571.0" layoutY="202.0" prefHeight="37.0"
+                                                   prefWidth="178.0" promptText="Minimum Months"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <TextField fx:id="minYears" layoutX="765.0" layoutY="202.0" prefHeight="37.0"
+                                                   prefWidth="178.0" promptText="Minimum Years"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <TextField fx:id="maxMonths" layoutX="571.0" layoutY="256.0" prefHeight="25.0"
+                                                   prefWidth="178.0" promptText="Maximum Months"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <TextField fx:id="maxYears" layoutX="765.0" layoutY="256.0" prefHeight="37.0"
+                                                   prefWidth="178.0" promptText="Maximum Years"
+                                                   styleClass="chargeInfoField"
+                                                   stylesheets="@css/form/chargeInformationField.css"/>
+                                        <Label layoutX="563.0" layoutY="51.0" style="-fx-font-size: 20;"
+                                               styleClass="sub-heading" stylesheets="@css/form/formLabels.css"
+                                               text="Charge Information" textAlignment="CENTER" textFill="#616161">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <Pane fx:id="trafficChargeInfoPane" layoutX="563.0" layoutY="306.0">
+                                            <children>
+                                                <Label styleClass="sub-heading" stylesheets="@css/form/formLabels.css"
+                                                       text="Traffic Charge Information" textAlignment="CENTER"
+                                                       textFill="#616161">
+                                                    <font>
+                                                        <Font name="Candara" size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="minSuspension" layoutX="8.0" layoutY="40.0"
+                                                           prefHeight="25.0" prefWidth="178.0"
+                                                           promptText="Minimum Suspension" styleClass="chargeInfoField"
+                                                           stylesheets="@css/form/chargeInformationField.css"/>
+                                                <TextField fx:id="maxSuspension" layoutX="202.0" layoutY="40.0"
+                                                           prefHeight="25.0" prefWidth="178.0"
+                                                           promptText="Maximum Suspension" styleClass="chargeInfoField"
+                                                           stylesheets="@css/form/chargeInformationField.css"/>
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </Pane>
+                                <Pane layoutX="16.0" layoutY="1032.0" prefHeight="222.0" prefWidth="966.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <Label layoutX="15.0" layoutY="5.0" styleClass="headingBig"
@@ -182,113 +316,18 @@
                                         </Label>
                                     </children>
                                 </Pane>
-                                <TitledPane expanded="false" layoutX="337.0" layoutY="548.0" prefHeight="75.0"
-                                            prefWidth="323.0" styleClass="formTitledPane2"
-                                            stylesheets="@css/form/formTitledPane.css"
-                                            text="Incident Report (If Applicable)">
-                                    <content>
-                                        <AnchorPane prefHeight="70.0" prefWidth="348.0">
-                                            <children>
-                                                <Button layoutX="56.0" layoutY="14.0" mnemonicParsing="false"
-                                                        onAction="#incidentBtnClick" prefHeight="52.0" prefWidth="237.0"
-                                                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
-                                                        text="New Incident Report" AnchorPane.bottomAnchor="0.0"
-                                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                        AnchorPane.topAnchor="0.0"/>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </TitledPane>
-                                <TitledPane expanded="false" layoutX="16.0" layoutY="548.0" prefHeight="75.0"
-                                            prefWidth="322.0" styleClass="formTitledPane2"
-                                            stylesheets="@css/form/formTitledPane.css"
-                                            text="Vehicle Impound (If Applicable)">
-                                    <content>
-                                        <AnchorPane prefHeight="70.0" prefWidth="348.0">
-                                            <children>
-                                                <Button layoutX="56.0" layoutY="14.0" mnemonicParsing="false"
-                                                        onAction="#impoundBtnClick" prefHeight="52.0" prefWidth="237.0"
-                                                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
-                                                        text="New Impound Report" AnchorPane.bottomAnchor="0.0"
-                                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                        AnchorPane.topAnchor="0.0"/>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </TitledPane>
-                                <TitledPane expanded="false" layoutX="659.0" layoutY="548.0" prefHeight="75.0"
-                                            prefWidth="323.0" styleClass="formTitledPane2"
-                                            stylesheets="@css/form/formTitledPane.css"
-                                            text="Search Report (If Applicable)">
-                                    <content>
-                                        <AnchorPane prefHeight="70.0" prefWidth="348.0">
-                                            <children>
-                                                <Button layoutX="56.0" layoutY="14.0" mnemonicParsing="false"
-                                                        onAction="#searchBtnClick" prefHeight="52.0" prefWidth="237.0"
-                                                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
-                                                        text="New Search Report" AnchorPane.bottomAnchor="0.0"
-                                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                        AnchorPane.topAnchor="0.0"/>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </TitledPane>
-                                <Pane layoutX="507.0" layoutY="226.0" prefHeight="323.0" prefWidth="475.0"
-                                      styleClass="formPane2" stylesheets="@css/form/formPane.css">
-                                    <children>
-                                        <TextField fx:id="arresteeName" layoutX="25.0" layoutY="38.0" prefHeight="39.0"
-                                                   prefWidth="250.0" promptText="Name" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="arresteeEthnicity" layoutX="188.0" layoutY="90.0"
-                                                   prefHeight="39.0" prefWidth="265.0" promptText="Ethnicity"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="arresteeDescription" layoutX="25.0" layoutY="142.0"
-                                                   prefHeight="39.0" prefWidth="428.0" promptText="Physical Description"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <Label layoutX="15.0" styleClass="headingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Arrestee Information"
-                                               textAlignment="CENTER" textFill="#616161">
-                                            <font>
-                                                <Font name="Candara" size="20.0"/>
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="arresteeGender" layoutX="25.0" layoutY="90.0"
-                                                   prefHeight="39.0" prefWidth="150.0" promptText="Gender"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="arresteeAge" layoutX="287.0" layoutY="38.0" prefHeight="39.0"
-                                                   prefWidth="166.0" promptText="Age/D.O.B" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="arresteeHomeAddress" layoutX="25.0" layoutY="194.0"
-                                                   prefHeight="39.0" prefWidth="428.0" promptText="Home Address"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <Button fx:id="popOverBtn" layoutX="83.0" layoutY="247.0"
-                                                mnemonicParsing="false" onAction="#onPopOverBtnPress" text="Button"/>
-                                    </children>
-                                </Pane>
+                                <Button layoutX="16.0" layoutY="568.0" mnemonicParsing="false"
+                                        onAction="#impoundBtnClick" prefHeight="39.0" prefWidth="322.0"
+                                        styleClass="formButton" stylesheets="@css/form/formButton.css"
+                                        text="Create Impound Report (If Applicable)"/>
+                                <Button layoutX="337.0" layoutY="568.0" mnemonicParsing="false"
+                                        onAction="#incidentBtnClick" prefHeight="39.0" prefWidth="324.0"
+                                        styleClass="formButton" stylesheets="@css/form/formButton.css"
+                                        text="Create Incident Report (If Applicable)"/>
+                                <Button layoutX="660.0" layoutY="568.0" mnemonicParsing="false"
+                                        onAction="#searchBtnClick" prefHeight="39.0" prefWidth="322.0"
+                                        styleClass="formButton" stylesheets="@css/form/formButton.css"
+                                        text="Create Search Report (If Applicable)"/>
                             </children>
                         </AnchorPane>
                     </content>

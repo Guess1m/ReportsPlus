@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -31,40 +32,32 @@ public class newOfficerController {
     public ComboBox rankDropdown;
     public ComboBox agencyDropDown;
     public ComboBox divisionDropDown;
-    public VBox vboxid;
+    public AnchorPane vbox;
     public Label incompleteLabel;
-    boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public void onMouseEnter(MouseEvent mouseEvent) {
-        if (hasEntered) {
-        } else {
-            rankDropdown.getItems().addAll(dropdownInfo.ranks);
-            divisionDropDown.getItems().addAll(dropdownInfo.divisions);
-            divisionDropDown.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-                @Override
-                public ListCell<String> call(ListView<String> p) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(String item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item == null || empty) {
-                                setText(null);
-                            } else {
-                                setText(item);
-                                setAlignment(javafx.geometry.Pos.CENTER);
-                            }
+    public void initialize() {
+        rankDropdown.getItems().addAll(dropdownInfo.ranks);
+        divisionDropDown.getItems().addAll(dropdownInfo.divisions);
+        divisionDropDown.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                            setAlignment(javafx.geometry.Pos.CENTER);
                         }
-                    };
-                }
-            });
-            agencyDropDown.getItems().addAll(dropdownInfo.agencies);
-        }
-    }
-
-    public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered = true;
+                    }
+                };
+            }
+        });
+        agencyDropDown.getItems().addAll(dropdownInfo.agencies);
     }
 
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
@@ -79,8 +72,10 @@ public class newOfficerController {
                 incompleteLabel.setVisible(false);
             }));
             timeline1.play();
+            System.out.println("yes");
         } else {
             String jarPath = null;
+            System.out.println("no");
             try {
                 jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             } catch (URISyntaxException e) {
@@ -96,7 +91,6 @@ public class newOfficerController {
             if (configFile.exists()) {
                 System.out.println("exists, printing values");
             } else {
-                System.out.println("doesnt exist");
                 try {
                     // Create the config.properties file in the JAR directory
                     configFile.createNewFile();
@@ -105,39 +99,43 @@ public class newOfficerController {
                     System.out.println("Failed to create config file: " + e.getMessage());
                 }
             }
+            // Access the values only if they are not null
+            String agency = agencyDropDown.getValue().toString();
+            String division = divisionDropDown.getValue().toString();
+            String rank = rankDropdown.getValue().toString();
+
+            // Proceed with further processing
+            ConfigWriter.configwrite("Agency", agency);
+            ConfigWriter.configwrite("Division", division);
+            ConfigWriter.configwrite("Name", nameField.getText());
+            ConfigWriter.configwrite("Rank", rank);
+            ConfigWriter.configwrite("Number", numberField.getText());
+
+            Stage stag = (Stage) vbox.getScene().getWindow();
+            stag.close();
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            stage.setTitle("Data Terminal");
+            stage.setScene(newScene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setResizable(false);
+            stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+            stage.show();
+            stage.centerOnScreen();
+            stage.setY(stage.getY() * 3f / 2f);
+            stage.setMinHeight(stage.getHeight() - 200);
+            stage.setMinWidth(stage.getWidth() - 200);
+            ResizeHelper.addResizeListener(stage);
+
+            actionController actionController = loader.getController();
+            actionController.getInfoPane().setDisable(true);
+            actionController.getInfoPane().setVisible(false);
+            actionController.getShiftInformationPane().setDisable(false);
+            actionController.getShiftInformationPane().setVisible(true);
         }
-        // Access the values only if they are not null
-        String agency = agencyDropDown.getValue().toString();
-        String division = divisionDropDown.getValue().toString();
-        String rank = rankDropdown.getValue().toString();
-
-        // Proceed with further processing
-        ConfigWriter.configwrite("Agency", agency);
-        ConfigWriter.configwrite("Division", division);
-        ConfigWriter.configwrite("Name", nameField.getText());
-        ConfigWriter.configwrite("Rank", rank);
-        ConfigWriter.configwrite("Number", numberField.getText());
-
-        Stage stag = (Stage) vboxid.getScene().getWindow();
-        stag.close();
-
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Data Terminal");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
-        stage.show();
-
-        actionController actionController = loader.getController();
-        actionController.getInfoPane().setDisable(true);
-        actionController.getInfoPane().setVisible(false);
-        actionController.getShiftInformationPane().setDisable(false);
-        actionController.getShiftInformationPane().setVisible(true);
-
     }
 
     public void onMouseDrag(MouseEvent mouseEvent) {

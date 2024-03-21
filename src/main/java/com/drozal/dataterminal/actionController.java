@@ -22,7 +22,6 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.stringUtil;
-import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -40,19 +39,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -61,7 +56,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class actionController {
-    public StackPane codesPane;
     public Button notesButton;
     public StackPane notesPane;
     public Button shiftInfoBtn;
@@ -87,7 +81,7 @@ public class actionController {
     public TableView citationTable;
     public TableView impoundTable;
     public TableView parkingCitationTable;
-    public VBox vbox;
+    public AnchorPane vbox;
     public TableView calloutTable;
     public StackPane UISettingsPane;
     public BarChart reportChart;
@@ -345,7 +339,6 @@ public class actionController {
     }
 
     public void onNotesButtonClicked(ActionEvent actionEvent) {
-        setDisable(codesPane);
         setActive(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
@@ -355,7 +348,6 @@ public class actionController {
     }
 
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(codesPane);
         setDisable(notesPane);
         setActive(shiftInformationPane);
         setDisable(infoPane);
@@ -364,9 +356,6 @@ public class actionController {
         setDisable(UISettingsPane);
     }
 
-    public StackPane getCodesPane() {
-        return codesPane;
-    }
 
     public ComboBox getOfficerInfoAgency() {
         return OfficerInfoAgency;
@@ -474,8 +463,7 @@ public class actionController {
         Platform.exit();
     }
 
-    public void onLogsButtonClick(ActionEvent actionEvent) throws IOException, JAXBException, ParserConfigurationException, TransformerException {
-        setDisable(codesPane);
+    public void onLogsButtonClick(ActionEvent actionEvent) {
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
@@ -1462,7 +1450,7 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("patrolReport-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        stage.setTitle("Arrest Report");
+        stage.setTitle("Patrol Report");
         stage.setScene(newScene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
@@ -1523,7 +1511,6 @@ public class actionController {
     }
 
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(codesPane);
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setActive(infoPane);
@@ -1581,19 +1568,8 @@ public class actionController {
         clearConfig();
     }
 
-    public void TenCodesBtnClick(ActionEvent actionEvent) {
-        setActive(codesPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
-        setDisable(notesPane);
-        setDisable(shiftInformationPane);
-        setDisable(infoPane);
-        setDisable(UISettingsPane);
-    }
-
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         setActive(UISettingsPane);
-        setDisable(codesPane);
         logPane.setVisible(false);
         logPane.setDisable(true);
         setDisable(notesPane);

@@ -1,18 +1,14 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.stringUtil;
+import com.drozal.dataterminal.util.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -48,33 +44,26 @@ public class DataTerminalHomeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        mainStage.mainRT = new Stage();
+        Stage mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
+        Scene scene = new Scene(root);
 
-        // Add title label to the custom title bar
-        Label titleLabel = new Label("Data Terminal " + stringUtil.version);
-        titleLabel.setTextFill(Color.WHITE); // Set text color to black
-        titleLabel.setPadding(new Insets(0, 0, 0, 20)); // Adjust left padding as needed
-        titleLabel.setFont(Font.font("Segoe UI Black", 16)); // Set font to Consolas and bold, adjust size as needed
-
-        VBox content = new VBox(root);
-        Scene scene = new Scene(content);
-
-
-// Set stage transparent and remove default window decorations
-        mainStage.mainRT.initStyle(StageStyle.TRANSPARENT);
-        mainStage.mainRT.setScene(scene);
-        mainStage.mainRT.setResizable(false);
-        mainStage.mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
-        mainStage.mainRT.show();
-        mainStage.mainRT.centerOnScreen();
-        mainStage.mainRT.setY(mainStage.mainRT.getY() * 3f / 2f);
+        // Set stage transparent and remove default window decorations
+        mainRT.initStyle(StageStyle.UNDECORATED);
+        mainRT.setScene(scene);
+        mainRT.setResizable(true);
+        mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+        mainRT.show();
+        mainRT.centerOnScreen();
+        mainRT.setY(mainRT.getY() * 3f / 2f);
+        mainRT.setMinHeight(mainRT.getHeight() - 200);
+        mainRT.setMinWidth(mainRT.getWidth() - 200);
+        ResizeHelper.addResizeListener(mainRT);
 
 
         actionController controller = loader.getController();
         StackPane notesPane = controller.getNotesPane();
-        StackPane codesPane = controller.getCodesPane();
         Label generatedByTag = controller.getGeneratedByTag();
         Label generatedOnTag = controller.getGeneratedDateTag();
         StackPane shiftInfoPane = controller.getShiftInformationPane();
@@ -91,8 +80,6 @@ public class DataTerminalHomeApplication extends Application {
         shiftInfoPane.setDisable(false);
         notesPane.setVisible(false);
         notesPane.setDisable(true);
-        codesPane.setVisible(false);
-        codesPane.setDisable(true);
         informationPane.setVisible(false);
         informationPane.setDisable(true);
         logsPane.setVisible(false);

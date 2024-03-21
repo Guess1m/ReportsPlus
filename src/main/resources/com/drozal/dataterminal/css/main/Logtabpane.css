@@ -7,7 +7,7 @@
     -fx-font-family: "Segoe UI";
     -fx-background-color: #f2f2f2; /* Background color of the selected tab */
     -fx-text-fill: white !important; /* Text color of tabs */
-    -fx-padding: 8px 8.5px; /* Padding on the left and right of each tab */
+    -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
     -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
     -fx-border-color: rgb(128, 128, 128,0.2); /* Change border color when focused */
     -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
@@ -27,7 +27,7 @@
     -fx-background-color: #f2f2f2; /* Background color of the selected tab */
     -fx-border-color: #8c84c8; /* Change border color when focused */
         -fx-border-width: 0 0 4px 0; /* Increase bottom border width when focused */
-        -fx-padding: 8 12px; /* Padding on the left and right of each tab */
+        -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
 }
 .tab:selected .focus-indicator {
     -fx-border-color: transparent;

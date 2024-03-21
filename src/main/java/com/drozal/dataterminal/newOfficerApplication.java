@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.util.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,9 +23,13 @@ public class newOfficerApplication extends Application {
         Scene newScene = new Scene(root);
         newOfficerStage.setTitle("New Officer Sign In");
         newOfficerStage.setScene(newScene);
-        newOfficerStage.initStyle(StageStyle.TRANSPARENT);
-        newOfficerStage.setResizable(false);
+        newOfficerStage.initStyle(StageStyle.UNDECORATED);
+        newOfficerStage.setResizable(true);
         newOfficerStage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         newOfficerStage.show();
+        newOfficerStage.setMinHeight(newOfficerStage.getHeight());
+        newOfficerStage.setMinWidth(newOfficerStage.getWidth());
+        newOfficerStage.setMaxHeight(newOfficerStage.getHeight());
+        ResizeHelper.addResizeListener(newOfficerStage);
     }
 }

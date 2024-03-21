@@ -37,31 +37,23 @@ public class patrolReportController {
     public TextField officerVehicle;
     public TextArea patrolComments;
     public Label incompleteLabel;
-    boolean hasEntered = false;
-    private double xOffset = 0;
-    private double yOffset = 0;
+    public double yOffset = 0;
+    public double xOffset = 0;
 
-    public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {
-        } else {
-            String name = ConfigReader.configRead("Name");
-            String division = ConfigReader.configRead("Division");
-            String rank = ConfigReader.configRead("Rank");
-            String number = ConfigReader.configRead("Number");
-            String agency = ConfigReader.configRead("Agency");
-            officerName.setText(name);
-            officerDivision.setText(division);
-            officerRank.setText(rank);
-            officerAgency.setText(agency);
-            officerNumber.setText(number);
-            createSpinner(patrolNumber, 0, 9999, 0);
-            patrolStopTime.setText(getTime());
-            patrolDate.setText(getDate());
-        }
-    }
-
-    public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered = true;
+    public void initialize() throws IOException {
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+        officerName.setText(name);
+        officerDivision.setText(division);
+        officerRank.setText(rank);
+        officerAgency.setText(agency);
+        officerNumber.setText(number);
+        createSpinner(patrolNumber, 0, 9999, 0);
+        patrolStopTime.setText(getTime());
+        patrolDate.setText(getDate());
     }
 
     public void onStopTimeBtnPress(ActionEvent actionEvent) {

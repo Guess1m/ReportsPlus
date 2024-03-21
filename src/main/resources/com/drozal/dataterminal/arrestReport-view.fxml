@@ -243,16 +243,16 @@
                                                 <Pane fx:id="yearsPane" layoutX="55.0" layoutY="110.0" visible="false">
                                                     <children>
                                                         <TextField fx:id="minYears" editable="false" layoutX="-8.0"
-                                                                   prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="2.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Minimum Years"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
                                                         <TextField fx:id="maxYears" editable="false" layoutX="-8.0"
-                                                                   layoutY="54.0" prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="44.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Maximum Years"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
-                                                        <Label layoutX="262.0" layoutY="6.0"
+                                                        <Label layoutX="257.0" layoutY="8.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -262,7 +262,7 @@
                                                                 <Font name="Candara" size="20.0"/>
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="259.0" layoutY="60.0"
+                                                        <Label layoutX="254.0" layoutY="50.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -277,16 +277,16 @@
                                                 <Pane fx:id="monthsPane" layoutX="39.0" layoutY="110.0" visible="false">
                                                     <children>
                                                         <TextField fx:id="minMonths" editable="false" layoutX="8.0"
-                                                                   prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="2.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Minimum Months"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
                                                         <TextField fx:id="maxMonths" editable="false" layoutX="8.0"
-                                                                   layoutY="54.0" prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="44.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Maximum Months"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
-                                                        <Label layoutX="254.0" layoutY="60.0"
+                                                        <Label layoutX="249.0" layoutY="50.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -296,7 +296,7 @@
                                                                 <Font name="Candara" size="20.0"/>
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="257.0" layoutY="6.0"
+                                                        <Label layoutX="252.0" layoutY="8.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -308,7 +308,7 @@
                                                         </Label>
                                                     </children>
                                                 </Pane>
-                                                <Pane fx:id="trafficChargeInfoPane" layoutY="214.0" prefHeight="113.0"
+                                                <Pane fx:id="trafficChargeInfoPane" layoutY="206.0" prefHeight="113.0"
                                                       prefWidth="482.0">
                                                     <children>
                                                         <Label layoutX="186.0" layoutY="-3.0"
@@ -321,16 +321,16 @@
                                                             </font>
                                                         </Label>
                                                         <TextField fx:id="minSuspension" editable="false" layoutX="48.0"
-                                                                   layoutY="30.0" prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="33.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Minimum Suspension"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
                                                         <TextField fx:id="maxSuspension" editable="false" layoutX="48.0"
-                                                                   layoutY="78.0" prefHeight="37.0" prefWidth="420.0"
+                                                                   layoutY="85.0" prefHeight="37.0" prefWidth="420.0"
                                                                    promptText="Maximum Suspension"
                                                                    styleClass="chargeInfoField"
                                                                    stylesheets="@css/form/chargeInformationField.css"/>
-                                                        <Label layoutX="266.0" layoutY="36.0"
+                                                        <Label layoutX="261.0" layoutY="39.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -340,7 +340,7 @@
                                                                 <Font name="Candara" size="20.0"/>
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="265.0" layoutY="84.0"
+                                                        <Label layoutX="260.0" layoutY="91.0"
                                                                style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                                styleClass="sub-heading"
                                                                stylesheets="@css/form/formLabels.css"
@@ -352,7 +352,7 @@
                                                         </Label>
                                                     </children>
                                                 </Pane>
-                                                <Label layoutX="418.0" layoutY="34.0"
+                                                <Label layoutX="413.0" layoutY="34.0"
                                                        style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                        styleClass="sub-heading" stylesheets="@css/form/formLabels.css"
                                                        text="Charge" textAlignment="CENTER" textFill="#616161">
@@ -360,7 +360,7 @@
                                                         <Font name="Candara" size="20.0"/>
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="328.0" layoutY="76.0"
+                                                <Label layoutX="323.0" layoutY="76.0"
                                                        style="-fx-font-size: 15; -fx-text-fill: rgb(115, 115, 115,0.8);"
                                                        styleClass="sub-heading" stylesheets="@css/form/formLabels.css"
                                                        text="Chance of Probation" textAlignment="CENTER"

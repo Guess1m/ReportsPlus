@@ -10,5 +10,5 @@
     -fx-background-radius: 0;
     -fx-border-color: grey; /* Change border color when focused */
         -fx-border-width: 0 0 1.5px 0; /* Increase bottom border width when focused */
-        -fx-background-color:rgb(230, 230, 230,0.5);
+        -fx-background-color:transparent;
 }

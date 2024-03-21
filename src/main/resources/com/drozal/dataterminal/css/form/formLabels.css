@@ -8,6 +8,14 @@
 
 }
 
+.arrestHeadingBig {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5e877d; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
 .heading {
     -fx-font-family: "Segoe UI SemiBold";
     -fx-background-color: rgb(102, 92, 182,0.75);

@@ -43,6 +43,28 @@
     -fx-font-size: 14.5px;
 }
 
+.medinfoButton {
+    -fx-background-color: white; /* Background color */
+    -fx-padding: 8px 16px; /* Padding */
+    -fx-border-radius: 4px; /* Border radius */
+    -fx-border-width: 0.5;
+    -fx-border-color: grey; /* Border color */
+    -fx-text-fill: #5e5e5e;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.5px;
+}
+.medinfoButton:hover {
+    -fx-text-fill: rgb(94, 135, 125); /* Text color */
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.5px;
+}
+.medinfoButton:pressed {
+    -fx-background-color: rgb(94, 135, 125); /* Background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.5px;
+}
+
 /*TextFields*/
 .menuField {
     -fx-text-fill: black !important;

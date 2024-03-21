@@ -16,3 +16,21 @@
     -fx-border-width: 0 0 0 0;
         -fx-border-color: white; /* Border color */
 }
+.arrestformButton {
+    -fx-background-color: rgb(94, 135, 125, 0.85); /* Background color */
+    -fx-border-width: 0 1.5 0 1.5;
+    -fx-border-color: white; /* Border color */
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 16px;
+}
+.arrestformButton:hover {
+    -fx-background-color: #54786f; /* Background color */
+    -fx-border-width: 0 0 0 0;
+        -fx-border-color: white; /* Border color */
+}
+.arrestformButton:pressed {
+    -fx-background-color: #496961; /* Background color */
+    -fx-border-width: 0 0 0 0;
+        -fx-border-color: white; /* Border color */
+}

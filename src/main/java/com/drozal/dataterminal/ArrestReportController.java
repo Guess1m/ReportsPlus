@@ -92,6 +92,11 @@ public class ArrestReportController {
         // Optionally configure other properties of the PopOver
         popOver.setDetachable(false);
         popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
+        popOver.cornerRadiusProperty().setValue(23);
+        popOver.setFadeInDuration(Duration.seconds(0.5));
+        popOver.setFadeOutDuration(Duration.seconds(0.4));
+        popOver.setTitle("Medical Information");
+        popOver.setHeaderAlwaysVisible(true);
 
         return popOver;
     }
@@ -130,14 +135,14 @@ public class ArrestReportController {
         trafficChargeInfoPane.setVisible(false);
         monthsPane.setVisible(false);
 
-        treeView.addEventFilter(ScrollEvent.ANY, event -> {
+       /* treeView.addEventFilter(ScrollEvent.ANY, event -> {
             // Consume the scroll event to prevent it from reaching the parent scroll pane
             event.consume();
         });
         chargeScrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             // Consume the scroll event to prevent it from reaching the parent scroll pane
             event.consume();
-        });
+        });*/
     }
 
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {

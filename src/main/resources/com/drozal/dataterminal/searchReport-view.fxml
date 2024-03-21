@@ -10,9 +10,8 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExit"
-      prefHeight="685.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/21"
-      fx:controller="com.drozal.dataterminal.SearchReportController">
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="1013.0"
+      xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.SearchReportController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
     </padding>
@@ -22,14 +21,14 @@
                     stylesheets="@css/form/formPaneBackground.css">
             <children>
                 <ScrollPane layoutY="75.0" prefHeight="610.0" prefWidth="1013.0"
-                            stylesheets="@css/main/Logscrollpane.css">
+                            stylesheets="@css/form/search/searchScrollPane.css">
                     <content>
                         <AnchorPane prefHeight="660.0" prefWidth="996.0">
                             <children>
                                 <Pane layoutX="14.0" layoutY="14.0" prefHeight="140.0" prefWidth="470.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Timestamp Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -37,18 +36,18 @@
                                             </font>
                                         </Label>
                                         <TextField fx:id="searchDate" layoutX="25.0" layoutY="33.0" prefHeight="37.0"
-                                                   prefWidth="425.0" promptText="Search Date" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css"/>
+                                                   prefWidth="425.0" promptText="Search Date"
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="searchTime" layoutX="25.0" layoutY="79.0" prefHeight="36.0"
-                                                   prefWidth="425.0" promptText="Search Time" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css"/>
+                                                   prefWidth="425.0" promptText="Search Time"
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css"/>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="483.0" layoutY="14.0" prefHeight="231.0" prefWidth="503.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <TextField fx:id="officerName" layoutX="25.0" layoutY="33.0" prefHeight="37.0"
-                                                   prefWidth="289.0" promptText="Name" styleClass="formField"
+                                                   prefWidth="289.0" promptText="Name" styleClass="searchformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
@@ -56,13 +55,13 @@
                                         </TextField>
                                         <TextField fx:id="officerNumber" layoutX="329.0" layoutY="33.0"
                                                    prefHeight="37.0" prefWidth="157.0" promptText="Number"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="officerRank" layoutX="25.0" layoutY="79.0" prefHeight="37.0"
-                                                   prefWidth="460.0" promptText="Rank" styleClass="formField"
+                                                   prefWidth="460.0" promptText="Rank" styleClass="searchformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
@@ -70,19 +69,19 @@
                                         </TextField>
                                         <TextField fx:id="officerDivision" layoutX="25.0" layoutY="125.0"
                                                    prefHeight="37.0" prefWidth="460.0" promptText="Division"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="officerAgency" layoutX="25.0" layoutY="171.0"
                                                    prefHeight="36.0" prefWidth="460.0" promptText="Agency"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Reporting Officer"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -95,27 +94,27 @@
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <TextField fx:id="searchCounty" layoutX="25.0" layoutY="33.0" prefHeight="37.0"
-                                                   prefWidth="425.0" promptText="County" styleClass="formField"
+                                                   prefWidth="425.0" promptText="County" styleClass="searchformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="searchArea" layoutX="25.0" layoutY="79.0" prefHeight="36.0"
-                                                   prefWidth="425.0" promptText="Area" styleClass="formField"
+                                                   prefWidth="425.0" promptText="Area" styleClass="searchformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="searchStreet" layoutX="25.0" layoutY="126.0" prefHeight="36.0"
-                                                   prefWidth="425.0" promptText="Street" styleClass="formField"
+                                                   prefWidth="425.0" promptText="Street" styleClass="searchformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Location Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -149,12 +148,12 @@
                                     <children>
                                         <TextField fx:id="searchGrounds" layoutX="25.0" layoutY="33.0" prefHeight="37.0"
                                                    prefWidth="427.0" promptText="Grounds for search"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Search Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -163,30 +162,30 @@
                                         </Label>
                                         <TextField fx:id="searchWitnesses" layoutX="25.0" layoutY="79.0"
                                                    prefHeight="38.0" prefWidth="427.0" promptText="Witnesses"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="searchedPersons" layoutX="25.0" layoutY="126.0"
                                                    prefHeight="38.0" prefWidth="427.0" promptText="Searched Person(s)"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="searchformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <ComboBox fx:id="searchType" layoutX="25.0" layoutY="173.0" prefHeight="38.0"
-                                                  prefWidth="427.0" promptText="Search Type" styleClass="combo-box"
+                                                  prefWidth="427.0" promptText="Search Type" styleClass="searchComboBox"
                                                   stylesheets="@css/form/formComboBox.css"/>
                                         <ComboBox fx:id="searchMethod" layoutX="25.0" layoutY="220.0" prefHeight="38.0"
-                                                  prefWidth="427.0" promptText="Search Method" styleClass="combo-box"
-                                                  stylesheets="@css/form/formComboBox.css"/>
+                                                  prefWidth="427.0" promptText="Search Method"
+                                                  styleClass="searchComboBox" stylesheets="@css/form/formComboBox.css"/>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="483.0" layoutY="244.0" prefHeight="404.0" prefWidth="503.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Summary"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -209,8 +208,8 @@
                                         </TextArea>
                                         <Button fx:id="SubmitBtn" layoutX="370.0" layoutY="354.0"
                                                 mnemonicParsing="false" onAction="#onSearchReportSubmitBtnClick"
-                                                prefHeight="43.0" prefWidth="114.0" styleClass="purpleButton"
-                                                stylesheets="@css/menu/menuStyles.css" text="Submit">
+                                                prefHeight="43.0" prefWidth="114.0" styleClass="searchformButton"
+                                                stylesheets="@css/form/formButton.css" text="Submit">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>

@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -266,7 +265,36 @@ public class ArrestReportController {
         controller.getOwnerGender().setText(arresteeGender.getText());
     }
 
-    public void searchBtnClick(ActionEvent actionEvent) {
+    public void searchBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchReport-view.fxml"));
+        Parent root = loader.load();
+        SearchReportController controller = loader.getController();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Search Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
+        stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
+
+        controller.getSearchDate().setText(arrestDate.getText());
+        controller.getSearchTime().setText(arrestTime.getText());
+
+        int arrestNumberValue = (int) arrestNumber.getValue(); // Extract the value from the source Spinner
+        controller.getSearchNumber().getValueFactory().setValue(arrestNumberValue); // Set the value to the target Spinner's value factory
+
+        controller.getOfficerAgency().setText(officerAgency.getText());
+        controller.getOfficerName().setText(officerName.getText());
+        controller.getOfficerDivision().setText(officerDivision.getText());
+        controller.getOfficerRank().setText(officerRank.getText());
+        controller.getOfficerNumber().setText(officerNumber.getText());
+        controller.getSearchArea().setText(arrestArea.getText());
+        controller.getSearchCounty().setText(arrestCounty.getText());
+        controller.getSearchStreet().setText(arrestStreet.getText());
+        controller.getSearchedPersons().setText(arresteeName.getText());
     }
 
     public void incidentBtnClick(ActionEvent actionEvent) throws IOException {

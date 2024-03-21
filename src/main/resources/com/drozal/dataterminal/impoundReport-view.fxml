@@ -21,7 +21,7 @@
                     stylesheets="@css/form/formPaneBackground.css">
             <children>
                 <ScrollPane layoutY="75.0" pannable="true" prefHeight="610.0" prefWidth="1013.0"
-                            stylesheets="@css/main/Logscrollpane.css">
+                            stylesheets="@css/form/impound/impoundScrollPane.css">
                     <content>
                         <Pane prefHeight="656.0" prefWidth="993.0" styleClass="menuBackground"
                               stylesheets="@css/menu/menuStyles.css">
@@ -29,7 +29,7 @@
                                 <Pane layoutX="14.0" layoutY="14.0" prefHeight="137.0" prefWidth="400.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="impoundHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Timestamp Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -37,10 +37,12 @@
                                             </font>
                                         </Label>
                                         <TextField fx:id="impoundDate" layoutX="25.0" layoutY="35.0" prefHeight="37.0"
-                                                   prefWidth="351.0" promptText="Impound Date" styleClass="formField"
+                                                   prefWidth="351.0" promptText="Impound Date"
+                                                   styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="impoundTime" layoutX="25.0" layoutY="82.0" prefHeight="38.0"
-                                                   prefWidth="351.0" promptText="Impound Time" styleClass="formField"
+                                                   prefWidth="351.0" promptText="Impound Time"
+                                                   styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                     </children>
                                 </Pane>
@@ -48,7 +50,7 @@
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
                                         <TextField fx:id="officerName" layoutX="25.0" layoutY="35.0" prefHeight="37.0"
-                                                   prefWidth="337.0" promptText="Name" styleClass="formField"
+                                                   prefWidth="337.0" promptText="Name" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
@@ -56,13 +58,13 @@
                                         </TextField>
                                         <TextField fx:id="officerNumber" layoutX="377.0" layoutY="35.0"
                                                    prefHeight="37.0" prefWidth="175.0" promptText="Number"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="impoundformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="officerRank" layoutX="25.0" layoutY="83.0" prefHeight="38.0"
-                                                   prefWidth="527.0" promptText="Rank" styleClass="formField"
+                                                   prefWidth="527.0" promptText="Rank" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
@@ -70,19 +72,19 @@
                                         </TextField>
                                         <TextField fx:id="officerAgency" layoutX="25.0" layoutY="132.0"
                                                    prefHeight="38.0" prefWidth="527.0" promptText="Agency"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="impoundformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="officerDivision" layoutX="25.0" layoutY="181.0"
                                                    prefHeight="37.0" prefWidth="527.0" promptText="Division"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css">
+                                                   styleClass="impoundformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="impoundHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Officer Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -94,7 +96,7 @@
                                 <Pane layoutX="14.0" layoutY="150.0" prefHeight="290.0" prefWidth="400.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="impoundHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Vehicle Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -103,25 +105,26 @@
                                         </Label>
                                         <TextField fx:id="impoundPlateNumber" layoutX="25.0" layoutY="35.0"
                                                    prefHeight="38.0" prefWidth="352.0" promptText="Plate #"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"/>
+                                                   styleClass="impoundformField"
+                                                   stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="impoundMake" layoutX="25.0" layoutY="84.0" prefHeight="38.0"
-                                                   prefWidth="352.0" promptText="Make" styleClass="formField"
+                                                   prefWidth="352.0" promptText="Make" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="impoundModel" layoutX="25.0" layoutY="133.0" prefHeight="38.0"
-                                                   prefWidth="352.0" promptText="Model" styleClass="formField"
+                                                   prefWidth="352.0" promptText="Model" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                         <ComboBox fx:id="impoundType" layoutX="25.0" layoutY="182.0" prefHeight="38.0"
-                                                  prefWidth="352.0" promptText="Type"
+                                                  prefWidth="352.0" promptText="Type" styleClass="impoundComboBox"
                                                   stylesheets="@css/form/formComboBox.css"/>
                                         <ComboBox fx:id="impoundColor" layoutX="25.0" layoutY="231.0" prefHeight="38.0"
-                                                  prefWidth="352.0" promptText="Color"
+                                                  prefWidth="352.0" promptText="Color" styleClass="impoundComboBox"
                                                   stylesheets="@css/form/formComboBox.css"/>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="413.0" layoutY="247.0" prefHeight="193.0" prefWidth="574.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="impoundHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Owner Information"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -129,31 +132,31 @@
                                             </font>
                                         </Label>
                                         <TextField fx:id="ownerName" layoutX="25.0" layoutY="35.0" prefHeight="38.0"
-                                                   prefWidth="523.0" promptText="Name" styleClass="formField"
+                                                   prefWidth="523.0" promptText="Name" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="ownerGender" layoutX="25.0" layoutY="84.0" prefHeight="39.0"
-                                                   prefWidth="237.0" promptText="Gender" styleClass="formField"
+                                                   prefWidth="237.0" promptText="Gender" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="ownerAge" layoutX="276.0" layoutY="84.0" prefHeight="39.0"
-                                                   prefWidth="271.0" promptText="Age/D.O.B" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css">
+                                                   prefWidth="271.0" promptText="Age/D.O.B"
+                                                   styleClass="impoundformField" stylesheets="@css/form/formFields.css">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <TextField fx:id="ownerAddress" layoutX="25.0" layoutY="133.0" prefHeight="38.0"
-                                                   prefWidth="523.0" promptText="Address" styleClass="formField"
+                                                   prefWidth="523.0" promptText="Address" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="14.0" layoutY="439.0" prefHeight="210.0" prefWidth="973.0"
                                       styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>
-                                        <Label layoutX="15.0" styleClass="headingBig"
+                                        <Label layoutX="15.0" styleClass="impoundHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Comments"
                                                textAlignment="CENTER" textFill="#616161">
                                             <font>
@@ -179,8 +182,8 @@
                                                  stylesheets="@css/form/formSpinner.css"/>
                                         <Button layoutX="834.0" layoutY="157.0" mnemonicParsing="false"
                                                 onAction="#onArrestReportSubmitBtnClick" prefHeight="43.0"
-                                                prefWidth="114.0" styleClass="purpleButton"
-                                                stylesheets="@css/menu/menuStyles.css" text="Submit">
+                                                prefWidth="114.0" styleClass="impoundformButton"
+                                                stylesheets="@css/form/formButton.css" text="Submit">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>

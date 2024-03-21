@@ -43,3 +43,95 @@
         -fx-background-color: #f2f2f2;
         -fx-effect: none;
 }
+
+
+.searchComboBox {
+   -fx-text-fill: black !important;
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 16px;
+   -fx-background-color: white;
+   -fx-prompt-text-fill: rgb(115, 115, 115,0.7) !important;
+   -fx-background-insets: 0;
+   -fx-padding: 3.9px;
+   -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
+   -fx-background-radius: 5;
+   -fx-border-width: 0.5 0.5 0.5 0.5; /* Set bottom border width */
+   -fx-border-color: grey; /* Set initial border color to transparent */
+}
+.searchComboBox .list-cell {
+    -fx-text-fill:  black; /* Set the text color */
+}
+.searchComboBox-popup .list-view .list-cell {
+    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-background-color:  #f2f2f2;
+    -fx-border-color: none;
+}
+.searchComboBox .list-view .list-cell:hover {
+    -fx-background-color: #ada7d7; /* Set the hover background color */
+}
+.searchComboBox .scroll-bar {
+    -fx-background-color: #f2f2f2; /* Transparent background */
+        -fx-pref-width: 11px; /* Thicker width */
+}
+.searchComboBox .scroll-bar .increment-arrow,
+.searchComboBox .scroll-bar .decrement-arrow {
+    -fx-background-color: none; /* Change arrow color */
+}
+.searchComboBox .scroll-bar .thumb {
+    -fx-background-color: #5e6887; /* Change arrow color */
+}
+.searchComboBox .scroll-bar .thumb:pressed {
+    -fx-background-color: #495169; /* Change arrow color */
+}
+.searchComboBox:focused {
+    -fx-border-color: #5e6887; /* Change border color when focused */
+        -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */
+        -fx-background-color: #f2f2f2;
+        -fx-effect: none;
+}
+
+
+.impoundComboBox {
+   -fx-text-fill: black !important;
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 16px;
+   -fx-background-color: white;
+   -fx-prompt-text-fill: rgb(115, 115, 115,0.7) !important;
+   -fx-background-insets: 0;
+   -fx-padding: 3.9px;
+   -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
+   -fx-background-radius: 5;
+   -fx-border-width: 0.5 0.5 0.5 0.5; /* Set bottom border width */
+   -fx-border-color: grey; /* Set initial border color to transparent */
+}
+.impoundComboBox .list-cell {
+    -fx-text-fill:  black; /* Set the text color */
+}
+.impoundComboBox-popup .list-view .list-cell {
+    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-background-color:  #f2f2f2;
+    -fx-border-color: none;
+}
+.impoundComboBox .list-view .list-cell:hover {
+    -fx-background-color: #ada7d7; /* Set the hover background color */
+}
+.impoundComboBox .scroll-bar {
+    -fx-background-color: #f2f2f2; /* Transparent background */
+        -fx-pref-width: 11px; /* Thicker width */
+}
+.impoundComboBox .scroll-bar .increment-arrow,
+.impoundComboBox .scroll-bar .decrement-arrow {
+    -fx-background-color: none; /* Change arrow color */
+}
+.impoundComboBox .scroll-bar .thumb {
+    -fx-background-color: #875e87; /* Change arrow color */
+}
+.impoundComboBox .scroll-bar .thumb:pressed {
+    -fx-background-color: #694969; /* Change arrow color */
+}
+.impoundComboBox:focused {
+    -fx-border-color: #875e87; /* Change border color when focused */
+        -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */
+        -fx-background-color: #f2f2f2;
+        -fx-effect: none;
+}

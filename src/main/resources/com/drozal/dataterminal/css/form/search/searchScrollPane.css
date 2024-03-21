@@ -1,0 +1,54 @@
+/* Define styles for the scroll pane */
+.scroll-pane {
+    -fx-background:  white; /* Transparent background */
+
+}
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+    }
+
+/* Define styles for the vertical scroll bar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 14px; /* Thicker width */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #5e6887; /* Thumb color */
+    -fx-min-height: 14px; /* Thicker thumb */
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Define styles for the horizontal scroll bar */
+.scroll-bar:horizontal {
+    -fx-background-color: red; /* Transparent background */
+    -fx-pref-height: 0px; /* Thicker height */
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: blue; /* Thumb color */
+    -fx-min-width: 0px; /* Thicker thumb */
+}
+
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Define styles for the track of the scroll bars */
+.scroll-bar .track {
+    -fx-background-color: none; /* Transparent track */
+}
+/* Define styles for the vertical scroll bar when pressed */
+.scroll-bar:vertical:pressed .thumb {
+    -fx-background-color: #495169; /* Thumb color when pressed */
+}
+
+/* Define styles for the horizontal scroll bar when pressed */
+.scroll-bar:horizontal:pressed .thumb {
+    -fx-background-color: transparent; /* Thumb color when pressed */
+}

@@ -45,34 +45,97 @@ public class SearchReportController {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {
-
-        } else {
-            String name = ConfigReader.configRead("Name");
-            String division = ConfigReader.configRead("Division");
-            String rank = ConfigReader.configRead("Rank");
-            String number = ConfigReader.configRead("Number");
-            String agency = ConfigReader.configRead("Agency");
-
-            searchType.getItems().addAll(dropdownInfo.searchTypes);
-            searchMethod.getItems().addAll(dropdownInfo.searchMethods);
-
-            officerName.setText(name);
-            officerDivision.setText(division);
-            officerRank.setText(rank);
-            officerAgency.setText(agency);
-            officerNumber.setText(number);
-
-            createSpinner(SearchNumber, 0, 9999, 0);
-            searchTime.setText(getTime());
-            searchDate.setText(getDate());
-
-        }
+    public Spinner getSearchNumber() {
+        return SearchNumber;
     }
 
-    public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered = true;
+    public TextField getSearchedPersons() {
+        return searchedPersons;
+    }
+
+    public TextField getSearchDate() {
+        return searchDate;
+    }
+
+    public TextField getSearchTime() {
+        return searchTime;
+    }
+
+    public TextArea getSearchSeizedItems() {
+        return searchSeizedItems;
+    }
+
+    public TextField getSearchGrounds() {
+        return searchGrounds;
+    }
+
+    public ComboBox getSearchType() {
+        return searchType;
+    }
+
+    public ComboBox getSearchMethod() {
+        return searchMethod;
+    }
+
+    public TextField getSearchWitnesses() {
+        return searchWitnesses;
+    }
+
+    public TextField getOfficerRank() {
+        return officerRank;
+    }
+
+    public TextField getOfficerName() {
+        return officerName;
+    }
+
+    public TextField getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public TextField getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public TextField getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public TextField getSearchStreet() {
+        return searchStreet;
+    }
+
+    public TextField getSearchArea() {
+        return searchArea;
+    }
+
+    public TextField getSearchCounty() {
+        return searchCounty;
+    }
+
+    public TextArea getSearchComments() {
+        return searchComments;
+    }
+
+    public void initialize() throws IOException {
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+
+        searchType.getItems().addAll(dropdownInfo.searchTypes);
+        searchMethod.getItems().addAll(dropdownInfo.searchMethods);
+
+        officerName.setText(name);
+        officerDivision.setText(division);
+        officerRank.setText(rank);
+        officerAgency.setText(agency);
+        officerNumber.setText(number);
+
+        createSpinner(SearchNumber, 0, 9999, 0);
+        searchTime.setText(getTime());
+        searchDate.setText(getDate());
     }
 
     public void onSearchReportSubmitBtnClick(ActionEvent actionEvent) {

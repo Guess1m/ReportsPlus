@@ -8,6 +8,30 @@
 
 }
 
+.impoundHeadingBig {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #875e87; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
+.searchHeadingBig {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5e6887; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
+.incidentHeadingBig {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5e7387; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
 .arrestHeadingBig {
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 18px;

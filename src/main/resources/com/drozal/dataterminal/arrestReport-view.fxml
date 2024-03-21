@@ -29,7 +29,7 @@
             <children>
                 <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="75.0" pannable="true" prefHeight="610.0" prefWidth="1013.0" stylesheets="@css/form/arrest/arrestScrollPane.css">
                     <content>
-                        <AnchorPane prefHeight="1487.0" prefWidth="1000.0">
+                        <AnchorPane prefHeight="1487.0" prefWidth="990.0">
                             <children>
                                 <Pane layoutX="16.0" layoutY="14.0" prefHeight="191.0" prefWidth="492.0" styleClass="formPane2" stylesheets="@css/form/formPane.css">
                                     <children>

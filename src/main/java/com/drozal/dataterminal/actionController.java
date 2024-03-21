@@ -91,6 +91,9 @@ public class actionController {
     public TableView calloutTable;
     public StackPane UISettingsPane;
     public BarChart reportChart;
+    public TextArea notepadTextArea1;
+    public TextArea notepadTextArea2;
+    public TextArea notepadTextArea3;
     double minColumnWidth = 185.0;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -434,22 +437,9 @@ public class actionController {
 
     public void onclearclick(ActionEvent actionEvent) {
         notepadTextArea.setText("");
-    }
-
-    public void oncopyclick(ActionEvent actionEvent) {
-        String textToCopy = notepadTextArea.getText();
-        ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(textToCopy);
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        clipboard.setContent(clipboardContent);
-    }
-
-    public void onpasteclick(ActionEvent actionEvent) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        if (clipboard.hasString()) {
-            String clipboardContent = clipboard.getString();
-            notepadTextArea.appendText(clipboardContent);
-        }
+        notepadTextArea1.setText("");
+        notepadTextArea2.setText("");
+        notepadTextArea3.setText("");
     }
 
     public void updateInfoButtonClick(ActionEvent actionEvent) {

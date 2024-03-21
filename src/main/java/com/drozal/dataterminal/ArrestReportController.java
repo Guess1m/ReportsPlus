@@ -269,7 +269,35 @@ public class ArrestReportController {
     public void searchBtnClick(ActionEvent actionEvent) {
     }
 
-    public void incidentBtnClick(ActionEvent actionEvent) {
+    public void incidentBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("incidentReport-view.fxml"));
+        Parent root = loader.load();
+        IncidentReportController controller = loader.getController();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Incident Report");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
+        stage.show();
+        stage.centerOnScreen();
+        stage.setY(stage.getY() * 3f / 2f);
+
+        controller.getIncidentDate().setText(arrestDate.getText());
+        controller.getIncidentTime().setText(arrestTime.getText());
+
+        int arrestNumberValue = (int) arrestNumber.getValue(); // Extract the value from the source Spinner
+        controller.getIncidentNumber().getValueFactory().setValue(arrestNumberValue); // Set the value to the target Spinner's value factory
+
+        controller.getOfficerAgency().setText(officerAgency.getText());
+        controller.getOfficerName().setText(officerName.getText());
+        controller.getOfficerDivision().setText(officerDivision.getText());
+        controller.getOfficerRank().setText(officerRank.getText());
+        controller.getOfficerNumber().setText(officerNumber.getText());
+        controller.getIncidentArea().setText(arrestArea.getText());
+        controller.getIncidentCounty().setText(arrestCounty.getText());
+        controller.getIncidentStreet().setText(arrestStreet.getText());
     }
 
     public void onPopOverBtnPress(ActionEvent actionEvent) throws IOException {

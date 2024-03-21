@@ -23,7 +23,7 @@ import java.util.List;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 
 public class IncidentReportController {
-    public Spinner Spinner;
+    public Spinner incidentNumber;
     public TextField incidentDate;
     public TextField incidentTime;
     public TextArea incidentStatement;
@@ -45,35 +45,26 @@ public class IncidentReportController {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public void onMouseEntered(MouseEvent mouseEvent) throws IOException {
-        if (hasEntered) {
+    public void initialize() throws IOException {
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
 
-        } else {
-            String name = ConfigReader.configRead("Name");
-            String division = ConfigReader.configRead("Division");
-            String rank = ConfigReader.configRead("Rank");
-            String number = ConfigReader.configRead("Number");
-            String agency = ConfigReader.configRead("Agency");
+        officerName.setText(name);
+        officerDivision.setText(division);
+        officerRank.setText(rank);
+        officerAgency.setText(agency);
+        officerNumber.setText(number);
 
-            officerName.setText(name);
-            officerDivision.setText(division);
-            officerRank.setText(rank);
-            officerAgency.setText(agency);
-            officerNumber.setText(number);
-
-            createSpinner(Spinner, 0, 9999, 0);
-            incidentTime.setText(getTime());
-            incidentDate.setText(getDate());
-
-        }
-    }
-
-    public void onMouseExit(MouseEvent mouseEvent) {
-        hasEntered = true;
+        createSpinner(incidentNumber, 0, 9999, 0);
+        incidentTime.setText(getTime());
+        incidentDate.setText(getDate());
     }
 
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
-        if (Spinner.getValue() == null) {
+        if (incidentNumber.getValue() == null) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -88,7 +79,7 @@ public class IncidentReportController {
 
             // Add new entry
             logs.add(new IncidentLogEntry(
-                    Spinner.getValue().toString(),
+                    incidentNumber.getValue().toString(),
                     incidentDate.getText(),
                     incidentTime.getText(),
                     incidentStatement.getText(),
@@ -131,5 +122,77 @@ public class IncidentReportController {
 
         // Close the window
         window.hide(); // or window.close() if you want to force close
+    }
+
+    public Spinner getIncidentNumber() {
+        return incidentNumber;
+    }
+
+    public TextField getIncidentDate() {
+        return incidentDate;
+    }
+
+    public TextField getIncidentTime() {
+        return incidentTime;
+    }
+
+    public TextArea getIncidentStatement() {
+        return incidentStatement;
+    }
+
+    public TextField getIncidentWitnesses() {
+        return incidentWitnesses;
+    }
+
+    public TextField getIncidentVictims() {
+        return incidentVictims;
+    }
+
+    public TextField getOfficerName() {
+        return officerName;
+    }
+
+    public TextField getOfficerRank() {
+        return officerRank;
+    }
+
+    public TextField getOfficerNumber() {
+        return officerNumber;
+    }
+
+    public TextField getOfficerAgency() {
+        return officerAgency;
+    }
+
+    public TextField getOfficerDivision() {
+        return officerDivision;
+    }
+
+    public TextField getIncidentStreet() {
+        return incidentStreet;
+    }
+
+    public TextField getIncidentArea() {
+        return incidentArea;
+    }
+
+    public TextField getIncidentCounty() {
+        return incidentCounty;
+    }
+
+    public TextArea getIncidentActionsTaken() {
+        return incidentActionsTaken;
+    }
+
+    public TextArea getIncidentComments() {
+        return incidentComments;
+    }
+
+    public VBox getVbox() {
+        return vbox;
+    }
+
+    public Label getIncompleteLabel() {
+        return incompleteLabel;
     }
 }

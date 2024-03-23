@@ -125,7 +125,6 @@ public class newOfficerController {
             stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
             stage.show();
             stage.centerOnScreen();
-            stage.setY(stage.getY() * 3f / 2f);
             stage.setMinHeight(stage.getHeight() - 200);
             stage.setMinWidth(stage.getWidth() - 200);
             ResizeHelper.addResizeListener(stage);

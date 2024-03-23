@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-//created by Alexander Berg
 public class ResizeHelper {
 
     public static void addResizeListener(Stage stage) {
@@ -44,7 +43,7 @@ public class ResizeHelper {
     static class ResizeListener implements EventHandler<MouseEvent> {
         private Stage stage;
         private Cursor cursorEvent = Cursor.DEFAULT;
-        private int border = 10;
+        private int border = 7;
         private double startX = 0;
         private double startY = 0;
 

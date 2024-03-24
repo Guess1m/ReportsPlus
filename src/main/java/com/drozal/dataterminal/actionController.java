@@ -360,6 +360,13 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
+        setActive(shiftInformationPane);
+        setDisable(notesPane);
+        setDisable(infoPane);
+        UISettingsPane.setDisable(true);
+        UISettingsPane.setVisible(false);
+        calloutReportPane.setDisable(true);
+        calloutReportPane.setVisible(false);
         refreshChart();
         loadTheme();
         String name = ConfigReader.configRead("Name");

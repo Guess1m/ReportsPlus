@@ -420,9 +420,8 @@
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="1.0" layoutY="78.0" styleClass="formPane"
-                            stylesheets="@css/form/formPaneBackground.css" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
+                <AnchorPane layoutX="1.0" layoutY="78.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
                     <children>
                         <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -440,7 +439,7 @@
                                     <children>
                                         <TextField fx:id="calloutReportName" layoutX="15.0" layoutY="51.0"
                                                    promptText="Name" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
                                                    AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="51.0">
                                             <font>
                                                 <Font size="14.0"/>
@@ -448,7 +447,7 @@
                                         </TextField>
                                         <TextField fx:id="calloutReportRank" layoutX="15.0" layoutY="101.0"
                                                    promptText="Rank" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
                                                    AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
@@ -456,7 +455,7 @@
                                         </TextField>
                                         <TextField fx:id="calloutReportNumber" layoutX="15.0" layoutY="151.0"
                                                    promptText="Officer Number" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
                                                    AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
@@ -464,7 +463,7 @@
                                         </TextField>
                                         <TextField fx:id="calloutReportDivision" layoutX="15.0" layoutY="201.0"
                                                    promptText="Division" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
                                                    AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
@@ -472,7 +471,7 @@
                                         </TextField>
                                         <TextField fx:id="calloutReportAgency" layoutX="15.0" layoutY="251.0"
                                                    promptText="Agency" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
                                                    AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
@@ -480,7 +479,7 @@
                                         </TextField>
                                         <Label alignment="CENTER" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Officer Information"
-                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="20.0"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
                                                AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
@@ -493,7 +492,7 @@
                                         <TextField fx:id="calloutReportResponeType" layoutX="26.0" layoutY="52.0"
                                                    promptText="Type" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
+                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -501,7 +500,7 @@
                                         <TextField fx:id="calloutReportResponseCounty" layoutX="26.0" layoutY="101.0"
                                                    promptText="County" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -509,7 +508,7 @@
                                         <TextField fx:id="calloutReportResponseAddress" layoutX="26.0" layoutY="151.0"
                                                    promptText="Address" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
@@ -517,7 +516,7 @@
                                         <TextField fx:id="calloutReportResponseArea" layoutX="26.0" layoutY="200.0"
                                                    promptText="Area" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -525,14 +524,14 @@
                                         <TextField fx:id="calloutReportResponseGrade" layoutX="26.0" layoutY="249.0"
                                                    promptText="Code" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
                                         <Label alignment="CENTER" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Callout Information"
-                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="20.0"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
                                                AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
@@ -540,22 +539,23 @@
                                         </Label>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP"
-                                            GridPane.vgrow="ALWAYS">
+                                <AnchorPane prefHeight="334.0" prefWidth="447.0" GridPane.hgrow="SOMETIMES"
+                                            GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                                     <children>
                                         <TextArea fx:id="calloutReportNotesTextArea" layoutX="12.0" layoutY="40.0"
                                                   maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                                  prefWidth="394.0" promptText="Notes.." styleClass="text-area"
-                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
-                                                  AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="30.0"
-                                                  AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
+                                                  prefHeight="201.0" prefWidth="364.0" promptText="Notes.."
+                                                  styleClass="text-area" stylesheets="@css/form/formTextArea.css"
+                                                  wrapText="true" AnchorPane.bottomAnchor="60.0"
+                                                  AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
+                                                  AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
                                         <Label alignment="CENTER" prefHeight="38.0" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Event Notes"
-                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="20.0"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
                                                AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
@@ -569,7 +569,7 @@
                                         <TextField fx:id="calloutReportDate" layoutX="26.0" layoutY="52.0"
                                                    promptText="Date" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
+                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -577,7 +577,7 @@
                                         <TextField fx:id="calloutReportTime" layoutX="26.0" layoutY="102.0"
                                                    promptText="Time" styleClass="formField"
                                                    stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
-                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="102.0">
+                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="102.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -585,7 +585,7 @@
                                         <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="38.0"
                                                styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
                                                text="Timestamp Information" textAlignment="CENTER" textFill="#616161"
-                                               AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="14.0">
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
@@ -605,7 +605,7 @@
                                                 mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick"
                                                 prefHeight="38.0" prefWidth="110.0" styleClass="purpleButton"
                                                 stylesheets="@css/menu/menuStyles.css" text="Submit" textFill="#008cd7"
-                                                AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="50.0">
+                                                AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="70.0">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>

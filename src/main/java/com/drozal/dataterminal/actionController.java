@@ -3,6 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
+import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
@@ -22,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,9 +35,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -47,7 +49,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class actionController {
@@ -86,7 +90,7 @@ public class actionController {
     @javafx.fxml.FXML
     public AnchorPane vbox;
     @javafx.fxml.FXML
-    public StackPane UISettingsPane;
+    public AnchorPane UISettingsPane;
     @javafx.fxml.FXML
     public BarChart reportChart;
     @javafx.fxml.FXML
@@ -107,17 +111,28 @@ public class actionController {
     public Label mainColor8;
     @javafx.fxml.FXML
     public Label mainColor9Bkg;
+    @javafx.fxml.FXML
     public Button updateInfoBtn;
+    @javafx.fxml.FXML
     public MenuButton settingsDropdown;
+    @javafx.fxml.FXML
     public Label secondaryColorBkgNotes3;
+    @javafx.fxml.FXML
     public Label secondaryColorBkgNotes1;
+    @javafx.fxml.FXML
     public Label secondaryColorBkgNotes4;
+    @javafx.fxml.FXML
     public Label secondaryColorBkgNotes2;
+    @javafx.fxml.FXML
     public Button resetDefaultsBtn;
+    @javafx.fxml.FXML
+    public Label primaryColor;
+    @javafx.fxml.FXML
+    public Label secondaryColor;
+    @javafx.fxml.FXML
+    public AnchorPane calloutReportPane;
     private double xOffset = 0;
     private double yOffset = 0;
-    @javafx.fxml.FXML
-    private Rectangle secondaryColor1;
     @javafx.fxml.FXML
     private Label secondaryColor2;
     @javafx.fxml.FXML
@@ -130,8 +145,6 @@ public class actionController {
     private Label secondaryColor3Bkg;
     @javafx.fxml.FXML
     private Label mainColor6;
-    @javafx.fxml.FXML
-    private Label mainColor1;
     @javafx.fxml.FXML
     private Label mainColor7Bkg;
     @javafx.fxml.FXML
@@ -146,6 +159,56 @@ public class actionController {
     private Button mapButton;
     @javafx.fxml.FXML
     private MenuButton createReportBtn;
+    @javafx.fxml.FXML
+    private TextField calloutReportResponseCounty;
+    @javafx.fxml.FXML
+    private MenuItem parkingCitationReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportName;
+    @javafx.fxml.FXML
+    private Label calloutincompleteLabel;
+    @javafx.fxml.FXML
+    private MenuItem searchReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportAgency;
+    @javafx.fxml.FXML
+    private MenuItem trafficReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportResponseAddress;
+    @javafx.fxml.FXML
+    private MenuItem impoundReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportResponseGrade;
+    @javafx.fxml.FXML
+    private TextArea calloutReportNotesTextArea;
+    @javafx.fxml.FXML
+    private Button calloutReportSubmitBtn;
+    @javafx.fxml.FXML
+    private MenuItem incidentReportButton;
+    @javafx.fxml.FXML
+    private MenuItem patrolReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportTime;
+    @javafx.fxml.FXML
+    private MenuItem calloutReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportDivision;
+    @javafx.fxml.FXML
+    private Spinner calloutReportSpinner;
+    @javafx.fxml.FXML
+    private TextField calloutReportResponeType;
+    @javafx.fxml.FXML
+    private TextField calloutReportResponseArea;
+    @javafx.fxml.FXML
+    private MenuItem arrestReportButton;
+    @javafx.fxml.FXML
+    private MenuItem trafficCitationReportButton;
+    @javafx.fxml.FXML
+    private TextField calloutReportNumber;
+    @javafx.fxml.FXML
+    private TextField calloutReportDate;
+    @javafx.fxml.FXML
+    private TextField calloutReportRank;
 
     public static String getDataLogsFolderPath() {
         try {
@@ -204,7 +267,7 @@ public class actionController {
         }
     }
 
-    public StackPane getUISettingsPane() {
+    public AnchorPane getUISettingsPane() {
         return UISettingsPane;
     }
 
@@ -360,7 +423,10 @@ public class actionController {
         setActive(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
-        setDisable(UISettingsPane);
+        UISettingsPane.setDisable(true);
+        UISettingsPane.setVisible(false);
+        calloutReportPane.setDisable(true);
+        calloutReportPane.setVisible(false);
     }
 
     @javafx.fxml.FXML
@@ -368,7 +434,10 @@ public class actionController {
         setDisable(notesPane);
         setActive(shiftInformationPane);
         setDisable(infoPane);
-        setDisable(UISettingsPane);
+        UISettingsPane.setDisable(true);
+        UISettingsPane.setVisible(false);
+        calloutReportPane.setDisable(true);
+        calloutReportPane.setVisible(false);
     }
 
     public ComboBox getOfficerInfoAgency() {
@@ -413,17 +482,30 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("calloutReport-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Callout Report");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-        stage.centerOnScreen();
+        setDisable(notesPane);
+        setDisable(shiftInformationPane);
+        setDisable(infoPane);
+        UISettingsPane.setDisable(true);
+        UISettingsPane.setVisible(false);
+        calloutReportPane.setDisable(false);
+        calloutReportPane.setVisible(true);
+
+        createSpinner(calloutReportSpinner, 0, 9999, 0);
+
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+
+        calloutReportName.setText(name);
+        calloutReportDivision.setText(division);
+        calloutReportRank.setText(rank);
+        calloutReportAgency.setText(agency);
+        calloutReportNumber.setText(number);
+
+        calloutReportDate.setText(DataTerminalHomeApplication.getDate());
+        calloutReportTime.setText(DataTerminalHomeApplication.getTime());
     }
 
     @javafx.fxml.FXML
@@ -650,7 +732,10 @@ public class actionController {
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setActive(infoPane);
-        setDisable(UISettingsPane);
+        UISettingsPane.setDisable(true);
+        UISettingsPane.setVisible(false);
+        calloutReportPane.setDisable(true);
+        calloutReportPane.setVisible(false);
     }
 
     public void clearDataLogs() {
@@ -706,20 +791,50 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
-        setActive(UISettingsPane);
-        setDisable(notesPane);
-        setDisable(shiftInformationPane);
-        setDisable(infoPane);
+        showSettingsWindow();
     }
+
+    private void showSettingsWindow() {
+        // Create a new stage for the settings window
+        Stage settingsStage = new Stage();
+        settingsStage.setTitle("UI Settings");
+
+        // Create color pickers for selecting colors
+        Label primColor = primaryColor;
+        Label secColor = secondaryColor;
+
+        ColorPicker colorPicker1 = colorSelectMain;
+        ColorPicker colorPicker2 = colorSelectSecondary;
+
+        Button saveButton = resetDefaultsBtn;
+
+        // Create a GridPane layout for the settings window
+        GridPane root = new GridPane();
+        root.setPadding(new Insets(20));
+        root.setHgap(15);
+        root.setVgap(15);
+        root.addRow(0, primColor);
+        root.addRow(1, colorPicker1);
+        root.addRow(2, secColor);
+        root.addRow(3, colorPicker2);
+        root.add(saveButton, 0, 4);
+
+        // Create the scene for the settings window
+        Scene scene = new Scene(root);
+
+        // Set the scene on the settings stage
+        settingsStage.setScene(scene);
+
+        // Show the settings window
+        settingsStage.initStyle(StageStyle.DECORATED);
+        settingsStage.setResizable(false);
+        settingsStage.show();
+    }
+
 
     @javafx.fxml.FXML
     public void onMouseEnter(MouseEvent mouseEvent) {
         updateChartIfMismatch(reportChart);
-    }
-
-    @javafx.fxml.FXML
-    public void testBtnPress(ActionEvent actionEvent) throws IOException {
-
     }
 
     @javafx.fxml.FXML
@@ -764,17 +879,16 @@ public class actionController {
         changeBarColors(getReportChart(), ConfigReader.configRead("mainColor"));
         //Main
         String mainclr = ConfigReader.configRead("mainColor");
-        System.out.println(mainclr);
         topPane.setStyle("-fx-background-color: " + mainclr + ";");
-        mainColor1.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor6.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor7Bkg.setStyle("-fx-background-color: " + mainclr + ";");
         mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
+        primaryColor.setStyle("-fx-text-fill: " + mainclr + ";");
         //Secondary
         String secclr = ConfigReader.configRead("secondaryColor");
+        secondaryColor.setStyle("-fx-text-fill: " + secclr + ";");
         sidepane.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColor1.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor2.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor3.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor4.setStyle("-fx-text-fill: " + secclr + ";");
@@ -840,9 +954,54 @@ public class actionController {
         loadTheme();
     }
 
+    @javafx.fxml.FXML
     public void resetDefaultsBtnPress(ActionEvent actionEvent) throws IOException {
         updateMain(Color.valueOf("#524992"));
         updateSecondary(Color.valueOf("#665cb6"));
         loadTheme();
+    }
+
+    @javafx.fxml.FXML
+    public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
+        if (calloutReportSpinner.getValue() == null) {
+            calloutincompleteLabel.setText("Fill Out Form.");
+            calloutincompleteLabel.setStyle("-fx-text-fill: red;");
+            calloutincompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                calloutincompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {// Load existing logs from XML
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+
+            // Add new entry
+            logs.add(new CalloutLogEntry(
+                    calloutReportDate.getText(),
+                    calloutReportTime.getText(),
+                    calloutReportName.getText(),
+                    calloutReportRank.getText(),
+                    calloutReportNumber.getText(),
+                    calloutReportDivision.getText(),
+                    calloutReportAgency.getText(),
+                    calloutReportResponeType.getText(),
+                    calloutReportResponseGrade.getText(),
+                    calloutReportSpinner.getValue().toString(),
+                    calloutReportNotesTextArea.getText(),
+                    calloutReportResponseAddress.getText(),
+                    calloutReportResponseCounty.getText(),
+                    calloutReportResponseArea.getText()
+
+            ));
+            // Save logs to XML
+            CalloutReportLogs.saveLogsToXML(logs);
+            setActive(shiftInformationPane);
+            calloutReportPane.setDisable(true);
+            calloutReportPane.setVisible(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void testBtnPress(ActionEvent actionEvent) throws IOException {
+
     }
 }

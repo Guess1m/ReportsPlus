@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0" prefHeight="395.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0"
+            prefHeight="395.0"
             prefWidth="620.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.newOfficerController">
     <children>

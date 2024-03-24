@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -69,7 +70,7 @@ public class DataTerminalHomeApplication extends Application {
         Label generatedOnTag = controller.getGeneratedDateTag();
         StackPane shiftInfoPane = controller.getShiftInformationPane();
         StackPane informationPane = controller.getInfoPane();
-        StackPane uiSettingsPane = controller.getUISettingsPane();
+        AnchorPane uiSettingsPane = controller.getUISettingsPane();
 
         TextField OfficerInfoName = controller.getOfficerInfoName();
         ComboBox OfficerInfoDivision = controller.getOfficerInfoDivision();

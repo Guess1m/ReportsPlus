@@ -29,14 +29,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.util.List;
 
-import static com.drozal.dataterminal.util.windowUtils.restoreDefaultState;
-import static com.drozal.dataterminal.util.windowUtils.setWindowedFullscreen;
+import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
     double minColumnWidth = 185.0;
@@ -1031,15 +1029,7 @@ public class LogBrowserController {
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) calloutTable.getScene().getWindow();
         if (stage != null) {
-            toggleWindowedFullscreen(stage);
-        }
-    }
-
-    private void toggleWindowedFullscreen(Stage stage) {
-        if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary().getBounds().getMinY())) {
-            setWindowedFullscreen(stage);
-        } else {
-            restoreDefaultState(stage, 889, 470);
+            toggleWindowedFullscreen(stage, 891, 472);
         }
     }
 

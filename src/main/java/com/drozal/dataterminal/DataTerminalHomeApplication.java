@@ -56,6 +56,8 @@ public class DataTerminalHomeApplication extends Application {
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
         mainRT.centerOnScreen();
+        mainRT.setHeight(740);
+        mainRT.setWidth(1027);
         mainRT.setMinHeight(mainRT.getHeight() - 200);
         mainRT.setMinWidth(mainRT.getWidth() - 200);
         ResizeHelper.addResizeListener(mainRT);
@@ -67,6 +69,7 @@ public class DataTerminalHomeApplication extends Application {
         Label generatedOnTag = controller.getGeneratedDateTag();
         StackPane shiftInfoPane = controller.getShiftInformationPane();
         StackPane informationPane = controller.getInfoPane();
+        StackPane uiSettingsPane = controller.getUISettingsPane();
 
         TextField OfficerInfoName = controller.getOfficerInfoName();
         ComboBox OfficerInfoDivision = controller.getOfficerInfoDivision();
@@ -76,6 +79,8 @@ public class DataTerminalHomeApplication extends Application {
 
         shiftInfoPane.setVisible(true);
         shiftInfoPane.setDisable(false);
+        uiSettingsPane.setDisable(true);
+        uiSettingsPane.setVisible(false);
         notesPane.setVisible(false);
         notesPane.setDisable(true);
         informationPane.setVisible(false);

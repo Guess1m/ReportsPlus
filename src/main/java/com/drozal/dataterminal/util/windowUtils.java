@@ -21,4 +21,12 @@ public class windowUtils {
         stage.centerOnScreen();
     }
 
+    public static void toggleWindowedFullscreen(Stage stage, double width, double height) {
+        if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary().getBounds().getMinY())) {
+            setWindowedFullscreen(stage);
+        } else {
+            restoreDefaultState(stage, width, height);
+        }
+    }
+
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
@@ -9,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0"
-            prefHeight="395.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0" prefHeight="395.0"
             prefWidth="620.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.newOfficerController">
     <children>
@@ -88,8 +86,8 @@
                                         <ComboBox fx:id="divisionDropDown" layoutY="144.0" maxHeight="-Infinity"
                                                   minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
                                                   prefWidth="519.0" styleClass="menuCombobox"
-                                                  stylesheets="@css/menu/menuStyles.css" visibleRowCount="14"
-                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                                                  stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0"/>
                                     </children>
                                 </AnchorPane>
                             </children>

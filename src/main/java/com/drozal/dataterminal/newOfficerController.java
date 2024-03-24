@@ -110,6 +110,8 @@ public class newOfficerController {
             ConfigWriter.configwrite("Name", nameField.getText());
             ConfigWriter.configwrite("Rank", rank);
             ConfigWriter.configwrite("Number", numberField.getText());
+            ConfigWriter.configwrite("mainColor", "#524992");
+            ConfigWriter.configwrite("secondaryColor", "#665cb6");
 
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();

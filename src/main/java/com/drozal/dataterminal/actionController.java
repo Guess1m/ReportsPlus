@@ -18,7 +18,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,6 +34,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,32 +48,104 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
+import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
+
 public class actionController {
+    @javafx.fxml.FXML
     public Button notesButton;
+    @javafx.fxml.FXML
     public StackPane notesPane;
+    @javafx.fxml.FXML
     public Button shiftInfoBtn;
+    @javafx.fxml.FXML
     public StackPane shiftInformationPane;
+    @javafx.fxml.FXML
     public TextField OfficerInfoName;
+    @javafx.fxml.FXML
     public ComboBox OfficerInfoDivision;
+    @javafx.fxml.FXML
     public TextArea ShiftInfoNotesTextArea;
+    @javafx.fxml.FXML
     public ComboBox OfficerInfoAgency;
+    @javafx.fxml.FXML
     public TextField OfficerInfoCallsign;
+    @javafx.fxml.FXML
     public TextField OfficerInfoNumber;
+    @javafx.fxml.FXML
     public ComboBox OfficerInfoRank;
+    @javafx.fxml.FXML
     public Label generatedDateTag;
+    @javafx.fxml.FXML
     public Label generatedByTag;
+    @javafx.fxml.FXML
     public StackPane infoPane;
+    @javafx.fxml.FXML
     public TextArea notepadTextArea;
+    @javafx.fxml.FXML
     public Label updatedNotification;
-    public StackPane logPane;
+    @javafx.fxml.FXML
     public AnchorPane vbox;
+    @javafx.fxml.FXML
     public StackPane UISettingsPane;
+    @javafx.fxml.FXML
     public BarChart reportChart;
+    @javafx.fxml.FXML
     public TextArea notepadTextArea1;
+    @javafx.fxml.FXML
     public TextArea notepadTextArea2;
+    @javafx.fxml.FXML
     public TextArea notepadTextArea3;
+    @javafx.fxml.FXML
+    public ColorPicker colorSelectMain;
+    @javafx.fxml.FXML
+    public AnchorPane topPane;
+    @javafx.fxml.FXML
+    public AnchorPane sidepane;
+    @javafx.fxml.FXML
+    public ColorPicker colorSelectSecondary;
+    @javafx.fxml.FXML
+    public Label mainColor8;
+    @javafx.fxml.FXML
+    public Label mainColor9Bkg;
+    public Button updateInfoBtn;
+    public MenuButton settingsDropdown;
+    public Label secondaryColorBkgNotes3;
+    public Label secondaryColorBkgNotes1;
+    public Label secondaryColorBkgNotes4;
+    public Label secondaryColorBkgNotes2;
+    public Button resetDefaultsBtn;
     private double xOffset = 0;
     private double yOffset = 0;
+    @javafx.fxml.FXML
+    private Rectangle secondaryColor1;
+    @javafx.fxml.FXML
+    private Label secondaryColor2;
+    @javafx.fxml.FXML
+    private Label secondaryColor5;
+    @javafx.fxml.FXML
+    private Label secondaryColor3;
+    @javafx.fxml.FXML
+    private Label secondaryColor4;
+    @javafx.fxml.FXML
+    private Label secondaryColor3Bkg;
+    @javafx.fxml.FXML
+    private Label mainColor6;
+    @javafx.fxml.FXML
+    private Label mainColor1;
+    @javafx.fxml.FXML
+    private Label mainColor7Bkg;
+    @javafx.fxml.FXML
+    private Label secondaryColor4Bkg;
+    @javafx.fxml.FXML
+    private Label secondaryColor5Bkg;
+    @javafx.fxml.FXML
+    private Button clearbtnnotepad;
+    @javafx.fxml.FXML
+    private Button logsButton;
+    @javafx.fxml.FXML
+    private Button mapButton;
+    @javafx.fxml.FXML
+    private MenuButton createReportBtn;
 
     public static String getDataLogsFolderPath() {
         try {
@@ -128,6 +204,10 @@ public class actionController {
         }
     }
 
+    public StackPane getUISettingsPane() {
+        return UISettingsPane;
+    }
+
     public void updateChartIfMismatch(BarChart<String, Number> chart) {
         XYChart.Series<String, Number> series = null;
         for (XYChart.Series<String, Number> s : chart.getData()) {
@@ -178,7 +258,7 @@ public class actionController {
         }
     }
 
-    public void refreshChart() {
+    public void refreshChart() throws IOException {
         // Clear existing data from the chart
         reportChart.getData().clear();
         String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Cit.", "Traffic Cit."};
@@ -195,15 +275,18 @@ public class actionController {
         yAxis.setMinorTickVisible(false);
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         series1.setName("Series 1");
-        series1.getData().add(new XYChart.Data<>(categories[0], CalloutReportLogs.countReports())); // Value for "Callout"
-        series1.getData().add(new XYChart.Data<>(categories[1], ArrestReportLogs.countReports())); // Value for "Arrests"
-        series1.getData().add(new XYChart.Data<>(categories[2], TrafficStopReportLogs.countReports())); // Value for "Traffic Stops"
-        series1.getData().add(new XYChart.Data<>(categories[3], PatrolReportLogs.countReports())); // Value for "Patrols"
-        series1.getData().add(new XYChart.Data<>(categories[4], SearchReportLogs.countReports())); // Value for "Searches"
-        series1.getData().add(new XYChart.Data<>(categories[5], IncidentReportLogs.countReports())); // Value for "Incidents"
-        series1.getData().add(new XYChart.Data<>(categories[6], ImpoundReportLogs.countReports())); // Value for "Impounds"
-        series1.getData().add(new XYChart.Data<>(categories[7], ParkingCitationReportLogs.countReports())); // Value for "PCitations"
-        series1.getData().add(new XYChart.Data<>(categories[8], TrafficCitationReportLogs.countReports())); // Value for "TCitations"
+
+        String color = ConfigReader.configRead("mainColor");
+        for (String category : categories) {
+            XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1); // Value doesn't matter, just need to add a data point
+            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                if (newNode != null) {
+                    newNode.setStyle("-fx-bar-fill: " + color + ";");
+                }
+            });
+            series1.getData().add(data);
+        }
+
         getReportChart().getData().add(series1);
         getReportChart().setLegendVisible(false);
         getReportChart().getXAxis().setTickLabelGap(20);
@@ -215,7 +298,7 @@ public class actionController {
 
     public void initialize() throws IOException {
         refreshChart();
-
+        loadTheme();
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
         String rank = ConfigReader.configRead("Rank");
@@ -272,21 +355,19 @@ public class actionController {
         pane.setDisable(false);
     }
 
+    @javafx.fxml.FXML
     public void onNotesButtonClicked(ActionEvent actionEvent) {
         setActive(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
         setDisable(UISettingsPane);
     }
 
+    @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
         setDisable(notesPane);
         setActive(shiftInformationPane);
         setDisable(infoPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
         setDisable(UISettingsPane);
     }
 
@@ -330,6 +411,7 @@ public class actionController {
         return infoPane;
     }
 
+    @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("calloutReport-view.fxml"));
@@ -342,9 +424,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("map-view.fxml"));
@@ -357,6 +439,7 @@ public class actionController {
         stage.show();
     }
 
+    @javafx.fxml.FXML
     public void onclearclick(ActionEvent actionEvent) {
         notepadTextArea.setText("");
         notepadTextArea1.setText("");
@@ -364,6 +447,7 @@ public class actionController {
         notepadTextArea3.setText("");
     }
 
+    @javafx.fxml.FXML
     public void updateInfoButtonClick(ActionEvent actionEvent) {
         if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null ||
                 getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() ||
@@ -392,10 +476,12 @@ public class actionController {
         }
     }
 
+    @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
         Platform.exit();
     }
 
+    @javafx.fxml.FXML
     public void onLogsButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("logBrowser.fxml"));
@@ -408,12 +494,12 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
         stage.setMinHeight(stage.getHeight() - 200);
         stage.setMinWidth(stage.getWidth() - 200);
         ResizeHelper.addResizeListener(stage);
     }
 
+    @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficStopReport-view.fxml"));
@@ -426,9 +512,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("incidentReport-view.fxml"));
@@ -441,9 +527,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchReport-view.fxml"));
@@ -456,31 +542,35 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onTopCLick(MouseEvent mouseEvent) {
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();
     }
 
+    @javafx.fxml.FXML
     public void onTopDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);
         stage.setY(mouseEvent.getScreenY() - yOffset);
     }
 
+    @javafx.fxml.FXML
     public void onSideClick(MouseEvent mouseEvent) {
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();
     }
 
+    @javafx.fxml.FXML
     public void onSideDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);
         stage.setY(mouseEvent.getScreenY() - yOffset);
     }
 
+    @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("arrestReport-view.fxml"));
@@ -493,9 +583,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("patrolReport-view.fxml"));
@@ -508,9 +598,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficCitationReport-view.fxml"));
@@ -523,9 +613,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("impoundReport-view.fxml"));
@@ -538,9 +628,9 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void onParkingCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingCitationReport-view.fxml"));
@@ -553,15 +643,13 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
     }
 
+    @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setActive(infoPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
         setDisable(UISettingsPane);
     }
 
@@ -605,29 +693,156 @@ public class actionController {
         }
     }
 
+    @javafx.fxml.FXML
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         clearDataLogs();
     }
 
+    @javafx.fxml.FXML
     public void clearAllSaveDataBtnClick(ActionEvent actionEvent) {
         clearDataLogs();
         clearConfig();
     }
 
+    @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         setActive(UISettingsPane);
-        logPane.setVisible(false);
-        logPane.setDisable(true);
         setDisable(notesPane);
         setDisable(shiftInformationPane);
         setDisable(infoPane);
     }
 
+    @javafx.fxml.FXML
     public void onMouseEnter(MouseEvent mouseEvent) {
         updateChartIfMismatch(reportChart);
     }
 
+    @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
 
+    }
+
+    @javafx.fxml.FXML
+    public void onFullscreenBtnClick(Event event) {
+        Stage stage = (Stage) vbox.getScene().getWindow();
+        if (stage != null) {
+            toggleWindowedFullscreen(stage, 1027, 740);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onColorSelectMainPress(ActionEvent actionEvent) throws IOException {
+        Color selectedColor = colorSelectMain.getValue();
+        updateMain(selectedColor);
+        loadTheme();
+    }
+
+    private void updateMain(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("mainColor", hexColor);
+    }
+
+    public void changeBarColors(BarChart<String, Number> barChart, String color) {
+        // Get the list of series from the bar chart
+        ObservableList<XYChart.Series<String, Number>> seriesList = barChart.getData();
+
+        // Iterate over each series
+        for (XYChart.Series<String, Number> series : seriesList) {
+            // Iterate over each data point in the series
+            for (XYChart.Data<String, Number> data : series.getData()) {
+                // Access the node representing the bar for the data point
+                javafx.scene.Node node = data.getNode();
+                // Set the style of the node to change the color of the bar
+                node.setStyle("-fx-bar-fill: " + color + ";");
+            }
+        }
+    }
+
+    private void loadTheme() throws IOException {
+        colorSelectMain.setValue(Color.valueOf(ConfigReader.configRead("mainColor")));
+        colorSelectSecondary.setValue(Color.valueOf(ConfigReader.configRead("secondaryColor")));
+        changeBarColors(getReportChart(), ConfigReader.configRead("mainColor"));
+        //Main
+        String mainclr = ConfigReader.configRead("mainColor");
+        System.out.println(mainclr);
+        topPane.setStyle("-fx-background-color: " + mainclr + ";");
+        mainColor1.setStyle("-fx-text-fill: " + mainclr + ";");
+        mainColor6.setStyle("-fx-text-fill: " + mainclr + ";");
+        mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
+        mainColor7Bkg.setStyle("-fx-background-color: " + mainclr + ";");
+        mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
+        //Secondary
+        String secclr = ConfigReader.configRead("secondaryColor");
+        sidepane.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor1.setStyle("-fx-text-fill: " + secclr + ";");
+        secondaryColor2.setStyle("-fx-text-fill: " + secclr + ";");
+        secondaryColor3.setStyle("-fx-text-fill: " + secclr + ";");
+        secondaryColor4.setStyle("-fx-text-fill: " + secclr + ";");
+        secondaryColor5.setStyle("-fx-text-fill: " + secclr + ";");
+        secondaryColorBkgNotes1.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColorBkgNotes2.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColorBkgNotes3.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColorBkgNotes4.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        //Buttons
+        String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
+        String initialStyle = "-fx-background-color: transparent;";
+        String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";";
+        updateInfoBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
+        clearbtnnotepad.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
+        resetDefaultsBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
+
+        // Add hover event handling
+        shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
+        shiftInfoBtn.setOnMouseExited(e -> shiftInfoBtn.setStyle(initialStyle));
+        settingsDropdown.setOnMouseEntered(e -> settingsDropdown.setStyle(hoverStyle));
+        settingsDropdown.setOnMouseExited(e -> settingsDropdown.setStyle(initialStyle));
+        notesButton.setOnMouseEntered(e -> notesButton.setStyle(hoverStyle));
+        notesButton.setOnMouseExited(e -> notesButton.setStyle(initialStyle));
+        createReportBtn.setOnMouseEntered(e -> createReportBtn.setStyle(hoverStyle));
+        createReportBtn.setOnMouseExited(e -> createReportBtn.setStyle(initialStyle));
+        logsButton.setOnMouseEntered(e -> logsButton.setStyle(hoverStyle));
+        logsButton.setOnMouseExited(e -> logsButton.setStyle(initialStyle));
+        mapButton.setOnMouseEntered(e -> mapButton.setStyle(hoverStyle));
+        mapButton.setOnMouseExited(e -> mapButton.setStyle(initialStyle));
+        updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
+        updateInfoBtn.setOnMouseExited(e -> {
+            updateInfoBtn.setStyle(nonTransparentBtn);
+        });
+        clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle));
+        clearbtnnotepad.setOnMouseExited(e -> {
+            clearbtnnotepad.setStyle(nonTransparentBtn);
+        });
+        resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
+        resetDefaultsBtn.setOnMouseExited(e -> {
+            resetDefaultsBtn.setStyle(nonTransparentBtn);
+        });
+    }
+
+    private void updateSecondary(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("secondaryColor", hexColor);
+    }
+
+    private String toHexString(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
+    @javafx.fxml.FXML
+    public void onColorSelectSecondaryPress(ActionEvent actionEvent) throws IOException {
+        Color selectedColor = colorSelectSecondary.getValue();
+        updateSecondary(selectedColor);
+        loadTheme();
+    }
+
+    public void resetDefaultsBtnPress(ActionEvent actionEvent) throws IOException {
+        updateMain(Color.valueOf("#524992"));
+        updateSecondary(Color.valueOf("#665cb6"));
+        loadTheme();
     }
 }

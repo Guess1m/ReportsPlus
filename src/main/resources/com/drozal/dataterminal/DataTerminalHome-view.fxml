@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -8,19 +7,20 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.NotificationPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" onMouseEntered="#onMouseEnter" prefHeight="740.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" onMouseEntered="#onMouseEnter" prefHeight="773.0"
             prefWidth="1027.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
-        <StackPane id="NotesPane" fx:id="notesPane" disable="true" layoutX="205.0" layoutY="85.0" prefHeight="675.0"
-                   prefWidth="816.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
+        <AnchorPane fx:id="notesPane" disable="true" layoutX="203.0" layoutY="85.0" prefHeight="710.0" prefWidth="824.0"
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
-                <GridPane hgap="10.0" vgap="10.0" StackPane.alignment="CENTER">
+                <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="451.0" minWidth="10.0"
                                            percentWidth="53.0" prefWidth="358.0"/>
@@ -128,21 +128,23 @@
                         </AnchorPane>
                     </children>
                 </GridPane>
-                <Button fx:id="clearbtnnotepad" alignment="CENTER" mnemonicParsing="false" onAction="#onclearclick"
-                        prefHeight="41.0" prefWidth="110.0" styleClass="purpleButton"
+                <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="356.0" layoutY="333.0" maxHeight="-Infinity"
+                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#onclearclick" prefHeight="41.0" prefWidth="110.0" styleClass="purpleButton"
                         stylesheets="@css/menu/menuStyles.css" text="Clear All" textFill="#0074b3"
-                        StackPane.alignment="CENTER">
+                        AnchorPane.bottomAnchor="336.0" AnchorPane.rightAnchor="358.0">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0"/>
                     </font>
                 </Button>
             </children>
-        </StackPane>
-        <StackPane id="DefaultPane" fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="85.0"
-                   prefHeight="675.0" prefWidth="816.0" visible="false" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
+        </AnchorPane>
+        <AnchorPane fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="88.0" visible="false"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="85.0">
             <children>
-                <VBox StackPane.alignment="CENTER">
+                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
                     <children>
                         <AnchorPane VBox.vgrow="NEVER">
                             <children>
@@ -281,15 +283,13 @@
                     </children>
                 </VBox>
             </children>
-        </StackPane>
-        <StackPane id="DefaultPane" fx:id="infoPane" disable="true" layoutX="205.0" layoutY="85.0" prefHeight="675.0"
-                   prefWidth="816.0" style="-fx-background-color: none;" visible="false" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
+        </AnchorPane>
+        <AnchorPane fx:id="infoPane" disable="true" layoutX="207.0" layoutY="90.0" prefHeight="641.0" prefWidth="797.0"
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
-                <AnchorPane prefHeight="628.0" prefWidth="762.0" StackPane.alignment="CENTER">
-                    <StackPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
-                    </StackPane.margin>
+                <AnchorPane prefHeight="628.0" prefWidth="762.0" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="70.0" prefHeight="33.0"
                                styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Program Name:"
@@ -383,7 +383,7 @@
                     </children>
                 </AnchorPane>
             </children>
-        </StackPane>
+        </AnchorPane>
         <AnchorPane fx:id="UISettingsPane" disable="true" layoutX="317.0" layoutY="281.0" prefHeight="222.0"
                     prefWidth="604.0" styleClass="formPane2" stylesheets="@css/form/formPane.css" visible="false"
                     AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="106.0"
@@ -634,6 +634,193 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
+        <AnchorPane fx:id="patrolReportPane" disable="true" layoutX="205.0" layoutY="85.0" prefHeight="707.0"
+                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <children>
+                <AnchorPane layoutY="1.0" prefHeight="77.0" prefWidth="824.0" styleClass="incidentpane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="296.0" layoutY="23.0" text="New Patrol Report"
+                               textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="23.0">
+                            <font>
+                                <Font name="Roboto" size="27.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="1.0" layoutY="78.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
+                    <children>
+                        <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="407.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="417.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="308.0"
+                                                vgrow="NEVER"/>
+                                <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="324.0"
+                                                vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <AnchorPane>
+                                    <children>
+                                        <Label styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Timestamp/Shift Information" textAlignment="CENTER"
+                                               textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="patrolDate" layoutX="10.0" layoutY="37.0" prefHeight="36.0"
+                                                   prefWidth="350.0" promptText="Shift Date" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="51.0"/>
+                                        <TextField fx:id="patrolLength" layoutX="60.0" layoutY="101.0" prefHeight="38.0"
+                                                   prefWidth="350.0" promptText="Shift Length (hours/min)"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
+                                                   AnchorPane.topAnchor="101.0"/>
+                                        <TextField fx:id="patrolStartTime" layoutX="60.0" layoutY="153.0"
+                                                   prefHeight="38.0" prefWidth="350.0" promptText="Start Time"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"/>
+                                        <TextField fx:id="patrolStopTime" layoutX="60.0" layoutY="205.0"
+                                                   prefHeight="38.0" prefWidth="305.0" promptText="Stop Time"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"/>
+                                        <Pane layoutX="4.0" layoutY="133.0"/>
+                                        <Spinner fx:id="patrolSpinnerNumber" editable="true" layoutX="193.0"
+                                                 layoutY="261.0" prefHeight="26.0" prefWidth="98.0"
+                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.leftAnchor="193.0"
+                                                 AnchorPane.topAnchor="261.0"/>
+                                        <Label layoutX="117.0" layoutY="258.0" opacity="0.82" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Patrol #:"
+                                               textFill="#7c7c7c" AnchorPane.leftAnchor="117.0"
+                                               AnchorPane.topAnchor="258.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1">
+                                    <children>
+                                        <TextField fx:id="patrolofficerName" layoutX="10.0" layoutY="37.0"
+                                                   prefHeight="36.0" prefWidth="196.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="51.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="patrolofficerRank" layoutX="30.0" layoutY="101.0"
+                                                   prefHeight="38.0" prefWidth="271.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="patrolofficerNumber" layoutX="239.0" layoutY="51.0"
+                                                   prefHeight="36.0" prefWidth="118.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="60.0"
+                                                   AnchorPane.topAnchor="51.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="patrolofficerDivision" layoutX="30.0" layoutY="205.0"
+                                                   prefHeight="36.0" prefWidth="244.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="patrolofficerAgency" layoutX="30.0" layoutY="153.0"
+                                                   prefHeight="38.0" prefWidth="298.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Reporting Officer" textAlignment="CENTER" textFill="#616161"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="patrolofficerVehicle" layoutX="30.0" layoutY="255.0"
+                                                   prefHeight="38.0" prefWidth="224.0" promptText="Vehicle"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="334.0" prefWidth="763.0" GridPane.columnSpan="2"
+                                            GridPane.rowIndex="1">
+                                    <children>
+                                        <Label styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Comments" textAlignment="CENTER" textFill="#616161"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="5.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="patrolComments" layoutX="10.0" layoutY="38.0"
+                                                  prefHeight="160.0" prefWidth="704.0" promptText="Additional Details.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="60.0"
+                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="40.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <Button layoutX="650.0" layoutY="236.0" mnemonicParsing="false"
+                                                onAction="#onPatrolReportSubmitBtnClick" prefHeight="43.0"
+                                                prefWidth="114.0" styleClass="purpleButton"
+                                                stylesheets="@css/menu/menuStyles.css" text="Submit"
+                                                AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5600000023841858" green="0.5600000023841858"
+                                                               blue="0.5600000023841858" opacity="0.3969465494155884"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Label fx:id="patrolincompleteLabel" alignment="CENTER" layoutX="488.0"
+                                               layoutY="221.0" prefHeight="45.0" prefWidth="159.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="58.0"
+                                               AnchorPane.rightAnchor="177.0">
+                                            <font>
+                                                <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
         <AnchorPane fx:id="topPane" layoutY="-1.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick"
                     prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -645,7 +832,7 @@
                         <Font name="Segoe UI Black" size="25.0"/>
                     </font>
                 </Label>
-                <ImageView fx:id="exitButton" fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0"
+                <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0"
                            onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
                            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <image>

@@ -34,6 +34,7 @@
     -fx-text-fill: #7b72c0; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 .menuButton:pressed {
     -fx-background-color: #7b72c0; /* Background color */
@@ -56,6 +57,7 @@
     -fx-text-fill: rgb(94, 135, 125); /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 .medinfoButton:pressed {
     -fx-background-color: rgb(94, 135, 125); /* Background color */
@@ -187,6 +189,7 @@
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 .purpleButton:pressed {
     -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
@@ -209,6 +212,7 @@
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 .incidentbtn:pressed {
     -fx-background-color: #34404b; /* Pressed background color */
@@ -231,6 +235,7 @@
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 .bluebtn:pressed {
     -fx-background-color: #1166bb; /* Pressed background color */
@@ -255,6 +260,7 @@
     -fx-background-color: #68469c;
     -fx-text-fill: white;
     -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .togglePurpleButton:selected {

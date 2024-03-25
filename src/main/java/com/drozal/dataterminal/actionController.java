@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,12 +38,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -397,6 +400,7 @@ public class actionController {
         setActive(shiftInformationPane);
 
         refreshChart();
+        updateChartIfMismatch(reportChart);
         loadTheme();
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
@@ -453,10 +457,30 @@ public class actionController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
         stage.show();
+        stage.setAlwaysOnTop(true);
+        stage.setAlwaysOnTop(false);
         stage.centerOnScreen();
         stage.setMinHeight(stage.getHeight() - 150);
         stage.setMinWidth(stage.getWidth() - 150);
         ResizeHelper.addResizeListener(stage);
+        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
+    }
+
+    public void showNotification(String title, String message) {
+        Label label = new Label(message);
+
+        VBox vbox1 = new VBox(label);
+        vbox1.setAlignment(Pos.CENTER);
+
+        // Create and show the notification
+        Notifications.create()
+                .title(title)
+                .text(message)
+                .graphic(null) // You can add a graphic if needed
+                .position(Pos.TOP_RIGHT)
+                .hideAfter(Duration.seconds(1.5))
+                .owner(vbox)
+                .show();
     }
 
     @javafx.fxml.FXML
@@ -778,6 +802,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         clearDataLogs();
+        updateChartIfMismatch(reportChart);
     }
 
     @javafx.fxml.FXML
@@ -826,12 +851,6 @@ public class actionController {
         settingsStage.initStyle(StageStyle.DECORATED);
         settingsStage.setResizable(false);
         settingsStage.show();
-    }
-
-
-    @javafx.fxml.FXML
-    public void onMouseEnter(MouseEvent mouseEvent) {
-        updateChartIfMismatch(reportChart);
     }
 
     @javafx.fxml.FXML
@@ -984,6 +1003,8 @@ public class actionController {
             CalloutReportLogs.saveLogsToXML(logs);
             setActive(shiftInformationPane);
             setDisable(calloutReportPane);
+            updateChartIfMismatch(reportChart);
+            showNotification("Reports", "A new Callout Report has been submitted.");
         }
     }
 
@@ -1036,6 +1057,8 @@ public class actionController {
             // Close the stage
             setActive(shiftInformationPane);
             setDisable(patrolReportPane);
+            updateChartIfMismatch(reportChart);
+            showNotification("Reports", "A new Patrol Report has been submitted.");
         }
     }
 }

@@ -2,8 +2,9 @@
     -fx-background-color: none;
     -fx-text-fill: black;
     -fx-font-size: 16px;
-}
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 
+}
 .text-area .scroll-pane {
     -fx-background-color:  transparent;
 }

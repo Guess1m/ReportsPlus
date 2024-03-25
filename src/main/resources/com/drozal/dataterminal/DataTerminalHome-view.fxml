@@ -10,9 +10,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<?import org.controlsfx.control.NotificationPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" onMouseEntered="#onMouseEnter" prefHeight="773.0"
-            prefWidth="1027.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" prefHeight="773.0" prefWidth="1027.0"
+            styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="88.0" visible="false"
@@ -279,25 +278,32 @@
                        stylesheets="@css/form/formLabels.css" text="Secondary Color"/>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutReportPane" disable="true" layoutX="203.0" layoutY="85.0" prefHeight="707.0"
-                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutReportPane" layoutX="203.0" layoutY="85.0" prefHeight="707.0" prefWidth="822.0"
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
-                <AnchorPane layoutY="1.0" prefHeight="77.0" prefWidth="824.0" styleClass="incidentpane"
+                <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
                             stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                     <children>
-                        <Label alignment="CENTER" layoutX="296.0" layoutY="23.0" text="New Callout Report"
-                               textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                               AnchorPane.topAnchor="23.0">
+                        <Label alignment="CENTER" layoutY="13.0" text="New Callout Report" textFill="WHITE"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="13.0">
                             <font>
-                                <Font name="Roboto" size="27.0"/>
+                                <Font name="Segoe UI Semibold" size="27.0"/>
                             </font>
+                            <effect>
+                                <DropShadow height="17.87" offsetX="4.0" offsetY="2.0" radius="7.7425" width="15.1">
+                                    <color>
+                                        <Color opacity="0.1892925351858139"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="1.0" layoutY="78.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
+                <AnchorPane layoutX="1.0" layoutY="67.0" prefHeight="643.0" prefWidth="824.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="67.0">
                     <children>
                         <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -514,21 +520,28 @@
                     prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
-                <AnchorPane layoutY="1.0" prefHeight="77.0" prefWidth="824.0" styleClass="incidentpane"
+                <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
                             stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                     <children>
                         <Label alignment="CENTER" layoutX="296.0" layoutY="23.0" text="New Patrol Report"
                                textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                               AnchorPane.topAnchor="23.0">
+                               AnchorPane.topAnchor="13.0">
                             <font>
-                                <Font name="Roboto" size="27.0"/>
+                                <Font name="Segoe UI Semibold" size="27.0"/>
                             </font>
+                            <effect>
+                                <DropShadow height="17.87" offsetX="4.0" offsetY="2.0" radius="7.7425" width="15.1">
+                                    <color>
+                                        <Color opacity="0.1892925351858139"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
                         </Label>
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutX="1.0" layoutY="78.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
                     <children>
                         <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -707,6 +720,13 @@
                     <font>
                         <Font name="Segoe UI Black" size="25.0"/>
                     </font>
+                    <effect>
+                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                            <color>
+                                <Color opacity="0.223709374666214"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
                 </Label>
                 <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0"
                            onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
@@ -744,6 +764,13 @@
                     <font>
                         <Font name="Segoe UI Semibold" size="18.0"/>
                     </font>
+                    <effect>
+                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                            <color>
+                                <Color opacity="0.223709374666214"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
                 </Label>
                 <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="955.0" layoutY="17.0"
                            onMouseClicked="#onFullscreenBtnClick" pickOnBounds="true" preserveRatio="true"
@@ -910,12 +937,19 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0" prefWidth="203.0"
-                       style="-fx-font-family: Blanka;" text="Dt" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label fx:id="dtlogo" alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0"
+                       prefWidth="203.0" style="-fx-font-family: Blanka;" text="Dt" textFill="WHITE"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
                         <Font size="61.0"/>
                     </font>
+                    <effect>
+                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                            <color>
+                                <Color opacity="0.223709374666214"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
                 </Label>
                 <Line endX="80.0" layoutX="103.0" layoutY="86.0" opacity="0.36" startX="-84.0" stroke="WHITE"
                       strokeWidth="2.0"/>
@@ -924,6 +958,5 @@
                 <DropShadow/>
             </effect>
         </AnchorPane>
-        <NotificationPane layoutX="356.0" layoutY="191.0"/>
     </children>
 </AnchorPane>

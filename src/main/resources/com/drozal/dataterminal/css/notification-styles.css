@@ -1,0 +1,4 @@
+.notification-pane {
+    -fx-background-color: #FFFFFF; /* Background color */
+    -fx-background-radius: 5px; /* Rounded corners */
+}

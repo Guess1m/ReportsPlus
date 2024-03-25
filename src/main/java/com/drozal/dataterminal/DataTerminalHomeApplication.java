@@ -62,7 +62,6 @@ public class DataTerminalHomeApplication extends Application {
         mainRT.setMinWidth(mainRT.getWidth() - 200);
         ResizeHelper.addResizeListener(mainRT);
 
-
         actionController controller = loader.getController();
         AnchorPane notesPane = controller.getNotesPane();
         Label generatedByTag = controller.getGeneratedByTag();

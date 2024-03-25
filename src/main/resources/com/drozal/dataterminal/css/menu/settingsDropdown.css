@@ -51,7 +51,7 @@
 }
 /* Style the menu item when not hovered */
 .menu-item:focused {
-    -fx-background-color: #7b72c0; /* Set default background color for menu items */
+    -fx-background-color: #5e7387; /* Set default background color for menu items */
 }
 .menu-item:focused .label {
     -fx-text-fill: white; /* Set the text color to white on hover */

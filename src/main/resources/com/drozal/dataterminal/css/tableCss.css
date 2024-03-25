@@ -5,18 +5,19 @@
     -fx-background-color: transparent;
 }
 .calloutTABLE .column-header-background{
-    -fx-background-color: rgb(20, 115, 210,0.8);
+    -fx-background-color: transparent;
 }
 .calloutTABLE .column-header-background .label{
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 16.2px;
+    -fx-padding: 7.5px;
     -fx-font-family: "Segoe UI Semibold"; /* Change the font family */
 }
 .calloutTABLE .column-header {
-    -fx-background-color: transparent;
-    -fx-border-width: 0 1.5px 0 0px; /* top right bottom left */
-    -fx-border-color: white;
+    -fx-background-color: #e1e6ea;
+    -fx-border-width: 0 0.5 0 0.5;
+    -fx-border-color: #d2d9e0;
 }
 .calloutTABLE .table-cell{
     -fx-text-fill: #262626;
@@ -35,11 +36,14 @@
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }
 .calloutTABLE .table-row-cell:even{
-    -fx-background-color: rgb(20, 115, 210,0.1);
+    -fx-background-color: rgb(242, 242, 242,0.1);
     -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }
 .calloutTABLE .table-row-cell:selected {
+    -fx-background-color: rgb(31, 133, 234,0.3);
+}
+.calloutTABLE .table-column-cell:selected {
     -fx-background-color: rgb(31, 133, 234,0.3);
 }
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical,

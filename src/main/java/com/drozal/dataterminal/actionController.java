@@ -35,8 +35,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -587,10 +586,11 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setMinHeight(stage.getHeight() - 200);
-        stage.setMinWidth(stage.getWidth() - 200);
+        stage.setMinHeight(stage.getHeight() - 250);
+        stage.setMinWidth(stage.getWidth() - 250);
         ResizeHelper.addResizeListener(stage);
     }
+
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
@@ -645,19 +645,6 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onTopDrag(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-    }
-
-    @javafx.fxml.FXML
-    public void onSideClick(MouseEvent mouseEvent) {
-        xOffset = mouseEvent.getSceneX();
-        yOffset = mouseEvent.getSceneY();
-    }
-
-    @javafx.fxml.FXML
-    public void onSideDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);
         stage.setY(mouseEvent.getScreenY() - yOffset);

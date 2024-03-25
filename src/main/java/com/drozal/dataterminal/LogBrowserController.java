@@ -72,8 +72,6 @@ public class LogBrowserController {
         initializeTrafficStopColumns();
         initializeParkingCitationColumns();
         loadLogs();
-
-        calloutTable.setTableMenuButtonVisible(true);
     }
 
     private void loadLogs() {

@@ -1,11 +1,11 @@
 .tab-pane {
-    -fx-background-color:  transparent; /* Background color */
+    -fx-background-color:  white; /* Background color */
 }
 
 .tab {
     -fx-font-size: 15px; /* Font size of tab labels */
     -fx-font-family: "Segoe UI";
-    -fx-background-color: #f2f2f2; /* Background color of the selected tab */
+    -fx-background-color: transparent; /* Background color of the selected tab */
     -fx-text-fill: white !important; /* Text color of tabs */
     -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
     -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */

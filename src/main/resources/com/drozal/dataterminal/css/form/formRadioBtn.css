@@ -11,7 +11,7 @@
 
 /* Style for selected state */
 .formRadioBtn:selected .dot {
-    -fx-background-color: rgb(94, 135, 125, 0.85); /* Transparent background */
+    -fx-background-color: #5e7387; /* Transparent background */
     -fx-border-color: transparent; /* Border color */
     -fx-border-width: 0px; /* Border width */
     -fx-min-width: 14.5px; /* Set the minimum width */

@@ -12,8 +12,8 @@
             fx:controller="com.drozal.dataterminal.LogBrowserController">
     <children>
         <AnchorPane fx:id="vbox" prefHeight="470.0" prefWidth="889.0" style="-fx-background-color: #f2f2f2;"
-                    AnchorPane.bottomAnchor="1.5" AnchorPane.leftAnchor="1.5" AnchorPane.rightAnchor="1.5"
-                    AnchorPane.topAnchor="1.5">
+                    AnchorPane.bottomAnchor="1.1" AnchorPane.leftAnchor="1.1" AnchorPane.rightAnchor="1.1"
+                    AnchorPane.topAnchor="1.1">
             <children>
                 <TabPane layoutX="20.0" layoutY="50.0" prefHeight="420.0" prefWidth="889.0"
                          stylesheets="@css/main/Logtabpane.css" AnchorPane.bottomAnchor="0.0"

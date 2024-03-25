@@ -745,7 +745,7 @@ public class LogBrowserController {
         TableColumn<SearchLogEntry, String> searchTimeColumn = new TableColumn<>("Search Time");
         searchTimeColumn.setCellValueFactory(new PropertyValueFactory<>("searchTime"));
 
-        TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Seized Items");
+        TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sobriety");
         searchSeizedItemsColumn.setCellValueFactory(new PropertyValueFactory<>("searchSeizedItems"));
 
         TableColumn<SearchLogEntry, String> searchGroundsColumn = new TableColumn<>("Grounds");
@@ -790,6 +790,15 @@ public class LogBrowserController {
         TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Searched Persons");
         searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 
+        TableColumn<SearchLogEntry, String> breathalyzerUsedColumn = new TableColumn<>("Breathalyzer Used(Y/N)");
+        breathalyzerUsedColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerUsed"));
+
+        TableColumn<SearchLogEntry, String> breathalyzerResultColumn = new TableColumn<>("Result(P/F)");
+        breathalyzerResultColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerResult"));
+
+        TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC Measurement");
+        BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
+
         // Create a list to hold all the TableColumn instances for searchTable
         ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(
                 searchNumberColumn,
@@ -809,7 +818,10 @@ public class LogBrowserController {
                 searchAreaColumn,
                 searchCountyColumn,
                 searchCommentsColumn,
-                searchedPersonsColumn
+                searchedPersonsColumn,
+                breathalyzerUsedColumn,
+                breathalyzerResultColumn,
+                BACMeasurementColumn
         );
 
 // Add all columns to searchTable

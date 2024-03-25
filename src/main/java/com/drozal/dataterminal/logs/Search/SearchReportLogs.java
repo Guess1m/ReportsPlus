@@ -70,6 +70,9 @@ public class SearchReportLogs {
                     logEntry.searchArea = getTagValue(logsElement, "searchArea");
                     logEntry.searchCounty = getTagValue(logsElement, "searchCounty");
                     logEntry.searchComments = getTagValue(logsElement, "searchComments");
+                    logEntry.breathalyzerUsed = getTagValue(logsElement, "breathalyzerUsed");
+                    logEntry.breathalyzerResult = getTagValue(logsElement, "breathalyzerResult");
+                    logEntry.breathalyzerBACMeasure = getTagValue(logsElement, "breathalyzerBACMeasure");
                     logEntries.add(logEntry);
                 }
             }

@@ -278,8 +278,8 @@
                        stylesheets="@css/form/formLabels.css" text="Secondary Color"/>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutReportPane" layoutX="203.0" layoutY="85.0" prefHeight="707.0" prefWidth="822.0"
-                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutReportPane" disable="true" layoutX="203.0" layoutY="85.0" prefHeight="707.0"
+                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
                 <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
@@ -312,9 +312,9 @@
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="370.0"/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="345.0" minHeight="10.0" prefHeight="298.0" vgrow="NEVER"/>
-                                <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="334.0"
-                                                vgrow="SOMETIMES"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="298.0"
+                                                vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
                                 <AnchorPane GridPane.hgrow="SOMETIMES" GridPane.vgrow="NEVER">
@@ -428,7 +428,7 @@
                                                   maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                                                   prefHeight="201.0" prefWidth="364.0" promptText="Notes.."
                                                   styleClass="text-area" stylesheets="@css/form/formTextArea.css"
-                                                  wrapText="true" AnchorPane.bottomAnchor="60.0"
+                                                  wrapText="true" AnchorPane.bottomAnchor="45.0"
                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
                                                   AnchorPane.topAnchor="52.0">
                                             <font>
@@ -487,7 +487,7 @@
                                                 mnemonicParsing="false" onAction="#onCalloutReportSubmitBtnClick"
                                                 prefHeight="38.0" prefWidth="110.0" styleClass="incidentbtn"
                                                 stylesheets="@css/menu/menuStyles.css" text="Submit" textFill="#008cd7"
-                                                AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="70.0">
+                                                AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="70.0">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
@@ -552,8 +552,7 @@
                             <rowConstraints>
                                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="308.0"
                                                 vgrow="NEVER"/>
-                                <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="324.0"
-                                                vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="324.0" vgrow="ALWAYS"/>
                             </rowConstraints>
                             <children>
                                 <AnchorPane>
@@ -669,7 +668,7 @@
                                             </font>
                                         </Label>
                                         <TextArea fx:id="patrolComments" layoutX="10.0" layoutY="38.0"
-                                                  prefHeight="160.0" prefWidth="704.0" promptText="Additional Details.."
+                                                  prefHeight="171.0" prefWidth="704.0" promptText="Additional Details.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true"
                                                   AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="60.0"
                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="40.0">
@@ -681,7 +680,7 @@
                                                 onAction="#onPatrolReportSubmitBtnClick" prefHeight="43.0"
                                                 prefWidth="114.0" styleClass="incidentbtn"
                                                 stylesheets="@css/menu/menuStyles.css" text="Submit"
-                                                AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="60.0">
+                                                AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
@@ -696,10 +695,577 @@
                                         </Button>
                                         <Label fx:id="patrolincompleteLabel" alignment="CENTER" layoutX="488.0"
                                                layoutY="221.0" prefHeight="45.0" prefWidth="159.0" textFill="#3ab93abf"
-                                               visible="false" AnchorPane.bottomAnchor="58.0"
+                                               visible="false" AnchorPane.bottomAnchor="45.0"
                                                AnchorPane.rightAnchor="177.0">
                                             <font>
                                                 <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="incidentReportPane" disable="true" layoutX="213.0" layoutY="95.0" prefHeight="707.0"
+                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <children>
+                <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                    <children>
+                        <Label alignment="CENTER" layoutY="13.0" text="New Incident Report" textFill="WHITE"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="13.0">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="27.0"/>
+                            </font>
+                            <effect>
+                                <DropShadow height="17.87" offsetX="4.0" offsetY="2.0" radius="7.7425" width="15.1">
+                                    <color>
+                                        <Color opacity="0.1892925351858139"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="1.0" layoutY="67.0" prefHeight="643.0" prefWidth="824.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="67.0">
+                    <children>
+                        <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="454.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="370.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="306.0" vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="337.0" valignment="CENTER" vgrow="ALWAYS"/>
+                            </rowConstraints>
+                            <children>
+                                <AnchorPane GridPane.hgrow="SOMETIMES" GridPane.vgrow="NEVER">
+                                    <children>
+                                        <TextField fx:id="incidentofficerName" layoutX="10.0" layoutY="34.0"
+                                                   prefHeight="37.0" prefWidth="203.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="145.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentofficerNumber" layoutX="335.0" layoutY="34.0"
+                                                   prefHeight="37.0" prefWidth="107.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentofficerRank" layoutX="60.0" layoutY="101.0"
+                                                   prefHeight="37.0" prefWidth="317.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentofficerDivision" layoutX="60.0" layoutY="153.0"
+                                                   prefHeight="37.0" prefWidth="289.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentofficerAgency" layoutX="60.0" layoutY="204.0"
+                                                   prefHeight="37.0" prefWidth="289.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Reporting Officer Information" textAlignment="CENTER"
+                                               textFill="#d7d7d7" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <Spinner fx:id="incidentNumber" editable="true" layoutX="223.0" layoutY="266.0"
+                                                 prefHeight="26.0" prefWidth="94.0"
+                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.rightAnchor="95.0">
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5657894611358643" green="0.5657894611358643"
+                                                               blue="0.5657894611358643" opacity="0.27000001072883606"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Spinner>
+                                        <Label layoutX="126.0" layoutY="262.0" opacity="0.82" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Incident #"
+                                               textFill="#d7d7d7" AnchorPane.rightAnchor="204.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="NEVER">
+                                    <children>
+                                        <TextField fx:id="incidentCounty" layoutX="10.0" layoutY="33.0"
+                                                   prefHeight="37.0" prefWidth="253.0" promptText="County"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentArea" layoutX="30.0" layoutY="97.0" prefHeight="37.0"
+                                                   prefWidth="253.0" promptText="Area" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentStreet" layoutX="30.0" layoutY="143.0"
+                                                   prefHeight="37.0" prefWidth="236.0" promptText="Street"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Location Information" textAlignment="CENTER" textFill="#d7d7d7"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <AnchorPane layoutX="30.0" layoutY="185.0"/>
+                                        <TextField fx:id="incidentReportdate" layoutX="30.0" layoutY="227.0"
+                                                   promptText="Date" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="incidentReportTime" layoutX="30.0" layoutY="269.0"
+                                                   promptText="Time" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label alignment="CENTER" layoutX="45.0" layoutY="189.0" prefHeight="38.0"
+                                               styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Timestamp Information" textAlignment="CENTER" textFill="#616161"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="189.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP"
+                                            GridPane.vgrow="ALWAYS">
+                                    <children>
+                                        <TextField fx:id="incidentWitnesses" layoutX="30.0" layoutY="37.0"
+                                                   prefHeight="37.0" prefWidth="412.0" promptText="Witness(s)"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="-81.0" layoutY="3.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css"
+                                               text="Involved Parties (If Applicable)" textAlignment="CENTER"
+                                               textFill="#d7d7d7" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="incidentVictims" layoutX="30.0" layoutY="100.0"
+                                                   prefHeight="37.0" prefWidth="412.0" promptText="Victim(s)"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextArea fx:id="incidentStatement" layoutX="30.0" layoutY="148.0"
+                                                  prefHeight="107.0" prefWidth="364.0" promptText="Statement.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0"
+                                                  AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="149.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="334.0" prefWidth="447.0" GridPane.columnIndex="1"
+                                            GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP"
+                                            GridPane.vgrow="ALWAYS">
+                                    <children>
+                                        <Label layoutX="37.0" layoutY="14.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Summary"
+                                               textAlignment="CENTER" textFill="#d7d7d7" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="incidentActionsTaken" layoutX="14.0" layoutY="124.0"
+                                                  prefHeight="96.0" prefWidth="280.0" promptText="Incident Summary.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="189.0" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <TextArea fx:id="incidentComments" layoutX="30.0" layoutY="157.0"
+                                                  prefHeight="89.0" prefWidth="280.0" promptText="Comments.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <Button fx:id="incidentReportSubmitBtn" layoutX="200.0" layoutY="272.0"
+                                                mnemonicParsing="false" onAction="#onIncidentReportSubmitBtnClick"
+                                                prefHeight="38.0" prefWidth="110.0" styleClass="incidentbtn"
+                                                stylesheets="@css/menu/menuStyles.css" text="Submit" textFill="#008cd7"
+                                                AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5600000023841858" green="0.5600000023841858"
+                                                               blue="0.5600000023841858" opacity="0.3969465494155884"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Label fx:id="incidentincompleteLabel" alignment="CENTER" layoutX="34.0"
+                                               layoutY="275.0" prefHeight="46.0" prefWidth="166.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="20.0"
+                                               AnchorPane.rightAnchor="170.0">
+                                            <font>
+                                                <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="searchReportPane" disable="true" layoutX="223.0" layoutY="105.0" prefHeight="707.0"
+                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <children>
+                <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                    <children>
+                        <Label alignment="CENTER" layoutY="13.0" text="New Search Report" textFill="WHITE"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="13.0">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="27.0"/>
+                            </font>
+                            <effect>
+                                <DropShadow height="17.87" offsetX="4.0" offsetY="2.0" radius="7.7425" width="15.1">
+                                    <color>
+                                        <Color opacity="0.1892925351858139"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="1.0" layoutY="67.0" prefHeight="643.0" prefWidth="824.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="67.0">
+                    <children>
+                        <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"
+                                                   prefWidth="454.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"
+                                                   prefWidth="370.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="280.0" minHeight="10.0" prefHeight="244.0" vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="164.0" vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="337.0" valignment="CENTER" vgrow="ALWAYS"/>
+                            </rowConstraints>
+                            <children>
+                                <AnchorPane prefWidth="412.0" GridPane.rowSpan="2">
+                                    <children>
+                                        <Label layoutX="45.0" layoutY="9.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Timestamp Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="9.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="searchDate" layoutX="60.0" layoutY="47.0" prefHeight="37.0"
+                                                   prefWidth="425.0" promptText="Search Date" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="47.0"/>
+                                        <TextField fx:id="searchTime" layoutX="60.0" layoutY="93.0" prefHeight="36.0"
+                                                   prefWidth="425.0" promptText="Search Time" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0"/>
+                                        <TextField fx:id="searchCounty" layoutX="60.0" layoutY="170.0" prefHeight="37.0"
+                                                   prefWidth="425.0" promptText="County" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchArea" layoutX="60.0" layoutY="216.0" prefHeight="36.0"
+                                                   prefWidth="425.0" promptText="Area" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchStreet" layoutX="60.0" layoutY="263.0" prefHeight="36.0"
+                                                   prefWidth="425.0" promptText="Street" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="45.0" layoutY="136.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Location Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                    <children>
+                                        <TextField fx:id="searchGrounds" layoutX="60.0" layoutY="138.0"
+                                                   prefHeight="37.0" prefWidth="100.0" promptText="Grounds for search"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
+                                                   AnchorPane.topAnchor="138.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="45.0" layoutY="100.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Search Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="100.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="searchWitnesses" layoutX="60.0" layoutY="185.0"
+                                                   prefHeight="38.0" prefWidth="100.0" promptText="Witnesses"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchedPersons" layoutX="60.0" layoutY="232.0"
+                                                   prefHeight="38.0" prefWidth="100.0" promptText="Searched Person(s)"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <ComboBox fx:id="searchType" layoutX="60.0" layoutY="279.0" prefHeight="38.0"
+                                                  prefWidth="100.0" promptText="Search Type" styleClass="combo-box"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="60.0"
+                                                  AnchorPane.rightAnchor="30.0"/>
+                                        <ComboBox fx:id="searchMethod" layoutX="60.0" layoutY="326.0" prefHeight="38.0"
+                                                  prefWidth="100.0" promptText="Search Method" styleClass="combo-box"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="60.0"
+                                                  AnchorPane.rightAnchor="30.0"/>
+                                        <Label layoutX="80.0" layoutY="384.0" text="(If Applicable)"
+                                               AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="258.0"/>
+                                        <Button fx:id="searchpopOverBtn" graphicTextGap="5.0" layoutX="179.0"
+                                                layoutY="373.0" mnemonicParsing="false"
+                                                onAction="#onSearchPopOverBtnPress" prefHeight="39.0" prefWidth="203.0"
+                                                style="-fx-font-size: 14; -fx-label-padding: 0; -fx-padding: 0; -fx-text-fill: #5e5e5e;"
+                                                styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                text="Breathalyzer Information" textFill="#5e5e5e"
+                                                AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="30.0">
+                                            <graphic>
+                                                <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@imgs/icons/arrow-up.png"/>
+                                                    </image>
+                                                    <effect>
+                                                        <ColorAdjust brightness="-0.34"/>
+                                                    </effect>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1">
+                                    <children>
+                                        <TextField fx:id="searchofficerName" layoutX="10.0" layoutY="33.0"
+                                                   prefHeight="37.0" prefWidth="212.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="170.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchofficerNumber" layoutX="235.0" layoutY="33.0"
+                                                   prefHeight="37.0" prefWidth="99.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchofficerRank" layoutX="30.0" layoutY="98.0"
+                                                   prefHeight="37.0" prefWidth="145.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchofficerDivision" layoutX="30.0" layoutY="144.0"
+                                                   prefHeight="37.0" prefWidth="203.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchofficerAgency" layoutX="30.0" layoutY="190.0"
+                                                   prefHeight="37.0" prefWidth="227.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label styleClass="searchHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Reporting Officer" textAlignment="CENTER" textFill="#616161"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                    <children>
+                                        <Label layoutX="45.0" layoutY="59.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Summary"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="59.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <Spinner fx:id="SearchNumber" editable="true" layoutX="253.0" layoutY="17.0"
+                                                 prefHeight="28.0" prefWidth="99.0"
+                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.rightAnchor="60.0"
+                                                 AnchorPane.topAnchor="17.0">
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5657894611358643" green="0.5657894611358643"
+                                                               blue="0.5657894611358643" opacity="0.27000001072883606"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Spinner>
+                                        <TextArea fx:id="searchSeizedItems" layoutX="30.0" layoutY="94.0"
+                                                  prefHeight="135.0" prefWidth="322.0"
+                                                  promptText="Seized Item(s) / Field Sobriety Information"
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0"
+                                                  AnchorPane.topAnchor="94.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <TextArea fx:id="searchComments" layoutX="30.0" layoutY="237.0"
+                                                  prefHeight="128.0" prefWidth="322.0" promptText="Comments.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="237.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <Button fx:id="searchReportSubmitBtn" layoutX="242.0" layoutY="271.0"
+                                                mnemonicParsing="false" onAction="#onSearchReportSubmitBtnClick"
+                                                prefHeight="38.0" prefWidth="110.0" styleClass="incidentbtn"
+                                                stylesheets="@css/menu/menuStyles.css" text="Submit" textFill="#008cd7"
+                                                AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5600000023841858" green="0.5600000023841858"
+                                                               blue="0.5600000023841858" opacity="0.3969465494155884"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Label fx:id="searchincompleteLabel" alignment="CENTER" layoutX="106.0"
+                                               layoutY="245.0" prefHeight="46.0" prefWidth="171.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="25.0"
+                                               AnchorPane.rightAnchor="167.0">
+                                            <font>
+                                                <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label layoutX="170.0" layoutY="14.0" opacity="0.82" prefHeight="29.0"
+                                               prefWidth="70.0" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Search #" textFill="#6f6f6f"
+                                               AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -937,9 +1503,9 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="dtlogo" alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0"
-                       prefWidth="203.0" style="-fx-font-family: Blanka;" text="Dt" textFill="WHITE"
-                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0" prefWidth="203.0"
+                       style="-fx-font-family: Blanka;" text="Dt" textFill="WHITE" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
                         <Font size="61.0"/>
                     </font>

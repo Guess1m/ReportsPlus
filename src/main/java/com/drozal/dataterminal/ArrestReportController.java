@@ -79,27 +79,6 @@ public class ArrestReportController {
     private double yOffset = 0;
     private MedicalInformation medicalInformationController;
 
-    private PopOver popOver() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
-        Parent root = loader.load();
-        medicalInformationController = loader.getController();
-
-        // Create a PopOver and set the content node
-        PopOver popOver = new PopOver();
-        popOver.setContentNode(root);
-
-        // Optionally configure other properties of the PopOver
-        popOver.setDetachable(false);
-        popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
-        popOver.cornerRadiusProperty().setValue(23);
-        popOver.setFadeInDuration(Duration.seconds(0.5));
-        popOver.setFadeOutDuration(Duration.seconds(0.4));
-        popOver.setTitle("Medical Information");
-        popOver.setHeaderAlwaysVisible(true);
-
-        return popOver;
-    }
-
     public void initialize() throws IOException, ParserConfigurationException, SAXException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
         loader.load();
@@ -246,7 +225,6 @@ public class ArrestReportController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setY(stage.getY() * 3f / 2f);
 
         controller.getImpoundDate().setText(arrestDate.getText());
         controller.getImpoundTime().setText(arrestTime.getText());
@@ -266,7 +244,8 @@ public class ArrestReportController {
     }
 
     public void searchBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        //Change to setvisible
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchReport-view.fxml"));
         Parent root = loader.load();
         SearchReportController controller = loader.getController();
@@ -294,11 +273,12 @@ public class ArrestReportController {
         controller.getSearchArea().setText(arrestArea.getText());
         controller.getSearchCounty().setText(arrestCounty.getText());
         controller.getSearchStreet().setText(arrestStreet.getText());
-        controller.getSearchedPersons().setText(arresteeName.getText());
+        controller.getSearchedPersons().setText(arresteeName.getText());*/
     }
 
     public void incidentBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        //Change to setpaneVisible
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("incidentReport-view.fxml"));
         Parent root = loader.load();
         IncidentReportController controller = loader.getController();
@@ -325,16 +305,27 @@ public class ArrestReportController {
         controller.getOfficerNumber().setText(officerNumber.getText());
         controller.getIncidentArea().setText(arrestArea.getText());
         controller.getIncidentCounty().setText(arrestCounty.getText());
-        controller.getIncidentStreet().setText(arrestStreet.getText());
+        controller.getIncidentStreet().setText(arrestStreet.getText());*/
     }
 
     public void onPopOverBtnPress(ActionEvent actionEvent) throws IOException {
-        PopOver popOver = popOver();
-        if (popOver != null) {
-            popOver.show(popOverBtn);
-        } else {
-            System.err.println("PopOver creation failed.");
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
+        Parent root = loader.load();
+        medicalInformationController = loader.getController();
+
+        // Create a PopOver and set the content node
+        PopOver popOver = new PopOver();
+        popOver.setContentNode(root);
+
+        // Optionally configure other properties of the PopOver
+        popOver.setDetachable(false);
+        popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
+        popOver.cornerRadiusProperty().setValue(23);
+        popOver.setFadeInDuration(Duration.seconds(0.5));
+        popOver.setFadeOutDuration(Duration.seconds(0.4));
+        popOver.setTitle("Medical Information");
+        popOver.setHeaderAlwaysVisible(true);
+        popOver.show(popOverBtn);
     }
 
     public void onTreeViewMouseClick(MouseEvent mouseEvent) {

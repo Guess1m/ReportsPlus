@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="160.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.DUIInformationController">
+    <children>
+        <RadioButton layoutX="26.0" layoutY="75.0" mnemonicParsing="false" styleClass="formRadioBtn"
+                     stylesheets="@../css/form/formRadioBtn.css" text="Yes">
+            <font>
+                <Font name="Segoe UI" size="15.0"/>
+            </font>
+            <toggleGroup>
+                <ToggleGroup fx:id="ambulanceRequired"/>
+            </toggleGroup>
+        </RadioButton>
+        <Label layoutX="34.0" layoutY="45.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
+               text="Breathalyzer Used"/>
+        <RadioButton fx:id="BreathalyzerUsedNo" layoutX="97.0" layoutY="75.0" mnemonicParsing="false" selected="true"
+                     styleClass="formRadioBtn" stylesheets="@../css/form/formRadioBtn.css" text="No"
+                     toggleGroup="$ambulanceRequired">
+            <font>
+                <Font name="Segoe UI" size="15.0"/>
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="213.0" layoutY="75.0" mnemonicParsing="false" styleClass="formRadioBtn"
+                     stylesheets="@../css/form/formRadioBtn.css" text="Pass">
+            <font>
+                <Font name="Segoe UI" size="15.0"/>
+            </font>
+            <toggleGroup>
+                <ToggleGroup fx:id="taserDeployed"/>
+            </toggleGroup>
+        </RadioButton>
+        <Label layoutX="257.0" layoutY="45.0" styleClass="medicalInformation" stylesheets="@../css/form/formLabels.css"
+               text="Result"/>
+        <RadioButton fx:id="BreathalyzerResultFail" layoutX="284.0" layoutY="75.0" mnemonicParsing="false"
+                     selected="true" styleClass="formRadioBtn" stylesheets="@../css/form/formRadioBtn.css" text="Fail"
+                     toggleGroup="$taserDeployed">
+            <font>
+                <Font name="Segoe UI" size="15.0"/>
+            </font>
+        </RadioButton>
+        <Label alignment="CENTER" layoutY="7.0" prefHeight="31.0" prefWidth="376.0" styleClass="incidentHeading"
+               stylesheets="@../css/form/formLabels.css" text="Breathalyzer Information"/>
+        <TextField fx:id="BacMeasure" layoutX="24.0" layoutY="108.0" prefHeight="35.0" prefWidth="352.0"
+                   promptText="BAC" styleClass="formField" stylesheets="@../css/form/formFields.css"
+                   AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0"/>
+    </children>
+</AnchorPane>

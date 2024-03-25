@@ -20,11 +20,14 @@ public class SearchLogEntry {
     public String searchCounty;
     public String searchComments;
     public String searchedPersons;
+    public String breathalyzerUsed;
+    public String breathalyzerResult;
+    public String breathalyzerBACMeasure;
 
     public SearchLogEntry() {
     }
 
-    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments) {
+    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments, String breathalyzerUsed, String breathalyzerResult, String breathalyzerBACMeasure) {
         this.SearchNumber = searchNumber;
         this.searchedPersons = searchedPersons;
         this.searchDate = searchDate;
@@ -43,6 +46,9 @@ public class SearchLogEntry {
         this.searchArea = searchArea;
         this.searchCounty = searchCounty;
         this.searchComments = searchComments;
+        this.breathalyzerUsed = breathalyzerUsed;
+        this.breathalyzerResult = breathalyzerResult;
+        this.breathalyzerBACMeasure = breathalyzerBACMeasure;
     }
 
     public String getSearchNumber() {
@@ -115,5 +121,17 @@ public class SearchLogEntry {
 
     public String getSearchedPersons() {
         return searchedPersons;
+    }
+
+    public String getBreathalyzerUsed() {
+        return breathalyzerUsed;
+    }
+
+    public String getBreathalyzerResult() {
+        return breathalyzerResult;
+    }
+
+    public String getBreathalyzerBACMeasure() {
+        return breathalyzerBACMeasure;
     }
 }

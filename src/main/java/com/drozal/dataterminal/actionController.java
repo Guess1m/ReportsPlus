@@ -35,7 +35,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -56,8 +57,6 @@ import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 public class actionController {
     @javafx.fxml.FXML
     public Button notesButton;
-    @javafx.fxml.FXML
-    public AnchorPane notesPane;
     @javafx.fxml.FXML
     public Button shiftInfoBtn;
     @javafx.fxml.FXML
@@ -394,7 +393,7 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
-        setDisable(notesPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane);
+        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane);
         setActive(shiftInformationPane);
 
         refreshChart();
@@ -444,14 +443,25 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onNotesButtonClicked(ActionEvent actionEvent) {
-        setActive(notesPane);
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane);
+    public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Notes");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(true);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setMinHeight(stage.getHeight() - 150);
+        stage.setMinWidth(stage.getWidth() - 150);
+        ResizeHelper.addResizeListener(stage);
     }
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(notesPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane);
+        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane);
         setActive(shiftInformationPane);
     }
 
@@ -483,10 +493,6 @@ public class actionController {
         return generatedDateTag;
     }
 
-    public AnchorPane getNotesPane() {
-        return notesPane;
-    }
-
     public AnchorPane getShiftInformationPane() {
         return shiftInformationPane;
     }
@@ -497,7 +503,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(notesPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -529,14 +535,7 @@ public class actionController {
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
         stage.show();
-    }
-
-    @javafx.fxml.FXML
-    public void onclearclick(ActionEvent actionEvent) {
-        notepadTextArea.setText("");
-        notepadTextArea1.setText("");
-        notepadTextArea2.setText("");
-        notepadTextArea3.setText("");
+        stage.centerOnScreen();
     }
 
     @javafx.fxml.FXML
@@ -667,7 +666,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(notesPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -732,7 +731,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(notesPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane);
+        setDisable(shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane);
         setActive(infoPane);
     }
 
@@ -891,10 +890,6 @@ public class actionController {
         secondaryColor3.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor4.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor5.setStyle("-fx-text-fill: " + secclr + ";");
-        secondaryColorBkgNotes1.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColorBkgNotes2.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColorBkgNotes3.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColorBkgNotes4.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
@@ -903,7 +898,6 @@ public class actionController {
         String initialStyle = "-fx-background-color: transparent;";
         String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";";
         updateInfoBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
-        clearbtnnotepad.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
         resetDefaultsBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
 
         // Add hover event handling
@@ -922,10 +916,6 @@ public class actionController {
         updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
         updateInfoBtn.setOnMouseExited(e -> {
             updateInfoBtn.setStyle(nonTransparentBtn);
-        });
-        clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle));
-        clearbtnnotepad.setOnMouseExited(e -> {
-            clearbtnnotepad.setStyle(nonTransparentBtn);
         });
         resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
         resetDefaultsBtn.setOnMouseExited(e -> {
@@ -999,7 +989,17 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("testWindow-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Test Window");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
+        stage.show();
+        stage.centerOnScreen();
     }
 
     @javafx.fxml.FXML

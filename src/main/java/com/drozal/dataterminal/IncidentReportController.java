@@ -41,7 +41,6 @@ public class IncidentReportController {
     public TextArea incidentComments;
     public VBox vbox;
     public Label incompleteLabel;
-    Boolean hasEntered = false;
     private double xOffset = 0;
     private double yOffset = 0;
 

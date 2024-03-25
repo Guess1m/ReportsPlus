@@ -49,6 +49,15 @@
     -fx-padding: 4px 0; /* Adjust padding as needed */
 }
 
+.incidentHeading {
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-background-color: #5e7387;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill:   white; /* Dark grey color */
+    -fx-padding: 4px 0; /* Adjust padding as needed */
+}
+
 .sub-heading {
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 18px;

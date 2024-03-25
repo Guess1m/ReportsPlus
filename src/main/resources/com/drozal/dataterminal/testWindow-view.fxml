@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="658.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/21"
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="468.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.TestWindowViewController"/>

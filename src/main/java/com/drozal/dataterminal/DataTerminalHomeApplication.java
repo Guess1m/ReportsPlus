@@ -63,7 +63,6 @@ public class DataTerminalHomeApplication extends Application {
         ResizeHelper.addResizeListener(mainRT);
 
         actionController controller = loader.getController();
-        AnchorPane notesPane = controller.getNotesPane();
         Label generatedByTag = controller.getGeneratedByTag();
         Label generatedOnTag = controller.getGeneratedDateTag();
         AnchorPane shiftInfoPane = controller.getShiftInformationPane();
@@ -80,8 +79,6 @@ public class DataTerminalHomeApplication extends Application {
         shiftInfoPane.setDisable(false);
         uiSettingsPane.setDisable(true);
         uiSettingsPane.setVisible(false);
-        notesPane.setVisible(false);
-        notesPane.setDisable(true);
         informationPane.setVisible(false);
         informationPane.setDisable(true);
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="notesPane" prefHeight="405.0" prefWidth="670.0"
+            style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.NotesViewController">
+    <children>
+        <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="414.0" prefWidth="664.0"
+                  promptText="Model - Plate# / Color / Searched Items / etc." style="-fx-background-color: #f2f2f2;"
+                  styleClass="text-area" stylesheets="@css/main/transparentTextArea.css" wrapText="true"
+                  AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                  AnchorPane.topAnchor="56.0">
+            <font>
+                <Font name="Segoe UI Semibold" size="17.0"/>
+            </font>
+        </TextArea>
+        <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="563.0" layoutY="361.0" maxHeight="-Infinity"
+                maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                onAction="#onclearclick" prefHeight="35.0" prefWidth="110.0" style="-fx-padding: 0;"
+                styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Clear" textFill="#0074b3"
+                AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="11.0">
+            <font>
+                <Font name="Segoe UI Bold" size="18.0"/>
+            </font>
+        </Button>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="55.0" prefWidth="684.0"
+                    styleClass="incidentpane" stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="637.0" layoutY="24.0"
+                           onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <image>
+                        <Image url="@imgs/icons/cross.png"/>
+                    </image>
+                    <effect>
+                        <ColorAdjust brightness="1.0"/>
+                    </effect>
+                </ImageView>
+                <Label layoutX="70.0" layoutY="12.0" text="Data Terminal" textFill="WHITE" AnchorPane.leftAnchor="70.0"
+                       AnchorPane.topAnchor="12.0">
+                    <font>
+                        <Font name="Roboto" size="27.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="20.0" layoutY="5.0" text="Dt" textFill="WHITE" AnchorPane.leftAnchor="20.0"
+                       AnchorPane.topAnchor="5.0">
+                    <font>
+                        <Font name="Blanka-Regular" size="37.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="408.0" layoutY="11.0" text="Notepad" textFill="WHITE" AnchorPane.rightAnchor="173.0"
+                       AnchorPane.topAnchor="11.0">
+                    <font>
+                        <Font name="Roboto" size="27.0"/>
+                    </font>
+                </Label>
+            </children>
+            <effect>
+                <DropShadow/>
+            </effect>
+        </AnchorPane>
+    </children>
+</AnchorPane>

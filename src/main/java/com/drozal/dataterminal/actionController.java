@@ -5,6 +5,7 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
@@ -307,6 +308,44 @@ public class actionController {
     @javafx.fxml.FXML
     private TextField searchofficerAgency;
     private DUIInformationController duiInformationController;
+    @javafx.fxml.FXML
+    private ComboBox impoundColor;
+    @javafx.fxml.FXML
+    private TextField impoundofficerDivision;
+    @javafx.fxml.FXML
+    private TextField impoundownerGender;
+    @javafx.fxml.FXML
+    private TextField impoundofficerNumber;
+    @javafx.fxml.FXML
+    private TextArea impoundComments;
+    @javafx.fxml.FXML
+    private ComboBox impoundType;
+    @javafx.fxml.FXML
+    private TextField impoundDate;
+    @javafx.fxml.FXML
+    private TextField impoundownerAge;
+    @javafx.fxml.FXML
+    private TextField impoundofficerAgency;
+    @javafx.fxml.FXML
+    private TextField impoundofficerRank;
+    @javafx.fxml.FXML
+    private Spinner impoundNumber;
+    @javafx.fxml.FXML
+    private AnchorPane impoundReportPane;
+    @javafx.fxml.FXML
+    private TextField impoundownerName;
+    @javafx.fxml.FXML
+    private Label impoundincompleteLabel;
+    @javafx.fxml.FXML
+    private TextField impoundModel;
+    @javafx.fxml.FXML
+    private TextField impoundPlateNumber;
+    @javafx.fxml.FXML
+    private TextField impoundownerAddress;
+    @javafx.fxml.FXML
+    private TextField impoundTime;
+    @javafx.fxml.FXML
+    private TextField impoundofficerName;
 
     public static String getDataLogsFolderPath() {
         try {
@@ -461,7 +500,7 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
-        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane);
+        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane);
         setActive(shiftInformationPane);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/DUIInformation.fxml"));
@@ -554,7 +593,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane);
+        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane);
         setActive(shiftInformationPane);
     }
 
@@ -588,7 +627,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -692,7 +731,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -714,7 +753,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -767,7 +806,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -802,17 +841,23 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("impoundReport-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Impound Report");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-        stage.centerOnScreen();
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane);
+        setActive(impoundReportPane);
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
+        impoundColor.getItems().addAll(dropdownInfo.carColors);
+        impoundofficerName.setText(name);
+        impoundofficerDivision.setText(division);
+        impoundofficerRank.setText(rank);
+        impoundofficerAgency.setText(agency);
+        impoundofficerNumber.setText(number);
+        impoundTime.setText(getTime());
+        impoundDate.setText(getDate());
+        createSpinner(impoundNumber, 0, 9999, 0);
     }
 
     @javafx.fxml.FXML
@@ -832,7 +877,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane);
+        setDisable(shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane);
         setActive(infoPane);
     }
 
@@ -934,7 +979,7 @@ public class actionController {
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) vbox.getScene().getWindow();
         if (stage != null) {
-            toggleWindowedFullscreen(stage, 1027, 740);
+            toggleWindowedFullscreen(stage, 1150, 800);
         }
     }
 
@@ -1375,6 +1420,10 @@ public class actionController {
             searchWitnesses.setText("");
             searchofficerRank.setText("");
             searchofficerName.setText("");
+
+            searchType.getSelectionModel().selectFirst();
+            searchMethod.getSelectionModel().selectFirst();
+
             searchofficerNumber.setText("");
             searchofficerAgency.setText("");
             searchofficerDivision.setText("");
@@ -1385,4 +1434,69 @@ public class actionController {
             showNotification("Reports", "A new Search Report has been submitted.");
         }
     }
+
+    @javafx.fxml.FXML
+    public void onImpoundReportSubmitBtnClick(ActionEvent actionEvent) {
+        if (impoundNumber.getValue() == null ||
+                impoundType.getValue() == null ||
+                impoundColor.getValue() == null) {
+            impoundincompleteLabel.setText("Fill Out Form.");
+            impoundincompleteLabel.setStyle("-fx-text-fill: red;");
+            impoundincompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                impoundincompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+            // Add new entry
+            logs.add(new ImpoundLogEntry(
+                    impoundNumber.getValue().toString(),
+                    impoundDate.getText(),
+                    impoundTime.getText(),
+                    impoundownerName.getText(),
+                    impoundownerAge.getText(),
+                    impoundownerGender.getText(),
+                    impoundownerAddress.getText(),
+                    impoundPlateNumber.getText(),
+                    impoundModel.getText(),
+                    impoundType.getValue().toString(),
+                    impoundColor.getValue().toString(),
+                    impoundComments.getText(),
+                    impoundofficerRank.getText(),
+                    impoundofficerName.getText(),
+                    impoundofficerNumber.getText(),
+                    impoundofficerDivision.getText(),
+                    impoundofficerAgency.getText()
+            ));
+            // Save logs to XML
+            ImpoundReportLogs.saveLogsToXML(logs);
+            setActive(shiftInformationPane);
+            setDisable(impoundReportPane);
+            updateChartIfMismatch(reportChart);
+            impoundNumber.getEditor().setText("0");
+            impoundDate.setText("");
+            impoundTime.setText("");
+            impoundownerName.setText("");
+            impoundownerAge.setText("");
+            impoundownerGender.setText("");
+            impoundownerAddress.setText("");
+            impoundPlateNumber.setText("");
+            impoundModel.setText("");
+            impoundComments.setText("");
+
+            impoundType.getSelectionModel().selectFirst();
+            impoundColor.getSelectionModel().selectFirst();
+
+            impoundofficerRank.setText("");
+            impoundofficerName.setText("");
+            impoundofficerNumber.setText("");
+            impoundofficerDivision.setText("");
+            impoundofficerAgency.setText("");
+            showNotification("Reports", "A new Impound Report has been submitted.");
+        }
+    }
+
+
 }

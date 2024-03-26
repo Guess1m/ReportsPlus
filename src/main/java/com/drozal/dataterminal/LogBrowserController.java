@@ -61,6 +61,10 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     private AnchorPane vbox;
 
+
+    // TODO: Controller, log entry, report logs, initializeColumns
+
+
     public void initialize() {
         initializeCalloutColumns();
         initializeArrestColumns();
@@ -307,9 +311,6 @@ public class LogBrowserController {
         TableColumn<ImpoundLogEntry, String> impoundPlateNumberColumn = new TableColumn<>("Impound Plate Number");
         impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
 
-        TableColumn<ImpoundLogEntry, String> impoundMakeColumn = new TableColumn<>("Impound Make");
-        impoundMakeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundMake"));
-
         TableColumn<ImpoundLogEntry, String> impoundModelColumn = new TableColumn<>("Impound Model");
         impoundModelColumn.setCellValueFactory(new PropertyValueFactory<>("impoundModel"));
 
@@ -348,7 +349,6 @@ public class LogBrowserController {
                 ownerGenderColumn,
                 ownerAddressColumn,
                 impoundPlateNumberColumn,
-                impoundMakeColumn,
                 impoundModelColumn,
                 impoundTypeColumn,
                 impoundColorColumn,
@@ -550,8 +550,6 @@ public class LogBrowserController {
     }
 
     public void initializeArrestColumns() {
-
-        // TODO: Controller, log entry, report logs, here
 
         // Create columns for each property of ArrestLogEntry
         TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");

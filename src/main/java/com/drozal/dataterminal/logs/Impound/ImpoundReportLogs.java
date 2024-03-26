@@ -60,7 +60,6 @@ public class ImpoundReportLogs {
                     logEntry.ownerGender = getTagValue(logsElement, "ownerGender");
                     logEntry.ownerAddress = getTagValue(logsElement, "ownerAddress");
                     logEntry.impoundPlateNumber = getTagValue(logsElement, "impoundPlateNumber");
-                    logEntry.impoundMake = getTagValue(logsElement, "impoundMake");
                     logEntry.impoundModel = getTagValue(logsElement, "impoundModel");
                     logEntry.impoundType = getTagValue(logsElement, "impoundType");
                     logEntry.impoundColor = getTagValue(logsElement, "impoundColor");

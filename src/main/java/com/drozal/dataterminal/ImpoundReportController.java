@@ -28,7 +28,6 @@ public class ImpoundReportController {
     public TextField ownerGender;
     public TextField ownerAddress;
     public TextField impoundPlateNumber;
-    public TextField impoundMake;
     public TextField impoundModel;
     public ComboBox impoundType;
     public ComboBox impoundColor;
@@ -134,7 +133,6 @@ public class ImpoundReportController {
                     ownerGender.getText(),
                     ownerAddress.getText(),
                     impoundPlateNumber.getText(),
-                    impoundMake.getText(),
                     impoundModel.getText(),
                     impoundType.getValue().toString(),
                     impoundColor.getValue().toString(),

@@ -10,7 +10,6 @@ public class ImpoundLogEntry {
     public String ownerGender;
     public String ownerAddress;
     public String impoundPlateNumber;
-    public String impoundMake;
     public String impoundModel;
     public String impoundType;
     public String impoundColor;
@@ -24,7 +23,7 @@ public class ImpoundLogEntry {
     public ImpoundLogEntry() {
     }
 
-    public ImpoundLogEntry(String impoundNumber, String impoundDate, String impoundTime, String ownerName, String ownerAge, String ownerGender, String ownerAddress, String impoundPlateNumber, String impoundMake, String impoundModel, String impoundType, String impoundColor, String impoundComments, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
+    public ImpoundLogEntry(String impoundNumber, String impoundDate, String impoundTime, String ownerName, String ownerAge, String ownerGender, String ownerAddress, String impoundPlateNumber, String impoundModel, String impoundType, String impoundColor, String impoundComments, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
         this.impoundNumber = impoundNumber;
         this.impoundDate = impoundDate;
         this.impoundTime = impoundTime;
@@ -33,7 +32,6 @@ public class ImpoundLogEntry {
         this.ownerGender = ownerGender;
         this.ownerAddress = ownerAddress;
         this.impoundPlateNumber = impoundPlateNumber;
-        this.impoundMake = impoundMake;
         this.impoundModel = impoundModel;
         this.impoundType = impoundType;
         this.impoundColor = impoundColor;
@@ -75,10 +73,6 @@ public class ImpoundLogEntry {
 
     public String getImpoundPlateNumber() {
         return impoundPlateNumber;
-    }
-
-    public String getImpoundMake() {
-        return impoundMake;
     }
 
     public String getImpoundModel() {

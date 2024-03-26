@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" prefHeight="773.0" prefWidth="1027.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
@@ -1268,6 +1268,256 @@
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="impoundReportPane" disable="true" layoutX="233.0" layoutY="115.0" prefHeight="707.0"
+                    prefWidth="822.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <children>
+                <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                    <children>
+                        <Label alignment="CENTER" layoutY="13.0" text="New Impound Report" textFill="WHITE"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="13.0">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="27.0"/>
+                            </font>
+                            <effect>
+                                <DropShadow height="17.87" offsetX="4.0" offsetY="2.0" radius="7.7425" width="15.1">
+                                    <color>
+                                        <Color opacity="0.1892925351858139"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="1.0" layoutY="67.0" prefHeight="643.0" prefWidth="824.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="67.0">
+                    <children>
+                        <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0"
+                                                   prefWidth="454.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="49.0"
+                                                   prefWidth="454.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="38.0"
+                                                   prefWidth="370.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="251.0"
+                                                vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="251.0" vgrow="ALWAYS"/>
+                                <RowConstraints minHeight="10.0" prefHeight="337.0" valignment="CENTER" vgrow="ALWAYS"/>
+                            </rowConstraints>
+                            <children>
+                                <AnchorPane prefHeight="247.0" prefWidth="442.0">
+                                    <children>
+                                        <Label layoutX="15.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Timestamp Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="impoundDate" layoutX="84.0" layoutY="63.0" prefHeight="37.0"
+                                                   prefWidth="269.0" promptText="Impound Date" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0"/>
+                                        <TextField fx:id="impoundTime" layoutX="60.0" layoutY="99.0" prefHeight="38.0"
+                                                   prefWidth="237.0" promptText="Impound Time" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   AnchorPane.rightAnchor="30.0"/>
+                                        <Label layoutX="36.0" layoutY="167.0" opacity="0.82" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Impound #:"
+                                               textFill="#7c7c7c" AnchorPane.rightAnchor="127.0"
+                                               AnchorPane.topAnchor="167.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        <Spinner fx:id="impoundNumber" editable="true" layoutX="137.0" layoutY="171.0"
+                                                 prefHeight="26.0" prefWidth="85.0"
+                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.rightAnchor="36.0"
+                                                 AnchorPane.topAnchor="171.0"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1" GridPane.rowSpan="2">
+                                    <children>
+                                        <TextField fx:id="impoundofficerName" layoutX="25.0" layoutY="52.0"
+                                                   prefHeight="37.0" prefWidth="139.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="126.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundofficerNumber" layoutX="237.0" layoutY="52.0"
+                                                   prefHeight="37.0" prefWidth="102.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.rightAnchor="15.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundofficerRank" layoutX="25.0" layoutY="98.0"
+                                                   prefHeight="38.0" prefWidth="269.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundofficerAgency" layoutX="25.0" layoutY="145.0"
+                                                   prefHeight="38.0" prefWidth="273.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundofficerDivision" layoutX="25.0" layoutY="192.0"
+                                                   prefHeight="37.0" prefWidth="253.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="15.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Officer Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="2" GridPane.rowSpan="2">
+                                    <children>
+                                        <Label layoutX="15.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Vehicle Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="impoundPlateNumber" layoutX="25.0" layoutY="78.0"
+                                                   prefHeight="38.0" prefWidth="352.0" promptText="Plate #"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0"
+                                                   AnchorPane.topAnchor="52.0"/>
+                                        <TextField fx:id="impoundModel" layoutX="60.0" layoutY="99.0" prefHeight="38.0"
+                                                   prefWidth="352.0" promptText="Model" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="60.0"/>
+                                        <ComboBox fx:id="impoundType" layoutX="60.0" layoutY="146.0" prefHeight="38.0"
+                                                  prefWidth="352.0" promptText="Type" styleClass="combo-box"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0"/>
+                                        <ComboBox fx:id="impoundColor" layoutX="60.0" layoutY="193.0" prefHeight="38.0"
+                                                  prefWidth="352.0" promptText="Color" styleClass="combo-box"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="397.0" prefWidth="421.0" GridPane.columnIndex="1"
+                                            GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                                            GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                                    <children>
+                                        <Label layoutX="45.0" layoutY="71.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Comments"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="impoundComments" layoutX="30.0" layoutY="111.0"
+                                                  prefHeight="273.0" prefWidth="534.0" promptText="Additional Details.."
+                                                  stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                                  AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="111.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                        <Button layoutX="450.0" layoutY="336.0" mnemonicParsing="false"
+                                                onAction="#onImpoundReportSubmitBtnClick" prefHeight="43.0"
+                                                prefWidth="114.0" styleClass="incidentbtn"
+                                                stylesheets="@css/form/formButton.css" text="Submit"
+                                                AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="60.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5600000023841858" green="0.5600000023841858"
+                                                               blue="0.5600000023841858" opacity="0.3969465494155884"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Label fx:id="impoundincompleteLabel" alignment="CENTER" layoutX="459.0"
+                                               layoutY="323.0" prefHeight="41.0" prefWidth="183.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="18.0"
+                                               AnchorPane.rightAnchor="174.0">
+                                            <font>
+                                                <Font name="Candara" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="397.0" prefWidth="733.0" GridPane.hgrow="ALWAYS"
+                                            GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                                    <children>
+                                        <Label layoutX="45.0" layoutY="73.0" styleClass="incidentHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Owner Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="73.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="impoundownerName" layoutX="60.0" layoutY="111.0"
+                                                   prefHeight="38.0" prefWidth="271.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0"
+                                                   AnchorPane.topAnchor="111.0"/>
+                                        <TextField fx:id="impoundownerGender" layoutX="60.0" layoutY="158.0"
+                                                   prefHeight="39.0" prefWidth="136.0" promptText="Gender"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="127.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundownerAge" layoutX="209.0" layoutY="158.0"
+                                                   prefHeight="39.0" prefWidth="114.0" promptText="Age/D.O.B"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.rightAnchor="0.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="impoundownerAddress" layoutX="60.0" layoutY="206.0"
+                                                   prefHeight="38.0" prefWidth="297.0" promptText="Address"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0"/>
                                     </children>
                                 </AnchorPane>
                             </children>

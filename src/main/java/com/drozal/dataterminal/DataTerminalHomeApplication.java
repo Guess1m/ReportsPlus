@@ -52,11 +52,11 @@ public class DataTerminalHomeApplication extends Application {
         mainRT.setResizable(true);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
-        mainRT.centerOnScreen();
-        mainRT.setHeight(780);
-        mainRT.setWidth(1027);
+        mainRT.setHeight(800);
+        mainRT.setWidth(1150);
         mainRT.setMinHeight(mainRT.getHeight() - 200);
         mainRT.setMinWidth(mainRT.getWidth() - 200);
+        mainRT.centerOnScreen();
         ResizeHelper.addResizeListener(mainRT);
     }
 }

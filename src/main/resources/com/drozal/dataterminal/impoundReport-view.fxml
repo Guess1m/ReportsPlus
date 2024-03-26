@@ -107,9 +107,6 @@
                                                    prefHeight="38.0" prefWidth="352.0" promptText="Plate #"
                                                    styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>
-                                        <TextField fx:id="impoundMake" layoutX="25.0" layoutY="84.0" prefHeight="38.0"
-                                                   prefWidth="352.0" promptText="Make" styleClass="impoundformField"
-                                                   stylesheets="@css/form/formFields.css"/>
                                         <TextField fx:id="impoundModel" layoutX="25.0" layoutY="133.0" prefHeight="38.0"
                                                    prefWidth="352.0" promptText="Model" styleClass="impoundformField"
                                                    stylesheets="@css/form/formFields.css"/>

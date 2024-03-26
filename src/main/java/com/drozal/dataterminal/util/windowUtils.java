@@ -6,13 +6,30 @@ import javafx.stage.Stage;
 public class windowUtils {
 
     public static void setWindowedFullscreen(Stage stage) {
-        Screen screen = Screen.getPrimary();
-        double screenWidth = screen.getBounds().getWidth();
-        double screenHeight = screen.getBounds().getHeight();
-        stage.setX(screen.getVisualBounds().getMinX());
-        stage.setY(screen.getVisualBounds().getMinY());
-        stage.setWidth(screenWidth);
-        stage.setHeight(screenHeight);
+        Screen screen = getScreenContainingStage(stage);
+        if (screen != null) {
+            double screenWidth = screen.getBounds().getWidth();
+            double screenHeight = screen.getBounds().getHeight();
+            stage.setX(screen.getVisualBounds().getMinX());
+            stage.setY(screen.getVisualBounds().getMinY());
+            stage.setWidth(screenWidth);
+            stage.setHeight(screenHeight);
+        } else {
+            // Handle the case when no screen is found
+            System.out.println("No screen found for the stage center.");
+        }
+    }
+
+    private static Screen getScreenContainingStage(Stage stage) {
+        double centerX = stage.getX() + stage.getWidth() / 2.0;
+        double centerY = stage.getY() + stage.getHeight() / 2.0;
+
+        for (Screen screen : Screen.getScreens()) {
+            if (screen.getBounds().contains(centerX, centerY)) {
+                return screen;
+            }
+        }
+        return null;
     }
 
     public static void restoreDefaultState(Stage stage, double width, double height) {
@@ -28,5 +45,4 @@ public class windowUtils {
             restoreDefaultState(stage, width, height);
         }
     }
-
 }

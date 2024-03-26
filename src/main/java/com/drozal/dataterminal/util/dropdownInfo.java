@@ -10,6 +10,7 @@ public class dropdownInfo {
             "Other"
     );
     public static final List<String> searchMethods = Arrays.asList(
+            "Search Method",
             "Search Warrant",
             "Probable Cause",
             "Consent Search",
@@ -24,6 +25,7 @@ public class dropdownInfo {
             "Field Sobriety Test"
     );
     public static final List<String> searchTypes = Arrays.asList(
+            "Search Type",
             "Vehicle Search",
             "Personal Search",
             "Premises Search",
@@ -37,6 +39,7 @@ public class dropdownInfo {
             "Exigent Circumstances Search"
     );
     public static final List<String> carColors = Arrays.asList(
+            "Color",
             "Black",
             "White",
             "Silver",
@@ -59,6 +62,7 @@ public class dropdownInfo {
     );
 
     public static final List<String> vehicleTypes = Arrays.asList(
+            "Type",
             "Car",
             "Truck",
             "Motorcycle",

@@ -15,7 +15,6 @@ public class NotesViewController {
     private double yOffset = 0;
 
     public void initialize() {
-
     }
 
     @javafx.fxml.FXML

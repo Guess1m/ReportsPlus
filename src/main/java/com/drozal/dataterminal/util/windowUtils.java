@@ -8,8 +8,8 @@ public class windowUtils {
     public static void setWindowedFullscreen(Stage stage) {
         Screen screen = getScreenContainingStage(stage);
         if (screen != null) {
-            double screenWidth = screen.getBounds().getWidth();
-            double screenHeight = screen.getBounds().getHeight();
+            double screenWidth = screen.getVisualBounds().getWidth();
+            double screenHeight = screen.getVisualBounds().getHeight();
             stage.setX(screen.getVisualBounds().getMinX());
             stage.setY(screen.getVisualBounds().getMinY());
             stage.setWidth(screenWidth);
@@ -25,7 +25,7 @@ public class windowUtils {
         double centerY = stage.getY() + stage.getHeight() / 2.0;
 
         for (Screen screen : Screen.getScreens()) {
-            if (screen.getBounds().contains(centerX, centerY)) {
+            if (screen.getVisualBounds().contains(centerX, centerY)) {
                 return screen;
             }
         }

@@ -11,15 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
@@ -213,7 +210,8 @@ public class ArrestReportController {
     }
 
     public void impoundBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        //setvisuals
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("impoundReport-view.fxml"));
         Parent root = loader.load();
         ImpoundReportController controller = loader.getController();
@@ -240,7 +238,7 @@ public class ArrestReportController {
         controller.getOwnerName().setText(arresteeName.getText());
         controller.getOwnerAddress().setText(arresteeHomeAddress.getText());
         controller.getOwnerAge().setText(arresteeAge.getText());
-        controller.getOwnerGender().setText(arresteeGender.getText());
+        controller.getOwnerGender().setText(arresteeGender.getText());*/
     }
 
     public void searchBtnClick(ActionEvent actionEvent) throws IOException {

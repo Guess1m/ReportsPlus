@@ -14,6 +14,8 @@ public class windowUtils {
             stage.setY(screen.getVisualBounds().getMinY());
             stage.setWidth(screenWidth);
             stage.setHeight(screenHeight);
+            System.out.println(stage.getWidth());
+            System.out.println(stage.getHeight());
         } else {
             // Handle the case when no screen is found
             System.out.println("No screen found for the stage center.");

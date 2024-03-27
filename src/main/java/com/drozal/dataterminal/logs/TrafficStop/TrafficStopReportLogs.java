@@ -59,7 +59,6 @@ public class TrafficStopReportLogs {
                     logEntry.Color = getTagValue(logsElement, "Color");
                     logEntry.Type = getTagValue(logsElement, "Type");
                     logEntry.ResponseModel = getTagValue(logsElement, "ResponseModel");
-                    logEntry.ResponseMake = getTagValue(logsElement, "ResponseMake");
                     logEntry.ResponseOtherInfo = getTagValue(logsElement, "ResponseOtherInfo");
                     logEntry.operatorName = getTagValue(logsElement, "operatorName");
                     logEntry.operatorGender = getTagValue(logsElement, "operatorGender");
@@ -73,8 +72,6 @@ public class TrafficStopReportLogs {
                     logEntry.Street = getTagValue(logsElement, "Street");
                     logEntry.County = getTagValue(logsElement, "County");
                     logEntry.Area = getTagValue(logsElement, "Area");
-                    logEntry.ViolationsTextArea = getTagValue(logsElement, "ViolationsTextArea");
-                    logEntry.ActionsTextArea = getTagValue(logsElement, "ActionsTextArea");
                     logEntry.CommentsTextArea = getTagValue(logsElement, "CommentsTextArea");
 
                     logEntries.add(logEntry);

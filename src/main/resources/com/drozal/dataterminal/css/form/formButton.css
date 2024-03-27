@@ -37,7 +37,7 @@
 }
 
 .incidentformButton {
-    -fx-background-color: #5e7387; /* Background color */
+    -fx-background-color: rgb(94, 115, 135,0.8); /* Background color */
     -fx-border-width: 0;
     -fx-border-color: white; /* Border color */
     -fx-text-fill: white;

@@ -6,9 +6,6 @@ public class TrafficStopLogEntry {
     public String Color;
     public String Type;
     public String StopNumber;
-    public String ViolationsTextArea;
-    public String ActionsTextArea;
-    public String ResponseMake;
     public String ResponseModel;
     public String ResponseOtherInfo;
     public String CommentsTextArea;
@@ -32,10 +29,9 @@ public class TrafficStopLogEntry {
 
     }
 
-    public TrafficStopLogEntry(String date, String time, String make, String model, String otherInfo, String oName, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String violation, String comments, String actions, String street, String county, String area, String plateN, String color, String type) {
+    public TrafficStopLogEntry(String date, String time, String model, String otherInfo, String oName, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String comments, String street, String county, String area, String plateN, String color, String type) {
         this.Date = date;
         this.Time = time;
-        this.ResponseMake = make;
         this.ResponseModel = model;
         this.ResponseOtherInfo = otherInfo;
         this.operatorName = oName;
@@ -48,9 +44,7 @@ public class TrafficStopLogEntry {
         this.Division = division;
         this.Agency = agency;
         this.StopNumber = sNumber;
-        this.ViolationsTextArea = violation;
         this.CommentsTextArea = comments;
-        this.ActionsTextArea = actions;
         this.Street = street;
         this.County = county;
         this.Area = area;
@@ -89,14 +83,6 @@ public class TrafficStopLogEntry {
 
     public String getStopNumber() {
         return StopNumber;
-    }
-
-    public String getViolationsTextArea() {
-        return ViolationsTextArea;
-    }
-
-    public String getActionsTextArea() {
-        return ActionsTextArea;
     }
 
     public String getCommentsTextArea() {
@@ -141,10 +127,6 @@ public class TrafficStopLogEntry {
 
     public String getStreet() {
         return Street;
-    }
-
-    public String getResponseMake() {
-        return ResponseMake;
     }
 
     public String getResponseModel() {

@@ -330,7 +330,6 @@ public class ArrestReportController {
         TreeItem<String> selectedItem = (TreeItem<String>) treeView.getSelectionModel().getSelectedItem();
         if (selectedItem != null && selectedItem.isLeaf()) {
             chargeField.setText(selectedItem.getValue());
-            // TODO: probably dont use probation chance
             probationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/testXML.xml"));
             minYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml"));
             maxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/testXML.xml"));
@@ -350,8 +349,6 @@ public class ArrestReportController {
             } else {
                 trafficChargeInfoPane.setVisible(false);
             }
-
-            // TODO: check if the textfield text contains (m) or (f) then put misdemeanor or felony in another text-field
         }
     }
 

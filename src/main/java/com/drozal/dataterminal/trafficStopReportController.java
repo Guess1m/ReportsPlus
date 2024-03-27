@@ -112,14 +112,12 @@ public class trafficStopReportController {
             timeline1.play();
         } else {
             // Load existing logs from XML
-            TrafficStopReportLogs calloutReportLogs = new TrafficStopReportLogs();
             List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 
             // Add new entry
             logs.add(new TrafficStopLogEntry(
                     calloutReportDate.getText(),
                     calloutReportTime.getText(),
-                    ResponseMake.getText(),
                     ResponseModel.getText(),
                     ResponseOtherInfo.getText(),
                     operatorName.getText(),
@@ -132,9 +130,7 @@ public class trafficStopReportController {
                     Division.getText(),
                     Agency.getText(),
                     Spinner.getValue().toString(),
-                    violationsNotes.getText(),
                     comments.getText(),
-                    actionsTakenNotes.getText(),
                     ResponseStreet.getText(),
                     ResponseCounty.getText(),
                     ResponseArea.getText(),

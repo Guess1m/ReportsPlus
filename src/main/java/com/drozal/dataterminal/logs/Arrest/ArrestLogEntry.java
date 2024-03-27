@@ -3,9 +3,6 @@ package com.drozal.dataterminal.logs.Arrest;
 // Data model for a log entry
 public class ArrestLogEntry {
 
-    // TODO: home address
-    // TODO: fix medical information to text-field
-
     public String arrestNumber;
     public String arrestDate;
     public String arrestTime;

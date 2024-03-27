@@ -855,14 +855,8 @@ public class LogBrowserController {
         TableColumn<TrafficStopLogEntry, String> stopNumberColumn = new TableColumn<>("Stop #");
         stopNumberColumn.setCellValueFactory(new PropertyValueFactory<>("StopNumber"));
 
-        TableColumn<TrafficStopLogEntry, String> violationsTextAreaColumn = new TableColumn<>("Violations");
-        violationsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("ViolationsTextArea"));
-
         TableColumn<TrafficStopLogEntry, String> commentsTextAreaColumn = new TableColumn<>("Comments");
         commentsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("CommentsTextArea"));
-
-        TableColumn<TrafficStopLogEntry, String> actionsTextAreaColumn = new TableColumn<>("Actions");
-        actionsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("ActionsTextArea"));
 
         TableColumn<TrafficStopLogEntry, String> streetColumn = new TableColumn<>("Street");
         streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
@@ -881,9 +875,6 @@ public class LogBrowserController {
 
         TableColumn<TrafficStopLogEntry, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-
-        TableColumn<TrafficStopLogEntry, String> makeColumn = new TableColumn<>("Make");
-        makeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseMake"));
 
         TableColumn<TrafficStopLogEntry, String> modelColumn = new TableColumn<>("Model");
         modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
@@ -908,7 +899,6 @@ public class LogBrowserController {
                 stopNumberColumn,
                 dateColumn,
                 timeColumn,
-                makeColumn,
                 modelColumn,
                 otherInfoColumn,
                 operatorNameColumn,
@@ -920,9 +910,7 @@ public class LogBrowserController {
                 numberColumn,
                 divisionColumn,
                 agencyColumn,
-                violationsTextAreaColumn,
                 commentsTextAreaColumn,
-                actionsTextAreaColumn,
                 streetColumn,
                 countyColumn,
                 areaColumn,

@@ -62,7 +62,6 @@ public class ArrestReportLogs {
                     logEntry.arrestStreet = getTagValue(logsElement, "arrestStreet");
                     logEntry.arresteeAge = getTagValue(logsElement, "arresteeAge");
                     logEntry.arresteeGender = getTagValue(logsElement, "arresteeGender");
-                    logEntry.arresteeEthnicity = getTagValue(logsElement, "arresteeEthnicity");
                     logEntry.arresteeDescription = getTagValue(logsElement, "arresteeDescription");
                     logEntry.ambulanceYesNo = getTagValue(logsElement, "ambulanceYesNo");
                     logEntry.TaserYesNo = getTagValue(logsElement, "TaserYesNo");

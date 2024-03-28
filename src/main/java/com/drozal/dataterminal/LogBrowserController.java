@@ -582,9 +582,6 @@ public class LogBrowserController {
         TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Arrestee Gender");
         arresteeGenderColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeGender"));
 
-        TableColumn<ArrestLogEntry, String> arresteeEthnicityColumn = new TableColumn<>("Arrestee Ethnicity");
-        arresteeEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeEthnicity"));
-
         TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Arrestee Description");
         arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
 
@@ -630,7 +627,6 @@ public class LogBrowserController {
                 arresteeNameColumn,
                 arresteeAgeColumn,
                 arresteeGenderColumn,
-                arresteeEthnicityColumn,
                 arresteeDescriptionColumn,
                 ambulanceYesNoColumn,
                 taserYesNoColumn,

@@ -71,7 +71,7 @@ public class controllerUtils {
                 .text(message)
                 .graphic(null) // You can add a graphic if needed
                 .position(Pos.TOP_RIGHT)
-                .hideAfter(Duration.seconds(1.5))
+                .hideAfter(Duration.seconds(1.15))
                 .owner(owner)
                 .show();
     }

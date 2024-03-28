@@ -779,8 +779,9 @@
                                                                 <Label layoutX="45.0" layoutY="30.0"
                                                                        styleClass="incidentHeadingBig"
                                                                        stylesheets="@css/form/formLabels.css"
-                                                                       text="Owner Information" textAlignment="CENTER"
-                                                                       textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                                                       text="Offender Information"
+                                                                       textAlignment="CENTER" textFill="#616161"
+                                                                       AnchorPane.leftAnchor="45.0"
                                                                        AnchorPane.topAnchor="10.0">
                                                                     <font>
                                                                         <Font name="Candara" size="20.0"/>
@@ -2188,8 +2189,8 @@
                                             </effect>
                                         </Button>
                                         <Label fx:id="searchincompleteLabel" alignment="CENTER" layoutX="106.0"
-                                               layoutY="245.0" prefHeight="46.0" prefWidth="171.0" textFill="#3ab93abf"
-                                               visible="false" AnchorPane.bottomAnchor="25.0"
+                                               layoutY="245.0" prefHeight="50.0" prefWidth="171.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="12.0"
                                                AnchorPane.rightAnchor="167.0">
                                             <font>
                                                 <Font name="Candara" size="15.0"/>
@@ -2251,7 +2252,6 @@
                             <rowConstraints>
                                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="251.0"
                                                 vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="251.0" vgrow="ALWAYS"/>
                                 <RowConstraints minHeight="10.0" prefHeight="337.0" valignment="CENTER" vgrow="ALWAYS"/>
                             </rowConstraints>
                             <children>
@@ -2287,7 +2287,7 @@
                                                  AnchorPane.topAnchor="171.0"/>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.columnIndex="1" GridPane.rowSpan="2">
+                                <AnchorPane GridPane.columnIndex="1">
                                     <children>
                                         <TextField fx:id="impoundofficerName" layoutX="25.0" layoutY="52.0"
                                                    prefHeight="37.0" prefWidth="139.0" promptText="Name"
@@ -2340,7 +2340,7 @@
                                         </Label>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.columnIndex="2" GridPane.rowSpan="2">
+                                <AnchorPane GridPane.columnIndex="2">
                                     <children>
                                         <Label layoutX="15.0" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Vehicle Information"
@@ -2370,12 +2370,12 @@
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="397.0" prefWidth="733.0" GridPane.hgrow="ALWAYS"
-                                            GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                                            GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                     <children>
                                         <Label layoutX="45.0" layoutY="73.0" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Owner Information"
                                                textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
-                                               AnchorPane.topAnchor="73.0">
+                                               AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
@@ -2384,8 +2384,8 @@
                                                    prefHeight="38.0" prefWidth="271.0" promptText="Name"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="111.0"/>
-                                        <TextField fx:id="impoundownerGender" layoutX="60.0" layoutY="158.0"
+                                                   AnchorPane.topAnchor="52.0"/>
+                                        <TextField fx:id="impoundownerGender" layoutX="60.0" layoutY="99.0"
                                                    prefHeight="39.0" prefWidth="136.0" promptText="Gender"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="127.0">
@@ -2393,7 +2393,7 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="impoundownerAge" layoutX="209.0" layoutY="158.0"
+                                        <TextField fx:id="impoundownerAge" layoutX="209.0" layoutY="99.0"
                                                    prefHeight="39.0" prefWidth="114.0" promptText="Age/D.O.B"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.rightAnchor="0.0">
@@ -2401,7 +2401,7 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="impoundownerAddress" layoutX="60.0" layoutY="206.0"
+                                        <TextField fx:id="impoundownerAddress" layoutX="60.0" layoutY="147.0"
                                                    prefHeight="38.0" prefWidth="297.0" promptText="Address"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0"/>
@@ -2409,12 +2409,12 @@
                                 </AnchorPane>
                                 <AnchorPane prefHeight="397.0" prefWidth="421.0" GridPane.columnIndex="1"
                                             GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                            GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                                            GridPane.vgrow="ALWAYS">
                                     <children>
                                         <Label layoutX="45.0" layoutY="71.0" styleClass="incidentHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Comments"
                                                textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0">
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
@@ -2423,7 +2423,7 @@
                                                   prefHeight="273.0" prefWidth="534.0" promptText="Additional Details.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true"
                                                   AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="30.0"
-                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="111.0">
+                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>

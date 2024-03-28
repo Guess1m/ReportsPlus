@@ -13,7 +13,6 @@ public class ArrestLogEntry {
     public String arresteeName;
     public String arresteeAge;
     public String arresteeGender;
-    public String arresteeEthnicity;
     public String arresteeDescription;
     public String ambulanceYesNo;
     public String TaserYesNo;
@@ -29,7 +28,7 @@ public class ArrestLogEntry {
     public ArrestLogEntry() {
     }
 
-    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCharges, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeEthnicity, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation, String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
+    public ArrestLogEntry(String arrestNumber, String arrestDate, String arrestTime, String arrestCharges, String arrestCounty, String arrestArea, String arrestStreet, String arresteeName, String arresteeAge, String arresteeGender, String arresteeDescription, String ambulanceYesNo, String taserYesNo, String arresteeMedicalInformation, String arresteeHomeAddress, String arrestDetails, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
         this.arrestNumber = arrestNumber;
         this.arrestDate = arrestDate;
         this.arrestTime = arrestTime;
@@ -40,7 +39,6 @@ public class ArrestLogEntry {
         this.arresteeName = arresteeName;
         this.arresteeAge = arresteeAge;
         this.arresteeGender = arresteeGender;
-        this.arresteeEthnicity = arresteeEthnicity;
         this.arresteeDescription = arresteeDescription;
         this.ambulanceYesNo = ambulanceYesNo;
         this.TaserYesNo = taserYesNo;
@@ -106,9 +104,6 @@ public class ArrestLogEntry {
         return arresteeGender;
     }
 
-    public String getArresteeEthnicity() {
-        return arresteeEthnicity;
-    }
 
     public String getArresteeDescription() {
         return arresteeDescription;

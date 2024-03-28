@@ -2,8 +2,11 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -20,6 +23,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +36,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -56,8 +61,7 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.treeViewUtils.expandTreeItem;
-import static com.drozal.dataterminal.util.treeViewUtils.parseTreeXML;
+import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class actionController {
@@ -799,6 +803,7 @@ public class actionController {
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) vbox.getScene().getWindow();
         confirmLogClearDialog(stage, reportChart);
+        showNotification("Log Manager", "Logs have been cleared.", vbox);
     }
 
     @javafx.fxml.FXML
@@ -941,7 +946,6 @@ public class actionController {
         setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
         loader.load();
@@ -1423,7 +1427,7 @@ public class actionController {
             trafficStopofficerNumber.setText("");
             trafficStopofficerDivision.setText("");
             trafficStopofficerAgency.setText("");
-            trafficStopNumber.getEditor().setText("");
+            trafficStopNumber.getEditor().setText("0");
             trafficStopComments.setText("");
             trafficStopStreet.setText("");
             trafficStopCounty.setText("");
@@ -1437,6 +1441,97 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
+        if (arrestNumber.getValue() == null) {
+            arrestIncompleteLabel.setText("Fill Out Form.");
+            arrestIncompleteLabel.setStyle("-fx-text-fill: red;");
+            arrestIncompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                arrestIncompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+            String TaserYesNo;
+            String AmbulanceYesNo;
+            if (medicalInformationController.getTaserNo().isSelected()) {
+                TaserYesNo = "no";
+            } else {
+                TaserYesNo = "yes";
+            }
+            if (medicalInformationController.getAmbulanceNo().isSelected()) {
+                AmbulanceYesNo = "no";
+            } else {
+                AmbulanceYesNo = "yes";
+            }
+
+            ObservableList<ChargesData> formDataList = arrestChargeTable.getItems();
+            // StringBuilder to build the string with commas
+            StringBuilder stringBuilder = new StringBuilder();
+            // Iterate through formDataList to access each FormData object
+            for (ChargesData formData : formDataList) {
+                // Append the values to the StringBuilder, separated by commas
+                stringBuilder.append(formData.getCharge()).append(" | ");
+                // Add more values as needed, separated by commas
+            }
+            // Remove the trailing comma and space
+            if (stringBuilder.length() > 0) {
+                stringBuilder.setLength(stringBuilder.length() - 2);
+            }
+
+            // Add new entry
+            logs.add(new ArrestLogEntry(
+                    arrestNumber.getValue().toString(),
+                    arrestDate.getText(),
+                    arrestTime.getText(),
+                    stringBuilder.toString(),
+                    arrestCounty.getText(),
+                    arrestArea.getText(),
+                    arrestStreet.getText(),
+                    arrestOwnerName.getText(),
+                    arrestOwnerAge.getText(),
+                    arrestOwnerGender.getText(),
+                    arrestOwnerDescription.getText(),
+                    AmbulanceYesNo,
+                    TaserYesNo,
+                    medicalInformationController.getArresteeMedicalInformation().getText(),
+                    arrestOwnerAddress.getText(),
+                    arrestComments.getText(),
+                    arrestOfficerRank.getText(),
+                    arrestOfficerName.getText(),
+                    arrestOfficerNumber.getText(),
+                    arrestOfficerDivision.getText(),
+                    arrestOfficerAgency.getText()
+            ));
+            // Save logs to XML
+            ArrestReportLogs.saveLogsToXML(logs);
+            setActive(shiftInformationPane);
+            setDisable(arrestReportPane);
+            updateChartIfMismatch(reportChart);
+            arrestNumber.getEditor().setText("0");
+            arrestDate.setText("");
+            arrestTime.setText("");
+            arrestChargeTable.getItems().clear();
+            /*stringBuilder.setLength(0);*/
+            arrestCounty.setText("");
+            arrestArea.setText("");
+            arrestStreet.setText("");
+            arrestOwnerName.setText("");
+            arrestOwnerAge.setText("");
+            arrestOwnerGender.setText("");
+            arrestOwnerDescription.setText("");
+            /*AmbulanceYesNo = "";
+            TaserYesNo = "";*/
+            medicalInformationController.getArresteeMedicalInformation().setText("");
+            arrestOwnerAddress.setText("");
+            arrestComments.setText("");
+            arrestOfficerRank.setText("");
+            arrestOfficerName.setText("");
+            arrestOfficerNumber.setText("");
+            arrestOfficerDivision.setText("");
+            arrestOfficerAgency.setText("");
+            showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
+        }
     }
 
     //</editor-fold>
@@ -1520,30 +1615,126 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void ArrestToImpoundBtnClick(ActionEvent actionEvent) {
+        setActive(impoundReportPane);
+        createSpinner(impoundNumber, 0, 9999, 0);
+        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
+        impoundColor.getItems().addAll(dropdownInfo.carColors);
+        impoundofficerName.setText(arrestOfficerName.getText());
+        impoundofficerDivision.setText(arrestOfficerDivision.getText());
+        impoundofficerRank.setText(arrestOfficerRank.getText());
+        impoundofficerAgency.setText(arrestOfficerAgency.getText());
+        impoundofficerNumber.setText(arrestOfficerNumber.getText());
+        impoundTime.setText(arrestTime.getText());
+        impoundDate.setText(arrestDate.getText());
+        impoundNumber.getEditor().setText(arrestNumber.getValue().toString());
+        impoundownerAddress.setText(arrestOwnerAddress.getText());
+        impoundownerName.setText(arrestOwnerName.getText());
+        impoundownerAge.setText(arrestOwnerAge.getText());
+        impoundownerGender.setText(arrestOwnerGender.getText());
     }
 
     @javafx.fxml.FXML
     public void ArrestToIncidentBtnClick(ActionEvent actionEvent) {
+        setActive(incidentReportPane);
+        createSpinner(incidentNumber, 0, 9999, 0);
+        incidentofficerName.setText(arrestOfficerName.getText());
+        incidentofficerDivision.setText(arrestOfficerDivision.getText());
+        incidentofficerRank.setText(arrestOfficerRank.getText());
+        incidentofficerAgency.setText(arrestOfficerAgency.getText());
+        incidentofficerNumber.setText(arrestOfficerNumber.getText());
+        incidentReportTime.setText(arrestTime.getText());
+        incidentReportdate.setText(arrestDate.getText());
+        incidentNumber.getEditor().setText(arrestNumber.getValue().toString());
+        incidentCounty.setText(arrestCounty.getText());
+        incidentArea.setText(arrestArea.getText());
+        incidentStreet.setText(arrestStreet.getText());
     }
 
     @javafx.fxml.FXML
     public void ArrestToSearchBtnClick(ActionEvent actionEvent) {
+        setActive(searchReportPane);
+        createSpinner(SearchNumber, 0, 9999, 0);
+        searchType.getItems().addAll(dropdownInfo.searchTypes);
+        searchMethod.getItems().addAll(dropdownInfo.searchMethods);
+        SearchNumber.getEditor().setText(arrestNumber.getValue().toString());
+        searchofficerName.setText(arrestOfficerName.getText());
+        searchofficerDivision.setText(arrestOfficerDivision.getText());
+        searchofficerRank.setText(arrestOfficerRank.getText());
+        searchofficerAgency.setText(arrestOfficerAgency.getText());
+        searchofficerNumber.setText(arrestOfficerNumber.getText());
+        searchTime.setText(arrestTime.getText());
+        searchDate.setText(arrestDate.getText());
+        searchedPersons.setText(arrestOwnerName.getText());
+        searchCounty.setText(arrestCounty.getText());
+        searchArea.setText(arrestArea.getText());
+        searchStreet.setText(arrestStreet.getText());
     }
 
     @javafx.fxml.FXML
     public void onTreeViewMouseClick(Event event) {
+        TreeItem<String> selectedItem = (TreeItem<String>) arrestTreeView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && selectedItem.isLeaf()) {
+            arrestChargeField.setText(selectedItem.getValue());
+            arrestProbationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/testXML.xml"));
+            arrestMinYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml"));
+            arrestMaxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/testXML.xml"));
+            arrestMinMonths.setText(findXMLValue(selectedItem.getValue(), "min_months", "data/testXML.xml"));
+            arrestMaxMonths.setText(findXMLValue(selectedItem.getValue(), "max_months", "data/testXML.xml"));
+            if (findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml").isBlank()) {
+                arrestMonthsPane.setVisible(true);
+                arrestYearsPane.setVisible(false);
+            } else {
+                arrestMonthsPane.setVisible(false);
+                arrestYearsPane.setVisible(true);
+            }
+            if (findXMLValue(selectedItem.getValue(), "traffic", "data/testXML.xml").matches("true")) {
+                arrestMinSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/testXML.xml"));
+                arrestMaxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/testXML.xml"));
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void addChargeBtnPress(ActionEvent actionEvent) {
+        String charge = arrestChargeField.getText();
+        if (!(charge.isBlank() || charge.isEmpty())) {
+            // Create a new FormData object
+            ChargesData formData = new ChargesData(charge);
+            // Add the FormData object to the TableView
+            arrestChargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
+            arrestChargeTable.getItems().add(formData);
+        }
     }
 
     @javafx.fxml.FXML
     public void removeChargeBtnPress(ActionEvent actionEvent) {
+        // Get the selected item
+        ChargesData selectedItem = (ChargesData) arrestChargeTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            // Remove the selected item from the TableView
+            arrestChargeTable.getItems().remove(selectedItem);
+        }
     }
 
     @javafx.fxml.FXML
-    public void onArrestMedInfoBtnPress(ActionEvent actionEvent) {
+    public void onArrestMedInfoBtnPress(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/medicalInformation.fxml"));
+        Parent root = loader.load();
+        medicalInformationController = loader.getController();
+
+        // Create a PopOver and set the content node
+        PopOver popOver = new PopOver();
+        popOver.setContentNode(root);
+
+        // Optionally configure other properties of the PopOver
+        popOver.setDetachable(false);
+        popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
+        popOver.cornerRadiusProperty().setValue(23);
+        popOver.setFadeInDuration(Duration.seconds(0.5));
+        popOver.setFadeOutDuration(Duration.seconds(0.4));
+        popOver.setTitle("Medical Information");
+        popOver.setHeaderAlwaysVisible(true);
+        popOver.show(arrestMedInfoBtn);
     }
 
     //</editor-fold>

@@ -1,0 +1,28 @@
+.paneoptions {
+    -fx-text-fill: white;
+}
+.paneoptions > .title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 19;
+    -fx-background-color: rgb(94, 115, 135,0.7); /* Change background color */
+    -fx-padding: 6;
+    -fx-alignment: center;
+    -fx-border-width: 0.8 0 0 0;
+    -fx-border-color: white;
+}
+.paneoptions:expanded > .title {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 19;
+    -fx-background-color: #f2f2f2; /* Change background color */
+    -fx-background-color: rgb(94, 115, 135,0.8);
+}
+.paneoptions > .title > .arrow-button .arrow {
+  -fx-background-color: white;
+  -fx-border-color: transparent;
+  -fx-effect: null;
+}
+.paneoptions:expanded > .title > .arrow-button .arrow {
+  -fx-background-color: white;
+  -fx-border-color: transparent;
+  -fx-effect: null;
+}

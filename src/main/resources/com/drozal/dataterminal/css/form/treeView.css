@@ -1,0 +1,58 @@
+.CitationTree {
+    -fx-border-color: #e6e6e6;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.CitationTree .tree-disclosure-node {
+    -fx-background-color: transparent;
+}
+
+/* Define styles for the vertical scroll bar */
+.CitationTree .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 14px; /* Thicker width */
+}
+
+.CitationTree .scroll-bar:vertical .thumb {
+    -fx-background-color: #546778; /* Thumb color */
+    -fx-min-height: 14px; /* Thicker thumb */
+}
+
+.CitationTree .corner {
+    -fx-background-color: transparent;
+    }
+
+.CitationTree .scroll-bar:vertical .increment-button,
+.CitationTree .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Define styles for the horizontal scroll bar */
+.CitationTree .scroll-bar:horizontal {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 14px; /* Thicker width */
+}
+
+.CitationTree .scroll-bar:horizontal .thumb {
+    -fx-background-color: #546778; /* Thumb color */
+    -fx-min-height: 14px; /* Thicker thumb */
+}
+
+.CitationTree .scroll-bar:horizontal .increment-button,
+.CitationTree .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Define styles for the track of the scroll bars */
+.CitationTree .scroll-bar .track {
+    -fx-background-color: none; /* Transparent track */
+}
+/* Define styles for the vertical scroll bar when pressed */
+.CitationTree .scroll-bar:vertical:pressed .thumb {
+    -fx-background-color: #495a69; /* Thumb color when pressed */
+}
+
+/* Define styles for the horizontal scroll bar when pressed */
+.CitationTree .scroll-bar:horizontal:pressed .thumb {
+    -fx-background-color: #495a69; /* Thumb color when pressed */
+}

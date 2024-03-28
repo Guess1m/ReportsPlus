@@ -20,7 +20,7 @@
                     minWidth="-Infinity" prefHeight="685.0" prefWidth="1013.0" styleClass="pane"
                     stylesheets="@css/form/formPaneBackground.css">
             <children>
-                <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="75.0" pannable="true" prefHeight="610.0"
+                <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="75.0" pannable="true" prefHeight="1637.0"
                             prefWidth="1013.0" stylesheets="@css/form/arrest/arrestScrollPane.css">
                     <content>
                         <AnchorPane prefHeight="1487.0" prefWidth="990.0">

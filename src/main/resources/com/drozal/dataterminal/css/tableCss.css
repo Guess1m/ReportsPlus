@@ -77,7 +77,7 @@
     -fx-background-color: transparent;
 }
 .chargesTable .column-header-background{
-    -fx-background-color: rgb(94, 135, 125, 0.7);
+    -fx-background-color: rgb(94, 115, 135,0.7);
 }
 .chargesTable .column-header-background .label{
     -fx-background-color: transparent;

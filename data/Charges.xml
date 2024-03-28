@@ -1,0 +1,481 @@
+<Charges>
+    <ChargeGroup name="Violent Crimes - Homicide/Manslaughter">
+        <Charge name="(F)Voluntary Manslaughter(PEN 192(a)" fine_k="10" probation_chance="0" min_years="25"
+                max_years="60"/>
+        <Charge name="(F)Involuntary Manslaughter(PEN 192(b)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Vehicular Manslaughter(PEN 192(c)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Capital Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="25" max_years="life"/>
+        <Charge name="(F)First Degree Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="25"
+                max_years="life"/>
+        <Charge name="(F)Second Degree Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Third Degree Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Fourth Degree Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Aggravated Murder(PEN 187)" fine_k="10" probation_chance="0" min_years="25"
+                max_years="life"/>
+        <Charge name="(F)(F)Attempted Murder(PEN 187)" fine_k="5" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="(F)Attempted Murder of Police Officer(PEN 664)" fine_k="10" probation_chance="0"
+                min_years="25" max_years="60"/>
+        <Charge name="(F)Murder of Police Officer(PEN 187)" fine_k="10" probation_chance="0" min_years="25"
+                max_years="life"/>
+        <Charge name="(F)Conspiracy to Commit Murder(PEN 182)" fine_k="5" probation_chance="0" min_years="10"
+                max_years="25"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Assault/Battery">
+        <Charge name="(M)Simple Assault(PEN 240(a)" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Simple Battery(PEN 242(a)" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Aggravated Assault(PEN 240(b)" fine_k="5" probation_chance="10" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Assault With a Deadly Weapon(PEN 245(a)" fine_k="5" probation_chance="10" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Assault on Police Officer(PEN 243(a)" fine_k="5" probation_chance="10" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Aggravated Battery(PEN 242(b)" fine_k="5" probation_chance="10" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Sexual Assault(PEN 261)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Sexual Battery(PEN 243.4(a)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Domestic Battery(PEN 245)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Battery on Police Officer(PEN 241(c)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Battery on Elderly/Disabled(PEN 243.25)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Child Abuse/Neglect(PEN 271(a)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Statutory Rape(PEN 264(c)" fine_k="10" probation_chance="0" min_years="10" max_years="25"/>
+        <Charge name="(F)Rape(PEN 261(a)" fine_k="10" probation_chance="0" min_years="10" max_years="20"/>
+        <Charge name="(F)Attempted Rape(PEN 664)" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="(M)Lewd and Lascivious Conduct(PEN 273(g)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="15"/>
+        <Charge name="(F)Sodomy of Minor(PEN 286(a)" fine_k="10" probation_chance="0" min_years="10"
+                max_years="20"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Theft/Robbery/Burglary">
+        <Charge name="(F)Burglary(PEN 459)" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
+        <Charge name="(F)Bank Robbery(PEN 211)" fine_k="10" probation_chance="0" min_years="5" max_years="15"/>
+        <Charge name="(F)Convenient Store Robbery(PEN 211)" fine_k="10" probation_chance="0" min_years="1"
+                max_years="10"/>
+        <Charge name="(F)Armed Robbery(PEN 211)" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="(F)Car Jacking(PEN 215(a)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Grand Theft Auto(PEN 484(a)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Grand Theft(PEN 487(a)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Strong Arm Robbery(PEN 211)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Home Invasion Robbery(PEN 211)" fine_k="5" probation_chance="90" min_years="1"
+                max_years="3"/>
+        <Charge name="(F)Residential Burglary(PEN 459)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="15"/>
+        <Charge name="(F)Grand Larceny(PEN 484)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Robbery of Unoccupied Dwelling(PEN 213(a)" fine_k="5" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Attempted Robbery(PEN 664)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Attempted Car Theft(PEN 664)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Arson">
+        <Charge name="(F)Arson(PEN 451(a)" fine_k="10" probation_chance="5" min_years="5" max_years="10"/>
+        <Charge name="(F)Attempted Arson(PEN 664)" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
+        <Charge name="(F)First Degree Arson(PEN 451.5(a)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Second Degree Arson(PEN 452)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Third Degree Arson(PEN 453)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Kidnapping">
+        <Charge name="(F)Basic Kidnapping(PEN 207)" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="(F)Aggravated Kidnapping(PEN 209.5(a)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="15"/>
+        <Charge name="(F)Attempted Kidnapping(PEN 664)" fine_k="10" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Aggravated Stalking (PEN 646.9)" fine_k="10" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Stalking (PEN 646.9)" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
+        <Charge name="(F)False Imprisonment(PEN 236)" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Protesting and Rioting">
+        <Charge name="(F)Mayhem with violence(PEN 203)" fine_k="3" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Participating in Gang During Felony (PEN 13826.3)" fine_k="3" probation_chance="5"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Engaging in Violent Protest (PEN 594.37)" fine_k="3" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Participating in Violent Protest (PEN 594.37)" fine_k="3" probation_chance="10"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Inciting Violent Protest (PEN 594.37)" fine_k="3" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Unlawful Assembly(PEN 407)" fine_k="3" probation_chance="10" min_years="1" max_years="5"/>
+        <Charge name="(F)Inciting Riot(PEN 404.6(a)" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
+        <Charge name="(F)Participating in Riot(PEN 405)" fine_k="3" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Resisting Arrest with Violence(PEN 148.10(a)" fine_k="3" probation_chance="5" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Failure to Disperse(PEN 409)" fine_k="3" probation_chance="10" min_years="1"
+                max_years="5"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Firearms/Weapons">
+        <Charge name="(F)Brandishing Firearm (PEN 20160(a)" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Unlawful Use/Discharge of Firearm(PEN 246.3(a)" fine_k="5" probation_chance="50"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Possession of Deadly Weapon" fine="1000" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Possession of Destructive Devices" fine="1000" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Bomb making Material" fine="1000" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Unlawful Throwing/Discharging of Destructive Device/Bomb" fine="1000" probation_chance="0"
+                min_years="5" max_years="10"/>
+    </ChargeGroup>
+    <ChargeGroup name="Violent Crimes - Animal Cruelty/Abuse">
+        <Charge name="(M)Animal Cruelty(PEN 597(a)" fine="1000" probation_chance="5" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Animal Neglect(PEN 597.7(a)" fine="1000" probation_chance="5" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Animal Fighting(PEN 597(b)" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Illegal Hunting" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
+        <Charge name="(M)Hunting Without License" fine="1000" probation_chance="10" min_months="1" max_months="6"/>
+        <Charge name="(F)Beastiality(PEN 286.5(a)" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
+        <Charge name="(M)Poaching" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
+        <Charge name="(M)Hunting Endangered/Protected Wildlife" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Non Violent Crimes - Juvenile Crimes">
+        <Charge name="(M)Underage Drinking" fine="1000" probation_chance="90" min_months="1" max_months="6"/>
+        <Charge name="(M)Joyriding a Car" fine="1000" probation_chance="90" min_months="6" max_months="12"/>
+        <Charge name="(M)Curfew Violation" fine="500" probation_chance="90" min_months="1" max_months="3"/>
+        <Charge name="(M)Underage Purchase or Possession of Alcohol" fine="1000" probation_chance="90"
+                min_months="1" max_months="6"/>
+        <Charge name="(M)Illegally Purchasing Tobacco" fine="1000" probation_chance="90" min_months="1"
+                max_months="6"/>
+        <Charge name="(F)Unauthorized Use of a Motor Vehicle" fine="1000" probation_chance="90" min_months="6"
+                max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Non Violent Crimes">
+        <Charge name="(F)Fraud(PEN 186.11(a)" fine="1000" probation_chance="60" min_years="1" max_years="5"/>
+        <Charge name="(M)Bribery(PEN 92)" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Money Laundering(PEN 186.9(a)" fine="1000" probation_chance="60" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Identity Theft" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(M)Drunk in Public(PEN 647(f)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Drugs in Public(PEN 647(f)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Open Container in Public" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Indecent Exposure(PEN 314)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Disorderly Conduct" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Impersonating a Police Officer(PEN 146)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Harassment" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(M)Making Terroristic Threats" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Providing Fake Name/Id to Police(PEN 148.9(a)" fine="1000" probation_chance="60"
+                min_months="6" max_months="12"/>
+        <Charge name="(F)Assisting in Suicide" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(M)Illegal Broadcasting" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Misuse of 911(PEN 653y(a)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Failure/Refusing to Pay Bar/Hotel Tab" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Failure to Pay Court Ordered Child Support/Alimony(CIV 1714.4(a)" fine="1000"
+                probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Soliciting Prostitution(PEN 261.9(a)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Prostitution(PEN 266e)" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Probation Violation(PEN 1210.1(a)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Parole Violation(PEN 3036.1(a)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Possession of Child Pornography(PEN 311.2(a)" fine="1000" probation_chance="60"
+                min_years="1" max_years="5"/>
+        <Charge name="(M)Possession of Burglary Tools" fine="1000" probation_chance="60" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Trafficking Illegal/Undocumented Immigrants" fine="1000" probation_chance="10"
+                min_years="5" max_years="10"/>
+        <Charge name="(F)Human Trafficking(PEN 236.7(a)" fine="1000" probation_chance="10" min_years="5"
+                max_years="15"/>
+        <Charge name="(M)Resisting Arrest without Violence(PEN 148.10(a)" fine="1000" probation_chance="60"
+                min_months="1" max_months="5"/>
+    </ChargeGroup>
+    <ChargeGroup name="Non Violent Crimes - Evidence/Witness">
+        <Charge name="(M)Destroying/Concealing Evidence" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Planting/Tampering Evidence" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Witness Intimidation" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Witness Tampering" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Non Violent Crimes - Accessory">
+        <Charge name="(M)Accessory After the Fact(PEN 32)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Accessory Before the Fact(PEN 33)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Obstruction of Justice(PEN 148(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Possession - Drugs/Illegal Substances">
+        <Charge name="(M)Possession of Marijuana(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Cocaine(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Crack Cocaine(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Methamphetamines(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Heroin(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of LSD(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Possession of Drug Paraphernalia" fine_k="5" probation_chance="30" min_months="3"
+                max_months="6"/>
+        <Charge name="(F)Possession of Controlled Substance" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Prescription Pills(PEN 11350(a)" fine_k="5" probation_chance="30"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Possession of Opium(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of MDMA(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Fentanyl(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of PCP(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Ketamine(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Ecstasy(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Steroids(PEN 11350(a)" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Drugs W/Intent to Distribute(PEN 11351)" fine_k="5" probation_chance="30"
+                min_years="1" max_years="10"/>
+        <Charge name="(F)Drug Trafficking (Schedule I)(PEN 11352(a)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="20"/>
+        <Charge name="(F)Drug Trafficking (Schedule II)(PEN 11352(a)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="20"/>
+        <Charge name="(F)Drug Trafficking (Schedule II)(PEN 11352(a)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="20"/>
+        <Charge name="(F)Drug Trafficking (Schedule IV)(PEN 11352(a)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="20"/>
+    </ChargeGroup>
+    <ChargeGroup name="Possession - Guns and Ammunition">
+        <Charge name="(F)Illegal Possession of Firearm" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Illegal Possession of Firearm by Felon" fine_k="5" probation_chance="20" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Possession of Firearm (Felon in Commission of a Crime)" fine_k="5" probation_chance="20"
+                min_years="5" max_years="10"/>
+        <Charge name="(F)Possession of Firearm (Not Registered)" fine_k="5" probation_chance="20" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Possession of Firearm (Serial Tampered)" fine_k="5" probation_chance="20" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Possession of Firearm (Illegal Discharge)(PEN 417(2b)" fine_k="5" probation_chance="20"
+                min_years="5" max_years="10"/>
+        <Charge name="(F)Possession of Firearm (Stolen)" fine_k="5" probation_chance="20" min_years="5"
+                max_years="10"/>
+        <Charge name="(F)Arms Trafficking" fine_k="5" probation_chance="0" min_years="5" max_years="15"/>
+    </ChargeGroup>
+    <ChargeGroup name="Property - Stolen Property">
+        <Charge name="(F)Possession of a Stolen Vehicle(PEN 496(a)" fine_k="3" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Possession of Stolen Property(PEN 496(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Possession of Stolen Government Property(PEN 496(a)" fine="1000" probation_chance="40"
+                min_months="6" max_months="12"/>
+        <Charge name="(M)Possession of Stolen Drivers License or ID(PEN 496(a)" fine="1000" probation_chance="40"
+                min_months="6" max_months="12"/>
+        <Charge name="(M)Fake Drivers License or ID" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Possession of Stolen License Plate(PEN 496(a)" fine="1000" probation_chance="40"
+                min_months="6" max_months="12"/>
+        <Charge name="(M)Possession of Stolen Registration(PEN 496(a)" fine="1000" probation_chance="40"
+                min_months="6" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Property - Vandalism and Destruction">
+        <Charge name="(M)Destruction of Public Property(PEN 594(a)" fine="1000" probation_chance="50" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Destruction of Private Property(PEN 594(a)" fine="1000" probation_chance="50"
+                min_months="6" max_months="12"/>
+        <Charge name="(F)Tampering with Property Leading to Injury/Death(PEN 594(c)" fine="1000"
+                probation_chance="50" min_years="5" max_years="15"/>
+        <Charge name="(M)Vandalism of Public Property(PEN 594(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Vandalism of Private Property(PEN 594(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Vandalism of Government Property(PEN 594(a)" fine="1000" probation_chance="40"
+                min_months="6" max_months="12"/>
+        <Charge name="(M)Trespassing(PEN 602)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Graffiti(PEN 594(a)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Property - Criminal Mischief">
+        <Charge name="(M)Mischief(PEN 625(b)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Prowling(PEN 647)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Loitering(PEN 653(b)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Looting(PEN 463(a)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Property - Shoplifting">
+        <Charge name="(M)Shoplifting(PEN 459.5(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Petty Theft(PEN 488)" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Retail Theft(PEN 490.4(a)" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Traffic Crimes">
+        <Charge name="(M)Driving Wrong Way" traffic="true" fine="1000" susp_chance="75" min_susp="12" max_susp="24"
+                revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(M)Reckless Driving and Endangerment" traffic="true" fine="1000" susp_chance="75"
+                min_susp="12" max_susp="24" revoke_chance="90" probation_chance="50" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Street Racing" traffic="true" fine="1000" susp_chance="100" min_susp="12" max_susp="24"
+                revoke_chance="0" probation_chance="70" min_months="6" max_months="12"/>
+        <Charge name="(M)Leaving the Scene of an Accident" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12" max_susp="24" revoke_chance="0" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(F)Evading Arrest" traffic="true" fine="1000" susp_chance="100" min_susp="12" max_susp="24"
+                revoke_chance="100" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(F)Attempting to Flee/Elude Police" traffic="true" fine="1000" susp_chance="75" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(F)Fleeing Traffic Stop" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(F)Fleeing Police Resulting in Inj/Prop Damage or Death" traffic="true" fine="1000"
+                susp_chance="0" min_susp="12" max_susp="24" revoke_chance="100" probation_chance="0" min_years="5"
+                max_years="15"/>
+        <Charge name="(F)Hit and Run (Victim Died)" traffic="true" fine="1000" susp_chance="0" min_susp="12"
+                max_susp="24" revoke_chance="100" probation_chance="0" min_years="5" max_years="15"/>
+        <Charge name="(F)Hit and Run (Victim Injured)" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="500" probation_chance="10" min_years="5" max_years="10"/>
+        <Charge name="(F)Hit and Run (No Injury)" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_years="1" max_years="5"/>
+    </ChargeGroup>
+    <ChargeGroup name="Traffic Crimes - DUI/DWI">
+        <Charge name="(M)Driving Under the Influence (Alcohol)" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(F)Driving Under the Influence (Alcohol 2nd Offense)" traffic="true" fine="1000"
+                susp_chance="0" min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Driving Under the Influence (Drugs)" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+        <Charge name="(F)Driving Under the Influence (Drugs 2nd Offence)" traffic="true" fine="1000" susp_chance="0"
+                min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_years="1" max_years="5"/>
+        <Charge name="(M)Failure/Refusing to Provide Blood or Breath Sample" traffic="true" fine="1000"
+                susp_chance="100" min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Open Container in MV" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Traffic Crimes - License/Reg/Ins">
+        <Charge name="(F)Driving While License Suspended w Knowledge" traffic="true" fine="1000" susp_chance="0"
+                min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_months="1"
+                max_months="12"/>
+        <Charge name="(F)Driving While License Revoked" traffic="true" fine="1000" susp_chance="0" min_susp="12"
+                max_susp="24" revoke_chance="100" probation_chance="50" min_months="1" max_months="12"/>
+        <Charge name="(M)Driving With no Registration" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
+        <Charge name="(M)Driving With no Insurance" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
+        <Charge name="(M)Driving With no License" traffic="true" fine="1000" susp_chance="0" min_susp="12"
+                max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
+        <Charge name="(M)Failure to Present Documentation" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
+    </ChargeGroup>
+    <ChargeGroup name="Warrants/Wanted">
+        <Charge name="Warrant (State/County Wide)" fine_k="3" probation_chance="0" min_years="1" max_years="20"/>
+        <Charge name="Warrant (Assault on Police Officer)" fine_k="3" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Aggravated Assault)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Sexual Assault)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Aggravated Battery)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Sexual Battery)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (First Degree Arson)" fine_k="3" probation_chance="5" min_years="5" max_years="10"/>
+        <Charge name="Warrant (Basic Kidnapping)" fine_k="3" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="Warrant (Aggravated Kidnapping)" fine_k="3" probation_chance="0" min_years="5"
+                max_years="15"/>
+        <Charge name="Warrant (Voluntary Manslaughter)" fine_k="3" probation_chance="0" min_years="25"
+                max_years="60"/>
+        <Charge name="Warrant (Involuntary Manslaughter)" fine_k="3" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="Warrant (Vehicular Manslaughter)" fine_k="3" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="Warrant (First Degree Murder)" fine_k="3" probation_chance="0" min_years="25"
+                max_years="life"/>
+        <Charge name="Warrant (Second Degree Murder)" fine_k="3" probation_chance="0" min_years="10"
+                max_years="25"/>
+        <Charge name="Warrant (Aggravated Murder)" fine_k="3" probation_chance="0" min_years="25" max_years="life"/>
+        <Charge name="Warrant (Att Murder on Police Officer)" fine_k="3" probation_chance="0" min_years="25"
+                max_years="60"/>
+        <Charge name="Warrant (Murder of a Police Officer)" fine_k="3" probation_chance="0" min_years="25"
+                max_years="life"/>
+        <Charge name="Warrant (Mayhem W/Violence)" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Home Invasion Robbery)" fine_k="5" probation_chance="0" min_years="5"
+                max_years="15"/>
+        <Charge name="Warrant (Armed Robbery)" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="Warrant (Strong Arm Robbery)" fine_k="5" probation_chance="0" min_years="1" max_years="10"/>
+        <Charge name="Warrant (Fleeing Police)" fine_k="3" probation_chance="50" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Probation Violation)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Parole Violation)" fine_k="3" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Failure to Appear/Bench Warrant)" fine_k="3" probation_chance="10" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Illegal Broadcasting)" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="Warrant (Possession of Stolen Vehicle)" fine_k="3" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="Warrant (Possession of Stolen License Plates)" fine="1000" probation_chance="60"
+                min_months="6" max_months="12"/>
+        <Charge name="Warrant (Domestic Battery)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Grand Theft)" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Drug Trafficking)" fine_k="10" probation_chance="0" min_years="5" max_years="20"/>
+        <Charge name="Warrant (Illegal Firearm Possession)" fine_k="3" probation_chance="0" min_years="1"
+                max_years="10"/>
+        <Charge name="Warrant (Grand Larceny)" fine_k="3" probation_chance="10" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Unlawful Assembly)" fine="1000" probation_chance="60" min_months="1"
+                max_months="12"/>
+        <Charge name="Warrant (Non-Violent Crimes)" fine_k="3" probation_chance="10" min_years="1" max_years="10"/>
+        <Charge name="Warrant (Driving while License Suspended/Revoked)" fine_k="3" probation_chance="60"
+                min_months="1" max_months="12"/>
+        <Charge name="Warrant (Failure to Pay Child Support/Alimony)" fine_k="3" probation_chance="60"
+                min_months="1" max_months="12"/>
+        <Charge name="Warrant (Child abuse)" fine_k="3" probation_chance="0" min_years="1" max_years="10"/>
+        <Charge name="Warrant (Retail theft)" fine_k="3" probation_chance="60" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Possession of Drugs/Illegal Substances)" fine_k="3" probation_chance="10"
+                min_years="1" max_years="10"/>
+        <Charge name="Warrant (Lewd and Lascivious Conduct)" fine_k="3" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Inciting Riot)" fine_k="3" probation_chance="10" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Battery on Elderly)" fine_k="3" probation_chance="10" min_years="1" max_years="10"/>
+        <Charge name="Warrant (Possession of Child Pornography)" fine_k="3" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Failure to Reg as Sex Offender)" fine_k="3" probation_chance="0" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Trafficking Illegal/Undocumented Immigrants)" fine_k="3" probation_chance="0"
+                min_years="5" max_years="15"/>
+        <Charge name="Warrant (Soliciting Prostitution)" fine_k="3" probation_chance="60" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Prostitution)" fine_k="3" probation_chance="60" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Leaving the Scene of an Accident)" fine_k="3" probation_chance="60" min_months="1"
+                max_months="12"/>
+        <Charge name="Warrant (Money Laundering)" fine_k="3" probation_chance="10" min_years="1" max_years="10"/>
+        <Charge name="Warrant (DUI)" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="Warrant (Bank Robbery)" fine_k="10" probation_chance="0" min_years="5" max_years="15"/>
+        <Charge name="Warrant (Convenient Store Robbery)" fine_k="10" probation_chance="0" min_years="1"
+                max_years="10"/>
+        <Charge name="Warrant (Open Container in MV)" fine="1000" probation_chance="60" min_months="1"
+                max_months="12"/>
+        <Charge name="Warrant (Bribery)" fine="1000" probation_chance="60" min_months="1" max_months="12"/>
+        <Charge name="Warrant (Disorderly Conduct)" fine="1000" probation_chance="60" min_months="1"
+                max_months="6"/>
+        <Charge name="Warrant (Attempted Robbery)" fine="1000" probation_chance="20" min_years="1" max_years="5"/>
+        <Charge name="Warrant (Carjacking)" fine="1000" probation_chance="20" min_years="1" max_years="7"/>
+        <Charge name="Warrant (Attempted Carjacking)" fine="1000" probation_chance="20" min_years="1"
+                max_years="5"/>
+        <Charge name="Warrant (Shoplifting)" fine="1000" probation_chance="60" min_months="1" max_months="12"/>
+        <Charge name="Warrant (Graffiti)" fine="1000" probation_chance="80" min_months="1" max_months="12"/>
+        <Charge name="Warrant (Indecent Exposure)" fine="1000" probation_chance="80" min_months="1"
+                max_months="12"/>
+    </ChargeGroup>
+</Charges>

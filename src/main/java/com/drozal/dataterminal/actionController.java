@@ -7,6 +7,7 @@ import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.ChargesData;
+import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -15,6 +16,8 @@ import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.ResizeHelper;
@@ -154,8 +157,6 @@ public class actionController {
     private MenuButton createReportBtn;
     @javafx.fxml.FXML
     private TextField calloutReportResponseCounty;
-    @javafx.fxml.FXML
-    private MenuItem parkingCitationReportButton;
     @javafx.fxml.FXML
     private TextField calloutReportName;
     @javafx.fxml.FXML
@@ -471,11 +472,73 @@ public class actionController {
     private AnchorPane arrestTrafficChargeInfoPane;
     @javafx.fxml.FXML
     private TitledPane arrestAccordionInformation;
+    @javafx.fxml.FXML
+    private TextField citationOwnerGender;
+    @javafx.fxml.FXML
+    private TextField citationCounty;
+    @javafx.fxml.FXML
+    private TableColumn citationColumn;
+    @javafx.fxml.FXML
+    private TextField citationOwnerAge;
+    @javafx.fxml.FXML
+    private TitledPane citationAccordionInformation;
+    @javafx.fxml.FXML
+    private TextField citationTime;
+    @javafx.fxml.FXML
+    private TextField citationArea;
+    @javafx.fxml.FXML
+    private TextField citationStreet;
+    @javafx.fxml.FXML
+    private TextField citationOwnerAddress;
+    @javafx.fxml.FXML
+    private TextField citationOfficerNumber;
+    @javafx.fxml.FXML
+    private Spinner citationNumber;
+    @javafx.fxml.FXML
+    private TextField citationOfficerAgency;
+    @javafx.fxml.FXML
+    private ScrollPane citationScrollPane;
+    @javafx.fxml.FXML
+    private TextField citationFine;
+    @javafx.fxml.FXML
+    private Label citationIncompleteLabel;
+    @javafx.fxml.FXML
+    private TableView citationTable;
+    @javafx.fxml.FXML
+    private TextField citationOfficerDivision;
+    @javafx.fxml.FXML
+    private TextField citationOfficerName;
+    @javafx.fxml.FXML
+    private TextField citationField;
+    @javafx.fxml.FXML
+    private AnchorPane citationReportPane;
+    @javafx.fxml.FXML
+    private TextField citationOwnerName;
+    @javafx.fxml.FXML
+    private TextField citationOfficerRank;
+    @javafx.fxml.FXML
+    private TextField citationOwnerDescription;
+    @javafx.fxml.FXML
+    private TextField citationDate;
+    @javafx.fxml.FXML
+    private TextArea citationComments;
+    @javafx.fxml.FXML
+    private TreeView citationTreeView;
+    @javafx.fxml.FXML
+    private TextField citationOwnerVehiclePlate;
+    @javafx.fxml.FXML
+    private TextField citationOwnerVehicleModel;
+    @javafx.fxml.FXML
+    private TextField citationOwnerVehicleOther;
+    @javafx.fxml.FXML
+    private ComboBox citationOwnerVehicleColor;
+    @javafx.fxml.FXML
+    private ComboBox citationOwnerVehicleType;
     //</editor-fold>
 
     //Initialization
     public void initialize() throws IOException {
-        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/DUIInformation.fxml"));
@@ -522,6 +585,7 @@ public class actionController {
         String time = DataTerminalHomeApplication.getTime();
         generatedDateTag.setText("Generated at: " + time);
     }
+
 
     //<editor-fold desc="Utils">
     private void showSettingsWindow() {
@@ -617,7 +681,7 @@ public class actionController {
     public void refreshChart() throws IOException {
         // Clear existing data from the chart
         reportChart.getData().clear();
-        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Parking Cit.", "Traffic Cit."};
+        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Traffic Cit."};
         CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
         NumberAxis yAxis = (NumberAxis) getReportChart().getYAxis();
 
@@ -648,6 +712,7 @@ public class actionController {
         getReportChart().getXAxis().setTickLabelGap(20);
     }
     //</editor-fold>
+
 
     //<editor-fold desc="Getters">
     public BarChart getReportChart() {
@@ -733,7 +798,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
     }
 
@@ -795,7 +860,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(infoPane);
     }
 
@@ -846,7 +911,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -869,7 +934,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
         setActive(trafficStopReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -896,7 +961,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -918,7 +983,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -943,7 +1008,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
 
@@ -966,7 +1031,7 @@ public class actionController {
         arrestDate.setText(getDate());
 
         //Tree View
-        File file = new File("data/testXML.xml");
+        File file = new File("data/Charges.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document document = factory.newDocumentBuilder().parse(file);
 
@@ -976,29 +1041,50 @@ public class actionController {
 
         parseTreeXML(root, rootItem);
         arrestTreeView.setRoot(rootItem);
-        expandTreeItem(rootItem, "Root");
+        expandTreeItem(rootItem, "Charges");
         arrestMonthsPane.setVisible(true);
         arrestYearsPane.setVisible(false);
     }
 
     @javafx.fxml.FXML
-    public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficCitationReport-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Citation Report");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-        stage.centerOnScreen();
+    public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
+        setActive(citationReportPane);
+        citationAccordionInformation.setExpanded(true);
+        createSpinner(citationNumber, 0, 9999, 0);
+
+        String name = ConfigReader.configRead("Name");
+        String division = ConfigReader.configRead("Division");
+        String rank = ConfigReader.configRead("Rank");
+        String number = ConfigReader.configRead("Number");
+        String agency = ConfigReader.configRead("Agency");
+        citationOwnerVehicleType.getItems().addAll(dropdownInfo.vehicleTypes);
+        citationOwnerVehicleColor.getItems().addAll(dropdownInfo.carColors);
+        citationOfficerName.setText(name);
+        citationOfficerDivision.setText(division);
+        citationOfficerRank.setText(rank);
+        citationOfficerAgency.setText(agency);
+        citationOfficerNumber.setText(number);
+        citationTime.setText(getTime());
+        citationDate.setText(getDate());
+
+        //Tree View
+        File file = new File("data/Citations.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        Document document = factory.newDocumentBuilder().parse(file);
+
+        Element root = document.getDocumentElement();
+
+        TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
+
+        parseTreeXML(root, rootItem);
+        citationTreeView.setRoot(rootItem);
+        expandTreeItem(rootItem, "Citations");
     }
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1018,7 +1104,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
         setActive(impoundReportPane);
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
@@ -1037,26 +1123,11 @@ public class actionController {
         createSpinner(impoundNumber, 0, 9999, 0);
     }
 
-    @javafx.fxml.FXML
-    public void onParkingCitationReportBtnClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingCitationReport-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Parking Citation Report");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-        stage.centerOnScreen();
-    }
 
     //</editor-fold>
 
 
     //<editor-fold desc="Submit Report Button Events">
-
     @javafx.fxml.FXML
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (calloutReportSpinner.getValue() == null) {
@@ -1530,7 +1601,106 @@ public class actionController {
             arrestOfficerNumber.setText("");
             arrestOfficerDivision.setText("");
             arrestOfficerAgency.setText("");
+            arrestChargeField.setText("");
+            arrestProbationChance.setText("");
+            arrestMinMonths.setText("");
+            arrestMaxMonths.setText("");
+            arrestMinYears.setText("");
+            arrestMaxYears.setText("");
+            arrestMinSuspension.setText("");
+            arrestMaxSuspension.setText("");
             showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onCitationReportSubmitBtnClick(ActionEvent actionEvent) {
+        if (citationNumber.getValue() == null
+                || citationOwnerVehicleColor.getValue() == null
+                || citationOwnerVehicleType.getValue() == null) {
+            citationIncompleteLabel.setText("Fill Out Form.");
+            citationIncompleteLabel.setStyle("-fx-text-fill: red;");
+            citationIncompleteLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                citationIncompleteLabel.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            // Load existing logs from XML
+            List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+
+            ObservableList<CitationsData> formDataList = citationTable.getItems();
+            // StringBuilder to build the string with commas
+            StringBuilder stringBuilder = new StringBuilder();
+            // Iterate through formDataList to access each FormData object
+            for (CitationsData formData : formDataList) {
+                // Append the values to the StringBuilder, separated by commas
+                stringBuilder.append(formData.getCitation()).append(" | ");
+                // Add more values as needed, separated by commas
+            }
+            // Remove the trailing comma and space
+            if (stringBuilder.length() > 0) {
+                stringBuilder.setLength(stringBuilder.length() - 2);
+            }
+
+            // Add new entry
+            logs.add(new TrafficCitationLogEntry(
+                    citationNumber.getValue().toString(),
+                    citationDate.getText(),
+                    citationTime.getText(),
+                    stringBuilder.toString(),
+                    citationCounty.getText(),
+                    citationArea.getText(),
+                    citationStreet.getText(),
+                    citationOwnerName.getText(),
+                    citationOwnerGender.getText(),
+                    citationOwnerAge.getText(),
+                    citationOwnerAddress.getText(),
+                    citationOwnerDescription.getText(),
+                    citationOwnerVehicleModel.getText(),
+                    citationOwnerVehicleColor.getValue().toString(),
+                    citationOwnerVehicleType.getValue().toString(),
+                    citationOwnerVehiclePlate.getText(),
+                    citationOwnerVehicleOther.getText(),
+                    citationOfficerRank.getText(),
+                    citationOfficerName.getText(),
+                    citationOfficerNumber.getText(),
+                    citationOfficerDivision.getText(),
+                    citationOfficerAgency.getText(),
+                    citationComments.getText()
+            ));
+            // Save logs to XML
+            TrafficCitationReportLogs.saveLogsToXML(logs);
+            setActive(shiftInformationPane);
+            setDisable(citationReportPane);
+            updateChartIfMismatch(reportChart);
+            citationNumber.getEditor().setText("0");
+            citationDate.setText("");
+            citationTime.setText("");
+            citationTable.getItems().clear();
+            citationCounty.setText("");
+            citationArea.setText("");
+            citationStreet.setText("");
+            citationOwnerName.setText("");
+            citationOwnerGender.setText("");
+            citationOwnerAge.setText("");
+            citationOwnerAddress.setText("");
+            citationOwnerDescription.setText("");
+            citationOwnerVehicleModel.setText("");
+            citationOwnerVehicleColor.getSelectionModel().selectFirst();
+            citationOwnerVehicleType.getSelectionModel().selectFirst();
+            citationOwnerVehiclePlate.setText("");
+            citationOwnerVehicleOther.setText("");
+            citationOfficerRank.setText("");
+            citationOfficerName.setText("");
+            citationOfficerNumber.setText("");
+            citationOfficerDivision.setText("");
+            citationOfficerAgency.setText("");
+            citationComments.setText("");
+            citationField.setText("");
+            citationFine.setText("");
+            citationTable.getItems().clear();
+            showNotification("Reports", "A new Citation Report has been submitted.", vbox);
         }
     }
 
@@ -1590,27 +1760,47 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void TrafficStopToTrafficCitationBtnClick(ActionEvent actionEvent) throws IOException {
-        setActive(calloutReportPane);
+    public void TrafficStopToTrafficCitationBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+        setActive(citationReportPane);
+        citationAccordionInformation.setExpanded(true);
+        createSpinner(citationNumber, 0, 9999, 0);
+        citationOwnerVehicleType.getItems().addAll(dropdownInfo.vehicleTypes);
+        citationOwnerVehicleColor.getItems().addAll(dropdownInfo.carColors);
+        citationOfficerName.setText(trafficStopofficerName.getText());
+        citationOfficerDivision.setText(trafficStopofficerDivision.getText());
+        citationOfficerRank.setText(trafficStopofficerRank.getText());
+        citationOfficerAgency.setText(trafficStopofficerAgency.getText());
+        citationOfficerNumber.setText(trafficStopofficerNumber.getText());
+        citationTime.setText(trafficStopTime.getText());
+        citationDate.setText(trafficStopDate.getText());
+        citationOwnerVehicleType.getSelectionModel().select(trafficStopType.getSelectionModel().getSelectedItem());
+        citationOwnerVehicleColor.getSelectionModel().select(trafficStopColor.getSelectionModel().getSelectedItem());
+        citationOwnerName.setText(trafficStopownerName.getText());
+        citationOwnerAddress.setText(trafficStopownerAddress.getText());
+        citationOwnerGender.setText(trafficStopownerGender.getText());
+        citationOwnerAge.setText(trafficStopownerAge.getText());
+        citationOwnerDescription.setText(trafficStopownerDescription.getText());
+        citationArea.setText(trafficStopArea.getText());
+        citationCounty.setText(trafficStopCounty.getText());
+        citationStreet.setText(trafficStopStreet.getText());
+        citationOwnerVehicleModel.setText(trafficStopModel.getText());
+        citationOwnerVehiclePlate.setText(trafficStopPlateNumber.getText());
+        citationOwnerVehicleOther.setText(trafficStopOtherInfo.getText());
+        citationNumber.getEditor().setText(trafficStopNumber.getValue().toString());
 
-        createSpinner(calloutReportSpinner, 0, 9999, 0);
 
-        String name = ConfigReader.configRead("Name");
-        String division = ConfigReader.configRead("Division");
-        String rank = ConfigReader.configRead("Rank");
-        String number = ConfigReader.configRead("Number");
-        String agency = ConfigReader.configRead("Agency");
+        //Tree View
+        File file = new File("data/Citations.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        Document document = factory.newDocumentBuilder().parse(file);
 
-        calloutReportName.setText(name);
-        calloutReportDivision.setText(division);
-        calloutReportRank.setText(rank);
-        calloutReportAgency.setText(agency);
-        calloutReportNumber.setText(number);
+        Element root = document.getDocumentElement();
 
-        // Add transferring traffic stop information to Traffic Citation Pane
+        TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
 
-        calloutReportDate.setText(DataTerminalHomeApplication.getDate());
-        calloutReportTime.setText(DataTerminalHomeApplication.getTime());
+        parseTreeXML(root, rootItem);
+        citationTreeView.setRoot(rootItem);
+        expandTreeItem(rootItem, "Citations");
     }
 
     @javafx.fxml.FXML
@@ -1675,21 +1865,21 @@ public class actionController {
         TreeItem<String> selectedItem = (TreeItem<String>) arrestTreeView.getSelectionModel().getSelectedItem();
         if (selectedItem != null && selectedItem.isLeaf()) {
             arrestChargeField.setText(selectedItem.getValue());
-            arrestProbationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/testXML.xml"));
-            arrestMinYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml"));
-            arrestMaxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/testXML.xml"));
-            arrestMinMonths.setText(findXMLValue(selectedItem.getValue(), "min_months", "data/testXML.xml"));
-            arrestMaxMonths.setText(findXMLValue(selectedItem.getValue(), "max_months", "data/testXML.xml"));
-            if (findXMLValue(selectedItem.getValue(), "min_years", "data/testXML.xml").isBlank()) {
+            arrestProbationChance.setText(findXMLValue(selectedItem.getValue(), "probation_chance", "data/Charges.xml"));
+            arrestMinYears.setText(findXMLValue(selectedItem.getValue(), "min_years", "data/Charges.xml"));
+            arrestMaxYears.setText(findXMLValue(selectedItem.getValue(), "max_years", "data/Charges.xml"));
+            arrestMinMonths.setText(findXMLValue(selectedItem.getValue(), "min_months", "data/Charges.xml"));
+            arrestMaxMonths.setText(findXMLValue(selectedItem.getValue(), "max_months", "data/Charges.xml"));
+            if (findXMLValue(selectedItem.getValue(), "min_years", "data/Charges.xml").isBlank()) {
                 arrestMonthsPane.setVisible(true);
                 arrestYearsPane.setVisible(false);
             } else {
                 arrestMonthsPane.setVisible(false);
                 arrestYearsPane.setVisible(true);
             }
-            if (findXMLValue(selectedItem.getValue(), "traffic", "data/testXML.xml").matches("true")) {
-                arrestMinSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/testXML.xml"));
-                arrestMaxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/testXML.xml"));
+            if (findXMLValue(selectedItem.getValue(), "traffic", "data/Charges.xml").matches("true")) {
+                arrestMinSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/Charges.xml"));
+                arrestMaxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/Charges.xml"));
             }
         }
     }
@@ -1737,7 +1927,37 @@ public class actionController {
         popOver.show(arrestMedInfoBtn);
     }
 
-    //</editor-fold>
+    @javafx.fxml.FXML
+    public void removeCitationBtnPress(ActionEvent actionEvent) {
+        // Get the selected item
+        CitationsData selectedItem = (CitationsData) citationTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            // Remove the selected item from the TableView
+            citationTable.getItems().remove(selectedItem);
+        }
+    }
 
+    @javafx.fxml.FXML
+    public void addCitationBtnPress(ActionEvent actionEvent) {
+        String citation = citationField.getText();
+        if (!(citation.isBlank() || citation.isEmpty())) {
+            // Create a new FormData object
+            CitationsData formData = new CitationsData(citation);
+            // Add the FormData object to the TableView
+            citationColumn.setCellValueFactory(new PropertyValueFactory<>("citation"));
+            citationTable.getItems().add(formData);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onCitationTreeViewMouseClick(Event event) {
+        TreeItem<String> selectedItem = (TreeItem<String>) citationTreeView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && selectedItem.isLeaf()) {
+            citationField.setText(selectedItem.getValue());
+            citationFine.setText(findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
+        }
+    }
+
+    //</editor-fold>
 
 }

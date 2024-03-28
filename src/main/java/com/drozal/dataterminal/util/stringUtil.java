@@ -14,7 +14,6 @@ public class stringUtil {
     public static String patrolLogURL = getDataLogsFolderPath() + "patrolLogs.xml";
     public static String trafficCitationLogURL = getDataLogsFolderPath() + "trafficCitationLogs.xml";
     public static String impoundLogURL = getDataLogsFolderPath() + "impoundLogs.xml";
-    public static String parkingCitationLogURL = getDataLogsFolderPath() + "parkingCitationLogs.xml";
 
     public static String getDataLogsFolderPath() {
         try {

@@ -107,17 +107,6 @@
                                 </ScrollPane>
                             </content>
                         </Tab>
-                        <Tab closable="false" text="Parking Citations">
-                            <content>
-                                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0" prefWidth="779.0"
-                                            stylesheets="@css/main/Logscrollpane.css">
-                                    <content>
-                                        <TableView fx:id="parkingCitationTable" prefHeight="556.0" prefWidth="779.0"
-                                                   styleClass="calloutTABLE" stylesheets="@css/tableCss.css"/>
-                                    </content>
-                                </ScrollPane>
-                            </content>
-                        </Tab>
                     </tabs>
                     <effect>
                         <DropShadow height="0.0" radius="0.0" width="0.0">

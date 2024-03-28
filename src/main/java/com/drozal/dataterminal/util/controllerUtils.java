@@ -6,7 +6,6 @@ import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.ParkingCitation.ParkingCitationReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
@@ -178,10 +177,7 @@ public class controllerUtils {
                     case 6: // Impounds
                         reportsCount = ImpoundReportLogs.countReports();
                         break;
-                    case 7: // PCitations
-                        reportsCount = ParkingCitationReportLogs.countReports();
-                        break;
-                    case 8: // TCitations
+                    case 7: // TCitations
                         reportsCount = TrafficCitationReportLogs.countReports();
                         break;
                 }

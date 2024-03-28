@@ -18,7 +18,6 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.logs.Arrest to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Patrol to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Impound to jakarta.xml.bind;
-    opens com.drozal.dataterminal.logs.ParkingCitation to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.TrafficCitation to jakarta.xml.bind;
     opens com.drozal.dataterminal.util to javafx.fxml;
 
@@ -30,7 +29,6 @@ module com.drozal.dataterminal {
     exports com.drozal.dataterminal.logs.Arrest;
     exports com.drozal.dataterminal.logs.Patrol;
     exports com.drozal.dataterminal.logs.Impound;
-    exports com.drozal.dataterminal.logs.ParkingCitation;
     exports com.drozal.dataterminal.logs.TrafficCitation;
     exports com.drozal.dataterminal.util;
 }

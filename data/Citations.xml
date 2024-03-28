@@ -1,0 +1,138 @@
+<Citations>
+    <CitationGroup name="Public Violations">
+        <Citation name="Public Intoxication (PEN § 29.4)" fine="1000"/>
+        <Citation name="Public Urination (PEN § 311.3)" fine="500"/>
+        <Citation name="Graffiti (PEN § 594.8)" fine="1000"/>
+        <Citation name="Littering (PEN § 374.4)" fine="489"/>
+        <Citation name="Loitering (PEN § 555.2)" fine="350"/>
+        <Citation name="Indecent Exposure (PEN § 290.005)" fine="600"/>
+        <Citation name="Disturbing the Peace (PEN § 404)" fine="1000"/>
+        <Citation name="Trespassing (PEN § 404)" fine="800"/>
+        <Citation name="Jaywalking (VEH § 21456)" fine="196"/>
+        <Citation name="Smoking Violation (HSC § 11362.3)" fine="150"/>
+        <Citation name="Illegal Camping(VEH § 22518)" fine="900"/>
+        <Citation name="Open Container (HSC § 11362.3)" fine="366"/>
+        <Citation name="Personal use of Marijuana (less than 10g)(HSC § 11362.3)" fine="150"/>
+        <Citation name="Personal use of Marijuana (more than 10g)(HSC § 11362.3)" fine="300"/>
+    </CitationGroup>
+    <CitationGroup name="Speeding Citations">
+        <Citation name="Speeding (Under 10)(VEH § 15210)" fine="260"/>
+        <Citation name="Speeding (Between 10-15)(VEH § 15210)" fine="370"/>
+        <Citation name="Speeding (Between 16-30)(VEH § 15210)" fine="500"/>
+        <Citation name="Speeding (Over 30+)(VEH § 15210)" fine="700" arrestable="true"/>
+        <Citation name="Racing on highway (VEH § 23109)" fine="1000"/>
+    </CitationGroup>
+    <CitationGroup name="Moving Violations">
+        <Citation name="Improper Lane Change (VEH § 21761)" fine="238"/>
+        <Citation name="Improper Passing (VEH § 21751)" fine="237"/>
+        <Citation name="Improper Turn (VEH § 21801)" fine="237"/>
+        <Citation name="Improper U-Turn (VEH § 21801)" fine="237"/>
+        <Citation name="Violation of Right of Way (VEH § 21800)" fine="237"/>
+        <Citation name="Careless Driving (VEH § 23103)" fine="300"/>
+        <Citation name="Following too Closely (VEH § 21704)" fine="237"/>
+        <Citation name="Failure to Signal (VEH § 24953)" fine="237"/>
+        <Citation name="Failure to Yield (VEH § 21803)" fine="238"/>
+        <Citation name="Failure to Yield to Emergency Vehicle (VEH § 21803)" fine="490"/>
+        <Citation name="Impeding Flow of Traffic (VEH § 20002)" fine="237"/>
+        <Citation name="At Fault in an Accident (VEH § 20012)" fine="300"/>
+        <Citation name="Failure to Stop at a Traffic Signal (VEH § 22450)" fine="490"/>
+        <Citation name="Running a Stop Sign (VEH § 22450)" fine="238"/>
+        <Citation name="Crossing over a center divider, median or gore (VEH § 21651)" fine="350"/>
+        <Citation name="Driving on the Shoulder (Illegal under certain conditions)(VEH § 21719)" fine="250"/>
+        <Citation name="Failure to Secure Load to Truck or Lorry (VEH § 23115)" fine="250"/>
+        <Citation name="Operating Motorcycle/ATV without a helmet (VEH § 27803)" fine="250"/>
+        <Citation name="Operating a Telecommunications Device while Driving" fine="162"/>
+        <Citation name="Excessive Acceleration (VEH § 27153)" fine="190"/>
+        <Citation name="Riding Bicycle on Roadway (VEH § 21719)" fine="196"/>
+        <Citation name="Operating Vehicle in Bicycle Lane (VEH § 21719)" fine="237"/>
+    </CitationGroup>
+    <CitationGroup name="Moving Violations (Arrestable)">
+        <Citation name="Driving Wrong Way (VEH § 40000.13)" fine="400" arrestable="true"/>
+        <Citation name="Reckless Driving (VEH § 23103)" fine="350" arrestable="true"/>
+        <Citation name="Leaving the Scene of an Accident (VEH § 20012)" fine="300" arrestable="true"/>
+        <Citation name="DWLS/R With Knowlege (VEH § 14610)" fine="400" arrestable="true"/>
+        <Citation name="Driving under the Influence (VEH § 23153)" fine="1500" arrestable="true"/>
+    </CitationGroup>
+    <CitationGroup name="Non-Moving Violations">
+        <Citation name="Unworthy Road Vehicle (VEH § 24252)" fine="600"/>
+        <Citation name="Improper Lighting (VEH § 24000)" fine="237"/>
+        <Citation name="Safety Belt Violation (VEH § 27318)" fine="162"/>
+        <Citation name="Illegal Tint (VEH § 24000)" fine="110"/>
+        <Citation name="Illegal Underglow Color (VEH § 21466.5)" fine="110"/>
+        <Citation name="License Plate Display Failure (VEH § 5200)" fine="196"/>
+        <Citation name="No Light at Night (VEH § 24000)" fine="237"/>
+        <Citation name="Open Container in Vehicle (VEH § 23221)" fine="250"/>
+        <Citation name="Headset or Earplugs on While Driving (VEH § 27400)" fine="179"/>
+    </CitationGroup>
+    <CitationGroup name="License/Reg/Ins">
+        <Citation name="Failure to Present/No Insurance (INS § 663)" fine="900"/>
+        <Citation name="Expired Insurance (INS § 663)" fine="600"/>
+        <Citation name="Expired Insurance (> 30 days)(INS § 663)" fine="300"/>
+        <Citation name="Failure to Present/No Registration (VEH § 4602)" fine="284"/>
+        <Citation name="Expired Registration (VEH § 4602)" fine="196"/>
+        <Citation name="Expired Registration (> 30 days)(VEH § 4602)" fine="290"/>
+        <Citation name="Expired Drivers License (VEH § 12816)" fine="237"/>
+        <Citation name="Expired Drivers License (> 30 days) (VEH § 12816)" fine="237"/>
+        <Citation name="No Drivers License (NTA Traffic Court) (VEH § 12951)" fine="401"/>
+        <Citation name="Expired Vehicle Tag (VEH § 4602)" fine="200"/>
+        <Citation name="Expired Vehicle Tag (> 30 days)(VEH § 4602)" fine="250"/>
+        <Citation name="DWLS/R Without Knowlege (NTA Traffic Court)((VEH § 14600)" fine="400"/>
+        <Citation name="Notice to Appear/NTA Traffic (VEH § 40500)" fine="0"/>
+    </CitationGroup>
+    <CitationGroup name="Parking Violations">
+        <Citation name="Blocking Fire Hydrant (VEH § 22514)" fine="65"/>
+        <Citation name="Parking in Fire Lane (VEH § 22500.1)" fine="80"/>
+        <Citation name="Expired Meter (VEH § 21113)" fine="65"/>
+        <Citation name="Expired Parking Permit (VEH § 21113)" fine="65"/>
+        <Citation name="No/Improperly Displayed Parking Permit (VEH § 21113)" fine="65"/>
+        <Citation name="Violation of Posted No Parking Signs (VEH § 21113)" fine="65"/>
+        <Citation name="Violation of Timed Parking Zone (VEH § 21113)" fine="65"/>
+        <Citation name="Blocking Driveway/Crosswalk/Sidewalk (VEH § 22500)" fine="65"/>
+        <Citation name="Parking/Obstructing Bike Lane (VEH § 21209)" fine="65"/>
+        <Citation name="Parking Against Oncoming Traffic (VEH § 22500)" fine="65"/>
+        <Citation name="Parking in Bus Zone (VEH § 22500)" fine="250"/>
+        <Citation name="Double Parking (VEH § 25500)" fine="65"/>
+        <Citation name="Parking in Disabled Zone (VEH § 22507.8)" fine="421"/>
+        <Citation name="Parking in Disabled Zone-2nd Violation (VEH § 22507.8)" fine="625"/>
+        <Citation name="Parking in Disabled Zone-3rd Violation (VEH § 22507.8)" fine="825"/>
+    </CitationGroup>
+    <CitationGroup name="Boating Citations">
+        <Citation name="Vessel Does Not Meet Standards (VEH § 652(c))" fine="280"/>
+        <Citation name="Failure to Yield to Blue Light or Siren (VEH § 652.5(d))" fine="280"/>
+        <Citation name="Invalid Vessel Registration (VEH § 190.01)" fine="192"/>
+        <Citation name="Insufficient Flotation Devices (VEH § 658.3(a))" fine="1710"/>
+        <Citation name="Exceeding Maximum Occupancy on Vessel (VEH § 658.3(a))" fine="1710"/>
+        <Citation name="Boating in No-Boating Zone (VEH § 655.05)" fine="1425"/>
+        <Citation name="Unlawful Vessel Speeding (VEH § 655.2(a))" fine="280"/>
+        <Citation name="Negligent Operation of a Vessel (VEH § 655(a))" fine="1300"/>
+        <Citation name="Negligent Operation–Under Influence of Liquor or Drugs (VEH § 655(b))" fine="2735"/>
+        <Citation name="Illegal Discharge of Sewage (VEH § 780 (a))" fine="1300"/>
+    </CitationGroup>
+    <CitationGroup name="Warning Citations">
+        <Citation name="Unlawful Speed Warning" fine="0"/>
+        <Citation name="Safety Belt Warning" fine="0"/>
+        <Citation name="Turn Signal Warning" fine="0"/>
+        <Citation name="Improper Passing Warning" fine="0"/>
+        <Citation name="Illegal Tint Warning" fine="0"/>
+        <Citation name="Illegal Underglow Color Warning" fine="0"/>
+        <Citation name="Illegal U-Turn Warning" fine="0"/>
+        <Citation name="Improper Lighting Warning" fine="0"/>
+        <Citation name="Distracted Driving Warning" fine="0"/>
+        <Citation name="No Light at Night Warning" fine="0"/>
+        <Citation name="Parking Violation Warning" fine="0"/>
+        <Citation name="Failure to Yield Warning" fine="0"/>
+        <Citation name="Running a Stop Sign/ traffic Signal Warning" fine="0"/>
+        <Citation name="Improper Turn/U-Turn Warning" fine="0"/>
+        <Citation name="Excessive Acceleration Warning" fine="0"/>
+        <Citation name="Tailgating Warning" fine="0"/>
+        <Citation name="Jaywalking Warning" fine="0"/>
+        <Citation name="Littering Warning" fine="0"/>
+        <Citation name="Open Container in Public Warning" fine="0"/>
+        <Citation name="Broken Head or Tail Light Warning" fine="0"/>
+        <Citation name="Loitering Warning" fine="0"/>
+        <Citation name="Trespassing Warning" fine="0"/>
+        <Citation name="Expired Registration Warning" fine="0"/>
+        <Citation name="Expired License Warning" fine="0"/>
+        <Citation name="Expired Insurance Warning" fine="0"/>
+    </CitationGroup>
+</Citations>

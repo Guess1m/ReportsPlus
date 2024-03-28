@@ -8,8 +8,6 @@ import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.ParkingCitation.ParkingCitationLogEntry;
-import com.drozal.dataterminal.logs.ParkingCitation.ParkingCitationReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
@@ -45,8 +43,6 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     private TableView patrolTable;
     @javafx.fxml.FXML
-    private TableView parkingCitationTable;
-    @javafx.fxml.FXML
     private TableView impoundTable;
     @javafx.fxml.FXML
     private TableView citationTable;
@@ -74,14 +70,10 @@ public class LogBrowserController {
         initializePatrolColumns();
         initializeSearchColumns();
         initializeTrafficStopColumns();
-        initializeParkingCitationColumns();
         loadLogs();
     }
 
     private void loadLogs() {
-        //ParkingCitationTable
-        List<ParkingCitationLogEntry> parkingCitationLogEntryList = ParkingCitationReportLogs.extractLogEntries(stringUtil.parkingCitationLogURL);
-        parkingCitationLogUpdate(parkingCitationLogEntryList);
         //ImpoundTable
         List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
         impoundLogUpdate(impoundLogEntryList);
@@ -106,12 +98,6 @@ public class LogBrowserController {
         //CalloutTable
         List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
         calloutLogUpdate(calloutLogEntryList);
-    }
-
-    public void parkingCitationLogUpdate(List<ParkingCitationLogEntry> logEntries) {
-        // Clear existing data
-        parkingCitationTable.getItems().clear();
-        parkingCitationTable.getItems().addAll(logEntries);
     }
 
     public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
@@ -161,126 +147,6 @@ public class LogBrowserController {
         // Clear existing data
         calloutTable.getItems().clear();
         calloutTable.getItems().addAll(logEntries);
-    }
-
-    public void initializeParkingCitationColumns() {
-        // Create columns for each property of ParkingCitationLogEntry
-        TableColumn<ParkingCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
-        citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationDateColumn = new TableColumn<>("Citation Date");
-        citationDateColumn.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationTimeColumn = new TableColumn<>("Citation Time");
-        citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
-
-        TableColumn<ParkingCitationLogEntry, String> meterNumberColumn = new TableColumn<>("Meter #");
-        meterNumberColumn.setCellValueFactory(new PropertyValueFactory<>("meterNumber"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationCountyColumn = new TableColumn<>("County");
-        citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Area");
-        citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Street");
-        citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Offender Name");
-        offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Offender Gender");
-        offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderEthnicityColumn = new TableColumn<>("Offender Ethnicity");
-        offenderEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("offenderEthnicity"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Offender Age");
-        offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Offender Desc.");
-        offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehicleMakeColumn = new TableColumn<>("Vehicle Make");
-        offenderVehicleMakeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleMake"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Vehicle Model");
-        offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Vehicle Color");
-        offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Vehicle Type");
-        offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("License Plate");
-        offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Other Veh. Info");
-        offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderViolationsColumn = new TableColumn<>("Violations");
-        offenderViolationsColumn.setCellValueFactory(new PropertyValueFactory<>("offenderViolations"));
-
-        TableColumn<ParkingCitationLogEntry, String> offenderActionsTakenColumn = new TableColumn<>("Actions Taken");
-        offenderActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("offenderActionsTaken"));
-
-        TableColumn<ParkingCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
-        officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-
-        TableColumn<ParkingCitationLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
-        officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-
-        TableColumn<ParkingCitationLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
-        officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-
-        TableColumn<ParkingCitationLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-        officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-
-        TableColumn<ParkingCitationLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-        officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-
-        TableColumn<ParkingCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
-        citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
-
-        // Add columns to the table
-        // Create a list to hold all the TableColumn instances for parkingCitationTable
-        ObservableList<TableColumn<ParkingCitationLogEntry, ?>> parkingCitationColumns = FXCollections.observableArrayList(
-                citationNumberColumn,
-                citationDateColumn,
-                citationTimeColumn,
-                meterNumberColumn,
-                citationCountyColumn,
-                citationAreaColumn,
-                citationStreetColumn,
-                offenderNameColumn,
-                offenderGenderColumn,
-                offenderEthnicityColumn,
-                offenderAgeColumn,
-                offenderDescriptionColumn,
-                offenderVehicleMakeColumn,
-                offenderVehicleModelColumn,
-                offenderVehicleColorColumn,
-                offenderVehicleTypeColumn,
-                offenderVehiclePlateColumn,
-                offenderVehicleOtherColumn,
-                offenderViolationsColumn,
-                offenderActionsTakenColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerDivisionColumn,
-                officerAgencyColumn,
-                citationCommentsColumn
-        );
-
-// Add all columns to parkingCitationTable
-        parkingCitationTable.getColumns().addAll(parkingCitationColumns);
-
-// Set minimum width for each column
-        for (TableColumn<ParkingCitationLogEntry, ?> column : parkingCitationColumns) {
-            column.setMinWidth(minColumnWidth);
-        }
     }
 
     public void initializeImpoundColumns() {
@@ -445,6 +311,9 @@ public class LogBrowserController {
         TableColumn<TrafficCitationLogEntry, String> citationTimeColumn = new TableColumn<>("Citation Time");
         citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
 
+        TableColumn<TrafficCitationLogEntry, String> citationChargesColumn = new TableColumn<>("Charges");
+        citationChargesColumn.setCellValueFactory(new PropertyValueFactory<>("citationCharges"));
+
         TableColumn<TrafficCitationLogEntry, String> citationCountyColumn = new TableColumn<>("Citation County");
         citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
 
@@ -460,17 +329,14 @@ public class LogBrowserController {
         TableColumn<TrafficCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Offender Gender");
         offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderEthnicityColumn = new TableColumn<>("Offender Ethnicity");
-        offenderEthnicityColumn.setCellValueFactory(new PropertyValueFactory<>("offenderEthnicity"));
-
         TableColumn<TrafficCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Offender Age");
         offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
 
+        TableColumn<TrafficCitationLogEntry, String> offenderHomeAddressColumn = new TableColumn<>("Offender Address");
+        offenderHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("offenderHomeAddress"));
+
         TableColumn<TrafficCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Offender Description");
         offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
-
-        TableColumn<TrafficCitationLogEntry, String> offenderVehicleMakeColumn = new TableColumn<>("Offender Vehicle Make");
-        offenderVehicleMakeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleMake"));
 
         TableColumn<TrafficCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Offender Vehicle Model");
         offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
@@ -486,12 +352,6 @@ public class LogBrowserController {
 
         TableColumn<TrafficCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Offender Vehicle Other");
         offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
-
-        TableColumn<TrafficCitationLogEntry, String> offenderViolationsColumn = new TableColumn<>("Offender Violations");
-        offenderViolationsColumn.setCellValueFactory(new PropertyValueFactory<>("offenderViolations"));
-
-        TableColumn<TrafficCitationLogEntry, String> offenderActionsTakenColumn = new TableColumn<>("Offender Actions Taken");
-        offenderActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("offenderActionsTaken"));
 
         TableColumn<TrafficCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
         officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
@@ -516,22 +376,20 @@ public class LogBrowserController {
                 citationNumberColumn,
                 citationDateColumn,
                 citationTimeColumn,
+                citationChargesColumn,
                 citationCountyColumn,
                 citationAreaColumn,
                 citationStreetColumn,
                 offenderNameColumn,
                 offenderGenderColumn,
-                offenderEthnicityColumn,
                 offenderAgeColumn,
+                offenderHomeAddressColumn,
                 offenderDescriptionColumn,
-                offenderVehicleMakeColumn,
                 offenderVehicleModelColumn,
                 offenderVehicleColorColumn,
                 offenderVehicleTypeColumn,
                 offenderVehiclePlateColumn,
                 offenderVehicleOtherColumn,
-                offenderViolationsColumn,
-                offenderActionsTakenColumn,
                 officerRankColumn,
                 officerNameColumn,
                 officerNumberColumn,
@@ -1016,7 +874,6 @@ public class LogBrowserController {
         window.hide(); // or window.close() if you want to force close
     }
 
-
     @javafx.fxml.FXML
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) calloutTable.getScene().getWindow();
@@ -1024,6 +881,5 @@ public class LogBrowserController {
             toggleWindowedFullscreen(stage, 891, 472);
         }
     }
-
 
 }

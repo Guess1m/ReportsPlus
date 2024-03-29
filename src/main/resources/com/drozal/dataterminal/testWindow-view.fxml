@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="468.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.TestWindowViewController"/>
+            fx:controller="com.drozal.dataterminal.TestWindowViewController">
+    <children>
+        <AreaChart fx:id="testchart" layoutX="13.0" layoutY="34.0" legendVisible="false"
+                   title="Area Reports By Frequency" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <xAxis>
+                <CategoryAxis label="Area" side="BOTTOM" tickLabelRotation="45.0"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </AreaChart>
+    </children>
+</AnchorPane>

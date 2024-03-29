@@ -880,7 +880,7 @@ public class actionController {
         stage.setTitle("Test Window");
         stage.setScene(newScene);
         stage.initStyle(StageStyle.UTILITY);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();

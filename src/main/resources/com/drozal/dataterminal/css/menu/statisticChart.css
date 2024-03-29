@@ -1,0 +1,10 @@
+.chart-series-area-fill {
+    -fx-fill: rgb(104, 94, 135,0.5); /* Red color */
+    -fx-stroke: grey;
+
+}
+.chart-series-area-line{
+    -fx-fill: rgb(104, 94, 135,1); /* Red color */
+    -fx-stroke: rgb(104, 94, 135,1);
+    -fx-stroke-width: 5px;
+}

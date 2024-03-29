@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -3347,10 +3345,60 @@
                         </DropShadow>
                     </effect>
                 </Label>
+                <Button fx:id="statisticsButton" graphicTextGap="10.0" layoutX="10.0" layoutY="442.0"
+                        mnemonicParsing="false" onAction="#onStatisticsBtnClick" prefHeight="50.0" prefWidth="127.0"
+                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Statistics" textFill="#828797"
+                        AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@imgs/icons/shiftInfo.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
             <effect>
                 <DropShadow/>
             </effect>
+        </AnchorPane>
+        <AnchorPane fx:id="statisticsPane" disable="true" layoutX="217.0" layoutY="100.0" prefHeight="641.0"
+                    prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <children>
+                <GridPane layoutX="374.0" layoutY="313.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <AreaChart fx:id="areaReportChart" legendVisible="false"
+                                   stylesheets="@css/menu/statisticChart.css" title="Reports By Area">
+                            <xAxis>
+                                <CategoryAxis label="Area" side="BOTTOM" tickLabelGap="10.0" tickLabelRotation="360.0"
+                                              tickLength="20.0">
+                                    <tickLabelFont>
+                                        <Font name="Segoe UI" size="14.0"/>
+                                    </tickLabelFont>
+                                </CategoryAxis>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis minorTickVisible="false" side="LEFT" tickLength="15.0" tickUnit="1.0">
+                                    <tickLabelFont>
+                                        <Font name="Segoe UI" size="18.0"/>
+                                    </tickLabelFont>
+                                </NumberAxis>
+                            </yAxis>
+                        </AreaChart>
+                    </children>
+                </GridPane>
+            </children>
         </AnchorPane>
     </children>
 </AnchorPane>

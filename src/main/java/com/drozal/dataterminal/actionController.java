@@ -34,10 +34,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -63,6 +60,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.TestWindowViewController.parseEveryLog;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
@@ -538,20 +536,17 @@ public class actionController {
     private ComboBox citationOwnerVehicleType;
     @javafx.fxml.FXML
     private RadioMenuItem startupFullscreenToggleBtn;
+    @javafx.fxml.FXML
+    private AreaChart areaReportChart;
+    @javafx.fxml.FXML
+    private Button statisticsButton;
+    @javafx.fxml.FXML
+    private AnchorPane statisticsPane;
     //</editor-fold>
-
-    private static void createSpinnerNumListener(Spinner spinner) {
-        spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,3}")) {
-                // If the new value does not match the pattern of up to three digits, revert to the old value
-                spinner.getEditor().setText(oldValue);
-            }
-        });
-    }
 
     //Initialization
     public void initialize() throws IOException {
-        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
         startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
@@ -609,6 +604,8 @@ public class actionController {
         createSpinnerNumListener(trafficStopNumber);
         createSpinnerNumListener(arrestNumber);
         createSpinnerNumListener(SearchNumber);
+
+        areaReportChart.getData().add(parseEveryLog("area"));
     }
 
     //<editor-fold desc="Utils">
@@ -822,7 +819,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
     }
@@ -867,6 +864,14 @@ public class actionController {
         showButtonAnimation(notesButton);
     }
 
+    @javafx.fxml.FXML
+    public void onStatisticsBtnClick(ActionEvent actionEvent) {
+        showButtonAnimation(statisticsButton);
+        setDisable(statisticsPane, calloutReportPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setActive(statisticsPane);
+        TestWindowViewController.refreshChart(areaReportChart, "area");
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Settings Button Events">
@@ -888,7 +893,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(infoPane);
     }
 
@@ -938,7 +943,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -961,7 +966,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
         setActive(trafficStopReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -988,7 +993,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1010,7 +1015,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1035,7 +1040,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
 
@@ -1075,7 +1080,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
+        setDisable(statisticsPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
         setActive(citationReportPane);
         citationAccordionInformation.setExpanded(true);
         createSpinner(citationNumber, 0, 9999, 0);
@@ -1111,7 +1116,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1131,7 +1136,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
         setActive(impoundReportPane);
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");

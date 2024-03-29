@@ -12,7 +12,7 @@
                    title="Area Reports By Frequency" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <xAxis>
-                <CategoryAxis label="Area" side="BOTTOM" tickLabelRotation="45.0"/>
+                <CategoryAxis label="Area" side="BOTTOM" tickLabelRotation="360.0"/>
             </xAxis>
             <yAxis>
                 <NumberAxis side="LEFT"/>

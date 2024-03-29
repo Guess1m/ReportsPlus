@@ -60,8 +60,9 @@ public class TestWindowViewController {
         parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
         parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
 
-        // Sort the areas alphabetically
-        Map<String, Integer> sortedAreasMap = new TreeMap<>(combinedAreasMap);
+        // Sort the areas alphabetically ignoring case
+        Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedAreasMap.putAll(combinedAreasMap);
         // Create series and populate with sorted data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
@@ -70,9 +71,13 @@ public class TestWindowViewController {
         return series;
     }
 
+    public static void refreshChart(AreaChart chart, String value) {
+        chart.getData().clear(); // Clear existing data from the chart
+        chart.getData().add(parseEveryLog(value)); // Add new data to the chart
+    }
+
     public void initialize() {
         // Add the series to the chart
         testchart.getData().add(parseEveryLog("area"));
-        testchart.getData().add(parseEveryLog("name"));
     }
 }

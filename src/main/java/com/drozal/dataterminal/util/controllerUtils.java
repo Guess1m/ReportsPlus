@@ -19,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -201,6 +202,15 @@ public class controllerUtils {
                 }
             }
         }
+    }
+
+    public static void createSpinnerNumListener(Spinner spinner) {
+        spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,3}")) {
+                // If the new value does not match the pattern of up to three digits, revert to the old value
+                spinner.getEditor().setText(oldValue);
+            }
+        });
     }
 
     public static void clearDataLogs() {

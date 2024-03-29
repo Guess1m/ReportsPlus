@@ -53,6 +53,13 @@ public class newOfficerController {
                         } else {
                             setText(item);
                             setAlignment(javafx.geometry.Pos.CENTER);
+
+                            // Check if the item contains "=" and set it as bold
+                            if (item.contains("=")) {
+                                setStyle("-fx-font-weight: bold;");
+                            } else {
+                                setStyle("-fx-font-weight: none;");
+                            }
                         }
                     }
                 };
@@ -73,10 +80,8 @@ public class newOfficerController {
                 incompleteLabel.setVisible(false);
             }));
             timeline1.play();
-            System.out.println("yes");
         } else {
             String jarPath = null;
-            System.out.println("no");
             try {
                 jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             } catch (URISyntaxException e) {

@@ -33,11 +33,9 @@ public class Launcher {
         File citationsFile = new File(citationsFilePath);
         if (!chargesFile.exists()) {
             copyChargeDataFile();
-            System.out.println("copied charge file over");
         }
         if (!citationsFile.exists()) {
             copyCitationDataFile();
-            System.out.println("copied citation file over");
         }
 
 

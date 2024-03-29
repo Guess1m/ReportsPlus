@@ -452,15 +452,15 @@
                                                    prefHeight="38.0" prefWidth="352.0" promptText="Model"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
-                                        <ComboBox fx:id="trafficStopType" layoutX="60.0" layoutY="146.0"
+                                        <ComboBox fx:id="trafficStopType" layoutX="15.0" layoutY="146.0"
                                                   prefHeight="38.0" prefWidth="352.0" promptText="Type"
                                                   styleClass="combo-box" stylesheets="@css/form/formComboBox.css"
                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
-                                        <ComboBox fx:id="trafficStopColor" layoutX="60.0" layoutY="193.0"
+                                        <ComboBox fx:id="trafficStopColor" layoutX="15.0" layoutY="198.0"
                                                   prefHeight="38.0" prefWidth="352.0" promptText="Color"
                                                   styleClass="combo-box" stylesheets="@css/form/formComboBox.css"
                                                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
-                                        <TextField fx:id="trafficStopOtherInfo" layoutX="30.0" layoutY="240.0"
+                                        <TextField fx:id="trafficStopOtherInfo" layoutX="15.0" layoutY="250.0"
                                                    prefHeight="38.0" prefWidth="183.0" promptText="Other Info.."
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
@@ -1384,19 +1384,19 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="patrolofficerRank" layoutX="30.0" layoutY="101.0"
-                                                   prefHeight="38.0" prefWidth="271.0" promptText="Rank"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
                                         <TextField fx:id="patrolofficerNumber" layoutX="239.0" layoutY="51.0"
                                                    prefHeight="36.0" prefWidth="118.0" promptText="Number"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
                                                    AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="60.0"
                                                    AnchorPane.topAnchor="51.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="patrolofficerRank" layoutX="30.0" layoutY="101.0"
+                                                   prefHeight="38.0" prefWidth="271.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -2029,120 +2029,200 @@
                         <GridPane layoutX="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="37.0"
                                                    prefWidth="454.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0"
+                                                   prefWidth="454.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0"
                                                    prefWidth="370.0"/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="280.0" minHeight="10.0" prefHeight="244.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="164.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="337.0" valignment="CENTER" vgrow="ALWAYS"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="245.0"
+                                                vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="332.0" valignment="CENTER" vgrow="ALWAYS"/>
                             </rowConstraints>
                             <children>
-                                <AnchorPane prefWidth="412.0" GridPane.rowSpan="2">
+                                <AnchorPane prefHeight="243.0" prefWidth="380.0">
                                     <children>
                                         <Label layoutX="45.0" layoutY="9.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Timestamp Information"
                                                textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
-                                               AnchorPane.topAnchor="9.0">
+                                               AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="searchDate" layoutX="60.0" layoutY="47.0" prefHeight="37.0"
                                                    prefWidth="425.0" promptText="Search Date" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
-                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="47.0"/>
-                                        <TextField fx:id="searchTime" layoutX="60.0" layoutY="93.0" prefHeight="36.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0"/>
+                                        <TextField fx:id="searchTime" layoutX="60.0" layoutY="98.0" prefHeight="36.0"
                                                    prefWidth="425.0" promptText="Search Time" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
                                                    AnchorPane.rightAnchor="30.0"/>
-                                        <TextField fx:id="searchCounty" layoutX="60.0" layoutY="170.0" prefHeight="37.0"
-                                                   prefWidth="425.0" promptText="County" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                        <Spinner fx:id="SearchNumber" editable="true" layoutX="149.0" layoutY="151.0"
+                                                 prefHeight="28.0" prefWidth="99.0"
+                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.rightAnchor="65.0"
+                                                 AnchorPane.topAnchor="151.0">
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.5657894611358643" green="0.5657894611358643"
+                                                               blue="0.5657894611358643" opacity="0.27000001072883606"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Spinner>
+                                        <Label layoutX="66.0" layoutY="148.0" opacity="0.82" prefHeight="29.0"
+                                               prefWidth="70.0" styleClass="sub-heading"
+                                               stylesheets="@css/form/formLabels.css" text="Search #" textFill="#6f6f6f"
+                                               AnchorPane.rightAnchor="177.0" AnchorPane.topAnchor="148.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1">
+                                    <children>
+                                        <TextField fx:id="searchofficerName" layoutX="10.0" layoutY="33.0"
+                                                   prefHeight="37.0" prefWidth="145.0" promptText="Name"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="137.0"
+                                                   AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="searchArea" layoutX="60.0" layoutY="216.0" prefHeight="36.0"
-                                                   prefWidth="425.0" promptText="Area" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                        <TextField fx:id="searchofficerNumber" layoutX="235.0" layoutY="33.0"
+                                                   prefHeight="37.0" prefWidth="99.0" promptText="Number"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="searchStreet" layoutX="60.0" layoutY="263.0" prefHeight="36.0"
-                                                   prefWidth="425.0" promptText="Street" styleClass="formField"
-                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="60.0"
-                                                   AnchorPane.rightAnchor="30.0">
+                                        <TextField fx:id="searchofficerRank" layoutX="30.0" layoutY="98.0"
+                                                   prefHeight="37.0" prefWidth="145.0" promptText="Rank"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                             <font>
-                                                <Font size="15.0"/>
+                                                <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="45.0" layoutY="136.0" styleClass="searchHeadingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Location Information"
-                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0">
+                                        <TextField fx:id="searchofficerDivision" layoutX="30.0" layoutY="144.0"
+                                                   prefHeight="37.0" prefWidth="203.0" promptText="Division"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchofficerAgency" layoutX="30.0" layoutY="190.0"
+                                                   prefHeight="37.0" prefWidth="227.0" promptText="Agency"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label styleClass="searchHeadingBig" stylesheets="@css/form/formLabels.css"
+                                               text="Reporting Officer" textAlignment="CENTER" textFill="#616161"
+                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                <AnchorPane GridPane.columnIndex="2">
                                     <children>
-                                        <TextField fx:id="searchGrounds" layoutX="60.0" layoutY="138.0"
-                                                   prefHeight="37.0" prefWidth="100.0" promptText="Grounds for search"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0"
-                                                   AnchorPane.topAnchor="138.0">
+                                        <TextField fx:id="searchCounty" layoutX="60.0" layoutY="48.0" prefHeight="37.0"
+                                                   prefWidth="425.0" promptText="County" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <Label layoutX="45.0" layoutY="100.0" styleClass="searchHeadingBig"
-                                               stylesheets="@css/form/formLabels.css" text="Search Information"
+                                        <TextField fx:id="searchArea" layoutX="60.0" layoutY="99.0" prefHeight="36.0"
+                                                   prefWidth="425.0" promptText="Area" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <TextField fx:id="searchStreet" layoutX="60.0" layoutY="146.0" prefHeight="36.0"
+                                                   prefWidth="425.0" promptText="Street" styleClass="formField"
+                                                   stylesheets="@css/form/formFields.css" AnchorPane.leftAnchor="30.0"
+                                                   AnchorPane.rightAnchor="30.0">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="45.0" layoutY="14.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Location Information"
                                                textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
-                                               AnchorPane.topAnchor="100.0">
+                                               AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="searchWitnesses" layoutX="60.0" layoutY="185.0"
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.rowIndex="1">
+                                    <children>
+                                        <TextField fx:id="searchGrounds" layoutX="30.0" layoutY="52.0" prefHeight="37.0"
+                                                   prefWidth="100.0" promptText="Grounds for search"
+                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+                                                   AnchorPane.topAnchor="52.0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Label layoutX="45.0" layoutY="14.0" styleClass="searchHeadingBig"
+                                               stylesheets="@css/form/formLabels.css" text="Search Information"
+                                               textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
+                                               AnchorPane.topAnchor="14.0">
+                                            <font>
+                                                <Font name="Candara" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="searchWitnesses" layoutX="30.0" layoutY="99.0"
                                                    prefHeight="38.0" prefWidth="100.0" promptText="Witnesses"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="searchedPersons" layoutX="60.0" layoutY="232.0"
+                                        <TextField fx:id="searchedPersons" layoutX="30.0" layoutY="146.0"
                                                    prefHeight="38.0" prefWidth="100.0" promptText="Searched Person(s)"
                                                    styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="30.0">
+                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextField>
-                                        <ComboBox fx:id="searchType" layoutX="60.0" layoutY="279.0" prefHeight="38.0"
+                                        <ComboBox fx:id="searchType" layoutX="30.0" layoutY="193.0" prefHeight="38.0"
                                                   prefWidth="100.0" promptText="Search Type" styleClass="combo-box"
-                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="60.0"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="30.0"
                                                   AnchorPane.rightAnchor="30.0"/>
-                                        <ComboBox fx:id="searchMethod" layoutX="60.0" layoutY="326.0" prefHeight="38.0"
+                                        <ComboBox fx:id="searchMethod" layoutX="30.0" layoutY="245.0" prefHeight="38.0"
                                                   prefWidth="100.0" promptText="Search Method" styleClass="combo-box"
-                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="60.0"
+                                                  stylesheets="@css/form/formComboBox.css" AnchorPane.leftAnchor="30.0"
                                                   AnchorPane.rightAnchor="30.0"/>
-                                        <Label layoutX="80.0" layoutY="384.0" text="(If Applicable)"
-                                               AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="258.0"/>
-                                        <Button fx:id="searchpopOverBtn" graphicTextGap="5.0" layoutX="179.0"
-                                                layoutY="373.0" mnemonicParsing="false"
-                                                onAction="#onSearchPopOverBtnPress" prefHeight="39.0" prefWidth="203.0"
+                                        <Label layoutX="39.0" layoutY="310.0" text="(If Applicable)"
+                                               AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="216.0"/>
+                                        <Button fx:id="searchpopOverBtn" graphicTextGap="5.0" layoutX="121.0"
+                                                layoutY="299.0" mnemonicParsing="false"
+                                                onAction="#onSearchPopOverBtnPress" prefHeight="39.0" prefWidth="189.0"
                                                 style="-fx-font-size: 14; -fx-label-padding: 0; -fx-padding: 0; -fx-text-fill: #5e5e5e;"
                                                 styleClass="formField" stylesheets="@css/form/formFields.css"
                                                 text="Breathalyzer Information" textFill="#5e5e5e"
-                                                AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="30.0">
+                                                AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="30.0">
                                             <graphic>
                                                 <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true"
                                                            preserveRatio="true">
@@ -2157,105 +2237,40 @@
                                         </Button>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.columnIndex="1">
-                                    <children>
-                                        <TextField fx:id="searchofficerName" layoutX="10.0" layoutY="33.0"
-                                                   prefHeight="37.0" prefWidth="212.0" promptText="Name"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="170.0"
-                                                   AnchorPane.topAnchor="52.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="searchofficerNumber" layoutX="235.0" layoutY="33.0"
-                                                   prefHeight="37.0" prefWidth="99.0" promptText="Number"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="52.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="searchofficerRank" layoutX="30.0" layoutY="98.0"
-                                                   prefHeight="37.0" prefWidth="145.0" promptText="Rank"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="searchofficerDivision" layoutX="30.0" layoutY="144.0"
-                                                   prefHeight="37.0" prefWidth="203.0" promptText="Division"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="searchofficerAgency" layoutX="30.0" layoutY="190.0"
-                                                   prefHeight="37.0" prefWidth="227.0" promptText="Agency"
-                                                   styleClass="formField" stylesheets="@css/form/formFields.css"
-                                                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </TextField>
-                                        <Label styleClass="searchHeadingBig" stylesheets="@css/form/formLabels.css"
-                                               text="Reporting Officer" textAlignment="CENTER" textFill="#616161"
-                                               AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="14.0">
-                                            <font>
-                                                <Font name="Candara" size="20.0"/>
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                     <children>
                                         <Label layoutX="45.0" layoutY="59.0" styleClass="searchHeadingBig"
                                                stylesheets="@css/form/formLabels.css" text="Summary"
                                                textAlignment="CENTER" textFill="#616161" AnchorPane.leftAnchor="45.0"
-                                               AnchorPane.topAnchor="59.0">
+                                               AnchorPane.topAnchor="14.0">
                                             <font>
                                                 <Font name="Candara" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <Spinner fx:id="SearchNumber" editable="true" layoutX="253.0" layoutY="17.0"
-                                                 prefHeight="28.0" prefWidth="99.0"
-                                                 stylesheets="@css/form/formSpinner.css" AnchorPane.rightAnchor="60.0"
-                                                 AnchorPane.topAnchor="17.0">
-                                            <effect>
-                                                <DropShadow>
-                                                    <color>
-                                                        <Color red="0.5657894611358643" green="0.5657894611358643"
-                                                               blue="0.5657894611358643" opacity="0.27000001072883606"/>
-                                                    </color>
-                                                </DropShadow>
-                                            </effect>
-                                        </Spinner>
                                         <TextArea fx:id="searchSeizedItems" layoutX="30.0" layoutY="94.0"
-                                                  prefHeight="135.0" prefWidth="322.0"
+                                                  prefHeight="176.0" prefWidth="248.0"
                                                   promptText="Seized Item(s) / Field Sobriety Information"
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true"
-                                                  AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="60.0"
-                                                  AnchorPane.topAnchor="94.0">
+                                                  AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+                                                  AnchorPane.topAnchor="52.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
                                         <TextArea fx:id="searchComments" layoutX="30.0" layoutY="237.0"
-                                                  prefHeight="128.0" prefWidth="322.0" promptText="Comments.."
+                                                  prefHeight="101.0" prefWidth="547.0" promptText="Comments.."
                                                   stylesheets="@css/form/formTextArea.css" wrapText="true"
-                                                  AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="30.0"
-                                                  AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="237.0">
+                                                  AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="30.0"
+                                                  AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="237.0">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </TextArea>
-                                        <Button fx:id="searchReportSubmitBtn" layoutX="303.0" layoutY="378.0"
+                                        <Button fx:id="searchReportSubmitBtn" layoutX="467.0" layoutY="348.0"
                                                 mnemonicParsing="false" onAction="#onSearchReportSubmitBtnClick"
                                                 prefHeight="38.0" prefWidth="110.0" styleClass="incidentbtn"
                                                 stylesheets="@css/menu/menuStyles.css" text="Submit" textFill="#008cd7"
-                                                AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="60.0">
+                                                AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="30.0">
                                             <font>
                                                 <Font name="Candara" size="16.0"/>
                                             </font>
@@ -2268,20 +2283,12 @@
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Label fx:id="searchincompleteLabel" alignment="CENTER" layoutX="106.0"
-                                               layoutY="245.0" prefHeight="50.0" prefWidth="171.0" textFill="#3ab93abf"
-                                               visible="false" AnchorPane.bottomAnchor="12.0"
-                                               AnchorPane.rightAnchor="167.0">
+                                        <Label fx:id="searchincompleteLabel" alignment="CENTER" layoutX="299.0"
+                                               layoutY="345.0" prefHeight="50.0" prefWidth="171.0" textFill="#3ab93abf"
+                                               visible="false" AnchorPane.bottomAnchor="8.0"
+                                               AnchorPane.rightAnchor="137.0">
                                             <font>
                                                 <Font name="Candara" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label layoutX="170.0" layoutY="14.0" opacity="0.82" prefHeight="29.0"
-                                               prefWidth="70.0" styleClass="sub-heading"
-                                               stylesheets="@css/form/formLabels.css" text="Search #" textFill="#6f6f6f"
-                                               AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="14.0">
-                                            <font>
-                                                <Font name="Candara" size="16.0"/>
                                             </font>
                                         </Label>
                                     </children>

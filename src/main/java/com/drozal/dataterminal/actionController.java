@@ -568,23 +568,6 @@ public class actionController {
 
         getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
         getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
-        getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> p) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setText(null);
-                        } else {
-                            setText(item);
-                            setAlignment(javafx.geometry.Pos.CENTER);
-                        }
-                    }
-                };
-            }
-        });
         getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
 
         OfficerInfoName.setText(name);
@@ -606,6 +589,31 @@ public class actionController {
         createSpinnerNumListener(SearchNumber);
 
         areaReportChart.getData().add(parseEveryLog("area"));
+
+        getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                            setAlignment(javafx.geometry.Pos.CENTER);
+
+                            // Check if the item contains "=" and set it as bold
+                            if (item.contains("=")) {
+                                setStyle("-fx-font-weight: bold;");
+                            } else {
+                                setStyle("-fx-font-weight: none;");
+                            }
+                        }
+                    }
+                };
+            }
+        });
     }
 
     //<editor-fold desc="Utils">

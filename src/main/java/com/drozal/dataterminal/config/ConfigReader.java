@@ -14,6 +14,7 @@ import java.util.Properties;
 
 public class ConfigReader {
 
+
     public static String configRead(String property) throws IOException {
         Properties prop = new Properties();
         try {

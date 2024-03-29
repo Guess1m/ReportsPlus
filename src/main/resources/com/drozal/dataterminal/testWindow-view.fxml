@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="468.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.TestWindowViewController"/>
+            fx:controller="com.drozal.dataterminal.TestWindowViewController">
+    <children>
+        <AreaChart fx:id="testchart" layoutX="13.0" layoutY="34.0" title="testchart">
+            <xAxis>
+                <CategoryAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </AreaChart>
+    </children>
+</AnchorPane>

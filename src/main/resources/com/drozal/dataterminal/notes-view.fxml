@@ -46,13 +46,13 @@
                                 <ColorAdjust brightness="1.0"/>
                             </effect>
                         </ImageView>
-                        <Label layoutX="64.0" layoutY="8.0" text="Data Terminal" textFill="WHITE"
+                        <Label layoutX="64.0" layoutY="8.0" text="Reports Plus" textFill="WHITE"
                                AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="8.0">
                             <font>
                                 <Font name="Roboto" size="27.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="1.0" text="Dt" textFill="WHITE" AnchorPane.leftAnchor="14.0"
+                        <Label layoutX="14.0" layoutY="1.0" text="Rp" textFill="WHITE" AnchorPane.leftAnchor="14.0"
                                AnchorPane.topAnchor="1.0">
                             <font>
                                 <Font name="Blanka-Regular" size="37.0"/>

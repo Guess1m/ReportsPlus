@@ -545,11 +545,7 @@ public class actionController {
         setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
-        if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
-            startupFullscreenToggleBtn.setSelected(true);
-        } else {
-            startupFullscreenToggleBtn.setSelected(false);
-        }
+        startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
 
         notesText = "";
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/DUIInformation.fxml"));

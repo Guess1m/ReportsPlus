@@ -227,7 +227,7 @@
                         </Label>
                         <Label fx:id="mainColor6" layoutX="85.0" layoutY="29.0" prefHeight="40.0" prefWidth="271.0"
                                styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
-                               text="Data Terminal Information" textAlignment="CENTER" AnchorPane.leftAnchor="85.0"
+                               text="Reports Plus Information" textAlignment="CENTER" AnchorPane.leftAnchor="85.0"
                                AnchorPane.topAnchor="29.0">
                             <font>
                                 <Font name="Segoe UI Black" size="20.0"/>

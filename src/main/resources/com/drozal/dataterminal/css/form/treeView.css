@@ -1,12 +1,23 @@
 .CitationTree {
     -fx-border-color: #e6e6e6;
+    -fx-background-color: white;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
+    -fx-font-size: 15;
+    -fx-font-family: "Segoe UI";
 }
 .CitationTree .tree-disclosure-node {
     -fx-background-color: transparent;
 }
-
+.CitationTree .tree-cell:hover {
+  -fx-background-color: rgb(94, 115, 135,0.3);
+  -fx-text-fill: black;
+}
+.CitationTree .tree-cell:selected {
+  -fx-background-color: rgb(94, 115, 135,0.8);
+  -fx-text-fill: white;
+  -fx-font-family: "Segoe UI Semibold";
+}
 /* Define styles for the vertical scroll bar */
 .CitationTree .scroll-bar:vertical {
     -fx-background-color: transparent; /* Transparent background */

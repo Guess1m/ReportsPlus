@@ -598,7 +598,7 @@
                            AnchorPane.topAnchor="67.0">
                     <panes>
                         <TitledPane fx:id="arrestAccordionInformation" styleClass="paneoptions"
-                                    stylesheets="@css/form/arrest/titledPanes.css" text="Information">
+                                    stylesheets="@css/form/formTitledPane.css" text="Information">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                             style="-fx-background-color: white;">
@@ -939,7 +939,7 @@
                                 </AnchorPane>
                             </content>
                         </TitledPane>
-                        <TitledPane styleClass="paneoptions" stylesheets="@css/form/arrest/titledPanes.css"
+                        <TitledPane styleClass="paneoptions" stylesheets="@css/form/formTitledPane.css"
                                     text="Charge Information">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
@@ -1258,7 +1258,7 @@
                                                                             hbarPolicy="NEVER" hmax="0.0" layoutX="5.0"
                                                                             layoutY="354.0" prefHeight="135.0"
                                                                             prefWidth="453.0"
-                                                                            stylesheets="@css/form/arrest/arrestScrollPane.css"
+                                                                            stylesheets="@css/main/Logscrollpane.css"
                                                                             AnchorPane.bottomAnchor="56.0"
                                                                             AnchorPane.leftAnchor="0.0"
                                                                             AnchorPane.rightAnchor="15.0"
@@ -2570,7 +2570,7 @@
                            AnchorPane.topAnchor="67.0">
                     <panes>
                         <TitledPane fx:id="citationAccordionInformation" styleClass="paneoptions"
-                                    stylesheets="@css/form/arrest/titledPanes.css" text="Information">
+                                    stylesheets="@css/form/formTitledPane.css" text="Information">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                             style="-fx-background-color: white;">
@@ -2907,7 +2907,7 @@
                                 </AnchorPane>
                             </content>
                         </TitledPane>
-                        <TitledPane styleClass="paneoptions" stylesheets="@css/form/arrest/titledPanes.css"
+                        <TitledPane styleClass="paneoptions" stylesheets="@css/form/formTitledPane.css"
                                     text="Citation Information">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
@@ -3052,7 +3052,7 @@
                                                                             hbarPolicy="NEVER" hmax="0.0" layoutX="46.0"
                                                                             layoutY="170.0" prefHeight="319.0"
                                                                             prefWidth="446.0"
-                                                                            stylesheets="@css/form/arrest/arrestScrollPane.css"
+                                                                            stylesheets="@css/main/Logscrollpane.css"
                                                                             AnchorPane.bottomAnchor="55.0"
                                                                             AnchorPane.leftAnchor="15.0"
                                                                             AnchorPane.rightAnchor="15.0"

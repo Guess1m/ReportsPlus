@@ -1,17 +1,44 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.util.stringUtil;
 import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
+import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
+
 public class Launcher {
 
     public static void main(String[] args) throws IOException {
         loadFonts();
         String folderPath = "";
+        String dataFolderPath = stringUtil.getJarPath() + File.separator + "data";
+
+        File dataFolder = new File(dataFolderPath);
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+            System.out.println("made data folder");
+        } else {
+            System.out.println("didnt make data folder it exists");
+        }
+
+        String chargesFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+        File chargesFile = new File(chargesFilePath);
+        String citationsFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+        File citationsFile = new File(citationsFilePath);
+        if (!chargesFile.exists()) {
+            copyChargeDataFile();
+            System.out.println("copied charge file over");
+        }
+        if (!citationsFile.exists()) {
+            copyCitationDataFile();
+            System.out.println("copied citation file over");
+        }
+
 
         try {
             // Get the directory path where the JAR file is located
@@ -48,6 +75,7 @@ public class Launcher {
         } else {
             newOfficerApplication.main(args);
         }
+
     }
 
     public static void loadFonts() {

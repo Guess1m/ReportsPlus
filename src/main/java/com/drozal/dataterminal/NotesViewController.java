@@ -15,6 +15,7 @@ public class NotesViewController {
     private double yOffset = 0;
 
     public void initialize() {
+        notepadTextArea.setText(actionController.notesText);
     }
 
     @javafx.fxml.FXML
@@ -34,6 +35,7 @@ public class NotesViewController {
     }
 
     public void onExitButtonClick(MouseEvent actionEvent) {
+        actionController.notesText = notepadTextArea.getText();
         // Get the window associated with the scene
         Window window = notepadTextArea.getScene().getWindow();
 

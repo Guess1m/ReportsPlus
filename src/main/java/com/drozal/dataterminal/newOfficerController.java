@@ -3,6 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.dropdownInfo;
+import com.drozal.dataterminal.util.windowUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -110,6 +111,7 @@ public class newOfficerController {
             ConfigWriter.configwrite("Name", nameField.getText());
             ConfigWriter.configwrite("Rank", rank);
             ConfigWriter.configwrite("Number", numberField.getText());
+            ConfigWriter.configwrite("fullscreenOnStartup", "true");
             ConfigWriter.configwrite("mainColor", "#524992");
             ConfigWriter.configwrite("secondaryColor", "#665cb6");
 
@@ -120,7 +122,7 @@ public class newOfficerController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
-            stage.setTitle("Data Terminal");
+            stage.setTitle("Reports Plus+");
             stage.setScene(newScene);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setResizable(false);
@@ -129,6 +131,7 @@ public class newOfficerController {
             stage.centerOnScreen();
             stage.setMinHeight(stage.getHeight() - 200);
             stage.setMinWidth(stage.getWidth() - 200);
+            windowUtils.setWindowedFullscreen(stage);
             ResizeHelper.addResizeListener(stage);
 
             actionController actionController = loader.getController();

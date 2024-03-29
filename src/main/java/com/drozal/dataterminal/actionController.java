@@ -64,11 +64,13 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class actionController {
 
+    public static String notesText;
     //<editor-fold desc="FXML Elements">
     @javafx.fxml.FXML
     public Button notesButton;
@@ -534,6 +536,8 @@ public class actionController {
     private ComboBox citationOwnerVehicleColor;
     @javafx.fxml.FXML
     private ComboBox citationOwnerVehicleType;
+    @javafx.fxml.FXML
+    private RadioMenuItem startupFullscreenToggleBtn;
     //</editor-fold>
 
     //Initialization
@@ -541,6 +545,13 @@ public class actionController {
         setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
+        if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+            startupFullscreenToggleBtn.setSelected(true);
+        } else {
+            startupFullscreenToggleBtn.setSelected(false);
+        }
+
+        notesText = "";
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/DUIInformation.fxml"));
         loader.load();
         duiInformationController = loader.getController();
@@ -585,7 +596,6 @@ public class actionController {
         String time = DataTerminalHomeApplication.getTime();
         generatedDateTag.setText("Generated at: " + time);
     }
-
 
     //<editor-fold desc="Utils">
     private void showSettingsWindow() {
@@ -713,7 +723,6 @@ public class actionController {
     }
     //</editor-fold>
 
-
     //<editor-fold desc="Getters">
     public BarChart getReportChart() {
         return reportChart;
@@ -750,7 +759,6 @@ public class actionController {
 
     //</editor-fold>
 
-
     //<editor-fold desc="WindowUtils">
     @javafx.fxml.FXML
     public void onTopCLick(MouseEvent mouseEvent) {
@@ -778,10 +786,11 @@ public class actionController {
         Platform.exit();
     }
 
+
     //</editor-fold>
 
-
     //<editor-fold desc="Side Button Events">
+
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -794,12 +803,14 @@ public class actionController {
         stage.setResizable(false);
         stage.show();
         stage.centerOnScreen();
+        showButtonAnimation(mapButton);
     }
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
         setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
+        showButtonAnimation(shiftInfoBtn);
     }
 
     @javafx.fxml.FXML
@@ -818,6 +829,7 @@ public class actionController {
         stage.setMinHeight(stage.getHeight() - 250);
         stage.setMinWidth(stage.getWidth() - 250);
         ResizeHelper.addResizeListener(stage);
+        showButtonAnimation(logsButton);
     }
 
     @javafx.fxml.FXML
@@ -838,11 +850,13 @@ public class actionController {
         stage.setMinWidth(stage.getWidth() - 150);
         ResizeHelper.addResizeListener(stage);
         stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
+        showButtonAnimation(notesButton);
     }
+
     //</editor-fold>
 
-
     //<editor-fold desc="Settings Button Events">
+
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -876,8 +890,8 @@ public class actionController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         confirmSaveDataClearDialog(stage);
     }
-
     // UI Settings Events
+
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         showSettingsWindow();
@@ -905,7 +919,6 @@ public class actionController {
     }
 
     //</editor-fold>
-
 
     //<editor-fold desc="Open Report Button Events">
 
@@ -1031,7 +1044,7 @@ public class actionController {
         arrestDate.setText(getDate());
 
         //Tree View
-        File file = new File("data/Charges.xml");
+        File file = new File(getJarPath() + "/data/Charges.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document document = factory.newDocumentBuilder().parse(file);
 
@@ -1069,7 +1082,7 @@ public class actionController {
         citationDate.setText(getDate());
 
         //Tree View
-        File file = new File("data/Citations.xml");
+        File file = new File(getJarPath() + "/data/Citations.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document document = factory.newDocumentBuilder().parse(file);
 
@@ -1126,8 +1139,8 @@ public class actionController {
 
     //</editor-fold>
 
-
     //<editor-fold desc="Submit Report Button Events">
+
     @javafx.fxml.FXML
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
         if (calloutReportSpinner.getValue() == null) {
@@ -1706,7 +1719,6 @@ public class actionController {
 
     //</editor-fold>
 
-
     //<editor-fold desc="Misc.">
 
     @javafx.fxml.FXML
@@ -1757,6 +1769,7 @@ public class actionController {
             }));
             timeline.play();
         }
+        showButtonAnimation(updateInfoBtn);
     }
 
     @javafx.fxml.FXML
@@ -1880,6 +1893,9 @@ public class actionController {
             if (findXMLValue(selectedItem.getValue(), "traffic", "data/Charges.xml").matches("true")) {
                 arrestMinSuspension.setText(findXMLValue(selectedItem.getValue(), "min_susp", "data/Charges.xml"));
                 arrestMaxSuspension.setText(findXMLValue(selectedItem.getValue(), "max_susp", "data/Charges.xml"));
+            } else {
+                arrestMinSuspension.setText("");
+                arrestMaxSuspension.setText("");
             }
         }
     }
@@ -1958,6 +1974,16 @@ public class actionController {
         }
     }
 
-    //</editor-fold>
+    @javafx.fxml.FXML
+    public void onStartupFullscreenPress(ActionEvent actionEvent) throws IOException {
+        if (startupFullscreenToggleBtn.isSelected()) {
+            ConfigWriter.configwrite("fullscreenOnStartup", "true");
+            startupFullscreenToggleBtn.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("fullscreenOnStartup", "false");
+            startupFullscreenToggleBtn.setSelected(false);
+        }
+    }
 
+    //</editor-fold>
 }

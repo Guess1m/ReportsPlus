@@ -119,9 +119,9 @@
                 <AnchorPane layoutX="780.0" layoutY="55.0" prefHeight="37.0" prefWidth="109.0"
                             AnchorPane.leftAnchor="780.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
                     <children>
-                        <Button graphicTextGap="5.0" layoutX="8.0" layoutY="2.0" mnemonicParsing="false"
-                                onAction="#onRefreshButtonClick" opacity="0.95" prefHeight="32.0" prefWidth="99.0"
-                                style="-fx-font-size: 11;" styleClass="incidentbtn"
+                        <Button fx:id="refreshBtn" graphicTextGap="5.0" layoutX="8.0" layoutY="2.0"
+                                mnemonicParsing="false" onAction="#onRefreshButtonClick" opacity="0.95"
+                                prefHeight="32.0" prefWidth="99.0" style="-fx-font-size: 11;" styleClass="incidentbtn"
                                 stylesheets="@css/menu/menuStyles.css" text="Refresh" textFill="#828797"
                                 AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="2.0">
                             <font>

@@ -2543,9 +2543,9 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="citationReportPane" layoutX="263.0" layoutY="145.0" prefHeight="707.0" prefWidth="822.0"
-                    style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="citationReportPane" disable="true" layoutX="263.0" layoutY="145.0" prefHeight="707.0"
+                    prefWidth="822.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
                 <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
                             stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
@@ -3093,8 +3093,8 @@
                     prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label alignment="CENTER" layoutX="222.0" layoutY="25.0" prefWidth="175.0" text="Data Terminal"
-                       textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="222.0"
+                <Label alignment="CENTER" layoutX="216.0" layoutY="25.0" prefWidth="175.0" text="Report Plus"
+                       textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="216.0"
                        AnchorPane.topAnchor="25.0">
                     <font>
                         <Font name="Segoe UI Black" size="25.0"/>
@@ -3117,10 +3117,10 @@
                         <ColorAdjust brightness="1.0"/>
                     </effect>
                 </ImageView>
-                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="922.0"
-                            layoutY="11.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0"
+                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="948.0"
+                            layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0"
                             styleClass="button" stylesheets="@css/menu/settingsDropdown.css" text="Settings"
-                            textFill="#828797" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="11.0">
+                            textFill="#828797" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
                     <graphic>
                         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -3131,7 +3131,10 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
                         <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Settings"/>
+                        <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Color Settings"/>
+                        <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
+                                       onAction="#onStartupFullscreenPress" selected="true" text="StartupFullscreen"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
                         <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
                         <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
                                   text="Clear All Save Data"/>
@@ -3139,7 +3142,7 @@
                 </MenuButton>
                 <Button layoutX="642.0" layoutY="31.0" mnemonicParsing="false" onAction="#testBtnPress" text="Test"
                         AnchorPane.rightAnchor="343.5" AnchorPane.topAnchor="31.0"/>
-                <Label alignment="CENTER" layoutX="405.0" layoutY="30.0" text="Report Tool" textFill="#d7d7d7">
+                <Label alignment="CENTER" layoutX="387.0" layoutY="30.0" text="Report Tool" textFill="#d7d7d7">
                     <font>
                         <Font name="Segoe UI Semibold" size="18.0"/>
                     </font>
@@ -3315,7 +3318,7 @@
                     </graphic>
                 </Button>
                 <Label alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0" prefWidth="203.0"
-                       style="-fx-font-family: Blanka;" text="Dt" textFill="WHITE" AnchorPane.leftAnchor="0.0"
+                       style="-fx-font-family: Blanka;" text="R P" textFill="WHITE" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
                         <Font size="61.0"/>
@@ -3330,6 +3333,20 @@
                 </Label>
                 <Line endX="80.0" layoutX="103.0" layoutY="86.0" opacity="0.36" startX="-84.0" stroke="WHITE"
                       strokeWidth="2.0"/>
+                <Label alignment="CENTER" layoutX="143.0" layoutY="34.0"
+                       style="-fx-font-size: 35; -fx-text-fill: white;" text="+" textFill="#d7d7d7"
+                       AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="38.5" AnchorPane.topAnchor="34.0">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                    <effect>
+                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                            <color>
+                                <Color opacity="0.223709374666214"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
+                </Label>
             </children>
             <effect>
                 <DropShadow/>

@@ -10,6 +10,7 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -29,10 +30,23 @@ import org.controlsfx.control.Notifications;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.drozal.dataterminal.util.stringUtil.getDataLogsFolderPath;
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class controllerUtils {
+
+    public static void showButtonAnimation(Button button) {
+        // Create a scale transition
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), button);
+        scaleTransition.setFromX(0.9);
+        scaleTransition.setFromY(0.9);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+        scaleTransition.play();
+    }
 
     public static String getJarDirectoryPath() {
         try {
@@ -229,6 +243,66 @@ public class controllerUtils {
         }
     }
 
+    public static void clearDataFolder() {
+        try {
+            // Get the path to the DataLogs folder
+            String dataLogsFolderPath = getJarPath() + File.separator + "data";
+
+            // Print the path for debugging
+            System.out.println("Data folder path: " + dataLogsFolderPath);
+
+            // Check if the DataLogs folder exists
+            File dataLogsFolder = new File(dataLogsFolderPath);
+            if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
+                System.out.println("Data folder exists.");
+
+                // Get a list of files in the DataLogs folder
+                File[] files = dataLogsFolder.listFiles();
+
+                if (files != null) {
+                    // Delete each file in the DataLogs folder
+                    for (File file : files) {
+                        if (file.isFile()) {
+                            try {
+                                Files.deleteIfExists(file.toPath());
+                                System.out.println("Deleted file: " + file.getName());
+                            } catch (IOException e) {
+                                System.err.println("Failed to delete file: " + file.getName() + " " + e.getMessage());
+                            }
+                        }
+                    }
+                    System.out.println("All files in Data folder deleted successfully.");
+                } else {
+                    System.out.println("Data folder is empty.");
+                }
+            } else {
+                System.out.println("Data folder does not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearDataFolderAsync() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.submit(() -> {
+            clearDataFolder();
+        });
+
+        executor.shutdown();
+    }
+
+    public static void clearDataLogsAsync() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.submit(() -> {
+            clearDataLogs();
+        });
+
+        executor.shutdown();
+    }
+
     public static void confirmSaveDataClearDialog(Stage ownerStage) {
         Dialog<Boolean> dialog = new Dialog<>();
         dialog.initOwner(ownerStage);
@@ -252,8 +326,9 @@ public class controllerUtils {
 
         dialog.showAndWait().ifPresent(result -> {
             if (result) {
-                clearDataLogs();
+                clearDataLogsAsync();
                 clearConfig();
+                clearDataFolderAsync();
             } else {
             }
         });
@@ -284,6 +359,5 @@ public class controllerUtils {
             Platform.exit();
         }
     }
-
 
 }

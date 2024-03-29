@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.windowUtils;
 import javafx.application.Application;
@@ -53,12 +54,15 @@ public class DataTerminalHomeApplication extends Application {
         mainRT.setResizable(true);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
-        mainRT.setHeight(800);
-        mainRT.setWidth(1150);
         mainRT.setMinHeight(mainRT.getHeight() - 200);
         mainRT.setMinWidth(mainRT.getWidth() - 200);
         mainRT.centerOnScreen();
-        windowUtils.setWindowedFullscreen(mainRT);
+        if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+            windowUtils.setWindowedFullscreen(mainRT);
+        } else {
+            mainRT.setHeight(800);
+            mainRT.setWidth(1150);
+        }
         ResizeHelper.addResizeListener(mainRT);
     }
 }

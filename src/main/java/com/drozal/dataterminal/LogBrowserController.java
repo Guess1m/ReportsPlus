@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,7 @@ import javafx.stage.Window;
 
 import java.util.List;
 
+import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
@@ -56,6 +58,8 @@ public class LogBrowserController {
     private double yOffset = 0;
     @javafx.fxml.FXML
     private AnchorPane vbox;
+    @javafx.fxml.FXML
+    private Button refreshBtn;
 
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -850,6 +854,7 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     public void onRefreshButtonClick(ActionEvent actionEvent) {
         loadLogs();
+        showButtonAnimation(refreshBtn);
     }
 
     @javafx.fxml.FXML

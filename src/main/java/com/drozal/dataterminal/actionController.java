@@ -832,7 +832,7 @@ public class actionController {
         stage.setResizable(true);
         stage.show();
         stage.setAlwaysOnTop(true);
-        stage.setAlwaysOnTop(false);
+        //stage.setAlwaysOnTop(false);
         stage.centerOnScreen();
         stage.setMinHeight(stage.getHeight() - 150);
         stage.setMinWidth(stage.getWidth() - 150);

@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.util.ResizeHelper;
+import com.drozal.dataterminal.util.windowUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,6 +58,7 @@ public class DataTerminalHomeApplication extends Application {
         mainRT.setMinHeight(mainRT.getHeight() - 200);
         mainRT.setMinWidth(mainRT.getWidth() - 200);
         mainRT.centerOnScreen();
+        windowUtils.setWindowedFullscreen(mainRT);
         ResizeHelper.addResizeListener(mainRT);
     }
 }

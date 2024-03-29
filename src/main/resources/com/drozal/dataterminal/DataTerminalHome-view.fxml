@@ -2543,9 +2543,9 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="citationReportPane" disable="true" layoutX="263.0" layoutY="145.0" prefHeight="707.0"
-                    prefWidth="822.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="citationReportPane" layoutX="263.0" layoutY="145.0" prefHeight="707.0" prefWidth="822.0"
+                    style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
                 <AnchorPane layoutY="1.0" prefHeight="66.0" prefWidth="824.0" styleClass="incidentpane"
                             stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
@@ -3117,10 +3117,10 @@
                         <ColorAdjust brightness="1.0"/>
                     </effect>
                 </ImageView>
-                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="834.0"
+                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="922.0"
                             layoutY="11.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0"
                             styleClass="button" stylesheets="@css/menu/settingsDropdown.css" text="Settings"
-                            textFill="#828797" AnchorPane.rightAnchor="91.0" AnchorPane.topAnchor="11.0">
+                            textFill="#828797" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="11.0">
                     <graphic>
                         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>

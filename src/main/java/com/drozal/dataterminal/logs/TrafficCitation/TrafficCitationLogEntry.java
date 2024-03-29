@@ -25,6 +25,7 @@ public class TrafficCitationLogEntry {
     public String officerDivision;
     public String officerAgency;
     public String citationComments;
+
     public TrafficCitationLogEntry() {
     }
 

@@ -34,7 +34,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -42,7 +45,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -69,6 +71,7 @@ import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 public class actionController {
 
     public static String notesText;
+
     //<editor-fold desc="FXML Elements">
     @javafx.fxml.FXML
     public Button notesButton;
@@ -80,8 +83,6 @@ public class actionController {
     public TextField OfficerInfoName;
     @javafx.fxml.FXML
     public ComboBox OfficerInfoDivision;
-    @javafx.fxml.FXML
-    public TextArea ShiftInfoNotesTextArea;
     @javafx.fxml.FXML
     public ComboBox OfficerInfoAgency;
     @javafx.fxml.FXML
@@ -539,14 +540,14 @@ public class actionController {
     @javafx.fxml.FXML
     private AreaChart areaReportChart;
     @javafx.fxml.FXML
-    private Button statisticsButton;
+    private ColorPicker colorSelectAccent;
     @javafx.fxml.FXML
-    private AnchorPane statisticsPane;
+    private Label accentColor;
     //</editor-fold>
 
     //Initialization
     public void initialize() throws IOException {
-        setDisable(statisticsPane, citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
         startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
@@ -558,7 +559,6 @@ public class actionController {
 
         refreshChart();
         updateChartIfMismatch(reportChart);
-        loadTheme();
 
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
@@ -569,6 +569,14 @@ public class actionController {
         getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
         getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
         getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
+        trafficStopType.getItems().addAll(dropdownInfo.vehicleTypes);
+        trafficStopColor.getItems().addAll(dropdownInfo.carColors);
+        citationOwnerVehicleType.getItems().addAll(dropdownInfo.vehicleTypes);
+        citationOwnerVehicleColor.getItems().addAll(dropdownInfo.carColors);
+        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
+        impoundColor.getItems().addAll(dropdownInfo.carColors);
+        searchType.getItems().addAll(dropdownInfo.searchTypes);
+        searchMethod.getItems().addAll(dropdownInfo.searchMethods);
 
         OfficerInfoName.setText(name);
         OfficerInfoDivision.setValue(division);
@@ -614,6 +622,7 @@ public class actionController {
                 };
             }
         });
+        loadTheme();
     }
 
     //<editor-fold desc="Utils">
@@ -623,11 +632,6 @@ public class actionController {
         settingsStage.setTitle("UI Settings");
 
         // Create color pickers for selecting colors
-        Label primColor = primaryColor;
-        Label secColor = secondaryColor;
-
-        ColorPicker colorPicker1 = colorSelectMain;
-        ColorPicker colorPicker2 = colorSelectSecondary;
 
         Button saveButton = resetDefaultsBtn;
 
@@ -636,11 +640,13 @@ public class actionController {
         root.setPadding(new Insets(20));
         root.setHgap(15);
         root.setVgap(15);
-        root.addRow(0, primColor);
-        root.addRow(1, colorPicker1);
-        root.addRow(2, secColor);
-        root.addRow(3, colorPicker2);
-        root.add(saveButton, 0, 4);
+        root.addRow(0, primaryColor);
+        root.addRow(1, colorSelectMain);
+        root.addRow(2, secondaryColor);
+        root.addRow(3, colorSelectSecondary);
+        root.addRow(4, accentColor);
+        root.addRow(5, colorSelectAccent);
+        root.add(saveButton, 0, 6);
 
         // Create the scene for the settings window
         Scene scene = new Scene(root);
@@ -649,7 +655,7 @@ public class actionController {
         settingsStage.setScene(scene);
 
         // Show the settings window
-        settingsStage.initStyle(StageStyle.DECORATED);
+        settingsStage.initStyle(StageStyle.UTILITY);
         settingsStage.setResizable(false);
         settingsStage.show();
     }
@@ -657,7 +663,9 @@ public class actionController {
     private void loadTheme() throws IOException {
         colorSelectMain.setValue(Color.valueOf(ConfigReader.configRead("mainColor")));
         colorSelectSecondary.setValue(Color.valueOf(ConfigReader.configRead("secondaryColor")));
-        changeBarColors(getReportChart(), ConfigReader.configRead("mainColor"));
+        colorSelectAccent.setValue(Color.valueOf(ConfigReader.configRead("accentColor")));
+        changeBarColors(getReportChart());
+        changeStatisticColors(areaReportChart);
         //Main
         String mainclr = ConfigReader.configRead("mainColor");
         topPane.setStyle("-fx-background-color: " + mainclr + ";");
@@ -680,9 +688,9 @@ public class actionController {
         //Buttons
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
-        String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";";
-        updateInfoBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
-        resetDefaultsBtn.setStyle("-fx-background-color: " + ConfigReader.configRead("secondaryColor") + ";");
+        String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+        updateInfoBtn.setStyle(nonTransparentBtn);
+        resetDefaultsBtn.setStyle(nonTransparentBtn);
 
         // Add hover event handling
         shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
@@ -710,18 +718,10 @@ public class actionController {
     public void refreshChart() throws IOException {
         // Clear existing data from the chart
         reportChart.getData().clear();
-        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Traffic Cit."};
+        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
         CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
-        NumberAxis yAxis = (NumberAxis) getReportChart().getYAxis();
-
-        // Setting font for X and Y axis labels
-        Font axisLabelFont = Font.font("Segoe UI Bold", 11.5); // Change the font family and size as needed
-        xAxis.setTickLabelFont(axisLabelFont);
-        yAxis.setTickLabelFont(axisLabelFont);
 
         xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
-        yAxis.setAutoRanging(true);
-        yAxis.setMinorTickVisible(false);
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         series1.setName("Series 1");
 
@@ -737,8 +737,6 @@ public class actionController {
         }
 
         getReportChart().getData().add(series1);
-        getReportChart().setLegendVisible(false);
-        getReportChart().getXAxis().setTickLabelGap(20);
     }
     //</editor-fold>
 
@@ -804,12 +802,9 @@ public class actionController {
     public void onExitButtonClick(MouseEvent actionEvent) {
         Platform.exit();
     }
-
-
     //</editor-fold>
 
     //<editor-fold desc="Side Button Events">
-
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -826,10 +821,11 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(statisticsPane, citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+    public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
+        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
+        TestWindowViewController.refreshChart(areaReportChart, "area");
     }
 
     @javafx.fxml.FXML
@@ -871,19 +867,9 @@ public class actionController {
         stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
     }
-
-    @javafx.fxml.FXML
-    public void onStatisticsBtnClick(ActionEvent actionEvent) {
-        showButtonAnimation(statisticsButton);
-        setDisable(statisticsPane, calloutReportPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
-        setActive(statisticsPane);
-        TestWindowViewController.refreshChart(areaReportChart, "area");
-    }
-
     //</editor-fold>
 
     //<editor-fold desc="Settings Button Events">
-
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -901,7 +887,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(infoPane);
     }
 
@@ -917,8 +903,8 @@ public class actionController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         confirmSaveDataClearDialog(stage);
     }
-    // UI Settings Events
 
+    // UI Settings Events
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         showSettingsWindow();
@@ -928,6 +914,7 @@ public class actionController {
     public void resetDefaultsBtnPress(ActionEvent actionEvent) throws IOException {
         updateMain(Color.valueOf("#524992"));
         updateSecondary(Color.valueOf("#665cb6"));
+        updateAccent(Color.valueOf("#9c95d0"));
         loadTheme();
     }
 
@@ -945,13 +932,20 @@ public class actionController {
         loadTheme();
     }
 
+    @javafx.fxml.FXML
+    public void onColorSelectAccentPress(ActionEvent actionEvent) throws IOException {
+        Color selectedColor = colorSelectAccent.getValue();
+        updateAccent(selectedColor);
+        loadTheme();
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Open Report Button Events">
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -974,7 +968,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
         setActive(trafficStopReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -982,9 +976,6 @@ public class actionController {
         String rank = ConfigReader.configRead("Rank");
         String number = ConfigReader.configRead("Number");
         String agency = ConfigReader.configRead("Agency");
-
-        trafficStopType.getItems().addAll(dropdownInfo.vehicleTypes);
-        trafficStopColor.getItems().addAll(dropdownInfo.carColors);
 
 
         trafficStopofficerName.setText(name);
@@ -1001,7 +992,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1023,7 +1014,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1032,8 +1023,6 @@ public class actionController {
         String number = ConfigReader.configRead("Number");
         String agency = ConfigReader.configRead("Agency");
 
-        searchType.getItems().addAll(dropdownInfo.searchTypes);
-        searchMethod.getItems().addAll(dropdownInfo.searchMethods);
 
         searchofficerName.setText(name);
         searchofficerDivision.setText(division);
@@ -1048,7 +1037,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
 
@@ -1088,7 +1077,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(statisticsPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
+        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
         setActive(citationReportPane);
         citationAccordionInformation.setExpanded(true);
         createSpinner(citationNumber, 0, 9999, 0);
@@ -1098,8 +1087,6 @@ public class actionController {
         String rank = ConfigReader.configRead("Rank");
         String number = ConfigReader.configRead("Number");
         String agency = ConfigReader.configRead("Agency");
-        citationOwnerVehicleType.getItems().addAll(dropdownInfo.vehicleTypes);
-        citationOwnerVehicleColor.getItems().addAll(dropdownInfo.carColors);
         citationOfficerName.setText(name);
         citationOfficerDivision.setText(division);
         citationOfficerRank.setText(rank);
@@ -1124,7 +1111,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1144,15 +1131,13 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(statisticsPane, citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
         setActive(impoundReportPane);
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
         String rank = ConfigReader.configRead("Rank");
         String number = ConfigReader.configRead("Number");
         String agency = ConfigReader.configRead("Agency");
-        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
-        impoundColor.getItems().addAll(dropdownInfo.carColors);
         impoundofficerName.setText(name);
         impoundofficerDivision.setText(division);
         impoundofficerRank.setText(rank);
@@ -1204,6 +1189,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(calloutReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             calloutReportDate.setText("");
             calloutReportTime.setText("");
             calloutReportName.setText("");
@@ -1256,6 +1242,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(patrolReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Patrol Report has been submitted.", vbox);
             patrolSpinnerNumber.getEditor().setText("0");
             patrolDate.setText("");
@@ -1311,6 +1298,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(incidentReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Incident Report has been submitted.", vbox);
             incidentNumber.getEditor().setText("0");
             incidentReportdate.setText("");
@@ -1393,6 +1381,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(searchReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             SearchNumber.getEditor().setText("0");
             searchedPersons.setText("");
             searchDate.setText("");
@@ -1457,6 +1446,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(impoundReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             impoundNumber.getEditor().setText("0");
             impoundDate.setText("");
             impoundTime.setText("");
@@ -1525,6 +1515,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(trafficStopReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             trafficStopDate.setText("");
             trafficStopTime.setText("");
             trafficStopModel.setText("");
@@ -1619,6 +1610,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(arrestReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             arrestNumber.getEditor().setText("0");
             arrestDate.setText("");
             arrestTime.setText("");
@@ -1714,6 +1706,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(citationReportPane);
             updateChartIfMismatch(reportChart);
+            TestWindowViewController.refreshChart(areaReportChart, "area");
             citationNumber.getEditor().setText("0");
             citationDate.setText("");
             citationTime.setText("");
@@ -1804,8 +1797,6 @@ public class actionController {
         setActive(citationReportPane);
         citationAccordionInformation.setExpanded(true);
         createSpinner(citationNumber, 0, 9999, 0);
-        citationOwnerVehicleType.getItems().addAll(dropdownInfo.vehicleTypes);
-        citationOwnerVehicleColor.getItems().addAll(dropdownInfo.carColors);
         citationOfficerName.setText(trafficStopofficerName.getText());
         citationOfficerDivision.setText(trafficStopofficerDivision.getText());
         citationOfficerRank.setText(trafficStopofficerRank.getText());
@@ -1830,7 +1821,7 @@ public class actionController {
 
 
         //Tree View
-        File file = new File("data/Citations.xml");
+        File file = new File(getJarPath() + "/data/Citations.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document document = factory.newDocumentBuilder().parse(file);
 
@@ -1847,8 +1838,6 @@ public class actionController {
     public void ArrestToImpoundBtnClick(ActionEvent actionEvent) {
         setActive(impoundReportPane);
         createSpinner(impoundNumber, 0, 9999, 0);
-        impoundType.getItems().addAll(dropdownInfo.vehicleTypes);
-        impoundColor.getItems().addAll(dropdownInfo.carColors);
         impoundofficerName.setText(arrestOfficerName.getText());
         impoundofficerDivision.setText(arrestOfficerDivision.getText());
         impoundofficerRank.setText(arrestOfficerRank.getText());
@@ -1884,8 +1873,6 @@ public class actionController {
     public void ArrestToSearchBtnClick(ActionEvent actionEvent) {
         setActive(searchReportPane);
         createSpinner(SearchNumber, 0, 9999, 0);
-        searchType.getItems().addAll(dropdownInfo.searchTypes);
-        searchMethod.getItems().addAll(dropdownInfo.searchMethods);
         SearchNumber.getEditor().setText(arrestNumber.getValue().toString());
         searchofficerName.setText(arrestOfficerName.getText());
         searchofficerDivision.setText(arrestOfficerDivision.getText());
@@ -2010,6 +1997,28 @@ public class actionController {
             ConfigWriter.configwrite("fullscreenOnStartup", "false");
             startupFullscreenToggleBtn.setSelected(false);
         }
+    }
+
+    @javafx.fxml.FXML
+    public void CitationToImpoundBtnClick(ActionEvent actionEvent) {
+        setActive(impoundReportPane);
+        createSpinner(impoundNumber, 0, 9999, 0);
+        impoundofficerName.setText(citationOfficerName.getText());
+        impoundofficerDivision.setText(citationOfficerDivision.getText());
+        impoundofficerRank.setText(citationOfficerRank.getText());
+        impoundofficerAgency.setText(citationOfficerAgency.getText());
+        impoundofficerNumber.setText(citationOfficerNumber.getText());
+        impoundTime.setText(citationTime.getText());
+        impoundDate.setText(citationDate.getText());
+        impoundownerAddress.setText(citationOwnerAddress.getText());
+        impoundownerName.setText(citationOwnerName.getText());
+        impoundownerAge.setText(citationOwnerAge.getText());
+        impoundownerGender.setText(citationOwnerGender.getText());
+        impoundPlateNumber.setText(citationOwnerVehiclePlate.getText());
+        impoundModel.setText(citationOwnerVehicleModel.getText());
+        impoundType.getSelectionModel().select(citationOwnerVehicleType.getSelectionModel().getSelectedItem());
+        impoundColor.getSelectionModel().select(citationOwnerVehicleColor.getSelectionModel().getSelectedItem());
+        impoundNumber.getEditor().setText(trafficStopNumber.getValue().toString());
     }
 
     //</editor-fold>

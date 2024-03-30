@@ -10,9 +10,12 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.drozal.dataterminal.util.controllerUtils.changeStatisticColors;
 
 public class TestWindowViewController {
 
@@ -37,7 +40,7 @@ public class TestWindowViewController {
             for (int temp = 0; temp < nodeList.getLength(); temp++) {
                 Element element = (Element) nodeList.item(temp);
                 String nodeName = element.getNodeName();
-                if (nodeName.toLowerCase().contains(value)) {
+                if (nodeName.toLowerCase().contains(value) && !nodeName.toLowerCase().contains("textarea")) {
                     String area = element.getTextContent().trim();
                     if (!area.isEmpty()) {
                         combinedAreasMap.put(area, combinedAreasMap.getOrDefault(area, 0) + 1);
@@ -74,6 +77,11 @@ public class TestWindowViewController {
     public static void refreshChart(AreaChart chart, String value) {
         chart.getData().clear(); // Clear existing data from the chart
         chart.getData().add(parseEveryLog(value)); // Add new data to the chart
+        try {
+            changeStatisticColors(chart);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void initialize() {

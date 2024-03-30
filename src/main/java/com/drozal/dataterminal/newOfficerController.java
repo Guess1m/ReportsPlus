@@ -119,6 +119,7 @@ public class newOfficerController {
             ConfigWriter.configwrite("fullscreenOnStartup", "true");
             ConfigWriter.configwrite("mainColor", "#524992");
             ConfigWriter.configwrite("secondaryColor", "#665cb6");
+            ConfigWriter.configwrite("accentColor", "#9c95d0");
 
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();

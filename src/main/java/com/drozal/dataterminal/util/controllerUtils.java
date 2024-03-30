@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.util;
 
 import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
@@ -14,6 +15,7 @@ import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -66,6 +68,11 @@ public class controllerUtils {
     public static void updateSecondary(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("secondaryColor", hexColor);
+    }
+
+    public static void updateAccent(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("accentColor", hexColor);
     }
 
     public static void updateMain(Color color) {
@@ -132,7 +139,7 @@ public class controllerUtils {
         });
     }
 
-    public static void changeBarColors(BarChart<String, Number> barChart, String color) {
+    public static void changeBarColors(BarChart<String, Number> barChart) throws IOException {
         // Get the list of series from the bar chart
         ObservableList<XYChart.Series<String, Number>> seriesList = barChart.getData();
 
@@ -143,11 +150,19 @@ public class controllerUtils {
                 // Access the node representing the bar for the data point
                 javafx.scene.Node node = data.getNode();
                 // Set the style of the node to change the color of the bar
-                node.setStyle("-fx-bar-fill: " + color + ";");
+                node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("accentColor") + "; -fx-border-color: " + ConfigReader.configRead("secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
             }
         }
     }
 
+    public static void changeStatisticColors(AreaChart chart) throws IOException {
+        //Accent
+        String accclr = ConfigReader.configRead("accentColor");
+        String mainclr = ConfigReader.configRead("mainColor");
+        String secclr = ConfigReader.configRead("secondaryColor");
+        chart.lookup(".chart-series-area-fill").setStyle("-fx-fill: " + accclr + ";");
+        chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
+    }
 
     public static String toHexString(Color color) {
         return String.format("#%02X%02X%02X",
@@ -155,7 +170,6 @@ public class controllerUtils {
                 (int) (color.getGreen() * 255),
                 (int) (color.getBlue() * 255));
     }
-
 
     public static void updateChartIfMismatch(BarChart<String, Number> chart) {
         XYChart.Series<String, Number> series = null;

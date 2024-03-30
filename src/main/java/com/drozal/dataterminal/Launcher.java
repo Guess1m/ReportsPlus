@@ -22,9 +22,9 @@ public class Launcher {
         File dataFolder = new File(dataFolderPath);
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
-            System.out.println("made data folder");
+            System.out.println("Created Data Folder");
         } else {
-            System.out.println("didnt make data folder it exists");
+            System.out.println("Data Folder Already Exists");
         }
 
         String chargesFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
@@ -58,13 +58,13 @@ public class Launcher {
             // If the folder does not exist, create it
             boolean folderCreated = folder.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
             if (folderCreated) {
-                System.out.println("Folder created successfully.");
+                System.out.println("DataLogs Folder created successfully.");
                 System.out.println(folder.getAbsolutePath());
             } else {
-                System.out.println("Failed to create the folder.");
+                System.out.println("Failed to create the DataLogs Folder.");
             }
         } else {
-            System.out.println("Folder already exists.");
+            System.out.println("DataLogs Folder already exists.");
             System.out.println(folder.getAbsolutePath());
 
         }

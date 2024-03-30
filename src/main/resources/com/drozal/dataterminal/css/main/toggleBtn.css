@@ -1,0 +1,10 @@
+.toggle-button {
+    -fx-background-color: #698096; /* Green */
+    -fx-text-fill: white;
+    -fx-font-size: 12.5px;
+    -fx-padding: 3px 6px;
+}
+.toggle-button:selected {
+    -fx-background-color:#788da1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}

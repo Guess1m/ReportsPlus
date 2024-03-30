@@ -46,8 +46,8 @@
                                 <ColorAdjust brightness="1.0"/>
                             </effect>
                         </ImageView>
-                        <Label layoutX="64.0" layoutY="8.0" text="Reports Plus" textFill="WHITE"
-                               AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="8.0">
+                        <Label layoutX="64.0" layoutY="10.0" text="Reports Plus" textFill="WHITE"
+                               AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="10.0">
                             <font>
                                 <Font name="Roboto" size="27.0"/>
                             </font>
@@ -58,12 +58,16 @@
                                 <Font name="Blanka-Regular" size="37.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="400.0" layoutY="7.0" text="Notepad" textFill="WHITE"
-                               AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="7.0">
+                        <Label layoutX="342.0" layoutY="8.0" text="Notepad" textFill="WHITE"
+                               AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="8.0">
                             <font>
                                 <Font name="Roboto" size="27.0"/>
                             </font>
                         </Label>
+                        <ToggleButton fx:id="alwaysTopBtn" layoutX="551.0" layoutY="8.0" mnemonicParsing="false"
+                                      onAction="#onNotepadAlwaysTopBtnClick" selected="true"
+                                      stylesheets="@css/main/toggleBtn.css" text="Always on Top"
+                                      AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="8.0"/>
                     </children>
                     <effect>
                         <DropShadow/>

@@ -8,10 +8,6 @@
 
 </div>
 
-# :notebook_with_decorative_cover: Table of Contents
-
-- [About the Project](#star2-about-the-project)
-
 
 ## :star2: About the Project
 
@@ -21,17 +17,7 @@
 - Customizable UI
 
 
-### :art: Color Reference
-| Color | Hex |
-| --------------- | ---------------------------------------------------------------- |
-| Primary Color | ![#1d2e47](https://via.placeholder.com/10/1d2e47?text=+) #1d2e47 |
-| Secondary Color | ![#3c424c](https://via.placeholder.com/10/3c424c?text=+) #3c424c |
-| Accent Color | ![#0061b5](https://via.placeholder.com/10/0061b5?text=+) #0061b5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
-
-## :toolbox: Getting Started
-
-### :bangbang: Prerequisites
+## :toolbox: Prerequisites
 
 - Java<a href="https://www.java.com/en/download/"> Here</a>
 - Java JDK<a href="https://www.oracle.com/java/technologies/downloads/"> Here</a>

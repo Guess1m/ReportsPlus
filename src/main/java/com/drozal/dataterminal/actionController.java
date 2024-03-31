@@ -21,6 +21,7 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.ResizeHelper;
+import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -62,7 +63,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
-import static com.drozal.dataterminal.TestWindowViewController.parseEveryLog;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
@@ -685,6 +685,9 @@ public class actionController {
         secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        //Accent
+        String accclr = ConfigReader.configRead("accentColor");
+        accentColor.setStyle("-fx-text-fill: " + accclr + ";");
         //Buttons
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
@@ -695,7 +698,7 @@ public class actionController {
         // Add hover event handling
         shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
         shiftInfoBtn.setOnMouseExited(e -> shiftInfoBtn.setStyle(initialStyle));
-        settingsDropdown.setOnMouseEntered(e -> settingsDropdown.setStyle(hoverStyle));
+        settingsDropdown.setOnMouseEntered(e -> settingsDropdown.setStyle("-fx-background-color: " + secclr + ";"));
         settingsDropdown.setOnMouseExited(e -> settingsDropdown.setStyle(initialStyle));
         notesButton.setOnMouseEntered(e -> notesButton.setStyle(hoverStyle));
         notesButton.setOnMouseExited(e -> notesButton.setStyle(initialStyle));
@@ -825,7 +828,7 @@ public class actionController {
         setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
-        TestWindowViewController.refreshChart(areaReportChart, "area");
+        controllerUtils.refreshChart(areaReportChart, "area");
     }
 
     @javafx.fxml.FXML
@@ -894,7 +897,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) vbox.getScene().getWindow();
-        confirmLogClearDialog(stage, reportChart);
+        confirmLogClearDialog(stage, reportChart, areaReportChart);
         showNotification("Log Manager", "Logs have been cleared.", vbox);
     }
 
@@ -1189,7 +1192,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(calloutReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             calloutReportDate.setText("");
             calloutReportTime.setText("");
             calloutReportName.setText("");
@@ -1242,7 +1245,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(patrolReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Patrol Report has been submitted.", vbox);
             patrolSpinnerNumber.getEditor().setText("0");
             patrolDate.setText("");
@@ -1298,7 +1301,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(incidentReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Incident Report has been submitted.", vbox);
             incidentNumber.getEditor().setText("0");
             incidentReportdate.setText("");
@@ -1381,7 +1384,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(searchReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             SearchNumber.getEditor().setText("0");
             searchedPersons.setText("");
             searchDate.setText("");
@@ -1446,7 +1449,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(impoundReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             impoundNumber.getEditor().setText("0");
             impoundDate.setText("");
             impoundTime.setText("");
@@ -1515,7 +1518,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(trafficStopReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             trafficStopDate.setText("");
             trafficStopTime.setText("");
             trafficStopModel.setText("");
@@ -1610,7 +1613,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(arrestReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             arrestNumber.getEditor().setText("0");
             arrestDate.setText("");
             arrestTime.setText("");
@@ -1706,7 +1709,7 @@ public class actionController {
             setActive(shiftInformationPane);
             setDisable(citationReportPane);
             updateChartIfMismatch(reportChart);
-            TestWindowViewController.refreshChart(areaReportChart, "area");
+            controllerUtils.refreshChart(areaReportChart, "area");
             citationNumber.getEditor().setText("0");
             citationDate.setText("");
             citationTime.setText("");

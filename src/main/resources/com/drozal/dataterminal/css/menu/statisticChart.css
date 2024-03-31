@@ -8,3 +8,10 @@
     -fx-stroke: rgb(104, 94, 135,1);
     -fx-stroke-width: 5px;
 }
+.chart-area-symbol {
+    -fx-background-color: white; /* Change to your desired color */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}

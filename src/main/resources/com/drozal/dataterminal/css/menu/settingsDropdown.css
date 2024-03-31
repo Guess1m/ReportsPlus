@@ -15,15 +15,6 @@
     -fx-background-color: white;
 }
 
-/* Style the button when pressed */
-
-.button:hover {
-    -fx-background-color:  #7b72c0; /* Hover background color */
-}
-
-.button:focused {
-    -fx-background-color:  #7b72c0; /* Hover background color */
-}
 
 /* Style the menu */
 .context-menu {

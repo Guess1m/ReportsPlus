@@ -1,0 +1,40 @@
+<form action="#" id="contactForm">
+    <div class="form-row">
+        <div class="input-data">
+            <input id="firstName" required type="text">
+            <div class="underline"></div>
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="input-data">
+            <input id="lastName" required type="text">
+            <div class="underline"></div>
+            <label for="lastName">Last Name</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-data">
+            <input id="email" required type="email">
+            <div class="underline"></div>
+            <label for="email">Email Address</label>
+        </div>
+        <div class="input-data">
+            <input id="website" required type="text">
+            <div class="underline"></div>
+            <label for="website">Website Name</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-data textarea">
+            <textarea cols="80" id="message" required rows="8"></textarea>
+            <br/>
+            <div class="underline"></div>
+            <label for="message">Write your message</label>
+        </div>
+    </div>
+    <div class="form-row submit-btn">
+        <div class="input-data">
+            <div class="inner"></div>
+            <input onclick="submitForm()" type="submit" value="submit">
+        </div>
+    </div>
+</form>

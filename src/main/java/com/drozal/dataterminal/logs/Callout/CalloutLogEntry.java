@@ -1,5 +1,8 @@
 package com.drozal.dataterminal.logs.Callout;
 
+import java.util.Arrays;
+import java.util.List;
+
 // Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;
@@ -20,6 +23,25 @@ public class CalloutLogEntry {
     public CalloutLogEntry() {
 
     }
+
+    /*public List<String> getAllValues() {
+        return Arrays.asList(
+                getDate(),
+                getTime(),
+                getName(),
+                getRank(),
+                getNumber(),
+                getDivision(),
+                getAgency(),
+                getResponeType(),
+                getResponseGrade(),
+                getCalloutNumber(),
+                getNotesTextArea(),
+                getAddress(),
+                getCounty(),
+                getArea()
+        );
+    }*/
 
     public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes, String address, String county, String area) {
         this.Date = date;

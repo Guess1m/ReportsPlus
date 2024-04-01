@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,6 +32,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
@@ -60,6 +62,22 @@ public class LogBrowserController {
     private AnchorPane vbox;
     @javafx.fxml.FXML
     private Button refreshBtn;
+    @javafx.fxml.FXML
+    private Label calloutNumLabel;
+    @javafx.fxml.FXML
+    private Label calloutTypeLabel;
+    @javafx.fxml.FXML
+    private Label calloutAreaLabel;
+    @javafx.fxml.FXML
+    private Label calloutAddressLabel;
+    @javafx.fxml.FXML
+    private Label calloutGradeLabel;
+    @javafx.fxml.FXML
+    private Label calloutDateLabel;
+    @javafx.fxml.FXML
+    private Label calloutCountyLabel;
+    @javafx.fxml.FXML
+    private Label calloutTimeLabel;
 
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -887,4 +905,22 @@ public class LogBrowserController {
         }
     }
 
+    @javafx.fxml.FXML
+    public void onCalloutTableClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            CalloutLogEntry selectedEntry = (CalloutLogEntry) calloutTable.getSelectionModel().getSelectedItem();
+            if (selectedEntry != null) {
+                /*List<String> allValues = selectedEntry.getAllValues();
+                System.out.println("Selected: " + String.join(", ", allValues));*/
+                calloutNumLabel.setText("Callout Number: " + selectedEntry.getCalloutNumber());
+                calloutTypeLabel.setText("Callout Type: " + selectedEntry.getResponeType());
+                calloutAreaLabel.setText("Callout Area: " + selectedEntry.getArea());
+                calloutAddressLabel.setText("Callout Address: " + selectedEntry.getAddress());
+                calloutGradeLabel.setText("Callout Grade: " + selectedEntry.getResponseGrade());
+                calloutDateLabel.setText("Callout Date: " + selectedEntry.getDate());
+                calloutCountyLabel.setText("Callout County: " + selectedEntry.getCounty());
+                calloutTimeLabel.setText("Callout Time: " + selectedEntry.getTime());
+            }
+        }
+    }
 }

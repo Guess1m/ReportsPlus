@@ -12,9 +12,8 @@
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
-        <AnchorPane fx:id="shiftInformationPane" disable="true" layoutX="205.0" layoutY="88.0" visible="false"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
                 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="0.0">
@@ -146,8 +145,8 @@
                                            AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0"
                                            AnchorPane.topAnchor="35.0">
                                     <xAxis>
-                                        <CategoryAxis animated="false" side="BOTTOM" tickLabelGap="2.0"
-                                                      tickLabelRotation="360.0" tickLength="13.0">
+                                        <CategoryAxis animated="false" endMargin="0.0" side="BOTTOM" startMargin="0.0"
+                                                      tickLabelGap="1.0" tickLabelRotation="13.2" tickLength="13.0">
                                             <tickLabelFont>
                                                 <Font name="Segoe UI" size="14.0"/>
                                             </tickLabelFont>

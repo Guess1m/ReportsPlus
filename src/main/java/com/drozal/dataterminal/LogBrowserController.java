@@ -17,19 +17,21 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.stringUtil;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -37,6 +39,8 @@ import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
+
+    //<editor-fold desc="FXML / Vars">
     double minColumnWidth = 185.0;
     @javafx.fxml.FXML
     private TableView trafficStopTable;
@@ -60,7 +64,115 @@ public class LogBrowserController {
     private AnchorPane vbox;
     @javafx.fxml.FXML
     private Button refreshBtn;
+    @javafx.fxml.FXML
+    private TabPane tabPane;
+    @javafx.fxml.FXML
+    private TextField calnum;
+    @javafx.fxml.FXML
+    private TextField caladdress;
+    @javafx.fxml.FXML
+    private TextField calnotes;
+    @javafx.fxml.FXML
+    private TextField calcounty;
+    @javafx.fxml.FXML
+    private TextField calgrade;
+    @javafx.fxml.FXML
+    private TextField calarea;
+    @javafx.fxml.FXML
+    private TextField caltype;
+    @javafx.fxml.FXML
+    private Label calupdatedlabel;
+    @javafx.fxml.FXML
+    private HBox calloutInfo;
 
+    private CalloutLogEntry calloutEntry;
+    private PatrolLogEntry patrolEntry;
+    private TrafficStopLogEntry trafficStopEntry;
+    private IncidentLogEntry incidentEntry;
+
+    @javafx.fxml.FXML
+    private HBox patrolInfo;
+    @javafx.fxml.FXML
+    private TextField patvehicle;
+    @javafx.fxml.FXML
+    private Label patupdatedlabel;
+    @javafx.fxml.FXML
+    private TextField patstoptime;
+    @javafx.fxml.FXML
+    private TextField patstarttime;
+    @javafx.fxml.FXML
+    private TextField patlength;
+    @javafx.fxml.FXML
+    private TextField patcomments;
+    @javafx.fxml.FXML
+    private TextField patnum;
+    @javafx.fxml.FXML
+    private Tab calloutTab;
+    @javafx.fxml.FXML
+    private Tab patrolTab;
+    @javafx.fxml.FXML
+    private TextField trafstreet;
+    @javafx.fxml.FXML
+    private TextField trafotherinfo;
+    @javafx.fxml.FXML
+    private TextField trafname;
+    @javafx.fxml.FXML
+    private TextField trafcomments;
+    @javafx.fxml.FXML
+    private TextField trafdesc;
+    @javafx.fxml.FXML
+    private TextField trafcolor;
+    @javafx.fxml.FXML
+    private Tab trafficStopTab;
+    @javafx.fxml.FXML
+    private TextField trafnum;
+    @javafx.fxml.FXML
+    private TextField trafmodel;
+    @javafx.fxml.FXML
+    private TextField trafaddress;
+    @javafx.fxml.FXML
+    private TextField trafarea;
+    @javafx.fxml.FXML
+    private TextField trafgender;
+    @javafx.fxml.FXML
+    private TextField traftype;
+    @javafx.fxml.FXML
+    private TextField trafplatenum;
+    @javafx.fxml.FXML
+    private TextField trafcounty;
+    @javafx.fxml.FXML
+    private HBox trafficStopInfo;
+    @javafx.fxml.FXML
+    private Label trafupdatedlabel;
+    @javafx.fxml.FXML
+    private AnchorPane lowerPane;
+    @javafx.fxml.FXML
+    private ToggleButton showManagerToggle;
+    @javafx.fxml.FXML
+    private TextField incnum;
+    @javafx.fxml.FXML
+    private Label incupdatedlabel;
+    @javafx.fxml.FXML
+    private TextField incactionstaken;
+    @javafx.fxml.FXML
+    private TextField incarea;
+    @javafx.fxml.FXML
+    private TextField inccounty;
+    @javafx.fxml.FXML
+    private TextField inccomments;
+    @javafx.fxml.FXML
+    private HBox incidentInfo;
+    @javafx.fxml.FXML
+    private TextField incstreet;
+    @javafx.fxml.FXML
+    private TextField incvictims;
+    @javafx.fxml.FXML
+    private TextField incstatement;
+    @javafx.fxml.FXML
+    private TextField incwitness;
+    @javafx.fxml.FXML
+    private Tab incidentTab;
+    //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
 
@@ -75,6 +187,23 @@ public class LogBrowserController {
         initializeSearchColumns();
         initializeTrafficStopColumns();
         loadLogs();
+
+        calloutInfo.setVisible(true);
+        lowerPane.setPrefHeight(0);
+        lowerPane.setMaxHeight(0);
+        lowerPane.setMinHeight(0);
+        lowerPane.setVisible(false);
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+
+            calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
+
+            patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
+
+            trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
+
+            incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
+        });
     }
 
     private void loadLogs() {
@@ -104,6 +233,7 @@ public class LogBrowserController {
         calloutLogUpdate(calloutLogEntryList);
     }
 
+    //<editor-fold desc="Log Updates">
     public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
         // Clear existing data
         impoundTable.getItems().clear();
@@ -152,7 +282,9 @@ public class LogBrowserController {
         calloutTable.getItems().clear();
         calloutTable.getItems().addAll(logEntries);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Column Init.">
     public void initializeImpoundColumns() {
 
 
@@ -850,7 +982,9 @@ public class LogBrowserController {
             column.setMinWidth(minColumnWidth);
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Events">
     @javafx.fxml.FXML
     public void onRefreshButtonClick(ActionEvent actionEvent) {
         loadLogs();
@@ -871,6 +1005,21 @@ public class LogBrowserController {
     }
 
     @javafx.fxml.FXML
+    public void onManagerToggle(ActionEvent actionEvent) {
+        if (!showManagerToggle.isSelected()) {
+            lowerPane.setPrefHeight(0);
+            lowerPane.setMaxHeight(0);
+            lowerPane.setMinHeight(0);
+            lowerPane.setVisible(false);
+        } else {
+            lowerPane.setPrefHeight(356);
+            lowerPane.setMaxHeight(356);
+            lowerPane.setMinHeight(356);
+            lowerPane.setVisible(true);
+        }
+    }
+
+    @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
         // Get the window associated with the scene
         Window window = vbox.getScene().getWindow();
@@ -883,7 +1032,279 @@ public class LogBrowserController {
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) calloutTable.getScene().getWindow();
         if (stage != null) {
-            toggleWindowedFullscreen(stage, 891, 472);
+            toggleWindowedFullscreen(stage, 891, 674);
         }
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Info Panes">
+    // Callout Section
+    @javafx.fxml.FXML
+    public void onCalloutRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel().getSelectedItem();
+            if (calloutEntry != null) {
+                calnum.setText(calloutEntry.getCalloutNumber());
+                caladdress.setText(calloutEntry.getAddress());
+                calnotes.setText(calloutEntry.getNotesTextArea());
+                calcounty.setText(calloutEntry.getCounty());
+                calgrade.setText(calloutEntry.getResponseGrade());
+                calarea.setText(calloutEntry.getArea());
+                caltype.setText(calloutEntry.getResponeType());
+            }
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onCalUpdateValues(ActionEvent actionEvent) {
+        if (calloutEntry != null) {
+            calupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                calupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            // Update the selected log entry with values from text fields
+            calloutEntry.CalloutNumber = calnum.getText();
+            calloutEntry.Address = caladdress.getText();
+            calloutEntry.NotesTextArea = calnotes.getText();
+            calloutEntry.County = calcounty.getText();
+            calloutEntry.ResponseGrade = calgrade.getText();
+            calloutEntry.Area = calarea.getText();
+            calloutEntry.ResponeType = caltype.getText();
+
+            // Load existing logs from XML
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (CalloutLogEntry entry : logs) {
+                if (entry.getDate().equals(calloutEntry.getDate()) &&
+                        entry.getTime().equals(calloutEntry.getTime())) {
+                    entry.CalloutNumber = calnum.getText();
+                    entry.Address = caladdress.getText();
+                    entry.NotesTextArea = calnotes.getText();
+                    entry.County = calcounty.getText();
+                    entry.ResponseGrade = calgrade.getText();
+                    entry.Area = calarea.getText();
+                    entry.ResponeType = caltype.getText();
+                    break;
+                }
+            }
+
+            // Save the updated logs back to XML
+            CalloutReportLogs.saveLogsToXML(logs);
+
+            // Optionally, you might want to update the TableView here
+            calloutTable.refresh();
+
+        }
+    }
+
+    // Patrol Section
+    @javafx.fxml.FXML
+    public void onPatUpdateValues(ActionEvent actionEvent) {
+        if (patrolEntry != null) {
+            patupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                patupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            // Update the selected log entry with values from text fields
+            patrolEntry.patrolNumber = patnum.getText();
+            patrolEntry.patrolComments = patcomments.getText();
+            patrolEntry.patrolLength = patlength.getText();
+            patrolEntry.patrolStartTime = patstarttime.getText();
+            patrolEntry.patrolStopTime = patstoptime.getText();
+            patrolEntry.officerVehicle = patvehicle.getText();
+
+            // Load existing logs from XML
+            List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (PatrolLogEntry entry : logs) {
+                if (entry.getPatrolDate().equals(patrolEntry.getPatrolDate())) {
+                    entry.patrolNumber = patnum.getText();
+                    entry.patrolComments = patcomments.getText();
+                    entry.patrolLength = patlength.getText();
+                    entry.patrolStartTime = patstarttime.getText();
+                    entry.patrolStopTime = patstoptime.getText();
+                    entry.officerVehicle = patvehicle.getText();
+
+                    break;
+                }
+            }
+
+            // Save the updated logs back to XML
+            PatrolReportLogs.saveLogsToXML(logs);
+
+            // Optionally, you might want to update the TableView here
+            patrolTable.refresh();
+
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onPatrolRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel().getSelectedItem();
+            if (patrolEntry != null) {
+                patnum.setText(patrolEntry.getPatrolNumber());
+                patcomments.setText(patrolEntry.getPatrolComments());
+                patlength.setText(patrolEntry.getPatrolLength());
+                patstarttime.setText(patrolEntry.getPatrolStartTime());
+                patstoptime.setText(patrolEntry.getPatrolStopTime());
+                patvehicle.setText(patrolEntry.getOfficerVehicle());
+            }
+        }
+    }
+
+    // Traffic Stop Section
+    @javafx.fxml.FXML
+    public void onTrafUpdateValues(ActionEvent actionEvent) {
+        if (trafficStopEntry != null) {
+            trafupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                trafupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            trafficStopEntry.PlateNumber = trafplatenum.getText();
+            trafficStopEntry.Color = trafcolor.getText();
+            trafficStopEntry.Type = traftype.getText();
+            trafficStopEntry.StopNumber = trafnum.getText();
+            trafficStopEntry.ResponseModel = trafmodel.getText();
+            trafficStopEntry.ResponseOtherInfo = trafotherinfo.getText();
+            trafficStopEntry.CommentsTextArea = trafcomments.getText();
+            trafficStopEntry.County = trafcounty.getText();
+            trafficStopEntry.Area = trafarea.getText();
+            trafficStopEntry.Street = trafstreet.getText();
+            trafficStopEntry.operatorName = trafname.getText();
+            trafficStopEntry.operatorDescription = trafdesc.getText();
+            trafficStopEntry.operatorAddress = trafaddress.getText();
+            trafficStopEntry.operatorGender = trafgender.getText();
+
+            // Load existing logs from XML
+            List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (TrafficStopLogEntry entry : logs) {
+                if (entry.getDate().equals(trafficStopEntry.getDate()) &&
+                        entry.getTime().equals(trafficStopEntry.getTime())) {
+                    entry.PlateNumber = trafplatenum.getText();
+                    entry.Color = trafcolor.getText();
+                    entry.Type = traftype.getText();
+                    entry.StopNumber = trafnum.getText();
+                    entry.ResponseModel = trafmodel.getText();
+                    entry.ResponseOtherInfo = trafotherinfo.getText();
+                    entry.CommentsTextArea = trafcomments.getText();
+                    entry.County = trafcounty.getText();
+                    entry.Area = trafarea.getText();
+                    entry.Street = trafstreet.getText();
+                    entry.operatorName = trafname.getText();
+                    entry.operatorDescription = trafdesc.getText();
+                    entry.operatorAddress = trafaddress.getText();
+                    entry.operatorGender = trafgender.getText();
+                    break;
+                }
+            }
+
+            // Save the updated logs back to XML
+            TrafficStopReportLogs.saveLogsToXML(logs);
+
+            // Optionally, you might want to update the TableView here
+            trafficStopTable.refresh();
+
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onTrafficStopRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel().getSelectedItem();
+            if (trafficStopEntry != null) {
+                trafstreet.setText(trafficStopEntry.getStreet());
+                trafotherinfo.setText(trafficStopEntry.getResponseOtherInfo());
+                trafname.setText(trafficStopEntry.getOperatorName());
+                trafcomments.setText(trafficStopEntry.getCommentsTextArea());
+                trafdesc.setText(trafficStopEntry.getOperatorDescription());
+                trafcolor.setText(trafficStopEntry.getColor());
+                trafnum.setText(trafficStopEntry.getStopNumber());
+                trafmodel.setText(trafficStopEntry.getResponseModel());
+                trafaddress.setText(trafficStopEntry.getOperatorAddress());
+                trafarea.setText(trafficStopEntry.getArea());
+                trafgender.setText(trafficStopEntry.getOperatorGender());
+                traftype.setText(trafficStopEntry.getType());
+                trafplatenum.setText(trafficStopEntry.getPlateNumber());
+                trafcounty.setText(trafficStopEntry.getCounty());
+            }
+        }
+    }
+
+    // Incident Section
+    @javafx.fxml.FXML
+    public void onIncUpdateValues(ActionEvent actionEvent) {
+        if (incidentEntry != null) {
+            incupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                incupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            incidentEntry.incidentNumber = incnum.getText();
+            incidentEntry.incidentActionsTaken = incactionstaken.getText();
+            incidentEntry.incidentArea = incarea.getText();
+            incidentEntry.incidentCounty = inccounty.getText();
+            incidentEntry.incidentComments = inccomments.getText();
+            incidentEntry.incidentStreet = incstreet.getText();
+            incidentEntry.incidentVictims = incvictims.getText();
+            incidentEntry.incidentStatement = incstatement.getText();
+            incidentEntry.incidentWitnesses = incwitness.getText();
+
+            // Load existing logs from XML
+            List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (IncidentLogEntry entry : logs) {
+                if (entry.getIncidentDate().equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime().equals(incidentEntry.getIncidentTime())) {
+                    entry.incidentNumber = incnum.getText();
+                    entry.incidentStatement = incstatement.getText();
+                    entry.incidentWitnesses = incwitness.getText();
+                    entry.incidentVictims = incvictims.getText();
+                    entry.incidentStreet = incstreet.getText();
+                    entry.incidentArea = incarea.getText();
+                    entry.incidentCounty = inccounty.getText();
+                    entry.incidentActionsTaken = incactionstaken.getText();
+                    entry.incidentComments = inccomments.getText();
+                    break;
+                }
+            }
+
+            // Save the updated logs back to XML
+            IncidentReportLogs.saveLogsToXML(logs);
+
+            // Optionally, you might want to update the TableView here
+            incidentTable.refresh();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onIncidentRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel().getSelectedItem();
+            if (incidentEntry != null) {
+                incnum.setText(incidentEntry.incidentNumber);
+                incactionstaken.setText(incidentEntry.incidentActionsTaken);
+                incarea.setText(incidentEntry.incidentArea);
+                inccounty.setText(incidentEntry.incidentCounty);
+                inccomments.setText(incidentEntry.incidentComments);
+                incstreet.setText(incidentEntry.incidentStreet);
+                incvictims.setText(incidentEntry.incidentVictims);
+                incstatement.setText(incidentEntry.incidentStatement);
+                incwitness.setText(incidentEntry.incidentWitnesses);
+            }
+        }
+    }
+    //</editor-fold>
+
 }

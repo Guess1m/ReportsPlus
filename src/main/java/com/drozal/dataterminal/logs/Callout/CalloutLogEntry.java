@@ -1,5 +1,8 @@
 package com.drozal.dataterminal.logs.Callout;
 
+import java.util.Arrays;
+import java.util.List;
+
 // Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;
@@ -21,7 +24,24 @@ public class CalloutLogEntry {
 
     }
 
-    /*public List<String> getAllValues() {
+    public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes, String address, String county, String area) {
+        this.Date = date;
+        this.Time = time;
+        this.Name = name;
+        this.Rank = rank;
+        this.Number = number;
+        this.Division = division;
+        this.Agency = agency;
+        this.ResponeType = responseType;
+        this.ResponseGrade = responseGrade;
+        this.CalloutNumber = cNumber;
+        this.NotesTextArea = notes;
+        this.Address = address;
+        this.County = county;
+        this.Area = area;
+    }
+
+    public List<String> getAllValues() {
         return Arrays.asList(
                 getDate(),
                 getTime(),
@@ -38,23 +58,6 @@ public class CalloutLogEntry {
                 getCounty(),
                 getArea()
         );
-    }*/
-
-    public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes, String address, String county, String area) {
-        this.Date = date;
-        this.Time = time;
-        this.Name = name;
-        this.Rank = rank;
-        this.Number = number;
-        this.Division = division;
-        this.Agency = agency;
-        this.ResponeType = responseType;
-        this.ResponseGrade = responseGrade;
-        this.CalloutNumber = cNumber;
-        this.NotesTextArea = notes;
-        this.Address = address;
-        this.County = county;
-        this.Area = area;
     }
 
     public String getCalloutNumber() {

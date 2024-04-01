@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
@@ -7,39 +8,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="603.0" prefWidth="891.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="674.0" prefWidth="891.0"
             style="-fx-background-color: rgb(0,0,0,0.69);" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.LogBrowserController">
     <children>
-        <AnchorPane fx:id="vbox" prefHeight="470.0" prefWidth="889.0" style="-fx-background-color: #f2f2f2;"
+        <AnchorPane fx:id="vbox" prefHeight="674.0" prefWidth="891.0" style="-fx-background-color: #f2f2f2;"
                     AnchorPane.bottomAnchor="1.1" AnchorPane.leftAnchor="1.1" AnchorPane.rightAnchor="1.1"
                     AnchorPane.topAnchor="1.1">
             <children>
-                <SplitPane layoutY="50.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="889.0"
-                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                           AnchorPane.topAnchor="51.0">
-                    <items>
+                <VBox layoutY="51.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
+                    <children>
                         <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="889.0"
-                                 stylesheets="@css/main/Logtabpane.css">
+                                 stylesheets="@css/main/Logtabpane.css" VBox.vgrow="ALWAYS">
                             <tabs>
                                 <Tab fx:id="calloutTab" closable="false" text="Callouts">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                             <content>
-                                                <TableView fx:id="calloutTable" prefHeight="556.0" prefWidth="779.0"
+                                                <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick"
+                                                           prefHeight="556.0" prefWidth="779.0"
                                                            styleClass="calloutTABLE" stylesheets="@css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="trafficstopTab" closable="false" text="Traffic Stops">
+                                <Tab fx:id="trafficStopTab" closable="false" text="Traffic Stops">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                             <content>
-                                                <TableView fx:id="trafficStopTable" prefHeight="556.0" prefWidth="779.0"
-                                                           styleClass="calloutTABLE" stylesheets="@css/tableCss.css"/>
+                                                <TableView fx:id="trafficStopTable"
+                                                           onMouseClicked="#onTrafficStopRowClick" prefHeight="556.0"
+                                                           prefWidth="779.0" styleClass="calloutTABLE"
+                                                           stylesheets="@css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -49,13 +52,14 @@
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                             <content>
-                                                <TableView fx:id="incidentTable" prefHeight="556.0" prefWidth="779.0"
+                                                <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick"
+                                                           prefHeight="556.0" prefWidth="779.0"
                                                            styleClass="calloutTABLE" stylesheets="@css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="searchTab" closable="false" text="Searches">
+                                <Tab closable="false" text="Searches">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
@@ -66,7 +70,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="arrestTab" closable="false" text="Arrests">
+                                <Tab closable="false" text="Arrests">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
@@ -82,13 +86,14 @@
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
                                             <content>
-                                                <TableView fx:id="patrolTable" prefHeight="556.0" prefWidth="779.0"
+                                                <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick"
+                                                           prefHeight="556.0" prefWidth="779.0"
                                                            styleClass="calloutTABLE" stylesheets="@css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="citationTab" closable="false" text="Citations">
+                                <Tab closable="false" text="Citations">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
@@ -99,7 +104,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="impoundTab" closable="false" text="Impounds">
+                                <Tab closable="false" text="Impounds">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" stylesheets="@css/main/Logscrollpane.css">
@@ -119,16 +124,464 @@
                                 </DropShadow>
                             </effect>
                         </TabPane>
-                    </items>
-                </SplitPane>
-                <AnchorPane layoutX="780.0" layoutY="55.0" prefHeight="37.0" prefWidth="109.0"
-                            AnchorPane.leftAnchor="780.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+                        <AnchorPane fx:id="lowerPane" prefHeight="356.0" prefWidth="889.0"
+                                    style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label alignment="CENTER" layoutX="14.0" layoutY="8.0"
+                                       style="-fx-background-color: #5e7387; -fx-font-size: 20; -fx-font-family: Segoe UI Black;"
+                                       styleClass="heading" stylesheets="@css/form/formLabels.css" text="Log Manager"
+                                       textOverrun="CLIP" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+                                       AnchorPane.topAnchor="8.0"/>
+                                <Label alignment="CENTER" layoutX="25.0" layoutY="45.0"
+                                       style="-fx-font-size: 20; -fx-font-family: Segoe UI Black;"
+                                       styleClass="incidentHeadingBig" stylesheets="@css/form/formLabels.css"
+                                       text="Details" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="45.0"/>
+                                <HBox fx:id="calloutInfo" alignment="CENTER_LEFT" layoutX="25.0" layoutY="80.0"
+                                      prefHeight="178.0" prefWidth="839.0" spacing="10.0" visible="false"
+                                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0"
+                                      AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="249.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="calnum" promptText="Number" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="caladdress" promptText="Address"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="calcounty" promptText="County"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="255.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="calarea" promptText="Area" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="caltype" promptText="Type" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox>
+                                                    <VBox.margin>
+                                                        <Insets top="5.0"/>
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0"/>
+                                                        <Label fx:id="calupdatedlabel" alignment="CENTER"
+                                                               prefHeight="35.0" prefWidth="210.0"
+                                                               style="-fx-font-size: 16; -fx-font-family: Segoe UI Black; -fx-text-fill: Green;"
+                                                               styleClass="incidentHeadingBig"
+                                                               stylesheets="@css/form/formLabels.css" text="Updated Log"
+                                                               visible="false"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="290.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="calnotes" promptText="Notes"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="calgrade" promptText="Grade"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#onCalUpdateValues"
+                                                        prefHeight="35.0" prefWidth="157.0"
+                                                        styleClass="incidentformButton"
+                                                        stylesheets="@css/form/formButton.css" text="Update Values"
+                                                        textAlignment="CENTER">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="patrolInfo" alignment="CENTER_LEFT" layoutX="35.0" layoutY="90.0"
+                                      prefHeight="178.0" prefWidth="839.0" spacing="10.0" visible="false"
+                                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0"
+                                      AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="249.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="patnum" promptText="Number" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="patlength" promptText="Length"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="255.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="patvehicle" promptText="Vehicle"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="patstarttime" promptText="Start Time"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox>
+                                                    <VBox.margin>
+                                                        <Insets top="5.0"/>
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0"/>
+                                                        <Label fx:id="patupdatedlabel" alignment="CENTER"
+                                                               prefHeight="35.0" prefWidth="210.0"
+                                                               style="-fx-font-size: 16; -fx-font-family: Segoe UI Black; -fx-text-fill: Green;"
+                                                               styleClass="incidentHeadingBig"
+                                                               stylesheets="@css/form/formLabels.css" text="Updated Log"
+                                                               visible="false"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="290.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="patcomments" promptText="Comments"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="patstoptime" promptText="Stop Time"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#onPatUpdateValues"
+                                                        prefHeight="35.0" prefWidth="157.0"
+                                                        styleClass="incidentformButton"
+                                                        stylesheets="@css/form/formButton.css" text="Update Values"
+                                                        textAlignment="CENTER">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="trafficStopInfo" alignment="CENTER_LEFT" layoutX="35.0" layoutY="90.0"
+                                      prefHeight="178.0" prefWidth="839.0" spacing="10.0" visible="false"
+                                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0"
+                                      AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="249.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="trafnum" promptText="Number"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafcounty" promptText="County"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafplatenum" promptText="Plate #"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafotherinfo" promptText="Other Info."
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafaddress" promptText="Owner Address"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="255.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="trafcomments" promptText="Comments"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafarea" promptText="Area" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="traftype" promptText="Veh. Type"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafname" promptText="Owner Name"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafgender" promptText="Owner Gender"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox>
+                                                    <VBox.margin>
+                                                        <Insets top="5.0"/>
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0"/>
+                                                        <Label fx:id="trafupdatedlabel" alignment="CENTER"
+                                                               prefHeight="35.0" prefWidth="210.0"
+                                                               style="-fx-font-size: 16; -fx-font-family: Segoe UI Black; -fx-text-fill: Green;"
+                                                               styleClass="incidentHeadingBig"
+                                                               stylesheets="@css/form/formLabels.css" text="Updated Log"
+                                                               visible="false"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="290.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="trafmodel" promptText="Model"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafstreet" promptText="Street"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafcolor" promptText="Veh. Color"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="trafdesc" promptText="Owner Desc."
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0">
+                                                            <HBox.margin>
+                                                                <Insets/>
+                                                            </HBox.margin>
+                                                        </Pane>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <Button mnemonicParsing="false" onAction="#onTrafUpdateValues"
+                                                        prefHeight="35.0" prefWidth="157.0"
+                                                        styleClass="incidentformButton"
+                                                        stylesheets="@css/form/formButton.css" text="Update Values"
+                                                        textAlignment="CENTER">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="incidentInfo" alignment="CENTER_LEFT" layoutX="45.0" layoutY="100.0"
+                                      prefHeight="178.0" prefWidth="839.0" spacing="10.0" visible="false"
+                                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0"
+                                      AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="249.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="incnum" promptText="Number" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="16.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="inccounty" promptText="County"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="incstatement" promptText="Statement"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="255.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="inccomments" promptText="Comments"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="16.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="incarea" promptText="Area" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="incwitness" promptText="Witnesses"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox prefHeight="34.0" prefWidth="263.0">
+                                                    <VBox.margin>
+                                                        <Insets top="5.0"/>
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0"/>
+                                                        <Label fx:id="incupdatedlabel" alignment="CENTER"
+                                                               prefHeight="35.0" prefWidth="210.0"
+                                                               style="-fx-font-size: 16; -fx-font-family: Segoe UI Black; -fx-text-fill: Green;"
+                                                               styleClass="incidentHeadingBig"
+                                                               stylesheets="@css/form/formLabels.css" text="Updated Log"
+                                                               visible="false"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="290.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="incactionstaken" promptText="Actions Taken"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="16.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="incstreet" promptText="Street"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="incvictims" promptText="Victims"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#onIncUpdateValues"
+                                                        prefHeight="35.0" prefWidth="157.0"
+                                                        styleClass="incidentformButton"
+                                                        stylesheets="@css/form/formButton.css" text="Update Values"
+                                                        textAlignment="CENTER">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+                <AnchorPane layoutX="780.0" layoutY="58.0" prefHeight="34.0" prefWidth="101.0"
+                            AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="56.0">
                     <children>
                         <Button fx:id="refreshBtn" graphicTextGap="5.0" layoutX="8.0" layoutY="2.0"
                                 mnemonicParsing="false" onAction="#onRefreshButtonClick" opacity="0.95"
-                                prefHeight="32.0" prefWidth="99.0" style="-fx-font-size: 11;" styleClass="incidentbtn"
-                                stylesheets="@css/menu/menuStyles.css" text="Refresh" textFill="#828797"
-                                AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="2.0">
+                                prefHeight="34.0" prefWidth="99.0"
+                                style="-fx-font-size: 12; -fx-background-color: #f2f2f2; -fx-font-family: Arial; -fx-font-weight: bold; -fx-text-fill: #5e7387;"
+                                styleClass="medinfoButton" stylesheets="@css/menu/menuStyles.css" text="Refresh"
+                                textFill="#828797" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
                                 <Font size="18.0"/>
                             </font>
@@ -138,11 +591,21 @@
                                         <Image url="@imgs/icons/refresh.png"/>
                                     </image>
                                     <effect>
-                                        <ColorAdjust brightness="1.0"/>
+                                        <ColorAdjust brightness="-0.05" contrast="-0.2" hue="-0.31"/>
                                     </effect>
                                 </ImageView>
                             </graphic>
                         </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="790.0" layoutY="66.0" prefHeight="24.0" prefWidth="101.0"
+                            AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="60.0">
+                    <children>
+                        <ToggleButton fx:id="showManagerToggle" layoutX="6.0" layoutY="2.0" mnemonicParsing="false"
+                                      onAction="#onManagerToggle" style="-fx-label-padding: 0; -fx-padding: 0;"
+                                      stylesheets="@css/main/toggleBtn.css" text="Show Manager"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutX="36.0" layoutY="-86.0" onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress"

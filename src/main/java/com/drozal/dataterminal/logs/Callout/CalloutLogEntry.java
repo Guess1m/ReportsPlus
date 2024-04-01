@@ -1,8 +1,5 @@
 package com.drozal.dataterminal.logs.Callout;
 
-import java.util.Arrays;
-import java.util.List;
-
 // Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;

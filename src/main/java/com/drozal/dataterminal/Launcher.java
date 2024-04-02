@@ -58,15 +58,12 @@ public class Launcher {
             // If the folder does not exist, create it
             boolean folderCreated = folder.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
             if (folderCreated) {
-                System.out.println("DataLogs Folder created successfully.");
-                System.out.println(folder.getAbsolutePath());
+                System.out.println("DataLogs:" + folder.getAbsolutePath());
             } else {
                 System.out.println("Failed to create the DataLogs Folder.");
             }
         } else {
             System.out.println("DataLogs Folder already exists.");
-            System.out.println(folder.getAbsolutePath());
-
         }
 
         if (ConfigReader.doesConfigExist()) {

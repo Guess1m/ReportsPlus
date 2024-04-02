@@ -110,7 +110,7 @@ public class newOfficerController {
                 try {
                     // Create the config.properties file in the JAR directory
                     configFile.createNewFile();
-                    System.out.println("Config file created, printing values, located at: " + configFile.getAbsolutePath());
+                    System.out.println("Config: " + configFile.getAbsolutePath());
                 } catch (IOException e) {
                     System.out.println("Failed to create config file: " + e.getMessage());
                 }
@@ -191,7 +191,7 @@ public class newOfficerController {
             try {
                 // Create the config.properties file in the JAR directory
                 configFile.createNewFile();
-                System.out.println("Config file created, printing values, located at: " + configFile.getAbsolutePath());
+                System.out.println("Config: " + configFile.getAbsolutePath());
             } catch (IOException e) {
                 System.out.println("Failed to create config file: " + e.getMessage());
             }

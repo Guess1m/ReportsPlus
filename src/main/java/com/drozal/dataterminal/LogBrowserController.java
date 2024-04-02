@@ -89,6 +89,10 @@ public class LogBrowserController {
     private PatrolLogEntry patrolEntry;
     private TrafficStopLogEntry trafficStopEntry;
     private IncidentLogEntry incidentEntry;
+    private ImpoundLogEntry impoundEntry;
+    private SearchLogEntry searchEntry;
+    private ArrestLogEntry arrestEntry;
+    private TrafficCitationLogEntry citationEntry;
 
     @javafx.fxml.FXML
     private HBox patrolInfo;
@@ -107,9 +111,21 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     private TextField patnum;
     @javafx.fxml.FXML
+    private Tab incidentTab;
+    @javafx.fxml.FXML
+    private Tab impoundTab;
+    @javafx.fxml.FXML
     private Tab calloutTab;
     @javafx.fxml.FXML
     private Tab patrolTab;
+    @javafx.fxml.FXML
+    private Tab trafficStopTab;
+    @javafx.fxml.FXML
+    private Tab citationTab;
+    @javafx.fxml.FXML
+    private Tab searchTab;
+    @javafx.fxml.FXML
+    private Tab arrestTab;
     @javafx.fxml.FXML
     private TextField trafstreet;
     @javafx.fxml.FXML
@@ -122,8 +138,6 @@ public class LogBrowserController {
     private TextField trafdesc;
     @javafx.fxml.FXML
     private TextField trafcolor;
-    @javafx.fxml.FXML
-    private Tab trafficStopTab;
     @javafx.fxml.FXML
     private TextField trafnum;
     @javafx.fxml.FXML
@@ -171,7 +185,94 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     private TextField incwitness;
     @javafx.fxml.FXML
-    private Tab incidentTab;
+    private HBox impoundInfo;
+    @javafx.fxml.FXML
+    private Label impupdatedLabel;
+    @javafx.fxml.FXML
+    private TextField impname;
+    @javafx.fxml.FXML
+    private TextField impgender;
+    @javafx.fxml.FXML
+    private TextField impcolor;
+    @javafx.fxml.FXML
+    private TextField impplatenum;
+    @javafx.fxml.FXML
+    private TextField imptype;
+    @javafx.fxml.FXML
+    private TextField impage;
+    @javafx.fxml.FXML
+    private TextField impcomments;
+    @javafx.fxml.FXML
+    private TextField impnum;
+    @javafx.fxml.FXML
+    private TextField impmodel;
+    @javafx.fxml.FXML
+    private TextField impaddress;
+    @javafx.fxml.FXML
+    private Label arrestupdatedlabel;
+    @javafx.fxml.FXML
+    private TextField arrestcounty;
+    @javafx.fxml.FXML
+    private TextField arrestdesc;
+    @javafx.fxml.FXML
+    private TextField arrestarea;
+    @javafx.fxml.FXML
+    private TextField arrestambulance;
+    @javafx.fxml.FXML
+    private TextField arrestname;
+    @javafx.fxml.FXML
+    private TextField arrestdetails;
+    @javafx.fxml.FXML
+    private TextField arrestmedinfo;
+    @javafx.fxml.FXML
+    private TextField arrestaddress;
+    @javafx.fxml.FXML
+    private TextField arrestage;
+    @javafx.fxml.FXML
+    private TextField arrestgender;
+    @javafx.fxml.FXML
+    private TextField arreststreet;
+    @javafx.fxml.FXML
+    private TextField arresttaser;
+    @javafx.fxml.FXML
+    private HBox arrestInfo;
+    @javafx.fxml.FXML
+    private TextField arrestnum;
+    @javafx.fxml.FXML
+    private TextField arrestcharges;
+    @javafx.fxml.FXML
+    private Label searchupdatedlabel;
+    @javafx.fxml.FXML
+    private HBox searchInfo;
+
+    @javafx.fxml.FXML
+    private TextField searchbreathresult;
+    @javafx.fxml.FXML
+    private TextField searchnum;
+    @javafx.fxml.FXML
+    private TextField searchperson;
+    @javafx.fxml.FXML
+    private TextField searchmethod;
+    @javafx.fxml.FXML
+    private TextField searchseizeditems;
+    @javafx.fxml.FXML
+    private TextField searchtype;
+    @javafx.fxml.FXML
+    private TextField searchcomments;
+    @javafx.fxml.FXML
+    private TextField searchbreathused;
+    @javafx.fxml.FXML
+    private TextField searchstreet;
+    @javafx.fxml.FXML
+    private TextField searcharea;
+    @javafx.fxml.FXML
+    private TextField searchgrounds;
+    @javafx.fxml.FXML
+    private TextField searchwitness;
+    @javafx.fxml.FXML
+    private TextField searchbacmeasure;
+    @javafx.fxml.FXML
+    private TextField searchcounty;
     //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -195,14 +296,14 @@ public class LogBrowserController {
         lowerPane.setVisible(false);
 
         tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-
             calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
-
             patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
-
             trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
-
             incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
+            impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
+            arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
+            searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
+            //citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
     }
 
@@ -1303,6 +1404,242 @@ public class LogBrowserController {
                 incstatement.setText(incidentEntry.incidentStatement);
                 incwitness.setText(incidentEntry.incidentWitnesses);
             }
+        }
+    }
+
+    // Impound Section
+    @javafx.fxml.FXML
+    public void onImpUpdateValues(ActionEvent actionEvent) {
+        if (impoundEntry != null) {
+            impupdatedLabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                impupdatedLabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            impoundEntry.impoundPlateNumber = impplatenum.getText();
+            impoundEntry.impoundColor = impcolor.getText();
+            impoundEntry.impoundType = imptype.getText();
+            impoundEntry.impoundNumber = impnum.getText();
+            impoundEntry.impoundModel = impmodel.getText();
+            impoundEntry.impoundComments = impcomments.getText();
+            impoundEntry.ownerName = impname.getText();
+            impoundEntry.ownerAddress = impaddress.getText();
+            impoundEntry.ownerGender = impgender.getText();
+            impoundEntry.ownerAge = impage.getText();
+
+            // Load existing logs from XML
+            List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (ImpoundLogEntry entry : logs) {
+                if (entry.getImpoundDate().equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime().equals(impoundEntry.getImpoundTime())) {
+                    entry.impoundPlateNumber = impplatenum.getText();
+                    entry.impoundColor = impcolor.getText();
+                    entry.impoundType = imptype.getText();
+                    entry.impoundNumber = impnum.getText();
+                    entry.impoundModel = impmodel.getText();
+                    entry.impoundComments = impcomments.getText();
+                    entry.ownerName = impname.getText();
+                    entry.ownerAddress = impaddress.getText();
+                    entry.ownerGender = impgender.getText();
+                    entry.ownerAge = impage.getText();
+                    break;
+                }
+            }
+
+            // Save the updated logs back to XML
+            ImpoundReportLogs.saveLogsToXML(logs);
+
+            // Optionally, you might want to update the TableView here
+            impoundTable.refresh();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onImpoundRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel().getSelectedItem();
+            if (impoundEntry != null) {
+                impnum.setText(impoundEntry.impoundNumber);
+                impname.setText(impoundEntry.ownerName);
+                impgender.setText(impoundEntry.ownerGender);
+                impcolor.setText(impoundEntry.impoundColor);
+                impplatenum.setText(impoundEntry.impoundPlateNumber);
+                imptype.setText(impoundEntry.impoundType);
+                impage.setText(impoundEntry.ownerAge);
+                impcomments.setText(impoundEntry.impoundComments);
+                impmodel.setText(impoundEntry.impoundModel);
+                impaddress.setText(impoundEntry.ownerAddress);
+            }
+        }
+    }
+
+    // Citation Section
+    @javafx.fxml.FXML
+    public void onCitationRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel().getSelectedItem();
+            if (citationEntry != null) {
+
+            }
+        }
+    }
+
+
+    // Search Section
+    @javafx.fxml.FXML
+    public void onSearchRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            searchEntry = (SearchLogEntry) searchTable.getSelectionModel().getSelectedItem();
+            if (searchEntry != null) {
+                searchnum.setText(searchEntry.SearchNumber);
+                searchperson.setText(searchEntry.searchedPersons);
+                searchmethod.setText(searchEntry.searchMethod);
+                searchseizeditems.setText(searchEntry.searchSeizedItems);
+                searchtype.setText(searchEntry.searchType);
+                searchcomments.setText(searchEntry.searchComments);
+                searchbreathused.setText(searchEntry.breathalyzerUsed);
+                searchbreathresult.setText(searchEntry.breathalyzerResult);
+                searchstreet.setText(searchEntry.searchStreet);
+                searcharea.setText(searchEntry.searchArea);
+                searchgrounds.setText(searchEntry.searchGrounds);
+                searchwitness.setText(searchEntry.searchWitnesses);
+                searchbacmeasure.setText(searchEntry.breathalyzerBACMeasure);
+                searchcounty.setText(searchEntry.searchCounty);
+            }
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onSearchUpdateValues(ActionEvent actionEvent) {
+        if (searchEntry != null) {
+            searchupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                searchupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            searchEntry.SearchNumber = searchnum.getText();
+            searchEntry.searchedPersons = searchperson.getText();
+            searchEntry.searchMethod = searchmethod.getText();
+            searchEntry.searchSeizedItems = searchseizeditems.getText();
+            searchEntry.searchType = searchtype.getText();
+            searchEntry.searchComments = searchcomments.getText();
+            searchEntry.breathalyzerUsed = searchbreathused.getText();
+            searchEntry.searchStreet = searchstreet.getText();
+            searchEntry.searchArea = searcharea.getText();
+            searchEntry.searchGrounds = searchgrounds.getText();
+            searchEntry.searchWitnesses = searchwitness.getText();
+            searchEntry.breathalyzerBACMeasure = searchbacmeasure.getText();
+            searchEntry.searchCounty = searchcounty.getText();
+            searchEntry.breathalyzerResult = searchbreathresult.getText();
+
+            // Load existing logs from XML
+            List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (SearchLogEntry entry : logs) {
+                if (entry.getSearchDate().equals(searchEntry.getSearchDate()) && entry.getSearchTime().equals(searchEntry.getSearchTime())) {
+                    entry.SearchNumber = searchnum.getText();
+                    entry.searchedPersons = searchperson.getText();
+                    entry.searchMethod = searchmethod.getText();
+                    entry.searchSeizedItems = searchseizeditems.getText();
+                    entry.searchType = searchtype.getText();
+                    entry.searchComments = searchcomments.getText();
+                    entry.breathalyzerUsed = searchbreathused.getText();
+                    entry.searchStreet = searchstreet.getText();
+                    entry.searchArea = searcharea.getText();
+                    entry.searchGrounds = searchgrounds.getText();
+                    entry.searchWitnesses = searchwitness.getText();
+                    entry.breathalyzerBACMeasure = searchbacmeasure.getText();
+                    entry.searchCounty = searchcounty.getText();
+                    entry.breathalyzerResult = searchbreathresult.getText();
+                    break;
+                }
+            }
+            //Save the updated logs back to XML
+            SearchReportLogs.saveLogsToXML(logs);
+            //Optionally, you might want to update the TableView here
+            searchTable.refresh();
+        }
+    }
+
+    // Arrest Section
+    @javafx.fxml.FXML
+    public void onArrestRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) { // single click
+            arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel().getSelectedItem();
+            if (arrestEntry != null) {
+                arrestnum.setText(arrestEntry.arrestNumber);
+                arrestcounty.setText(arrestEntry.arrestCounty);
+                arrestdesc.setText(arrestEntry.arresteeDescription);
+                arrestarea.setText(arrestEntry.arrestArea);
+                arrestambulance.setText(arrestEntry.ambulanceYesNo);
+                arrestname.setText(arrestEntry.arresteeName);
+                arrestdetails.setText(arrestEntry.arrestDetails);
+                arrestmedinfo.setText(arrestEntry.arresteeMedicalInformation);
+                arrestaddress.setText(arrestEntry.arresteeHomeAddress);
+                arrestage.setText(arrestEntry.arresteeAge);
+                arrestgender.setText(arrestEntry.arresteeGender);
+                arreststreet.setText(arrestEntry.arrestStreet);
+                arresttaser.setText(arrestEntry.TaserYesNo);
+                arrestcharges.setText(arrestEntry.arrestCharges);
+            }
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void onArrUpdateValues(ActionEvent actionEvent) {
+        if (arrestEntry != null) {
+            arrestupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                arrestupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            arrestEntry.arrestNumber = arrestnum.getText();
+            arrestEntry.arrestCharges = arrestcharges.getText();
+            arrestEntry.arrestCounty = arrestcounty.getText();
+            arrestEntry.arresteeDescription = arrestdesc.getText();
+            arrestEntry.arrestArea = arrestarea.getText();
+            arrestEntry.ambulanceYesNo = arrestambulance.getText();
+            arrestEntry.arresteeName = arrestname.getText();
+            arrestEntry.arrestDetails = arrestdetails.getText();
+            arrestEntry.arresteeMedicalInformation = arrestmedinfo.getText();
+            arrestEntry.arresteeHomeAddress = arrestaddress.getText();
+            arrestEntry.arresteeAge = arrestage.getText();
+            arrestEntry.arresteeGender = arrestgender.getText();
+            arrestEntry.arrestStreet = arreststreet.getText();
+            arrestEntry.TaserYesNo = arresttaser.getText();
+
+            // Load existing logs from XML
+            List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (ArrestLogEntry entry : logs) {
+                if (entry.getArrestDate().equals(arrestEntry.getArrestDate()) && entry.getArrestTime().equals(arrestEntry.getArrestTime())) {
+                    entry.arrestNumber = arrestnum.getText();
+                    entry.arrestCharges = arrestcharges.getText();
+                    entry.arrestCounty = arrestcounty.getText();
+                    entry.arresteeDescription = arrestdesc.getText();
+                    entry.arrestArea = arrestarea.getText();
+                    entry.ambulanceYesNo = arrestambulance.getText();
+                    entry.arresteeName = arrestname.getText();
+                    entry.arrestDetails = arrestdetails.getText();
+                    entry.arresteeMedicalInformation = arrestmedinfo.getText();
+                    entry.arresteeHomeAddress = arrestaddress.getText();
+                    entry.arresteeAge = arrestage.getText();
+                    entry.arresteeGender = arrestgender.getText();
+                    entry.arrestStreet = arreststreet.getText();
+                    entry.TaserYesNo = arresttaser.getText();
+                    break;
+                }
+            }
+            //Save the updated logs back to XML
+            ArrestReportLogs.saveLogsToXML(logs);
+            //Optionally, you might want to update the TableView here
+            arrestTable.refresh();
         }
     }
     //</editor-fold>

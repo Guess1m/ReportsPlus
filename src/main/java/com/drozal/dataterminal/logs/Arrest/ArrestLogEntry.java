@@ -6,7 +6,7 @@ public class ArrestLogEntry {
     public String arrestNumber;
     public String arrestDate;
     public String arrestTime;
-    public String arrestCharges;
+    public String arrestCharges; //
     public String arrestCounty;
     public String arrestArea;
     public String arrestStreet;
@@ -16,9 +16,9 @@ public class ArrestLogEntry {
     public String arresteeDescription;
     public String ambulanceYesNo;
     public String TaserYesNo;
-    public String arresteeMedicalInformation;
-    public String arresteeHomeAddress;
-    public String arrestDetails;
+    public String arresteeMedicalInformation;//
+    public String arresteeHomeAddress;//
+    public String arrestDetails;//
     public String officerRank;
     public String officerName;
     public String officerNumber;

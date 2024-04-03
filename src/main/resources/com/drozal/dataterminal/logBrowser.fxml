@@ -989,6 +989,160 @@
                                         </VBox>
                                     </children>
                                 </HBox>
+                                <HBox fx:id="citationInfo" alignment="CENTER_LEFT" layoutX="45.0" layoutY="100.0"
+                                      prefHeight="178.0" prefWidth="839.0" spacing="10.0" visible="false"
+                                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0"
+                                      AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="249.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="citnumber" promptText="Number"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citcounty" promptText="County"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citplatenum" promptText="Plate #"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citvehother" promptText="Veh. Other Info"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citdesc" promptText="Owner Desc."
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citcomments" promptText="Comments"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="255.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="citcharges" promptText="Charge(s)"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citarea" promptText="Area" style="-fx-font-size: 14;"
+                                                           styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="cittype" promptText="Veh. Type"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citname" promptText="Owner Name"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citgender" promptText="Owner Gender"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <HBox>
+                                                    <VBox.margin>
+                                                        <Insets top="5.0"/>
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Pane prefHeight="200.0" prefWidth="200.0"/>
+                                                        <Label fx:id="citupdatedlabel" alignment="CENTER"
+                                                               prefHeight="35.0" prefWidth="210.0"
+                                                               style="-fx-font-size: 16; -fx-font-family: Segoe UI Black; -fx-text-fill: Green;"
+                                                               styleClass="incidentHeadingBig"
+                                                               stylesheets="@css/form/formLabels.css" text="Updated Log"
+                                                               visible="false"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="290.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="citmodel" promptText="Model"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citstreet" promptText="Street"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citcolor" promptText="Veh. Color"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citage" promptText="Owner Age"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="citaddress" promptText="Owner Address"
+                                                           style="-fx-font-size: 14;" styleClass="formField"
+                                                           stylesheets="@css/form/formFields.css">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#onCitationUpdateValues"
+                                                        prefHeight="35.0" prefWidth="157.0"
+                                                        styleClass="incidentformButton"
+                                                        stylesheets="@css/form/formButton.css" text="Update Values"
+                                                        textAlignment="CENTER">
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" top="5.0"/>
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
                             </children>
                         </AnchorPane>
                     </children>

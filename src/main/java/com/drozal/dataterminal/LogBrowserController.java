@@ -273,6 +273,43 @@ public class LogBrowserController {
     private TextField searchbacmeasure;
     @javafx.fxml.FXML
     private TextField searchcounty;
+    @javafx.fxml.FXML
+    private Label citupdatedlabel;
+    @javafx.fxml.FXML
+    private HBox citationInfo;
+
+    @javafx.fxml.FXML
+    private TextField citvehother;
+    @javafx.fxml.FXML
+    private TextField citplatenum;
+    @javafx.fxml.FXML
+    private TextField citcharges;
+    @javafx.fxml.FXML
+    private TextField citcolor;
+    @javafx.fxml.FXML
+    private TextField citcomments;
+    @javafx.fxml.FXML
+    private TextField citaddress;
+    @javafx.fxml.FXML
+    private TextField citname;
+    @javafx.fxml.FXML
+    private TextField citdesc;
+    @javafx.fxml.FXML
+    private TextField citage;
+    @javafx.fxml.FXML
+    private TextField citarea;
+    @javafx.fxml.FXML
+    private TextField citgender;
+    @javafx.fxml.FXML
+    private TextField citstreet;
+    @javafx.fxml.FXML
+    private TextField citmodel;
+    @javafx.fxml.FXML
+    private TextField cittype;
+    @javafx.fxml.FXML
+    private TextField citnumber;
+    @javafx.fxml.FXML
+    private TextField citcounty;
     //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -303,7 +340,7 @@ public class LogBrowserController {
             impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
             arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
             searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
-            //citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
+            citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
     }
 
@@ -1481,13 +1518,86 @@ public class LogBrowserController {
         if (event.getClickCount() == 1) { // single click
             citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel().getSelectedItem();
             if (citationEntry != null) {
-
+                citnumber.setText(citationEntry.citationNumber);
+                citvehother.setText(citationEntry.offenderVehicleOther);
+                citplatenum.setText(citationEntry.offenderVehiclePlate);
+                citcharges.setText(citationEntry.citationCharges);
+                citcolor.setText(citationEntry.offenderVehicleColor);
+                citcomments.setText(citationEntry.citationComments);
+                citaddress.setText(citationEntry.offenderHomeAddress);
+                citname.setText(citationEntry.offenderName);
+                citdesc.setText(citationEntry.offenderDescription);
+                citage.setText(citationEntry.offenderAge);
+                citarea.setText(citationEntry.citationArea);
+                citgender.setText(citationEntry.offenderGender);
+                citstreet.setText(citationEntry.citationStreet);
+                citmodel.setText(citationEntry.offenderVehicleModel);
+                cittype.setText(citationEntry.offenderVehicleType);
+                citcounty.setText(citationEntry.citationCounty);
             }
         }
     }
 
+    @javafx.fxml.FXML
+    public void onCitationUpdateValues(ActionEvent actionEvent) {
+        if (citationEntry != null) {
+            citupdatedlabel.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                citupdatedlabel.setVisible(false);
+            }));
+            timeline1.play();
+
+            citationEntry.citationNumber = citnumber.getText();
+            citationEntry.offenderVehicleOther = citvehother.getText();
+            citationEntry.offenderVehiclePlate = citplatenum.getText();
+            citationEntry.citationCharges = citcharges.getText();
+            citationEntry.offenderVehicleColor = citcolor.getText();
+            citationEntry.citationComments = citcomments.getText();
+            citationEntry.offenderHomeAddress = citaddress.getText();
+            citationEntry.offenderName = citname.getText();
+            citationEntry.offenderDescription = citdesc.getText();
+            citationEntry.offenderAge = citage.getText();
+            citationEntry.citationArea = citarea.getText();
+            citationEntry.offenderGender = citgender.getText();
+            citationEntry.citationStreet = citstreet.getText();
+            citationEntry.offenderVehicleModel = citmodel.getText();
+            citationEntry.offenderVehicleType = cittype.getText();
+            citationEntry.citationCounty = citcounty.getText();
+
+            // Load existing logs from XML
+            List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+
+            // Update the corresponding log entry
+            for (TrafficCitationLogEntry entry : logs) {
+                if (entry.getCitationDate().equals(citationEntry.getCitationDate()) && entry.getCitationTime().equals(citationEntry.getCitationTime())) {
+                    entry.citationNumber = citnumber.getText();
+                    entry.offenderVehicleOther = citvehother.getText();
+                    entry.offenderVehiclePlate = citplatenum.getText();
+                    entry.citationCharges = citcharges.getText();
+                    entry.offenderVehicleColor = citcolor.getText();
+                    entry.citationComments = citcomments.getText();
+                    entry.offenderHomeAddress = citaddress.getText();
+                    entry.offenderName = citname.getText();
+                    entry.offenderDescription = citdesc.getText();
+                    entry.offenderAge = citage.getText();
+                    entry.citationArea = citarea.getText();
+                    entry.offenderGender = citgender.getText();
+                    entry.citationStreet = citstreet.getText();
+                    entry.offenderVehicleModel = citmodel.getText();
+                    entry.offenderVehicleType = cittype.getText();
+                    entry.citationCounty = citcounty.getText();
+                    break;
+                }
+            }
+            //Save the updated logs back to XML
+            TrafficCitationReportLogs.saveLogsToXML(logs);
+            //Optionally, you might want to update the TableView here
+            citationTable.refresh();
+        }
+    }
 
     // Search Section
+
     @javafx.fxml.FXML
     public void onSearchRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click

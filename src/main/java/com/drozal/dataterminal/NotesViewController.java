@@ -15,6 +15,7 @@ public class NotesViewController {
 
     @javafx.fxml.FXML
     private TextArea notepadTextArea;
+
     private double xOffset = 0;
     private double yOffset = 0;
     @javafx.fxml.FXML
@@ -62,5 +63,10 @@ public class NotesViewController {
     public void onNotepadAlwaysTopBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) notesPane.getScene().getWindow();
         stage.setAlwaysOnTop(alwaysTopBtn.isSelected());
+
+    }
+
+    public TextArea getNotepadTextArea() {
+        return notepadTextArea;
     }
 }

@@ -18,10 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -43,11 +40,29 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.drozal.dataterminal.util.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class controllerUtils {
+
+    private static final String[][] keys = {
+            {"-name", "-na", "-n", "-fullname", "-fname"},
+            {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber"},
+            {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"},
+            {"-address", "-addr", "-residence", "-place", "-add", "-ad"},
+            {"-model", "-mod", "-mo", "-m"},
+            {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte"},
+            {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"},
+            {"-area", "-region", "-zone", "-territory", "-locale", "-ar"},
+            {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct"},
+            {"-notes", "-nts"},
+            {"-comments", "-cmts", "-cmt"},
+            {"-description", "-des", "-desc", "-d"},
+            {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}
+    };
 
     public static void showButtonAnimation(Button button) {
         // Create a scale transition
@@ -455,4 +470,115 @@ public class controllerUtils {
         }
     }
 
+    private static Map<String, String> pullNotesValues(String notepad) {
+        String text = notepad;
+        Map<String, String> values = new HashMap<>();
+
+        for (String[] keyGroup : keys) {
+            for (String key : keyGroup) {
+                String value = extractValue(text, key);
+                if (value != null) {
+                    for (String k : keyGroup) {
+                        values.put(k, value);
+                    }
+                    break;
+                }
+            }
+        }
+
+        return values;
+    }
+
+    private static String extractValue(String text, String key) {
+        Pattern pattern = Pattern.compile(key + "\\s+(.*?)(?=\\s+-|$)");
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
+    }
+
+    public static void updateTextFromNotepad(TextField textField, TextArea notepadText, String... keys) {
+        Map<String, String> values = pullNotesValues(notepadText.getText());
+        String extractedValue = null;
+        for (String key : keys) {
+            extractedValue = values.get(key);
+            if (extractedValue != null) {
+                break;
+            }
+            // Check for alternatives
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                for (String altKey : entry.getKey().split("\\|")) {
+                    if (altKey.equals(key)) {
+                        extractedValue = entry.getValue();
+                        break;
+                    }
+                }
+                if (extractedValue != null) {
+                    break;
+                }
+            }
+            if (extractedValue != null) {
+                break;
+            }
+        }
+        String labelText = extractedValue;
+        textField.setText(labelText);
+    }
+
+    public static void updateTextFromNotepad(TextArea textArea, TextArea notepadText, String... keys) {
+        Map<String, String> values = pullNotesValues(notepadText.getText());
+        String extractedValue = null;
+        for (String key : keys) {
+            extractedValue = values.get(key);
+            if (extractedValue != null) {
+                break;
+            }
+            // Check for alternatives
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                for (String altKey : entry.getKey().split("\\|")) {
+                    if (altKey.equals(key)) {
+                        extractedValue = entry.getValue();
+                        break;
+                    }
+                }
+                if (extractedValue != null) {
+                    break;
+                }
+            }
+            if (extractedValue != null) {
+                break;
+            }
+        }
+        String labelText = extractedValue;
+        textArea.setText(labelText);
+    }
+
+    public static void updateTextFromNotepad(Spinner spinner, TextArea notepadText, String... keys) {
+        Map<String, String> values = pullNotesValues(notepadText.getText());
+        String extractedValue = null;
+        for (String key : keys) {
+            extractedValue = values.get(key);
+            if (extractedValue != null) {
+                break;
+            }
+            // Check for alternatives
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                for (String altKey : entry.getKey().split("\\|")) {
+                    if (altKey.equals(key)) {
+                        extractedValue = entry.getValue();
+                        break;
+                    }
+                }
+                if (extractedValue != null) {
+                    break;
+                }
+            }
+            if (extractedValue != null) {
+                break;
+            }
+        }
+        String labelText = (extractedValue != null) ? extractedValue : "0";
+        spinner.getEditor().setText(labelText);
+    }
 }

@@ -132,6 +132,7 @@ public class actionController {
     private double xOffset = 0;
     private double yOffset = 0;
     private MedicalInformation medicalInformationController;
+    private NotesViewController notesViewController;
     @javafx.fxml.FXML
     private Label secondaryColor2;
     @javafx.fxml.FXML
@@ -855,6 +856,7 @@ public class actionController {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
         Parent root = loader.load();
+        notesViewController = loader.getController();
         Scene newScene = new Scene(root);
         stage.setTitle("Notes");
         stage.setScene(newScene);
@@ -2062,6 +2064,113 @@ public class actionController {
         arrestTreeView.setRoot(rootItem);
         expandTreeItem(rootItem, "Charges");
     }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesCallout(ActionEvent actionEvent) throws IOException {
+        updateTextFromNotepad(calloutReportResponseArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(calloutReportResponseCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(calloutReportResponseAddress, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(calloutReportSpinner, notesViewController.getNotepadTextArea(), "-number");
+        updateTextFromNotepad(calloutReportNotesTextArea, notesViewController.getNotepadTextArea(), "-notes");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesCitation(ActionEvent actionEvent) {
+        updateTextFromNotepad(citationArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(citationCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(citationStreet, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(citationOwnerName, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(citationOwnerAge, notesViewController.getNotepadTextArea(), "-age");
+        updateTextFromNotepad(citationOwnerGender, notesViewController.getNotepadTextArea(), "-gender");
+        updateTextFromNotepad(citationOwnerDescription, notesViewController.getNotepadTextArea(), "-description");
+        updateTextFromNotepad(citationComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(citationOwnerAddress, notesViewController.getNotepadTextArea(), "-address");
+        updateTextFromNotepad(citationOwnerVehicleModel, notesViewController.getNotepadTextArea(), "-model");
+        updateTextFromNotepad(citationOwnerVehiclePlate, notesViewController.getNotepadTextArea(), "-plate");
+        updateTextFromNotepad(citationNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesPatrol(ActionEvent actionEvent) {
+        updateTextFromNotepad(patrolSpinnerNumber, notesViewController.getNotepadTextArea(), "-number");
+        updateTextFromNotepad(patrolComments, notesViewController.getNotepadTextArea(), "-comments");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesTrafficStop(ActionEvent actionEvent) {
+        updateTextFromNotepad(trafficStopArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(trafficStopCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(trafficStopStreet, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(trafficStopownerName, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(trafficStopownerAge, notesViewController.getNotepadTextArea(), "-age");
+        updateTextFromNotepad(trafficStopownerGender, notesViewController.getNotepadTextArea(), "-gender");
+        updateTextFromNotepad(trafficStopownerDescription, notesViewController.getNotepadTextArea(), "-description");
+        updateTextFromNotepad(trafficStopComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(trafficStopownerAddress, notesViewController.getNotepadTextArea(), "-address");
+        updateTextFromNotepad(trafficStopModel, notesViewController.getNotepadTextArea(), "-model");
+        updateTextFromNotepad(trafficStopPlateNumber, notesViewController.getNotepadTextArea(), "-plate");
+        updateTextFromNotepad(trafficStopNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesImpound(ActionEvent actionEvent) {
+        updateTextFromNotepad(impoundownerName, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(impoundownerAge, notesViewController.getNotepadTextArea(), "-age");
+        updateTextFromNotepad(impoundownerGender, notesViewController.getNotepadTextArea(), "-gender");
+        updateTextFromNotepad(impoundComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(impoundownerAddress, notesViewController.getNotepadTextArea(), "-address");
+        updateTextFromNotepad(impoundModel, notesViewController.getNotepadTextArea(), "-model");
+        updateTextFromNotepad(impoundPlateNumber, notesViewController.getNotepadTextArea(), "-plate");
+        updateTextFromNotepad(impoundNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesArrest(ActionEvent actionEvent) {
+        updateTextFromNotepad(arrestArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(arrestCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(arrestStreet, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(arrestOwnerName, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(arrestOwnerAge, notesViewController.getNotepadTextArea(), "-age");
+        updateTextFromNotepad(arrestOwnerGender, notesViewController.getNotepadTextArea(), "-gender");
+        updateTextFromNotepad(arrestOwnerDescription, notesViewController.getNotepadTextArea(), "-description");
+        updateTextFromNotepad(arrestComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(arrestOwnerAddress, notesViewController.getNotepadTextArea(), "-address");
+        updateTextFromNotepad(arrestNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesSearch(ActionEvent actionEvent) {
+        updateTextFromNotepad(searchArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(searchCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(searchStreet, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(searchedPersons, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(searchComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(SearchNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    @javafx.fxml.FXML
+    public void pullFromNotesIncident(ActionEvent actionEvent) {
+        updateTextFromNotepad(incidentArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(incidentCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(incidentStreet, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(incidentVictims, notesViewController.getNotepadTextArea(), "-name");
+        updateTextFromNotepad(incidentComments, notesViewController.getNotepadTextArea(), "-comments");
+        updateTextFromNotepad(incidentNumber, notesViewController.getNotepadTextArea(), "-number");
+    }
+
+    /* EXAMPLE
+
+      -n Jefferson Amato -a 28 -g Male -add 192 Forum Drive -desc Short Blonde Hair, Blue Eyes, tall
+
+      -num 3
+
+      -cnty Blaine -ar Sandy Shores -st 9028 Grapeseed Lane
+
+      -model Infernus -plate PSLD9283
+
+      -cmt additional units were needed, corresponding reports #3
+
+      */
 
     //</editor-fold>
 }

@@ -1197,6 +1197,15 @@ public class LogBrowserController {
                 calgrade.setText(calloutEntry.getResponseGrade());
                 calarea.setText(calloutEntry.getArea());
                 caltype.setText(calloutEntry.getResponeType());
+                calloutTable.getSelectionModel().clearSelection();
+            } else {
+                calnum.setText("");
+                caladdress.setText("");
+                calnotes.setText("");
+                calcounty.setText("");
+                calgrade.setText("");
+                calarea.setText("");
+                caltype.setText("");
             }
         }
     }
@@ -1301,6 +1310,14 @@ public class LogBrowserController {
                 patstarttime.setText(patrolEntry.getPatrolStartTime());
                 patstoptime.setText(patrolEntry.getPatrolStopTime());
                 patvehicle.setText(patrolEntry.getOfficerVehicle());
+                patrolTable.getSelectionModel().clearSelection();
+            } else {
+                patnum.setText("");
+                patcomments.setText("");
+                patlength.setText("");
+                patstarttime.setText("");
+                patstoptime.setText("");
+                patvehicle.setText("");
             }
         }
     }
@@ -1386,6 +1403,23 @@ public class LogBrowserController {
                 traftype.setText(trafficStopEntry.getType());
                 trafplatenum.setText(trafficStopEntry.getPlateNumber());
                 trafcounty.setText(trafficStopEntry.getCounty());
+                trafficStopTable.getSelectionModel().clearSelection();
+            } else {
+                trafstreet.setText("");
+                trafotherinfo.setText("");
+                trafname.setText("");
+                trafcomments.setText("");
+                trafdesc.setText("");
+                trafcolor.setText("");
+                trafnum.setText("");
+                trafmodel.setText("");
+                trafaddress.setText("");
+                trafarea.setText("");
+                trafgender.setText("");
+                trafage.setText("");
+                traftype.setText("");
+                trafplatenum.setText("");
+                trafcounty.setText("");
             }
         }
     }
@@ -1451,6 +1485,17 @@ public class LogBrowserController {
                 incvictims.setText(incidentEntry.incidentVictims);
                 incstatement.setText(incidentEntry.incidentStatement);
                 incwitness.setText(incidentEntry.incidentWitnesses);
+                incidentTable.getSelectionModel().clearSelection();
+            } else {
+                incnum.setText("");
+                incactionstaken.setText("");
+                incarea.setText("");
+                inccounty.setText("");
+                inccomments.setText("");
+                incstreet.setText("");
+                incvictims.setText("");
+                incstatement.setText("");
+                incwitness.setText("");
             }
         }
     }
@@ -1519,6 +1564,18 @@ public class LogBrowserController {
                 impcomments.setText(impoundEntry.impoundComments);
                 impmodel.setText(impoundEntry.impoundModel);
                 impaddress.setText(impoundEntry.ownerAddress);
+                impoundTable.getSelectionModel().clearSelection();
+            } else {
+                impnum.setText("");
+                impname.setText("");
+                impgender.setText("");
+                impcolor.setText("");
+                impplatenum.setText("");
+                imptype.setText("");
+                impage.setText("");
+                impcomments.setText("");
+                impmodel.setText("");
+                impaddress.setText("");
             }
         }
     }
@@ -1545,6 +1602,24 @@ public class LogBrowserController {
                 citmodel.setText(citationEntry.offenderVehicleModel);
                 cittype.setText(citationEntry.offenderVehicleType);
                 citcounty.setText(citationEntry.citationCounty);
+                citationTable.getSelectionModel().clearSelection();
+            } else {
+                citnumber.setText("");
+                citvehother.setText("");
+                citplatenum.setText("");
+                citcharges.setText("");
+                citcolor.setText("");
+                citcomments.setText("");
+                citaddress.setText("");
+                citname.setText("");
+                citdesc.setText("");
+                citage.setText("");
+                citarea.setText("");
+                citgender.setText("");
+                citstreet.setText("");
+                citmodel.setText("");
+                cittype.setText("");
+                citcounty.setText("");
             }
         }
     }
@@ -1628,6 +1703,22 @@ public class LogBrowserController {
                 searchwitness.setText(searchEntry.searchWitnesses);
                 searchbacmeasure.setText(searchEntry.breathalyzerBACMeasure);
                 searchcounty.setText(searchEntry.searchCounty);
+                searchTable.getSelectionModel().clearSelection();
+            } else {
+                searchnum.setText("");
+                searchperson.setText("");
+                searchmethod.setText("");
+                searchseizeditems.setText("");
+                searchtype.setText("");
+                searchcomments.setText("");
+                searchbreathused.setText("");
+                searchbreathresult.setText("");
+                searchstreet.setText("");
+                searcharea.setText("");
+                searchgrounds.setText("");
+                searchwitness.setText("");
+                searchbacmeasure.setText("");
+                searchcounty.setText("");
             }
         }
     }
@@ -1706,6 +1797,23 @@ public class LogBrowserController {
                 arreststreet.setText(arrestEntry.arrestStreet);
                 arresttaser.setText(arrestEntry.TaserYesNo);
                 arrestcharges.setText(arrestEntry.arrestCharges);
+                arrestTable.getSelectionModel().clearSelection();
+            } else {
+                arrestnum.setText("");
+                arrestcounty.setText("");
+                arrestdesc.setText("");
+                arrestarea.setText("");
+                arrestambulance.setText("");
+                arrestname.setText("");
+                arrestdetails.setText("");
+                arrestmedinfo.setText("");
+                arrestaddress.setText("");
+                arrestage.setText("");
+                arrestgender.setText("");
+                arreststreet.setText("");
+                arresttaser.setText("");
+                arrestcharges.setText("");
+
             }
         }
     }

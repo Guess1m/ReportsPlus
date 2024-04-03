@@ -61,6 +61,7 @@ public class TrafficStopReportLogs {
                     logEntry.ResponseModel = getTagValue(logsElement, "ResponseModel");
                     logEntry.ResponseOtherInfo = getTagValue(logsElement, "ResponseOtherInfo");
                     logEntry.operatorName = getTagValue(logsElement, "operatorName");
+                    logEntry.operatorAge = getTagValue(logsElement, "operatorAge");
                     logEntry.operatorGender = getTagValue(logsElement, "operatorGender");
                     logEntry.operatorDescription = getTagValue(logsElement, "operatorDescription");
                     logEntry.operatorAddress = getTagValue(logsElement, "operatorAddress");

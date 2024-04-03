@@ -18,23 +18,26 @@ public class TrafficStopLogEntry {
     public String Name;
     public String County;
     public String Area;
+
     public String Street;
+
     public String operatorName;
+    public String operatorAge;
     public String operatorDescription;
     public String operatorAddress;
     public String operatorGender;
-
 
     public TrafficStopLogEntry() {
 
     }
 
-    public TrafficStopLogEntry(String date, String time, String model, String otherInfo, String oName, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String comments, String street, String county, String area, String plateN, String color, String type) {
+    public TrafficStopLogEntry(String date, String time, String model, String otherInfo, String oName, String oAge, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String comments, String street, String county, String area, String plateN, String color, String type) {
         this.Date = date;
         this.Time = time;
         this.ResponseModel = model;
         this.ResponseOtherInfo = otherInfo;
         this.operatorName = oName;
+        this.operatorAge = oAge;
         this.operatorAddress = oAddress;
         this.operatorDescription = oDescription;
         this.operatorGender = oGender;
@@ -87,6 +90,10 @@ public class TrafficStopLogEntry {
 
     public String getCommentsTextArea() {
         return CommentsTextArea;
+    }
+
+    public String getOperatorAge() {
+        return operatorAge;
     }
 
     public String getTime() {

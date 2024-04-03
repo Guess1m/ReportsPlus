@@ -12,8 +12,9 @@
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
-        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" visible="false"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="85.0">
             <children>
                 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="0.0">
@@ -558,20 +559,17 @@
                                         </TextArea>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                                            GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                    <children>
-                                        <Button mnemonicParsing="false" onAction="#TrafficStopToTrafficCitationBtnClick"
-                                                prefHeight="39.0"
-                                                style="-fx-background-radius: 0; -fx-border-radius: 0;"
-                                                styleClass="incidentformButton" stylesheets="@css/form/formButton.css"
-                                                text="Create Traffic Citation Report (If Applicable)"
-                                                AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                                AnchorPane.topAnchor="21.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane GridPane.halignment="RIGHT" GridPane.rowIndex="2"
-                                            GridPane.valignment="CENTER" GridPane.vgrow="NEVER"/>
+                                <Button mnemonicParsing="false" onAction="#TrafficStopToTrafficCitationBtnClick"
+                                        prefHeight="39.0" style="-fx-background-radius: 0; -fx-border-radius: 0;"
+                                        styleClass="incidentformButton" stylesheets="@css/form/formButton.css"
+                                        text="Create Traffic Citation Report (If Applicable)" GridPane.columnIndex="1"
+                                        GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                        GridPane.valignment="CENTER"/>
+                                <Button mnemonicParsing="false" onAction="#TrafficStopToArrestBtnClick"
+                                        prefHeight="39.0" style="-fx-background-radius: 0; -fx-border-radius: 0;"
+                                        styleClass="incidentformButton" stylesheets="@css/form/formButton.css"
+                                        text="Create Arrest Report (If Applicable)" GridPane.halignment="RIGHT"
+                                        GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
                                 <AnchorPane GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2"
                                             GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                     <children>

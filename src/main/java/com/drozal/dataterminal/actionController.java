@@ -1496,6 +1496,7 @@ public class actionController {
                     trafficStopModel.getText(),
                     trafficStopOtherInfo.getText(),
                     trafficStopownerName.getText(),
+                    trafficStopownerAge.getText(),
                     trafficStopownerAddress.getText(),
                     trafficStopownerDescription.getText(),
                     trafficStopownerGender.getText(),
@@ -1524,6 +1525,7 @@ public class actionController {
             trafficStopModel.setText("");
             trafficStopOtherInfo.setText("");
             trafficStopownerName.setText("");
+            trafficStopownerAge.setText("");
             trafficStopownerAddress.setText("");
             trafficStopownerDescription.setText("");
             trafficStopownerGender.setText("");
@@ -2022,6 +2024,43 @@ public class actionController {
         impoundType.getSelectionModel().select(citationOwnerVehicleType.getSelectionModel().getSelectedItem());
         impoundColor.getSelectionModel().select(citationOwnerVehicleColor.getSelectionModel().getSelectedItem());
         impoundNumber.getEditor().setText(trafficStopNumber.getValue().toString());
+    }
+
+    @javafx.fxml.FXML
+    public void TrafficStopToArrestBtnClick(ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException {
+        setActive(arrestReportPane);
+        arrestAccordionInformation.setExpanded(true);
+        createSpinner(arrestNumber, 0, 9999, 0);
+        arrestOfficerName.setText(trafficStopofficerName.getText());
+        arrestOfficerDivision.setText(trafficStopofficerDivision.getText());
+        arrestOfficerRank.setText(trafficStopofficerRank.getText());
+        arrestOfficerAgency.setText(trafficStopofficerAgency.getText());
+        arrestOfficerNumber.setText(trafficStopofficerNumber.getText());
+        arrestTime.setText(trafficStopTime.getText());
+        arrestDate.setText(trafficStopDate.getText());
+        arrestOwnerName.setText(trafficStopownerName.getText());
+        arrestOwnerAddress.setText(trafficStopownerAddress.getText());
+        arrestOwnerGender.setText(trafficStopownerGender.getText());
+        arrestOwnerAge.setText(trafficStopownerAge.getText());
+        arrestOwnerDescription.setText(trafficStopownerDescription.getText());
+        arrestArea.setText(trafficStopArea.getText());
+        arrestCounty.setText(trafficStopCounty.getText());
+        arrestStreet.setText(trafficStopStreet.getText());
+        arrestNumber.getEditor().setText(trafficStopNumber.getValue().toString());
+
+
+        //Tree View
+        File file = new File(getJarPath() + "/data/Charges.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        Document document = factory.newDocumentBuilder().parse(file);
+
+        Element root = document.getDocumentElement();
+
+        TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
+
+        parseTreeXML(root, rootItem);
+        arrestTreeView.setRoot(rootItem);
+        expandTreeItem(rootItem, "Charges");
     }
 
     //</editor-fold>

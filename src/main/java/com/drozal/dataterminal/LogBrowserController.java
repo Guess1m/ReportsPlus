@@ -39,7 +39,7 @@ import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
-
+    private final ObservableList<CalloutLogEntry> logs = FXCollections.observableArrayList();
     //<editor-fold desc="FXML / Vars">
     double minColumnWidth = 185.0;
     @javafx.fxml.FXML
@@ -310,6 +310,8 @@ public class LogBrowserController {
     private TextField citnumber;
     @javafx.fxml.FXML
     private TextField citcounty;
+    @javafx.fxml.FXML
+    private TextField trafage;
     //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -1013,6 +1015,9 @@ public class LogBrowserController {
         TableColumn<TrafficStopLogEntry, String> operatorNameColumn = new TableColumn<>("Operator Name");
         operatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
 
+        TableColumn<TrafficStopLogEntry, String> operatorAgeColumn = new TableColumn<>("Operator Age");
+        operatorAgeColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAge"));
+
         TableColumn<TrafficStopLogEntry, String> operatorGenderColumn = new TableColumn<>("Operator Gender");
         operatorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("operatorGender"));
 
@@ -1030,6 +1035,7 @@ public class LogBrowserController {
                 modelColumn,
                 otherInfoColumn,
                 operatorNameColumn,
+                operatorAgeColumn,
                 operatorAddressColumn,
                 operatorDescriptionColumn,
                 operatorGenderColumn,
@@ -1120,6 +1126,7 @@ public class LogBrowserController {
             column.setMinWidth(minColumnWidth);
         }
     }
+
     //</editor-fold>
 
     //<editor-fold desc="Events">
@@ -1177,6 +1184,7 @@ public class LogBrowserController {
 
     //<editor-fold desc="Info Panes">
     // Callout Section
+
     @javafx.fxml.FXML
     public void onCalloutRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -1237,8 +1245,8 @@ public class LogBrowserController {
 
         }
     }
-
     // Patrol Section
+
     @javafx.fxml.FXML
     public void onPatUpdateValues(ActionEvent actionEvent) {
         if (patrolEntry != null) {
@@ -1296,8 +1304,8 @@ public class LogBrowserController {
             }
         }
     }
-
     // Traffic Stop Section
+
     @javafx.fxml.FXML
     public void onTrafUpdateValues(ActionEvent actionEvent) {
         if (trafficStopEntry != null) {
@@ -1318,6 +1326,7 @@ public class LogBrowserController {
             trafficStopEntry.Area = trafarea.getText();
             trafficStopEntry.Street = trafstreet.getText();
             trafficStopEntry.operatorName = trafname.getText();
+            trafficStopEntry.operatorAge = trafage.getText();
             trafficStopEntry.operatorDescription = trafdesc.getText();
             trafficStopEntry.operatorAddress = trafaddress.getText();
             trafficStopEntry.operatorGender = trafgender.getText();
@@ -1340,6 +1349,7 @@ public class LogBrowserController {
                     entry.Area = trafarea.getText();
                     entry.Street = trafstreet.getText();
                     entry.operatorName = trafname.getText();
+                    entry.operatorAge = trafage.getText();
                     entry.operatorDescription = trafdesc.getText();
                     entry.operatorAddress = trafaddress.getText();
                     entry.operatorGender = trafgender.getText();
@@ -1372,14 +1382,15 @@ public class LogBrowserController {
                 trafaddress.setText(trafficStopEntry.getOperatorAddress());
                 trafarea.setText(trafficStopEntry.getArea());
                 trafgender.setText(trafficStopEntry.getOperatorGender());
+                trafage.setText(trafficStopEntry.getOperatorAge());
                 traftype.setText(trafficStopEntry.getType());
                 trafplatenum.setText(trafficStopEntry.getPlateNumber());
                 trafcounty.setText(trafficStopEntry.getCounty());
             }
         }
     }
-
     // Incident Section
+
     @javafx.fxml.FXML
     public void onIncUpdateValues(ActionEvent actionEvent) {
         if (incidentEntry != null) {
@@ -1443,8 +1454,8 @@ public class LogBrowserController {
             }
         }
     }
-
     // Impound Section
+
     @javafx.fxml.FXML
     public void onImpUpdateValues(ActionEvent actionEvent) {
         if (impoundEntry != null) {
@@ -1511,8 +1522,8 @@ public class LogBrowserController {
             }
         }
     }
-
     // Citation Section
+
     @javafx.fxml.FXML
     public void onCitationRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -1674,8 +1685,8 @@ public class LogBrowserController {
             searchTable.refresh();
         }
     }
-
     // Arrest Section
+
     @javafx.fxml.FXML
     public void onArrestRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -1752,6 +1763,6 @@ public class LogBrowserController {
             arrestTable.refresh();
         }
     }
-    //</editor-fold>
 
+    //</editor-fold>
 }

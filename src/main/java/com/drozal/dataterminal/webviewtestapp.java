@@ -8,9 +8,13 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
-public class Main extends Application {
+public class webviewtestapp extends Application {
 
     private JavaFXBridge bridge; // Declare bridge object as a class variable
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,17 +43,18 @@ public class Main extends Application {
     }
 
     // JavaFX bridge class to handle communication between JavaFX and JavaScript
+    // javafx.submitFormValues(firstName, lastName, email, websiteName, message);
     public class JavaFXBridge {
-        public void submitFormValues(String username, String password) {
-            System.out.println("Username: " + username);
-            System.out.println("Password: " + password);
+        public void submitFormValues(String firstName, String lastName, String email, String websiteName, String message) {
+            System.out.println(firstName);
+            System.out.println(lastName);
+            System.out.println(email);
+            System.out.println(websiteName);
+            System.out.println(message);
         }
 
         public void clearForm() {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -4,6 +4,7 @@ module com.drozal.dataterminal {
     requires javafx.web;
     requires transitive javafx.graphics;
     requires transitive javafx.base;
+    requires jdk.jsobject;
 
     requires jakarta.activation;
     requires jakarta.xml.bind;

@@ -61,6 +61,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
@@ -877,7 +878,26 @@ public class actionController {
     //<editor-fold desc="Settings Button Events">
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+
+
+        Map<String, Object> reportFields = webviewtestapp.createReportWindow("Callout Report",
+                new webviewtestapp.SectionConfig("Officer Information",
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("officer name", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("officer rank", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 2, webviewtestapp.FieldType.TEXT_FIELD)),
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("division", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("agency", 6, webviewtestapp.FieldType.TEXT_FIELD))
+                ),
+                new webviewtestapp.SectionConfig("Location Information",
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("county", 3, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("area", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("street", 5, webviewtestapp.FieldType.TEXT_FIELD))
+                ),
+                new webviewtestapp.SectionConfig("Callout Information",
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("date", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("time", 6, webviewtestapp.FieldType.TEXT_FIELD)),
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("type", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("code", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 4, webviewtestapp.FieldType.TEXT_FIELD))
+                ),
+                new webviewtestapp.SectionConfig("Callout Notes", new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("Notes", 12, webviewtestapp.FieldType.TEXT_AREA))
+                )
+        );
+
+
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("testWindow-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -887,7 +907,7 @@ public class actionController {
         stage.setResizable(true);
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
-        stage.centerOnScreen();
+        stage.centerOnScreen();*/
     }
 
     @javafx.fxml.FXML
@@ -1880,7 +1900,6 @@ public class actionController {
     public void ArrestToSearchBtnClick(ActionEvent actionEvent) {
         setActive(searchReportPane);
         createSpinner(SearchNumber, 0, 9999, 0);
-        SearchNumber.getEditor().setText(arrestNumber.getValue().toString());
         searchofficerName.setText(arrestOfficerName.getText());
         searchofficerDivision.setText(arrestOfficerDivision.getText());
         searchofficerRank.setText(arrestOfficerRank.getText());
@@ -1892,6 +1911,7 @@ public class actionController {
         searchCounty.setText(arrestCounty.getText());
         searchArea.setText(arrestArea.getText());
         searchStreet.setText(arrestStreet.getText());
+        SearchNumber.getEditor().setText(arrestNumber.getValue().toString());
     }
 
     @javafx.fxml.FXML

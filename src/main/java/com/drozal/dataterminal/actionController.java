@@ -2065,15 +2065,10 @@ public class actionController {
         expandTreeItem(rootItem, "Charges");
     }
 
-    @javafx.fxml.FXML
-    public void pullFromNotesCallout(ActionEvent actionEvent) throws IOException {
-        updateTextFromNotepad(calloutReportResponseArea, notesViewController.getNotepadTextArea(), "-area");
-        updateTextFromNotepad(calloutReportResponseCounty, notesViewController.getNotepadTextArea(), "-county");
-        updateTextFromNotepad(calloutReportResponseAddress, notesViewController.getNotepadTextArea(), "-street");
-        updateTextFromNotepad(calloutReportSpinner, notesViewController.getNotepadTextArea(), "-number");
-        updateTextFromNotepad(calloutReportNotesTextArea, notesViewController.getNotepadTextArea(), "-notes");
-    }
 
+    //</editor-fold>
+
+    //<editor-fold desc="PullFromNotes">
     @javafx.fxml.FXML
     public void pullFromNotesCitation(ActionEvent actionEvent) {
         updateTextFromNotepad(citationArea, notesViewController.getNotepadTextArea(), "-area");
@@ -2146,6 +2141,7 @@ public class actionController {
         updateTextFromNotepad(searchedPersons, notesViewController.getNotepadTextArea(), "-name");
         updateTextFromNotepad(searchComments, notesViewController.getNotepadTextArea(), "-comments");
         updateTextFromNotepad(SearchNumber, notesViewController.getNotepadTextArea(), "-number");
+        updateTextFromNotepad(searchSeizedItems, notesViewController.getNotepadTextArea(), "-searchitems");
     }
 
     @javafx.fxml.FXML
@@ -2158,9 +2154,18 @@ public class actionController {
         updateTextFromNotepad(incidentNumber, notesViewController.getNotepadTextArea(), "-number");
     }
 
+    @javafx.fxml.FXML
+    public void pullFromNotesCallout(ActionEvent actionEvent) throws IOException {
+        updateTextFromNotepad(calloutReportResponseArea, notesViewController.getNotepadTextArea(), "-area");
+        updateTextFromNotepad(calloutReportResponseCounty, notesViewController.getNotepadTextArea(), "-county");
+        updateTextFromNotepad(calloutReportResponseAddress, notesViewController.getNotepadTextArea(), "-street");
+        updateTextFromNotepad(calloutReportSpinner, notesViewController.getNotepadTextArea(), "-number");
+        updateTextFromNotepad(calloutReportNotesTextArea, notesViewController.getNotepadTextArea(), "-notes");
+    }
+
     /* EXAMPLE
 
-      -n Jefferson Amato -a 28 -g Male -add 192 Forum Drive -desc Short Blonde Hair, Blue Eyes, tall
+      -n Jefferson Amato -a 28 -g Male -add 192 Forum Drive -desc Short Blonde Hair, Brown Eyes, tall
 
       -num 3
 
@@ -2173,4 +2178,6 @@ public class actionController {
       */
 
     //</editor-fold>
+
+
 }

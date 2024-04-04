@@ -50,17 +50,18 @@ public class controllerUtils {
 
     private static final String[][] keys = {
             {"-name", "-na", "-n", "-fullname", "-fname"},
-            {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber"},
+            {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber", "-nu"},
             {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"},
-            {"-address", "-addr", "-residence", "-place", "-add", "-ad"},
+            {"-address", "-addr", "-residence", "-place", "-add", "-ad", "-add"},
             {"-model", "-mod", "-mo", "-m"},
-            {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte"},
+            {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte", "-p"},
             {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"},
             {"-area", "-region", "-zone", "-territory", "-locale", "-ar"},
-            {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct"},
-            {"-notes", "-nts"},
+            {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"},
+            {"-notes", "-nts", "-n"},
             {"-comments", "-cmts", "-cmt"},
             {"-description", "-des", "-desc", "-d"},
+            {"-searchitems", "-si", "-search", "-srch", "-items", "-item"},
             {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}
     };
 

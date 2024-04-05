@@ -1,6 +1,5 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.config.ConfigReader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,11 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import org.controlsfx.tools.Utils;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class webviewtestapp extends Application {
 
@@ -26,7 +25,7 @@ public class webviewtestapp extends Application {
     static String secondaryColor = "#263238"; //Darkest
     static String accentColor = "#505d62"; //Lightest
 
-    static {
+    /*static {
         try {
             primaryColor = ConfigReader.configRead("secondaryColor");
             secondaryColor = ConfigReader.configRead("mainColor");
@@ -34,7 +33,7 @@ public class webviewtestapp extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     // Method to create a report window with specified rows
     public static Map<String, Object> createReportWindow(String reportName, SectionConfig... sectionConfigs) {
@@ -90,20 +89,33 @@ public class webviewtestapp extends Application {
         }
 
         // Create a button to collect field values
-        Button collectButton = new Button("Collect Values");
-        collectButton.getStyleClass().add("incidentformButton");
-        collectButton.setStyle("-fx-padding: 15;");
-        collectButton.setStyle("-fx-background-color: " + primaryColor);
-        collectButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
+        Button submitBtn = new Button("Collect Values");
+        submitBtn.getStyleClass().add("incidentformButton");
+        submitBtn.setStyle("-fx-padding: 15;");
+        submitBtn.setStyle("-fx-background-color: " + primaryColor);
+        submitBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                collectButton.setStyle("-fx-background-color: " + secondaryColor + ";");
+                submitBtn.setStyle("-fx-background-color: " + secondaryColor + ";");
             } else {
-                collectButton.setStyle("-fx-background-color: " + primaryColor + ";");
+                submitBtn.setStyle("-fx-background-color: " + primaryColor + ";");
+            }
+        });
+
+        // Create a button to pull from notes
+        Button pullNotesBtn = new Button("Pull From Notes");
+        pullNotesBtn.getStyleClass().add("incidentformButton");
+        pullNotesBtn.setStyle("-fx-padding: 15;");
+        pullNotesBtn.setStyle("-fx-background-color: " + primaryColor);
+        pullNotesBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                pullNotesBtn.setStyle("-fx-background-color: " + secondaryColor + ";");
+            } else {
+                pullNotesBtn.setStyle("-fx-background-color: " + primaryColor + ";");
             }
         });
 
         // Create a VBox to hold the grid pane and the button
-        HBox buttonBox = new HBox(10, warningLabel, collectButton);
+        HBox buttonBox = new HBox(10, pullNotesBtn, warningLabel, submitBtn);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT); // Align the button and label to the baseline
         VBox root = new VBox(10, mainHeaderLabel, gridPane, buttonBox);
         root.setAlignment(Pos.CENTER); // Align the VBox content to the center
@@ -111,60 +123,6 @@ public class webviewtestapp extends Application {
 
         root.setStyle("-fx-background-color: " + accentColor + ";");
         root.setPadding(new Insets(18));
-
-        collectButton.setOnAction(event -> {
-            boolean allFieldsFilled = true;
-            for (String fieldName : fieldsMap.keySet()) {
-                Object field = fieldsMap.get(fieldName);
-                String value = "";
-                if (field instanceof TextField) {
-                    value = ((TextField) field).getText();
-                } else if (field instanceof TextArea) {
-                    value = ((TextArea) field).getText();
-                } else if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
-                    if (comboBox.getValue() != null) {
-                        value = comboBox.getValue().toString();
-                    }
-                }
-                if (value.isEmpty() || value.isBlank()) {
-                    allFieldsFilled = false;
-                    break;
-                }
-            }
-            if (!allFieldsFilled) {
-                warningLabel.setVisible(true);
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        warningLabel.setVisible(false);
-                    }
-                }, 3000);
-                return; // Exit the action event handler
-            }
-            // Proceed with form submission
-            Map<String, String> fieldValues = new HashMap<>();
-            for (String fieldName : fieldsMap.keySet()) {
-                Object field = fieldsMap.get(fieldName);
-                String value = "";
-                if (field instanceof TextField) {
-                    value = ((TextField) field).getText();
-                } else if (field instanceof TextArea) {
-                    value = ((TextArea) field).getText();
-                } else if (field instanceof ComboBox) {
-                    value = ((ComboBox) field).getValue().toString();
-                }
-                fieldValues.put(fieldName, value);
-            }
-            reportData.put(reportName, fieldValues);
-            // Example: Print the collected data
-            System.out.println("Data collected for " + reportName + ": " + fieldValues);
-
-            Window window = Utils.getWindow(root);
-
-            // Close the window
-            window.hide(); // or window.close() if you want to force close
-        });
 
         // Create a scene and add the VBox to it
         Scene scene = new Scene(root);
@@ -184,7 +142,12 @@ public class webviewtestapp extends Application {
         stage.setMaxHeight(stage.getHeight());
         stage.setMinHeight(stage.getHeight() - 100);
         stage.setMinWidth(stage.getWidth() - 300);
-        return fieldsMap; // Return the map of fields
+        Map<String, Object> result = new HashMap<>();
+        result.put(reportName + " Map", fieldsMap);
+        result.put("pullNotesBtn", pullNotesBtn);
+        result.put("warningLabel", warningLabel);
+        result.put("submitBtn", submitBtn);
+        return result;
     }
 
     // Method to add a row to the grid pane with specified field configurations
@@ -212,7 +175,9 @@ public class webviewtestapp extends Application {
                         }
                     });
                     textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                        textField.setText(newValue.toUpperCase());
+                        if (newValue != null) {
+                            textField.setText(newValue.toUpperCase());
+                        }
                     });
 
 

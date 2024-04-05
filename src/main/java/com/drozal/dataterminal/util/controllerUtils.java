@@ -58,8 +58,7 @@ public class controllerUtils {
             {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"},
             {"-area", "-region", "-zone", "-territory", "-locale", "-ar"},
             {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"},
-            {"-notes", "-nts", "-n"},
-            {"-comments", "-cmts", "-cmt"},
+            {"-notes", "-nts", "-note", "-notepad", "-comments", "-cmts", "-cmt"},
             {"-description", "-des", "-desc", "-d"},
             {"-searchitems", "-si", "-search", "-srch", "-items", "-item"},
             {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}
@@ -523,6 +522,9 @@ public class controllerUtils {
                 break;
             }
         }
+        // No need to set labelText to null if no key is found
+        // Retain the original value of textField
+        // which may be the text already set before
         String labelText = extractedValue;
         textField.setText(labelText);
     }

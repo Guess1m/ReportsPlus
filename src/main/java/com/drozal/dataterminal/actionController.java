@@ -59,9 +59,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
@@ -878,11 +876,9 @@ public class actionController {
     //<editor-fold desc="Settings Button Events">
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-
-
-        Map<String, Object> reportFields = webviewtestapp.createReportWindow("Callout Report",
+        Map<String, Object> calloutReport = webviewtestapp.createReportWindow("Callout Report",
                 new webviewtestapp.SectionConfig("Officer Information",
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("officer name", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("officer rank", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 2, webviewtestapp.FieldType.TEXT_FIELD)),
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("name", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("rank", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 2, webviewtestapp.FieldType.TEXT_FIELD)),
                         new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("division", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("agency", 6, webviewtestapp.FieldType.TEXT_FIELD))
                 ),
                 new webviewtestapp.SectionConfig("Location Information",
@@ -890,24 +886,126 @@ public class actionController {
                 ),
                 new webviewtestapp.SectionConfig("Callout Information",
                         new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("date", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("time", 6, webviewtestapp.FieldType.TEXT_FIELD)),
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("type", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("code", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 4, webviewtestapp.FieldType.TEXT_FIELD))
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("type", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("code", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("calloutnumber", 4, webviewtestapp.FieldType.TEXT_FIELD))
                 ),
-                new webviewtestapp.SectionConfig("Callout Notes", new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("Notes", 12, webviewtestapp.FieldType.TEXT_AREA))
+                new webviewtestapp.SectionConfig("Callout Notes",
+                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("notes", 12, webviewtestapp.FieldType.TEXT_AREA))
                 )
         );
 
+        //Access calloutReportMap
+        Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
+        //Access specific fields
+        TextField officername = (TextField) calloutReportMap.get("name");
+        TextField officerrank = (TextField) calloutReportMap.get("rank");
+        TextField officerdiv = (TextField) calloutReportMap.get("division");
+        TextField officeragen = (TextField) calloutReportMap.get("agency");
+        TextField officernum = (TextField) calloutReportMap.get("number");
+        TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
+        TextField calloutarea = (TextField) calloutReportMap.get("area");
+        TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
+        TextField calloutcounty = (TextField) calloutReportMap.get("county");
+        TextField calloutstreet = (TextField) calloutReportMap.get("street");
+        TextField calloutdate = (TextField) calloutReportMap.get("date");
+        TextField callouttime = (TextField) calloutReportMap.get("time");
+        TextField callouttype = (TextField) calloutReportMap.get("type");
+        TextField calloutcode = (TextField) calloutReportMap.get("code");
+        Label warningLabel = (Label) calloutReport.get("warningLabel");
 
-        /*Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("testWindow-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Test Window");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
-        stage.setResizable(true);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-        stage.centerOnScreen();*/
+        //Example: Set text of specific fields
+        officername.setText("Drozal");
+        officerrank.setText("Officer");
+        officerdiv.setText("East Patrol Division");
+        officeragen.setText("Los Santos Sheriff's Department");
+        officernum.setText("1-18");
+        calloutdate.setText(getDate());
+        callouttime.setText(getTime());
+
+        //change action of pullnotesbutton
+        Button pullNotesBtn = (Button) calloutReport.get("pullNotesBtn");
+        // Change the action of the pullNotesBtn button
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
+                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
+            }
+        });
+
+        //change action of pullnotesbutton
+        Button submitBtn = (Button) calloutReport.get("submitBtn");
+        // Change the action of the pullNotesBtn button
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : calloutReportMap.keySet()) {
+                Object field = calloutReportMap.get(fieldName);
+                String value = "";
+                if (field instanceof TextField) {
+                    if (((TextField) field).getText() != null) {
+                        value = ((TextField) field).getText();
+                    }
+                } else if (field instanceof TextArea) {
+                    if (((TextArea) field).getText() != null) {
+                        value = ((TextArea) field).getText();
+                    }
+                } else if (field instanceof ComboBox<?> comboBox) {
+                    if (comboBox.getValue() != null) {
+                        value = comboBox.getValue().toString();
+                    }
+                }
+                if (value.isEmpty() || value.isBlank()) {
+                    allFieldsFilled = false;
+                    break;
+                }
+            }
+            if (!allFieldsFilled) {
+                // Display warning message
+                warningLabel.setVisible(true);
+                // Hide the warning label after 3 seconds
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return; // Exit the action event handler
+            }
+            // todo: Send data to config
+            System.out.println("all fields filled");
+
+
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+
+            // Add new entry
+            logs.add(new CalloutLogEntry(
+                    calloutdate.getText(),
+                    callouttime.getText(),
+                    officername.getText(),
+                    officerrank.getText(),
+                    officernum.getText(),
+                    officerdiv.getText(),
+                    officeragen.getText(),
+                    callouttype.getText(),
+                    calloutcode.getText(),
+                    calloutnum.getText(),
+                    calloutarea.getText(),
+                    calloutstreet.getText(),
+                    calloutcounty.getText(),
+                    calloutarea.getText()
+
+            ));
+            // Save logs to XML
+            CalloutReportLogs.saveLogsToXML(logs);
+            updateChartIfMismatch(reportChart);
+            controllerUtils.refreshChart(areaReportChart, "area");
+            showNotification("Reports", "A new Callout Report has been submitted.", vbox);
+
+
+        });
+
+
     }
 
     @javafx.fxml.FXML

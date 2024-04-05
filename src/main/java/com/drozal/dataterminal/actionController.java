@@ -561,6 +561,9 @@ public class actionController {
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("date", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("time", 6, reportCreationUtil.FieldType.TEXT_FIELD)),
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("type", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("code", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("calloutnumber", 4, reportCreationUtil.FieldType.TEXT_FIELD))
                 ),
+                new reportCreationUtil.SectionConfig("Callout Treeview",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("treeview", 6, reportCreationUtil.FieldType.CITATION_TREE_VIEW), new reportCreationUtil.FieldConfig("random", 6, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
                 new reportCreationUtil.SectionConfig("Callout Notes",
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
                 )
@@ -1016,7 +1019,7 @@ public class actionController {
                     callouttype.getText(),
                     calloutcode.getText(),
                     calloutnum.getText(),
-                    calloutarea.getText(),
+                    calloutnotes.getText(),
                     calloutstreet.getText(),
                     calloutcounty.getText(),
                     calloutarea.getText()

@@ -16,11 +16,22 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.treeViewUtils.expandTreeItem;
+import static com.drozal.dataterminal.util.treeViewUtils.parseTreeXML;
 
 public class reportCreationUtil {
 
@@ -352,7 +363,6 @@ public class reportCreationUtil {
                             comboBox.setStyle("-fx-background-color: " + primaryColor + ";");
                         }
                     });
-
                     // Add items to the ComboBox (replace the example items with your own)
                     comboBox.getItems().addAll("Option 1", "Option 2", "Option 3");
 
@@ -360,6 +370,35 @@ public class reportCreationUtil {
                     comboBox.setMaxWidth(Double.MAX_VALUE); // Set TextArea to occupy full width
                     gridPane.add(comboBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
                     fieldsMap.put(fieldConfig.getFieldName(), comboBox);
+                    break;
+                case CITATION_TREE_VIEW:
+                    // Add TreeView
+                    TreeView<String> treeView = new TreeView<>();
+                    // Configure TreeView properties based on fieldConfig
+                    treeView.setPrefHeight(300);
+                    treeView.setMinHeight(300);
+                    treeView.setMaxHeight(300);
+
+                    //Tree View
+                    File file = new File(getJarPath() + "/data/Citations.xml");
+                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                    Document document = null;
+                    try {
+                        document = factory.newDocumentBuilder().parse(file);
+                    } catch (SAXException | IOException | ParserConfigurationException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Element root = document.getDocumentElement();
+
+                    TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
+
+                    parseTreeXML(root, rootItem);
+                    treeView.setRoot(rootItem);
+                    expandTreeItem(rootItem, "Citations");
+
+                    gridPane.add(treeView, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+                    fieldsMap.put(fieldConfig.getFieldName(), treeView);
                     break;
             }
             columnIndex += fieldConfig.getSize(); // Increment column index based on field size
@@ -370,7 +409,8 @@ public class reportCreationUtil {
     public enum FieldType {
         TEXT_FIELD,
         TEXT_AREA,
-        COMBO_BOX_COLOR
+        COMBO_BOX_COLOR,
+        CITATION_TREE_VIEW
     }
 
     // Class to hold row configuration (array of field configurations)

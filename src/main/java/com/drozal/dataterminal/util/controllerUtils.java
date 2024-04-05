@@ -108,16 +108,15 @@ public class controllerUtils {
 
         VBox vbox1 = new VBox(label);
         vbox1.setAlignment(Pos.CENTER);
-
-        // Create and show the notification
-        Notifications.create()
+        Notifications noti = Notifications.create()
                 .title(title)
                 .text(message)
                 .graphic(null) // You can add a graphic if needed
                 .position(Pos.TOP_RIGHT)
                 .hideAfter(Duration.seconds(1.15))
-                .owner(owner)
-                .show();
+                .owner(owner);
+        noti.show();
+        noti.getStyleClass().add("notification-pane");
     }
 
     public static void setActive(AnchorPane pane) {

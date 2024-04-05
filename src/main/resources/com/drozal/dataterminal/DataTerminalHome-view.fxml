@@ -3320,10 +3320,10 @@
                         <ColorAdjust brightness="1.0"/>
                     </effect>
                 </ImageView>
-                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="948.0"
+                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="902.0"
                             layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0"
                             styleClass="button" stylesheets="@css/menu/settingsDropdown.css" text="Settings"
-                            textFill="#828797" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
+                            textFill="#828797" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="10.0">
                     <graphic>
                         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -3356,11 +3356,21 @@
                         </DropShadow>
                     </effect>
                 </Label>
-                <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="955.0" layoutY="17.0"
+                <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="1078.0" layoutY="17.0"
                            onMouseClicked="#onFullscreenBtnClick" pickOnBounds="true" preserveRatio="true"
                            AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="17.0">
                     <image>
                         <Image url="@imgs/icons/maximize.png"/>
+                    </image>
+                    <effect>
+                        <ColorAdjust brightness="1.0"/>
+                    </effect>
+                </ImageView>
+                <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1042.0" layoutY="17.0"
+                           onMouseClicked="#onMinimizeBtnClick" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="17.0">
+                    <image>
+                        <Image url="@imgs/icons/minimize.png"/>
                     </image>
                     <effect>
                         <ColorAdjust brightness="1.0"/>

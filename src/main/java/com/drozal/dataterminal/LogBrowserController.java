@@ -18,6 +18,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -1127,6 +1128,7 @@ public class LogBrowserController {
         }
     }
 
+
     //</editor-fold>
 
     //<editor-fold desc="Events">
@@ -1134,6 +1136,12 @@ public class LogBrowserController {
     public void onRefreshButtonClick(ActionEvent actionEvent) {
         loadLogs();
         showButtonAnimation(refreshBtn);
+    }
+
+    @javafx.fxml.FXML
+    public void onMinimizeBtnClick(Event event) {
+        Stage stage = (Stage) calloutTable.getScene().getWindow();
+        stage.setIconified(true);
     }
 
     @javafx.fxml.FXML
@@ -1152,14 +1160,44 @@ public class LogBrowserController {
     @javafx.fxml.FXML
     public void onManagerToggle(ActionEvent actionEvent) {
         if (!showManagerToggle.isSelected()) {
-            lowerPane.setPrefHeight(0);
-            lowerPane.setMaxHeight(0);
-            lowerPane.setMinHeight(0);
+            // Define the height values
+            double fromHeight = lowerPane.getPrefHeight();
+            double toHeight = 0;
+
+            // Create a timeline for the animation
+            Timeline timeline = new Timeline();
+
+            // Define keyframes for animation
+            KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
+            KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
+            KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
+
+            // Add keyframes to the timeline
+            timeline.getKeyFrames().add(keyFrame);
+
+            // Play the animation
+            timeline.play();
             lowerPane.setVisible(false);
         } else {
-            lowerPane.setPrefHeight(356);
-            lowerPane.setMaxHeight(356);
-            lowerPane.setMinHeight(356);
+            // Define the height values
+            double fromHeight = lowerPane.getPrefHeight();
+            double toHeight = 356;
+
+            // Create a timeline for the animation
+            Timeline timeline = new Timeline();
+
+            // Define keyframes for animation
+            KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
+            KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
+            KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
+
+            // Add keyframes to the timeline
+            timeline.getKeyFrames().add(keyFrame);
+
+            // Play the animation
+            timeline.play();
             lowerPane.setVisible(true);
         }
     }
@@ -1180,9 +1218,11 @@ public class LogBrowserController {
             toggleWindowedFullscreen(stage, 891, 674);
         }
     }
+
     //</editor-fold>
 
     //<editor-fold desc="Info Panes">
+
     // Callout Section
 
     @javafx.fxml.FXML
@@ -1254,6 +1294,7 @@ public class LogBrowserController {
 
         }
     }
+
     // Patrol Section
 
     @javafx.fxml.FXML
@@ -1321,6 +1362,7 @@ public class LogBrowserController {
             }
         }
     }
+
     // Traffic Stop Section
 
     @javafx.fxml.FXML
@@ -1423,6 +1465,7 @@ public class LogBrowserController {
             }
         }
     }
+
     // Incident Section
 
     @javafx.fxml.FXML
@@ -1499,6 +1542,7 @@ public class LogBrowserController {
             }
         }
     }
+
     // Impound Section
 
     @javafx.fxml.FXML
@@ -1579,6 +1623,7 @@ public class LogBrowserController {
             }
         }
     }
+
     // Citation Section
 
     @javafx.fxml.FXML
@@ -1776,6 +1821,7 @@ public class LogBrowserController {
             searchTable.refresh();
         }
     }
+
     // Arrest Section
 
     @javafx.fxml.FXML
@@ -1873,4 +1919,5 @@ public class LogBrowserController {
     }
 
     //</editor-fold>
+
 }

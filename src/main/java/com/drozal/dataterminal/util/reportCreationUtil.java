@@ -1,15 +1,19 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.util;
 
-import javafx.application.Application;
+import com.drozal.dataterminal.Launcher;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -18,12 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class webviewtestapp extends Application {
+public class reportCreationUtil {
 
     private static final Map<String, Map<String, String>> reportData = new HashMap<>();
     static String primaryColor = "#323c41";
     static String secondaryColor = "#263238"; //Darkest
     static String accentColor = "#505d62"; //Lightest
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     /*static {
         try {
@@ -37,14 +43,117 @@ public class webviewtestapp extends Application {
 
     // Method to create a report window with specified rows
     public static Map<String, Object> createReportWindow(String reportName, SectionConfig... sectionConfigs) {
-        // Create a grid pane to hold the form fields
+        // Create a BorderPane to hold the content
+        BorderPane borderPane = new BorderPane();
+
+        // Apply color overlay to make the image white
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(-1.0); // Set saturation to make it grey
+        colorAdjust.setBrightness(-0.2); // Set brightness to make it darker
+
+// Create a Label for the title bar
+        Label titleLabel = new Label("Report Manager");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #999999;");
+        titleLabel.setAlignment(Pos.CENTER); // Align the header text to the center
+        AnchorPane.setLeftAnchor(titleLabel, (double) 0);
+        AnchorPane.setRightAnchor(titleLabel, (double) 0);
+        AnchorPane.setTopAnchor(titleLabel, (double) 0);
+        AnchorPane.setBottomAnchor(titleLabel, (double) 0);
+        titleLabel.setEffect(colorAdjust);
+        titleLabel.setMouseTransparent(true);
+
+// Create a pane for the title bar
+        AnchorPane titleBar = new AnchorPane(titleLabel);
+        titleBar.setMinHeight(30);
+        titleBar.setStyle("-fx-background-color: #383838;");
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(mouseEvent -> {
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.setX(mouseEvent.getScreenX() - xOffset);
+            stage.setY(mouseEvent.getScreenY() - yOffset);
+        });
+
+
+// Load close image (white)
+        Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+        ImageView closeImageView = new ImageView(closeImage);
+        closeImageView.setFitWidth(15); // Set width of the image
+        closeImageView.setFitHeight(15); // Set height of the image
+        AnchorPane.setRightAnchor(closeImageView, 15.0); // Adjust the padding from the right
+        AnchorPane.setTopAnchor(closeImageView, 7.0); // Center vertically
+        closeImageView.setEffect(colorAdjust);
+
+// Load maximize image
+        Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
+        ImageView maximizeImageView = new ImageView(maximizeImage);
+        maximizeImageView.setFitWidth(15); // Set width of the image
+        maximizeImageView.setFitHeight(15); // Set height of the image
+        AnchorPane.setRightAnchor(maximizeImageView, 42.5); // Adjust the padding from the right
+        AnchorPane.setTopAnchor(maximizeImageView, 7.0); // Center vertically
+        maximizeImageView.setEffect(colorAdjust);
+
+// Load minimize image
+        Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+        ImageView minimizeImageView = new ImageView(minimizeImage);
+        minimizeImageView.setFitWidth(15); // Set width of the image
+        minimizeImageView.setFitHeight(15); // Set height of the image
+        AnchorPane.setRightAnchor(minimizeImageView, 70.0); // Adjust the padding from the right
+        AnchorPane.setTopAnchor(minimizeImageView, 7.0); // Center vertically
+        minimizeImageView.setEffect(colorAdjust);
+
+        // Create transparent rectangles to overlay the image views
+        Rectangle closeRect = new Rectangle(20, 20);
+        Rectangle maximizeRect = new Rectangle(20, 20);
+        Rectangle minimizeRect = new Rectangle(20, 20);
+
+// Set the rectangles to be transparent
+        closeRect.setFill(Color.TRANSPARENT);
+        minimizeRect.setFill(Color.TRANSPARENT);
+        maximizeRect.setFill(Color.TRANSPARENT);
+
+// Set mouse event handlers on the rectangles
+        closeRect.setOnMouseClicked(event -> {
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            stage.close();
+        });
+
+        minimizeRect.setOnMouseClicked(event -> {
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            stage.setIconified(true);
+        });
+        maximizeRect.setOnMouseClicked(event -> {
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            windowUtils.toggleWindowedFullscreen(stage, 850, 750);
+        });
+
+// Position the rectangles over the image views
+        AnchorPane.setRightAnchor(closeRect, 12.5);
+        AnchorPane.setTopAnchor(closeRect, 6.3);
+        AnchorPane.setRightAnchor(minimizeRect, 70.0);
+        AnchorPane.setTopAnchor(minimizeRect, 6.3);
+        AnchorPane.setRightAnchor(maximizeRect, 42.5);
+        AnchorPane.setTopAnchor(maximizeRect, 6.3);
+
+// Add images to title bar
+        titleBar.getChildren().addAll(closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
+        closeRect.toFront();
+        minimizeRect.toFront();
+        maximizeRect.toFront();
+
+// Set the title bar at the top
+        borderPane.setTop(titleBar);
+        // Create a GridPane to hold the form fields
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
-        gridPane.setVgap(5);
+        gridPane.setVgap(10);
 
         Label warningLabel = new Label("Please fill out the form");
         warningLabel.setVisible(false);
-        warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 13;");
+        warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 14;");
 
         // Add column constraints
         for (int i = 0; i < 12; i++) {
@@ -55,7 +164,7 @@ public class webviewtestapp extends Application {
 
         // Add main header label
         Label mainHeaderLabel = new Label("New " + reportName);
-        mainHeaderLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ffffff;");
+        mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: #ffffff; -fx-font-family: Segoe UI Black;");
         mainHeaderLabel.setAlignment(Pos.CENTER); // Align the header text to the center
         GridPane.setColumnSpan(mainHeaderLabel, 12); // Span the header across all columns
         gridPane.add(mainHeaderLabel, 0, 0);
@@ -119,36 +228,59 @@ public class webviewtestapp extends Application {
         buttonBox.setAlignment(Pos.BASELINE_RIGHT); // Align the button and label to the baseline
         VBox root = new VBox(10, mainHeaderLabel, gridPane, buttonBox);
         root.setAlignment(Pos.CENTER); // Align the VBox content to the center
-        root.setPadding(new Insets(18));
-
         root.setStyle("-fx-background-color: " + accentColor + ";");
-        root.setPadding(new Insets(18));
+        Insets insets = new Insets(20, 25, 15, 25);
+        root.setPadding(insets);
 
-        // Create a scene and add the VBox to it
-        Scene scene = new Scene(root);
+
+        // Wrap the BorderPane with a ScrollPane
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true); // Allow the ScrollPane to resize horizontally
+        scrollPane.setFitToHeight(true); // Allow the ScrollPane to resize vertically
+        borderPane.setCenter(scrollPane);
+
+        // Add listener to toggle visibility of ScrollPane based on stage's size
+        Stage stage = new Stage();
+
+        // Return the ScrollPane containing the content
+        Scene scene = new Scene(borderPane);
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formFields.css").toExternalForm());
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formTextArea.css").toExternalForm());
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formButton.css").toExternalForm());
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formComboBox.css").toExternalForm());
-
-        // Set up the stage
-        Stage stage = new Stage();
+        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/main/Logscrollpane.css").toExternalForm());
+        scrollPane.getStyleClass().add("formPane");
+        scrollPane.setStyle("-fx-background-color: " + accentColor + "; " + "-fx-focus-color: " + accentColor + ";");
 
         stage.setScene(scene);
         stage.setTitle(reportName);
-        stage.setMaxWidth(850);
-        stage.initStyle(StageStyle.UTILITY);
+
+        // Get the primary screen
+        Screen screen = Screen.getPrimary();
+        // Get the visual bounds of the primary screen
+        double screenHeight = screen.getVisualBounds().getHeight();
+        double screenWidth = screen.getVisualBounds().getWidth();
+
+        stage.setMaxWidth(screenWidth);
+        stage.setMaxHeight(screenHeight);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setAlwaysOnTop(true);
         stage.show();
-        stage.setMaxHeight(stage.getHeight());
-        stage.setMinHeight(stage.getHeight() - 100);
+        ResizeHelper.addResizeListener(stage);
+        stage.setHeight(750);
+        stage.setWidth(850);
+        stage.setMinHeight(stage.getHeight() - 300);
         stage.setMinWidth(stage.getWidth() - 300);
+        stage.centerOnScreen();
         Map<String, Object> result = new HashMap<>();
         result.put(reportName + " Map", fieldsMap);
         result.put("pullNotesBtn", pullNotesBtn);
         result.put("warningLabel", warningLabel);
         result.put("submitBtn", submitBtn);
+        result.put("root", borderPane);
         return result;
     }
+
 
     // Method to add a row to the grid pane with specified field configurations
     private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
@@ -204,6 +336,9 @@ public class webviewtestapp extends Application {
                     textArea.setMaxWidth(Double.MAX_VALUE); // Set TextArea to occupy full width
                     gridPane.add(textArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
                     fieldsMap.put(fieldConfig.getFieldName(), textArea);
+
+                    // Set the HGrow property to make only the TextArea resize with the window
+                    GridPane.setHgrow(textArea, Priority.ALWAYS);
                     break;
                 case COMBO_BOX_COLOR:
                     // Add ComboBox
@@ -232,47 +367,14 @@ public class webviewtestapp extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        /*// Example usage
-        Map<String, Object> reportFields = createReportWindow("Callout Report",
-                new SectionConfig("Officer Information",
-                        new RowConfig(new FieldConfig("officer name", 5, FieldType.TEXT_FIELD), new FieldConfig("officer rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location Information",
-                        new RowConfig(new FieldConfig("county", 3, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("street", 5, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Callout Information",
-                        new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("number", 4, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Callout Notes", new RowConfig(new FieldConfig("Notes", 12, FieldType.TEXT_AREA))
-                )
-        );
-
-         //Access specific fields
-         TextField nameField = (TextField) reportFields.get("Name");
-         TextArea notesArea = (TextArea) reportFields.get("Notes");
-
-         //Example: Set text of specific fields
-         nameField.setText("John Doe");
-         notesArea.setText("Enter your notes here...");*/
-    }
-
-
-    enum FieldType {
+    public enum FieldType {
         TEXT_FIELD,
         TEXT_AREA,
         COMBO_BOX_COLOR
     }
 
     // Class to hold row configuration (array of field configurations)
-    static class SectionConfig {
+    public static class SectionConfig {
         private final String sectionTitle;
         private final List<RowConfig> rowConfigs;
 
@@ -290,7 +392,7 @@ public class webviewtestapp extends Application {
         }
     }
 
-    static class RowConfig {
+    public static class RowConfig {
         private final List<FieldConfig> fieldConfigs;
 
         public RowConfig(FieldConfig... fieldConfigs) {
@@ -303,7 +405,7 @@ public class webviewtestapp extends Application {
     }
 
     // Class to hold field configuration (field name and size)
-    static class FieldConfig {
+    public static class FieldConfig {
         private final String fieldName;
         private final int size;
         private final FieldType fieldType; // Add field type

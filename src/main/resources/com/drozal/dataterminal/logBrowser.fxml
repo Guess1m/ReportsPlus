@@ -2,8 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
@@ -1207,11 +1206,21 @@
                                 <ColorAdjust brightness="1.0"/>
                             </effect>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="825.0" layoutY="12.0"
+                        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="823.0" layoutY="11.0"
                                    onMouseClicked="#onFullscreenBtnClick" pickOnBounds="true" preserveRatio="true"
-                                   AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="12.0">
+                                   AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="11.0">
                             <image>
                                 <Image url="@imgs/icons/maximize.png"/>
+                            </image>
+                            <effect>
+                                <ColorAdjust brightness="1.0"/>
+                            </effect>
+                        </ImageView>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="788.0" layoutY="11.0"
+                                   onMouseClicked="#onMinimizeBtnClick" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="11.0">
+                            <image>
+                                <Image url="@imgs/icons/minimize.png"/>
                             </image>
                             <effect>
                                 <ColorAdjust brightness="1.0"/>

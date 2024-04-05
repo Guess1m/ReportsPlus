@@ -23,6 +23,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
+import com.drozal.dataterminal.util.reportCreationUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -44,6 +45,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -63,6 +65,7 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
+import static com.drozal.dataterminal.util.reportCreationUtil.createReportWindow;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
@@ -545,6 +548,29 @@ public class actionController {
     private Label accentColor;
     //</editor-fold>
 
+    public static Map<String, Object> createCalloutReport() {
+        Map<String, Object> calloutReport = createReportWindow("Callout Report",
+                new reportCreationUtil.SectionConfig("Officer Information",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
+                new reportCreationUtil.SectionConfig("Location Information",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("county", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("area", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("street", 5, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
+                new reportCreationUtil.SectionConfig("Callout Information",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("date", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("time", 6, reportCreationUtil.FieldType.TEXT_FIELD)),
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("type", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("code", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("calloutnumber", 4, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
+                new reportCreationUtil.SectionConfig("Callout Notes",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
+                )
+        );
+        return calloutReport;
+    }
+
+
+    //<editor-fold desc="Utils">
+
     //Initialization
     public void initialize() throws IOException {
         setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
@@ -625,39 +651,28 @@ public class actionController {
         loadTheme();
     }
 
-    //<editor-fold desc="Utils">
-    private void showSettingsWindow() {
-        // Create a new stage for the settings window
-        Stage settingsStage = new Stage();
-        settingsStage.setTitle("UI Settings");
+    public void refreshChart() throws IOException {
+        // Clear existing data from the chart
+        reportChart.getData().clear();
+        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
+        CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
 
-        // Create color pickers for selecting colors
+        xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("Series 1");
 
-        Button saveButton = resetDefaultsBtn;
+        String color = ConfigReader.configRead("mainColor");
+        for (String category : categories) {
+            XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1); // Value doesn't matter, just need to add a data point
+            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                if (newNode != null) {
+                    newNode.setStyle("-fx-bar-fill: " + color + ";");
+                }
+            });
+            series1.getData().add(data);
+        }
 
-        // Create a GridPane layout for the settings window
-        GridPane root = new GridPane();
-        root.setPadding(new Insets(20));
-        root.setHgap(15);
-        root.setVgap(15);
-        root.addRow(0, primaryColor);
-        root.addRow(1, colorSelectMain);
-        root.addRow(2, secondaryColor);
-        root.addRow(3, colorSelectSecondary);
-        root.addRow(4, accentColor);
-        root.addRow(5, colorSelectAccent);
-        root.add(saveButton, 0, 6);
-
-        // Create the scene for the settings window
-        Scene scene = new Scene(root);
-
-        // Set the scene on the settings stage
-        settingsStage.setScene(scene);
-
-        // Show the settings window
-        settingsStage.initStyle(StageStyle.UTILITY);
-        settingsStage.setResizable(false);
-        settingsStage.show();
+        getReportChart().getData().add(series1);
     }
 
     private void loadTheme() throws IOException {
@@ -718,30 +733,43 @@ public class actionController {
         });
     }
 
-    public void refreshChart() throws IOException {
-        // Clear existing data from the chart
-        reportChart.getData().clear();
-        String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
-        CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
+    private void showSettingsWindow() {
+        // Create a new stage for the settings window
+        Stage settingsStage = new Stage();
+        settingsStage.setTitle("UI Settings");
 
-        xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("Series 1");
+        // Create color pickers for selecting colors
 
-        String color = ConfigReader.configRead("mainColor");
-        for (String category : categories) {
-            XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1); // Value doesn't matter, just need to add a data point
-            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
-                if (newNode != null) {
-                    newNode.setStyle("-fx-bar-fill: " + color + ";");
-                }
-            });
-            series1.getData().add(data);
-        }
+        Button saveButton = resetDefaultsBtn;
 
-        getReportChart().getData().add(series1);
+        // Create a GridPane layout for the settings window
+        GridPane root = new GridPane();
+        root.setPadding(new Insets(20));
+        root.setHgap(15);
+        root.setVgap(15);
+        root.addRow(0, primaryColor);
+        root.addRow(1, colorSelectMain);
+        root.addRow(2, secondaryColor);
+        root.addRow(3, colorSelectSecondary);
+        root.addRow(4, accentColor);
+        root.addRow(5, colorSelectAccent);
+        root.add(saveButton, 0, 6);
+
+        // Create the scene for the settings window
+        Scene scene = new Scene(root);
+
+        // Set the scene on the settings stage
+        settingsStage.setScene(scene);
+
+        // Show the settings window
+        settingsStage.initStyle(StageStyle.UTILITY);
+        settingsStage.setResizable(false);
+        settingsStage.show();
     }
+
+
     //</editor-fold>
+
 
     //<editor-fold desc="Getters">
     public BarChart getReportChart() {
@@ -768,18 +796,31 @@ public class actionController {
         return OfficerInfoRank;
     }
 
-    public AnchorPane getShiftInformationPane() {
-        return shiftInformationPane;
-    }
-
     public AnchorPane getInfoPane() {
         return infoPane;
+    }
+
+    public AnchorPane getShiftInformationPane() {
+        return shiftInformationPane;
     }
 
 
     //</editor-fold>
 
+
     //<editor-fold desc="WindowUtils">
+
+    @javafx.fxml.FXML
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        Platform.exit();
+    }
+
+    @javafx.fxml.FXML
+    public void onMinimizeBtnClick(Event event) {
+        Stage stage = (Stage) vbox.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
     @javafx.fxml.FXML
     public void onTopCLick(MouseEvent mouseEvent) {
         xOffset = mouseEvent.getSceneX();
@@ -801,13 +842,12 @@ public class actionController {
         }
     }
 
-    @javafx.fxml.FXML
-    public void onExitButtonClick(MouseEvent actionEvent) {
-        Platform.exit();
-    }
+
     //</editor-fold>
 
+
     //<editor-fold desc="Side Button Events">
+
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -821,6 +861,28 @@ public class actionController {
         stage.show();
         stage.centerOnScreen();
         showButtonAnimation(mapButton);
+    }
+
+    @javafx.fxml.FXML
+    public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
+        Parent root = loader.load();
+        notesViewController = loader.getController();
+        Scene newScene = new Scene(root);
+        stage.setTitle("Notes");
+        stage.setScene(newScene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(true);
+        stage.show();
+        stage.setAlwaysOnTop(true);
+        //stage.setAlwaysOnTop(false);
+        stage.centerOnScreen();
+        stage.setMinHeight(stage.getHeight() - 150);
+        stage.setMinWidth(stage.getWidth() - 150);
+        ResizeHelper.addResizeListener(stage);
+        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
+        showButtonAnimation(notesButton);
     }
 
     @javafx.fxml.FXML
@@ -850,48 +912,15 @@ public class actionController {
         showButtonAnimation(logsButton);
     }
 
-    @javafx.fxml.FXML
-    public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
-        Parent root = loader.load();
-        notesViewController = loader.getController();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Notes");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setResizable(true);
-        stage.show();
-        stage.setAlwaysOnTop(true);
-        //stage.setAlwaysOnTop(false);
-        stage.centerOnScreen();
-        stage.setMinHeight(stage.getHeight() - 150);
-        stage.setMinWidth(stage.getWidth() - 150);
-        ResizeHelper.addResizeListener(stage);
-        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
-        showButtonAnimation(notesButton);
-    }
+
     //</editor-fold>
 
+
     //<editor-fold desc="Settings Button Events">
+
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        Map<String, Object> calloutReport = webviewtestapp.createReportWindow("Callout Report",
-                new webviewtestapp.SectionConfig("Officer Information",
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("name", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("rank", 5, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("number", 2, webviewtestapp.FieldType.TEXT_FIELD)),
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("division", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("agency", 6, webviewtestapp.FieldType.TEXT_FIELD))
-                ),
-                new webviewtestapp.SectionConfig("Location Information",
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("county", 3, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("area", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("street", 5, webviewtestapp.FieldType.TEXT_FIELD))
-                ),
-                new webviewtestapp.SectionConfig("Callout Information",
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("date", 6, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("time", 6, webviewtestapp.FieldType.TEXT_FIELD)),
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("type", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("code", 4, webviewtestapp.FieldType.TEXT_FIELD), new webviewtestapp.FieldConfig("calloutnumber", 4, webviewtestapp.FieldType.TEXT_FIELD))
-                ),
-                new webviewtestapp.SectionConfig("Callout Notes",
-                        new webviewtestapp.RowConfig(new webviewtestapp.FieldConfig("notes", 12, webviewtestapp.FieldType.TEXT_AREA))
-                )
-        );
+        Map<String, Object> calloutReport = createCalloutReport();
 
         //Access calloutReportMap
         Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
@@ -909,6 +938,7 @@ public class actionController {
         TextField calloutdate = (TextField) calloutReportMap.get("date");
         TextField callouttime = (TextField) calloutReportMap.get("time");
         TextField callouttype = (TextField) calloutReportMap.get("type");
+        BorderPane root = (BorderPane) calloutReport.get("root");
         TextField calloutcode = (TextField) calloutReportMap.get("code");
         Label warningLabel = (Label) calloutReport.get("warningLabel");
 
@@ -972,10 +1002,6 @@ public class actionController {
                 }, 3000);
                 return; // Exit the action event handler
             }
-            // todo: Send data to config
-            System.out.println("all fields filled");
-
-
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 
             // Add new entry
@@ -1002,10 +1028,9 @@ public class actionController {
             controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Callout Report has been submitted.", vbox);
 
-
+            Stage rootstage = (Stage) root.getScene().getWindow();
+            rootstage.close();
         });
-
-
     }
 
     @javafx.fxml.FXML
@@ -1026,8 +1051,8 @@ public class actionController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         confirmSaveDataClearDialog(stage);
     }
-
     // UI Settings Events
+
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         showSettingsWindow();
@@ -1048,6 +1073,12 @@ public class actionController {
         loadTheme();
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Open Report Button Events">
+
     @javafx.fxml.FXML
     public void onColorSelectSecondaryPress(ActionEvent actionEvent) throws IOException {
         Color selectedColor = colorSelectSecondary.getValue();
@@ -1061,10 +1092,6 @@ public class actionController {
         updateAccent(selectedColor);
         loadTheme();
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Open Report Button Events">
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
@@ -1232,6 +1259,12 @@ public class actionController {
         expandTreeItem(rootItem, "Citations");
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Submit Report Button Events">
+
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
         setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
@@ -1270,11 +1303,6 @@ public class actionController {
         impoundDate.setText(getDate());
         createSpinner(impoundNumber, 0, 9999, 0);
     }
-
-
-    //</editor-fold>
-
-    //<editor-fold desc="Submit Report Button Events">
 
     @javafx.fxml.FXML
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {
@@ -1666,6 +1694,12 @@ public class actionController {
         }
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Misc.">
+
     @javafx.fxml.FXML
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (arrestNumber.getValue() == null) {
@@ -1861,10 +1895,6 @@ public class actionController {
             showNotification("Reports", "A new Citation Report has been submitted.", vbox);
         }
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Misc.">
 
     @javafx.fxml.FXML
     public void onSearchPopOverBtnPress(ActionEvent actionEvent) throws IOException {
@@ -2186,7 +2216,9 @@ public class actionController {
 
     //</editor-fold>
 
+
     //<editor-fold desc="PullFromNotes">
+
     @javafx.fxml.FXML
     public void pullFromNotesCitation(ActionEvent actionEvent) {
         updateTextFromNotepad(citationArea, notesViewController.getNotepadTextArea(), "-area");
@@ -2297,7 +2329,6 @@ public class actionController {
 
       */
 
+
     //</editor-fold>
-
-
 }

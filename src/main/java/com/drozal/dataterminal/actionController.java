@@ -998,7 +998,14 @@ public class actionController {
         stage.setTitle("Notes");
         stage.setScene(newScene);
         stage.setResizable(true);
+        stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
+
+        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                stage.toFront();
+            }
+        });
 
         String startupValue = ConfigReader.configRead("notesWindowLayout");
         switch (startupValue) {

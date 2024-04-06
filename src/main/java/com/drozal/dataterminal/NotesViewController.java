@@ -1,5 +1,7 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.util.controllerUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -7,8 +9,11 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.io.IOException;
 
 public class NotesViewController {
 
@@ -26,6 +31,13 @@ public class NotesViewController {
     private AnchorPane topbar;
 
     public void initialize() {
+
+        try {
+            topbar.setStyle("-fx-background-color: "+ controllerUtils.toHexString(Color.valueOf(ConfigReader.configRead("mainColor"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         notepadTextArea.setText(actionController.notesText);
     }
 

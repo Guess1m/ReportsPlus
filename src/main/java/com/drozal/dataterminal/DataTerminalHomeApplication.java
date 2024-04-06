@@ -21,6 +21,16 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
 
+    public static Stage mainRT;
+
+    public static void setMainRT(Stage mainRT) {
+        DataTerminalHomeApplication.mainRT = mainRT;
+    }
+
+    public static Stage getMainRT() {
+        return mainRT;
+    }
+
     public static String getDate() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -47,7 +57,7 @@ public class DataTerminalHomeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Stage mainRT = new Stage();
+        mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
         actionController controller = loader.getController();

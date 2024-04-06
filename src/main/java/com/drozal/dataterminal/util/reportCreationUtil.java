@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.util;
 
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
+import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.config.ConfigReader;
@@ -50,7 +51,7 @@ public class reportCreationUtil {
     static String secondaryColor = "#263238"; //Darkest
     static String accentColor = "#505d62"; //Lightest
 
-    /*static {
+    static {
         try {
             primaryColor = ConfigReader.configRead("secondaryColor");
             secondaryColor = ConfigReader.configRead("mainColor");
@@ -58,7 +59,7 @@ public class reportCreationUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
 
     //<editor-fold desc="Creation">
@@ -294,7 +295,15 @@ public class reportCreationUtil {
 
         stage.setMaxWidth(screenWidth);
         stage.setMaxHeight(screenHeight);
+
+        stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
+
+        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                stage.toFront();
+            }
+        });
 
         String startupValue = null;
         try {

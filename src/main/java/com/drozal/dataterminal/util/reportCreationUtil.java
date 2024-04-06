@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util;
 
+import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.config.ConfigReader;
@@ -85,7 +86,7 @@ public class reportCreationUtil {
         AnchorPane titleBar = new AnchorPane(titleLabel);
         titleBar.setMinHeight(30);
         titleBar.setStyle("-fx-background-color: #383838;");
-        titleBar.setOnMousePressed(event -> {
+        /*titleBar.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
@@ -94,7 +95,7 @@ public class reportCreationUtil {
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.setX(mouseEvent.getScreenX() - xOffset);
             stage.setY(mouseEvent.getScreenY() - yOffset);
-        });
+        });*/
 
 
 // Load close image (white)
@@ -268,7 +269,8 @@ public class reportCreationUtil {
         Stage stage = new Stage();
 
         // Return the ScrollPane containing the content
-        Scene scene = new Scene(borderPane);
+        BorderlessScene scene = new BorderlessScene(stage, StageStyle.TRANSPARENT, borderPane, Color.TRANSPARENT);
+        scene.setMoveControl(titleBar);
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formFields.css").toExternalForm());
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formTextArea.css").toExternalForm());
         scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formButton.css").toExternalForm());
@@ -289,10 +291,8 @@ public class reportCreationUtil {
 
         stage.setMaxWidth(screenWidth);
         stage.setMaxHeight(screenHeight);
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setAlwaysOnTop(true);
         stage.show();
-        ResizeHelper.addResizeListener(stage);
         stage.setHeight(750);
         stage.setWidth(850);
         stage.setMinHeight(stage.getHeight() - 300);

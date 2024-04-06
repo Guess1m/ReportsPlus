@@ -23,7 +23,6 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
-import com.drozal.dataterminal.util.reportCreationUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -45,7 +44,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -61,11 +59,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.reportCreationUtil.createReportWindow;
+import static com.drozal.dataterminal.util.reportCreationUtil.newCallout;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
@@ -548,29 +547,6 @@ public class actionController {
     private Label accentColor;
     //</editor-fold>
 
-    public static Map<String, Object> createCalloutReport() {
-        Map<String, Object> calloutReport = createReportWindow("Callout Report",
-                new reportCreationUtil.SectionConfig("Officer Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
-                ),
-                new reportCreationUtil.SectionConfig("Location Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("county", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("area", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("street", 5, reportCreationUtil.FieldType.TEXT_FIELD))
-                ),
-                new reportCreationUtil.SectionConfig("Callout Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("date", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("time", 6, reportCreationUtil.FieldType.TEXT_FIELD)),
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("type", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("code", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("calloutnumber", 4, reportCreationUtil.FieldType.TEXT_FIELD))
-                ),
-                new reportCreationUtil.SectionConfig("Callout Treeview",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("treeview", 6, reportCreationUtil.FieldType.CITATION_TREE_VIEW), new reportCreationUtil.FieldConfig("random", 6, reportCreationUtil.FieldType.TEXT_FIELD))
-                ),
-                new reportCreationUtil.SectionConfig("Callout Notes",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
-                )
-        );
-        return calloutReport;
-    }
-
 
     //<editor-fold desc="Utils">
 
@@ -922,118 +898,8 @@ public class actionController {
     //<editor-fold desc="Settings Button Events">
 
     @javafx.fxml.FXML
-    public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        Map<String, Object> calloutReport = createCalloutReport();
-
-        //Access calloutReportMap
-        Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
-        //Access specific fields
-        TextField officername = (TextField) calloutReportMap.get("name");
-        TextField officerrank = (TextField) calloutReportMap.get("rank");
-        TextField officerdiv = (TextField) calloutReportMap.get("division");
-        TextField officeragen = (TextField) calloutReportMap.get("agency");
-        TextField officernum = (TextField) calloutReportMap.get("number");
-        TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
-        TextField calloutarea = (TextField) calloutReportMap.get("area");
-        TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
-        TextField calloutcounty = (TextField) calloutReportMap.get("county");
-        TextField calloutstreet = (TextField) calloutReportMap.get("street");
-        TextField calloutdate = (TextField) calloutReportMap.get("date");
-        TextField callouttime = (TextField) calloutReportMap.get("time");
-        TextField callouttype = (TextField) calloutReportMap.get("type");
-        BorderPane root = (BorderPane) calloutReport.get("root");
-        TextField calloutcode = (TextField) calloutReportMap.get("code");
-        Label warningLabel = (Label) calloutReport.get("warningLabel");
-
-        //Example: Set text of specific fields
-        officername.setText("Drozal");
-        officerrank.setText("Officer");
-        officerdiv.setText("East Patrol Division");
-        officeragen.setText("Los Santos Sheriff's Department");
-        officernum.setText("1-18");
-        calloutdate.setText(getDate());
-        callouttime.setText(getTime());
-
-        //change action of pullnotesbutton
-        Button pullNotesBtn = (Button) calloutReport.get("pullNotesBtn");
-        // Change the action of the pullNotesBtn button
-        pullNotesBtn.setOnAction(event -> {
-            if (notesViewController != null) {
-                updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
-                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
-                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
-                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
-                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
-            }
-        });
-
-        //change action of pullnotesbutton
-        Button submitBtn = (Button) calloutReport.get("submitBtn");
-        // Change the action of the pullNotesBtn button
-        submitBtn.setOnAction(event -> {
-            boolean allFieldsFilled = true;
-            for (String fieldName : calloutReportMap.keySet()) {
-                Object field = calloutReportMap.get(fieldName);
-                String value = "";
-                if (field instanceof TextField) {
-                    if (((TextField) field).getText() != null) {
-                        value = ((TextField) field).getText();
-                    }
-                } else if (field instanceof TextArea) {
-                    if (((TextArea) field).getText() != null) {
-                        value = ((TextArea) field).getText();
-                    }
-                } else if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() != null) {
-                        value = comboBox.getValue().toString();
-                    }
-                }
-                if (value.isEmpty() || value.isBlank()) {
-                    allFieldsFilled = false;
-                    break;
-                }
-            }
-            if (!allFieldsFilled) {
-                // Display warning message
-                warningLabel.setVisible(true);
-                // Hide the warning label after 3 seconds
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        warningLabel.setVisible(false);
-                    }
-                }, 3000);
-                return; // Exit the action event handler
-            }
-            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-
-            // Add new entry
-            logs.add(new CalloutLogEntry(
-                    calloutdate.getText(),
-                    callouttime.getText(),
-                    officername.getText(),
-                    officerrank.getText(),
-                    officernum.getText(),
-                    officerdiv.getText(),
-                    officeragen.getText(),
-                    callouttype.getText(),
-                    calloutcode.getText(),
-                    calloutnum.getText(),
-                    calloutnotes.getText(),
-                    calloutstreet.getText(),
-                    calloutcounty.getText(),
-                    calloutarea.getText()
-
-            ));
-            // Save logs to XML
-            CalloutReportLogs.saveLogsToXML(logs);
-            updateChartIfMismatch(reportChart);
-            controllerUtils.refreshChart(areaReportChart, "area");
-            showNotification("Reports", "A new Callout Report has been submitted.", vbox);
-
-            Stage rootstage = (Stage) root.getScene().getWindow();
-            rootstage.close();
-        });
+    public void testBtnPress(ActionEvent actionEvent) {
+        newCallout(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML

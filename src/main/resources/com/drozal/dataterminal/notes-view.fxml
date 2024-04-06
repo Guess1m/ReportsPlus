@@ -31,10 +31,10 @@
                         <Font name="Segoe UI Bold" size="18.0"/>
                     </font>
                 </Button>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                            onMouseDragged="#onMouseDrag" onMousePressed="#onMousePress" prefHeight="55.0"
-                            prefWidth="684.0" styleClass="incidentpane" stylesheets="@css/form/formPaneHeader.css"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="topbar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                            minWidth="-Infinity" prefHeight="55.0" prefWidth="684.0" styleClass="incidentpane"
+                            stylesheets="@css/form/formPaneHeader.css" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <ImageView fx:id="exitButton" fitHeight="21.0" fitWidth="24.0" layoutX="637.0" layoutY="24.0"
                                    onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"

@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
@@ -26,13 +27,15 @@ import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -64,10 +67,10 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.reportCreationUtil.newCallout;
+import static com.drozal.dataterminal.util.reportCreationUtil.newPatrol;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
-import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
+import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
 
@@ -103,17 +106,13 @@ public class actionController {
     @javafx.fxml.FXML
     public AnchorPane vbox;
     @javafx.fxml.FXML
-    public AnchorPane UISettingsPane;
-    @javafx.fxml.FXML
     public BarChart reportChart;
     @javafx.fxml.FXML
-    public ColorPicker colorSelectMain;
-    @javafx.fxml.FXML
     public AnchorPane topPane;
+
     @javafx.fxml.FXML
     public AnchorPane sidepane;
-    @javafx.fxml.FXML
-    public ColorPicker colorSelectSecondary;
+
     @javafx.fxml.FXML
     public Label mainColor8;
     @javafx.fxml.FXML
@@ -122,12 +121,6 @@ public class actionController {
     public Button updateInfoBtn;
     @javafx.fxml.FXML
     public MenuButton settingsDropdown;
-    @javafx.fxml.FXML
-    public Button resetDefaultsBtn;
-    @javafx.fxml.FXML
-    public Label primaryColor;
-    @javafx.fxml.FXML
-    public Label secondaryColor;
     @javafx.fxml.FXML
     public AnchorPane calloutReportPane;
     private double xOffset = 0;
@@ -541,18 +534,14 @@ public class actionController {
     private RadioMenuItem startupFullscreenToggleBtn;
     @javafx.fxml.FXML
     private AreaChart areaReportChart;
-    @javafx.fxml.FXML
-    private ColorPicker colorSelectAccent;
-    @javafx.fxml.FXML
-    private Label accentColor;
     //</editor-fold>
 
 
     //<editor-fold desc="Utils">
 
-    //Initialization
+
     public void initialize() throws IOException {
-        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
 
         startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
@@ -655,9 +644,6 @@ public class actionController {
     }
 
     private void loadTheme() throws IOException {
-        colorSelectMain.setValue(Color.valueOf(ConfigReader.configRead("mainColor")));
-        colorSelectSecondary.setValue(Color.valueOf(ConfigReader.configRead("secondaryColor")));
-        colorSelectAccent.setValue(Color.valueOf(ConfigReader.configRead("accentColor")));
         changeBarColors(getReportChart());
         changeStatisticColors(areaReportChart);
         //Main
@@ -667,10 +653,8 @@ public class actionController {
         mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor7Bkg.setStyle("-fx-background-color: " + mainclr + ";");
         mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
-        primaryColor.setStyle("-fx-text-fill: " + mainclr + ";");
         //Secondary
         String secclr = ConfigReader.configRead("secondaryColor");
-        secondaryColor.setStyle("-fx-text-fill: " + secclr + ";");
         sidepane.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor2.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor3.setStyle("-fx-text-fill: " + secclr + ";");
@@ -681,13 +665,11 @@ public class actionController {
         secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
         //Accent
         String accclr = ConfigReader.configRead("accentColor");
-        accentColor.setStyle("-fx-text-fill: " + accclr + ";");
         //Buttons
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
         String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
         updateInfoBtn.setStyle(nonTransparentBtn);
-        resetDefaultsBtn.setStyle(nonTransparentBtn);
 
         // Add hover event handling
         shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
@@ -706,44 +688,216 @@ public class actionController {
         updateInfoBtn.setOnMouseExited(e -> {
             updateInfoBtn.setStyle(nonTransparentBtn);
         });
-        resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
-        resetDefaultsBtn.setOnMouseExited(e -> {
-            resetDefaultsBtn.setStyle(nonTransparentBtn);
-        });
     }
 
     private void showSettingsWindow() {
-        // Create a new stage for the settings window
         Stage settingsStage = new Stage();
-        settingsStage.setTitle("UI Settings");
 
-        // Create color pickers for selecting colors
 
-        Button saveButton = resetDefaultsBtn;
+        ComboBox<String> mainWindowComboBox = new ComboBox<>();
+        ComboBox<String> notesWindowComboBox = new ComboBox<>();
+        ComboBox<String> ReportWindowComboBox = new ComboBox<>();
 
-        // Create a GridPane layout for the settings window
+        Button resetBtn = new Button("Reset Defaults");
+        resetBtn.getStyleClass().add("purpleButton");
+        resetBtn.setStyle("-fx-label-padding: 1 7; -fx-padding: 1;");
+
+
+        ColorPicker primPicker = new ColorPicker();
+        ColorPicker secPicker = new ColorPicker();
+        ColorPicker accPicker = new ColorPicker();
+        Label primaryLabel = new Label("Primary Color:");
+        primaryLabel.getStyleClass().add("headingBig");
+        Label secondaryLabel = new Label("Secondary Color:");
+        secondaryLabel.getStyleClass().add("headingBig");
+        Label accentLabel = new Label("Accent Color:");
+        accentLabel.getStyleClass().add("headingBig");
+
+        Runnable loadColors = () -> {
+            try {
+                Color primary = Color.valueOf(ConfigReader.configRead("mainColor"));
+                Color secondary = Color.valueOf(ConfigReader.configRead("secondaryColor"));
+                Color accent = Color.valueOf(ConfigReader.configRead("accentColor"));
+
+                primPicker.setValue(primary);
+                secPicker.setValue(secondary);
+                accPicker.setValue(accent);
+                primaryLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+                secondaryLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
+                accentLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
+
+        loadColors.run();
+
+        resetBtn.setOnAction(event -> {
+            updateMain(Color.valueOf("#524992"));
+            updateSecondary(Color.valueOf("#665cb6"));
+            updateAccent(Color.valueOf("#9c95d0"));
+            try {
+                loadTheme();
+                loadColors.run();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        primPicker.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateMain(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors.run();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        secPicker.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateSecondary(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors.run();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        accPicker.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateAccent(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors.run();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
+        mainWindowComboBox.getItems().addAll(displayPlacements);
+        notesWindowComboBox.getItems().addAll(displayPlacements);
+        ReportWindowComboBox.getItems().addAll(displayPlacements);
+
+        try {
+            mainWindowComboBox.setValue(ConfigReader.configRead("mainWindowLayout"));
+            notesWindowComboBox.setValue(ConfigReader.configRead("notesWindowLayout"));
+            ReportWindowComboBox.setValue(ConfigReader.configRead("reportWindowLayout"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         GridPane root = new GridPane();
         root.setPadding(new Insets(20));
         root.setHgap(15);
         root.setVgap(15);
-        root.addRow(0, primaryColor);
-        root.addRow(1, colorSelectMain);
-        root.addRow(2, secondaryColor);
-        root.addRow(3, colorSelectSecondary);
-        root.addRow(4, accentColor);
-        root.addRow(5, colorSelectAccent);
-        root.add(saveButton, 0, 6);
 
-        // Create the scene for the settings window
+        // Add headings for display settings
+        root.addRow(0, new Label("Display Placements"));
+        root.addRow(1, new Label("Main Window Placement:"), mainWindowComboBox);
+        root.addRow(2, new Label("Notes Window Placement:"), notesWindowComboBox);
+        root.addRow(3, new Label("Report Window Placement:"), ReportWindowComboBox);
+
+        // Add empty row
+        root.addRow(4, new Label());
+
+        // Add headings for color settings
+        root.addRow(5, new Label("Colors"));
+        root.addRow(6, primaryLabel, primPicker);
+        root.addRow(7, secondaryLabel, secPicker);
+        root.addRow(8, accentLabel, accPicker);
+
+        // Add reset button
+        root.addRow(9, resetBtn);
+
+        EventHandler<ActionEvent> comboBoxHandler = event -> {
+            ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
+            String selectedPlacement = comboBox.getSelectionModel().getSelectedItem();
+
+            if (comboBox == mainWindowComboBox) {
+                if ("Default".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "Default");
+                } else if ("Top Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "TopLeft");
+                } else if ("Top Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "TopRight");
+                } else if ("Bottom Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "BottomLeft");
+                } else if ("Bottom Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "BottomRight");
+                } else if ("Full Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "FullLeft");
+                } else if ("Full Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("mainWindowLayout", "FullRight");
+                }
+            }
+
+            if (comboBox == notesWindowComboBox) {
+                if ("Default".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "Default");
+                } else if ("Top Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "TopLeft");
+                } else if ("Top Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "TopRight");
+                } else if ("Bottom Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "BottomLeft");
+                } else if ("Bottom Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "BottomRight");
+                } else if ("Full Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "FullLeft");
+                } else if ("Full Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("notesWindowLayout", "FullRight");
+                }
+            }
+
+            if (comboBox == ReportWindowComboBox) {
+                if ("Default".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "Default");
+                } else if ("Top Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "TopLeft");
+                } else if ("Top Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "TopRight");
+                } else if ("Bottom Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "BottomLeft");
+                } else if ("Bottom Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "BottomRight");
+                } else if ("Full Left".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "FullLeft");
+                } else if ("Full Right".equals(selectedPlacement)) {
+                    ConfigWriter.configwrite("reportWindowLayout", "FullRight");
+                }
+            }
+        };
+
+        mainWindowComboBox.setOnAction(comboBoxHandler);
+        notesWindowComboBox.setOnAction(comboBoxHandler);
+        ReportWindowComboBox.setOnAction(comboBoxHandler);
+
         Scene scene = new Scene(root);
-
-        // Set the scene on the settings stage
         settingsStage.setScene(scene);
+        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formLabels.css").toExternalForm());
+        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/menu/menuStyles.css").toExternalForm());
 
-        // Show the settings window
+        settingsStage.setTitle("UI Settings");
         settingsStage.initStyle(StageStyle.UTILITY);
         settingsStage.setResizable(false);
         settingsStage.show();
+        settingsStage.setAlwaysOnTop(true);
+
+
     }
 
 
@@ -751,6 +905,11 @@ public class actionController {
 
 
     //<editor-fold desc="Getters">
+
+    public AnchorPane getTopPane() {
+        return topPane;
+    }
+
     public BarChart getReportChart() {
         return reportChart;
     }
@@ -801,19 +960,6 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onTopCLick(MouseEvent mouseEvent) {
-        xOffset = mouseEvent.getSceneX();
-        yOffset = mouseEvent.getSceneY();
-    }
-
-    @javafx.fxml.FXML
-    public void onTopDrag(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-    }
-
-    @javafx.fxml.FXML
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) vbox.getScene().getWindow();
         if (stage != null) {
@@ -848,25 +994,36 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
         Parent root = loader.load();
         notesViewController = loader.getController();
-        Scene newScene = new Scene(root);
+        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
         stage.setTitle("Notes");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
         stage.show();
-        stage.setAlwaysOnTop(true);
-        //stage.setAlwaysOnTop(false);
-        stage.centerOnScreen();
-        stage.setMinHeight(stage.getHeight() - 150);
-        stage.setMinWidth(stage.getWidth() - 150);
-        ResizeHelper.addResizeListener(stage);
+
+        String startupValue = ConfigReader.configRead("notesWindowLayout");
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(stage);
+            case "TopRight" -> snapToTopRight(stage);
+            case "BottomLeft" -> snapToBottomLeft(stage);
+            case "BottomRight" -> snapToBottomRight(stage);
+            case "FullLeft" -> snapToLeft(stage);
+            case "FullRight" -> snapToRight(stage);
+            default -> {
+                stage.centerOnScreen();
+                stage.setMinHeight(300);
+                stage.setMinWidth(300);
+            }
+        }
         stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
+        AnchorPane topbar = notesViewController.getTopbar();
+        newScene.setMoveControl(topbar);
+        stage.setAlwaysOnTop(true);
     }
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
         controllerUtils.refreshChart(areaReportChart, "area");
@@ -885,8 +1042,8 @@ public class actionController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setMinHeight(stage.getHeight() - 250);
-        stage.setMinWidth(stage.getWidth() - 250);
+        stage.setMinHeight(300);
+        stage.setMinWidth(300);
         ResizeHelper.addResizeListener(stage);
         showButtonAnimation(logsButton);
     }
@@ -899,12 +1056,13 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) {
-        newCallout(reportChart, areaReportChart, vbox, notesViewController);
+        //newCallout(reportChart, areaReportChart, vbox, notesViewController);
+        newPatrol(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(citationReportPane, shiftInformationPane, UISettingsPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, calloutReportPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(infoPane);
     }
 
@@ -927,19 +1085,13 @@ public class actionController {
         showSettingsWindow();
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void resetDefaultsBtnPress(ActionEvent actionEvent) throws IOException {
-        updateMain(Color.valueOf("#524992"));
-        updateSecondary(Color.valueOf("#665cb6"));
-        updateAccent(Color.valueOf("#9c95d0"));
-        loadTheme();
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onColorSelectMainPress(ActionEvent actionEvent) throws IOException {
-        Color selectedColor = colorSelectMain.getValue();
-        updateMain(selectedColor);
-        loadTheme();
+
     }
 
 
@@ -948,23 +1100,19 @@ public class actionController {
 
     //<editor-fold desc="Open Report Button Events">
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onColorSelectSecondaryPress(ActionEvent actionEvent) throws IOException {
-        Color selectedColor = colorSelectSecondary.getValue();
-        updateSecondary(selectedColor);
-        loadTheme();
+
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onColorSelectAccentPress(ActionEvent actionEvent) throws IOException {
-        Color selectedColor = colorSelectAccent.getValue();
-        updateAccent(selectedColor);
-        loadTheme();
+
     }
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -987,7 +1135,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
         setActive(trafficStopReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1011,7 +1159,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1033,7 +1181,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1056,7 +1204,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
 
@@ -1096,7 +1244,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(shiftInformationPane, infoPane, UISettingsPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
+        setDisable(shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
         setActive(citationReportPane);
         citationAccordionInformation.setExpanded(true);
         createSpinner(citationNumber, 0, 9999, 0);
@@ -1136,7 +1284,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1156,7 +1304,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, UISettingsPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
+        setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
         setActive(impoundReportPane);
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");

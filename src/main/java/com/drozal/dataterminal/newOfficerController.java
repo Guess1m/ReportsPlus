@@ -130,6 +130,9 @@ public class newOfficerController {
             ConfigWriter.configwrite("mainColor", "#524992");
             ConfigWriter.configwrite("secondaryColor", "#665cb6");
             ConfigWriter.configwrite("accentColor", "#9c95d0");
+            ConfigWriter.configwrite("mainWindowLayout", "Default");
+            ConfigWriter.configwrite("notesWindowLayout", "Default");
+            ConfigWriter.configwrite("reportWindowLayout", "Default");
 
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();
@@ -145,8 +148,8 @@ public class newOfficerController {
             stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
             stage.show();
             stage.centerOnScreen();
-            stage.setMinHeight(stage.getHeight() - 200);
-            stage.setMinWidth(stage.getWidth() - 200);
+            stage.setMinHeight(300);
+            stage.setMinWidth(300);
             windowUtils.setWindowedFullscreen(stage);
             ResizeHelper.addResizeListener(stage);
         }
@@ -207,6 +210,9 @@ public class newOfficerController {
         ConfigWriter.configwrite("mainColor", "#524992");
         ConfigWriter.configwrite("secondaryColor", "#665cb6");
         ConfigWriter.configwrite("accentColor", "#9c95d0");
+        ConfigWriter.configwrite("mainWindowLayout", "Default");
+        ConfigWriter.configwrite("notesWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowLayout", "Default");
 
         Stage stag = (Stage) vbox.getScene().getWindow();
         stag.close();
@@ -222,8 +228,8 @@ public class newOfficerController {
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         stage.show();
         stage.centerOnScreen();
-        stage.setMinHeight(stage.getHeight() - 200);
-        stage.setMinWidth(stage.getWidth() - 200);
+        stage.setMinHeight(300);
+        stage.setMinWidth(300);
         windowUtils.setWindowedFullscreen(stage);
         ResizeHelper.addResizeListener(stage);
     }

@@ -1,7 +1,6 @@
 package com.drozal.dataterminal;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
@@ -15,9 +14,6 @@ public class NotesViewController {
 
     @javafx.fxml.FXML
     private TextArea notepadTextArea;
-
-    private double xOffset = 0;
-    private double yOffset = 0;
     @javafx.fxml.FXML
     private ImageView exitButton;
     @javafx.fxml.FXML
@@ -26,6 +22,8 @@ public class NotesViewController {
     private Button clearbtnnotepad;
     @javafx.fxml.FXML
     private ToggleButton alwaysTopBtn;
+    @javafx.fxml.FXML
+    private AnchorPane topbar;
 
     public void initialize() {
         notepadTextArea.setText(actionController.notesText);
@@ -34,19 +32,6 @@ public class NotesViewController {
     @javafx.fxml.FXML
     public void onclearclick(ActionEvent actionEvent) {
         notepadTextArea.setText("");
-    }
-
-    @javafx.fxml.FXML
-    public void onMouseDrag(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-    }
-
-    @javafx.fxml.FXML
-    public void onMousePress(MouseEvent mouseEvent) {
-        xOffset = mouseEvent.getSceneX();
-        yOffset = mouseEvent.getSceneY();
     }
 
     @javafx.fxml.FXML
@@ -68,5 +53,9 @@ public class NotesViewController {
 
     public TextArea getNotepadTextArea() {
         return notepadTextArea;
+    }
+
+    public AnchorPane getTopbar() {
+        return topbar;
     }
 }

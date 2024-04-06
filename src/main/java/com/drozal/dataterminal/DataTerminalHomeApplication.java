@@ -1,21 +1,23 @@
 package com.drozal.dataterminal;
 
+import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.windowUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
 
@@ -48,21 +50,34 @@ public class DataTerminalHomeApplication extends Application {
         Stage mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
-        mainRT.initStyle(StageStyle.UNDECORATED);
+        actionController controller = loader.getController();
+        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
         mainRT.setScene(scene);
-        mainRT.setResizable(true);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
-        mainRT.setMinHeight(mainRT.getHeight() - 200);
-        mainRT.setMinWidth(mainRT.getWidth() - 200);
-        mainRT.centerOnScreen();
-        if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
-            windowUtils.setWindowedFullscreen(mainRT);
-        } else {
-            mainRT.setHeight(800);
-            mainRT.setWidth(1150);
+
+        String startupValue = ConfigReader.configRead("mainWindowLayout");
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(mainRT);
+            case "TopRight" -> snapToTopRight(mainRT);
+            case "BottomLeft" -> snapToBottomLeft(mainRT);
+            case "BottomRight" -> snapToBottomRight(mainRT);
+            case "FullLeft" -> snapToLeft(mainRT);
+            case "FullRight" -> snapToRight(mainRT);
+            default -> {
+                mainRT.centerOnScreen();
+                mainRT.setMinHeight(450);
+                mainRT.setMinWidth(450);
+                if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+                    windowUtils.setWindowedFullscreen(mainRT);
+                } else {
+                    mainRT.setHeight(800);
+                    mainRT.setWidth(1150);
+                }
+            }
+
         }
-        ResizeHelper.addResizeListener(mainRT);
+        scene.setMoveControl(controller.topPane);
+        mainRT.setAlwaysOnTop(false);
     }
 }

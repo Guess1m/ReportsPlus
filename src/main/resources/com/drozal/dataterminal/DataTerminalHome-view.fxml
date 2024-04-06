@@ -277,30 +277,6 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="UISettingsPane" disable="true" layoutX="317.0" layoutY="281.0" prefHeight="222.0"
-                    prefWidth="604.0" styleClass="formPane2" stylesheets="@css/form/formPane.css" visible="false"
-                    AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="106.0"
-                    AnchorPane.topAnchor="281.0">
-            <children>
-                <ColorPicker fx:id="colorSelectMain" layoutX="106.0" layoutY="84.0" onAction="#onColorSelectMainPress"
-                             prefHeight="26.0" prefWidth="178.0" promptText="Color"/>
-                <ColorPicker fx:id="colorSelectSecondary" layoutX="341.0" layoutY="104.0"
-                             onAction="#onColorSelectSecondaryPress" prefHeight="26.0" prefWidth="178.0"
-                             promptText="Color"/>
-                <Button fx:id="resetDefaultsBtn" layoutX="378.0" layoutY="58.0" mnemonicParsing="false"
-                        onAction="#resetDefaultsBtnPress" style="-fx-label-padding: 3; -fx-padding: 0;"
-                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Reset"/>
-                <Label fx:id="primaryColor" layoutX="78.0" layoutY="27.0" styleClass="headingBig"
-                       stylesheets="@css/form/formLabels.css" text="Primary Color"/>
-                <Label fx:id="secondaryColor" layoutX="78.0" layoutY="130.0" styleClass="headingBig"
-                       stylesheets="@css/form/formLabels.css" text="Secondary Color"/>
-                <Label fx:id="accentColor" layoutX="329.0" layoutY="147.0" styleClass="headingBig"
-                       stylesheets="@css/form/formLabels.css" text="Accent Color"/>
-                <ColorPicker fx:id="colorSelectAccent" layoutX="470.0" layoutY="151.0"
-                             onAction="#onColorSelectAccentPress" prefHeight="26.0" prefWidth="178.0"
-                             promptText="Color"/>
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="trafficStopReportPane" disable="true" layoutX="243.0" layoutY="125.0" prefHeight="707.0"
                     prefWidth="822.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
@@ -3292,9 +3268,9 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="topPane" layoutY="-1.0" onMouseDragged="#onTopDrag" onMousePressed="#onTopCLick"
-                    prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="topPane" layoutY="-1.0" prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar"
+                    stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" layoutX="216.0" layoutY="25.0" prefWidth="175.0" text="Report Plus"
                        textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="216.0"

@@ -7,11 +7,11 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.CitationsData;
+import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
+import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -41,6 +41,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
+import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class reportCreationUtil {
 
@@ -48,8 +49,6 @@ public class reportCreationUtil {
     static String primaryColor = "#323c41";
     static String secondaryColor = "#263238"; //Darkest
     static String accentColor = "#505d62"; //Lightest
-    private static double xOffset = 0;
-    private static double yOffset = 0;
 
     /*static {
         try {
@@ -60,6 +59,10 @@ public class reportCreationUtil {
             throw new RuntimeException(e);
         }
     }*/
+
+
+    //<editor-fold desc="Creation">
+
 
     // Method to create a report window with specified rows
     public static Map<String, Object> createReportWindow(String reportName, SectionConfig... sectionConfigs) {
@@ -291,19 +294,38 @@ public class reportCreationUtil {
 
         stage.setMaxWidth(screenWidth);
         stage.setMaxHeight(screenHeight);
-        stage.setAlwaysOnTop(true);
         stage.show();
-        stage.setHeight(750);
-        stage.setWidth(850);
-        stage.setMinHeight(stage.getHeight() - 300);
-        stage.setMinWidth(stage.getWidth() - 300);
-        stage.centerOnScreen();
+
+        String startupValue = null;
+        try {
+            startupValue = ConfigReader.configRead("reportWindowLayout");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(stage);
+            case "TopRight" -> snapToTopRight(stage);
+            case "BottomLeft" -> snapToBottomLeft(stage);
+            case "BottomRight" -> snapToBottomRight(stage);
+            case "FullLeft" -> snapToLeft(stage);
+            case "FullRight" -> snapToRight(stage);
+            default -> {
+                stage.setHeight(750);
+                stage.setWidth(850);
+                stage.setMinHeight(300);
+                stage.setMinWidth(300);
+                stage.centerOnScreen();
+            }
+        }
+
         Map<String, Object> result = new HashMap<>();
         result.put(reportName + " Map", fieldsMap);
         result.put("pullNotesBtn", pullNotesBtn);
         result.put("warningLabel", warningLabel);
         result.put("submitBtn", submitBtn);
         result.put("root", borderPane);
+        stage.setAlwaysOnTop(true);
         return result;
     }
 
@@ -572,6 +594,13 @@ public class reportCreationUtil {
         }
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Report Windows">
+
+
     static Map<String, Object> calloutLayout() {
         Map<String, Object> calloutReport = createReportWindow("Callout Report",
                 new reportCreationUtil.SectionConfig("Officer Information",
@@ -701,6 +730,132 @@ public class reportCreationUtil {
         });
     }
 
+    static Map<String, Object> patrolLayout() {
+        Map<String, Object> patrolReport = createReportWindow("Patrol Report",
+                new reportCreationUtil.SectionConfig("Officer Information",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
+                new reportCreationUtil.SectionConfig("Shift Information",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("starttime", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("stoptime", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("patrolnumber", 5, reportCreationUtil.FieldType.TEXT_FIELD)),
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("length", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("date", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("vehicle", 6, reportCreationUtil.FieldType.TEXT_FIELD))
+                ),
+                new reportCreationUtil.SectionConfig("Callout Notes",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
+                )
+        );
+        return patrolReport;
+    }
+
+    public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> patrolReport = patrolLayout();
+
+        //Access patrolReportMap
+        Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport.get("Patrol Report Map");
+        //Access specific fields
+        TextField name = (TextField) patrolReportMap.get("name");
+        TextField rank = (TextField) patrolReportMap.get("rank");
+        TextField div = (TextField) patrolReportMap.get("division");
+        TextField agen = (TextField) patrolReportMap.get("agency");
+        TextField num = (TextField) patrolReportMap.get("number");
+        TextField patrolnum = (TextField) patrolReportMap.get("patrolnumber");
+        TextArea notes = (TextArea) patrolReportMap.get("notes");
+        TextField date = (TextField) patrolReportMap.get("date");
+        TextField starttime = (TextField) patrolReportMap.get("starttime");
+        TextField stoptime = (TextField) patrolReportMap.get("stoptime");
+        TextField length = (TextField) patrolReportMap.get("length");
+        TextField vehicle = (TextField) patrolReportMap.get("vehicle");
+
+        BorderPane root = (BorderPane) patrolReport.get("root");
+        Label warningLabel = (Label) patrolReport.get("warningLabel");
+
+        try {
+            name.setText(ConfigReader.configRead("Name"));
+            rank.setText(ConfigReader.configRead("Rank"));
+            div.setText(ConfigReader.configRead("Division"));
+            agen.setText(ConfigReader.configRead("Agency"));
+            num.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stoptime.setText(getDate());
+
+        //change action of pullnotesbutton
+        Button pullNotesBtn = (Button) patrolReport.get("pullNotesBtn");
+        // Change the action of the pullNotesBtn button
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(patrolnum, notesViewController.getNotepadTextArea(), "-number");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+        //change action of pullnotesbutton
+        Button submitBtn = (Button) patrolReport.get("submitBtn");
+        // Change the action of the pullNotesBtn button
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : patrolReportMap.keySet()) {
+                Object field = patrolReportMap.get(fieldName);
+                // Check if the field is a ComboBox
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                // Display warning message
+                warningLabel.setVisible(true);
+                // Hide the warning label after 3 seconds
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return; // Exit the action event handler
+            }
+
+            List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
+
+            // Add new entry
+            logs.add(new PatrolLogEntry(
+                    patrolnum.getText(),
+                    date.getText(),
+                    length.getText(),
+                    starttime.getText(),
+                    stoptime.getText(),
+                    rank.getText(),
+                    name.getText(),
+                    num.getText(),
+                    div.getText(),
+                    agen.getText(),
+                    vehicle.getText(),
+                    notes.getText()
+            ));
+            // Save logs to XML
+            PatrolReportLogs.saveLogsToXML(logs);
+            updateChartIfMismatch(reportChart);
+            controllerUtils.refreshChart(areaReportChart, "area");
+            showNotification("Reports", "A new Patrol Report has been submitted.", vbox);
+
+            Stage rootstage = (Stage) root.getScene().getWindow();
+            rootstage.close();
+        });
+    }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="External">
+
+
     public enum FieldType {
         TEXT_FIELD,
         TEXT_AREA,
@@ -763,5 +918,8 @@ public class reportCreationUtil {
             return fieldType;
         }
     }
+
+
+    //</editor-fold>
 
 }

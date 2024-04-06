@@ -112,7 +112,8 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
-                            <shadedJvmArgs>--add-exports javafx.graphics/com.sun.glass.ui=BorderlessSceneFX</shadedJvmArgs>
+                            <shadedJvmArgs>--add-exports javafx.graphics/com.sun.glass.ui=BorderlessSceneFX
+                            </shadedJvmArgs>
                         </configuration>
                     </execution>
                 </executions>

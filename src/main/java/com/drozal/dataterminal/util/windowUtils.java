@@ -1,9 +1,70 @@
 package com.drozal.dataterminal.util;
 
+import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class windowUtils {
+
+    public static void snapToTopLeft(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+        double halfScreenHeight = primaryScreenBounds.getHeight() / 2;
+        stage.setX(primaryScreenBounds.getMinX());
+        stage.setY(primaryScreenBounds.getMinY());
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(halfScreenHeight);
+    }
+
+    public static void snapToBottomLeft(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+        double halfScreenHeight = primaryScreenBounds.getHeight() / 2;
+        stage.setX(primaryScreenBounds.getMinX());
+        stage.setY(primaryScreenBounds.getMaxY() - halfScreenHeight);
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(halfScreenHeight);
+    }
+
+    public static void snapToTopRight(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+        double halfScreenHeight = primaryScreenBounds.getHeight() / 2;
+        stage.setX(primaryScreenBounds.getMaxX() - halfScreenWidth);
+        stage.setY(primaryScreenBounds.getMinY());
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(halfScreenHeight);
+    }
+
+    public static void snapToBottomRight(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+        double halfScreenHeight = primaryScreenBounds.getHeight() / 2;
+        stage.setX(primaryScreenBounds.getMaxX() - halfScreenWidth);
+        stage.setY(primaryScreenBounds.getMaxY() - halfScreenHeight);
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(halfScreenHeight);
+    }
+
+    public static void snapToLeft(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+
+        stage.setX(primaryScreenBounds.getMinX());
+        stage.setY(primaryScreenBounds.getMinY());
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(primaryScreenBounds.getHeight());
+    }
+
+    public static void snapToRight(Stage stage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
+
+        stage.setX(primaryScreenBounds.getMinX() + halfScreenWidth);
+        stage.setY(primaryScreenBounds.getMinY());
+        stage.setWidth(halfScreenWidth);
+        stage.setHeight(primaryScreenBounds.getHeight());
+    }
 
     public static void setWindowedFullscreen(Stage stage) {
         Screen screen = getScreenContainingStage(stage);

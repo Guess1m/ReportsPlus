@@ -51,6 +51,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
@@ -1026,6 +1027,13 @@ public class actionController {
         AnchorPane topbar = notesViewController.getTitlebar();
         newScene.setMoveControl(topbar);
         stage.setAlwaysOnTop(true);
+
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                actionController.notesText = notesViewController.getNotepadTextArea().getText();
+            }
+        });
     }
 
     @javafx.fxml.FXML

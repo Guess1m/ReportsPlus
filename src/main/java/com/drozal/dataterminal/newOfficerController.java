@@ -1,7 +1,8 @@
 package com.drozal.dataterminal;
 
+import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.windowUtils;
 import javafx.animation.KeyFrame;
@@ -11,11 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -26,6 +27,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+
+import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class newOfficerController {
     @javafx.fxml.FXML
@@ -137,21 +140,38 @@ public class newOfficerController {
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();
 
-            Stage stage = new Stage();
+            Stage mainRT = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
-            Scene newScene = new Scene(root);
-            stage.setTitle("Reports Plus+");
-            stage.setScene(newScene);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setResizable(false);
-            stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
-            stage.show();
-            stage.centerOnScreen();
-            stage.setMinHeight(300);
-            stage.setMinWidth(300);
-            windowUtils.setWindowedFullscreen(stage);
-            ResizeHelper.addResizeListener(stage);
+            actionController controller = loader.getController();
+            BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+            mainRT.setScene(scene);
+            mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+            mainRT.show();
+
+            String startupValue = ConfigReader.configRead("mainWindowLayout");
+            switch (startupValue) {
+                case "TopLeft" -> snapToTopLeft(mainRT);
+                case "TopRight" -> snapToTopRight(mainRT);
+                case "BottomLeft" -> snapToBottomLeft(mainRT);
+                case "BottomRight" -> snapToBottomRight(mainRT);
+                case "FullLeft" -> snapToLeft(mainRT);
+                case "FullRight" -> snapToRight(mainRT);
+                default -> {
+                    mainRT.centerOnScreen();
+                    mainRT.setMinHeight(450);
+                    mainRT.setMinWidth(450);
+                    if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+                        windowUtils.setWindowedFullscreen(mainRT);
+                    } else {
+                        mainRT.setHeight(800);
+                        mainRT.setWidth(1150);
+                    }
+                }
+
+            }
+            scene.setMoveControl(controller.topPane);
+            mainRT.setAlwaysOnTop(false);
         }
     }
 
@@ -217,20 +237,37 @@ public class newOfficerController {
         Stage stag = (Stage) vbox.getScene().getWindow();
         stag.close();
 
-        Stage stage = new Stage();
+        Stage mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Reports Plus+");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
-        stage.show();
-        stage.centerOnScreen();
-        stage.setMinHeight(300);
-        stage.setMinWidth(300);
-        windowUtils.setWindowedFullscreen(stage);
-        ResizeHelper.addResizeListener(stage);
+        actionController controller = loader.getController();
+        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        mainRT.setScene(scene);
+        mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+        mainRT.show();
+
+        String startupValue = ConfigReader.configRead("mainWindowLayout");
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(mainRT);
+            case "TopRight" -> snapToTopRight(mainRT);
+            case "BottomLeft" -> snapToBottomLeft(mainRT);
+            case "BottomRight" -> snapToBottomRight(mainRT);
+            case "FullLeft" -> snapToLeft(mainRT);
+            case "FullRight" -> snapToRight(mainRT);
+            default -> {
+                mainRT.centerOnScreen();
+                mainRT.setMinHeight(450);
+                mainRT.setMinWidth(450);
+                if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+                    windowUtils.setWindowedFullscreen(mainRT);
+                } else {
+                    mainRT.setHeight(800);
+                    mainRT.setWidth(1150);
+                }
+            }
+
+        }
+        scene.setMoveControl(controller.topPane);
+        mainRT.setAlwaysOnTop(false);
     }
 }

@@ -61,22 +61,21 @@ public class reportCreationUtil {
         }
     }
 
+    /*
+    GREY COLOR
+    database.accentColor=\#505D62
+    database.mainColor=\#263238
+    database.secondaryColor=\#323C41
+    */
 
-    //<editor-fold desc="Creation">
-
-
-    // Method to create a report window with specified rows
-    public static Map<String, Object> createReportWindow(String reportName, SectionConfig... sectionConfigs) {
-        // Create a BorderPane to hold the content
-        BorderPane borderPane = new BorderPane();
-
+    public static AnchorPane createTitleBar(String titleText) {
         // Apply color overlay to make the image white
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0); // Set saturation to make it grey
         colorAdjust.setBrightness(-0.2); // Set brightness to make it darker
 
 // Create a Label for the title bar
-        Label titleLabel = new Label("Report Manager");
+        Label titleLabel = new Label(titleText);
         titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #999999;");
         titleLabel.setAlignment(Pos.CENTER); // Align the header text to the center
         AnchorPane.setLeftAnchor(titleLabel, (double) 0);
@@ -141,16 +140,16 @@ public class reportCreationUtil {
 
 // Set mouse event handlers on the rectangles
         closeRect.setOnMouseClicked(event -> {
-            Stage stage = (Stage) borderPane.getScene().getWindow();
+            Stage stage = (Stage) titleBar.getScene().getWindow();
             stage.close();
         });
 
         minimizeRect.setOnMouseClicked(event -> {
-            Stage stage = (Stage) borderPane.getScene().getWindow();
+            Stage stage = (Stage) titleBar.getScene().getWindow();
             stage.setIconified(true);
         });
         maximizeRect.setOnMouseClicked(event -> {
-            Stage stage = (Stage) borderPane.getScene().getWindow();
+            Stage stage = (Stage) titleBar.getScene().getWindow();
             windowUtils.toggleWindowedFullscreen(stage, 850, 750);
         });
 
@@ -167,10 +166,31 @@ public class reportCreationUtil {
         closeRect.toFront();
         minimizeRect.toFront();
         maximizeRect.toFront();
+        return titleBar;
+    }
 
-// Set the title bar at the top
+
+    //<editor-fold desc="Creation">
+
+
+    // Method to create a report window with specified rows
+    public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, SectionConfig... sectionConfigs) {
+        Screen screen = Screen.getPrimary();
+        double screenWidth = screen.getVisualBounds().getWidth();
+        double screenHeight = screen.getVisualBounds().getHeight();
+
+        // Calculate the width and height based on the number of units
+        double preferredWidth = screenWidth / 12 * numWidthUnits;
+        double preferredHeight = screenHeight / 12 * numHeightUnits;
+
+        // Create a BorderPane to hold the content
+        BorderPane borderPane = new BorderPane();
+        borderPane.setStyle("-fx-border-color: black");
+
+        AnchorPane titleBar = createTitleBar("Report Manager");
+
         borderPane.setTop(titleBar);
-        // Create a GridPane to hold the form fields
+
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -287,12 +307,6 @@ public class reportCreationUtil {
         stage.setScene(scene);
         stage.setTitle(reportName);
 
-        // Get the primary screen
-        Screen screen = Screen.getPrimary();
-        // Get the visual bounds of the primary screen
-        double screenHeight = screen.getVisualBounds().getHeight();
-        double screenWidth = screen.getVisualBounds().getWidth();
-
         stage.setMaxWidth(screenWidth);
         stage.setMaxHeight(screenHeight);
 
@@ -320,8 +334,8 @@ public class reportCreationUtil {
             case "FullLeft" -> snapToLeft(stage);
             case "FullRight" -> snapToRight(stage);
             default -> {
-                stage.setHeight(750);
-                stage.setWidth(850);
+                stage.setWidth(preferredWidth);
+                stage.setHeight(preferredHeight);
                 stage.setMinHeight(300);
                 stage.setMinWidth(300);
                 stage.centerOnScreen();
@@ -611,7 +625,7 @@ public class reportCreationUtil {
 
 
     static Map<String, Object> calloutLayout() {
-        Map<String, Object> calloutReport = createReportWindow("Callout Report",
+        Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7,
                 new reportCreationUtil.SectionConfig("Officer Information",
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
@@ -740,7 +754,7 @@ public class reportCreationUtil {
     }
 
     static Map<String, Object> patrolLayout() {
-        Map<String, Object> patrolReport = createReportWindow("Patrol Report",
+        Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7,
                 new reportCreationUtil.SectionConfig("Officer Information",
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
@@ -776,6 +790,16 @@ public class reportCreationUtil {
         TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 
         BorderPane root = (BorderPane) patrolReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
+
+        /*
+        Save last layout
+        stage.setX(960);
+        stage.setY(344);
+        stage.setWidth(960);
+        stage.setHeight(696);*/
+
+
         Label warningLabel = (Label) patrolReport.get("warningLabel");
 
         try {
@@ -805,6 +829,12 @@ public class reportCreationUtil {
         Button submitBtn = (Button) patrolReport.get("submitBtn");
         // Change the action of the pullNotesBtn button
         submitBtn.setOnAction(event -> {
+            System.out.println(stage.getX());
+            System.out.println(stage.getY());
+            System.out.println(stage.getWidth());
+            System.out.println(stage.getHeight());
+
+
             boolean allFieldsFilled = true;
             for (String fieldName : patrolReportMap.keySet()) {
                 Object field = patrolReportMap.get(fieldName);

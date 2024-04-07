@@ -23,12 +23,12 @@ public class DataTerminalHomeApplication extends Application {
 
     public static Stage mainRT;
 
-    public static void setMainRT(Stage mainRT) {
-        DataTerminalHomeApplication.mainRT = mainRT;
-    }
-
     public static Stage getMainRT() {
         return mainRT;
+    }
+
+    public static void setMainRT(Stage mainRT) {
+        DataTerminalHomeApplication.mainRT = mainRT;
     }
 
     public static String getDate() {

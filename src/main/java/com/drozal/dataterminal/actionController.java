@@ -1023,7 +1023,7 @@ public class actionController {
         }
         stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
-        AnchorPane topbar = notesViewController.getTopbar();
+        AnchorPane topbar = notesViewController.getTitlebar();
         newScene.setMoveControl(topbar);
         stage.setAlwaysOnTop(true);
     }

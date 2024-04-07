@@ -1,5 +1,5 @@
 .text-area {
-    -fx-background-color: rgb(242, 242, 242, 0.6);
+    -fx-background-color: white;
     -fx-border-width: 0.35 0.35 0.35 0.35; /* Set bottom border width */
     -fx-border-color: grey; /* Set initial border color to transparent */
     -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
@@ -44,6 +44,10 @@
 .text-area .scroll-pane .scroll-bar:horizontal {
     -fx-background-color: transparent; /* Transparent background */
     -fx-pref-height: 15px; /* Thicker height */
+}
+
+.text-area {
+    -fx-cursor: text;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal .thumb {

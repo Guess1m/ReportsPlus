@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -15,38 +16,52 @@
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
-                            stylesheets="@css/main/Logscrollpane.css" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0">
                     <content>
                         <VBox>
                             <children>
-                                <AnchorPane VBox.vgrow="NEVER">
+                                <GridPane minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
                                     <children>
-                                        <Label fx:id="mainColor8" alignment="CENTER" prefHeight="43.0" prefWidth="808.0"
-                                               styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
-                                               text="Officer Shift Information" textAlignment="CENTER" textFill="WHITE"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="0.0">
+                                        <Label fx:id="generatedByTag" prefHeight="43.0" prefWidth="244.0"
+                                               text="sdfsdfsdfsdfdsfsdfsdfsdf" textAlignment="CENTER" textFill="#979797"
+                                               GridPane.halignment="LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="13.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="40.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label fx:id="mainColor8" alignment="CENTER" styleClass="headingBig"
+                                               stylesheets="@css/menu/menuLabels.css" text="Officer Shift Information"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1"
+                                               GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <font>
                                                 <Font name="Segoe UI Black" size="19.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="generatedByTag" layoutX="34.0" prefHeight="43.0" prefWidth="244.0"
-                                               textAlignment="CENTER" textFill="#979797" AnchorPane.leftAnchor="34.0">
+                                        <Label fx:id="generatedDateTag" alignment="CENTER_RIGHT" prefHeight="43.0"
+                                               prefWidth="253.0" text="dsfsfsdfsfdsfdsfsdfsdfsd" textAlignment="CENTER"
+                                               textFill="#979797" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
                                             </font>
-                                        </Label>
-                                        <Label fx:id="generatedDateTag" alignment="CENTER_RIGHT" layoutX="522.0"
-                                               prefHeight="43.0" prefWidth="253.0" textAlignment="CENTER"
-                                               textFill="#979797" AnchorPane.rightAnchor="35.0">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
-                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="40.0"/>
+                                            </GridPane.margin>
                                         </Label>
                                     </children>
-                                </AnchorPane>
+                                </GridPane>
                                 <AnchorPane prefHeight="208.0" prefWidth="816.0" VBox.vgrow="NEVER">
                                     <children>
                                         <Label fx:id="secondaryColor3Bkg" alignment="CENTER" layoutX="35.0"
@@ -3282,90 +3297,125 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="topPane" layoutY="-1.0" prefHeight="80.0" prefWidth="1013.0" styleClass="menuTopBar"
-                    stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" prefHeight="86.0" prefWidth="947.0"
+                    styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label alignment="CENTER" layoutX="216.0" layoutY="25.0" prefWidth="175.0" text="Report Plus"
-                       textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="216.0"
-                       AnchorPane.topAnchor="25.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="25.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
-                            <color>
-                                <Color opacity="0.223709374666214"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="966.0" layoutY="16.0"
-                           onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-                    <image>
-                        <Image url="@imgs/icons/cross.png"/>
-                    </image>
-                    <effect>
-                        <ColorAdjust brightness="1.0"/>
-                    </effect>
-                </ImageView>
-                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0" layoutX="902.0"
-                            layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0"
-                            styleClass="button" stylesheets="@css/menu/settingsDropdown.css" text="Settings"
-                            textFill="#828797" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="10.0">
-                    <graphic>
-                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                <GridPane layoutX="12.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="168.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" prefWidth="555.0"/>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="121.0"/>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label alignment="CENTER" text="Report Plus" textFill="WHITE" textOverrun="CLIP">
+                            <font>
+                                <Font name="Segoe UI Black" size="25.0"/>
+                            </font>
+                            <effect>
+                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                                    <color>
+                                        <Color opacity="0.223709374666214"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                            <padding>
+                                <Insets left="15.0"/>
+                            </padding>
+                        </Label>
+                        <ImageView fitHeight="27.0" fitWidth="24.0" onMouseClicked="#onExitButtonClick"
+                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5"
+                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
                             <image>
-                                <Image url="@imgs/icons/settings.png"/>
+                                <Image url="@imgs/icons/cross.png"/>
                             </image>
+                            <effect>
+                                <ColorAdjust brightness="1.0"/>
+                            </effect>
+                            <GridPane.margin>
+                                <Insets top="6.0"/>
+                            </GridPane.margin>
                         </ImageView>
-                    </graphic>
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick" text="UI Color Settings"/>
-                        <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
-                                       onAction="#onStartupFullscreenPress" selected="true" text="StartupFullscreen"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
-                        <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
-                                  text="Clear All Save Data"/>
-                        <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
-                    </items>
-                </MenuButton>
-                <Label alignment="CENTER" layoutX="385.0" layoutY="32.0" text="Report Tool" textFill="#d7d7d7">
-                    <font>
-                        <Font name="Segoe UI Semibold" size="18.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
-                            <color>
-                                <Color opacity="0.223709374666214"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="1078.0" layoutY="17.0"
-                           onMouseClicked="#onFullscreenBtnClick" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="17.0">
-                    <image>
-                        <Image url="@imgs/icons/maximize.png"/>
-                    </image>
-                    <effect>
-                        <ColorAdjust brightness="1.0"/>
-                    </effect>
-                </ImageView>
-                <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1042.0" layoutY="17.0"
-                           onMouseClicked="#onMinimizeBtnClick" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="17.0">
-                    <image>
-                        <Image url="@imgs/icons/minimize.png"/>
-                    </image>
-                    <effect>
-                        <ColorAdjust brightness="1.0"/>
-                    </effect>
-                </ImageView>
+                        <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0"
+                                    mnemonicParsing="false" styleClass="button"
+                                    stylesheets="@css/menu/settingsDropdown.css" text="Settings" textFill="#828797"
+                                    GridPane.columnIndex="2" GridPane.valignment="TOP">
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@imgs/icons/settings.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick"
+                                          text="UI Color Settings"/>
+                                <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
+                                               onAction="#onStartupFullscreenPress" selected="true"
+                                               text="StartupFullscreen"/>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
+                                <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
+                                          text="Clear All Save Data"/>
+                                <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
+                            </items>
+                            <GridPane.margin>
+                                <Insets top="10.0"/>
+                            </GridPane.margin>
+                        </MenuButton>
+                        <Label alignment="CENTER" text="Report Tool" textFill="#d7d7d7" textOverrun="CLIP"
+                               GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="18.0"/>
+                            </font>
+                            <effect>
+                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
+                                    <color>
+                                        <Color opacity="0.223709374666214"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                            <padding>
+                                <Insets top="2.0"/>
+                            </padding>
+                        </Label>
+                        <ImageView fitHeight="20.0" fitWidth="21.0" onMouseClicked="#onFullscreenBtnClick"
+                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4"
+                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                            <image>
+                                <Image url="@imgs/icons/maximize.png"/>
+                            </image>
+                            <effect>
+                                <ColorAdjust brightness="1.0"/>
+                            </effect>
+                            <GridPane.margin>
+                                <Insets top="8.0"/>
+                            </GridPane.margin>
+                        </ImageView>
+                        <ImageView fitHeight="21.0" fitWidth="21.0" onMouseClicked="#onMinimizeBtnClick"
+                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3"
+                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                            <image>
+                                <Image url="@imgs/icons/minimize.png"/>
+                            </image>
+                            <effect>
+                                <ColorAdjust brightness="1.0"/>
+                            </effect>
+                            <GridPane.margin>
+                                <Insets top="7.0"/>
+                            </GridPane.margin>
+                        </ImageView>
+                    </children>
+                </GridPane>
             </children>
             <effect>
                 <DropShadow/>
@@ -3375,181 +3425,213 @@
                     prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" layoutX="10.0" layoutY="109.0"
-                        mnemonicParsing="false" onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="127.0"
-                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Shift Info" textFill="#828797"
-                        AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="109.0">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/icons/shiftInfo.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="notesButton" graphicTextGap="10.0" layoutX="10.0" layoutY="175.0" mnemonicParsing="false"
-                        onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0" styleClass="menu"
-                        stylesheets="@css/menu/sidepanelBtns.css" text="Notes" textFill="#828797"
-                        AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/icons/writing.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <MenuButton fx:id="createReportBtn" alignment="CENTER_RIGHT" graphicTextGap="10.0" layoutX="10.0"
-                            layoutY="241.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0"
-                            styleClass="button" stylesheets="@css/menu/createReportDropdown.css" text="Create Report"
-                            textFill="#828797" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                    <items>
-                        <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
-                                  onAction="#onCitationReportBtnClick" text="Citation Report"/>
-                        <MenuItem fx:id="arrestReportButton" mnemonicParsing="false" onAction="#onArrestReportBtnClick"
-                                  text="Arrest Report"/>
-                        <MenuItem fx:id="trafficReportButton" mnemonicParsing="false"
-                                  onAction="#trafficStopReportButtonClick" text="Traffic Stop Report"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem fx:id="patrolReportButton" mnemonicParsing="false" onAction="#onPatrolButtonClick"
-                                  text="Patrol Report"/>
-                        <MenuItem fx:id="calloutReportButton" mnemonicParsing="false"
-                                  onAction="#onCalloutReportButtonClick" text="Callout Report"/>
-                        <MenuItem fx:id="incidentReportButton" mnemonicParsing="false"
-                                  onAction="#onIncidentReportBtnClick" text="Incident Report"/>
-                        <MenuItem fx:id="searchReportButton" mnemonicParsing="false" onAction="#onSearchReportBtnClick"
-                                  text="Search Report"/>
-                        <MenuItem fx:id="impoundReportButton" mnemonicParsing="false"
-                                  onAction="#onImpoundReportBtnClick" text="Impound Report"/>
-                    </items>
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/icons/newReport.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </MenuButton>
-                <Label fx:id="mainColor9Bkg" alignment="CENTER" layoutY="563.0" prefHeight="27.0" prefWidth="193.0"
-                       style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D" textAlignment="CENTER"
-                       textFill="WHITE" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0">
-                    <font>
-                        <Font name="Roboto" size="17.0"/>
-                    </font>
-                </Label>
-                <Label alignment="CENTER" layoutY="593.0" prefHeight="21.0" prefWidth="107.0" text="(877)-275-5273"
-                       textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0">
-                    <font>
-                        <Font name="Roboto" size="14.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow>
-                            <color>
-                                <Color opacity="0.17534351348876953"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <Label alignment="CENTER" layoutY="616.0" prefHeight="20.0" prefWidth="176.0"
-                       text="19020 Vanowen St, Los Santos" textAlignment="RIGHT" textFill="WHITE"
-                       AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <font>
-                        <Font name="Roboto" size="14.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow>
-                            <color>
-                                <Color opacity="0.17534351348876953"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <Label alignment="CENTER" layoutY="641.0" text="lspdonline@gmail.com" textAlignment="RIGHT"
-                       textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0">
-                    <font>
-                        <Font name="Roboto" size="14.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow>
-                            <color>
-                                <Color opacity="0.17534351348876953"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <Button fx:id="mapButton" graphicTextGap="10.0" layoutX="10.0" layoutY="374.0" mnemonicParsing="false"
-                        onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu"
-                        stylesheets="@css/menu/sidepanelBtns.css" text="Map" textFill="#828797"
-                        AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="374.0">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/icons/map.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="logsButton" graphicTextGap="10.0" layoutX="10.0" layoutY="308.0" mnemonicParsing="false"
-                        onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu"
-                        stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs" textFill="#828797"
-                        AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="308.0">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@imgs/icons/logs.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Label alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="84.0" prefWidth="203.0"
-                       style="-fx-font-family: Blanka;" text="R P" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <font>
-                        <Font size="61.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
-                            <color>
-                                <Color opacity="0.223709374666214"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
-                <Line endX="80.0" layoutX="103.0" layoutY="86.0" opacity="0.36" startX="-84.0" stroke="WHITE"
-                      strokeWidth="2.0"/>
-                <Label alignment="CENTER" layoutX="138.0" layoutY="27.0"
-                       style="-fx-font-size: 35; -fx-text-fill: white; -fx-font-family: Blanka;" text="+"
-                       textFill="#d7d7d7" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="41.0"
-                       AnchorPane.topAnchor="27.0">
-                    <font>
-                        <Font name="Segoe UI Semibold" size="18.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25" width="15.0">
-                            <color>
-                                <Color opacity="0.223709374666214"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
-                </Label>
+                <GridPane layoutX="-2.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="316.0" vgrow="NEVER"/>
+                        <RowConstraints prefHeight="250.0" vgrow="ALWAYS"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="144.0"
+                                        valignment="BASELINE" vgrow="NEVER"/>
+                    </rowConstraints>
+                    <children>
+                        <VBox alignment="CENTER" spacing="5.0" GridPane.rowIndex="3" GridPane.valignment="BASELINE">
+                            <children>
+                                <Label fx:id="mainColor9Bkg" alignment="CENTER" prefHeight="26.0" prefWidth="208.0"
+                                       style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D"
+                                       textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Roboto" size="17.0"/>
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" text="(877)-275-5273" textAlignment="RIGHT" textFill="WHITE">
+                                    <font>
+                                        <Font name="Roboto" size="14.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.17534351348876953"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                                <Label alignment="CENTER" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT"
+                                       textFill="WHITE">
+                                    <font>
+                                        <Font name="Roboto" size="14.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.17534351348876953"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                                <Label alignment="CENTER" text="lspdonline@gmail.com" textAlignment="RIGHT"
+                                       textFill="WHITE">
+                                    <font>
+                                        <Font name="Roboto" size="14.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.17534351348876953"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="535.0" prefWidth="203.0" spacing="10.0"
+                              GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+                            <children>
+                                <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" mnemonicParsing="false"
+                                        onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Shift Info"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/shiftInfo.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="notesButton" graphicTextGap="10.0" mnemonicParsing="false"
+                                        onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Notes"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/writing.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <MenuButton fx:id="createReportBtn" alignment="CENTER_RIGHT" graphicTextGap="10.0"
+                                            mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0"
+                                            styleClass="button" stylesheets="@css/menu/createReportDropdown.css"
+                                            text="Create Report" textFill="#828797">
+                                    <items>
+                                        <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
+                                                  onAction="#onCitationReportBtnClick" text="Citation Report"/>
+                                        <MenuItem fx:id="arrestReportButton" mnemonicParsing="false"
+                                                  onAction="#onArrestReportBtnClick" text="Arrest Report"/>
+                                        <MenuItem fx:id="trafficReportButton" mnemonicParsing="false"
+                                                  onAction="#trafficStopReportButtonClick" text="Traffic Stop Report"/>
+                                        <SeparatorMenuItem mnemonicParsing="false"/>
+                                        <MenuItem fx:id="patrolReportButton" mnemonicParsing="false"
+                                                  onAction="#onPatrolButtonClick" text="Patrol Report"/>
+                                        <MenuItem fx:id="calloutReportButton" mnemonicParsing="false"
+                                                  onAction="#onCalloutReportButtonClick" text="Callout Report"/>
+                                        <MenuItem fx:id="incidentReportButton" mnemonicParsing="false"
+                                                  onAction="#onIncidentReportBtnClick" text="Incident Report"/>
+                                        <MenuItem fx:id="searchReportButton" mnemonicParsing="false"
+                                                  onAction="#onSearchReportBtnClick" text="Search Report"/>
+                                        <MenuItem fx:id="impoundReportButton" mnemonicParsing="false"
+                                                  onAction="#onImpoundReportBtnClick" text="Impound Report"/>
+                                    </items>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/newReport.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </MenuButton>
+                                <Button fx:id="logsButton" graphicTextGap="10.0" mnemonicParsing="false"
+                                        onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/logs.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="mapButton" graphicTextGap="10.0" mnemonicParsing="false"
+                                        onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Map"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/map.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </VBox>
+                        <AnchorPane>
+                            <children>
+                                <Label alignment="CENTER" layoutX="2.0" layoutY="4.0" prefHeight="84.0"
+                                       prefWidth="203.0" style="-fx-font-family: Blanka;" text="R P" textFill="WHITE"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font size="61.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                    width="15.0">
+                                            <color>
+                                                <Color opacity="0.223709374666214"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                                <Line endX="183.0" layoutX="90.0" layoutY="89.0" opacity="0.36" stroke="WHITE"
+                                      strokeWidth="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                      AnchorPane.topAnchor="88.0"/>
+                                <Label alignment="CENTER" layoutX="140.0" layoutY="31.0"
+                                       style="-fx-font-size: 35; -fx-text-fill: white; -fx-font-family: Blanka;"
+                                       text="+" textFill="#d7d7d7" AnchorPane.leftAnchor="140.0"
+                                       AnchorPane.topAnchor="31.0">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="18.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                    width="15.0">
+                                            <color>
+                                                <Color opacity="0.223709374666214"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
             </children>
             <effect>
                 <DropShadow/>

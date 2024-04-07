@@ -313,12 +313,6 @@ public class reportCreationUtil {
         stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
 
-        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                stage.toFront();
-            }
-        });
-
         String startupValue = null;
         try {
             startupValue = ConfigReader.configRead("reportWindowLayout");
@@ -619,6 +613,7 @@ public class reportCreationUtil {
 
 
     //</editor-fold>
+
 
 
     //<editor-fold desc="Report Windows">

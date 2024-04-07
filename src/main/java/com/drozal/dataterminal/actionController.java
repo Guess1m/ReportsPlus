@@ -1001,12 +1001,6 @@ public class actionController {
         stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
 
-        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                stage.toFront();
-            }
-        });
-
         String startupValue = ConfigReader.configRead("notesWindowLayout");
         switch (startupValue) {
             case "TopLeft" -> snapToTopLeft(stage);

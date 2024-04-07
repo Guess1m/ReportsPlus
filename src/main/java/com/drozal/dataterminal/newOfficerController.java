@@ -207,9 +207,9 @@ public class newOfficerController {
         ConfigWriter.configwrite("Rank", "Deputy Sheriff");
         ConfigWriter.configwrite("Number", "1-18");
         ConfigWriter.configwrite("fullscreenOnStartup", "true");
-        ConfigWriter.configwrite("mainColor", "#524992");
-        ConfigWriter.configwrite("secondaryColor", "#665cb6");
-        ConfigWriter.configwrite("accentColor", "#9c95d0");
+        ConfigWriter.configwrite("mainColor", "#263238");
+        ConfigWriter.configwrite("secondaryColor", "#323C41");
+        ConfigWriter.configwrite("accentColor", "#505d62");
         ConfigWriter.configwrite("mainWindowLayout", "Default");
         ConfigWriter.configwrite("notesWindowLayout", "Default");
         ConfigWriter.configwrite("reportWindowLayout", "Default");

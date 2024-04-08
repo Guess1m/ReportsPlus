@@ -68,6 +68,7 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
+import static com.drozal.dataterminal.util.reportCreationUtil.newCallout;
 import static com.drozal.dataterminal.util.reportCreationUtil.newPatrol;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
@@ -1109,19 +1110,10 @@ public class actionController {
 
     //<editor-fold desc="Open Report Button Events">
 
-    @Deprecated
-    public void onColorSelectSecondaryPress(ActionEvent actionEvent) throws IOException {
-
-    }
-
-    @Deprecated
-    public void onColorSelectAccentPress(ActionEvent actionEvent) throws IOException {
-
-    }
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(calloutReportPane);
 
         createSpinner(calloutReportSpinner, 0, 9999, 0);
@@ -1139,7 +1131,9 @@ public class actionController {
         calloutReportNumber.setText(number);
 
         calloutReportDate.setText(DataTerminalHomeApplication.getDate());
-        calloutReportTime.setText(DataTerminalHomeApplication.getTime());
+        calloutReportTime.setText(DataTerminalHomeApplication.getTime());*/
+
+        newCallout(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
@@ -1285,15 +1279,9 @@ public class actionController {
         expandTreeItem(rootItem, "Citations");
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Submit Report Button Events">
-
     @javafx.fxml.FXML
     public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(patrolReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1308,7 +1296,9 @@ public class actionController {
         patrolofficerNumber.setText(number);
         createSpinner(patrolSpinnerNumber, 0, 9999, 0);
         patrolStopTime.setText(getTime());
-        patrolDate.setText(getDate());
+        patrolDate.setText(getDate());*/
+
+        newPatrol(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
@@ -1329,6 +1319,12 @@ public class actionController {
         impoundDate.setText(getDate());
         createSpinner(impoundNumber, 0, 9999, 0);
     }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Submit Report Button Events">
 
     @javafx.fxml.FXML
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {

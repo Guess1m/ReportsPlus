@@ -71,10 +71,10 @@ public class reportCreationUtil {
     public static AnchorPane createTitleBar(String titleText) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
-        colorAdjust.setBrightness(-0.2);
+        colorAdjust.setBrightness(-0.45);
 
         Label titleLabel = new Label(titleText);
-        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #999999;");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
         titleLabel.setAlignment(Pos.CENTER);
         AnchorPane.setLeftAnchor(titleLabel, (double) 0);
         AnchorPane.setRightAnchor(titleLabel, (double) 0);
@@ -86,17 +86,15 @@ public class reportCreationUtil {
         AnchorPane titleBar = new AnchorPane(titleLabel);
         titleBar.setMinHeight(30);
         titleBar.setStyle("-fx-background-color: #383838;");
-        /*titleBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
 
-        titleBar.setOnMouseDragged(mouseEvent -> {
-            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-            stage.setX(mouseEvent.getScreenX() - xOffset);
-            stage.setY(mouseEvent.getScreenY() - yOffset);
-        });*/
-
+        Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+        ImageView placeholderImageView = new ImageView(placeholderImage);
+        placeholderImageView.setFitWidth(49);
+        placeholderImageView.setFitHeight(49);
+        AnchorPane.setLeftAnchor(placeholderImageView, 0.0);
+        AnchorPane.setTopAnchor(placeholderImageView, -10.0);
+        AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
+        placeholderImageView.setEffect(colorAdjust);
 
         Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
         ImageView closeImageView = new ImageView(closeImage);
@@ -151,7 +149,7 @@ public class reportCreationUtil {
         AnchorPane.setRightAnchor(maximizeRect, 42.5);
         AnchorPane.setTopAnchor(maximizeRect, 6.3);
 
-        titleBar.getChildren().addAll(closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
+        titleBar.getChildren().addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
         closeRect.toFront();
         minimizeRect.toFront();
         maximizeRect.toFront();
@@ -708,8 +706,8 @@ public class reportCreationUtil {
                 new reportCreationUtil.SectionConfig("Callout Notes",
                         new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
                 ),
-                new reportCreationUtil.SectionConfig("TestTest",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("testBtn", 3, FieldType.TRANSFER_BUTTON))
+                new reportCreationUtil.SectionConfig("Transfer Information To New Report",
+                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("testBtn", 12, FieldType.TRANSFER_BUTTON))
                 )
         );
         return patrolReport;
@@ -734,7 +732,7 @@ public class reportCreationUtil {
         TextField vehicle = (TextField) patrolReportMap.get("vehicle");
         Button transferBtn = (Button) patrolReportMap.get("testBtn");
 
-        transferBtn.setText("Transfer To Callout Report");
+        transferBtn.setText("New Callout Report");
         BorderPane root = (BorderPane) patrolReport.get("root");
         Stage stage = (Stage) root.getScene().getWindow();
 
@@ -940,10 +938,11 @@ public class reportCreationUtil {
         TEXT_AREA,
         COMBO_BOX_COLOR,
         CITATION_TREE_VIEW,
-        TRANSFER_BUTTON
+        TRANSFER_BUTTON;
     }
 
     public static class SectionConfig {
+
         private final String sectionTitle;
         private final List<RowConfig> rowConfigs;
 
@@ -959,9 +958,11 @@ public class reportCreationUtil {
         public List<RowConfig> getRowConfigs() {
             return rowConfigs;
         }
+
     }
 
     public static class RowConfig {
+
         private final List<FieldConfig> fieldConfigs;
 
         public RowConfig(FieldConfig... fieldConfigs) {
@@ -971,9 +972,11 @@ public class reportCreationUtil {
         public List<FieldConfig> getFieldConfigs() {
             return fieldConfigs;
         }
+
     }
 
     public static class FieldConfig {
+
         private final String fieldName;
         private final int size;
         private final FieldType fieldType;
@@ -995,10 +998,10 @@ public class reportCreationUtil {
         public FieldType getFieldType() {
             return fieldType;
         }
+
     }
 
 
-//</editor-fold>
-
+    //</editor-fold>
 
 }

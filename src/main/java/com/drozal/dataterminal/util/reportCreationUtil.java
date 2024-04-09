@@ -10,6 +10,9 @@ import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -919,18 +922,68 @@ public class reportCreationUtil {
     public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> citationReport = citationLayout();
 
-        Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report");
+        Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
 
+        TextField officername = (TextField) citationReportMap.get("name");
+        TextField officerrank = (TextField) citationReportMap.get("rank");
+        TextField officerdiv = (TextField) citationReportMap.get("division");
+        TextField officeragen = (TextField) citationReportMap.get("agency");
+        TextField officernum = (TextField) citationReportMap.get("number");
+
+        TextField offenderName = (TextField) citationReportMap.get("offender name");
+        TextField offenderAge = (TextField) citationReportMap.get("offender age");
+        TextField offenderGender = (TextField) citationReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) citationReportMap.get("offender address");
+        TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+
+        TextField area = (TextField) citationReportMap.get("area");
+        TextField street = (TextField) citationReportMap.get("street");
+        TextField county = (TextField) citationReportMap.get("county");
+        TextField num = (TextField) citationReportMap.get("citation number");
+        TextField date = (TextField) citationReportMap.get("date");
+        TextField time = (TextField) citationReportMap.get("time");
+
+        ComboBox color = (ComboBox) citationReportMap.get("color");
+        ComboBox type = (ComboBox) citationReportMap.get("type");
+        TextField plateNumber = (TextField) citationReportMap.get("plate number");
+        TextField otherInfo = (TextField) citationReportMap.get("other info");
+        TextField model = (TextField) citationReportMap.get("model");
+
+        TextArea notes = (TextArea) citationReportMap.get("notes");
+
+        TreeView citationtreeview = (TreeView) citationReportMap.get("citationview");
+        TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
+
+        BorderPane root = (BorderPane) citationReportMap.get("root");
         Label warningLabel = (Label) citationReport.get("warningLabel");
-
         Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
+
+        try {
+            officername.setText(ConfigReader.configRead("Name"));
+            officerrank.setText(ConfigReader.configRead("Rank"));
+            officerdiv.setText(ConfigReader.configRead("Division"));
+            officeragen.setText(ConfigReader.configRead("Agency"));
+            officernum.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        date.setText(getDate());
+        time.setText(getTime());
+
         pullNotesBtn.setOnAction(event -> {
             if (notesViewController != null) {
-                /*updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
-                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
-                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
-                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
-                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");*/
+                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
+                updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
+                updateTextFromNotepad(offenderDescription, notesViewController.getNotepadTextArea(), "-description");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(offenderAddress, notesViewController.getNotepadTextArea(), "-address");
+                updateTextFromNotepad(model, notesViewController.getNotepadTextArea(), "-model");
+                updateTextFromNotepad(plateNumber, notesViewController.getNotepadTextArea(), "-plate");
+                updateTextFromNotepad(num, notesViewController.getNotepadTextArea(), "-number");
             } else {
                 System.out.println("NotesViewController Is Null");
             }
@@ -957,10 +1010,47 @@ public class reportCreationUtil {
                         warningLabel.setVisible(false);
                     }
                 }, 3000);
-                return;
+            } else {
+                List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+                ObservableList<CitationsData> formDataList = citationtable.getItems();
+                StringBuilder stringBuilder = new StringBuilder();
+                for (CitationsData formData : formDataList) {
+                    stringBuilder.append(formData.getCitation()).append(" | ");
+                }
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+
+                logs.add(new TrafficCitationLogEntry(
+                        num.getText(),
+                        date.getText(),
+                        time.getText(),
+                        stringBuilder.toString(),
+                        county.getText(),
+                        area.getText(),
+                        street.getText(),
+                        offenderName.getText(),
+                        offenderGender.getText(),
+                        offenderAge.getText(),
+                        offenderAddress.getText(),
+                        offenderDescription.getText(),
+                        model.getText(),
+                        color.getValue().toString(),
+                        type.getValue().toString(),
+                        plateNumber.getText(),
+                        otherInfo.getText(),
+                        officerrank.getText(),
+                        officername.getText(),
+                        officernum.getText(),
+                        officerdiv.getText(),
+                        officeragen.getText(),
+                        notes.getText()
+                ));
+                TrafficCitationReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Citation Report has been submitted.", vbox);
             }
-
-
         });
     }
 

@@ -695,7 +695,6 @@ public class actionController {
     private void showSettingsWindow() {
         Stage settingsStage = new Stage();
 
-
         ComboBox<String> mainWindowComboBox = new ComboBox<>();
         ComboBox<String> notesWindowComboBox = new ComboBox<>();
         ComboBox<String> ReportWindowComboBox = new ComboBox<>();
@@ -807,8 +806,13 @@ public class actionController {
         root.setHgap(15);
         root.setVgap(15);
 
+        Label displayPlacementsLabel = new Label("Display Placements");
+        displayPlacementsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Segoe UI Black;");
+        Label colorsLabel = new Label("Colors");
+        colorsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Arial; -fx-font-weight: bold;");
+
         // Add headings for display settings
-        root.addRow(0, new Label("Display Placements"));
+        root.addRow(0, displayPlacementsLabel);
         root.addRow(1, new Label("Main Window Placement:"), mainWindowComboBox);
         root.addRow(2, new Label("Notes Window Placement:"), notesWindowComboBox);
         root.addRow(3, new Label("Report Window Placement:"), ReportWindowComboBox);
@@ -817,7 +821,7 @@ public class actionController {
         root.addRow(4, new Label());
 
         // Add headings for color settings
-        root.addRow(5, new Label("Colors"));
+        root.addRow(5, colorsLabel);
         root.addRow(6, primaryLabel, primPicker);
         root.addRow(7, secondaryLabel, secPicker);
         root.addRow(8, accentLabel, accPicker);
@@ -1044,18 +1048,42 @@ public class actionController {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("logBrowser.fxml"));
         Parent root = loader.load();
-        Scene newScene = new Scene(root);
+        LogBrowserController logBrowserController = loader.getController();
+        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
         stage.setTitle("Log Browser");
         stage.setScene(newScene);
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
         stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
         stage.show();
-        stage.centerOnScreen();
-        stage.setMinHeight(300);
-        stage.setMinWidth(300);
-        ResizeHelper.addResizeListener(stage);
+
+        String startupValue = ConfigReader.configRead("notesWindowLayout");
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(stage);
+            case "TopRight" -> snapToTopRight(stage);
+            case "BottomLeft" -> snapToBottomLeft(stage);
+            case "BottomRight" -> snapToBottomRight(stage);
+            case "FullLeft" -> snapToLeft(stage);
+            case "FullRight" -> snapToRight(stage);
+            default -> {
+                stage.centerOnScreen();
+                stage.setMinHeight(300);
+                stage.setMinWidth(300);
+            }
+        }
+        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(logsButton);
+        AnchorPane topbar = logBrowserController.getTitlebar();
+        newScene.setMoveControl(topbar);
+        stage.setAlwaysOnTop(true);
+
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (notesViewController != null) {
+                    actionController.notesText = notesViewController.getNotepadTextArea().getText();
+                }
+            }
+        });
     }
 
 
@@ -2353,4 +2381,5 @@ public class actionController {
 
 
     //</editor-fold>
+
 }

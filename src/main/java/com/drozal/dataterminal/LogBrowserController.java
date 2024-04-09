@@ -16,6 +16,7 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.util.reportCreationUtil;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -29,6 +30,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -41,6 +43,12 @@ import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
     private final ObservableList<CalloutLogEntry> logs = FXCollections.observableArrayList();
+    public static AnchorPane titlebar = null;
+
+    public static AnchorPane getTitlebar() {
+        return titlebar;
+    }
+
     //<editor-fold desc="FXML / Vars">
     double minColumnWidth = 185.0;
     @javafx.fxml.FXML
@@ -313,6 +321,8 @@ public class LogBrowserController {
     private TextField citcounty;
     @javafx.fxml.FXML
     private TextField trafage;
+    @javafx.fxml.FXML
+    private BorderPane borderPane;
     //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
@@ -345,6 +355,10 @@ public class LogBrowserController {
             searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
             citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
+
+        titlebar = reportCreationUtil.createTitleBar("NotePad");
+
+        borderPane.setTop(titlebar);
     }
 
     private void loadLogs() {
@@ -1139,25 +1153,6 @@ public class LogBrowserController {
     }
 
     @javafx.fxml.FXML
-    public void onMinimizeBtnClick(Event event) {
-        Stage stage = (Stage) calloutTable.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @javafx.fxml.FXML
-    public void onMousePress(MouseEvent mouseEvent) {
-        xOffset = mouseEvent.getSceneX();
-        yOffset = mouseEvent.getSceneY();
-    }
-
-    @javafx.fxml.FXML
-    public void onMouseDrag(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-    }
-
-    @javafx.fxml.FXML
     public void onManagerToggle(ActionEvent actionEvent) {
         if (!showManagerToggle.isSelected()) {
             // Define the height values
@@ -1199,23 +1194,6 @@ public class LogBrowserController {
             // Play the animation
             timeline.play();
             lowerPane.setVisible(true);
-        }
-    }
-
-    @javafx.fxml.FXML
-    public void onExitButtonClick(MouseEvent actionEvent) {
-        // Get the window associated with the scene
-        Window window = vbox.getScene().getWindow();
-
-        // Close the window
-        window.hide(); // or window.close() if you want to force close
-    }
-
-    @javafx.fxml.FXML
-    public void onFullscreenBtnClick(Event event) {
-        Stage stage = (Stage) calloutTable.getScene().getWindow();
-        if (stage != null) {
-            toggleWindowedFullscreen(stage, 891, 674);
         }
     }
 

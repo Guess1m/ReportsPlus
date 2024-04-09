@@ -21,7 +21,6 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.ResizeHelper;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import javafx.animation.KeyFrame;
@@ -68,8 +67,7 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.reportCreationUtil.newCallout;
-import static com.drozal.dataterminal.util.reportCreationUtil.newPatrol;
+import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
@@ -1275,7 +1273,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
+        /*setDisable(shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane, arrestReportPane);
         setActive(citationReportPane);
         citationAccordionInformation.setExpanded(true);
         createSpinner(citationNumber, 0, 9999, 0);
@@ -1304,7 +1302,8 @@ public class actionController {
 
         parseTreeXML(root, rootItem);
         citationTreeView.setRoot(rootItem);
-        expandTreeItem(rootItem, "Citations");
+        expandTreeItem(rootItem, "Citations");*/
+        newCitation(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML

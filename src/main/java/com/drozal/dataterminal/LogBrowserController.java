@@ -24,31 +24,21 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.util.List;
 
 import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
-import static com.drozal.dataterminal.util.windowUtils.toggleWindowedFullscreen;
 
 public class LogBrowserController {
-    private final ObservableList<CalloutLogEntry> logs = FXCollections.observableArrayList();
     public static AnchorPane titlebar = null;
-
-    public static AnchorPane getTitlebar() {
-        return titlebar;
-    }
-
+    private final ObservableList<CalloutLogEntry> logs = FXCollections.observableArrayList();
     //<editor-fold desc="FXML / Vars">
     double minColumnWidth = 185.0;
     @javafx.fxml.FXML
@@ -93,7 +83,6 @@ public class LogBrowserController {
     private Label calupdatedlabel;
     @javafx.fxml.FXML
     private HBox calloutInfo;
-
     private CalloutLogEntry calloutEntry;
     private PatrolLogEntry patrolEntry;
     private TrafficStopLogEntry trafficStopEntry;
@@ -102,7 +91,6 @@ public class LogBrowserController {
     private SearchLogEntry searchEntry;
     private ArrestLogEntry arrestEntry;
     private TrafficCitationLogEntry citationEntry;
-
     @javafx.fxml.FXML
     private HBox patrolInfo;
     @javafx.fxml.FXML
@@ -253,7 +241,6 @@ public class LogBrowserController {
     private Label searchupdatedlabel;
     @javafx.fxml.FXML
     private HBox searchInfo;
-
     @javafx.fxml.FXML
     private TextField searchbreathresult;
     @javafx.fxml.FXML
@@ -286,7 +273,6 @@ public class LogBrowserController {
     private Label citupdatedlabel;
     @javafx.fxml.FXML
     private HBox citationInfo;
-
     @javafx.fxml.FXML
     private TextField citvehother;
     @javafx.fxml.FXML
@@ -323,10 +309,13 @@ public class LogBrowserController {
     private TextField trafage;
     @javafx.fxml.FXML
     private BorderPane borderPane;
+
+    public static AnchorPane getTitlebar() {
+        return titlebar;
+    }
     //</editor-fold>
 
     // TODO: Controller, log entry, report logs, initializeColumns
-
 
     public void initialize() {
         initializeCalloutColumns();

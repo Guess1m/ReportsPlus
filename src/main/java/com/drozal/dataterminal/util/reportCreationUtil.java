@@ -195,7 +195,11 @@ public class reportCreationUtil {
         for (SectionConfig sectionConfig : sectionConfigs) {
             Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 
-            sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+            if (sectionConfig.getRequired()) {
+                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+            } else {
+                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #a6a6a6; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+            }
             sectionLabel.setFont(Font.font("Segoe UI Black"));
 
             gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
@@ -213,44 +217,6 @@ public class reportCreationUtil {
                 rowIndex += 2;
             }
         }
-
-        if (transferConfig != null) {
-            TitledPane titledPane = new TitledPane();
-            titledPane.setText(transferConfig.getTitle());
-            titledPane.getStyleClass().add("paneOptions");
-
-            GridPane paneGrid = new GridPane();
-            paneGrid.setHgap(10);
-            paneGrid.setVgap(10);
-
-            ColumnConstraints columnConstraints = new ColumnConstraints();
-            columnConstraints.setPercentWidth(100);
-            paneGrid.getColumnConstraints().add(columnConstraints);
-
-            int rowIndex1 = 0;
-
-            for (RowConfig rowConfig : transferConfig.getRowConfigs()) {
-                addRowToGridPane(paneGrid, rowConfig, rowIndex1++, fieldsMap);
-            }
-
-            titledPane.setContent(paneGrid);
-
-            Accordion accordion = new Accordion();
-            accordion.getPanes().add(titledPane);
-            accordion.setMaxWidth(Double.MAX_VALUE);
-
-            accordion.setMinHeight(Region.USE_PREF_SIZE);
-            accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            accordion.setMaxHeight(Region.USE_PREF_SIZE);
-            gridPane.add(accordion, 0, rowIndex, 12, 1);
-
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setMinHeight(30);
-            gridPane.getRowConstraints().add(rowConstraints);
-            gridPane.add(new Label(""), 0, rowIndex);
-
-        }
-
 
         Button submitBtn = new Button("Collect Values");
         submitBtn.getStyleClass().add("incidentformButton");
@@ -278,8 +244,55 @@ public class reportCreationUtil {
 
         HBox buttonBox = new HBox(10, pullNotesBtn, warningLabel, submitBtn);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
+        VBox root = new VBox(10, mainHeaderLabel, gridPane);
 
-        VBox root = new VBox(10, mainHeaderLabel, gridPane, buttonBox);
+        if (transferConfig != null) {
+            TitledPane titledPane = new TitledPane();
+            titledPane.setExpanded(false);
+            titledPane.setText(transferConfig.getTitle());
+            titledPane.getStyleClass().add("paneoptions");
+
+            GridPane paneGrid = new GridPane();
+            paneGrid.setHgap(10);
+            paneGrid.setVgap(10);
+
+            paneGrid.getColumnConstraints().clear(); // Clear existing constraints if any
+            for (int i = 0; i < 12; i++) {
+                ColumnConstraints columnConstraints = new ColumnConstraints();
+                columnConstraints.setPercentWidth(100.0 / 12); // Divide the grid evenly
+                paneGrid.getColumnConstraints().add(columnConstraints);
+            }
+
+            int rowIndex1 = 0;
+            for (RowConfig rowConfig : transferConfig.getRowConfigs()) {
+                addRowToGridPane(paneGrid, rowConfig, rowIndex1++, fieldsMap);
+            }
+
+            titledPane.setContent(paneGrid);
+
+            Pane spacerPane1 = new Pane();
+            spacerPane1.setMinHeight(20);
+            spacerPane1.setPrefHeight(20);
+            Pane spacerPane2 = new Pane();
+            spacerPane2.setMinHeight(20);
+            spacerPane1.setPrefHeight(20);
+
+            Accordion accordion = new Accordion();
+            accordion.setStyle("-fx-box-border: transparent;");
+            accordion.getPanes().add(titledPane);
+            accordion.setMaxWidth(Double.MAX_VALUE);
+            accordion.setMinHeight(Region.USE_PREF_SIZE);
+            accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            accordion.setMaxHeight(Region.USE_PREF_SIZE);
+
+            paneGrid.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
+            accordion.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
+            titledPane.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
+
+            root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
+        }
+
+        root.getChildren().add(buttonBox);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color: " + accentColor + ";");
         Insets insets = new Insets(20, 25, 15, 25);
@@ -312,7 +325,6 @@ public class reportCreationUtil {
 
         stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
-
 
         stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {
@@ -380,8 +392,6 @@ public class reportCreationUtil {
                             textField.setText(newValue.toUpperCase());
                         }
                     });
-
-
                     textField.setPromptText(fieldConfig.getFieldName().toUpperCase());
                     textField.setPrefWidth(200);
                     gridPane.add(textField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
@@ -419,7 +429,6 @@ public class reportCreationUtil {
                         }
                     });
                     comboBox.getItems().addAll(dropdownInfo.carColors);
-
                     comboBox.setPromptText(fieldConfig.getFieldName().toUpperCase());
                     comboBox.setButtonCell(new ListCell() {
 
@@ -482,7 +491,6 @@ public class reportCreationUtil {
                     citationTableView.setTableMenuButtonVisible(false);
 
                     citationTableView.getColumns().add(citationColumn);
-
                     gridPane.add(treeView, columnIndex, rowIndex, fieldConfig.getSize(), 5);
 
                     int additionalColumnIndex = columnIndex + fieldConfig.getSize();
@@ -581,7 +589,7 @@ public class reportCreationUtil {
                     rowIndex += 6;
                     break;
                 case TRANSFER_BUTTON:
-                    Button transferButton = new Button();
+                    Button transferButton = new Button("Transfer Information");
                     transferButton.setMaxWidth(Double.MAX_VALUE);
                     GridPane.setHgrow(transferButton, Priority.ALWAYS);
                     GridPane.setVgrow(transferButton, Priority.NEVER);
@@ -591,12 +599,12 @@ public class reportCreationUtil {
                     transferButton.setMaxHeight(Button.USE_PREF_SIZE);
 
                     transferButton.getStyleClass().add("incidentformButton");
-                    transferButton.setStyle("-fx-background-color: " + primaryColor);
+                    transferButton.setStyle("-fx-background-color: " + accentColor);
                     transferButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            transferButton.setStyle("-fx-background-color: " + secondaryColor + ";");
-                        } else {
                             transferButton.setStyle("-fx-background-color: " + primaryColor + ";");
+                        } else {
+                            transferButton.setStyle("-fx-background-color: " + accentColor + ";");
                         }
                     });
                     gridPane.add(transferButton, columnIndex, rowIndex, fieldConfig.getSize(), 1);
@@ -604,7 +612,6 @@ public class reportCreationUtil {
                     break;
 
             }
-            gridPane.getRowConstraints().forEach(rowConstraints -> rowConstraints.setVgrow(Priority.NEVER));
             columnIndex += fieldConfig.getSize();
 
         }
@@ -619,19 +626,19 @@ public class reportCreationUtil {
 
     static Map<String, Object> calloutLayout() {
         Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
-                new reportCreationUtil.SectionConfig("Officer Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("name", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("rank", 5, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("number", 2, reportCreationUtil.FieldType.TEXT_FIELD)),
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("division", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("agency", 6, reportCreationUtil.FieldType.TEXT_FIELD))
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
                 ),
-                new reportCreationUtil.SectionConfig("Location Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("county", 3, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("area", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("street", 5, reportCreationUtil.FieldType.TEXT_FIELD))
+                new SectionConfig("Location Information", true,
+                        new RowConfig(new FieldConfig("county", 3, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("street", 5, FieldType.TEXT_FIELD))
                 ),
-                new reportCreationUtil.SectionConfig("Callout Information",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("date", 6, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("time", 6, reportCreationUtil.FieldType.TEXT_FIELD)),
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("type", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("code", 4, reportCreationUtil.FieldType.TEXT_FIELD), new reportCreationUtil.FieldConfig("calloutnumber", 4, reportCreationUtil.FieldType.TEXT_FIELD))
+                new SectionConfig("Callout Information", true,
+                        new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))
                 ),
-                new reportCreationUtil.SectionConfig("Callout Notes",
-                        new reportCreationUtil.RowConfig(new reportCreationUtil.FieldConfig("notes", 12, reportCreationUtil.FieldType.TEXT_AREA))
+                new SectionConfig("Callout Notes", true,
+                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
                 )
         );
         return calloutReport;
@@ -741,15 +748,15 @@ public class reportCreationUtil {
 
     static Map<String, Object> patrolLayout() {
         Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
-                new SectionConfig("Officer Information",
+                new SectionConfig("Officer Information", true,
                         new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
                         new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("Shift Information",
+                new SectionConfig("Shift Information", true,
                         new RowConfig(new FieldConfig("starttime", 3, FieldType.TEXT_FIELD), new FieldConfig("stoptime", 4, FieldType.TEXT_FIELD), new FieldConfig("patrolnumber", 5, FieldType.TEXT_FIELD)),
                         new RowConfig(new FieldConfig("length", 3, FieldType.TEXT_FIELD), new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("vehicle", 6, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("Callout Notes",
+                new SectionConfig("Callout Notes", true,
                         new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
                 )
         );
@@ -854,6 +861,110 @@ public class reportCreationUtil {
     }
 
 
+    static Map<String, Object> citationLayout() {
+        Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
+                new TransferConfig("Transfer Information To New Report",
+                        new RowConfig(
+                                new FieldConfig("transferimpoundbtn", 12, FieldType.TRANSFER_BUTTON))
+                ),
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(
+                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Location / Timestamp Information", true,
+                        new RowConfig(
+                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Offender Information", true,
+                        new RowConfig(
+                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("(If Applicable) Offender Vehicle Information", false,
+                        new RowConfig(
+                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
+                        new RowConfig(
+                                new FieldConfig("type", 4, FieldType.COMBO_BOX_COLOR),
+                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Citation Notes", true,
+                        new RowConfig(
+                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                ),
+                new SectionConfig("Citation(s)", true,
+                        new RowConfig(
+                                new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))
+                ));
+        return citationReport;
+    }
+
+
+    public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> citationReport = citationLayout();
+
+        Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report");
+
+        Label warningLabel = (Label) citationReport.get("warningLabel");
+
+        Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                /*updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
+                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");*/
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+        Button submitBtn = (Button) citationReport.get("submitBtn");
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : citationReportMap.keySet()) {
+                Object field = citationReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabel.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return;
+            }
+
+
+        });
+    }
+
+
     //</editor-fold>
 
 
@@ -870,14 +981,14 @@ public class reportCreationUtil {
 
 
     public static class SectionConfig {
-
-
         private final String sectionTitle;
+        private final Boolean required;
 
         private final List<RowConfig> rowConfigs;
 
-        public SectionConfig(String sectionTitle, RowConfig... rowConfigs) {
+        public SectionConfig(String sectionTitle, boolean required, RowConfig... rowConfigs) {
             this.sectionTitle = sectionTitle;
+            this.required = required;
             this.rowConfigs = Arrays.asList(rowConfigs);
         }
 
@@ -890,6 +1001,9 @@ public class reportCreationUtil {
         }
 
 
+        public Boolean getRequired() {
+            return required;
+        }
     }
 
 

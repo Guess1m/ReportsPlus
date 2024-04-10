@@ -8,6 +8,8 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.CitationsData;
+import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
+import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -44,6 +46,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.stringUtil.name;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
@@ -792,10 +795,6 @@ public class reportCreationUtil {
                 ),
                 new SectionConfig("Location / Timestamp Information", true,
                         new RowConfig(
-                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
                                 new FieldConfig("date", 5, FieldType.TEXT_FIELD),
                                 new FieldConfig("time", 5, FieldType.TEXT_FIELD),
                                 new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))
@@ -806,25 +805,19 @@ public class reportCreationUtil {
                                 new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
                                 new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
                         new RowConfig(
-                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
+                                new FieldConfig("offender address", 12, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("(If Applicable) Offender Vehicle Information", true,
+                new SectionConfig("Offender Vehicle Information", true,
                         new RowConfig(
-                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
+                                new FieldConfig("model", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("plate number", 6, FieldType.TEXT_FIELD)),
                         new RowConfig(
-                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
-                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
+                                new FieldConfig("type", 7, FieldType.COMBO_BOX_TYPE),
+                                new FieldConfig("color", 5, FieldType.COMBO_BOX_COLOR))
                 ),
                 new SectionConfig("Citation Notes", true,
                         new RowConfig(
                                 new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                ),
-                new SectionConfig("Citation(s)", true,
-                        new RowConfig(
-                                new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))
                 ));
         return impoundReport;
     }
@@ -844,11 +837,7 @@ public class reportCreationUtil {
         TextField offenderAge = (TextField) impoundReportMap.get("offender age");
         TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
         TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
-        TextField offenderDescription = (TextField) impoundReportMap.get("offender description");
 
-        TextField area = (TextField) impoundReportMap.get("area");
-        TextField street = (TextField) impoundReportMap.get("street");
-        TextField county = (TextField) impoundReportMap.get("county");
         TextField num = (TextField) impoundReportMap.get("citation number");
         TextField date = (TextField) impoundReportMap.get("date");
         TextField time = (TextField) impoundReportMap.get("time");
@@ -856,15 +845,13 @@ public class reportCreationUtil {
         ComboBox color = (ComboBox) impoundReportMap.get("color");
         ComboBox type = (ComboBox) impoundReportMap.get("type");
         TextField plateNumber = (TextField) impoundReportMap.get("plate number");
-        TextField otherInfo = (TextField) impoundReportMap.get("other info");
         TextField model = (TextField) impoundReportMap.get("model");
 
         TextArea notes = (TextArea) impoundReportMap.get("notes");
 
-        TreeView citationtreeview = (TreeView) impoundReportMap.get("citationview");
-        TableView citationtable = (TableView) impoundReportMap.get("CitationTableView");
+        BorderPane root = (BorderPane) impoundReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
 
-        BorderPane root = (BorderPane) impoundReportMap.get("root");
         Label warningLabel = (Label) impoundReport.get("warningLabel");
         Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
 
@@ -882,13 +869,9 @@ public class reportCreationUtil {
 
         pullNotesBtn.setOnAction(event -> {
             if (notesViewController != null) {
-                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
-                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
                 updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
                 updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
                 updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
-                updateTextFromNotepad(offenderDescription, notesViewController.getNotepadTextArea(), "-description");
                 updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
                 updateTextFromNotepad(offenderAddress, notesViewController.getNotepadTextArea(), "-address");
                 updateTextFromNotepad(model, notesViewController.getNotepadTextArea(), "-model");
@@ -921,47 +904,33 @@ public class reportCreationUtil {
                     }
                 }, 3000);
             } else {
-                List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-                ObservableList<CitationsData> formDataList = citationtable.getItems();
-                StringBuilder stringBuilder = new StringBuilder();
-                for (CitationsData formData : formDataList) {
-                    stringBuilder.append(formData.getCitation()).append(" | ");
-                }
-                if (stringBuilder.length() > 0) {
-                    stringBuilder.setLength(stringBuilder.length() - 2);
-                }
+                List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                logs.add(new TrafficCitationLogEntry(
+                // Add new entry
+                logs.add(new ImpoundLogEntry(
                         num.getText(),
                         date.getText(),
                         time.getText(),
-                        stringBuilder.toString(),
-                        county.getText(),
-                        area.getText(),
-                        street.getText(),
                         offenderName.getText(),
-                        offenderGender.getText(),
                         offenderAge.getText(),
+                        offenderGender.getText(),
                         offenderAddress.getText(),
-                        offenderDescription.getText(),
-                        model.getText(),
-                        color.getValue().toString(),
-                        type.getValue().toString(),
                         plateNumber.getText(),
-                        otherInfo.getText(),
+                        model.getText(),
+                        type.getValue().toString(),
+                        color.getValue().toString(),
+                        notes.getText(),
                         officerrank.getText(),
                         officername.getText(),
                         officernum.getText(),
                         officerdiv.getText(),
-                        officeragen.getText(),
-                        notes.getText()
+                        officeragen.getText()
                 ));
-                TrafficCitationReportLogs.saveLogsToXML(logs);
+                ImpoundReportLogs.saveLogsToXML(logs);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
-                showNotification("Reports", "A new Citation Report has been submitted.", vbox);
-                Stage rootstage = (Stage) root.getScene().getWindow();
-                rootstage.close();
+                showNotification("Reports", "A new Impound Report has been submitted.", vbox);
+                stage.close();
             }
         });
     }
@@ -1209,7 +1178,127 @@ public class reportCreationUtil {
 
         transferimpoundbtn.setOnAction(event -> {
             //Add impound transfer logic here
-            System.out.println("transfer impound pressed");
+            Map<String, Object> impoundReport = impoundLayout();
+
+            Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+
+            TextField officernameimp = (TextField) impoundReportMap.get("name");
+            TextField officerrankimp = (TextField) impoundReportMap.get("rank");
+            TextField officerdivimp = (TextField) impoundReportMap.get("division");
+            TextField officeragenimp = (TextField) impoundReportMap.get("agency");
+            TextField officernumimp = (TextField) impoundReportMap.get("number");
+
+            TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
+            TextField offenderAgeimp = (TextField) impoundReportMap.get("offender age");
+            TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
+            TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
+
+            TextField numimp = (TextField) impoundReportMap.get("citation number");
+            TextField dateimp = (TextField) impoundReportMap.get("date");
+            TextField timeimp = (TextField) impoundReportMap.get("time");
+
+            ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
+            ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
+            TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
+            TextField modelimp = (TextField) impoundReportMap.get("model");
+
+            TextArea notesimp = (TextArea) impoundReportMap.get("notes");
+
+            BorderPane rootimp = (BorderPane) impoundReport.get("root");
+            Stage stageimp = (Stage) rootimp.getScene().getWindow();
+
+            Label warningLabelimp = (Label) impoundReport.get("warningLabel");
+            Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
+
+            try {
+                officername.setText(ConfigReader.configRead("Name"));
+                officerrank.setText(ConfigReader.configRead("Rank"));
+                officerdiv.setText(ConfigReader.configRead("Division"));
+                officeragen.setText(ConfigReader.configRead("Agency"));
+                officernum.setText(ConfigReader.configRead("Number"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            dateimp.setText(getDate());
+            timeimp.setText(getTime());
+
+            modelimp.setText(getTime());
+            notesimp.setText(getTime());
+            numimp.setText(getTime());
+            offenderAddressimp.setText(getTime());
+            offenderAgeimp.setText(getTime());
+            offenderGenderimp.setText(getTime());
+            timeimp.setText(getTime());
+            timeimp.setText(getTime());
+            timeimp.setText(getTime());
+
+
+            pullNotesBtnimp.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
+                    updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
+                    updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
+                    updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
+                    updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
+                    updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+            Button submitBtnimp = (Button) impoundReport.get("submitBtn");
+            submitBtnimp.setOnAction(event2 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : impoundReportMap.keySet()) {
+                    Object field = impoundReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelimp.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelimp.setVisible(false);
+                        }
+                    }, 3000);
+                } else {
+                    List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+                    // Add new entry
+                    logs.add(new ImpoundLogEntry(
+                            num.getText(),
+                            date.getText(),
+                            time.getText(),
+                            offenderName.getText(),
+                            offenderAge.getText(),
+                            offenderGender.getText(),
+                            offenderAddress.getText(),
+                            plateNumber.getText(),
+                            model.getText(),
+                            type.getValue().toString(),
+                            color.getValue().toString(),
+                            notes.getText(),
+                            officerrank.getText(),
+                            officername.getText(),
+                            officernum.getText(),
+                            officerdiv.getText(),
+                            officeragen.getText()
+                    ));
+                    ImpoundReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Impound Report has been submitted.", vbox);
+                    stageimp.close();
+                }
+            });
         });
 
         Button submitBtn = (Button) citationReport.get("submitBtn");

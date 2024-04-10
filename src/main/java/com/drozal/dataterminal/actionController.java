@@ -1330,7 +1330,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, calloutReportPane, incidentReportPane, searchReportPane, patrolReportPane, trafficStopReportPane, arrestReportPane);
         setActive(impoundReportPane);
         String name = ConfigReader.configRead("Name");
         String division = ConfigReader.configRead("Division");
@@ -1344,7 +1344,8 @@ public class actionController {
         impoundofficerNumber.setText(number);
         impoundTime.setText(getTime());
         impoundDate.setText(getDate());
-        createSpinner(impoundNumber, 0, 9999, 0);
+        createSpinner(impoundNumber, 0, 9999, 0);*/
+        newImpound(reportChart,areaReportChart,vbox,notesViewController);
     }
 
 

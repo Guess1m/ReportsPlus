@@ -421,19 +421,19 @@ public class reportCreationUtil {
                     GridPane.setHgrow(textArea, Priority.ALWAYS);
                     break;
                 case COMBO_BOX_COLOR:
-                    ComboBox<String> comboBox = new ComboBox<>();
-                    comboBox.getStyleClass().add("comboboxnew");
-                    comboBox.setStyle("-fx-background-color: " + primaryColor + ";");
-                    comboBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                    ComboBox<String> comboBoxColor = new ComboBox<>();
+                    comboBoxColor.getStyleClass().add("comboboxnew");
+                    comboBoxColor.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxColor.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            comboBox.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            comboBoxColor.setStyle("-fx-background-color: " + secondaryColor + ";");
                         } else {
-                            comboBox.setStyle("-fx-background-color: " + primaryColor + ";");
+                            comboBoxColor.setStyle("-fx-background-color: " + primaryColor + ";");
                         }
                     });
-                    comboBox.getItems().addAll(dropdownInfo.carColors);
-                    comboBox.setPromptText(fieldConfig.getFieldName().toUpperCase());
-                    comboBox.setButtonCell(new ListCell() {
+                    comboBoxColor.getItems().addAll(dropdownInfo.carColors);
+                    comboBoxColor.setPromptText(fieldConfig.getFieldName().toUpperCase());
+                    comboBoxColor.setButtonCell(new ListCell() {
 
                         @Override
                         protected void updateItem(Object item, boolean empty) {
@@ -447,9 +447,40 @@ public class reportCreationUtil {
                         }
 
                     });
-                    comboBox.setMaxWidth(Double.MAX_VALUE);
-                    gridPane.add(comboBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
-                    fieldsMap.put(fieldConfig.getFieldName(), comboBox);
+                    comboBoxColor.setMaxWidth(Double.MAX_VALUE);
+                    gridPane.add(comboBoxColor, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+                    fieldsMap.put(fieldConfig.getFieldName(), comboBoxColor);
+                    break;
+                case COMBO_BOX_TYPE:
+                    ComboBox<String> comboBoxType = new ComboBox<>();
+                    comboBoxType.getStyleClass().add("comboboxnew");
+                    comboBoxType.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxType.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            comboBoxType.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            comboBoxType.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    comboBoxType.getItems().addAll(dropdownInfo.vehicleTypes);
+                    comboBoxType.setPromptText(fieldConfig.getFieldName().toUpperCase());
+                    comboBoxType.setButtonCell(new ListCell() {
+
+                        @Override
+                        protected void updateItem(Object item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+                            } else {
+                                setStyle("-fx-text-fill: white;");
+                                setText(item.toString());
+                            }
+                        }
+
+                    });
+                    comboBoxType.setMaxWidth(Double.MAX_VALUE);
+                    gridPane.add(comboBoxType, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+                    fieldsMap.put(fieldConfig.getFieldName(), comboBoxType);
                     break;
                 case CITATION_TREE_VIEW:
                     TreeView<String> treeView = new TreeView<>();
@@ -647,7 +678,6 @@ public class reportCreationUtil {
         return calloutReport;
     }
 
-
     public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> calloutReport = calloutLayout();
 
@@ -748,6 +778,129 @@ public class reportCreationUtil {
         });
     }
 
+    // Finish Impound
+    static Map<String, Object> impoundLayout() {
+        Map<String, Object> impoundReport = createReportWindow("Impound Report", 5, 7, null,
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Location Information", true,
+                        new RowConfig(new FieldConfig("county", 3, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("street", 5, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Callout Information", true,
+                        new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Callout Notes", true,
+                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                )
+        );
+        return impoundReport;
+    }
+
+    public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> impoundReport = impoundLayout();
+
+        Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+
+        TextField officername = (TextField) impoundReportMap.get("name");
+        TextField officerrank = (TextField) impoundReportMap.get("rank");
+        TextField officerdiv = (TextField) impoundReportMap.get("division");
+        TextField officeragen = (TextField) impoundReportMap.get("agency");
+        TextField officernum = (TextField) impoundReportMap.get("number");
+        TextField calloutnum = (TextField) impoundReportMap.get("calloutnumber");
+        TextField calloutarea = (TextField) impoundReportMap.get("area");
+        TextArea calloutnotes = (TextArea) impoundReportMap.get("notes");
+        TextField calloutcounty = (TextField) impoundReportMap.get("county");
+        TextField calloutstreet = (TextField) impoundReportMap.get("street");
+        TextField calloutdate = (TextField) impoundReportMap.get("date");
+        TextField callouttime = (TextField) impoundReportMap.get("time");
+        TextField callouttype = (TextField) impoundReportMap.get("type");
+        TextField calloutcode = (TextField) impoundReportMap.get("code");
+
+
+        BorderPane root = (BorderPane) impoundReport.get("root");
+        Label warningLabel = (Label) impoundReport.get("warningLabel");
+
+        try {
+            officername.setText(ConfigReader.configRead("Name"));
+            officerrank.setText(ConfigReader.configRead("Rank"));
+            officerdiv.setText(ConfigReader.configRead("Division"));
+            officeragen.setText(ConfigReader.configRead("Agency"));
+            officernum.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        calloutdate.setText(getDate());
+        callouttime.setText(getTime());
+
+        Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
+                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+        Button submitBtn = (Button) impoundReport.get("submitBtn");
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : impoundReportMap.keySet()) {
+                Object field = impoundReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabel.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return;
+            }
+            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+
+            logs.add(new CalloutLogEntry(
+                    calloutdate.getText(),
+                    callouttime.getText(),
+                    officername.getText(),
+                    officerrank.getText(),
+                    officernum.getText(),
+                    officerdiv.getText(),
+                    officeragen.getText(),
+                    callouttype.getText(),
+                    calloutcode.getText(),
+                    calloutnum.getText(),
+                    calloutnotes.getText(),
+                    calloutstreet.getText(),
+                    calloutcounty.getText(),
+                    calloutarea.getText()
+
+            ));
+
+            CalloutReportLogs.saveLogsToXML(logs);
+            updateChartIfMismatch(reportChart);
+            controllerUtils.refreshChart(areaReportChart, "area");
+            showNotification("Reports", "A new Callout Report has been submitted.", vbox);
+
+            Stage rootstage = (Stage) root.getScene().getWindow();
+            rootstage.close();
+        });
+    }
+
 
     static Map<String, Object> patrolLayout() {
         Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
@@ -765,7 +918,6 @@ public class reportCreationUtil {
         );
         return patrolReport;
     }
-
 
     public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> patrolReport = patrolLayout();
@@ -918,7 +1070,6 @@ public class reportCreationUtil {
         return citationReport;
     }
 
-
     public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> citationReport = citationLayout();
 
@@ -954,6 +1105,8 @@ public class reportCreationUtil {
         TreeView citationtreeview = (TreeView) citationReportMap.get("citationview");
         TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
 
+        Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
+
         BorderPane root = (BorderPane) citationReportMap.get("root");
         Label warningLabel = (Label) citationReport.get("warningLabel");
         Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
@@ -987,6 +1140,11 @@ public class reportCreationUtil {
             } else {
                 System.out.println("NotesViewController Is Null");
             }
+        });
+
+        transferimpoundbtn.setOnAction(event -> {
+            //Add impound transfer logic here
+            System.out.println("transfer impound pressed");
         });
 
         Button submitBtn = (Button) citationReport.get("submitBtn");
@@ -1050,7 +1208,8 @@ public class reportCreationUtil {
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Citation Report has been submitted.", vbox);
-            }
+                Stage rootstage = (Stage) root.getScene().getWindow();
+                rootstage.close();}
         });
     }
 
@@ -1065,6 +1224,7 @@ public class reportCreationUtil {
         TEXT_FIELD,
         TEXT_AREA,
         COMBO_BOX_COLOR,
+        COMBO_BOX_TYPE,
         CITATION_TREE_VIEW,
         TRANSFER_BUTTON;
     }

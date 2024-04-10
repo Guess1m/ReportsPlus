@@ -46,7 +46,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.stringUtil.name;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
@@ -781,7 +780,7 @@ public class reportCreationUtil {
         });
     }
 
-    // Finish Impound
+
     static Map<String, Object> impoundLayout() {
         Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
                 new SectionConfig("Officer Information", true,
@@ -1141,7 +1140,9 @@ public class reportCreationUtil {
 
         Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
 
-        BorderPane root = (BorderPane) citationReportMap.get("root");
+        BorderPane root = (BorderPane) citationReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
+
         Label warningLabel = (Label) citationReport.get("warningLabel");
         Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
 
@@ -1177,7 +1178,6 @@ public class reportCreationUtil {
         });
 
         transferimpoundbtn.setOnAction(event -> {
-            //Add impound transfer logic here
             Map<String, Object> impoundReport = impoundLayout();
 
             Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -1210,28 +1210,23 @@ public class reportCreationUtil {
             Label warningLabelimp = (Label) impoundReport.get("warningLabel");
             Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
 
-            try {
-                officername.setText(ConfigReader.configRead("Name"));
-                officerrank.setText(ConfigReader.configRead("Rank"));
-                officerdiv.setText(ConfigReader.configRead("Division"));
-                officeragen.setText(ConfigReader.configRead("Agency"));
-                officernum.setText(ConfigReader.configRead("Number"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            dateimp.setText(getDate());
-            timeimp.setText(getTime());
-
-            modelimp.setText(getTime());
-            notesimp.setText(getTime());
-            numimp.setText(getTime());
-            offenderAddressimp.setText(getTime());
-            offenderAgeimp.setText(getTime());
-            offenderGenderimp.setText(getTime());
-            timeimp.setText(getTime());
-            timeimp.setText(getTime());
-            timeimp.setText(getTime());
-
+            officernameimp.setText(officername.getText());
+            officerdivimp.setText(officerdiv.getText());
+            officerrankimp.setText(officerrank.getText());
+            officeragenimp.setText(officeragen.getText());
+            officernumimp.setText(officernum.getText());
+            timeimp.setText(time.getText());
+            dateimp.setText(date.getText());
+            offenderAddressimp.setText(offenderAddress.getText());
+            offenderNameimp.setText(offenderName.getText());
+            offenderAgeimp.setText(offenderAge.getText());
+            offenderGenderimp.setText(offenderGender.getText());
+            plateNumberimp.setText(plateNumber.getText());
+            notesimp.setText(notes.getText());
+            modelimp.setText(model.getText());
+            typeimp.getSelectionModel().select(type.getSelectionModel().getSelectedItem());
+            colorimp.getSelectionModel().select(color.getSelectionModel().getSelectedItem());
+            numimp.setText(num.getText());
 
             pullNotesBtnimp.setOnAction(event1 -> {
                 if (notesViewController != null) {
@@ -1362,8 +1357,7 @@ public class reportCreationUtil {
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Citation Report has been submitted.", vbox);
-                Stage rootstage = (Stage) root.getScene().getWindow();
-                rootstage.close();
+                stage.close();
             }
         });
     }

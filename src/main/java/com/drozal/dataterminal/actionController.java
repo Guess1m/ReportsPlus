@@ -1090,6 +1090,7 @@ public class actionController {
 
     //<editor-fold desc="Settings Button Events">
 
+
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) {
         //newCallout(reportChart, areaReportChart, vbox, notesViewController);
@@ -1114,6 +1115,8 @@ public class actionController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         confirmSaveDataClearDialog(stage);
     }
+
+
     // UI Settings Events
 
     @javafx.fxml.FXML
@@ -1345,7 +1348,7 @@ public class actionController {
         impoundTime.setText(getTime());
         impoundDate.setText(getDate());
         createSpinner(impoundNumber, 0, 9999, 0);*/
-        newImpound(reportChart,areaReportChart,vbox,notesViewController);
+        newImpound(reportChart, areaReportChart, vbox, notesViewController);
     }
 
 
@@ -1353,6 +1356,7 @@ public class actionController {
 
 
     //<editor-fold desc="Submit Report Button Events">
+
 
     @javafx.fxml.FXML
     public void onCalloutReportSubmitBtnClick(ActionEvent actionEvent) {

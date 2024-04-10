@@ -780,22 +780,52 @@ public class reportCreationUtil {
 
     // Finish Impound
     static Map<String, Object> impoundLayout() {
-        Map<String, Object> impoundReport = createReportWindow("Impound Report", 5, 7, null,
+        Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
                 new SectionConfig("Officer Information", true,
-                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                        new RowConfig(
+                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("Location Information", true,
-                        new RowConfig(new FieldConfig("county", 3, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("street", 5, FieldType.TEXT_FIELD))
+                new SectionConfig("Location / Timestamp Information", true,
+                        new RowConfig(
+                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("Callout Information", true,
-                        new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))
+                new SectionConfig("Offender Information", true,
+                        new RowConfig(
+                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
                 ),
-                new SectionConfig("Callout Notes", true,
-                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                )
-        );
+                new SectionConfig("(If Applicable) Offender Vehicle Information", true,
+                        new RowConfig(
+                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
+                        new RowConfig(
+                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
+                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Citation Notes", true,
+                        new RowConfig(
+                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                ),
+                new SectionConfig("Citation(s)", true,
+                        new RowConfig(
+                                new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))
+                ));
         return impoundReport;
     }
 
@@ -809,19 +839,34 @@ public class reportCreationUtil {
         TextField officerdiv = (TextField) impoundReportMap.get("division");
         TextField officeragen = (TextField) impoundReportMap.get("agency");
         TextField officernum = (TextField) impoundReportMap.get("number");
-        TextField calloutnum = (TextField) impoundReportMap.get("calloutnumber");
-        TextField calloutarea = (TextField) impoundReportMap.get("area");
-        TextArea calloutnotes = (TextArea) impoundReportMap.get("notes");
-        TextField calloutcounty = (TextField) impoundReportMap.get("county");
-        TextField calloutstreet = (TextField) impoundReportMap.get("street");
-        TextField calloutdate = (TextField) impoundReportMap.get("date");
-        TextField callouttime = (TextField) impoundReportMap.get("time");
-        TextField callouttype = (TextField) impoundReportMap.get("type");
-        TextField calloutcode = (TextField) impoundReportMap.get("code");
 
+        TextField offenderName = (TextField) impoundReportMap.get("offender name");
+        TextField offenderAge = (TextField) impoundReportMap.get("offender age");
+        TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
+        TextField offenderDescription = (TextField) impoundReportMap.get("offender description");
 
-        BorderPane root = (BorderPane) impoundReport.get("root");
+        TextField area = (TextField) impoundReportMap.get("area");
+        TextField street = (TextField) impoundReportMap.get("street");
+        TextField county = (TextField) impoundReportMap.get("county");
+        TextField num = (TextField) impoundReportMap.get("citation number");
+        TextField date = (TextField) impoundReportMap.get("date");
+        TextField time = (TextField) impoundReportMap.get("time");
+
+        ComboBox color = (ComboBox) impoundReportMap.get("color");
+        ComboBox type = (ComboBox) impoundReportMap.get("type");
+        TextField plateNumber = (TextField) impoundReportMap.get("plate number");
+        TextField otherInfo = (TextField) impoundReportMap.get("other info");
+        TextField model = (TextField) impoundReportMap.get("model");
+
+        TextArea notes = (TextArea) impoundReportMap.get("notes");
+
+        TreeView citationtreeview = (TreeView) impoundReportMap.get("citationview");
+        TableView citationtable = (TableView) impoundReportMap.get("CitationTableView");
+
+        BorderPane root = (BorderPane) impoundReportMap.get("root");
         Label warningLabel = (Label) impoundReport.get("warningLabel");
+        Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
 
         try {
             officername.setText(ConfigReader.configRead("Name"));
@@ -832,17 +877,23 @@ public class reportCreationUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        calloutdate.setText(getDate());
-        callouttime.setText(getTime());
+        date.setText(getDate());
+        time.setText(getTime());
 
-        Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
         pullNotesBtn.setOnAction(event -> {
             if (notesViewController != null) {
-                updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
-                updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
-                updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
-                updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
-                updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
+                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
+                updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
+                updateTextFromNotepad(offenderDescription, notesViewController.getNotepadTextArea(), "-description");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(offenderAddress, notesViewController.getNotepadTextArea(), "-address");
+                updateTextFromNotepad(model, notesViewController.getNotepadTextArea(), "-model");
+                updateTextFromNotepad(plateNumber, notesViewController.getNotepadTextArea(), "-plate");
+                updateTextFromNotepad(num, notesViewController.getNotepadTextArea(), "-number");
             } else {
                 System.out.println("NotesViewController Is Null");
             }
@@ -869,35 +920,49 @@ public class reportCreationUtil {
                         warningLabel.setVisible(false);
                     }
                 }, 3000);
-                return;
+            } else {
+                List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+                ObservableList<CitationsData> formDataList = citationtable.getItems();
+                StringBuilder stringBuilder = new StringBuilder();
+                for (CitationsData formData : formDataList) {
+                    stringBuilder.append(formData.getCitation()).append(" | ");
+                }
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+
+                logs.add(new TrafficCitationLogEntry(
+                        num.getText(),
+                        date.getText(),
+                        time.getText(),
+                        stringBuilder.toString(),
+                        county.getText(),
+                        area.getText(),
+                        street.getText(),
+                        offenderName.getText(),
+                        offenderGender.getText(),
+                        offenderAge.getText(),
+                        offenderAddress.getText(),
+                        offenderDescription.getText(),
+                        model.getText(),
+                        color.getValue().toString(),
+                        type.getValue().toString(),
+                        plateNumber.getText(),
+                        otherInfo.getText(),
+                        officerrank.getText(),
+                        officername.getText(),
+                        officernum.getText(),
+                        officerdiv.getText(),
+                        officeragen.getText(),
+                        notes.getText()
+                ));
+                TrafficCitationReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Citation Report has been submitted.", vbox);
+                Stage rootstage = (Stage) root.getScene().getWindow();
+                rootstage.close();
             }
-            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-
-            logs.add(new CalloutLogEntry(
-                    calloutdate.getText(),
-                    callouttime.getText(),
-                    officername.getText(),
-                    officerrank.getText(),
-                    officernum.getText(),
-                    officerdiv.getText(),
-                    officeragen.getText(),
-                    callouttype.getText(),
-                    calloutcode.getText(),
-                    calloutnum.getText(),
-                    calloutnotes.getText(),
-                    calloutstreet.getText(),
-                    calloutcounty.getText(),
-                    calloutarea.getText()
-
-            ));
-
-            CalloutReportLogs.saveLogsToXML(logs);
-            updateChartIfMismatch(reportChart);
-            controllerUtils.refreshChart(areaReportChart, "area");
-            showNotification("Reports", "A new Callout Report has been submitted.", vbox);
-
-            Stage rootstage = (Stage) root.getScene().getWindow();
-            rootstage.close();
         });
     }
 
@@ -1056,7 +1121,7 @@ public class reportCreationUtil {
                                 new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
                                 new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
                         new RowConfig(
-                                new FieldConfig("type", 4, FieldType.COMBO_BOX_COLOR),
+                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
                                 new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
                 ),
                 new SectionConfig("Citation Notes", true,
@@ -1209,7 +1274,8 @@ public class reportCreationUtil {
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Citation Report has been submitted.", vbox);
                 Stage rootstage = (Stage) root.getScene().getWindow();
-                rootstage.close();}
+                rootstage.close();
+            }
         });
     }
 

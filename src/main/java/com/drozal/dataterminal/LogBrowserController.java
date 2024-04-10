@@ -39,6 +39,7 @@ import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 public class LogBrowserController {
     public static AnchorPane titlebar = null;
     private final ObservableList<CalloutLogEntry> logs = FXCollections.observableArrayList();
+
     //<editor-fold desc="FXML / Vars">
     double minColumnWidth = 185.0;
     @javafx.fxml.FXML
@@ -345,7 +346,7 @@ public class LogBrowserController {
             citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
 
-        titlebar = reportCreationUtil.createTitleBar("NotePad");
+        titlebar = reportCreationUtil.createTitleBar("Log Controller");
 
         borderPane.setTop(titlebar);
     }

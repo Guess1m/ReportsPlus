@@ -61,21 +61,59 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 public class reportCreationUtil {
 
     private static final Map<String, Map<String, String>> reportData = new HashMap<>();
-    static String primaryColor = "#323c41";
-    static String secondaryColor = "#263238"; //Darkest
-    static String accentColor = "#505d62"; //Lightest
-
     static double windowX = 0;
     static double windowY = 0;
+
+    private static String getPrimaryColor() { //non selected textarea
+        String primaryColor;
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                primaryColor = "#323c41";//DARK medium
+            } else {
+                primaryColor = "#f2f2f2";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return primaryColor;
+    }
+
+    private static String getSecondaryColor() { // selected textarea
+        String secondaryColor;
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                secondaryColor = "#263238";//DARK Darkest
+            } else {
+                secondaryColor = "#d2d2d2";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return secondaryColor;
+    }
+
+    private static String getAccentColor() { // background
+        String accentColor;
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                accentColor = "#505d62";//DARK Lightest
+            } else {
+                accentColor = "white";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return accentColor;
+    }
 
     /*
     Pull from Config
 
     static {
         try {
-            primaryColor = ConfigReader.configRead("secondaryColor");
-            secondaryColor = ConfigReader.configRead("mainColor");
-            accentColor = ConfigReader.configRead("accentColor");
+            primaryColor = ConfigReader.configRead("getSecondaryColor()");
+            getSecondaryColor() = ConfigReader.configRead("mainColor");
+            getAccentColor() = ConfigReader.configRead("getAccentColor()");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +122,6 @@ public class reportCreationUtil {
 
 
     //<editor-fold desc="Creation">
-
 
     public static AnchorPane createTitleBar(String titleText) {
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -176,6 +213,17 @@ public class reportCreationUtil {
 
 
     public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
+        String placeholder;
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                placeholder = "white";
+            } else {
+                placeholder = "black";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Screen screen = Screen.getPrimary();
         double screenWidth = screen.getVisualBounds().getWidth();
         double screenHeight = screen.getVisualBounds().getHeight();
@@ -205,7 +253,7 @@ public class reportCreationUtil {
         }
 
         Label mainHeaderLabel = new Label("New " + reportName);
-        mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: #ffffff; -fx-font-family: Segoe UI Black;");
+        mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
         mainHeaderLabel.setAlignment(Pos.CENTER);
         GridPane.setColumnSpan(mainHeaderLabel, 12);
         gridPane.add(mainHeaderLabel, 0, 0);
@@ -217,7 +265,7 @@ public class reportCreationUtil {
             Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 
             if (sectionConfig.getRequired()) {
-                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
             } else {
                 sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #a6a6a6; -fx-background-color: transparent; -fx-padding: 0px 40px;");
             }
@@ -242,24 +290,24 @@ public class reportCreationUtil {
         Button submitBtn = new Button("Collect Values");
         submitBtn.getStyleClass().add("incidentformButton");
         submitBtn.setStyle("-fx-padding: 15;");
-        submitBtn.setStyle("-fx-background-color: " + primaryColor);
+        submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
         submitBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                submitBtn.setStyle("-fx-background-color: " + secondaryColor + ";");
+                submitBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
             } else {
-                submitBtn.setStyle("-fx-background-color: " + primaryColor + ";");
+                submitBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
             }
         });
 
         Button pullNotesBtn = new Button("Pull From Notes");
         pullNotesBtn.getStyleClass().add("incidentformButton");
         pullNotesBtn.setStyle("-fx-padding: 15;");
-        pullNotesBtn.setStyle("-fx-background-color: " + primaryColor);
+        pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor());
         pullNotesBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                pullNotesBtn.setStyle("-fx-background-color: " + secondaryColor + ";");
+                pullNotesBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
             } else {
-                pullNotesBtn.setStyle("-fx-background-color: " + primaryColor + ";");
+                pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
             }
         });
 
@@ -306,16 +354,16 @@ public class reportCreationUtil {
             accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
             accordion.setMaxHeight(Region.USE_PREF_SIZE);
 
-            paneGrid.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
-            accordion.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
-            titledPane.setStyle("-fx-background-color: " + secondaryColor + "; -fx-border-color: " + secondaryColor + ";");
+            paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+            accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+            titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 
             root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
         }
 
         root.getChildren().add(buttonBox);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: " + accentColor + ";");
+        root.setStyle("-fx-background-color: " + getAccentColor() + ";");
         Insets insets = new Insets(20, 25, 15, 25);
         root.setPadding(insets);
 
@@ -328,15 +376,32 @@ public class reportCreationUtil {
 
         BorderlessScene scene = new BorderlessScene(stage, StageStyle.TRANSPARENT, borderPane, Color.TRANSPARENT);
         scene.setMoveControl(titleBar);
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formFields.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formTextArea.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formButton.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formComboBox.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/main/Logscrollpane.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/tableCss.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formTitledPane.css").toExternalForm());
+
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
+            } else {
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formComboBox.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
+            }
+        } catch (IOException e) {
+            System.err.println("could not add stylesheets to reports");
+            throw new RuntimeException(e);
+        }
+
         scrollPane.getStyleClass().add("formPane");
-        scrollPane.setStyle("-fx-background-color: " + accentColor + "; " + "-fx-focus-color: " + accentColor + ";");
+        scrollPane.setStyle("-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 
         stage.setScene(scene);
         stage.setTitle(reportName);
@@ -393,6 +458,17 @@ public class reportCreationUtil {
 
 
     private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
+        String placeholder;
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                placeholder = "white";
+            } else {
+                placeholder = "black";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         int totalSize = 0;
         int columnIndex = 0;
         for (FieldConfig fieldConfig : rowConfig.getFieldConfigs()) {
@@ -402,17 +478,16 @@ public class reportCreationUtil {
                 throw new IllegalArgumentException("Invalid field size configuration");
             }
             totalSize += fieldConfig.getSize();
-
             switch (fieldConfig.getFieldType()) {
                 case TEXT_FIELD:
                     TextField textField = new TextField();
                     textField.getStyleClass().add("formField3");
-                    textField.setStyle("-fx-background-color: " + primaryColor);
+                    textField.setStyle("-fx-background-color: " + getPrimaryColor());
                     textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            textField.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            textField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            textField.setStyle("-fx-background-color: " + primaryColor + ";");
+                            textField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     textField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -429,12 +504,12 @@ public class reportCreationUtil {
                     TextArea textArea = new TextArea();
                     textArea.setWrapText(true);
                     textArea.getStyleClass().add("othertextarea");
-                    textArea.setStyle("-fx-background-color: " + primaryColor);
+                    textArea.setStyle("-fx-background-color: " + getPrimaryColor());
                     textArea.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            textArea.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            textArea.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            textArea.setStyle("-fx-background-color: " + primaryColor + ";");
+                            textArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     textArea.setPromptText(fieldConfig.getFieldName().toUpperCase());
@@ -448,12 +523,12 @@ public class reportCreationUtil {
                 case COMBO_BOX_COLOR:
                     ComboBox<String> comboBoxColor = new ComboBox<>();
                     comboBoxColor.getStyleClass().add("comboboxnew");
-                    comboBoxColor.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxColor.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                     comboBoxColor.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            comboBoxColor.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            comboBoxColor.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            comboBoxColor.setStyle("-fx-background-color: " + primaryColor + ";");
+                            comboBoxColor.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     comboBoxColor.getItems().addAll(dropdownInfo.carColors);
@@ -466,7 +541,7 @@ public class reportCreationUtil {
                             if (empty || item == null) {
                                 setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
                             } else {
-                                setStyle("-fx-text-fill: white;");
+                                setStyle("-fx-text-fill: " + placeholder + ";");
                                 setText(item.toString());
                             }
                         }
@@ -479,12 +554,12 @@ public class reportCreationUtil {
                 case COMBO_BOX_TYPE:
                     ComboBox<String> comboBoxType = new ComboBox<>();
                     comboBoxType.getStyleClass().add("comboboxnew");
-                    comboBoxType.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                     comboBoxType.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            comboBoxType.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            comboBoxType.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            comboBoxType.setStyle("-fx-background-color: " + primaryColor + ";");
+                            comboBoxType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     comboBoxType.getItems().addAll(dropdownInfo.vehicleTypes);
@@ -497,7 +572,7 @@ public class reportCreationUtil {
                             if (empty || item == null) {
                                 setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
                             } else {
-                                setStyle("-fx-text-fill: white;");
+                                setStyle("-fx-text-fill: " + placeholder + ";");
                                 setText(item.toString());
                             }
                         }
@@ -510,12 +585,12 @@ public class reportCreationUtil {
                 case COMBO_BOX_SEARCH_TYPE:
                     ComboBox<String> comboBoxSearchType = new ComboBox<>();
                     comboBoxSearchType.getStyleClass().add("comboboxnew");
-                    comboBoxSearchType.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxSearchType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                     comboBoxSearchType.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            comboBoxSearchType.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            comboBoxSearchType.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            comboBoxSearchType.setStyle("-fx-background-color: " + primaryColor + ";");
+                            comboBoxSearchType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     comboBoxSearchType.getItems().addAll(dropdownInfo.searchTypes);
@@ -528,7 +603,7 @@ public class reportCreationUtil {
                             if (empty || item == null) {
                                 setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
                             } else {
-                                setStyle("-fx-text-fill: white;");
+                                setStyle("-fx-text-fill: " + placeholder + ";");
                                 setText(item.toString());
                             }
                         }
@@ -541,12 +616,12 @@ public class reportCreationUtil {
                 case COMBO_BOX_SEARCH_METHOD:
                     ComboBox<String> comboBoxSearchMethod = new ComboBox<>();
                     comboBoxSearchMethod.getStyleClass().add("comboboxnew");
-                    comboBoxSearchMethod.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxSearchMethod.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                     comboBoxSearchMethod.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            comboBoxSearchMethod.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            comboBoxSearchMethod.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            comboBoxSearchMethod.setStyle("-fx-background-color: " + primaryColor + ";");
+                            comboBoxSearchMethod.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     comboBoxSearchMethod.getItems().addAll(dropdownInfo.searchMethods);
@@ -559,7 +634,7 @@ public class reportCreationUtil {
                             if (empty || item == null) {
                                 setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
                             } else {
-                                setStyle("-fx-text-fill: white;");
+                                setStyle("-fx-text-fill: " + placeholder + ";");
                                 setText(item.toString());
                             }
                         }
@@ -636,52 +711,52 @@ public class reportCreationUtil {
                     fieldsMap.put("CitationTableView", citationTableView);
                     fieldsMap.put(fieldConfig.getFieldName(), treeView);
 
-                    citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                    citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
                     citationInfoLabel.setFont(Font.font("Segoe UI Black"));
                     addButton.getStyleClass().add("incidentformButton");
                     addButton.setStyle("-fx-padding: 15;");
-                    addButton.setStyle("-fx-background-color: " + primaryColor);
+                    addButton.setStyle("-fx-background-color: " + getPrimaryColor());
                     addButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            addButton.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            addButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            addButton.setStyle("-fx-background-color: " + primaryColor + ";");
+                            addButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     removeButton.getStyleClass().add("incidentformButton");
                     removeButton.setStyle("-fx-padding: 15;");
-                    removeButton.setStyle("-fx-background-color: " + primaryColor);
+                    removeButton.setStyle("-fx-background-color: " + getPrimaryColor());
                     removeButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            removeButton.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            removeButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            removeButton.setStyle("-fx-background-color: " + primaryColor + ";");
+                            removeButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
-                    citationTableView.setStyle("-fx-background-color: " + primaryColor);
+                    citationTableView.setStyle("-fx-background-color: " + getPrimaryColor());
                     citationTableView.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            citationTableView.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            citationTableView.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            citationTableView.setStyle("-fx-background-color: " + primaryColor + ";");
+                            citationTableView.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     citationNameField.getStyleClass().add("formField3");
-                    citationNameField.setStyle("-fx-background-color: " + primaryColor);
+                    citationNameField.setStyle("-fx-background-color: " + getPrimaryColor());
                     citationNameField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            citationNameField.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            citationNameField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            citationNameField.setStyle("-fx-background-color: " + primaryColor + ";");
+                            citationNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     citationFineField.getStyleClass().add("formField3");
-                    citationFineField.setStyle("-fx-background-color: " + primaryColor);
+                    citationFineField.setStyle("-fx-background-color: " + getPrimaryColor());
                     citationFineField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            citationFineField.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            citationFineField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            citationFineField.setStyle("-fx-background-color: " + primaryColor + ";");
+                            citationFineField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     treeView.setOnMouseClicked(event -> {
@@ -720,12 +795,12 @@ public class reportCreationUtil {
                     transferButton.setMaxHeight(Button.USE_PREF_SIZE);
 
                     transferButton.getStyleClass().add("incidentformButton");
-                    transferButton.setStyle("-fx-background-color: " + accentColor);
+                    transferButton.setStyle("-fx-background-color: " + getAccentColor());
                     transferButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            transferButton.setStyle("-fx-background-color: " + primaryColor + ";");
+                            transferButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         } else {
-                            transferButton.setStyle("-fx-background-color: " + accentColor + ";");
+                            transferButton.setStyle("-fx-background-color: " + getAccentColor() + ";");
                         }
                     });
                     gridPane.add(transferButton, columnIndex, rowIndex, fieldConfig.getSize(), 1);
@@ -794,43 +869,43 @@ public class reportCreationUtil {
                     fieldsMap.put("ChargeTableView", chargeTableView);
                     fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 
-                    chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                    chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
                     chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
                     addButton2.getStyleClass().add("incidentformButton");
                     addButton2.setStyle("-fx-padding: 15;");
-                    addButton2.setStyle("-fx-background-color: " + primaryColor);
+                    addButton2.setStyle("-fx-background-color: " + getPrimaryColor());
                     addButton2.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            addButton2.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            addButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            addButton2.setStyle("-fx-background-color: " + primaryColor + ";");
+                            addButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     removeButton2.getStyleClass().add("incidentformButton");
                     removeButton2.setStyle("-fx-padding: 15;");
-                    removeButton2.setStyle("-fx-background-color: " + primaryColor);
+                    removeButton2.setStyle("-fx-background-color: " + getPrimaryColor());
                     removeButton2.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            removeButton2.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            removeButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            removeButton2.setStyle("-fx-background-color: " + primaryColor + ";");
+                            removeButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
-                    chargeTableView.setStyle("-fx-background-color: " + primaryColor);
+                    chargeTableView.setStyle("-fx-background-color: " + getPrimaryColor());
                     chargeTableView.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            chargeTableView.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            chargeTableView.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            chargeTableView.setStyle("-fx-background-color: " + primaryColor + ";");
+                            chargeTableView.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     chargeNameField.getStyleClass().add("formField3");
-                    chargeNameField.setStyle("-fx-background-color: " + primaryColor);
+                    chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor());
                     chargeNameField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
-                            chargeNameField.setStyle("-fx-background-color: " + secondaryColor + ";");
+                            chargeNameField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
                         } else {
-                            chargeNameField.setStyle("-fx-background-color: " + primaryColor + ";");
+                            chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
                     chargestreeView.setOnMouseClicked(event -> {
@@ -1194,7 +1269,7 @@ public class reportCreationUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        stoptime.setText(getDate());
+        stoptime.setText(getTime());
 
         Button pullNotesBtn = (Button) patrolReport.get("pullNotesBtn");
 

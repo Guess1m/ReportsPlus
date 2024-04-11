@@ -136,6 +136,7 @@ public class newOfficerController {
             ConfigWriter.configwrite("mainWindowLayout", "Default");
             ConfigWriter.configwrite("notesWindowLayout", "Default");
             ConfigWriter.configwrite("reportWindowLayout", "Default");
+            ConfigWriter.configwrite("reportWindowDarkMode", "true");
 
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();
@@ -233,6 +234,7 @@ public class newOfficerController {
         ConfigWriter.configwrite("mainWindowLayout", "Default");
         ConfigWriter.configwrite("notesWindowLayout", "Default");
         ConfigWriter.configwrite("reportWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowDarkMode", "true");
 
         Stage stag = (Stage) vbox.getScene().getWindow();
         stag.close();

@@ -5,15 +5,24 @@ import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
+import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
+import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
+import com.drozal.dataterminal.logs.Search.SearchLogEntry;
+import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -388,6 +397,8 @@ public class reportCreationUtil {
         int columnIndex = 0;
         for (FieldConfig fieldConfig : rowConfig.getFieldConfigs()) {
             if (fieldConfig.getSize() <= 0 || totalSize + fieldConfig.getSize() > 12) {
+                System.err.println(fieldConfig.getFieldName());
+                System.err.println(fieldConfig.getSize());
                 throw new IllegalArgumentException("Invalid field size configuration");
             }
             totalSize += fieldConfig.getSize();
@@ -495,6 +506,68 @@ public class reportCreationUtil {
                     comboBoxType.setMaxWidth(Double.MAX_VALUE);
                     gridPane.add(comboBoxType, columnIndex, rowIndex, fieldConfig.getSize(), 1);
                     fieldsMap.put(fieldConfig.getFieldName(), comboBoxType);
+                    break;
+                case COMBO_BOX_SEARCH_TYPE:
+                    ComboBox<String> comboBoxSearchType = new ComboBox<>();
+                    comboBoxSearchType.getStyleClass().add("comboboxnew");
+                    comboBoxSearchType.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxSearchType.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            comboBoxSearchType.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            comboBoxSearchType.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    comboBoxSearchType.getItems().addAll(dropdownInfo.searchTypes);
+                    comboBoxSearchType.setPromptText(fieldConfig.getFieldName().toUpperCase());
+                    comboBoxSearchType.setButtonCell(new ListCell() {
+
+                        @Override
+                        protected void updateItem(Object item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+                            } else {
+                                setStyle("-fx-text-fill: white;");
+                                setText(item.toString());
+                            }
+                        }
+
+                    });
+                    comboBoxSearchType.setMaxWidth(Double.MAX_VALUE);
+                    gridPane.add(comboBoxSearchType, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+                    fieldsMap.put(fieldConfig.getFieldName(), comboBoxSearchType);
+                    break;
+                case COMBO_BOX_SEARCH_METHOD:
+                    ComboBox<String> comboBoxSearchMethod = new ComboBox<>();
+                    comboBoxSearchMethod.getStyleClass().add("comboboxnew");
+                    comboBoxSearchMethod.setStyle("-fx-background-color: " + primaryColor + ";");
+                    comboBoxSearchMethod.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            comboBoxSearchMethod.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            comboBoxSearchMethod.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    comboBoxSearchMethod.getItems().addAll(dropdownInfo.searchMethods);
+                    comboBoxSearchMethod.setPromptText(fieldConfig.getFieldName().toUpperCase());
+                    comboBoxSearchMethod.setButtonCell(new ListCell() {
+
+                        @Override
+                        protected void updateItem(Object item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+                            } else {
+                                setStyle("-fx-text-fill: white;");
+                                setText(item.toString());
+                            }
+                        }
+
+                    });
+                    comboBoxSearchMethod.setMaxWidth(Double.MAX_VALUE);
+                    gridPane.add(comboBoxSearchMethod, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+                    fieldsMap.put(fieldConfig.getFieldName(), comboBoxSearchMethod);
                     break;
                 case CITATION_TREE_VIEW:
                     TreeView<String> treeView = new TreeView<>();
@@ -657,6 +730,131 @@ public class reportCreationUtil {
                     });
                     gridPane.add(transferButton, columnIndex, rowIndex, fieldConfig.getSize(), 1);
                     fieldsMap.put(fieldConfig.getFieldName(), transferButton);
+                    break;
+                case CHARGES_TREE_VIEW:
+                    TreeView<String> chargestreeView = new TreeView<>();
+                    chargestreeView.setPrefHeight(350);
+                    chargestreeView.setMinHeight(350);
+                    chargestreeView.setMaxHeight(350);
+
+                    File file2 = new File(getJarPath() + "/data/Charges.xml");
+                    DocumentBuilderFactory factory2 = DocumentBuilderFactory.newInstance();
+                    Document document2 = null;
+                    try {
+                        document2 = factory2.newDocumentBuilder().parse(file2);
+                    } catch (SAXException | IOException | ParserConfigurationException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Element root2 = document2.getDocumentElement();
+
+                    TreeItem<String> rootItem2 = new TreeItem<>(root2.getNodeName());
+
+                    parseTreeXML(root2, rootItem2);
+                    chargestreeView.setRoot(rootItem2);
+                    expandTreeItem(rootItem2, "Charges");
+
+                    TextField chargeNameField = new TextField();
+                    chargeNameField.setPromptText("Charge Name");
+
+                    Button addButton2 = new Button("Add");
+                    Button removeButton2 = new Button("Remove");
+
+                    Label chargeInfoLabel = new Label("Charge Information");
+                    chargeInfoLabel.setAlignment(Pos.CENTER);
+
+                    TableView<ChargesData> chargeTableView = new TableView<>();
+                    chargeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                    chargeTableView.getStyleClass().add("calloutTABLE");
+
+                    TableColumn<ChargesData, String> chargeColumn = new TableColumn<>("Charge");
+                    chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
+                    chargeTableView.setTableMenuButtonVisible(false);
+
+                    chargeTableView.getColumns().add(chargeColumn);
+                    gridPane.add(chargestreeView, columnIndex, rowIndex, fieldConfig.getSize(), 5);
+
+                    int additionalColumnIndex2 = columnIndex + fieldConfig.getSize();
+
+                    int remainingColumns2 = gridPane.getColumnCount() - additionalColumnIndex2;
+
+                    gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex, remainingColumns2, 1);
+                    GridPane.setHalignment(chargeInfoLabel, HPos.CENTER);
+                    gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex + 1, remainingColumns2, 1);
+
+                    HBox buttonBox2 = new HBox(40, addButton2, removeButton2);
+                    buttonBox2.setAlignment(Pos.CENTER);
+                    gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 3, remainingColumns2, 1);
+
+                    gridPane.add(chargeTableView, additionalColumnIndex2, rowIndex + 4, remainingColumns2, 1);
+
+                    fieldsMap.put("ChargeNameField", chargeNameField);
+                    fieldsMap.put("AddButton", addButton2);
+                    fieldsMap.put("RemoveButton", removeButton2);
+                    fieldsMap.put("ChargeTableView", chargeTableView);
+                    fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
+
+                    chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                    chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
+                    addButton2.getStyleClass().add("incidentformButton");
+                    addButton2.setStyle("-fx-padding: 15;");
+                    addButton2.setStyle("-fx-background-color: " + primaryColor);
+                    addButton2.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            addButton2.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            addButton2.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    removeButton2.getStyleClass().add("incidentformButton");
+                    removeButton2.setStyle("-fx-padding: 15;");
+                    removeButton2.setStyle("-fx-background-color: " + primaryColor);
+                    removeButton2.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            removeButton2.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            removeButton2.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    chargeTableView.setStyle("-fx-background-color: " + primaryColor);
+                    chargeTableView.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            chargeTableView.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            chargeTableView.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    chargeNameField.getStyleClass().add("formField3");
+                    chargeNameField.setStyle("-fx-background-color: " + primaryColor);
+                    chargeNameField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            chargeNameField.setStyle("-fx-background-color: " + secondaryColor + ";");
+                        } else {
+                            chargeNameField.setStyle("-fx-background-color: " + primaryColor + ";");
+                        }
+                    });
+                    chargestreeView.setOnMouseClicked(event -> {
+                        TreeItem<String> selectedItem = chargestreeView.getSelectionModel().getSelectedItem();
+                        if (selectedItem != null && selectedItem.isLeaf()) {
+                            chargeNameField.setText(selectedItem.getValue());
+                        } else {
+                            chargeNameField.setText("");
+                        }
+                    });
+                    addButton2.setOnMouseClicked(event -> {
+                        String charge = chargeNameField.getText();
+                        if (!(charge.isBlank() || charge.isEmpty())) {
+                            ChargesData formData = new ChargesData(charge);
+                            chargeTableView.getItems().add(formData);
+                        }
+                    });
+                    removeButton2.setOnMouseClicked(event -> {
+                        ChargesData selectedItem = chargeTableView.getSelectionModel().getSelectedItem();
+                        if (selectedItem != null) {
+                            chargeTableView.getItems().remove(selectedItem);
+                        }
+                    });
+                    rowIndex += 6;
                     break;
 
             }
@@ -1286,23 +1484,23 @@ public class reportCreationUtil {
 
                     // Add new entry
                     logs.add(new ImpoundLogEntry(
-                            num.getText(),
-                            date.getText(),
-                            time.getText(),
-                            offenderName.getText(),
-                            offenderAge.getText(),
-                            offenderGender.getText(),
-                            offenderAddress.getText(),
-                            plateNumber.getText(),
-                            model.getText(),
-                            type.getValue().toString(),
-                            color.getValue().toString(),
-                            notes.getText(),
-                            officerrank.getText(),
-                            officername.getText(),
-                            officernum.getText(),
-                            officerdiv.getText(),
-                            officeragen.getText()
+                            numimp.getText(),
+                            dateimp.getText(),
+                            timeimp.getText(),
+                            offenderNameimp.getText(),
+                            offenderAgeimp.getText(),
+                            offenderGenderimp.getText(),
+                            offenderAddressimp.getText(),
+                            plateNumberimp.getText(),
+                            modelimp.getText(),
+                            typeimp.getValue().toString(),
+                            colorimp.getValue().toString(),
+                            notesimp.getText(),
+                            officerrankimp.getText(),
+                            officernameimp.getText(),
+                            officernumimp.getText(),
+                            officerdivimp.getText(),
+                            officeragenimp.getText()
                     ));
                     ImpoundReportLogs.saveLogsToXML(logs);
                     updateChartIfMismatch(reportChart);
@@ -1380,6 +1578,1828 @@ public class reportCreationUtil {
     }
 
 
+    static Map<String, Object> incidentLayout() {
+        Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null,
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Timestamp / Location Information", true,
+                        new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("incident num", 5, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Parties Involved", false,
+                        new RowConfig(new FieldConfig("suspect(s)", 6, FieldType.TEXT_FIELD), new FieldConfig("victim(s) / witness(s)", 6, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("statement", 12, FieldType.TEXT_AREA))
+                ),
+                new SectionConfig("Notes / Summary", true,
+                        new RowConfig(new FieldConfig("summary", 12, FieldType.TEXT_AREA)),
+                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                )
+        );
+        return incidentReport;
+    }
+
+    public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> incidentReport = incidentLayout();
+
+        Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
+
+        TextField name = (TextField) incidentReportMap.get("name");
+        TextField rank = (TextField) incidentReportMap.get("rank");
+        TextField div = (TextField) incidentReportMap.get("division");
+        TextField agen = (TextField) incidentReportMap.get("agency");
+        TextField num = (TextField) incidentReportMap.get("number");
+
+        TextField incidentnum = (TextField) incidentReportMap.get("incident num");
+        TextField date = (TextField) incidentReportMap.get("date");
+        TextField time = (TextField) incidentReportMap.get("time");
+        TextField street = (TextField) incidentReportMap.get("street");
+        TextField area = (TextField) incidentReportMap.get("area");
+        TextField county = (TextField) incidentReportMap.get("county");
+
+        TextField suspects = (TextField) incidentReportMap.get("suspect(s)");
+        TextField vicwit = (TextField) incidentReportMap.get("victim(s) / witness(s)");
+        TextArea statement = (TextArea) incidentReportMap.get("statement");
+
+        TextArea summary = (TextArea) incidentReportMap.get("summary");
+        TextArea notes = (TextArea) incidentReportMap.get("notes");
+
+        BorderPane root = (BorderPane) incidentReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
+
+        Label warningLabel = (Label) incidentReport.get("warningLabel");
+
+        try {
+            name.setText(ConfigReader.configRead("Name"));
+            rank.setText(ConfigReader.configRead("Rank"));
+            div.setText(ConfigReader.configRead("Division"));
+            agen.setText(ConfigReader.configRead("Agency"));
+            num.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        date.setText(getDate());
+        time.setText(getTime());
+
+        Button pullNotesBtn = (Button) incidentReport.get("pullNotesBtn");
+
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(vicwit, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(incidentnum, notesViewController.getNotepadTextArea(), "-number");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+        Button submitBtn = (Button) incidentReport.get("submitBtn");
+
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : incidentReportMap.keySet()) {
+                Object field = incidentReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabel.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return;
+            }
+
+            List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+
+            logs.add(new IncidentLogEntry(
+                    incidentnum.getText(),
+                    date.getText(),
+                    time.getText(),
+                    statement.getText(),
+                    suspects.getText(),
+                    vicwit.getText(),
+                    name.getText(),
+                    rank.getText(),
+                    num.getText(),
+                    agen.getText(),
+                    div.getText(),
+                    street.getText(),
+                    area.getText(),
+                    county.getText(),
+                    summary.getText(),
+                    notes.getText()
+            ));
+
+            IncidentReportLogs.saveLogsToXML(logs);
+            updateChartIfMismatch(reportChart);
+            controllerUtils.refreshChart(areaReportChart, "area");
+            showNotification("Reports", "A new Incident Report has been submitted.", vbox);
+            stage.close();
+        });
+    }
+
+
+    static Map<String, Object> searchLayout() {
+        Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Timestamp / Location Information", true,
+                        new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("search num", 5, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Search Information", true,
+                        new RowConfig(new FieldConfig("grounds for search", 6, FieldType.TEXT_FIELD), new FieldConfig("witness(s)", 6, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)),
+                        new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))
+                ),
+                new SectionConfig("Field Sobriety Information", true,
+                        new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Notes / Summary", true,
+                        new RowConfig(new FieldConfig("seized item(s)", 12, FieldType.TEXT_AREA)),
+                        new RowConfig(new FieldConfig("comments", 12, FieldType.TEXT_AREA))
+                )
+        );
+        return searchReport;
+    }
+
+    public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> searchReport = searchLayout();
+
+        Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+
+        TextField name = (TextField) searchReportMap.get("name");
+        TextField rank = (TextField) searchReportMap.get("rank");
+        TextField div = (TextField) searchReportMap.get("division");
+        TextField agen = (TextField) searchReportMap.get("agency");
+        TextField num = (TextField) searchReportMap.get("number");
+
+        TextField searchnum = (TextField) searchReportMap.get("search num");
+        TextField date = (TextField) searchReportMap.get("date");
+        TextField time = (TextField) searchReportMap.get("time");
+        TextField street = (TextField) searchReportMap.get("street");
+        TextField area = (TextField) searchReportMap.get("area");
+        TextField county = (TextField) searchReportMap.get("county");
+
+        TextField grounds = (TextField) searchReportMap.get("grounds for search");
+        TextField witness = (TextField) searchReportMap.get("witness(s)");
+        TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
+        ComboBox type = (ComboBox) searchReportMap.get("search type");
+        ComboBox method = (ComboBox) searchReportMap.get("search method");
+
+        TextField testconducted = (TextField) searchReportMap.get("test(s) conducted");
+        TextField result = (TextField) searchReportMap.get("result");
+        TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
+
+        TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
+        TextArea notes = (TextArea) searchReportMap.get("comments");
+
+        BorderPane root = (BorderPane) searchReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
+
+        Label warningLabel = (Label) searchReport.get("warningLabel");
+
+        try {
+            name.setText(ConfigReader.configRead("Name"));
+            rank.setText(ConfigReader.configRead("Rank"));
+            div.setText(ConfigReader.configRead("Division"));
+            agen.setText(ConfigReader.configRead("Agency"));
+            num.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        date.setText(getDate());
+        time.setText(getTime());
+
+        Button pullNotesBtn = (Button) searchReport.get("pullNotesBtn");
+
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(searchedindividual, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
+                updateTextFromNotepad(seizeditems, notesViewController.getNotepadTextArea(), "-searchitems");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+        Button submitBtn = (Button) searchReport.get("submitBtn");
+
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : searchReportMap.keySet()) {
+                Object field = searchReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabel.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+                return;
+            }
+
+            List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
+
+            logs.add(new SearchLogEntry(
+                    searchnum.getText(),
+                    searchedindividual.getText(),
+                    date.getText(),
+                    time.getText(),
+                    seizeditems.getText(),
+                    grounds.getText(),
+                    type.getValue().toString(),
+                    method.getValue().toString(),
+                    witness.getText(),
+                    rank.getText(),
+                    name.getText(),
+                    num.getText(),
+                    agen.getText(),
+                    div.getText(),
+                    street.getText(),
+                    area.getText(),
+                    county.getText(),
+                    notes.getText(),
+                    testconducted.getText(),
+                    result.getText(),
+                    bacmeasurement.getText()
+            ));
+
+            SearchReportLogs.saveLogsToXML(logs);
+            updateChartIfMismatch(reportChart);
+            controllerUtils.refreshChart(areaReportChart, "area");
+            showNotification("Reports", "A new Search Report has been submitted.", vbox);
+            stage.close();
+        });
+    }
+
+
+    static Map<String, Object> arrestLayout() {
+        Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,
+                new TransferConfig("Transfer Information To New Report",
+                        new RowConfig(
+                                new FieldConfig("transferimpoundbtn", 4, FieldType.TRANSFER_BUTTON),
+                                new FieldConfig("transferincidentbtn", 4, FieldType.TRANSFER_BUTTON),
+                                new FieldConfig("transfersearchbtn", 4, FieldType.TRANSFER_BUTTON))
+                ),
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(
+                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Location / Timestamp Information", true,
+                        new RowConfig(
+                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("arrest number", 2, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Offender Information", true,
+                        new RowConfig(
+                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("(If Applicable) Offender Medical Information", false,
+                        new RowConfig(
+                                new FieldConfig("ambulance required (Y/N)", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("taser deployed (Y/N)", 6, FieldType.TEXT_FIELD))
+                        ,
+                        new RowConfig(
+                                new FieldConfig("other information", 12, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Charge Notes", true,
+                        new RowConfig(
+                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                ),
+                new SectionConfig("Charge(s)", true,
+                        new RowConfig(
+                                new FieldConfig("chargeview", 6, FieldType.CHARGES_TREE_VIEW))
+                ));
+        return arrestReport;
+    }
+
+    public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> arrestReport = arrestLayout();
+
+        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
+
+        TextField officername = (TextField) arrestReportMap.get("name");
+        TextField officerrank = (TextField) arrestReportMap.get("rank");
+        TextField officerdiv = (TextField) arrestReportMap.get("division");
+        TextField officeragen = (TextField) arrestReportMap.get("agency");
+        TextField officernumarrest = (TextField) arrestReportMap.get("number");
+
+        TextField offenderName = (TextField) arrestReportMap.get("offender name");
+        TextField offenderAge = (TextField) arrestReportMap.get("offender age");
+        TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
+        TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+
+        TextField area = (TextField) arrestReportMap.get("area");
+        TextField street = (TextField) arrestReportMap.get("street");
+        TextField county = (TextField) arrestReportMap.get("county");
+        TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
+        TextField date = (TextField) arrestReportMap.get("date");
+        TextField time = (TextField) arrestReportMap.get("time");
+
+        TextField ambulancereq = (TextField) arrestReportMap.get("ambulance required (Y/N)");
+        TextField taserdep = (TextField) arrestReportMap.get("taser deployed (Y/N)");
+        TextField othermedinfo = (TextField) arrestReportMap.get("other information");
+
+        TextArea notes = (TextArea) arrestReportMap.get("notes");
+
+        TreeView chargetreeview = (TreeView) arrestReportMap.get("chargeview");
+        TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
+
+        Button transferimpoundbtn = (Button) arrestReportMap.get("transferimpoundbtn");
+        transferimpoundbtn.setText("New Impound Report");
+        Button transferincidentbtn = (Button) arrestReportMap.get("transferincidentbtn");
+        transferincidentbtn.setText("New Incident Report");
+        Button transfersearchbtn = (Button) arrestReportMap.get("transfersearchbtn");
+        transfersearchbtn.setText("New Search Report");
+
+        BorderPane root = (BorderPane) arrestReport.get("root");
+        Stage stage = (Stage) root.getScene().getWindow();
+
+        Label warningLabel = (Label) arrestReport.get("warningLabel");
+        Button pullNotesBtn = (Button) arrestReport.get("pullNotesBtn");
+
+        try {
+            officername.setText(ConfigReader.configRead("Name"));
+            officerrank.setText(ConfigReader.configRead("Rank"));
+            officerdiv.setText(ConfigReader.configRead("Division"));
+            officeragen.setText(ConfigReader.configRead("Agency"));
+            officernumarrest.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        date.setText(getDate());
+        time.setText(getTime());
+
+        pullNotesBtn.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
+                updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
+                updateTextFromNotepad(offenderDescription, notesViewController.getNotepadTextArea(), "-description");
+                updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(offenderAddress, notesViewController.getNotepadTextArea(), "-address");
+                updateTextFromNotepad(arrestnum, notesViewController.getNotepadTextArea(), "-number");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+
+        transferimpoundbtn.setOnAction(event -> {
+
+            Map<String, Object> impoundReport = impoundLayout();
+
+            Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+
+            TextField officernameimp = (TextField) impoundReportMap.get("name");
+            TextField officerrankimp = (TextField) impoundReportMap.get("rank");
+            TextField officerdivimp = (TextField) impoundReportMap.get("division");
+            TextField officeragenimp = (TextField) impoundReportMap.get("agency");
+            TextField officernumimp = (TextField) impoundReportMap.get("number");
+
+            TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
+            TextField offenderAgeimp = (TextField) impoundReportMap.get("offender age");
+            TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
+            TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
+
+            TextField numimp = (TextField) impoundReportMap.get("citation number");
+            TextField dateimp = (TextField) impoundReportMap.get("date");
+            TextField timeimp = (TextField) impoundReportMap.get("time");
+
+            ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
+            ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
+            TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
+            TextField modelimp = (TextField) impoundReportMap.get("model");
+
+            TextArea notesimp = (TextArea) impoundReportMap.get("notes");
+
+            BorderPane rootimp = (BorderPane) impoundReport.get("root");
+            Stage stageimp = (Stage) rootimp.getScene().getWindow();
+
+            if (!stageimp.isFocused()) {
+                stageimp.requestFocus();
+            }
+
+            Label warningLabelimp = (Label) impoundReport.get("warningLabel");
+            Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
+
+            officernameimp.setText(officername.getText());
+            officerdivimp.setText(officerdiv.getText());
+            officerrankimp.setText(officerrank.getText());
+            officeragenimp.setText(officeragen.getText());
+            officernumimp.setText(officernumarrest.getText());
+            timeimp.setText(time.getText());
+            dateimp.setText(date.getText());
+            offenderAddressimp.setText(offenderAddress.getText());
+            offenderNameimp.setText(offenderName.getText());
+            offenderAgeimp.setText(offenderAge.getText());
+            offenderGenderimp.setText(offenderGender.getText());
+            notesimp.setText(notes.getText());
+            numimp.setText(arrestnum.getText());
+
+            pullNotesBtnimp.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
+                    updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
+                    updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
+                    updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
+                    updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
+                    updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+            Button submitBtnimp = (Button) impoundReport.get("submitBtn");
+            submitBtnimp.setOnAction(event2 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : impoundReportMap.keySet()) {
+                    Object field = impoundReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelimp.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelimp.setVisible(false);
+                        }
+                    }, 3000);
+                } else {
+                    List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+                    // Add new entry
+                    logs.add(new ImpoundLogEntry(
+                            numimp.getText(),
+                            dateimp.getText(),
+                            timeimp.getText(),
+                            offenderNameimp.getText(),
+                            offenderAgeimp.getText(),
+                            offenderGenderimp.getText(),
+                            offenderAddressimp.getText(),
+                            plateNumberimp.getText(),
+                            modelimp.getText(),
+                            typeimp.getValue().toString(),
+                            colorimp.getValue().toString(),
+                            notesimp.getText(),
+                            officerrankimp.getText(),
+                            officernameimp.getText(),
+                            officernumimp.getText(),
+                            officerdivimp.getText(),
+                            officeragenimp.getText()
+                    ));
+                    ImpoundReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Impound Report has been submitted.", vbox);
+                    stageimp.close();
+                }
+            });
+        });
+
+        transferincidentbtn.setOnAction(event -> {
+            Map<String, Object> incidentReport = incidentLayout();
+
+            Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
+
+            TextField nameinc = (TextField) incidentReportMap.get("name");
+            TextField rankinc = (TextField) incidentReportMap.get("rank");
+            TextField divinc = (TextField) incidentReportMap.get("division");
+            TextField ageninc = (TextField) incidentReportMap.get("agency");
+            TextField officernuminc = (TextField) incidentReportMap.get("number");
+
+            TextField incidentnum = (TextField) incidentReportMap.get("incident num");
+            TextField dateinc = (TextField) incidentReportMap.get("date");
+            TextField timeinc = (TextField) incidentReportMap.get("time");
+            TextField streetinc = (TextField) incidentReportMap.get("street");
+            TextField areainc = (TextField) incidentReportMap.get("area");
+            TextField countyinc = (TextField) incidentReportMap.get("county");
+
+            TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
+            TextField vicwitinc = (TextField) incidentReportMap.get("victim(s) / witness(s)");
+            TextArea statementinc = (TextArea) incidentReportMap.get("statement");
+
+            TextArea summaryinc = (TextArea) incidentReportMap.get("summary");
+            TextArea notesinc = (TextArea) incidentReportMap.get("notes");
+
+            BorderPane rootinc = (BorderPane) incidentReport.get("root");
+            Stage stageinc = (Stage) rootinc.getScene().getWindow();
+
+            if (!stageinc.isFocused()) {
+                stageinc.requestFocus();
+            }
+
+            Label warningLabelinc = (Label) incidentReport.get("warningLabel");
+
+            nameinc.setText(officername.getText());
+            divinc.setText(officerdiv.getText());
+            rankinc.setText(officerrank.getText());
+            ageninc.setText(officeragen.getText());
+            officernuminc.setText(officernumarrest.getText());
+            dateinc.setText(date.getText());
+            timeinc.setText(time.getText());
+            incidentnum.setText(arrestnum.getText());
+            countyinc.setText(county.getText());
+            areainc.setText(area.getText());
+            streetinc.setText(street.getText());
+            suspectsinc.setText(offenderName.getText());
+            notesinc.setText(notes.getText());
+
+            Button pullNotesBtninc = (Button) incidentReport.get("pullNotesBtn");
+
+            pullNotesBtninc.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(areainc, notesViewController.getNotepadTextArea(), "-area");
+                    updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
+                    updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
+                    updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+            Button submitBtninc = (Button) incidentReport.get("submitBtn");
+
+            submitBtninc.setOnAction(event2 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : incidentReportMap.keySet()) {
+                    Object field = incidentReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelinc.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelinc.setVisible(false);
+                        }
+                    }, 3000);
+                    return;
+                }
+
+                List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+
+                logs.add(new IncidentLogEntry(
+                        incidentnum.getText(),
+                        dateinc.getText(),
+                        timeinc.getText(),
+                        statementinc.getText(),
+                        suspectsinc.getText(),
+                        vicwitinc.getText(),
+                        nameinc.getText(),
+                        rankinc.getText(),
+                        officernuminc.getText(),
+                        ageninc.getText(),
+                        divinc.getText(),
+                        streetinc.getText(),
+                        areainc.getText(),
+                        countyinc.getText(),
+                        summaryinc.getText(),
+                        notesinc.getText()
+                ));
+                IncidentReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Incident Report has been submitted.", vbox);
+                stageinc.close();
+            });
+        });
+
+        transfersearchbtn.setOnAction(event -> {
+            Map<String, Object> searchReport = searchLayout();
+
+            Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+
+            TextField namesrch = (TextField) searchReportMap.get("name");
+            TextField ranksrch = (TextField) searchReportMap.get("rank");
+            TextField divsrch = (TextField) searchReportMap.get("division");
+            TextField agensrch = (TextField) searchReportMap.get("agency");
+            TextField numsrch = (TextField) searchReportMap.get("number");
+
+            TextField searchnum = (TextField) searchReportMap.get("search num");
+            TextField datesrch = (TextField) searchReportMap.get("date");
+            TextField timesrch = (TextField) searchReportMap.get("time");
+            TextField streetsrch = (TextField) searchReportMap.get("street");
+            TextField areasrch = (TextField) searchReportMap.get("area");
+            TextField countysrch = (TextField) searchReportMap.get("county");
+
+            TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
+            TextField witnesssrch = (TextField) searchReportMap.get("witness(s)");
+            TextField searchedindividualsrch = (TextField) searchReportMap.get("searched individual");
+            ComboBox typesrch = (ComboBox) searchReportMap.get("search type");
+            ComboBox methodsrch = (ComboBox) searchReportMap.get("search method");
+
+            TextField testconductedsrch = (TextField) searchReportMap.get("test(s) conducted");
+            TextField resultsrch = (TextField) searchReportMap.get("result");
+            TextField bacmeasurementsrch = (TextField) searchReportMap.get("bac measurement");
+
+            TextArea seizeditemssrch = (TextArea) searchReportMap.get("seized item(s)");
+            TextArea notessrch = (TextArea) searchReportMap.get("comments");
+
+            BorderPane rootsrch = (BorderPane) searchReport.get("root");
+            Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
+
+            if (!stagesrch.isFocused()) {
+                stagesrch.requestFocus();
+            }
+
+            searchnum.setText(arrestnum.getText());
+            namesrch.setText(officername.getText());
+            divsrch.setText(officerdiv.getText());
+            ranksrch.setText(officerrank.getText());
+            agensrch.setText(officeragen.getText());
+            numsrch.setText(officernumarrest.getText());
+            timesrch.setText(time.getText());
+            datesrch.setText(date.getText());
+            searchedindividualsrch.setText(offenderName.getText());
+            countysrch.setText(county.getText());
+            areasrch.setText(area.getText());
+            streetsrch.setText(street.getText());
+
+            Label warningLabelsrch = (Label) searchReport.get("warningLabel");
+
+            Button pullNotesBtnsrch = (Button) searchReport.get("pullNotesBtn");
+
+            pullNotesBtnsrch.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(areasrch, notesViewController.getNotepadTextArea(), "-area");
+                    updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
+                    updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
+                    updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(notessrch, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
+                    updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+            Button submitBtnsrch = (Button) searchReport.get("submitBtn");
+
+            submitBtnsrch.setOnAction(event2 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : searchReportMap.keySet()) {
+                    Object field = searchReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelsrch.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelsrch.setVisible(false);
+                        }
+                    }, 3000);
+                    return;
+                }
+
+                List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
+
+                logs.add(new SearchLogEntry(
+                        searchnum.getText(),
+                        searchedindividualsrch.getText(),
+                        datesrch.getText(),
+                        timesrch.getText(),
+                        seizeditemssrch.getText(),
+                        groundssrch.getText(),
+                        typesrch.getValue().toString(),
+                        methodsrch.getValue().toString(),
+                        witnesssrch.getText(),
+                        ranksrch.getText(),
+                        namesrch.getText(),
+                        numsrch.getText(),
+                        agensrch.getText(),
+                        divsrch.getText(),
+                        streetsrch.getText(),
+                        areasrch.getText(),
+                        countysrch.getText(),
+                        notessrch.getText(),
+                        testconductedsrch.getText(),
+                        resultsrch.getText(),
+                        bacmeasurementsrch.getText()
+                ));
+
+                SearchReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Search Report has been submitted.", vbox);
+                stagesrch.close();
+            });
+        });
+
+
+        Button submitBtn = (Button) arrestReport.get("submitBtn");
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : arrestReportMap.keySet()) {
+                Object field = arrestReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabel.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabel.setVisible(false);
+                    }
+                }, 3000);
+            } else {
+
+                List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+
+                ObservableList<ChargesData> formDataList = chargetable.getItems();
+                StringBuilder stringBuilder = new StringBuilder();
+                for (ChargesData formData : formDataList) {
+                    stringBuilder.append(formData.getCharge()).append(" | ");
+                }
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+
+                // Add new entry
+                logs.add(new ArrestLogEntry(
+                        arrestnum.getText(),
+                        date.getText(),
+                        time.getText(),
+                        stringBuilder.toString(),
+                        county.getText(),
+                        area.getText(),
+                        street.getText(),
+                        offenderName.getText(),
+                        offenderAge.getText(),
+                        offenderGender.getText(),
+                        offenderDescription.getText(),
+                        ambulancereq.getText(),
+                        taserdep.getText(),
+                        othermedinfo.getText(),
+                        offenderAddress.getText(),
+                        notes.getText(),
+                        officerrank.getText(),
+                        officername.getText(),
+                        officernumarrest.getText(),
+                        officerdiv.getText(),
+                        officeragen.getText()
+                ));
+                ArrestReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
+                stage.close();
+            }
+        });
+    }
+
+
+    static Map<String, Object> trafficStopLayout() {
+        Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8,
+                new TransferConfig("Transfer Information To New Report",
+                        new RowConfig(
+                                new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON),
+                                new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))
+                ),
+                new SectionConfig("Officer Information", true,
+                        new RowConfig(
+                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Location / Timestamp Information", true,
+                        new RowConfig(
+                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
+                                new FieldConfig("stop number", 2, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Offender Information", true,
+                        new RowConfig(
+                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
+                        new RowConfig(
+                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
+                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Offender Vehicle Information", true,
+                        new RowConfig(
+                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
+                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
+                        new RowConfig(
+                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
+                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
+                ),
+                new SectionConfig("Comments", true,
+                        new RowConfig(
+                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
+                ));
+        return trafficStopReport;
+    }
+
+    public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+        Map<String, Object> trafficStopReport = trafficStopLayout();
+
+        Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get("Traffic Stop Report Map");
+
+        TextField officernamets = (TextField) trafficStopReportMap.get("name");
+        TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
+        TextField officerdivts = (TextField) trafficStopReportMap.get("division");
+        TextField officeragents = (TextField) trafficStopReportMap.get("agency");
+        TextField officernumarrestts = (TextField) trafficStopReportMap.get("number");
+
+        TextField offenderNamets = (TextField) trafficStopReportMap.get("offender name");
+        TextField offenderAgets = (TextField) trafficStopReportMap.get("offender age");
+        TextField offenderGenderts = (TextField) trafficStopReportMap.get("offender gender");
+        TextField offenderAddressts = (TextField) trafficStopReportMap.get("offender address");
+        TextField offenderDescriptionts = (TextField) trafficStopReportMap.get("offender description");
+
+        ComboBox colorts = (ComboBox) trafficStopReportMap.get("color");
+        ComboBox typets = (ComboBox) trafficStopReportMap.get("type");
+        TextField plateNumberts = (TextField) trafficStopReportMap.get("plate number");
+        TextField otherInfots = (TextField) trafficStopReportMap.get("other info");
+        TextField modelts = (TextField) trafficStopReportMap.get("model");
+
+        TextField areats = (TextField) trafficStopReportMap.get("area");
+        TextField streetts = (TextField) trafficStopReportMap.get("street");
+        TextField countyts = (TextField) trafficStopReportMap.get("county");
+        TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
+        TextField datets = (TextField) trafficStopReportMap.get("date");
+        TextField timets = (TextField) trafficStopReportMap.get("time");
+
+        TextArea notests = (TextArea) trafficStopReportMap.get("notes");
+
+        Button transferarrestbtnts = (Button) trafficStopReportMap.get("transferarrestbtn");
+        transferarrestbtnts.setText("New Arrest Report");
+        Button transfercitationbtnts = (Button) trafficStopReportMap.get("transfercitationbtn");
+        transfercitationbtnts.setText("New Citation Report");
+
+        BorderPane rootts = (BorderPane) trafficStopReport.get("root");
+        Stage stagets = (Stage) rootts.getScene().getWindow();
+
+        Label warningLabelts = (Label) trafficStopReport.get("warningLabel");
+        Button pullNotesBtnts = (Button) trafficStopReport.get("pullNotesBtn");
+
+        try {
+            officernamets.setText(ConfigReader.configRead("Name"));
+            officerrankts.setText(ConfigReader.configRead("Rank"));
+            officerdivts.setText(ConfigReader.configRead("Division"));
+            officeragents.setText(ConfigReader.configRead("Agency"));
+            officernumarrestts.setText(ConfigReader.configRead("Number"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        datets.setText(getDate());
+        timets.setText(getTime());
+
+        pullNotesBtnts.setOnAction(event -> {
+            if (notesViewController != null) {
+                updateTextFromNotepad(areats, notesViewController.getNotepadTextArea(), "-area");
+                updateTextFromNotepad(countyts, notesViewController.getNotepadTextArea(), "-county");
+                updateTextFromNotepad(streetts, notesViewController.getNotepadTextArea(), "-street");
+                updateTextFromNotepad(offenderNamets, notesViewController.getNotepadTextArea(), "-name");
+                updateTextFromNotepad(offenderAgets, notesViewController.getNotepadTextArea(), "-age");
+                updateTextFromNotepad(offenderGenderts, notesViewController.getNotepadTextArea(), "-gender");
+                updateTextFromNotepad(offenderDescriptionts, notesViewController.getNotepadTextArea(), "-description");
+                updateTextFromNotepad(notests, notesViewController.getNotepadTextArea(), "-comments");
+                updateTextFromNotepad(offenderAddressts, notesViewController.getNotepadTextArea(), "-address");
+                updateTextFromNotepad(modelts, notesViewController.getNotepadTextArea(), "-model");
+                updateTextFromNotepad(plateNumberts, notesViewController.getNotepadTextArea(), "-plate");
+                updateTextFromNotepad(stopnumts, notesViewController.getNotepadTextArea(), "-number");
+            } else {
+                System.out.println("NotesViewController Is Null");
+            }
+        });
+
+
+        transferarrestbtnts.setOnAction(event -> {
+            Map<String, Object> arrestReport = arrestLayout();
+
+            Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
+
+            TextField officernamearr = (TextField) arrestReportMap.get("name");
+            TextField officerrankarr = (TextField) arrestReportMap.get("rank");
+            TextField officerdivarr = (TextField) arrestReportMap.get("division");
+            TextField officeragenarr = (TextField) arrestReportMap.get("agency");
+            TextField officernumarrestarr = (TextField) arrestReportMap.get("number");
+
+            TextField offenderNamearr = (TextField) arrestReportMap.get("offender name");
+            TextField offenderAgearr = (TextField) arrestReportMap.get("offender age");
+            TextField offenderGenderarr = (TextField) arrestReportMap.get("offender gender");
+            TextField offenderAddressarr = (TextField) arrestReportMap.get("offender address");
+            TextField offenderDescriptionarr = (TextField) arrestReportMap.get("offender description");
+
+            TextField areaarr = (TextField) arrestReportMap.get("area");
+            TextField streetarr = (TextField) arrestReportMap.get("street");
+            TextField countyarr = (TextField) arrestReportMap.get("county");
+            TextField arrestnumarr = (TextField) arrestReportMap.get("arrest number");
+            TextField datearr = (TextField) arrestReportMap.get("date");
+            TextField timearr = (TextField) arrestReportMap.get("time");
+
+            TextField ambulancereqarr = (TextField) arrestReportMap.get("ambulance required (Y/N)");
+            TextField taserdeparr = (TextField) arrestReportMap.get("taser deployed (Y/N)");
+            TextField othermedinfoarr = (TextField) arrestReportMap.get("other information");
+
+            TextArea notesarr = (TextArea) arrestReportMap.get("notes");
+
+            TreeView chargetreeviewarr = (TreeView) arrestReportMap.get("chargeview");
+            TableView chargetablearr = (TableView) arrestReportMap.get("ChargeTableView");
+
+            Button transferimpoundbtnarr = (Button) arrestReportMap.get("transferimpoundbtn");
+            transferimpoundbtnarr.setText("New Impound Report");
+            Button transferincidentbtnarr = (Button) arrestReportMap.get("transferincidentbtn");
+            transferincidentbtnarr.setText("New Incident Report");
+            Button transfersearchbtnarr = (Button) arrestReportMap.get("transfersearchbtn");
+            transfersearchbtnarr.setText("New Search Report");
+
+            BorderPane rootarr = (BorderPane) arrestReport.get("root");
+            Stage stagearr = (Stage) rootarr.getScene().getWindow();
+
+            Label warningLabelarr = (Label) arrestReport.get("warningLabel");
+            Button pullNotesBtnarr = (Button) arrestReport.get("pullNotesBtn");
+
+            officernamearr.setText(officernamets.getText());
+            officerdivarr.setText(officerdivts.getText());
+            officerrankarr.setText(officerrankts.getText());
+            officeragenarr.setText(officeragents.getText());
+            officernumarrestarr.setText(officernumarrestts.getText());
+            timearr.setText(timets.getText());
+            datearr.setText(datets.getText());
+            offenderNamets.setText(offenderNamets.getText());
+            offenderAddressarr.setText(offenderAddressts.getText());
+            offenderGenderarr.setText(offenderGenderts.getText());
+            offenderAgearr.setText(offenderAgets.getText());
+            offenderDescriptionarr.setText(offenderDescriptionts.getText());
+            areaarr.setText(areats.getText());
+            countyarr.setText(countyts.getText());
+            streetarr.setText(streetts.getText());
+            arrestnumarr.setText(stopnumts.getText());
+            notesarr.setText(notests.getText());
+
+            pullNotesBtnarr.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(areaarr, notesViewController.getNotepadTextArea(), "-area");
+                    updateTextFromNotepad(countyarr, notesViewController.getNotepadTextArea(), "-county");
+                    updateTextFromNotepad(streetarr, notesViewController.getNotepadTextArea(), "-street");
+                    updateTextFromNotepad(offenderNamearr, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(offenderAgearr, notesViewController.getNotepadTextArea(), "-age");
+                    updateTextFromNotepad(offenderGenderarr, notesViewController.getNotepadTextArea(), "-gender");
+                    updateTextFromNotepad(offenderDescriptionarr, notesViewController.getNotepadTextArea(), "-description");
+                    updateTextFromNotepad(notesarr, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(offenderAddressarr, notesViewController.getNotepadTextArea(), "-address");
+                    updateTextFromNotepad(arrestnumarr, notesViewController.getNotepadTextArea(), "-number");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+
+            transferimpoundbtnarr.setOnAction(event2 -> {
+
+                Map<String, Object> impoundReport = impoundLayout();
+
+                Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+
+                TextField officernameimp = (TextField) impoundReportMap.get("name");
+                TextField officerrankimp = (TextField) impoundReportMap.get("rank");
+                TextField officerdivimp = (TextField) impoundReportMap.get("division");
+                TextField officeragenimp = (TextField) impoundReportMap.get("agency");
+                TextField officernumimp = (TextField) impoundReportMap.get("number");
+
+                TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
+                TextField offenderAgeimp = (TextField) impoundReportMap.get("offender age");
+                TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
+                TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
+
+                TextField numimp = (TextField) impoundReportMap.get("citation number");
+                TextField dateimp = (TextField) impoundReportMap.get("date");
+                TextField timeimp = (TextField) impoundReportMap.get("time");
+
+                ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
+                ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
+                TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
+                TextField modelimp = (TextField) impoundReportMap.get("model");
+
+                TextArea notesimp = (TextArea) impoundReportMap.get("notes");
+
+                BorderPane rootimp = (BorderPane) impoundReport.get("root");
+                Stage stageimp = (Stage) rootimp.getScene().getWindow();
+
+                if (!stageimp.isFocused()) {
+                    stageimp.requestFocus();
+                }
+
+                Label warningLabelimp = (Label) impoundReport.get("warningLabel");
+                Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
+
+                officernameimp.setText(officernamearr.getText());
+                officerdivimp.setText(officerdivarr.getText());
+                officerrankimp.setText(officerrankarr.getText());
+                officeragenimp.setText(officeragenarr.getText());
+                officernumimp.setText(officernumarrestarr.getText());
+                timeimp.setText(timearr.getText());
+                dateimp.setText(datearr.getText());
+                offenderAddressimp.setText(offenderAddressarr.getText());
+                offenderNameimp.setText(offenderNamearr.getText());
+                offenderAgeimp.setText(offenderAgearr.getText());
+                offenderGenderimp.setText(offenderGenderarr.getText());
+                notesimp.setText(notesarr.getText());
+                numimp.setText(arrestnumarr.getText());
+
+                pullNotesBtnimp.setOnAction(event1 -> {
+                    if (notesViewController != null) {
+                        updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
+                        updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
+                        updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
+                        updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
+                        updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
+                        updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
+                        updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
+                        updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
+                    } else {
+                        System.out.println("NotesViewController Is Null");
+                    }
+                });
+
+                Button submitBtnimp = (Button) impoundReport.get("submitBtn");
+                submitBtnimp.setOnAction(event3 -> {
+                    boolean allFieldsFilled = true;
+                    for (String fieldName : impoundReportMap.keySet()) {
+                        Object field = impoundReportMap.get(fieldName);
+                        if (field instanceof ComboBox<?>) {
+                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                            if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                                allFieldsFilled = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!allFieldsFilled) {
+                        warningLabelimp.setVisible(true);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                warningLabelimp.setVisible(false);
+                            }
+                        }, 3000);
+                    } else {
+                        List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+                        // Add new entry
+                        logs.add(new ImpoundLogEntry(
+                                numimp.getText(),
+                                dateimp.getText(),
+                                timeimp.getText(),
+                                offenderNameimp.getText(),
+                                offenderAgeimp.getText(),
+                                offenderGenderimp.getText(),
+                                offenderAddressimp.getText(),
+                                plateNumberimp.getText(),
+                                modelimp.getText(),
+                                typeimp.getValue().toString(),
+                                colorimp.getValue().toString(),
+                                notesimp.getText(),
+                                officerrankimp.getText(),
+                                officernameimp.getText(),
+                                officernumimp.getText(),
+                                officerdivimp.getText(),
+                                officeragenimp.getText()
+                        ));
+                        ImpoundReportLogs.saveLogsToXML(logs);
+                        updateChartIfMismatch(reportChart);
+                        controllerUtils.refreshChart(areaReportChart, "area");
+                        showNotification("Reports", "A new Impound Report has been submitted.", vbox);
+                        stageimp.close();
+                    }
+                });
+            });
+
+            transferincidentbtnarr.setOnAction(event3 -> {
+                Map<String, Object> incidentReport = incidentLayout();
+
+                Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
+
+                TextField nameinc = (TextField) incidentReportMap.get("name");
+                TextField rankinc = (TextField) incidentReportMap.get("rank");
+                TextField divinc = (TextField) incidentReportMap.get("division");
+                TextField ageninc = (TextField) incidentReportMap.get("agency");
+                TextField officernuminc = (TextField) incidentReportMap.get("number");
+
+                TextField incidentnum = (TextField) incidentReportMap.get("incident num");
+                TextField dateinc = (TextField) incidentReportMap.get("date");
+                TextField timeinc = (TextField) incidentReportMap.get("time");
+                TextField streetinc = (TextField) incidentReportMap.get("street");
+                TextField areainc = (TextField) incidentReportMap.get("area");
+                TextField countyinc = (TextField) incidentReportMap.get("county");
+
+                TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
+                TextField vicwitinc = (TextField) incidentReportMap.get("victim(s) / witness(s)");
+                TextArea statementinc = (TextArea) incidentReportMap.get("statement");
+
+                TextArea summaryinc = (TextArea) incidentReportMap.get("summary");
+                TextArea notesinc = (TextArea) incidentReportMap.get("notes");
+
+                BorderPane rootinc = (BorderPane) incidentReport.get("root");
+                Stage stageinc = (Stage) rootinc.getScene().getWindow();
+
+                if (!stageinc.isFocused()) {
+                    stageinc.requestFocus();
+                }
+
+                Label warningLabelinc = (Label) incidentReport.get("warningLabel");
+
+                nameinc.setText(officernamearr.getText());
+                divinc.setText(officerdivarr.getText());
+                rankinc.setText(officerrankarr.getText());
+                ageninc.setText(officeragenarr.getText());
+                officernuminc.setText(officernumarrestarr.getText());
+                dateinc.setText(datearr.getText());
+                timeinc.setText(timearr.getText());
+                incidentnum.setText(arrestnumarr.getText());
+                countyinc.setText(countyarr.getText());
+                areainc.setText(areaarr.getText());
+                streetinc.setText(streetarr.getText());
+                suspectsinc.setText(offenderNamearr.getText());
+                notesinc.setText(notesarr.getText());
+
+                Button pullNotesBtninc = (Button) incidentReport.get("pullNotesBtn");
+
+                pullNotesBtninc.setOnAction(event1 -> {
+                    if (notesViewController != null) {
+                        updateTextFromNotepad(areainc, notesViewController.getNotepadTextArea(), "-area");
+                        updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
+                        updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
+                        updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
+                        updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
+                        updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
+                    } else {
+                        System.out.println("NotesViewController Is Null");
+                    }
+                });
+
+                Button submitBtninc = (Button) incidentReport.get("submitBtn");
+
+                submitBtninc.setOnAction(event2 -> {
+                    boolean allFieldsFilled = true;
+                    for (String fieldName : incidentReportMap.keySet()) {
+                        Object field = incidentReportMap.get(fieldName);
+                        if (field instanceof ComboBox<?>) {
+                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                            if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                                allFieldsFilled = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!allFieldsFilled) {
+                        warningLabelinc.setVisible(true);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                warningLabelinc.setVisible(false);
+                            }
+                        }, 3000);
+                        return;
+                    }
+
+                    List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
+
+                    logs.add(new IncidentLogEntry(
+                            incidentnum.getText(),
+                            dateinc.getText(),
+                            timeinc.getText(),
+                            statementinc.getText(),
+                            suspectsinc.getText(),
+                            vicwitinc.getText(),
+                            nameinc.getText(),
+                            rankinc.getText(),
+                            officernuminc.getText(),
+                            ageninc.getText(),
+                            divinc.getText(),
+                            streetinc.getText(),
+                            areainc.getText(),
+                            countyinc.getText(),
+                            summaryinc.getText(),
+                            notesinc.getText()
+                    ));
+                    IncidentReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Incident Report has been submitted.", vbox);
+                    stageinc.close();
+                });
+            });
+
+            transfersearchbtnarr.setOnAction(event4 -> {
+                Map<String, Object> searchReport = searchLayout();
+
+                Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+
+                TextField namesrch = (TextField) searchReportMap.get("name");
+                TextField ranksrch = (TextField) searchReportMap.get("rank");
+                TextField divsrch = (TextField) searchReportMap.get("division");
+                TextField agensrch = (TextField) searchReportMap.get("agency");
+                TextField numsrch = (TextField) searchReportMap.get("number");
+
+                TextField searchnum = (TextField) searchReportMap.get("search num");
+                TextField datesrch = (TextField) searchReportMap.get("date");
+                TextField timesrch = (TextField) searchReportMap.get("time");
+                TextField streetsrch = (TextField) searchReportMap.get("street");
+                TextField areasrch = (TextField) searchReportMap.get("area");
+                TextField countysrch = (TextField) searchReportMap.get("county");
+
+                TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
+                TextField witnesssrch = (TextField) searchReportMap.get("witness(s)");
+                TextField searchedindividualsrch = (TextField) searchReportMap.get("searched individual");
+                ComboBox typesrch = (ComboBox) searchReportMap.get("search type");
+                ComboBox methodsrch = (ComboBox) searchReportMap.get("search method");
+
+                TextField testconductedsrch = (TextField) searchReportMap.get("test(s) conducted");
+                TextField resultsrch = (TextField) searchReportMap.get("result");
+                TextField bacmeasurementsrch = (TextField) searchReportMap.get("bac measurement");
+
+                TextArea seizeditemssrch = (TextArea) searchReportMap.get("seized item(s)");
+                TextArea notessrch = (TextArea) searchReportMap.get("comments");
+
+                BorderPane rootsrch = (BorderPane) searchReport.get("root");
+                Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
+
+                if (!stagesrch.isFocused()) {
+                    stagesrch.requestFocus();
+                }
+
+                searchnum.setText(arrestnumarr.getText());
+                namesrch.setText(officernamearr.getText());
+                divsrch.setText(officerdivarr.getText());
+                ranksrch.setText(officerrankarr.getText());
+                agensrch.setText(officeragenarr.getText());
+                numsrch.setText(officernumarrestarr.getText());
+                timesrch.setText(timearr.getText());
+                datesrch.setText(datearr.getText());
+                searchedindividualsrch.setText(offenderNamearr.getText());
+                countysrch.setText(countyarr.getText());
+                areasrch.setText(areaarr.getText());
+                streetsrch.setText(streetarr.getText());
+
+                Label warningLabelsrch = (Label) searchReport.get("warningLabel");
+
+                Button pullNotesBtnsrch = (Button) searchReport.get("pullNotesBtn");
+
+                pullNotesBtnsrch.setOnAction(event1 -> {
+                    if (notesViewController != null) {
+                        updateTextFromNotepad(areasrch, notesViewController.getNotepadTextArea(), "-area");
+                        updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
+                        updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
+                        updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(), "-name");
+                        updateTextFromNotepad(notessrch, notesViewController.getNotepadTextArea(), "-comments");
+                        updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
+                        updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
+                    } else {
+                        System.out.println("NotesViewController Is Null");
+                    }
+                });
+
+                Button submitBtnsrch = (Button) searchReport.get("submitBtn");
+
+                submitBtnsrch.setOnAction(event2 -> {
+                    boolean allFieldsFilled = true;
+                    for (String fieldName : searchReportMap.keySet()) {
+                        Object field = searchReportMap.get(fieldName);
+                        if (field instanceof ComboBox<?>) {
+                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                            if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                                allFieldsFilled = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!allFieldsFilled) {
+                        warningLabelsrch.setVisible(true);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                warningLabelsrch.setVisible(false);
+                            }
+                        }, 3000);
+                        return;
+                    }
+
+                    List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
+
+                    logs.add(new SearchLogEntry(
+                            searchnum.getText(),
+                            searchedindividualsrch.getText(),
+                            datesrch.getText(),
+                            timesrch.getText(),
+                            seizeditemssrch.getText(),
+                            groundssrch.getText(),
+                            typesrch.getValue().toString(),
+                            methodsrch.getValue().toString(),
+                            witnesssrch.getText(),
+                            ranksrch.getText(),
+                            namesrch.getText(),
+                            numsrch.getText(),
+                            agensrch.getText(),
+                            divsrch.getText(),
+                            streetsrch.getText(),
+                            areasrch.getText(),
+                            countysrch.getText(),
+                            notessrch.getText(),
+                            testconductedsrch.getText(),
+                            resultsrch.getText(),
+                            bacmeasurementsrch.getText()
+                    ));
+
+                    SearchReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Search Report has been submitted.", vbox);
+                    stagesrch.close();
+                });
+            });
+
+
+            Button submitBtn = (Button) arrestReport.get("submitBtn");
+            submitBtn.setOnAction(event5 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : arrestReportMap.keySet()) {
+                    Object field = arrestReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelarr.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelarr.setVisible(false);
+                        }
+                    }, 3000);
+                } else {
+
+                    List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+
+                    ObservableList<ChargesData> formDataList = chargetablearr.getItems();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (ChargesData formData : formDataList) {
+                        stringBuilder.append(formData.getCharge()).append(" | ");
+                    }
+                    if (stringBuilder.length() > 0) {
+                        stringBuilder.setLength(stringBuilder.length() - 2);
+                    }
+
+                    // Add new entry
+                    logs.add(new ArrestLogEntry(
+                            arrestnumarr.getText(),
+                            datearr.getText(),
+                            timearr.getText(),
+                            stringBuilder.toString(),
+                            countyarr.getText(),
+                            areaarr.getText(),
+                            streetarr.getText(),
+                            offenderNamearr.getText(),
+                            offenderAgearr.getText(),
+                            offenderGenderarr.getText(),
+                            offenderDescriptionarr.getText(),
+                            ambulancereqarr.getText(),
+                            taserdeparr.getText(),
+                            othermedinfoarr.getText(),
+                            offenderAddressarr.getText(),
+                            notesarr.getText(),
+                            officerrankarr.getText(),
+                            officernamearr.getText(),
+                            officernumarrestarr.getText(),
+                            officerdivarr.getText(),
+                            officeragenarr.getText()
+                    ));
+                    ArrestReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
+                    stagearr.close();
+                }
+            });
+        });
+
+        transfercitationbtnts.setOnAction(event -> {
+            Map<String, Object> citationReport = citationLayout();
+
+            Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
+
+            TextField officernamecit = (TextField) citationReportMap.get("name");
+            TextField officerrankcit = (TextField) citationReportMap.get("rank");
+            TextField officerdivcit = (TextField) citationReportMap.get("division");
+            TextField officeragencit = (TextField) citationReportMap.get("agency");
+            TextField officernumcit = (TextField) citationReportMap.get("number");
+
+            TextField offenderNamecit = (TextField) citationReportMap.get("offender name");
+            TextField offenderAgecit = (TextField) citationReportMap.get("offender age");
+            TextField offenderGendercit = (TextField) citationReportMap.get("offender gender");
+            TextField offenderAddresscit = (TextField) citationReportMap.get("offender address");
+            TextField offenderDescriptioncit = (TextField) citationReportMap.get("offender description");
+
+            TextField areacit = (TextField) citationReportMap.get("area");
+            TextField streetcit = (TextField) citationReportMap.get("street");
+            TextField countycit = (TextField) citationReportMap.get("county");
+            TextField numcit = (TextField) citationReportMap.get("citation number");
+            TextField datecit = (TextField) citationReportMap.get("date");
+            TextField timecit = (TextField) citationReportMap.get("time");
+
+            ComboBox colorcit = (ComboBox) citationReportMap.get("color");
+            ComboBox typecit = (ComboBox) citationReportMap.get("type");
+            TextField plateNumbercit = (TextField) citationReportMap.get("plate number");
+            TextField otherInfocit = (TextField) citationReportMap.get("other info");
+            TextField modelcit = (TextField) citationReportMap.get("model");
+
+            TextArea notescit = (TextArea) citationReportMap.get("notes");
+
+            TreeView citationtreeview = (TreeView) citationReportMap.get("citationview");
+            TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
+
+            Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
+
+            BorderPane rootcit = (BorderPane) citationReport.get("root");
+            Stage stagecit = (Stage) rootcit.getScene().getWindow();
+
+            Label warningLabelcit = (Label) citationReport.get("warningLabel");
+            Button pullNotesBtncit = (Button) citationReport.get("pullNotesBtn");
+
+            officernamecit.setText(officernamets.getText());
+            officerdivcit.setText(officerdivts.getText());
+            officerrankcit.setText(officerrankts.getText());
+            officeragencit.setText(officeragents.getText());
+            officernumcit.setText(officernumarrestts.getText());
+            timecit.setText(timets.getText());
+            datecit.setText(datets.getText());
+            typecit.getSelectionModel().select(typets.getSelectionModel().getSelectedItem());
+            colorcit.getSelectionModel().select(colorts.getSelectionModel().getSelectedItem());
+            offenderNamecit.setText(offenderNamets.getText());
+            offenderAddresscit.setText(offenderAddressts.getText());
+            offenderGendercit.setText(offenderGenderts.getText());
+            offenderAgecit.setText(offenderAgets.getText());
+            offenderDescriptioncit.setText(offenderDescriptionts.getText());
+            areacit.setText(areats.getText());
+            countycit.setText(countyts.getText());
+            streetcit.setText(streetts.getText());
+            modelcit.setText(modelts.getText());
+            plateNumbercit.setText(plateNumberts.getText());
+            otherInfocit.setText(otherInfots.getText());
+            numcit.setText(stopnumts.getText());
+            notescit.setText(notests.getText());
+
+            pullNotesBtncit.setOnAction(event1 -> {
+                if (notesViewController != null) {
+                    updateTextFromNotepad(areacit, notesViewController.getNotepadTextArea(), "-area");
+                    updateTextFromNotepad(countycit, notesViewController.getNotepadTextArea(), "-county");
+                    updateTextFromNotepad(streetcit, notesViewController.getNotepadTextArea(), "-street");
+                    updateTextFromNotepad(offenderNamecit, notesViewController.getNotepadTextArea(), "-name");
+                    updateTextFromNotepad(offenderAgecit, notesViewController.getNotepadTextArea(), "-age");
+                    updateTextFromNotepad(offenderGendercit, notesViewController.getNotepadTextArea(), "-gender");
+                    updateTextFromNotepad(offenderDescriptioncit, notesViewController.getNotepadTextArea(), "-description");
+                    updateTextFromNotepad(notescit, notesViewController.getNotepadTextArea(), "-comments");
+                    updateTextFromNotepad(offenderAddresscit, notesViewController.getNotepadTextArea(), "-address");
+                    updateTextFromNotepad(modelcit, notesViewController.getNotepadTextArea(), "-model");
+                    updateTextFromNotepad(plateNumbercit, notesViewController.getNotepadTextArea(), "-plate");
+                    updateTextFromNotepad(numcit, notesViewController.getNotepadTextArea(), "-number");
+                } else {
+                    System.out.println("NotesViewController Is Null");
+                }
+            });
+
+            transferimpoundbtn.setOnAction(event2 -> {
+
+                Map<String, Object> impoundReport = impoundLayout();
+
+                Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+
+                TextField officernameimp = (TextField) impoundReportMap.get("name");
+                TextField officerrankimp = (TextField) impoundReportMap.get("rank");
+                TextField officerdivimp = (TextField) impoundReportMap.get("division");
+                TextField officeragenimp = (TextField) impoundReportMap.get("agency");
+                TextField officernumimp = (TextField) impoundReportMap.get("number");
+
+                TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
+                TextField offenderAgeimp = (TextField) impoundReportMap.get("offender age");
+                TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
+                TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
+
+                TextField numimp = (TextField) impoundReportMap.get("citation number");
+                TextField dateimp = (TextField) impoundReportMap.get("date");
+                TextField timeimp = (TextField) impoundReportMap.get("time");
+
+                ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
+                ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
+                TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
+                TextField modelimp = (TextField) impoundReportMap.get("model");
+
+                TextArea notesimp = (TextArea) impoundReportMap.get("notes");
+
+                BorderPane rootimp = (BorderPane) impoundReport.get("root");
+                Stage stageimp = (Stage) rootimp.getScene().getWindow();
+
+                if (!stageimp.isFocused()) {
+                    stageimp.requestFocus();
+                }
+
+                Label warningLabelimp = (Label) impoundReport.get("warningLabel");
+                Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
+
+                officernameimp.setText(officernamecit.getText());
+                officerdivimp.setText(officerdivcit.getText());
+                officerrankimp.setText(officerrankcit.getText());
+                officeragenimp.setText(officeragencit.getText());
+                officernumimp.setText(officernumcit.getText());
+                timeimp.setText(timecit.getText());
+                dateimp.setText(datecit.getText());
+                offenderAddressimp.setText(offenderAddresscit.getText());
+                offenderNameimp.setText(offenderNamecit.getText());
+                offenderAgeimp.setText(offenderAgecit.getText());
+                offenderGenderimp.setText(offenderGendercit.getText());
+                plateNumberimp.setText(plateNumbercit.getText());
+                notesimp.setText(notescit.getText());
+                modelimp.setText(modelcit.getText());
+                typeimp.getSelectionModel().select(typecit.getSelectionModel().getSelectedItem());
+                colorimp.getSelectionModel().select(colorcit.getSelectionModel().getSelectedItem());
+                numimp.setText(numcit.getText());
+
+                pullNotesBtnimp.setOnAction(event1 -> {
+                    if (notesViewController != null) {
+                        updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
+                        updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
+                        updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
+                        updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
+                        updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
+                        updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
+                        updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
+                        updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
+                    } else {
+                        System.out.println("NotesViewController Is Null");
+                    }
+                });
+
+                Button submitBtnimp = (Button) impoundReport.get("submitBtn");
+                submitBtnimp.setOnAction(event3 -> {
+                    boolean allFieldsFilled = true;
+                    for (String fieldName : impoundReportMap.keySet()) {
+                        Object field = impoundReportMap.get(fieldName);
+                        if (field instanceof ComboBox<?>) {
+                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                            if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                                allFieldsFilled = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!allFieldsFilled) {
+                        warningLabelimp.setVisible(true);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                warningLabelimp.setVisible(false);
+                            }
+                        }, 3000);
+                    } else {
+                        List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+
+                        // Add new entry
+                        logs.add(new ImpoundLogEntry(
+                                numimp.getText(),
+                                dateimp.getText(),
+                                timeimp.getText(),
+                                offenderNameimp.getText(),
+                                offenderAgeimp.getText(),
+                                offenderGenderimp.getText(),
+                                offenderAddressimp.getText(),
+                                plateNumberimp.getText(),
+                                modelimp.getText(),
+                                typeimp.getValue().toString(),
+                                colorimp.getValue().toString(),
+                                notesimp.getText(),
+                                officerrankimp.getText(),
+                                officernameimp.getText(),
+                                officernumimp.getText(),
+                                officerdivimp.getText(),
+                                officeragenimp.getText()
+                        ));
+                        ImpoundReportLogs.saveLogsToXML(logs);
+                        updateChartIfMismatch(reportChart);
+                        controllerUtils.refreshChart(areaReportChart, "area");
+                        showNotification("Reports", "A new Impound Report has been submitted.", vbox);
+                        stageimp.close();
+                    }
+                });
+            });
+
+            Button submitBtncit = (Button) citationReport.get("submitBtn");
+            submitBtncit.setOnAction(event3 -> {
+                boolean allFieldsFilled = true;
+                for (String fieldName : citationReportMap.keySet()) {
+                    Object field = citationReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?>) {
+                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            allFieldsFilled = false;
+                            break;
+                        }
+                    }
+                }
+                if (!allFieldsFilled) {
+                    warningLabelcit.setVisible(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            warningLabelcit.setVisible(false);
+                        }
+                    }, 3000);
+                } else {
+                    List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+                    ObservableList<CitationsData> formDataList = citationtable.getItems();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (CitationsData formData : formDataList) {
+                        stringBuilder.append(formData.getCitation()).append(" | ");
+                    }
+                    if (stringBuilder.length() > 0) {
+                        stringBuilder.setLength(stringBuilder.length() - 2);
+                    }
+
+                    logs.add(new TrafficCitationLogEntry(
+                            numcit.getText(),
+                            datecit.getText(),
+                            timecit.getText(),
+                            stringBuilder.toString(),
+                            countycit.getText(),
+                            areacit.getText(),
+                            streetcit.getText(),
+                            offenderNamecit.getText(),
+                            offenderGendercit.getText(),
+                            offenderAgecit.getText(),
+                            offenderAddresscit.getText(),
+                            offenderDescriptioncit.getText(),
+                            modelcit.getText(),
+                            colorcit.getValue().toString(),
+                            typecit.getValue().toString(),
+                            plateNumbercit.getText(),
+                            otherInfocit.getText(),
+                            officerrankcit.getText(),
+                            officernamecit.getText(),
+                            officernumcit.getText(),
+                            officerdivcit.getText(),
+                            officeragencit.getText(),
+                            notescit.getText()
+                    ));
+                    TrafficCitationReportLogs.saveLogsToXML(logs);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(areaReportChart, "area");
+                    showNotification("Reports", "A new Citation Report has been submitted.", vbox);
+                    stagecit.close();
+                }
+            });
+        });
+
+
+        Button submitBtn = (Button) trafficStopReport.get("submitBtn");
+        submitBtn.setOnAction(event -> {
+            boolean allFieldsFilled = true;
+            for (String fieldName : trafficStopReportMap.keySet()) {
+                Object field = trafficStopReportMap.get(fieldName);
+                if (field instanceof ComboBox<?>) {
+                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+            }
+            if (!allFieldsFilled) {
+                warningLabelts.setVisible(true);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        warningLabelts.setVisible(false);
+                    }
+                }, 3000);
+            } else {
+                List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
+
+                logs.add(new TrafficStopLogEntry(
+                        datets.getText(),
+                        timets.getText(),
+                        modelts.getText(),
+                        otherInfots.getText(),
+                        offenderNamets.getText(),
+                        offenderAgets.getText(),
+                        offenderAddressts.getText(),
+                        offenderDescriptionts.getText(),
+                        offenderGenderts.getText(),
+                        officernamets.getText(),
+                        officerrankts.getText(),
+                        officernumarrestts.getText(),
+                        officerdivts.getText(),
+                        officeragents.getText(),
+                        stopnumts.getText(),
+                        notests.getText(),
+                        streetts.getText(),
+                        countyts.getText(),
+                        areats.getText(),
+                        plateNumberts.getText(),
+                        colorts.getValue().toString(),
+                        typets.getValue().toString()
+                ));
+                TrafficStopReportLogs.saveLogsToXML(logs);
+                updateChartIfMismatch(reportChart);
+                controllerUtils.refreshChart(areaReportChart, "area");
+                showNotification("Reports", "A new Traffic Stop Report has been submitted.", vbox);
+                stagets.close();
+            }
+        });
+    }
+
+
     //</editor-fold>
 
 
@@ -1391,7 +3411,10 @@ public class reportCreationUtil {
         TEXT_AREA,
         COMBO_BOX_COLOR,
         COMBO_BOX_TYPE,
+        COMBO_BOX_SEARCH_TYPE,
+        COMBO_BOX_SEARCH_METHOD,
         CITATION_TREE_VIEW,
+        CHARGES_TREE_VIEW,
         TRANSFER_BUTTON;
     }
 

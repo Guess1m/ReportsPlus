@@ -65,7 +65,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.createSpinner;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
@@ -1167,7 +1167,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, incidentReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, calloutReportPane, arrestReportPane);
         setActive(trafficStopReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1186,12 +1186,14 @@ public class actionController {
         createSpinner(trafficStopNumber, 0, 9999, 0);
 
         trafficStopTime.setText(getTime());
-        trafficStopDate.setText(getDate());
+        trafficStopDate.setText(getDate());*/
+
+        newTrafficStop(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
     public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, searchReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(incidentReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1208,12 +1210,14 @@ public class actionController {
 
         createSpinner(incidentNumber, 0, 9999, 0);
         incidentReportTime.setText(getTime());
-        incidentReportdate.setText(getDate());
+        incidentReportdate.setText(getDate());*/
+
+        newIncident(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
     public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, arrestReportPane);
         setActive(searchReportPane);
 
         String name = ConfigReader.configRead("Name");
@@ -1231,12 +1235,13 @@ public class actionController {
 
         createSpinner(SearchNumber, 0, 9999, 0);
         searchTime.setText(getTime());
-        searchDate.setText(getDate());
+        searchDate.setText(getDate());*/
+        newSearch(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
     public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
-        setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
+        /*setDisable(citationReportPane, shiftInformationPane, infoPane, patrolReportPane, calloutReportPane, incidentReportPane, impoundReportPane, trafficStopReportPane, searchReportPane);
         setActive(arrestReportPane);
         arrestAccordionInformation.setExpanded(true);
 
@@ -1271,7 +1276,9 @@ public class actionController {
         arrestTreeView.setRoot(rootItem);
         expandTreeItem(rootItem, "Charges");
         arrestMonthsPane.setVisible(true);
-        arrestYearsPane.setVisible(false);
+        arrestYearsPane.setVisible(false);*/
+
+        newArrest(reportChart, areaReportChart, vbox, notesViewController);
     }
 
     @javafx.fxml.FXML
@@ -1748,12 +1755,6 @@ public class actionController {
         }
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Misc.">
-
     @javafx.fxml.FXML
     public void onArrestReportSubmitBtnClick(ActionEvent actionEvent) {
         if (arrestNumber.getValue() == null) {
@@ -1949,6 +1950,13 @@ public class actionController {
             showNotification("Reports", "A new Citation Report has been submitted.", vbox);
         }
     }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Misc.">
+
 
     @javafx.fxml.FXML
     public void onSearchPopOverBtnPress(ActionEvent actionEvent) throws IOException {
@@ -2272,6 +2280,7 @@ public class actionController {
 
 
     //<editor-fold desc="PullFromNotes">
+
 
     @javafx.fxml.FXML
     public void pullFromNotesCitation(ActionEvent actionEvent) {

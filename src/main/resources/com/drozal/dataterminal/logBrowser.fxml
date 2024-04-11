@@ -9,14 +9,100 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" style="-fx-border-color: black;"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.LogBrowserController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" prefHeight="676.0" prefWidth="724.0"
+            style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.LogBrowserController">
     <center>
         <AnchorPane fx:id="vbox" prefHeight="674.0" prefWidth="891.0" style="-fx-background-color: #f2f2f2;">
             <children>
                 <VBox layoutY="51.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="41.0" prefWidth="722.0"
+                                    VBox.vgrow="NEVER">
+                            <children>
+                                <GridPane layoutX="120.0" layoutY="-2.0" AnchorPane.bottomAnchor="0.0"
+                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                          AnchorPane.topAnchor="0.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0"
+                                                           prefWidth="431.5"/>
+                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="0.0"
+                                                           prefWidth="431.5"/>
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
+                                                           prefWidth="162.0"/>
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
+                                                           prefWidth="111.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <AnchorPane prefHeight="34.0" prefWidth="101.0" GridPane.columnIndex="3">
+                                            <children>
+                                                <Button fx:id="refreshBtn" graphicTextGap="5.0" layoutX="8.0"
+                                                        layoutY="2.0" mnemonicParsing="false"
+                                                        onAction="#onRefreshButtonClick" opacity="0.95"
+                                                        prefHeight="34.0" prefWidth="99.0"
+                                                        style="-fx-font-size: 12; -fx-background-color: #f2f2f2; -fx-font-family: Arial; -fx-font-weight: bold; -fx-text-fill: #5e7387;"
+                                                        styleClass="medinfoButton"
+                                                        stylesheets="@css/menu/menuStyles.css" text="Refresh"
+                                                        textFill="#828797" AnchorPane.bottomAnchor="5.0"
+                                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0"
+                                                        AnchorPane.topAnchor="5.0">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@imgs/icons/refresh.png"/>
+                                                            </image>
+                                                            <effect>
+                                                                <ColorAdjust brightness="-0.05" contrast="-0.2"
+                                                                             hue="-0.31"/>
+                                                            </effect>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane prefHeight="28.0" prefWidth="101.0" GridPane.columnIndex="2"
+                                                    GridPane.hgrow="NEVER">
+                                            <children>
+                                                <ToggleButton fx:id="showManagerToggle" layoutX="6.0" layoutY="2.0"
+                                                              mnemonicParsing="false" onAction="#onManagerToggle"
+                                                              style="-fx-label-padding: 0; -fx-padding: 0;"
+                                                              stylesheets="@css/main/toggleBtn.css" text="Show Manager"
+                                                              AnchorPane.bottomAnchor="10.0"
+                                                              AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0"
+                                                              AnchorPane.topAnchor="10.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                        <Label style="-fx-text-fill: grey;" styleClass="viewerLabel"
+                                               stylesheets="@css/tableCss.css" text="Log Browser" textOverrun="CLIP"
+                                               GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="13.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="5.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label style="-fx-text-fill: #5e7387;" styleClass="databaseReportLabel"
+                                               stylesheets="@css/tableCss.css" text="Database" textOverrun="CLIP">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="13.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="5.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
                         <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="889.0"
                                  stylesheets="@css/main/Logtabpane.css" VBox.vgrow="ALWAYS">
                             <tabs>
@@ -1140,42 +1226,6 @@
                         </AnchorPane>
                     </children>
                 </VBox>
-                <AnchorPane layoutX="780.0" layoutY="58.0" prefHeight="34.0" prefWidth="101.0"
-                            AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="4.0">
-                    <children>
-                        <Button fx:id="refreshBtn" graphicTextGap="5.0" layoutX="8.0" layoutY="2.0"
-                                mnemonicParsing="false" onAction="#onRefreshButtonClick" opacity="0.95"
-                                prefHeight="34.0" prefWidth="99.0"
-                                style="-fx-font-size: 12; -fx-background-color: #f2f2f2; -fx-font-family: Arial; -fx-font-weight: bold; -fx-text-fill: #5e7387;"
-                                styleClass="medinfoButton" stylesheets="@css/menu/menuStyles.css" text="Refresh"
-                                textFill="#828797" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@imgs/icons/refresh.png"/>
-                                    </image>
-                                    <effect>
-                                        <ColorAdjust brightness="-0.05" contrast="-0.2" hue="-0.31"/>
-                                    </effect>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </AnchorPane>
-                <AnchorPane layoutX="663.0" layoutY="61.0" prefHeight="24.0" prefWidth="101.0"
-                            AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="10.0">
-                    <children>
-                        <ToggleButton fx:id="showManagerToggle" layoutX="6.0" layoutY="2.0" mnemonicParsing="false"
-                                      onAction="#onManagerToggle" style="-fx-label-padding: 0; -fx-padding: 0;"
-                                      stylesheets="@css/main/toggleBtn.css" text="Show Manager"
-                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                    </children>
-                </AnchorPane>
             </children>
         </AnchorPane>
     </center>

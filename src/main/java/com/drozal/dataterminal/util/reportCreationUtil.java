@@ -56,6 +56,12 @@ public class reportCreationUtil {
     static String secondaryColor = "#263238"; //Darkest
     static String accentColor = "#505d62"; //Lightest
 
+    static double windowX = 0;
+    static double windowY = 0;
+
+    /*
+    Pull from Config
+
     static {
         try {
             primaryColor = ConfigReader.configRead("secondaryColor");
@@ -65,6 +71,7 @@ public class reportCreationUtil {
             throw new RuntimeException(e);
         }
     }
+    */
 
 
     //<editor-fold desc="Creation">
@@ -330,11 +337,11 @@ public class reportCreationUtil {
 
         stage.initOwner(DataTerminalHomeApplication.getMainRT());
         stage.show();
+        stage.toFront();
 
-        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                stage.toFront();
-            }
+        stage.setOnHidden(event -> {
+            windowX = stage.getX();
+            windowY = stage.getY();
         });
 
         String startupValue = null;
@@ -356,7 +363,12 @@ public class reportCreationUtil {
                 stage.setHeight(preferredHeight);
                 stage.setMinHeight(300);
                 stage.setMinWidth(300);
-                stage.centerOnScreen();
+                if (windowX != 0 && windowY != 0) {
+                    stage.setX(windowX);
+                    stage.setY(windowY);
+                } else {
+                    stage.centerOnScreen();
+                }
             }
         }
 
@@ -1178,6 +1190,7 @@ public class reportCreationUtil {
         });
 
         transferimpoundbtn.setOnAction(event -> {
+
             Map<String, Object> impoundReport = impoundLayout();
 
             Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -1206,6 +1219,10 @@ public class reportCreationUtil {
 
             BorderPane rootimp = (BorderPane) impoundReport.get("root");
             Stage stageimp = (Stage) rootimp.getScene().getWindow();
+
+            if (!stageimp.isFocused()) {
+                stageimp.requestFocus();
+            }
 
             Label warningLabelimp = (Label) impoundReport.get("warningLabel");
             Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");

@@ -696,11 +696,11 @@ public class actionController {
         ComboBox<String> mainWindowComboBox = new ComboBox<>();
         ComboBox<String> notesWindowComboBox = new ComboBox<>();
         ComboBox<String> ReportWindowComboBox = new ComboBox<>();
+        ComboBox<String> reportDarkLight = new ComboBox<>();
 
         Button resetBtn = new Button("Reset Defaults");
         resetBtn.getStyleClass().add("purpleButton");
         resetBtn.setStyle("-fx-label-padding: 1 7; -fx-padding: 1;");
-
 
         ColorPicker primPicker = new ColorPicker();
         ColorPicker secPicker = new ColorPicker();
@@ -711,6 +711,9 @@ public class actionController {
         secondaryLabel.getStyleClass().add("headingBig");
         Label accentLabel = new Label("Accent Color:");
         accentLabel.getStyleClass().add("headingBig");
+
+        Label reportColorLabel = new Label("Report Style:");
+        primaryLabel.getStyleClass().add("headingBig");
 
         Runnable loadColors = () -> {
             try {
@@ -786,10 +789,21 @@ public class actionController {
             }
         });
 
+        String[] reportdarklight = {"dark", "light"};
         String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
         mainWindowComboBox.getItems().addAll(displayPlacements);
         notesWindowComboBox.getItems().addAll(displayPlacements);
         ReportWindowComboBox.getItems().addAll(displayPlacements);
+        reportDarkLight.getItems().addAll(reportdarklight);
+        try {
+            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+                reportDarkLight.getSelectionModel().selectFirst();
+            } else {
+                reportDarkLight.getSelectionModel().selectLast();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             mainWindowComboBox.setValue(ConfigReader.configRead("mainWindowLayout"));
@@ -823,9 +837,10 @@ public class actionController {
         root.addRow(6, primaryLabel, primPicker);
         root.addRow(7, secondaryLabel, secPicker);
         root.addRow(8, accentLabel, accPicker);
+        root.addRow(9, reportColorLabel, reportDarkLight);
 
         // Add reset button
-        root.addRow(9, resetBtn);
+        root.addRow(10, resetBtn);
 
         EventHandler<ActionEvent> comboBoxHandler = event -> {
             ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
@@ -889,6 +904,13 @@ public class actionController {
         mainWindowComboBox.setOnAction(comboBoxHandler);
         notesWindowComboBox.setOnAction(comboBoxHandler);
         ReportWindowComboBox.setOnAction(comboBoxHandler);
+        reportDarkLight.setOnAction(event -> {
+            if (reportDarkLight.getSelectionModel().getSelectedItem().equals("dark")) {
+                ConfigWriter.configwrite("reportWindowDarkMode", "true");
+            } else {
+                ConfigWriter.configwrite("reportWindowDarkMode", "false");
+            }
+        });
 
         Scene scene = new Scene(root);
         settingsStage.setScene(scene);

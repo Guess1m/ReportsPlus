@@ -1,6 +1,8 @@
 .calloutTABLE{
    -fx-background-color: #323c41;
     -fx-text-fill: white;
+    -fx-border-color: grey;
+    -fx-border-width: 0.6;
 }
 .calloutTABLE:focused {
     -fx-background-color: transparent; /* Set background color to transparent */
@@ -74,64 +76,4 @@
     -fx-text-fill:  #cdcdcd;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 24px;
-}
-
-.chargesTable .filler {
-    -fx-background-color: transparent;
-}
-.chargesTable{
-   -fx-background-color: transparent;
-}
-.chargesTable:focused{
-    -fx-background-color: transparent;
-}
-.chargesTable .column-header-background{
-    -fx-background-color: rgb(94, 115, 135,0.7);
-}
-.chargesTable .column-header-background .label{
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-family: "Segoe UI SemiBold"; /* Change the font family */
-}
-.chargesTable .column-header {
-    -fx-background-color: transparent;
-    -fx-border-width: 0 1.5px 0 0px; /* top right bottom left */
-    -fx-border-color: white;
-}
-.chargesTable .table-cell{
-    -fx-text-fill: #262626;
-    -fx-font-family: "Segoe UI"; /* Change the font family */
-    -fx-alignment: center; /* Center text horizontally */
-    -fx-padding: 0 30px; /* Add padding to the left and right of the cells */
-}
-.chargesTable .table-row-cell{
-    -fx-table-cell-border-color: transparent;
-    -fx-cell-size: 40px; /* Adjust the row height as needed */
-    -fx-alignment: center; /* Center text horizontally */
-}
-.chargesTable .table-row-cell:odd{
-    -fx-background-color: rgb(242, 242, 242,0.4);
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
-}
-.chargesTable .table-row-cell:even{
-    -fx-background-color: white;
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
-}
-.chargesTable .table-row-cell:selected {
-    -fx-background-color: rgb(102, 92, 182,0.3);
-}
-.chargesTable > .virtual-flow > .scroll-bar:vertical,
-.chargesTable > .virtual-flow > .scroll-bar:vertical > .track,
-.chargesTable > .virtual-flow > .scroll-bar:vertical > .track-background,
-.chargesTable > .virtual-flow > .scroll-bar:horizontal,
-.chargesTable > .virtual-flow > .scroll-bar:horizontal > .track,
-.chargesTable > .virtual-flow > .scroll-bar:horizontal > .track-background {
-    -fx-background-color: transparent;
-}
-.chargesTable > .virtual-flow > .scroll-bar > .increment-button,
-.chargesTable > .virtual-flow > .scroll-bar > .decrement-button {
-    -fx-opacity: 0;
 }

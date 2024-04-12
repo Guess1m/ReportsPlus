@@ -106,6 +106,7 @@ public class reportCreationUtil {
         return accentColor;
     }
 
+    
     /*
     Pull from Config
 
@@ -262,21 +263,28 @@ public class reportCreationUtil {
         int rowIndex = 1;
 
         for (SectionConfig sectionConfig : sectionConfigs) {
+            // Add Section Label
             Label sectionLabel = new Label(sectionConfig.getSectionTitle());
-
-            if (sectionConfig.getRequired()) {
-                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
-            } else {
-                sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #a6a6a6; -fx-background-color: transparent; -fx-padding: 0px 40px;");
-            }
             sectionLabel.setFont(Font.font("Segoe UI Black"));
-
+            sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
             gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
-
             rowIndex++;
 
+            // Add Rows for each Config
             for (RowConfig rowConfig : sectionConfig.getRowConfigs()) {
                 addRowToGridPane(gridPane, rowConfig, rowIndex, fieldsMap);
+                rowIndex++;
+            }
+
+            if (sectionConfig != sectionConfigs[sectionConfigs.length - 1]) {
+                Separator separator = new Separator();
+                separator.setMaxWidth(Double.MAX_VALUE);
+
+                StackPane separatorPane = new StackPane(separator);
+                separatorPane.setPadding(new Insets(20, 0, 0, 0));
+
+                GridPane.setColumnSpan(separatorPane, 12);
+                gridPane.add(separatorPane, 0, rowIndex);
                 rowIndex++;
             }
 
@@ -1424,6 +1432,7 @@ public class reportCreationUtil {
         TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
 
         Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
+        transferimpoundbtn.setText("New Impound Report");
 
         BorderPane root = (BorderPane) citationReport.get("root");
         Stage stage = (Stage) root.getScene().getWindow();

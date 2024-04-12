@@ -106,7 +106,22 @@ public class reportCreationUtil {
         return accentColor;
     }
 
-    
+    /* EXAMPLE
+
+      -n Jefferson Amato -a 28 -g Male -add 192 Forum Drive -desc Short Blonde Hair, Brown Eyes, tall
+
+      -search Handgun Loaded
+
+      -num 3
+
+      -cnty Blaine -ar Sandy Shores -st 9028 Grapeseed Lane
+
+      -model Infernus -plate PSLD9283
+
+      -cmt additional units were needed, corresponding reports #3
+
+      */
+
     /*
     Pull from Config
 

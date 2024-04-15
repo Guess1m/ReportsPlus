@@ -731,18 +731,10 @@ public class actionController {
 
     // UI Settings Events
 
+
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
         showSettingsWindow();
-    }
-
-    @Deprecated
-    public void resetDefaultsBtnPress(ActionEvent actionEvent) throws IOException {
-    }
-
-    @Deprecated
-    public void onColorSelectMainPress(ActionEvent actionEvent) throws IOException {
-
     }
 
 

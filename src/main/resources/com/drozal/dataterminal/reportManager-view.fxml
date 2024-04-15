@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="301.0" prefWidth="489.0"
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.ReportManagerViewController">
+    <center>
+        <VBox>
+            <children>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="489.0"
+                            style="-fx-background-color: grey;">
+                    <children>
+                        <GridPane layoutX="-2.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0"
+                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
+                                                   prefWidth="80.5"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="408.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0"
+                                       text="Report Manager" textAlignment="CENTER" textFill="WHITE"
+                                       GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                       GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="25.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                    width="15.0">
+                                            <color>
+                                                <Color opacity="0.223709374666214"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                    <padding>
+                                        <Insets left="15.0"/>
+                                    </padding>
+                                </Label>
+                                <AnchorPane>
+                                    <children>
+                                        <Label alignment="CENTER" layoutX="2.0" layoutY="4.0"
+                                               style="-fx-font-family: Blanka;" text="R P" textFill="WHITE"
+                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0"
+                                               AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="4.0">
+                                            <font>
+                                                <Font size="37.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                            width="15.0">
+                                                    <color>
+                                                        <Color opacity="0.223709374666214"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Label>
+                                        <Label alignment="CENTER" layoutX="53.0" layoutY="21.0" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-family: Blanka;"
+                                               text="+" textFill="#d7d7d7" AnchorPane.bottomAnchor="5.0"
+                                               AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="0.0"
+                                               AnchorPane.topAnchor="21.0">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="8.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                            width="15.0">
+                                                    <color>
+                                                        <Color opacity="0.223709374666214"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+                    <effect>
+                        <DropShadow height="6.26" radius="2.63" spread="0.32" width="6.26">
+                            <color>
+                                <Color red="0.28947368264198303" green="0.28947368264198303" blue="0.28947368264198303"
+                                       opacity="0.5"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

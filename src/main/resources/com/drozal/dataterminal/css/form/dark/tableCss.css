@@ -67,11 +67,11 @@
 
 .databaseReportLabel {
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Segoe UI Black";
     -fx-font-size: 30px;
 }
 .viewerLabel {
     -fx-text-fill:  #cdcdcd;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Segoe UI Black";
     -fx-font-size: 24px;
 }

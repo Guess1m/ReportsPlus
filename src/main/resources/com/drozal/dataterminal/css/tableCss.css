@@ -67,18 +67,19 @@
 
 .databaseReportLabel {
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Segoe UI Black";
     -fx-font-size: 30px;
 }
 .viewerLabel {
     -fx-text-fill:  #cdcdcd;
     -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 24px;
+    -fx-font-size: 27px;
 }
 
 .chargesTable .filler {
     -fx-background-color: transparent;
 }
+
 .chargesTable{
    -fx-background-color: transparent;
 }
@@ -86,7 +87,7 @@
     -fx-background-color: transparent;
 }
 .chargesTable .column-header-background{
-    -fx-background-color: rgb(94, 115, 135,0.7);
+    -fx-background-color: rgb(56, 56, 56,0.5);
 }
 .chargesTable .column-header-background .label{
     -fx-background-color: transparent;
@@ -121,7 +122,7 @@
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }
 .chargesTable .table-row-cell:selected {
-    -fx-background-color: rgb(102, 92, 182,0.3);
+    -fx-background-color: rgb(200, 200, 200,0.3);
 }
 .chargesTable > .virtual-flow > .scroll-bar:vertical,
 .chargesTable > .virtual-flow > .scroll-bar:vertical > .track,
@@ -131,7 +132,12 @@
 .chargesTable > .virtual-flow > .scroll-bar:horizontal > .track-background {
     -fx-background-color: transparent;
 }
-.chargesTable > .virtual-flow > .scroll-bar > .increment-button,
-.chargesTable > .virtual-flow > .scroll-bar > .decrement-button {
-    -fx-opacity: 0;
+.chargesTable > .virtual-flow > .scroll-bar:horizontal > .thumb,
+.chargesTable > .virtual-flow > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #383838;
+}
+
+.chargesTable > .virtual-flow > .scroll-bar:horizontal > .thumb:pressed,
+.chargesTable > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
+    -fx-background-color: #262626;
 }

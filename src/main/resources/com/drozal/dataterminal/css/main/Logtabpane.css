@@ -25,7 +25,7 @@
 
 .tab:selected {
     -fx-background-color: #f2f2f2; /* Background color of the selected tab */
-    -fx-border-color: #1166bb; /* Change border color when focused */
+    -fx-border-color: #383838; /* Change border color when focused */
         -fx-border-width: 0 0 4px 0; /* Increase bottom border width when focused */
         -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
 }

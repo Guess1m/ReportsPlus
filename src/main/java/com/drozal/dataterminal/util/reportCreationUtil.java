@@ -4,6 +4,7 @@ import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
+import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
@@ -1079,10 +1080,10 @@ public class reportCreationUtil {
             ));
 
             CalloutReportLogs.saveLogsToXML(logs);
+            actionController.needRefresh.set(1);
             updateChartIfMismatch(reportChart);
             controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Callout Report has been submitted.", vbox);
-
             Stage rootstage = (Stage) root.getScene().getWindow();
             rootstage.close();
         });
@@ -1234,6 +1235,7 @@ public class reportCreationUtil {
                         officeragen.getText()
                 ));
                 ImpoundReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Impound Report has been submitted.", vbox);
@@ -1348,6 +1350,7 @@ public class reportCreationUtil {
             ));
 
             PatrolReportLogs.saveLogsToXML(logs);
+            actionController.needRefresh.set(1);
             updateChartIfMismatch(reportChart);
             controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Patrol Report has been submitted.", vbox);
@@ -1602,6 +1605,7 @@ public class reportCreationUtil {
                             officeragenimp.getText()
                     ));
                     ImpoundReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Impound Report has been submitted.", vbox);
@@ -1668,6 +1672,7 @@ public class reportCreationUtil {
                         notes.getText()
                 ));
                 TrafficCitationReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Citation Report has been submitted.", vbox);
@@ -1803,6 +1808,7 @@ public class reportCreationUtil {
             ));
 
             IncidentReportLogs.saveLogsToXML(logs);
+            actionController.needRefresh.set(1);
             updateChartIfMismatch(reportChart);
             controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Incident Report has been submitted.", vbox);
@@ -1953,6 +1959,7 @@ public class reportCreationUtil {
             ));
 
             SearchReportLogs.saveLogsToXML(logs);
+            actionController.needRefresh.set(1);
             updateChartIfMismatch(reportChart);
             controllerUtils.refreshChart(areaReportChart, "area");
             showNotification("Reports", "A new Search Report has been submitted.", vbox);
@@ -2204,6 +2211,7 @@ public class reportCreationUtil {
                             officeragenimp.getText()
                     ));
                     ImpoundReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Impound Report has been submitted.", vbox);
@@ -2321,6 +2329,7 @@ public class reportCreationUtil {
                         notesinc.getText()
                 ));
                 IncidentReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Incident Report has been submitted.", vbox);
@@ -2449,6 +2458,7 @@ public class reportCreationUtil {
                 ));
 
                 SearchReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Search Report has been submitted.", vbox);
@@ -2516,6 +2526,7 @@ public class reportCreationUtil {
                         officeragen.getText()
                 ));
                 ArrestReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
@@ -2845,6 +2856,7 @@ public class reportCreationUtil {
                                 officeragenimp.getText()
                         ));
                         ImpoundReportLogs.saveLogsToXML(logs);
+                        actionController.needRefresh.set(1);
                         updateChartIfMismatch(reportChart);
                         controllerUtils.refreshChart(areaReportChart, "area");
                         showNotification("Reports", "A new Impound Report has been submitted.", vbox);
@@ -2962,6 +2974,7 @@ public class reportCreationUtil {
                             notesinc.getText()
                     ));
                     IncidentReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Incident Report has been submitted.", vbox);
@@ -3090,6 +3103,7 @@ public class reportCreationUtil {
                     ));
 
                     SearchReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Search Report has been submitted.", vbox);
@@ -3157,6 +3171,7 @@ public class reportCreationUtil {
                             officeragenarr.getText()
                     ));
                     ArrestReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Arrest Report has been submitted.", vbox);
@@ -3366,6 +3381,7 @@ public class reportCreationUtil {
                                 officeragenimp.getText()
                         ));
                         ImpoundReportLogs.saveLogsToXML(logs);
+                        actionController.needRefresh.set(1);
                         updateChartIfMismatch(reportChart);
                         controllerUtils.refreshChart(areaReportChart, "area");
                         showNotification("Reports", "A new Impound Report has been submitted.", vbox);
@@ -3432,6 +3448,7 @@ public class reportCreationUtil {
                             notescit.getText()
                     ));
                     TrafficCitationReportLogs.saveLogsToXML(logs);
+                    actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(areaReportChart, "area");
                     showNotification("Reports", "A new Citation Report has been submitted.", vbox);
@@ -3490,6 +3507,7 @@ public class reportCreationUtil {
                         typets.getValue().toString()
                 ));
                 TrafficStopReportLogs.saveLogsToXML(logs);
+                actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 controllerUtils.refreshChart(areaReportChart, "area");
                 showNotification("Reports", "A new Traffic Stop Report has been submitted.", vbox);

@@ -10,7 +10,7 @@
        -fx-border-color: #262626; /* Set initial border color to transparent */
 }
 .comboboxnew .list-cell {
-    -fx-text-fill:  white; /* Set the text color */
+    -fx-text-fill:  black; /* Set the text color */
 }
 .comboboxnew-popup .list-view .list-cell {
     -fx-text-fill: black; /* Text color only for dropdown options */

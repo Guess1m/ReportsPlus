@@ -4,8 +4,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.scene.text.Font;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 
 import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
@@ -13,8 +12,89 @@ import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
 
+/*    private static boolean isRedirected = false;
+
+    public static synchronized void redirectOutputAndErrors() {
+        if (!isRedirected) {
+            PrintStream originalErr = null;
+            try {
+                PrintStream originalOut = System.out;  // Keep the original System.out
+                originalErr = System.err;
+                File logFile = new File(stringUtil.getJarPath() + File.separator + "output.log");
+                FileOutputStream fos = new FileOutputStream(logFile, true);
+                PrintStream logStream = new PrintStream(fos) {
+                    @Override
+                    public void println(String x) {
+                        String formattedMessage = formatWithTimestamp(x);
+                        super.println(formattedMessage);  // Log to file with timestamp
+                        originalOut.println(x);           // Print unformatted to console ONLY HERE
+                    }
+
+                    @Override
+                    public void print(String x) {
+                        String formattedMessage = formatWithTimestamp(x);
+                        super.print(formattedMessage);    // Log to file with timestamp
+                        originalOut.print(x);             // Print unformatted to console ONLY HERE
+                    }
+
+                    private String formatWithTimestamp(String message) {
+                        // Ensures the message isn't already timestamped
+                        if (!message.startsWith("[" + DataTerminalHomeApplication.getDate() + "]")) {
+                            return "[" + DataTerminalHomeApplication.getDate() + "] [" + DataTerminalHomeApplication.getTime() + "] " + message;
+                        }
+                        return message;
+                    }
+                };
+
+                System.setOut(logStream);
+                System.setErr(logStream);
+                isRedirected = true;
+            } catch (FileNotFoundException e) {
+                originalErr.println("Failed to set up logging to file: " + e.getMessage());  // Use the original System.err to log the exception
+            }
+        }
+    }*/
+
+    private static boolean isRedirected = false;
+
+    public static synchronized void redirectOutputAndErrors() {
+        if (!isRedirected) {
+            PrintStream originalOut = System.out;  // Keep the original System.out
+            PrintStream originalErr = System.err;  // Keep the original System.err
+            try {
+                File logFile = new File(stringUtil.getJarPath() + File.separator + "output.log");
+                FileOutputStream fos = new FileOutputStream(logFile, true);
+                PrintStream logStream = new PrintStream(fos) {
+                    @Override
+                    public void println(String x) {
+                        super.println(formatWithTimestamp(x));  // Log to file with timestamp
+                    }
+
+                    @Override
+                    public void print(String x) {
+                        super.print(formatWithTimestamp(x));    // Log to file with timestamp
+                    }
+
+                    private String formatWithTimestamp(String message) {
+                        // Ensures the message isn't already timestamped
+                        if (!message.startsWith("[" + DataTerminalHomeApplication.getDate() + "]")) {
+                            return "[" + DataTerminalHomeApplication.getDate() + "] [" + DataTerminalHomeApplication.getTime() + "] " + message;
+                        }
+                        return message;
+                    }
+                };
+
+                System.setOut(logStream);
+                System.setErr(logStream);
+                isRedirected = true;
+            } catch (FileNotFoundException e) {
+                originalErr.println("Failed to set up logging to file: " + e.getMessage());  // Use the original System.err to log the exception
+            }
+        }
+    }
 
     public static void main(String[] args) throws IOException {
+        redirectOutputAndErrors();
         loadFonts();
         String folderPath = "";
         String dataFolderPath = stringUtil.getJarPath() + File.separator + "data";

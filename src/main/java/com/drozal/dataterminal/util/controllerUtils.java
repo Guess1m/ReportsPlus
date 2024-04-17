@@ -187,6 +187,13 @@ public class controllerUtils {
         chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
     }
 
+    public static void setSmallColumnWidth(TableColumn column) {
+        double minColumnWidthSmall = 120.0;
+        column.setMinWidth(minColumnWidthSmall);
+        column.setPrefWidth(minColumnWidthSmall);
+    }
+
+
     public static String toHexString(Color color) {
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),

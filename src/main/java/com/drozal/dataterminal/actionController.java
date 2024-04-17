@@ -67,10 +67,13 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
 
-    public static String notesText;
-    public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
 
     //<editor-fold desc="FXML Elements">
+
+
+    public static String notesText;
+    public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+    static double minColumnWidth = 185.0;
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -103,10 +106,8 @@ public class actionController {
     public BarChart reportChart;
     @javafx.fxml.FXML
     public AnchorPane topPane;
-
     @javafx.fxml.FXML
     public AnchorPane sidepane;
-
     @javafx.fxml.FXML
     public Label mainColor8;
     @javafx.fxml.FXML
@@ -115,7 +116,6 @@ public class actionController {
     public Button updateInfoBtn;
     @javafx.fxml.FXML
     public MenuButton settingsDropdown;
-    double minColumnWidth = 185.0;
     private double xOffset = 0;
     private double yOffset = 0;
     private MedicalInformation medicalInformationController;
@@ -130,6 +130,11 @@ public class actionController {
     private Label secondaryColor4;
     @javafx.fxml.FXML
     private Label secondaryColor3Bkg;
+    @javafx.fxml.FXML
+    private TextField citcounty;
+    private CalloutLogEntry calloutEntry;
+    private PatrolLogEntry patrolEntry;
+    private TrafficStopLogEntry trafficStopEntry;
     @javafx.fxml.FXML
     private Label mainColor6;
     @javafx.fxml.FXML
@@ -397,41 +402,6 @@ public class actionController {
     private Tab impoundTab;
     @javafx.fxml.FXML
     private TextField trafgender;
-    @javafx.fxml.FXML
-    private HBox citationInfo;
-    @javafx.fxml.FXML
-    private TableView patrolTable;
-    @javafx.fxml.FXML
-    private TextField calarea;
-    @javafx.fxml.FXML
-    private TextField impaddress;
-    @javafx.fxml.FXML
-    private TextField arresttaser;
-    @javafx.fxml.FXML
-    private TextField trafplatenum;
-    @javafx.fxml.FXML
-    private HBox arrestInfo;
-    @javafx.fxml.FXML
-    private TabPane tabPane;
-    @javafx.fxml.FXML
-    private TableView incidentTable;
-    @javafx.fxml.FXML
-    private TextField incwitness;
-    //</editor-fold>
-
-
-    //<editor-fold desc="Utils">
-    @javafx.fxml.FXML
-    private TextField citcounty;
-    private CalloutLogEntry calloutEntry;
-    private PatrolLogEntry patrolEntry;
-    private TrafficStopLogEntry trafficStopEntry;
-
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Getters">
     private IncidentLogEntry incidentEntry;
     private ImpoundLogEntry impoundEntry;
     private SearchLogEntry searchEntry;
@@ -459,6 +429,33 @@ public class actionController {
     private Button btn3;
     @javafx.fxml.FXML
     private Button btn1;
+    @javafx.fxml.FXML
+    private HBox citationInfo;
+    @javafx.fxml.FXML
+    private TableView patrolTable;
+    @javafx.fxml.FXML
+    private TextField calarea;
+    @javafx.fxml.FXML
+    private TextField impaddress;
+    @javafx.fxml.FXML
+    private TextField arresttaser;
+    @javafx.fxml.FXML
+    private TextField trafplatenum;
+    @javafx.fxml.FXML
+    private HBox arrestInfo;
+    @javafx.fxml.FXML
+    private TabPane tabPane;
+    @javafx.fxml.FXML
+    private TableView incidentTable;
+    @javafx.fxml.FXML
+    private TextField incwitness;
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Utils">
+
 
     public void initialize() throws IOException {
         setDisable(infoPane, logPane);
@@ -896,25 +893,7 @@ public class actionController {
     //</editor-fold>
 
 
-    //<editor-fold desc="WindowUtils">
-
-    public AnchorPane getTopPane() {
-        return topPane;
-    }
-
-    public BarChart getReportChart() {
-        return reportChart;
-    }
-
-    public ComboBox getOfficerInfoAgency() {
-        return OfficerInfoAgency;
-    }
-
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Side Button Events">
+    //<editor-fold desc="Getters">
 
     public ComboBox getOfficerInfoDivision() {
         return OfficerInfoDivision;
@@ -932,19 +911,32 @@ public class actionController {
         return OfficerInfoRank;
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Settings Button Events">
+    public AnchorPane getTopPane() {
+        return topPane;
+    }
 
     public AnchorPane getInfoPane() {
         return infoPane;
     }
 
+    public BarChart getReportChart() {
+        return reportChart;
+    }
+
+    public ComboBox getOfficerInfoAgency() {
+        return OfficerInfoAgency;
+    }
+
     public AnchorPane getShiftInformationPane() {
         return shiftInformationPane;
     }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="WindowUtils">
+
 
     @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
@@ -956,9 +948,6 @@ public class actionController {
         Stage stage = (Stage) vbox.getScene().getWindow();
         stage.setIconified(true);
     }
-
-
-    // UI Settings Events
 
     @javafx.fxml.FXML
     public void onFullscreenBtnClick(Event event) {
@@ -972,7 +961,8 @@ public class actionController {
     //</editor-fold>
 
 
-    //<editor-fold desc="Open Report Button Events">
+    //<editor-fold desc="Side Button Events">
+
 
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
@@ -1074,6 +1064,29 @@ public class actionController {
         setActive(logPane);
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Settings Button Events">
+
+
+    @javafx.fxml.FXML
+    public void UISettingsBtnClick(ActionEvent actionEvent) {
+        showSettingsWindow();
+    }
+
+    @javafx.fxml.FXML
+    public void onStartupFullscreenPress(ActionEvent actionEvent) throws IOException {
+        if (startupFullscreenToggleBtn.isSelected()) {
+            ConfigWriter.configwrite("fullscreenOnStartup", "true");
+            startupFullscreenToggleBtn.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("fullscreenOnStartup", "false");
+            startupFullscreenToggleBtn.setSelected(false);
+        }
+    }
+
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -1111,12 +1124,8 @@ public class actionController {
     //</editor-fold>
 
 
-    //<editor-fold desc="Misc.">
+    //<editor-fold desc="Open Report Button Events">
 
-    @javafx.fxml.FXML
-    public void UISettingsBtnClick(ActionEvent actionEvent) {
-        showSettingsWindow();
-    }
 
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
@@ -1158,6 +1167,13 @@ public class actionController {
         newImpound(reportChart, areaReportChart, vbox, notesViewController);
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Misc.">
+
+
     @javafx.fxml.FXML
     public void updateInfoButtonClick(ActionEvent actionEvent) {
         if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null ||
@@ -1188,22 +1204,12 @@ public class actionController {
         showButtonAnimation(updateInfoBtn);
     }
 
-    @javafx.fxml.FXML
-    public void onStartupFullscreenPress(ActionEvent actionEvent) throws IOException {
-        if (startupFullscreenToggleBtn.isSelected()) {
-            ConfigWriter.configwrite("fullscreenOnStartup", "true");
-            startupFullscreenToggleBtn.setSelected(true);
-        } else {
-            ConfigWriter.configwrite("fullscreenOnStartup", "false");
-            startupFullscreenToggleBtn.setSelected(false);
-        }
-    }
-
 
     //</editor-fold>
 
 
     //<editor-fold desc="Log Browser">
+
 
     private void loadLogs() {
         //ImpoundTable
@@ -1282,8 +1288,6 @@ public class actionController {
     }
 
     public void initializeImpoundColumns() {
-
-
         // Create columns for each property of ImpoundLogEntry
         TableColumn<ImpoundLogEntry, String> impoundNumberColumn = new TableColumn<>("Impound #");
         impoundNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundNumber"));
@@ -1306,19 +1310,19 @@ public class actionController {
         TableColumn<ImpoundLogEntry, String> ownerAddressColumn = new TableColumn<>("Owner Address");
         ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAddress"));
 
-        TableColumn<ImpoundLogEntry, String> impoundPlateNumberColumn = new TableColumn<>("Impound Plate Number");
+        TableColumn<ImpoundLogEntry, String> impoundPlateNumberColumn = new TableColumn<>("Veh. Plate #");
         impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
 
-        TableColumn<ImpoundLogEntry, String> impoundModelColumn = new TableColumn<>("Impound Model");
+        TableColumn<ImpoundLogEntry, String> impoundModelColumn = new TableColumn<>("Veh. Model");
         impoundModelColumn.setCellValueFactory(new PropertyValueFactory<>("impoundModel"));
 
-        TableColumn<ImpoundLogEntry, String> impoundTypeColumn = new TableColumn<>("Impound Type");
+        TableColumn<ImpoundLogEntry, String> impoundTypeColumn = new TableColumn<>("Veh. Type");
         impoundTypeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundType"));
 
-        TableColumn<ImpoundLogEntry, String> impoundColorColumn = new TableColumn<>("Impound Color");
+        TableColumn<ImpoundLogEntry, String> impoundColorColumn = new TableColumn<>("Veh. Color");
         impoundColorColumn.setCellValueFactory(new PropertyValueFactory<>("impoundColor"));
 
-        TableColumn<ImpoundLogEntry, String> impoundCommentsColumn = new TableColumn<>("Impound Comments");
+        TableColumn<ImpoundLogEntry, String> impoundCommentsColumn = new TableColumn<>("Comments");
         impoundCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("impoundComments"));
 
         TableColumn<ImpoundLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
@@ -1365,6 +1369,15 @@ public class actionController {
         for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(impoundNumberColumn);
+        setSmallColumnWidth(impoundDateColumn);
+        setSmallColumnWidth(impoundTimeColumn);
+        setSmallColumnWidth(ownerAgeColumn);
+        setSmallColumnWidth(ownerGenderColumn);
+        setSmallColumnWidth(impoundPlateNumberColumn);
+        setSmallColumnWidth(impoundModelColumn);
+        setSmallColumnWidth(impoundColorColumn);
+        setSmallColumnWidth(officerNumberColumn);
     }
 
     public void initializePatrolColumns() {
@@ -1373,37 +1386,37 @@ public class actionController {
         TableColumn<PatrolLogEntry, String> patrolNumberColumn = new TableColumn<>("Patrol #");
         patrolNumberColumn.setCellValueFactory(new PropertyValueFactory<>("patrolNumber"));
 
-        TableColumn<PatrolLogEntry, String> patrolDateColumn = new TableColumn<>("Patrol Date");
+        TableColumn<PatrolLogEntry, String> patrolDateColumn = new TableColumn<>("Date");
         patrolDateColumn.setCellValueFactory(new PropertyValueFactory<>("patrolDate"));
 
-        TableColumn<PatrolLogEntry, String> patrolLengthColumn = new TableColumn<>("Patrol Length");
+        TableColumn<PatrolLogEntry, String> patrolLengthColumn = new TableColumn<>("Length");
         patrolLengthColumn.setCellValueFactory(new PropertyValueFactory<>("patrolLength"));
 
-        TableColumn<PatrolLogEntry, String> patrolStartTimeColumn = new TableColumn<>("Patrol Start Time");
+        TableColumn<PatrolLogEntry, String> patrolStartTimeColumn = new TableColumn<>("Start Time");
         patrolStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStartTime"));
 
-        TableColumn<PatrolLogEntry, String> patrolStopTimeColumn = new TableColumn<>("Patrol Stop Time");
+        TableColumn<PatrolLogEntry, String> patrolStopTimeColumn = new TableColumn<>("Stop Time");
         patrolStopTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStopTime"));
 
-        TableColumn<PatrolLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+        TableColumn<PatrolLogEntry, String> officerRankColumn = new TableColumn<>("Rank");
         officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 
-        TableColumn<PatrolLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+        TableColumn<PatrolLogEntry, String> officerNameColumn = new TableColumn<>("Name");
         officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 
-        TableColumn<PatrolLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+        TableColumn<PatrolLogEntry, String> officerNumberColumn = new TableColumn<>("Number");
         officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 
-        TableColumn<PatrolLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+        TableColumn<PatrolLogEntry, String> officerDivisionColumn = new TableColumn<>("Division");
         officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 
-        TableColumn<PatrolLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+        TableColumn<PatrolLogEntry, String> officerAgencyColumn = new TableColumn<>("Agency");
         officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        TableColumn<PatrolLogEntry, String> officerVehicleColumn = new TableColumn<>("Officer Vehicle");
+        TableColumn<PatrolLogEntry, String> officerVehicleColumn = new TableColumn<>("Vehicle");
         officerVehicleColumn.setCellValueFactory(new PropertyValueFactory<>("officerVehicle"));
 
-        TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Patrol Comments");
+        TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Comments");
         patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 
         // Create a list to hold all the TableColumn instances for patrolTable
@@ -1429,6 +1442,12 @@ public class actionController {
         for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(patrolNumberColumn);
+        setSmallColumnWidth(patrolDateColumn);
+        setSmallColumnWidth(patrolLengthColumn);
+        setSmallColumnWidth(patrolStartTimeColumn);
+        setSmallColumnWidth(patrolStopTimeColumn);
+        setSmallColumnWidth(officerNumberColumn);
     }
 
     public void initializeCitationColumns() {
@@ -1446,43 +1465,43 @@ public class actionController {
         TableColumn<TrafficCitationLogEntry, String> citationChargesColumn = new TableColumn<>("Charges");
         citationChargesColumn.setCellValueFactory(new PropertyValueFactory<>("citationCharges"));
 
-        TableColumn<TrafficCitationLogEntry, String> citationCountyColumn = new TableColumn<>("Citation County");
+        TableColumn<TrafficCitationLogEntry, String> citationCountyColumn = new TableColumn<>("County");
         citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
 
-        TableColumn<TrafficCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Citation Area");
+        TableColumn<TrafficCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Area");
         citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
 
-        TableColumn<TrafficCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Citation Street");
+        TableColumn<TrafficCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Street");
         citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Offender Name");
+        TableColumn<TrafficCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Sus. Name");
         offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Offender Gender");
+        TableColumn<TrafficCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Sus. Gender");
         offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Offender Age");
+        TableColumn<TrafficCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Sus. Age");
         offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderHomeAddressColumn = new TableColumn<>("Offender Address");
+        TableColumn<TrafficCitationLogEntry, String> offenderHomeAddressColumn = new TableColumn<>("Sus. Address");
         offenderHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("offenderHomeAddress"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Offender Description");
+        TableColumn<TrafficCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Sus. Description");
         offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Offender Vehicle Model");
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Sus. Veh. Model");
         offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Offender Vehicle Color");
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Sus. Veh. Color");
         offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Offender Vehicle Type");
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Sus. Veh. Type");
         offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("Offender Vehicle Plate");
+        TableColumn<TrafficCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("Sus. Veh. Plate");
         offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
 
-        TableColumn<TrafficCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Offender Vehicle Other");
+        TableColumn<TrafficCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Sus. Veh. Other");
         offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
 
         TableColumn<TrafficCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
@@ -1537,6 +1556,14 @@ public class actionController {
         for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(citationNumberColumn);
+        setSmallColumnWidth(citationDateColumn);
+        setSmallColumnWidth(citationTimeColumn);
+        setSmallColumnWidth(offenderGenderColumn);
+        setSmallColumnWidth(offenderAgeColumn);
+        setSmallColumnWidth(offenderVehicleColorColumn);
+        setSmallColumnWidth(offenderVehiclePlateColumn);
+        setSmallColumnWidth(officerNumberColumn);
     }
 
     public void initializeArrestColumns() {
@@ -1554,40 +1581,40 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> arrestChargesColumn = new TableColumn<>("Charges");
         arrestChargesColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCharges"));
 
-        TableColumn<ArrestLogEntry, String> arrestCountyColumn = new TableColumn<>("Arrest County");
+        TableColumn<ArrestLogEntry, String> arrestCountyColumn = new TableColumn<>("County");
         arrestCountyColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCounty"));
 
-        TableColumn<ArrestLogEntry, String> arrestAreaColumn = new TableColumn<>("Arrest Area");
+        TableColumn<ArrestLogEntry, String> arrestAreaColumn = new TableColumn<>("Area");
         arrestAreaColumn.setCellValueFactory(new PropertyValueFactory<>("arrestArea"));
 
-        TableColumn<ArrestLogEntry, String> arrestStreetColumn = new TableColumn<>("Arrest Street");
+        TableColumn<ArrestLogEntry, String> arrestStreetColumn = new TableColumn<>("Street");
         arrestStreetColumn.setCellValueFactory(new PropertyValueFactory<>("arrestStreet"));
 
-        TableColumn<ArrestLogEntry, String> arresteeNameColumn = new TableColumn<>("Arrestee Name");
+        TableColumn<ArrestLogEntry, String> arresteeNameColumn = new TableColumn<>("Sus. Name");
         arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
 
-        TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Arrestee Age/DOB");
+        TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Sus. Age/DOB");
         arresteeAgeColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeAge"));
 
-        TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Arrestee Gender");
+        TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Sus. Gender");
         arresteeGenderColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeGender"));
 
-        TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Arrestee Description");
+        TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Sus. Description");
         arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
 
-        TableColumn<ArrestLogEntry, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance Requested");
+        TableColumn<ArrestLogEntry, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance (Y/N)");
         ambulanceYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("ambulanceYesNo"));
 
-        TableColumn<ArrestLogEntry, String> taserYesNoColumn = new TableColumn<>("Taser Deployed");
+        TableColumn<ArrestLogEntry, String> taserYesNoColumn = new TableColumn<>("Taser (Y/N)");
         taserYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("TaserYesNo"));
 
-        TableColumn<ArrestLogEntry, String> arresteeMedicalInformationColumn = new TableColumn<>("Medical Information");
+        TableColumn<ArrestLogEntry, String> arresteeMedicalInformationColumn = new TableColumn<>("Med. Info.");
         arresteeMedicalInformationColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeMedicalInformation"));
 
-        TableColumn<ArrestLogEntry, String> arresteeHomeAddressColumn = new TableColumn<>("Home Address");
+        TableColumn<ArrestLogEntry, String> arresteeHomeAddressColumn = new TableColumn<>("Sus. Address");
         arresteeHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeHomeAddress"));
 
-        TableColumn<ArrestLogEntry, String> arrestDetailsColumn = new TableColumn<>("Arrest Details");
+        TableColumn<ArrestLogEntry, String> arrestDetailsColumn = new TableColumn<>("Details");
         arrestDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDetails"));
 
         TableColumn<ArrestLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
@@ -1637,7 +1664,14 @@ public class actionController {
         for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
             column.setMinWidth(minColumnWidth);
         }
-
+        setSmallColumnWidth(arrestNumberColumn);
+        setSmallColumnWidth(arrestDateColumn);
+        setSmallColumnWidth(arrestTimeColumn);
+        setSmallColumnWidth(arresteeAgeColumn);
+        setSmallColumnWidth(arresteeGenderColumn);
+        setSmallColumnWidth(ambulanceYesNoColumn);
+        setSmallColumnWidth(taserYesNoColumn);
+        setSmallColumnWidth(officerNumberColumn);
     }
 
     public void initializeIncidentColumns() {
@@ -1666,7 +1700,7 @@ public class actionController {
         TableColumn<IncidentLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
         officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 
-        TableColumn<IncidentLogEntry, String> officerNumberColumn = new TableColumn<>("Officer Number");
+        TableColumn<IncidentLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
         officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 
         TableColumn<IncidentLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
@@ -1675,16 +1709,16 @@ public class actionController {
         TableColumn<IncidentLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
         officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 
-        TableColumn<IncidentLogEntry, String> incidentStreetColumn = new TableColumn<>("Incident Street");
+        TableColumn<IncidentLogEntry, String> incidentStreetColumn = new TableColumn<>("Street");
         incidentStreetColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStreet"));
 
-        TableColumn<IncidentLogEntry, String> incidentAreaColumn = new TableColumn<>("Incident Area");
+        TableColumn<IncidentLogEntry, String> incidentAreaColumn = new TableColumn<>("Area");
         incidentAreaColumn.setCellValueFactory(new PropertyValueFactory<>("incidentArea"));
 
-        TableColumn<IncidentLogEntry, String> incidentCountyColumn = new TableColumn<>("Incident County");
+        TableColumn<IncidentLogEntry, String> incidentCountyColumn = new TableColumn<>("County");
         incidentCountyColumn.setCellValueFactory(new PropertyValueFactory<>("incidentCounty"));
 
-        TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Incident Details");
+        TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Details");
         incidentActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("incidentActionsTaken"));
 
         TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
@@ -1715,6 +1749,10 @@ public class actionController {
         for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(incidentNumberColumn);
+        setSmallColumnWidth(incidentDateColumn);
+        setSmallColumnWidth(incidentTimeColumn);
+        setSmallColumnWidth(officerNumberColumn);
     }
 
     public void initializeSearchColumns() {
@@ -1723,22 +1761,22 @@ public class actionController {
         TableColumn<SearchLogEntry, String> searchNumberColumn = new TableColumn<>("Search #");
         searchNumberColumn.setCellValueFactory(new PropertyValueFactory<>("SearchNumber"));
 
-        TableColumn<SearchLogEntry, String> searchDateColumn = new TableColumn<>("Search Date");
+        TableColumn<SearchLogEntry, String> searchDateColumn = new TableColumn<>("Date");
         searchDateColumn.setCellValueFactory(new PropertyValueFactory<>("searchDate"));
 
-        TableColumn<SearchLogEntry, String> searchTimeColumn = new TableColumn<>("Search Time");
+        TableColumn<SearchLogEntry, String> searchTimeColumn = new TableColumn<>("Time");
         searchTimeColumn.setCellValueFactory(new PropertyValueFactory<>("searchTime"));
 
-        TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sobriety");
+        TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sob.");
         searchSeizedItemsColumn.setCellValueFactory(new PropertyValueFactory<>("searchSeizedItems"));
 
         TableColumn<SearchLogEntry, String> searchGroundsColumn = new TableColumn<>("Grounds");
         searchGroundsColumn.setCellValueFactory(new PropertyValueFactory<>("searchGrounds"));
 
-        TableColumn<SearchLogEntry, String> searchTypeColumn = new TableColumn<>("Search Type");
+        TableColumn<SearchLogEntry, String> searchTypeColumn = new TableColumn<>("Type");
         searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
 
-        TableColumn<SearchLogEntry, String> searchMethodColumn = new TableColumn<>("Search Method");
+        TableColumn<SearchLogEntry, String> searchMethodColumn = new TableColumn<>("Method");
         searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
 
         TableColumn<SearchLogEntry, String> searchWitnessesColumn = new TableColumn<>("Witnesses");
@@ -1759,28 +1797,28 @@ public class actionController {
         TableColumn<SearchLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
         officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 
-        TableColumn<SearchLogEntry, String> searchStreetColumn = new TableColumn<>("Search Street");
+        TableColumn<SearchLogEntry, String> searchStreetColumn = new TableColumn<>("Street");
         searchStreetColumn.setCellValueFactory(new PropertyValueFactory<>("searchStreet"));
 
-        TableColumn<SearchLogEntry, String> searchAreaColumn = new TableColumn<>("Search Area");
+        TableColumn<SearchLogEntry, String> searchAreaColumn = new TableColumn<>("Area");
         searchAreaColumn.setCellValueFactory(new PropertyValueFactory<>("searchArea"));
 
-        TableColumn<SearchLogEntry, String> searchCountyColumn = new TableColumn<>("Search County");
+        TableColumn<SearchLogEntry, String> searchCountyColumn = new TableColumn<>("County");
         searchCountyColumn.setCellValueFactory(new PropertyValueFactory<>("searchCounty"));
 
         TableColumn<SearchLogEntry, String> searchCommentsColumn = new TableColumn<>("Comments");
         searchCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("searchComments"));
 
-        TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Searched Persons");
+        TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Sus. Searched");
         searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 
-        TableColumn<SearchLogEntry, String> breathalyzerUsedColumn = new TableColumn<>("Breathalyzer Used(Y/N)");
+        TableColumn<SearchLogEntry, String> breathalyzerUsedColumn = new TableColumn<>("Breathalyzer (Y/N)");
         breathalyzerUsedColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerUsed"));
 
-        TableColumn<SearchLogEntry, String> breathalyzerResultColumn = new TableColumn<>("Result(P/F)");
+        TableColumn<SearchLogEntry, String> breathalyzerResultColumn = new TableColumn<>("Result (P/F)");
         breathalyzerResultColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerResult"));
 
-        TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC Measurement");
+        TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC");
         BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
 
         // Create a list to hold all the TableColumn instances for searchTable
@@ -1808,12 +1846,18 @@ public class actionController {
                 BACMeasurementColumn
         );
 
-// Add all columns to searchTable
         searchTable.getColumns().addAll(searchColumns);
 
         for (TableColumn<SearchLogEntry, ?> column : searchColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(searchNumberColumn);
+        setSmallColumnWidth(searchDateColumn);
+        setSmallColumnWidth(searchTimeColumn);
+        setSmallColumnWidth(officerNumberColumn);
+        setSmallColumnWidth(breathalyzerUsedColumn);
+        setSmallColumnWidth(breathalyzerResultColumn);
+        setSmallColumnWidth(BACMeasurementColumn);
     }
 
     public void initializeTrafficStopColumns() {// Create columns for each property of TrafficStopLogEntry
@@ -1853,7 +1897,7 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 
-        TableColumn<TrafficStopLogEntry, String> plateNumberColumn = new TableColumn<>("Plate Number");
+        TableColumn<TrafficStopLogEntry, String> plateNumberColumn = new TableColumn<>("Plate #");
         plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
 
         TableColumn<TrafficStopLogEntry, String> colorColumn = new TableColumn<>("Color");
@@ -1865,7 +1909,7 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> modelColumn = new TableColumn<>("Model");
         modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
 
-        TableColumn<TrafficStopLogEntry, String> otherInfoColumn = new TableColumn<>("Other Info");
+        TableColumn<TrafficStopLogEntry, String> otherInfoColumn = new TableColumn<>("Other Info.");
         otherInfoColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseOtherInfo"));
 
         TableColumn<TrafficStopLogEntry, String> operatorNameColumn = new TableColumn<>("Operator Name");
@@ -1914,6 +1958,16 @@ public class actionController {
         for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(stopNumberColumn);
+        setSmallColumnWidth(dateColumn);
+        setSmallColumnWidth(timeColumn);
+        setSmallColumnWidth(operatorAgeColumn);
+        setSmallColumnWidth(operatorGenderColumn);
+        setSmallColumnWidth(numberColumn);
+        setSmallColumnWidth(plateNumberColumn);
+        setSmallColumnWidth(colorColumn);
+        setSmallColumnWidth(numberColumn);
+
     }
 
     public void initializeCalloutColumns() {
@@ -1981,6 +2035,11 @@ public class actionController {
         for (TableColumn<CalloutLogEntry, ?> column : columns) {
             column.setMinWidth(minColumnWidth);
         }
+        setSmallColumnWidth(calloutNumberColumn);
+        setSmallColumnWidth(dateColumn);
+        setSmallColumnWidth(timeColumn);
+        setSmallColumnWidth(numberColumn);
+        setSmallColumnWidth(responseGradeColumn);
     }
 
     @javafx.fxml.FXML

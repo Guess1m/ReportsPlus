@@ -19,6 +19,7 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.stringUtil;
@@ -61,18 +62,16 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.LogUtils.*;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
 
+    public static String notesText;
 
     //<editor-fold desc="FXML Elements">
-
-
-    public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     static double minColumnWidth = 185.0;
     @javafx.fxml.FXML
@@ -117,9 +116,7 @@ public class actionController {
     public Button updateInfoBtn;
     @javafx.fxml.FXML
     public MenuButton settingsDropdown;
-    private double xOffset = 0;
-    private double yOffset = 0;
-    private MedicalInformation medicalInformationController;
+    actionController controller;
     private NotesViewController notesViewController;
     @javafx.fxml.FXML
     private Label secondaryColor2;
@@ -166,7 +163,6 @@ public class actionController {
     private MenuItem arrestReportButton;
     @javafx.fxml.FXML
     private MenuItem trafficCitationReportButton;
-    private DUIInformationController duiInformationController;
     @javafx.fxml.FXML
     private RadioMenuItem startupFullscreenToggleBtn;
     @javafx.fxml.FXML
@@ -459,6 +455,20 @@ public class actionController {
 
 
     public void initialize() throws IOException {
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) vbox.getScene().getWindow();
+
+            stage.setOnHiding(event -> {
+                log("Stage has been hidden", LogUtils.Severity.DEBUG);
+            });
+
+            stage.setOnHidden(event -> {
+                endLog();
+            });
+        });
+
+
         setDisable(infoPane, logPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);
@@ -471,9 +481,6 @@ public class actionController {
         startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
 
         notesText = "";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("popOvers/DUIInformation.fxml"));
-        loader.load();
-        duiInformationController = loader.getController();
 
         refreshChart();
         updateChartIfMismatch(reportChart);

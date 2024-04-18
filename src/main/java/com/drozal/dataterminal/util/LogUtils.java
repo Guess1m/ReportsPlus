@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util;
 
+import com.drozal.dataterminal.DataTerminalHomeApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
@@ -62,6 +63,12 @@ public class LogUtils {
         });
     }
 
+    public static void endLog() {
+        String logMessage = "----------------------------- END LOG [" + DataTerminalHomeApplication.getTime() + "] -----------------------------";
+        System.out.println(logMessage);
+        System.out.println();
+    }
+
     public static void log(String message, Severity severity) {
         String logMessage = "[" + getDate() + "] [" + getTime() + "] [" + severity + "] " + message;
         System.out.println(logMessage); // This alone will log to both console and file
@@ -86,6 +93,7 @@ public class LogUtils {
                 }
 
                 TextFlow textFlow = createStyledText(line);
+                textFlow.setStyle("-fx-background-color: transparent;");
                 if (!textFlow.getChildren().isEmpty()) {
                     logItems.add(textFlow);
                 }
@@ -160,20 +168,22 @@ public class LogUtils {
             setColorBasedOnTag(normalText, line);
             textFlow.getChildren().add(normalText);
         }
-
         return textFlow;
     }
 
     private static void setColorBasedOnTag(Text text, String line) {
+        text.setStyle("-fx-font-size: 12.9;");
         if (line.contains("[INFO]")) {
             text.setFill(Color.BLUE);
         } else if (line.contains("[WARN]")) {
-            text.setFill(Color.DARKORANGE);
+            text.setFill(Color.ORANGERED);
         } else if (line.contains("[DEBUG]")) {
             text.setFill(Color.PURPLE);
             text.setStyle("-fx-font-weight: bold;");
         } else if (line.contains("[ERROR]")) {
-            text.setFill(Color.RED);
+            text.setFill(Color.DARKRED);
+        } else if (line.contains("END LOG")) {
+            text.setFill(Color.DARKGREEN);
         } else {
             text.setFill(Color.BLACK);
         }
@@ -184,12 +194,14 @@ public class LogUtils {
         readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
         listView.setItems(logItems);
 
+        listView.setStyle("-fx-padding: 0;");
         listView.setCellFactory(lv -> new ListCell<TextFlow>() {
             @Override
             protected void updateItem(TextFlow item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
                     setGraphic(item);
+                    setStyle("-fx-background-color:transparent;");
                 } else {
                     setGraphic(null);
                 }

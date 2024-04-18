@@ -18,6 +18,14 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException {
         loadFonts();
+        log("sample debug", LogUtils.Severity.DEBUG);
+
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            logError("Test Error Message ", e);
+        }
+
         String folderPath = "";
         String dataFolderPath = stringUtil.getJarPath() + File.separator + "data";
 

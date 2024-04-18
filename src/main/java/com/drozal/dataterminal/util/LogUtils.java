@@ -47,9 +47,9 @@ public class LogUtils {
             throw new RuntimeException("Failed to create log file", e);
         }
 
-        Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
+        /*Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
             logError("Uncaught exception in thread " + thread, e);
-        });
+        });*/
     }
 
     public static void log(String message, Severity severity) {
@@ -58,12 +58,13 @@ public class LogUtils {
     }
 
     public static void logError(String message, Throwable e) {
-        String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] *** " + message;
+        String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] " + message;
         System.err.println(errorMessage); // This alone will log to both console and file
         e.printStackTrace(System.err);
+        System.err.println("***"); // This alone will log to both console and file
     }
 
     public enum Severity {
-        DEBUG, INFO, WARN, ERROR
+        DEBUG, INFO, WARN, ERROR,
     }
 }

@@ -9,8 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.LogUtils.*;
 import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 
@@ -68,7 +67,13 @@ public class Launcher {
             newOfficerApplication.main(args);
         }
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log("Application Shutting Down", Severity.DEBUG);
+            endLog();
+        }));
+
     }
+
 
     public static void loadFonts() {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);

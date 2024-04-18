@@ -40,9 +40,9 @@
                                             </color>
                                         </DropShadow>
                                     </effect>
-                                    <padding>
-                                        <Insets left="15.0"/>
-                                    </padding>
+                                    <GridPane.margin>
+                                        <Insets left="-50.0"/>
+                                    </GridPane.margin>
                                 </Label>
                                 <AnchorPane>
                                     <children>

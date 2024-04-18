@@ -1564,6 +1564,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
                                 <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
                                           text="Clear All Save Data"/>
+                                <MenuItem mnemonicParsing="false" onAction="#logOutputBtnPress" text="LogOutput"/>
                                 <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
                             </items>
                             <GridPane.margin>

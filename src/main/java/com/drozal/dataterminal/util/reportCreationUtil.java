@@ -1041,8 +1041,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : calloutReportMap.keySet()) {
                 Object field = calloutReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -1195,8 +1194,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : impoundReportMap.keySet()) {
                 Object field = impoundReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -1313,8 +1311,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : patrolReportMap.keySet()) {
                 Object field = patrolReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -1565,8 +1562,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : impoundReportMap.keySet()) {
                     Object field = impoundReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -1619,8 +1615,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : citationReportMap.keySet()) {
                 Object field = citationReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -1767,8 +1762,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : incidentReportMap.keySet()) {
                 Object field = incidentReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -1913,8 +1907,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : searchReportMap.keySet()) {
                 Object field = searchReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -2171,8 +2164,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : impoundReportMap.keySet()) {
                     Object field = impoundReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -2289,8 +2281,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : incidentReportMap.keySet()) {
                     Object field = incidentReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -2412,8 +2403,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : searchReportMap.keySet()) {
                     Object field = searchReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -2472,8 +2462,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : arrestReportMap.keySet()) {
                 Object field = arrestReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -2816,8 +2805,7 @@ public class reportCreationUtil {
                     boolean allFieldsFilled = true;
                     for (String fieldName : impoundReportMap.keySet()) {
                         Object field = impoundReportMap.get(fieldName);
-                        if (field instanceof ComboBox<?>) {
-                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (field instanceof ComboBox<?> comboBox) {
                             if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                                 allFieldsFilled = false;
                                 break;
@@ -2934,8 +2922,7 @@ public class reportCreationUtil {
                     boolean allFieldsFilled = true;
                     for (String fieldName : incidentReportMap.keySet()) {
                         Object field = incidentReportMap.get(fieldName);
-                        if (field instanceof ComboBox<?>) {
-                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (field instanceof ComboBox<?> comboBox) {
                             if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                                 allFieldsFilled = false;
                                 break;
@@ -3057,8 +3044,7 @@ public class reportCreationUtil {
                     boolean allFieldsFilled = true;
                     for (String fieldName : searchReportMap.keySet()) {
                         Object field = searchReportMap.get(fieldName);
-                        if (field instanceof ComboBox<?>) {
-                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (field instanceof ComboBox<?> comboBox) {
                             if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                                 allFieldsFilled = false;
                                 break;
@@ -3117,8 +3103,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : arrestReportMap.keySet()) {
                     Object field = arrestReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -3341,8 +3326,7 @@ public class reportCreationUtil {
                     boolean allFieldsFilled = true;
                     for (String fieldName : impoundReportMap.keySet()) {
                         Object field = impoundReportMap.get(fieldName);
-                        if (field instanceof ComboBox<?>) {
-                            ComboBox<?> comboBox = (ComboBox<?>) field;
+                        if (field instanceof ComboBox<?> comboBox) {
                             if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                                 allFieldsFilled = false;
                                 break;
@@ -3395,8 +3379,7 @@ public class reportCreationUtil {
                 boolean allFieldsFilled = true;
                 for (String fieldName : citationReportMap.keySet()) {
                     Object field = citationReportMap.get(fieldName);
-                    if (field instanceof ComboBox<?>) {
-                        ComboBox<?> comboBox = (ComboBox<?>) field;
+                    if (field instanceof ComboBox<?> comboBox) {
                         if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                             allFieldsFilled = false;
                             break;
@@ -3463,8 +3446,7 @@ public class reportCreationUtil {
             boolean allFieldsFilled = true;
             for (String fieldName : trafficStopReportMap.keySet()) {
                 Object field = trafficStopReportMap.get(fieldName);
-                if (field instanceof ComboBox<?>) {
-                    ComboBox<?> comboBox = (ComboBox<?>) field;
+                if (field instanceof ComboBox<?> comboBox) {
                     if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
                         allFieldsFilled = false;
                         break;
@@ -3532,7 +3514,7 @@ public class reportCreationUtil {
         COMBO_BOX_SEARCH_METHOD,
         CITATION_TREE_VIEW,
         CHARGES_TREE_VIEW,
-        TRANSFER_BUTTON;
+        TRANSFER_BUTTON
     }
 
 

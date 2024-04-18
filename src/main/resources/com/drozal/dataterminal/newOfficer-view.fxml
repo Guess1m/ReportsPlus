@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0"
-            prefHeight="395.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0" prefHeight="395.0"
             prefWidth="620.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.newOfficerController">
     <children>
@@ -106,9 +105,10 @@
                                 <Font name="Candara Bold" size="18.0"/>
                             </font>
                         </Button>
-                        <Label fx:id="incompleteLabel" alignment="CENTER" prefHeight="79.0" prefWidth="376.0"
-                               text="Please Fill Out the Form Completely." textAlignment="CENTER" textFill="#ff3c3c"
-                               visible="false">
+                        <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="348.0" layoutY="253.0"
+                               prefHeight="41.0" prefWidth="139.0" text="Please Fill Out the Form Completely."
+                               textAlignment="CENTER" textFill="#ff3c3c" visible="false" AnchorPane.bottomAnchor="14.0"
+                               AnchorPane.rightAnchor="117.0">
                             <font>
                                 <Font name="Candara" size="16.0"/>
                             </font>

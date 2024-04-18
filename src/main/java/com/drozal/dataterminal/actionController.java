@@ -19,7 +19,6 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.stringUtil;
@@ -62,7 +61,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.drozal.dataterminal.util.LogUtils.*;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
@@ -74,6 +73,8 @@ public class actionController {
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     static double minColumnWidth = 185.0;
+    private static Stage mapStage = null;
+    private static Stage notesStage = null;
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -442,33 +443,18 @@ public class actionController {
     private HBox arrestInfo;
     @javafx.fxml.FXML
     private TabPane tabPane;
-    @javafx.fxml.FXML
-    private TableView incidentTable;
-    @javafx.fxml.FXML
-    private TextField incwitness;
 
 
     //</editor-fold>
 
 
     //<editor-fold desc="Utils">
-
+    @javafx.fxml.FXML
+    private TableView incidentTable;
+    @javafx.fxml.FXML
+    private TextField incwitness;
 
     public void initialize() throws IOException {
-
-        Platform.runLater(() -> {
-            Stage stage = (Stage) vbox.getScene().getWindow();
-
-            stage.setOnHiding(event -> {
-                log("Stage has been hidden", LogUtils.Severity.DEBUG);
-            });
-
-            stage.setOnHidden(event -> {
-                endLog();
-            });
-        });
-
-
         setDisable(infoPane, logPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);
@@ -583,6 +569,12 @@ public class actionController {
 
         getReportChart().getData().add(series1);
     }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Getters">
 
     private void loadTheme() throws IOException {
         changeBarColors(getReportChart());
@@ -898,12 +890,6 @@ public class actionController {
 
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Getters">
-
     public ComboBox getOfficerInfoDivision() {
         return OfficerInfoDivision;
     }
@@ -932,6 +918,12 @@ public class actionController {
         return reportChart;
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="WindowUtils">
+
     public ComboBox getOfficerInfoAgency() {
         return OfficerInfoAgency;
     }
@@ -940,17 +932,17 @@ public class actionController {
         return shiftInformationPane;
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="WindowUtils">
-
-
     @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
         Platform.exit();
     }
+
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Side Button Events">
+
 
     @javafx.fxml.FXML
     public void onMinimizeBtnClick(Event event) {
@@ -966,71 +958,81 @@ public class actionController {
         }
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Side Button Events">
-
-
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        if (mapStage != null && mapStage.isShowing()) {
+            mapStage.toFront();
+            return;
+        }
+
+        mapStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("map-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        stage.setTitle("Los Santos Map");
-        stage.setScene(newScene);
-        stage.initStyle(StageStyle.UTILITY);
-        stage.setResizable(false);
-        stage.show();
-        stage.centerOnScreen();
+        mapStage.setTitle("Los Santos Map");
+        mapStage.setScene(newScene);
+        mapStage.initStyle(StageStyle.UTILITY);
+        mapStage.setResizable(false);
+        mapStage.show();
+        mapStage.centerOnScreen();
+        mapStage.setAlwaysOnTop(true);
         showButtonAnimation(mapButton);
+
+        mapStage.setOnHidden(event -> {
+            mapStage = null;
+        });
     }
 
     @javafx.fxml.FXML
     public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        if (notesStage != null && notesStage.isShowing()) {
+            notesStage.toFront();
+            notesStage.requestFocus();
+            return;
+        }
+
+        notesStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
         Parent root = loader.load();
         notesViewController = loader.getController();
-        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
-        stage.setTitle("Notes");
-        stage.setScene(newScene);
-        stage.setResizable(true);
-        stage.initOwner(DataTerminalHomeApplication.getMainRT());
-        stage.show();
+        BorderlessScene newScene = new BorderlessScene(notesStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        notesStage.setTitle("Notes");
+        notesStage.setScene(newScene);
+        notesStage.setResizable(true);
+        notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
+        notesStage.show();
 
         String startupValue = ConfigReader.configRead("notesWindowLayout");
         switch (startupValue) {
-            case "TopLeft" -> snapToTopLeft(stage);
-            case "TopRight" -> snapToTopRight(stage);
-            case "BottomLeft" -> snapToBottomLeft(stage);
-            case "BottomRight" -> snapToBottomRight(stage);
-            case "FullLeft" -> snapToLeft(stage);
-            case "FullRight" -> snapToRight(stage);
+            case "TopLeft" -> snapToTopLeft(notesStage);
+            case "TopRight" -> snapToTopRight(notesStage);
+            case "BottomLeft" -> snapToBottomLeft(notesStage);
+            case "BottomRight" -> snapToBottomRight(notesStage);
+            case "FullLeft" -> snapToLeft(notesStage);
+            case "FullRight" -> snapToRight(notesStage);
             default -> {
-                stage.centerOnScreen();
-                stage.setMinHeight(300);
-                stage.setMinWidth(300);
+                notesStage.centerOnScreen();
+                notesStage.setMinHeight(300);
+                notesStage.setMinWidth(300);
             }
         }
-        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
+        notesStage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
         AnchorPane topbar = notesViewController.getTitlebar();
         newScene.setMoveControl(topbar);
-        stage.setAlwaysOnTop(true);
+        notesStage.setAlwaysOnTop(true);
 
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
+        notesStage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
+                notesStage = null;
                 actionController.notesText = notesViewController.getNotepadTextArea().getText();
             }
         });
     }
 
     @javafx.fxml.FXML
-    public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
+    public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
         setDisable(infoPane, logPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
@@ -1038,37 +1040,7 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onLogsButtonClick(ActionEvent actionEvent) throws IOException {
-        /*Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("logBrowser.fxml"));
-        Parent root = loader.load();
-        LogBrowserController logBrowserController = loader.getController();
-        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
-        stage.setTitle("Log Browser");
-        stage.setScene(newScene);
-        stage.setResizable(true);
-        stage.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/terminal.png")));
-        stage.show();
-
-        String startupValue = ConfigReader.configRead("notesWindowLayout");
-        switch (startupValue) {
-            case "TopLeft" -> snapToTopLeft(stage);
-            case "TopRight" -> snapToTopRight(stage);
-            case "BottomLeft" -> snapToBottomLeft(stage);
-            case "BottomRight" -> snapToBottomRight(stage);
-            case "FullLeft" -> snapToLeft(stage);
-            case "FullRight" -> snapToRight(stage);
-            default -> {
-                stage.centerOnScreen();
-                stage.setMinHeight(300);
-                stage.setMinWidth(300);
-            }
-        }
-        stage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
-        showButtonAnimation(logsButton);
-        AnchorPane topbar = logBrowserController.getTitlebar();
-        newScene.setMoveControl(topbar);
-        stage.setAlwaysOnTop(true);*/
+    public void onLogsButtonClick(ActionEvent actionEvent) {
         setDisable(infoPane, shiftInformationPane);
         setActive(logPane);
     }
@@ -1079,6 +1051,19 @@ public class actionController {
 
     //<editor-fold desc="Settings Button Events">
 
+    @javafx.fxml.FXML
+    public void logOutputBtnPress(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
+        Parent root = loader.load();
+        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        AnchorPane topbar = OutputViewController.getTitlebar();
+        newScene.setMoveControl(topbar);
+        stage.setTitle("Report Manager");
+        stage.setScene(newScene);
+        stage.show();
+        stage.centerOnScreen();
+    }
 
     @javafx.fxml.FXML
     public void UISettingsBtnClick(ActionEvent actionEvent) {
@@ -1086,7 +1071,7 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onStartupFullscreenPress(ActionEvent actionEvent) throws IOException {
+    public void onStartupFullscreenPress(ActionEvent actionEvent) {
         if (startupFullscreenToggleBtn.isSelected()) {
             ConfigWriter.configwrite("fullscreenOnStartup", "true");
             startupFullscreenToggleBtn.setSelected(true);
@@ -1098,21 +1083,11 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        /*Stage stage = new Stage();
+        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();
         BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
         AnchorPane topbar = ReportManagerViewController.getTitlebar();
-        newScene.setMoveControl(topbar);
-        stage.setTitle("Report Manager");
-        stage.setScene(newScene);
-        stage.show();
-        stage.centerOnScreen();*/
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
-        Parent root = loader.load();
-        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
-        AnchorPane topbar = OutputViewController.getTitlebar();
         newScene.setMoveControl(topbar);
         stage.setTitle("Report Manager");
         stage.setScene(newScene);

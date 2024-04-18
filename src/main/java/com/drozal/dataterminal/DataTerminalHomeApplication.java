@@ -6,8 +6,6 @@ import com.drozal.dataterminal.util.windowUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -45,13 +43,6 @@ public class DataTerminalHomeApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public static Spinner<Integer> createSpinner(Spinner spinner, int min, int max, int initialValue) {
-        SpinnerValueFactory<Integer> valueFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, initialValue);
-        spinner.setValueFactory(valueFactory);
-        return spinner;
     }
 
     @Override

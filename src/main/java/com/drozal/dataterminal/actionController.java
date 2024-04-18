@@ -1091,11 +1091,21 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();
         BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
         AnchorPane topbar = ReportManagerViewController.getTitlebar();
+        newScene.setMoveControl(topbar);
+        stage.setTitle("Report Manager");
+        stage.setScene(newScene);
+        stage.show();
+        stage.centerOnScreen();*/
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
+        Parent root = loader.load();
+        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        AnchorPane topbar = OutputViewController.getTitlebar();
         newScene.setMoveControl(topbar);
         stage.setTitle("Report Manager");
         stage.setScene(newScene);

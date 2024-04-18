@@ -55,7 +55,17 @@ public class OutputViewController extends Application {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                logItems.add(createStyledText(line));
+                if (line.trim().equals("***")) {
+                    if (inErrorBlock) {
+                        inErrorBlock = false;
+                        continue;
+                    }
+                }
+
+                TextFlow textFlow = createStyledText(line);
+                if (!textFlow.getChildren().isEmpty()) {
+                    logItems.add(textFlow);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,8 +74,13 @@ public class OutputViewController extends Application {
 
     private TextFlow createStyledText(String line) {
         TextFlow textFlow = new TextFlow();
+        if (line.trim().equals("***")) {
+            if (inErrorBlock) {
+                inErrorBlock = false;
+            }
+            return textFlow;
+        }
 
-        // Process the text depending on whether we're in an error block
         if (inErrorBlock) {
             int endIndex = line.indexOf("***");
             if (endIndex != -1) {
@@ -73,9 +88,8 @@ public class OutputViewController extends Application {
                 Text errorText = new Text(errorTextStr);
                 errorText.setFill(Color.RED);
                 textFlow.getChildren().add(errorText);
-                inErrorBlock = false; // We've found the end of the error block
+                inErrorBlock = false;
 
-                // Any text after the end of an error block is normal text
                 if (endIndex + 3 < line.length()) {
                     String afterErrorTextStr = line.substring(endIndex + 3);
                     Text afterErrorText = new Text(afterErrorTextStr);
@@ -83,7 +97,6 @@ public class OutputViewController extends Application {
                     textFlow.getChildren().add(afterErrorText);
                 }
             } else {
-                // The whole line is error text
                 Text errorText = new Text(line);
                 errorText.setFill(Color.RED);
                 textFlow.getChildren().add(errorText);
@@ -92,7 +105,6 @@ public class OutputViewController extends Application {
             int startErrorIndex = line.indexOf("***");
             int endErrorIndex = line.indexOf("***", startErrorIndex + 3);
 
-            // Add any normal text before the error block
             if (startErrorIndex > 0) {
                 String beforeErrorTextStr = line.substring(0, startErrorIndex);
                 Text beforeErrorText = new Text(beforeErrorTextStr);
@@ -100,7 +112,6 @@ public class OutputViewController extends Application {
                 textFlow.getChildren().add(beforeErrorText);
             }
 
-            // Check if the error block closes on the same line
             if (endErrorIndex != -1) {
                 String errorTextStr = line.substring(startErrorIndex + 3, endErrorIndex);
                 Text errorText = new Text(errorTextStr);
@@ -108,7 +119,6 @@ public class OutputViewController extends Application {
                 textFlow.getChildren().add(errorText);
                 inErrorBlock = false;
 
-                // Any text after the error block
                 if (endErrorIndex + 3 < line.length()) {
                     String afterErrorTextStr = line.substring(endErrorIndex + 3);
                     Text afterErrorText = new Text(afterErrorTextStr);
@@ -116,15 +126,13 @@ public class OutputViewController extends Application {
                     textFlow.getChildren().add(afterErrorText);
                 }
             } else {
-                // Error block doesn't close on the same line
-                String errorTextStr = line.substring(startErrorIndex + 3);
+                String errorTextStr = line.substring(startErrorIndex + 4);
                 Text errorText = new Text(errorTextStr);
                 errorText.setFill(Color.RED);
                 textFlow.getChildren().add(errorText);
                 inErrorBlock = true;
             }
         } else {
-            // Normal text
             Text normalText = new Text(line);
             setColorBasedOnTag(normalText, line);
             textFlow.getChildren().add(normalText);

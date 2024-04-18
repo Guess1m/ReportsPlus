@@ -50,23 +50,16 @@ public class Launcher {
 
 
         try {
-            // Get the directory path where the JAR file is located
             String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             File jarFile = new File(jarPath);
             String jarDir = jarFile.getParent();
-
-            // Append the folder name to the directory path
             folderPath = jarDir + File.separator + "DataLogs";
         } catch (URISyntaxException e) {
             logError("JarDir Syntax Error ", e);
         }
-
-        // Create a File object representing the folder
         File folder = new File(folderPath);
-        // Check if the folder already exists
         if (!folder.exists()) {
-            // If the folder does not exist, create it
-            boolean folderCreated = folder.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
+            boolean folderCreated = folder.mkdirs();
             if (folderCreated) {
                 log("DataLogs: " + folder.getAbsolutePath(), LogUtils.Severity.INFO);
             } else {

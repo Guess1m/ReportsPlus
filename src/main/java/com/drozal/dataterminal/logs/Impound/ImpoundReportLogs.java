@@ -22,6 +22,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.drozal.dataterminal.util.LogUtils.logError;
+
 @XmlRootElement
 public class ImpoundReportLogs {
     private List<ImpoundLogEntry> logs;
@@ -73,7 +75,7 @@ public class ImpoundReportLogs {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Exception", e);
         }
         return logEntries;
     }
@@ -93,7 +95,7 @@ public class ImpoundReportLogs {
             // Count the number of reports
             return logs.size();
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Exception", e);
             return -1; // Return -1 to indicate an error
         }
     }
@@ -110,7 +112,7 @@ public class ImpoundReportLogs {
             ImpoundReportLogs logList = (ImpoundReportLogs) unmarshaller.unmarshal(filePath.toFile());
             return logList.getLogs();
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logError("Exception", e);
             return new ArrayList<>(); // Return an empty list if loading fails
         }
     }
@@ -129,7 +131,7 @@ public class ImpoundReportLogs {
                 marshaller.marshal(logList, fos);
             }
         } catch (JAXBException | IOException e) {
-            e.printStackTrace();
+            logError("Exception", e);
         }
     }
 

@@ -3,6 +3,7 @@ package com.drozal.dataterminal;
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.windowUtils;
 import javafx.animation.KeyFrame;
@@ -28,6 +29,8 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class newOfficerController {
@@ -98,7 +101,7 @@ public class newOfficerController {
             try {
                 jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+                logError("NewOfficer JarPath URISyntax Exception", e);
             }
             // Decode the URI path to handle spaces or special characters
             jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
@@ -108,14 +111,14 @@ public class newOfficerController {
             String configFilePath = jarDir + File.separator + "config.properties";
             File configFile = new File(configFilePath);
             if (configFile.exists()) {
-                System.out.println("exists, printing values");
+                log("exists, printing values", LogUtils.Severity.INFO);
             } else {
                 try {
                     // Create the config.properties file in the JAR directory
                     configFile.createNewFile();
-                    System.out.println("Config: " + configFile.getAbsolutePath());
+                    log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
                 } catch (IOException e) {
-                    System.out.println("Failed to create config file: " + e.getMessage());
+                    logError("Failed to create config file", e);
                 }
             }
             // Access the values only if they are not null
@@ -200,6 +203,7 @@ public class newOfficerController {
         try {
             jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
         } catch (URISyntaxException e) {
+            logError("BypassBtnJarPath URISyntax Exception", e);
             throw new RuntimeException(e);
         }
         // Decode the URI path to handle spaces or special characters
@@ -210,14 +214,14 @@ public class newOfficerController {
         String configFilePath = jarDir + File.separator + "config.properties";
         File configFile = new File(configFilePath);
         if (configFile.exists()) {
-            System.out.println("exists, printing values");
+            log("exists, printing values", LogUtils.Severity.INFO);
         } else {
             try {
                 // Create the config.properties file in the JAR directory
                 configFile.createNewFile();
-                System.out.println("Config: " + configFile.getAbsolutePath());
+                log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
             } catch (IOException e) {
-                System.out.println("Failed to create config file: " + e.getMessage());
+                logError("Failed to create config file: ", e);
             }
         }
 

@@ -17,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class treeViewUtils {
@@ -39,7 +41,7 @@ public class treeViewUtils {
                 // Copy the file
                 Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
             } else {
-                System.err.println("Resource not found: " + sourcePathCharges);
+                log("Resource not found: " + sourcePathCharges, LogUtils.Severity.ERROR);
             }
         }
     }
@@ -63,7 +65,7 @@ public class treeViewUtils {
                 // Copy the file
                 Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
             } else {
-                System.err.println("Resource not found: " + sourcePathCitations);
+                log("Resource not found: " + sourcePathCitations, LogUtils.Severity.ERROR);
             }
         }
     }
@@ -82,10 +84,10 @@ public class treeViewUtils {
                 String XMLValue = selectedElement.getAttribute(value);
                 return XMLValue;
             } else {
-                System.out.println("Element not found for value: " + selectedValue);
+                log("Element not found for value: " + selectedValue, LogUtils.Severity.WARN);
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
-            e.printStackTrace();
+            logError("Find XML value error ", e);
         }
         return selectedValue;
     }

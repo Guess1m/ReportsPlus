@@ -4,6 +4,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+
 public class windowUtils {
 
     public static void snapToTopLeft(Stage stage) {
@@ -76,8 +78,7 @@ public class windowUtils {
             stage.setWidth(screenWidth);
             stage.setHeight(screenHeight);
         } else {
-            // Handle the case when no screen is found
-            System.out.println("No screen found for the stage center.");
+            log("No screen found for the stage center.", LogUtils.Severity.WARN);
         }
     }
 

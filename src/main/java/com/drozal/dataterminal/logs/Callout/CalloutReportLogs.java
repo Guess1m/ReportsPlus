@@ -22,6 +22,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.drozal.dataterminal.util.LogUtils.logError;
+
 @XmlRootElement
 public class CalloutReportLogs {
     private List<CalloutLogEntry> logs;
@@ -36,7 +38,7 @@ public class CalloutReportLogs {
             // Count the number of reports
             return logs.size();
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Exception", e);
             return -1; // Return -1 to indicate an error
         }
     }
@@ -80,7 +82,7 @@ public class CalloutReportLogs {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error extracting callout log entries: " + e.getMessage());
+            logError("Error extracting callout log entries: ", e);
         }
 
         return logEntries;
@@ -106,7 +108,7 @@ public class CalloutReportLogs {
             CalloutReportLogs logList = (CalloutReportLogs) unmarshaller.unmarshal(filePath.toFile());
             return logList.getLogs();
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logError("Exception", e);
             return new ArrayList<>(); // Return an empty list if loading fails
         }
     }
@@ -124,7 +126,7 @@ public class CalloutReportLogs {
                 marshaller.marshal(logList, fos);
             }
         } catch (JAXBException | IOException e) {
-            e.printStackTrace();
+            logError("Exception", e);
         }
     }
 

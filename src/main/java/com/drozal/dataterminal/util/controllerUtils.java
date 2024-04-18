@@ -43,6 +43,8 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
@@ -82,8 +84,7 @@ public class controllerUtils {
             // Extract the directory path from the JAR path
             return new File(jarPath).getParent();
         } catch (Exception e) {
-            // Handle exception if URI syntax is incorrect
-            e.printStackTrace();
+            logError("GetJarDirPath Exception", e);
             return ""; // Return empty string if an error occurs
         }
     }
@@ -263,12 +264,12 @@ public class controllerUtils {
             String dataLogsFolderPath = getDataLogsFolderPath();
 
             // Print the path for debugging
-            System.out.println("DataLogs folder path: " + dataLogsFolderPath);
+            log("DataLogs folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
 
             // Check if the DataLogs folder exists
             File dataLogsFolder = new File(dataLogsFolderPath);
             if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
-                System.out.println("DataLogs folder exists.");
+                log("DataLogs folder exists.", LogUtils.Severity.INFO);
 
                 // Get a list of files in the DataLogs folder
                 File[] files = dataLogsFolder.listFiles();
@@ -279,21 +280,21 @@ public class controllerUtils {
                         if (file.isFile()) {
                             try {
                                 Files.deleteIfExists(file.toPath());
-                                System.out.println("Deleted file: " + file.getName());
+                                log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
                             } catch (IOException e) {
-                                System.err.println("Failed to delete file: " + file.getName() + " " + e.getMessage());
+                                logError("Failed to delete file: " + file.getName() + " ", e);
                             }
                         }
                     }
-                    System.out.println("All files in DataLogs folder deleted successfully.");
+                    log("All files in DataLogs folder deleted successfully.", LogUtils.Severity.INFO);
                 } else {
-                    System.out.println("DataLogs folder is empty.");
+                    log("DataLogs folder is empty.", LogUtils.Severity.WARN);
                 }
             } else {
-                System.out.println("DataLogs folder does not exist.");
+                log("DataLogs folder does not exist.", LogUtils.Severity.WARN);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Clear Datalogs Error ", e);
         }
     }
 
@@ -303,12 +304,12 @@ public class controllerUtils {
             String dataLogsFolderPath = getJarPath() + File.separator + "data";
 
             // Print the path for debugging
-            System.out.println("Data folder path: " + dataLogsFolderPath);
+            log("Data folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
 
             // Check if the DataLogs folder exists
             File dataLogsFolder = new File(dataLogsFolderPath);
             if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
-                System.out.println("Data folder exists.");
+                log("Data folder exists.", LogUtils.Severity.INFO);
 
                 // Get a list of files in the DataLogs folder
                 File[] files = dataLogsFolder.listFiles();
@@ -319,21 +320,21 @@ public class controllerUtils {
                         if (file.isFile()) {
                             try {
                                 Files.deleteIfExists(file.toPath());
-                                System.out.println("Deleted file: " + file.getName());
+                                log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
                             } catch (IOException e) {
-                                System.err.println("Failed to delete file: " + file.getName() + " " + e.getMessage());
+                                logError("Failed to delete file: " + file.getName() + " ", e);
                             }
                         }
                     }
-                    System.out.println("All files in Data folder deleted successfully.");
+                    log("All files in Data folder deleted successfully.", LogUtils.Severity.INFO);
                 } else {
-                    System.out.println("Data folder is empty.");
+                    log("Data folder is empty.", LogUtils.Severity.WARN);
                 }
             } else {
-                System.out.println("Data folder does not exist.");
+                log("Data folder does not exist.", LogUtils.Severity.WARN);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Error Clearing Data Folder ", e);
         }
     }
 
@@ -399,17 +400,16 @@ public class controllerUtils {
                 // Delete the config.properties file
                 try {
                     Files.deleteIfExists(configFile.toPath());
-                    System.out.println("Deleted config.properties file.");
+                    log("Deleted config.properties file.", LogUtils.Severity.INFO);
                 } catch (IOException e) {
-                    System.err.println("Failed to delete config.properties file: " + e.getMessage());
+                    logError("Failed to delete config.properties file: ", e);
                 }
             } else {
-                System.out.println("config.properties file does not exist.");
+                log("config.properties file does not exist.", LogUtils.Severity.INFO);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("Error Clearing Config", e);
         } finally {
-            // Close the application after deleting the files
             Platform.exit();
         }
     }
@@ -440,7 +440,7 @@ public class controllerUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logError("ParseLogData Exception", e);
         }
     }
 
@@ -472,6 +472,7 @@ public class controllerUtils {
         try {
             changeStatisticColors(chart);
         } catch (IOException e) {
+            logError("RefreshChart IO Exception", e);
             throw new RuntimeException(e);
         }
     }

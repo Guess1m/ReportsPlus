@@ -6,6 +6,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import static com.drozal.dataterminal.util.LogUtils.logError;
+
 public class ConfigWriter {
 
     public static void configwrite(String database, String value) {
@@ -30,14 +32,14 @@ public class ConfigWriter {
             // Load existing properties
             input = new FileInputStream(configFilePath);
             prop.load(input);
-        } catch (IOException | URISyntaxException io) {
-            io.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
+            logError("ConfigWrite Error Code 1 ", e);
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logError("ConfigWrite Error Code 2 ", e);
                 }
             }
         }
@@ -49,14 +51,14 @@ public class ConfigWriter {
             // Write the updated properties to the file
             output = new FileOutputStream(configFilePath);
             prop.store(output, null);
-        } catch (IOException io) {
-            io.printStackTrace();
+        } catch (IOException e) {
+            logError("ConfigWrite Error Code 3 ", e);
         } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logError("ConfigWrite Error Code 4 ", e);
                 }
             }
         }

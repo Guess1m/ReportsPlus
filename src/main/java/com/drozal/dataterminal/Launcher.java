@@ -1,100 +1,22 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.scene.text.Font;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
 
-/*    private static boolean isRedirected = false;
-
-    public static synchronized void redirectOutputAndErrors() {
-        if (!isRedirected) {
-            PrintStream originalErr = null;
-            try {
-                PrintStream originalOut = System.out;  // Keep the original System.out
-                originalErr = System.err;
-                File logFile = new File(stringUtil.getJarPath() + File.separator + "output.log");
-                FileOutputStream fos = new FileOutputStream(logFile, true);
-                PrintStream logStream = new PrintStream(fos) {
-                    @Override
-                    public void println(String x) {
-                        String formattedMessage = formatWithTimestamp(x);
-                        super.println(formattedMessage);  // Log to file with timestamp
-                        originalOut.println(x);           // Print unformatted to console ONLY HERE
-                    }
-
-                    @Override
-                    public void print(String x) {
-                        String formattedMessage = formatWithTimestamp(x);
-                        super.print(formattedMessage);    // Log to file with timestamp
-                        originalOut.print(x);             // Print unformatted to console ONLY HERE
-                    }
-
-                    private String formatWithTimestamp(String message) {
-                        // Ensures the message isn't already timestamped
-                        if (!message.startsWith("[" + DataTerminalHomeApplication.getDate() + "]")) {
-                            return "[" + DataTerminalHomeApplication.getDate() + "] [" + DataTerminalHomeApplication.getTime() + "] " + message;
-                        }
-                        return message;
-                    }
-                };
-
-                System.setOut(logStream);
-                System.setErr(logStream);
-                isRedirected = true;
-            } catch (FileNotFoundException e) {
-                originalErr.println("Failed to set up logging to file: " + e.getMessage());  // Use the original System.err to log the exception
-            }
-        }
-    }*/
-
-    private static boolean isRedirected = false;
-
-    public static synchronized void redirectOutputAndErrors() {
-        if (!isRedirected) {
-            PrintStream originalOut = System.out;  // Keep the original System.out
-            PrintStream originalErr = System.err;  // Keep the original System.err
-            try {
-                File logFile = new File(stringUtil.getJarPath() + File.separator + "output.log");
-                FileOutputStream fos = new FileOutputStream(logFile, true);
-                PrintStream logStream = new PrintStream(fos) {
-                    @Override
-                    public void println(String x) {
-                        super.println(formatWithTimestamp(x));  // Log to file with timestamp
-                    }
-
-                    @Override
-                    public void print(String x) {
-                        super.print(formatWithTimestamp(x));    // Log to file with timestamp
-                    }
-
-                    private String formatWithTimestamp(String message) {
-                        // Ensures the message isn't already timestamped
-                        if (!message.startsWith("[" + DataTerminalHomeApplication.getDate() + "]")) {
-                            return "[" + DataTerminalHomeApplication.getDate() + "] [" + DataTerminalHomeApplication.getTime() + "] " + message;
-                        }
-                        return message;
-                    }
-                };
-
-                System.setOut(logStream);
-                System.setErr(logStream);
-                isRedirected = true;
-            } catch (FileNotFoundException e) {
-                originalErr.println("Failed to set up logging to file: " + e.getMessage());  // Use the original System.err to log the exception
-            }
-        }
-    }
-
     public static void main(String[] args) throws IOException {
-        redirectOutputAndErrors();
         loadFonts();
         String folderPath = "";
         String dataFolderPath = stringUtil.getJarPath() + File.separator + "data";
@@ -102,9 +24,9 @@ public class Launcher {
         File dataFolder = new File(dataFolderPath);
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
-            System.out.println("Created Data Folder");
+            log("Created Data Folder", LogUtils.Severity.INFO);
         } else {
-            System.out.println("Data Folder Already Exists");
+            log("Data Folder Already Exists", LogUtils.Severity.WARN);
         }
 
         String chargesFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
@@ -128,7 +50,7 @@ public class Launcher {
             // Append the folder name to the directory path
             folderPath = jarDir + File.separator + "DataLogs";
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            logError("JarDir Syntax Error ", e);
         }
 
         // Create a File object representing the folder
@@ -138,12 +60,12 @@ public class Launcher {
             // If the folder does not exist, create it
             boolean folderCreated = folder.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
             if (folderCreated) {
-                System.out.println("DataLogs:" + folder.getAbsolutePath());
+                log("DataLogs: " + folder.getAbsolutePath(), LogUtils.Severity.INFO);
             } else {
-                System.out.println("Failed to create the DataLogs Folder.");
+                log("Failed to create the DataLogs Folder.", LogUtils.Severity.ERROR);
             }
         } else {
-            System.out.println("DataLogs Folder already exists.");
+            log("DataLogs Folder already exists.", LogUtils.Severity.WARN);
         }
 
         if (ConfigReader.doesConfigExist()) {
@@ -169,4 +91,5 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
     }
+
 }

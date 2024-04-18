@@ -61,6 +61,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
@@ -692,7 +693,7 @@ public class actionController {
                 accentLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logError("LoadTheme IO Error Code 1 ", e);
             }
         };
 
@@ -706,7 +707,7 @@ public class actionController {
                 loadTheme();
                 loadColors.run();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logError("LoadTheme IO Error Code 2 ", e);
             }
         });
 
@@ -719,7 +720,7 @@ public class actionController {
                     loadTheme();
                     loadColors.run();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    logError("LoadTheme IO Error Code 3 ", e);
                 }
             }
         });
@@ -733,7 +734,7 @@ public class actionController {
                     loadTheme();
                     loadColors.run();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    logError("LoadTheme IO Error Code 4 ", e);
                 }
             }
         });
@@ -747,7 +748,7 @@ public class actionController {
                     loadTheme();
                     loadColors.run();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    logError("LoadTheme IO Error Code 5 ", e);
                 }
             }
         });
@@ -765,7 +766,8 @@ public class actionController {
                 reportDarkLight.getSelectionModel().selectLast();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logError("DarkMode IO Error Code 1 ", e);
+
         }
 
         try {
@@ -773,7 +775,7 @@ public class actionController {
             notesWindowComboBox.setValue(ConfigReader.configRead("notesWindowLayout"));
             ReportWindowComboBox.setValue(ConfigReader.configRead("reportWindowLayout"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logError("DarkMode IO Error Code 2 ", e);
         }
 
         GridPane root = new GridPane();

@@ -3,6 +3,8 @@ package com.drozal.dataterminal.util;
 import java.io.File;
 import java.net.URISyntaxException;
 
+import static com.drozal.dataterminal.util.LogUtils.logError;
+
 public class stringUtil {
     public static String version = "V.1";
     public static String name = "Reports Plus";
@@ -30,8 +32,7 @@ public class stringUtil {
             // Return base location
             return jarDir;
         } catch (URISyntaxException e) {
-            // Handle exception if URI syntax is incorrect
-            e.printStackTrace();
+            logError("GetJarPath URI Syntax Error ", e);
             return ""; // Return empty string if an error occurs
         }
     }

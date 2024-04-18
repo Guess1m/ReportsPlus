@@ -1,5 +1,7 @@
 package com.drozal.dataterminal.config;
 
+import com.drozal.dataterminal.util.LogUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
+
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 
 public class ConfigReader {
 
@@ -30,9 +35,12 @@ public class ConfigReader {
                     return prop.getProperty("database." + property);
                 }
             } else {
-                throw new IOException("Unable to determine the location of the JAR file.");
+                log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
+
+                throw new IOException("");
             }
         } catch (URISyntaxException e) {
+            log("Error reading config.properties file ", LogUtils.Severity.ERROR);
             throw new IOException("Error reading config.properties file.", e);
         }
     }
@@ -55,8 +63,7 @@ public class ConfigReader {
             File configFile = new File(configFilePath);
             return configFile.exists();
         } catch (URISyntaxException e) {
-            // Handle exception if URI syntax is incorrect or decoding fails
-            e.printStackTrace();
+            logError("DoesConfigExist Error ", e);
             return false;
         }
     }

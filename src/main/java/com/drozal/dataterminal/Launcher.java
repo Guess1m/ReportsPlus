@@ -68,7 +68,7 @@ public class Launcher {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log("Application Shutting Down", Severity.DEBUG);
+            log("Shutdown Request Recieved", Severity.DEBUG);
             endLog();
         }));
 

@@ -4,20 +4,8 @@
 .menuBackground {
     -fx-background-color: white;
 }
-.menuPane {
-    -fx-background-color:  #e9e9e9;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 3, 0.0, 0, 1);
-}
 .menuSidePanel {
     -fx-background-color: #665cb6;
-}
-.shiftInfoPane {
-    -fx-background-color:  white;
-    -fx-background-radius: 0;
-}
-.offWhiteBackground{
--fx-background-color: #f2f2f2;
 }
 /*Button*/
 .menuButton {
@@ -38,28 +26,6 @@
 }
 .menuButton:pressed {
     -fx-background-color: #7b72c0; /* Background color */
-    -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 14.5px;
-}
-
-.medinfoButton {
-    -fx-background-color: white; /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-border-radius: 4px; /* Border radius */
-    -fx-border-width: 0.5;
-    -fx-border-color: grey; /* Border color */
-    -fx-text-fill: #5e5e5e;
-    -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 14.5px;
-}
-.medinfoButton:hover {
-    -fx-text-fill:  #546778; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold";
-    -fx-font-size: 14.5px;
-}
-.medinfoButton:pressed {
-    -fx-background-color: #495a69; /* Background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
@@ -129,50 +95,6 @@
     -fx-effect: none;
     -fx-background-color: rgb(242, 242, 242);
 }
-
-/*Spinner*/
-.menuSpinner {
-    -fx-progress-color: #2196f3; /* Color of the spinner */
-    -fx-background-color: transparent; /* Set background to transparent */
-    -fx-border-color: rgb(128, 128, 128,0.3);
-    -fx-border-radius: 3;
-    -fx-base:  #665cb6;
-}
-
-.menuSpinner .spinner-content {
-    -fx-padding: 4px;
-    -fx-background-color: transparent;
-}
-.menuSpinner .spinner-content .spinner-icon {
-    -fx-background-color: transparent;
-    -fx-shape: "M 15.5 2.5 L 15.5 7.5 L 17.5 7.5 L 17.5 2.5 Z";
-    -fx-fill: #2196f3; /* Color of the spinner icon */
-}
-.menuSpinner .increment-arrow-button .increment-arrow {
-    -fx-background-color: black;
-}
-.menuSpinner .increment-arrow-button {
-    -fx-background-color: #f2f2f2; /* Set background to transparent */
-    -fx-border-color: black;
-    -fx-border-width: 0 0 0 0.5; /* top right bottom left */
-    -fx-border-radius: 2;
-}
-.menuSpinner .decrement-arrow-button {
-    -fx-background-color: #f2f2f2; /* Set background to transparent */
-        -fx-border-color: black;
-            -fx-border-width: 0 0 0 0.5; /* top right bottom left */
-        -fx-border-radius: 2;
-}
-.menuSpinner .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: black;
-}
-.menuSpinner:focused .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: #008cd7;
-}
-.menuSpinner:focused .increment-arrow-button .increment-arrow {
-    -fx-background-color: #008cd7;
-}
-
 /*Notes*/
 .purpleButton {
     -fx-background-color: rgb(102, 92, 182, 0.95); /* Background color */
@@ -219,52 +141,3 @@
     -fx-font-family: "Segoe UI SemiBold";
         -fx-font-size: 16px;
 }
-
-.bluebtn {
-    -fx-background-color: #1f85ea; /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-background-radius: 7px; /* Border radius */
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold" !important;
-        -fx-font-size: 16px;
-
-}
-.bluebtn:hover {
-    -fx-background-color:  #1473d2; /* Hover background color */
-    -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold" !important;
-    -fx-font-size: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
-}
-.bluebtn:pressed {
-    -fx-background-color: #1166bb; /* Pressed background color */
-    -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Segoe UI SemiBold";
-        -fx-font-size: 16px;
-}
-
-/* ToggleButton style */
-.togglePurpleButton {
-    -fx-background-color: transparent;
-    -fx-border-color: #68469c;
-    -fx-border-width: 2px;
-    -fx-border-radius: 15px;
-    -fx-padding: 5px;
-    -fx-text-fill: #68469c;
-    -fx-font-size: 14px;
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
-}
-
-.togglePurpleButton:hover {
-    -fx-background-color: #68469c;
-    -fx-text-fill: white;
-    -fx-background-radius: 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
-}
-
-.togglePurpleButton:selected {
-    -fx-background-color: #68469c;
-    -fx-text-fill: white;
-    -fx-background-radius: 15px; /* Ensure consistent border radius */
-}
-

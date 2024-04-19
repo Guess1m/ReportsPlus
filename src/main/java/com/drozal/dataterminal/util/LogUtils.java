@@ -201,7 +201,11 @@ public class LogUtils {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
                     setGraphic(item);
-                    setStyle("-fx-background-color:transparent;");
+                    if (getIndex() % 2 == 0) {
+                        setStyle("-fx-background-color: #f9f9f9;");
+                    } else {
+                        setStyle("-fx-background-color: #f3f3f3;");
+                    }
                 } else {
                     setGraphic(null);
                 }

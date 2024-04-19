@@ -158,8 +158,8 @@ public class controllerUtils {
                 clearDataLogs();
                 updateChartIfMismatch(barChart);
                 controllerUtils.refreshChart(areaChart, "area");
-            } else {
             }
+
         });
     }
 
@@ -384,8 +384,8 @@ public class controllerUtils {
                 clearDataLogsAsync();
                 clearConfig();
                 clearDataFolderAsync();
-            } else {
             }
+
         });
     }
 

@@ -10,6 +10,7 @@ module com.drozal.dataterminal {
     requires jakarta.xml.bind;
     requires org.controlsfx.controls;
     requires BorderlessSceneFX;
+    requires jmdns;
 
     opens com.drozal.dataterminal.logs to javafx.base;
     opens com.drozal.dataterminal to javafx.fxml;

@@ -22,6 +22,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
+import com.drozal.dataterminal.util.server.ServerUtils;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -1170,6 +1171,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
+        ServerUtils.sendInfoToServer("Pass: passwrd");
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();

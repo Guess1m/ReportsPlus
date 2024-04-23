@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class newOfficerController {
@@ -232,9 +233,9 @@ public class newOfficerController {
         ConfigWriter.configwrite("Rank", "Deputy Sheriff");
         ConfigWriter.configwrite("Number", "1-18");
         ConfigWriter.configwrite("fullscreenOnStartup", "true");
-        ConfigWriter.configwrite("mainColor", "#263238");
-        ConfigWriter.configwrite("secondaryColor", "#323C41");
-        ConfigWriter.configwrite("accentColor", "#505d62");
+        updateMain(Color.valueOf("#524992"));
+        updateSecondary(Color.valueOf("#665cb6"));
+        updateAccent(Color.valueOf("#9c95d0"));
         ConfigWriter.configwrite("mainWindowLayout", "Default");
         ConfigWriter.configwrite("notesWindowLayout", "Default");
         ConfigWriter.configwrite("reportWindowLayout", "Default");

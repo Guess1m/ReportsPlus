@@ -19,6 +19,7 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
 import com.drozal.dataterminal.util.stringUtil;
@@ -61,6 +62,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
@@ -661,6 +663,8 @@ public class actionController {
         ComboBox<String> ReportWindowComboBox = new ComboBox<>();
         ComboBox<String> reportDarkLight = new ComboBox<>();
 
+        ComboBox<String> themeComboBox = new ComboBox<>();
+
         Button resetBtn = new Button("Reset Defaults");
         resetBtn.getStyleClass().add("purpleButton");
         resetBtn.setStyle("-fx-label-padding: 1 7; -fx-padding: 1;");
@@ -677,6 +681,12 @@ public class actionController {
 
         Label reportColorLabel = new Label("Report Style:");
         primaryLabel.getStyleClass().add("headingBig");
+        reportColorLabel.getStyleClass().add("headingBig");
+        reportColorLabel.setStyle("-fx-text-fill: #404040;");
+
+        Label themeLabel = new Label("Theme:");
+        themeLabel.getStyleClass().add("headingBig");
+        themeLabel.setStyle("-fx-text-fill: #404040;");
 
         Runnable loadColors = () -> {
             try {
@@ -715,6 +725,7 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateMain(selectedColor);
+                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();
@@ -729,6 +740,7 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateSecondary(selectedColor);
+                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();
@@ -743,6 +755,7 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateAccent(selectedColor);
+                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();
@@ -753,11 +766,15 @@ public class actionController {
         });
 
         String[] reportdarklight = {"dark", "light"};
+        String[] themes = {"dark", "purple", "blue", "grey", "green"};
         String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
         mainWindowComboBox.getItems().addAll(displayPlacements);
         notesWindowComboBox.getItems().addAll(displayPlacements);
         ReportWindowComboBox.getItems().addAll(displayPlacements);
         reportDarkLight.getItems().addAll(reportdarklight);
+
+        themeComboBox.getItems().addAll(themes);
+
         try {
             if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
                 reportDarkLight.getSelectionModel().selectFirst();
@@ -785,7 +802,7 @@ public class actionController {
         Label displayPlacementsLabel = new Label("Display Placements");
         displayPlacementsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Segoe UI Black;");
         Label colorsLabel = new Label("Colors");
-        colorsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Arial; -fx-font-weight: bold;");
+        colorsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Arial; -fx-font-weight: bold; -fx-text-fill: black;");
 
         // Add headings for display settings
         root.addRow(0, displayPlacementsLabel);
@@ -798,13 +815,14 @@ public class actionController {
 
         // Add headings for color settings
         root.addRow(5, colorsLabel);
-        root.addRow(6, primaryLabel, primPicker);
-        root.addRow(7, secondaryLabel, secPicker);
-        root.addRow(8, accentLabel, accPicker);
-        root.addRow(9, reportColorLabel, reportDarkLight);
+        root.addRow(6, themeLabel, themeComboBox);
+        root.addRow(7, primaryLabel, primPicker);
+        root.addRow(8, secondaryLabel, secPicker);
+        root.addRow(9, accentLabel, accPicker);
+        root.addRow(10, reportColorLabel, reportDarkLight);
 
         // Add reset button
-        root.addRow(10, resetBtn);
+        root.addRow(11, resetBtn);
 
         EventHandler<ActionEvent> comboBoxHandler = event -> {
             ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
@@ -864,6 +882,75 @@ public class actionController {
                 }
             }
         };
+
+        themeComboBox.setOnAction(actionEvent -> {
+            String selectedTheme = themeComboBox.getSelectionModel().getSelectedItem();
+
+            switch (selectedTheme) {
+                case "dark" -> {
+                    log("Dark Theme Selected", LogUtils.Severity.DEBUG);
+                    updateMain(Color.valueOf("#263238"));
+                    updateSecondary(Color.valueOf("#323C41"));
+                    updateAccent(Color.valueOf("#505d62"));
+                    try {
+                        loadTheme();
+                        loadColors.run();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "purple" -> {
+                    log("Purple Theme Selected", LogUtils.Severity.DEBUG);
+                    updateMain(Color.valueOf("#524992"));
+                    updateSecondary(Color.valueOf("#665cb6"));
+                    updateAccent(Color.valueOf("#9c95d0"));
+                    try {
+                        loadTheme();
+                        loadColors.run();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "blue" -> {
+                    log("Blue Theme Selected", LogUtils.Severity.DEBUG);
+                    updateMain(Color.valueOf("#4d66cc"));
+                    updateSecondary(Color.valueOf("#6680e6"));
+                    updateAccent(Color.valueOf("#b3ccff"));
+                    try {
+                        loadTheme();
+                        loadColors.run();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "grey" -> {
+                    log("Grey Theme Selected", LogUtils.Severity.DEBUG);
+                    updateMain(Color.valueOf("#666666"));
+                    updateSecondary(Color.valueOf("#808080"));
+                    updateAccent(Color.valueOf("#4d4d4d"));
+                    try {
+                        loadTheme();
+                        loadColors.run();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "green" -> {
+                    log("Green Theme Selected", LogUtils.Severity.DEBUG);
+                    updateMain(Color.valueOf("#4d804d"));
+                    updateSecondary(Color.valueOf("#669966"));
+                    updateAccent(Color.valueOf("#99cc99"));
+                    try {
+                        loadTheme();
+                        loadColors.run();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+
+            }
+
+        });
 
         mainWindowComboBox.setOnAction(comboBoxHandler);
         notesWindowComboBox.setOnAction(comboBoxHandler);

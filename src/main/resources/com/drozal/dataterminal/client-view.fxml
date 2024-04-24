@@ -30,13 +30,12 @@
                         <Font name="Segoe UI" size="8.0"/>
                     </font>
                 </Button>
-                <TextField fx:id="inputPortField" editable="false" layoutX="30.0" layoutY="88.0" promptText="Input Port"
-                           text="5829" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="88.0"/>
+                <TextField fx:id="inputPortField" layoutX="30.0" layoutY="88.0" promptText="Input Port"
+                           AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="88.0"/>
                 <Label layoutX="31.0" layoutY="71.0" text="Port:" AnchorPane.leftAnchor="31.0"
                        AnchorPane.topAnchor="71.0"/>
-                <TextField fx:id="inputHostField" editable="false" layoutX="31.0" layoutY="148.0"
-                           promptText="Input Port" text="localhost" AnchorPane.leftAnchor="31.0"
-                           AnchorPane.topAnchor="148.0"/>
+                <TextField fx:id="inputHostField" layoutX="31.0" layoutY="148.0" promptText="Input IPV4"
+                           AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="148.0"/>
                 <Label layoutX="32.0" layoutY="131.0" text="Host:" AnchorPane.leftAnchor="32.0"
                        AnchorPane.topAnchor="131.0"/>
             </children>

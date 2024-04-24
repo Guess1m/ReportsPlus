@@ -1171,6 +1171,7 @@ public class actionController {
 
     //<editor-fold desc="Settings Button Events">
 
+
     @javafx.fxml.FXML
     public void logOutputBtnPress(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -1203,8 +1204,8 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        ClientUtils.sendInfoToServer("Pass: passwrd");
-        Stage stage = new Stage();
+        ClientUtils.sendInfoToServer("Pass: bigjpass, User: johndoe1");
+        /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();
         BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
@@ -1213,7 +1214,7 @@ public class actionController {
         stage.setTitle("Report Manager");
         stage.setScene(newScene);
         stage.show();
-        stage.centerOnScreen();
+        stage.centerOnScreen();*/
     }
 
     @javafx.fxml.FXML

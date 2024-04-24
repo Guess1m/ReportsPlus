@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.LogUtils;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -26,6 +27,8 @@ public class ClientUtils {
             startListeningForMessages(in);
             isConnected = true;
             notifyStatusChanged(isConnected);
+            ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
+            ConfigWriter.configwrite("lastPortConnection", String.valueOf(servicePort));
             return true;
         } catch (IOException e) {
             LogUtils.log("Server Not Found", LogUtils.Severity.ERROR);

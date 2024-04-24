@@ -72,10 +72,10 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 public class actionController {
 
     public static String notesText;
-
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     static double minColumnWidth = 185.0;
+    private static ClientController clientController;
     private static Stage mapStage = null;
     private static Stage notesStage = null;
     private static Stage clientStage = null;
@@ -460,6 +460,26 @@ public class actionController {
 
     //<editor-fold desc="Utils">
 
+    private void updateConnectionStatus(boolean isConnected) {
+        ClientController cntrl = clientController;
+        if (!isConnected) {
+            LogUtils.log("ACTION CONTROLLER Server No Longer Connected", LogUtils.Severity.WARN);
+            cntrl.getPortField().setText("not cnted");
+            // Add new label under settings dropdown, set to no longer connected
+            serverStatusLabel.setText("Not Connected");
+            serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
+            cntrl.getPortField().setText(ServerUtils.port);
+            cntrl.getInetField().setText(ServerUtils.inet);
+            cntrl.getServiceAddressField().setText(ServerUtils.service);
+        } else {
+            serverStatusLabel.setText("Connected");
+            serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
+            cntrl.getPortField().setText(ServerUtils.port);
+            cntrl.getInetField().setText(ServerUtils.inet);
+            cntrl.getServiceAddressField().setText(ServerUtils.service);
+
+        }
+    }
 
     public void initialize() throws IOException {
         setDisable(infoPane, logPane);
@@ -1301,6 +1321,10 @@ public class actionController {
         clientStage.setOnHidden(event1 -> {
             clientStage = null;
         });
+
+        clientController = loader.getController();
+        ServerUtils.setStatusListener(this::updateConnectionStatus);
+        ClientController.connect();
     }
 
     @javafx.fxml.FXML

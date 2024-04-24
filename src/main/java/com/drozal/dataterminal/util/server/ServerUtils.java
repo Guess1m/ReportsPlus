@@ -20,14 +20,18 @@ public class ServerUtils {
     private static final CountDownLatch latch = new CountDownLatch(1); // For synchronization
     private static final long HEARTBEAT_TIMEOUT = TimeUnit.SECONDS.toMillis(8);  // 10 seconds timeout
     public static Boolean isConnected = false;
-    private static final Socket socket = null;
+    public static String port = "";
+    public static String inet = "";
+    public static String service = "";
+    static JmDNS jmdns;
+    private static Socket socket; // Declare socket
     private static long lastHeartbeat = System.currentTimeMillis();
     private static ServerStatusListener statusListener;
 
     public static void connectToService(String serviceAddress) {
         try {
             // Initialize JmDNS
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+            jmdns = JmDNS.create(InetAddress.getLocalHost());
             jmdns.addServiceListener("_" + serviceAddress + "._tcp.local.", new ServiceListener() {
                 @Override
                 public void serviceAdded(ServiceEvent event) {
@@ -55,11 +59,20 @@ public class ServerUtils {
                             int serverPort = info.getPort();
                             LogUtils.log("Service resolved: " + info, LogUtils.Severity.INFO);
                             LogUtils.log("IP: " + serverIp + ", Port: " + serverPort, LogUtils.Severity.DEBUG);
+                            port = String.valueOf(serverPort);
+                            inet = serverIp;
+                            service = serviceName;
                             isConnected = true;
                             notifyStatusChanged(isConnected);
                             latch.countDown();
+                            try {
+                                socket = new Socket(serverIp, serverPort); // Initialize socket
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             BufferedReader in = communicateToServer(serverIp, serverPort);
                             if (in != null) {
+                                lastHeartbeat = System.currentTimeMillis(); // Update lastHeartbeat upon connection
                                 startListeningForMessages(in);
                             } else {
                                 LogUtils.logError("Failed to establish reader from server", null);
@@ -98,9 +111,8 @@ public class ServerUtils {
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 if ((System.currentTimeMillis() - lastHeartbeat) > HEARTBEAT_TIMEOUT) {
-                    isConnected = false;
-                    notifyStatusChanged(isConnected);
                     LogUtils.log("Heartbeat missed. Server is down.", LogUtils.Severity.ERROR);
+                    clearConnections();
                     break;
                 }
                 try {
@@ -110,6 +122,23 @@ public class ServerUtils {
                 }
             }
         }).start();
+    }
+
+    public static void clearConnections() {
+        try {
+            socket.close();
+            jmdns.unregisterAllServices();
+            jmdns.close();
+            jmdns = null;
+            resolvedServices.clear();
+            isConnected = false;
+            notifyStatusChanged(isConnected);
+            port = "";
+            service = "";
+            inet = "";
+        } catch (IOException e) {
+            LogUtils.logError("Error while closing resources: ", e);
+        }
     }
 
     public static void setStatusListener(ServerStatusListener statusListener) {
@@ -123,9 +152,14 @@ public class ServerUtils {
     }
 
     public static void sendInfoToServer(String data) throws IOException {
-        OutputStream outputStream = socket.getOutputStream();
-        PrintWriter writer = new PrintWriter(outputStream, true);
-        writer.println(data);
+        // Check if socket is initialized
+        if (socket != null) {
+            OutputStream outputStream = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(outputStream, true);
+            writer.println(data);
+        } else {
+            LogUtils.logError("Socket is null. Unable to send data to server.", null);
+        }
     }
 
     public static BufferedReader communicateToServer(String serverIp, int serverPort) {

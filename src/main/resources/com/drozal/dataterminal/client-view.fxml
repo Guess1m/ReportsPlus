@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="282.0" prefWidth="397.0"
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.ClientController">
+    <center>
+        <AnchorPane prefHeight="314.0" prefWidth="457.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER" layoutY="22.0" text="ReportPlus Client" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="22.0">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="clientRefreshInLabel" alignment="CENTER" layoutY="59.0" text="Client Refresh In:"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                <TextField fx:id="inetField" editable="false" layoutX="118.0" layoutY="168.0"
+                           AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="168.0"/>
+                <TextField fx:id="portField" editable="false" layoutX="119.0" layoutY="222.0"
+                           AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="222.0"/>
+                <Label layoutX="119.0" layoutY="151.0" text="Connection  INET:" AnchorPane.leftAnchor="119.0"
+                       AnchorPane.topAnchor="151.0"/>
+                <Label layoutX="119.0" layoutY="205.0" text="Connection PORT:" AnchorPane.leftAnchor="119.0"
+                       AnchorPane.topAnchor="205.0"/>
+                <TextField fx:id="serviceAddressField" editable="false" layoutX="91.0" layoutY="115.0" prefHeight="26.0"
+                           prefWidth="216.0" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="90.0"/>
+                <Label layoutX="119.0" layoutY="98.0" text="Connection Address:" AnchorPane.leftAnchor="119.0"
+                       AnchorPane.topAnchor="98.0"/>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

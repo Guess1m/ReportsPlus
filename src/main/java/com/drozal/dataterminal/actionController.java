@@ -78,6 +78,7 @@ public class actionController {
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
     private static Stage notesStage = null;
+    private static Stage clientStage = null;
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -450,6 +451,8 @@ public class actionController {
     private TableView incidentTable;
     @javafx.fxml.FXML
     private TextField incwitness;
+    @javafx.fxml.FXML
+    private Label serverStatusLabel;
 
 
     //</editor-fold>
@@ -549,27 +552,18 @@ public class actionController {
             citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
 
-        new Thread(() -> {
-            try {
-                ServerUtils.connectToService("ReportPlusService");
-            } catch (Exception e) {
-                // Log and handle exceptions appropriately
-                System.err.println("Error during service connection: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }).start();
+        serverStatusLabel.setOnMouseEntered(event -> {
+            serverStatusLabel.setStyle("-fx-underline:true;");
+        });
+
+        serverStatusLabel.setOnMouseExited(event -> {
+            serverStatusLabel.setStyle("-fx-underline:false;");
+        });
 
         Platform.runLater(() -> {
             vbox.getScene().getWindow().setOnHiding(event -> handleClose());
         });
-        ServerUtils.setStatusListener(this::updateConnectionStatus);
-    }
 
-    private void updateConnectionStatus(boolean isConnected){
-        if (!isConnected){
-            LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
-            // Add new label under settings dropdown, set to no longer connected
-        }
     }
 
     public void refreshChart() throws IOException {
@@ -1050,7 +1044,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
-        Platform.exit();
+        handleClose();
     }
 
 
@@ -1284,6 +1278,30 @@ public class actionController {
 
     //<editor-fold desc="Misc.">
 
+    @javafx.fxml.FXML
+    public void onServerStatusLabelClick(Event event) throws IOException {
+        if (clientStage != null && clientStage.isShowing()) {
+            clientStage.toFront();
+            return;
+        }
+
+        clientStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        clientStage.setTitle("Client Interface");
+        clientStage.setScene(newScene);
+        clientStage.initStyle(StageStyle.UTILITY);
+        clientStage.setResizable(false);
+        clientStage.show();
+        clientStage.centerOnScreen();
+        clientStage.setAlwaysOnTop(true);
+        showButtonAnimation(mapButton);
+
+        clientStage.setOnHidden(event1 -> {
+            clientStage = null;
+        });
+    }
 
     @javafx.fxml.FXML
     public void updateInfoButtonClick(ActionEvent actionEvent) {
@@ -2197,8 +2215,8 @@ public class actionController {
             lowerPane.setVisible(true);
         }
     }
-
     // Callout Section
+
     @javafx.fxml.FXML
     public void onCalloutRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -2268,8 +2286,8 @@ public class actionController {
 
         }
     }
-
     // Patrol Section
+
     @javafx.fxml.FXML
     public void onPatUpdateValues(ActionEvent actionEvent) {
         if (patrolEntry != null) {
@@ -2335,8 +2353,8 @@ public class actionController {
             }
         }
     }
-
     // Traffic Stop Section
+
     @javafx.fxml.FXML
     public void onTrafUpdateValues(ActionEvent actionEvent) {
         if (trafficStopEntry != null) {
@@ -2437,8 +2455,8 @@ public class actionController {
             }
         }
     }
-
     // Incident Section
+
     @javafx.fxml.FXML
     public void onIncUpdateValues(ActionEvent actionEvent) {
         if (incidentEntry != null) {
@@ -2513,8 +2531,8 @@ public class actionController {
             }
         }
     }
-
     // Impound Section
+
     @javafx.fxml.FXML
     public void onImpUpdateValues(ActionEvent actionEvent) {
         if (impoundEntry != null) {
@@ -2593,8 +2611,8 @@ public class actionController {
             }
         }
     }
-
     // Citation Section
+
     @javafx.fxml.FXML
     public void onCitationRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -2695,8 +2713,8 @@ public class actionController {
             citationTable.refresh();
         }
     }
-
     // Search Section
+
     @javafx.fxml.FXML
     public void onSearchRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click
@@ -2789,8 +2807,8 @@ public class actionController {
             searchTable.refresh();
         }
     }
-
     // Arrest Section
+
     @javafx.fxml.FXML
     public void onArrestRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // single click

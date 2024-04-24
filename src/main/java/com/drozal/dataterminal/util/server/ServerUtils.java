@@ -19,9 +19,9 @@ public class ServerUtils {
     private static final Set<String> resolvedServices = new HashSet<>();
     private static final CountDownLatch latch = new CountDownLatch(1); // For synchronization
     private static final long HEARTBEAT_TIMEOUT = TimeUnit.SECONDS.toMillis(8);  // 10 seconds timeout
-    private static Socket socket = null;
-    private static long lastHeartbeat = System.currentTimeMillis();
     public static Boolean isConnected = false;
+    private static final Socket socket = null;
+    private static long lastHeartbeat = System.currentTimeMillis();
     private static ServerStatusListener statusListener;
 
     public static void connectToService(String serviceAddress) {
@@ -116,9 +116,9 @@ public class ServerUtils {
         ServerUtils.statusListener = statusListener;
     }
 
-    private static void notifyStatusChanged(boolean isConnected){
-        if(statusListener != null){
-            Platform.runLater(()-> statusListener.onStatusChanged(isConnected));
+    private static void notifyStatusChanged(boolean isConnected) {
+        if (statusListener != null) {
+            Platform.runLater(() -> statusListener.onStatusChanged(isConnected));
         }
     }
 

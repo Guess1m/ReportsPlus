@@ -2,8 +2,8 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.server.ServerUtils;
 import com.drozal.dataterminal.util.stringUtil;
+import javafx.application.Platform;
 import javafx.scene.text.Font;
 
 import java.io.File;
@@ -17,8 +17,6 @@ import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 public class Launcher {
 
     public static void main(String[] args) throws IOException {
-        ServerUtils.connectToService("ReportPlusService");
-
         loadFonts();
 
         String folderPath = "";
@@ -73,6 +71,8 @@ public class Launcher {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             log("Shutdown Request Recieved", Severity.DEBUG);
             endLog();
+            Platform.exit();
+            System.exit(0);
         }));
 
     }

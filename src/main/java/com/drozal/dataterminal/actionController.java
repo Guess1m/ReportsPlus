@@ -446,16 +446,17 @@ public class actionController {
     private HBox arrestInfo;
     @javafx.fxml.FXML
     private TabPane tabPane;
+    @javafx.fxml.FXML
+    private TableView incidentTable;
+    @javafx.fxml.FXML
+    private TextField incwitness;
 
 
     //</editor-fold>
 
 
     //<editor-fold desc="Utils">
-    @javafx.fxml.FXML
-    private TableView incidentTable;
-    @javafx.fxml.FXML
-    private TextField incwitness;
+
 
     public void initialize() throws IOException {
         setDisable(infoPane, logPane);
@@ -547,6 +548,28 @@ public class actionController {
             searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
             citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
         });
+
+        new Thread(() -> {
+            try {
+                ServerUtils.connectToService("ReportPlusService");
+            } catch (Exception e) {
+                // Log and handle exceptions appropriately
+                System.err.println("Error during service connection: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
+
+        Platform.runLater(() -> {
+            vbox.getScene().getWindow().setOnHiding(event -> handleClose());
+        });
+        ServerUtils.setStatusListener(this::updateConnectionStatus);
+    }
+
+    private void updateConnectionStatus(boolean isConnected){
+        if (!isConnected){
+            LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
+            // Add new label under settings dropdown, set to no longer connected
+        }
     }
 
     public void refreshChart() throws IOException {
@@ -571,6 +594,11 @@ public class actionController {
         }
 
         getReportChart().getData().add(series1);
+    }
+
+    private void handleClose() {
+        Platform.exit();
+        System.exit(0);
     }
 
 

@@ -1,23 +1,28 @@
 package com.drozal.dataterminal.util.server;
+
 import com.drozal.dataterminal.util.LogUtils;
+import javafx.application.Platform;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class ServerUtils {
     private static final Set<String> resolvedServices = new HashSet<>();
     private static final CountDownLatch latch = new CountDownLatch(1); // For synchronization
+    private static final long HEARTBEAT_TIMEOUT = TimeUnit.SECONDS.toMillis(8);  // 10 seconds timeout
     private static Socket socket = null;
+    private static long lastHeartbeat = System.currentTimeMillis();
+    public static Boolean isConnected = false;
+    private static ServerStatusListener statusListener;
 
     public static void connectToService(String serviceAddress) {
         try {
@@ -41,7 +46,6 @@ public class ServerUtils {
                     ServiceInfo info = event.getInfo();
                     String serviceName = event.getName();
                     if (resolvedServices.contains(serviceName)) {
-                        // Skip if the service has already been resolved
                         return;
                     }
                     resolvedServices.add(serviceName);
@@ -51,9 +55,16 @@ public class ServerUtils {
                             int serverPort = info.getPort();
                             LogUtils.log("Service resolved: " + info, LogUtils.Severity.INFO);
                             LogUtils.log("IP: " + serverIp + ", Port: " + serverPort, LogUtils.Severity.DEBUG);
-                            latch.countDown(); // Reduce count, allowing the main thread to proceed
-                            communicateToServer(serverIp, serverPort);
-                            return; // Exit loop after finding a suitable address
+                            isConnected = true;
+                            notifyStatusChanged(isConnected);
+                            latch.countDown();
+                            BufferedReader in = communicateToServer(serverIp, serverPort);
+                            if (in != null) {
+                                startListeningForMessages(in);
+                            } else {
+                                LogUtils.logError("Failed to establish reader from server", null);
+                            }
+                            return;
                         }
                     }
                 }
@@ -69,23 +80,61 @@ public class ServerUtils {
         }
     }
 
-    public static void sendInfoToServer(String data) throws IOException {
-            OutputStream outputStream = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(outputStream, true);
-            writer.println(data);
+    private static void startListeningForMessages(BufferedReader in) {
+        new Thread(() -> {
+            try {
+                String fromServer;
+                while ((fromServer = in.readLine()) != null) {
+                    if ("HEARTBEAT".equals(fromServer)) {
+                        System.out.println("Heartbeat received from server.");
+                        lastHeartbeat = System.currentTimeMillis();
+                    }
+                }
+            } catch (IOException e) {
+                LogUtils.logError("Server Connection may be lost: ", e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                if ((System.currentTimeMillis() - lastHeartbeat) > HEARTBEAT_TIMEOUT) {
+                    isConnected = false;
+                    notifyStatusChanged(isConnected);
+                    LogUtils.log("Heartbeat missed. Server is down.", LogUtils.Severity.ERROR);
+                    break;
+                }
+                try {
+                    Thread.sleep(5000);  // Check every 5 seconds
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }).start();
     }
 
-    private static void communicateToServer(String ip, int port) {
-        try {
-            socket = new Socket(ip, port);
-            LogUtils.log("Connected to server at " + ip + ":" + port, LogUtils.Severity.INFO);
+    public static void setStatusListener(ServerStatusListener statusListener) {
+        ServerUtils.statusListener = statusListener;
+    }
 
-            // Send a message to the server
-            OutputStream outputStream = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(outputStream, true);
-            writer.println("User: John Doe, Action: Login");
+    private static void notifyStatusChanged(boolean isConnected){
+        if(statusListener != null){
+            Platform.runLater(()-> statusListener.onStatusChanged(isConnected));
+        }
+    }
+
+    public static void sendInfoToServer(String data) throws IOException {
+        OutputStream outputStream = socket.getOutputStream();
+        PrintWriter writer = new PrintWriter(outputStream, true);
+        writer.println(data);
+    }
+
+    public static BufferedReader communicateToServer(String serverIp, int serverPort) {
+        try {
+            Socket socket = new Socket(serverIp, serverPort); // Establish a connection to the server
+            return new BufferedReader(new InputStreamReader(socket.getInputStream())); // Return the BufferedReader
         } catch (IOException e) {
-            LogUtils.logError("Error Connecting to server: ", e);
+            LogUtils.logError("Unable to connect to server: ", e);
+            return null; // Return null if the connection or reader setup fails
         }
     }
 }

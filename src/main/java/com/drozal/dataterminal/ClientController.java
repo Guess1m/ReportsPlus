@@ -1,8 +1,7 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.server.ServerUtils;
-import javafx.scene.control.Label;
+import com.drozal.dataterminal.util.server.ClientUtils;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -14,28 +13,22 @@ public class ClientController {
     @javafx.fxml.FXML
     private TextField portField;
     @javafx.fxml.FXML
-    private TextField serviceAddressField;
+    private TextField inputPortField;
     @javafx.fxml.FXML
-    private Label clientRefreshInLabel;
+    private TextField inputHostField;
 
-    public void initialize() {
-        new Thread(() -> {
-            try {
-                ServerUtils.connectToService("ReportPlusService");
-            } catch (Exception e) {
-                System.err.println("Error during service connection: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }).start();
 
-        ServerUtils.setStatusListener(this::updateConnectionStatus);
+    public TextField getInetField() {
+        return inetField;
     }
 
-    private void updateConnectionStatus(boolean isConnected) {
-        if (!isConnected) {
-            LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
-            // Add new label under settings dropdown, set to no longer connected
-        }
+    public TextField getPortField() {
+        return portField;
     }
 
+    @javafx.fxml.FXML
+    public void connectBtnPress(ActionEvent actionEvent) {
+        ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
+
+    }
 }

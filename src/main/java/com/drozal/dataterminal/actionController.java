@@ -22,7 +22,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.controllerUtils;
 import com.drozal.dataterminal.util.dropdownInfo;
-import com.drozal.dataterminal.util.server.ServerUtils;
+import com.drozal.dataterminal.util.server.ClientUtils;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -73,9 +73,11 @@ public class actionController {
 
     public static String notesText;
 
+
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     static double minColumnWidth = 185.0;
+    private static ClientController clientController;
     private static Stage mapStage = null;
     private static Stage notesStage = null;
     private static Stage clientStage = null;
@@ -461,6 +463,22 @@ public class actionController {
     //<editor-fold desc="Utils">
 
 
+    private void updateConnectionStatus(boolean isConnected) {
+        ClientController cntrl = clientController;
+        if (!isConnected) {
+            LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
+            serverStatusLabel.setText("Not Connected");
+            serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
+            cntrl.getPortField().setText("");
+            cntrl.getInetField().setText("");
+        } else {
+            serverStatusLabel.setText("Connected");
+            serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
+            cntrl.getPortField().setText(ClientUtils.port);
+            cntrl.getInetField().setText(ClientUtils.inet);
+        }
+    }
+
     public void initialize() throws IOException {
         setDisable(infoPane, logPane);
         setActive(shiftInformationPane);
@@ -550,14 +568,6 @@ public class actionController {
             arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
             searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
             citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
-        });
-
-        serverStatusLabel.setOnMouseEntered(event -> {
-            serverStatusLabel.setStyle("-fx-underline:true;");
-        });
-
-        serverStatusLabel.setOnMouseExited(event -> {
-            serverStatusLabel.setStyle("-fx-underline:false;");
         });
 
         Platform.runLater(() -> {
@@ -1193,7 +1203,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        ServerUtils.sendInfoToServer("Pass: passwrd");
+        ClientUtils.sendInfoToServer("Pass: passwrd");
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();
@@ -1280,27 +1290,32 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onServerStatusLabelClick(Event event) throws IOException {
+
         if (clientStage != null && clientStage.isShowing()) {
             clientStage.toFront();
             return;
         }
 
-        clientStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        clientStage.setTitle("Client Interface");
-        clientStage.setScene(newScene);
-        clientStage.initStyle(StageStyle.UTILITY);
-        clientStage.setResizable(false);
-        clientStage.show();
-        clientStage.centerOnScreen();
-        clientStage.setAlwaysOnTop(true);
-        showButtonAnimation(mapButton);
+        if (!ClientUtils.isConnected) {
+            clientStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            clientStage.setTitle("Client Interface");
+            clientStage.setScene(newScene);
+            clientStage.initStyle(StageStyle.UTILITY);
+            clientStage.setResizable(false);
+            clientStage.show();
+            clientStage.centerOnScreen();
+            clientStage.setAlwaysOnTop(false);
 
-        clientStage.setOnHidden(event1 -> {
-            clientStage = null;
-        });
+            clientStage.setOnHidden(event1 -> {
+                clientStage = null;
+            });
+
+            clientController = loader.getController();
+            ClientUtils.setStatusListener(this::updateConnectionStatus);
+        }
     }
 
     @javafx.fxml.FXML

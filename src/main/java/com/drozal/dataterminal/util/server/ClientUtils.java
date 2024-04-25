@@ -45,7 +45,6 @@ public class ClientUtils {
         }
     }
 
-
     private static void startListeningForMessages(BufferedReader in) {
         new Thread(() -> {
             try {
@@ -83,7 +82,6 @@ public class ClientUtils {
         }).start();
     }
 
-
     public static void setStatusListener(ServerStatusListener statusListener) {
         ClientUtils.statusListener = statusListener;
     }
@@ -103,4 +101,5 @@ public class ClientUtils {
             LogUtils.logError("Socket is not connected.", null);
         }
     }
+
 }

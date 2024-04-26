@@ -104,7 +104,7 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Medium.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Fat.ttf"), 14);
     }
 
 }

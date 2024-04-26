@@ -53,42 +53,47 @@ public final static int SOCKET_PORT = 13267;
     public static void watchFileChanges(String directoryPath, String fileNameToWatch) {
         Path dir = Paths.get(directoryPath);
 
-        try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
-            dir.register(watcher, ENTRY_MODIFY);
+        Thread watchThread = new Thread(() -> {
+            try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
+                dir.register(watcher, ENTRY_MODIFY);
 
-            while (true) {
-                WatchKey key;
-                try {
-                    key = watcher.take();
-                } catch (InterruptedException x) {
-                    Thread.currentThread().interrupt(); // Restore interrupt status
-                    return;
-                }
-
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    WatchEvent.Kind<?> kind = event.kind();
-
-                    if (kind == OVERFLOW) {
-                        continue;
+                while (true) {
+                    WatchKey key;
+                    try {
+                        key = watcher.take();
+                    } catch (InterruptedException x) {
+                        Thread.currentThread().interrupt();
+                        return;
                     }
 
-                    WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                    Path fileName = ev.context();
+                    for (WatchEvent<?> event : key.pollEvents()) {
+                        WatchEvent.Kind<?> kind = event.kind();
 
-                    if (fileName.toString().equals(fileNameToWatch)) {
-                        System.out.println(fileName + " has been modified");
-                        // Here, add the code to send the file to the client
+                        if (kind == OVERFLOW) {
+                            continue;
+                        }
+
+                        WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                        Path fileName = ev.context();
+
+                        if (fileName.toString().equals(fileNameToWatch)) {
+                            System.out.println(fileName + " has been modified");
+
+                        }
+                    }
+
+                    boolean valid = key.reset();
+                    if (!valid) {
+                        break;
                     }
                 }
-
-                boolean valid = key.reset();
-                if (!valid) {
-                    break;
-                }
+            } catch (IOException e) {
+                System.out.println("I/O Error: " + e.toString());
             }
-        } catch (IOException e) {
-            System.out.println("I/O Error: " + e.toString());
-        }
+        });
+
+        watchThread.setDaemon(true);
+        watchThread.start();
     }
 
 

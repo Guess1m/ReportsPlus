@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+
 public class ClientUtils {
     private static final long HEARTBEAT_TIMEOUT = TimeUnit.SECONDS.toMillis((long) 6.5);  // 6.5 seconds timeout
     public static Boolean isConnected = false;
@@ -24,7 +26,7 @@ public class ClientUtils {
             port = String.valueOf(servicePort);
             inet = serviceAddress;
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            startListeningForMessages(in);
+            receiveMessages(in);
             isConnected = true;
             notifyStatusChanged(isConnected);
             ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
@@ -45,12 +47,18 @@ public class ClientUtils {
         }
     }
 
-    private static void startListeningForMessages(BufferedReader in) {
+    public static void receiveMessages(BufferedReader in) {
         new Thread(() -> {
             try {
                 String fromServer;
                 while ((fromServer = in.readLine()) != null) {
-                    if ("HEARTBEAT".equals(fromServer)) {
+                    if ("UPDATE_FILE".equals(fromServer)) {
+                        System.out.println("Received file update message from server.");
+                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
+                        Platform.runLater(() -> {
+
+                        });
+                    } else if ("HEARTBEAT".equals(fromServer)) {
                         System.out.println("Heartbeat received from server.");
                         lastHeartbeat = System.currentTimeMillis();
                     }
@@ -59,25 +67,6 @@ public class ClientUtils {
                 isConnected = false;
                 notifyStatusChanged(isConnected);
                 LogUtils.logError("Server Connection may be lost: ", e);
-            }
-        }).start();
-
-        new Thread(() -> {
-            try {
-                while (!Thread.currentThread().isInterrupted()) {
-                    Thread.sleep(5000);  // Check every 5 seconds
-                    long timeSinceLastHeartbeat = System.currentTimeMillis() - lastHeartbeat;
-                    if (timeSinceLastHeartbeat > HEARTBEAT_TIMEOUT) {
-                        isConnected = false;
-                        notifyStatusChanged(isConnected);
-                        LogUtils.log("Heartbeat missed. Server is down.", LogUtils.Severity.ERROR);
-                        break;  // Break out of the loop to stop further checks
-                    }
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            } finally {
-                LogUtils.log("Stopping heartbeat checks due to server disconnection or error.", LogUtils.Severity.WARN);
             }
         }).start();
     }

@@ -32,6 +32,7 @@ public class Launcher {
 
         String folderPath = "";
         String dataFolderPath = getJarPath() + File.separator + "data";
+        String serverData = getJarPath() + File.separator + "serverData";
 
         File dataFolder = new File(dataFolderPath);
         if (!dataFolder.exists()) {
@@ -39,6 +40,14 @@ public class Launcher {
             log("Created Data Folder", LogUtils.Severity.INFO);
         } else {
             log("Data Folder Already Exists", LogUtils.Severity.WARN);
+        }
+
+        File serverDataFolder = new File(serverData);
+        if (!serverDataFolder.exists()) {
+            serverDataFolder.mkdirs();
+            log("Created Server Data Folder", LogUtils.Severity.INFO);
+        } else {
+            log("Server Data Folder Already Exists", LogUtils.Severity.WARN);
         }
 
         String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
@@ -104,7 +113,7 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
-        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Medium.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Fat.ttf"), 14);
     }
 
 }

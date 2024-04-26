@@ -23,7 +23,7 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.logs.Patrol to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Impound to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.TrafficCitation to jakarta.xml.bind;
-    opens com.drozal.dataterminal.util to javafx.fxml;
+    opens com.drozal.dataterminal.util to jakarta.xml.bind, javafx.fxml;
 
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;

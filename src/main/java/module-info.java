@@ -11,6 +11,7 @@ module com.drozal.dataterminal {
     requires org.controlsfx.controls;
     requires BorderlessSceneFX;
     requires jmdns;
+    requires java.desktop;
 
     opens com.drozal.dataterminal.logs to javafx.base;
     opens com.drozal.dataterminal to javafx.fxml;

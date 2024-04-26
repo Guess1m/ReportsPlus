@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="245.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.CurrentIDViewController">
+   <center>
+      <VBox prefHeight="253.0" prefWidth="415.0">
+         <children>
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="64.0" prefWidth="415.0" style="-fx-background-color: #f2f2f2;" VBox.vgrow="NEVER">
+               <children>
+                  <Label layoutX="10.0" layoutY="8.0" text="CITY OF LOS SANTOS" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="93.0">
+                     <font>
+                        <Font name="Segoe UI Black" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="genNum1" layoutX="333.0" layoutY="12.0" text="9283728" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Segoe UI Black" size="13.0" />
+                     </font></Label>
+                  <Label fx:id="genNum2" layoutX="333.0" layoutY="29.0" text="2749285" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Segoe UI Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Line endX="319.0" layoutX="77.0" layoutY="53.0" startX="-61.0" strokeWidth="2.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="18.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="184.0" prefWidth="415.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox layoutY="-1.0" spacing="13.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox spacing="20.0" style="-fx-background-color: white;">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Label text="FIRST" textFill="#7c7c7c">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="2.0" layoutY="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
+                                    <TextField fx:id="first" editable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="Jennifer">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <Label text="LAST" textFill="#7c7c7c">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="2.0" layoutY="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
+                                    <TextField fx:id="last" editable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="Algumendo">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <Label text="DOB" textFill="#7c7c7c">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="2.0" layoutY="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
+                                    <TextField fx:id="dob" editable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="11/27/1998">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <Label text="GENDER" textFill="#7c7c7c">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="2.0" layoutY="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
+                                    <TextField fx:id="gender" editable="false" layoutX="60.0" layoutY="-9.0" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Female">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="12.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <AnchorPane>
+                           <children>
+                              <ImageView fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
+                                 <image>
+                                    <Image url="@imgs/CityLosSantosLogo.png" />
+                                 </image>
+                              </ImageView>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="2.0" layoutY="164.0" stroke="TRANSPARENT" strokeType="INSIDE" width="165.0" />
+                              <Label fx:id="cursiveName" alignment="CENTER" layoutY="143.0" text="Jennfier" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

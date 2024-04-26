@@ -9,18 +9,29 @@ import javafx.scene.text.Font;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static com.drozal.dataterminal.util.LogUtils.*;
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
 
     public static void main(String[] args) throws IOException {
+        try {
+            String filePath = stringUtil.getJarPath() + File.separator + "output.log";
+            Files.write(Path.of(filePath), new byte[0]); // Write empty bytes to clear the file
+            log("Log file cleared successfully.", Severity.INFO);
+        } catch (IOException e) {
+            System.out.println("An error occurred while clearing the log file: " + e.getMessage());
+        }
+
         loadFonts();
 
         String folderPath = "";
-        String dataFolderPath = stringUtil.getJarPath() + File.separator + "data";
+        String dataFolderPath = getJarPath() + File.separator + "data";
 
         File dataFolder = new File(dataFolderPath);
         if (!dataFolder.exists()) {
@@ -30,9 +41,9 @@ public class Launcher {
             log("Data Folder Already Exists", LogUtils.Severity.WARN);
         }
 
-        String chargesFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+        String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
         File chargesFile = new File(chargesFilePath);
-        String citationsFilePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+        String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
         File citationsFile = new File(citationsFilePath);
         if (!chargesFile.exists()) {
             copyChargeDataFile();
@@ -75,6 +86,7 @@ public class Launcher {
             System.exit(0);
         }));
 
+
     }
 
 
@@ -92,6 +104,7 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
+        Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Medium.ttf"), 14);
     }
 
 }

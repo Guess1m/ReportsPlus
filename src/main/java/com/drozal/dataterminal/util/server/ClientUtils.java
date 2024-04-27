@@ -1,14 +1,26 @@
 package com.drozal.dataterminal.util.server;
 
+import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
+import com.drozal.dataterminal.CurrentIDViewController;
+import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.LogUtils;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
+import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
@@ -56,7 +68,33 @@ public class ClientUtils {
                         System.out.println("Received file update message from server.");
                         FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
                         Platform.runLater(() -> {
+                            if (IDStage != null && IDStage.isShowing()) {
+                                IDStage.toFront();
+                                IDStage.requestFocus();
+                                return;
+                            }
+                            IDStage = new Stage();
+                            FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            BorderlessScene newScene = new BorderlessScene(IDStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+                            AnchorPane topbar = CurrentIDViewController.getTitleBar();
+                            newScene.setMoveControl(topbar);
+                            IDStage.setTitle("Current ID");
+                            IDStage.setScene(newScene);
+                            IDStage.show();
+                            IDStage.centerOnScreen();
 
+                            IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                @Override
+                                public void handle(WindowEvent event) {
+                                    IDStage = null;
+                                }
+                            });
                         });
                     } else if ("HEARTBEAT".equals(fromServer)) {
                         System.out.println("Heartbeat received from server.");

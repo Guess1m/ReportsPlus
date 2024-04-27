@@ -76,11 +76,11 @@ public class actionController {
 
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+    public static Stage IDStage = null;
     static double minColumnWidth = 185.0;
     private static ClientController clientController;
     private static Stage mapStage = null;
     private static Stage notesStage = null;
-    private static Stage IDStage = null;
     private static Stage clientStage = null;
     @javafx.fxml.FXML
     public Button notesButton;

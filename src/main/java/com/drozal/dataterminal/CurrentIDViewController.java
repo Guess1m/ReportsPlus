@@ -23,6 +23,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class CurrentIDViewController {
+
     private static AnchorPane titleBar;
     @javafx.fxml.FXML
     private BorderPane root;
@@ -98,6 +99,34 @@ public class CurrentIDViewController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Label getCursiveName() {
+        return cursiveName;
+    }
+
+    public Label getGenNum1() {
+        return genNum1;
+    }
+
+    public TextField getDob() {
+        return dob;
+    }
+
+    public Label getGenNum2() {
+        return genNum2;
+    }
+
+    public TextField getFirst() {
+        return first;
+    }
+
+    public TextField getGender() {
+        return gender;
+    }
+
+    public TextField getLast() {
+        return last;
     }
 
     public void initialize() {

@@ -1,7 +1,5 @@
 package com.drozal.dataterminal.util.server;
 
-import javafx.application.Platform;
-
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,7 +7,6 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.file.*;
 
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 

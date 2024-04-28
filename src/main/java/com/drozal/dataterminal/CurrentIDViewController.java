@@ -142,6 +142,9 @@ public class CurrentIDViewController {
                 String birthday = mostRecentID.getBirthday();
                 String Gender = mostRecentID.getGender();
 
+                genNum1.setText(generateRandomNumber());
+                genNum2.setText(generateRandomNumber());
+
                 first.setText(firstName);
                 cursiveName.setText(firstName);
                 last.setText(lastName);
@@ -156,6 +159,10 @@ public class CurrentIDViewController {
                 last.setText("No data");
                 dob.setText("No data");
                 gender.setText("No data");
+
+                genNum1.setText(null);
+                genNum2.setText(null);
+
             }
         });
 
@@ -223,6 +230,9 @@ public class CurrentIDViewController {
                                     String birthday = mostRecentID.getBirthday();
                                     String Gender = mostRecentID.getGender();
 
+                                    genNum1.setText(generateRandomNumber());
+                                    genNum2.setText(generateRandomNumber());
+
                                     first.setText(firstName);
                                     cursiveName.setText(firstName);
                                     last.setText(lastName);
@@ -254,4 +264,5 @@ public class CurrentIDViewController {
         watchThread.setDaemon(true);
         watchThread.start();
     }
+
 }

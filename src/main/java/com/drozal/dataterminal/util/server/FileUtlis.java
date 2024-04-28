@@ -1,5 +1,7 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.util.LogUtils;
+
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +9,8 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.file.*;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
@@ -29,7 +33,7 @@ public final static int SOCKET_PORT = 13267;
         Socket sock = null;
         try {
             sock = new Socket(host, port);
-            System.out.println("Connecting...");
+            log("Connecting...", LogUtils.Severity.INFO);
 
             byte[] mybytearray = new byte[fileSize];
             InputStream is = sock.getInputStream();
@@ -41,8 +45,8 @@ public final static int SOCKET_PORT = 13267;
 
             bos.write(mybytearray, 0, current);
             bos.flush();
-            System.out.println("File " + fileToRecieve
-                    + " downloaded (" + current + " bytes read)");
+            log("File " + fileToRecieve
+                    + " downloaded (" + current + " bytes read)", LogUtils.Severity.INFO);
         } finally {
             if (bos != null) bos.close();
             if (fos != null) fos.close();
@@ -77,7 +81,7 @@ public final static int SOCKET_PORT = 13267;
                         Path fileName = ev.context();
 
                         if (fileName.toString().equals(fileNameToWatch)) {
-                            System.out.println(fileName + " has been modified");
+                            log(fileName + " has been modified", LogUtils.Severity.INFO);
 
                         }
                     }
@@ -88,7 +92,7 @@ public final static int SOCKET_PORT = 13267;
                     }
                 }
             } catch (IOException e) {
-                System.out.println("I/O Error: " + e.toString());
+                logError("I/O Error: ", e);
             }
         });
 

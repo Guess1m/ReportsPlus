@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -17,10 +16,12 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.IDStage;
+import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
@@ -32,32 +33,33 @@ public class ClientUtils {
     private static long lastHeartbeat = System.currentTimeMillis();
     private static ServerStatusListener statusListener;
 
-    public static Boolean connectToService(String serviceAddress, int servicePort) {
+    public static boolean connectToService(String serviceAddress, int servicePort) throws IOException {
+        if (socket != null && !socket.isClosed()) {
+            socket.close();
+        }
         try {
-            socket = new Socket(serviceAddress, servicePort);
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
+            socket.setSoTimeout(10000);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Thread readerThread = new Thread(() -> receiveMessages(in));
+            readerThread.start();
+
+            isConnected = true;
             port = String.valueOf(servicePort);
             inet = serviceAddress;
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            receiveMessages(in);
-            isConnected = true;
-            notifyStatusChanged(isConnected);
             ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
             ConfigWriter.configwrite("lastPortConnection", String.valueOf(servicePort));
             return true;
         } catch (IOException e) {
-            LogUtils.log("Server Not Found", LogUtils.Severity.ERROR);
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Connection Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Please ensure that you have the server open before connecting the client.");
-                alert.showAndWait();
-                isConnected = false;
-                notifyStatusChanged(isConnected);
-            });
+            isConnected = false;
+            notifyStatusChanged(isConnected);
+            log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
             return false;
         }
     }
+
 
     public static void receiveMessages(BufferedReader in) {
         new Thread(() -> {
@@ -65,7 +67,7 @@ public class ClientUtils {
                 String fromServer;
                 while ((fromServer = in.readLine()) != null) {
                     if ("UPDATE_FILE".equals(fromServer)) {
-                        System.out.println("Received file update message from server.");
+                        log("Received file update message from server.", LogUtils.Severity.DEBUG);
                         FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
                         Platform.runLater(() -> {
                             if (IDStage != null && IDStage.isShowing()) {
@@ -97,7 +99,7 @@ public class ClientUtils {
                             });
                         });
                     } else if ("HEARTBEAT".equals(fromServer)) {
-                        System.out.println("Heartbeat received from server.");
+                        log("Heartbeat received from server.", LogUtils.Severity.DEBUG);
                         lastHeartbeat = System.currentTimeMillis();
                     }
                 }
@@ -113,7 +115,7 @@ public class ClientUtils {
         ClientUtils.statusListener = statusListener;
     }
 
-    private static void notifyStatusChanged(boolean isConnected) {
+    public static void notifyStatusChanged(boolean isConnected) {
         if (statusListener != null) {
             Platform.runLater(() -> statusListener.onStatusChanged(isConnected));
         }

@@ -8,8 +8,8 @@
     <center>
         <AnchorPane prefHeight="314.0" prefWidth="457.0" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" layoutY="22.0" text="ReportPlus Client" AnchorPane.leftAnchor="-2.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="22.0">
+                <Label alignment="CENTER" layoutX="-2.0" layoutY="15.0" text="ReportPlus Client"
+                       AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                     <font>
                         <Font name="System Bold" size="24.0"/>
                     </font>
@@ -38,6 +38,12 @@
                            AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="148.0"/>
                 <Label layoutX="32.0" layoutY="131.0" text="Host:" AnchorPane.leftAnchor="32.0"
                        AnchorPane.topAnchor="131.0"/>
+                <Label fx:id="statusLabel" alignment="CENTER" layoutY="43.0" text="Status:" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0">
+                    <font>
+                        <Font name="Segoe UI" size="15.0"/>
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
     </center>

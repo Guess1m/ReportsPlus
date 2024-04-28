@@ -615,7 +615,6 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateMain(selectedColor);
-                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();
@@ -630,7 +629,6 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateSecondary(selectedColor);
-                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();
@@ -645,7 +643,6 @@ public class actionController {
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 Color selectedColor = newValue;
                 updateAccent(selectedColor);
-                System.out.println(selectedColor);
                 try {
                     loadTheme();
                     loadColors.run();

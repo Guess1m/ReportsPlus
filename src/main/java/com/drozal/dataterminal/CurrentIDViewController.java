@@ -1,8 +1,9 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.ID;
-import com.drozal.dataterminal.util.IDs;
+import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.reportCreationUtil;
+import com.drozal.dataterminal.util.server.ID;
+import com.drozal.dataterminal.util.server.IDs;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -18,6 +19,8 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.Random;
 
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
@@ -142,6 +145,9 @@ public class CurrentIDViewController {
                 String birthday = mostRecentID.getBirthday();
                 String Gender = mostRecentID.getGender();
 
+                genNum1.setText(generateRandomNumber());
+                genNum2.setText(generateRandomNumber());
+
                 first.setText(firstName);
                 cursiveName.setText(firstName);
                 last.setText(lastName);
@@ -150,12 +156,16 @@ public class CurrentIDViewController {
 
             } else {
                 // Show alert or set default values
-                System.out.println("No IDs found.");
+                log("No IDs found.", LogUtils.Severity.WARN);
                 first.setText("No data");
                 cursiveName.setText("No data");
                 last.setText("No data");
                 dob.setText("No data");
                 gender.setText("No data");
+
+                genNum1.setText(null);
+                genNum2.setText(null);
+
             }
         });
 
@@ -213,7 +223,7 @@ public class CurrentIDViewController {
                         Path fileName = ev.context();
 
                         if (fileName.toString().equals("ServerCurrentID.xml")) {
-                            System.out.println("ID is being updated");
+                            log("ID is being updated", LogUtils.Severity.INFO);
 
                             Platform.runLater(() -> {
                                 ID mostRecentID = getMostRecentID();
@@ -223,6 +233,9 @@ public class CurrentIDViewController {
                                     String birthday = mostRecentID.getBirthday();
                                     String Gender = mostRecentID.getGender();
 
+                                    genNum1.setText(generateRandomNumber());
+                                    genNum2.setText(generateRandomNumber());
+
                                     first.setText(firstName);
                                     cursiveName.setText(firstName);
                                     last.setText(lastName);
@@ -231,7 +244,7 @@ public class CurrentIDViewController {
 
                                 } else {
                                     // Show alert or set default values
-                                    System.out.println("No IDs found.");
+                                    log("No IDs found.", LogUtils.Severity.WARN);
                                     first.setText("No data");
                                     last.setText("No data");
                                     dob.setText("No data");
@@ -247,11 +260,12 @@ public class CurrentIDViewController {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("I/O Error: " + e.toString());
+                logError("I/O Error: ", e);
             }
         });
 
         watchThread.setDaemon(true);
         watchThread.start();
     }
+
 }

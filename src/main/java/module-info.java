@@ -35,4 +35,6 @@ module com.drozal.dataterminal {
     exports com.drozal.dataterminal.logs.Impound;
     exports com.drozal.dataterminal.logs.TrafficCitation;
     exports com.drozal.dataterminal.util;
+    exports com.drozal.dataterminal.util.server;
+    opens com.drozal.dataterminal.util.server to jakarta.xml.bind, javafx.fxml;
 }

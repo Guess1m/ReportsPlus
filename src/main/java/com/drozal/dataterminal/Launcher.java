@@ -25,7 +25,7 @@ public class Launcher {
             Files.write(Path.of(filePath), new byte[0]); // Write empty bytes to clear the file
             log("Log file cleared successfully.", Severity.INFO);
         } catch (IOException e) {
-            System.out.println("An error occurred while clearing the log file: " + e.getMessage());
+            logError("An error occurred while clearing the log file: ", e);
         }
 
         loadFonts();

@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.server;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

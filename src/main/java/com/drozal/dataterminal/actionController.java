@@ -465,7 +465,7 @@ public class actionController {
 
     //<editor-fold desc="Utils">
 
-    
+
     private void loadTheme() throws IOException {
         changeBarColors(getReportChart());
         changeStatisticColors(areaReportChart);

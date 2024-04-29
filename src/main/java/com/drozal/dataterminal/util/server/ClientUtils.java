@@ -36,6 +36,19 @@ public class ClientUtils {
     private static ServerStatusListener statusListener;
     private static Timer heartbeatTimer;
 
+    /* Attempt to establish a socket connection to a specified service
+     * Closes existing socket if already open to ensure no leftover connections
+     * Parameters:
+     *   serviceAddress - IP or hostname of the service
+     *   servicePort - Port number of the service
+     * Initializes and starts a separate thread to continuously receive messages from the service
+     * Updates configuration with connection details upon successful connection
+     * Uses a 10-second timeout for both socket connect and read operations
+     * Returns:
+     *   true if connection is successfully established, false otherwise
+     * Throws:
+     *   IOException if an error occurs during connection setup or message reception
+     */
     public static boolean connectToService(String serviceAddress, int servicePort) throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
@@ -64,6 +77,10 @@ public class ClientUtils {
         }
     }
 
+    /* Initializes and starts a timer to send periodic heartbeat checks
+     * Ensures any previously set timer is cancelled before starting a new one
+     * Configures the timer to run a heartbeat check task every defined interval
+     */
     public static void startHeartbeatTimer() {
         if (heartbeatTimer != null) {
             heartbeatTimer.cancel();
@@ -77,6 +94,10 @@ public class ClientUtils {
         }, 0, HEARTBEAT_TIMEOUT); // Check every 6.5 seconds
     }
 
+    /* Check if the last heartbeat was received within the expected interval
+     * Sets the connection status to false and cancels the heartbeat timer if the interval is exceeded
+     * Updates the connection status on the JavaFX application thread if necessary
+     */
     private static void checkHeartbeat() {
         if (System.currentTimeMillis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
             Platform.runLater(() -> {
@@ -90,6 +111,13 @@ public class ClientUtils {
         }
     }
 
+    /* Handles incoming messages from the connected server
+     * Starts a new thread to read messages continuously from the server
+     * Responds to specific commands like "UPDATE_FILE" and "HEARTBEAT"
+     * Manages UI updates and file receiving operations based on server commands
+     * Ensures the heartbeat timer is active upon receiving messages
+     * Catches and logs IOException, potentially indicating loss of server connection
+     */
     public static void receiveMessages(BufferedReader in) {
         new Thread(() -> {
             try {
@@ -144,16 +172,31 @@ public class ClientUtils {
         startHeartbeatTimer(); // Start the timer when message receiving starts
     }
 
+    /* Set the server status listener that will respond to connection status changes
+     * Parameter:
+     *   statusListener - the listener that reacts to status updates
+     */
     public static void setStatusListener(ServerStatusListener statusListener) {
         ClientUtils.statusListener = statusListener;
     }
 
+    /* Notify the status listener about a change in connection status
+     * Runs the notification on the JavaFX application thread to ensure thread safety
+     * Parameter:
+     *   isConnected - the new connection status
+     */
     public static void notifyStatusChanged(boolean isConnected) {
         if (statusListener != null) {
             Platform.runLater(() -> statusListener.onStatusChanged(isConnected));
         }
     }
 
+    /* Send a string of data to the server over an established socket connection
+     * Throws IOException if sending fails or if the socket is not connected
+     * Parameter:
+     *   data - the data to send to the server
+     * Logs an error if the socket is not currently connected
+     */
     public static void sendInfoToServer(String data) throws IOException {
         if (socket != null) {
             OutputStream outputStream = socket.getOutputStream();

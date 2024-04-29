@@ -18,6 +18,8 @@ import javafx.stage.WindowEvent;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.IDStage;
@@ -32,6 +34,7 @@ public class ClientUtils {
     private static Socket socket = null;
     private static long lastHeartbeat = System.currentTimeMillis();
     private static ServerStatusListener statusListener;
+    private static Timer heartbeatTimer;
 
     public static boolean connectToService(String serviceAddress, int servicePort) throws IOException {
         if (socket != null && !socket.isClosed()) {
@@ -47,6 +50,7 @@ public class ClientUtils {
             readerThread.start();
 
             isConnected = true;
+            notifyStatusChanged(isConnected);
             port = String.valueOf(servicePort);
             inet = serviceAddress;
             ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
@@ -60,6 +64,31 @@ public class ClientUtils {
         }
     }
 
+    public static void startHeartbeatTimer() {
+        if (heartbeatTimer != null) {
+            heartbeatTimer.cancel();
+        }
+        heartbeatTimer = new Timer();
+        heartbeatTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                checkHeartbeat();
+            }
+        }, 0, HEARTBEAT_TIMEOUT); // Check every 6.5 seconds
+    }
+
+    private static void checkHeartbeat() {
+        if (System.currentTimeMillis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+            Platform.runLater(() -> {
+                isConnected = false;
+                notifyStatusChanged(isConnected);
+                if (heartbeatTimer != null) {
+                    heartbeatTimer.cancel();
+                    heartbeatTimer = null;
+                }
+            });
+        }
+    }
 
     public static void receiveMessages(BufferedReader in) {
         new Thread(() -> {
@@ -99,8 +128,11 @@ public class ClientUtils {
                             });
                         });
                     } else if ("HEARTBEAT".equals(fromServer)) {
-                        log("Heartbeat received from server.", LogUtils.Severity.DEBUG);
                         lastHeartbeat = System.currentTimeMillis();
+                        if (isConnected == false) {
+                            isConnected = true;
+                            notifyStatusChanged(isConnected);
+                        }
                     }
                 }
             } catch (IOException e) {
@@ -109,6 +141,7 @@ public class ClientUtils {
                 LogUtils.logError("Server Connection may be lost: ", e);
             }
         }).start();
+        startHeartbeatTimer(); // Start the timer when message receiving starts
     }
 
     public static void setStatusListener(ServerStatusListener statusListener) {

@@ -77,8 +77,8 @@ public class actionController {
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
+    public static ClientController clientController;
     static double minColumnWidth = 185.0;
-    private static ClientController clientController;
     private static Stage mapStage = null;
     private static Stage notesStage = null;
     private static Stage clientStage = null;
@@ -465,6 +465,7 @@ public class actionController {
 
     //<editor-fold desc="Utils">
 
+    
     private void loadTheme() throws IOException {
         changeBarColors(getReportChart());
         changeStatisticColors(areaReportChart);
@@ -590,6 +591,16 @@ public class actionController {
                 primaryLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
                 secondaryLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
                 accentLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
+
+                try {
+                    String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
+                    String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+                    resetBtn.setStyle(nonTransparentBtn);
+                    resetBtn.setOnMouseEntered(e -> resetBtn.setStyle(hoverStyle));
+                    resetBtn.setOnMouseExited(e -> resetBtn.setStyle(nonTransparentBtn));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
             } catch (IOException e) {
                 logError("LoadTheme IO Error Code 1 ", e);
@@ -868,10 +879,14 @@ public class actionController {
         ClientController cntrl = clientController;
         if (!isConnected) {
             LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
-            serverStatusLabel.setText("Not Connected");
+            serverStatusLabel.setText("No Connection");
             serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
             cntrl.getPortField().setText("");
             cntrl.getInetField().setText("");
+            if (clientController != null) {
+                clientController.getStatusLabel().setText("Not Connected");
+                clientController.getStatusLabel().setStyle("-fx-text-fill: #ff5a5a;");
+            }
         } else {
             serverStatusLabel.setText("Connected");
             serverStatusLabel.setStyle("-fx-text-fill: #00da16;");

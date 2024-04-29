@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
+import static com.drozal.dataterminal.util.server.ClientUtils.notifyStatusChanged;
 
 public class ClientController {
     @javafx.fxml.FXML
@@ -59,6 +61,8 @@ public class ClientController {
         } else {
             log("Server Not Found", LogUtils.Severity.ERROR);
             Platform.runLater(() -> {
+                isConnected = false;
+                notifyStatusChanged(isConnected);
                 statusLabel.setText("Server Not Found");
                 statusLabel.setStyle("-fx-text-fill: red;");
             });

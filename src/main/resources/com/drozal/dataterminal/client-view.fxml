@@ -38,7 +38,7 @@
                            AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="148.0"/>
                 <Label layoutX="32.0" layoutY="131.0" text="Host:" AnchorPane.leftAnchor="32.0"
                        AnchorPane.topAnchor="131.0"/>
-                <Label fx:id="statusLabel" alignment="CENTER" layoutY="43.0" text="Status:" AnchorPane.leftAnchor="0.0"
+                <Label fx:id="statusLabel" alignment="CENTER" layoutY="43.0" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0">
                     <font>
                         <Font name="Segoe UI" size="15.0"/>

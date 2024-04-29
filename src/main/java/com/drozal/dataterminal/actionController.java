@@ -876,22 +876,29 @@ public class actionController {
     }
 
     private void updateConnectionStatus(boolean isConnected) {
-        ClientController cntrl = clientController;
         if (!isConnected) {
-            LogUtils.log("Server No Longer Connected", LogUtils.Severity.WARN);
-            serverStatusLabel.setText("No Connection");
-            serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
-            cntrl.getPortField().setText("");
-            cntrl.getInetField().setText("");
-            if (clientController != null) {
-                clientController.getStatusLabel().setText("Not Connected");
-                clientController.getStatusLabel().setStyle("-fx-text-fill: #ff5a5a;");
-            }
+            Platform.runLater(() -> {
+                LogUtils.log("No Connection", LogUtils.Severity.WARN);
+                serverStatusLabel.setText("No Connection");
+                serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
+                if (clientController != null) {
+                    clientController.getPortField().setText("");
+                    clientController.getInetField().setText("");
+                    clientController.getStatusLabel().setText("Not Connected");
+                    clientController.getStatusLabel().setStyle("-fx-text-fill: #ff5a5a;");
+                }
+            });
         } else {
-            serverStatusLabel.setText("Connected");
-            serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
-            cntrl.getPortField().setText(ClientUtils.port);
-            cntrl.getInetField().setText(ClientUtils.inet);
+            Platform.runLater(() -> {
+                serverStatusLabel.setText("Connected");
+                serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
+                if (clientController != null) {
+                    clientController.getPortField().setText(ClientUtils.port);
+                    clientController.getInetField().setText(ClientUtils.inet);
+                    clientController.getStatusLabel().setText("Connected");
+                    clientController.getStatusLabel().setStyle("-fx-text-fill: green;");
+                }
+            });
         }
     }
 
@@ -905,6 +912,7 @@ public class actionController {
                 needRefresh.set(0);
             }
         });
+
         startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
 
         notesText = "";

@@ -18,98 +18,61 @@ import javafx.stage.WindowEvent;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.net.SocketException;
 
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
-    private static final long HEARTBEAT_TIMEOUT = TimeUnit.SECONDS.toMillis((long) 6.5);  // 6.5 seconds timeout
     public static Boolean isConnected = false;
     public static String port;
     public static String inet;
     private static Socket socket = null;
-    private static long lastHeartbeat = System.currentTimeMillis();
     private static ServerStatusListener statusListener;
-    private static Timer heartbeatTimer;
 
-    /* Attempt to establish a socket connection to a specified service
-     * Closes existing socket if already open to ensure no leftover connections
-     * Parameters:
-     *   serviceAddress - IP or hostname of the service
-     *   servicePort - Port number of the service
-     * Initializes and starts a separate thread to continuously receive messages from the service
-     * Updates configuration with connection details upon successful connection
-     * Uses a 10-second timeout for both socket connect and read operations
-     * Returns:
-     *   true if connection is successfully established, false otherwise
-     * Throws:
-     *   IOException if an error occurs during connection setup or message reception
+    /**
+     * Attempts to establish a socket connection to a specified service in a non-blocking manner.
+     * Closes the existing socket if it is already open to ensure no leftover connections.
+     * Initializes and starts a separate thread to continuously receive messages from the service.
+     * Updates configuration with connection details upon successful connection.
+     * Uses a 10-second timeout for both socket connection and read operations.
+     * Logs connection status and returns a boolean value asynchronously.
+     *
+     * @param serviceAddress The IP address or hostname of the service.
+     * @param servicePort    The port number of the service.
+     * @return true if the connection is successfully established, false otherwise.
+     * @throws IOException if an error occurs during initial socket closure.
      */
-    public static boolean connectToService(String serviceAddress, int servicePort) throws IOException {
+    public static void connectToService(String serviceAddress, int servicePort) throws IOException {
         if (socket != null && !socket.isClosed()) {
             socket.close();
         }
-        try {
-            socket = new Socket();
-            socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
-            socket.setSoTimeout(10000);
+        new Thread(() -> {
+            try {
+                isConnected = true;
+                notifyStatusChanged(isConnected);
+                socket = new Socket();
+                socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
+                socket.setSoTimeout(10000);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            Thread readerThread = new Thread(() -> receiveMessages(in));
-            readerThread.start();
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                Thread readerThread = new Thread(() -> receiveMessages(in));
+                readerThread.start();
 
-            isConnected = true;
-            notifyStatusChanged(isConnected);
-            port = String.valueOf(servicePort);
-            inet = serviceAddress;
-            ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
-            ConfigWriter.configwrite("lastPortConnection", String.valueOf(servicePort));
-            return true;
-        } catch (IOException e) {
-            isConnected = false;
-            notifyStatusChanged(isConnected);
-            log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
-            return false;
-        }
-    }
-
-    /* Initializes and starts a timer to send periodic heartbeat checks
-     * Ensures any previously set timer is cancelled before starting a new one
-     * Configures the timer to run a heartbeat check task every defined interval
-     */
-    public static void startHeartbeatTimer() {
-        if (heartbeatTimer != null) {
-            heartbeatTimer.cancel();
-        }
-        heartbeatTimer = new Timer();
-        heartbeatTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                checkHeartbeat();
-            }
-        }, 0, HEARTBEAT_TIMEOUT); // Check every 6.5 seconds
-    }
-
-    /* Check if the last heartbeat was received within the expected interval
-     * Sets the connection status to false and cancels the heartbeat timer if the interval is exceeded
-     * Updates the connection status on the JavaFX application thread if necessary
-     */
-    private static void checkHeartbeat() {
-        if (System.currentTimeMillis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
-            Platform.runLater(() -> {
+                log("CONNECTED: " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
+                port = String.valueOf(servicePort);
+                inet = serviceAddress;
+                ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
+                ConfigWriter.configwrite("lastPortConnection", String.valueOf(servicePort));
+            } catch (IOException e) {
                 isConnected = false;
                 notifyStatusChanged(isConnected);
-                if (heartbeatTimer != null) {
-                    heartbeatTimer.cancel();
-                    heartbeatTimer = null;
-                }
-            });
-        }
+                log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
+            }
+        }).start();
     }
+
 
     /* Handles incoming messages from the connected server
      * Starts a new thread to read messages continuously from the server
@@ -155,21 +118,18 @@ public class ClientUtils {
                                 }
                             });
                         });
-                    } else if ("HEARTBEAT".equals(fromServer)) {
-                        lastHeartbeat = System.currentTimeMillis();
-                        if (isConnected == false) {
-                            isConnected = true;
-                            notifyStatusChanged(isConnected);
-                        }
                     }
                 }
+            } catch (SocketException e) {
+                isConnected = false;
+                notifyStatusChanged(isConnected);
+                log("Server Disconnected", LogUtils.Severity.ERROR);
             } catch (IOException e) {
                 isConnected = false;
                 notifyStatusChanged(isConnected);
-                LogUtils.logError("Server Connection may be lost: ", e);
+                log("Error reading from server: " + e.getMessage(), LogUtils.Severity.ERROR);
             }
         }).start();
-        startHeartbeatTimer(); // Start the timer when message receiving starts
     }
 
     /* Set the server status listener that will respond to connection status changes

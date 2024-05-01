@@ -16,18 +16,15 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class FileUtlis {
 
-    /* Receive a file from a server using a TCP socket
-     * Establishes a socket connection to the server and reads a specified file
-     * Parameters:
-     *   host - the IP address or hostname of the server
-     *   port - the port number on the server
-     *   fileToReceive - the path where the downloaded file will be saved
-     *   fileSize - expected size of the file to allocate buffer
-     * Logs the connection and file download progress
-     * Uses a buffer to read the file in chunks and writes it to disk using a BufferedOutputStream
-     * Ensures all resources (socket, streams) are closed in the finally block
-     * Throws:
-     *   IOException if there are issues connecting, reading, or writing to the file
+    /**
+     * Receives a file from the server specified by host and port.
+     * Writes the received file to the specified file path with the provided file size.
+     *
+     * @param host the hostname or IP address of the server
+     * @param port the port number of the server
+     * @param fileToRecieve the file path to save the received file
+     * @param fileSize the expected size of the file to receive
+     * @throws IOException if an I/O error occurs while receiving the file
      */
     public static void recieveFileFromServer(String host, int port, String fileToRecieve, int fileSize) throws IOException {
         int bytesRead;
@@ -58,15 +55,12 @@ public class FileUtlis {
         }
     }
 
-    /* Watch for modifications to a specific file in a given directory
-     * Sets up a WatchService to monitor file events such as modifications
-     * Runs the watching process on a separate daemon thread
-     * Parameters:
-     *   directoryPath - the directory path where the file is located
-     *   fileNameToWatch - the specific file to monitor for changes
-     * Logs each modification event detected for the file
-     * Continues monitoring until the watch key is invalid or the thread is interrupted
-     * Handles IOException and InterruptedException, logging any issues encountered
+    /**
+     * Monitors file changes in the specified directory for the given file name.
+     * Logs an informational message when the watched file has been modified.
+     *
+     * @param directoryPath the directory path to watch for file changes
+     * @param fileNameToWatch the name of the file to watch for changes
      */
     public static void watchFileChanges(String directoryPath, String fileNameToWatch) {
         Path dir = Paths.get(directoryPath);

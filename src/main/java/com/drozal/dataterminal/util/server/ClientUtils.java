@@ -32,17 +32,14 @@ public class ClientUtils {
     private static ServerStatusListener statusListener;
 
     /**
-     * Attempts to establish a socket connection to a specified service in a non-blocking manner.
-     * Closes the existing socket if it is already open to ensure no leftover connections.
-     * Initializes and starts a separate thread to continuously receive messages from the service.
-     * Updates configuration with connection details upon successful connection.
-     * Uses a 10-second timeout for both socket connection and read operations.
-     * Logs connection status and returns a boolean value asynchronously.
+     * Connects to the specified service address and port.
+     * If a previous socket connection exists, it is closed before establishing a new connection.
+     * Upon successful connection, initiates a background thread for receiving messages from the server.
+     * Updates the configuration with the last used service address and port upon successful connection.
      *
-     * @param serviceAddress The IP address or hostname of the service.
-     * @param servicePort    The port number of the service.
-     * @return true if the connection is successfully established, false otherwise.
-     * @throws IOException if an error occurs during initial socket closure.
+     * @param serviceAddress the IP address or hostname of the service
+     * @param servicePort the port number of the service
+     * @throws IOException if an I/O error occurs while connecting to the service
      */
     public static void connectToService(String serviceAddress, int servicePort) throws IOException {
         if (socket != null && !socket.isClosed()) {
@@ -73,13 +70,11 @@ public class ClientUtils {
         }).start();
     }
 
-
-    /* Handles incoming messages from the connected server
-     * Starts a new thread to read messages continuously from the server
-     * Responds to specific commands like "UPDATE_FILE" and "HEARTBEAT"
-     * Manages UI updates and file receiving operations based on server commands
-     * Ensures the heartbeat timer is active upon receiving messages
-     * Catches and logs IOException, potentially indicating loss of server connection
+    /**
+     * Receives messages from the server through the provided BufferedReader.
+     * Upon receiving an "UPDATE_FILE" message, performs actions such as file retrieval and UI updates.
+     *
+     * @param in the BufferedReader connected to the server's input stream
      */
     public static void receiveMessages(BufferedReader in) {
         new Thread(() -> {
@@ -132,18 +127,20 @@ public class ClientUtils {
         }).start();
     }
 
-    /* Set the server status listener that will respond to connection status changes
-     * Parameter:
-     *   statusListener - the listener that reacts to status updates
+    /**
+     * Sets the status listener for monitoring connection status changes.
+     *
+     * @param statusListener the listener for connection status changes
      */
     public static void setStatusListener(ServerStatusListener statusListener) {
         ClientUtils.statusListener = statusListener;
     }
 
-    /* Notify the status listener about a change in connection status
-     * Runs the notification on the JavaFX application thread to ensure thread safety
-     * Parameter:
-     *   isConnected - the new connection status
+    /**
+     * Notifies the status listener about the change in connection status.
+     * Executes the notification on the JavaFX application thread.
+     *
+     * @param isConnected the current connection status
      */
     public static void notifyStatusChanged(boolean isConnected) {
         if (statusListener != null) {
@@ -151,11 +148,12 @@ public class ClientUtils {
         }
     }
 
-    /* Send a string of data to the server over an established socket connection
-     * Throws IOException if sending fails or if the socket is not connected
-     * Parameter:
-     *   data - the data to send to the server
-     * Logs an error if the socket is not currently connected
+    /**
+     * Sends information to the server over the established socket connection.
+     * If the socket is not connected, logs an error.
+     *
+     * @param data the data to send to the server
+     * @throws IOException if an I/O error occurs while sending data to the server
      */
     public static void sendInfoToServer(String data) throws IOException {
         if (socket != null) {

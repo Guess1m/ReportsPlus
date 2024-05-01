@@ -871,8 +871,6 @@ public class actionController {
         settingsStage.setResizable(false);
         settingsStage.show();
         settingsStage.setAlwaysOnTop(true);
-
-
     }
 
     private void updateConnectionStatus(boolean isConnected) {

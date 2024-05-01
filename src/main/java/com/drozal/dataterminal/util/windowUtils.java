@@ -68,6 +68,18 @@ public class windowUtils {
         stage.setHeight(primaryScreenBounds.getHeight());
     }
 
+    private static Screen getScreenContainingStage(Stage stage) {
+        double centerX = stage.getX() + stage.getWidth() / 2.0;
+        double centerY = stage.getY() + stage.getHeight() / 2.0;
+
+        for (Screen screen : Screen.getScreens()) {
+            if (screen.getVisualBounds().contains(centerX, centerY)) {
+                return screen;
+            }
+        }
+        return null;
+    }
+
     public static void setWindowedFullscreen(Stage stage) {
         Screen screen = getScreenContainingStage(stage);
         if (screen != null) {
@@ -80,18 +92,6 @@ public class windowUtils {
         } else {
             log("No screen found for the stage center.", LogUtils.Severity.WARN);
         }
-    }
-
-    private static Screen getScreenContainingStage(Stage stage) {
-        double centerX = stage.getX() + stage.getWidth() / 2.0;
-        double centerY = stage.getY() + stage.getHeight() / 2.0;
-
-        for (Screen screen : Screen.getScreens()) {
-            if (screen.getVisualBounds().contains(centerX, centerY)) {
-                return screen;
-            }
-        }
-        return null;
     }
 
     public static void restoreDefaultState(Stage stage, double width, double height) {

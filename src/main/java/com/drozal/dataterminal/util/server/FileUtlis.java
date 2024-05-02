@@ -20,10 +20,10 @@ public class FileUtlis {
      * Receives a file from the server specified by host and port.
      * Writes the received file to the specified file path with the provided file size.
      *
-     * @param host the hostname or IP address of the server
-     * @param port the port number of the server
+     * @param host          the hostname or IP address of the server
+     * @param port          the port number of the server
      * @param fileToRecieve the file path to save the received file
-     * @param fileSize the expected size of the file to receive
+     * @param fileSize      the expected size of the file to receive
      * @throws IOException if an I/O error occurs while receiving the file
      */
     public static void recieveFileFromServer(String host, int port, String fileToRecieve, int fileSize) throws IOException {
@@ -34,7 +34,7 @@ public class FileUtlis {
         Socket sock = null;
         try {
             sock = new Socket(host, port);
-            log("Connecting...", LogUtils.Severity.INFO);
+            //log("Connecting...", LogUtils.Severity.INFO);
 
             byte[] mybytearray = new byte[fileSize];
             InputStream is = sock.getInputStream();
@@ -46,8 +46,7 @@ public class FileUtlis {
 
             bos.write(mybytearray, 0, current);
             bos.flush();
-            log("File " + fileToRecieve
-                    + " downloaded (" + current + " bytes read)", LogUtils.Severity.INFO);
+            //log("File " + fileToRecieve + " downloaded (" + current + " bytes read)", LogUtils.Severity.INFO);
         } finally {
             if (bos != null) bos.close();
             if (fos != null) fos.close();
@@ -59,7 +58,7 @@ public class FileUtlis {
      * Monitors file changes in the specified directory for the given file name.
      * Logs an informational message when the watched file has been modified.
      *
-     * @param directoryPath the directory path to watch for file changes
+     * @param directoryPath   the directory path to watch for file changes
      * @param fileNameToWatch the name of the file to watch for changes
      */
     public static void watchFileChanges(String directoryPath, String fileNameToWatch) {

@@ -38,7 +38,7 @@ public class ClientUtils {
      * Updates the configuration with the last used service address and port upon successful connection.
      *
      * @param serviceAddress the IP address or hostname of the service
-     * @param servicePort the port number of the service
+     * @param servicePort    the port number of the service
      * @throws IOException if an I/O error occurs while connecting to the service
      */
     public static void connectToService(String serviceAddress, int servicePort) throws IOException {

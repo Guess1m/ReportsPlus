@@ -20,12 +20,13 @@ import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 public class Launcher {
 
     /**
-     Main method to initialize the application.
-     It clears the log file, loads fonts, creates necessary folders, copies data files if missing,
-     sets up directory for data logs, and launches the appropriate application based on config.
-     It also registers a shutdown hook to handle cleanup operations.
-     @param args command-line arguments
-     @throws IOException if an I/O error occurs
+     * Main method to initialize the application.
+     * It clears the log file, loads fonts, creates necessary folders, copies data files if missing,
+     * sets up directory for data logs, and launches the appropriate application based on config.
+     * It also registers a shutdown hook to handle cleanup operations.
+     *
+     * @param args command-line arguments
+     * @throws IOException if an I/O error occurs
      */
     public static void main(String[] args) throws IOException {
         try {
@@ -107,8 +108,8 @@ public class Launcher {
     }
 
     /**
-     Load fonts required by the application.
-     Fonts are loaded from resources and registered with JavaFX Font class.
+     * Load fonts required by the application.
+     * Fonts are loaded from resources and registered with JavaFX Font class.
      */
     public static void loadFonts() {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);

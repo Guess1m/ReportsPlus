@@ -55,6 +55,13 @@ public class CurrentIDViewController {
         return String.valueOf(randomNumber);
     }
 
+    /**
+     * Retrieves the most recent ID from an XML file.
+     * This method checks the XML file's existence and non-emptiness before attempting to unmarshal it.
+     * It uses JAXB to convert the XML content to Java objects and handles various potential errors.
+     *
+     * @return the most recent ID object or null if no IDs are available or an error occurs
+     */
     public static ID getMostRecentID() {
         String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
         File file = new File(filePath);
@@ -64,22 +71,19 @@ public class CurrentIDViewController {
             return null;
         }
 
+        if (file.length() == 0) {
+            System.err.println("File is empty: " + filePath);
+            return null;
+        }
+
         try {
-            // Create a JAXB context
             JAXBContext jaxbContext = JAXBContext.newInstance(IDs.class);
-
-            // Create an unmarshaller
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-            // Unmarshal the XML file
             IDs ids = (IDs) jaxbUnmarshaller.unmarshal(file);
-
-            // Get the list of IDs
             List<ID> idList = ids.getIdList();
-
-            // Return the last ID in the list (most recent)
             return idList.isEmpty() ? null : idList.get(idList.size() - 1);
         } catch (JAXBException e) {
+            System.err.println("Error unmarshalling file: " + filePath);
             e.printStackTrace();
             return null;
         }

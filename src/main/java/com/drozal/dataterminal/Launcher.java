@@ -31,10 +31,41 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "output.log";
-            Files.write(Path.of(filePath), new byte[0]); // Write empty bytes to clear the file
-            log("Log file cleared successfully.", Severity.INFO);
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.write(path, new byte[0]); // Write empty bytes to clear the file
+                log("Log file cleared successfully.", Severity.INFO);
+            } else {
+                log("Log file does not exist.", Severity.WARN);
+            }
         } catch (IOException e) {
             logError("An error occurred while clearing the log file: ", e);
+        }
+
+        try {
+            String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path); // Deletes the file
+                log("Server callout file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server callout file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server callout file: ", e);
+        }
+
+        try {
+            String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml";
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path); // Deletes the file
+                log("Server current ID file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server current ID file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server current ID file: ", e);
         }
 
         loadFonts();

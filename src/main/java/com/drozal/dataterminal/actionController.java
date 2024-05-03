@@ -77,6 +77,7 @@ public class actionController {
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
+    public static Stage CalloutStage = null;
     public static ClientController clientController;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
@@ -458,6 +459,24 @@ public class actionController {
     private Label serverStatusLabel;
     @javafx.fxml.FXML
     private Button showIDBtn;
+    @javafx.fxml.FXML
+    private Button showCalloutBtn;
+    @javafx.fxml.FXML
+    private MenuItem vehLookupBtn;
+    @javafx.fxml.FXML
+    private TextField vehSearchField;
+    @javafx.fxml.FXML
+    private Button pedSearchBtn;
+    @javafx.fxml.FXML
+    private TextField pedSearchField;
+    @javafx.fxml.FXML
+    private AnchorPane pedLookupPane;
+    @javafx.fxml.FXML
+    private MenuItem pedLookupBtn;
+    @javafx.fxml.FXML
+    private Button vehSearchBtn;
+    @javafx.fxml.FXML
+    private AnchorPane vehLookupPane;
 
 
     //</editor-fold>
@@ -901,7 +920,7 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
-        setDisable(infoPane, logPane);
+        setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);
         needRefresh.addListener((obs, oldValue, newValue) -> {
@@ -1205,7 +1224,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(infoPane, logPane);
+        setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
         controllerUtils.refreshChart(areaReportChart, "area");
@@ -1214,8 +1233,47 @@ public class actionController {
     @javafx.fxml.FXML
     public void onLogsButtonClick(ActionEvent actionEvent) {
         showButtonAnimation(logsButton);
-        setDisable(infoPane, shiftInformationPane);
+        setDisable(infoPane, shiftInformationPane, pedLookupPane, vehLookupPane);
         setActive(logPane);
+    }
+
+    @javafx.fxml.FXML
+    public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
+        if (CalloutStage != null && CalloutStage.isShowing()) {
+            CalloutStage.toFront();
+            CalloutStage.requestFocus();
+            return;
+        }
+        CalloutStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
+        Parent root = loader.load();
+        BorderlessScene newScene = new BorderlessScene(CalloutStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        AnchorPane topbar = calloutController.getTopBar();
+        newScene.setMoveControl(topbar);
+        CalloutStage.setTitle("Callout Display");
+        CalloutStage.setScene(newScene);
+        CalloutStage.show();
+        CalloutStage.centerOnScreen();
+        showButtonAnimation(showCalloutBtn);
+
+        CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                CalloutStage = null;
+            }
+        });
+    }
+
+    @javafx.fxml.FXML
+    public void onVehLookupBtnClick(ActionEvent actionEvent) {
+        setDisable(infoPane, logPane, pedLookupPane, shiftInformationPane);
+        setActive(vehLookupPane);
+    }
+
+    @javafx.fxml.FXML
+    public void onPedLookupBtnClick(ActionEvent actionEvent) {
+        setDisable(infoPane, logPane, vehLookupPane, shiftInformationPane);
+        setActive(pedLookupPane);
     }
 
 
@@ -1273,7 +1331,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(shiftInformationPane, logPane);
+        setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
         setActive(infoPane);
     }
 
@@ -1401,6 +1459,14 @@ public class actionController {
             timeline.play();
         }
         showButtonAnimation(updateInfoBtn);
+    }
+
+    @javafx.fxml.FXML
+    public void onVehSearchBtnClick(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void onPedSearchBtnClick(ActionEvent actionEvent) {
     }
 
 

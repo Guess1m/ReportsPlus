@@ -51,6 +51,19 @@
     -fx-effect: none;
 }
 
+.calloutField {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
+    -fx-background-color: rgb(242, 242, 242, 0.6);
+    -fx-prompt-text-fill: #524992 !important;
+    -fx-background-insets: 0;
+    -fx-padding: 8px;
+    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
+    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
+    -fx-border-color: grey; /* Set initial border color to transparent */
+}
+
 /*ComboBoxes*/
 .menuCombobox {
     -fx-text-fill: black !important;

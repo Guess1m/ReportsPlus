@@ -1678,8 +1678,8 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="NEVER"/>
-                        <RowConstraints maxHeight="449.0" minHeight="-Infinity" prefHeight="440.0" vgrow="NEVER"/>
-                        <RowConstraints maxHeight="246.0" minHeight="117.0" prefHeight="126.0" vgrow="ALWAYS"/>
+                        <RowConstraints maxHeight="485.0" minHeight="-Infinity" prefHeight="485.0" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="246.0" minHeight="81.0" prefHeight="81.0" vgrow="ALWAYS"/>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="144.0"
                                         valignment="BASELINE" vgrow="NEVER"/>
                     </rowConstraints>
@@ -1837,8 +1837,8 @@
                                 </Button>
                                 <Button fx:id="showIDBtn" graphicTextGap="8.0" mnemonicParsing="false"
                                         onAction="#onShowIDButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css"
-                                        text="Show Current ID" textFill="#828797">
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show ID"
+                                        textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
                                     </font>
@@ -1853,6 +1853,22 @@
                                     <VBox.margin>
                                         <Insets top="55.0"/>
                                     </VBox.margin>
+                                </Button>
+                                <Button fx:id="showCalloutBtn" graphicTextGap="8.0" mnemonicParsing="false"
+                                        onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show Callout"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/callout.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
                                 </Button>
                             </children>
                         </VBox>

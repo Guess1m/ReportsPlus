@@ -77,6 +77,7 @@ public class actionController {
     //<editor-fold desc="FXML Elements">
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
+    public static Stage CalloutStage = null;
     public static ClientController clientController;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
@@ -458,6 +459,8 @@ public class actionController {
     private Label serverStatusLabel;
     @javafx.fxml.FXML
     private Button showIDBtn;
+    @javafx.fxml.FXML
+    private Button showCalloutBtn;
 
 
     //</editor-fold>
@@ -1216,6 +1219,33 @@ public class actionController {
         showButtonAnimation(logsButton);
         setDisable(infoPane, shiftInformationPane);
         setActive(logPane);
+    }
+
+    @javafx.fxml.FXML
+    public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
+        if (CalloutStage != null && CalloutStage.isShowing()) {
+            CalloutStage.toFront();
+            CalloutStage.requestFocus();
+            return;
+        }
+        CalloutStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
+        Parent root = loader.load();
+        BorderlessScene newScene = new BorderlessScene(CalloutStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        AnchorPane topbar = calloutController.getTopBar();
+        newScene.setMoveControl(topbar);
+        CalloutStage.setTitle("Callout Display");
+        CalloutStage.setScene(newScene);
+        CalloutStage.show();
+        CalloutStage.centerOnScreen();
+        showButtonAnimation(showCalloutBtn);
+
+        CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                CalloutStage = null;
+            }
+        });
     }
 
 

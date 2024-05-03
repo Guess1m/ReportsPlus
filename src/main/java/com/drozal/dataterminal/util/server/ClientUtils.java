@@ -3,6 +3,7 @@ package com.drozal.dataterminal.util.server;
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.CurrentIDViewController;
 import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.calloutController;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.LogUtils;
 import javafx.application.Platform;
@@ -20,6 +21,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
 
+import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
@@ -72,7 +74,7 @@ public class ClientUtils {
 
     /**
      * Receives messages from the server through the provided BufferedReader.
-     * Upon receiving an "UPDATE_FILE" message, performs actions such as file retrieval and UI updates.
+     * Upon receiving an "UPDATE_ID" message, performs actions such as file retrieval and UI updates.
      *
      * @param in the BufferedReader connected to the server's input stream
      */
@@ -81,8 +83,8 @@ public class ClientUtils {
             try {
                 String fromServer;
                 while ((fromServer = in.readLine()) != null) {
-                    if ("UPDATE_FILE".equals(fromServer)) {
-                        log("Received file update message from server.", LogUtils.Severity.DEBUG);
+                    if ("UPDATE_ID".equals(fromServer)) {
+                        log("Received ID update message from server.", LogUtils.Severity.DEBUG);
                         FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
                         Platform.runLater(() -> {
                             if (IDStage != null && IDStage.isShowing()) {
@@ -110,6 +112,38 @@ public class ClientUtils {
                                 @Override
                                 public void handle(WindowEvent event) {
                                     IDStage = null;
+                                }
+                            });
+                        });
+                    } else if ("UPDATE_CALLOUT".equals(fromServer)) {
+                        log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
+                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml", 4096);
+                        Platform.runLater(() -> {
+                            if (CalloutStage != null && CalloutStage.isShowing()) {
+                                CalloutStage.toFront();
+                                CalloutStage.requestFocus();
+                                return;
+                            }
+                            CalloutStage = new Stage();
+                            FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            BorderlessScene newScene = new BorderlessScene(CalloutStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+                            AnchorPane topbar = calloutController.getTopBar();
+                            newScene.setMoveControl(topbar);
+                            CalloutStage.setTitle("Callout Display");
+                            CalloutStage.setScene(newScene);
+                            CalloutStage.show();
+                            CalloutStage.centerOnScreen();
+
+                            CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                @Override
+                                public void handle(WindowEvent event) {
+                                    CalloutStage = null;
                                 }
                             });
                         });

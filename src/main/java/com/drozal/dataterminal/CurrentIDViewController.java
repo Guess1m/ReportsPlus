@@ -89,53 +89,6 @@ public class CurrentIDViewController {
         }
     }
 
-    public static List<ID> getIDsInfo() {
-        try {
-            // Create a JAXB context
-            JAXBContext jaxbContext = JAXBContext.newInstance(IDs.class);
-
-            // Create an unmarshaller
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-            // Unmarshal the XML file
-            IDs ids = (IDs) jaxbUnmarshaller.unmarshal(new File(getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml"));
-
-            // Return the list of IDs
-            return ids.getIdList();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Label getCursiveName() {
-        return cursiveName;
-    }
-
-    public Label getGenNum1() {
-        return genNum1;
-    }
-
-    public TextField getDob() {
-        return dob;
-    }
-
-    public Label getGenNum2() {
-        return genNum2;
-    }
-
-    public TextField getFirst() {
-        return first;
-    }
-
-    public TextField getGender() {
-        return gender;
-    }
-
-    public TextField getLast() {
-        return last;
-    }
-
     public void initialize() {
         titleBar = reportCreationUtil.createTitleBar("Current ID");
         root.setTop(titleBar);
@@ -173,30 +126,10 @@ public class CurrentIDViewController {
             }
         });
 
-        loadCurrentID();
-
         root.requestFocus();
 
         watchIDChanges();
 
-
-    }
-
-    private void loadCurrentID() {
-        // TODO Get values from xml. If they dont throw an alert saying there is no ID to display.
-        String FirstName = "Zain";
-        String LastName = "Drozal";
-        String DateOfBirth = "06/20/2004";
-        String Gender = "Male";
-
-        genNum1.setText(generateRandomNumber());
-        genNum2.setText(generateRandomNumber());
-
-        first.setText(FirstName);
-        cursiveName.setText(FirstName);
-        last.setText(LastName);
-        dob.setText(DateOfBirth);
-        gender.setText(Gender);
 
     }
 

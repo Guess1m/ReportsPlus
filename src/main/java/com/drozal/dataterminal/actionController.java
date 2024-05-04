@@ -51,6 +51,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -69,7 +70,8 @@ import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
-import static com.drozal.dataterminal.util.server.recordUtils.*;
+import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
+import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
@@ -493,6 +495,22 @@ public class actionController {
     private TextField pedlnamefield;
     @javafx.fxml.FXML
     private TextField pedfnamefield;
+    @javafx.fxml.FXML
+    private TextField vehcolorfield;
+    @javafx.fxml.FXML
+    private TextField vehinsfield;
+    @javafx.fxml.FXML
+    private TextField vehownerfield;
+    @javafx.fxml.FXML
+    private TextField vehregfield;
+    @javafx.fxml.FXML
+    private TextField vehplatefield;
+    @javafx.fxml.FXML
+    private TextField vehstolenfield;
+    @javafx.fxml.FXML
+    private TextField vehmodelfield;
+    @javafx.fxml.FXML
+    private Rectangle vehcolordisplay;
 
 
     //</editor-fold>
@@ -1481,18 +1499,29 @@ public class actionController {
     public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedPlate = vehSearchField.getText();
 
-        System.out.println("Vehicle Data:");
-        Map<String, String> vehData = grabVehicleData(getJarPath()+ File.separator+"serverData"+File.separator+"ServerWorldCars.data", searchedPlate);
+        Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 
-        System.out.println("licensePlate: " + vehData.getOrDefault("licensePlate", "Not available"));
-        System.out.println("model: " + vehData.getOrDefault("model", "Not available"));
-        System.out.println("isStolen: " + vehData.getOrDefault("isStolen", "Not available"));
-        System.out.println("isPolice: " + vehData.getOrDefault("isPolice", "Not available"));
-        System.out.println("owner: " + vehData.getOrDefault("owner", "Not available"));
-        System.out.println("driver: " + vehData.getOrDefault("driver", "No value provided"));
-        System.out.println("registration: " + vehData.getOrDefault("registration", "Not available"));
-        System.out.println("insurance: " + vehData.getOrDefault("insurance", "Not available"));
-        System.out.println("color: " + vehData.getOrDefault("color", "Not available"));
+        String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
+        String model = vehData.getOrDefault("model", "Not available");
+        String isStolen = vehData.getOrDefault("isStolen", "Not available");
+        String owner = vehData.getOrDefault("owner", "Not available");
+        String registration = vehData.getOrDefault("registration", "Not available");
+        String insurance = vehData.getOrDefault("insurance", "Not available");
+        String colorValue = vehData.getOrDefault("color", "Not available");
+        String[] rgb = colorValue.split("-");
+        String color = "Not available";
+
+        if (rgb.length == 3) {
+            color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+        }
+
+        vehplatefield.setText(licensePlate);
+        vehmodelfield.setText(model);
+        vehstolenfield.setText(isStolen);
+        vehownerfield.setText(owner);
+        vehregfield.setText(registration);
+        vehinsfield.setText(insurance);
+        if (!color.equals("Not available")) vehcolordisplay.setFill(Color.valueOf(color));
 
     }
 
@@ -1500,12 +1529,11 @@ public class actionController {
     public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedName = pedSearchField.getText();
 
-        System.out.println("Ped Data:");
-        Map<String, String> pedData = grabPedData(getJarPath()+ File.separator+"serverData"+File.separator+"ServerWorldPeds.data", searchedName);
+        Map<String, String> pedData = grabPedData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
         String gender = pedData.getOrDefault("gender", "Not available");
         String birthday = pedData.getOrDefault("birthday", "Not available");
-        String isWanted = pedData.getOrDefault("isWanted", "Not available");
-        String licenseStatus = pedData.getOrDefault("licenseStatus", "Not available");
+        String isWanted = pedData.getOrDefault("iswanted", "Not available");
+        String licenseStatus = pedData.getOrDefault("licensestatus", "Not available");
         String name = pedData.getOrDefault("name", "Not available");
         String[] parts = name.split(" ");
         String firstName = parts[0];

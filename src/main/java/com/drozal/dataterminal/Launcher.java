@@ -68,6 +68,32 @@ public class Launcher {
             logError("An error occurred while deleting the server current ID file: ", e);
         }
 
+        try {
+            String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path); // Deletes the file
+                log("Server world peds file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server world peds file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server world peds file: ", e);
+        }
+
+        try {
+            String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path); // Deletes the file
+                log("Server world cars file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server world cars file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server world cars file: ", e);
+        }
+
         loadFonts();
 
         String folderPath = "";

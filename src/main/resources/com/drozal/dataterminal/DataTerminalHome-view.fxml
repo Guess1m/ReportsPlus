@@ -235,19 +235,31 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="pedLookupPane" disable="true" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <Label layoutX="43.0" layoutY="35.0" style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="43.0">
                <font>
                   <Font name="Segoe UI Black" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="pedSearchField" layoutX="155.0" layoutY="48.0" prefHeight="35.0" prefWidth="613.0" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
+            <TextField fx:id="pedSearchField" layoutX="155.0" layoutY="48.0" prefHeight="35.0" prefWidth="613.0" promptText="Search by Name" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
                <font>
                   <Font name="Segoe UI Semibold" size="16.0" />
                </font>
             </TextField>
             <Button fx:id="pedSearchBtn" layoutX="789.0" layoutY="47.0" mnemonicParsing="false" onAction="#onPedSearchBtnClick" prefHeight="36.0" prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Search" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="47.0" />
+            <TextField fx:id="pedfnamefield" layoutX="63.0" layoutY="137.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="62.0" layoutY="110.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="First Name" />
+            <TextField fx:id="pedlnamefield" layoutX="255.0" layoutY="137.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="254.0" layoutY="110.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Last Name" />
+            <TextField fx:id="pedgenfield" layoutX="463.0" layoutY="217.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="462.0" layoutY="190.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Gender" />
+            <TextField fx:id="pedwantedfield" layoutX="64.0" layoutY="217.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="63.0" layoutY="190.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Wanted Status" />
+            <TextField fx:id="pedlicensefield" layoutX="266.0" layoutY="217.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="265.0" layoutY="190.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="License Status" />
+            <TextField fx:id="peddobfield" layoutX="464.0" layoutY="137.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" />
+            <Label layoutX="463.0" layoutY="110.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Birthday" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="vehLookupPane" disable="true" layoutX="227.0" layoutY="110.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
@@ -257,7 +269,7 @@
                   <Font name="Segoe UI Black" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="vehSearchField" layoutX="155.0" layoutY="48.0" prefHeight="35.0" prefWidth="613.0" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
+            <TextField fx:id="vehSearchField" layoutX="155.0" layoutY="48.0" prefHeight="35.0" prefWidth="613.0" promptText="Search by Plate Number" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
                <font>
                   <Font name="Segoe UI Semibold" size="16.0" />
                </font>
@@ -1278,8 +1290,8 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="540.0" minHeight="-Infinity" prefHeight="528.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="246.0" minHeight="26.0" prefHeight="38.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="566.0" minHeight="-Infinity" prefHeight="528.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="246.0" minHeight="0.0" prefHeight="38.0" vgrow="ALWAYS" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="144.0" valignment="BASELINE" vgrow="NEVER" />
                     </rowConstraints>
                     <children>
@@ -1413,7 +1425,7 @@
                                         </ImageView>
                                     </graphic>
                                     <VBox.margin>
-                                        <Insets top="55.0" />
+                                        <Insets top="22.0" />
                                     </VBox.margin>
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false" onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show Callout" textFill="#828797">

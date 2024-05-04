@@ -59,14 +59,18 @@ import javafx.util.Duration;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
+import static com.drozal.dataterminal.util.server.recordUtils.*;
+import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
@@ -477,6 +481,18 @@ public class actionController {
     private Button vehSearchBtn;
     @javafx.fxml.FXML
     private AnchorPane vehLookupPane;
+    @javafx.fxml.FXML
+    private TextField pedgenfield;
+    @javafx.fxml.FXML
+    private TextField peddobfield;
+    @javafx.fxml.FXML
+    private TextField pedlicensefield;
+    @javafx.fxml.FXML
+    private TextField pedwantedfield;
+    @javafx.fxml.FXML
+    private TextField pedlnamefield;
+    @javafx.fxml.FXML
+    private TextField pedfnamefield;
 
 
     //</editor-fold>
@@ -1462,11 +1478,46 @@ public class actionController {
     }
 
     @javafx.fxml.FXML
-    public void onVehSearchBtnClick(ActionEvent actionEvent) {
+    public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
+        String searchedPlate = vehSearchField.getText();
+
+        System.out.println("Vehicle Data:");
+        Map<String, String> vehData = grabVehicleData(getJarPath()+ File.separator+"serverData"+File.separator+"ServerWorldCars.data", searchedPlate);
+
+        System.out.println("licensePlate: " + vehData.getOrDefault("licensePlate", "Not available"));
+        System.out.println("model: " + vehData.getOrDefault("model", "Not available"));
+        System.out.println("isStolen: " + vehData.getOrDefault("isStolen", "Not available"));
+        System.out.println("isPolice: " + vehData.getOrDefault("isPolice", "Not available"));
+        System.out.println("owner: " + vehData.getOrDefault("owner", "Not available"));
+        System.out.println("driver: " + vehData.getOrDefault("driver", "No value provided"));
+        System.out.println("registration: " + vehData.getOrDefault("registration", "Not available"));
+        System.out.println("insurance: " + vehData.getOrDefault("insurance", "Not available"));
+        System.out.println("color: " + vehData.getOrDefault("color", "Not available"));
+
     }
 
     @javafx.fxml.FXML
-    public void onPedSearchBtnClick(ActionEvent actionEvent) {
+    public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
+        String searchedName = pedSearchField.getText();
+
+        System.out.println("Ped Data:");
+        Map<String, String> pedData = grabPedData(getJarPath()+ File.separator+"serverData"+File.separator+"ServerWorldPeds.data", searchedName);
+        String gender = pedData.getOrDefault("gender", "Not available");
+        String birthday = pedData.getOrDefault("birthday", "Not available");
+        String isWanted = pedData.getOrDefault("isWanted", "Not available");
+        String licenseStatus = pedData.getOrDefault("licenseStatus", "Not available");
+        String name = pedData.getOrDefault("name", "Not available");
+        String[] parts = name.split(" ");
+        String firstName = parts[0];
+        String lastName = parts.length > 1 ? parts[1] : "";
+
+        pedfnamefield.setText(firstName);
+        pedlnamefield.setText(lastName);
+        pedgenfield.setText(gender);
+        peddobfield.setText(birthday);
+        pedwantedfield.setText(isWanted);
+        pedlicensefield.setText(licenseStatus);
+
     }
 
 

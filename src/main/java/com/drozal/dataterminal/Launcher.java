@@ -68,7 +68,7 @@ public class Launcher {
             logError("An error occurred while deleting the server current ID file: ", e);
         }
 
-        try {
+        /*try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
@@ -93,7 +93,7 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server world cars file: ", e);
         }
-
+*/
         loadFonts();
 
         String folderPath = "";

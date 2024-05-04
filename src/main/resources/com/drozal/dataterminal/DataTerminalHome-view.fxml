@@ -1278,8 +1278,8 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="540.0" minHeight="-Infinity" prefHeight="528.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="246.0" minHeight="26.0" prefHeight="38.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="566.0" minHeight="-Infinity" prefHeight="528.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="246.0" minHeight="0.0" prefHeight="38.0" vgrow="ALWAYS" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="144.0" valignment="BASELINE" vgrow="NEVER" />
                     </rowConstraints>
                     <children>
@@ -1413,7 +1413,7 @@
                                         </ImageView>
                                     </graphic>
                                     <VBox.margin>
-                                        <Insets top="55.0" />
+                                        <Insets top="22.0" />
                                     </VBox.margin>
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false" onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0" styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show Callout" textFill="#828797">

@@ -147,6 +147,12 @@ public class ClientUtils {
                                 }
                             });
                         });
+                    } else if ("UPDATE_WORLD_PED".equals(fromServer)) {
+                        log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
+                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", 4096);
+                    } else if ("UPDATE_WORLD_VEH".equals(fromServer)) {
+                        log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
+                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", 4096);
                     }
                 }
             } catch (SocketException e) {

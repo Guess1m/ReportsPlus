@@ -194,7 +194,6 @@ public class controllerUtils {
         column.setPrefWidth(minColumnWidthSmall);
     }
 
-
     public static String toHexString(Color color) {
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),

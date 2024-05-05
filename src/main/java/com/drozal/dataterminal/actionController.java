@@ -508,9 +508,13 @@ public class actionController {
     @javafx.fxml.FXML
     private Label vehplatefield;
     @javafx.fxml.FXML
-    private TextField vehmodelfield1;
-    @javafx.fxml.FXML
     private AnchorPane vehcolordisplay;
+    @javafx.fxml.FXML
+    private TextField vehplatefield2;
+    @javafx.fxml.FXML
+    private AnchorPane vehRecordPane;
+    @javafx.fxml.FXML
+    private Label vehnocolorlabel;
 
 
     //</editor-fold>
@@ -1301,6 +1305,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onVehLookupBtnClick(ActionEvent actionEvent) {
         setDisable(infoPane, logPane, pedLookupPane, shiftInformationPane);
+        vehRecordPane.setVisible(false);
         setActive(vehLookupPane);
     }
 
@@ -1498,32 +1503,42 @@ public class actionController {
     @javafx.fxml.FXML
     public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedPlate = vehSearchField.getText();
-        vehcolordisplay.autosize();
 
         Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 
         String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
-        String model = vehData.getOrDefault("model", "Not available");
-        String isStolen = vehData.getOrDefault("isStolen", "Not available");
-        String owner = vehData.getOrDefault("owner", "Not available");
-        String registration = vehData.getOrDefault("registration", "Not available");
-        String insurance = vehData.getOrDefault("insurance", "Not available");
-        String colorValue = vehData.getOrDefault("color", "Not available");
-        String[] rgb = colorValue.split("-");
-        String color = "Not available";
+        if (!licensePlate.equals("Not available")){
+            vehRecordPane.setVisible(true);
+            String model = vehData.getOrDefault("model", "Not available");
+            String isStolen = vehData.getOrDefault("isStolen", "Not available");
+            String owner = vehData.getOrDefault("owner", "Not available");
+            String registration = vehData.getOrDefault("registration", "Not available");
+            String insurance = vehData.getOrDefault("insurance", "Not available");
+            String colorValue = vehData.getOrDefault("color", "Not available");
+            String[] rgb = colorValue.split("-");
+            String color = "Not available";
 
-        if (rgb.length == 3) {
-            color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+            if (rgb.length == 3) {
+                color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+            }
+
+            vehplatefield.setText(licensePlate);
+            vehplatefield2.setText(licensePlate);
+            vehmodelfield.setText(model);
+            vehstolenfield.setText(isStolen);
+            vehownerfield.setText(owner);
+            vehregfield.setText(registration);
+            vehinsfield.setText(insurance);
+            if (!color.equals("Not available")){
+                vehnocolorlabel.setVisible(false);
+                vehcolordisplay.setStyle("-fx-background-color: "+color+";"+"-fx-border-color: grey;");
+            } else {
+                vehnocolorlabel.setVisible(true);
+                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;"+"-fx-border-color: grey;");
+            }
+        } else {
+            vehRecordPane.setVisible(false);
         }
-
-        vehplatefield.setText(licensePlate);
-        vehmodelfield.setText(model);
-        vehstolenfield.setText(isStolen);
-        vehownerfield.setText(owner);
-        vehregfield.setText(registration);
-        vehinsfield.setText(insurance);
-        if (!color.equals("Not available")) vehcolordisplay.setStyle("-fx-background-color: "+(Color.valueOf(color)+";"));
-
     }
 
     @javafx.fxml.FXML

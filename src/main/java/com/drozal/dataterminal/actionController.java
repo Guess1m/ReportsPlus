@@ -496,21 +496,21 @@ public class actionController {
     @javafx.fxml.FXML
     private TextField pedfnamefield;
     @javafx.fxml.FXML
-    private TextField vehcolorfield;
-    @javafx.fxml.FXML
     private TextField vehinsfield;
     @javafx.fxml.FXML
     private TextField vehownerfield;
     @javafx.fxml.FXML
     private TextField vehregfield;
     @javafx.fxml.FXML
-    private TextField vehplatefield;
-    @javafx.fxml.FXML
     private TextField vehstolenfield;
     @javafx.fxml.FXML
     private TextField vehmodelfield;
     @javafx.fxml.FXML
-    private Rectangle vehcolordisplay;
+    private Label vehplatefield;
+    @javafx.fxml.FXML
+    private TextField vehmodelfield1;
+    @javafx.fxml.FXML
+    private AnchorPane vehcolordisplay;
 
 
     //</editor-fold>
@@ -1498,6 +1498,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedPlate = vehSearchField.getText();
+        vehcolordisplay.autosize();
 
         Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 
@@ -1521,7 +1522,7 @@ public class actionController {
         vehownerfield.setText(owner);
         vehregfield.setText(registration);
         vehinsfield.setText(insurance);
-        if (!color.equals("Not available")) vehcolordisplay.setFill(Color.valueOf(color));
+        if (!color.equals("Not available")) vehcolordisplay.setStyle("-fx-background-color: "+(Color.valueOf(color)+";"));
 
     }
 

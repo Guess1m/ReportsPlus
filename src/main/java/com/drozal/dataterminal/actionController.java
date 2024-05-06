@@ -51,7 +51,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -515,6 +514,8 @@ public class actionController {
     private AnchorPane vehRecordPane;
     @javafx.fxml.FXML
     private Label vehnocolorlabel;
+    @javafx.fxml.FXML
+    private Label noRecordFoundLabel;
 
 
     //</editor-fold>
@@ -1306,6 +1307,7 @@ public class actionController {
     public void onVehLookupBtnClick(ActionEvent actionEvent) {
         setDisable(infoPane, logPane, pedLookupPane, shiftInformationPane);
         vehRecordPane.setVisible(false);
+        noRecordFoundLabel.setVisible(false);
         setActive(vehLookupPane);
     }
 
@@ -1507,8 +1509,9 @@ public class actionController {
         Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 
         String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
-        if (!licensePlate.equals("Not available")){
+        if (!licensePlate.equals("Not available")) {
             vehRecordPane.setVisible(true);
+            noRecordFoundLabel.setVisible(false);
             String model = vehData.getOrDefault("model", "Not available");
             String isStolen = vehData.getOrDefault("isStolen", "Not available");
             String owner = vehData.getOrDefault("owner", "Not available");
@@ -1529,15 +1532,16 @@ public class actionController {
             vehownerfield.setText(owner);
             vehregfield.setText(registration);
             vehinsfield.setText(insurance);
-            if (!color.equals("Not available")){
+            if (!color.equals("Not available")) {
                 vehnocolorlabel.setVisible(false);
-                vehcolordisplay.setStyle("-fx-background-color: "+color+";"+"-fx-border-color: grey;");
+                vehcolordisplay.setStyle("-fx-background-color: " + color + ";" + "-fx-border-color: grey;");
             } else {
                 vehnocolorlabel.setVisible(true);
-                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;"+"-fx-border-color: grey;");
+                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
             }
         } else {
             vehRecordPane.setVisible(false);
+            noRecordFoundLabel.setVisible(true);
         }
     }
 

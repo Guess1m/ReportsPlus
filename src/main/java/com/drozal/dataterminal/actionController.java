@@ -1062,7 +1062,7 @@ public class actionController {
             vbox.getScene().getWindow().setOnHiding(event -> handleClose());
 
             if (!stringUtil.version.equals(gitVersion)) {
-                versionLabel.setText(gitVersion+" Available!");
+                versionLabel.setText(gitVersion + " Available!");
                 versionLabel.setStyle("-fx-text-fill: red;");
                 versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/zainrd123/DataTerminal/releases"));
             }

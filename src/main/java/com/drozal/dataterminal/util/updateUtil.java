@@ -1,10 +1,5 @@
 package com.drozal.dataterminal.util;
 
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,9 +25,9 @@ public class updateUtil {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String latestVersion = reader.readLine();
-                gitVersion=latestVersion;
-                log("Git Version: "+latestVersion, LogUtils.Severity.INFO);
-                log("App Version: "+stringUtil.version, LogUtils.Severity.INFO);
+                gitVersion = latestVersion;
+                log("Git Version: " + latestVersion, LogUtils.Severity.INFO);
+                log("App Version: " + stringUtil.version, LogUtils.Severity.INFO);
                 reader.close();
             } else {
                 log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
@@ -41,6 +36,7 @@ public class updateUtil {
             e.printStackTrace();
         }
     }
+
     public static void openWebpage(String url) {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();

@@ -72,6 +72,7 @@ import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
@@ -516,6 +517,8 @@ public class actionController {
     private Label vehnocolorlabel;
     @javafx.fxml.FXML
     private Label noRecordFoundLabel;
+    @javafx.fxml.FXML
+    private Label versionLabel;
 
 
     //</editor-fold>
@@ -959,6 +962,11 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
+
+        versionLabel.setText(stringUtil.version);
+
+        checkForUpdates();
+
         setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);

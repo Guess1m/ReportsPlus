@@ -4,13 +4,23 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.LogUtils;
 import com.drozal.dataterminal.util.stringUtil;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 
+import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import static com.drozal.dataterminal.util.LogUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
@@ -29,6 +39,7 @@ public class Launcher {
      * @throws IOException if an I/O error occurs
      */
     public static void main(String[] args) throws IOException {
+
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "output.log";
             Path path = Path.of(filePath);

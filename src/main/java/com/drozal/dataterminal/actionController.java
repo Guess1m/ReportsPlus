@@ -516,9 +516,15 @@ public class actionController {
     @javafx.fxml.FXML
     private Label vehnocolorlabel;
     @javafx.fxml.FXML
-    private Label noRecordFoundLabel;
-    @javafx.fxml.FXML
     private Label versionLabel;
+    @javafx.fxml.FXML
+    private Label pedrecordnamefield;
+    @javafx.fxml.FXML
+    private Label noRecordFoundLabelVeh;
+    @javafx.fxml.FXML
+    private AnchorPane pedRecordPane;
+    @javafx.fxml.FXML
+    private Label noRecordFoundLabelPed;
 
 
     //</editor-fold>
@@ -944,7 +950,8 @@ public class actionController {
                     clientController.getPortField().setText("");
                     clientController.getInetField().setText("");
                     clientController.getStatusLabel().setText("Not Connected");
-                    clientController.getStatusLabel().setStyle("-fx-text-fill: #ff5a5a;");
+                    clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
+                    serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e;");
                 }
             });
         } else {
@@ -955,7 +962,7 @@ public class actionController {
                     clientController.getPortField().setText(ClientUtils.port);
                     clientController.getInetField().setText(ClientUtils.inet);
                     clientController.getStatusLabel().setText("Connected");
-                    clientController.getStatusLabel().setStyle("-fx-text-fill: green;");
+                    clientController.getStatusLabel().setStyle("-fx-background-color: green;");
                 }
             });
         }
@@ -1321,13 +1328,15 @@ public class actionController {
     public void onVehLookupBtnClick(ActionEvent actionEvent) {
         setDisable(infoPane, logPane, pedLookupPane, shiftInformationPane);
         vehRecordPane.setVisible(false);
-        noRecordFoundLabel.setVisible(false);
+        noRecordFoundLabelVeh.setVisible(false);
         setActive(vehLookupPane);
     }
 
     @javafx.fxml.FXML
     public void onPedLookupBtnClick(ActionEvent actionEvent) {
         setDisable(infoPane, logPane, vehLookupPane, shiftInformationPane);
+        pedRecordPane.setVisible(false);
+        noRecordFoundLabelPed.setVisible(false);
         setActive(pedLookupPane);
     }
 
@@ -1471,11 +1480,11 @@ public class actionController {
             Scene newScene = new Scene(root);
             clientStage.setTitle("Client Interface");
             clientStage.setScene(newScene);
-            clientStage.initStyle(StageStyle.UTILITY);
+            clientStage.initStyle(StageStyle.UNDECORATED);
             clientStage.setResizable(false);
             clientStage.show();
             clientStage.centerOnScreen();
-            clientStage.setAlwaysOnTop(false);
+            clientStage.setAlwaysOnTop(true);
 
             clientStage.setOnHidden(event1 -> {
                 clientStage = null;
@@ -1525,7 +1534,7 @@ public class actionController {
         String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
         if (!licensePlate.equals("Not available")) {
             vehRecordPane.setVisible(true);
-            noRecordFoundLabel.setVisible(false);
+            noRecordFoundLabelVeh.setVisible(false);
             String model = vehData.getOrDefault("model", "Not available");
             String isStolen = vehData.getOrDefault("isStolen", "Not available");
             String owner = vehData.getOrDefault("owner", "Not available");
@@ -1555,13 +1564,14 @@ public class actionController {
             }
         } else {
             vehRecordPane.setVisible(false);
-            noRecordFoundLabel.setVisible(true);
+            noRecordFoundLabelVeh.setVisible(true);
         }
     }
 
     @javafx.fxml.FXML
     public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedName = pedSearchField.getText();
+
 
         Map<String, String> pedData = grabPedData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
         String gender = pedData.getOrDefault("gender", "Not available");
@@ -1572,14 +1582,40 @@ public class actionController {
         String[] parts = name.split(" ");
         String firstName = parts[0];
         String lastName = parts.length > 1 ? parts[1] : "";
+        if (!name.equals("Not available")) {
+            pedRecordPane.setVisible(true);
+            noRecordFoundLabelPed.setVisible(false);
 
-        pedfnamefield.setText(firstName);
-        pedlnamefield.setText(lastName);
-        pedgenfield.setText(gender);
-        peddobfield.setText(birthday);
-        pedwantedfield.setText(isWanted);
-        pedlicensefield.setText(licenseStatus);
+            pedrecordnamefield.setText(name);
+            pedfnamefield.setText(firstName);
+            pedlnamefield.setText(lastName);
+            pedgenfield.setText(gender);
+            peddobfield.setText(birthday);
+            pedwantedfield.setText(isWanted);
+            pedlicensefield.setText(licenseStatus);
 
+            if (pedlicensefield.getText().equals("Expired")) {
+                pedlicensefield.setText("EXPIRED");
+                pedlicensefield.setStyle("-fx-text-fill: red !important;");
+            } else if (pedlicensefield.getText().equals("Suspended")) {
+                pedlicensefield.setText("SUSPENDED");
+                pedlicensefield.setStyle("-fx-text-fill: red !important;");
+            } else {
+                pedlicensefield.setText("Valid");
+                pedlicensefield.setStyle("-fx-text-fill: black !important;");
+            }
+
+            if (pedwantedfield.getText().equals("True")) {
+                pedwantedfield.setText("WANTED");
+                pedwantedfield.setStyle("-fx-text-fill: red !important;");
+            } else {
+                pedwantedfield.setText("False");
+                pedwantedfield.setStyle("-fx-text-fill: black !important;");
+            }
+        } else {
+            pedRecordPane.setVisible(false);
+            noRecordFoundLabelPed.setVisible(true);
+        }
     }
 
 

@@ -49,12 +49,17 @@ public class ClientUtils {
         }
         new Thread(() -> {
             try {
-                isConnected = true;
-                notifyStatusChanged(isConnected);
                 socket = new Socket();
+                Platform.runLater(() -> {
+                    actionController.clientController.getStatusLabel().setText("Testing Connection...");
+                    actionController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
+                });
+
                 socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
                 socket.setSoTimeout(10000);
 
+                isConnected = true;
+                notifyStatusChanged(isConnected);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 Thread readerThread = new Thread(() -> receiveMessages(in));
                 readerThread.start();

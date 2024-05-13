@@ -19,7 +19,7 @@ public class OutputViewController {
     }
 
     public void initialize() {
-        titlebar = reportCreationUtil.createTitleBar("Output Log View");
+        titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View");
         root.setTop(titlebar);
         LogUtils.addOutputToListview(listView);
     }

@@ -43,7 +43,7 @@ public class ClientController {
     }
 
     public void initialize() throws IOException {
-        topBar = reportCreationUtil.createTitleBar("Client Interface");
+        topBar = reportCreationUtil.createSimpleTitleBar("Client Interface");
 
         root.setTop(topBar);
 

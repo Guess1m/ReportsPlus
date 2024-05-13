@@ -2,7 +2,6 @@ package com.drozal.dataterminal;
 
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.windowUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
@@ -52,7 +52,7 @@ public class DataTerminalHomeApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
         actionController controller = loader.getController();
-        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.UNDECORATED, root, Color.TRANSPARENT);
         mainRT.setScene(scene);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
@@ -70,14 +70,48 @@ public class DataTerminalHomeApplication extends Application {
                 mainRT.setMinHeight(450);
                 mainRT.setMinWidth(450);
                 if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
-                    windowUtils.setWindowedFullscreen(mainRT);
+                    setWindowedFullscreen(mainRT);
                 } else {
                     mainRT.setHeight(800);
                     mainRT.setWidth(1150);
                 }
             }
-
         }
+
+        mainRT.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (notesStage != null) {
+                boolean notesFocused = notesStage.isShowing();
+                if (newValue) {
+                    if (notesFocused) {
+                        notesStage.requestFocus();
+                    }
+                }
+            }
+            if (IDStage != null) {
+                boolean notesFocused = IDStage.isShowing();
+                if (newValue) {
+                    if (notesFocused) {
+                        IDStage.requestFocus();
+                    }
+                }
+            }
+            if (clientStage != null) {
+                boolean notesFocused = clientStage.isShowing();
+                if (newValue) {
+                    if (notesFocused) {
+                        clientStage.requestFocus();
+                    }
+                }
+            }
+            if (CalloutStage != null) {
+                boolean notesFocused = CalloutStage.isShowing();
+                if (newValue) {
+                    if (notesFocused) {
+                        CalloutStage.requestFocus();
+                    }
+                }
+            }
+        });
         scene.setMoveControl(controller.topPane);
         mainRT.setAlwaysOnTop(false);
     }

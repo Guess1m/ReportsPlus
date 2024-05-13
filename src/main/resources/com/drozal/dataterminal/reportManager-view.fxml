@@ -86,7 +86,7 @@
                         </GridPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane style="-fx-background-color: darkgrey;" VBox.vgrow="ALWAYS">
+                <AnchorPane fx:id="mainwindow" style="-fx-background-color: darkgrey;" VBox.vgrow="ALWAYS">
                     <effect>
                         <DropShadow height="6.26" radius="2.63" spread="0.32" width="6.26">
                             <color>

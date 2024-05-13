@@ -12,6 +12,7 @@ module com.drozal.dataterminal {
     requires BorderlessSceneFX;
     requires jmdns;
     requires java.desktop;
+    requires com.sun.jna.platform;
 
     opens com.drozal.dataterminal.logs to javafx.base;
     opens com.drozal.dataterminal to javafx.fxml;

@@ -14,7 +14,7 @@ public class ReportManagerViewController {
     }
 
     public void initialize() {
-        titlebar = reportCreationUtil.createTitleBar("Report Manager");
+        titlebar = reportCreationUtil.createSimpleTitleBar("Report Manager");
 
         root.setTop(titlebar);
     }

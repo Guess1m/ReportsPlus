@@ -85,10 +85,10 @@ public class actionController {
     public static Stage IDStage = null;
     public static Stage CalloutStage = null;
     public static ClientController clientController;
+    public static Stage notesStage = null;
+    public static Stage clientStage = null;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
-    private static Stage notesStage = null;
-    private static Stage clientStage = null;
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -1197,6 +1197,7 @@ public class actionController {
         newScene.setMoveControl(topbar);
         IDStage.setTitle("Current ID");
         IDStage.setScene(newScene);
+        //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
         IDStage.show();
         IDStage.centerOnScreen();
         showButtonAnimation(showIDBtn);
@@ -1250,7 +1251,7 @@ public class actionController {
         notesStage.setTitle("Notes");
         notesStage.setScene(newScene);
         notesStage.setResizable(true);
-        notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
+        //notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
         notesStage.show();
 
         String startupValue = ConfigReader.configRead("notesWindowLayout");

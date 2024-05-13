@@ -64,6 +64,8 @@ public class reportCreationUtil {
     private static final Map<String, Map<String, String>> reportData = new HashMap<>();
     static double windowX = 0;
     static double windowY = 0;
+    private static double xOffset;
+    private static double yOffset;
 
     private static String getPrimaryColor() { //non selected textarea
         String primaryColor;
@@ -225,6 +227,90 @@ public class reportCreationUtil {
         closeRect.toFront();
         minimizeRect.toFront();
         maximizeRect.toFront();
+        return titleBar;
+    }
+
+
+    public static AnchorPane createSimpleTitleBar(String titleText) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(-1.0);
+        colorAdjust.setBrightness(-0.45);
+
+        Label titleLabel = new Label(titleText);
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
+        titleLabel.setAlignment(Pos.CENTER);
+        AnchorPane.setLeftAnchor(titleLabel, (double) 0);
+        AnchorPane.setRightAnchor(titleLabel, (double) 0);
+        AnchorPane.setTopAnchor(titleLabel, (double) 0);
+        AnchorPane.setBottomAnchor(titleLabel, (double) 0);
+        titleLabel.setEffect(colorAdjust);
+        titleLabel.setMouseTransparent(true);
+
+        AnchorPane titleBar = new AnchorPane(titleLabel);
+        titleBar.setMinHeight(30);
+        titleBar.setStyle("-fx-background-color: #383838;");
+
+        Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+        ImageView placeholderImageView = new ImageView(placeholderImage);
+        placeholderImageView.setFitWidth(49);
+        placeholderImageView.setFitHeight(49);
+        AnchorPane.setLeftAnchor(placeholderImageView, 0.0);
+        AnchorPane.setTopAnchor(placeholderImageView, -10.0);
+        AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
+        placeholderImageView.setEffect(colorAdjust);
+
+        Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+        ImageView closeImageView = new ImageView(closeImage);
+        closeImageView.setFitWidth(15);
+        closeImageView.setFitHeight(15);
+        AnchorPane.setRightAnchor(closeImageView, 15.0);
+        AnchorPane.setTopAnchor(closeImageView, 7.0);
+        closeImageView.setEffect(colorAdjust);
+
+        Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+        ImageView minimizeImageView = new ImageView(minimizeImage);
+        minimizeImageView.setFitWidth(15);
+        minimizeImageView.setFitHeight(15);
+        AnchorPane.setRightAnchor(minimizeImageView, 42.5);
+        AnchorPane.setTopAnchor(minimizeImageView, 7.0);
+        minimizeImageView.setEffect(colorAdjust);
+
+        Rectangle closeRect = new Rectangle(20, 20);
+        Rectangle minimizeRect = new Rectangle(20, 20);
+
+        closeRect.setFill(Color.TRANSPARENT);
+        minimizeRect.setFill(Color.TRANSPARENT);
+
+        closeRect.setOnMouseClicked(event -> {
+            Stage stage = (Stage) titleBar.getScene().getWindow();
+            stage.close();
+        });
+
+        minimizeRect.setOnMouseClicked(event -> {
+            Stage stage = (Stage) titleBar.getScene().getWindow();
+            stage.setIconified(true);
+        });
+
+        AnchorPane.setRightAnchor(closeRect, 12.5);
+        AnchorPane.setTopAnchor(closeRect, 6.3);
+        AnchorPane.setRightAnchor(minimizeRect, 42.5);
+        AnchorPane.setTopAnchor(minimizeRect, 6.3);
+
+        titleBar.getChildren().addAll(placeholderImageView, closeRect, minimizeRect, closeImageView, minimizeImageView);
+        closeRect.toFront();
+        minimizeRect.toFront();
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage) titleBar.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
         return titleBar;
     }
 
@@ -434,6 +520,7 @@ public class reportCreationUtil {
         stage.setMaxHeight(screenHeight);
 
         stage.initOwner(DataTerminalHomeApplication.getMainRT());
+
         stage.show();
         stage.toFront();
 
@@ -476,7 +563,9 @@ public class reportCreationUtil {
         result.put("warningLabel", warningLabel);
         result.put("submitBtn", submitBtn);
         result.put("root", borderPane);
+
         stage.setAlwaysOnTop(true);
+        stage.requestFocus();
         return result;
     }
 

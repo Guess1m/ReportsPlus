@@ -43,6 +43,7 @@ public class Launcher {
             logError("An error occurred while clearing the log file: ", e);
         }
 
+        /* TODO: TEMP REMOVED
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
             Path path = Path.of(filePath);
@@ -67,7 +68,7 @@ public class Launcher {
             }
         } catch (IOException e) {
             logError("An error occurred while deleting the server current ID file: ", e);
-        }
+        }*/
 
         /*try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";

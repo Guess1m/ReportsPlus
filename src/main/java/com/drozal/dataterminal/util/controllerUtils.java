@@ -248,15 +248,6 @@ public class controllerUtils {
         }
     }
 
-    public static void createSpinnerNumListener(Spinner spinner) {
-        spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,3}")) {
-                // If the new value does not match the pattern of up to three digits, revert to the old value
-                spinner.getEditor().setText(oldValue);
-            }
-        });
-    }
-
     public static void clearDataLogs() {
         try {
             // Get the path to the DataLogs folder

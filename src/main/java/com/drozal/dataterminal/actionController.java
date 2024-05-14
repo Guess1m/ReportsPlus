@@ -77,10 +77,11 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
 
-    public static String notesText;
-
 
     //<editor-fold desc="FXML Elements">
+
+
+    public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
     public static Stage CalloutStage = null;
@@ -525,6 +526,8 @@ public class actionController {
     private AnchorPane pedRecordPane;
     @javafx.fxml.FXML
     private Label noRecordFoundLabelPed;
+    @javafx.fxml.FXML
+    private MenuButton lookupBtn;
 
 
     //</editor-fold>
@@ -561,7 +564,7 @@ public class actionController {
         //Buttons
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
-        String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+        String nonTransparentBtn = "-fx-background-color: " + accclr+ ";";
         updateInfoBtn.setStyle(nonTransparentBtn);
         showManagerToggle.setStyle(nonTransparentBtn);
         btn1.setStyle(nonTransparentBtn);
@@ -606,6 +609,10 @@ public class actionController {
         mapButton.setOnMouseExited(e -> mapButton.setStyle(initialStyle));
         showIDBtn.setOnMouseEntered(e -> showIDBtn.setStyle(hoverStyle));
         showIDBtn.setOnMouseExited(e -> showIDBtn.setStyle(initialStyle));
+        showCalloutBtn.setOnMouseEntered(e -> showCalloutBtn.setStyle(hoverStyle));
+        showCalloutBtn.setOnMouseExited(e -> showCalloutBtn.setStyle(initialStyle));
+        lookupBtn.setOnMouseEntered(e -> lookupBtn.setStyle(hoverStyle));
+        lookupBtn.setOnMouseExited(e -> lookupBtn.setStyle(initialStyle));
 
         updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
         updateInfoBtn.setOnMouseExited(e -> {
@@ -2229,11 +2236,11 @@ public class actionController {
         TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Sus. Searched");
         searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 
-        TableColumn<SearchLogEntry, String> breathalyzerUsedColumn = new TableColumn<>("Breathalyzer (Y/N)");
-        breathalyzerUsedColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerUsed"));
+        TableColumn<SearchLogEntry, String> testsConductedColumn = new TableColumn<>("Test(s) Cond.");
+        testsConductedColumn.setCellValueFactory(new PropertyValueFactory<>("testsConducted"));
 
-        TableColumn<SearchLogEntry, String> breathalyzerResultColumn = new TableColumn<>("Result (P/F)");
-        breathalyzerResultColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerResult"));
+        TableColumn<SearchLogEntry, String> resultsColumn = new TableColumn<>("Result(s)");
+        resultsColumn.setCellValueFactory(new PropertyValueFactory<>("testResults"));
 
         TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC");
         BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
@@ -2258,8 +2265,8 @@ public class actionController {
                 searchCountyColumn,
                 searchCommentsColumn,
                 searchedPersonsColumn,
-                breathalyzerUsedColumn,
-                breathalyzerResultColumn,
+                testsConductedColumn,
+                resultsColumn,
                 BACMeasurementColumn
         );
 
@@ -2272,8 +2279,8 @@ public class actionController {
         setSmallColumnWidth(searchDateColumn);
         setSmallColumnWidth(searchTimeColumn);
         setSmallColumnWidth(officerNumberColumn);
-        setSmallColumnWidth(breathalyzerUsedColumn);
-        setSmallColumnWidth(breathalyzerResultColumn);
+        setSmallColumnWidth(testsConductedColumn);
+        setSmallColumnWidth(resultsColumn);
         setSmallColumnWidth(BACMeasurementColumn);
     }
 
@@ -3014,8 +3021,8 @@ public class actionController {
                 searchseizeditems.setText(searchEntry.searchSeizedItems);
                 searchtype.setText(searchEntry.searchType);
                 searchcomments.setText(searchEntry.searchComments);
-                searchbreathused.setText(searchEntry.breathalyzerUsed);
-                searchbreathresult.setText(searchEntry.breathalyzerResult);
+                searchbreathused.setText(searchEntry.testsConducted);
+                searchbreathresult.setText(searchEntry.testResults);
                 searchstreet.setText(searchEntry.searchStreet);
                 searcharea.setText(searchEntry.searchArea);
                 searchgrounds.setText(searchEntry.searchGrounds);
@@ -3057,14 +3064,14 @@ public class actionController {
             searchEntry.searchSeizedItems = searchseizeditems.getText();
             searchEntry.searchType = searchtype.getText();
             searchEntry.searchComments = searchcomments.getText();
-            searchEntry.breathalyzerUsed = searchbreathused.getText();
+            searchEntry.testsConducted = searchbreathused.getText();
             searchEntry.searchStreet = searchstreet.getText();
             searchEntry.searchArea = searcharea.getText();
             searchEntry.searchGrounds = searchgrounds.getText();
             searchEntry.searchWitnesses = searchwitness.getText();
             searchEntry.breathalyzerBACMeasure = searchbacmeasure.getText();
             searchEntry.searchCounty = searchcounty.getText();
-            searchEntry.breathalyzerResult = searchbreathresult.getText();
+            searchEntry.testResults = searchbreathresult.getText();
 
             // Load existing logs from XML
             List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
@@ -3078,14 +3085,14 @@ public class actionController {
                     entry.searchSeizedItems = searchseizeditems.getText();
                     entry.searchType = searchtype.getText();
                     entry.searchComments = searchcomments.getText();
-                    entry.breathalyzerUsed = searchbreathused.getText();
+                    entry.testsConducted = searchbreathused.getText();
                     entry.searchStreet = searchstreet.getText();
                     entry.searchArea = searcharea.getText();
                     entry.searchGrounds = searchgrounds.getText();
                     entry.searchWitnesses = searchwitness.getText();
                     entry.breathalyzerBACMeasure = searchbacmeasure.getText();
                     entry.searchCounty = searchcounty.getText();
-                    entry.breathalyzerResult = searchbreathresult.getText();
+                    entry.testResults = searchbreathresult.getText();
                     break;
                 }
             }

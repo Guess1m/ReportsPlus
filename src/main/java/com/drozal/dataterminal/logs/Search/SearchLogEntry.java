@@ -20,14 +20,14 @@ public class SearchLogEntry {
     public String searchCounty;
     public String searchComments;
     public String searchedPersons;
-    public String breathalyzerUsed;
-    public String breathalyzerResult;
+    public String testsConducted;
+    public String testResults;
     public String breathalyzerBACMeasure;
 
     public SearchLogEntry() {
     }
 
-    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments, String breathalyzerUsed, String breathalyzerResult, String breathalyzerBACMeasure) {
+    public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments, String testsConducted, String testResults, String breathalyzerBACMeasure) {
         this.SearchNumber = searchNumber;
         this.searchedPersons = searchedPersons;
         this.searchDate = searchDate;
@@ -46,8 +46,8 @@ public class SearchLogEntry {
         this.searchArea = searchArea;
         this.searchCounty = searchCounty;
         this.searchComments = searchComments;
-        this.breathalyzerUsed = breathalyzerUsed;
-        this.breathalyzerResult = breathalyzerResult;
+        this.testsConducted = testsConducted;
+        this.testResults = testResults;
         this.breathalyzerBACMeasure = breathalyzerBACMeasure;
     }
 
@@ -123,12 +123,12 @@ public class SearchLogEntry {
         return searchedPersons;
     }
 
-    public String getBreathalyzerUsed() {
-        return breathalyzerUsed;
+    public String getTestsConducted() {
+        return testsConducted;
     }
 
-    public String getBreathalyzerResult() {
-        return breathalyzerResult;
+    public String getTestResults() {
+        return testResults;
     }
 
     public String getBreathalyzerBACMeasure() {

@@ -60,12 +60,12 @@ public class calloutController {
         File file = new File(filePath);
 
         if (!file.exists()) {
-            System.err.println("File does not exist: " + filePath);
+            log("File does not exist: " + filePath, LogUtils.Severity.WARN);
             return null;
         }
 
         if (file.length() == 0) {
-            System.err.println("File is empty: " + filePath);
+            log("File is empty: " + filePath, LogUtils.Severity.ERROR);
             return null;
         }
 

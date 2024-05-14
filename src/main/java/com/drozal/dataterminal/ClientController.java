@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 public class ClientController {
+    private static AnchorPane titleBar;
     @javafx.fxml.FXML
     private TextField inetField;
     @javafx.fxml.FXML
@@ -24,7 +25,6 @@ public class ClientController {
     private TextField inputHostField;
     @javafx.fxml.FXML
     private Label statusLabel;
-    private static AnchorPane titleBar;
 
     public static AnchorPane getTitleBar() {
         return titleBar;

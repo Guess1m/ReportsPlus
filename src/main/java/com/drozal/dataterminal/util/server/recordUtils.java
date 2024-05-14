@@ -1,10 +1,14 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.util.LogUtils;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.drozal.dataterminal.util.LogUtils.log;
 
 public class recordUtils {
 
@@ -67,7 +71,7 @@ public class recordUtils {
 
     public static Map<String, String> grabPedData(String filePath, String pedName) throws IOException {
         if (!Files.exists(Paths.get(filePath))) {
-            System.out.println("File does not exist: " + filePath);
+            log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
             return new HashMap<>();
         }
 
@@ -99,7 +103,7 @@ public class recordUtils {
 
     public static Map<String, String> grabVehicleData(String filePath, String licensePlate) throws IOException {
         if (!Files.exists(Paths.get(filePath))) {
-            System.out.println("File does not exist: " + filePath);
+            log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
             return new HashMap<>();
         }
 

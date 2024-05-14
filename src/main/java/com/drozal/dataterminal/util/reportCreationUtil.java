@@ -54,6 +54,8 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.treeViewUtils.*;
@@ -506,8 +508,7 @@ public class reportCreationUtil {
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
             }
         } catch (IOException e) {
-            System.err.println("could not add stylesheets to reports");
-            throw new RuntimeException(e);
+            logError("Could not add stylesheets to reports: ", e);
         }
 
         scrollPane.getStyleClass().add("formPane");
@@ -586,8 +587,8 @@ public class reportCreationUtil {
         int columnIndex = 0;
         for (FieldConfig fieldConfig : rowConfig.getFieldConfigs()) {
             if (fieldConfig.getSize() <= 0 || totalSize + fieldConfig.getSize() > 12) {
-                System.err.println(fieldConfig.getFieldName());
-                System.err.println(fieldConfig.getSize());
+                log(fieldConfig.getFieldName(), LogUtils.Severity.ERROR);
+                log(String.valueOf(fieldConfig.getSize()), LogUtils.Severity.ERROR);
                 throw new IllegalArgumentException("Invalid field size configuration");
             }
             totalSize += fieldConfig.getSize();
@@ -1121,7 +1122,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
                 updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -1274,7 +1275,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(plateNumber, notesViewController.getNotepadTextArea(), "-plate");
                 updateTextFromNotepad(num, notesViewController.getNotepadTextArea(), "-number");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -1390,7 +1391,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(patrolnum, notesViewController.getNotepadTextArea(), "-number");
                 updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -1571,7 +1572,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(plateNumber, notesViewController.getNotepadTextArea(), "-plate");
                 updateTextFromNotepad(num, notesViewController.getNotepadTextArea(), "-number");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -1642,7 +1643,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
                     updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -1841,7 +1842,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
                 updateTextFromNotepad(incidentnum, notesViewController.getNotepadTextArea(), "-number");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -1986,7 +1987,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
                 updateTextFromNotepad(seizeditems, notesViewController.getNotepadTextArea(), "-searchitems");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -2176,7 +2177,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(offenderAddress, notesViewController.getNotepadTextArea(), "-address");
                 updateTextFromNotepad(arrestnum, notesViewController.getNotepadTextArea(), "-number");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -2244,7 +2245,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
                     updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -2360,7 +2361,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
                     updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -2482,7 +2483,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
                     updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -2735,7 +2736,7 @@ public class reportCreationUtil {
                 updateTextFromNotepad(plateNumberts, notesViewController.getNotepadTextArea(), "-plate");
                 updateTextFromNotepad(stopnumts, notesViewController.getNotepadTextArea(), "-number");
             } else {
-                LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
 
@@ -2817,7 +2818,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(offenderAddressarr, notesViewController.getNotepadTextArea(), "-address");
                     updateTextFromNotepad(arrestnumarr, notesViewController.getNotepadTextArea(), "-number");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -2885,7 +2886,7 @@ public class reportCreationUtil {
                         updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
                         updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
                     } else {
-                        LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                        log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                     }
                 });
 
@@ -3001,7 +3002,7 @@ public class reportCreationUtil {
                         updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
                         updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
                     } else {
-                        LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                        log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                     }
                 });
 
@@ -3123,7 +3124,7 @@ public class reportCreationUtil {
                         updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
                         updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
                     } else {
-                        LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                        log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                     }
                 });
 
@@ -3335,7 +3336,7 @@ public class reportCreationUtil {
                     updateTextFromNotepad(plateNumbercit, notesViewController.getNotepadTextArea(), "-plate");
                     updateTextFromNotepad(numcit, notesViewController.getNotepadTextArea(), "-number");
                 } else {
-                    LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                    log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
 
@@ -3406,7 +3407,7 @@ public class reportCreationUtil {
                         updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
                         updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
                     } else {
-                        LogUtils.log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+                        log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                     }
                 });
 

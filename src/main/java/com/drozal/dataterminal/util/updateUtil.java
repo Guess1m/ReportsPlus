@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 
 public class updateUtil {
     public static String gitVersion;
@@ -44,11 +45,10 @@ public class updateUtil {
             try {
                 desktop.browse(new URI(url));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
-                System.out.println("Failed to open the URL: " + url);
+                logError("Failed to open the URL: "+url+" Trace: ",e);
             }
         } else {
-            System.out.println("Desktop is not supported on this platform.");
+            log("Desktop is not supported on this platform.", LogUtils.Severity.ERROR);
         }
     }
 

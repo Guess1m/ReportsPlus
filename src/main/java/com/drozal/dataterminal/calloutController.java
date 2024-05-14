@@ -76,8 +76,7 @@ public class calloutController {
             List<Callout> calloutList = callouts.getCalloutList();
             return calloutList.isEmpty() ? null : calloutList.get(calloutList.size() - 1);
         } catch (JAXBException e) {
-            System.err.println("Error unmarshalling file: " + filePath);
-            e.printStackTrace();
+            logError("Error unmarshalling file: " + filePath+" Trace:", e);
             return null;
         }
     }
@@ -103,15 +102,15 @@ public class calloutController {
             } else {
                 // Show alert or set default values
                 log("No Callouts found.", LogUtils.Severity.WARN);
-                streetField.setText("No data");
-                numberField.setText("No data");
-                areaField.setText("No data");
-                priorityField.setText("No data");
-                timeField.setText("No data");
-                dateField.setText("No data");
-                countyField.setText("No data");
-                descriptionField.setText("No data");
-                typeField.setText("No data");
+                streetField.setText(/*No Data*/"");
+                numberField.setText(/*No Data*/"");
+                areaField.setText(/*No Data*/"");
+                priorityField.setText(/*No Data*/"");
+                timeField.setText(/*No Data*/"");
+                dateField.setText(/*No Data*/"");
+                countyField.setText(/*No Data*/"");
+                descriptionField.setText(/*No Data*/"");
+                typeField.setText(/*No Data*/"");
             }
         });
 
@@ -165,15 +164,15 @@ public class calloutController {
                                 } else {
                                     // Show alert or set default values
                                     log("No Callouts found.", LogUtils.Severity.WARN);
-                                    streetField.setText("No data");
-                                    numberField.setText("No data");
-                                    areaField.setText("No data");
-                                    priorityField.setText("No data");
-                                    timeField.setText("No data");
-                                    dateField.setText("No data");
-                                    countyField.setText("No data");
-                                    descriptionField.setText("No data");
-                                    typeField.setText("No data");
+                                    streetField.setText(/*No Data*/"");
+                                    numberField.setText(/*No Data*/"");
+                                    areaField.setText(/*No Data*/"");
+                                    priorityField.setText(/*No Data*/"");
+                                    timeField.setText(/*No Data*/"");
+                                    dateField.setText(/*No Data*/"");
+                                    countyField.setText(/*No Data*/"");
+                                    descriptionField.setText(/*No Data*/"");
+                                    typeField.setText(/*No Data*/"");
                                 }
                             });
                         }

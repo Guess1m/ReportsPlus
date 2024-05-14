@@ -83,8 +83,7 @@ public class CurrentIDViewController {
             List<ID> idList = ids.getIdList();
             return idList.isEmpty() ? null : idList.get(idList.size() - 1);
         } catch (JAXBException e) {
-            System.err.println("Error unmarshalling file: " + filePath);
-            e.printStackTrace();
+            logError("Error unmarshalling file: " + filePath+" Trace:", e);
             return null;
         }
     }
@@ -114,11 +113,11 @@ public class CurrentIDViewController {
             } else {
                 // Show alert or set default values
                 log("No IDs found.", LogUtils.Severity.WARN);
-                first.setText("No data");
-                cursiveName.setText("No data");
-                last.setText("No data");
-                dob.setText("No data");
-                gender.setText("No data");
+                first.setText(/*No Data*/"");
+                cursiveName.setText(/*No Data*/"");
+                last.setText(/*No Data*/"");
+                dob.setText(/*No Data*/"");
+                gender.setText(/*No Data*/"");
 
                 genNum1.setText(null);
                 genNum2.setText(null);
@@ -182,10 +181,10 @@ public class CurrentIDViewController {
                                 } else {
                                     // Show alert or set default values
                                     log("No IDs found.", LogUtils.Severity.WARN);
-                                    first.setText("No data");
-                                    last.setText("No data");
-                                    dob.setText("No data");
-                                    gender.setText("No data");
+                                    first.setText(/*No Data*/"");
+                                    last.setText(/*No Data*/"");
+                                    dob.setText(/*No Data*/"");
+                                    gender.setText(/*No Data*/"");
                                 }
                             });
                         }

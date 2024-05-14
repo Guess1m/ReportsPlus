@@ -51,6 +51,10 @@
     -fx-effect: none;
 }
 
+.calloutTextArea {
+    -fx-control-inner-background: rgb(190, 190, 190, 0.9);
+}
+
 .calloutField {
     -fx-text-fill: black !important;
     -fx-font-family: "Roboto";

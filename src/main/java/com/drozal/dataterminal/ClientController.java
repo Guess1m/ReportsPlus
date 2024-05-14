@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 public class ClientController {
-    public static AnchorPane topBar;
     @javafx.fxml.FXML
     private TextField inetField;
     @javafx.fxml.FXML
@@ -25,9 +24,10 @@ public class ClientController {
     private TextField inputHostField;
     @javafx.fxml.FXML
     private Label statusLabel;
+    private static AnchorPane titleBar;
 
-    public static AnchorPane getTopBar() {
-        return topBar;
+    public static AnchorPane getTitleBar() {
+        return titleBar;
     }
 
     public Label getStatusLabel() {
@@ -43,9 +43,9 @@ public class ClientController {
     }
 
     public void initialize() throws IOException {
-        topBar = reportCreationUtil.createSimpleTitleBar("Client Interface");
+        titleBar = reportCreationUtil.createSimpleTitleBar("Client Interface");
 
-        root.setTop(topBar);
+        root.setTop(titleBar);
 
         if (ConfigReader.configRead("lastIPV4Connection") != null) {
             inputHostField.setText(ConfigReader.configRead("lastIPV4Connection"));

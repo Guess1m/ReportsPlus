@@ -1478,7 +1478,9 @@ public class actionController {
             clientStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
             Parent root = loader.load();
-            Scene newScene = new Scene(root);
+            BorderlessScene newScene = new BorderlessScene(clientStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+            AnchorPane topbar = ClientController.getTitleBar();
+            newScene.setMoveControl(topbar);
             clientStage.setTitle("Client Interface");
             clientStage.setScene(newScene);
             clientStage.initStyle(StageStyle.UNDECORATED);

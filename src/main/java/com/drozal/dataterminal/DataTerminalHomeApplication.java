@@ -2,6 +2,7 @@ package com.drozal.dataterminal;
 
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.util.server.Callout;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -78,41 +79,23 @@ public class DataTerminalHomeApplication extends Application {
             }
         }
 
-        mainRT.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (notesStage != null) {
-                boolean notesFocused = notesStage.isShowing();
-                if (newValue) {
-                    if (notesFocused) {
-                        notesStage.requestFocus();
-                    }
-                }
-            }
-            if (IDStage != null) {
-                boolean notesFocused = IDStage.isShowing();
-                if (newValue) {
-                    if (notesFocused) {
-                        IDStage.requestFocus();
-                    }
-                }
-            }
-            if (clientStage != null) {
-                boolean notesFocused = clientStage.isShowing();
-                if (newValue) {
-                    if (notesFocused) {
-                        clientStage.requestFocus();
-                    }
-                }
-            }
-            if (CalloutStage != null) {
-                boolean notesFocused = CalloutStage.isShowing();
-                if (newValue) {
-                    if (notesFocused) {
-                        CalloutStage.requestFocus();
+        addFocusFix(mainRT, notesStage,IDStage,clientStage, CalloutStage);
+
+        scene.setMoveControl(controller.topPane);
+        mainRT.setAlwaysOnTop(false);
+    }
+    public static void addFocusFix(Stage root, Stage... stages){
+        root.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            for (Stage stage : stages){
+                if (stage != null) {
+                    boolean notesFocused = stage.isShowing();
+                    if (newValue) {
+                        if (notesFocused) {
+                            stage.requestFocus();
+                        }
                     }
                 }
             }
         });
-        scene.setMoveControl(controller.topPane);
-        mainRT.setAlwaysOnTop(false);
     }
 }

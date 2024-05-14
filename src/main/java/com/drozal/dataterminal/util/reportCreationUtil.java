@@ -1915,7 +1915,7 @@ public class reportCreationUtil {
                         new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)),
                         new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))
                 ),
-                new SectionConfig("Field Sobriety Information", true,
+                new SectionConfig("Field Sobriety Information (If Applicable)", false,
                         new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))
                 ),
                 new SectionConfig("Notes / Summary", true,

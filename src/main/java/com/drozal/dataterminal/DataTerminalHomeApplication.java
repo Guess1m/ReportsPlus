@@ -2,7 +2,6 @@ package com.drozal.dataterminal;
 
 import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.server.Callout;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,6 +45,21 @@ public class DataTerminalHomeApplication extends Application {
         launch();
     }
 
+    public static void addFocusFix(Stage root, Stage... stages) {
+        root.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            for (Stage stage : stages) {
+                if (stage != null) {
+                    boolean notesFocused = stage.isShowing();
+                    if (newValue) {
+                        if (notesFocused) {
+                            stage.requestFocus();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -79,23 +93,9 @@ public class DataTerminalHomeApplication extends Application {
             }
         }
 
-        addFocusFix(mainRT, notesStage,IDStage,clientStage, CalloutStage);
+        addFocusFix(mainRT, notesStage, IDStage, clientStage, CalloutStage);
 
         scene.setMoveControl(controller.topPane);
         mainRT.setAlwaysOnTop(false);
-    }
-    public static void addFocusFix(Stage root, Stage... stages){
-        root.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            for (Stage stage : stages){
-                if (stage != null) {
-                    boolean notesFocused = stage.isShowing();
-                    if (newValue) {
-                        if (notesFocused) {
-                            stage.requestFocus();
-                        }
-                    }
-                }
-            }
-        });
     }
 }

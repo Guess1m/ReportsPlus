@@ -45,7 +45,7 @@ public class updateUtil {
             try {
                 desktop.browse(new URI(url));
             } catch (IOException | URISyntaxException e) {
-                logError("Failed to open the URL: "+url+" Trace: ",e);
+                logError("Failed to open the URL: " + url + " Trace: ", e);
             }
         } else {
             log("Desktop is not supported on this platform.", LogUtils.Severity.ERROR);

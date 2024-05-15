@@ -564,7 +564,7 @@ public class actionController {
         //Buttons
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
-        String nonTransparentBtn = "-fx-background-color: " + accclr+ ";";
+        String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
         updateInfoBtn.setStyle(nonTransparentBtn);
         showManagerToggle.setStyle(nonTransparentBtn);
         btn1.setStyle(nonTransparentBtn);
@@ -948,8 +948,8 @@ public class actionController {
     }
 
     private void updateConnectionStatus(boolean isConnected) {
-        if (!isConnected) {
-            Platform.runLater(() -> {
+        Platform.runLater(() -> {
+            if (!isConnected) {
                 LogUtils.log("No Connection", LogUtils.Severity.WARN);
                 serverStatusLabel.setText("No Connection");
                 serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
@@ -960,19 +960,22 @@ public class actionController {
                     clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
                     serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e;");
                 }
-            });
-        } else {
-            Platform.runLater(() -> {
+            } else {
                 serverStatusLabel.setText("Connected");
                 serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
                 if (clientController != null) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     clientController.getPortField().setText(ClientUtils.port);
                     clientController.getInetField().setText(ClientUtils.inet);
                     clientController.getStatusLabel().setText("Connected");
                     clientController.getStatusLabel().setStyle("-fx-background-color: green;");
                 }
-            });
-        }
+            }
+        });
     }
 
     public void initialize() throws IOException {
@@ -1109,6 +1112,8 @@ public class actionController {
     }
 
     private void handleClose() {
+        System.out.println("stop recieved");
+        ClientUtils.disconnectFromService();
         Platform.exit();
         System.exit(0);
     }

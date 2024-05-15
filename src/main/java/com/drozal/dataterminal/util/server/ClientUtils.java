@@ -20,6 +20,9 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
@@ -27,11 +30,24 @@ import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
+    private static final int TIMEOUT_SECONDS = 10; // Timeout in seconds
     public static Boolean isConnected = false;
     public static String port;
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
+
+    public static void disconnectFromService() {
+        try {
+            isConnected = false;
+            notifyStatusChanged(isConnected);
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            log("Error disconnecting from service: " + e.getMessage(), LogUtils.Severity.ERROR);
+        }
+    }
 
     /**
      * Connects to the specified service address and port.
@@ -75,6 +91,37 @@ public class ClientUtils {
                 log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
             }
         }).start();
+        // Start a separate thread to check for server timeout
+        new Thread(() -> {
+            ScheduledExecutorService timeoutExecutor = Executors.newScheduledThreadPool(1);
+            timeoutExecutor.scheduleAtFixedRate(() -> {
+                try {
+                    if (socket != null && !socket.isClosed()) {
+                        // Send a heartbeat message and wait for a response
+                        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+                        writer.println("HEARTBEAT");
+                        System.out.println("sent heartbeat");
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        String response = reader.readLine();
+                        System.out.println("response: " + response);
+                        if (response == null) {
+                            // Server did not respond with the expected message
+                            System.out.println("heartbeat not recieved");
+                            isConnected = false;
+                            notifyStatusChanged(isConnected);
+                            // Attempt to reconnect
+                            connectToService(serviceAddress, servicePort);
+                            timeoutExecutor.shutdown(); // Stop the timeout checker
+                        }
+                    } else {
+                        // Socket is closed, stop the timeout checker
+                        timeoutExecutor.shutdown();
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error checking server connection: " + e.getMessage());
+                }
+            }, TIMEOUT_SECONDS, TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        }).start();
     }
 
     /**
@@ -88,6 +135,11 @@ public class ClientUtils {
             try {
                 String fromServer;
                 while ((fromServer = in.readLine()) != null) {
+                    if ("SHUTDOWN".equals(fromServer)) {
+                        log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
+                        disconnectFromService(); // Disconnect from the server
+                        break; // Exit the loop
+                    }
                     if ("UPDATE_ID".equals(fromServer)) {
                         log("Received ID update message from server.", LogUtils.Severity.DEBUG);
                         FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);

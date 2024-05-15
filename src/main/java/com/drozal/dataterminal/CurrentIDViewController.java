@@ -83,7 +83,7 @@ public class CurrentIDViewController {
             List<ID> idList = ids.getIdList();
             return idList.isEmpty() ? null : idList.get(idList.size() - 1);
         } catch (JAXBException e) {
-            logError("Error unmarshalling file: " + filePath+" Trace:", e);
+            logError("Error unmarshalling file: " + filePath + " Trace:", e);
             return null;
         }
     }

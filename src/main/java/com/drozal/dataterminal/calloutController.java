@@ -76,7 +76,7 @@ public class calloutController {
             List<Callout> calloutList = callouts.getCalloutList();
             return calloutList.isEmpty() ? null : calloutList.get(calloutList.size() - 1);
         } catch (JAXBException e) {
-            logError("Error unmarshalling file: " + filePath+" Trace:", e);
+            logError("Error unmarshalling file: " + filePath + " Trace:", e);
             return null;
         }
     }

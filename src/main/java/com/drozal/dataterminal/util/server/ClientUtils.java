@@ -102,9 +102,11 @@ public class ClientUtils {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         String response = reader.readLine();
                         log("response: " + response, LogUtils.Severity.DEBUG);
-                        if (response == null) {
-                            // Server did not respond with the expected message
-                            log("heartbeat not recieved", LogUtils.Severity.ERROR);
+                        if ("HEARTBEAT".equals(response)) {
+                            log("heartbeat recieved, response: "+response, LogUtils.Severity.DEBUG);
+                        } else if (response == null) {
+                            // Server did not respond
+                            log("heartbeat not received", LogUtils.Severity.ERROR);
                             isConnected = false;
                             notifyStatusChanged(isConnected);
                             // Attempt to reconnect
@@ -140,7 +142,7 @@ public class ClientUtils {
                     }
                     if ("UPDATE_ID".equals(fromServer)) {
                         log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
+                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
                         Platform.runLater(() -> {
                             if (IDStage != null && IDStage.isShowing()) {
                                 IDStage.toFront();
@@ -171,7 +173,7 @@ public class ClientUtils {
                         });
                     } else if ("UPDATE_CALLOUT".equals(fromServer)) {
                         log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml", 4096);
+                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml", 4096);
                         Platform.runLater(() -> {
                             if (CalloutStage != null && CalloutStage.isShowing()) {
                                 CalloutStage.toFront();
@@ -202,10 +204,10 @@ public class ClientUtils {
                         });
                     } else if ("UPDATE_WORLD_PED".equals(fromServer)) {
                         log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", 4096);
+                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", 4096);
                     } else if ("UPDATE_WORLD_VEH".equals(fromServer)) {
                         log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.recieveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", 4096);
+                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", 4096);
                     }
                 }
             } catch (SocketException e) {

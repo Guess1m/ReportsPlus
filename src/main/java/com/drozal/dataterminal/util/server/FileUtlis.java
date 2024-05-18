@@ -16,41 +16,32 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class FileUtlis {
 
-    /**
-     * Receives a file from the server specified by host and port.
-     * Writes the received file to the specified file path with the provided file size.
-     *
-     * @param host          the hostname or IP address of the server
-     * @param port          the port number of the server
-     * @param fileToRecieve the file path to save the received file
-     * @param fileSize      the expected size of the file to receive
-     * @throws IOException if an I/O error occurs while receiving the file
-     */
-    public static void recieveFileFromServer(String host, int port, String fileToRecieve, int fileSize) throws IOException {
+    public static void receiveFileFromServer(String host, int port, String fileToReceive, int fileSize) throws IOException {
         int bytesRead;
-        int current = 0;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
         Socket sock = null;
         try {
             sock = new Socket(host, port);
-            //log("Connecting...", LogUtils.Severity.INFO);
-
             byte[] mybytearray = new byte[fileSize];
             InputStream is = sock.getInputStream();
-            fos = new FileOutputStream(fileToRecieve);
+            fos = new FileOutputStream(fileToReceive);
             bos = new BufferedOutputStream(fos);
-            while ((bytesRead = is.read(mybytearray, current, mybytearray.length - current)) > 0) {
-                current += bytesRead;
+
+            while ((bytesRead = is.read(mybytearray)) != -1) {
+                bos.write(mybytearray, 0, bytesRead);
             }
 
-            bos.write(mybytearray, 0, current);
             bos.flush();
-            //log("File " + fileToRecieve + " downloaded (" + current + " bytes read)", LogUtils.Severity.INFO);
+            //log("File " + fileToReceive + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
         } finally {
-            if (bos != null) bos.close();
-            if (fos != null) fos.close();
-            if (sock != null) sock.close();
+            try {
+                if (bos != null) bos.close();
+                if (fos != null) fos.close();
+                if (sock != null) sock.close();
+            } catch (IOException e) {
+                // Handle or log the exception
+            }
         }
     }
 

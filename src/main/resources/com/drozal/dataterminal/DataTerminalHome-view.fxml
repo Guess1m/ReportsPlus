@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
@@ -9,17 +10,16 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" prefHeight="800.0" prefWidth="1150.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
-        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" visible="false"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
+                            AnchorPane.topAnchor="30.0">
                     <content>
                         <VBox>
                             <children>
@@ -1872,17 +1872,14 @@
         </AnchorPane>
         <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" prefHeight="86.0" prefWidth="947.0"
                     styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <GridPane layoutX="12.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="168.0"/>
-                        <ColumnConstraints hgrow="ALWAYS" prefWidth="555.0"/>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="121.0"/>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="38.0"/>
+                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" prefWidth="181.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" prefWidth="574.0"/>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="192.0" minWidth="192.0" prefWidth="192.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
@@ -1934,6 +1931,37 @@
                                         </Label>
                                     </children>
                                 </HBox>
+                                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0"
+                                            layoutX="66.0" layoutY="14.0" mnemonicParsing="false" styleClass="button"
+                                            stylesheets="@css/menu/settingsDropdown.css" text="Settings"
+                                            textFill="#828797" AnchorPane.rightAnchor="14.0"
+                                            AnchorPane.topAnchor="14.0">
+                                    <graphic>
+                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/settings.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
+                                        <SeparatorMenuItem mnemonicParsing="false"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick"
+                                                  text="UI Color Settings"/>
+                                        <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
+                                                       onAction="#onStartupFullscreenPress" selected="true"
+                                                       text="StartupFullscreen"/>
+                                        <SeparatorMenuItem mnemonicParsing="false"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick"
+                                                  text="Clear Logs"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
+                                                  text="Clear All Save Data"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#logOutputBtnPress"
+                                                  text="LogOutput"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
+                                    </items>
+                                </MenuButton>
                             </children>
                         </AnchorPane>
                         <AnchorPane>
@@ -1988,49 +2016,6 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <ImageView fitHeight="27.0" fitWidth="24.0" onMouseClicked="#onExitButtonClick"
-                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5"
-                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                            <image>
-                                <Image url="@imgs/icons/cross.png"/>
-                            </image>
-                            <effect>
-                                <ColorAdjust brightness="1.0"/>
-                            </effect>
-                            <GridPane.margin>
-                                <Insets top="6.0"/>
-                            </GridPane.margin>
-                        </ImageView>
-                        <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0"
-                                    mnemonicParsing="false" styleClass="button"
-                                    stylesheets="@css/menu/settingsDropdown.css" text="Settings" textFill="#828797"
-                                    GridPane.columnIndex="2" GridPane.valignment="TOP">
-                            <graphic>
-                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@imgs/icons/settings.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#aboutBtnClick" text="About"/>
-                                <SeparatorMenuItem mnemonicParsing="false"/>
-                                <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick"
-                                          text="UI Color Settings"/>
-                                <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
-                                               onAction="#onStartupFullscreenPress" selected="true"
-                                               text="StartupFullscreen"/>
-                                <SeparatorMenuItem mnemonicParsing="false"/>
-                                <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick" text="Clear Logs"/>
-                                <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
-                                          text="Clear All Save Data"/>
-                                <MenuItem mnemonicParsing="false" onAction="#logOutputBtnPress" text="LogOutput"/>
-                                <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
-                            </items>
-                            <GridPane.margin>
-                                <Insets top="10.0"/>
-                            </GridPane.margin>
-                        </MenuButton>
                         <Label alignment="CENTER" text="Report Tool" textFill="#d7d7d7" textOverrun="CLIP"
                                GridPane.columnIndex="1" GridPane.halignment="LEFT">
                             <font>
@@ -2047,32 +2032,6 @@
                                 <Insets top="2.0"/>
                             </padding>
                         </Label>
-                        <ImageView fitHeight="20.0" fitWidth="21.0" onMouseClicked="#onFullscreenBtnClick"
-                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                            <image>
-                                <Image url="@imgs/icons/maximize.png"/>
-                            </image>
-                            <effect>
-                                <ColorAdjust brightness="1.0"/>
-                            </effect>
-                            <GridPane.margin>
-                                <Insets top="8.0"/>
-                            </GridPane.margin>
-                        </ImageView>
-                        <ImageView fitHeight="21.0" fitWidth="21.0" onMouseClicked="#onMinimizeBtnClick"
-                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                            <image>
-                                <Image url="@imgs/icons/minimize.png"/>
-                            </image>
-                            <effect>
-                                <ColorAdjust brightness="1.0"/>
-                            </effect>
-                            <GridPane.margin>
-                                <Insets top="7.0"/>
-                            </GridPane.margin>
-                        </ImageView>
                     </children>
                 </GridPane>
             </children>
@@ -2082,7 +2041,7 @@
         </AnchorPane>
         <AnchorPane fx:id="sidepane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0"
                     prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <GridPane layoutX="-2.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

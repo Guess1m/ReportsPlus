@@ -43,32 +43,6 @@ public class DataTerminalHomeApplication extends Application {
         launch();
     }
 
-    /**
-     * Adds a focus listener to the root stage that refocuses the provided stages when the root stage gains focus.
-     *
-     * @param root   the root stage
-     * @param stages the stages to refocus
-     */
-    public static void addFocusFix(Stage root, Stage... stages) {
-        root.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            for (Stage stage : stages) {
-                System.out.println("Checking stage: " + stage);
-                if (stage != null) {
-                    boolean notesFocused = stage.isShowing();
-                    System.out.println("Stage showing: " + notesFocused);
-                    if (newValue) {
-                        System.out.println("Root stage focused. Requesting focus for: " + stage);
-                        if (notesFocused) {
-                            stage.requestFocus();
-                        }
-                    }
-                } else {
-                    System.out.println("Stage is null");
-                }
-            }
-        });
-    }
-
     @Override
     public void start(Stage stage) throws IOException {
 

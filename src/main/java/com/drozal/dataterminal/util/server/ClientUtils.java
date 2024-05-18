@@ -98,13 +98,13 @@ public class ClientUtils {
                         // Send a heartbeat message and wait for a response
                         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
                         writer.println("HEARTBEAT");
-                        System.out.println("sent heartbeat");
+                        log("sent heartbeat", LogUtils.Severity.DEBUG);
                         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         String response = reader.readLine();
-                        System.out.println("response: " + response);
+                        log("response: " + response, LogUtils.Severity.DEBUG);
                         if (response == null) {
                             // Server did not respond with the expected message
-                            System.out.println("heartbeat not recieved");
+                            log("heartbeat not recieved", LogUtils.Severity.ERROR);
                             isConnected = false;
                             notifyStatusChanged(isConnected);
                             // Attempt to reconnect

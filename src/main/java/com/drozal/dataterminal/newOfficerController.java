@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -150,6 +151,7 @@ public class newOfficerController {
             actionController controller = loader.getController();
             Scene scene = new Scene(root);
             mainRT.setScene(scene);
+            mainRT.initStyle(StageStyle.UNDECORATED);
             mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
             mainRT.show();
 
@@ -243,6 +245,7 @@ public class newOfficerController {
         stag.close();
 
         Stage mainRT = new Stage();
+        mainRT.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
         actionController controller = loader.getController();

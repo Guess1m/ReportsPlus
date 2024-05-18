@@ -1,6 +1,8 @@
 package com.drozal.dataterminal.util;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
@@ -8,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 
 import java.io.*;
 
@@ -189,13 +192,14 @@ public class LogUtils {
         }
     }
 
-    public static void addOutputToListview(ListView listView) {
+    public static void addOutputToListview(ListView<TextFlow> listView) {
+        // Set up the initial items
         ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
         readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
         listView.setItems(logItems);
 
         listView.setStyle("-fx-padding: 0;");
-        listView.setCellFactory(lv -> new ListCell<TextFlow>() {
+        listView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(TextFlow item, boolean empty) {
                 super.updateItem(item, empty);
@@ -211,7 +215,16 @@ public class LogUtils {
                 }
             }
         });
+
+        // Set up a timeline to update the items every 5 seconds
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            logItems.clear();
+            readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
+
 
     public enum Severity {
         DEBUG, INFO, WARN, ERROR,

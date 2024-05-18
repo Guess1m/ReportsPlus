@@ -1,12 +1,11 @@
 package com.drozal.dataterminal;
 
-import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
@@ -45,16 +43,27 @@ public class DataTerminalHomeApplication extends Application {
         launch();
     }
 
+    /**
+     * Adds a focus listener to the root stage that refocuses the provided stages when the root stage gains focus.
+     *
+     * @param root   the root stage
+     * @param stages the stages to refocus
+     */
     public static void addFocusFix(Stage root, Stage... stages) {
         root.focusedProperty().addListener((observable, oldValue, newValue) -> {
             for (Stage stage : stages) {
+                System.out.println("Checking stage: " + stage);
                 if (stage != null) {
                     boolean notesFocused = stage.isShowing();
+                    System.out.println("Stage showing: " + notesFocused);
                     if (newValue) {
+                        System.out.println("Root stage focused. Requesting focus for: " + stage);
                         if (notesFocused) {
                             stage.requestFocus();
                         }
                     }
+                } else {
+                    System.out.println("Stage is null");
                 }
             }
         });
@@ -65,9 +74,10 @@ public class DataTerminalHomeApplication extends Application {
 
         mainRT = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
+        mainRT.initStyle(StageStyle.UNDECORATED);
         Parent root = loader.load();
         actionController controller = loader.getController();
-        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.UNDECORATED, root, Color.TRANSPARENT);
+        Scene scene = new Scene(root);
         mainRT.setScene(scene);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
@@ -86,6 +96,7 @@ public class DataTerminalHomeApplication extends Application {
                 mainRT.setMinWidth(450);
                 if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
                     setWindowedFullscreen(mainRT);
+
                 } else {
                     mainRT.setHeight(800);
                     mainRT.setWidth(1150);
@@ -93,9 +104,6 @@ public class DataTerminalHomeApplication extends Application {
             }
         }
 
-        addFocusFix(mainRT, notesStage, IDStage, clientStage, CalloutStage);
-
-        scene.setMoveControl(controller.topPane);
         mainRT.setAlwaysOnTop(false);
     }
 }

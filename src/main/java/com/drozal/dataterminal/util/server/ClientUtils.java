@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.util.server;
 
-import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.CurrentIDViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.calloutController;
@@ -10,10 +9,9 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.*;
@@ -157,9 +155,8 @@ public class ClientUtils {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            BorderlessScene newScene = new BorderlessScene(IDStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+                            Scene newScene = new Scene(root);
                             AnchorPane topbar = CurrentIDViewController.getTitleBar();
-                            newScene.setMoveControl(topbar);
                             IDStage.setTitle("Current ID");
                             IDStage.setScene(newScene);
                             IDStage.show();
@@ -189,9 +186,8 @@ public class ClientUtils {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            BorderlessScene newScene = new BorderlessScene(CalloutStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+                            Scene newScene = new Scene(root);
                             AnchorPane topbar = calloutController.getTopBar();
-                            newScene.setMoveControl(topbar);
                             CalloutStage.setTitle("Callout Display");
                             CalloutStage.setScene(newScene);
                             CalloutStage.show();

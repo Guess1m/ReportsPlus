@@ -55,11 +55,6 @@
             <artifactId>controlsfx</artifactId>
             <version>11.1.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.catwithawand</groupId>
-            <artifactId>BorderlessSceneFX</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
     </dependencies>
 
@@ -117,7 +112,7 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
-                            <shadedJvmArgs>--add-exports javafx.graphics/com.sun.glass.ui=BorderlessSceneFX
+                            <shadedJvmArgs>
                             </shadedJvmArgs>
                         </configuration>
                     </execution>

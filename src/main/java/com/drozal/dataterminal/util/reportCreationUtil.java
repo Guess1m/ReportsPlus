@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.util;
 
-import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
@@ -24,10 +23,12 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -218,6 +219,17 @@ public class reportCreationUtil {
             windowUtils.toggleWindowedFullscreen(stage, 850, 750);
         });
 
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage) titleBar.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
         AnchorPane.setRightAnchor(closeRect, 12.5);
         AnchorPane.setTopAnchor(closeRect, 6.3);
         AnchorPane.setRightAnchor(minimizeRect, 70.0);
@@ -226,6 +238,10 @@ public class reportCreationUtil {
         AnchorPane.setTopAnchor(maximizeRect, 6.3);
 
         titleBar.getChildren().addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
+        Platform.runLater(() -> {
+            Stage stage1 = (Stage) titleBar.getScene().getWindow();
+            ResizeHelper.addResizeListener(stage1);
+        });
         closeRect.toFront();
         minimizeRect.toFront();
         maximizeRect.toFront();
@@ -485,9 +501,9 @@ public class reportCreationUtil {
         borderPane.setCenter(scrollPane);
 
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
 
-        BorderlessScene scene = new BorderlessScene(stage, StageStyle.TRANSPARENT, borderPane, Color.TRANSPARENT);
-        scene.setMoveControl(titleBar);
+        Scene scene = new Scene(borderPane);
 
         try {
             if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {

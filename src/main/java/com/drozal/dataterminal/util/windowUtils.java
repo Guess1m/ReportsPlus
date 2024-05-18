@@ -4,6 +4,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.LogUtils.log;
 
 public class windowUtils {
@@ -97,6 +99,22 @@ public class windowUtils {
     public static void restoreDefaultState(Stage stage, double width, double height) {
         stage.setHeight(height);
         stage.setWidth(width);
+        if (stage.equals(mainRT)) {
+            mainRT.setHeight(800);
+            mainRT.setWidth(1150);
+        }
+        if (stage.equals(notesStage)) {
+            notesStage.setHeight(285);
+            notesStage.setWidth(685);
+        }
+        if (stage.equals(CalloutStage)) {
+            CalloutStage.setHeight(342);
+            CalloutStage.setWidth(618);
+        }
+        if (stage.equals(IDStage)) {
+            IDStage.setHeight(253);
+            IDStage.setWidth(415);
+        }
         stage.centerOnScreen();
     }
 

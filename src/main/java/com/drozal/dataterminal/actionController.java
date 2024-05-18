@@ -1,6 +1,5 @@
 package com.drozal.dataterminal;
 
-import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
@@ -19,11 +18,8 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.controllerUtils;
-import com.drozal.dataterminal.util.dropdownInfo;
+import com.drozal.dataterminal.util.*;
 import com.drozal.dataterminal.util.server.ClientUtils;
-import com.drozal.dataterminal.util.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -133,6 +129,7 @@ public class actionController {
     @javafx.fxml.FXML
     public MenuButton settingsDropdown;
     actionController controller;
+    AnchorPane titlebar;
     private NotesViewController notesViewController;
     @javafx.fxml.FXML
     private Label secondaryColor2;
@@ -528,13 +525,14 @@ public class actionController {
     private Label noRecordFoundLabelPed;
     @javafx.fxml.FXML
     private MenuButton lookupBtn;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
 
     //</editor-fold>
 
 
     //<editor-fold desc="Utils">
-
 
     private void loadTheme() throws IOException {
         changeBarColors(getReportChart());
@@ -980,6 +978,18 @@ public class actionController {
 
     public void initialize() throws IOException {
 
+        // Create the title bar
+        titlebar = reportCreationUtil.createTitleBar("Reports Plus");
+
+// Add the title bar to the AnchorPane
+        vbox.getChildren().add(titlebar);
+
+// Set the top anchor to position the title bar at the top
+        AnchorPane.setTopAnchor(titlebar, 0.0);
+        AnchorPane.setLeftAnchor(titlebar, 0.0);
+        AnchorPane.setRightAnchor(titlebar, 0.0);
+        titlebar.setPrefHeight(30); // Set the height of the title bar
+
         checkForUpdates();
 
         setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
@@ -1074,6 +1084,7 @@ public class actionController {
         });
 
         Platform.runLater(() -> {
+
             versionLabel.setText(stringUtil.version);
 
             vbox.getScene().getWindow().setOnHiding(event -> handleClose());
@@ -1168,13 +1179,13 @@ public class actionController {
     //<editor-fold desc="WindowUtils">
 
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onMinimizeBtnClick(Event event) {
         Stage stage = (Stage) vbox.getScene().getWindow();
         stage.setIconified(true);
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onFullscreenBtnClick(Event event) {
         Stage stage = (Stage) vbox.getScene().getWindow();
         if (stage != null) {
@@ -1182,7 +1193,7 @@ public class actionController {
         }
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void onExitButtonClick(MouseEvent actionEvent) {
         handleClose();
     }
@@ -1202,11 +1213,11 @@ public class actionController {
             return;
         }
         IDStage = new Stage();
+        IDStage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("currentID-view.fxml"));
         Parent root = loader.load();
-        BorderlessScene newScene = new BorderlessScene(IDStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene newScene = new Scene(root);
         AnchorPane topbar = CurrentIDViewController.getTitleBar();
-        newScene.setMoveControl(topbar);
         IDStage.setTitle("Current ID");
         IDStage.setScene(newScene);
         //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
@@ -1256,10 +1267,11 @@ public class actionController {
         }
 
         notesStage = new Stage();
+        notesStage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
         Parent root = loader.load();
         notesViewController = loader.getController();
-        BorderlessScene newScene = new BorderlessScene(notesStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene newScene = new Scene(root);
         notesStage.setTitle("Notes");
         notesStage.setScene(newScene);
         notesStage.setResizable(true);
@@ -1283,7 +1295,6 @@ public class actionController {
         notesStage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
         AnchorPane topbar = notesViewController.getTitlebar();
-        newScene.setMoveControl(topbar);
         notesStage.setAlwaysOnTop(true);
 
         notesStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -1318,11 +1329,11 @@ public class actionController {
             return;
         }
         CalloutStage = new Stage();
+        CalloutStage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
         Parent root = loader.load();
-        BorderlessScene newScene = new BorderlessScene(CalloutStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene newScene = new Scene(root);
         AnchorPane topbar = calloutController.getTopBar();
-        newScene.setMoveControl(topbar);
         CalloutStage.setTitle("Callout Display");
         CalloutStage.setScene(newScene);
         CalloutStage.show();
@@ -1363,11 +1374,11 @@ public class actionController {
     @javafx.fxml.FXML
     public void logOutputBtnPress(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
         Parent root = loader.load();
-        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene newScene = new Scene(root);
         AnchorPane topbar = OutputViewController.getTitlebar();
-        newScene.setMoveControl(topbar);
         stage.setTitle("Report Manager");
         stage.setScene(newScene);
         stage.show();
@@ -1397,9 +1408,8 @@ public class actionController {
         /*Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reportManager-view.fxml"));
         Parent root = loader.load();
-        BorderlessScene newScene = new BorderlessScene(stage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene newScene = new Scene(root);
         AnchorPane topbar = ReportManagerViewController.getTitlebar();
-        newScene.setMoveControl(topbar);
         stage.setTitle("Report Manager");
         stage.setScene(newScene);
         stage.show();
@@ -1488,11 +1498,11 @@ public class actionController {
 
         if (!ClientUtils.isConnected) {
             clientStage = new Stage();
+            clientStage.initStyle(StageStyle.UNDECORATED);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
             Parent root = loader.load();
-            BorderlessScene newScene = new BorderlessScene(clientStage, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+            Scene newScene = new Scene(root);
             AnchorPane topbar = ClientController.getTitleBar();
-            newScene.setMoveControl(topbar);
             clientStage.setTitle("Client Interface");
             clientStage.setScene(newScene);
             clientStage.initStyle(StageStyle.UNDECORATED);

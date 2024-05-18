@@ -1,6 +1,5 @@
 package com.drozal.dataterminal;
 
-import com.catwithawand.borderlessscenefx.scene.BorderlessScene;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.LogUtils;
@@ -13,13 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -149,7 +148,7 @@ public class newOfficerController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
             actionController controller = loader.getController();
-            BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+            Scene scene = new Scene(root);
             mainRT.setScene(scene);
             mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
             mainRT.show();
@@ -175,7 +174,6 @@ public class newOfficerController {
                 }
 
             }
-            scene.setMoveControl(controller.topPane);
             mainRT.setAlwaysOnTop(false);
         }
     }
@@ -248,7 +246,7 @@ public class newOfficerController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
         actionController controller = loader.getController();
-        BorderlessScene scene = new BorderlessScene(mainRT, StageStyle.TRANSPARENT, root, Color.TRANSPARENT);
+        Scene scene = new Scene(root);
         mainRT.setScene(scene);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
         mainRT.show();
@@ -274,7 +272,6 @@ public class newOfficerController {
             }
 
         }
-        scene.setMoveControl(controller.topPane);
         mainRT.setAlwaysOnTop(false);
     }
 }

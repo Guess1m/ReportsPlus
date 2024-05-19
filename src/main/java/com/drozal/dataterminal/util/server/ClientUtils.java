@@ -1,8 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
-import com.drozal.dataterminal.CurrentIDViewController;
 import com.drozal.dataterminal.actionController;
-import com.drozal.dataterminal.calloutController;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.LogUtils;
 import javafx.application.Platform;
@@ -10,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -19,14 +16,10 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
@@ -140,8 +133,7 @@ public class ClientUtils {
                     switch (fromServer) {
                         case "SHUTDOWN":
                             log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
-                            disconnectFromService(); // Disconnect from the server
-
+                            disconnectFromService();
                             break label; // Exit the loop
                         case "UPDATE_ID":
                             log("Received ID update message from server.", LogUtils.Severity.DEBUG);
@@ -162,7 +154,6 @@ public class ClientUtils {
                                     throw new RuntimeException(e);
                                 }
                                 Scene newScene = new Scene(root);
-                                AnchorPane topbar = CurrentIDViewController.getTitleBar();
                                 IDStage.setTitle("Current ID");
                                 IDStage.setScene(newScene);
                                 IDStage.show();
@@ -219,7 +210,6 @@ public class ClientUtils {
                             FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data", 4096);
                             break;
                         case "HEARTBEAT":
-                            log("heartbeat recieved, message: "+fromServer, LogUtils.Severity.DEBUG);
                             break;
                     }
                 }

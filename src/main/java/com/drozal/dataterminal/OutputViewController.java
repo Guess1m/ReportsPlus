@@ -14,10 +14,6 @@ public class OutputViewController {
     @FXML
     private BorderPane root;
 
-    public static AnchorPane getTitlebar() {
-        return titlebar;
-    }
-
     public void initialize() {
         titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View");
         root.setTop(titlebar);

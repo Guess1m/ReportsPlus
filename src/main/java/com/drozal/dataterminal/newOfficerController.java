@@ -51,8 +51,6 @@ public class newOfficerController {
     public Label incompleteLabel;
     private double xOffset = 0;
     private double yOffset = 0;
-    @javafx.fxml.FXML
-    private Button bypassBtn;
 
     public void initialize() {
         rankDropdown.getItems().addAll(dropdownInfo.ranks);

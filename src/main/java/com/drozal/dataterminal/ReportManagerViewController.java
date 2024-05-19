@@ -9,10 +9,6 @@ public class ReportManagerViewController {
     @javafx.fxml.FXML
     private BorderPane root;
 
-    public static AnchorPane getTitlebar() {
-        return titlebar;
-    }
-
     public void initialize() {
         titlebar = reportCreationUtil.createSimpleTitleBar("Report Manager");
 

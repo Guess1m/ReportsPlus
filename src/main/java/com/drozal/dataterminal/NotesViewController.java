@@ -19,8 +19,6 @@ public class NotesViewController {
     @javafx.fxml.FXML
     private TextArea notepadTextArea;
     @javafx.fxml.FXML
-    private AnchorPane notesPane;
-    @javafx.fxml.FXML
     private Button clearbtnnotepad;
     @javafx.fxml.FXML
     private BorderPane borderPane;

@@ -1140,10 +1140,6 @@ public class actionController {
         return OfficerInfoAgency;
     }
 
-    public AnchorPane getShiftInformationPane() {
-        return shiftInformationPane;
-    }
-
     public ComboBox getOfficerInfoDivision() {
         return OfficerInfoDivision;
     }
@@ -1158,14 +1154,6 @@ public class actionController {
 
     public ComboBox getOfficerInfoRank() {
         return OfficerInfoRank;
-    }
-
-    public AnchorPane getTopPane() {
-        return topPane;
-    }
-
-    public AnchorPane getInfoPane() {
-        return infoPane;
     }
 
     public BarChart getReportChart() {
@@ -1217,7 +1205,6 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("currentID-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        AnchorPane topbar = CurrentIDViewController.getTitleBar();
         IDStage.setTitle("Current ID");
         IDStage.setScene(newScene);
         //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
@@ -1380,7 +1367,6 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        AnchorPane topbar = OutputViewController.getTitlebar();
         stage.setTitle("Report Manager");
         stage.setScene(newScene);
         stage.show();
@@ -1504,7 +1490,6 @@ public class actionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
-            AnchorPane topbar = ClientController.getTitleBar();
             clientStage.setTitle("Client Interface");
             clientStage.setScene(newScene);
             clientStage.initStyle(StageStyle.UNDECORATED);

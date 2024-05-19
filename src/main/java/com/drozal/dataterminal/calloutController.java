@@ -8,7 +8,6 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -28,8 +27,6 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 public class calloutController {
 
     static AnchorPane topBar;
-    @javafx.fxml.FXML
-    private Label calloutInfoTitle;
     @javafx.fxml.FXML
     private BorderPane root;
     @javafx.fxml.FXML

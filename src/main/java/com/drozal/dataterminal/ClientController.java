@@ -26,10 +26,6 @@ public class ClientController {
     @javafx.fxml.FXML
     private Label statusLabel;
 
-    public static AnchorPane getTitleBar() {
-        return titleBar;
-    }
-
     public Label getStatusLabel() {
         return statusLabel;
     }

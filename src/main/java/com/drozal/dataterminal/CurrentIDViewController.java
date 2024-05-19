@@ -45,10 +45,6 @@ public class CurrentIDViewController {
     @javafx.fxml.FXML
     private TextField first;
 
-    public static AnchorPane getTitleBar() {
-        return titleBar;
-    }
-
     public static String generateRandomNumber() {
         Random random = new Random();
         int randomNumber = random.nextInt(9000000) + 1000000;

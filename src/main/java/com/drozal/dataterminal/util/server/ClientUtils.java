@@ -90,7 +90,8 @@ public class ClientUtils {
             }
         }).start();
         // Start a separate thread to check for server timeout
-        new Thread(() -> {
+        /* TODO: temp removed */
+            /*new Thread(() -> {
             ScheduledExecutorService timeoutExecutor = Executors.newScheduledThreadPool(1);
             timeoutExecutor.scheduleAtFixedRate(() -> {
                 try {
@@ -118,7 +119,7 @@ public class ClientUtils {
                     System.err.println("Error checking server connection: " + e.getMessage());
                 }
             }, TIMEOUT_SECONDS, TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        }).start();
+        }).start();*/
     }
 
     /**

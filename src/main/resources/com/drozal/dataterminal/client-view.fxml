@@ -7,7 +7,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="334.0" prefWidth="575.0"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.ClientController">
+            style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.ClientController">
     <center>
         <AnchorPane prefHeight="314.0" prefWidth="457.0" BorderPane.alignment="CENTER">
             <children>
@@ -15,8 +16,8 @@
                           style="-fx-background-color: white;" vgap="15.0" AnchorPane.bottomAnchor="0.0"
                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="90.0" minHeight="-Infinity" prefHeight="48.0" valignment="CENTER"
@@ -82,7 +83,7 @@
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
                                 <TextField fx:id="inetField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="menuField" stylesheets="@css/menu/menuStyles.css"
+                                           styleClass="connField" stylesheets="@css/menu/menuStyles.css"
                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
@@ -98,7 +99,7 @@
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
                                 <TextField fx:id="portField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="menuField" stylesheets="@css/menu/menuStyles.css"
+                                           styleClass="connField" stylesheets="@css/menu/menuStyles.css"
                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
@@ -113,6 +114,17 @@
                         </AnchorPane>
                         <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress"
                                 styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Connect"
+                                GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI" size="8.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="17.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
+                                style="-fx-background-color: gray;" styleClass="purpleButton"
+                                stylesheets="@css/menu/menuStyles.css" text="Help" GridPane.columnIndex="1"
                                 GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="8.0"/>

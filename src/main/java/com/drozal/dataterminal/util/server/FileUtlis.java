@@ -16,7 +16,7 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class FileUtlis {
 
-    public static void receiveFileFromServer(String host, int port, String fileToReceive, int fileSize) throws IOException {
+    public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
         int bytesRead;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
@@ -25,7 +25,7 @@ public class FileUtlis {
             sock = new Socket(host, port);
             byte[] mybytearray = new byte[fileSize];
             InputStream is = sock.getInputStream();
-            fos = new FileOutputStream(fileToReceive);
+            fos = new FileOutputStream(outputFileNameLocation);
             bos = new BufferedOutputStream(fos);
 
             while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -33,7 +33,7 @@ public class FileUtlis {
             }
 
             bos.flush();
-            //log("File " + fileToReceive + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+            log("File " + outputFileNameLocation + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
         } finally {
             try {
                 if (bos != null) bos.close();

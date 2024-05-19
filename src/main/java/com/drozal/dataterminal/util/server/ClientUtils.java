@@ -101,10 +101,7 @@ public class ClientUtils {
                         log("sent heartbeat", LogUtils.Severity.DEBUG);
                         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         String response = reader.readLine();
-                        log("response: " + response, LogUtils.Severity.DEBUG);
-                        if ("HEARTBEAT".equals(response)) {
-                            log("heartbeat recieved, response: "+response, LogUtils.Severity.DEBUG);
-                        } else if (response == null) {
+                        if (response == null) {
                             // Server did not respond
                             log("heartbeat not received", LogUtils.Severity.ERROR);
                             isConnected = false;
@@ -134,80 +131,90 @@ public class ClientUtils {
         new Thread(() -> {
             try {
                 String fromServer;
+                label:
                 while ((fromServer = in.readLine()) != null) {
-                    if ("SHUTDOWN".equals(fromServer)) {
-                        log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
-                        disconnectFromService(); // Disconnect from the server
-                        break; // Exit the loop
-                    }
-                    if ("UPDATE_ID".equals(fromServer)) {
-                        log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml", 4096);
-                        Platform.runLater(() -> {
-                            if (IDStage != null && IDStage.isShowing()) {
-                                IDStage.toFront();
-                                IDStage.requestFocus();
-                                return;
-                            }
-                            IDStage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
-                            Parent root = null;
-                            try {
-                                root = loader.load();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            Scene newScene = new Scene(root);
-                            AnchorPane topbar = CurrentIDViewController.getTitleBar();
-                            IDStage.setTitle("Current ID");
-                            IDStage.setScene(newScene);
-                            IDStage.show();
-                            IDStage.centerOnScreen();
+                    System.out.println("reading line");
+                    switch (fromServer) {
+                        case "SHUTDOWN":
+                            log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
+                            disconnectFromService(); // Disconnect from the server
 
-                            IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                @Override
-                                public void handle(WindowEvent event) {
-                                    IDStage = null;
+                            break label; // Exit the loop
+                        case "UPDATE_ID":
+                            log("Received ID update message from server.", LogUtils.Severity.DEBUG);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "currentID.xml", 4096);
+                            Platform.runLater(() -> {
+                                if (IDStage != null && IDStage.isShowing()) {
+                                    IDStage.toFront();
+                                    IDStage.requestFocus();
+                                    return;
                                 }
-                            });
-                        });
-                    } else if ("UPDATE_CALLOUT".equals(fromServer)) {
-                        log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml", 4096);
-                        Platform.runLater(() -> {
-                            if (CalloutStage != null && CalloutStage.isShowing()) {
-                                CalloutStage.toFront();
-                                CalloutStage.requestFocus();
-                                return;
-                            }
-                            CalloutStage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
-                            Parent root = null;
-                            try {
-                                root = loader.load();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            Scene newScene = new Scene(root);
-                            AnchorPane topbar = calloutController.getTopBar();
-                            CalloutStage.setTitle("Callout Display");
-                            CalloutStage.setScene(newScene);
-                            CalloutStage.show();
-                            CalloutStage.centerOnScreen();
+                                IDStage = new Stage();
+                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene newScene = new Scene(root);
+                                AnchorPane topbar = CurrentIDViewController.getTitleBar();
+                                IDStage.setTitle("Current ID");
+                                IDStage.setScene(newScene);
+                                IDStage.show();
+                                IDStage.centerOnScreen();
 
-                            CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                @Override
-                                public void handle(WindowEvent event) {
-                                    CalloutStage = null;
-                                }
+                                IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                    @Override
+                                    public void handle(WindowEvent event) {
+                                        IDStage = null;
+                                    }
+                                });
                             });
-                        });
-                    } else if ("UPDATE_WORLD_PED".equals(fromServer)) {
-                        log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", 4096);
-                    } else if ("UPDATE_WORLD_VEH".equals(fromServer)) {
-                        log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
-                        FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", 4096);
+                            break;
+                        case "UPDATE_CALLOUT":
+                            log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "callout.xml", 4096);
+                            Platform.runLater(() -> {
+                                if (CalloutStage != null && CalloutStage.isShowing()) {
+                                    CalloutStage.toFront();
+                                    CalloutStage.requestFocus();
+                                    return;
+                                }
+                                CalloutStage = new Stage();
+                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene newScene = new Scene(root);
+                                AnchorPane topbar = calloutController.getTopBar();
+                                CalloutStage.setTitle("Callout Display");
+                                CalloutStage.setScene(newScene);
+                                CalloutStage.show();
+                                CalloutStage.centerOnScreen();
+
+                                CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                    @Override
+                                    public void handle(WindowEvent event) {
+                                        CalloutStage = null;
+                                    }
+                                });
+                            });
+                            break;
+                        case "UPDATE_WORLD_PED":
+                            log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "worldPeds.data", 4096);
+                            break;
+                        case "UPDATE_WORLD_VEH":
+                            log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "worldCars.data", 4096);
+                            break;
+                        case "HEARTBEAT":
+                            log("heartbeat recieved, message: "+fromServer, LogUtils.Severity.DEBUG);
+                            break;
                     }
                 }
             } catch (SocketException e) {

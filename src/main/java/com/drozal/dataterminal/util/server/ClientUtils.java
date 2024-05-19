@@ -143,7 +143,7 @@ public class ClientUtils {
                             break label; // Exit the loop
                         case "UPDATE_ID":
                             log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "currentID.xml", 4096);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml", 4096);
                             Platform.runLater(() -> {
                                 if (IDStage != null && IDStage.isShowing()) {
                                     IDStage.toFront();
@@ -175,7 +175,7 @@ public class ClientUtils {
                             break;
                         case "UPDATE_CALLOUT":
                             log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "callout.xml", 4096);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml", 4096);
                             Platform.runLater(() -> {
                                 if (CalloutStage != null && CalloutStage.isShowing()) {
                                     CalloutStage.toFront();
@@ -206,11 +206,11 @@ public class ClientUtils {
                             break;
                         case "UPDATE_WORLD_PED":
                             log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "worldPeds.data", 4096);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data", 4096);
                             break;
                         case "UPDATE_WORLD_VEH":
                             log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "worldCars.data", 4096);
+                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data", 4096);
                             break;
                         case "HEARTBEAT":
                             log("heartbeat recieved, message: "+fromServer, LogUtils.Severity.DEBUG);

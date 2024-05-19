@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -59,7 +61,8 @@ public class ClientController {
 
     @javafx.fxml.FXML
     public void helpBtnPress(ActionEvent actionEvent) {
-        showHelpDialog();
+        Stage stage = (Stage) root.getScene().getWindow();
+        showHelpDialog(stage);
     }
 
     /**
@@ -67,7 +70,13 @@ public class ClientController {
      * This method creates an Alert of type INFORMATION and sets its content text to provide
      * instructions and descriptions of various features in the application.
      */
-    private void showHelpDialog() {
+    /**
+     * Displays a help dialog with instructions on how to use the client.
+     * This method ensures that the dialog appears on top of all other windows, including those set as always on top.
+     *
+     * @param owner the primary stage of the application
+     */
+    private void showHelpDialog(Stage owner) {
         Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
         helpDialog.setTitle("Help");
         helpDialog.setHeaderText("How To Use The Client");
@@ -76,6 +85,13 @@ public class ClientController {
                         + "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.\n\n"
                         + "3. The top right field is the internal IP of the server the client is connected to.\n\n"
                         + "4. The bottom right field is the port of the established connection.\n\n");
+
+        // Ensure the dialog is on top of all other windows
+        helpDialog.initOwner(owner);
+        helpDialog.initModality(Modality.APPLICATION_MODAL);
+
         helpDialog.showAndWait();
     }
+
+
 }

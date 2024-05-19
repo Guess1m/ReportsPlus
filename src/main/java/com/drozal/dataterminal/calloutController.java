@@ -82,7 +82,7 @@ public class calloutController {
     }
 
     public void initialize() {
-        topBar = reportCreationUtil.createSimpleTitleBar("Callout Manager");
+        topBar = reportCreationUtil.createTitleBar("Callout Manager");
 
         root.setTop(topBar);
 

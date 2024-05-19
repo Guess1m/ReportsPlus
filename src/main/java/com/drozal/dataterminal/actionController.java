@@ -1223,6 +1223,7 @@ public class actionController {
         //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
         IDStage.show();
         IDStage.centerOnScreen();
+        IDStage.setAlwaysOnTop(true);
         showButtonAnimation(showIDBtn);
 
         IDStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -1338,6 +1339,7 @@ public class actionController {
         CalloutStage.setScene(newScene);
         CalloutStage.show();
         CalloutStage.centerOnScreen();
+        CalloutStage.setAlwaysOnTop(true);
         showButtonAnimation(showCalloutBtn);
 
         CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {

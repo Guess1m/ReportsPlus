@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.*;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.controllerUtils.showButtonAnimation;
 import static com.drozal.dataterminal.util.stringUtil.getJarPath;
 
 public class ClientUtils {
@@ -151,6 +153,7 @@ public class ClientUtils {
                                     return;
                                 }
                                 IDStage = new Stage();
+                                IDStage.initStyle(StageStyle.UNDECORATED);
                                 FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
                                 Parent root = null;
                                 try {
@@ -164,6 +167,7 @@ public class ClientUtils {
                                 IDStage.setScene(newScene);
                                 IDStage.show();
                                 IDStage.centerOnScreen();
+                                IDStage.setAlwaysOnTop(true);
 
                                 IDStage.setOnHidden(new EventHandler<WindowEvent>() {
                                     @Override
@@ -193,6 +197,8 @@ public class ClientUtils {
                                 Scene newScene = new Scene(root);
                                 CalloutStage.setTitle("Callout Display");
                                 CalloutStage.setScene(newScene);
+                                CalloutStage.setAlwaysOnTop(true);
+                                CalloutStage.initStyle(StageStyle.UNDECORATED);
                                 CalloutStage.show();
                                 CalloutStage.centerOnScreen();
 

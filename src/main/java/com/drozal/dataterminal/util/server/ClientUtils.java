@@ -190,7 +190,6 @@ public class ClientUtils {
                                     throw new RuntimeException(e);
                                 }
                                 Scene newScene = new Scene(root);
-                                AnchorPane topbar = calloutController.getTopBar();
                                 CalloutStage.setTitle("Callout Display");
                                 CalloutStage.setScene(newScene);
                                 CalloutStage.show();

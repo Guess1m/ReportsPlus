@@ -19,6 +19,8 @@ import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
 
+    // DEV CHANGES
+
     /**
      * Main method to initialize the application.
      * It clears the log file, loads fonts, creates necessary folders, copies data files if missing,

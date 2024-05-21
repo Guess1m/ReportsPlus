@@ -353,7 +353,7 @@ public class reportCreationUtil {
         double preferredHeight = screenHeight / 12 * numHeightUnits;
 
         BorderPane borderPane = new BorderPane();
-        borderPane.setStyle("-fx-border-color: black");
+        borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
 
         AnchorPane titleBar = createTitleBar("Report Manager");
 

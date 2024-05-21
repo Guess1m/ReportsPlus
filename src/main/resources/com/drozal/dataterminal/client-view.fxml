@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="334.0" prefWidth="575.0"
-            style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.ClientController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="334.0" prefWidth="575.0" style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.ClientController">
     <center>
         <AnchorPane prefHeight="314.0" prefWidth="457.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="CENTER" hgap="30.0" prefHeight="207.0" prefWidth="538.0"
-                          style="-fx-background-color: white;" vgap="15.0" AnchorPane.bottomAnchor="0.0"
-                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                <GridPane alignment="CENTER" hgap="30.0" prefHeight="207.0" prefWidth="538.0" style="-fx-background-color: white;" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="90.0" minHeight="-Infinity" prefHeight="48.0" valignment="CENTER"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="57.0" prefHeight="57.0" valignment="BASELINE" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="-Infinity" prefHeight="48.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="57.0" prefHeight="57.0" valignment="BASELINE" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP"
-                                    GridPane.vgrow="NEVER">
+                        <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
                             <children>
-                                <Label fx:id="statusLabel" alignment="CENTER" layoutY="31.0" prefHeight="34.0"
-                                       prefWidth="559.0" style="-fx-background-color: rgb(82, 73, 146,0.65);"
-                                       text="No Connection" textFill="WHITE" AnchorPane.bottomAnchor="8.0"
-                                       AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"
-                                       AnchorPane.topAnchor="8.0">
+                                <Label fx:id="statusLabel" alignment="CENTER" layoutY="31.0" prefHeight="34.0" prefWidth="559.0" style="-fx-background-color: rgb(82, 73, 146,0.65);" text="No Connection" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="8.0">
                                     <font>
-                                        <Font name="Segoe UI Black" size="16.0"/>
+                                        <Font name="Segoe UI Black" size="16.0" />
                                     </font>
                                     <effect>
                                         <DropShadow>
                                             <color>
-                                                <Color opacity="0.32824426889419556"/>
+                                                <Color opacity="0.32824426889419556" />
                                             </color>
                                         </DropShadow>
                                     </effect>
@@ -50,140 +47,119 @@
                         </AnchorPane>
                         <AnchorPane GridPane.rowIndex="1">
                             <children>
-                                <TextField fx:id="inputPortField" layoutX="14.0" layoutY="19.0" promptText="ex. 5000"
-                                           styleClass="menuField" stylesheets="@css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
+                                <TextField fx:id="inputPortField" layoutX="14.0" layoutY="19.0" promptText="ex. 5000" styleClass="menuField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="12.0"/>
+                                        <Font name="Segoe UI" size="12.0" />
                                     </font>
                                 </TextField>
                                 <Label layoutX="14.0" layoutY="-1.0" text="Input Port:" AnchorPane.leftAnchor="14.0">
                                     <font>
-                                        <Font name="Segoe UI Semibold" size="14.0"/>
+                                        <Font name="Segoe UI Semibold" size="14.0" />
                                     </font>
                                 </Label>
                             </children>
                         </AnchorPane>
                         <AnchorPane GridPane.rowIndex="2">
                             <children>
-                                <TextField fx:id="inputHostField" layoutX="14.0" layoutY="19.0" promptText="Address"
-                                           styleClass="menuField" stylesheets="@css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
+                                <TextField fx:id="inputHostField" layoutX="14.0" layoutY="19.0" promptText="Address" styleClass="menuField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="12.0"/>
+                                        <Font name="Segoe UI" size="12.0" />
                                     </font>
                                 </TextField>
                                 <Label layoutX="14.0" layoutY="-1.0" text="Input Address:" AnchorPane.leftAnchor="14.0">
                                     <font>
-                                        <Font name="Segoe UI Semibold" size="14.0"/>
+                                        <Font name="Segoe UI Semibold" size="14.0" />
                                     </font>
                                 </Label>
                             </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
-                                <TextField fx:id="inetField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="connField" stylesheets="@css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
+                                <TextField fx:id="inetField" editable="false" layoutY="19.0" promptText="No Connection" styleClass="connField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
                                     <font>
-                                        <Font name="Segoe UI" size="12.0"/>
+                                        <Font name="Segoe UI" size="12.0" />
                                     </font>
                                 </TextField>
                                 <Label layoutY="-1.0" text="Connection  Ipv4:" AnchorPane.leftAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI Semibold" size="14.0"/>
+                                        <Font name="Segoe UI Semibold" size="14.0" />
                                     </font>
                                 </Label>
                             </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
-                                <TextField fx:id="portField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="connField" stylesheets="@css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
+                                <TextField fx:id="portField" editable="false" layoutY="19.0" promptText="No Connection" styleClass="connField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
                                     <font>
-                                        <Font name="Segoe UI" size="12.0"/>
+                                        <Font name="Segoe UI" size="12.0" />
                                     </font>
                                 </TextField>
                                 <Label layoutY="-1.0" text="Connection PORT:" AnchorPane.leftAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI Semibold" size="14.0"/>
+                                        <Font name="Segoe UI Semibold" size="14.0" />
                                     </font>
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress"
-                                styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Connect"
-                                GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Connect" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
-                                <Font name="Segoe UI" size="8.0"/>
+                                <Font name="Segoe UI" size="8.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets bottom="17.0"/>
+                                <Insets bottom="17.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
-                                style="-fx-background-color: gray;" styleClass="purpleButton"
-                                stylesheets="@css/menu/menuStyles.css" text="Help" GridPane.columnIndex="1"
-                                GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0" style="-fx-background-color: gray;" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Help" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
-                                <Font name="Segoe UI" size="8.0"/>
+                                <Font name="Segoe UI" size="8.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets bottom="17.0"/>
+                                <Insets bottom="17.0" />
                             </GridPane.margin>
                         </Button>
                     </children>
                     <effect>
                         <DropShadow>
                             <color>
-                                <Color opacity="0.37022900581359863"/>
+                                <Color opacity="0.37022900581359863" />
                             </color>
                         </DropShadow>
                     </effect>
                 </GridPane>
-                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="509.0"
-                            style="-fx-background-color: #524992;" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" style="-fx-background-color: #524992;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                     <children>
-                        <Label layoutX="83.0" layoutY="18.0" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="39.0" text="Reports Plus" textFill="WHITE" AnchorPane.leftAnchor="83.0"
-                               AnchorPane.topAnchor="18.0">
+                        <Label layoutX="83.0" layoutY="18.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" text="Reports Plus" textFill="WHITE" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="18.0">
                             <font>
-                                <Font name="Segoe UI Black" size="27.0"/>
+                                <Font name="Segoe UI Black" size="27.0" />
                             </font>
                             <effect>
                                 <DropShadow spread="0.69">
                                     <color>
-                                        <Color opacity="0.15145038068294525"/>
+                                        <Color opacity="0.15145038068294525" />
                                     </color>
                                 </DropShadow>
                             </effect>
                         </Label>
-                        <Label layoutX="27.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0"
-                               prefWidth="97.0" text="Rp" textFill="WHITE" AnchorPane.leftAnchor="27.0"
-                               AnchorPane.topAnchor="9.0">
+                        <Label layoutX="27.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="97.0" text="Rp" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="9.0">
                             <font>
-                                <Font name="Blanka-Regular" size="37.0"/>
+                                <Font name="Blanka-Regular" size="37.0" />
                             </font>
                             <effect>
                                 <DropShadow spread="0.69">
                                     <color>
-                                        <Color opacity="0.15145038068294525"/>
+                                        <Color opacity="0.15145038068294525" />
                                     </color>
                                 </DropShadow>
                             </effect>
                         </Label>
-                        <Label layoutX="377.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="39.0" text="Client" textFill="WHITE" AnchorPane.leftAnchor="377.0"
-                               AnchorPane.topAnchor="17.0">
+                        <Label layoutX="377.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" text="Client" textFill="WHITE" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="17.0">
                             <font>
-                                <Font name="Segoe UI Black" size="27.0"/>
+                                <Font name="Segoe UI Black" size="27.0" />
                             </font>
                             <effect>
                                 <DropShadow spread="0.69">
                                     <color>
-                                        <Color opacity="0.15145038068294525"/>
+                                        <Color opacity="0.15145038068294525" />
                                     </color>
                                 </DropShadow>
                             </effect>

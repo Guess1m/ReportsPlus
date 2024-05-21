@@ -1,198 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="253.0" prefWidth="415.0"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.CurrentIDViewController">
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="253.0" prefWidth="415.0" style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.CurrentIDViewController">
     <center>
         <VBox>
             <children>
-                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="64.0" prefWidth="415.0"
-                            style="-fx-background-color: #f2f2f2;" VBox.vgrow="NEVER">
+                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="64.0" prefWidth="415.0" style="-fx-background-color: #f2f2f2;" VBox.vgrow="NEVER">
                     <children>
-                        <Label layoutX="17.0" layoutY="8.0" mouseTransparent="true" text="CITY OF LOS SANTOS"
-                               AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="86.0">
+                        <Label layoutX="17.0" layoutY="8.0" mouseTransparent="true" text="CITY OF LOS SANTOS" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="79.0">
                             <font>
-                                <Font name="Segoe UI Black" size="30.0"/>
+                                <Font name="Segoe UI Black" size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="genNum1" layoutX="338.0" layoutY="13.0" mouseTransparent="true" text="9283728"
-                               textFill="#6f6f6f" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="13.0">
+                        <Label fx:id="genNum1" layoutX="338.0" layoutY="13.0" mouseTransparent="true" text="9283728" textFill="#6f6f6f" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="13.0">
                             <font>
-                                <Font name="Segoe UI Black" size="13.0"/>
+                                <Font name="Segoe UI Black" size="13.0" />
                             </font>
                         </Label>
-                        <Label fx:id="genNum2" layoutX="338.0" layoutY="28.0" mouseTransparent="true" text="2749285"
-                               textFill="#6f6f6f" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="28.0">
+                        <Label fx:id="genNum2" layoutX="338.0" layoutY="28.0" mouseTransparent="true" text="2749285" textFill="#6f6f6f" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="28.0">
                             <font>
-                                <Font name="Segoe UI Black" size="13.0"/>
+                                <Font name="Segoe UI Black" size="13.0" />
                             </font>
                         </Label>
-                        <Separator layoutX="20.0" layoutY="52.0" prefWidth="200.0" AnchorPane.bottomAnchor="9.0"
-                                   AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                        <Separator layoutX="20.0" layoutY="52.0" prefWidth="200.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <effect>
-                                <DropShadow height="1.5" offsetY="-2.0" radius="0.625" width="3.0"/>
+                                <DropShadow height="1.5" offsetY="-2.0" radius="0.625" width="3.0" />
                             </effect>
                         </Separator>
                     </children>
                 </AnchorPane>
                 <AnchorPane style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox layoutY="12.0" spacing="20.0" style="-fx-background-color: white;"
-                              AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="197.0"
-                              AnchorPane.topAnchor="12.0">
+                        <VBox layoutY="12.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="12.0">
                             <children>
                                 <AnchorPane VBox.vgrow="ALWAYS">
                                     <children>
                                         <Label text="FIRST" textFill="#979797">
                                             <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
+                                                <Font name="Segoe UI Black" size="13.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="first" editable="false" focusTraversable="false"
-                                                   layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0"
-                                                   style="-fx-background-color: transparent;" text="first"
-                                                   AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="-9.0">
+                                        <TextField fx:id="first" editable="false" focusTraversable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="first" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="16.0"/>
+                                                <Font name="Segoe UI Black" size="16.0" />
                                             </font>
                                         </TextField>
-                                        <Separator layoutY="18.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="6.0">
+                                        <Separator layoutY="18.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0">
                                             <effect>
                                                 <DropShadow height="0.0" offsetY="-1.0" radius="0.25" width="3.0">
                                                     <color>
-                                                        <Color opacity="0.25047799944877625"/>
+                                                        <Color opacity="0.25047799944877625" />
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Separator>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="15.0"/>
+                                        <Insets left="15.0" />
                                     </VBox.margin>
                                 </AnchorPane>
                                 <AnchorPane VBox.vgrow="ALWAYS">
                                     <children>
                                         <Label text="LAST" textFill="#979797">
                                             <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
+                                                <Font name="Segoe UI Black" size="13.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="last" editable="false" focusTraversable="false" layoutX="34.0"
-                                                   layoutY="-9.0" prefHeight="34.0" prefWidth="169.0"
-                                                   style="-fx-background-color: transparent;" text="last"
-                                                   AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="-9.0">
+                                        <TextField fx:id="last" editable="false" focusTraversable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="last" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="16.0"/>
+                                                <Font name="Segoe UI Black" size="16.0" />
                                             </font>
                                         </TextField>
-                                        <Separator layoutY="19.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="6.0">
+                                        <Separator layoutY="19.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0">
                                             <effect>
                                                 <DropShadow height="0.0" offsetY="-1.0" radius="0.25" width="3.0">
                                                     <color>
-                                                        <Color opacity="0.25047799944877625"/>
+                                                        <Color opacity="0.25047799944877625" />
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Separator>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="15.0"/>
+                                        <Insets left="15.0" />
                                     </VBox.margin>
                                 </AnchorPane>
                                 <AnchorPane VBox.vgrow="ALWAYS">
                                     <children>
                                         <Label text="DOB" textFill="#979797">
                                             <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
+                                                <Font name="Segoe UI Black" size="13.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="dob" editable="false" focusTraversable="false" layoutX="34.0"
-                                                   layoutY="-9.0" prefHeight="34.0" prefWidth="169.0"
-                                                   style="-fx-background-color: transparent;" text="date of birth"
-                                                   AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="-9.0">
+                                        <TextField fx:id="dob" editable="false" focusTraversable="false" layoutX="34.0" layoutY="-9.0" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: transparent;" text="date of birth" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="16.0"/>
+                                                <Font name="Segoe UI Black" size="16.0" />
                                             </font>
                                         </TextField>
-                                        <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="19.0">
+                                        <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="19.0">
                                             <effect>
                                                 <DropShadow height="0.0" offsetY="-1.0" radius="0.25" width="3.0">
                                                     <color>
-                                                        <Color opacity="0.25047799944877625"/>
+                                                        <Color opacity="0.25047799944877625" />
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Separator>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="15.0"/>
+                                        <Insets left="15.0" />
                                     </VBox.margin>
                                 </AnchorPane>
                                 <AnchorPane VBox.vgrow="ALWAYS">
                                     <children>
                                         <Label text="GENDER" textFill="#979797">
                                             <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
+                                                <Font name="Segoe UI Black" size="13.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="gender" editable="false" focusTraversable="false"
-                                                   layoutX="60.0" layoutY="-9.0" prefHeight="34.0" prefWidth="143.0"
-                                                   style="-fx-background-color: transparent;" text="gender"
-                                                   AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0"
-                                                   AnchorPane.topAnchor="-9.0">
+                                        <TextField fx:id="gender" editable="false" focusTraversable="false" layoutX="60.0" layoutY="-9.0" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="gender" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="16.0"/>
+                                                <Font name="Segoe UI Black" size="16.0" />
                                             </font>
                                         </TextField>
-                                        <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="19.0">
+                                        <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="19.0">
                                             <effect>
                                                 <DropShadow height="0.0" offsetY="-1.0" radius="0.25" width="3.0">
                                                     <color>
-                                                        <Color opacity="0.25047799944877625"/>
+                                                        <Color opacity="0.25047799944877625" />
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Separator>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="15.0"/>
+                                        <Insets left="15.0" />
                                     </VBox.margin>
                                 </AnchorPane>
                             </children>
                         </VBox>
                         <AnchorPane layoutX="231.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <ImageView fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0"
-                                           pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="40.0"
-                                           AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="25.0"
-                                           AnchorPane.topAnchor="7.0">
+                                <ImageView fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="7.0">
                                     <image>
-                                        <Image url="@imgs/CityLosSantosLogo.png"/>
+                                        <Image url="@imgs/CityLosSantosLogo.png" />
                                     </image>
                                 </ImageView>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b9b9" height="2.0" layoutY="164.0"
-                                           stroke="TRANSPARENT" strokeType="INSIDE" width="165.0"
-                                           AnchorPane.bottomAnchor="0.0"/>
-                                <Label fx:id="cursiveName" alignment="CENTER" layoutY="142.0" text="first"
-                                       AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0">
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b9b9" height="2.0" layoutY="164.0" stroke="TRANSPARENT" strokeType="INSIDE" width="165.0" AnchorPane.bottomAnchor="0.0" />
+                                <Label fx:id="cursiveName" alignment="CENTER" layoutY="142.0" text="first" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                     <font>
-                                        <Font size="15.5"/>
+                                        <Font size="15.5" />
                                     </font>
                                 </Label>
                             </children>

@@ -85,7 +85,7 @@ public class CurrentIDViewController {
     }
 
     public void initialize() {
-        titleBar = reportCreationUtil.createSimpleTitleBar("Current ID");
+        titleBar = reportCreationUtil.createSimpleTitleBar("Current ID", false);
         root.setTop(titleBar);
         cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
 

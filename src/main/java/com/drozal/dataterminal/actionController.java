@@ -25,15 +25,12 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -44,9 +41,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -62,7 +57,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
@@ -72,20 +66,19 @@ import static com.drozal.dataterminal.util.updateUtil.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
-
-
-    //<editor-fold desc="FXML Elements">
-
-
     public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
+    public static Stage settingsStage = null;
     public static Stage CalloutStage = null;
     public static ClientController clientController;
     public static Stage notesStage = null;
     public static Stage clientStage = null;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
+
+
+    //<editor-fold desc="FXML Elements">
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -124,8 +117,6 @@ public class actionController {
     public Label mainColor9Bkg;
     @javafx.fxml.FXML
     public Button updateInfoBtn;
-    @javafx.fxml.FXML
-    public MenuButton settingsDropdown;
     actionController controller;
     AnchorPane titlebar;
     private NotesViewController notesViewController;
@@ -162,8 +153,6 @@ public class actionController {
     private MenuItem arrestReportButton;
     @javafx.fxml.FXML
     private MenuItem trafficCitationReportButton;
-    @javafx.fxml.FXML
-    private RadioMenuItem startupFullscreenToggleBtn;
     @javafx.fxml.FXML
     private AreaChart areaReportChart;
     @javafx.fxml.FXML
@@ -511,8 +500,8 @@ public class actionController {
     private Label noRecordFoundLabelPed;
     @javafx.fxml.FXML
     private MenuButton lookupBtn;
-    private double xOffset = 0;
-    private double yOffset = 0;
+    @javafx.fxml.FXML
+    private Button settingsBtn;
 
 
     //</editor-fold>
@@ -520,409 +509,16 @@ public class actionController {
 
     //<editor-fold desc="Utils">
 
-    private void loadTheme() throws IOException {
-        changeBarColors(getReportChart());
-        changeStatisticColors(areaReportChart);
-        //Main
-        String mainclr = ConfigReader.configRead("mainColor");
-        topPane.setStyle("-fx-background-color: " + mainclr + ";");
-        mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
-        mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
-        logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
-        detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
-        //Secondary
-        String secclr = ConfigReader.configRead("secondaryColor");
-        sidepane.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
-        reportPlusLabelFill.setStyle("-fx-text-fill: " + secclr + ";");
-        //Accent
-        String accclr = ConfigReader.configRead("accentColor");
-        //Buttons
-        String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
-        String initialStyle = "-fx-background-color: transparent;";
-        String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
-        updateInfoBtn.setStyle(nonTransparentBtn);
-        showManagerToggle.setStyle(nonTransparentBtn);
-        btn1.setStyle(nonTransparentBtn);
-        btn2.setStyle(nonTransparentBtn);
-        btn3.setStyle(nonTransparentBtn);
-        btn4.setStyle(nonTransparentBtn);
-        btn5.setStyle(nonTransparentBtn);
-        btn6.setStyle(nonTransparentBtn);
-        btn7.setStyle(nonTransparentBtn);
-        btn8.setStyle(nonTransparentBtn);
 
-        // Add hover event handling
-        btn1.setOnMouseEntered(e -> btn1.setStyle(hoverStyle));
-        btn1.setOnMouseExited(e -> btn1.setStyle(nonTransparentBtn));
-        btn2.setOnMouseEntered(e -> btn2.setStyle(hoverStyle));
-        btn2.setOnMouseExited(e -> btn2.setStyle(nonTransparentBtn));
-        btn3.setOnMouseEntered(e -> btn3.setStyle(hoverStyle));
-        btn3.setOnMouseExited(e -> btn3.setStyle(nonTransparentBtn));
-        btn4.setOnMouseEntered(e -> btn4.setStyle(hoverStyle));
-        btn4.setOnMouseExited(e -> btn4.setStyle(nonTransparentBtn));
-        btn5.setOnMouseEntered(e -> btn5.setStyle(hoverStyle));
-        btn5.setOnMouseExited(e -> btn5.setStyle(nonTransparentBtn));
-        btn6.setOnMouseEntered(e -> btn6.setStyle(hoverStyle));
-        btn6.setOnMouseExited(e -> btn6.setStyle(nonTransparentBtn));
-        btn7.setOnMouseEntered(e -> btn7.setStyle(hoverStyle));
-        btn7.setOnMouseExited(e -> btn7.setStyle(nonTransparentBtn));
-        btn8.setOnMouseEntered(e -> btn8.setStyle(hoverStyle));
-        btn8.setOnMouseExited(e -> btn8.setStyle(nonTransparentBtn));
-        showManagerToggle.setOnMouseEntered(e -> showManagerToggle.setStyle(hoverStyle));
-        showManagerToggle.setOnMouseExited(e -> showManagerToggle.setStyle(nonTransparentBtn));
-        shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
-        shiftInfoBtn.setOnMouseExited(e -> shiftInfoBtn.setStyle(initialStyle));
-        settingsDropdown.setOnMouseEntered(e -> settingsDropdown.setStyle("-fx-background-color: " + secclr + ";"));
-        settingsDropdown.setOnMouseExited(e -> settingsDropdown.setStyle(initialStyle));
-        notesButton.setOnMouseEntered(e -> notesButton.setStyle(hoverStyle));
-        notesButton.setOnMouseExited(e -> notesButton.setStyle(initialStyle));
-        createReportBtn.setOnMouseEntered(e -> createReportBtn.setStyle(hoverStyle));
-        createReportBtn.setOnMouseExited(e -> createReportBtn.setStyle(initialStyle));
-        logsButton.setOnMouseEntered(e -> logsButton.setStyle(hoverStyle));
-        logsButton.setOnMouseExited(e -> logsButton.setStyle(initialStyle));
-        mapButton.setOnMouseEntered(e -> mapButton.setStyle(hoverStyle));
-        mapButton.setOnMouseExited(e -> mapButton.setStyle(initialStyle));
-        showIDBtn.setOnMouseEntered(e -> showIDBtn.setStyle(hoverStyle));
-        showIDBtn.setOnMouseExited(e -> showIDBtn.setStyle(initialStyle));
-        showCalloutBtn.setOnMouseEntered(e -> showCalloutBtn.setStyle(hoverStyle));
-        showCalloutBtn.setOnMouseExited(e -> showCalloutBtn.setStyle(initialStyle));
-        lookupBtn.setOnMouseEntered(e -> lookupBtn.setStyle(hoverStyle));
-        lookupBtn.setOnMouseExited(e -> lookupBtn.setStyle(initialStyle));
-
-        updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
-        updateInfoBtn.setOnMouseExited(e -> {
-            updateInfoBtn.setStyle(nonTransparentBtn);
-        });
+    public static void handleClose() {
+        log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+        ClientUtils.disconnectFromService();
+        Platform.exit();
+        System.exit(0);
     }
 
-    private void showSettingsWindow() {
-        Stage settingsStage = new Stage();
-
-        ComboBox<String> mainWindowComboBox = new ComboBox<>();
-        ComboBox<String> notesWindowComboBox = new ComboBox<>();
-        ComboBox<String> ReportWindowComboBox = new ComboBox<>();
-        ComboBox<String> reportDarkLight = new ComboBox<>();
-
-        ComboBox<String> themeComboBox = new ComboBox<>();
-
-        Button resetBtn = new Button("Reset Defaults");
-        resetBtn.getStyleClass().add("purpleButton");
-        resetBtn.setStyle("-fx-label-padding: 1 7; -fx-padding: 1;");
-
-        ColorPicker primPicker = new ColorPicker();
-        ColorPicker secPicker = new ColorPicker();
-        ColorPicker accPicker = new ColorPicker();
-        Label primaryLabel = new Label("Primary Color:");
-        primaryLabel.getStyleClass().add("headingBig");
-        Label secondaryLabel = new Label("Secondary Color:");
-        secondaryLabel.getStyleClass().add("headingBig");
-        Label accentLabel = new Label("Accent Color:");
-        accentLabel.getStyleClass().add("headingBig");
-
-        Label reportColorLabel = new Label("Report Style:");
-        primaryLabel.getStyleClass().add("headingBig");
-        reportColorLabel.getStyleClass().add("headingBig");
-        reportColorLabel.setStyle("-fx-text-fill: #404040;");
-
-        Label themeLabel = new Label("Theme:");
-        themeLabel.getStyleClass().add("headingBig");
-        themeLabel.setStyle("-fx-text-fill: #404040;");
-
-        Runnable loadColors = () -> {
-            try {
-                Color primary = Color.valueOf(ConfigReader.configRead("mainColor"));
-                Color secondary = Color.valueOf(ConfigReader.configRead("secondaryColor"));
-                Color accent = Color.valueOf(ConfigReader.configRead("accentColor"));
-
-                primPicker.setValue(primary);
-                secPicker.setValue(secondary);
-                accPicker.setValue(accent);
-                primaryLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-                secondaryLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
-                accentLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
-
-                try {
-                    String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
-                    String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
-                    resetBtn.setStyle(nonTransparentBtn);
-                    resetBtn.setOnMouseEntered(e -> resetBtn.setStyle(hoverStyle));
-                    resetBtn.setOnMouseExited(e -> resetBtn.setStyle(nonTransparentBtn));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            } catch (IOException e) {
-                logError("LoadTheme IO Error Code 1 ", e);
-            }
-        };
-
-        loadColors.run();
-
-        resetBtn.setOnAction(event -> {
-            updateMain(Color.valueOf("#524992"));
-            updateSecondary(Color.valueOf("#665cb6"));
-            updateAccent(Color.valueOf("#9c95d0"));
-            try {
-                loadTheme();
-                loadColors.run();
-            } catch (IOException e) {
-                logError("LoadTheme IO Error Code 2 ", e);
-            }
-        });
-
-        primPicker.valueProperty().addListener(new ChangeListener<Color>() {
-            @Override
-            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                Color selectedColor = newValue;
-                updateMain(selectedColor);
-                try {
-                    loadTheme();
-                    loadColors.run();
-                } catch (IOException e) {
-                    logError("LoadTheme IO Error Code 3 ", e);
-                }
-            }
-        });
-
-        secPicker.valueProperty().addListener(new ChangeListener<Color>() {
-            @Override
-            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                Color selectedColor = newValue;
-                updateSecondary(selectedColor);
-                try {
-                    loadTheme();
-                    loadColors.run();
-                } catch (IOException e) {
-                    logError("LoadTheme IO Error Code 4 ", e);
-                }
-            }
-        });
-
-        accPicker.valueProperty().addListener(new ChangeListener<Color>() {
-            @Override
-            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                Color selectedColor = newValue;
-                updateAccent(selectedColor);
-                try {
-                    loadTheme();
-                    loadColors.run();
-                } catch (IOException e) {
-                    logError("LoadTheme IO Error Code 5 ", e);
-                }
-            }
-        });
-
-        String[] reportdarklight = {"dark", "light"};
-        String[] themes = {"dark", "purple", "blue", "grey", "green"};
-        String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
-        mainWindowComboBox.getItems().addAll(displayPlacements);
-        notesWindowComboBox.getItems().addAll(displayPlacements);
-        ReportWindowComboBox.getItems().addAll(displayPlacements);
-        reportDarkLight.getItems().addAll(reportdarklight);
-
-        themeComboBox.getItems().addAll(themes);
-
-        try {
-            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                reportDarkLight.getSelectionModel().selectFirst();
-            } else {
-                reportDarkLight.getSelectionModel().selectLast();
-            }
-        } catch (IOException e) {
-            logError("DarkMode IO Error Code 1 ", e);
-
-        }
-
-        try {
-            mainWindowComboBox.setValue(ConfigReader.configRead("mainWindowLayout"));
-            notesWindowComboBox.setValue(ConfigReader.configRead("notesWindowLayout"));
-            ReportWindowComboBox.setValue(ConfigReader.configRead("reportWindowLayout"));
-        } catch (IOException e) {
-            logError("DarkMode IO Error Code 2 ", e);
-        }
-
-        GridPane root = new GridPane();
-        root.setPadding(new Insets(20));
-        root.setHgap(15);
-        root.setVgap(15);
-
-        Label displayPlacementsLabel = new Label("Display Placements");
-        displayPlacementsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Segoe UI Black;");
-        Label colorsLabel = new Label("Colors");
-        colorsLabel.setStyle("-fx-font-size: 20; -fx-font-family: Arial; -fx-font-weight: bold; -fx-text-fill: black;");
-
-        // Add headings for display settings
-        root.addRow(0, displayPlacementsLabel);
-        root.addRow(1, new Label("Main Window Placement:"), mainWindowComboBox);
-        root.addRow(2, new Label("Notes Window Placement:"), notesWindowComboBox);
-        root.addRow(3, new Label("Report Window Placement:"), ReportWindowComboBox);
-
-        // Add empty row
-        root.addRow(4, new Label());
-
-        // Add headings for color settings
-        root.addRow(5, colorsLabel);
-        root.addRow(6, themeLabel, themeComboBox);
-        root.addRow(7, primaryLabel, primPicker);
-        root.addRow(8, secondaryLabel, secPicker);
-        root.addRow(9, accentLabel, accPicker);
-        root.addRow(10, reportColorLabel, reportDarkLight);
-
-        // Add reset button
-        root.addRow(11, resetBtn);
-
-        EventHandler<ActionEvent> comboBoxHandler = event -> {
-            ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
-            String selectedPlacement = comboBox.getSelectionModel().getSelectedItem();
-
-            if (comboBox == mainWindowComboBox) {
-                if ("Default".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "Default");
-                } else if ("Top Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "TopLeft");
-                } else if ("Top Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "TopRight");
-                } else if ("Bottom Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "BottomLeft");
-                } else if ("Bottom Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "BottomRight");
-                } else if ("Full Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "FullLeft");
-                } else if ("Full Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("mainWindowLayout", "FullRight");
-                }
-            }
-
-            if (comboBox == notesWindowComboBox) {
-                if ("Default".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "Default");
-                } else if ("Top Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "TopLeft");
-                } else if ("Top Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "TopRight");
-                } else if ("Bottom Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "BottomLeft");
-                } else if ("Bottom Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "BottomRight");
-                } else if ("Full Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "FullLeft");
-                } else if ("Full Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("notesWindowLayout", "FullRight");
-                }
-            }
-
-            if (comboBox == ReportWindowComboBox) {
-                if ("Default".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "Default");
-                } else if ("Top Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "TopLeft");
-                } else if ("Top Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "TopRight");
-                } else if ("Bottom Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "BottomLeft");
-                } else if ("Bottom Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "BottomRight");
-                } else if ("Full Left".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "FullLeft");
-                } else if ("Full Right".equals(selectedPlacement)) {
-                    ConfigWriter.configwrite("reportWindowLayout", "FullRight");
-                }
-            }
-        };
-
-        themeComboBox.setOnAction(actionEvent -> {
-            String selectedTheme = themeComboBox.getSelectionModel().getSelectedItem();
-
-            switch (selectedTheme) {
-                case "dark" -> {
-                    log("Dark Theme Selected", LogUtils.Severity.DEBUG);
-                    updateMain(Color.valueOf("#263238"));
-                    updateSecondary(Color.valueOf("#323C41"));
-                    updateAccent(Color.valueOf("#505d62"));
-                    try {
-                        loadTheme();
-                        loadColors.run();
-                    } catch (IOException e) {
-                        logError("LoadTheme Error", e);
-                    }
-                }
-                case "purple" -> {
-                    log("Purple Theme Selected", LogUtils.Severity.DEBUG);
-                    updateMain(Color.valueOf("#524992"));
-                    updateSecondary(Color.valueOf("#665cb6"));
-                    updateAccent(Color.valueOf("#9c95d0"));
-                    try {
-                        loadTheme();
-                        loadColors.run();
-                    } catch (IOException e) {
-                        logError("LoadTheme Error", e);
-                    }
-                }
-                case "blue" -> {
-                    log("Blue Theme Selected", LogUtils.Severity.DEBUG);
-                    updateMain(Color.valueOf("#4d66cc"));
-                    updateSecondary(Color.valueOf("#6680e6"));
-                    updateAccent(Color.valueOf("#b3ccff"));
-                    try {
-                        loadTheme();
-                        loadColors.run();
-                    } catch (IOException e) {
-                        logError("LoadTheme Error", e);
-                    }
-                }
-                case "grey" -> {
-                    log("Grey Theme Selected", LogUtils.Severity.DEBUG);
-                    updateMain(Color.valueOf("#666666"));
-                    updateSecondary(Color.valueOf("#808080"));
-                    updateAccent(Color.valueOf("#4d4d4d"));
-                    try {
-                        loadTheme();
-                        loadColors.run();
-                    } catch (IOException e) {
-                        logError("LoadTheme Error", e);
-                    }
-                }
-                case "green" -> {
-                    log("Green Theme Selected", LogUtils.Severity.DEBUG);
-                    updateMain(Color.valueOf("#4d804d"));
-                    updateSecondary(Color.valueOf("#669966"));
-                    updateAccent(Color.valueOf("#99cc99"));
-                    try {
-                        loadTheme();
-                        loadColors.run();
-                    } catch (IOException e) {
-                        logError("LoadTheme Error", e);
-                    }
-                }
-
-            }
-
-        });
-
-        mainWindowComboBox.setOnAction(comboBoxHandler);
-        notesWindowComboBox.setOnAction(comboBoxHandler);
-        ReportWindowComboBox.setOnAction(comboBoxHandler);
-        reportDarkLight.setOnAction(event -> {
-            if (reportDarkLight.getSelectionModel().getSelectedItem().equals("dark")) {
-                ConfigWriter.configwrite("reportWindowDarkMode", "true");
-            } else {
-                ConfigWriter.configwrite("reportWindowDarkMode", "false");
-            }
-        });
-
-        Scene scene = new Scene(root);
-        settingsStage.setScene(scene);
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/formLabels.css").toExternalForm());
-        scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/menu/menuStyles.css").toExternalForm());
-
-        settingsStage.setTitle("UI Settings");
-        settingsStage.initStyle(StageStyle.UTILITY);
-        settingsStage.setResizable(false);
-        settingsStage.show();
-        settingsStage.setAlwaysOnTop(true);
+    public ToggleButton getShowManagerToggle() {
+        return showManagerToggle;
     }
 
     private void updateConnectionStatus(boolean isConnected) {
@@ -957,9 +553,10 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
-
         // Create the title bar
         titlebar = reportCreationUtil.createTitleBar("Reports Plus");
+
+        vbox.requestFocus();
 
 // Add the title bar to the AnchorPane
         vbox.getChildren().add(titlebar);
@@ -982,7 +579,6 @@ public class actionController {
             }
         });
 
-        startupFullscreenToggleBtn.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
 
         notesText = "";
 
@@ -1066,14 +662,16 @@ public class actionController {
         Platform.runLater(() -> {
 
             versionLabel.setText(stringUtil.version);
+            Stage stge = (Stage) vbox.getScene().getWindow();
 
-            vbox.getScene().getWindow().setOnHiding(event -> handleClose());
+            stge.setOnHiding(event -> handleClose());
+
+            versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/zainrd123/DataTerminal/releases"));
 
             if (!stringUtil.version.equals("dev")) {
                 if (!stringUtil.version.equals(gitVersion)) {
                     versionLabel.setText(gitVersion + " Available!");
                     versionLabel.setStyle("-fx-text-fill: red;");
-                    versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/zainrd123/DataTerminal/releases"));
                 }
             } else {
                 versionLabel.setText("Development");
@@ -1106,19 +704,71 @@ public class actionController {
         getReportChart().getData().add(series1);
     }
 
-    private void handleClose() {
-        log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-        ClientUtils.disconnectFromService();
-        Platform.exit();
-        System.exit(0);
-    }
-
 
     //</editor-fold>
 
 
     //<editor-fold desc="Getters">
 
+    public Button getShowIDBtn() {
+        return showIDBtn;
+    }
+
+    public MenuButton getCreateReportBtn() {
+        return createReportBtn;
+    }
+
+    public Button getLogsButton() {
+        return logsButton;
+    }
+
+    public Button getMapButton() {
+        return mapButton;
+    }
+
+    public Button getShowCalloutBtn() {
+        return showCalloutBtn;
+    }
+
+    public MenuButton getLookupBtn() {
+        return lookupBtn;
+    }
+
+    public Button getBtn1() {
+        return btn1;
+    }
+
+    public Button getBtn2() {
+        return btn2;
+    }
+
+    public Button getBtn3() {
+        return btn3;
+    }
+
+    public Button getBtn4() {
+        return btn4;
+    }
+
+    public Button getBtn5() {
+        return btn5;
+    }
+
+    public Button getBtn6() {
+        return btn6;
+    }
+
+    public Button getBtn7() {
+        return btn7;
+    }
+
+    public Button getBtn8() {
+        return btn8;
+    }
+
+    public Button getSettingsBtn() {
+        return settingsBtn;
+    }
 
     public ComboBox getOfficerInfoAgency() {
         return OfficerInfoAgency;
@@ -1144,6 +794,9 @@ public class actionController {
         return reportChart;
     }
 
+    public AreaChart getAreaReportChart() {
+        return areaReportChart;
+    }
 
     //</editor-fold>
 
@@ -1238,7 +891,6 @@ public class actionController {
         }
         notesStage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
-        AnchorPane topbar = notesViewController.getTitlebar();
         notesStage.setAlwaysOnTop(true);
 
         notesStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -1312,60 +964,6 @@ public class actionController {
     //</editor-fold>
 
 
-    //<editor-fold desc="Settings Button Events">
-
-
-    @javafx.fxml.FXML
-    public void logOutputBtnPress(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("output-view.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        stage.setTitle("Report Manager");
-        stage.setScene(newScene);
-        stage.show();
-        stage.centerOnScreen();
-    }
-
-    @javafx.fxml.FXML
-    public void UISettingsBtnClick(ActionEvent actionEvent) {
-        showSettingsWindow();
-    }
-
-    @javafx.fxml.FXML
-    public void onStartupFullscreenPress(ActionEvent actionEvent) {
-        if (startupFullscreenToggleBtn.isSelected()) {
-            ConfigWriter.configwrite("fullscreenOnStartup", "true");
-            startupFullscreenToggleBtn.setSelected(true);
-        } else {
-            ConfigWriter.configwrite("fullscreenOnStartup", "false");
-            startupFullscreenToggleBtn.setSelected(false);
-        }
-    }
-
-    @javafx.fxml.FXML
-    public void testBtnPress(ActionEvent actionEvent) throws IOException {
-        log("Test Pressed", LogUtils.Severity.DEBUG);
-    }
-
-    @javafx.fxml.FXML
-    public void clearLogsBtnClick(ActionEvent actionEvent) {
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        confirmLogClearDialog(stage, reportChart, areaReportChart);
-        showNotification("Log Manager", "Logs have been cleared.", vbox);
-    }
-
-    @javafx.fxml.FXML
-    public void clearAllSaveDataBtnClick(ActionEvent actionEvent) {
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        confirmSaveDataClearDialog(stage);
-    }
-
-
-    //</editor-fold>
-
-
     //<editor-fold desc="Open Report Button Events">
 
 
@@ -1414,6 +1012,85 @@ public class actionController {
 
 
     //<editor-fold desc="Misc.">
+
+    private void loadTheme() throws IOException {
+        changeBarColors(getReportChart());
+        changeStatisticColors(areaReportChart);
+        //Main
+        String mainclr = ConfigReader.configRead("mainColor");
+        topPane.setStyle("-fx-background-color: " + mainclr + ";");
+        mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
+        mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
+        logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
+        detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
+        //Secondary
+        String secclr = ConfigReader.configRead("secondaryColor");
+        sidepane.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
+        reportPlusLabelFill.setStyle("-fx-text-fill: " + secclr + ";");
+        //Accent
+        String accclr = ConfigReader.configRead("accentColor");
+        //Buttons
+        String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
+        String initialStyle = "-fx-background-color: transparent;";
+        String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
+        updateInfoBtn.setStyle(nonTransparentBtn);
+        showManagerToggle.setStyle(nonTransparentBtn);
+        settingsBtn.setStyle(initialStyle);
+        btn1.setStyle(nonTransparentBtn);
+        btn2.setStyle(nonTransparentBtn);
+        btn3.setStyle(nonTransparentBtn);
+        btn4.setStyle(nonTransparentBtn);
+        btn5.setStyle(nonTransparentBtn);
+        btn6.setStyle(nonTransparentBtn);
+        btn7.setStyle(nonTransparentBtn);
+        btn8.setStyle(nonTransparentBtn);
+
+        // Add hover event handling
+        btn1.setOnMouseEntered(e -> btn1.setStyle(hoverStyle));
+        btn1.setOnMouseExited(e -> btn1.setStyle(nonTransparentBtn));
+        btn2.setOnMouseEntered(e -> btn2.setStyle(hoverStyle));
+        btn2.setOnMouseExited(e -> btn2.setStyle(nonTransparentBtn));
+        btn3.setOnMouseEntered(e -> btn3.setStyle(hoverStyle));
+        btn3.setOnMouseExited(e -> btn3.setStyle(nonTransparentBtn));
+        btn4.setOnMouseEntered(e -> btn4.setStyle(hoverStyle));
+        btn4.setOnMouseExited(e -> btn4.setStyle(nonTransparentBtn));
+        btn5.setOnMouseEntered(e -> btn5.setStyle(hoverStyle));
+        btn5.setOnMouseExited(e -> btn5.setStyle(nonTransparentBtn));
+        btn6.setOnMouseEntered(e -> btn6.setStyle(hoverStyle));
+        btn6.setOnMouseExited(e -> btn6.setStyle(nonTransparentBtn));
+        btn7.setOnMouseEntered(e -> btn7.setStyle(hoverStyle));
+        btn7.setOnMouseExited(e -> btn7.setStyle(nonTransparentBtn));
+        btn8.setOnMouseEntered(e -> btn8.setStyle(hoverStyle));
+        btn8.setOnMouseExited(e -> btn8.setStyle(nonTransparentBtn));
+        showManagerToggle.setOnMouseEntered(e -> showManagerToggle.setStyle(hoverStyle));
+        showManagerToggle.setOnMouseExited(e -> showManagerToggle.setStyle(nonTransparentBtn));
+        shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
+        shiftInfoBtn.setOnMouseExited(e -> shiftInfoBtn.setStyle(initialStyle));
+        settingsBtn.setOnMouseEntered(e -> settingsBtn.setStyle("-fx-background-color: " + secclr + ";"));
+        settingsBtn.setOnMouseExited(e -> settingsBtn.setStyle(initialStyle));
+        notesButton.setOnMouseEntered(e -> notesButton.setStyle(hoverStyle));
+        notesButton.setOnMouseExited(e -> notesButton.setStyle(initialStyle));
+        createReportBtn.setOnMouseEntered(e -> createReportBtn.setStyle(hoverStyle));
+        createReportBtn.setOnMouseExited(e -> createReportBtn.setStyle(initialStyle));
+        logsButton.setOnMouseEntered(e -> logsButton.setStyle(hoverStyle));
+        logsButton.setOnMouseExited(e -> logsButton.setStyle(initialStyle));
+        mapButton.setOnMouseEntered(e -> mapButton.setStyle(hoverStyle));
+        mapButton.setOnMouseExited(e -> mapButton.setStyle(initialStyle));
+        showIDBtn.setOnMouseEntered(e -> showIDBtn.setStyle(hoverStyle));
+        showIDBtn.setOnMouseExited(e -> showIDBtn.setStyle(initialStyle));
+        showCalloutBtn.setOnMouseEntered(e -> showCalloutBtn.setStyle(hoverStyle));
+        showCalloutBtn.setOnMouseExited(e -> showCalloutBtn.setStyle(initialStyle));
+        lookupBtn.setOnMouseEntered(e -> lookupBtn.setStyle(hoverStyle));
+        lookupBtn.setOnMouseExited(e -> lookupBtn.setStyle(initialStyle));
+
+        updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
+        updateInfoBtn.setOnMouseExited(e -> {
+            updateInfoBtn.setStyle(nonTransparentBtn);
+        });
+    }
 
     @javafx.fxml.FXML
     public void onServerStatusLabelClick(Event event) throws IOException {
@@ -3139,7 +2816,58 @@ public class actionController {
         }
     }
 
+    public Label getLogManagerLabelBkg() {
+        return logManagerLabelBkg;
+    }
+
+    public Label getDetailsLabelFill() {
+        return detailsLabelFill;
+    }
+
+    public Label getReportPlusLabelFill() {
+        return reportPlusLabelFill;
+    }
+
+    public Label getSecondaryColor3Bkg() {
+        return secondaryColor3Bkg;
+    }
+
+    public Label getSecondaryColor4Bkg() {
+        return secondaryColor4Bkg;
+    }
+
+    public Label getSecondaryColor5Bkg() {
+        return secondaryColor5Bkg;
+    }
+
+    @javafx.fxml.FXML
+    public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
+        if (settingsStage != null && settingsStage.isShowing()) {
+            settingsStage.close();
+            return;
+        }
+        settingsStage = new Stage();
+        settingsStage.initStyle(StageStyle.UNDECORATED);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        settingsStage.setTitle("Settings");
+        settingsStage.setScene(newScene);
+        settingsStage.show();
+        settingsStage.centerOnScreen();
+        settingsStage.setAlwaysOnTop(true);
+        showButtonAnimation(settingsBtn);
+
+        settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                settingsStage = null;
+            }
+        });
+    }
+
 
     //</editor-fold>
+
 
 }

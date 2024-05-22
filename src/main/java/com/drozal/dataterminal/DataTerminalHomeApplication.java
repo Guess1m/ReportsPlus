@@ -18,6 +18,7 @@ import static com.drozal.dataterminal.util.windowUtils.*;
 public class DataTerminalHomeApplication extends Application {
 
     public static Stage mainRT;
+    public static actionController controller;
 
     public static Stage getMainRT() {
         return mainRT;
@@ -50,7 +51,7 @@ public class DataTerminalHomeApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         mainRT.initStyle(StageStyle.UNDECORATED);
         Parent root = loader.load();
-        actionController controller = loader.getController();
+        controller = loader.getController();
         Scene scene = new Scene(root);
         mainRT.setScene(scene);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));

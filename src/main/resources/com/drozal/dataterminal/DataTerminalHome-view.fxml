@@ -13,12 +13,13 @@
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
-        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="88.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="115.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="30.0">
+                            AnchorPane.topAnchor="0.0">
                     <content>
                         <VBox>
                             <children>
@@ -208,7 +209,7 @@
         </AnchorPane>
         <AnchorPane fx:id="vehLookupPane" layoutX="227.0" layoutY="110.0" prefHeight="641.0" prefWidth="797.0"
                     visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <Label layoutX="43.0" layoutY="35.0" style="-fx-font-size: 25; -fx-text-fill: #5e7387;"
                        styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search"
@@ -411,7 +412,7 @@
         </AnchorPane>
         <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
                     visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <Label layoutX="43.0" layoutY="35.0" style="-fx-font-size: 25; -fx-text-fill: #5e7387;"
                        styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search"
@@ -584,7 +585,7 @@
         </AnchorPane>
         <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="85.0">
+                    AnchorPane.topAnchor="115.0">
             <children>
                 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="0.0">
@@ -1833,11 +1834,11 @@
                                         </Label>
                                     </children>
                                 </HBox>
-                                <MenuButton fx:id="settingsDropdown" alignment="CENTER_RIGHT" graphicTextGap="6.0"
-                                            layoutX="66.0" layoutY="14.0" mnemonicParsing="false" styleClass="button"
-                                            stylesheets="@css/menu/settingsDropdown.css" text="Settings"
-                                            textFill="#828797" AnchorPane.rightAnchor="14.0"
-                                            AnchorPane.topAnchor="14.0">
+                                <Button fx:id="settingsBtn" graphicTextGap="7.0" layoutX="52.0" layoutY="14.0"
+                                        mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="29.0"
+                                        prefWidth="118.0" styleClass="settingsBtn"
+                                        stylesheets="@css/menu/menuStyles.css" text="Settings"
+                                        AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="14.0">
                                     <graphic>
                                         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
                                                    preserveRatio="true">
@@ -1846,22 +1847,7 @@
                                             </image>
                                         </ImageView>
                                     </graphic>
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#UISettingsBtnClick"
-                                                  text="UI Color Settings"/>
-                                        <RadioMenuItem fx:id="startupFullscreenToggleBtn" mnemonicParsing="false"
-                                                       onAction="#onStartupFullscreenPress" selected="true"
-                                                       text="StartupFullscreen"/>
-                                        <SeparatorMenuItem mnemonicParsing="false"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#clearLogsBtnClick"
-                                                  text="Clear Logs"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#clearAllSaveDataBtnClick"
-                                                  text="Clear All Save Data"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#logOutputBtnPress"
-                                                  text="LogOutput"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#testBtnPress" text="Testing"/>
-                                    </items>
-                                </MenuButton>
+                                </Button>
                             </children>
                         </AnchorPane>
                         <AnchorPane>

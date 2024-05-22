@@ -43,6 +43,7 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.actionController.handleClose;
 import static com.drozal.dataterminal.util.LogUtils.log;
 import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.stringUtil.getDataLogsFolderPath;
@@ -120,6 +121,22 @@ public class controllerUtils {
         noti.getStyleClass().add("notification-pane");
     }
 
+    public static void showLogClearNotification(String title, String message, Object owner) {
+        Label label = new Label(message);
+
+        VBox vbox1 = new VBox(label);
+        vbox1.setAlignment(Pos.CENTER);
+        Notifications noti = Notifications.create()
+                .title(title)
+                .text(message)
+                .graphic(null) // You can add a graphic if needed
+                .position(Pos.TOP_CENTER)
+                .hideAfter(Duration.seconds(1.15))
+                .owner(owner);
+        noti.show();
+        noti.getStyleClass().add("notification-pane");
+    }
+
     public static void setActive(AnchorPane pane) {
         pane.setVisible(true);
         pane.setDisable(false);
@@ -159,7 +176,6 @@ public class controllerUtils {
                 updateChartIfMismatch(barChart);
                 controllerUtils.refreshChart(areaChart, "area");
             }
-
         });
     }
 
@@ -374,8 +390,8 @@ public class controllerUtils {
                 clearDataLogsAsync();
                 clearConfig();
                 clearDataFolderAsync();
+                handleClose();
             }
-
         });
     }
 

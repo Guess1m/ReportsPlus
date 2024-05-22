@@ -249,7 +249,7 @@ public class reportCreationUtil {
     }
 
 
-    public static AnchorPane createSimpleTitleBar(String titleText) {
+    public static AnchorPane createSimpleTitleBar(String titleText, boolean resiable) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
         colorAdjust.setBrightness(-0.45);
@@ -328,6 +328,13 @@ public class reportCreationUtil {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
+
+        if (resiable) {
+            Platform.runLater(() -> {
+                Stage stage1 = (Stage) titleBar.getScene().getWindow();
+                ResizeHelper.addResizeListener(stage1);
+            });
+        }
 
         return titleBar;
     }

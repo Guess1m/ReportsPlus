@@ -66,6 +66,12 @@ import static com.drozal.dataterminal.util.updateUtil.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
+
+
+    //<editor-fold desc="FXML Elements">
+
+
+
     public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
@@ -76,9 +82,6 @@ public class actionController {
     public static Stage clientStage = null;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
-
-
-    //<editor-fold desc="FXML Elements">
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -502,6 +505,7 @@ public class actionController {
     private MenuButton lookupBtn;
     @javafx.fxml.FXML
     private Button settingsBtn;
+
 
 
     //</editor-fold>

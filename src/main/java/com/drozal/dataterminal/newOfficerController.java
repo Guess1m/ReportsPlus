@@ -35,6 +35,7 @@ import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class newOfficerController {
+    public static actionController controller;
     @javafx.fxml.FXML
     public TextField numberField;
     @javafx.fxml.FXML
@@ -146,7 +147,7 @@ public class newOfficerController {
             Stage mainRT = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
-            actionController controller = loader.getController();
+            controller = loader.getController();
             Scene scene = new Scene(root);
             mainRT.setScene(scene);
             mainRT.initStyle(StageStyle.UNDECORATED);
@@ -246,7 +247,7 @@ public class newOfficerController {
         mainRT.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
-        actionController controller = loader.getController();
+        controller = loader.getController();
         Scene scene = new Scene(root);
         mainRT.setScene(scene);
         mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));

@@ -15,7 +15,7 @@ public class OutputViewController {
     private BorderPane root;
 
     public void initialize() {
-        titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View");
+        titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View", true);
         root.setTop(titlebar);
         LogUtils.addOutputToListview(listView);
     }

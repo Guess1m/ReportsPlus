@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 import static com.drozal.dataterminal.util.LogUtils.logError;
 
 public class stringUtil {
-    public static String version = "V.1";
+    public static String version = "dev";
     public static String name = "Reports Plus";
     public static String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";
     public static String trafficstopLogURL = getDataLogsFolderPath() + "trafficStopLogs.xml";

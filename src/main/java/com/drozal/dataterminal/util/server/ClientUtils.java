@@ -140,8 +140,7 @@ public class ClientUtils {
                             FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml", 4096);
                             Platform.runLater(() -> {
                                 if (IDStage != null && IDStage.isShowing()) {
-                                    IDStage.toFront();
-                                    IDStage.requestFocus();
+                                    IDStage.close();
                                     return;
                                 }
                                 IDStage = new Stage();
@@ -173,8 +172,7 @@ public class ClientUtils {
                             FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml", 4096);
                             Platform.runLater(() -> {
                                 if (CalloutStage != null && CalloutStage.isShowing()) {
-                                    CalloutStage.toFront();
-                                    CalloutStage.requestFocus();
+                                    CalloutStage.close();
                                     return;
                                 }
                                 CalloutStage = new Stage();

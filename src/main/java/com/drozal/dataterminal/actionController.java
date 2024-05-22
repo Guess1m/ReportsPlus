@@ -1069,10 +1069,14 @@ public class actionController {
 
             vbox.getScene().getWindow().setOnHiding(event -> handleClose());
 
-            if (!stringUtil.version.equals(gitVersion)) {
-                versionLabel.setText(gitVersion + " Available!");
-                versionLabel.setStyle("-fx-text-fill: red;");
-                versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/zainrd123/DataTerminal/releases"));
+            if (!stringUtil.version.equals("dev")) {
+                if (!stringUtil.version.equals(gitVersion)) {
+                    versionLabel.setText(gitVersion + " Available!");
+                    versionLabel.setStyle("-fx-text-fill: red;");
+                    versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/zainrd123/DataTerminal/releases"));
+                }
+            } else {
+                versionLabel.setText("Development");
             }
         });
 
@@ -1150,8 +1154,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
         if (IDStage != null && IDStage.isShowing()) {
-            IDStage.toFront();
-            IDStage.requestFocus();
+            IDStage.close();
             return;
         }
         IDStage = new Stage();
@@ -1178,7 +1181,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
         if (mapStage != null && mapStage.isShowing()) {
-            mapStage.toFront();
+            mapStage.close();
             return;
         }
 
@@ -1203,8 +1206,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
         if (notesStage != null && notesStage.isShowing()) {
-            notesStage.toFront();
-            notesStage.requestFocus();
+            notesStage.close();
             return;
         }
 
@@ -1266,8 +1268,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
         if (CalloutStage != null && CalloutStage.isShowing()) {
-            CalloutStage.toFront();
-            CalloutStage.requestFocus();
+            CalloutStage.close();
             return;
         }
         CalloutStage = new Stage();
@@ -1418,7 +1419,7 @@ public class actionController {
     public void onServerStatusLabelClick(Event event) throws IOException {
 
         if (clientStage != null && clientStage.isShowing()) {
-            clientStage.toFront();
+            clientStage.close();
             return;
         }
 

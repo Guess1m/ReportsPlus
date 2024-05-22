@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-
-<BorderPane fx:id="root" prefHeight="342.0" prefWidth="618.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.calloutController">
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="342.0"
+            prefWidth="618.0"
+            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;"
+            xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.calloutController">
     <center>
         <AnchorPane style="-fx-background-color: #505d62;">
             <children>
-                <GridPane hgap="10.0" layoutX="17.0" layoutY="8.0" prefHeight="311.0" prefWidth="585.0" vgap="25.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="12.0">
+                <GridPane hgap="10.0" layoutX="17.0" layoutY="8.0" prefHeight="311.0" prefWidth="585.0" vgap="25.0"
+                          AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0"
+                          AnchorPane.topAnchor="12.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"
+                                           prefWidth="100.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="48.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="24.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="24.0" minHeight="24.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="48.0" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="24.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="24.0" minHeight="24.0" prefHeight="24.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <AnchorPane GridPane.columnSpan="3">
                             <children>
-                                <Label fx:id="calloutInfoTitle" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" style="-fx-background-color: #323C41;" styleClass="heading" stylesheets="@css/menu/menuLabels.css" text="Callout Information" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <Label fx:id="calloutInfoTitle" alignment="CENTER" maxHeight="-Infinity"
+                                       minHeight="-Infinity" prefHeight="38.0" style="-fx-background-color: #323C41;"
+                                       styleClass="heading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Callout Information" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
                                     <effect>
                                         <DropShadow>
                                             <color>
-                                                <Color red="0.25" green="0.25" blue="0.25" opacity="0.7329828143119812" />
+                                                <Color red="0.25" green="0.25" blue="0.25"
+                                                       opacity="0.7329828143119812"/>
                                             </color>
                                         </DropShadow>
                                     </effect>
@@ -45,88 +51,150 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                             <children>
-                                <TextField fx:id="numberField" editable="false" layoutX="71.0" prefHeight="38.0" prefWidth="117.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="numberField" editable="false" layoutX="71.0" prefHeight="38.0"
+                                           prefWidth="117.0" style="-fx-font-size: 14;" styleClass="calloutField"
+                                           stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
+                                           AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="0.0"
+                                           AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutX="6.0" layoutY="4.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Number:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutX="6.0" layoutY="4.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Number:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                             <children>
-                                <TextField fx:id="dateField" editable="false" layoutX="50.0" layoutY="-1.0" prefHeight="38.0" prefWidth="231.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="dateField" editable="false" layoutX="50.0" layoutY="-1.0"
+                                           prefHeight="38.0" prefWidth="231.0" style="-fx-font-size: 14;"
+                                           styleClass="calloutField" stylesheets="@css/menu/menuStyles.css"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutX="100.0" layoutY="4.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Date:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutX="100.0" layoutY="4.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Date:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                             <children>
-                                <TextField fx:id="priorityField" editable="false" layoutX="60.0" layoutY="-1.0" prefHeight="38.0" prefWidth="123.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="priorityField" editable="false" layoutX="60.0" layoutY="-1.0"
+                                           prefHeight="38.0" prefWidth="123.0" style="-fx-font-size: 14;"
+                                           styleClass="calloutField" stylesheets="@css/menu/menuStyles.css"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0"
+                                           AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutY="10.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Priority:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutY="10.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Priority:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                                    GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <children>
-                                <TextField fx:id="typeField" editable="false" layoutX="47.0" layoutY="1.0" prefHeight="38.0" prefWidth="335.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="typeField" editable="false" layoutX="47.0" layoutY="1.0"
+                                           prefHeight="38.0" prefWidth="335.0" style="-fx-font-size: 14;"
+                                           styleClass="calloutField" stylesheets="@css/menu/menuStyles.css"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="47.0"
+                                           AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutY="5.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Type:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutY="5.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Type:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
-                                <TextField fx:id="timeField" editable="false" layoutX="48.0" layoutY="5.0" prefHeight="38.0" prefWidth="141.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="timeField" editable="false" layoutX="48.0" layoutY="5.0"
+                                           prefHeight="38.0" prefWidth="141.0" style="-fx-font-size: 14;"
+                                           styleClass="calloutField" stylesheets="@css/menu/menuStyles.css"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="48.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutY="5.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Time:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutY="5.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Time:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                             <children>
-                                <TextField fx:id="countyField" editable="false" layoutX="8.0" layoutY="-8.0" prefHeight="38.0" prefWidth="126.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="countyField" editable="false" layoutX="8.0" layoutY="-8.0"
+                                           prefHeight="38.0" prefWidth="126.0" style="-fx-font-size: 14;"
+                                           styleClass="calloutField" stylesheets="@css/menu/menuStyles.css"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="62.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutX="14.0" layoutY="10.0" style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="County:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                                <Label layoutX="14.0" layoutY="10.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="County:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                             <children>
-                                <TextField fx:id="areaField" editable="false" layoutX="47.0" prefHeight="38.0" prefWidth="142.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="areaField" editable="false" layoutX="47.0" prefHeight="38.0"
+                                           prefWidth="142.0" style="-fx-font-size: 14;" styleClass="calloutField"
+                                           stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
+                                           AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="0.0"
+                                           AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Area:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading"
+                                       stylesheets="@css/menu/menuLabels.css" text="Area:" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                             <children>
-                                <TextField fx:id="streetField" editable="false" layoutX="51.0" prefHeight="36.0" prefWidth="132.0" style="-fx-font-size: 14;" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                <TextField fx:id="streetField" editable="false" layoutX="51.0" prefHeight="36.0"
+                                           prefWidth="132.0" style="-fx-font-size: 14;" styleClass="calloutField"
+                                           stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
+                                           AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="5.0"
+                                           AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name="Segoe UI" size="15.0" />
+                                        <Font name="Segoe UI" size="15.0"/>
                                     </font>
                                 </TextField>
-                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Street:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading"
+                                       stylesheets="@css/menu/menuLabels.css" text="Street:"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="69.0" prefWidth="585.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
                             <children>
-                                <TextArea fx:id="descriptionField" editable="false" layoutX="23.0" layoutY="27.0" prefHeight="66.0" prefWidth="574.0" styleClass="calloutTextArea" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0" />
-                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css" text="Description:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                                <TextArea fx:id="descriptionField" editable="false" layoutX="23.0" layoutY="27.0"
+                                          prefHeight="66.0" prefWidth="574.0" styleClass="calloutTextArea"
+                                          stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
+                                          AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                                          AnchorPane.topAnchor="27.0"/>
+                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading"
+                                       stylesheets="@css/menu/menuLabels.css" text="Description:"
+                                       AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                     </children>
@@ -135,7 +203,7 @@
             <effect>
                 <DropShadow>
                     <color>
-                        <Color opacity="0.5343511700630188" />
+                        <Color opacity="0.5343511700630188"/>
                     </color>
                 </DropShadow>
             </effect>

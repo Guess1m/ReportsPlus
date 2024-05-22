@@ -109,8 +109,6 @@ public class actionController {
     @javafx.fxml.FXML
     public Label generatedByTag;
     @javafx.fxml.FXML
-    public AnchorPane infoPane;
-    @javafx.fxml.FXML
     public Label updatedNotification;
     @javafx.fxml.FXML
     public AnchorPane vbox;
@@ -132,24 +130,12 @@ public class actionController {
     AnchorPane titlebar;
     private NotesViewController notesViewController;
     @javafx.fxml.FXML
-    private Label secondaryColor2;
-    @javafx.fxml.FXML
-    private Label secondaryColor5;
-    @javafx.fxml.FXML
-    private Label secondaryColor3;
-    @javafx.fxml.FXML
-    private Label secondaryColor4;
-    @javafx.fxml.FXML
     private Label secondaryColor3Bkg;
     @javafx.fxml.FXML
     private TextField citcounty;
     private CalloutLogEntry calloutEntry;
     private PatrolLogEntry patrolEntry;
     private TrafficStopLogEntry trafficStopEntry;
-    @javafx.fxml.FXML
-    private Label mainColor6;
-    @javafx.fxml.FXML
-    private Label mainColor7Bkg;
     @javafx.fxml.FXML
     private Label secondaryColor4Bkg;
     @javafx.fxml.FXML
@@ -540,19 +526,13 @@ public class actionController {
         //Main
         String mainclr = ConfigReader.configRead("mainColor");
         topPane.setStyle("-fx-background-color: " + mainclr + ";");
-        mainColor6.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
-        mainColor7Bkg.setStyle("-fx-background-color: " + mainclr + ";");
         mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
         logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
         detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
         //Secondary
         String secclr = ConfigReader.configRead("secondaryColor");
         sidepane.setStyle("-fx-background-color: " + secclr + ";");
-        secondaryColor2.setStyle("-fx-text-fill: " + secclr + ";");
-        secondaryColor3.setStyle("-fx-text-fill: " + secclr + ";");
-        secondaryColor4.setStyle("-fx-text-fill: " + secclr + ";");
-        secondaryColor5.setStyle("-fx-text-fill: " + secclr + ";");
         secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
@@ -992,7 +972,7 @@ public class actionController {
 
         checkForUpdates();
 
-        setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
+        setDisable(logPane, pedLookupPane, vehLookupPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);
         needRefresh.addListener((obs, oldValue, newValue) -> {
@@ -1164,32 +1144,6 @@ public class actionController {
     //</editor-fold>
 
 
-    //<editor-fold desc="WindowUtils">
-
-
-    @Deprecated
-    public void onMinimizeBtnClick(Event event) {
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @Deprecated
-    public void onFullscreenBtnClick(Event event) {
-        Stage stage = (Stage) vbox.getScene().getWindow();
-        if (stage != null) {
-            toggleWindowedFullscreen(stage, 1150, 800);
-        }
-    }
-
-    @Deprecated
-    public void onExitButtonClick(MouseEvent actionEvent) {
-        handleClose();
-    }
-
-
-    //</editor-fold>
-
-
     //<editor-fold desc="Side Button Events">
 
 
@@ -1296,7 +1250,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(infoPane, logPane, pedLookupPane, vehLookupPane);
+        setDisable(logPane, pedLookupPane, vehLookupPane);
         setActive(shiftInformationPane);
         showButtonAnimation(shiftInfoBtn);
         controllerUtils.refreshChart(areaReportChart, "area");
@@ -1305,7 +1259,7 @@ public class actionController {
     @javafx.fxml.FXML
     public void onLogsButtonClick(ActionEvent actionEvent) {
         showButtonAnimation(logsButton);
-        setDisable(infoPane, shiftInformationPane, pedLookupPane, vehLookupPane);
+        setDisable(shiftInformationPane, pedLookupPane, vehLookupPane);
         setActive(logPane);
     }
 
@@ -1339,7 +1293,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onVehLookupBtnClick(ActionEvent actionEvent) {
-        setDisable(infoPane, logPane, pedLookupPane, shiftInformationPane);
+        setDisable(logPane, pedLookupPane, shiftInformationPane);
         vehRecordPane.setVisible(false);
         noRecordFoundLabelVeh.setVisible(false);
         setActive(vehLookupPane);
@@ -1347,7 +1301,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPedLookupBtnClick(ActionEvent actionEvent) {
-        setDisable(infoPane, logPane, vehLookupPane, shiftInformationPane);
+        setDisable(logPane, vehLookupPane, shiftInformationPane);
         pedRecordPane.setVisible(false);
         noRecordFoundLabelPed.setVisible(false);
         setActive(pedLookupPane);
@@ -1392,12 +1346,6 @@ public class actionController {
     @javafx.fxml.FXML
     public void testBtnPress(ActionEvent actionEvent) throws IOException {
         log("Test Pressed", LogUtils.Severity.DEBUG);
-    }
-
-    @javafx.fxml.FXML
-    public void aboutBtnClick(ActionEvent actionEvent) {
-        setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
-        setActive(infoPane);
     }
 
     @javafx.fxml.FXML

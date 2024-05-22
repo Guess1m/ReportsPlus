@@ -1,0 +1,47 @@
+.tab-pane {
+    -fx-background-color:  white; /* Background color */
+}
+
+.tab {
+    -fx-font-size: 15px; /* Font size of tab labels */
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: transparent; /* Background color of the selected tab */
+    -fx-text-fill: white !important; /* Text color of tabs */
+    -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
+    -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
+    -fx-border-color: rgb(128, 128, 128,0.2); /* Change border color when focused */
+    -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
+}
+
+.tab-label{
+    -fx-text-fill: black; /* Text color of the selected tab */
+        -fx-font-size: 15px;
+        -fx-font-family: "Segoe UI";
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: black; /* Text color of the selected tab */
+    -fx-font-size: 15px;
+    -fx-font-family: "Roboto Bold";
+}
+
+.tab:selected {
+    -fx-background-color: #f2f2f2; /* Background color of the selected tab */
+    -fx-border-color:  #505d64; /* Change border color when focused */
+        -fx-border-width: 0 0 2px 0; /* Increase bottom border width when focused */
+        -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
+}
+
+.tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab:hover {
+    -fx-background-color: #e6e6e6; /* Background color of the selected tab */
+}
+.tab:hover .tab-label {
+    /*-fx-text-fill: #b5b5b5;  Text color of the selected tab */
+}
+.tab-header-background {
+    -fx-background-color: transparent; /* Background color of the selected tab header */
+}

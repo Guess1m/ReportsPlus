@@ -556,8 +556,6 @@ public class actionController {
         // Create the title bar
         titlebar = reportCreationUtil.createTitleBar("Reports Plus");
 
-        vbox.requestFocus();
-
 // Add the title bar to the AnchorPane
         vbox.getChildren().add(titlebar);
 

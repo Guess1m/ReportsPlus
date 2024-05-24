@@ -22,6 +22,7 @@ import com.drozal.dataterminal.util.*;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -57,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.LogUtils.logError;
 import static com.drozal.dataterminal.util.controllerUtils.*;
 import static com.drozal.dataterminal.util.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
@@ -69,7 +71,6 @@ public class actionController {
 
 
     //<editor-fold desc="FXML Elements">
-
 
 
     public static String notesText;
@@ -507,7 +508,6 @@ public class actionController {
     private Button settingsBtn;
 
 
-
     //</editor-fold>
 
 
@@ -930,7 +930,6 @@ public class actionController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        AnchorPane topbar = calloutController.getTopBar();
         CalloutStage.setTitle("Callout Display");
         CalloutStage.setScene(newScene);
         CalloutStage.show();
@@ -938,12 +937,16 @@ public class actionController {
         CalloutStage.setAlwaysOnTop(true);
         showButtonAnimation(showCalloutBtn);
 
-        CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                CalloutStage = null;
+        if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
+            PauseTransition delay = null;
+            try {
+                delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
+            } catch (IOException e) {
+                logError("Callout could not be closed: ", e);
             }
-        });
+            delay.setOnFinished(event -> CalloutStage.close());
+            delay.play();
+        }
     }
 
     @javafx.fxml.FXML

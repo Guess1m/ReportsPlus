@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="341.0" prefWidth="622.0"
             style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.settingsController">
@@ -157,6 +158,22 @@
                                                                 text="Open Debug Logs" AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                    <children>
+                                                        <Label layoutX="9.0" layoutY="12.0"
+                                                               text="Callout Window Display Time:"
+                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                            <font>
+                                                                <Font name="Segoe UI" size="15.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ComboBox fx:id="calloutDurComboBox" layoutX="218.0"
+                                                                  layoutY="10.0" prefHeight="25.0" prefWidth="106.0"
+                                                                  AnchorPane.leftAnchor="218.0"
+                                                                  AnchorPane.rightAnchor="38.0"
+                                                                  AnchorPane.topAnchor="10.0"/>
                                                     </children>
                                                 </AnchorPane>
                                             </children>

@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -191,6 +194,14 @@ public class ClientUtils {
                                 CalloutStage.show();
                                 CalloutStage.centerOnScreen();
 
+
+                                CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                    @Override
+                                    public void handle(WindowEvent event) {
+                                        CalloutStage = null;
+                                    }
+                                });
+
                                 CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
                                     @Override
                                     public void handle(WindowEvent event) {
@@ -241,23 +252,6 @@ public class ClientUtils {
     public static void notifyStatusChanged(boolean isConnected) {
         if (statusListener != null) {
             Platform.runLater(() -> statusListener.onStatusChanged(isConnected));
-        }
-    }
-
-    /**
-     * Sends information to the server over the established socket connection.
-     * If the socket is not connected, logs an error.
-     *
-     * @param data the data to send to the server
-     * @throws IOException if an I/O error occurs while sending data to the server
-     */
-    public static void sendInfoToServer(String data) throws IOException {
-        if (socket != null) {
-            OutputStream outputStream = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(outputStream, true);
-            writer.println(data);
-        } else {
-            LogUtils.logError("Socket is not connected.", null);
         }
     }
 

@@ -3486,6 +3486,7 @@ public class reportCreationUtil {
                     }
                 });
             });
+            transferimpoundbtn.setText("New Impound Report");
 
             Button submitBtncit = (Button) citationReport.get("submitBtn");
             submitBtncit.setOnAction(event3 -> {

@@ -73,6 +73,8 @@ public class settingsController {
     private Label lbl2;
     @javafx.fxml.FXML
     private Label lbl3;
+    @javafx.fxml.FXML
+    private ComboBox calloutDurComboBox;
 
     public void initialize() throws IOException {
         if (DataTerminalHomeApplication.controller != null) {
@@ -309,6 +311,13 @@ public class settingsController {
             ConfigWriter.configwrite("reportWindowDarkMode", "false");
         }
 
+        String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
+        calloutDurComboBox.getItems().addAll(calloutDurations);
+        calloutDurComboBox.setValue(ConfigReader.configRead("calloutDuration"));
+        calloutDurComboBox.setOnAction(actionEvent -> {
+            String selectedDur = (String) calloutDurComboBox.getSelectionModel().getSelectedItem();
+            ConfigWriter.configwrite("calloutDuration", selectedDur);
+        });
 
         Platform.runLater(() -> {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -451,7 +460,6 @@ public class settingsController {
         });
     }
 
-
     private void loadColors() {
         try {
             Color primary = Color.valueOf(ConfigReader.configRead("mainColor"));
@@ -488,4 +496,5 @@ public class settingsController {
             logError("LoadTheme IO Error Code 1 ", e);
         }
     }
+
 }

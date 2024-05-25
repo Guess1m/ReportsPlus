@@ -43,7 +43,7 @@ public class Launcher {
             logError("An error occurred while clearing the log file: ", e);
         }
 
-        /* TODO: TEMP REMOVED
+        /* TODO: TEMP REMOVED | Remove serverData folder
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
             Path path = Path.of(filePath);

@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
-import com.drozal.dataterminal.util.LogUtils;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class recordUtils {
 

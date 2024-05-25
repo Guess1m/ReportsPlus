@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.config;
 
-import com.drozal.dataterminal.util.LogUtils;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +14,8 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ConfigReader {
 

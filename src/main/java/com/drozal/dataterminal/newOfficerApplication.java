@@ -1,6 +1,6 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.ResizeHelper;
+import com.drozal.dataterminal.util.Window.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

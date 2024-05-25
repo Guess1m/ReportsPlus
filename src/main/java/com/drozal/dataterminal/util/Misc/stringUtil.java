@@ -1,9 +1,9 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Misc;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class stringUtil {
     public static String version = "dev";

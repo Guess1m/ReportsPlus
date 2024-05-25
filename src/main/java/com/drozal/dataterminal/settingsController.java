@@ -2,8 +2,8 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.reportCreationUtil;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,9 +21,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 
 public class settingsController {
 

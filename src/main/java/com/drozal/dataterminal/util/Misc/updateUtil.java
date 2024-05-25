@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Misc;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -9,8 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class updateUtil {
     public static String gitVersion;

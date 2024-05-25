@@ -2,7 +2,7 @@ package com.drozal.dataterminal.util.server;
 
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.util.LogUtils;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +22,8 @@ import java.net.SocketException;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
     private static final int TIMEOUT_SECONDS = 10; // Timeout in seconds

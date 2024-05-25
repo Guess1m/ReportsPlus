@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Window;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

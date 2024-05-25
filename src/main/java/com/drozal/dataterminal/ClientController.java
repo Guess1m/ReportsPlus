@@ -1,7 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;

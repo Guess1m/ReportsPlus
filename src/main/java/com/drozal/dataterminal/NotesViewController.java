@@ -2,7 +2,7 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.util.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;

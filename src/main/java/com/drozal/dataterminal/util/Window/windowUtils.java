@@ -1,12 +1,13 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Window;
 
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.*;
-import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {
 

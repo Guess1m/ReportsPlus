@@ -1,9 +1,9 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.reportCreationUtil;
-import com.drozal.dataterminal.util.server.Callout;
-import com.drozal.dataterminal.util.server.Callouts;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -18,9 +18,9 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 

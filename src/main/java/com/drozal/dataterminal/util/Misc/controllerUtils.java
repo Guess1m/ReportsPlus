@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
@@ -44,10 +44,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.drozal.dataterminal.actionController.handleClose;
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.stringUtil.getDataLogsFolderPath;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class controllerUtils {
 

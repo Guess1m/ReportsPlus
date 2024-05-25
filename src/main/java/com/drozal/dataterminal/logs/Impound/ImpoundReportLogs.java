@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.logs.Impound;
 
-import com.drozal.dataterminal.util.stringUtil;
+import com.drozal.dataterminal.util.Misc.stringUtil;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 @XmlRootElement
 public class ImpoundReportLogs {

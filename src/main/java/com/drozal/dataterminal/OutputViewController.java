@@ -1,7 +1,7 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.reportCreationUtil;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;

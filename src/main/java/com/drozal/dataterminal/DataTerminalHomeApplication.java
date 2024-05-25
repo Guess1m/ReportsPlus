@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.drozal.dataterminal.util.windowUtils.*;
+import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
 

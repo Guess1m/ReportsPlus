@@ -18,7 +18,11 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.*;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.controllerUtils;
+import com.drozal.dataterminal.util.Misc.dropdownInfo;
+import com.drozal.dataterminal.util.Misc.stringUtil;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -57,15 +61,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.reportCreationUtil.*;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.updateUtil.*;
+import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
+import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.updateUtil.*;
-import static com.drozal.dataterminal.util.windowUtils.*;
 
 public class actionController {
 

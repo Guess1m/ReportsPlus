@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Report;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
@@ -23,6 +23,11 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.controllerUtils;
+import com.drozal.dataterminal.util.Misc.dropdownInfo;
+import com.drozal.dataterminal.util.Window.ResizeHelper;
+import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -55,12 +60,12 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.controllerUtils.*;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.treeViewUtils.*;
-import static com.drozal.dataterminal.util.windowUtils.*;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
+import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
 public class reportCreationUtil {
 

@@ -6,7 +6,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-import static com.drozal.dataterminal.util.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ConfigWriter {
 

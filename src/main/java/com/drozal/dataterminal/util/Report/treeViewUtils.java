@@ -1,5 +1,6 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Report;
 
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.scene.control.TreeItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,9 +18,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
-import static com.drozal.dataterminal.util.LogUtils.logError;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class treeViewUtils {
     public static void copyChargeDataFile() throws IOException {

@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util;
+package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import javafx.animation.KeyFrame;

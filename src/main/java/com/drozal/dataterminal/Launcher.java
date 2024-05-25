@@ -1,8 +1,8 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.LogUtils;
-import com.drozal.dataterminal.util.stringUtil;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.application.Platform;
 import javafx.scene.text.Font;
 
@@ -12,10 +12,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static com.drozal.dataterminal.util.LogUtils.*;
-import static com.drozal.dataterminal.util.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.treeViewUtils.copyChargeDataFile;
-import static com.drozal.dataterminal.util.treeViewUtils.copyCitationDataFile;
+import static com.drozal.dataterminal.util.Misc.LogUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
 

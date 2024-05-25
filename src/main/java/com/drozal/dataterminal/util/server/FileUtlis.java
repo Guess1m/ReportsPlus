@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
-import com.drozal.dataterminal.util.LogUtils;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-import static com.drozal.dataterminal.util.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class FileUtlis {
 

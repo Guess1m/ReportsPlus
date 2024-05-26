@@ -26,7 +26,6 @@ import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -62,7 +61,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
-import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.*;
@@ -940,17 +938,6 @@ public class actionController {
         CalloutStage.centerOnScreen();
         CalloutStage.setAlwaysOnTop(true);
         showButtonAnimation(showCalloutBtn);
-
-        if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
-            PauseTransition delay = null;
-            try {
-                delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
-            } catch (IOException e) {
-                logError("Callout could not be closed: ", e);
-            }
-            delay.setOnFinished(event -> CalloutStage.close());
-            delay.play();
-        }
     }
 
     @javafx.fxml.FXML

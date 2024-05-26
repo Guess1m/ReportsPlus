@@ -107,7 +107,7 @@ public class Launcher {
             dataFolder.mkdirs();
             log("Created Data Folder", LogUtils.Severity.INFO);
         } else {
-            log("Data Folder Already Exists", LogUtils.Severity.WARN);
+            log("Data Folder Already Exists", LogUtils.Severity.INFO);
         }
 
         File serverDataFolder = new File(serverData);
@@ -115,7 +115,7 @@ public class Launcher {
             serverDataFolder.mkdirs();
             log("Created Server Data Folder", LogUtils.Severity.INFO);
         } else {
-            log("Server Data Folder Already Exists", LogUtils.Severity.WARN);
+            log("Server Data Folder Already Exists", LogUtils.Severity.INFO);
         }
 
         String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
@@ -147,7 +147,7 @@ public class Launcher {
                 log("Failed to create the DataLogs Folder.", LogUtils.Severity.ERROR);
             }
         } else {
-            log("DataLogs Folder already exists.", LogUtils.Severity.WARN);
+            log("DataLogs Folder already exists.", LogUtils.Severity.INFO);
         }
 
         if (ConfigReader.doesConfigExist()) {

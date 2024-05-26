@@ -1,8 +1,10 @@
 package com.drozal.dataterminal.util.server;
 
 import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +26,7 @@ import java.net.SocketException;
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
@@ -193,6 +197,21 @@ public class ClientUtils {
                                 CalloutStage.initStyle(StageStyle.UNDECORATED);
                                 CalloutStage.show();
                                 CalloutStage.centerOnScreen();
+
+                                try {
+                                    if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
+                                        PauseTransition delay = null;
+                                        try {
+                                            delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
+                                        } catch (IOException e) {
+                                            logError("Callout could not be closed: ", e);
+                                        }
+                                        delay.setOnFinished(event -> CalloutStage.close());
+                                        delay.play();
+                                    }
+                                } catch (IOException e) {
+                                    logError("could not read calloutDuration: ", e);
+                                }
 
 
                                 CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {

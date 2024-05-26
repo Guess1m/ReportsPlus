@@ -43,7 +43,7 @@ public class Launcher {
             logError("An error occurred while clearing the log file: ", e);
         }
 
-        /* TODO: TEMP REMOVED | Remove serverData folder elements for testing */
+        /* TODO: TEMP REMOVED | Remove serverData folder elements for testing
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
             Path path = Path.of(filePath);
@@ -95,6 +95,8 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server world cars file: ", e);
         }
+
+         */
 
         loadFonts();
 

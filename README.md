@@ -3,7 +3,7 @@
 <h1>LSPD:FR Report Tool</h1>
 <p>Create Reports for LSPD:FR Via an external Application</p>
 
-<h4> <span> · </span> <a href="https://github.com/zainrd123/ReportsPlus/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/zainrd123/ReportsPlus/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/zainrd123/ReportsPlus/issues"> Request Feature </a> </h4>
+<h4> <span> · </span> <a href="https://github.com/Guess1m/ReportsPlus/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/Guess1m/ReportsPlus/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/Guess1m/ReportsPlus/issues"> Request Feature </a> </h4>
 
 
 </div>

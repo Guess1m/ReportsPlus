@@ -1190,6 +1190,7 @@ public class actionController {
             vehRecordPane.setVisible(false);
             noRecordFoundLabelVeh.setVisible(true);
         }
+
     }
 
     @javafx.fxml.FXML

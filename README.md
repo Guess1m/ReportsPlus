@@ -42,6 +42,7 @@ Ensure you have the following installed:
 
 ### **1. Installation `With` GTA Integration - For Using Another PC/Laptop (Recommended)**
 
+- GTA V Integration **`REQUIRES`** `Stop The Ped` and `Callout Interface`!
 - The computer `NOT` running GTA needs the Reports Plus application download.
 - The computer `RUNNING` GTA needs the Server download.
 

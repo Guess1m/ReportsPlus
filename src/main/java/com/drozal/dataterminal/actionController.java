@@ -25,7 +25,6 @@ import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -827,7 +826,7 @@ public class actionController {
         //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
         IDStage.show();
         IDStage.centerOnScreen();
-        if (ConfigReader.configRead("AOTID").equals("true")){
+        if (ConfigReader.configRead("AOTID").equals("true")) {
             IDStage.setAlwaysOnTop(true);
 
         } else {
@@ -862,7 +861,7 @@ public class actionController {
         mapStage.setResizable(false);
         mapStage.show();
         mapStage.centerOnScreen();
-        if (ConfigReader.configRead("AOTMap").equals("true")){
+        if (ConfigReader.configRead("AOTMap").equals("true")) {
             mapStage.setAlwaysOnTop(true);
 
         } else {
@@ -915,7 +914,7 @@ public class actionController {
         }
         notesStage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
-        if (ConfigReader.configRead("AOTNotes").equals("true")){
+        if (ConfigReader.configRead("AOTNotes").equals("true")) {
             notesStage.setAlwaysOnTop(true);
 
         } else {
@@ -962,7 +961,7 @@ public class actionController {
         CalloutStage.setScene(newScene);
         CalloutStage.show();
         CalloutStage.centerOnScreen();
-        if (ConfigReader.configRead("AOTCallout").equals("true")){
+        if (ConfigReader.configRead("AOTCallout").equals("true")) {
             CalloutStage.setAlwaysOnTop(true);
 
         } else {
@@ -1142,7 +1141,7 @@ public class actionController {
             clientStage.setResizable(false);
             clientStage.show();
             clientStage.centerOnScreen();
-            if (ConfigReader.configRead("AOTClient").equals("true")){
+            if (ConfigReader.configRead("AOTClient").equals("true")) {
                 clientStage.setAlwaysOnTop(true);
 
             } else {
@@ -2894,7 +2893,7 @@ public class actionController {
         settingsStage.setScene(newScene);
         settingsStage.show();
         settingsStage.centerOnScreen();
-        if (ConfigReader.configRead("AOTSettings").equals("true")){
+        if (ConfigReader.configRead("AOTSettings").equals("true")) {
             settingsStage.setAlwaysOnTop(true);
 
         } else {

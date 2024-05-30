@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.util.Report;
 
-import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
@@ -545,9 +544,6 @@ public class reportCreationUtil {
         stage.setScene(scene);
         stage.setTitle(reportName);
 
-        stage.setMaxWidth(screenWidth);
-        stage.setMaxHeight(screenHeight);
-
         stage.show();
         stage.toFront();
 
@@ -594,15 +590,13 @@ public class reportCreationUtil {
         result.put("root", borderPane);
 
         try {
-            if (ConfigReader.configRead("AOTReport").equals("true")){
+            if (ConfigReader.configRead("AOTReport").equals("true")) {
                 stage.setAlwaysOnTop(true);
-                System.out.println("true");
             } else {
-                System.out.println("false");
                 stage.setAlwaysOnTop(false);
             }
         } catch (IOException e) {
-            logError("Could not get AOTReport: ",e);
+            logError("Could not get AOTReport: ", e);
         }
         return result;
     }

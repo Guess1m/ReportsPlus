@@ -54,6 +54,26 @@ public class newOfficerController {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private static void addConfigurationValues() {
+        ConfigWriter.configwrite("fullscreenOnStartup", "true");
+        updateMain(Color.valueOf("#524992"));
+        updateSecondary(Color.valueOf("#665cb6"));
+        updateAccent(Color.valueOf("#9c95d0"));
+        ConfigWriter.configwrite("mainWindowLayout", "Default");
+        ConfigWriter.configwrite("notesWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowDarkMode", "true");
+        ConfigWriter.configwrite("calloutDuration", "7");
+        ConfigWriter.configwrite("AOTNotes", "true");
+        ConfigWriter.configwrite("AOTReport", "true");
+        ConfigWriter.configwrite("AOTCallout", "true");
+        ConfigWriter.configwrite("AOTID", "true");
+        ConfigWriter.configwrite("AOTSettings", "true");
+        ConfigWriter.configwrite("AOTMap", "true");
+        ConfigWriter.configwrite("AOTDebug", "true");
+        ConfigWriter.configwrite("AOTClient", "true");
+    }
+
     public void initialize() {
         rankDropdown.getItems().addAll(dropdownInfo.ranks);
         divisionDropDown.getItems().addAll(dropdownInfo.divisions);
@@ -138,7 +158,7 @@ public class newOfficerController {
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();
 
-            Stage mainRT = new Stage();
+            mainRT = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
             Parent root = loader.load();
             controller = loader.getController();
@@ -167,7 +187,6 @@ public class newOfficerController {
                         mainRT.setWidth(1150);
                     }
                 }
-
             }
             mainRT.setAlwaysOnTop(false);
         }
@@ -260,25 +279,5 @@ public class newOfficerController {
             }
         }
         mainRT.setAlwaysOnTop(false);
-    }
-
-    private static void addConfigurationValues(){
-        ConfigWriter.configwrite("fullscreenOnStartup", "true");
-        updateMain(Color.valueOf("#524992"));
-        updateSecondary(Color.valueOf("#665cb6"));
-        updateAccent(Color.valueOf("#9c95d0"));
-        ConfigWriter.configwrite("mainWindowLayout", "Default");
-        ConfigWriter.configwrite("notesWindowLayout", "Default");
-        ConfigWriter.configwrite("reportWindowLayout", "Default");
-        ConfigWriter.configwrite("reportWindowDarkMode", "true");
-        ConfigWriter.configwrite("calloutDuration", "7");
-        ConfigWriter.configwrite("AOTNotes", "true");
-        ConfigWriter.configwrite("AOTReport", "true");
-        ConfigWriter.configwrite("AOTCallout", "true");
-        ConfigWriter.configwrite("AOTID", "true");
-        ConfigWriter.configwrite("AOTSettings", "true");
-        ConfigWriter.configwrite("AOTMap", "true");
-        ConfigWriter.configwrite("AOTDebug", "true");
-        ConfigWriter.configwrite("AOTClient", "true");
     }
 }

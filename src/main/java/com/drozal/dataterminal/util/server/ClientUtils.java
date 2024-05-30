@@ -166,13 +166,13 @@ public class ClientUtils {
                                 IDStage.show();
                                 IDStage.centerOnScreen();
                                 try {
-                                    if (ConfigReader.configRead("AOTID").equals("true")){
+                                    if (ConfigReader.configRead("AOTID").equals("true")) {
                                         IDStage.setAlwaysOnTop(true);
                                     } else {
                                         IDStage.setAlwaysOnTop(false);
                                     }
                                 } catch (IOException e) {
-                                    logError("Could not fetch AOTID: ",e);
+                                    logError("Could not fetch AOTID: ", e);
                                 }
 
                                 windowUtils.centerStageOnMainApp(IDStage);
@@ -205,13 +205,13 @@ public class ClientUtils {
                                 CalloutStage.setTitle("Callout Display");
                                 CalloutStage.setScene(newScene);
                                 try {
-                                    if (ConfigReader.configRead("AOTCallout").equals("true")){
+                                    if (ConfigReader.configRead("AOTCallout").equals("true")) {
                                         CalloutStage.setAlwaysOnTop(true);
                                     } else {
                                         CalloutStage.setAlwaysOnTop(false);
                                     }
                                 } catch (IOException e) {
-                                    logError("Could not fetch AOTCallout: ",e);
+                                    logError("Could not fetch AOTCallout: ", e);
                                 }
                                 CalloutStage.initStyle(StageStyle.UNDECORATED);
                                 CalloutStage.show();

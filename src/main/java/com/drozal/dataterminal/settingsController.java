@@ -370,7 +370,7 @@ public class settingsController {
         stage.setScene(newScene);
         stage.show();
         stage.centerOnScreen();
-        if (ConfigReader.configRead("AOTDebug").equals("true")){
+        if (ConfigReader.configRead("AOTDebug").equals("true")) {
             stage.setAlwaysOnTop(true);
 
         } else {

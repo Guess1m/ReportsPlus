@@ -76,6 +76,24 @@ public class settingsController {
     private Label lbl3;
     @javafx.fxml.FXML
     private ComboBox calloutDurComboBox;
+    @javafx.fxml.FXML
+    private Label lbl5;
+    @javafx.fxml.FXML
+    private CheckBox AOTReport;
+    @javafx.fxml.FXML
+    private CheckBox AOTSettings;
+    @javafx.fxml.FXML
+    private CheckBox AOTNotes;
+    @javafx.fxml.FXML
+    private CheckBox AOTCallout;
+    @javafx.fxml.FXML
+    private CheckBox AOTID;
+    @javafx.fxml.FXML
+    private CheckBox AOTMap;
+    @javafx.fxml.FXML
+    private CheckBox AOTDebug;
+    @javafx.fxml.FXML
+    private CheckBox AOTClient;
 
     public void initialize() throws IOException {
         if (DataTerminalHomeApplication.controller != null) {
@@ -91,6 +109,14 @@ public class settingsController {
         root.setTop(topBar);
 
         startupFullscreenCheckbox.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
+        AOTNotes.setSelected(ConfigReader.configRead("AOTNotes").equals("true"));
+        AOTReport.setSelected(ConfigReader.configRead("AOTReport").equals("true"));
+        AOTMap.setSelected(ConfigReader.configRead("AOTMap").equals("true"));
+        AOTID.setSelected(ConfigReader.configRead("AOTID").equals("true"));
+        AOTCallout.setSelected(ConfigReader.configRead("AOTCallout").equals("true"));
+        AOTSettings.setSelected(ConfigReader.configRead("AOTSettings").equals("true"));
+        AOTClient.setSelected(ConfigReader.configRead("AOTClient").equals("true"));
+        AOTDebug.setSelected(ConfigReader.configRead("AOTDebug").equals("true"));
 
         loadColors();
 
@@ -344,20 +370,15 @@ public class settingsController {
         stage.setScene(newScene);
         stage.show();
         stage.centerOnScreen();
-        stage.setAlwaysOnTop(true);
-        // TODO: Experimental implementation of setting based on main parent stage.
-        windowUtils.centerStageOnMainApp(stage);
-    }
+        if (ConfigReader.configRead("AOTDebug").equals("true")){
+            stage.setAlwaysOnTop(true);
 
-    @javafx.fxml.FXML
-    public void startupFullscreenClick(ActionEvent actionEvent) {
-        if (startupFullscreenCheckbox.isSelected()) {
-            ConfigWriter.configwrite("fullscreenOnStartup", "true");
-            startupFullscreenCheckbox.setSelected(true);
         } else {
-            ConfigWriter.configwrite("fullscreenOnStartup", "false");
-            startupFullscreenCheckbox.setSelected(false);
+
+            stage.setAlwaysOnTop(false);
         }
+
+        windowUtils.centerStageOnMainApp(stage);
     }
 
     @javafx.fxml.FXML
@@ -402,6 +423,7 @@ public class settingsController {
         lbl2.setStyle("-fx-text-fill: " + secclr + ";");
         lbl3.setStyle("-fx-text-fill: " + secclr + ";");
         lbl4.setStyle("-fx-text-fill: " + secclr + ";");
+        lbl5.setStyle("-fx-text-fill: " + secclr + ";");
         //Accent
         String accclr = ConfigReader.configRead("accentColor");
         //Buttons
@@ -494,10 +516,107 @@ public class settingsController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         } catch (IOException e) {
             logError("LoadTheme IO Error Code 1 ", e);
         }
     }
 
+    @javafx.fxml.FXML
+    public void startupFullscreenClick(ActionEvent actionEvent) {
+        if (startupFullscreenCheckbox.isSelected()) {
+            ConfigWriter.configwrite("fullscreenOnStartup", "true");
+            startupFullscreenCheckbox.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("fullscreenOnStartup", "false");
+            startupFullscreenCheckbox.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void settingsAOTClick(ActionEvent actionEvent) {
+        if (AOTSettings.isSelected()) {
+            ConfigWriter.configwrite("AOTSettings", "true");
+            AOTSettings.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTSettings", "false");
+            AOTSettings.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void reportAOTClick(ActionEvent actionEvent) {
+        if (AOTReport.isSelected()) {
+            ConfigWriter.configwrite("AOTReport", "true");
+            AOTReport.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTReport", "false");
+            AOTReport.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void mapAOTClick(ActionEvent actionEvent) {
+        if (AOTMap.isSelected()) {
+            ConfigWriter.configwrite("AOTMap", "true");
+            AOTMap.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTMap", "false");
+            AOTMap.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void calloutAOTClick(ActionEvent actionEvent) {
+        if (AOTCallout.isSelected()) {
+            ConfigWriter.configwrite("AOTCallout", "true");
+            AOTCallout.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTCallout", "false");
+            AOTCallout.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void IDAOTClick(ActionEvent actionEvent) {
+        if (AOTID.isSelected()) {
+            ConfigWriter.configwrite("AOTID", "true");
+            AOTID.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTID", "false");
+            AOTID.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void NotesAOTClick(ActionEvent actionEvent) {
+        if (AOTNotes.isSelected()) {
+            ConfigWriter.configwrite("AOTNotes", "true");
+            AOTNotes.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTNotes", "false");
+            AOTNotes.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void ClientAOTClick(ActionEvent actionEvent) {
+        if (AOTClient.isSelected()) {
+            ConfigWriter.configwrite("AOTClient", "true");
+            AOTClient.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTClient", "false");
+            AOTClient.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void debugAOTClick(ActionEvent actionEvent) {
+        if (AOTDebug.isSelected()) {
+            ConfigWriter.configwrite("AOTDebug", "true");
+            AOTDebug.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("AOTDebug", "false");
+            AOTDebug.setSelected(false);
+        }
+    }
 }

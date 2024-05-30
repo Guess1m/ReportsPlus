@@ -13,7 +13,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {
 
-    // TODO: Experimental implementation of setting based on main parent stage.
     public static void snapToTopLeft(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(),
                 mainRT.getWidth(), mainRT.getHeight());

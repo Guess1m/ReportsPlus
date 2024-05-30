@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -132,15 +133,7 @@ public class newOfficerController {
             ConfigWriter.configwrite("Name", nameField.getText());
             ConfigWriter.configwrite("Rank", rank);
             ConfigWriter.configwrite("Number", numberField.getText());
-            ConfigWriter.configwrite("fullscreenOnStartup", "true");
-            ConfigWriter.configwrite("mainColor", "#524992");
-            ConfigWriter.configwrite("secondaryColor", "#665cb6");
-            ConfigWriter.configwrite("accentColor", "#9c95d0");
-            ConfigWriter.configwrite("mainWindowLayout", "Default");
-            ConfigWriter.configwrite("notesWindowLayout", "Default");
-            ConfigWriter.configwrite("reportWindowLayout", "Default");
-            ConfigWriter.configwrite("reportWindowDarkMode", "true");
-            ConfigWriter.configwrite("calloutDuration", "7");
+            addConfigurationValues();
 
             Stage stag = (Stage) vbox.getScene().getWindow();
             stag.close();
@@ -226,26 +219,17 @@ public class newOfficerController {
             }
         }
 
-        // Proceed with further processing
         ConfigWriter.configwrite("Agency", "Los Santos Sheriffs Office");
         ConfigWriter.configwrite("Division", "North Area Patrol Division");
         ConfigWriter.configwrite("Name", "McKennedy");
         ConfigWriter.configwrite("Rank", "Deputy Sheriff");
         ConfigWriter.configwrite("Number", "1-18");
-        ConfigWriter.configwrite("fullscreenOnStartup", "true");
-        updateMain(Color.valueOf("#524992"));
-        updateSecondary(Color.valueOf("#665cb6"));
-        updateAccent(Color.valueOf("#9c95d0"));
-        ConfigWriter.configwrite("mainWindowLayout", "Default");
-        ConfigWriter.configwrite("notesWindowLayout", "Default");
-        ConfigWriter.configwrite("reportWindowLayout", "Default");
-        ConfigWriter.configwrite("reportWindowDarkMode", "true");
-        ConfigWriter.configwrite("calloutDuration", "7");
+        addConfigurationValues();
 
         Stage stag = (Stage) vbox.getScene().getWindow();
         stag.close();
 
-        Stage mainRT = new Stage();
+        mainRT = new Stage();
         mainRT.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
         Parent root = loader.load();
@@ -274,8 +258,27 @@ public class newOfficerController {
                     mainRT.setWidth(1150);
                 }
             }
-
         }
         mainRT.setAlwaysOnTop(false);
+    }
+
+    private static void addConfigurationValues(){
+        ConfigWriter.configwrite("fullscreenOnStartup", "true");
+        updateMain(Color.valueOf("#524992"));
+        updateSecondary(Color.valueOf("#665cb6"));
+        updateAccent(Color.valueOf("#9c95d0"));
+        ConfigWriter.configwrite("mainWindowLayout", "Default");
+        ConfigWriter.configwrite("notesWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowLayout", "Default");
+        ConfigWriter.configwrite("reportWindowDarkMode", "true");
+        ConfigWriter.configwrite("calloutDuration", "7");
+        ConfigWriter.configwrite("AOTNotes", "true");
+        ConfigWriter.configwrite("AOTReport", "true");
+        ConfigWriter.configwrite("AOTCallout", "true");
+        ConfigWriter.configwrite("AOTID", "true");
+        ConfigWriter.configwrite("AOTSettings", "true");
+        ConfigWriter.configwrite("AOTMap", "true");
+        ConfigWriter.configwrite("AOTDebug", "true");
+        ConfigWriter.configwrite("AOTClient", "true");
     }
 }

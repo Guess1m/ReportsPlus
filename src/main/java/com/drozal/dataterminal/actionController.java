@@ -25,6 +25,7 @@ import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -813,6 +814,7 @@ public class actionController {
     public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
         if (IDStage != null && IDStage.isShowing()) {
             IDStage.close();
+            IDStage = null;
             return;
         }
         IDStage = new Stage();
@@ -825,9 +827,14 @@ public class actionController {
         //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
         IDStage.show();
         IDStage.centerOnScreen();
-        IDStage.setAlwaysOnTop(true);
+        if (ConfigReader.configRead("AOTID").equals("true")){
+            IDStage.setAlwaysOnTop(true);
+
+        } else {
+
+            IDStage.setAlwaysOnTop(false);
+        }
         showButtonAnimation(showIDBtn);
-        // TODO: Experimental implementation of setting based on main parent stage.
         windowUtils.centerStageOnMainApp(IDStage);
 
         IDStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -855,9 +862,15 @@ public class actionController {
         mapStage.setResizable(false);
         mapStage.show();
         mapStage.centerOnScreen();
-        mapStage.setAlwaysOnTop(true);
+        if (ConfigReader.configRead("AOTMap").equals("true")){
+            mapStage.setAlwaysOnTop(true);
+
+        } else {
+
+            mapStage.setAlwaysOnTop(false);
+        }
         showButtonAnimation(mapButton);
-// TODO: Experimental implementation of setting based on main parent stage.
+
         windowUtils.centerStageOnMainApp(mapStage);
 
         mapStage.setOnHidden(event -> {
@@ -883,7 +896,7 @@ public class actionController {
         notesStage.setResizable(true);
         //notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
         notesStage.show();
-        // TODO: Experimental implementation of setting based on main parent stage.
+
         windowUtils.centerStageOnMainApp(notesStage);
 
         String startupValue = ConfigReader.configRead("notesWindowLayout");
@@ -902,7 +915,13 @@ public class actionController {
         }
         notesStage.getScene().getStylesheets().add(getClass().getResource("css/notification-styles.css").toExternalForm());
         showButtonAnimation(notesButton);
-        notesStage.setAlwaysOnTop(true);
+        if (ConfigReader.configRead("AOTNotes").equals("true")){
+            notesStage.setAlwaysOnTop(true);
+
+        } else {
+
+            notesStage.setAlwaysOnTop(false);
+        }
 
         notesStage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
@@ -943,9 +962,15 @@ public class actionController {
         CalloutStage.setScene(newScene);
         CalloutStage.show();
         CalloutStage.centerOnScreen();
-        CalloutStage.setAlwaysOnTop(true);
+        if (ConfigReader.configRead("AOTCallout").equals("true")){
+            CalloutStage.setAlwaysOnTop(true);
+
+        } else {
+
+            CalloutStage.setAlwaysOnTop(false);
+        }
         showButtonAnimation(showCalloutBtn);
-        // TODO: Experimental implementation of setting based on main parent stage.
+
         windowUtils.centerStageOnMainApp(CalloutStage);
     }
 
@@ -1117,8 +1142,14 @@ public class actionController {
             clientStage.setResizable(false);
             clientStage.show();
             clientStage.centerOnScreen();
-            clientStage.setAlwaysOnTop(true);
-            // TODO: Experimental implementation of setting based on main parent stage.
+            if (ConfigReader.configRead("AOTClient").equals("true")){
+                clientStage.setAlwaysOnTop(true);
+
+            } else {
+
+                clientStage.setAlwaysOnTop(false);
+            }
+
             windowUtils.centerStageOnMainApp(clientStage);
 
             clientStage.setOnHidden(event1 -> {
@@ -2863,9 +2894,15 @@ public class actionController {
         settingsStage.setScene(newScene);
         settingsStage.show();
         settingsStage.centerOnScreen();
-        settingsStage.setAlwaysOnTop(true);
+        if (ConfigReader.configRead("AOTSettings").equals("true")){
+            settingsStage.setAlwaysOnTop(true);
+
+        } else {
+
+            settingsStage.setAlwaysOnTop(false);
+        }
         showButtonAnimation(settingsBtn);
-        // TODO: Experimental implementation of setting based on main parent stage.
+
         windowUtils.centerStageOnMainApp(settingsStage);
 
         settingsStage.setOnHidden(new EventHandler<WindowEvent>() {

@@ -165,8 +165,16 @@ public class ClientUtils {
                                 IDStage.setScene(newScene);
                                 IDStage.show();
                                 IDStage.centerOnScreen();
-                                IDStage.setAlwaysOnTop(true);
-                                // TODO: Experimental implementation of setting based on main parent stage.
+                                try {
+                                    if (ConfigReader.configRead("AOTID").equals("true")){
+                                        IDStage.setAlwaysOnTop(true);
+                                    } else {
+                                        IDStage.setAlwaysOnTop(false);
+                                    }
+                                } catch (IOException e) {
+                                    logError("Could not fetch AOTID: ",e);
+                                }
+
                                 windowUtils.centerStageOnMainApp(IDStage);
 
                                 IDStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -196,11 +204,19 @@ public class ClientUtils {
                                 Scene newScene = new Scene(root);
                                 CalloutStage.setTitle("Callout Display");
                                 CalloutStage.setScene(newScene);
-                                CalloutStage.setAlwaysOnTop(true);
+                                try {
+                                    if (ConfigReader.configRead("AOTCallout").equals("true")){
+                                        CalloutStage.setAlwaysOnTop(true);
+                                    } else {
+                                        CalloutStage.setAlwaysOnTop(false);
+                                    }
+                                } catch (IOException e) {
+                                    logError("Could not fetch AOTCallout: ",e);
+                                }
                                 CalloutStage.initStyle(StageStyle.UNDECORATED);
                                 CalloutStage.show();
                                 CalloutStage.centerOnScreen();
-                                // TODO: Experimental implementation of setting based on main parent stage.
+
                                 windowUtils.centerStageOnMainApp(CalloutStage);
 
                                 try {

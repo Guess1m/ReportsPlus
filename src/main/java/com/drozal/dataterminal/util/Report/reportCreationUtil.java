@@ -548,11 +548,9 @@ public class reportCreationUtil {
         stage.setMaxWidth(screenWidth);
         stage.setMaxHeight(screenHeight);
 
-        stage.initOwner(DataTerminalHomeApplication.getMainRT());
-
         stage.show();
         stage.toFront();
-        // TODO: Experimental implementation of setting based on main parent stage.
+
         windowUtils.centerStageOnMainApp(stage);
 
         stage.setOnHidden(event -> {
@@ -595,8 +593,17 @@ public class reportCreationUtil {
         result.put("submitBtn", submitBtn);
         result.put("root", borderPane);
 
-        stage.setAlwaysOnTop(true);
-        stage.requestFocus();
+        try {
+            if (ConfigReader.configRead("AOTReport").equals("true")){
+                stage.setAlwaysOnTop(true);
+                System.out.println("true");
+            } else {
+                System.out.println("false");
+                stage.setAlwaysOnTop(false);
+            }
+        } catch (IOException e) {
+            logError("Could not get AOTReport: ",e);
+        }
         return result;
     }
 

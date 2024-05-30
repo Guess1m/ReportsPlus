@@ -5,21 +5,55 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {
 
+    // TODO: Experimental implementation of setting based on main parent stage.
     public static void snapToTopLeft(Stage stage) {
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        double halfScreenWidth = primaryScreenBounds.getWidth() / 2;
-        double halfScreenHeight = primaryScreenBounds.getHeight() / 2;
-        stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
-        stage.setWidth(halfScreenWidth);
-        stage.setHeight(halfScreenHeight);
+        Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(),
+                mainRT.getWidth(), mainRT.getHeight());
+        List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+                parentBounds.getWidth(), parentBounds.getHeight());
+        if (!screens.isEmpty()) {
+            Screen screen = screens.get(0); // Assuming the parentStage is on the first screen
+            Rectangle2D screenBounds = screen.getVisualBounds();
+            double halfScreenWidth = screenBounds.getWidth() / 2;
+            double halfScreenHeight = screenBounds.getHeight() / 2;
+            stage.setX(screenBounds.getMinX());
+            stage.setY(screenBounds.getMinY());
+            stage.setWidth(halfScreenWidth);
+            stage.setHeight(halfScreenHeight);
+        }
     }
+
+
+    /**
+     * Centers the given stage on the same screen as the mainRT stage
+     * without altering the stage's width or height.
+     *
+     * @param stage the stage to be centered
+     */
+    public static void centerStageOnMainApp(Stage stage) {
+        Rectangle2D mainRTBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
+        List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(), mainRTBounds.getWidth(), mainRTBounds.getHeight());
+
+        if (!screens.isEmpty()) {
+            Screen screen = screens.get(0); // Assuming the mainRT stage is on the first screen
+            Rectangle2D screenBounds = screen.getVisualBounds();
+
+            double centerX = screenBounds.getMinX() + (screenBounds.getWidth() - stage.getWidth()) / 2;
+            double centerY = screenBounds.getMinY() + (screenBounds.getHeight() - stage.getHeight()) / 2;
+
+            stage.setX(centerX);
+            stage.setY(centerY);
+        }
+    }
+
 
     public static void snapToBottomLeft(Stage stage) {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -115,6 +149,9 @@ public class windowUtils {
         if (stage.equals(IDStage)) {
             IDStage.setHeight(253);
             IDStage.setWidth(415);
+        } else {
+            stage.setHeight(800);
+            stage.setWidth(1150);
         }
         stage.centerOnScreen();
     }

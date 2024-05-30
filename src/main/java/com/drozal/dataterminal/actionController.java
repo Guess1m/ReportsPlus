@@ -23,6 +23,7 @@ import com.drozal.dataterminal.util.Misc.controllerUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -826,6 +827,8 @@ public class actionController {
         IDStage.centerOnScreen();
         IDStage.setAlwaysOnTop(true);
         showButtonAnimation(showIDBtn);
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(IDStage);
 
         IDStage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
@@ -854,6 +857,8 @@ public class actionController {
         mapStage.centerOnScreen();
         mapStage.setAlwaysOnTop(true);
         showButtonAnimation(mapButton);
+// TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(mapStage);
 
         mapStage.setOnHidden(event -> {
             mapStage = null;
@@ -878,6 +883,8 @@ public class actionController {
         notesStage.setResizable(true);
         //notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
         notesStage.show();
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(notesStage);
 
         String startupValue = ConfigReader.configRead("notesWindowLayout");
         switch (startupValue) {
@@ -938,6 +945,8 @@ public class actionController {
         CalloutStage.centerOnScreen();
         CalloutStage.setAlwaysOnTop(true);
         showButtonAnimation(showCalloutBtn);
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(CalloutStage);
     }
 
     @javafx.fxml.FXML
@@ -1109,6 +1118,8 @@ public class actionController {
             clientStage.show();
             clientStage.centerOnScreen();
             clientStage.setAlwaysOnTop(true);
+            // TODO: Experimental implementation of setting based on main parent stage.
+            windowUtils.centerStageOnMainApp(clientStage);
 
             clientStage.setOnHidden(event1 -> {
                 clientStage = null;
@@ -2854,6 +2865,8 @@ public class actionController {
         settingsStage.centerOnScreen();
         settingsStage.setAlwaysOnTop(true);
         showButtonAnimation(settingsBtn);
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(settingsStage);
 
         settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override

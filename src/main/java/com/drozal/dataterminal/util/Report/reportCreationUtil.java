@@ -552,6 +552,8 @@ public class reportCreationUtil {
 
         stage.show();
         stage.toFront();
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(stage);
 
         stage.setOnHidden(event -> {
             windowX = stage.getX();
@@ -1094,7 +1096,7 @@ public class reportCreationUtil {
                         new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
                 ),
                 new SectionConfig("Location Information", true,
-                        new RowConfig(new FieldConfig("county", 3, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("street", 5, FieldType.TEXT_FIELD))
+                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
                 ),
                 new SectionConfig("Callout Information", true,
                         new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),

@@ -4,6 +4,7 @@ import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -165,6 +166,8 @@ public class ClientUtils {
                                 IDStage.show();
                                 IDStage.centerOnScreen();
                                 IDStage.setAlwaysOnTop(true);
+                                // TODO: Experimental implementation of setting based on main parent stage.
+                                windowUtils.centerStageOnMainApp(IDStage);
 
                                 IDStage.setOnHidden(new EventHandler<WindowEvent>() {
                                     @Override
@@ -197,6 +200,8 @@ public class ClientUtils {
                                 CalloutStage.initStyle(StageStyle.UNDECORATED);
                                 CalloutStage.show();
                                 CalloutStage.centerOnScreen();
+                                // TODO: Experimental implementation of setting based on main parent stage.
+                                windowUtils.centerStageOnMainApp(CalloutStage);
 
                                 try {
                                     if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {

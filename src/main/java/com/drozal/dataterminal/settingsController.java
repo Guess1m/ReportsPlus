@@ -4,6 +4,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -344,6 +345,8 @@ public class settingsController {
         stage.show();
         stage.centerOnScreen();
         stage.setAlwaysOnTop(true);
+        // TODO: Experimental implementation of setting based on main parent stage.
+        windowUtils.centerStageOnMainApp(stage);
     }
 
     @javafx.fxml.FXML

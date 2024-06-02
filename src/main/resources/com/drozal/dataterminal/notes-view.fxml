@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:id="borderPane"
-            style="-fx-border-color: black; -fx-border-width: 1.5; -fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/21"
+            style="-fx-border-color: black; -fx-border-width: 1.5; -fx-background-radius: 0; -fx-border-radius: 0;"
+            xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.NotesViewController">
     <center>
         <AnchorPane fx:id="notesPane" prefHeight="285.0" prefWidth="684.0"

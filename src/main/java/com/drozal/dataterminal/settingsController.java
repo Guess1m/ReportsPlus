@@ -139,6 +139,7 @@ public class settingsController {
         AOTDebug.setSelected(ConfigReader.configRead("AOTDebug").equals("true"));
 
         loadColors();
+        loadTheme();
 
         String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
         mainWindowComboBox.getItems().addAll(displayPlacements);

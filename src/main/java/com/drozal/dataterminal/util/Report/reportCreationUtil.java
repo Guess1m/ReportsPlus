@@ -531,6 +531,12 @@ public class reportCreationUtil {
         stage.show();
         stage.toFront();
 
+        titleBar.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                windowUtils.toggleWindowedFullscreen(stage, preferredWidth, preferredHeight);
+            }
+        });
+
         windowUtils.centerStageOnMainApp(stage);
 
         stage.setOnHidden(event -> {

@@ -509,6 +509,8 @@ public class actionController {
     private MenuButton lookupBtn;
     @javafx.fxml.FXML
     private Button settingsBtn;
+    @javafx.fxml.FXML
+    private TextField pedaddressfield;
 
 
     //</editor-fold>
@@ -1241,6 +1243,7 @@ public class actionController {
         Map<String, String> pedData = grabPedData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
         String gender = pedData.getOrDefault("gender", "Not available");
         String birthday = pedData.getOrDefault("birthday", "Not available");
+        String address = pedData.getOrDefault("address", "Not available");
         String isWanted = pedData.getOrDefault("iswanted", "Not available");
         String licenseStatus = pedData.getOrDefault("licensestatus", "Not available");
         String name = pedData.getOrDefault("name", "Not available");
@@ -1256,6 +1259,7 @@ public class actionController {
             pedlnamefield.setText(lastName);
             pedgenfield.setText(gender);
             peddobfield.setText(birthday);
+            pedaddressfield.setText(address);
             pedwantedfield.setText(isWanted);
             pedlicensefield.setText(licenseStatus);
 

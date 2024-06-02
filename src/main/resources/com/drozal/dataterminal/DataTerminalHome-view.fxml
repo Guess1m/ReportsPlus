@@ -440,7 +440,7 @@
                         <AnchorPane layoutX="1.0" layoutY="53.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
                             <children>
-                                <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" prefHeight="221.0" prefWidth="709.0"
+                                <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" prefHeight="344.0" prefWidth="733.0"
                                           vgap="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0"
                                           AnchorPane.topAnchor="35.0">
                                     <columnConstraints>
@@ -452,6 +452,8 @@
                                     <rowConstraints>
                                         <RowConstraints maxHeight="64.0" minHeight="10.0" percentHeight="50.0"
                                                         prefHeight="63.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="65.0" minHeight="10.0" percentHeight="50.0"
+                                                        prefHeight="65.0" vgrow="SOMETIMES"/>
                                         <RowConstraints maxHeight="65.0" minHeight="10.0" percentHeight="50.0"
                                                         prefHeight="65.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
@@ -527,6 +529,18 @@
                                                 <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;"
                                                        styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
                                                        text="Birthday:" AnchorPane.leftAnchor="12.0"
+                                                       AnchorPane.topAnchor="19.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.rowIndex="2">
+                                            <children>
+                                                <TextField fx:id="pedaddressfield" layoutX="26.0" layoutY="47.0"
+                                                           styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                                                <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;"
+                                                       styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css"
+                                                       text="Address:" AnchorPane.leftAnchor="12.0"
                                                        AnchorPane.topAnchor="19.0"/>
                                             </children>
                                         </AnchorPane>

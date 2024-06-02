@@ -180,11 +180,8 @@ public class windowUtils {
             CalloutStage.setWidth(618);
         }
         if (stage.equals(IDStage)) {
-            IDStage.setHeight(253);
-            IDStage.setWidth(415);
-        } else {
-            stage.setHeight(800);
-            stage.setWidth(1150);
+            IDStage.setHeight(274);
+            IDStage.setWidth(514);
         }
         stage.centerOnScreen();
     }

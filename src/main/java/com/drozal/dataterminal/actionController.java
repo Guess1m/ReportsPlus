@@ -671,7 +671,7 @@ public class actionController {
 
             stge.setOnHiding(event -> handleClose());
 
-            versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/Guess1m/DataTerminal/releases"));
+            versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/Guess1m/ReportsPlus/releases"));
 
             if (!stringUtil.version.equals("dev")) {
                 if (!stringUtil.version.equals(gitVersion)) {

@@ -17,7 +17,7 @@ public class updateUtil {
 
     public static void checkForUpdates() {
         if (!stringUtil.version.equals("dev")) {
-            String rawUrl = "https://raw.githubusercontent.com/Guess1m/DataTerminal/main/version.txt";
+            String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
             try {
                 URL url = new URL(rawUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -23,6 +23,9 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
@@ -37,6 +40,13 @@ public class ClientUtils {
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
+
+    // Buffer Flags
+    private static boolean canActivateUpdateId = true;
+    private static boolean canActivateUpdateCallout = true;
+    private static boolean canActivateUpdateWorldPed = true;
+    private static boolean canActivateUpdateWorldVeh = true;
+    private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     public static void disconnectFromService() {
         try {
@@ -137,126 +147,145 @@ public class ClientUtils {
                 String fromServer;
                 label:
                 while ((fromServer = in.readLine()) != null) {
-                    System.out.println("reading line");
                     switch (fromServer) {
                         case "SHUTDOWN":
                             log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
                             disconnectFromService();
                             break label; // Exit the loop
                         case "UPDATE_ID":
-                            log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml", 4096);
-                            Platform.runLater(() -> {
-                                if (IDStage != null && IDStage.isShowing()) {
-                                    IDStage.close();
-                                    return;
-                                }
-                                IDStage = new Stage();
-                                IDStage.initStyle(StageStyle.UNDECORATED);
-                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
-                                Parent root = null;
-                                try {
-                                    root = loader.load();
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene newScene = new Scene(root);
-                                IDStage.setTitle("Current ID");
-                                IDStage.setScene(newScene);
-                                IDStage.show();
-                                IDStage.centerOnScreen();
-                                try {
-                                    if (ConfigReader.configRead("AOTID").equals("true")) {
-                                        IDStage.setAlwaysOnTop(true);
-                                    } else {
-                                        IDStage.setAlwaysOnTop(false);
-                                    }
-                                } catch (IOException e) {
-                                    logError("Could not fetch AOTID: ", e);
-                                }
+                            if (canActivateUpdateId) {
+                                canActivateUpdateId = false;
+                                executorService.schedule(() -> canActivateUpdateId = true, 1, TimeUnit.SECONDS);
 
-                                windowUtils.centerStageOnMainApp(IDStage);
-
-                                IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                    @Override
-                                    public void handle(WindowEvent event) {
+                                log("Received ID update message from server.", LogUtils.Severity.DEBUG);
+                                FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml", 4096);
+                                Platform.runLater(() -> {
+                                    if (IDStage != null && IDStage.isShowing()) {
+                                        IDStage.close();
                                         IDStage = null;
                                     }
+                                    IDStage = new Stage();
+                                    IDStage.initStyle(StageStyle.UNDECORATED);
+                                    FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
+                                    Parent root = null;
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    Scene newScene = new Scene(root);
+                                    IDStage.setTitle("Current ID");
+                                    IDStage.setScene(newScene);
+                                    IDStage.show();
+                                    IDStage.centerOnScreen();
+                                    try {
+                                        if (ConfigReader.configRead("AOTID").equals("true")) {
+                                            IDStage.setAlwaysOnTop(true);
+                                        } else {
+                                            IDStage.setAlwaysOnTop(false);
+                                        }
+                                    } catch (IOException e) {
+                                        logError("Could not fetch AOTID: ", e);
+                                    }
+
+                                    windowUtils.centerStageOnMainApp(IDStage);
+
+                                    IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                        @Override
+                                        public void handle(WindowEvent event) {
+                                            IDStage = null;
+                                        }
+                                    });
                                 });
-                            });
+                            }
                             break;
                         case "UPDATE_CALLOUT":
-                            log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml", 4096);
-                            Platform.runLater(() -> {
-                                if (CalloutStage != null && CalloutStage.isShowing()) {
-                                    CalloutStage.close();
-                                    return;
-                                }
-                                CalloutStage = new Stage();
-                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
-                                Parent root = null;
-                                try {
-                                    root = loader.load();
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene newScene = new Scene(root);
-                                CalloutStage.setTitle("Callout Display");
-                                CalloutStage.setScene(newScene);
-                                try {
-                                    if (ConfigReader.configRead("AOTCallout").equals("true")) {
-                                        CalloutStage.setAlwaysOnTop(true);
-                                    } else {
-                                        CalloutStage.setAlwaysOnTop(false);
+                            if (canActivateUpdateCallout) {
+                                canActivateUpdateCallout = false;
+                                executorService.schedule(() -> canActivateUpdateCallout = true, 1, TimeUnit.SECONDS);
+
+                                log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
+                                FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml", 4096);
+                                Platform.runLater(() -> {
+                                    if (CalloutStage != null && CalloutStage.isShowing()) {
+                                        CalloutStage.close();
+                                        return;
                                     }
-                                } catch (IOException e) {
-                                    logError("Could not fetch AOTCallout: ", e);
-                                }
-                                CalloutStage.initStyle(StageStyle.UNDECORATED);
-                                CalloutStage.show();
-                                CalloutStage.centerOnScreen();
-
-                                windowUtils.centerStageOnMainApp(CalloutStage);
-
-                                try {
-                                    if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
-                                        PauseTransition delay = null;
-                                        try {
-                                            delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
-                                        } catch (IOException e) {
-                                            logError("Callout could not be closed: ", e);
+                                    CalloutStage = new Stage();
+                                    FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
+                                    Parent root = null;
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    Scene newScene = new Scene(root);
+                                    CalloutStage.setTitle("Callout Display");
+                                    CalloutStage.setScene(newScene);
+                                    try {
+                                        if (ConfigReader.configRead("AOTCallout").equals("true")) {
+                                            CalloutStage.setAlwaysOnTop(true);
+                                        } else {
+                                            CalloutStage.setAlwaysOnTop(false);
                                         }
-                                        delay.setOnFinished(event -> CalloutStage.close());
-                                        delay.play();
+                                    } catch (IOException e) {
+                                        logError("Could not fetch AOTCallout: ", e);
                                     }
-                                } catch (IOException e) {
-                                    logError("could not read calloutDuration: ", e);
-                                }
+                                    CalloutStage.initStyle(StageStyle.UNDECORATED);
+                                    CalloutStage.show();
+                                    CalloutStage.centerOnScreen();
+
+                                    windowUtils.centerStageOnMainApp(CalloutStage);
+
+                                    try {
+                                        if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
+                                            PauseTransition delay = null;
+                                            try {
+                                                delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
+                                            } catch (IOException e) {
+                                                logError("Callout could not be closed: ", e);
+                                            }
+                                            delay.setOnFinished(event -> CalloutStage.close());
+                                            delay.play();
+                                        }
+                                    } catch (IOException e) {
+                                        logError("could not read calloutDuration: ", e);
+                                    }
 
 
-                                CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                    @Override
-                                    public void handle(WindowEvent event) {
-                                        CalloutStage = null;
-                                    }
+                                    CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                        @Override
+                                        public void handle(WindowEvent event) {
+                                            CalloutStage = null;
+                                        }
+                                    });
+
+                                    CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                        @Override
+                                        public void handle(WindowEvent event) {
+                                            CalloutStage = null;
+                                        }
+                                    });
                                 });
-
-                                CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                    @Override
-                                    public void handle(WindowEvent event) {
-                                        CalloutStage = null;
-                                    }
-                                });
-                            });
+                            }
                             break;
                         case "UPDATE_WORLD_PED":
-                            log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data", 4096);
+                            if (canActivateUpdateWorldPed) {
+                                canActivateUpdateWorldPed = false;
+                                executorService.schedule(() -> canActivateUpdateWorldPed = true, 1, TimeUnit.SECONDS);
+
+                                log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
+                                FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data", 4096);
+                            }
                             break;
                         case "UPDATE_WORLD_VEH":
-                            log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
-                            FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data", 4096);
+                            if (canActivateUpdateWorldVeh) {
+                                canActivateUpdateWorldVeh = false;
+                                executorService.schedule(() -> canActivateUpdateWorldVeh = true, 1, TimeUnit.SECONDS);
+
+                                log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
+                                FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port), getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data", 4096);
+                            }
                             break;
                         case "HEARTBEAT":
                             break;

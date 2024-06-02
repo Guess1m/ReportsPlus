@@ -44,6 +44,8 @@ public class CurrentIDViewController {
     private TextField dob;
     @javafx.fxml.FXML
     private TextField first;
+    @javafx.fxml.FXML
+    private TextField address;
 
     public static String generateRandomNumber() {
         Random random = new Random();
@@ -96,6 +98,7 @@ public class CurrentIDViewController {
                 String lastName = mostRecentID.getLastName();
                 String birthday = mostRecentID.getBirthday();
                 String Gender = mostRecentID.getGender();
+                String Address = mostRecentID.getAddress();
 
                 genNum1.setText(generateRandomNumber());
                 genNum2.setText(generateRandomNumber());
@@ -105,6 +108,7 @@ public class CurrentIDViewController {
                 last.setText(lastName);
                 dob.setText(birthday);
                 gender.setText(Gender);
+                address.setText(Address);
 
             } else {
                 // Show alert or set default values
@@ -114,6 +118,7 @@ public class CurrentIDViewController {
                 last.setText(/*No Data*/"");
                 dob.setText(/*No Data*/"");
                 gender.setText(/*No Data*/"");
+                address.setText(/*No Data*/"");
 
                 genNum1.setText(null);
                 genNum2.setText(null);
@@ -124,8 +129,6 @@ public class CurrentIDViewController {
         root.requestFocus();
 
         watchIDChanges();
-
-
     }
 
     public void watchIDChanges() {
@@ -164,6 +167,7 @@ public class CurrentIDViewController {
                                     String lastName = mostRecentID.getLastName();
                                     String birthday = mostRecentID.getBirthday();
                                     String Gender = mostRecentID.getGender();
+                                    String Address = mostRecentID.getAddress();
 
                                     genNum1.setText(generateRandomNumber());
                                     genNum2.setText(generateRandomNumber());
@@ -173,6 +177,7 @@ public class CurrentIDViewController {
                                     last.setText(lastName);
                                     dob.setText(birthday);
                                     gender.setText(Gender);
+                                    address.setText(Address);
 
                                 } else {
                                     // Show alert or set default values
@@ -181,6 +186,7 @@ public class CurrentIDViewController {
                                     last.setText(/*No Data*/"");
                                     dob.setText(/*No Data*/"");
                                     gender.setText(/*No Data*/"");
+                                    address.setText(/*No Data*/"");
                                 }
                             });
                         }

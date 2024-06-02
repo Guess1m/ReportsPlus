@@ -8,13 +8,16 @@ import jakarta.xml.bind.annotation.XmlElement;
 public class ID {
 
     @XmlElement(name = "Name")
-    private String name; // This will represent both first and last names
+    private String name;
 
     @XmlElement(name = "Birthday")
     private String birthday;
 
     @XmlElement(name = "Gender")
     private String gender;
+
+    @XmlElement(name = "Address")
+    private String address;
 
     @XmlElement(name = "Index")
     private int index;
@@ -69,5 +72,13 @@ public class ID {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

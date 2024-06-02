@@ -1238,7 +1238,6 @@ public class actionController {
     public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedName = pedSearchField.getText();
 
-
         Map<String, String> pedData = grabPedData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
         String gender = pedData.getOrDefault("gender", "Not available");
         String birthday = pedData.getOrDefault("birthday", "Not available");

@@ -29,30 +29,44 @@ public class NotesViewController {
         return titlebar;
     }
 
+    /**
+     * Initializes the notepad with the appropriate styles and settings.
+     * This method reads configuration values and applies styles to the notepad text area and mode toggle button.
+     * It also sets up event handlers for hover effects on the clear button.
+     *
+     * @throws IOException if there is an error reading the configuration values
+     */
     public void initialize() throws IOException {
-        if (ConfigReader.configRead("notepadMode") != null) {
-            if (ConfigReader.configRead("notepadMode").equals("Dark")) {
-                notepadTextArea.setStyle("-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;");
-                modeToggle.setStyle("-fx-background-color: white;");
-            } else {
-                notepadTextArea.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent;");
-                modeToggle.setStyle("-fx-background-color: grey;");
-            }
-        }
-
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: " + ConfigReader.configRead("accentColor");
 
         clearbtnnotepad.setStyle(initialStyle);
-
         clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle));
         clearbtnnotepad.setOnMouseExited(e -> clearbtnnotepad.setStyle(initialStyle));
 
         titlebar = reportCreationUtil.createTitleBar("NotePad");
-
         borderPane.setTop(titlebar);
 
         notepadTextArea.setText(actionController.notesText);
+
+        String notepadMode = ConfigReader.configRead("notepadMode");
+        if (notepadMode != null) {
+            String notepadStyle;
+            String modeToggleStyle;
+            if (notepadMode.equals("Dark")) {
+                notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+                modeToggleStyle = "-fx-background-color: white;";
+            } else {
+                notepadStyle = "-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+                modeToggleStyle = "-fx-background-color: grey;";
+            }
+            notepadTextArea.setStyle(notepadStyle);
+            modeToggle.setStyle(modeToggleStyle);
+            System.out.println(notepadMode);
+        } else {
+            notepadTextArea.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+            modeToggle.setStyle("-fx-background-color: grey;");
+        }
     }
 
     @javafx.fxml.FXML

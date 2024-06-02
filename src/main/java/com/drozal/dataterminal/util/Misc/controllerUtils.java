@@ -105,6 +105,26 @@ public class controllerUtils {
         ConfigWriter.configwrite("mainColor", hexColor);
     }
 
+    public static void updateReportBackground(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("reportBackground", hexColor);
+    }
+
+    public static void updateReportSecondary(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("reportSecondary", hexColor);
+    }
+
+    public static void updateReportAccent(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("reportAccent", hexColor);
+    }
+
+    public static void updateReportHeading(Color color) {
+        String hexColor = toHexString(color);
+        ConfigWriter.configwrite("reportHeading", hexColor);
+    }
+
     public static void showNotification(String title, String message, Object owner) {
         Label label = new Label(message);
 

@@ -94,6 +94,26 @@ public class settingsController {
     private CheckBox AOTDebug;
     @javafx.fxml.FXML
     private CheckBox AOTClient;
+    @javafx.fxml.FXML
+    private ColorPicker headingPickerReport;
+    @javafx.fxml.FXML
+    private ColorPicker secPickerReport;
+    @javafx.fxml.FXML
+    private ColorPicker backgroundPickerReport;
+    @javafx.fxml.FXML
+    private Label accentLabelReport;
+    @javafx.fxml.FXML
+    private Label backgroundLabelReport;
+    @javafx.fxml.FXML
+    private Label secLabelReport;
+    @javafx.fxml.FXML
+    private ColorPicker accentPickerReport;
+    @javafx.fxml.FXML
+    private Label lbl6;
+    @javafx.fxml.FXML
+    private Label headingLabelReport;
+    @javafx.fxml.FXML
+    private ComboBox presetComboBoxReport;
 
     public void initialize() throws IOException {
         if (DataTerminalHomeApplication.controller != null) {
@@ -238,12 +258,73 @@ public class settingsController {
             }
         });
 
+
+        backgroundPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateReportBackground(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors();
+                } catch (IOException e) {
+                    logError("LoadTheme IO Error Code 6 ", e);
+                }
+            }
+        });
+
+        accentPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateReportAccent(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors();
+                } catch (IOException e) {
+                    logError("LoadTheme IO Error Code 7 ", e);
+                }
+            }
+        });
+
+        headingPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateReportHeading(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors();
+                } catch (IOException e) {
+                    logError("LoadTheme IO Error Code 8 ", e);
+                }
+            }
+        });
+
+        secPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                Color selectedColor = newValue;
+                updateReportSecondary(selectedColor);
+                try {
+                    loadTheme();
+                    loadColors();
+                } catch (IOException e) {
+                    logError("LoadTheme IO Error Code 9 ", e);
+                }
+            }
+        });
+
+
         String[] reportdarklight = {"dark", "light"};
         String[] themes = {"dark", "purple", "blue", "grey", "green"};
+        String[] presets = {"dark", "light", "grey", "green", "blue"};
 
         reportStyleComboBox.getItems().addAll(reportdarklight);
 
         themeComboBox.getItems().addAll(themes);
+
+        presetComboBoxReport.getItems().addAll(presets);
 
         try {
             if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
@@ -330,6 +411,79 @@ public class settingsController {
             } else {
                 ConfigWriter.configwrite("reportWindowDarkMode", "false");
             }
+        });
+
+        presetComboBoxReport.setOnAction(actionEvent -> {
+            String selectedTheme = (String) presetComboBoxReport.getSelectionModel().getSelectedItem();
+
+            switch (selectedTheme) {
+                case "dark" -> {
+                    log("Dark Theme Selected: Report", LogUtils.Severity.DEBUG);
+                    updateReportBackground(Color.valueOf("#505d62"));
+                    updateReportSecondary(Color.valueOf("#323c41"));
+                    updateReportAccent(Color.valueOf("#263238"));
+                    updateReportHeading(Color.valueOf("white"));
+                    try {
+                        loadTheme();
+                        loadColors();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "light" -> {
+                    log("Light Theme Selected: Report", LogUtils.Severity.DEBUG);
+                    updateReportBackground(Color.valueOf("#e6e6e6"));
+                    updateReportSecondary(Color.valueOf("#cccccc"));
+                    updateReportAccent(Color.valueOf("#b3b3b3"));
+                    updateReportHeading(Color.valueOf("#333333"));
+                    try {
+                        loadTheme();
+                        loadColors();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "grey" -> {
+                    log("Grey Theme Selected: Report", LogUtils.Severity.DEBUG);
+                    updateReportBackground(Color.valueOf("#4d4d4d"));
+                    updateReportSecondary(Color.valueOf("gray"));
+                    updateReportAccent(Color.valueOf("#666666"));
+                    updateReportHeading(Color.valueOf("white"));
+                    try {
+                        loadTheme();
+                        loadColors();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "green" -> {
+                    log("Green Theme Selected: Report", LogUtils.Severity.DEBUG);
+                    updateReportBackground(Color.valueOf("#80b380"));
+                    updateReportSecondary(Color.valueOf("#669966"));
+                    updateReportAccent(Color.valueOf("#4d804d"));
+                    updateReportHeading(Color.valueOf("white"));
+                    try {
+                        loadTheme();
+                        loadColors();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+                case "blue" -> {
+                    log("Blue Theme Selected: Report", LogUtils.Severity.DEBUG);
+                    updateReportBackground(Color.valueOf("#8099ff"));
+                    updateReportSecondary(Color.valueOf("#6680e6"));
+                    updateReportAccent(Color.valueOf("#4d66cc"));
+                    updateReportHeading(Color.valueOf("white"));
+                    try {
+                        loadTheme();
+                        loadColors();
+                    } catch (IOException e) {
+                        logError("LoadTheme Error", e);
+                    }
+                }
+            }
+
         });
 
         if (reportStyleComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
@@ -424,6 +578,7 @@ public class settingsController {
         lbl3.setStyle("-fx-text-fill: " + secclr + ";");
         lbl4.setStyle("-fx-text-fill: " + secclr + ";");
         lbl5.setStyle("-fx-text-fill: " + secclr + ";");
+        lbl6.setStyle("-fx-text-fill: " + secclr + ";");
         //Accent
         String accclr = ConfigReader.configRead("accentColor");
         //Buttons
@@ -491,12 +646,25 @@ public class settingsController {
             Color secondary = Color.valueOf(ConfigReader.configRead("secondaryColor"));
             Color accent = Color.valueOf(ConfigReader.configRead("accentColor"));
 
+            Color reportBackground = Color.valueOf(ConfigReader.configRead("reportBackground"));
+            Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSecondary"));
+            Color reportAccent = Color.valueOf(ConfigReader.configRead("reportAccent"));
+            Color reportHeading = Color.valueOf(ConfigReader.configRead("reportHeading"));
+
             primPicker.setValue(primary);
             secPicker.setValue(secondary);
             accPicker.setValue(accent);
             primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
             secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
             accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
+
+            backgroundPickerReport.setValue(reportBackground);
+            accentPickerReport.setValue(reportAccent);
+            headingPickerReport.setValue(reportHeading);
+            secPickerReport.setValue(reportSecondary);
+            backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
+            accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
+            secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
 
             try {
                 String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");

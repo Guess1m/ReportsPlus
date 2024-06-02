@@ -77,11 +77,7 @@ public class reportCreationUtil {
     private static String getPrimaryColor() { //non selected textarea
         String primaryColor;
         try {
-            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                primaryColor = "#323c41";//DARK medium
-            } else {
-                primaryColor = "#f2f2f2";
-            }
+            primaryColor = ConfigReader.configRead("reportSecondary");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -91,11 +87,7 @@ public class reportCreationUtil {
     private static String getSecondaryColor() { // selected textarea
         String secondaryColor;
         try {
-            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                secondaryColor = "#263238";//DARK Darkest
-            } else {
-                secondaryColor = "#d2d2d2";
-            }
+            secondaryColor = ConfigReader.configRead("reportAccent");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -105,11 +97,7 @@ public class reportCreationUtil {
     private static String getAccentColor() { // background
         String accentColor;
         try {
-            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                accentColor = "#505d62";//DARK Lightest
-            } else {
-                accentColor = "white";
-            }
+            accentColor = ConfigReader.configRead("reportBackground");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -347,11 +335,7 @@ public class reportCreationUtil {
     public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
         String placeholder;
         try {
-            if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                placeholder = "white";
-            } else {
-                placeholder = "black";
-            }
+            placeholder = ConfigReader.configRead("reportHeading");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -518,14 +502,6 @@ public class reportCreationUtil {
 
         try {
             if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
-                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
-            } else {
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
@@ -533,6 +509,14 @@ public class reportCreationUtil {
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
                 scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
+            } else {
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
+                scene.getStylesheets().add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
             }
         } catch (IOException e) {
             logError("Could not add stylesheets to reports: ", e);
@@ -590,11 +574,7 @@ public class reportCreationUtil {
         result.put("root", borderPane);
 
         try {
-            if (ConfigReader.configRead("AOTReport").equals("true")) {
-                stage.setAlwaysOnTop(true);
-            } else {
-                stage.setAlwaysOnTop(false);
-            }
+            stage.setAlwaysOnTop(ConfigReader.configRead("AOTReport").equals("true"));
         } catch (IOException e) {
             logError("Could not get AOTReport: ", e);
         }
@@ -606,9 +586,9 @@ public class reportCreationUtil {
         String placeholder;
         try {
             if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
-                placeholder = "white";
-            } else {
                 placeholder = "black";
+            } else {
+                placeholder = "white";
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -679,7 +659,6 @@ public class reportCreationUtil {
                     comboBoxColor.getItems().addAll(dropdownInfo.carColors);
                     comboBoxColor.setPromptText(fieldConfig.getFieldName().toUpperCase());
                     comboBoxColor.setButtonCell(new ListCell() {
-
                         @Override
                         protected void updateItem(Object item, boolean empty) {
                             super.updateItem(item, empty);
@@ -690,7 +669,6 @@ public class reportCreationUtil {
                                 setText(item.toString());
                             }
                         }
-
                     });
                     comboBoxColor.setMaxWidth(Double.MAX_VALUE);
                     gridPane.add(comboBoxColor, columnIndex, rowIndex, fieldConfig.getSize(), 1);

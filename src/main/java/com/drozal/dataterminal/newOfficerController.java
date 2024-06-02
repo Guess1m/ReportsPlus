@@ -56,14 +56,19 @@ public class newOfficerController {
 
     private static void addConfigurationValues() {
         ConfigWriter.configwrite("fullscreenOnStartup", "true");
+
         updateMain(Color.valueOf("#524992"));
         updateSecondary(Color.valueOf("#665cb6"));
         updateAccent(Color.valueOf("#9c95d0"));
+
         ConfigWriter.configwrite("mainWindowLayout", "Default");
         ConfigWriter.configwrite("notesWindowLayout", "Default");
         ConfigWriter.configwrite("reportWindowLayout", "Default");
-        ConfigWriter.configwrite("reportWindowDarkMode", "true");
+
+        ConfigWriter.configwrite("reportWindowDarkMode", "false");
+
         ConfigWriter.configwrite("calloutDuration", "7");
+
         ConfigWriter.configwrite("AOTNotes", "true");
         ConfigWriter.configwrite("AOTReport", "true");
         ConfigWriter.configwrite("AOTCallout", "true");
@@ -72,6 +77,12 @@ public class newOfficerController {
         ConfigWriter.configwrite("AOTMap", "true");
         ConfigWriter.configwrite("AOTDebug", "true");
         ConfigWriter.configwrite("AOTClient", "true");
+
+        updateReportBackground(Color.valueOf("#505d62"));
+        updateReportSecondary(Color.valueOf("#323c41"));
+        updateReportAccent(Color.valueOf("#263238"));
+        updateReportHeading(Color.valueOf("white"));
+
     }
 
     public void initialize() {
@@ -102,6 +113,24 @@ public class newOfficerController {
             }
         });
         agencyDropDown.getItems().addAll(dropdownInfo.agencies);
+    }
+
+    @javafx.fxml.FXML
+    public void onMouseDrag(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
+    @javafx.fxml.FXML
+    public void onMousePress(MouseEvent mouseEvent) {
+        xOffset = mouseEvent.getSceneX();
+        yOffset = mouseEvent.getSceneY();
+    }
+
+    @javafx.fxml.FXML
+    public void onExitButtonClick(MouseEvent actionEvent) {
+        Platform.exit();
     }
 
     @javafx.fxml.FXML
@@ -190,24 +219,6 @@ public class newOfficerController {
             }
             mainRT.setAlwaysOnTop(false);
         }
-    }
-
-    @javafx.fxml.FXML
-    public void onMouseDrag(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-    }
-
-    @javafx.fxml.FXML
-    public void onMousePress(MouseEvent mouseEvent) {
-        xOffset = mouseEvent.getSceneX();
-        yOffset = mouseEvent.getSceneY();
-    }
-
-    @javafx.fxml.FXML
-    public void onExitButtonClick(MouseEvent actionEvent) {
-        Platform.exit();
     }
 
     @javafx.fxml.FXML

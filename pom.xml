@@ -59,7 +59,7 @@
     </dependencies>
 
     <build>
-        <finalName>DEV-ReportsPlus-v1.0.1-alpha</finalName>
+        <finalName>DEV-ReportsPlus-v1.0.2-alpha</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

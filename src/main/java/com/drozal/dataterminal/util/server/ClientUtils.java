@@ -102,37 +102,6 @@ public class ClientUtils {
                 log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
             }
         }).start();
-        // Start a separate thread to check for server timeout
-        /* TODO: temp removed */
-            /*new Thread(() -> {
-            ScheduledExecutorService timeoutExecutor = Executors.newScheduledThreadPool(1);
-            timeoutExecutor.scheduleAtFixedRate(() -> {
-                try {
-                    if (socket != null && !socket.isClosed()) {
-                        // Send a heartbeat message and wait for a response
-                        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-                        writer.println("HEARTBEAT");
-                        log("sent heartbeat", LogUtils.Severity.DEBUG);
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        String response = reader.readLine();
-                        if (response == null) {
-                            // Server did not respond
-                            log("heartbeat not received", LogUtils.Severity.ERROR);
-                            isConnected = false;
-                            notifyStatusChanged(isConnected);
-                            // Attempt to reconnect
-                            connectToService(serviceAddress, servicePort);
-                            timeoutExecutor.shutdown(); // Stop the timeout checker
-                        }
-                    } else {
-                        // Socket is closed, stop the timeout checker
-                        timeoutExecutor.shutdown();
-                    }
-                } catch (IOException e) {
-                    System.err.println("Error checking server connection: " + e.getMessage());
-                }
-            }, TIMEOUT_SECONDS, TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        }).start();*/
     }
 
     /**

@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore dependency-reduced-pom.xml
+dependency-reduced-pom.xml

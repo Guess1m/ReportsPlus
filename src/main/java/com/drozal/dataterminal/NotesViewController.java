@@ -12,8 +12,14 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
+/**
+ * The type Notes view controller.
+ */
 public class NotesViewController {
 
+    /**
+     * The constant titlebar.
+     */
     public static AnchorPane titlebar = null;
 
     @javafx.fxml.FXML
@@ -25,6 +31,11 @@ public class NotesViewController {
     @javafx.fxml.FXML
     private ToggleButton modeToggle;
 
+    /**
+     * Gets titlebar.
+     *
+     * @return the titlebar
+     */
     public AnchorPane getTitlebar() {
         return titlebar;
     }
@@ -69,15 +80,30 @@ public class NotesViewController {
         }
     }
 
+    /**
+     * Onclearclick.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void onclearclick(ActionEvent actionEvent) {
         notepadTextArea.setText("");
     }
 
+    /**
+     * Gets notepad text area.
+     *
+     * @return the notepad text area
+     */
     public TextArea getNotepadTextArea() {
         return notepadTextArea;
     }
 
+    /**
+     * On dark mode toggle.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void onDarkModeToggle(ActionEvent actionEvent) {
         if (modeToggle.isSelected()) {

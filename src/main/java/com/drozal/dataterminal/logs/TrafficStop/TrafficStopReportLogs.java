@@ -24,13 +24,25 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Traffic stop report logs.
+ */
 @XmlRootElement
 public class TrafficStopReportLogs {
     private List<TrafficStopLogEntry> logs;
 
+    /**
+     * Instantiates a new Traffic stop report logs.
+     */
     public TrafficStopReportLogs() {
     }
 
+    /**
+     * Extract log entries list.
+     *
+     * @param filePath the file path
+     * @return the list
+     */
     public static List<TrafficStopLogEntry> extractLogEntries(String filePath) {
         List<TrafficStopLogEntry> logEntries = new ArrayList<>();
 
@@ -86,6 +98,13 @@ public class TrafficStopReportLogs {
         return logEntries;
     }
 
+    /**
+     * Gets tag value.
+     *
+     * @param element the element
+     * @param tagName the tag name
+     * @return the tag value
+     */
     public static String getTagValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -94,6 +113,11 @@ public class TrafficStopReportLogs {
         return "";
     }
 
+    /**
+     * Count reports int.
+     *
+     * @return the int
+     */
     public static int countReports() {
         try {
 
@@ -106,6 +130,11 @@ public class TrafficStopReportLogs {
         }
     }
 
+    /**
+     * Load logs from xml list.
+     *
+     * @return the list
+     */
     public static List<TrafficStopLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.trafficstopLogURL);
@@ -123,6 +152,11 @@ public class TrafficStopReportLogs {
         }
     }
 
+    /**
+     * Save logs to xml.
+     *
+     * @param logs the logs
+     */
     public static void saveLogsToXML(List<TrafficStopLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(TrafficStopReportLogs.class);
@@ -139,10 +173,20 @@ public class TrafficStopReportLogs {
         }
     }
 
+    /**
+     * Gets logs.
+     *
+     * @return the logs
+     */
     public List<TrafficStopLogEntry> getLogs() {
         return logs;
     }
 
+    /**
+     * Sets logs.
+     *
+     * @param logs the logs
+     */
     public void setLogs(List<TrafficStopLogEntry> logs) {
         this.logs = logs;
     }

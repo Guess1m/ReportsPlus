@@ -12,9 +12,18 @@ import java.net.URL;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Update util.
+ */
 public class updateUtil {
+    /**
+     * The constant gitVersion.
+     */
     public static String gitVersion;
 
+    /**
+     * Check for updates.
+     */
     public static void checkForUpdates() {
         if (!stringUtil.version.equals("dev")) {
             String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
@@ -41,6 +50,11 @@ public class updateUtil {
         }
     }
 
+    /**
+     * Open webpage.
+     *
+     * @param url the url
+     */
     public static void openWebpage(String url) {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();

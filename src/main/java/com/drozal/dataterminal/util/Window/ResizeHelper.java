@@ -10,8 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Resize helper.
+ */
 public class ResizeHelper {
 
+    /**
+     * Add resize listener.
+     *
+     * @param stage the stage
+     */
     public static void addResizeListener(Stage stage) {
         ResizeListener resizeListener = new ResizeListener(stage);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
@@ -25,6 +33,12 @@ public class ResizeHelper {
         }
     }
 
+    /**
+     * Add listener deeply.
+     *
+     * @param node     the node
+     * @param listener the listener
+     */
     public static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
         node.addEventHandler(MouseEvent.MOUSE_MOVED, listener);
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, listener);
@@ -39,6 +53,9 @@ public class ResizeHelper {
         }
     }
 
+    /**
+     * The type Resize listener.
+     */
     static class ResizeListener implements EventHandler<MouseEvent> {
         private final Stage stage;
         private final int border = 7;
@@ -46,6 +63,11 @@ public class ResizeHelper {
         private double startX = 0;
         private double startY = 0;
 
+        /**
+         * Instantiates a new Resize listener.
+         *
+         * @param stage the stage
+         */
         public ResizeListener(Stage stage) {
             this.stage = stage;
         }

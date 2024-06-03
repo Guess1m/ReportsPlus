@@ -15,31 +15,65 @@ import java.time.format.DateTimeFormatter;
 
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
+/**
+ * The type Data terminal home application.
+ */
 public class DataTerminalHomeApplication extends Application {
 
+    /**
+     * The constant mainRT.
+     */
     public static Stage mainRT;
+    /**
+     * The constant controller.
+     */
     public static actionController controller;
 
+    /**
+     * Gets main rt.
+     *
+     * @return the main rt
+     */
     public static Stage getMainRT() {
         return mainRT;
     }
 
+    /**
+     * Sets main rt.
+     *
+     * @param mainRT the main rt
+     */
     public static void setMainRT(Stage mainRT) {
         DataTerminalHomeApplication.mainRT = mainRT;
     }
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public static String getDate() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return currentTime.format(formatter);
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public static String getTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         return currentTime.format(formatter);
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch();
     }

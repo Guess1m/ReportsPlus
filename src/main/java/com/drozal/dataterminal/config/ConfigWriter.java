@@ -8,8 +8,17 @@ import java.util.Properties;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Config writer.
+ */
 public class ConfigWriter {
 
+    /**
+     * Configwrite.
+     *
+     * @param database the database
+     * @param value    the value
+     */
     public static void configwrite(String database, String value) {
         Properties prop = new Properties();
         OutputStream output = null;

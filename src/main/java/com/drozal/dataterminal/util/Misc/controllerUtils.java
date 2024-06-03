@@ -49,10 +49,18 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
+/**
+ * The type Controller utils.
+ */
 public class controllerUtils {
 
     private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber", "-nu"}, {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"}, {"-address", "-addr", "-residence", "-place", "-add", "-ad", "-add"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte", "-p"}, {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"}, {"-area", "-region", "-zone", "-territory", "-locale", "-ar"}, {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-notepad", "-comments", "-cmts", "-cmt"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items", "-item"}, {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}};
 
+    /**
+     * Show button animation.
+     *
+     * @param button the button
+     */
     public static void showButtonAnimation(Button button) {
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), button);
@@ -63,6 +71,11 @@ public class controllerUtils {
         scaleTransition.play();
     }
 
+    /**
+     * Gets jar directory path.
+     *
+     * @return the jar directory path
+     */
     public static String getJarDirectoryPath() {
         try {
 
@@ -75,41 +88,83 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Update secondary.
+     *
+     * @param color the color
+     */
     public static void updateSecondary(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("secondaryColor", hexColor);
     }
 
+    /**
+     * Update accent.
+     *
+     * @param color the color
+     */
     public static void updateAccent(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("accentColor", hexColor);
     }
 
+    /**
+     * Update main.
+     *
+     * @param color the color
+     */
     public static void updateMain(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("mainColor", hexColor);
     }
 
+    /**
+     * Update report background.
+     *
+     * @param color the color
+     */
     public static void updateReportBackground(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("reportBackground", hexColor);
     }
 
+    /**
+     * Update report secondary.
+     *
+     * @param color the color
+     */
     public static void updateReportSecondary(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("reportSecondary", hexColor);
     }
 
+    /**
+     * Update report accent.
+     *
+     * @param color the color
+     */
     public static void updateReportAccent(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("reportAccent", hexColor);
     }
 
+    /**
+     * Update report heading.
+     *
+     * @param color the color
+     */
     public static void updateReportHeading(Color color) {
         String hexColor = toHexString(color);
         ConfigWriter.configwrite("reportHeading", hexColor);
     }
 
+    /**
+     * Show notification.
+     *
+     * @param title   the title
+     * @param message the message
+     * @param owner   the owner
+     */
     public static void showNotification(String title, String message, Object owner) {
         Label label = new Label(message);
 
@@ -120,6 +175,13 @@ public class controllerUtils {
         noti.getStyleClass().add("notification-pane");
     }
 
+    /**
+     * Show log clear notification.
+     *
+     * @param title   the title
+     * @param message the message
+     * @param owner   the owner
+     */
     public static void showLogClearNotification(String title, String message, Object owner) {
         Label label = new Label(message);
 
@@ -130,11 +192,21 @@ public class controllerUtils {
         noti.getStyleClass().add("notification-pane");
     }
 
+    /**
+     * Sets active.
+     *
+     * @param pane the pane
+     */
     public static void setActive(AnchorPane pane) {
         pane.setVisible(true);
         pane.setDisable(false);
     }
 
+    /**
+     * Sets disable.
+     *
+     * @param panes the panes
+     */
     public static void setDisable(AnchorPane... panes) {
         for (AnchorPane pane : panes) {
             pane.setVisible(false);
@@ -142,6 +214,13 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Confirm log clear dialog.
+     *
+     * @param ownerStage the owner stage
+     * @param barChart   the bar chart
+     * @param areaChart  the area chart
+     */
     public static void confirmLogClearDialog(Stage ownerStage, BarChart barChart, AreaChart areaChart) {
         Dialog<Boolean> dialog = new Dialog<>();
         dialog.initOwner(ownerStage);
@@ -172,6 +251,12 @@ public class controllerUtils {
         });
     }
 
+    /**
+     * Change bar colors.
+     *
+     * @param barChart the bar chart
+     * @throws IOException the io exception
+     */
     public static void changeBarColors(BarChart<String, Number> barChart) throws IOException {
 
         ObservableList<XYChart.Series<String, Number>> seriesList = barChart.getData();
@@ -187,6 +272,12 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Change statistic colors.
+     *
+     * @param chart the chart
+     * @throws IOException the io exception
+     */
     public static void changeStatisticColors(AreaChart chart) throws IOException {
 
         String accclr = ConfigReader.configRead("accentColor");
@@ -196,16 +287,32 @@ public class controllerUtils {
         chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
     }
 
+    /**
+     * Sets small column width.
+     *
+     * @param column the column
+     */
     public static void setSmallColumnWidth(TableColumn column) {
         double minColumnWidthSmall = 120.0;
         column.setMinWidth(minColumnWidthSmall);
         column.setPrefWidth(minColumnWidthSmall);
     }
 
+    /**
+     * To hex string string.
+     *
+     * @param color the color
+     * @return the string
+     */
     public static String toHexString(Color color) {
         return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
     }
 
+    /**
+     * Update chart if mismatch.
+     *
+     * @param chart the chart
+     */
     public static void updateChartIfMismatch(BarChart<String, Number> chart) {
         XYChart.Series<String, Number> series = null;
         for (XYChart.Series<String, Number> s : chart.getData()) {
@@ -253,6 +360,9 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Clear data logs.
+     */
     public static void clearDataLogs() {
         try {
 
@@ -290,6 +400,9 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Clear data folder.
+     */
     public static void clearDataFolder() {
         try {
 
@@ -327,6 +440,9 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Clear data folder async.
+     */
     public static void clearDataFolderAsync() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -337,6 +453,9 @@ public class controllerUtils {
         executor.shutdown();
     }
 
+    /**
+     * Clear data logs async.
+     */
     public static void clearDataLogsAsync() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -347,6 +466,11 @@ public class controllerUtils {
         executor.shutdown();
     }
 
+    /**
+     * Confirm save data clear dialog.
+     *
+     * @param ownerStage the owner stage
+     */
     public static void confirmSaveDataClearDialog(Stage ownerStage) {
         Dialog<Boolean> dialog = new Dialog<>();
         dialog.initOwner(ownerStage);
@@ -378,6 +502,9 @@ public class controllerUtils {
         });
     }
 
+    /**
+     * Clear config.
+     */
     public static void clearConfig() {
         try {
 
@@ -402,6 +529,13 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Parse log data.
+     *
+     * @param logURL           the log url
+     * @param combinedAreasMap the combined areas map
+     * @param value            the value
+     */
     public static void parseLogData(String logURL, Map<String, Integer> combinedAreasMap, String value) {
         Map<String, Integer> areasMap = new HashMap<>();
         File xmlFile = new File(logURL);
@@ -432,6 +566,12 @@ public class controllerUtils {
         }
     }
 
+    /**
+     * Parse every log xy chart . series.
+     *
+     * @param value the value
+     * @return the xy chart . series
+     */
     public static XYChart.Series<String, Number> parseEveryLog(String value) {
         Map<String, Integer> combinedAreasMap = new HashMap<>();
         parseLogData(stringUtil.arrestLogURL, combinedAreasMap, value);
@@ -453,6 +593,12 @@ public class controllerUtils {
         return series;
     }
 
+    /**
+     * Refresh chart.
+     *
+     * @param chart the chart
+     * @param value the value
+     */
     public static void refreshChart(AreaChart chart, String value) {
         chart.getData().clear();
         chart.getData().add(parseEveryLog(value));
@@ -492,6 +638,13 @@ public class controllerUtils {
         return null;
     }
 
+    /**
+     * Update text from notepad.
+     *
+     * @param textField   the text field
+     * @param notepadText the notepad text
+     * @param keys        the keys
+     */
     public static void updateTextFromNotepad(TextField textField, TextArea notepadText, String... keys) {
         Map<String, String> values = pullNotesValues(notepadText.getText());
         String extractedValue = null;
@@ -521,6 +674,13 @@ public class controllerUtils {
         textField.setText(labelText);
     }
 
+    /**
+     * Update text from notepad.
+     *
+     * @param textArea    the text area
+     * @param notepadText the notepad text
+     * @param keys        the keys
+     */
     public static void updateTextFromNotepad(TextArea textArea, TextArea notepadText, String... keys) {
         Map<String, String> values = pullNotesValues(notepadText.getText());
         String extractedValue = null;
@@ -549,6 +709,13 @@ public class controllerUtils {
         textArea.setText(labelText);
     }
 
+    /**
+     * Update text from notepad.
+     *
+     * @param spinner     the spinner
+     * @param notepadText the notepad text
+     * @param keys        the keys
+     */
     public static void updateTextFromNotepad(Spinner spinner, TextArea notepadText, String... keys) {
         Map<String, String> values = pullNotesValues(notepadText.getText());
         String extractedValue = null;

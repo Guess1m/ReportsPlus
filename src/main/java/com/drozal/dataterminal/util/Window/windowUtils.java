@@ -11,8 +11,16 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
+/**
+ * The type Window utils.
+ */
 public class windowUtils {
 
+    /**
+     * Snap to top left.
+     *
+     * @param stage the stage
+     */
     public static void snapToTopLeft(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -50,6 +58,11 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Snap to bottom left.
+     *
+     * @param stage the stage
+     */
     public static void snapToBottomLeft(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -65,6 +78,11 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Snap to top right.
+     *
+     * @param stage the stage
+     */
     public static void snapToTopRight(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -80,6 +98,11 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Snap to bottom right.
+     *
+     * @param stage the stage
+     */
     public static void snapToBottomRight(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -95,6 +118,11 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Snap to left.
+     *
+     * @param stage the stage
+     */
     public static void snapToLeft(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -109,6 +137,11 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Snap to right.
+     *
+     * @param stage the stage
+     */
     public static void snapToRight(Stage stage) {
         Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
         List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
@@ -135,6 +168,11 @@ public class windowUtils {
         return null;
     }
 
+    /**
+     * Sets windowed fullscreen.
+     *
+     * @param stage the stage
+     */
     public static void setWindowedFullscreen(Stage stage) {
         Screen screen = getScreenContainingStage(stage);
         if (screen != null) {
@@ -149,6 +187,13 @@ public class windowUtils {
         }
     }
 
+    /**
+     * Restore default state.
+     *
+     * @param stage  the stage
+     * @param width  the width
+     * @param height the height
+     */
     public static void restoreDefaultState(Stage stage, double width, double height) {
         stage.setHeight(height);
         stage.setWidth(width);
@@ -171,6 +216,13 @@ public class windowUtils {
         stage.centerOnScreen();
     }
 
+    /**
+     * Toggle windowed fullscreen.
+     *
+     * @param stage  the stage
+     * @param width  the width
+     * @param height the height
+     */
     public static void toggleWindowedFullscreen(Stage stage, double width, double height) {
         if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary().getBounds().getMinY())) {
             setWindowedFullscreen(stage);

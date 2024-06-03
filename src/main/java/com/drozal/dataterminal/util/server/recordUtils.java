@@ -10,8 +10,16 @@ import java.util.Map;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
+/**
+ * The type Record utils.
+ */
 public class recordUtils {
 
+    /**
+     * Parse world ped data.
+     *
+     * @param data the data
+     */
     public static void parseWorldPedData(String data) {
         String[] pedestrians = data.split(",");
         for (String pedestrian : pedestrians) {
@@ -28,6 +36,14 @@ public class recordUtils {
         }
     }
 
+    /**
+     * Search for ped attribute string.
+     *
+     * @param data              the data
+     * @param pedName           the ped name
+     * @param requiredAttribute the required attribute
+     * @return the string
+     */
     public static String searchForPedAttribute(String data, String pedName, String requiredAttribute) {
         String[] pedestrians = data.split(",");
         for (String pedestrian : pedestrians) {
@@ -49,6 +65,12 @@ public class recordUtils {
         return "Pedestrian not found";
     }
 
+    /**
+     * Parse world vehicle data.
+     *
+     * @param filePath the file path
+     * @throws IOException the io exception
+     */
     public static void parseWorldVehicleData(String filePath) throws IOException {
         byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
         String data = new String(encodedBytes);
@@ -68,6 +90,14 @@ public class recordUtils {
         }
     }
 
+    /**
+     * Grab ped data map.
+     *
+     * @param filePath the file path
+     * @param pedName  the ped name
+     * @return the map
+     * @throws IOException the io exception
+     */
     public static Map<String, String> grabPedData(String filePath, String pedName) throws IOException {
         if (!Files.exists(Paths.get(filePath))) {
             log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
@@ -100,6 +130,14 @@ public class recordUtils {
         return notFoundMap;
     }
 
+    /**
+     * Grab vehicle data map.
+     *
+     * @param filePath     the file path
+     * @param licensePlate the license plate
+     * @return the map
+     * @throws IOException the io exception
+     */
     public static Map<String, String> grabVehicleData(String filePath, String licensePlate) throws IOException {
         if (!Files.exists(Paths.get(filePath))) {
             log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
@@ -133,6 +171,14 @@ public class recordUtils {
         return notFoundMap;
     }
 
+    /**
+     * Search for vehicle attribute string.
+     *
+     * @param data              the data
+     * @param licensePlate      the license plate
+     * @param requiredAttribute the required attribute
+     * @return the string
+     */
     public static String searchForVehicleAttribute(String data, String licensePlate, String requiredAttribute) {
         String[] vehicles = data.split(",");
         for (String vehicle : vehicles) {

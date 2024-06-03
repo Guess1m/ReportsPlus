@@ -17,6 +17,9 @@ import java.io.*;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 
+/**
+ * The type Log utils.
+ */
 public class LogUtils {
     private static boolean inErrorBlock = false;
 
@@ -66,17 +69,32 @@ public class LogUtils {
         });
     }
 
+    /**
+     * End log.
+     */
     public static void endLog() {
         String logMessage = "----------------------------- END LOG [" + DataTerminalHomeApplication.getTime() + "] -----------------------------";
         System.out.println(logMessage);
         System.out.println();
     }
 
+    /**
+     * Log.
+     *
+     * @param message  the message
+     * @param severity the severity
+     */
     public static void log(String message, Severity severity) {
         String logMessage = "[" + getDate() + "] [" + getTime() + "] [" + severity + "] " + message;
         System.out.println(logMessage);
     }
 
+    /**
+     * Log error.
+     *
+     * @param message the message
+     * @param e       the e
+     */
     public static void logError(String message, Throwable e) {
         String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] " + message;
         System.err.println(errorMessage);
@@ -192,6 +210,11 @@ public class LogUtils {
         }
     }
 
+    /**
+     * Add output to listview.
+     *
+     * @param listView the list view
+     */
     public static void addOutputToListview(ListView<TextFlow> listView) {
 
         ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
@@ -224,8 +247,26 @@ public class LogUtils {
         timeline.play();
     }
 
+    /**
+     * The enum Severity.
+     */
     public enum Severity {
-        DEBUG, INFO, WARN, ERROR,
+        /**
+         * Debug severity.
+         */
+        DEBUG,
+        /**
+         * Info severity.
+         */
+        INFO,
+        /**
+         * Warn severity.
+         */
+        WARN,
+        /**
+         * Error severity.
+         */
+        ERROR,
     }
 
 }

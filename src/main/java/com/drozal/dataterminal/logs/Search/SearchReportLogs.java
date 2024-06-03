@@ -24,13 +24,25 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Search report logs.
+ */
 @XmlRootElement
 public class SearchReportLogs {
     private List<SearchLogEntry> logs;
 
+    /**
+     * Instantiates a new Search report logs.
+     */
     public SearchReportLogs() {
     }
 
+    /**
+     * Extract log entries list.
+     *
+     * @param filePath the file path
+     * @return the list
+     */
     public static List<SearchLogEntry> extractLogEntries(String filePath) {
         List<SearchLogEntry> logEntries = new ArrayList<>();
 
@@ -83,6 +95,13 @@ public class SearchReportLogs {
         return logEntries;
     }
 
+    /**
+     * Gets tag value.
+     *
+     * @param element the element
+     * @param tagName the tag name
+     * @return the tag value
+     */
     public static String getTagValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -91,6 +110,11 @@ public class SearchReportLogs {
         return "";
     }
 
+    /**
+     * Count reports int.
+     *
+     * @return the int
+     */
     public static int countReports() {
         try {
 
@@ -103,6 +127,11 @@ public class SearchReportLogs {
         }
     }
 
+    /**
+     * Load logs from xml list.
+     *
+     * @return the list
+     */
     public static List<SearchLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.searchLogURL);
@@ -120,6 +149,11 @@ public class SearchReportLogs {
         }
     }
 
+    /**
+     * Save logs to xml.
+     *
+     * @param logs the logs
+     */
     public static void saveLogsToXML(List<SearchLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(SearchReportLogs.class);
@@ -136,10 +170,20 @@ public class SearchReportLogs {
         }
     }
 
+    /**
+     * Gets logs.
+     *
+     * @return the logs
+     */
     public List<SearchLogEntry> getLogs() {
         return logs;
     }
 
+    /**
+     * Sets logs.
+     *
+     * @param logs the logs
+     */
     public void setLogs(List<SearchLogEntry> logs) {
         this.logs = logs;
     }

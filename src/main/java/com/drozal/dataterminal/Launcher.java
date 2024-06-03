@@ -17,6 +17,9 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
 
+/**
+ * The type Launcher.
+ */
 public class Launcher {
 
     /**

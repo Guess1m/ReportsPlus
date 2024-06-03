@@ -35,20 +35,47 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
+/**
+ * The type New officer controller.
+ */
 public class newOfficerController {
+    /**
+     * The constant controller.
+     */
     public static actionController controller;
+    /**
+     * The Number field.
+     */
     @javafx.fxml.FXML
     public TextField numberField;
+    /**
+     * The Name field.
+     */
     @javafx.fxml.FXML
     public TextField nameField;
+    /**
+     * The Rank dropdown.
+     */
     @javafx.fxml.FXML
     public ComboBox rankDropdown;
+    /**
+     * The Agency drop down.
+     */
     @javafx.fxml.FXML
     public ComboBox agencyDropDown;
+    /**
+     * The Division drop down.
+     */
     @javafx.fxml.FXML
     public ComboBox divisionDropDown;
+    /**
+     * The Vbox.
+     */
     @javafx.fxml.FXML
     public AnchorPane vbox;
+    /**
+     * The Incomplete label.
+     */
     @javafx.fxml.FXML
     public Label incompleteLabel;
     private double xOffset = 0;
@@ -85,6 +112,9 @@ public class newOfficerController {
 
     }
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
         rankDropdown.getItems().addAll(dropdownInfo.ranks);
         divisionDropDown.getItems().addAll(dropdownInfo.divisions);
@@ -114,6 +144,11 @@ public class newOfficerController {
         agencyDropDown.getItems().addAll(dropdownInfo.agencies);
     }
 
+    /**
+     * On mouse drag.
+     *
+     * @param mouseEvent the mouse event
+     */
     @javafx.fxml.FXML
     public void onMouseDrag(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
@@ -121,17 +156,33 @@ public class newOfficerController {
         stage.setY(mouseEvent.getScreenY() - yOffset);
     }
 
+    /**
+     * On mouse press.
+     *
+     * @param mouseEvent the mouse event
+     */
     @javafx.fxml.FXML
     public void onMousePress(MouseEvent mouseEvent) {
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();
     }
 
+    /**
+     * On exit button click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void onExitButtonClick(MouseEvent actionEvent) {
         Platform.exit();
     }
 
+    /**
+     * Login button click.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     @javafx.fxml.FXML
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
 
@@ -217,6 +268,12 @@ public class newOfficerController {
         }
     }
 
+    /**
+     * Bypass button click.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     @javafx.fxml.FXML
     public void bypassButtonClick(ActionEvent actionEvent) throws IOException {
         String jarPath = null;

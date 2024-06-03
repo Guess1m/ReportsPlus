@@ -33,10 +33,22 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
+/**
+ * The type Client utils.
+ */
 public class ClientUtils {
     private static final int TIMEOUT_SECONDS = 10;
+    /**
+     * The constant isConnected.
+     */
     public static Boolean isConnected = false;
+    /**
+     * The constant port.
+     */
     public static String port;
+    /**
+     * The constant inet.
+     */
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
@@ -47,6 +59,9 @@ public class ClientUtils {
     private static boolean canActivateUpdateWorldVeh = true;
     private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
+    /**
+     * Disconnect from service.
+     */
     public static void disconnectFromService() {
         try {
             isConnected = false;

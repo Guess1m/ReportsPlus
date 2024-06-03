@@ -66,10 +66,19 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
+/**
+ * The type Report creation util.
+ */
 public class reportCreationUtil {
 
     private static final Map<String, Map<String, String>> reportData = new HashMap<>();
+    /**
+     * The Window x.
+     */
     static double windowX = 0;
+    /**
+     * The Window y.
+     */
     static double windowY = 0;
     private static double xOffset;
     private static double yOffset;
@@ -134,6 +143,12 @@ public class reportCreationUtil {
     }
     */
 
+    /**
+     * Create title bar anchor pane.
+     *
+     * @param titleText the title text
+     * @return the anchor pane
+     */
     public static AnchorPane createTitleBar(String titleText) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
@@ -237,6 +252,13 @@ public class reportCreationUtil {
         return titleBar;
     }
 
+    /**
+     * Create simple title bar anchor pane.
+     *
+     * @param titleText the title text
+     * @param resiable  the resiable
+     * @return the anchor pane
+     */
     public static AnchorPane createSimpleTitleBar(String titleText, boolean resiable) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
@@ -327,6 +349,16 @@ public class reportCreationUtil {
         return titleBar;
     }
 
+    /**
+     * Create report window map.
+     *
+     * @param reportName     the report name
+     * @param numWidthUnits  the num width units
+     * @param numHeightUnits the num height units
+     * @param transferConfig the transfer config
+     * @param sectionConfigs the section configs
+     * @return the map
+     */
     public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
         String placeholder;
         try {
@@ -1060,11 +1092,24 @@ public class reportCreationUtil {
         }
     }
 
+    /**
+     * Callout layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> calloutLayout() {
         Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location Information", true, new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Callout Information", true, new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return calloutReport;
     }
 
+    /**
+     * New callout.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> calloutReport = calloutLayout();
 
@@ -1150,11 +1195,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Impound layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> impoundLayout() {
         Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 12, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 6, FieldType.TEXT_FIELD), new FieldConfig("plate number", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 7, FieldType.COMBO_BOX_TYPE), new FieldConfig("color", 5, FieldType.COMBO_BOX_COLOR))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return impoundReport;
     }
 
+    /**
+     * New impound.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> impoundReport = impoundLayout();
 
@@ -1249,11 +1307,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Patrol layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> patrolLayout() {
         Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Shift Information", true, new RowConfig(new FieldConfig("starttime", 3, FieldType.TEXT_FIELD), new FieldConfig("stoptime", 4, FieldType.TEXT_FIELD), new FieldConfig("patrolnumber", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("length", 3, FieldType.TEXT_FIELD), new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("vehicle", 6, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return patrolReport;
     }
 
+    /**
+     * New patrol.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> patrolReport = patrolLayout();
 
@@ -1337,11 +1408,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Citation layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> citationLayout() {
         Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 12, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Vehicle Information", false, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Citation(s)", true, new RowConfig(new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))));
         return citationReport;
     }
 
+    /**
+     * New citation.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> citationReport = citationLayout();
 
@@ -1564,11 +1648,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Incident layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> incidentLayout() {
         Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("incident num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Parties Involved", false, new RowConfig(new FieldConfig("suspect(s)", 6, FieldType.TEXT_FIELD), new FieldConfig("victim(s) / witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("statement", 12, FieldType.TEXT_AREA))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("summary", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return incidentReport;
     }
 
+    /**
+     * New incident.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> incidentReport = incidentLayout();
 
@@ -1663,11 +1760,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Search layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> searchLayout() {
         Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("search num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Search Information", true, new RowConfig(new FieldConfig("grounds for search", 6, FieldType.TEXT_FIELD), new FieldConfig("witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))), new SectionConfig("Field Sobriety Information (If Applicable)", false, new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("seized item(s)", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("comments", 12, FieldType.TEXT_AREA))));
         return searchReport;
     }
 
+    /**
+     * New search.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> searchReport = searchLayout();
 
@@ -1769,11 +1879,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Arrest layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> arrestLayout() {
         Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transferincidentbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transfersearchbtn", 4, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("arrest number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Medical Information", false, new RowConfig(new FieldConfig("ambulance required (Y/N)", 6, FieldType.TEXT_FIELD), new FieldConfig("taser deployed (Y/N)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("other information", 12, FieldType.TEXT_FIELD))), new SectionConfig("Charge Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Charge(s)", true, new RowConfig(new FieldConfig("chargeview", 6, FieldType.CHARGES_TREE_VIEW))));
         return arrestReport;
     }
 
+    /**
+     * New arrest.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> arrestReport = arrestLayout();
 
@@ -2199,11 +2322,24 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * Traffic stop layout map.
+     *
+     * @return the map
+     */
     static Map<String, Object> trafficStopLayout() {
         Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON), new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("stop number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Comments", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return trafficStopReport;
     }
 
+    /**
+     * New traffic stop.
+     *
+     * @param reportChart         the report chart
+     * @param areaReportChart     the area report chart
+     * @param vbox                the vbox
+     * @param notesViewController the notes view controller
+     */
     public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
         Map<String, Object> trafficStopReport = trafficStopLayout();
 
@@ -2976,67 +3112,165 @@ public class reportCreationUtil {
         });
     }
 
+    /**
+     * The enum Field type.
+     */
     public enum FieldType {
-        TEXT_FIELD, TEXT_AREA, COMBO_BOX_COLOR, COMBO_BOX_TYPE, COMBO_BOX_SEARCH_TYPE, COMBO_BOX_SEARCH_METHOD, CITATION_TREE_VIEW, CHARGES_TREE_VIEW, TRANSFER_BUTTON
+        /**
+         * Text field field type.
+         */
+        TEXT_FIELD,
+        /**
+         * Text area field type.
+         */
+        TEXT_AREA,
+        /**
+         * Combo box color field type.
+         */
+        COMBO_BOX_COLOR,
+        /**
+         * Combo box type field type.
+         */
+        COMBO_BOX_TYPE,
+        /**
+         * Combo box search type field type.
+         */
+        COMBO_BOX_SEARCH_TYPE,
+        /**
+         * Combo box search method field type.
+         */
+        COMBO_BOX_SEARCH_METHOD,
+        /**
+         * Citation tree view field type.
+         */
+        CITATION_TREE_VIEW,
+        /**
+         * Charges tree view field type.
+         */
+        CHARGES_TREE_VIEW,
+        /**
+         * Transfer button field type.
+         */
+        TRANSFER_BUTTON
     }
 
+    /**
+     * The type Section config.
+     */
     public static class SectionConfig {
         private final String sectionTitle;
         private final Boolean required;
 
         private final List<RowConfig> rowConfigs;
 
+        /**
+         * Instantiates a new Section config.
+         *
+         * @param sectionTitle the section title
+         * @param required     the required
+         * @param rowConfigs   the row configs
+         */
         public SectionConfig(String sectionTitle, boolean required, RowConfig... rowConfigs) {
             this.sectionTitle = sectionTitle;
             this.required = required;
             this.rowConfigs = Arrays.asList(rowConfigs);
         }
 
+        /**
+         * Gets section title.
+         *
+         * @return the section title
+         */
         public String getSectionTitle() {
             return sectionTitle;
         }
 
+        /**
+         * Gets row configs.
+         *
+         * @return the row configs
+         */
         public List<RowConfig> getRowConfigs() {
             return rowConfigs;
         }
 
+        /**
+         * Gets required.
+         *
+         * @return the required
+         */
         public Boolean getRequired() {
             return required;
         }
     }
 
+    /**
+     * The type Transfer config.
+     */
     public static class TransferConfig {
         private final String title;
         private final List<RowConfig> rowConfigs;
 
+        /**
+         * Instantiates a new Transfer config.
+         *
+         * @param title      the title
+         * @param rowConfigs the row configs
+         */
         public TransferConfig(String title, RowConfig... rowConfigs) {
             this.title = title;
             this.rowConfigs = Arrays.asList(rowConfigs);
         }
 
+        /**
+         * Gets title.
+         *
+         * @return the title
+         */
         public String getTitle() {
             return title;
         }
 
+        /**
+         * Gets row configs.
+         *
+         * @return the row configs
+         */
         public List<RowConfig> getRowConfigs() {
             return rowConfigs;
         }
     }
 
+    /**
+     * The type Row config.
+     */
     public static class RowConfig {
 
         private final List<FieldConfig> fieldConfigs;
 
+        /**
+         * Instantiates a new Row config.
+         *
+         * @param fieldConfigs the field configs
+         */
         public RowConfig(FieldConfig... fieldConfigs) {
             this.fieldConfigs = Arrays.asList(fieldConfigs);
         }
 
+        /**
+         * Gets field configs.
+         *
+         * @return the field configs
+         */
         public List<FieldConfig> getFieldConfigs() {
             return fieldConfigs;
         }
 
     }
 
+    /**
+     * The type Field config.
+     */
     public static class FieldConfig {
 
         private final String fieldName;
@@ -3044,20 +3278,42 @@ public class reportCreationUtil {
         private final int size;
         private final FieldType fieldType;
 
+        /**
+         * Instantiates a new Field config.
+         *
+         * @param fieldName the field name
+         * @param size      the size
+         * @param fieldType the field type
+         */
         public FieldConfig(String fieldName, int size, FieldType fieldType) {
             this.fieldName = fieldName;
             this.size = size;
             this.fieldType = fieldType;
         }
 
+        /**
+         * Gets field name.
+         *
+         * @return the field name
+         */
         public String getFieldName() {
             return fieldName;
         }
 
+        /**
+         * Gets size.
+         *
+         * @return the size
+         */
         public int getSize() {
             return size;
         }
 
+        /**
+         * Gets field type.
+         *
+         * @return the field type
+         */
         public FieldType getFieldType() {
             return fieldType;
         }

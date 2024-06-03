@@ -24,13 +24,25 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Patrol report logs.
+ */
 @XmlRootElement
 public class PatrolReportLogs {
     private List<PatrolLogEntry> logs;
 
+    /**
+     * Instantiates a new Patrol report logs.
+     */
     public PatrolReportLogs() {
     }
 
+    /**
+     * Extract log entries list.
+     *
+     * @param filePath the file path
+     * @return the list
+     */
     public static List<PatrolLogEntry> extractLogEntries(String filePath) {
         List<PatrolLogEntry> logEntries = new ArrayList<>();
 
@@ -74,6 +86,13 @@ public class PatrolReportLogs {
         return logEntries;
     }
 
+    /**
+     * Gets tag value.
+     *
+     * @param element the element
+     * @param tagName the tag name
+     * @return the tag value
+     */
     public static String getTagValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -82,6 +101,11 @@ public class PatrolReportLogs {
         return "";
     }
 
+    /**
+     * Count reports int.
+     *
+     * @return the int
+     */
     public static int countReports() {
         try {
 
@@ -94,6 +118,11 @@ public class PatrolReportLogs {
         }
     }
 
+    /**
+     * Load logs from xml list.
+     *
+     * @return the list
+     */
     public static List<PatrolLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.patrolLogURL);
@@ -111,6 +140,11 @@ public class PatrolReportLogs {
         }
     }
 
+    /**
+     * Save logs to xml.
+     *
+     * @param logs the logs
+     */
     public static void saveLogsToXML(List<PatrolLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(PatrolReportLogs.class);
@@ -127,10 +161,20 @@ public class PatrolReportLogs {
         }
     }
 
+    /**
+     * Gets logs.
+     *
+     * @return the logs
+     */
     public List<PatrolLogEntry> getLogs() {
         return logs;
     }
 
+    /**
+     * Sets logs.
+     *
+     * @param logs the logs
+     */
     public void setLogs(List<PatrolLogEntry> logs) {
         this.logs = logs;
     }

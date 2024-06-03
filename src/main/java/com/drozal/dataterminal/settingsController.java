@@ -26,8 +26,14 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 
+/**
+ * The type Settings controller.
+ */
 public class settingsController {
 
+    /**
+     * The Top bar.
+     */
     AnchorPane topBar;
     @javafx.fxml.FXML
     private CheckBox startupFullscreenCheckbox;
@@ -115,6 +121,11 @@ public class settingsController {
     @javafx.fxml.FXML
     private ComboBox presetComboBoxReport;
 
+    /**
+     * Initialize.
+     *
+     * @throws IOException the io exception
+     */
     public void initialize() throws IOException {
         if (DataTerminalHomeApplication.controller != null) {
             controllerVar = DataTerminalHomeApplication.controller;
@@ -506,12 +517,23 @@ public class settingsController {
         });
     }
 
+    /**
+     * Clear save data btn click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void clearSaveDataBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) root.getScene().getWindow();
         confirmSaveDataClearDialog(stage);
     }
 
+    /**
+     * Open debug logs btn click.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     @javafx.fxml.FXML
     public void openDebugLogsBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -534,6 +556,11 @@ public class settingsController {
         windowUtils.centerStageOnMainApp(stage);
     }
 
+    /**
+     * Clear logs btn click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) root.getScene().getWindow();
@@ -541,6 +568,11 @@ public class settingsController {
         showLogClearNotification("Log Manager", "Logs have been cleared.", root);
     }
 
+    /**
+     * Reset defaults btn press.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void resetDefaultsBtnPress(ActionEvent actionEvent) {
         updateMain(Color.valueOf("#524992"));
@@ -687,6 +719,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Startup fullscreen click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void startupFullscreenClick(ActionEvent actionEvent) {
         if (startupFullscreenCheckbox.isSelected()) {
@@ -698,6 +735,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Sets aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void settingsAOTClick(ActionEvent actionEvent) {
         if (AOTSettings.isSelected()) {
@@ -709,6 +751,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Report aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void reportAOTClick(ActionEvent actionEvent) {
         if (AOTReport.isSelected()) {
@@ -720,6 +767,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Map aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void mapAOTClick(ActionEvent actionEvent) {
         if (AOTMap.isSelected()) {
@@ -731,6 +783,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Callout aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void calloutAOTClick(ActionEvent actionEvent) {
         if (AOTCallout.isSelected()) {
@@ -742,6 +799,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Idaot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void IDAOTClick(ActionEvent actionEvent) {
         if (AOTID.isSelected()) {
@@ -753,6 +815,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Notes aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void NotesAOTClick(ActionEvent actionEvent) {
         if (AOTNotes.isSelected()) {
@@ -764,6 +831,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Client aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void ClientAOTClick(ActionEvent actionEvent) {
         if (AOTClient.isSelected()) {
@@ -775,6 +847,11 @@ public class settingsController {
         }
     }
 
+    /**
+     * Debug aot click.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void debugAOTClick(ActionEvent actionEvent) {
         if (AOTDebug.isSelected()) {

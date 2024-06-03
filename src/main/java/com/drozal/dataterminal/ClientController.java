@@ -16,6 +16,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+/**
+ * The type Client controller.
+ */
 public class ClientController {
     private static AnchorPane titleBar;
     @javafx.fxml.FXML
@@ -31,18 +34,38 @@ public class ClientController {
     @javafx.fxml.FXML
     private Label statusLabel;
 
+    /**
+     * Gets status label.
+     *
+     * @return the status label
+     */
     public Label getStatusLabel() {
         return statusLabel;
     }
 
+    /**
+     * Gets inet field.
+     *
+     * @return the inet field
+     */
     public TextField getInetField() {
         return inetField;
     }
 
+    /**
+     * Gets port field.
+     *
+     * @return the port field
+     */
     public TextField getPortField() {
         return portField;
     }
 
+    /**
+     * Initialize.
+     *
+     * @throws IOException the io exception
+     */
     public void initialize() throws IOException {
         titleBar = reportCreationUtil.createSimpleTitleBar("Client Interface", false);
 
@@ -68,6 +91,12 @@ public class ClientController {
         });
     }
 
+    /**
+     * Connect btn press.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     @javafx.fxml.FXML
     public void connectBtnPress(ActionEvent actionEvent) throws IOException {
         if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
@@ -81,6 +110,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Help btn press.
+     *
+     * @param actionEvent the action event
+     */
     @javafx.fxml.FXML
     public void helpBtnPress(ActionEvent actionEvent) {
         Stage stage = (Stage) root.getScene().getWindow();

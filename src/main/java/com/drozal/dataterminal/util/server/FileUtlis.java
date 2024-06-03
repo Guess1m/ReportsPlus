@@ -9,9 +9,22 @@ import java.io.InputStream;
 import java.net.Socket;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type File utlis.
+ */
 public class FileUtlis {
 
+    /**
+     * Receive file from server.
+     *
+     * @param host                   the host
+     * @param port                   the port
+     * @param outputFileNameLocation the output file name location
+     * @param fileSize               the file size
+     * @throws IOException the io exception
+     */
     public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
         int bytesRead;
         FileOutputStream fos = null;
@@ -39,7 +52,7 @@ public class FileUtlis {
                 if (sock != null)
                     sock.close();
             } catch (IOException e) {
-
+                logError("Could Not Close All Elements: ", e);
             }
         }
     }

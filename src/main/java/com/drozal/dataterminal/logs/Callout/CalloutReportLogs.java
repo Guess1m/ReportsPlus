@@ -24,13 +24,24 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Callout report logs.
+ */
 @XmlRootElement
 public class CalloutReportLogs {
     private List<CalloutLogEntry> logs;
 
+    /**
+     * Instantiates a new Callout report logs.
+     */
     public CalloutReportLogs() {
     }
 
+    /**
+     * Count reports int.
+     *
+     * @return the int
+     */
     public static int countReports() {
         try {
 
@@ -43,6 +54,12 @@ public class CalloutReportLogs {
         }
     }
 
+    /**
+     * Extract log entries list.
+     *
+     * @param filePath the file path
+     * @return the list
+     */
     public static List<CalloutLogEntry> extractLogEntries(String filePath) {
         List<CalloutLogEntry> logEntries = new ArrayList<>();
 
@@ -88,6 +105,13 @@ public class CalloutReportLogs {
         return logEntries;
     }
 
+    /**
+     * Gets tag value.
+     *
+     * @param element the element
+     * @param tagName the tag name
+     * @return the tag value
+     */
     public static String getTagValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -96,6 +120,11 @@ public class CalloutReportLogs {
         return "";
     }
 
+    /**
+     * Load logs from xml list.
+     *
+     * @return the list
+     */
     public static List<CalloutLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.calloutLogURL);
@@ -113,6 +142,11 @@ public class CalloutReportLogs {
         }
     }
 
+    /**
+     * Save logs to xml.
+     *
+     * @param logs the logs
+     */
     public static void saveLogsToXML(List<CalloutLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
@@ -129,10 +163,20 @@ public class CalloutReportLogs {
         }
     }
 
+    /**
+     * Gets logs.
+     *
+     * @return the logs
+     */
     public List<CalloutLogEntry> getLogs() {
         return logs;
     }
 
+    /**
+     * Sets logs.
+     *
+     * @param logs the logs
+     */
     public void setLogs(List<CalloutLogEntry> logs) {
         this.logs = logs;
     }

@@ -24,13 +24,25 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+/**
+ * The type Arrest report logs.
+ */
 @XmlRootElement
 public class ArrestReportLogs {
     private List<ArrestLogEntry> logs;
 
+    /**
+     * Instantiates a new Arrest report logs.
+     */
     public ArrestReportLogs() {
     }
 
+    /**
+     * Extract log entries list.
+     *
+     * @param filePath the file path
+     * @return the list
+     */
     public static List<ArrestLogEntry> extractLogEntries(String filePath) {
         List<ArrestLogEntry> logEntries = new ArrayList<>();
 
@@ -83,6 +95,13 @@ public class ArrestReportLogs {
         return logEntries;
     }
 
+    /**
+     * Gets tag value.
+     *
+     * @param element the element
+     * @param tagName the tag name
+     * @return the tag value
+     */
     public static String getTagValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -91,6 +110,11 @@ public class ArrestReportLogs {
         return "";
     }
 
+    /**
+     * Count reports int.
+     *
+     * @return the int
+     */
     public static int countReports() {
         try {
 
@@ -103,6 +127,11 @@ public class ArrestReportLogs {
         }
     }
 
+    /**
+     * Load logs from xml list.
+     *
+     * @return the list
+     */
     public static List<ArrestLogEntry> loadLogsFromXML() {
         try {
             Path filePath = Paths.get(stringUtil.arrestLogURL);
@@ -120,6 +149,11 @@ public class ArrestReportLogs {
         }
     }
 
+    /**
+     * Save logs to xml.
+     *
+     * @param logs the logs
+     */
     public static void saveLogsToXML(List<ArrestLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ArrestReportLogs.class);
@@ -136,10 +170,20 @@ public class ArrestReportLogs {
         }
     }
 
+    /**
+     * Gets logs.
+     *
+     * @return the logs
+     */
     public List<ArrestLogEntry> getLogs() {
         return logs;
     }
 
+    /**
+     * Sets logs.
+     *
+     * @param logs the logs
+     */
     public void setLogs(List<ArrestLogEntry> logs) {
         this.logs = logs;
     }

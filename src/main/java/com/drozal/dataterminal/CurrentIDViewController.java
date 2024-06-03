@@ -25,6 +25,9 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+/**
+ * The type Current id view controller.
+ */
 public class CurrentIDViewController {
 
     private static AnchorPane titleBar;
@@ -47,6 +50,11 @@ public class CurrentIDViewController {
     @javafx.fxml.FXML
     private TextField address;
 
+    /**
+     * Generate random number string.
+     *
+     * @return the string
+     */
     public static String generateRandomNumber() {
         Random random = new Random();
         int randomNumber = random.nextInt(9000000) + 1000000;
@@ -86,6 +94,9 @@ public class CurrentIDViewController {
         }
     }
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
         titleBar = reportCreationUtil.createSimpleTitleBar("Current ID", false);
         root.setTop(titleBar);
@@ -131,6 +142,9 @@ public class CurrentIDViewController {
         watchIDChanges();
     }
 
+    /**
+     * Watch id changes.
+     */
     public void watchIDChanges() {
         Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 

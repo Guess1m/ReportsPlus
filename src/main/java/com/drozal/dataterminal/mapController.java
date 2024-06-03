@@ -100,7 +100,6 @@ public class mapController {
         zoom(losSantosMap, 0.5);
     }
 
-
     private void zoom(ImageView imageView, double factor) {
         double currentScaleX = imageView.getScaleX();
         double currentScaleY = imageView.getScaleY();

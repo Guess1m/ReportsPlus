@@ -72,7 +72,9 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 
+
     //<editor-fold desc="VARS">
+
     public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
@@ -83,9 +85,13 @@ public class actionController {
     public static Stage clientStage = null;
     static double minColumnWidth = 185.0;
     private static Stage mapStage = null;
+
+
     //</editor-fold>
 
+
     //<editor-fold desc="FXML Elements">
+
     @javafx.fxml.FXML
     public Button notesButton;
     @javafx.fxml.FXML
@@ -511,9 +517,19 @@ public class actionController {
     private Button settingsBtn;
     @javafx.fxml.FXML
     private TextField pedaddressfield;
+
+
     //</editor-fold>
 
+
     //<editor-fold desc="Getters">
+
+    public static void handleClose() {
+        log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+        ClientUtils.disconnectFromService();
+        Platform.exit();
+        System.exit(0);
+    }
 
     public ToggleButton getShowManagerToggle() {
         return showManagerToggle;
@@ -627,12 +643,16 @@ public class actionController {
         return secondaryColor4Bkg;
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Events">
+
     public Label getSecondaryColor5Bkg() {
         return secondaryColor5Bkg;
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Events">
     @javafx.fxml.FXML
     public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
         if (IDStage != null && IDStage.isShowing()) {
@@ -1015,6 +1035,12 @@ public class actionController {
         }
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Log Methods">
+
     @javafx.fxml.FXML
     public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
         if (settingsStage != null && settingsStage.isShowing()) {
@@ -1048,9 +1074,7 @@ public class actionController {
             }
         });
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Log Methods">
     private void loadLogs() {
 
         List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
@@ -2339,6 +2363,12 @@ public class actionController {
         }
     }
 
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Utils">
+
     @javafx.fxml.FXML
     public void onArrUpdateValues(ActionEvent actionEvent) {
         if (arrestEntry != null) {
@@ -2389,15 +2419,6 @@ public class actionController {
 
             arrestTable.refresh();
         }
-    }
-    //</editor-fold>
-
-    //<editor-fold desc="Utils">
-    public static void handleClose() {
-        log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-        ClientUtils.disconnectFromService();
-        Platform.exit();
-        System.exit(0);
     }
 
     private void updateConnectionStatus(boolean isConnected) {
@@ -2532,7 +2553,10 @@ public class actionController {
             updateInfoBtn.setStyle(nonTransparentBtn);
         });
     }
+
+
     //</editor-fold>
+
 
     public void initialize() throws IOException {
 
@@ -2655,5 +2679,6 @@ public class actionController {
         });
 
     }
+
 
 }

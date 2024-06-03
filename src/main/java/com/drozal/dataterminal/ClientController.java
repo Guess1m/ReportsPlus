@@ -3,6 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -11,8 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ClientController {
     private static AnchorPane titleBar;
@@ -52,11 +57,34 @@ public class ClientController {
         if (ConfigReader.configRead("lastPortConnection") != null) {
             inputPortField.setText(ConfigReader.configRead("lastPortConnection"));
         }
+
+        inputPortField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                inputPortField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        inputHostField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9.]*")) {
+                inputHostField.setText(oldValue);
+            }
+        });
     }
+
+    // wireless internet fogils
+    //
 
     @javafx.fxml.FXML
     public void connectBtnPress(ActionEvent actionEvent) throws IOException {
-        ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
+        if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
+            ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
+        } else {
+            String beforeText = statusLabel.getText();
+            statusLabel.setText("Please Input The Server Address and Port");
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
+            pause.setOnFinished(event -> statusLabel.setText(beforeText));
+            pause.play();
+        }
     }
 
     @javafx.fxml.FXML

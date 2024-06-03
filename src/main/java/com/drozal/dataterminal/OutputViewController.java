@@ -11,18 +11,18 @@ import javafx.scene.layout.BorderPane;
  * The type Output view controller.
  */
 public class OutputViewController {
-    private static AnchorPane titlebar = null;
-    @FXML
-    private ListView listView;
-    @FXML
-    private BorderPane root;
-
-    /**
-     * Initialize.
-     */
-    public void initialize() {
-        titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View", true);
-        root.setTop(titlebar);
-        LogUtils.addOutputToListview(listView);
-    }
+	private static AnchorPane titlebar = null;
+	@FXML
+	private ListView listView;
+	@FXML
+	private BorderPane root;
+	
+	/**
+	 * Initialize.
+	 */
+	public void initialize() {
+		titlebar = reportCreationUtil.createSimpleTitleBar("Output Log View", true);
+		root.setTop(titlebar);
+		LogUtils.addOutputToListview(listView);
+	}
 }

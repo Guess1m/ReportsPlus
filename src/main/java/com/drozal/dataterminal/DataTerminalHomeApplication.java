@@ -19,100 +19,102 @@ import static com.drozal.dataterminal.util.Window.windowUtils.*;
  * The type Data terminal home application.
  */
 public class DataTerminalHomeApplication extends Application {
-
-    /**
-     * The constant mainRT.
-     */
-    public static Stage mainRT;
-    /**
-     * The constant controller.
-     */
-    public static actionController controller;
-
-    /**
-     * Gets main rt.
-     *
-     * @return the main rt
-     */
-    public static Stage getMainRT() {
-        return mainRT;
-    }
-
-    /**
-     * Sets main rt.
-     *
-     * @param mainRT the main rt
-     */
-    public static void setMainRT(Stage mainRT) {
-        DataTerminalHomeApplication.mainRT = mainRT;
-    }
-
-    /**
-     * Gets date.
-     *
-     * @return the date
-     */
-    public static String getDate() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return currentTime.format(formatter);
-    }
-
-    /**
-     * Gets time.
-     *
-     * @return the time
-     */
-    public static String getTime() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        return currentTime.format(formatter);
-    }
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        launch();
-    }
-
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        mainRT = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
-        mainRT.initStyle(StageStyle.UNDECORATED);
-        Parent root = loader.load();
-        controller = loader.getController();
-        Scene scene = new Scene(root);
-        mainRT.setScene(scene);
-        mainRT.getIcons().add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
-        mainRT.show();
-
-        String startupValue = ConfigReader.configRead("mainWindowLayout");
-        switch (startupValue) {
-            case "TopLeft" -> snapToTopLeft(mainRT);
-            case "TopRight" -> snapToTopRight(mainRT);
-            case "BottomLeft" -> snapToBottomLeft(mainRT);
-            case "BottomRight" -> snapToBottomRight(mainRT);
-            case "FullLeft" -> snapToLeft(mainRT);
-            case "FullRight" -> snapToRight(mainRT);
-            default -> {
-                mainRT.centerOnScreen();
-                mainRT.setMinHeight(450);
-                mainRT.setMinWidth(450);
-                if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
-                    setWindowedFullscreen(mainRT);
-
-                } else {
-                    mainRT.setHeight(800);
-                    mainRT.setWidth(1150);
-                }
-            }
-        }
-
-        mainRT.setAlwaysOnTop(false);
-    }
+	
+	/**
+	 * The constant mainRT.
+	 */
+	public static Stage mainRT;
+	/**
+	 * The constant controller.
+	 */
+	public static actionController controller;
+	
+	/**
+	 * Gets main rt.
+	 *
+	 * @return the main rt
+	 */
+	public static Stage getMainRT() {
+		return mainRT;
+	}
+	
+	/**
+	 * Sets main rt.
+	 *
+	 * @param mainRT the main rt
+	 */
+	public static void setMainRT(Stage mainRT) {
+		DataTerminalHomeApplication.mainRT = mainRT;
+	}
+	
+	/**
+	 * Gets date.
+	 *
+	 * @return the date
+	 */
+	public static String getDate() {
+		LocalDateTime currentTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return currentTime.format(formatter);
+	}
+	
+	/**
+	 * Gets time.
+	 *
+	 * @return the time
+	 */
+	public static String getTime() {
+		LocalDateTime currentTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		return currentTime.format(formatter);
+	}
+	
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
+	public static void main(String[] args) {
+		launch();
+	}
+	
+	@Override
+	public void start(Stage stage) throws IOException {
+		
+		mainRT = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
+		mainRT.initStyle(StageStyle.UNDECORATED);
+		Parent root = loader.load();
+		controller = loader.getController();
+		Scene scene = new Scene(root);
+		mainRT.setScene(scene);
+		mainRT.getIcons()
+				.add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		mainRT.show();
+		
+		String startupValue = ConfigReader.configRead("mainWindowLayout");
+		switch (startupValue) {
+			case "TopLeft" -> snapToTopLeft(mainRT);
+			case "TopRight" -> snapToTopRight(mainRT);
+			case "BottomLeft" -> snapToBottomLeft(mainRT);
+			case "BottomRight" -> snapToBottomRight(mainRT);
+			case "FullLeft" -> snapToLeft(mainRT);
+			case "FullRight" -> snapToRight(mainRT);
+			default -> {
+				mainRT.centerOnScreen();
+				mainRT.setMinHeight(450);
+				mainRT.setMinWidth(450);
+				if (ConfigReader.configRead("fullscreenOnStartup")
+						.equals("true")) {
+					setWindowedFullscreen(mainRT);
+					
+				} else {
+					mainRT.setHeight(800);
+					mainRT.setWidth(1150);
+				}
+			}
+		}
+		
+		mainRT.setAlwaysOnTop(false);
+	}
 }

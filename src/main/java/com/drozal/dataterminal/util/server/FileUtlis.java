@@ -15,45 +15,45 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
  * The type File utlis.
  */
 public class FileUtlis {
-
-    /**
-     * Receive file from server.
-     *
-     * @param host                   the host
-     * @param port                   the port
-     * @param outputFileNameLocation the output file name location
-     * @param fileSize               the file size
-     * @throws IOException the io exception
-     */
-    public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
-        int bytesRead;
-        FileOutputStream fos = null;
-        BufferedOutputStream bos = null;
-        Socket sock = null;
-        try {
-            sock = new Socket(host, port);
-            byte[] mybytearray = new byte[fileSize];
-            InputStream is = sock.getInputStream();
-            fos = new FileOutputStream(outputFileNameLocation);
-            bos = new BufferedOutputStream(fos);
-
-            while ((bytesRead = is.read(mybytearray)) != -1) {
-                bos.write(mybytearray, 0, bytesRead);
-            }
-
-            bos.flush();
-            log("File " + outputFileNameLocation + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
-        } finally {
-            try {
-                if (bos != null)
-                    bos.close();
-                if (fos != null)
-                    fos.close();
-                if (sock != null)
-                    sock.close();
-            } catch (IOException e) {
-                logError("Could Not Close All Elements: ", e);
-            }
-        }
-    }
+	
+	/**
+	 * Receive file from server.
+	 *
+	 * @param host                   the host
+	 * @param port                   the port
+	 * @param outputFileNameLocation the output file name location
+	 * @param fileSize               the file size
+	 * @throws IOException the io exception
+	 */
+	public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
+		int bytesRead;
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
+		Socket sock = null;
+		try {
+			sock = new Socket(host, port);
+			byte[] mybytearray = new byte[fileSize];
+			InputStream is = sock.getInputStream();
+			fos = new FileOutputStream(outputFileNameLocation);
+			bos = new BufferedOutputStream(fos);
+			
+			while ((bytesRead = is.read(mybytearray)) != -1) {
+				bos.write(mybytearray, 0, bytesRead);
+			}
+			
+			bos.flush();
+			log("File " + outputFileNameLocation + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+		} finally {
+			try {
+				if (bos != null)
+					bos.close();
+				if (fos != null)
+					fos.close();
+				if (sock != null)
+					sock.close();
+			} catch (IOException e) {
+				logError("Could Not Close All Elements: ", e);
+			}
+		}
+	}
 }

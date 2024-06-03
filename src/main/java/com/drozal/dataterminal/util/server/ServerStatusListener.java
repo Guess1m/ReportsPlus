@@ -5,10 +5,10 @@ package com.drozal.dataterminal.util.server;
  */
 @FunctionalInterface
 public interface ServerStatusListener {
-    /**
-     * On status changed.
-     *
-     * @param isConnected the is connected
-     */
-    void onStatusChanged(boolean isConnected);
+	/**
+	 * On status changed.
+	 *
+	 * @param isConnected the is connected
+	 */
+	void onStatusChanged(boolean isConnected);
 }

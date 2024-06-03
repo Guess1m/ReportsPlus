@@ -16,56 +16,56 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
  * The type Update util.
  */
 public class updateUtil {
-    /**
-     * The constant gitVersion.
-     */
-    public static String gitVersion;
-
-    /**
-     * Check for updates.
-     */
-    public static void checkForUpdates() {
-        if (!stringUtil.version.equals("dev")) {
-            String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
-            try {
-                URL url = new URL(rawUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(5000);
-                connection.setRequestMethod("GET");
-
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String latestVersion = reader.readLine();
-                    gitVersion = latestVersion;
-                    log("Git Version: " + latestVersion, LogUtils.Severity.INFO);
-                    log("App Version: " + stringUtil.version, LogUtils.Severity.INFO);
-                    reader.close();
-                } else {
-                    log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Open webpage.
-     *
-     * @param url the url
-     */
-    public static void openWebpage(String url) {
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            try {
-                desktop.browse(new URI(url));
-            } catch (IOException | URISyntaxException e) {
-                logError("Failed to open the URL: " + url + " Trace: ", e);
-            }
-        } else {
-            log("Desktop is not supported on this platform.", LogUtils.Severity.ERROR);
-        }
-    }
-
+	/**
+	 * The constant gitVersion.
+	 */
+	public static String gitVersion;
+	
+	/**
+	 * Check for updates.
+	 */
+	public static void checkForUpdates() {
+		if (!stringUtil.version.equals("dev")) {
+			String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
+			try {
+				URL url = new URL(rawUrl);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setConnectTimeout(5000);
+				connection.setRequestMethod("GET");
+				
+				int responseCode = connection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String latestVersion = reader.readLine();
+					gitVersion = latestVersion;
+					log("Git Version: " + latestVersion, LogUtils.Severity.INFO);
+					log("App Version: " + stringUtil.version, LogUtils.Severity.INFO);
+					reader.close();
+				} else {
+					log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Open webpage.
+	 *
+	 * @param url the url
+	 */
+	public static void openWebpage(String url) {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				logError("Failed to open the URL: " + url + " Trace: ", e);
+			}
+		} else {
+			log("Desktop is not supported on this platform.", LogUtils.Severity.ERROR);
+		}
+	}
+	
 }

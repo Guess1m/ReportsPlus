@@ -29,155 +29,157 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
  */
 @XmlRootElement
 public class CalloutReportLogs {
-    private List<CalloutLogEntry> logs;
-
-    /**
-     * Instantiates a new Callout report logs.
-     */
-    public CalloutReportLogs() {
-    }
-
-    /**
-     * Count reports int.
-     *
-     * @return the int
-     */
-    public static int countReports() {
-        try {
-
-            List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-
-            return logs.size();
-        } catch (Exception e) {
-            logError("Exception", e);
-            return -1;
-        }
-    }
-
-    /**
-     * Extract log entries list.
-     *
-     * @param filePath the file path
-     * @return the list
-     */
-    public static List<CalloutLogEntry> extractLogEntries(String filePath) {
-        List<CalloutLogEntry> logEntries = new ArrayList<>();
-
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                return logEntries;
-            }
-
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file);
-            doc.getDocumentElement().normalize();
-
-            NodeList logsList = doc.getElementsByTagName("logs");
-
-            for (int i = 0; i < logsList.getLength(); i++) {
-                Node logsNode = logsList.item(i);
-                if (logsNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element logsElement = (Element) logsNode;
-                    CalloutLogEntry logEntry = new CalloutLogEntry();
-                    logEntry.CalloutNumber = getTagValue(logsElement, "CalloutNumber");
-                    logEntry.Date = getTagValue(logsElement, "Date");
-                    logEntry.Time = getTagValue(logsElement, "Time");
-                    logEntry.ResponeType = getTagValue(logsElement, "ResponeType");
-                    logEntry.ResponseGrade = getTagValue(logsElement, "ResponseGrade");
-                    logEntry.Address = getTagValue(logsElement, "Address");
-                    logEntry.County = getTagValue(logsElement, "County");
-                    logEntry.Area = getTagValue(logsElement, "Area");
-                    logEntry.Rank = getTagValue(logsElement, "Rank");
-                    logEntry.Name = getTagValue(logsElement, "Name");
-                    logEntry.Number = getTagValue(logsElement, "Number");
-                    logEntry.Agency = getTagValue(logsElement, "Agency");
-                    logEntry.Division = getTagValue(logsElement, "Division");
-                    logEntry.NotesTextArea = getTagValue(logsElement, "NotesTextArea");
-                    logEntries.add(logEntry);
-                }
-            }
-        } catch (Exception e) {
-            logError("Error extracting callout log entries: ", e);
-        }
-
-        return logEntries;
-    }
-
-    /**
-     * Gets tag value.
-     *
-     * @param element the element
-     * @param tagName the tag name
-     * @return the tag value
-     */
-    public static String getTagValue(Element element, String tagName) {
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0) {
-            return nodeList.item(0).getTextContent();
-        }
-        return "";
-    }
-
-    /**
-     * Load logs from xml list.
-     *
-     * @return the list
-     */
-    public static List<CalloutLogEntry> loadLogsFromXML() {
-        try {
-            Path filePath = Paths.get(stringUtil.calloutLogURL);
-            if (!Files.exists(filePath)) {
-                return new ArrayList<>();
-            }
-
-            JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            CalloutReportLogs logList = (CalloutReportLogs) unmarshaller.unmarshal(filePath.toFile());
-            return logList.getLogs();
-        } catch (JAXBException e) {
-            logError("Exception", e);
-            return new ArrayList<>();
-        }
-    }
-
-    /**
-     * Save logs to xml.
-     *
-     * @param logs the logs
-     */
-    public static void saveLogsToXML(List<CalloutLogEntry> logs) {
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            CalloutReportLogs logList = new CalloutReportLogs();
-            logList.setLogs(logs);
-
-            try (FileOutputStream fos = new FileOutputStream(stringUtil.calloutLogURL)) {
-                marshaller.marshal(logList, fos);
-            }
-        } catch (JAXBException | IOException e) {
-            logError("Exception", e);
-        }
-    }
-
-    /**
-     * Gets logs.
-     *
-     * @return the logs
-     */
-    public List<CalloutLogEntry> getLogs() {
-        return logs;
-    }
-
-    /**
-     * Sets logs.
-     *
-     * @param logs the logs
-     */
-    public void setLogs(List<CalloutLogEntry> logs) {
-        this.logs = logs;
-    }
+	private List<CalloutLogEntry> logs;
+	
+	/**
+	 * Instantiates a new Callout report logs.
+	 */
+	public CalloutReportLogs() {
+	}
+	
+	/**
+	 * Count reports int.
+	 *
+	 * @return the int
+	 */
+	public static int countReports() {
+		try {
+			
+			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
+			
+			return logs.size();
+		} catch (Exception e) {
+			logError("Exception", e);
+			return -1;
+		}
+	}
+	
+	/**
+	 * Extract log entries list.
+	 *
+	 * @param filePath the file path
+	 * @return the list
+	 */
+	public static List<CalloutLogEntry> extractLogEntries(String filePath) {
+		List<CalloutLogEntry> logEntries = new ArrayList<>();
+		
+		try {
+			File file = new File(filePath);
+			if (!file.exists()) {
+				return logEntries;
+			}
+			
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(file);
+			doc.getDocumentElement()
+					.normalize();
+			
+			NodeList logsList = doc.getElementsByTagName("logs");
+			
+			for (int i = 0; i < logsList.getLength(); i++) {
+				Node logsNode = logsList.item(i);
+				if (logsNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element logsElement = (Element) logsNode;
+					CalloutLogEntry logEntry = new CalloutLogEntry();
+					logEntry.CalloutNumber = getTagValue(logsElement, "CalloutNumber");
+					logEntry.Date = getTagValue(logsElement, "Date");
+					logEntry.Time = getTagValue(logsElement, "Time");
+					logEntry.ResponeType = getTagValue(logsElement, "ResponeType");
+					logEntry.ResponseGrade = getTagValue(logsElement, "ResponseGrade");
+					logEntry.Address = getTagValue(logsElement, "Address");
+					logEntry.County = getTagValue(logsElement, "County");
+					logEntry.Area = getTagValue(logsElement, "Area");
+					logEntry.Rank = getTagValue(logsElement, "Rank");
+					logEntry.Name = getTagValue(logsElement, "Name");
+					logEntry.Number = getTagValue(logsElement, "Number");
+					logEntry.Agency = getTagValue(logsElement, "Agency");
+					logEntry.Division = getTagValue(logsElement, "Division");
+					logEntry.NotesTextArea = getTagValue(logsElement, "NotesTextArea");
+					logEntries.add(logEntry);
+				}
+			}
+		} catch (Exception e) {
+			logError("Error extracting callout log entries: ", e);
+		}
+		
+		return logEntries;
+	}
+	
+	/**
+	 * Gets tag value.
+	 *
+	 * @param element the element
+	 * @param tagName the tag name
+	 * @return the tag value
+	 */
+	public static String getTagValue(Element element, String tagName) {
+		NodeList nodeList = element.getElementsByTagName(tagName);
+		if (nodeList != null && nodeList.getLength() > 0) {
+			return nodeList.item(0)
+					.getTextContent();
+		}
+		return "";
+	}
+	
+	/**
+	 * Load logs from xml list.
+	 *
+	 * @return the list
+	 */
+	public static List<CalloutLogEntry> loadLogsFromXML() {
+		try {
+			Path filePath = Paths.get(stringUtil.calloutLogURL);
+			if (!Files.exists(filePath)) {
+				return new ArrayList<>();
+			}
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			CalloutReportLogs logList = (CalloutReportLogs) unmarshaller.unmarshal(filePath.toFile());
+			return logList.getLogs();
+		} catch (JAXBException e) {
+			logError("Exception", e);
+			return new ArrayList<>();
+		}
+	}
+	
+	/**
+	 * Save logs to xml.
+	 *
+	 * @param logs the logs
+	 */
+	public static void saveLogsToXML(List<CalloutLogEntry> logs) {
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			CalloutReportLogs logList = new CalloutReportLogs();
+			logList.setLogs(logs);
+			
+			try (FileOutputStream fos = new FileOutputStream(stringUtil.calloutLogURL)) {
+				marshaller.marshal(logList, fos);
+			}
+		} catch (JAXBException | IOException e) {
+			logError("Exception", e);
+		}
+	}
+	
+	/**
+	 * Gets logs.
+	 *
+	 * @return the logs
+	 */
+	public List<CalloutLogEntry> getLogs() {
+		return logs;
+	}
+	
+	/**
+	 * Sets logs.
+	 *
+	 * @param logs the logs
+	 */
+	public void setLogs(List<CalloutLogEntry> logs) {
+		this.logs = logs;
+	}
 }

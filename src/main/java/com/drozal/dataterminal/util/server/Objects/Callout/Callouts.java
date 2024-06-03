@@ -13,25 +13,25 @@ import java.util.List;
 @XmlRootElement(name = "Callouts")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Callouts {
-
-    @XmlElement(name = "Callout")
-    private List<Callout> calloutList;
-
-    /**
-     * Gets callout list.
-     *
-     * @return the callout list
-     */
-    public List<Callout> getCalloutList() {
-        return calloutList;
-    }
-
-    /**
-     * Sets callout list.
-     *
-     * @param calloutList the callout list
-     */
-    public void setCalloutList(List<Callout> calloutList) {
-        this.calloutList = calloutList;
-    }
+	
+	@XmlElement(name = "Callout")
+	private List<Callout> calloutList;
+	
+	/**
+	 * Gets callout list.
+	 *
+	 * @return the callout list
+	 */
+	public List<Callout> getCalloutList() {
+		return calloutList;
+	}
+	
+	/**
+	 * Sets callout list.
+	 *
+	 * @param calloutList the callout list
+	 */
+	public void setCalloutList(List<Callout> calloutList) {
+		this.calloutList = calloutList;
+	}
 }

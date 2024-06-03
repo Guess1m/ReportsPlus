@@ -36,7 +36,6 @@ public class Callout {
     @XmlElement(name = "StartDate")
     private String startDate;
 
-    // Getters and setters
     public String getNumber() {
         return number;
     }

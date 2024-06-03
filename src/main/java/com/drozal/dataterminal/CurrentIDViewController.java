@@ -111,7 +111,7 @@ public class CurrentIDViewController {
                 address.setText(Address);
 
             } else {
-                // Show alert or set default values
+
                 log("No IDs found.", LogUtils.Severity.WARN);
                 first.setText(/*No Data*/"");
                 cursiveName.setText(/*No Data*/"");
@@ -180,7 +180,7 @@ public class CurrentIDViewController {
                                     address.setText(Address);
 
                                 } else {
-                                    // Show alert or set default values
+
                                     log("No IDs found.", LogUtils.Severity.WARN);
                                     first.setText(/*No Data*/"");
                                     last.setText(/*No Data*/"");

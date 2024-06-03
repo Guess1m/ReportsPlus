@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Search;
 
-// Data model for a log entry
 public class SearchLogEntry {
     public String SearchNumber;
     public String searchDate;

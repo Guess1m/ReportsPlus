@@ -37,9 +37,8 @@ public class TrafficCitationReportLogs {
         try {
             File file = new File(filePath);
 
-            // Check if the file exists
             if (!file.exists()) {
-                return logEntries; // Return an empty list
+                return logEntries;
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -96,13 +95,13 @@ public class TrafficCitationReportLogs {
 
     public static int countReports() {
         try {
-            // Load logs from XML
+
             List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-            // Count the number of reports
+
             return logs.size();
         } catch (Exception e) {
             logError("Exception", e);
-            return -1; // Return -1 to indicate an error
+            return -1;
         }
     }
 
@@ -110,7 +109,7 @@ public class TrafficCitationReportLogs {
         try {
             Path filePath = Paths.get(stringUtil.trafficCitationLogURL);
             if (!Files.exists(filePath)) {
-                return new ArrayList<>(); // Return an empty list if file doesn't exist
+                return new ArrayList<>();
             }
 
             JAXBContext jaxbContext = JAXBContext.newInstance(TrafficCitationReportLogs.class);
@@ -119,11 +118,10 @@ public class TrafficCitationReportLogs {
             return logList.getLogs();
         } catch (JAXBException e) {
             logError("Exception", e);
-            return new ArrayList<>(); // Return an empty list if loading fails
+            return new ArrayList<>();
         }
     }
 
-    // Save logs to XML
     public static void saveLogsToXML(List<TrafficCitationLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(TrafficCitationReportLogs.class);
@@ -132,7 +130,6 @@ public class TrafficCitationReportLogs {
             TrafficCitationReportLogs logList = new TrafficCitationReportLogs();
             logList.setLogs(logs);
 
-            // Use try-with-resources to ensure FileOutputStream is closed properly
             try (FileOutputStream fos = new FileOutputStream(stringUtil.trafficCitationLogURL)) {
                 marshaller.marshal(logList, fos);
             }

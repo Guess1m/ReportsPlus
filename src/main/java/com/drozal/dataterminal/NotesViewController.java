@@ -74,7 +74,6 @@ public class NotesViewController {
         notepadTextArea.setText("");
     }
 
-
     public TextArea getNotepadTextArea() {
         return notepadTextArea;
     }

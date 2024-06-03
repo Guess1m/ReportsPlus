@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficCitation;
 
-// Data model for a log entry
 public class TrafficCitationLogEntry {
     public String citationNumber;
     public String citationDate;
@@ -18,13 +17,13 @@ public class TrafficCitationLogEntry {
     public String offenderVehicleColor;
     public String offenderVehicleType;
     public String offenderVehiclePlate;
-    public String offenderVehicleOther; //
+    public String offenderVehicleOther;
     public String officerRank;
     public String officerName;
     public String officerNumber;
     public String officerDivision;
     public String officerAgency;
-    public String citationComments; //
+    public String citationComments;
 
     public TrafficCitationLogEntry() {
     }

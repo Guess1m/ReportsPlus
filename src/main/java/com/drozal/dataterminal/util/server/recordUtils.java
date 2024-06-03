@@ -24,7 +24,7 @@ public class recordUtils {
                     System.out.println(keyValue[0] + ": " + "No value provided");
                 }
             }
-            System.out.println();  // Add a blank line between pedestrians for readability
+            System.out.println();
         }
     }
 
@@ -41,14 +41,13 @@ public class recordUtils {
                     attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
                 }
             }
-            // Check if this pedestrian has the name you're looking for with case-insensitivity
+
             if (attributesMap.containsKey("name") && attributesMap.get("name").equalsIgnoreCase(pedName)) {
                 return attributesMap.getOrDefault(requiredAttribute.toLowerCase(), "Attribute not found");
             }
         }
         return "Pedestrian not found";
     }
-
 
     public static void parseWorldVehicleData(String filePath) throws IOException {
         byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
@@ -65,7 +64,7 @@ public class recordUtils {
                     System.out.println(keyValue[0] + ": " + "No value provided");
                 }
             }
-            System.out.println();  // Add a blank line between vehicles for readability
+            System.out.println();
         }
     }
 
@@ -90,12 +89,12 @@ public class recordUtils {
                     attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
                 }
             }
-            // Perform a case-insensitive comparison by converting both to lower case
+
             if (attributesMap.containsKey("name") && attributesMap.get("name").equalsIgnoreCase(pedName)) {
                 return attributesMap;
             }
         }
-        // If pedestrian is not found, return an empty map or a map with a specific message
+
         Map<String, String> notFoundMap = new HashMap<>();
         notFoundMap.put("Error", "Pedestrian not found");
         return notFoundMap;
@@ -118,22 +117,21 @@ public class recordUtils {
             for (String attribute : attributes) {
                 String[] keyValue = attribute.split("=");
                 if (keyValue.length > 1) {
-                    attributesMap.put(keyValue[0], keyValue[1].trim());  // Normalize both key and value
+                    attributesMap.put(keyValue[0], keyValue[1].trim());
                 } else {
                     attributesMap.put(keyValue[0], "no value provided");
                 }
             }
-            // Check for the license plate in a case-insensitive manner
+
             if (attributesMap.getOrDefault("licensePlate", "").toLowerCase().equals(normalizedLicensePlate)) {
                 return attributesMap;
             }
         }
-        // If the vehicle is not found, return a map with an error message
+
         Map<String, String> notFoundMap = new HashMap<>();
         notFoundMap.put("error", "vehicle not found");
         return notFoundMap;
     }
-
 
     public static String searchForVehicleAttribute(String data, String licensePlate, String requiredAttribute) {
         String[] vehicles = data.split(",");
@@ -154,6 +152,5 @@ public class recordUtils {
         }
         return "Vehicle not found";
     }
-
 
 }

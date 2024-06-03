@@ -55,10 +55,7 @@ public class ResizeHelper {
             EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
             Scene scene = stage.getScene();
 
-            double mouseEventX = mouseEvent.getSceneX(),
-                    mouseEventY = mouseEvent.getSceneY(),
-                    sceneWidth = scene.getWidth(),
-                    sceneHeight = scene.getHeight();
+            double mouseEventX = mouseEvent.getSceneX(), mouseEventY = mouseEvent.getSceneY(), sceneWidth = scene.getWidth(), sceneHeight = scene.getHeight();
 
             if (MouseEvent.MOUSE_MOVED.equals(mouseEventType)) {
                 if (mouseEventX < border && mouseEventY < border) {

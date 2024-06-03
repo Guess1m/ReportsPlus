@@ -97,7 +97,7 @@ public class calloutController {
                 typeField.setText(callout.getType());
 
             } else {
-                // Show alert or set default values
+
                 log("No Callouts found.", LogUtils.Severity.WARN);
                 streetField.setText(/*No Data*/"");
                 numberField.setText(/*No Data*/"");
@@ -159,7 +159,7 @@ public class calloutController {
                                     typeField.setText(callout.getType());
 
                                 } else {
-                                    // Show alert or set default values
+
                                     log("No Callouts found.", LogUtils.Severity.WARN);
                                     streetField.setText(/*No Data*/"");
                                     numberField.setText(/*No Data*/"");

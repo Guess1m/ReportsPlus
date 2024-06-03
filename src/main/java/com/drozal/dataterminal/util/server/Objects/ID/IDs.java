@@ -14,7 +14,6 @@ public class IDs {
     @XmlElement(name = "ID")
     private List<ID> idList;
 
-    // Getter and setter for the list of IDs
     public List<ID> getIdList() {
         return idList;
     }

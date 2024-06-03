@@ -32,11 +32,14 @@ public class FileUtlis {
             log("File " + outputFileNameLocation + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
         } finally {
             try {
-                if (bos != null) bos.close();
-                if (fos != null) fos.close();
-                if (sock != null) sock.close();
+                if (bos != null)
+                    bos.close();
+                if (fos != null)
+                    fos.close();
+                if (sock != null)
+                    sock.close();
             } catch (IOException e) {
-                // Handle or log the exception
+
             }
         }
     }

@@ -34,7 +34,7 @@ public class Launcher {
             String filePath = stringUtil.getJarPath() + File.separator + "output.log";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
-                Files.write(path, new byte[0]); // Write empty bytes to clear the file
+                Files.write(path, new byte[0]);
                 log("Log file cleared successfully.", Severity.INFO);
             } else {
                 log("Log file does not exist.", Severity.WARN);
@@ -48,7 +48,7 @@ public class Launcher {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
-                Files.delete(path); // Deletes the file
+                Files.delete(path);
                 log("Server callout file deleted successfully.", Severity.INFO);
             } else {
                 log("Server callout file does not exist.", Severity.WARN);
@@ -61,7 +61,7 @@ public class Launcher {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
-                Files.delete(path); // Deletes the file
+                Files.delete(path);
                 log("Server current ID file deleted successfully.", Severity.INFO);
             } else {
                 log("Server current ID file does not exist.", Severity.WARN);
@@ -74,7 +74,7 @@ public class Launcher {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
-                Files.delete(path); // Deletes the file
+                Files.delete(path);
                 log("Server world peds file deleted successfully.", Severity.INFO);
             } else {
                 log("Server world peds file does not exist.", Severity.WARN);
@@ -87,7 +87,7 @@ public class Launcher {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {
-                Files.delete(path); // Deletes the file
+                Files.delete(path);
                 log("Server world cars file deleted successfully.", Severity.INFO);
             } else {
                 log("Server world cars file does not exist.", Severity.WARN);
@@ -129,7 +129,6 @@ public class Launcher {
             copyCitationDataFile();
         }
 
-
         try {
             String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             File jarFile = new File(jarPath);
@@ -162,7 +161,6 @@ public class Launcher {
             Platform.exit();
             System.exit(0);
         }));
-
 
     }
 

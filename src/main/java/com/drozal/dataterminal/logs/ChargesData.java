@@ -3,7 +3,6 @@ package com.drozal.dataterminal.logs;
 public class ChargesData {
     private String charge;
 
-    // Constructor
     public ChargesData(String charge) {
         this.charge = charge;
     }

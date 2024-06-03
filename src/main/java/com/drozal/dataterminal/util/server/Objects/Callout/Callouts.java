@@ -14,7 +14,6 @@ public class Callouts {
     @XmlElement(name = "Callout")
     private List<Callout> calloutList;
 
-    // Getter and setter for the list of Callouts
     public List<Callout> getCalloutList() {
         return calloutList;
     }

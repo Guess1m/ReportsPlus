@@ -101,7 +101,6 @@ public class newOfficerController {
                             setText(item);
                             setAlignment(javafx.geometry.Pos.CENTER);
 
-                            // Check if the item contains "=" and set it as bold
                             if (item.contains("=")) {
                                 setStyle("-fx-font-weight: bold;");
                             } else {
@@ -135,10 +134,8 @@ public class newOfficerController {
 
     @javafx.fxml.FXML
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
-        // Check if any of the ComboBox values are null
-        if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null ||
-                rankDropdown.getValue() == null || nameField.getText().isEmpty() ||
-                numberField.getText().isEmpty()) {
+
+        if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText().isEmpty() || numberField.getText().isEmpty()) {
             incompleteLabel.setText("Fill Out Form.");
             incompleteLabel.setStyle("-fx-text-fill: red;");
             incompleteLabel.setVisible(true);
@@ -153,30 +150,29 @@ public class newOfficerController {
             } catch (URISyntaxException e) {
                 logError("NewOfficer JarPath URISyntax Exception", e);
             }
-            // Decode the URI path to handle spaces or special characters
+
             jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
-            // Extract the directory path from the JAR path
+
             String jarDir = new File(jarPath).getParent();
-            // Construct the path for the config.properties file in the JAR directory
+
             String configFilePath = jarDir + File.separator + "config.properties";
             File configFile = new File(configFilePath);
             if (configFile.exists()) {
                 log("exists, printing values", LogUtils.Severity.INFO);
             } else {
                 try {
-                    // Create the config.properties file in the JAR directory
+
                     configFile.createNewFile();
                     log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
                 } catch (IOException e) {
                     logError("Failed to create config file", e);
                 }
             }
-            // Access the values only if they are not null
+
             String agency = agencyDropDown.getValue().toString();
             String division = divisionDropDown.getValue().toString();
             String rank = rankDropdown.getValue().toString();
 
-            // Proceed with further processing
             ConfigWriter.configwrite("Agency", agency);
             ConfigWriter.configwrite("Division", division);
             ConfigWriter.configwrite("Name", nameField.getText());
@@ -230,18 +226,18 @@ public class newOfficerController {
             logError("BypassBtnJarPath URISyntax Exception", e);
             throw new RuntimeException(e);
         }
-        // Decode the URI path to handle spaces or special characters
+
         jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
-        // Extract the directory path from the JAR path
+
         String jarDir = new File(jarPath).getParent();
-        // Construct the path for the config.properties file in the JAR directory
+
         String configFilePath = jarDir + File.separator + "config.properties";
         File configFile = new File(configFilePath);
         if (configFile.exists()) {
             log("exists, printing values", LogUtils.Severity.INFO);
         } else {
             try {
-                // Create the config.properties file in the JAR directory
+
                 configFile.createNewFile();
                 log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
             } catch (IOException e) {

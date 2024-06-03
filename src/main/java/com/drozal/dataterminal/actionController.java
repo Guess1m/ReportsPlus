@@ -72,10 +72,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 
-
-    //<editor-fold desc="FXML Elements">
-
-
     public static String notesText;
     public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
     public static Stage IDStage = null;
@@ -512,13 +508,6 @@ public class actionController {
     @javafx.fxml.FXML
     private TextField pedaddressfield;
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Utils">
-
-
     public static void handleClose() {
         log("Stop Request Recieved", LogUtils.Severity.DEBUG);
         ClientUtils.disconnectFromService();
@@ -562,17 +551,15 @@ public class actionController {
     }
 
     public void initialize() throws IOException {
-        // Create the title bar
+
         titlebar = reportCreationUtil.createTitleBar("Reports Plus");
 
-// Add the title bar to the AnchorPane
         vbox.getChildren().add(titlebar);
 
-// Set the top anchor to position the title bar at the top
         AnchorPane.setTopAnchor(titlebar, 0.0);
         AnchorPane.setLeftAnchor(titlebar, 0.0);
         AnchorPane.setRightAnchor(titlebar, 0.0);
-        titlebar.setPrefHeight(30); // Set the height of the title bar
+        titlebar.setPrefHeight(30);
 
         checkForUpdates();
 
@@ -585,7 +572,6 @@ public class actionController {
                 needRefresh.set(0);
             }
         });
-
 
         notesText = "";
 
@@ -626,7 +612,6 @@ public class actionController {
                             setText(item);
                             setAlignment(javafx.geometry.Pos.CENTER);
 
-                            // Check if the item contains "=" and set it as bold
                             if (item.contains("=")) {
                                 setStyle("-fx-font-weight: bold;");
                             } else {
@@ -688,7 +673,7 @@ public class actionController {
     }
 
     public void refreshChart() throws IOException {
-        // Clear existing data from the chart
+
         reportChart.getData().clear();
         String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
         CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
@@ -699,7 +684,7 @@ public class actionController {
 
         String color = ConfigReader.configRead("mainColor");
         for (String category : categories) {
-            XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1); // Value doesn't matter, just need to add a data point
+            XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1);
             data.nodeProperty().addListener((obs, oldNode, newNode) -> {
                 if (newNode != null) {
                     newNode.setStyle("-fx-bar-fill: " + color + ";");
@@ -710,12 +695,6 @@ public class actionController {
 
         getReportChart().getData().add(series1);
     }
-
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Getters">
 
     public Button getShowIDBtn() {
         return showIDBtn;
@@ -805,12 +784,6 @@ public class actionController {
         return areaReportChart;
     }
 
-    //</editor-fold>
-
-
-    //<editor-fold desc="Side Button Events">
-
-
     @javafx.fxml.FXML
     public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
         if (IDStage != null && IDStage.isShowing()) {
@@ -825,7 +798,7 @@ public class actionController {
         Scene newScene = new Scene(root);
         IDStage.setTitle("Current ID");
         IDStage.setScene(newScene);
-        //IDStage.initOwner(DataTerminalHomeApplication.getMainRT());
+
         IDStage.show();
         IDStage.centerOnScreen();
         if (ConfigReader.configRead("AOTID").equals("true")) {
@@ -895,7 +868,7 @@ public class actionController {
         notesStage.setTitle("Notes");
         notesStage.setScene(newScene);
         notesStage.setResizable(true);
-        //notesStage.initOwner(DataTerminalHomeApplication.getMainRT());
+
         notesStage.show();
 
         windowUtils.centerStageOnMainApp(notesStage);
@@ -991,13 +964,6 @@ public class actionController {
         setActive(pedLookupPane);
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Open Report Button Events">
-
-
     @javafx.fxml.FXML
     public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
         newCallout(reportChart, areaReportChart, vbox, notesViewController);
@@ -1038,32 +1004,26 @@ public class actionController {
         newImpound(reportChart, areaReportChart, vbox, notesViewController);
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Misc.">
-
     private void loadTheme() throws IOException {
         changeBarColors(getReportChart());
         changeStatisticColors(areaReportChart);
-        //Main
+
         String mainclr = ConfigReader.configRead("mainColor");
         topPane.setStyle("-fx-background-color: " + mainclr + ";");
         mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
         mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
         logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
         detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
-        //Secondary
+
         String secclr = ConfigReader.configRead("secondaryColor");
         sidepane.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
         secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
         reportPlusLabelFill.setStyle("-fx-text-fill: " + secclr + ";");
-        //Accent
+
         String accclr = ConfigReader.configRead("accentColor");
-        //Buttons
+
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
         String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
@@ -1079,7 +1039,6 @@ public class actionController {
         btn7.setStyle(nonTransparentBtn);
         btn8.setStyle(nonTransparentBtn);
 
-        // Add hover event handling
         btn1.setOnMouseEntered(e -> btn1.setStyle(hoverStyle));
         btn1.setOnMouseExited(e -> btn1.setStyle(nonTransparentBtn));
         btn2.setOnMouseEntered(e -> btn2.setStyle(hoverStyle));
@@ -1164,9 +1123,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void updateInfoButtonClick(ActionEvent actionEvent) {
-        if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null ||
-                getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() ||
-                getOfficerInfoNumber().getText().isEmpty()) {
+        if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() || getOfficerInfoNumber().getText().isEmpty()) {
             updatedNotification.setText("Fill Out Form.");
             updatedNotification.setStyle("-fx-text-fill: red;");
             updatedNotification.setVisible(true);
@@ -1287,91 +1244,84 @@ public class actionController {
         }
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Log Browser">
-
-
     private void loadLogs() {
-        //ImpoundTable
+
         List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
         impoundLogUpdate(impoundLogEntryList);
-        //TrafficCitationTable
+
         List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
         citationLogUpdate(citationLogEntryList);
-        //PatrolTable
+
         List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
         patrolLogUpdate(patrolLogEntryList);
-        //ArrestTable
+
         List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
         arrestLogUpdate(arrestLogEntryList);
-        //SearchTable
+
         List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
         searchLogUpdate(searchLogEntryList);
-        //IncidentTable
+
         List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
         incidentLogUpdate(incidentLogEntryList);
-        //TrafficStopTable
+
         List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
         trafficStopLogUpdate(trafficLogEntryList);
-        //CalloutTable
+
         List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
         calloutLogUpdate(calloutLogEntryList);
     }
 
     public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
-        // Clear existing data
+
         impoundTable.getItems().clear();
-        // Add data to the table
+
         impoundTable.getItems().addAll(logEntries);
     }
 
     public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
-        // Clear existing data
+
         citationTable.getItems().clear();
         citationTable.getItems().addAll(logEntries);
     }
 
     public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
-        // Clear existing data
+
         patrolTable.getItems().clear();
         patrolTable.getItems().addAll(logEntries);
     }
 
     public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
-        // Clear existing data
+
         arrestTable.getItems().clear();
         arrestTable.getItems().addAll(logEntries);
     }
 
     public void searchLogUpdate(List<SearchLogEntry> logEntries) {
-        // Clear existing data
+
         searchTable.getItems().clear();
         searchTable.getItems().addAll(logEntries);
     }
 
     public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
-        // Clear existing data
+
         incidentTable.getItems().clear();
         incidentTable.getItems().addAll(logEntries);
     }
 
     public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
-        // Clear existing data
+
         trafficStopTable.getItems().clear();
         trafficStopTable.getItems().addAll(logEntries);
     }
 
     public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
-        // Clear existing data
+
         calloutTable.getItems().clear();
         calloutTable.getItems().addAll(logEntries);
     }
 
     public void initializeImpoundColumns() {
-        // Create columns for each property of ImpoundLogEntry
+
         TableColumn<ImpoundLogEntry, String> impoundNumberColumn = new TableColumn<>("Impound #");
         impoundNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundNumber"));
 
@@ -1423,32 +1373,10 @@ public class actionController {
         TableColumn<ImpoundLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
         officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        // Add columns to the table
-        // Create a list to hold all the TableColumn instances for impoundTable
-        ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(
-                impoundNumberColumn,
-                impoundDateColumn,
-                impoundTimeColumn,
-                ownerNameColumn,
-                ownerAgeColumn,
-                ownerGenderColumn,
-                ownerAddressColumn,
-                impoundPlateNumberColumn,
-                impoundModelColumn,
-                impoundTypeColumn,
-                impoundColorColumn,
-                impoundCommentsColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerDivisionColumn,
-                officerAgencyColumn
-        );
+        ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn, ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn, impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
 
-// Add all columns to impoundTable
         impoundTable.getColumns().addAll(impoundColumns);
 
-// Set minimum width for each column
         for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
             column.setMinWidth(minColumnWidth);
         }
@@ -1465,7 +1393,6 @@ public class actionController {
 
     public void initializePatrolColumns() {
 
-        // Create columns for each property of PatrolLogEntry
         TableColumn<PatrolLogEntry, String> patrolNumberColumn = new TableColumn<>("Patrol #");
         patrolNumberColumn.setCellValueFactory(new PropertyValueFactory<>("patrolNumber"));
 
@@ -1502,26 +1429,10 @@ public class actionController {
         TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Comments");
         patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 
-        // Create a list to hold all the TableColumn instances for patrolTable
-        ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(
-                patrolNumberColumn,
-                patrolDateColumn,
-                patrolLengthColumn,
-                patrolStartTimeColumn,
-                patrolStopTimeColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerDivisionColumn,
-                officerAgencyColumn,
-                officerVehicleColumn,
-                patrolCommentsColumn
-        );
+        ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn, officerVehicleColumn, patrolCommentsColumn);
 
-// Add all columns to patrolTable
         patrolTable.getColumns().addAll(patrolColumns);
 
-// Set minimum width for each column
         for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
             column.setMinWidth(minColumnWidth);
         }
@@ -1535,7 +1446,6 @@ public class actionController {
 
     public void initializeCitationColumns() {
 
-        // Create columns for each property of TrafficCitationLogEntry
         TableColumn<TrafficCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
         citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
 
@@ -1605,37 +1515,10 @@ public class actionController {
         TableColumn<TrafficCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
         citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 
-        // Create a list to hold all the TableColumn instances for citationTable
-        ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(
-                citationNumberColumn,
-                citationDateColumn,
-                citationTimeColumn,
-                citationChargesColumn,
-                citationCountyColumn,
-                citationAreaColumn,
-                citationStreetColumn,
-                offenderNameColumn,
-                offenderGenderColumn,
-                offenderAgeColumn,
-                offenderHomeAddressColumn,
-                offenderDescriptionColumn,
-                offenderVehicleModelColumn,
-                offenderVehicleColorColumn,
-                offenderVehicleTypeColumn,
-                offenderVehiclePlateColumn,
-                offenderVehicleOtherColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerDivisionColumn,
-                officerAgencyColumn,
-                citationCommentsColumn
-        );
+        ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn, citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn, offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn, offenderVehicleModelColumn, offenderVehicleColorColumn, offenderVehicleTypeColumn, offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
 
-// Add all columns to citationTable
         citationTable.getColumns().addAll(citationColumns);
 
-// Set minimum width for each column
         for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
             column.setMinWidth(minColumnWidth);
         }
@@ -1651,7 +1534,6 @@ public class actionController {
 
     public void initializeArrestColumns() {
 
-        // Create columns for each property of ArrestLogEntry
         TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");
         arrestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("arrestNumber"));
 
@@ -1715,35 +1597,10 @@ public class actionController {
         TableColumn<ArrestLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
         officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 
-        // Create a list to hold all the TableColumn instances for arrestTable
-        ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(
-                arrestNumberColumn,
-                arrestDateColumn,
-                arrestTimeColumn,
-                arrestChargesColumn,
-                arrestCountyColumn,
-                arrestAreaColumn,
-                arrestStreetColumn,
-                arresteeNameColumn,
-                arresteeAgeColumn,
-                arresteeGenderColumn,
-                arresteeDescriptionColumn,
-                ambulanceYesNoColumn,
-                taserYesNoColumn,
-                arresteeMedicalInformationColumn,
-                arresteeHomeAddressColumn,
-                arrestDetailsColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerDivisionColumn,
-                officerAgencyColumn
-        );
+        ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn, arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn, arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn, arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
 
-// Add all columns to arrestTable
         arrestTable.getColumns().addAll(arrestColumns);
 
-// Set minimum width for each column
         for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
             column.setMinWidth(minColumnWidth);
         }
@@ -1758,7 +1615,7 @@ public class actionController {
     }
 
     public void initializeIncidentColumns() {
-        // Create columns for each property of IncidentLogEntry
+
         TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident #");
         incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
 
@@ -1807,27 +1664,8 @@ public class actionController {
         TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
         incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
 
-        // Create a list to hold all the TableColumn instances for incidentTable
-        ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(
-                incidentNumberColumn,
-                incidentDateColumn,
-                incidentTimeColumn,
-                incidentStatementColumn,
-                incidentWitnessesColumn,
-                incidentVictimsColumn,
-                officerNameColumn,
-                officerRankColumn,
-                officerNumberColumn,
-                officerAgencyColumn,
-                officerDivisionColumn,
-                incidentStreetColumn,
-                incidentAreaColumn,
-                incidentCountyColumn,
-                incidentActionsTakenColumn,
-                incidentCommentsColumn
-        );
+        ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn, incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn, officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn, incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
 
-// Add all columns to incidentTable
         incidentTable.getColumns().addAll(incidentColumns);
         for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
             column.setMinWidth(minColumnWidth);
@@ -1840,7 +1678,6 @@ public class actionController {
 
     public void initializeSearchColumns() {
 
-        // Create columns for each property of SearchLogEntry
         TableColumn<SearchLogEntry, String> searchNumberColumn = new TableColumn<>("Search #");
         searchNumberColumn.setCellValueFactory(new PropertyValueFactory<>("SearchNumber"));
 
@@ -1904,30 +1741,7 @@ public class actionController {
         TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC");
         BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
 
-        // Create a list to hold all the TableColumn instances for searchTable
-        ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(
-                searchNumberColumn,
-                searchDateColumn,
-                searchTimeColumn,
-                searchSeizedItemsColumn,
-                searchGroundsColumn,
-                searchTypeColumn,
-                searchMethodColumn,
-                searchWitnessesColumn,
-                officerRankColumn,
-                officerNameColumn,
-                officerNumberColumn,
-                officerAgencyColumn,
-                officerDivisionColumn,
-                searchStreetColumn,
-                searchAreaColumn,
-                searchCountyColumn,
-                searchCommentsColumn,
-                searchedPersonsColumn,
-                testsConductedColumn,
-                resultsColumn,
-                BACMeasurementColumn
-        );
+        ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn, searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn, searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn, BACMeasurementColumn);
 
         searchTable.getColumns().addAll(searchColumns);
 
@@ -1943,7 +1757,7 @@ public class actionController {
         setSmallColumnWidth(BACMeasurementColumn);
     }
 
-    public void initializeTrafficStopColumns() {// Create columns for each property of TrafficStopLogEntry
+    public void initializeTrafficStopColumns() {
         TableColumn<TrafficStopLogEntry, String> dateColumn = new TableColumn<>("Date");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
@@ -2010,33 +1824,8 @@ public class actionController {
         TableColumn<TrafficStopLogEntry, String> operatorAddressColumn = new TableColumn<>("Operator Address");
         operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
 
-        // Create a list to hold all the TableColumn instances for trafficStopTable
-        ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(
-                stopNumberColumn,
-                dateColumn,
-                timeColumn,
-                modelColumn,
-                otherInfoColumn,
-                operatorNameColumn,
-                operatorAgeColumn,
-                operatorAddressColumn,
-                operatorDescriptionColumn,
-                operatorGenderColumn,
-                nameColumn,
-                rankColumn,
-                numberColumn,
-                divisionColumn,
-                agencyColumn,
-                commentsTextAreaColumn,
-                streetColumn,
-                countyColumn,
-                areaColumn,
-                plateNumberColumn,
-                colorColumn,
-                typeColumn
-        );
+        ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn, operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn, rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn, countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
 
-        // Add all columns to trafficStopTable
         trafficStopTable.getColumns().addAll(trafficStopColumns);
         for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
             column.setMinWidth(minColumnWidth);
@@ -2054,7 +1843,7 @@ public class actionController {
     }
 
     public void initializeCalloutColumns() {
-        // Create columns for each property of CalloutLogEntry
+
         TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
         calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
 
@@ -2097,23 +1886,7 @@ public class actionController {
         TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 
-        // Create a list to hold all the TableColumn instances
-        ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(
-                calloutNumberColumn,
-                dateColumn,
-                timeColumn,
-                notesTextAreaColumn,
-                responseGradeColumn,
-                responseTypeColumn,
-                divisionColumn,
-                agencyColumn,
-                numberColumn,
-                rankColumn,
-                nameColumn,
-                addressColumn,
-                countyColumn,
-                areaColumn
-        );
+        ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn, dateColumn, timeColumn, notesTextAreaColumn, responseGradeColumn, responseTypeColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn, addressColumn, countyColumn, areaColumn);
         calloutTable.getColumns().addAll(columns);
         for (TableColumn<CalloutLogEntry, ?> column : columns) {
             column.setMinWidth(minColumnWidth);
@@ -2128,52 +1901,43 @@ public class actionController {
     @javafx.fxml.FXML
     public void onManagerToggle(ActionEvent actionEvent) {
         if (!showManagerToggle.isSelected()) {
-            // Define the height values
+
             double fromHeight = lowerPane.getPrefHeight();
             double toHeight = 0;
 
-            // Create a timeline for the animation
             Timeline timeline = new Timeline();
 
-            // Define keyframes for animation
             KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
             KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
             KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-            // Add keyframes to the timeline
             timeline.getKeyFrames().add(keyFrame);
 
-            // Play the animation
             timeline.play();
             lowerPane.setVisible(false);
         } else {
-            // Define the height values
+
             double fromHeight = lowerPane.getPrefHeight();
             double toHeight = 356;
 
-            // Create a timeline for the animation
             Timeline timeline = new Timeline();
 
-            // Define keyframes for animation
             KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
             KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
             KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-            // Add keyframes to the timeline
             timeline.getKeyFrames().add(keyFrame);
 
-            // Play the animation
             timeline.play();
             lowerPane.setVisible(true);
         }
     }
-    // Callout Section
 
     @javafx.fxml.FXML
     public void onCalloutRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel().getSelectedItem();
             if (calloutEntry != null) {
                 calnum.setText(calloutEntry.getCalloutNumber());
@@ -2205,7 +1969,6 @@ public class actionController {
             }));
             timeline1.play();
 
-            // Update the selected log entry with values from text fields
             calloutEntry.CalloutNumber = calnum.getText();
             calloutEntry.Address = caladdress.getText();
             calloutEntry.NotesTextArea = calnotes.getText();
@@ -2214,13 +1977,10 @@ public class actionController {
             calloutEntry.Area = calarea.getText();
             calloutEntry.ResponeType = caltype.getText();
 
-            // Load existing logs from XML
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (CalloutLogEntry entry : logs) {
-                if (entry.getDate().equals(calloutEntry.getDate()) &&
-                        entry.getTime().equals(calloutEntry.getTime())) {
+                if (entry.getDate().equals(calloutEntry.getDate()) && entry.getTime().equals(calloutEntry.getTime())) {
                     entry.CalloutNumber = calnum.getText();
                     entry.Address = caladdress.getText();
                     entry.NotesTextArea = calnotes.getText();
@@ -2232,15 +1992,12 @@ public class actionController {
                 }
             }
 
-            // Save the updated logs back to XML
             CalloutReportLogs.saveLogsToXML(logs);
 
-            // Optionally, you might want to update the TableView here
             calloutTable.refresh();
 
         }
     }
-    // Patrol Section
 
     @javafx.fxml.FXML
     public void onPatUpdateValues(ActionEvent actionEvent) {
@@ -2251,7 +2008,6 @@ public class actionController {
             }));
             timeline1.play();
 
-            // Update the selected log entry with values from text fields
             patrolEntry.patrolNumber = patnum.getText();
             patrolEntry.patrolComments = patcomments.getText();
             patrolEntry.patrolLength = patlength.getText();
@@ -2259,10 +2015,8 @@ public class actionController {
             patrolEntry.patrolStopTime = patstoptime.getText();
             patrolEntry.officerVehicle = patvehicle.getText();
 
-            // Load existing logs from XML
             List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (PatrolLogEntry entry : logs) {
                 if (entry.getPatrolDate().equals(patrolEntry.getPatrolDate())) {
                     entry.patrolNumber = patnum.getText();
@@ -2276,10 +2030,8 @@ public class actionController {
                 }
             }
 
-            // Save the updated logs back to XML
             PatrolReportLogs.saveLogsToXML(logs);
 
-            // Optionally, you might want to update the TableView here
             patrolTable.refresh();
 
         }
@@ -2287,7 +2039,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onPatrolRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel().getSelectedItem();
             if (patrolEntry != null) {
                 patnum.setText(patrolEntry.getPatrolNumber());
@@ -2307,7 +2059,6 @@ public class actionController {
             }
         }
     }
-    // Traffic Stop Section
 
     @javafx.fxml.FXML
     public void onTrafUpdateValues(ActionEvent actionEvent) {
@@ -2334,13 +2085,10 @@ public class actionController {
             trafficStopEntry.operatorAddress = trafaddress.getText();
             trafficStopEntry.operatorGender = trafgender.getText();
 
-            // Load existing logs from XML
             List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (TrafficStopLogEntry entry : logs) {
-                if (entry.getDate().equals(trafficStopEntry.getDate()) &&
-                        entry.getTime().equals(trafficStopEntry.getTime())) {
+                if (entry.getDate().equals(trafficStopEntry.getDate()) && entry.getTime().equals(trafficStopEntry.getTime())) {
                     entry.PlateNumber = trafplatenum.getText();
                     entry.Color = trafcolor.getText();
                     entry.Type = traftype.getText();
@@ -2360,10 +2108,8 @@ public class actionController {
                 }
             }
 
-            // Save the updated logs back to XML
             TrafficStopReportLogs.saveLogsToXML(logs);
 
-            // Optionally, you might want to update the TableView here
             trafficStopTable.refresh();
 
         }
@@ -2371,7 +2117,7 @@ public class actionController {
 
     @javafx.fxml.FXML
     public void onTrafficStopRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel().getSelectedItem();
             if (trafficStopEntry != null) {
                 trafstreet.setText(trafficStopEntry.getStreet());
@@ -2409,7 +2155,6 @@ public class actionController {
             }
         }
     }
-    // Incident Section
 
     @javafx.fxml.FXML
     public void onIncUpdateValues(ActionEvent actionEvent) {
@@ -2430,10 +2175,8 @@ public class actionController {
             incidentEntry.incidentStatement = incstatement.getText();
             incidentEntry.incidentWitnesses = incwitness.getText();
 
-            // Load existing logs from XML
             List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (IncidentLogEntry entry : logs) {
                 if (entry.getIncidentDate().equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime().equals(incidentEntry.getIncidentTime())) {
                     entry.incidentNumber = incnum.getText();
@@ -2449,17 +2192,15 @@ public class actionController {
                 }
             }
 
-            // Save the updated logs back to XML
             IncidentReportLogs.saveLogsToXML(logs);
 
-            // Optionally, you might want to update the TableView here
             incidentTable.refresh();
         }
     }
 
     @javafx.fxml.FXML
     public void onIncidentRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel().getSelectedItem();
             if (incidentEntry != null) {
                 incnum.setText(incidentEntry.incidentNumber);
@@ -2485,7 +2226,6 @@ public class actionController {
             }
         }
     }
-    // Impound Section
 
     @javafx.fxml.FXML
     public void onImpUpdateValues(ActionEvent actionEvent) {
@@ -2507,10 +2247,8 @@ public class actionController {
             impoundEntry.ownerGender = impgender.getText();
             impoundEntry.ownerAge = impage.getText();
 
-            // Load existing logs from XML
             List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (ImpoundLogEntry entry : logs) {
                 if (entry.getImpoundDate().equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime().equals(impoundEntry.getImpoundTime())) {
                     entry.impoundPlateNumber = impplatenum.getText();
@@ -2527,17 +2265,15 @@ public class actionController {
                 }
             }
 
-            // Save the updated logs back to XML
             ImpoundReportLogs.saveLogsToXML(logs);
 
-            // Optionally, you might want to update the TableView here
             impoundTable.refresh();
         }
     }
 
     @javafx.fxml.FXML
     public void onImpoundRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel().getSelectedItem();
             if (impoundEntry != null) {
                 impnum.setText(impoundEntry.impoundNumber);
@@ -2565,11 +2301,10 @@ public class actionController {
             }
         }
     }
-    // Citation Section
 
     @javafx.fxml.FXML
     public void onCitationRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel().getSelectedItem();
             if (citationEntry != null) {
                 citnumber.setText(citationEntry.citationNumber);
@@ -2636,10 +2371,8 @@ public class actionController {
             citationEntry.offenderVehicleType = cittype.getText();
             citationEntry.citationCounty = citcounty.getText();
 
-            // Load existing logs from XML
             List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (TrafficCitationLogEntry entry : logs) {
                 if (entry.getCitationDate().equals(citationEntry.getCitationDate()) && entry.getCitationTime().equals(citationEntry.getCitationTime())) {
                     entry.citationNumber = citnumber.getText();
@@ -2661,17 +2394,16 @@ public class actionController {
                     break;
                 }
             }
-            //Save the updated logs back to XML
+
             TrafficCitationReportLogs.saveLogsToXML(logs);
-            //Optionally, you might want to update the TableView here
+
             citationTable.refresh();
         }
     }
-    // Search Section
 
     @javafx.fxml.FXML
     public void onSearchRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             searchEntry = (SearchLogEntry) searchTable.getSelectionModel().getSelectedItem();
             if (searchEntry != null) {
                 searchnum.setText(searchEntry.SearchNumber);
@@ -2732,10 +2464,8 @@ public class actionController {
             searchEntry.searchCounty = searchcounty.getText();
             searchEntry.testResults = searchbreathresult.getText();
 
-            // Load existing logs from XML
             List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (SearchLogEntry entry : logs) {
                 if (entry.getSearchDate().equals(searchEntry.getSearchDate()) && entry.getSearchTime().equals(searchEntry.getSearchTime())) {
                     entry.SearchNumber = searchnum.getText();
@@ -2755,17 +2485,16 @@ public class actionController {
                     break;
                 }
             }
-            //Save the updated logs back to XML
+
             SearchReportLogs.saveLogsToXML(logs);
-            //Optionally, you might want to update the TableView here
+
             searchTable.refresh();
         }
     }
-    // Arrest Section
 
     @javafx.fxml.FXML
     public void onArrestRowClick(MouseEvent event) {
-        if (event.getClickCount() == 1) { // single click
+        if (event.getClickCount() == 1) {
             arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel().getSelectedItem();
             if (arrestEntry != null) {
                 arrestnum.setText(arrestEntry.arrestNumber);
@@ -2827,10 +2556,8 @@ public class actionController {
             arrestEntry.arrestStreet = arreststreet.getText();
             arrestEntry.TaserYesNo = arresttaser.getText();
 
-            // Load existing logs from XML
             List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
 
-            // Update the corresponding log entry
             for (ArrestLogEntry entry : logs) {
                 if (entry.getArrestDate().equals(arrestEntry.getArrestDate()) && entry.getArrestTime().equals(arrestEntry.getArrestTime())) {
                     entry.arrestNumber = arrestnum.getText();
@@ -2850,9 +2577,9 @@ public class actionController {
                     break;
                 }
             }
-            //Save the updated logs back to XML
+
             ArrestReportLogs.saveLogsToXML(logs);
-            //Optionally, you might want to update the TableView here
+
             arrestTable.refresh();
         }
     }
@@ -2914,9 +2641,5 @@ public class actionController {
             }
         });
     }
-
-
-    //</editor-fold>
-
 
 }

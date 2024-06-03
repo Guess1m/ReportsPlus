@@ -37,9 +37,8 @@ public class PatrolReportLogs {
         try {
             File file = new File(filePath);
 
-            // Check if the file exists
             if (!file.exists()) {
-                return logEntries; // Return an empty list
+                return logEntries;
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -85,13 +84,13 @@ public class PatrolReportLogs {
 
     public static int countReports() {
         try {
-            // Load logs from XML
+
             List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
-            // Count the number of reports
+
             return logs.size();
         } catch (Exception e) {
             logError("Exception", e);
-            return -1; // Return -1 to indicate an error
+            return -1;
         }
     }
 
@@ -99,7 +98,7 @@ public class PatrolReportLogs {
         try {
             Path filePath = Paths.get(stringUtil.patrolLogURL);
             if (!Files.exists(filePath)) {
-                return new ArrayList<>(); // Return an empty list if file doesn't exist
+                return new ArrayList<>();
             }
 
             JAXBContext jaxbContext = JAXBContext.newInstance(PatrolReportLogs.class);
@@ -108,11 +107,10 @@ public class PatrolReportLogs {
             return logList.getLogs();
         } catch (JAXBException e) {
             logError("Exception", e);
-            return new ArrayList<>(); // Return an empty list if loading fails
+            return new ArrayList<>();
         }
     }
 
-    // Save logs to XML
     public static void saveLogsToXML(List<PatrolLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(PatrolReportLogs.class);
@@ -121,7 +119,6 @@ public class PatrolReportLogs {
             PatrolReportLogs logList = new PatrolReportLogs();
             logList.setLogs(logs);
 
-            // Use try-with-resources to ensure FileOutputStream is closed properly
             try (FileOutputStream fos = new FileOutputStream(stringUtil.patrolLogURL)) {
                 marshaller.marshal(logList, fos);
             }

@@ -23,17 +23,15 @@ public class stringUtil {
 
     public static String getJarPath() {
         try {
-            // Get the location of the JAR file
+
             String jarPath = stringUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 
-            // Extract the directory path from the JAR path
             String jarDir = new File(jarPath).getParent();
 
-            // Return base location
             return jarDir;
         } catch (URISyntaxException e) {
             logError("GetJarPath URI Syntax Error ", e);
-            return ""; // Return empty string if an error occurs
+            return "";
         }
     }
 }

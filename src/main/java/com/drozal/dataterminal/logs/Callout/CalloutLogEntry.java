@@ -3,7 +3,6 @@ package com.drozal.dataterminal.logs.Callout;
 import java.util.Arrays;
 import java.util.List;
 
-// Data model for a log entry
 public class CalloutLogEntry {
     public String CalloutNumber;
     public String NotesTextArea;
@@ -42,22 +41,7 @@ public class CalloutLogEntry {
     }
 
     public List<String> getAllValues() {
-        return Arrays.asList(
-                getDate(),
-                getTime(),
-                getName(),
-                getRank(),
-                getNumber(),
-                getDivision(),
-                getAgency(),
-                getResponeType(),
-                getResponseGrade(),
-                getCalloutNumber(),
-                getNotesTextArea(),
-                getAddress(),
-                getCounty(),
-                getArea()
-        );
+        return Arrays.asList(getDate(), getTime(), getName(), getRank(), getNumber(), getDivision(), getAgency(), getResponeType(), getResponseGrade(), getCalloutNumber(), getNotesTextArea(), getAddress(), getCounty(), getArea());
     }
 
     public String getCalloutNumber() {

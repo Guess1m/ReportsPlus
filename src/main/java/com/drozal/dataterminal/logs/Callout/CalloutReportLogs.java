@@ -33,13 +33,13 @@ public class CalloutReportLogs {
 
     public static int countReports() {
         try {
-            // Load logs from XML
+
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-            // Count the number of reports
+
             return logs.size();
         } catch (Exception e) {
             logError("Exception", e);
-            return -1; // Return -1 to indicate an error
+            return -1;
         }
     }
 
@@ -49,7 +49,7 @@ public class CalloutReportLogs {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return logEntries; // Return an empty list if the file doesn't exist
+                return logEntries;
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -100,7 +100,7 @@ public class CalloutReportLogs {
         try {
             Path filePath = Paths.get(stringUtil.calloutLogURL);
             if (!Files.exists(filePath)) {
-                return new ArrayList<>(); // Return an empty list if file doesn't exist
+                return new ArrayList<>();
             }
 
             JAXBContext jaxbContext = JAXBContext.newInstance(CalloutReportLogs.class);
@@ -109,7 +109,7 @@ public class CalloutReportLogs {
             return logList.getLogs();
         } catch (JAXBException e) {
             logError("Exception", e);
-            return new ArrayList<>(); // Return an empty list if loading fails
+            return new ArrayList<>();
         }
     }
 
@@ -121,7 +121,6 @@ public class CalloutReportLogs {
             CalloutReportLogs logList = new CalloutReportLogs();
             logList.setLogs(logs);
 
-            // Use try-with-resources to ensure FileOutputStream is closed properly
             try (FileOutputStream fos = new FileOutputStream(stringUtil.calloutLogURL)) {
                 marshaller.marshal(logList, fos);
             }

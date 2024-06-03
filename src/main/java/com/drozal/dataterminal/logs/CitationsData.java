@@ -3,7 +3,6 @@ package com.drozal.dataterminal.logs;
 public class CitationsData {
     private String citation;
 
-    // Constructor
     public CitationsData(String citation) {
         this.citation = citation;
     }

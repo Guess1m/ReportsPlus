@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficStop;
 
-// Data model for a log entry
 public class TrafficStopLogEntry {
     public String PlateNumber;
     public String Color;

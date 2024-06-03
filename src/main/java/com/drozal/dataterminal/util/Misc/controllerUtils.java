@@ -51,24 +51,10 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class controllerUtils {
 
-    private static final String[][] keys = {
-            {"-name", "-na", "-n", "-fullname", "-fname"},
-            {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber", "-nu"},
-            {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"},
-            {"-address", "-addr", "-residence", "-place", "-add", "-ad", "-add"},
-            {"-model", "-mod", "-mo", "-m"},
-            {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte", "-p"},
-            {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"},
-            {"-area", "-region", "-zone", "-territory", "-locale", "-ar"},
-            {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"},
-            {"-notes", "-nts", "-note", "-notepad", "-comments", "-cmts", "-cmt"},
-            {"-description", "-des", "-desc", "-d"},
-            {"-searchitems", "-si", "-search", "-srch", "-items", "-item"},
-            {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}
-    };
+    private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber", "-nu"}, {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"}, {"-address", "-addr", "-residence", "-place", "-add", "-ad", "-add"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte", "-p"}, {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"}, {"-area", "-region", "-zone", "-territory", "-locale", "-ar"}, {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-notepad", "-comments", "-cmts", "-cmt"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items", "-item"}, {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}};
 
     public static void showButtonAnimation(Button button) {
-        // Create a scale transition
+
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), button);
         scaleTransition.setFromX(0.9);
         scaleTransition.setFromY(0.9);
@@ -79,14 +65,13 @@ public class controllerUtils {
 
     public static String getJarDirectoryPath() {
         try {
-            // Get the location of the JAR file
+
             String jarPath = actionController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 
-            // Extract the directory path from the JAR path
             return new File(jarPath).getParent();
         } catch (Exception e) {
             logError("GetJarDirPath Exception", e);
-            return ""; // Return empty string if an error occurs
+            return "";
         }
     }
 
@@ -130,13 +115,7 @@ public class controllerUtils {
 
         VBox vbox1 = new VBox(label);
         vbox1.setAlignment(Pos.CENTER);
-        Notifications noti = Notifications.create()
-                .title(title)
-                .text(message)
-                .graphic(null) // You can add a graphic if needed
-                .position(Pos.TOP_RIGHT)
-                .hideAfter(Duration.seconds(1.15))
-                .owner(owner);
+        Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(Pos.TOP_RIGHT).hideAfter(Duration.seconds(1.15)).owner(owner);
         noti.show();
         noti.getStyleClass().add("notification-pane");
     }
@@ -146,13 +125,7 @@ public class controllerUtils {
 
         VBox vbox1 = new VBox(label);
         vbox1.setAlignment(Pos.CENTER);
-        Notifications noti = Notifications.create()
-                .title(title)
-                .text(message)
-                .graphic(null) // You can add a graphic if needed
-                .position(Pos.TOP_CENTER)
-                .hideAfter(Duration.seconds(1.15))
-                .owner(owner);
+        Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(Pos.TOP_CENTER).hideAfter(Duration.seconds(1.15)).owner(owner);
         noti.show();
         noti.getStyleClass().add("notification-pane");
     }
@@ -200,23 +173,22 @@ public class controllerUtils {
     }
 
     public static void changeBarColors(BarChart<String, Number> barChart) throws IOException {
-        // Get the list of series from the bar chart
+
         ObservableList<XYChart.Series<String, Number>> seriesList = barChart.getData();
 
-        // Iterate over each series
         for (XYChart.Series<String, Number> series : seriesList) {
-            // Iterate over each data point in the series
+
             for (XYChart.Data<String, Number> data : series.getData()) {
-                // Access the node representing the bar for the data point
+
                 javafx.scene.Node node = data.getNode();
-                // Set the style of the node to change the color of the bar
+
                 node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("accentColor") + "; -fx-border-color: " + ConfigReader.configRead("secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
             }
         }
     }
 
     public static void changeStatisticColors(AreaChart chart) throws IOException {
-        //Accent
+
         String accclr = ConfigReader.configRead("accentColor");
         String mainclr = ConfigReader.configRead("mainColor");
         String secclr = ConfigReader.configRead("secondaryColor");
@@ -231,10 +203,7 @@ public class controllerUtils {
     }
 
     public static String toHexString(Color color) {
-        return String.format("#%02X%02X%02X",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
+        return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
     }
 
     public static void updateChartIfMismatch(BarChart<String, Number> chart) {
@@ -251,33 +220,33 @@ public class controllerUtils {
                 XYChart.Data<String, Number> data = series.getData().get(i);
                 int reportsCount = 0;
                 switch (i) {
-                    case 0: // Callout
+                    case 0:
                         reportsCount = CalloutReportLogs.countReports();
                         break;
-                    case 1: // Arrests
+                    case 1:
                         reportsCount = ArrestReportLogs.countReports();
                         break;
-                    case 2: // Traffic Stops
+                    case 2:
                         reportsCount = TrafficStopReportLogs.countReports();
                         break;
-                    case 3: // Patrols
+                    case 3:
                         reportsCount = PatrolReportLogs.countReports();
                         break;
-                    case 4: // Searches
+                    case 4:
                         reportsCount = SearchReportLogs.countReports();
                         break;
-                    case 5: // Incidents
+                    case 5:
                         reportsCount = IncidentReportLogs.countReports();
                         break;
-                    case 6: // Impounds
+                    case 6:
                         reportsCount = ImpoundReportLogs.countReports();
                         break;
-                    case 7: // TCitations
+                    case 7:
                         reportsCount = TrafficCitationReportLogs.countReports();
                         break;
                 }
                 if (data.getYValue().intValue() != reportsCount) {
-                    // Update the data point to match the report count
+
                     data.setYValue(reportsCount);
                 }
             }
@@ -286,22 +255,19 @@ public class controllerUtils {
 
     public static void clearDataLogs() {
         try {
-            // Get the path to the DataLogs folder
+
             String dataLogsFolderPath = getDataLogsFolderPath();
 
-            // Print the path for debugging
             log("DataLogs folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
 
-            // Check if the DataLogs folder exists
             File dataLogsFolder = new File(dataLogsFolderPath);
             if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
                 log("DataLogs folder exists.", LogUtils.Severity.INFO);
 
-                // Get a list of files in the DataLogs folder
                 File[] files = dataLogsFolder.listFiles();
 
                 if (files != null) {
-                    // Delete each file in the DataLogs folder
+
                     for (File file : files) {
                         if (file.isFile()) {
                             try {
@@ -326,22 +292,19 @@ public class controllerUtils {
 
     public static void clearDataFolder() {
         try {
-            // Get the path to the DataLogs folder
+
             String dataLogsFolderPath = getJarPath() + File.separator + "data";
 
-            // Print the path for debugging
             log("Data folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
 
-            // Check if the DataLogs folder exists
             File dataLogsFolder = new File(dataLogsFolderPath);
             if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
                 log("Data folder exists.", LogUtils.Severity.INFO);
 
-                // Get a list of files in the DataLogs folder
                 File[] files = dataLogsFolder.listFiles();
 
                 if (files != null) {
-                    // Delete each file in the DataLogs folder
+
                     for (File file : files) {
                         if (file.isFile()) {
                             try {
@@ -417,13 +380,12 @@ public class controllerUtils {
 
     public static void clearConfig() {
         try {
-            // Get the path to the config.properties file
+
             String configFilePath = getJarDirectoryPath() + File.separator + "config.properties";
             File configFile = new File(configFilePath);
 
-            // Check if the config.properties file exists
             if (configFile.exists() && configFile.isFile()) {
-                // Delete the config.properties file
+
                 try {
                     Files.deleteIfExists(configFile.toPath());
                     log("Deleted config.properties file.", LogUtils.Severity.INFO);
@@ -444,7 +406,7 @@ public class controllerUtils {
         Map<String, Integer> areasMap = new HashMap<>();
         File xmlFile = new File(logURL);
         if (!xmlFile.exists()) {
-            return; // Return without parsing if file doesn't exist
+            return;
         }
 
         try {
@@ -481,10 +443,9 @@ public class controllerUtils {
         parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
         parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
 
-        // Sort the areas alphabetically ignoring case
         Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         sortedAreasMap.putAll(combinedAreasMap);
-        // Create series and populate with sorted data
+
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
             series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
@@ -493,8 +454,8 @@ public class controllerUtils {
     }
 
     public static void refreshChart(AreaChart chart, String value) {
-        chart.getData().clear(); // Clear existing data from the chart
-        chart.getData().add(parseEveryLog(value)); // Add new data to the chart
+        chart.getData().clear();
+        chart.getData().add(parseEveryLog(value));
         try {
             changeStatisticColors(chart);
         } catch (IOException e) {
@@ -539,7 +500,7 @@ public class controllerUtils {
             if (extractedValue != null) {
                 break;
             }
-            // Check for alternatives
+
             for (Map.Entry<String, String> entry : values.entrySet()) {
                 for (String altKey : entry.getKey().split("\\|")) {
                     if (altKey.equals(key)) {
@@ -555,9 +516,7 @@ public class controllerUtils {
                 break;
             }
         }
-        // No need to set labelText to null if no key is found
-        // Retain the original value of textField
-        // which may be the text already set before
+
         String labelText = extractedValue;
         textField.setText(labelText);
     }
@@ -570,7 +529,7 @@ public class controllerUtils {
             if (extractedValue != null) {
                 break;
             }
-            // Check for alternatives
+
             for (Map.Entry<String, String> entry : values.entrySet()) {
                 for (String altKey : entry.getKey().split("\\|")) {
                     if (altKey.equals(key)) {
@@ -598,7 +557,7 @@ public class controllerUtils {
             if (extractedValue != null) {
                 break;
             }
-            // Check for alternatives
+
             for (Map.Entry<String, String> entry : values.entrySet()) {
                 for (String altKey : entry.getKey().split("\\|")) {
                     if (altKey.equals(key)) {

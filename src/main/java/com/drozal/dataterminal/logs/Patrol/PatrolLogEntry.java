@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Patrol;
 
-// Data model for a log entry
 public class PatrolLogEntry {
     public String patrolNumber;
     public String patrolDate;

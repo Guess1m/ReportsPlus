@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Impound;
 
-// Data model for a log entry
 public class ImpoundLogEntry {
     public String impoundNumber;
     public String impoundDate;

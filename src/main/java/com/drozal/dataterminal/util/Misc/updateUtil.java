@@ -21,7 +21,7 @@ public class updateUtil {
             try {
                 URL url = new URL(rawUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(5000); // 5 seconds timeout
+                connection.setConnectTimeout(5000);
                 connection.setRequestMethod("GET");
 
                 int responseCode = connection.getResponseCode();

@@ -74,7 +74,7 @@ public class reportCreationUtil {
     private static double xOffset;
     private static double yOffset;
 
-    private static String getPrimaryColor() { //non selected textarea
+    private static String getPrimaryColor() {
         String primaryColor;
         try {
             primaryColor = ConfigReader.configRead("reportSecondary");
@@ -84,7 +84,7 @@ public class reportCreationUtil {
         return primaryColor;
     }
 
-    private static String getSecondaryColor() { // selected textarea
+    private static String getSecondaryColor() {
         String secondaryColor;
         try {
             secondaryColor = ConfigReader.configRead("reportAccent");
@@ -94,7 +94,7 @@ public class reportCreationUtil {
         return secondaryColor;
     }
 
-    private static String getAccentColor() { // background
+    private static String getAccentColor() {
         String accentColor;
         try {
             accentColor = ConfigReader.configRead("reportBackground");
@@ -133,9 +133,6 @@ public class reportCreationUtil {
         }
     }
     */
-
-
-    //<editor-fold desc="Creation">
 
     public static AnchorPane createTitleBar(String titleText) {
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -240,7 +237,6 @@ public class reportCreationUtil {
         return titleBar;
     }
 
-
     public static AnchorPane createSimpleTitleBar(String titleText, boolean resiable) {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
@@ -331,7 +327,6 @@ public class reportCreationUtil {
         return titleBar;
     }
 
-
     public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
         String placeholder;
         try {
@@ -378,14 +373,13 @@ public class reportCreationUtil {
         int rowIndex = 1;
 
         for (SectionConfig sectionConfig : sectionConfigs) {
-            // Add Section Label
+
             Label sectionLabel = new Label(sectionConfig.getSectionTitle());
             sectionLabel.setFont(Font.font("Segoe UI Black"));
             sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
             gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
             rowIndex++;
 
-            // Add Rows for each Config
             for (RowConfig rowConfig : sectionConfig.getRowConfigs()) {
                 addRowToGridPane(gridPane, rowConfig, rowIndex, fieldsMap);
                 rowIndex++;
@@ -448,10 +442,10 @@ public class reportCreationUtil {
             paneGrid.setHgap(10);
             paneGrid.setVgap(10);
 
-            paneGrid.getColumnConstraints().clear(); // Clear existing constraints if any
+            paneGrid.getColumnConstraints().clear();
             for (int i = 0; i < 12; i++) {
                 ColumnConstraints columnConstraints = new ColumnConstraints();
-                columnConstraints.setPercentWidth(100.0 / 12); // Divide the grid evenly
+                columnConstraints.setPercentWidth(100.0 / 12);
                 paneGrid.getColumnConstraints().add(columnConstraints);
             }
 
@@ -586,7 +580,6 @@ public class reportCreationUtil {
         }
         return result;
     }
-
 
     private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
         String placeholder;
@@ -1067,30 +1060,8 @@ public class reportCreationUtil {
         }
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Report Windows">
-
-
     static Map<String, Object> calloutLayout() {
-        Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location Information", true,
-                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Callout Information", true,
-                        new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Callout Notes", true,
-                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                )
-        );
+        Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location Information", true, new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Callout Information", true, new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return calloutReport;
     }
 
@@ -1165,21 +1136,7 @@ public class reportCreationUtil {
             }
             List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 
-            logs.add(new CalloutLogEntry(
-                    calloutdate.getText(),
-                    callouttime.getText(),
-                    officername.getText(),
-                    officerrank.getText(),
-                    officernum.getText(),
-                    officerdiv.getText(),
-                    officeragen.getText(),
-                    callouttype.getText(),
-                    calloutcode.getText(),
-                    calloutnum.getText(),
-                    calloutnotes.getText(),
-                    calloutstreet.getText(),
-                    calloutcounty.getText(),
-                    calloutarea.getText()
+            logs.add(new CalloutLogEntry(calloutdate.getText(), callouttime.getText(), officername.getText(), officerrank.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText(), callouttype.getText(), calloutcode.getText(), calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(), calloutcounty.getText(), calloutarea.getText()
 
             ));
 
@@ -1193,44 +1150,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> impoundLayout() {
-        Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(
-                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location / Timestamp Information", true,
-                        new RowConfig(
-                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Information", true,
-                        new RowConfig(
-                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("offender address", 12, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Vehicle Information", true,
-                        new RowConfig(
-                                new FieldConfig("model", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("plate number", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("type", 7, FieldType.COMBO_BOX_TYPE),
-                                new FieldConfig("color", 5, FieldType.COMBO_BOX_COLOR))
-                ),
-                new SectionConfig("Citation Notes", true,
-                        new RowConfig(
-                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                ));
+        Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 12, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 6, FieldType.TEXT_FIELD), new FieldConfig("plate number", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 7, FieldType.COMBO_BOX_TYPE), new FieldConfig("color", 5, FieldType.COMBO_BOX_COLOR))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return impoundReport;
     }
 
@@ -1317,26 +1238,7 @@ public class reportCreationUtil {
             } else {
                 List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                // Add new entry
-                logs.add(new ImpoundLogEntry(
-                        num.getText(),
-                        date.getText(),
-                        time.getText(),
-                        offenderName.getText(),
-                        offenderAge.getText(),
-                        offenderGender.getText(),
-                        offenderAddress.getText(),
-                        plateNumber.getText(),
-                        model.getText(),
-                        type.getValue().toString(),
-                        color.getValue().toString(),
-                        notes.getText(),
-                        officerrank.getText(),
-                        officername.getText(),
-                        officernum.getText(),
-                        officerdiv.getText(),
-                        officeragen.getText()
-                ));
+                logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(), offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(), plateNumber.getText(), model.getText(), type.getValue().toString(), color.getValue().toString(), notes.getText(), officerrank.getText(), officername.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText()));
                 ImpoundReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
@@ -1347,21 +1249,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> patrolLayout() {
-        Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Shift Information", true,
-                        new RowConfig(new FieldConfig("starttime", 3, FieldType.TEXT_FIELD), new FieldConfig("stoptime", 4, FieldType.TEXT_FIELD), new FieldConfig("patrolnumber", 5, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("length", 3, FieldType.TEXT_FIELD), new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("vehicle", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Callout Notes", true,
-                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                )
-        );
+        Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Shift Information", true, new RowConfig(new FieldConfig("starttime", 3, FieldType.TEXT_FIELD), new FieldConfig("stoptime", 4, FieldType.TEXT_FIELD), new FieldConfig("patrolnumber", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("length", 3, FieldType.TEXT_FIELD), new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("vehicle", 6, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return patrolReport;
     }
 
@@ -1436,20 +1325,7 @@ public class reportCreationUtil {
 
             List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
 
-            logs.add(new PatrolLogEntry(
-                    patrolnum.getText(),
-                    date.getText(),
-                    length.getText(),
-                    starttime.getText(),
-                    stoptime.getText(),
-                    rank.getText(),
-                    name.getText(),
-                    num.getText(),
-                    div.getText(),
-                    agen.getText(),
-                    vehicle.getText(),
-                    notes.getText()
-            ));
+            logs.add(new PatrolLogEntry(patrolnum.getText(), date.getText(), length.getText(), starttime.getText(), stoptime.getText(), rank.getText(), name.getText(), num.getText(), div.getText(), agen.getText(), vehicle.getText(), notes.getText()));
 
             PatrolReportLogs.saveLogsToXML(logs);
             actionController.needRefresh.set(1);
@@ -1461,58 +1337,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> citationLayout() {
-        Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
-                new TransferConfig("Transfer Information To New Report",
-                        new RowConfig(
-                                new FieldConfig("transferimpoundbtn", 12, FieldType.TRANSFER_BUTTON))
-                ),
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(
-                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location / Timestamp Information", true,
-                        new RowConfig(
-                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Information", true,
-                        new RowConfig(
-                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("(If Applicable) Offender Vehicle Information", false,
-                        new RowConfig(
-                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
-                        new RowConfig(
-                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
-                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Citation Notes", true,
-                        new RowConfig(
-                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                ),
-                new SectionConfig("Citation(s)", true,
-                        new RowConfig(
-                                new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))
-                ));
+        Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 12, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Vehicle Information", false, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Citation(s)", true, new RowConfig(new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))));
         return citationReport;
     }
 
@@ -1685,26 +1511,7 @@ public class reportCreationUtil {
                 } else {
                     List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                    // Add new entry
-                    logs.add(new ImpoundLogEntry(
-                            numimp.getText(),
-                            dateimp.getText(),
-                            timeimp.getText(),
-                            offenderNameimp.getText(),
-                            offenderAgeimp.getText(),
-                            offenderGenderimp.getText(),
-                            offenderAddressimp.getText(),
-                            plateNumberimp.getText(),
-                            modelimp.getText(),
-                            typeimp.getValue().toString(),
-                            colorimp.getValue().toString(),
-                            notesimp.getText(),
-                            officerrankimp.getText(),
-                            officernameimp.getText(),
-                            officernumimp.getText(),
-                            officerdivimp.getText(),
-                            officeragenimp.getText()
-                    ));
+                    logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue().toString(), colorimp.getValue().toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
                     ImpoundReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
@@ -1746,31 +1553,7 @@ public class reportCreationUtil {
                     stringBuilder.setLength(stringBuilder.length() - 2);
                 }
 
-                logs.add(new TrafficCitationLogEntry(
-                        num.getText(),
-                        date.getText(),
-                        time.getText(),
-                        stringBuilder.toString(),
-                        county.getText(),
-                        area.getText(),
-                        street.getText(),
-                        offenderName.getText(),
-                        offenderGender.getText(),
-                        offenderAge.getText(),
-                        offenderAddress.getText(),
-                        offenderDescription.getText(),
-                        model.getText(),
-                        color.getValue().toString(),
-                        type.getValue().toString(),
-                        plateNumber.getText(),
-                        otherInfo.getText(),
-                        officerrank.getText(),
-                        officername.getText(),
-                        officernum.getText(),
-                        officerdiv.getText(),
-                        officeragen.getText(),
-                        notes.getText()
-                ));
+                logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(), stringBuilder.toString(), county.getText(), area.getText(), street.getText(), offenderName.getText(), offenderGender.getText(), offenderAge.getText(), offenderAddress.getText(), offenderDescription.getText(), model.getText(), color.getValue().toString(), type.getValue().toString(), plateNumber.getText(), otherInfo.getText(), officerrank.getText(), officername.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText(), notes.getText()));
                 TrafficCitationReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
@@ -1781,26 +1564,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> incidentLayout() {
-        Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null,
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Timestamp / Location Information", true,
-                        new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("incident num", 5, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Parties Involved", false,
-                        new RowConfig(new FieldConfig("suspect(s)", 6, FieldType.TEXT_FIELD), new FieldConfig("victim(s) / witness(s)", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("statement", 12, FieldType.TEXT_AREA))
-                ),
-                new SectionConfig("Notes / Summary", true,
-                        new RowConfig(new FieldConfig("summary", 12, FieldType.TEXT_AREA)),
-                        new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                )
-        );
+        Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("incident num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Parties Involved", false, new RowConfig(new FieldConfig("suspect(s)", 6, FieldType.TEXT_FIELD), new FieldConfig("victim(s) / witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("statement", 12, FieldType.TEXT_AREA))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("summary", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return incidentReport;
     }
 
@@ -1887,24 +1652,7 @@ public class reportCreationUtil {
 
             List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 
-            logs.add(new IncidentLogEntry(
-                    incidentnum.getText(),
-                    date.getText(),
-                    time.getText(),
-                    statement.getText(),
-                    suspects.getText(),
-                    vicwit.getText(),
-                    name.getText(),
-                    rank.getText(),
-                    num.getText(),
-                    agen.getText(),
-                    div.getText(),
-                    street.getText(),
-                    area.getText(),
-                    county.getText(),
-                    summary.getText(),
-                    notes.getText()
-            ));
+            logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(), suspects.getText(), vicwit.getText(), name.getText(), rank.getText(), num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(), county.getText(), summary.getText(), notes.getText()));
 
             IncidentReportLogs.saveLogsToXML(logs);
             actionController.needRefresh.set(1);
@@ -1915,30 +1663,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> searchLayout() {
-        Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Timestamp / Location Information", true,
-                        new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("search num", 5, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Search Information", true,
-                        new RowConfig(new FieldConfig("grounds for search", 6, FieldType.TEXT_FIELD), new FieldConfig("witness(s)", 6, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)),
-                        new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))
-                ),
-                new SectionConfig("Field Sobriety Information (If Applicable)", false,
-                        new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Notes / Summary", true,
-                        new RowConfig(new FieldConfig("seized item(s)", 12, FieldType.TEXT_AREA)),
-                        new RowConfig(new FieldConfig("comments", 12, FieldType.TEXT_AREA))
-                )
-        );
+        Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("search num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Search Information", true, new RowConfig(new FieldConfig("grounds for search", 6, FieldType.TEXT_FIELD), new FieldConfig("witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))), new SectionConfig("Field Sobriety Information (If Applicable)", false, new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("seized item(s)", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("comments", 12, FieldType.TEXT_AREA))));
         return searchReport;
     }
 
@@ -2032,29 +1758,7 @@ public class reportCreationUtil {
 
             List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 
-            logs.add(new SearchLogEntry(
-                    searchnum.getText(),
-                    searchedindividual.getText(),
-                    date.getText(),
-                    time.getText(),
-                    seizeditems.getText(),
-                    grounds.getText(),
-                    type.getValue().toString(),
-                    method.getValue().toString(),
-                    witness.getText(),
-                    rank.getText(),
-                    name.getText(),
-                    num.getText(),
-                    agen.getText(),
-                    div.getText(),
-                    street.getText(),
-                    area.getText(),
-                    county.getText(),
-                    notes.getText(),
-                    testconducted.getText(),
-                    result.getText(),
-                    bacmeasurement.getText()
-            ));
+            logs.add(new SearchLogEntry(searchnum.getText(), searchedindividual.getText(), date.getText(), time.getText(), seizeditems.getText(), grounds.getText(), type.getValue().toString(), method.getValue().toString(), witness.getText(), rank.getText(), name.getText(), num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(), county.getText(), notes.getText(), testconducted.getText(), result.getText(), bacmeasurement.getText()));
 
             SearchReportLogs.saveLogsToXML(logs);
             actionController.needRefresh.set(1);
@@ -2065,59 +1769,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> arrestLayout() {
-        Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,
-                new TransferConfig("Transfer Information To New Report",
-                        new RowConfig(
-                                new FieldConfig("transferimpoundbtn", 4, FieldType.TRANSFER_BUTTON),
-                                new FieldConfig("transferincidentbtn", 4, FieldType.TRANSFER_BUTTON),
-                                new FieldConfig("transfersearchbtn", 4, FieldType.TRANSFER_BUTTON))
-                ),
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(
-                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location / Timestamp Information", true,
-                        new RowConfig(
-                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("arrest number", 2, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Information", true,
-                        new RowConfig(
-                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("(If Applicable) Offender Medical Information", false,
-                        new RowConfig(
-                                new FieldConfig("ambulance required (Y/N)", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("taser deployed (Y/N)", 6, FieldType.TEXT_FIELD))
-                        ,
-                        new RowConfig(
-                                new FieldConfig("other information", 12, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Charge Notes", true,
-                        new RowConfig(
-                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                ),
-                new SectionConfig("Charge(s)", true,
-                        new RowConfig(
-                                new FieldConfig("chargeview", 6, FieldType.CHARGES_TREE_VIEW))
-                ));
+        Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transferincidentbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transfersearchbtn", 4, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("arrest number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Medical Information", false, new RowConfig(new FieldConfig("ambulance required (Y/N)", 6, FieldType.TEXT_FIELD), new FieldConfig("taser deployed (Y/N)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("other information", 12, FieldType.TEXT_FIELD))), new SectionConfig("Charge Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Charge(s)", true, new RowConfig(new FieldConfig("chargeview", 6, FieldType.CHARGES_TREE_VIEW))));
         return arrestReport;
     }
 
@@ -2195,7 +1848,6 @@ public class reportCreationUtil {
                 log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
-
 
         transferimpoundbtn.setOnAction(event -> {
 
@@ -2287,26 +1939,7 @@ public class reportCreationUtil {
                 } else {
                     List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                    // Add new entry
-                    logs.add(new ImpoundLogEntry(
-                            numimp.getText(),
-                            dateimp.getText(),
-                            timeimp.getText(),
-                            offenderNameimp.getText(),
-                            offenderAgeimp.getText(),
-                            offenderGenderimp.getText(),
-                            offenderAddressimp.getText(),
-                            plateNumberimp.getText(),
-                            modelimp.getText(),
-                            typeimp.getValue().toString(),
-                            colorimp.getValue().toString(),
-                            notesimp.getText(),
-                            officerrankimp.getText(),
-                            officernameimp.getText(),
-                            officernumimp.getText(),
-                            officerdivimp.getText(),
-                            officeragenimp.getText()
-                    ));
+                    logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue().toString(), colorimp.getValue().toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
                     ImpoundReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
@@ -2406,24 +2039,7 @@ public class reportCreationUtil {
 
                 List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 
-                logs.add(new IncidentLogEntry(
-                        incidentnum.getText(),
-                        dateinc.getText(),
-                        timeinc.getText(),
-                        statementinc.getText(),
-                        suspectsinc.getText(),
-                        vicwitinc.getText(),
-                        nameinc.getText(),
-                        rankinc.getText(),
-                        officernuminc.getText(),
-                        ageninc.getText(),
-                        divinc.getText(),
-                        streetinc.getText(),
-                        areainc.getText(),
-                        countyinc.getText(),
-                        summaryinc.getText(),
-                        notesinc.getText()
-                ));
+                logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(), statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(), nameinc.getText(), rankinc.getText(), officernuminc.getText(), ageninc.getText(), divinc.getText(), streetinc.getText(), areainc.getText(), countyinc.getText(), summaryinc.getText(), notesinc.getText()));
                 IncidentReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
@@ -2528,29 +2144,7 @@ public class reportCreationUtil {
 
                 List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 
-                logs.add(new SearchLogEntry(
-                        searchnum.getText(),
-                        searchedindividualsrch.getText(),
-                        datesrch.getText(),
-                        timesrch.getText(),
-                        seizeditemssrch.getText(),
-                        groundssrch.getText(),
-                        typesrch.getValue().toString(),
-                        methodsrch.getValue().toString(),
-                        witnesssrch.getText(),
-                        ranksrch.getText(),
-                        namesrch.getText(),
-                        numsrch.getText(),
-                        agensrch.getText(),
-                        divsrch.getText(),
-                        streetsrch.getText(),
-                        areasrch.getText(),
-                        countysrch.getText(),
-                        notessrch.getText(),
-                        testconductedsrch.getText(),
-                        resultsrch.getText(),
-                        bacmeasurementsrch.getText()
-                ));
+                logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(), typesrch.getValue().toString(), methodsrch.getValue().toString(), witnesssrch.getText(), ranksrch.getText(), namesrch.getText(), numsrch.getText(), agensrch.getText(), divsrch.getText(), streetsrch.getText(), areasrch.getText(), countysrch.getText(), notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(), bacmeasurementsrch.getText()));
 
                 SearchReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
@@ -2560,7 +2154,6 @@ public class reportCreationUtil {
                 stagesrch.close();
             });
         });
-
 
         Button submitBtn = (Button) arrestReport.get("submitBtn");
         submitBtn.setOnAction(event -> {
@@ -2595,30 +2188,7 @@ public class reportCreationUtil {
                     stringBuilder.setLength(stringBuilder.length() - 2);
                 }
 
-                // Add new entry
-                logs.add(new ArrestLogEntry(
-                        arrestnum.getText(),
-                        date.getText(),
-                        time.getText(),
-                        stringBuilder.toString(),
-                        county.getText(),
-                        area.getText(),
-                        street.getText(),
-                        offenderName.getText(),
-                        offenderAge.getText(),
-                        offenderGender.getText(),
-                        offenderDescription.getText(),
-                        ambulancereq.getText(),
-                        taserdep.getText(),
-                        othermedinfo.getText(),
-                        offenderAddress.getText(),
-                        notes.getText(),
-                        officerrank.getText(),
-                        officername.getText(),
-                        officernumarrest.getText(),
-                        officerdiv.getText(),
-                        officeragen.getText()
-                ));
+                logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(), stringBuilder.toString(), county.getText(), area.getText(), street.getText(), offenderName.getText(), offenderAge.getText(), offenderGender.getText(), offenderDescription.getText(), ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(), offenderAddress.getText(), notes.getText(), officerrank.getText(), officername.getText(), officernumarrest.getText(), officerdiv.getText(), officeragen.getText()));
                 ArrestReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
@@ -2629,55 +2199,8 @@ public class reportCreationUtil {
         });
     }
 
-
     static Map<String, Object> trafficStopLayout() {
-        Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8,
-                new TransferConfig("Transfer Information To New Report",
-                        new RowConfig(
-                                new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON),
-                                new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))
-                ),
-                new SectionConfig("Officer Information", true,
-                        new RowConfig(
-                                new FieldConfig("name", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("rank", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("number", 2, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("division", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("agency", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Location / Timestamp Information", true,
-                        new RowConfig(
-                                new FieldConfig("street", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("area", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("county", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("date", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("time", 5, FieldType.TEXT_FIELD),
-                                new FieldConfig("stop number", 2, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Information", true,
-                        new RowConfig(
-                                new FieldConfig("offender name", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender age", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)),
-                        new RowConfig(
-                                new FieldConfig("offender address", 6, FieldType.TEXT_FIELD),
-                                new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Offender Vehicle Information", true,
-                        new RowConfig(
-                                new FieldConfig("model", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("plate number", 4, FieldType.TEXT_FIELD),
-                                new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)),
-                        new RowConfig(
-                                new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE),
-                                new FieldConfig("other info", 8, FieldType.TEXT_FIELD))
-                ),
-                new SectionConfig("Comments", true,
-                        new RowConfig(
-                                new FieldConfig("notes", 12, FieldType.TEXT_AREA))
-                ));
+        Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON), new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("stop number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Comments", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
         return trafficStopReport;
     }
 
@@ -2754,7 +2277,6 @@ public class reportCreationUtil {
                 log("NotesViewController Is Null", LogUtils.Severity.ERROR);
             }
         });
-
 
         transferarrestbtnts.setOnAction(event -> {
             Map<String, Object> arrestReport = arrestLayout();
@@ -2836,7 +2358,6 @@ public class reportCreationUtil {
                     log("NotesViewController Is Null", LogUtils.Severity.ERROR);
                 }
             });
-
 
             transferimpoundbtnarr.setOnAction(event2 -> {
 
@@ -2928,26 +2449,7 @@ public class reportCreationUtil {
                     } else {
                         List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                        // Add new entry
-                        logs.add(new ImpoundLogEntry(
-                                numimp.getText(),
-                                dateimp.getText(),
-                                timeimp.getText(),
-                                offenderNameimp.getText(),
-                                offenderAgeimp.getText(),
-                                offenderGenderimp.getText(),
-                                offenderAddressimp.getText(),
-                                plateNumberimp.getText(),
-                                modelimp.getText(),
-                                typeimp.getValue().toString(),
-                                colorimp.getValue().toString(),
-                                notesimp.getText(),
-                                officerrankimp.getText(),
-                                officernameimp.getText(),
-                                officernumimp.getText(),
-                                officerdivimp.getText(),
-                                officeragenimp.getText()
-                        ));
+                        logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue().toString(), colorimp.getValue().toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
                         ImpoundReportLogs.saveLogsToXML(logs);
                         actionController.needRefresh.set(1);
                         updateChartIfMismatch(reportChart);
@@ -3047,24 +2549,7 @@ public class reportCreationUtil {
 
                     List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 
-                    logs.add(new IncidentLogEntry(
-                            incidentnum.getText(),
-                            dateinc.getText(),
-                            timeinc.getText(),
-                            statementinc.getText(),
-                            suspectsinc.getText(),
-                            vicwitinc.getText(),
-                            nameinc.getText(),
-                            rankinc.getText(),
-                            officernuminc.getText(),
-                            ageninc.getText(),
-                            divinc.getText(),
-                            streetinc.getText(),
-                            areainc.getText(),
-                            countyinc.getText(),
-                            summaryinc.getText(),
-                            notesinc.getText()
-                    ));
+                    logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(), statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(), nameinc.getText(), rankinc.getText(), officernuminc.getText(), ageninc.getText(), divinc.getText(), streetinc.getText(), areainc.getText(), countyinc.getText(), summaryinc.getText(), notesinc.getText()));
                     IncidentReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
@@ -3169,29 +2654,7 @@ public class reportCreationUtil {
 
                     List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 
-                    logs.add(new SearchLogEntry(
-                            searchnum.getText(),
-                            searchedindividualsrch.getText(),
-                            datesrch.getText(),
-                            timesrch.getText(),
-                            seizeditemssrch.getText(),
-                            groundssrch.getText(),
-                            typesrch.getValue().toString(),
-                            methodsrch.getValue().toString(),
-                            witnesssrch.getText(),
-                            ranksrch.getText(),
-                            namesrch.getText(),
-                            numsrch.getText(),
-                            agensrch.getText(),
-                            divsrch.getText(),
-                            streetsrch.getText(),
-                            areasrch.getText(),
-                            countysrch.getText(),
-                            notessrch.getText(),
-                            testconductedsrch.getText(),
-                            resultsrch.getText(),
-                            bacmeasurementsrch.getText()
-                    ));
+                    logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(), typesrch.getValue().toString(), methodsrch.getValue().toString(), witnesssrch.getText(), ranksrch.getText(), namesrch.getText(), numsrch.getText(), agensrch.getText(), divsrch.getText(), streetsrch.getText(), areasrch.getText(), countysrch.getText(), notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(), bacmeasurementsrch.getText()));
 
                     SearchReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
@@ -3201,7 +2664,6 @@ public class reportCreationUtil {
                     stagesrch.close();
                 });
             });
-
 
             Button submitBtn = (Button) arrestReport.get("submitBtn");
             submitBtn.setOnAction(event5 -> {
@@ -3236,30 +2698,7 @@ public class reportCreationUtil {
                         stringBuilder.setLength(stringBuilder.length() - 2);
                     }
 
-                    // Add new entry
-                    logs.add(new ArrestLogEntry(
-                            arrestnumarr.getText(),
-                            datearr.getText(),
-                            timearr.getText(),
-                            stringBuilder.toString(),
-                            countyarr.getText(),
-                            areaarr.getText(),
-                            streetarr.getText(),
-                            offenderNamearr.getText(),
-                            offenderAgearr.getText(),
-                            offenderGenderarr.getText(),
-                            offenderDescriptionarr.getText(),
-                            ambulancereqarr.getText(),
-                            taserdeparr.getText(),
-                            othermedinfoarr.getText(),
-                            offenderAddressarr.getText(),
-                            notesarr.getText(),
-                            officerrankarr.getText(),
-                            officernamearr.getText(),
-                            officernumarrestarr.getText(),
-                            officerdivarr.getText(),
-                            officeragenarr.getText()
-                    ));
+                    logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(), stringBuilder.toString(), countyarr.getText(), areaarr.getText(), streetarr.getText(), offenderNamearr.getText(), offenderAgearr.getText(), offenderGenderarr.getText(), offenderDescriptionarr.getText(), ambulancereqarr.getText(), taserdeparr.getText(), othermedinfoarr.getText(), offenderAddressarr.getText(), notesarr.getText(), officerrankarr.getText(), officernamearr.getText(), officernumarrestarr.getText(), officerdivarr.getText(), officeragenarr.getText()));
                     ArrestReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
@@ -3449,26 +2888,7 @@ public class reportCreationUtil {
                     } else {
                         List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 
-                        // Add new entry
-                        logs.add(new ImpoundLogEntry(
-                                numimp.getText(),
-                                dateimp.getText(),
-                                timeimp.getText(),
-                                offenderNameimp.getText(),
-                                offenderAgeimp.getText(),
-                                offenderGenderimp.getText(),
-                                offenderAddressimp.getText(),
-                                plateNumberimp.getText(),
-                                modelimp.getText(),
-                                typeimp.getValue().toString(),
-                                colorimp.getValue().toString(),
-                                notesimp.getText(),
-                                officerrankimp.getText(),
-                                officernameimp.getText(),
-                                officernumimp.getText(),
-                                officerdivimp.getText(),
-                                officeragenimp.getText()
-                        ));
+                        logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue().toString(), colorimp.getValue().toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
                         ImpoundReportLogs.saveLogsToXML(logs);
                         actionController.needRefresh.set(1);
                         updateChartIfMismatch(reportChart);
@@ -3511,31 +2931,7 @@ public class reportCreationUtil {
                         stringBuilder.setLength(stringBuilder.length() - 2);
                     }
 
-                    logs.add(new TrafficCitationLogEntry(
-                            numcit.getText(),
-                            datecit.getText(),
-                            timecit.getText(),
-                            stringBuilder.toString(),
-                            countycit.getText(),
-                            areacit.getText(),
-                            streetcit.getText(),
-                            offenderNamecit.getText(),
-                            offenderGendercit.getText(),
-                            offenderAgecit.getText(),
-                            offenderAddresscit.getText(),
-                            offenderDescriptioncit.getText(),
-                            modelcit.getText(),
-                            colorcit.getValue().toString(),
-                            typecit.getValue().toString(),
-                            plateNumbercit.getText(),
-                            otherInfocit.getText(),
-                            officerrankcit.getText(),
-                            officernamecit.getText(),
-                            officernumcit.getText(),
-                            officerdivcit.getText(),
-                            officeragencit.getText(),
-                            notescit.getText()
-                    ));
+                    logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(), stringBuilder.toString(), countycit.getText(), areacit.getText(), streetcit.getText(), offenderNamecit.getText(), offenderGendercit.getText(), offenderAgecit.getText(), offenderAddresscit.getText(), offenderDescriptioncit.getText(), modelcit.getText(), colorcit.getValue().toString(), typecit.getValue().toString(), plateNumbercit.getText(), otherInfocit.getText(), officerrankcit.getText(), officernamecit.getText(), officernumcit.getText(), officerdivcit.getText(), officeragencit.getText(), notescit.getText()));
                     TrafficCitationReportLogs.saveLogsToXML(logs);
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
@@ -3545,7 +2941,6 @@ public class reportCreationUtil {
                 }
             });
         });
-
 
         Button submitBtn = (Button) trafficStopReport.get("submitBtn");
         submitBtn.setOnAction(event -> {
@@ -3570,30 +2965,7 @@ public class reportCreationUtil {
             } else {
                 List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 
-                logs.add(new TrafficStopLogEntry(
-                        datets.getText(),
-                        timets.getText(),
-                        modelts.getText(),
-                        otherInfots.getText(),
-                        offenderNamets.getText(),
-                        offenderAgets.getText(),
-                        offenderAddressts.getText(),
-                        offenderDescriptionts.getText(),
-                        offenderGenderts.getText(),
-                        officernamets.getText(),
-                        officerrankts.getText(),
-                        officernumarrestts.getText(),
-                        officerdivts.getText(),
-                        officeragents.getText(),
-                        stopnumts.getText(),
-                        notests.getText(),
-                        streetts.getText(),
-                        countyts.getText(),
-                        areats.getText(),
-                        plateNumberts.getText(),
-                        colorts.getValue().toString(),
-                        typets.getValue().toString()
-                ));
+                logs.add(new TrafficStopLogEntry(datets.getText(), timets.getText(), modelts.getText(), otherInfots.getText(), offenderNamets.getText(), offenderAgets.getText(), offenderAddressts.getText(), offenderDescriptionts.getText(), offenderGenderts.getText(), officernamets.getText(), officerrankts.getText(), officernumarrestts.getText(), officerdivts.getText(), officeragents.getText(), stopnumts.getText(), notests.getText(), streetts.getText(), countyts.getText(), areats.getText(), plateNumberts.getText(), colorts.getValue().toString(), typets.getValue().toString()));
                 TrafficStopReportLogs.saveLogsToXML(logs);
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
@@ -3604,25 +2976,9 @@ public class reportCreationUtil {
         });
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="External">
-
-
     public enum FieldType {
-        TEXT_FIELD,
-        TEXT_AREA,
-        COMBO_BOX_COLOR,
-        COMBO_BOX_TYPE,
-        COMBO_BOX_SEARCH_TYPE,
-        COMBO_BOX_SEARCH_METHOD,
-        CITATION_TREE_VIEW,
-        CHARGES_TREE_VIEW,
-        TRANSFER_BUTTON
+        TEXT_FIELD, TEXT_AREA, COMBO_BOX_COLOR, COMBO_BOX_TYPE, COMBO_BOX_SEARCH_TYPE, COMBO_BOX_SEARCH_METHOD, CITATION_TREE_VIEW, CHARGES_TREE_VIEW, TRANSFER_BUTTON
     }
-
 
     public static class SectionConfig {
         private final String sectionTitle;
@@ -3644,12 +3000,10 @@ public class reportCreationUtil {
             return rowConfigs;
         }
 
-
         public Boolean getRequired() {
             return required;
         }
     }
-
 
     public static class TransferConfig {
         private final String title;
@@ -3669,7 +3023,6 @@ public class reportCreationUtil {
         }
     }
 
-
     public static class RowConfig {
 
         private final List<FieldConfig> fieldConfigs;
@@ -3682,9 +3035,7 @@ public class reportCreationUtil {
             return fieldConfigs;
         }
 
-
     }
-
 
     public static class FieldConfig {
 
@@ -3711,11 +3062,6 @@ public class reportCreationUtil {
             return fieldType;
         }
 
-
     }
-
-
-    //</editor-fold>
-
 
 }

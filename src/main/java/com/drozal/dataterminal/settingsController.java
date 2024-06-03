@@ -259,7 +259,6 @@ public class settingsController {
             }
         });
 
-
         backgroundPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
             @Override
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
@@ -315,7 +314,6 @@ public class settingsController {
                 }
             }
         });
-
 
         String[] reportdarklight = {"dark", "light"};
         String[] themes = {"dark", "purple", "blue", "grey", "green"};
@@ -559,7 +557,7 @@ public class settingsController {
     private void loadTheme() throws IOException {
         changeBarColors(controllerVar.getReportChart());
         changeStatisticColors(controllerVar.getAreaReportChart());
-        //Main
+
         String mainclr = ConfigReader.configRead("mainColor");
         controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
         controllerVar.mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
@@ -567,7 +565,7 @@ public class settingsController {
         controllerVar.getLogManagerLabelBkg().setStyle("-fx-background-color: " + mainclr + ";");
         controllerVar.getDetailsLabelFill().setStyle("-fx-text-fill: " + mainclr + ";");
         lbl0.setStyle("-fx-background-color: " + mainclr + ";");
-        //Secondary
+
         String secclr = ConfigReader.configRead("secondaryColor");
         controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
         controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
@@ -580,9 +578,9 @@ public class settingsController {
         lbl4.setStyle("-fx-text-fill: " + secclr + ";");
         lbl5.setStyle("-fx-text-fill: " + secclr + ";");
         lbl6.setStyle("-fx-text-fill: " + secclr + ";");
-        //Accent
+
         String accclr = ConfigReader.configRead("accentColor");
-        //Buttons
+
         String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
         String initialStyle = "-fx-background-color: transparent;";
         String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
@@ -597,7 +595,6 @@ public class settingsController {
         controllerVar.getBtn7().setStyle(nonTransparentBtn);
         controllerVar.getBtn8().setStyle(nonTransparentBtn);
 
-        // Add hover event handling
         controllerVar.getBtn1().setOnMouseEntered(e -> controllerVar.getBtn1().setStyle(hoverStyle));
         controllerVar.getBtn1().setOnMouseExited(e -> controllerVar.getBtn1().setStyle(nonTransparentBtn));
         controllerVar.getBtn2().setOnMouseEntered(e -> controllerVar.getBtn2().setStyle(hoverStyle));

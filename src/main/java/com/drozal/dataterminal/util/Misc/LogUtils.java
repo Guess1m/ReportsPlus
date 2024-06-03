@@ -74,14 +74,14 @@ public class LogUtils {
 
     public static void log(String message, Severity severity) {
         String logMessage = "[" + getDate() + "] [" + getTime() + "] [" + severity + "] " + message;
-        System.out.println(logMessage); // This alone will log to both console and file
+        System.out.println(logMessage);
     }
 
     public static void logError(String message, Throwable e) {
         String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] " + message;
-        System.err.println(errorMessage); // This alone will log to both console and file
+        System.err.println(errorMessage);
         e.printStackTrace(System.err);
-        System.err.println("***"); // This alone will log to both console and file
+        System.err.println("***");
     }
 
     private static void readLogFile(String filePath, ObservableList<TextFlow> logItems) {
@@ -193,7 +193,7 @@ public class LogUtils {
     }
 
     public static void addOutputToListview(ListView<TextFlow> listView) {
-        // Set up the initial items
+
         ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
         readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
         listView.setItems(logItems);
@@ -216,7 +216,6 @@ public class LogUtils {
             }
         });
 
-        // Set up a timeline to update the items every 5 seconds
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             logItems.clear();
             readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
@@ -224,7 +223,6 @@ public class LogUtils {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
 
     public enum Severity {
         DEBUG, INFO, WARN, ERROR,

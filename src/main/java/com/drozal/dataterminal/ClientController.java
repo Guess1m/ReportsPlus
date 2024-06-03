@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class ClientController {
     private static AnchorPane titleBar;
@@ -71,9 +68,6 @@ public class ClientController {
         });
     }
 
-    // wireless internet fogils
-    //
-
     @javafx.fxml.FXML
     public void connectBtnPress(ActionEvent actionEvent) throws IOException {
         if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
@@ -108,18 +102,12 @@ public class ClientController {
         Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
         helpDialog.setTitle("Help");
         helpDialog.setHeaderText("How To Use The Client");
-        helpDialog.setContentText(
-                "1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.\n\n"
-                        + "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.\n\n"
-                        + "3. The top right field is the internal IP of the server the client is connected to.\n\n"
-                        + "4. The bottom right field is the port of the established connection.\n\n");
+        helpDialog.setContentText("1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.\n\n" + "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.\n\n" + "3. The top right field is the internal IP of the server the client is connected to.\n\n" + "4. The bottom right field is the port of the established connection.\n\n");
 
-        // Ensure the dialog is on top of all other windows
         helpDialog.initOwner(owner);
         helpDialog.initModality(Modality.APPLICATION_MODAL);
 
         helpDialog.showAndWait();
     }
-
 
 }

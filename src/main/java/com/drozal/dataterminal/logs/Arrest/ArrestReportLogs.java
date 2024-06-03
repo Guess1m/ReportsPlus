@@ -37,9 +37,8 @@ public class ArrestReportLogs {
         try {
             File file = new File(filePath);
 
-            // Check if the file exists
             if (!file.exists()) {
-                return logEntries; // Return an empty list
+                return logEntries;
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -94,13 +93,13 @@ public class ArrestReportLogs {
 
     public static int countReports() {
         try {
-            // Load logs from XML
+
             List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
-            // Count the number of reports
+
             return logs.size();
         } catch (Exception e) {
             logError("Exception", e);
-            return -1; // Return -1 to indicate an error
+            return -1;
         }
     }
 
@@ -108,7 +107,7 @@ public class ArrestReportLogs {
         try {
             Path filePath = Paths.get(stringUtil.arrestLogURL);
             if (!Files.exists(filePath)) {
-                return new ArrayList<>(); // Return an empty list if file doesn't exist
+                return new ArrayList<>();
             }
 
             JAXBContext jaxbContext = JAXBContext.newInstance(ArrestReportLogs.class);
@@ -117,11 +116,10 @@ public class ArrestReportLogs {
             return logList.getLogs();
         } catch (JAXBException e) {
             logError("Exception", e);
-            return new ArrayList<>(); // Return an empty list if loading fails
+            return new ArrayList<>();
         }
     }
 
-    // Save logs to XML
     public static void saveLogsToXML(List<ArrestLogEntry> logs) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ArrestReportLogs.class);
@@ -130,7 +128,6 @@ public class ArrestReportLogs {
             ArrestReportLogs logList = new ArrestReportLogs();
             logList.setLogs(logs);
 
-            // Use try-with-resources to ensure FileOutputStream is closed properly
             try (FileOutputStream fos = new FileOutputStream(stringUtil.arrestLogURL)) {
                 marshaller.marshal(logList, fos);
             }

@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Incident;
 
-// Data model for a log entry
 public class IncidentLogEntry {
     public String incidentNumber;
     public String incidentDate;

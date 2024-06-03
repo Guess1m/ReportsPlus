@@ -22,7 +22,6 @@ public class ID {
     @XmlElement(name = "Index")
     private int index;
 
-    // Getters and setters
     public String getName() {
         return name;
     }
@@ -31,11 +30,10 @@ public class ID {
         this.name = name;
     }
 
-    // Split the name into first and last names
     public String getFirstName() {
         if (name != null && !name.isEmpty()) {
             String[] parts = name.split(" ");
-            return parts[0]; // First name
+            return parts[0];
         }
         return "";
     }
@@ -44,7 +42,7 @@ public class ID {
         if (name != null && !name.isEmpty()) {
             String[] parts = name.split(" ");
             if (parts.length > 1) {
-                return parts[parts.length - 1]; // Last name
+                return parts[parts.length - 1];
             }
         }
         return "";

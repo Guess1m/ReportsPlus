@@ -34,14 +34,13 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
-    private static final int TIMEOUT_SECONDS = 10; // Timeout in seconds
+    private static final int TIMEOUT_SECONDS = 10;
     public static Boolean isConnected = false;
     public static String port;
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
 
-    // Buffer Flags
     private static boolean canActivateUpdateId = true;
     private static boolean canActivateUpdateCallout = true;
     private static boolean canActivateUpdateWorldPed = true;
@@ -120,7 +119,7 @@ public class ClientUtils {
                         case "SHUTDOWN":
                             log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
                             disconnectFromService();
-                            break label; // Exit the loop
+                            break label;
                         case "UPDATE_ID":
                             if (canActivateUpdateId) {
                                 canActivateUpdateId = false;
@@ -220,7 +219,6 @@ public class ClientUtils {
                                     } catch (IOException e) {
                                         logError("could not read calloutDuration: ", e);
                                     }
-
 
                                     CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
                                         @Override

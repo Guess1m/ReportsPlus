@@ -11,21 +11,10 @@ import java.net.Socket;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-/**
- * The type File utlis.
- */
 public class FileUtlis {
 	
-	/**
-	 * Receive file from server.
-	 *
-	 * @param host                   the host
-	 * @param port                   the port
-	 * @param outputFileNameLocation the output file name location
-	 * @param fileSize               the file size
-	 * @throws IOException the io exception
-	 */
-	public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
+	public static void receiveFileFromServer(String host, int port, String outputFileNameLocation,
+	                                         int fileSize) throws IOException {
 		int bytesRead;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
@@ -45,12 +34,15 @@ public class FileUtlis {
 			log("File " + outputFileNameLocation + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
-				if (bos != null)
+				if (bos != null) {
 					bos.close();
-				if (fos != null)
+				}
+				if (fos != null) {
 					fos.close();
-				if (sock != null)
+				}
+				if (sock != null) {
 					sock.close();
+				}
 			} catch (IOException e) {
 				logError("Could Not Close All Elements: ", e);
 			}

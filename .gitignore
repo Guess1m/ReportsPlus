@@ -39,3 +39,4 @@ build/
 
 # Ignore dependency-reduced-pom.xml
 dependency-reduced-pom.xml
+/.idea/intellij-javadocs-4.0.1.xml

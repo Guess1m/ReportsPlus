@@ -25,9 +25,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-/**
- * The type Current id view controller.
- */
 public class CurrentIDViewController {
 	
 	private static AnchorPane titleBar;
@@ -50,24 +47,12 @@ public class CurrentIDViewController {
 	@javafx.fxml.FXML
 	private TextField address;
 	
-	/**
-	 * Generate random number string.
-	 *
-	 * @return the string
-	 */
 	public static String generateRandomNumber() {
 		Random random = new Random();
 		int randomNumber = random.nextInt(9000000) + 1000000;
 		return String.valueOf(randomNumber);
 	}
 	
-	/**
-	 * Retrieves the most recent ID from an XML file.
-	 * This method checks the XML file's existence and non-emptiness before attempting to unmarshal it.
-	 * It uses JAXB to convert the XML content to Java objects and handles various potential errors.
-	 *
-	 * @return the most recent ID object or null if no IDs are available or an error occurs
-	 */
 	public static ID getMostRecentID() {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
 		File file = new File(filePath);
@@ -94,9 +79,6 @@ public class CurrentIDViewController {
 		}
 	}
 	
-	/**
-	 * Initialize.
-	 */
 	public void initialize() {
 		titleBar = reportCreationUtil.createSimpleTitleBar("Current ID", false);
 		root.setTop(titleBar);
@@ -142,15 +124,12 @@ public class CurrentIDViewController {
 		watchIDChanges();
 	}
 	
-	/**
-	 * Watch id changes.
-	 */
 	public void watchIDChanges() {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 		
 		Thread watchThread = new Thread(() -> {
 			try (WatchService watcher = FileSystems.getDefault()
-					.newWatchService()) {
+			                                       .newWatchService()) {
 				dir.register(watcher, ENTRY_MODIFY);
 				
 				while (true) {
@@ -159,7 +138,7 @@ public class CurrentIDViewController {
 						key = watcher.take();
 					} catch (InterruptedException x) {
 						Thread.currentThread()
-								.interrupt();
+						      .interrupt();
 						return;
 					}
 					
@@ -174,7 +153,7 @@ public class CurrentIDViewController {
 						Path fileName = ev.context();
 						
 						if (fileName.toString()
-								.equals("ServerCurrentID.xml")) {
+						            .equals("ServerCurrentID.xml")) {
 							log("ID is being updated", LogUtils.Severity.INFO);
 							
 							Platform.runLater(() -> {

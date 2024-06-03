@@ -26,14 +26,8 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 
-/**
- * The type Settings controller.
- */
 public class settingsController {
 	
-	/**
-	 * The Top bar.
-	 */
 	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private CheckBox startupFullscreenCheckbox;
@@ -121,11 +115,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private ComboBox presetComboBoxReport;
 	
-	/**
-	 * Initialize.
-	 *
-	 * @throws IOException the io exception
-	 */
 	public void initialize() throws IOException {
 		if (DataTerminalHomeApplication.controller != null) {
 			controllerVar = DataTerminalHomeApplication.controller;
@@ -140,34 +129,34 @@ public class settingsController {
 		root.setTop(topBar);
 		
 		startupFullscreenCheckbox.setSelected(ConfigReader.configRead("fullscreenOnStartup")
-				.equals("true"));
+		                                                  .equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTNotes")
-				.equals("true"));
+		                                 .equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTReport")
-				.equals("true"));
+		                                  .equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTMap")
-				.equals("true"));
+		                               .equals("true"));
 		AOTID.setSelected(ConfigReader.configRead("AOTID")
-				.equals("true"));
+		                              .equals("true"));
 		AOTCallout.setSelected(ConfigReader.configRead("AOTCallout")
-				.equals("true"));
+		                                   .equals("true"));
 		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings")
-				.equals("true"));
+		                                    .equals("true"));
 		AOTClient.setSelected(ConfigReader.configRead("AOTClient")
-				.equals("true"));
+		                                  .equals("true"));
 		AOTDebug.setSelected(ConfigReader.configRead("AOTDebug")
-				.equals("true"));
+		                                 .equals("true"));
 		
 		loadColors();
 		loadTheme();
 		
 		String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
 		mainWindowComboBox.getItems()
-				.addAll(displayPlacements);
+		                  .addAll(displayPlacements);
 		notesWindowComboBox.getItems()
-				.addAll(displayPlacements);
+		                   .addAll(displayPlacements);
 		ReportWindowComboBox.getItems()
-				.addAll(displayPlacements);
+		                    .addAll(displayPlacements);
 		
 		try {
 			mainWindowComboBox.setValue(ConfigReader.configRead("mainWindowLayout"));
@@ -180,7 +169,7 @@ public class settingsController {
 		EventHandler<ActionEvent> comboBoxHandler = event -> {
 			ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
 			String selectedPlacement = comboBox.getSelectionModel()
-					.getSelectedItem();
+			                                   .getSelectedItem();
 			
 			if (comboBox == mainWindowComboBox) {
 				if ("Default".equals(selectedPlacement)) {
@@ -242,131 +231,135 @@ public class settingsController {
 		ReportWindowComboBox.setOnAction(comboBoxHandler);
 		
 		primPicker.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateMain(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 3 ", e);
-						}
-					}
-				});
+		          .addListener(new ChangeListener<Color>() {
+			          @Override
+			          public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+				          Color selectedColor = newValue;
+				          updateMain(selectedColor);
+				          try {
+					          loadTheme();
+					          loadColors();
+				          } catch (IOException e) {
+					          logError("LoadTheme IO Error Code 3 ", e);
+				          }
+			          }
+		          });
 		
 		secPicker.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateSecondary(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 4 ", e);
-						}
-					}
-				});
+		         .addListener(new ChangeListener<Color>() {
+			         @Override
+			         public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+				         Color selectedColor = newValue;
+				         updateSecondary(selectedColor);
+				         try {
+					         loadTheme();
+					         loadColors();
+				         } catch (IOException e) {
+					         logError("LoadTheme IO Error Code 4 ", e);
+				         }
+			         }
+		         });
 		
 		accPicker.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateAccent(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 5 ", e);
-						}
-					}
-				});
+		         .addListener(new ChangeListener<Color>() {
+			         @Override
+			         public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+				         Color selectedColor = newValue;
+				         updateAccent(selectedColor);
+				         try {
+					         loadTheme();
+					         loadColors();
+				         } catch (IOException e) {
+					         logError("LoadTheme IO Error Code 5 ", e);
+				         }
+			         }
+		         });
 		
 		backgroundPickerReport.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateReportBackground(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 6 ", e);
-						}
-					}
-				});
+		                      .addListener(new ChangeListener<Color>() {
+			                      @Override
+			                      public void changed(ObservableValue<? extends Color> observable, Color oldValue,
+			                                          Color newValue) {
+				                      Color selectedColor = newValue;
+				                      updateReportBackground(selectedColor);
+				                      try {
+					                      loadTheme();
+					                      loadColors();
+				                      } catch (IOException e) {
+					                      logError("LoadTheme IO Error Code 6 ", e);
+				                      }
+			                      }
+		                      });
 		
 		accentPickerReport.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateReportAccent(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 7 ", e);
-						}
-					}
-				});
+		                  .addListener(new ChangeListener<Color>() {
+			                  @Override
+			                  public void changed(ObservableValue<? extends Color> observable, Color oldValue,
+			                                      Color newValue) {
+				                  Color selectedColor = newValue;
+				                  updateReportAccent(selectedColor);
+				                  try {
+					                  loadTheme();
+					                  loadColors();
+				                  } catch (IOException e) {
+					                  logError("LoadTheme IO Error Code 7 ", e);
+				                  }
+			                  }
+		                  });
 		
 		headingPickerReport.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateReportHeading(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 8 ", e);
-						}
-					}
-				});
+		                   .addListener(new ChangeListener<Color>() {
+			                   @Override
+			                   public void changed(ObservableValue<? extends Color> observable, Color oldValue,
+			                                       Color newValue) {
+				                   Color selectedColor = newValue;
+				                   updateReportHeading(selectedColor);
+				                   try {
+					                   loadTheme();
+					                   loadColors();
+				                   } catch (IOException e) {
+					                   logError("LoadTheme IO Error Code 8 ", e);
+				                   }
+			                   }
+		                   });
 		
 		secPickerReport.valueProperty()
-				.addListener(new ChangeListener<Color>() {
-					@Override
-					public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-						Color selectedColor = newValue;
-						updateReportSecondary(selectedColor);
-						try {
-							loadTheme();
-							loadColors();
-						} catch (IOException e) {
-							logError("LoadTheme IO Error Code 9 ", e);
-						}
-					}
-				});
+		               .addListener(new ChangeListener<Color>() {
+			               @Override
+			               public void changed(ObservableValue<? extends Color> observable, Color oldValue,
+			                                   Color newValue) {
+				               Color selectedColor = newValue;
+				               updateReportSecondary(selectedColor);
+				               try {
+					               loadTheme();
+					               loadColors();
+				               } catch (IOException e) {
+					               logError("LoadTheme IO Error Code 9 ", e);
+				               }
+			               }
+		               });
 		
 		String[] reportdarklight = {"dark", "light"};
 		String[] themes = {"dark", "purple", "blue", "grey", "green"};
 		String[] presets = {"dark", "light", "grey", "green", "blue"};
 		
 		reportStyleComboBox.getItems()
-				.addAll(reportdarklight);
+		                   .addAll(reportdarklight);
 		
 		themeComboBox.getItems()
-				.addAll(themes);
+		             .addAll(themes);
 		
 		presetComboBoxReport.getItems()
-				.addAll(presets);
+		                    .addAll(presets);
 		
 		try {
 			if (ConfigReader.configRead("reportWindowDarkMode")
-					.equals("true")) {
+			                .equals("true")) {
 				reportStyleComboBox.getSelectionModel()
-						.selectFirst();
+				                   .selectFirst();
 			} else {
 				reportStyleComboBox.getSelectionModel()
-						.selectLast();
+				                   .selectLast();
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);
@@ -375,7 +368,7 @@ public class settingsController {
 		
 		themeComboBox.setOnAction(actionEvent -> {
 			String selectedTheme = (String) themeComboBox.getSelectionModel()
-					.getSelectedItem();
+			                                             .getSelectedItem();
 			
 			switch (selectedTheme) {
 				case "dark" -> {
@@ -444,8 +437,8 @@ public class settingsController {
 		});
 		reportStyleComboBox.setOnAction(event -> {
 			if (reportStyleComboBox.getSelectionModel()
-					.getSelectedItem()
-					.equals("dark")) {
+			                       .getSelectedItem()
+			                       .equals("dark")) {
 				ConfigWriter.configwrite("reportWindowDarkMode", "true");
 			} else {
 				ConfigWriter.configwrite("reportWindowDarkMode", "false");
@@ -454,7 +447,7 @@ public class settingsController {
 		
 		presetComboBoxReport.setOnAction(actionEvent -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel()
-					.getSelectedItem();
+			                                                    .getSelectedItem();
 			
 			switch (selectedTheme) {
 				case "dark" -> {
@@ -527,8 +520,8 @@ public class settingsController {
 		});
 		
 		if (reportStyleComboBox.getSelectionModel()
-				.getSelectedItem()
-				.equals("dark")) {
+		                       .getSelectedItem()
+		                       .equals("dark")) {
 			ConfigWriter.configwrite("reportWindowDarkMode", "true");
 		} else {
 			ConfigWriter.configwrite("reportWindowDarkMode", "false");
@@ -536,40 +529,29 @@ public class settingsController {
 		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems()
-				.addAll(calloutDurations);
+		                  .addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("calloutDuration"));
 		calloutDurComboBox.setOnAction(actionEvent -> {
 			String selectedDur = (String) calloutDurComboBox.getSelectionModel()
-					.getSelectedItem();
+			                                                .getSelectedItem();
 			ConfigWriter.configwrite("calloutDuration", selectedDur);
 		});
 		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene()
-					.getWindow();
+			                          .getWindow();
 			stage.setMinWidth(stage.getWidth());
 			stage.setMinHeight(stage.getHeight());
 		});
 	}
 	
-	/**
-	 * Clear save data btn click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void clearSaveDataBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		confirmSaveDataClearDialog(stage);
 	}
 	
-	/**
-	 * Open debug logs btn click.
-	 *
-	 * @param actionEvent the action event
-	 * @throws IOException the io exception
-	 */
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) throws IOException {
 		Stage stage = new Stage();
@@ -582,7 +564,7 @@ public class settingsController {
 		stage.show();
 		stage.centerOnScreen();
 		if (ConfigReader.configRead("AOTDebug")
-				.equals("true")) {
+		                .equals("true")) {
 			stage.setAlwaysOnTop(true);
 			
 		} else {
@@ -593,24 +575,14 @@ public class settingsController {
 		windowUtils.centerStageOnMainApp(stage);
 	}
 	
-	/**
-	 * Clear logs btn click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void clearLogsBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		confirmLogClearDialog(stage, controllerVar.getReportChart(), controllerVar.getAreaReportChart());
 		showLogClearNotification("Log Manager", "Logs have been cleared.", root);
 	}
 	
-	/**
-	 * Reset defaults btn press.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
 		updateMain(Color.valueOf("#524992"));
@@ -633,21 +605,21 @@ public class settingsController {
 		controllerVar.mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getLogManagerLabelBkg()
-				.setStyle("-fx-background-color: " + mainclr + ";");
+		             .setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getDetailsLabelFill()
-				.setStyle("-fx-text-fill: " + mainclr + ";");
+		             .setStyle("-fx-text-fill: " + mainclr + ";");
 		lbl0.setStyle("-fx-background-color: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("secondaryColor");
 		controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor3Bkg()
-				.setStyle("-fx-background-color: " + secclr + ";");
+		             .setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor4Bkg()
-				.setStyle("-fx-background-color: " + secclr + ";");
+		             .setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor5Bkg()
-				.setStyle("-fx-background-color: " + secclr + ";");
+		             .setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getReportPlusLabelFill()
-				.setStyle("-fx-text-fill: " + secclr + ";");
+		             .setStyle("-fx-text-fill: " + secclr + ";");
 		lbl1.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl2.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl3.setStyle("-fx-text-fill: " + secclr + ";");
@@ -662,124 +634,124 @@ public class settingsController {
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
 		controllerVar.getShowManagerToggle()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn1()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn2()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn3()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn4()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn5()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn6()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn7()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		controllerVar.getBtn8()
-				.setStyle(nonTransparentBtn);
+		             .setStyle(nonTransparentBtn);
 		
 		controllerVar.getBtn1()
-				.setOnMouseEntered(e -> controllerVar.getBtn1()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn1()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn1()
-				.setOnMouseExited(e -> controllerVar.getBtn1()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn1()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn2()
-				.setOnMouseEntered(e -> controllerVar.getBtn2()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn2()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn2()
-				.setOnMouseExited(e -> controllerVar.getBtn2()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn2()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn3()
-				.setOnMouseEntered(e -> controllerVar.getBtn3()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn3()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn3()
-				.setOnMouseExited(e -> controllerVar.getBtn3()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn3()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn4()
-				.setOnMouseEntered(e -> controllerVar.getBtn4()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn4()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn4()
-				.setOnMouseExited(e -> controllerVar.getBtn4()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn4()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn5()
-				.setOnMouseEntered(e -> controllerVar.getBtn5()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn5()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn5()
-				.setOnMouseExited(e -> controllerVar.getBtn5()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn5()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn6()
-				.setOnMouseEntered(e -> controllerVar.getBtn6()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn6()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn6()
-				.setOnMouseExited(e -> controllerVar.getBtn6()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn6()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn7()
-				.setOnMouseEntered(e -> controllerVar.getBtn7()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn7()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn7()
-				.setOnMouseExited(e -> controllerVar.getBtn7()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn7()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getBtn8()
-				.setOnMouseEntered(e -> controllerVar.getBtn8()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getBtn8()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getBtn8()
-				.setOnMouseExited(e -> controllerVar.getBtn8()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getBtn8()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.getShowManagerToggle()
-				.setOnMouseEntered(e -> controllerVar.getShowManagerToggle()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getShowManagerToggle()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getShowManagerToggle()
-				.setOnMouseExited(e -> controllerVar.getShowManagerToggle()
-						.setStyle(nonTransparentBtn));
+		             .setOnMouseExited(e -> controllerVar.getShowManagerToggle()
+		                                                 .setStyle(nonTransparentBtn));
 		controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
 		controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
 		controllerVar.getSettingsBtn()
-				.setOnMouseEntered(e -> controllerVar.getSettingsBtn()
-						.setStyle("-fx-background-color: " + secclr + ";"));
+		             .setOnMouseEntered(e -> controllerVar.getSettingsBtn()
+		                                                  .setStyle("-fx-background-color: " + secclr + ";"));
 		controllerVar.getSettingsBtn()
-				.setOnMouseExited(e -> controllerVar.getSettingsBtn()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getSettingsBtn()
+		                                                 .setStyle(initialStyle));
 		controllerVar.notesButton.setOnMouseEntered(e -> controllerVar.notesButton.setStyle(hoverStyle));
 		controllerVar.notesButton.setOnMouseExited(e -> controllerVar.notesButton.setStyle(initialStyle));
 		controllerVar.getCreateReportBtn()
-				.setOnMouseEntered(e -> controllerVar.getCreateReportBtn()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getCreateReportBtn()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getCreateReportBtn()
-				.setOnMouseExited(e -> controllerVar.getCreateReportBtn()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getCreateReportBtn()
+		                                                 .setStyle(initialStyle));
 		controllerVar.getLogsButton()
-				.setOnMouseEntered(e -> controllerVar.getLogsButton()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getLogsButton()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getLogsButton()
-				.setOnMouseExited(e -> controllerVar.getLogsButton()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getLogsButton()
+		                                                 .setStyle(initialStyle));
 		controllerVar.getMapButton()
-				.setOnMouseEntered(e -> controllerVar.getMapButton()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getMapButton()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getMapButton()
-				.setOnMouseExited(e -> controllerVar.getMapButton()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getMapButton()
+		                                                 .setStyle(initialStyle));
 		controllerVar.getShowIDBtn()
-				.setOnMouseEntered(e -> controllerVar.getShowIDBtn()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getShowIDBtn()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getShowIDBtn()
-				.setOnMouseExited(e -> controllerVar.getShowIDBtn()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getShowIDBtn()
+		                                                 .setStyle(initialStyle));
 		controllerVar.getShowCalloutBtn()
-				.setOnMouseEntered(e -> controllerVar.getShowCalloutBtn()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getShowCalloutBtn()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getShowCalloutBtn()
-				.setOnMouseExited(e -> controllerVar.getShowCalloutBtn()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getShowCalloutBtn()
+		                                                 .setStyle(initialStyle));
 		controllerVar.getLookupBtn()
-				.setOnMouseEntered(e -> controllerVar.getLookupBtn()
-						.setStyle(hoverStyle));
+		             .setOnMouseEntered(e -> controllerVar.getLookupBtn()
+		                                                  .setStyle(hoverStyle));
 		controllerVar.getLookupBtn()
-				.setOnMouseExited(e -> controllerVar.getLookupBtn()
-						.setStyle(initialStyle));
+		             .setOnMouseExited(e -> controllerVar.getLookupBtn()
+		                                                 .setStyle(initialStyle));
 		
 		controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
 		controllerVar.updateInfoBtn.setOnMouseExited(e -> {
@@ -836,11 +808,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Startup fullscreen click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void startupFullscreenClick(ActionEvent actionEvent) {
 		if (startupFullscreenCheckbox.isSelected()) {
@@ -852,11 +819,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Sets aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void settingsAOTClick(ActionEvent actionEvent) {
 		if (AOTSettings.isSelected()) {
@@ -868,11 +830,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Report aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void reportAOTClick(ActionEvent actionEvent) {
 		if (AOTReport.isSelected()) {
@@ -884,11 +841,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Map aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void mapAOTClick(ActionEvent actionEvent) {
 		if (AOTMap.isSelected()) {
@@ -900,11 +852,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Callout aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void calloutAOTClick(ActionEvent actionEvent) {
 		if (AOTCallout.isSelected()) {
@@ -916,11 +863,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Idaot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void IDAOTClick(ActionEvent actionEvent) {
 		if (AOTID.isSelected()) {
@@ -932,11 +874,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Notes aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void NotesAOTClick(ActionEvent actionEvent) {
 		if (AOTNotes.isSelected()) {
@@ -948,11 +885,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Client aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void ClientAOTClick(ActionEvent actionEvent) {
 		if (AOTClient.isSelected()) {
@@ -964,11 +896,6 @@ public class settingsController {
 		}
 	}
 	
-	/**
-	 * Debug aot click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void debugAOTClick(ActionEvent actionEvent) {
 		if (AOTDebug.isSelected()) {

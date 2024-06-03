@@ -9,16 +9,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- * The type New officer application.
- */
 public class newOfficerApplication extends Application {
 	
-	/**
-	 * The entry point of application.
-	 *
-	 * @param args the input arguments
-	 */
 	public static void main(String[] args) {
 		launch();
 	}
@@ -34,7 +26,7 @@ public class newOfficerApplication extends Application {
 		newOfficerStage.initStyle(StageStyle.UNDECORATED);
 		newOfficerStage.setResizable(true);
 		newOfficerStage.getIcons()
-				.add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		               .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
 		newOfficerStage.show();
 		newOfficerStage.setMinHeight(newOfficerStage.getHeight());
 		newOfficerStage.setMinWidth(newOfficerStage.getWidth());

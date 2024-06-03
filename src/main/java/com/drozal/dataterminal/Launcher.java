@@ -17,20 +17,8 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
 
-/**
- * The type Launcher.
- */
 public class Launcher {
 	
-	/**
-	 * Main method to initialize the application.
-	 * It clears the log file, loads fonts, creates necessary folders, copies data files if missing,
-	 * sets up directory for data logs, and launches the appropriate application based on config.
-	 * It also registers a shutdown hook to handle cleanup operations.
-	 *
-	 * @param args command-line arguments
-	 * @throws IOException if an I/O error occurs
-	 */
 	public static void main(String[] args) throws IOException {
 		
 		try {
@@ -134,10 +122,10 @@ public class Launcher {
 		
 		try {
 			String jarPath = Launcher.class.getProtectionDomain()
-					.getCodeSource()
-					.getLocation()
-					.toURI()
-					.getPath();
+			                               .getCodeSource()
+			                               .getLocation()
+			                               .toURI()
+			                               .getPath();
 			File jarFile = new File(jarPath);
 			String jarDir = jarFile.getParent();
 			folderPath = jarDir + File.separator + "DataLogs";
@@ -163,19 +151,15 @@ public class Launcher {
 		}
 		
 		Runtime.getRuntime()
-				.addShutdownHook(new Thread(() -> {
-					log("Shutdown Request Recieved", Severity.DEBUG);
-					endLog();
-					Platform.exit();
-					System.exit(0);
-				}));
+		       .addShutdownHook(new Thread(() -> {
+			       log("Shutdown Request Recieved", Severity.DEBUG);
+			       endLog();
+			       Platform.exit();
+			       System.exit(0);
+		       }));
 		
 	}
 	
-	/**
-	 * Load fonts required by the application.
-	 * Fonts are loaded from resources and registered with JavaFX Font class.
-	 */
 	public static void loadFonts() {
 		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
 		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);

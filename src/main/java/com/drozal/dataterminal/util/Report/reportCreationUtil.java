@@ -66,19 +66,10 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
-/**
- * The type Report creation util.
- */
 public class reportCreationUtil {
 	
 	private static final Map<String, Map<String, String>> reportData = new HashMap<>();
-	/**
-	 * The Window x.
-	 */
 	static double windowX = 0;
-	/**
-	 * The Window y.
-	 */
 	static double windowY = 0;
 	private static double xOffset;
 	private static double yOffset;
@@ -143,12 +134,6 @@ public class reportCreationUtil {
     }
     */
 	
-	/**
-	 * Create title bar anchor pane.
-	 *
-	 * @param titleText the title text
-	 * @return the anchor pane
-	 */
 	public static AnchorPane createTitleBar(String titleText) {
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setSaturation(-1.0);
@@ -168,7 +153,8 @@ public class reportCreationUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -177,7 +163,8 @@ public class reportCreationUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+		Image closeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -185,7 +172,8 @@ public class reportCreationUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
+		Image maximizeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
 		maximizeImageView.setFitHeight(15);
@@ -193,7 +181,8 @@ public class reportCreationUtil {
 		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
 		maximizeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -211,24 +200,24 @@ public class reportCreationUtil {
 		
 		closeRect.setOnMouseClicked(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.close();
 		});
 		
 		minimizeRect.setOnMouseClicked(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.setIconified(true);
 		});
 		maximizeRect.setOnMouseClicked(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			windowUtils.toggleWindowedFullscreen(stage, 850, 750);
 		});
 		
 		titleBar.setOnMouseDragged(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.setX(event.getScreenX() - xOffset);
 			stage.setY(event.getScreenY() - yOffset);
 		});
@@ -246,10 +235,11 @@ public class reportCreationUtil {
 		AnchorPane.setTopAnchor(maximizeRect, 6.3);
 		
 		titleBar.getChildren()
-				.addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
+		        .addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView,
+		                minimizeImageView);
 		Platform.runLater(() -> {
 			Stage stage1 = (Stage) titleBar.getScene()
-					.getWindow();
+			                               .getWindow();
 			ResizeHelper.addResizeListener(stage1);
 		});
 		closeRect.toFront();
@@ -258,13 +248,6 @@ public class reportCreationUtil {
 		return titleBar;
 	}
 	
-	/**
-	 * Create simple title bar anchor pane.
-	 *
-	 * @param titleText the title text
-	 * @param resiable  the resiable
-	 * @return the anchor pane
-	 */
 	public static AnchorPane createSimpleTitleBar(String titleText, boolean resiable) {
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setSaturation(-1.0);
@@ -284,7 +267,8 @@ public class reportCreationUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -293,7 +277,8 @@ public class reportCreationUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+		Image closeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -301,7 +286,8 @@ public class reportCreationUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -317,13 +303,13 @@ public class reportCreationUtil {
 		
 		closeRect.setOnMouseClicked(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.close();
 		});
 		
 		minimizeRect.setOnMouseClicked(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.setIconified(true);
 		});
 		
@@ -333,13 +319,13 @@ public class reportCreationUtil {
 		AnchorPane.setTopAnchor(minimizeRect, 6.3);
 		
 		titleBar.getChildren()
-				.addAll(placeholderImageView, closeRect, minimizeRect, closeImageView, minimizeImageView);
+		        .addAll(placeholderImageView, closeRect, minimizeRect, closeImageView, minimizeImageView);
 		closeRect.toFront();
 		minimizeRect.toFront();
 		
 		titleBar.setOnMouseDragged(event -> {
 			Stage stage = (Stage) titleBar.getScene()
-					.getWindow();
+			                              .getWindow();
 			stage.setX(event.getScreenX() - xOffset);
 			stage.setY(event.getScreenY() - yOffset);
 		});
@@ -352,7 +338,7 @@ public class reportCreationUtil {
 		if (resiable) {
 			Platform.runLater(() -> {
 				Stage stage1 = (Stage) titleBar.getScene()
-						.getWindow();
+				                               .getWindow();
 				ResizeHelper.addResizeListener(stage1);
 			});
 		}
@@ -360,17 +346,9 @@ public class reportCreationUtil {
 		return titleBar;
 	}
 	
-	/**
-	 * Create report window map.
-	 *
-	 * @param reportName     the report name
-	 * @param numWidthUnits  the num width units
-	 * @param numHeightUnits the num height units
-	 * @param transferConfig the transfer config
-	 * @param sectionConfigs the section configs
-	 * @return the map
-	 */
-	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
+	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits,
+	                                                     TransferConfig transferConfig,
+	                                                     SectionConfig... sectionConfigs) {
 		String placeholder;
 		try {
 			placeholder = ConfigReader.configRead("reportHeading");
@@ -380,9 +358,9 @@ public class reportCreationUtil {
 		
 		Screen screen = Screen.getPrimary();
 		double screenWidth = screen.getVisualBounds()
-				.getWidth();
+		                           .getWidth();
 		double screenHeight = screen.getVisualBounds()
-				.getHeight();
+		                            .getHeight();
 		
 		double preferredWidth = screenWidth / 12 * numWidthUnits;
 		double preferredHeight = screenHeight / 12 * numHeightUnits;
@@ -406,11 +384,12 @@ public class reportCreationUtil {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setPercentWidth(100 / 12.0);
 			gridPane.getColumnConstraints()
-					.add(column);
+			        .add(column);
 		}
 		
 		Label mainHeaderLabel = new Label("New " + reportName);
-		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
+		mainHeaderLabel.setStyle(
+				"-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
 		mainHeaderLabel.setAlignment(Pos.CENTER);
 		GridPane.setColumnSpan(mainHeaderLabel, 12);
 		gridPane.add(mainHeaderLabel, 0, 0);
@@ -422,7 +401,8 @@ public class reportCreationUtil {
 			
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 			sectionLabel.setFont(Font.font("Segoe UI Black"));
-			sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+			sectionLabel.setStyle(
+					"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
 			rowIndex++;
 			
@@ -444,7 +424,7 @@ public class reportCreationUtil {
 			}
 			
 			if (sectionConfig.getSectionTitle()
-					.equals("Citation Treeview")) {
+			                 .equals("Citation Treeview")) {
 				rowIndex += 5;
 			} else {
 				rowIndex += 2;
@@ -453,31 +433,31 @@ public class reportCreationUtil {
 		
 		Button submitBtn = new Button("Collect Values");
 		submitBtn.getStyleClass()
-				.add("incidentformButton");
+		         .add("incidentformButton");
 		submitBtn.setStyle("-fx-padding: 15;");
 		submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
 		submitBtn.hoverProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					if (newValue) {
-						submitBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-					} else {
-						submitBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-					}
-				});
+		         .addListener((observable, oldValue, newValue) -> {
+			         if (newValue) {
+				         submitBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+			         } else {
+				         submitBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+			         }
+		         });
 		
 		Button pullNotesBtn = new Button("Pull From Notes");
 		pullNotesBtn.getStyleClass()
-				.add("incidentformButton");
+		            .add("incidentformButton");
 		pullNotesBtn.setStyle("-fx-padding: 15;");
 		pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor());
 		pullNotesBtn.hoverProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					if (newValue) {
-						pullNotesBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-					} else {
-						pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-					}
-				});
+		            .addListener((observable, oldValue, newValue) -> {
+			            if (newValue) {
+				            pullNotesBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+			            } else {
+				            pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+			            }
+		            });
 		
 		HBox buttonBox = new HBox(10, pullNotesBtn, warningLabel, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -488,19 +468,19 @@ public class reportCreationUtil {
 			titledPane.setExpanded(false);
 			titledPane.setText(transferConfig.getTitle());
 			titledPane.getStyleClass()
-					.add("paneoptions");
+			          .add("paneoptions");
 			
 			GridPane paneGrid = new GridPane();
 			paneGrid.setHgap(10);
 			paneGrid.setVgap(10);
 			
 			paneGrid.getColumnConstraints()
-					.clear();
+			        .clear();
 			for (int i = 0; i < 12; i++) {
 				ColumnConstraints columnConstraints = new ColumnConstraints();
 				columnConstraints.setPercentWidth(100.0 / 12);
 				paneGrid.getColumnConstraints()
-						.add(columnConstraints);
+				        .add(columnConstraints);
 			}
 			
 			int rowIndex1 = 0;
@@ -520,22 +500,25 @@ public class reportCreationUtil {
 			Accordion accordion = new Accordion();
 			accordion.setStyle("-fx-box-border: transparent;");
 			accordion.getPanes()
-					.add(titledPane);
+			         .add(titledPane);
 			accordion.setMaxWidth(Double.MAX_VALUE);
 			accordion.setMinHeight(Region.USE_PREF_SIZE);
 			accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
 			accordion.setMaxHeight(Region.USE_PREF_SIZE);
 			
-			paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			paneGrid.setStyle(
+					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			accordion.setStyle(
+					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			titledPane.setStyle(
+					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 			
 			root.getChildren()
-					.addAll(spacerPane1, titledPane, spacerPane2);
+			    .addAll(spacerPane1, titledPane, spacerPane2);
 		}
 		
 		root.getChildren()
-				.add(buttonBox);
+		    .add(buttonBox);
 		root.setAlignment(Pos.CENTER);
 		root.setStyle("-fx-background-color: " + getAccentColor() + ";");
 		Insets insets = new Insets(20, 25, 15, 25);
@@ -553,58 +536,59 @@ public class reportCreationUtil {
 		
 		try {
 			if (ConfigReader.configRead("reportWindowDarkMode")
-					.equals("true")) {
+			                .equals("true")) {
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formFields.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formFields.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTextArea.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTextArea.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formButton.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formButton.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formComboBox.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formComboBox.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/Logscrollpane.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/Logscrollpane.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/tableCss.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/tableCss.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css")
+				                        .toExternalForm());
 			} else {
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css")
+				                        .toExternalForm());
 				scene.getStylesheets()
-						.add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css")
-								.toExternalForm());
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css")
+				                        .toExternalForm());
 			}
 		} catch (IOException e) {
 			logError("Could not add stylesheets to reports: ", e);
 		}
 		
 		scrollPane.getStyleClass()
-				.add("formPane");
-		scrollPane.setStyle("-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
+		          .add("formPane");
+		scrollPane.setStyle(
+				"-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 		
 		stage.setScene(scene);
 		stage.setTitle(reportName);
@@ -662,18 +646,19 @@ public class reportCreationUtil {
 		
 		try {
 			stage.setAlwaysOnTop(ConfigReader.configRead("AOTReport")
-					.equals("true"));
+			                                 .equals("true"));
 		} catch (IOException e) {
 			logError("Could not get AOTReport: ", e);
 		}
 		return result;
 	}
 	
-	private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
+	private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex,
+	                                     Map<String, Object> fieldsMap) {
 		String placeholder;
 		try {
 			if (ConfigReader.configRead("reportWindowDarkMode")
-					.equals("true")) {
+			                .equals("true")) {
 				placeholder = "black";
 			} else {
 				placeholder = "white";
@@ -695,24 +680,24 @@ public class reportCreationUtil {
 				case TEXT_FIELD:
 					TextField textField = new TextField();
 					textField.getStyleClass()
-							.add("formField3");
+					         .add("formField3");
 					textField.setStyle("-fx-background-color: " + getPrimaryColor());
 					textField.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									textField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									textField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					         .addListener((observable, oldValue, newValue) -> {
+						         if (newValue) {
+							         textField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						         } else {
+							         textField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						         }
+					         });
 					textField.textProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue != null) {
-									textField.setText(newValue.toUpperCase());
-								}
-							});
+					         .addListener((observable, oldValue, newValue) -> {
+						         if (newValue != null) {
+							         textField.setText(newValue.toUpperCase());
+						         }
+					         });
 					textField.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                   .toUpperCase());
 					textField.setPrefWidth(200);
 					gridPane.add(textField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), textField);
@@ -721,18 +706,18 @@ public class reportCreationUtil {
 					TextArea textArea = new TextArea();
 					textArea.setWrapText(true);
 					textArea.getStyleClass()
-							.add("othertextarea");
+					        .add("othertextarea");
 					textArea.setStyle("-fx-background-color: " + getPrimaryColor());
 					textArea.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									textArea.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									textArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					        .addListener((observable, oldValue, newValue) -> {
+						        if (newValue) {
+							        textArea.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						        } else {
+							        textArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						        }
+					        });
 					textArea.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                  .toUpperCase());
 					textArea.setPrefRowCount(5);
 					textArea.setMaxWidth(Double.MAX_VALUE);
 					gridPane.add(textArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
@@ -743,20 +728,20 @@ public class reportCreationUtil {
 				case COMBO_BOX_COLOR:
 					ComboBox<String> comboBoxColor = new ComboBox<>();
 					comboBoxColor.getStyleClass()
-							.add("comboboxnew");
+					             .add("comboboxnew");
 					comboBoxColor.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 					comboBoxColor.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									comboBoxColor.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									comboBoxColor.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					             .addListener((observable, oldValue, newValue) -> {
+						             if (newValue) {
+							             comboBoxColor.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						             } else {
+							             comboBoxColor.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						             }
+					             });
 					comboBoxColor.getItems()
-							.addAll(dropdownInfo.carColors);
+					             .addAll(dropdownInfo.carColors);
 					comboBoxColor.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                       .toUpperCase());
 					comboBoxColor.setButtonCell(new ListCell() {
 						@Override
 						protected void updateItem(Object item, boolean empty) {
@@ -776,20 +761,20 @@ public class reportCreationUtil {
 				case COMBO_BOX_TYPE:
 					ComboBox<String> comboBoxType = new ComboBox<>();
 					comboBoxType.getStyleClass()
-							.add("comboboxnew");
+					            .add("comboboxnew");
 					comboBoxType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 					comboBoxType.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									comboBoxType.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									comboBoxType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					            .addListener((observable, oldValue, newValue) -> {
+						            if (newValue) {
+							            comboBoxType.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						            } else {
+							            comboBoxType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						            }
+					            });
 					comboBoxType.getItems()
-							.addAll(dropdownInfo.vehicleTypes);
+					            .addAll(dropdownInfo.vehicleTypes);
 					comboBoxType.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                      .toUpperCase());
 					comboBoxType.setButtonCell(new ListCell() {
 						
 						@Override
@@ -811,20 +796,22 @@ public class reportCreationUtil {
 				case COMBO_BOX_SEARCH_TYPE:
 					ComboBox<String> comboBoxSearchType = new ComboBox<>();
 					comboBoxSearchType.getStyleClass()
-							.add("comboboxnew");
+					                  .add("comboboxnew");
 					comboBoxSearchType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 					comboBoxSearchType.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									comboBoxSearchType.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									comboBoxSearchType.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					                  .addListener((observable, oldValue, newValue) -> {
+						                  if (newValue) {
+							                  comboBoxSearchType.setStyle(
+									                  "-fx-background-color: " + getSecondaryColor() + ";");
+						                  } else {
+							                  comboBoxSearchType.setStyle(
+									                  "-fx-background-color: " + getPrimaryColor() + ";");
+						                  }
+					                  });
 					comboBoxSearchType.getItems()
-							.addAll(dropdownInfo.searchTypes);
+					                  .addAll(dropdownInfo.searchTypes);
 					comboBoxSearchType.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                            .toUpperCase());
 					comboBoxSearchType.setButtonCell(new ListCell() {
 						
 						@Override
@@ -846,20 +833,22 @@ public class reportCreationUtil {
 				case COMBO_BOX_SEARCH_METHOD:
 					ComboBox<String> comboBoxSearchMethod = new ComboBox<>();
 					comboBoxSearchMethod.getStyleClass()
-							.add("comboboxnew");
+					                    .add("comboboxnew");
 					comboBoxSearchMethod.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 					comboBoxSearchMethod.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									comboBoxSearchMethod.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									comboBoxSearchMethod.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					                    .addListener((observable, oldValue, newValue) -> {
+						                    if (newValue) {
+							                    comboBoxSearchMethod.setStyle(
+									                    "-fx-background-color: " + getSecondaryColor() + ";");
+						                    } else {
+							                    comboBoxSearchMethod.setStyle(
+									                    "-fx-background-color: " + getPrimaryColor() + ";");
+						                    }
+					                    });
 					comboBoxSearchMethod.getItems()
-							.addAll(dropdownInfo.searchMethods);
+					                    .addAll(dropdownInfo.searchMethods);
 					comboBoxSearchMethod.setPromptText(fieldConfig.getFieldName()
-							.toUpperCase());
+					                                              .toUpperCase());
 					comboBoxSearchMethod.setButtonCell(new ListCell() {
 						
 						@Override
@@ -889,7 +878,7 @@ public class reportCreationUtil {
 					Document document = null;
 					try {
 						document = factory.newDocumentBuilder()
-								.parse(file);
+						                  .parse(file);
 					} catch (SAXException | IOException | ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
@@ -916,14 +905,14 @@ public class reportCreationUtil {
 					TableView<CitationsData> citationTableView = new TableView<>();
 					citationTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 					citationTableView.getStyleClass()
-							.add("calloutTABLE");
+					                 .add("calloutTABLE");
 					
 					TableColumn<CitationsData, String> citationColumn = new TableColumn<>("Citation");
 					citationColumn.setCellValueFactory(new PropertyValueFactory<>("citation"));
 					citationTableView.setTableMenuButtonVisible(false);
 					
 					citationTableView.getColumns()
-							.add(citationColumn);
+					                 .add(citationColumn);
 					gridPane.add(treeView, columnIndex, rowIndex, fieldConfig.getSize(), 5);
 					
 					int additionalColumnIndex = columnIndex + fieldConfig.getSize();
@@ -948,69 +937,77 @@ public class reportCreationUtil {
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
 					
-					citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					citationInfoLabel.setStyle(
+							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					citationInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton.getStyleClass()
-							.add("incidentformButton");
+					         .add("incidentformButton");
 					addButton.setStyle("-fx-padding: 15;");
 					addButton.setStyle("-fx-background-color: " + getPrimaryColor());
 					addButton.hoverProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									addButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									addButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					         .addListener((observable, oldValue, newValue) -> {
+						         if (newValue) {
+							         addButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						         } else {
+							         addButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						         }
+					         });
 					removeButton.getStyleClass()
-							.add("incidentformButton");
+					            .add("incidentformButton");
 					removeButton.setStyle("-fx-padding: 15;");
 					removeButton.setStyle("-fx-background-color: " + getPrimaryColor());
 					removeButton.hoverProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									removeButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									removeButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					            .addListener((observable, oldValue, newValue) -> {
+						            if (newValue) {
+							            removeButton.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						            } else {
+							            removeButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						            }
+					            });
 					citationTableView.setStyle("-fx-background-color: " + getPrimaryColor());
 					citationTableView.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									citationTableView.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									citationTableView.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					                 .addListener((observable, oldValue, newValue) -> {
+						                 if (newValue) {
+							                 citationTableView.setStyle(
+									                 "-fx-background-color: " + getSecondaryColor() + ";");
+						                 } else {
+							                 citationTableView.setStyle(
+									                 "-fx-background-color: " + getPrimaryColor() + ";");
+						                 }
+					                 });
 					citationNameField.getStyleClass()
-							.add("formField3");
+					                 .add("formField3");
 					citationNameField.setStyle("-fx-background-color: " + getPrimaryColor());
 					citationNameField.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									citationNameField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									citationNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					                 .addListener((observable, oldValue, newValue) -> {
+						                 if (newValue) {
+							                 citationNameField.setStyle(
+									                 "-fx-background-color: " + getSecondaryColor() + ";");
+						                 } else {
+							                 citationNameField.setStyle(
+									                 "-fx-background-color: " + getPrimaryColor() + ";");
+						                 }
+					                 });
 					citationFineField.getStyleClass()
-							.add("formField3");
+					                 .add("formField3");
 					citationFineField.setStyle("-fx-background-color: " + getPrimaryColor());
 					citationFineField.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									citationFineField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									citationFineField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					                 .addListener((observable, oldValue, newValue) -> {
+						                 if (newValue) {
+							                 citationFineField.setStyle(
+									                 "-fx-background-color: " + getSecondaryColor() + ";");
+						                 } else {
+							                 citationFineField.setStyle(
+									                 "-fx-background-color: " + getPrimaryColor() + ";");
+						                 }
+					                 });
 					treeView.setOnMouseClicked(event -> {
 						TreeItem<String> selectedItem = treeView.getSelectionModel()
-								.getSelectedItem();
+						                                        .getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							citationNameField.setText(selectedItem.getValue());
-							citationFineField.setText(findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
+							citationFineField.setText(
+									findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
 						} else {
 							citationNameField.setText("");
 							citationFineField.setText("");
@@ -1021,15 +1018,15 @@ public class reportCreationUtil {
 						if (!(citation.isBlank() || citation.isEmpty())) {
 							CitationsData formData = new CitationsData(citation);
 							citationTableView.getItems()
-									.add(formData);
+							                 .add(formData);
 						}
 					});
 					removeButton.setOnMouseClicked(event -> {
 						CitationsData selectedItem = citationTableView.getSelectionModel()
-								.getSelectedItem();
+						                                              .getSelectedItem();
 						if (selectedItem != null) {
 							citationTableView.getItems()
-									.remove(selectedItem);
+							                 .remove(selectedItem);
 						}
 					});
 					rowIndex += 6;
@@ -1045,16 +1042,16 @@ public class reportCreationUtil {
 					transferButton.setMaxHeight(Button.USE_PREF_SIZE);
 					
 					transferButton.getStyleClass()
-							.add("incidentformButton");
+					              .add("incidentformButton");
 					transferButton.setStyle("-fx-background-color: " + getAccentColor());
 					transferButton.hoverProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									transferButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								} else {
-									transferButton.setStyle("-fx-background-color: " + getAccentColor() + ";");
-								}
-							});
+					              .addListener((observable, oldValue, newValue) -> {
+						              if (newValue) {
+							              transferButton.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						              } else {
+							              transferButton.setStyle("-fx-background-color: " + getAccentColor() + ";");
+						              }
+					              });
 					gridPane.add(transferButton, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), transferButton);
 					break;
@@ -1069,7 +1066,7 @@ public class reportCreationUtil {
 					Document document2 = null;
 					try {
 						document2 = factory2.newDocumentBuilder()
-								.parse(file2);
+						                    .parse(file2);
 					} catch (SAXException | IOException | ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
@@ -1094,14 +1091,14 @@ public class reportCreationUtil {
 					TableView<ChargesData> chargeTableView = new TableView<>();
 					chargeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 					chargeTableView.getStyleClass()
-							.add("calloutTABLE");
+					               .add("calloutTABLE");
 					
 					TableColumn<ChargesData, String> chargeColumn = new TableColumn<>("Charge");
 					chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
 					chargeTableView.setTableMenuButtonVisible(false);
 					
 					chargeTableView.getColumns()
-							.add(chargeColumn);
+					               .add(chargeColumn);
 					gridPane.add(chargestreeView, columnIndex, rowIndex, fieldConfig.getSize(), 5);
 					
 					int additionalColumnIndex2 = columnIndex + fieldConfig.getSize();
@@ -1124,55 +1121,58 @@ public class reportCreationUtil {
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 					
-					chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					chargeInfoLabel.setStyle(
+							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton2.getStyleClass()
-							.add("incidentformButton");
+					          .add("incidentformButton");
 					addButton2.setStyle("-fx-padding: 15;");
 					addButton2.setStyle("-fx-background-color: " + getPrimaryColor());
 					addButton2.hoverProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									addButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									addButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					          .addListener((observable, oldValue, newValue) -> {
+						          if (newValue) {
+							          addButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						          } else {
+							          addButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						          }
+					          });
 					removeButton2.getStyleClass()
-							.add("incidentformButton");
+					             .add("incidentformButton");
 					removeButton2.setStyle("-fx-padding: 15;");
 					removeButton2.setStyle("-fx-background-color: " + getPrimaryColor());
 					removeButton2.hoverProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									removeButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									removeButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					             .addListener((observable, oldValue, newValue) -> {
+						             if (newValue) {
+							             removeButton2.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						             } else {
+							             removeButton2.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						             }
+					             });
 					chargeTableView.setStyle("-fx-background-color: " + getPrimaryColor());
 					chargeTableView.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									chargeTableView.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									chargeTableView.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					               .addListener((observable, oldValue, newValue) -> {
+						               if (newValue) {
+							               chargeTableView.setStyle(
+									               "-fx-background-color: " + getSecondaryColor() + ";");
+						               } else {
+							               chargeTableView.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						               }
+					               });
 					chargeNameField.getStyleClass()
-							.add("formField3");
+					               .add("formField3");
 					chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor());
 					chargeNameField.focusedProperty()
-							.addListener((observable, oldValue, newValue) -> {
-								if (newValue) {
-									chargeNameField.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
-								} else {
-									chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
-								}
-							});
+					               .addListener((observable, oldValue, newValue) -> {
+						               if (newValue) {
+							               chargeNameField.setStyle(
+									               "-fx-background-color: " + getSecondaryColor() + ";");
+						               } else {
+							               chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						               }
+					               });
 					chargestreeView.setOnMouseClicked(event -> {
 						TreeItem<String> selectedItem = chargestreeView.getSelectionModel()
-								.getSelectedItem();
+						                                               .getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							chargeNameField.setText(selectedItem.getValue());
 						} else {
@@ -1184,15 +1184,15 @@ public class reportCreationUtil {
 						if (!(charge.isBlank() || charge.isEmpty())) {
 							ChargesData formData = new ChargesData(charge);
 							chargeTableView.getItems()
-									.add(formData);
+							               .add(formData);
 						}
 					});
 					removeButton2.setOnMouseClicked(event -> {
 						ChargesData selectedItem = chargeTableView.getSelectionModel()
-								.getSelectedItem();
+						                                          .getSelectedItem();
 						if (selectedItem != null) {
 							chargeTableView.getItems()
-									.remove(selectedItem);
+							               .remove(selectedItem);
 						}
 					});
 					rowIndex += 6;
@@ -1204,25 +1204,51 @@ public class reportCreationUtil {
 		}
 	}
 	
-	/**
-	 * Callout layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> calloutLayout() {
-		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location Information", true, new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Callout Information", true, new RowConfig(new FieldConfig("date", 6, FieldType.TEXT_FIELD), new FieldConfig("time", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 4, FieldType.TEXT_FIELD), new FieldConfig("code", 4, FieldType.TEXT_FIELD), new FieldConfig("calloutnumber", 4, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
+		                                                       new SectionConfig("Officer Information", true,
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("name", 5,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("rank", 5,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("number", 2,
+				                                                                                         FieldType.TEXT_FIELD)),
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("division", 6,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("agency", 6,
+				                                                                                         FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Location Information", true,
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("street", 5,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("area", 4,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("county", 3,
+				                                                                                         FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Callout Information", true,
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("date", 6,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("time", 6,
+				                                                                                         FieldType.TEXT_FIELD)),
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("type", 4,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("code", 4,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig(
+						                                                                         "calloutnumber", 4,
+						                                                                         FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Callout Notes", true, new RowConfig(
+				                                                       new FieldConfig("notes", 12,
+				                                                                       FieldType.TEXT_AREA))));
 		return calloutReport;
 	}
 	
-	/**
-	 * New callout.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                              NotesViewController notesViewController) {
 		Map<String, Object> calloutReport = calloutLayout();
 		
 		Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
@@ -1276,9 +1302,9 @@ public class reportCreationUtil {
 				Object field = calloutReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -1296,7 +1322,11 @@ public class reportCreationUtil {
 			}
 			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 			
-			logs.add(new CalloutLogEntry(calloutdate.getText(), callouttime.getText(), officername.getText(), officerrank.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText(), callouttype.getText(), calloutcode.getText(), calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(), calloutcounty.getText(), calloutarea.getText()
+			logs.add(new CalloutLogEntry(calloutdate.getText(), callouttime.getText(), officername.getText(),
+			                             officerrank.getText(), officernum.getText(), officerdiv.getText(),
+			                             officeragen.getText(), callouttype.getText(), calloutcode.getText(),
+			                             calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(),
+			                             calloutcounty.getText(), calloutarea.getText()
 			
 			));
 			
@@ -1306,30 +1336,67 @@ public class reportCreationUtil {
 			controllerUtils.refreshChart(areaReportChart, "area");
 			showNotification("Reports", "A new Callout Report has been submitted.", vbox);
 			Stage rootstage = (Stage) root.getScene()
-					.getWindow();
+			                              .getWindow();
 			rootstage.close();
 		});
 	}
 	
-	/**
-	 * Impound layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> impoundLayout() {
-		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 12, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 6, FieldType.TEXT_FIELD), new FieldConfig("plate number", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("type", 7, FieldType.COMBO_BOX_TYPE), new FieldConfig("color", 5, FieldType.COMBO_BOX_COLOR))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
+		                                                       new SectionConfig("Officer Information", true,
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("name", 5,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("rank", 5,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("number", 2,
+				                                                                                         FieldType.TEXT_FIELD)),
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("division", 6,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("agency", 6,
+				                                                                                         FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Location / Timestamp Information",
+		                                                                         true, new RowConfig(
+				                                                       new FieldConfig("date", 5, FieldType.TEXT_FIELD),
+				                                                       new FieldConfig("time", 5, FieldType.TEXT_FIELD),
+				                                                       new FieldConfig("citation number", 2,
+				                                                                       FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Offender Information", true,
+		                                                                         new RowConfig(new FieldConfig(
+				                                                                         "offender name", 4,
+				                                                                         FieldType.TEXT_FIELD),
+		                                                                                       new FieldConfig(
+				                                                                                       "offender age",
+				                                                                                       4,
+				                                                                                       FieldType.TEXT_FIELD),
+		                                                                                       new FieldConfig(
+				                                                                                       "offender gender",
+				                                                                                       4,
+				                                                                                       FieldType.TEXT_FIELD)),
+		                                                                         new RowConfig(new FieldConfig(
+				                                                                         "offender address", 12,
+				                                                                         FieldType.TEXT_FIELD))),
+		                                                       new SectionConfig("Offender Vehicle Information", true,
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("model", 6,
+				                                                                                         FieldType.TEXT_FIELD),
+				                                                                         new FieldConfig("plate number",
+				                                                                                         6,
+				                                                                                         FieldType.TEXT_FIELD)),
+		                                                                         new RowConfig(
+				                                                                         new FieldConfig("type", 7,
+				                                                                                         FieldType.COMBO_BOX_TYPE),
+				                                                                         new FieldConfig("color", 5,
+				                                                                                         FieldType.COMBO_BOX_COLOR))),
+		                                                       new SectionConfig("Citation Notes", true, new RowConfig(
+				                                                       new FieldConfig("notes", 12,
+				                                                                       FieldType.TEXT_AREA))));
 		return impoundReport;
 	}
 	
-	/**
-	 * New impound.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                              NotesViewController notesViewController) {
 		Map<String, Object> impoundReport = impoundLayout();
 		
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -1358,7 +1425,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) impoundReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
 		Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
@@ -1397,9 +1464,9 @@ public class reportCreationUtil {
 				Object field = impoundReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -1416,9 +1483,13 @@ public class reportCreationUtil {
 			} else {
 				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 				
-				logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(), offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(), plateNumber.getText(), model.getText(), type.getValue()
-						.toString(), color.getValue()
-						.toString(), notes.getText(), officerrank.getText(), officername.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText()));
+				logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(),
+				                             offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(),
+				                             plateNumber.getText(), model.getText(), type.getValue()
+				                                                                         .toString(), color.getValue()
+				                                                                                           .toString(),
+				                             notes.getText(), officerrank.getText(), officername.getText(),
+				                             officernum.getText(), officerdiv.getText(), officeragen.getText()));
 				ImpoundReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -1429,25 +1500,45 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Patrol layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> patrolLayout() {
-		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Shift Information", true, new RowConfig(new FieldConfig("starttime", 3, FieldType.TEXT_FIELD), new FieldConfig("stoptime", 4, FieldType.TEXT_FIELD), new FieldConfig("patrolnumber", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("length", 3, FieldType.TEXT_FIELD), new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("vehicle", 6, FieldType.TEXT_FIELD))), new SectionConfig("Callout Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
+		                                                      new SectionConfig("Officer Information", true,
+		                                                                        new RowConfig(new FieldConfig("name", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("rank", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("number",
+		                                                                                                      2,
+		                                                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("division", 6,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("agency", 6,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Shift Information", true,
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("starttime", 3,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("stoptime", 4,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("patrolnumber",
+				                                                                                        5,
+				                                                                                        FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("length", 3,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("date", 3,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("vehicle", 6,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Callout Notes", true, new RowConfig(
+				                                                      new FieldConfig("notes", 12,
+				                                                                      FieldType.TEXT_AREA))));
 		return patrolReport;
 	}
 	
-	/**
-	 * New patrol.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                             NotesViewController notesViewController) {
 		Map<String, Object> patrolReport = patrolLayout();
 		
 		Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport.get("Patrol Report Map");
@@ -1467,7 +1558,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) patrolReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
 		
@@ -1501,9 +1592,9 @@ public class reportCreationUtil {
 				Object field = patrolReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -1522,7 +1613,9 @@ public class reportCreationUtil {
 			
 			List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
 			
-			logs.add(new PatrolLogEntry(patrolnum.getText(), date.getText(), length.getText(), starttime.getText(), stoptime.getText(), rank.getText(), name.getText(), num.getText(), div.getText(), agen.getText(), vehicle.getText(), notes.getText()));
+			logs.add(new PatrolLogEntry(patrolnum.getText(), date.getText(), length.getText(), starttime.getText(),
+			                            stoptime.getText(), rank.getText(), name.getText(), num.getText(),
+			                            div.getText(), agen.getText(), vehicle.getText(), notes.getText()));
 			
 			PatrolReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -1534,25 +1627,84 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Citation layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> citationLayout() {
-		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 12, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("citation number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Vehicle Information", false, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Citation Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Citation(s)", true, new RowConfig(new FieldConfig("citationview", 6, FieldType.CITATION_TREE_VIEW))));
+		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
+		                                                        new TransferConfig("Transfer Information To New Report",
+		                                                                           new RowConfig(new FieldConfig(
+				                                                                           "transferimpoundbtn", 12,
+				                                                                           FieldType.TRANSFER_BUTTON))),
+		                                                        new SectionConfig("Officer Information", true,
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("name", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("rank", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("number", 2,
+				                                                                                          FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("division", 6,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("agency", 6,
+				                                                                                          FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig("Location / Timestamp Information",
+		                                                                          true, new RowConfig(
+				                                                        new FieldConfig("street", 4,
+				                                                                        FieldType.TEXT_FIELD),
+				                                                        new FieldConfig("area", 4,
+				                                                                        FieldType.TEXT_FIELD),
+				                                                        new FieldConfig("county", 4,
+				                                                                        FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("date", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("time", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig(
+						                                                                          "citation number", 2,
+						                                                                          FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig("Offender Information", true,
+		                                                                          new RowConfig(new FieldConfig(
+				                                                                          "offender name", 4,
+				                                                                          FieldType.TEXT_FIELD),
+		                                                                                        new FieldConfig(
+				                                                                                        "offender age",
+				                                                                                        4,
+				                                                                                        FieldType.TEXT_FIELD),
+		                                                                                        new FieldConfig(
+				                                                                                        "offender gender",
+				                                                                                        4,
+				                                                                                        FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(new FieldConfig(
+				                                                                          "offender address", 6,
+				                                                                          FieldType.TEXT_FIELD),
+		                                                                                        new FieldConfig(
+				                                                                                        "offender description",
+				                                                                                        6,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig(
+				                                                        "(If Applicable) Offender Vehicle Information",
+				                                                        false, new RowConfig(new FieldConfig("model", 4,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig(
+						                                                                             "plate number", 4,
+						                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig("color", 4,
+				                                                                                             FieldType.COMBO_BOX_COLOR)),
+				                                                        new RowConfig(new FieldConfig("type", 4,
+				                                                                                      FieldType.COMBO_BOX_TYPE),
+				                                                                      new FieldConfig("other info", 8,
+				                                                                                      FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig("Citation Notes", true, new RowConfig(
+				                                                        new FieldConfig("notes", 12,
+				                                                                        FieldType.TEXT_AREA))),
+		                                                        new SectionConfig("Citation(s)", true, new RowConfig(
+				                                                        new FieldConfig("citationview", 6,
+				                                                                        FieldType.CITATION_TREE_VIEW))));
 		return citationReport;
 	}
 	
-	/**
-	 * New citation.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                               NotesViewController notesViewController) {
 		Map<String, Object> citationReport = citationLayout();
 		
 		Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
@@ -1592,7 +1744,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) citationReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) citationReport.get("warningLabel");
 		Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
@@ -1658,7 +1810,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootimp = (BorderPane) impoundReport.get("root");
 			Stage stageimp = (Stage) rootimp.getScene()
-					.getWindow();
+			                                .getWindow();
 			
 			if (!stageimp.isFocused()) {
 				stageimp.requestFocus();
@@ -1682,11 +1834,11 @@ public class reportCreationUtil {
 			notesimp.setText(notes.getText());
 			modelimp.setText(model.getText());
 			typeimp.getSelectionModel()
-					.select(type.getSelectionModel()
-							.getSelectedItem());
+			       .select(type.getSelectionModel()
+			                   .getSelectedItem());
 			colorimp.getSelectionModel()
-					.select(color.getSelectionModel()
-							.getSelectedItem());
+			        .select(color.getSelectionModel()
+			                     .getSelectedItem());
 			numimp.setText(num.getText());
 			
 			pullNotesBtnimp.setOnAction(event1 -> {
@@ -1711,9 +1863,9 @@ public class reportCreationUtil {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -1730,9 +1882,15 @@ public class reportCreationUtil {
 				} else {
 					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-							.toString(), colorimp.getValue()
-							.toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
+					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+					                             offenderNameimp.getText(), offenderAgeimp.getText(),
+					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+					                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
+					                                                                                  .toString(),
+					                             colorimp.getValue()
+					                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+					                             officernameimp.getText(), officernumimp.getText(),
+					                             officerdivimp.getText(), officeragenimp.getText()));
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -1750,9 +1908,9 @@ public class reportCreationUtil {
 				Object field = citationReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -1772,15 +1930,22 @@ public class reportCreationUtil {
 				StringBuilder stringBuilder = new StringBuilder();
 				for (CitationsData formData : formDataList) {
 					stringBuilder.append(formData.getCitation())
-							.append(" | ");
+					             .append(" | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
 				}
 				
-				logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(), stringBuilder.toString(), county.getText(), area.getText(), street.getText(), offenderName.getText(), offenderGender.getText(), offenderAge.getText(), offenderAddress.getText(), offenderDescription.getText(), model.getText(), color.getValue()
-						.toString(), type.getValue()
-						.toString(), plateNumber.getText(), otherInfo.getText(), officerrank.getText(), officername.getText(), officernum.getText(), officerdiv.getText(), officeragen.getText(), notes.getText()));
+				logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(),
+				                                     stringBuilder.toString(), county.getText(), area.getText(),
+				                                     street.getText(), offenderName.getText(), offenderGender.getText(),
+				                                     offenderAge.getText(), offenderAddress.getText(),
+				                                     offenderDescription.getText(), model.getText(), color.getValue()
+				                                                                                          .toString(),
+				                                     type.getValue()
+				                                         .toString(), plateNumber.getText(), otherInfo.getText(),
+				                                     officerrank.getText(), officername.getText(), officernum.getText(),
+				                                     officerdiv.getText(), officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -1791,25 +1956,61 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Incident layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> incidentLayout() {
-		Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("incident num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Parties Involved", false, new RowConfig(new FieldConfig("suspect(s)", 6, FieldType.TEXT_FIELD), new FieldConfig("victim(s) / witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("statement", 12, FieldType.TEXT_AREA))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("summary", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null,
+		                                                        new SectionConfig("Officer Information", true,
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("name", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("rank", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("number", 2,
+				                                                                                          FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("division", 6,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("agency", 6,
+				                                                                                          FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig("Timestamp / Location Information",
+		                                                                          true, new RowConfig(
+				                                                        new FieldConfig("date", 3,
+				                                                                        FieldType.TEXT_FIELD),
+				                                                        new FieldConfig("time", 4,
+				                                                                        FieldType.TEXT_FIELD),
+				                                                        new FieldConfig("incident num", 5,
+				                                                                        FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("street", 5,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("area", 4,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig("county", 3,
+				                                                                                          FieldType.TEXT_FIELD))),
+		                                                        new SectionConfig("Parties Involved", false,
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("suspect(s)",
+				                                                                                          6,
+				                                                                                          FieldType.TEXT_FIELD),
+				                                                                          new FieldConfig(
+						                                                                          "victim(s) / witness(s)",
+						                                                                          6,
+						                                                                          FieldType.TEXT_FIELD)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("statement",
+				                                                                                          12,
+				                                                                                          FieldType.TEXT_AREA))),
+		                                                        new SectionConfig("Notes / Summary", true,
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("summary", 12,
+				                                                                                          FieldType.TEXT_AREA)),
+		                                                                          new RowConfig(
+				                                                                          new FieldConfig("notes", 12,
+				                                                                                          FieldType.TEXT_AREA))));
 		return incidentReport;
 	}
 	
-	/**
-	 * New incident.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                               NotesViewController notesViewController) {
 		Map<String, Object> incidentReport = incidentLayout();
 		
 		Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
@@ -1836,7 +2037,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) incidentReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) incidentReport.get("warningLabel");
 		
@@ -1875,9 +2076,9 @@ public class reportCreationUtil {
 				Object field = incidentReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -1896,7 +2097,10 @@ public class reportCreationUtil {
 			
 			List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 			
-			logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(), suspects.getText(), vicwit.getText(), name.getText(), rank.getText(), num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(), county.getText(), summary.getText(), notes.getText()));
+			logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(),
+			                              suspects.getText(), vicwit.getText(), name.getText(), rank.getText(),
+			                              num.getText(), agen.getText(), div.getText(), street.getText(),
+			                              area.getText(), county.getText(), summary.getText(), notes.getText()));
 			
 			IncidentReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -1907,25 +2111,71 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Search layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> searchLayout() {
-		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null, new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Timestamp / Location Information", true, new RowConfig(new FieldConfig("date", 3, FieldType.TEXT_FIELD), new FieldConfig("time", 4, FieldType.TEXT_FIELD), new FieldConfig("search num", 5, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("street", 5, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 3, FieldType.TEXT_FIELD))), new SectionConfig("Search Information", true, new RowConfig(new FieldConfig("grounds for search", 6, FieldType.TEXT_FIELD), new FieldConfig("witness(s)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("searched individual", 12, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("search type", 6, FieldType.COMBO_BOX_SEARCH_TYPE), new FieldConfig("search method", 6, FieldType.COMBO_BOX_SEARCH_METHOD))), new SectionConfig("Field Sobriety Information (If Applicable)", false, new RowConfig(new FieldConfig("test(s) conducted", 4, FieldType.TEXT_FIELD), new FieldConfig("result", 4, FieldType.TEXT_FIELD), new FieldConfig("bac measurement", 4, FieldType.TEXT_FIELD))), new SectionConfig("Notes / Summary", true, new RowConfig(new FieldConfig("seized item(s)", 12, FieldType.TEXT_AREA)), new RowConfig(new FieldConfig("comments", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
+		                                                      new SectionConfig("Officer Information", true,
+		                                                                        new RowConfig(new FieldConfig("name", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("rank", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("number",
+		                                                                                                      2,
+		                                                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("division", 6,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("agency", 6,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Timestamp / Location Information",
+		                                                                        true, new RowConfig(
+				                                                      new FieldConfig("date", 3, FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("time", 4, FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("search num", 5,
+				                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("street", 5,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("area", 4,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("county", 3,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Search Information", true,
+		                                                                        new RowConfig(new FieldConfig(
+				                                                                        "grounds for search", 6,
+				                                                                        FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig(
+				                                                                                      "witness(s)", 6,
+				                                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(new FieldConfig(
+				                                                                        "searched individual", 12,
+				                                                                        FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("search type",
+				                                                                                        6,
+				                                                                                        FieldType.COMBO_BOX_SEARCH_TYPE),
+				                                                                        new FieldConfig("search method",
+				                                                                                        6,
+				                                                                                        FieldType.COMBO_BOX_SEARCH_METHOD))),
+		                                                      new SectionConfig(
+				                                                      "Field Sobriety Information (If Applicable)",
+				                                                      false, new RowConfig(
+				                                                      new FieldConfig("test(s) conducted", 4,
+				                                                                      FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("result", 4,
+				                                                                      FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("bac measurement", 4,
+				                                                                      FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Notes / Summary", true, new RowConfig(
+				                                                      new FieldConfig("seized item(s)", 12,
+				                                                                      FieldType.TEXT_AREA)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("comments", 12,
+				                                                                                        FieldType.TEXT_AREA))));
 		return searchReport;
 	}
 	
-	/**
-	 * New search.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                             NotesViewController notesViewController) {
 		Map<String, Object> searchReport = searchLayout();
 		
 		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
@@ -1958,7 +2208,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) searchReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) searchReport.get("warningLabel");
 		
@@ -1998,9 +2248,9 @@ public class reportCreationUtil {
 				Object field = searchReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -2019,9 +2269,14 @@ public class reportCreationUtil {
 			
 			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 			
-			logs.add(new SearchLogEntry(searchnum.getText(), searchedindividual.getText(), date.getText(), time.getText(), seizeditems.getText(), grounds.getText(), type.getValue()
-					.toString(), method.getValue()
-					.toString(), witness.getText(), rank.getText(), name.getText(), num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(), county.getText(), notes.getText(), testconducted.getText(), result.getText(), bacmeasurement.getText()));
+			logs.add(new SearchLogEntry(searchnum.getText(), searchedindividual.getText(), date.getText(),
+			                            time.getText(), seizeditems.getText(), grounds.getText(), type.getValue()
+			                                                                                          .toString(),
+			                            method.getValue()
+			                                  .toString(), witness.getText(), rank.getText(), name.getText(),
+			                            num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(),
+			                            county.getText(), notes.getText(), testconducted.getText(), result.getText(),
+			                            bacmeasurement.getText()));
 			
 			SearchReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -2032,25 +2287,87 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Arrest layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> arrestLayout() {
-		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferimpoundbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transferincidentbtn", 4, FieldType.TRANSFER_BUTTON), new FieldConfig("transfersearchbtn", 4, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("arrest number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("(If Applicable) Offender Medical Information", false, new RowConfig(new FieldConfig("ambulance required (Y/N)", 6, FieldType.TEXT_FIELD), new FieldConfig("taser deployed (Y/N)", 6, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("other information", 12, FieldType.TEXT_FIELD))), new SectionConfig("Charge Notes", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))), new SectionConfig("Charge(s)", true, new RowConfig(new FieldConfig("chargeview", 6, FieldType.CHARGES_TREE_VIEW))));
+		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,
+		                                                      new TransferConfig("Transfer Information To New Report",
+		                                                                         new RowConfig(new FieldConfig(
+				                                                                         "transferimpoundbtn", 4,
+				                                                                         FieldType.TRANSFER_BUTTON),
+		                                                                                       new FieldConfig(
+				                                                                                       "transferincidentbtn",
+				                                                                                       4,
+				                                                                                       FieldType.TRANSFER_BUTTON),
+		                                                                                       new FieldConfig(
+				                                                                                       "transfersearchbtn",
+				                                                                                       4,
+				                                                                                       FieldType.TRANSFER_BUTTON))),
+		                                                      new SectionConfig("Officer Information", true,
+		                                                                        new RowConfig(new FieldConfig("name", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("rank", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("number",
+		                                                                                                      2,
+		                                                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("division", 6,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("agency", 6,
+				                                                                                        FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Location / Timestamp Information",
+		                                                                        true, new RowConfig(
+				                                                      new FieldConfig("street", 4,
+				                                                                      FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("area", 4, FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("county", 4,
+				                                                                      FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(new FieldConfig("date", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig("time", 5,
+		                                                                                                      FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig(
+				                                                                                      "arrest number",
+				                                                                                      2,
+				                                                                                      FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Offender Information", true,
+		                                                                        new RowConfig(
+				                                                                        new FieldConfig("offender name",
+				                                                                                        4,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig("offender age",
+				                                                                                        4,
+				                                                                                        FieldType.TEXT_FIELD),
+				                                                                        new FieldConfig(
+						                                                                        "offender gender", 4,
+						                                                                        FieldType.TEXT_FIELD)),
+		                                                                        new RowConfig(new FieldConfig(
+				                                                                        "offender address", 6,
+				                                                                        FieldType.TEXT_FIELD),
+		                                                                                      new FieldConfig(
+				                                                                                      "offender description",
+				                                                                                      6,
+				                                                                                      FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig(
+				                                                      "(If Applicable) Offender Medical Information",
+				                                                      false, new RowConfig(
+				                                                      new FieldConfig("ambulance required (Y/N)", 6,
+				                                                                      FieldType.TEXT_FIELD),
+				                                                      new FieldConfig("taser deployed (Y/N)", 6,
+				                                                                      FieldType.TEXT_FIELD)),
+				                                                      new RowConfig(
+						                                                      new FieldConfig("other information", 12,
+						                                                                      FieldType.TEXT_FIELD))),
+		                                                      new SectionConfig("Charge Notes", true, new RowConfig(
+				                                                      new FieldConfig("notes", 12,
+				                                                                      FieldType.TEXT_AREA))),
+		                                                      new SectionConfig("Charge(s)", true, new RowConfig(
+				                                                      new FieldConfig("chargeview", 6,
+				                                                                      FieldType.CHARGES_TREE_VIEW))));
 		return arrestReport;
 	}
 	
-	/**
-	 * New arrest.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                             NotesViewController notesViewController) {
 		Map<String, Object> arrestReport = arrestLayout();
 		
 		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
@@ -2092,7 +2409,7 @@ public class reportCreationUtil {
 		
 		BorderPane root = (BorderPane) arrestReport.get("root");
 		Stage stage = (Stage) root.getScene()
-				.getWindow();
+		                          .getWindow();
 		
 		Label warningLabel = (Label) arrestReport.get("warningLabel");
 		Button pullNotesBtn = (Button) arrestReport.get("pullNotesBtn");
@@ -2156,7 +2473,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootimp = (BorderPane) impoundReport.get("root");
 			Stage stageimp = (Stage) rootimp.getScene()
-					.getWindow();
+			                                .getWindow();
 			
 			if (!stageimp.isFocused()) {
 				stageimp.requestFocus();
@@ -2201,9 +2518,9 @@ public class reportCreationUtil {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -2220,9 +2537,15 @@ public class reportCreationUtil {
 				} else {
 					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-							.toString(), colorimp.getValue()
-							.toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
+					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+					                             offenderNameimp.getText(), offenderAgeimp.getText(),
+					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+					                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
+					                                                                                  .toString(),
+					                             colorimp.getValue()
+					                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+					                             officernameimp.getText(), officernumimp.getText(),
+					                             officerdivimp.getText(), officeragenimp.getText()));
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -2260,7 +2583,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootinc = (BorderPane) incidentReport.get("root");
 			Stage stageinc = (Stage) rootinc.getScene()
-					.getWindow();
+			                                .getWindow();
 			
 			if (!stageinc.isFocused()) {
 				stageinc.requestFocus();
@@ -2305,9 +2628,9 @@ public class reportCreationUtil {
 					Object field = incidentReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -2326,7 +2649,12 @@ public class reportCreationUtil {
 				
 				List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 				
-				logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(), statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(), nameinc.getText(), rankinc.getText(), officernuminc.getText(), ageninc.getText(), divinc.getText(), streetinc.getText(), areainc.getText(), countyinc.getText(), summaryinc.getText(), notesinc.getText()));
+				logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(),
+				                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
+				                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
+				                              ageninc.getText(), divinc.getText(), streetinc.getText(),
+				                              areainc.getText(), countyinc.getText(), summaryinc.getText(),
+				                              notesinc.getText()));
 				IncidentReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -2369,7 +2697,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootsrch = (BorderPane) searchReport.get("root");
 			Stage stagesrch = (Stage) rootsrch.getScene()
-					.getWindow();
+			                                  .getWindow();
 			
 			if (!stagesrch.isFocused()) {
 				stagesrch.requestFocus();
@@ -2414,9 +2742,9 @@ public class reportCreationUtil {
 					Object field = searchReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -2435,9 +2763,16 @@ public class reportCreationUtil {
 				
 				List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 				
-				logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(), typesrch.getValue()
-						.toString(), methodsrch.getValue()
-						.toString(), witnesssrch.getText(), ranksrch.getText(), namesrch.getText(), numsrch.getText(), agensrch.getText(), divsrch.getText(), streetsrch.getText(), areasrch.getText(), countysrch.getText(), notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(), bacmeasurementsrch.getText()));
+				logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(),
+				                            timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(),
+				                            typesrch.getValue()
+				                                    .toString(), methodsrch.getValue()
+				                                                           .toString(), witnesssrch.getText(),
+				                            ranksrch.getText(), namesrch.getText(), numsrch.getText(),
+				                            agensrch.getText(), divsrch.getText(), streetsrch.getText(),
+				                            areasrch.getText(), countysrch.getText(), notessrch.getText(),
+				                            testconductedsrch.getText(), resultsrch.getText(),
+				                            bacmeasurementsrch.getText()));
 				
 				SearchReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
@@ -2455,9 +2790,9 @@ public class reportCreationUtil {
 				Object field = arrestReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -2479,13 +2814,20 @@ public class reportCreationUtil {
 				StringBuilder stringBuilder = new StringBuilder();
 				for (ChargesData formData : formDataList) {
 					stringBuilder.append(formData.getCharge())
-							.append(" | ");
+					             .append(" | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
 				}
 				
-				logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(), stringBuilder.toString(), county.getText(), area.getText(), street.getText(), offenderName.getText(), offenderAge.getText(), offenderGender.getText(), offenderDescription.getText(), ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(), offenderAddress.getText(), notes.getText(), officerrank.getText(), officername.getText(), officernumarrest.getText(), officerdiv.getText(), officeragen.getText()));
+				logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(),
+				                            stringBuilder.toString(), county.getText(), area.getText(),
+				                            street.getText(), offenderName.getText(), offenderAge.getText(),
+				                            offenderGender.getText(), offenderDescription.getText(),
+				                            ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(),
+				                            offenderAddress.getText(), notes.getText(), officerrank.getText(),
+				                            officername.getText(), officernumarrest.getText(), officerdiv.getText(),
+				                            officeragen.getText()));
 				ArrestReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -2496,28 +2838,88 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * Traffic stop layout map.
-	 *
-	 * @return the map
-	 */
 	static Map<String, Object> trafficStopLayout() {
-		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8, new TransferConfig("Transfer Information To New Report", new RowConfig(new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON), new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))), new SectionConfig("Officer Information", true, new RowConfig(new FieldConfig("name", 5, FieldType.TEXT_FIELD), new FieldConfig("rank", 5, FieldType.TEXT_FIELD), new FieldConfig("number", 2, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("division", 6, FieldType.TEXT_FIELD), new FieldConfig("agency", 6, FieldType.TEXT_FIELD))), new SectionConfig("Location / Timestamp Information", true, new RowConfig(new FieldConfig("street", 4, FieldType.TEXT_FIELD), new FieldConfig("area", 4, FieldType.TEXT_FIELD), new FieldConfig("county", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("date", 5, FieldType.TEXT_FIELD), new FieldConfig("time", 5, FieldType.TEXT_FIELD), new FieldConfig("stop number", 2, FieldType.TEXT_FIELD))), new SectionConfig("Offender Information", true, new RowConfig(new FieldConfig("offender name", 4, FieldType.TEXT_FIELD), new FieldConfig("offender age", 4, FieldType.TEXT_FIELD), new FieldConfig("offender gender", 4, FieldType.TEXT_FIELD)), new RowConfig(new FieldConfig("offender address", 6, FieldType.TEXT_FIELD), new FieldConfig("offender description", 6, FieldType.TEXT_FIELD))), new SectionConfig("Offender Vehicle Information", true, new RowConfig(new FieldConfig("model", 4, FieldType.TEXT_FIELD), new FieldConfig("plate number", 4, FieldType.TEXT_FIELD), new FieldConfig("color", 4, FieldType.COMBO_BOX_COLOR)), new RowConfig(new FieldConfig("type", 4, FieldType.COMBO_BOX_TYPE), new FieldConfig("other info", 8, FieldType.TEXT_FIELD))), new SectionConfig("Comments", true, new RowConfig(new FieldConfig("notes", 12, FieldType.TEXT_AREA))));
+		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8, new TransferConfig(
+				                                                           "Transfer Information To New Report",
+				                                                           new RowConfig(new FieldConfig("transferarrestbtn", 6, FieldType.TRANSFER_BUTTON),
+				                                                                         new FieldConfig("transfercitationbtn", 6, FieldType.TRANSFER_BUTTON))),
+		                                                           new SectionConfig("Officer Information", true,
+		                                                                             new RowConfig(
+				                                                                             new FieldConfig("name", 5,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig("rank", 5,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig("number",
+				                                                                                             2,
+				                                                                                             FieldType.TEXT_FIELD)),
+		                                                                             new RowConfig(
+				                                                                             new FieldConfig("division",
+				                                                                                             6,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig("agency",
+				                                                                                             6,
+				                                                                                             FieldType.TEXT_FIELD))),
+		                                                           new SectionConfig("Location / Timestamp Information",
+		                                                                             true, new RowConfig(
+				                                                           new FieldConfig("street", 4,
+				                                                                           FieldType.TEXT_FIELD),
+				                                                           new FieldConfig("area", 4,
+				                                                                           FieldType.TEXT_FIELD),
+				                                                           new FieldConfig("county", 4,
+				                                                                           FieldType.TEXT_FIELD)),
+		                                                                             new RowConfig(
+				                                                                             new FieldConfig("date", 5,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig("time", 5,
+				                                                                                             FieldType.TEXT_FIELD),
+				                                                                             new FieldConfig(
+						                                                                             "stop number", 2,
+						                                                                             FieldType.TEXT_FIELD))),
+		                                                           new SectionConfig("Offender Information", true,
+		                                                                             new RowConfig(new FieldConfig(
+				                                                                             "offender name", 4,
+				                                                                             FieldType.TEXT_FIELD),
+		                                                                                           new FieldConfig(
+				                                                                                           "offender age",
+				                                                                                           4,
+				                                                                                           FieldType.TEXT_FIELD),
+		                                                                                           new FieldConfig(
+				                                                                                           "offender gender",
+				                                                                                           4,
+				                                                                                           FieldType.TEXT_FIELD)),
+		                                                                             new RowConfig(new FieldConfig(
+				                                                                             "offender address", 6,
+				                                                                             FieldType.TEXT_FIELD),
+		                                                                                           new FieldConfig(
+				                                                                                           "offender description",
+				                                                                                           6,
+				                                                                                           FieldType.TEXT_FIELD))),
+		                                                           new SectionConfig("Offender Vehicle Information",
+		                                                                             true, new RowConfig(
+				                                                           new FieldConfig("model", 4,
+				                                                                           FieldType.TEXT_FIELD),
+				                                                           new FieldConfig("plate number", 4,
+				                                                                           FieldType.TEXT_FIELD),
+				                                                           new FieldConfig("color", 4,
+				                                                                           FieldType.COMBO_BOX_COLOR)),
+		                                                                             new RowConfig(
+				                                                                             new FieldConfig("type", 4,
+				                                                                                             FieldType.COMBO_BOX_TYPE),
+				                                                                             new FieldConfig(
+						                                                                             "other info", 8,
+						                                                                             FieldType.TEXT_FIELD))),
+		                                                           new SectionConfig("Comments", true, new RowConfig(
+				                                                           new FieldConfig("notes", 12,
+				                                                                           FieldType.TEXT_AREA))));
 		return trafficStopReport;
 	}
 	
-	/**
-	 * New traffic stop.
-	 *
-	 * @param reportChart         the report chart
-	 * @param areaReportChart     the area report chart
-	 * @param vbox                the vbox
-	 * @param notesViewController the notes view controller
-	 */
-	public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
+	                                  NotesViewController notesViewController) {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
-		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get("Traffic Stop Report Map");
+		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(
+				"Traffic Stop Report Map");
 		
 		TextField officernamets = (TextField) trafficStopReportMap.get("name");
 		TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
@@ -2553,7 +2955,7 @@ public class reportCreationUtil {
 		
 		BorderPane rootts = (BorderPane) trafficStopReport.get("root");
 		Stage stagets = (Stage) rootts.getScene()
-				.getWindow();
+		                              .getWindow();
 		
 		Label warningLabelts = (Label) trafficStopReport.get("warningLabel");
 		Button pullNotesBtnts = (Button) trafficStopReport.get("pullNotesBtn");
@@ -2631,7 +3033,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootarr = (BorderPane) arrestReport.get("root");
 			Stage stagearr = (Stage) rootarr.getScene()
-					.getWindow();
+			                                .getWindow();
 			
 			Label warningLabelarr = (Label) arrestReport.get("warningLabel");
 			Button pullNotesBtnarr = (Button) arrestReport.get("pullNotesBtn");
@@ -2662,7 +3064,8 @@ public class reportCreationUtil {
 					updateTextFromNotepad(offenderNamearr, notesViewController.getNotepadTextArea(), "-name");
 					updateTextFromNotepad(offenderAgearr, notesViewController.getNotepadTextArea(), "-age");
 					updateTextFromNotepad(offenderGenderarr, notesViewController.getNotepadTextArea(), "-gender");
-					updateTextFromNotepad(offenderDescriptionarr, notesViewController.getNotepadTextArea(), "-description");
+					updateTextFromNotepad(offenderDescriptionarr, notesViewController.getNotepadTextArea(),
+					                      "-description");
 					updateTextFromNotepad(notesarr, notesViewController.getNotepadTextArea(), "-comments");
 					updateTextFromNotepad(offenderAddressarr, notesViewController.getNotepadTextArea(), "-address");
 					updateTextFromNotepad(arrestnumarr, notesViewController.getNotepadTextArea(), "-number");
@@ -2701,7 +3104,7 @@ public class reportCreationUtil {
 				
 				BorderPane rootimp = (BorderPane) impoundReport.get("root");
 				Stage stageimp = (Stage) rootimp.getScene()
-						.getWindow();
+				                                .getWindow();
 				
 				if (!stageimp.isFocused()) {
 					stageimp.requestFocus();
@@ -2746,9 +3149,9 @@ public class reportCreationUtil {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
 							if (comboBox.getValue() == null || comboBox.getValue()
-									.toString()
-									.trim()
-									.isEmpty()) {
+							                                           .toString()
+							                                           .trim()
+							                                           .isEmpty()) {
 								allFieldsFilled = false;
 								break;
 							}
@@ -2765,9 +3168,15 @@ public class reportCreationUtil {
 					} else {
 						List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 						
-						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-								.toString(), colorimp.getValue()
-								.toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
+						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+						                             offenderNameimp.getText(), offenderAgeimp.getText(),
+						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+						                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
+						                                                                                  .toString(),
+						                             colorimp.getValue()
+						                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+						                             officernameimp.getText(), officernumimp.getText(),
+						                             officerdivimp.getText(), officeragenimp.getText()));
 						ImpoundReportLogs.saveLogsToXML(logs);
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
@@ -2805,7 +3214,7 @@ public class reportCreationUtil {
 				
 				BorderPane rootinc = (BorderPane) incidentReport.get("root");
 				Stage stageinc = (Stage) rootinc.getScene()
-						.getWindow();
+				                                .getWindow();
 				
 				if (!stageinc.isFocused()) {
 					stageinc.requestFocus();
@@ -2850,9 +3259,9 @@ public class reportCreationUtil {
 						Object field = incidentReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
 							if (comboBox.getValue() == null || comboBox.getValue()
-									.toString()
-									.trim()
-									.isEmpty()) {
+							                                           .toString()
+							                                           .trim()
+							                                           .isEmpty()) {
 								allFieldsFilled = false;
 								break;
 							}
@@ -2871,7 +3280,12 @@ public class reportCreationUtil {
 					
 					List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 					
-					logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(), statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(), nameinc.getText(), rankinc.getText(), officernuminc.getText(), ageninc.getText(), divinc.getText(), streetinc.getText(), areainc.getText(), countyinc.getText(), summaryinc.getText(), notesinc.getText()));
+					logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(),
+					                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
+					                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
+					                              ageninc.getText(), divinc.getText(), streetinc.getText(),
+					                              areainc.getText(), countyinc.getText(), summaryinc.getText(),
+					                              notesinc.getText()));
 					IncidentReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -2914,7 +3328,7 @@ public class reportCreationUtil {
 				
 				BorderPane rootsrch = (BorderPane) searchReport.get("root");
 				Stage stagesrch = (Stage) rootsrch.getScene()
-						.getWindow();
+				                                  .getWindow();
 				
 				if (!stagesrch.isFocused()) {
 					stagesrch.requestFocus();
@@ -2942,10 +3356,12 @@ public class reportCreationUtil {
 						updateTextFromNotepad(areasrch, notesViewController.getNotepadTextArea(), "-area");
 						updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
 						updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
-						updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(), "-name");
+						updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(),
+						                      "-name");
 						updateTextFromNotepad(notessrch, notesViewController.getNotepadTextArea(), "-comments");
 						updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
-						updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
+						updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(),
+						                      "-searchitems");
 					} else {
 						log("NotesViewController Is Null", LogUtils.Severity.ERROR);
 					}
@@ -2959,9 +3375,9 @@ public class reportCreationUtil {
 						Object field = searchReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
 							if (comboBox.getValue() == null || comboBox.getValue()
-									.toString()
-									.trim()
-									.isEmpty()) {
+							                                           .toString()
+							                                           .trim()
+							                                           .isEmpty()) {
 								allFieldsFilled = false;
 								break;
 							}
@@ -2980,9 +3396,16 @@ public class reportCreationUtil {
 					
 					List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 					
-					logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(), typesrch.getValue()
-							.toString(), methodsrch.getValue()
-							.toString(), witnesssrch.getText(), ranksrch.getText(), namesrch.getText(), numsrch.getText(), agensrch.getText(), divsrch.getText(), streetsrch.getText(), areasrch.getText(), countysrch.getText(), notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(), bacmeasurementsrch.getText()));
+					logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(),
+					                            datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(),
+					                            groundssrch.getText(), typesrch.getValue()
+					                                                           .toString(), methodsrch.getValue()
+					                                                                                  .toString(),
+					                            witnesssrch.getText(), ranksrch.getText(), namesrch.getText(),
+					                            numsrch.getText(), agensrch.getText(), divsrch.getText(),
+					                            streetsrch.getText(), areasrch.getText(), countysrch.getText(),
+					                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
+					                            bacmeasurementsrch.getText()));
 					
 					SearchReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
@@ -3000,9 +3423,9 @@ public class reportCreationUtil {
 					Object field = arrestReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -3024,13 +3447,22 @@ public class reportCreationUtil {
 					StringBuilder stringBuilder = new StringBuilder();
 					for (ChargesData formData : formDataList) {
 						stringBuilder.append(formData.getCharge())
-								.append(" | ");
+						             .append(" | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
 					}
 					
-					logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(), stringBuilder.toString(), countyarr.getText(), areaarr.getText(), streetarr.getText(), offenderNamearr.getText(), offenderAgearr.getText(), offenderGenderarr.getText(), offenderDescriptionarr.getText(), ambulancereqarr.getText(), taserdeparr.getText(), othermedinfoarr.getText(), offenderAddressarr.getText(), notesarr.getText(), officerrankarr.getText(), officernamearr.getText(), officernumarrestarr.getText(), officerdivarr.getText(), officeragenarr.getText()));
+					logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(),
+					                            stringBuilder.toString(), countyarr.getText(), areaarr.getText(),
+					                            streetarr.getText(), offenderNamearr.getText(),
+					                            offenderAgearr.getText(), offenderGenderarr.getText(),
+					                            offenderDescriptionarr.getText(), ambulancereqarr.getText(),
+					                            taserdeparr.getText(), othermedinfoarr.getText(),
+					                            offenderAddressarr.getText(), notesarr.getText(),
+					                            officerrankarr.getText(), officernamearr.getText(),
+					                            officernumarrestarr.getText(), officerdivarr.getText(),
+					                            officeragenarr.getText()));
 					ArrestReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -3080,7 +3512,7 @@ public class reportCreationUtil {
 			
 			BorderPane rootcit = (BorderPane) citationReport.get("root");
 			Stage stagecit = (Stage) rootcit.getScene()
-					.getWindow();
+			                                .getWindow();
 			
 			Label warningLabelcit = (Label) citationReport.get("warningLabel");
 			Button pullNotesBtncit = (Button) citationReport.get("pullNotesBtn");
@@ -3093,11 +3525,11 @@ public class reportCreationUtil {
 			timecit.setText(timets.getText());
 			datecit.setText(datets.getText());
 			typecit.getSelectionModel()
-					.select(typets.getSelectionModel()
-							.getSelectedItem());
+			       .select(typets.getSelectionModel()
+			                     .getSelectedItem());
 			colorcit.getSelectionModel()
-					.select(colorts.getSelectionModel()
-							.getSelectedItem());
+			        .select(colorts.getSelectionModel()
+			                       .getSelectedItem());
 			offenderNamecit.setText(offenderNamets.getText());
 			offenderAddresscit.setText(offenderAddressts.getText());
 			offenderGendercit.setText(offenderGenderts.getText());
@@ -3120,7 +3552,8 @@ public class reportCreationUtil {
 					updateTextFromNotepad(offenderNamecit, notesViewController.getNotepadTextArea(), "-name");
 					updateTextFromNotepad(offenderAgecit, notesViewController.getNotepadTextArea(), "-age");
 					updateTextFromNotepad(offenderGendercit, notesViewController.getNotepadTextArea(), "-gender");
-					updateTextFromNotepad(offenderDescriptioncit, notesViewController.getNotepadTextArea(), "-description");
+					updateTextFromNotepad(offenderDescriptioncit, notesViewController.getNotepadTextArea(),
+					                      "-description");
 					updateTextFromNotepad(notescit, notesViewController.getNotepadTextArea(), "-comments");
 					updateTextFromNotepad(offenderAddresscit, notesViewController.getNotepadTextArea(), "-address");
 					updateTextFromNotepad(modelcit, notesViewController.getNotepadTextArea(), "-model");
@@ -3161,7 +3594,7 @@ public class reportCreationUtil {
 				
 				BorderPane rootimp = (BorderPane) impoundReport.get("root");
 				Stage stageimp = (Stage) rootimp.getScene()
-						.getWindow();
+				                                .getWindow();
 				
 				if (!stageimp.isFocused()) {
 					stageimp.requestFocus();
@@ -3185,11 +3618,11 @@ public class reportCreationUtil {
 				notesimp.setText(notescit.getText());
 				modelimp.setText(modelcit.getText());
 				typeimp.getSelectionModel()
-						.select(typecit.getSelectionModel()
-								.getSelectedItem());
+				       .select(typecit.getSelectionModel()
+				                      .getSelectedItem());
 				colorimp.getSelectionModel()
-						.select(colorcit.getSelectionModel()
-								.getSelectedItem());
+				        .select(colorcit.getSelectionModel()
+				                        .getSelectedItem());
 				numimp.setText(numcit.getText());
 				
 				pullNotesBtnimp.setOnAction(event1 -> {
@@ -3214,9 +3647,9 @@ public class reportCreationUtil {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
 							if (comboBox.getValue() == null || comboBox.getValue()
-									.toString()
-									.trim()
-									.isEmpty()) {
+							                                           .toString()
+							                                           .trim()
+							                                           .isEmpty()) {
 								allFieldsFilled = false;
 								break;
 							}
@@ -3233,9 +3666,15 @@ public class reportCreationUtil {
 					} else {
 						List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 						
-						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(), offenderNameimp.getText(), offenderAgeimp.getText(), offenderGenderimp.getText(), offenderAddressimp.getText(), plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-								.toString(), colorimp.getValue()
-								.toString(), notesimp.getText(), officerrankimp.getText(), officernameimp.getText(), officernumimp.getText(), officerdivimp.getText(), officeragenimp.getText()));
+						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+						                             offenderNameimp.getText(), offenderAgeimp.getText(),
+						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+						                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
+						                                                                                  .toString(),
+						                             colorimp.getValue()
+						                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+						                             officernameimp.getText(), officernumimp.getText(),
+						                             officerdivimp.getText(), officeragenimp.getText()));
 						ImpoundReportLogs.saveLogsToXML(logs);
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
@@ -3254,9 +3693,9 @@ public class reportCreationUtil {
 					Object field = citationReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
 						if (comboBox.getValue() == null || comboBox.getValue()
-								.toString()
-								.trim()
-								.isEmpty()) {
+						                                           .toString()
+						                                           .trim()
+						                                           .isEmpty()) {
 							allFieldsFilled = false;
 							break;
 						}
@@ -3276,15 +3715,25 @@ public class reportCreationUtil {
 					StringBuilder stringBuilder = new StringBuilder();
 					for (CitationsData formData : formDataList) {
 						stringBuilder.append(formData.getCitation())
-								.append(" | ");
+						             .append(" | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
 					}
 					
-					logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(), stringBuilder.toString(), countycit.getText(), areacit.getText(), streetcit.getText(), offenderNamecit.getText(), offenderGendercit.getText(), offenderAgecit.getText(), offenderAddresscit.getText(), offenderDescriptioncit.getText(), modelcit.getText(), colorcit.getValue()
-							.toString(), typecit.getValue()
-							.toString(), plateNumbercit.getText(), otherInfocit.getText(), officerrankcit.getText(), officernamecit.getText(), officernumcit.getText(), officerdivcit.getText(), officeragencit.getText(), notescit.getText()));
+					logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
+					                                     stringBuilder.toString(), countycit.getText(),
+					                                     areacit.getText(), streetcit.getText(),
+					                                     offenderNamecit.getText(), offenderGendercit.getText(),
+					                                     offenderAgecit.getText(), offenderAddresscit.getText(),
+					                                     offenderDescriptioncit.getText(), modelcit.getText(),
+					                                     colorcit.getValue()
+					                                             .toString(), typecit.getValue()
+					                                                                 .toString(),
+					                                     plateNumbercit.getText(), otherInfocit.getText(),
+					                                     officerrankcit.getText(), officernamecit.getText(),
+					                                     officernumcit.getText(), officerdivcit.getText(),
+					                                     officeragencit.getText(), notescit.getText()));
 					TrafficCitationReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -3302,9 +3751,9 @@ public class reportCreationUtil {
 				Object field = trafficStopReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
 					if (comboBox.getValue() == null || comboBox.getValue()
-							.toString()
-							.trim()
-							.isEmpty()) {
+					                                           .toString()
+					                                           .trim()
+					                                           .isEmpty()) {
 						allFieldsFilled = false;
 						break;
 					}
@@ -3321,9 +3770,17 @@ public class reportCreationUtil {
 			} else {
 				List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 				
-				logs.add(new TrafficStopLogEntry(datets.getText(), timets.getText(), modelts.getText(), otherInfots.getText(), offenderNamets.getText(), offenderAgets.getText(), offenderAddressts.getText(), offenderDescriptionts.getText(), offenderGenderts.getText(), officernamets.getText(), officerrankts.getText(), officernumarrestts.getText(), officerdivts.getText(), officeragents.getText(), stopnumts.getText(), notests.getText(), streetts.getText(), countyts.getText(), areats.getText(), plateNumberts.getText(), colorts.getValue()
-						.toString(), typets.getValue()
-						.toString()));
+				logs.add(new TrafficStopLogEntry(datets.getText(), timets.getText(), modelts.getText(),
+				                                 otherInfots.getText(), offenderNamets.getText(),
+				                                 offenderAgets.getText(), offenderAddressts.getText(),
+				                                 offenderDescriptionts.getText(), offenderGenderts.getText(),
+				                                 officernamets.getText(), officerrankts.getText(),
+				                                 officernumarrestts.getText(), officerdivts.getText(),
+				                                 officeragents.getText(), stopnumts.getText(), notests.getText(),
+				                                 streetts.getText(), countyts.getText(), areats.getText(),
+				                                 plateNumberts.getText(), colorts.getValue()
+				                                                                 .toString(), typets.getValue()
+				                                                                                    .toString()));
 				TrafficStopReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -3334,165 +3791,67 @@ public class reportCreationUtil {
 		});
 	}
 	
-	/**
-	 * The enum Field type.
-	 */
 	public enum FieldType {
-		/**
-		 * Text field field type.
-		 */
-		TEXT_FIELD,
-		/**
-		 * Text area field type.
-		 */
-		TEXT_AREA,
-		/**
-		 * Combo box color field type.
-		 */
-		COMBO_BOX_COLOR,
-		/**
-		 * Combo box type field type.
-		 */
-		COMBO_BOX_TYPE,
-		/**
-		 * Combo box search type field type.
-		 */
-		COMBO_BOX_SEARCH_TYPE,
-		/**
-		 * Combo box search method field type.
-		 */
-		COMBO_BOX_SEARCH_METHOD,
-		/**
-		 * Citation tree view field type.
-		 */
-		CITATION_TREE_VIEW,
-		/**
-		 * Charges tree view field type.
-		 */
-		CHARGES_TREE_VIEW,
-		/**
-		 * Transfer button field type.
-		 */
-		TRANSFER_BUTTON
+		TEXT_FIELD, TEXT_AREA, COMBO_BOX_COLOR, COMBO_BOX_TYPE, COMBO_BOX_SEARCH_TYPE, COMBO_BOX_SEARCH_METHOD, CITATION_TREE_VIEW, CHARGES_TREE_VIEW, TRANSFER_BUTTON
 	}
 	
-	/**
-	 * The type Section config.
-	 */
 	public static class SectionConfig {
 		private final String sectionTitle;
 		private final Boolean required;
 		
 		private final List<RowConfig> rowConfigs;
 		
-		/**
-		 * Instantiates a new Section config.
-		 *
-		 * @param sectionTitle the section title
-		 * @param required     the required
-		 * @param rowConfigs   the row configs
-		 */
 		public SectionConfig(String sectionTitle, boolean required, RowConfig... rowConfigs) {
 			this.sectionTitle = sectionTitle;
 			this.required = required;
 			this.rowConfigs = Arrays.asList(rowConfigs);
 		}
 		
-		/**
-		 * Gets section title.
-		 *
-		 * @return the section title
-		 */
 		public String getSectionTitle() {
 			return sectionTitle;
 		}
 		
-		/**
-		 * Gets row configs.
-		 *
-		 * @return the row configs
-		 */
 		public List<RowConfig> getRowConfigs() {
 			return rowConfigs;
 		}
 		
-		/**
-		 * Gets required.
-		 *
-		 * @return the required
-		 */
 		public Boolean getRequired() {
 			return required;
 		}
 	}
 	
-	/**
-	 * The type Transfer config.
-	 */
 	public static class TransferConfig {
 		private final String title;
 		private final List<RowConfig> rowConfigs;
 		
-		/**
-		 * Instantiates a new Transfer config.
-		 *
-		 * @param title      the title
-		 * @param rowConfigs the row configs
-		 */
 		public TransferConfig(String title, RowConfig... rowConfigs) {
 			this.title = title;
 			this.rowConfigs = Arrays.asList(rowConfigs);
 		}
 		
-		/**
-		 * Gets title.
-		 *
-		 * @return the title
-		 */
 		public String getTitle() {
 			return title;
 		}
 		
-		/**
-		 * Gets row configs.
-		 *
-		 * @return the row configs
-		 */
 		public List<RowConfig> getRowConfigs() {
 			return rowConfigs;
 		}
 	}
 	
-	/**
-	 * The type Row config.
-	 */
 	public static class RowConfig {
 		
 		private final List<FieldConfig> fieldConfigs;
 		
-		/**
-		 * Instantiates a new Row config.
-		 *
-		 * @param fieldConfigs the field configs
-		 */
 		public RowConfig(FieldConfig... fieldConfigs) {
 			this.fieldConfigs = Arrays.asList(fieldConfigs);
 		}
 		
-		/**
-		 * Gets field configs.
-		 *
-		 * @return the field configs
-		 */
 		public List<FieldConfig> getFieldConfigs() {
 			return fieldConfigs;
 		}
 		
 	}
 	
-	/**
-	 * The type Field config.
-	 */
 	public static class FieldConfig {
 		
 		private final String fieldName;
@@ -3500,42 +3859,20 @@ public class reportCreationUtil {
 		private final int size;
 		private final FieldType fieldType;
 		
-		/**
-		 * Instantiates a new Field config.
-		 *
-		 * @param fieldName the field name
-		 * @param size      the size
-		 * @param fieldType the field type
-		 */
 		public FieldConfig(String fieldName, int size, FieldType fieldType) {
 			this.fieldName = fieldName;
 			this.size = size;
 			this.fieldType = fieldType;
 		}
 		
-		/**
-		 * Gets field name.
-		 *
-		 * @return the field name
-		 */
 		public String getFieldName() {
 			return fieldName;
 		}
 		
-		/**
-		 * Gets size.
-		 *
-		 * @return the size
-		 */
 		public int getSize() {
 			return size;
 		}
 		
-		/**
-		 * Gets field type.
-		 *
-		 * @return the field type
-		 */
 		public FieldType getFieldType() {
 			return fieldType;
 		}

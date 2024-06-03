@@ -11,19 +11,12 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
-/**
- * The type Window utils.
- */
 public class windowUtils {
 	
-	/**
-	 * Snap to top left.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToTopLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -36,15 +29,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Centers the given stage on the same screen as the mainRT stage
-	 * without altering the stage's width or height.
-	 *
-	 * @param stage the stage to be centered
-	 */
 	public static void centerStageOnMainApp(Stage stage) {
 		Rectangle2D mainRTBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(), mainRTBounds.getWidth(), mainRTBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(),
+		                                                     mainRTBounds.getWidth(), mainRTBounds.getHeight());
 		
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
@@ -58,14 +46,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Snap to bottom left.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToBottomLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -78,14 +62,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Snap to top right.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToTopRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -98,14 +78,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Snap to bottom right.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToBottomRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -118,14 +94,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Snap to left.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -137,14 +109,10 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Snap to right.
-	 *
-	 * @param stage the stage
-	 */
 	public static void snapToRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
+		                                                     parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -162,29 +130,24 @@ public class windowUtils {
 		
 		for (Screen screen : Screen.getScreens()) {
 			if (screen.getVisualBounds()
-					.contains(centerX, centerY)) {
+			          .contains(centerX, centerY)) {
 				return screen;
 			}
 		}
 		return null;
 	}
 	
-	/**
-	 * Sets windowed fullscreen.
-	 *
-	 * @param stage the stage
-	 */
 	public static void setWindowedFullscreen(Stage stage) {
 		Screen screen = getScreenContainingStage(stage);
 		if (screen != null) {
 			double screenWidth = screen.getVisualBounds()
-					.getWidth();
+			                           .getWidth();
 			double screenHeight = screen.getVisualBounds()
-					.getHeight();
+			                            .getHeight();
 			stage.setX(screen.getVisualBounds()
-					.getMinX());
+			                 .getMinX());
 			stage.setY(screen.getVisualBounds()
-					.getMinY());
+			                 .getMinY());
 			stage.setWidth(screenWidth);
 			stage.setHeight(screenHeight);
 		} else {
@@ -192,13 +155,6 @@ public class windowUtils {
 		}
 	}
 	
-	/**
-	 * Restore default state.
-	 *
-	 * @param stage  the stage
-	 * @param width  the width
-	 * @param height the height
-	 */
 	public static void restoreDefaultState(Stage stage, double width, double height) {
 		stage.setHeight(height);
 		stage.setWidth(width);
@@ -221,19 +177,12 @@ public class windowUtils {
 		stage.centerOnScreen();
 	}
 	
-	/**
-	 * Toggle windowed fullscreen.
-	 *
-	 * @param stage  the stage
-	 * @param width  the width
-	 * @param height the height
-	 */
 	public static void toggleWindowedFullscreen(Stage stage, double width, double height) {
 		if (!(stage.getX() == Screen.getPrimary()
-				.getBounds()
-				.getMinX() || stage.getY() == Screen.getPrimary()
-				.getBounds()
-				.getMinY())) {
+		                            .getBounds()
+		                            .getMinX() || stage.getY() == Screen.getPrimary()
+		                                                                .getBounds()
+		                                                                .getMinY())) {
 			setWindowedFullscreen(stage);
 		} else {
 			restoreDefaultState(stage, width, height);

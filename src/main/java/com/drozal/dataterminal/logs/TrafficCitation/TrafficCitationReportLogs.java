@@ -24,25 +24,13 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-/**
- * The type Traffic citation report logs.
- */
 @XmlRootElement
 public class TrafficCitationReportLogs {
 	private List<TrafficCitationLogEntry> logs;
 	
-	/**
-	 * Instantiates a new Traffic citation report logs.
-	 */
 	public TrafficCitationReportLogs() {
 	}
 	
-	/**
-	 * Extract log entries list.
-	 *
-	 * @param filePath the file path
-	 * @return the list
-	 */
 	public static List<TrafficCitationLogEntry> extractLogEntries(String filePath) {
 		List<TrafficCitationLogEntry> logEntries = new ArrayList<>();
 		
@@ -57,7 +45,7 @@ public class TrafficCitationReportLogs {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file);
 			doc.getDocumentElement()
-					.normalize();
+			   .normalize();
 			
 			NodeList logsList = doc.getElementsByTagName("logs");
 			
@@ -98,27 +86,15 @@ public class TrafficCitationReportLogs {
 		return logEntries;
 	}
 	
-	/**
-	 * Gets tag value.
-	 *
-	 * @param element the element
-	 * @param tagName the tag name
-	 * @return the tag value
-	 */
 	public static String getTagValue(Element element, String tagName) {
 		NodeList nodeList = element.getElementsByTagName(tagName);
 		if (nodeList != null && nodeList.getLength() > 0) {
 			return nodeList.item(0)
-					.getTextContent();
+			               .getTextContent();
 		}
 		return "";
 	}
 	
-	/**
-	 * Count reports int.
-	 *
-	 * @return the int
-	 */
 	public static int countReports() {
 		try {
 			
@@ -131,11 +107,6 @@ public class TrafficCitationReportLogs {
 		}
 	}
 	
-	/**
-	 * Load logs from xml list.
-	 *
-	 * @return the list
-	 */
 	public static List<TrafficCitationLogEntry> loadLogsFromXML() {
 		try {
 			Path filePath = Paths.get(stringUtil.trafficCitationLogURL);
@@ -153,11 +124,6 @@ public class TrafficCitationReportLogs {
 		}
 	}
 	
-	/**
-	 * Save logs to xml.
-	 *
-	 * @param logs the logs
-	 */
 	public static void saveLogsToXML(List<TrafficCitationLogEntry> logs) {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(TrafficCitationReportLogs.class);
@@ -174,20 +140,10 @@ public class TrafficCitationReportLogs {
 		}
 	}
 	
-	/**
-	 * Gets logs.
-	 *
-	 * @return the logs
-	 */
 	public List<TrafficCitationLogEntry> getLogs() {
 		return logs;
 	}
 	
-	/**
-	 * Sets logs.
-	 *
-	 * @param logs the logs
-	 */
 	public void setLogs(List<TrafficCitationLogEntry> logs) {
 		this.logs = logs;
 	}

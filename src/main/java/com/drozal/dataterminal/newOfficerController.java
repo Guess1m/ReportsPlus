@@ -35,47 +35,20 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
-/**
- * The type New officer controller.
- */
 public class newOfficerController {
-	/**
-	 * The constant controller.
-	 */
 	public static actionController controller;
-	/**
-	 * The Number field.
-	 */
 	@javafx.fxml.FXML
 	public TextField numberField;
-	/**
-	 * The Name field.
-	 */
 	@javafx.fxml.FXML
 	public TextField nameField;
-	/**
-	 * The Rank dropdown.
-	 */
 	@javafx.fxml.FXML
 	public ComboBox rankDropdown;
-	/**
-	 * The Agency drop down.
-	 */
 	@javafx.fxml.FXML
 	public ComboBox agencyDropDown;
-	/**
-	 * The Division drop down.
-	 */
 	@javafx.fxml.FXML
 	public ComboBox divisionDropDown;
-	/**
-	 * The Vbox.
-	 */
 	@javafx.fxml.FXML
 	public AnchorPane vbox;
-	/**
-	 * The Incomplete label.
-	 */
 	@javafx.fxml.FXML
 	public Label incompleteLabel;
 	private double xOffset = 0;
@@ -112,14 +85,11 @@ public class newOfficerController {
 		
 	}
 	
-	/**
-	 * Initialize.
-	 */
 	public void initialize() {
 		rankDropdown.getItems()
-				.addAll(dropdownInfo.ranks);
+		            .addAll(dropdownInfo.ranks);
 		divisionDropDown.getItems()
-				.addAll(dropdownInfo.divisions);
+		                .addAll(dropdownInfo.divisions);
 		divisionDropDown.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
 			public ListCell<String> call(ListView<String> p) {
@@ -144,55 +114,34 @@ public class newOfficerController {
 			}
 		});
 		agencyDropDown.getItems()
-				.addAll(dropdownInfo.agencies);
+		              .addAll(dropdownInfo.agencies);
 	}
 	
-	/**
-	 * On mouse drag.
-	 *
-	 * @param mouseEvent the mouse event
-	 */
 	@javafx.fxml.FXML
 	public void onMouseDrag(MouseEvent mouseEvent) {
 		Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene()
-				.getWindow();
+		                                                     .getWindow();
 		stage.setX(mouseEvent.getScreenX() - xOffset);
 		stage.setY(mouseEvent.getScreenY() - yOffset);
 	}
 	
-	/**
-	 * On mouse press.
-	 *
-	 * @param mouseEvent the mouse event
-	 */
 	@javafx.fxml.FXML
 	public void onMousePress(MouseEvent mouseEvent) {
 		xOffset = mouseEvent.getSceneX();
 		yOffset = mouseEvent.getSceneY();
 	}
 	
-	/**
-	 * On exit button click.
-	 *
-	 * @param actionEvent the action event
-	 */
 	@javafx.fxml.FXML
 	public void onExitButtonClick(MouseEvent actionEvent) {
 		Platform.exit();
 	}
 	
-	/**
-	 * Login button click.
-	 *
-	 * @param actionEvent the action event
-	 * @throws IOException the io exception
-	 */
 	@javafx.fxml.FXML
 	public void loginButtonClick(ActionEvent actionEvent) throws IOException {
 		
 		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText()
-				.isEmpty() || numberField.getText()
-				.isEmpty()) {
+		                                                                                                                            .isEmpty() || numberField.getText()
+		                                                                                                                                                     .isEmpty()) {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
@@ -204,10 +153,10 @@ public class newOfficerController {
 			String jarPath = null;
 			try {
 				jarPath = newOfficerApplication.class.getProtectionDomain()
-						.getCodeSource()
-						.getLocation()
-						.toURI()
-						.getPath();
+				                                     .getCodeSource()
+				                                     .getLocation()
+				                                     .toURI()
+				                                     .getPath();
 			} catch (URISyntaxException e) {
 				logError("NewOfficer JarPath URISyntax Exception", e);
 			}
@@ -231,11 +180,11 @@ public class newOfficerController {
 			}
 			
 			String agency = agencyDropDown.getValue()
-					.toString();
+			                              .toString();
 			String division = divisionDropDown.getValue()
-					.toString();
+			                                  .toString();
 			String rank = rankDropdown.getValue()
-					.toString();
+			                          .toString();
 			
 			ConfigWriter.configwrite("Agency", agency);
 			ConfigWriter.configwrite("Division", division);
@@ -245,7 +194,7 @@ public class newOfficerController {
 			addConfigurationValues();
 			
 			Stage stag = (Stage) vbox.getScene()
-					.getWindow();
+			                         .getWindow();
 			stag.close();
 			
 			mainRT = new Stage();
@@ -256,7 +205,7 @@ public class newOfficerController {
 			mainRT.setScene(scene);
 			mainRT.initStyle(StageStyle.UNDECORATED);
 			mainRT.getIcons()
-					.add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+			      .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
 			mainRT.show();
 			
 			String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -272,7 +221,7 @@ public class newOfficerController {
 					mainRT.setMinHeight(450);
 					mainRT.setMinWidth(450);
 					if (ConfigReader.configRead("fullscreenOnStartup")
-							.equals("true")) {
+					                .equals("true")) {
 						windowUtils.setWindowedFullscreen(mainRT);
 					} else {
 						mainRT.setHeight(800);
@@ -284,21 +233,15 @@ public class newOfficerController {
 		}
 	}
 	
-	/**
-	 * Bypass button click.
-	 *
-	 * @param actionEvent the action event
-	 * @throws IOException the io exception
-	 */
 	@javafx.fxml.FXML
 	public void bypassButtonClick(ActionEvent actionEvent) throws IOException {
 		String jarPath = null;
 		try {
 			jarPath = newOfficerApplication.class.getProtectionDomain()
-					.getCodeSource()
-					.getLocation()
-					.toURI()
-					.getPath();
+			                                     .getCodeSource()
+			                                     .getLocation()
+			                                     .toURI()
+			                                     .getPath();
 		} catch (URISyntaxException e) {
 			logError("BypassBtnJarPath URISyntax Exception", e);
 			throw new RuntimeException(e);
@@ -330,7 +273,7 @@ public class newOfficerController {
 		addConfigurationValues();
 		
 		Stage stag = (Stage) vbox.getScene()
-				.getWindow();
+		                         .getWindow();
 		stag.close();
 		
 		mainRT = new Stage();
@@ -341,7 +284,7 @@ public class newOfficerController {
 		Scene scene = new Scene(root);
 		mainRT.setScene(scene);
 		mainRT.getIcons()
-				.add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		      .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -357,7 +300,7 @@ public class newOfficerController {
 				mainRT.setMinHeight(450);
 				mainRT.setMinWidth(450);
 				if (ConfigReader.configRead("fullscreenOnStartup")
-						.equals("true")) {
+				                .equals("true")) {
 					windowUtils.setWindowedFullscreen(mainRT);
 				} else {
 					mainRT.setHeight(800);

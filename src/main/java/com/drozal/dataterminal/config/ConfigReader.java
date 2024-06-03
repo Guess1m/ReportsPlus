@@ -17,18 +17,8 @@ import java.util.Properties;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-/**
- * The type Config reader.
- */
 public class ConfigReader {
 	
-	/**
-	 * Config read string.
-	 *
-	 * @param property the property
-	 * @return the string
-	 * @throws IOException the io exception
-	 */
 	public static String configRead(String property) throws IOException {
 		Properties prop = new Properties();
 		try {
@@ -54,19 +44,14 @@ public class ConfigReader {
 		}
 	}
 	
-	/**
-	 * Does config exist boolean.
-	 *
-	 * @return the boolean
-	 */
 	public static boolean doesConfigExist() {
 		try {
 			
 			String jarPath = ConfigReader.class.getProtectionDomain()
-					.getCodeSource()
-					.getLocation()
-					.toURI()
-					.getPath();
+			                                   .getCodeSource()
+			                                   .getLocation()
+			                                   .toURI()
+			                                   .getPath();
 			
 			jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
 			

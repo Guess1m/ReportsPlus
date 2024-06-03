@@ -17,9 +17,6 @@ import java.io.*;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 
-/**
- * The type Log utils.
- */
 public class LogUtils {
 	private static boolean inErrorBlock = false;
 	
@@ -69,32 +66,17 @@ public class LogUtils {
 		});
 	}
 	
-	/**
-	 * End log.
-	 */
 	public static void endLog() {
 		String logMessage = "----------------------------- END LOG [" + DataTerminalHomeApplication.getTime() + "] -----------------------------";
 		System.out.println(logMessage);
 		System.out.println();
 	}
 	
-	/**
-	 * Log.
-	 *
-	 * @param message  the message
-	 * @param severity the severity
-	 */
 	public static void log(String message, Severity severity) {
 		String logMessage = "[" + getDate() + "] [" + getTime() + "] [" + severity + "] " + message;
 		System.out.println(logMessage);
 	}
 	
-	/**
-	 * Log error.
-	 *
-	 * @param message the message
-	 * @param e       the e
-	 */
 	public static void logError(String message, Throwable e) {
 		String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] " + message;
 		System.err.println(errorMessage);
@@ -107,7 +89,7 @@ public class LogUtils {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				if (line.trim()
-						.equals("***")) {
+				        .equals("***")) {
 					if (inErrorBlock) {
 						inErrorBlock = false;
 						continue;
@@ -117,7 +99,7 @@ public class LogUtils {
 				TextFlow textFlow = createStyledText(line);
 				textFlow.setStyle("-fx-background-color: transparent;");
 				if (!textFlow.getChildren()
-						.isEmpty()) {
+				             .isEmpty()) {
 					logItems.add(textFlow);
 				}
 			}
@@ -129,7 +111,7 @@ public class LogUtils {
 	private static TextFlow createStyledText(String line) {
 		TextFlow textFlow = new TextFlow();
 		if (line.trim()
-				.equals("***")) {
+		        .equals("***")) {
 			if (inErrorBlock) {
 				inErrorBlock = false;
 			}
@@ -143,7 +125,7 @@ public class LogUtils {
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
 				textFlow.getChildren()
-						.add(errorText);
+				        .add(errorText);
 				inErrorBlock = false;
 				
 				if (endIndex + 3 < line.length()) {
@@ -151,13 +133,13 @@ public class LogUtils {
 					Text afterErrorText = new Text(afterErrorTextStr);
 					setColorBasedOnTag(afterErrorText, afterErrorTextStr);
 					textFlow.getChildren()
-							.add(afterErrorText);
+					        .add(afterErrorText);
 				}
 			} else {
 				Text errorText = new Text(line);
 				errorText.setFill(Color.RED);
 				textFlow.getChildren()
-						.add(errorText);
+				        .add(errorText);
 			}
 		} else if (line.contains("***")) {
 			int startErrorIndex = line.indexOf("***");
@@ -168,7 +150,7 @@ public class LogUtils {
 				Text beforeErrorText = new Text(beforeErrorTextStr);
 				setColorBasedOnTag(beforeErrorText, beforeErrorTextStr);
 				textFlow.getChildren()
-						.add(beforeErrorText);
+				        .add(beforeErrorText);
 			}
 			
 			if (endErrorIndex != -1) {
@@ -176,7 +158,7 @@ public class LogUtils {
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
 				textFlow.getChildren()
-						.add(errorText);
+				        .add(errorText);
 				inErrorBlock = false;
 				
 				if (endErrorIndex + 3 < line.length()) {
@@ -184,21 +166,21 @@ public class LogUtils {
 					Text afterErrorText = new Text(afterErrorTextStr);
 					setColorBasedOnTag(afterErrorText, afterErrorTextStr);
 					textFlow.getChildren()
-							.add(afterErrorText);
+					        .add(afterErrorText);
 				}
 			} else {
 				String errorTextStr = line.substring(startErrorIndex + 4);
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
 				textFlow.getChildren()
-						.add(errorText);
+				        .add(errorText);
 				inErrorBlock = true;
 			}
 		} else {
 			Text normalText = new Text(line);
 			setColorBasedOnTag(normalText, line);
 			textFlow.getChildren()
-					.add(normalText);
+			        .add(normalText);
 		}
 		return textFlow;
 	}
@@ -221,11 +203,6 @@ public class LogUtils {
 		}
 	}
 	
-	/**
-	 * Add output to listview.
-	 *
-	 * @param listView the list view
-	 */
 	public static void addOutputToListview(ListView<TextFlow> listView) {
 		
 		ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
@@ -258,26 +235,8 @@ public class LogUtils {
 		timeline.play();
 	}
 	
-	/**
-	 * The enum Severity.
-	 */
 	public enum Severity {
-		/**
-		 * Debug severity.
-		 */
-		DEBUG,
-		/**
-		 * Info severity.
-		 */
-		INFO,
-		/**
-		 * Warn severity.
-		 */
-		WARN,
-		/**
-		 * Error severity.
-		 */
-		ERROR,
+		DEBUG, INFO, WARN, ERROR,
 	}
 	
 }

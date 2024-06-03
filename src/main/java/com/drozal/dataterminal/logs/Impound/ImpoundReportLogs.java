@@ -24,25 +24,13 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-/**
- * The type Impound report logs.
- */
 @XmlRootElement
 public class ImpoundReportLogs {
 	private List<ImpoundLogEntry> logs;
 	
-	/**
-	 * Instantiates a new Impound report logs.
-	 */
 	public ImpoundReportLogs() {
 	}
 	
-	/**
-	 * Extract log entries list.
-	 *
-	 * @param filePath the file path
-	 * @return the list
-	 */
 	public static List<ImpoundLogEntry> extractLogEntries(String filePath) {
 		List<ImpoundLogEntry> logEntries = new ArrayList<>();
 		
@@ -57,7 +45,7 @@ public class ImpoundReportLogs {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file);
 			doc.getDocumentElement()
-					.normalize();
+			   .normalize();
 			
 			NodeList logsList = doc.getElementsByTagName("logs");
 			
@@ -92,27 +80,15 @@ public class ImpoundReportLogs {
 		return logEntries;
 	}
 	
-	/**
-	 * Gets tag value.
-	 *
-	 * @param element the element
-	 * @param tagName the tag name
-	 * @return the tag value
-	 */
 	public static String getTagValue(Element element, String tagName) {
 		NodeList nodeList = element.getElementsByTagName(tagName);
 		if (nodeList != null && nodeList.getLength() > 0) {
 			return nodeList.item(0)
-					.getTextContent();
+			               .getTextContent();
 		}
 		return "";
 	}
 	
-	/**
-	 * Count reports int.
-	 *
-	 * @return the int
-	 */
 	public static int countReports() {
 		try {
 			
@@ -125,11 +101,6 @@ public class ImpoundReportLogs {
 		}
 	}
 	
-	/**
-	 * Load logs from xml list.
-	 *
-	 * @return the list
-	 */
 	public static List<ImpoundLogEntry> loadLogsFromXML() {
 		try {
 			Path filePath = Paths.get(stringUtil.impoundLogURL);
@@ -147,11 +118,6 @@ public class ImpoundReportLogs {
 		}
 	}
 	
-	/**
-	 * Save logs to xml.
-	 *
-	 * @param logs the logs
-	 */
 	public static void saveLogsToXML(List<ImpoundLogEntry> logs) {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(ImpoundReportLogs.class);
@@ -168,20 +134,10 @@ public class ImpoundReportLogs {
 		}
 	}
 	
-	/**
-	 * Gets logs.
-	 *
-	 * @return the logs
-	 */
 	public List<ImpoundLogEntry> getLogs() {
 		return logs;
 	}
 	
-	/**
-	 * Sets logs.
-	 *
-	 * @param logs the logs
-	 */
 	public void setLogs(List<ImpoundLogEntry> logs) {
 		this.logs = logs;
 	}

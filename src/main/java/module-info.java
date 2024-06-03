@@ -11,7 +11,6 @@ module com.drozal.dataterminal {
 	requires org.controlsfx.controls;
 	requires jmdns;
 	requires java.desktop;
-	requires AnimateFX;
 	
 	opens com.drozal.dataterminal.logs to javafx.base;
 	opens com.drozal.dataterminal to javafx.fxml;

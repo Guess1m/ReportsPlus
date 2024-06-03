@@ -22,15 +22,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
-/**
- * The type Tree view utils.
- */
 public class treeViewUtils {
-	/**
-	 * Copy charge data file.
-	 *
-	 * @throws IOException the io exception
-	 */
 	public static void copyChargeDataFile() throws IOException {
 		
 		String sourcePathCharges = "/com/drozal/dataterminal/data/Charges.xml";
@@ -44,7 +36,7 @@ public class treeViewUtils {
 			if (inputStream != null) {
 				
 				Path destinationPathCharges = destinationDir.resolve(Paths.get(sourcePathCharges)
-						.getFileName());
+				                                                          .getFileName());
 				
 				Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
 			} else {
@@ -53,11 +45,6 @@ public class treeViewUtils {
 		}
 	}
 	
-	/**
-	 * Copy citation data file.
-	 *
-	 * @throws IOException the io exception
-	 */
 	public static void copyCitationDataFile() throws IOException {
 		
 		String sourcePathCitations = "/com/drozal/dataterminal/data/Citations.xml";
@@ -71,7 +58,7 @@ public class treeViewUtils {
 			if (inputStream != null) {
 				
 				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCitations)
-						.getFileName());
+				                                                            .getFileName());
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {
@@ -80,21 +67,13 @@ public class treeViewUtils {
 		}
 	}
 	
-	/**
-	 * Find xml value string.
-	 *
-	 * @param selectedValue the selected value
-	 * @param value         the value
-	 * @param path          the path
-	 * @return the string
-	 */
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
 			
 			File file = new File(getJarPath() + "/" + path);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			Document document = factory.newDocumentBuilder()
-					.parse(file);
+			                           .parse(file);
 			
 			Element selectedElement = findElementByValue(document.getDocumentElement(), selectedValue);
 			if (selectedElement != null) {
@@ -117,7 +96,7 @@ public class treeViewUtils {
 			if (childNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element childElement = (Element) childNode;
 				if (childElement.getAttribute("name")
-						.equals(value)) {
+				                .equals(value)) {
 					return childElement;
 				}
 				
@@ -130,12 +109,6 @@ public class treeViewUtils {
 		return null;
 	}
 	
-	/**
-	 * Parse tree xml.
-	 *
-	 * @param parentElement the parent element
-	 * @param parentItem    the parent item
-	 */
 	public static void parseTreeXML(Element parentElement, TreeItem<String> parentItem) {
 		NodeList childNodes = parentElement.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
@@ -148,21 +121,15 @@ public class treeViewUtils {
 				}
 				TreeItem<String> item = new TreeItem<>(nodeName);
 				parentItem.getChildren()
-						.add(item);
+				          .add(item);
 				parseTreeXML(childElement, item);
 			}
 		}
 	}
 	
-	/**
-	 * Expand tree item.
-	 *
-	 * @param root     the root
-	 * @param itemName the item name
-	 */
 	public static void expandTreeItem(TreeItem<String> root, String itemName) {
 		if (root.getValue()
-				.equals(itemName)) {
+		        .equals(itemName)) {
 			root.setExpanded(true);
 			return;
 		}

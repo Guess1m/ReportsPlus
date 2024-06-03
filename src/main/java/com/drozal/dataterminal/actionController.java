@@ -671,14 +671,14 @@ public class actionController {
 		IDStage.show();
 		IDStage.centerOnScreen();
 		if (ConfigReader.configRead("AOTID")
-				.equals("true")) {
+		                .equals("true")) {
 			IDStage.setAlwaysOnTop(true);
 			
 		} else {
 			
 			IDStage.setAlwaysOnTop(false);
 		}
-		showButtonAnimation(showIDBtn);
+		showAnimation(showIDBtn);
 		windowUtils.centerStageOnMainApp(IDStage);
 		
 		IDStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -707,14 +707,14 @@ public class actionController {
 		mapStage.show();
 		mapStage.centerOnScreen();
 		if (ConfigReader.configRead("AOTMap")
-				.equals("true")) {
+		                .equals("true")) {
 			mapStage.setAlwaysOnTop(true);
 			
 		} else {
 			
 			mapStage.setAlwaysOnTop(false);
 		}
-		showButtonAnimation(mapButton);
+		showAnimation(mapButton);
 		
 		windowUtils.centerStageOnMainApp(mapStage);
 		
@@ -759,12 +759,12 @@ public class actionController {
 			}
 		}
 		notesStage.getScene()
-				.getStylesheets()
-				.add(getClass().getResource("css/notification-styles.css")
-						.toExternalForm());
-		showButtonAnimation(notesButton);
+		          .getStylesheets()
+		          .add(getClass().getResource("css/notification-styles.css")
+		                         .toExternalForm());
+		showAnimation(notesButton);
 		if (ConfigReader.configRead("AOTNotes")
-				.equals("true")) {
+		                .equals("true")) {
 			notesStage.setAlwaysOnTop(true);
 			
 		} else {
@@ -777,7 +777,7 @@ public class actionController {
 			public void handle(WindowEvent event) {
 				notesStage = null;
 				actionController.notesText = notesViewController.getNotepadTextArea()
-						.getText();
+				                                                .getText();
 			}
 		});
 	}
@@ -786,13 +786,13 @@ public class actionController {
 	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, vehLookupPane);
 		setActive(shiftInformationPane);
-		showButtonAnimation(shiftInfoBtn);
+		showAnimation(shiftInfoBtn);
 		controllerUtils.refreshChart(areaReportChart, "area");
 	}
 	
 	@javafx.fxml.FXML
 	public void onLogsButtonClick(ActionEvent actionEvent) {
-		showButtonAnimation(logsButton);
+		showAnimation(logsButton);
 		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane);
 		setActive(logPane);
 	}
@@ -813,14 +813,14 @@ public class actionController {
 		CalloutStage.show();
 		CalloutStage.centerOnScreen();
 		if (ConfigReader.configRead("AOTCallout")
-				.equals("true")) {
+		                .equals("true")) {
 			CalloutStage.setAlwaysOnTop(true);
 			
 		} else {
 			
 			CalloutStage.setAlwaysOnTop(false);
 		}
-		showButtonAnimation(showCalloutBtn);
+		showAnimation(showCalloutBtn);
 		
 		windowUtils.centerStageOnMainApp(CalloutStage);
 	}
@@ -862,12 +862,14 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onArrestReportBtnClick(
+			ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
 		newArrest(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onCitationReportBtnClick(
+			ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
 		newCitation(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
@@ -902,7 +904,7 @@ public class actionController {
 			clientStage.show();
 			clientStage.centerOnScreen();
 			if (ConfigReader.configRead("AOTClient")
-					.equals("true")) {
+			                .equals("true")) {
 				clientStage.setAlwaysOnTop(true);
 				
 			} else {
@@ -924,8 +926,8 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void updateInfoButtonClick(ActionEvent actionEvent) {
 		if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText()
-				.isEmpty() || getOfficerInfoNumber().getText()
-				.isEmpty()) {
+		                                                                                                                                                               .isEmpty() || getOfficerInfoNumber().getText()
+		                                                                                                                                                                                                   .isEmpty()) {
 			updatedNotification.setText("Fill Out Form.");
 			updatedNotification.setStyle("-fx-text-fill: red;");
 			updatedNotification.setVisible(true);
@@ -935,12 +937,12 @@ public class actionController {
 			timeline1.play();
 		} else {
 			ConfigWriter.configwrite("Agency", getOfficerInfoAgency().getValue()
-					.toString());
+			                                                         .toString());
 			ConfigWriter.configwrite("Division", getOfficerInfoDivision().getValue()
-					.toString());
+			                                                             .toString());
 			ConfigWriter.configwrite("Name", getOfficerInfoName().getText());
 			ConfigWriter.configwrite("Rank", getOfficerInfoRank().getValue()
-					.toString());
+			                                                     .toString());
 			ConfigWriter.configwrite("Number", getOfficerInfoNumber().getText());
 			generatedByTag.setText("Generated By:" + " " + getOfficerInfoName().getText());
 			updatedNotification.setText("updated.");
@@ -951,14 +953,15 @@ public class actionController {
 			}));
 			timeline.play();
 		}
-		showButtonAnimation(updateInfoBtn);
+		showAnimation(updateInfoBtn);
 	}
 	
 	@javafx.fxml.FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedPlate = vehSearchField.getText();
 		
-		Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
+		Map<String, String> vehData = grabVehicleData(
+				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 		
 		String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
 		if (!licensePlate.equals("Not available")) {
@@ -1002,7 +1005,8 @@ public class actionController {
 	public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedName = pedSearchField.getText();
 		
-		Map<String, String> pedData = grabPedData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
+		Map<String, String> pedData = grabPedData(
+				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
 		String gender = pedData.getOrDefault("gender", "Not available");
 		String birthday = pedData.getOrDefault("birthday", "Not available");
 		String address = pedData.getOrDefault("address", "Not available");
@@ -1026,11 +1030,11 @@ public class actionController {
 			pedlicensefield.setText(licenseStatus);
 			
 			if (pedlicensefield.getText()
-					.equals("Expired")) {
+			                   .equals("Expired")) {
 				pedlicensefield.setText("EXPIRED");
 				pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			} else if (pedlicensefield.getText()
-					.equals("Suspended")) {
+			                          .equals("Suspended")) {
 				pedlicensefield.setText("SUSPENDED");
 				pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			} else {
@@ -1039,7 +1043,7 @@ public class actionController {
 			}
 			
 			if (pedwantedfield.getText()
-					.equals("True")) {
+			                  .equals("True")) {
 				pedwantedfield.setText("WANTED");
 				pedwantedfield.setStyle("-fx-text-fill: red !important;");
 			} else {
@@ -1074,14 +1078,14 @@ public class actionController {
 		settingsStage.show();
 		settingsStage.centerOnScreen();
 		if (ConfigReader.configRead("AOTSettings")
-				.equals("true")) {
+		                .equals("true")) {
 			settingsStage.setAlwaysOnTop(true);
 			
 		} else {
 			
 			settingsStage.setAlwaysOnTop(false);
 		}
-		showButtonAnimation(settingsBtn);
+		showAnimation(settingsBtn);
 		
 		windowUtils.centerStageOnMainApp(settingsStage);
 		
@@ -1098,7 +1102,8 @@ public class actionController {
 		List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
 		impoundLogUpdate(impoundLogEntryList);
 		
-		List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(stringUtil.trafficCitationLogURL);
+		List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(
+				stringUtil.trafficCitationLogURL);
 		citationLogUpdate(citationLogEntryList);
 		
 		List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
@@ -1113,7 +1118,8 @@ public class actionController {
 		List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
 		incidentLogUpdate(incidentLogEntryList);
 		
-		List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(stringUtil.trafficstopLogURL);
+		List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(
+				stringUtil.trafficstopLogURL);
 		trafficStopLogUpdate(trafficLogEntryList);
 		
 		List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
@@ -1123,66 +1129,66 @@ public class actionController {
 	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
 		
 		impoundTable.getItems()
-				.clear();
+		            .clear();
 		
 		impoundTable.getItems()
-				.addAll(logEntries);
+		            .addAll(logEntries);
 	}
 	
 	public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
 		
 		citationTable.getItems()
-				.clear();
+		             .clear();
 		citationTable.getItems()
-				.addAll(logEntries);
+		             .addAll(logEntries);
 	}
 	
 	public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
 		
 		patrolTable.getItems()
-				.clear();
+		           .clear();
 		patrolTable.getItems()
-				.addAll(logEntries);
+		           .addAll(logEntries);
 	}
 	
 	public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
 		
 		arrestTable.getItems()
-				.clear();
+		           .clear();
 		arrestTable.getItems()
-				.addAll(logEntries);
+		           .addAll(logEntries);
 	}
 	
 	public void searchLogUpdate(List<SearchLogEntry> logEntries) {
 		
 		searchTable.getItems()
-				.clear();
+		           .clear();
 		searchTable.getItems()
-				.addAll(logEntries);
+		           .addAll(logEntries);
 	}
 	
 	public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
 		
 		incidentTable.getItems()
-				.clear();
+		             .clear();
 		incidentTable.getItems()
-				.addAll(logEntries);
+		             .addAll(logEntries);
 	}
 	
 	public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
 		
 		trafficStopTable.getItems()
-				.clear();
+		                .clear();
 		trafficStopTable.getItems()
-				.addAll(logEntries);
+		                .addAll(logEntries);
 	}
 	
 	public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
 		
 		calloutTable.getItems()
-				.clear();
+		            .clear();
 		calloutTable.getItems()
-				.addAll(logEntries);
+		            .addAll(logEntries);
 	}
 	
 	public void initializeImpoundColumns() {
@@ -1238,10 +1244,14 @@ public class actionController {
 		TableColumn<ImpoundLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn, ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn, impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
+		ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(
+				impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn,
+				ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn,
+				impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
+				officerDivisionColumn, officerAgencyColumn);
 		
 		impoundTable.getColumns()
-				.addAll(impoundColumns);
+		            .addAll(impoundColumns);
 		
 		for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -1295,10 +1305,13 @@ public class actionController {
 		TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Comments");
 		patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 		
-		ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn, officerVehicleColumn, patrolCommentsColumn);
+		ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(
+				patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn,
+				officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn,
+				officerVehicleColumn, patrolCommentsColumn);
 		
 		patrolTable.getColumns()
-				.addAll(patrolColumns);
+		           .addAll(patrolColumns);
 		
 		for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -1382,10 +1395,16 @@ public class actionController {
 		TableColumn<TrafficCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
 		citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 		
-		ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn, citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn, offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn, offenderVehicleModelColumn, offenderVehicleColorColumn, offenderVehicleTypeColumn, offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
+		ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(
+				citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn,
+				citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn,
+				offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn,
+				offenderVehicleModelColumn, offenderVehicleColorColumn, offenderVehicleTypeColumn,
+				offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
 		
 		citationTable.getColumns()
-				.addAll(citationColumns);
+		             .addAll(citationColumns);
 		
 		for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -1465,10 +1484,15 @@ public class actionController {
 		TableColumn<ArrestLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn, arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn, arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn, arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
+		ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(
+				arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn,
+				arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn,
+				arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn,
+				arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
 		
 		arrestTable.getColumns()
-				.addAll(arrestColumns);
+		           .addAll(arrestColumns);
 		
 		for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -1533,10 +1557,14 @@ public class actionController {
 		TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
 		incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
 		
-		ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn, incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn, officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn, incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
+		ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(
+				incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn,
+				incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn,
+				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
+				incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
 		
 		incidentTable.getColumns()
-				.addAll(incidentColumns);
+		             .addAll(incidentColumns);
 		for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -1611,10 +1639,15 @@ public class actionController {
 		TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC");
 		BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
 		
-		ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn, searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn, searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn, BACMeasurementColumn);
+		ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(
+				searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn,
+				searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn,
+				searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn,
+				BACMeasurementColumn);
 		
 		searchTable.getColumns()
-				.addAll(searchColumns);
+		           .addAll(searchColumns);
 		
 		for (TableColumn<SearchLogEntry, ?> column : searchColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -1695,10 +1728,14 @@ public class actionController {
 		TableColumn<TrafficStopLogEntry, String> operatorAddressColumn = new TableColumn<>("Operator Address");
 		operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
 		
-		ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn, operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn, rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn, countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
+		ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(
+				stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn,
+				operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn,
+				rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn,
+				countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
 		
 		trafficStopTable.getColumns()
-				.addAll(trafficStopColumns);
+		                .addAll(trafficStopColumns);
 		for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -1758,9 +1795,22 @@ public class actionController {
 		TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		
-		ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn, dateColumn, timeColumn, notesTextAreaColumn, responseGradeColumn, responseTypeColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn, addressColumn, countyColumn, areaColumn);
+		ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
+		                                                                                            dateColumn,
+		                                                                                            timeColumn,
+		                                                                                            notesTextAreaColumn,
+		                                                                                            responseGradeColumn,
+		                                                                                            responseTypeColumn,
+		                                                                                            divisionColumn,
+		                                                                                            agencyColumn,
+		                                                                                            numberColumn,
+		                                                                                            rankColumn,
+		                                                                                            nameColumn,
+		                                                                                            addressColumn,
+		                                                                                            countyColumn,
+		                                                                                            areaColumn);
 		calloutTable.getColumns()
-				.addAll(columns);
+		            .addAll(columns);
 		for (TableColumn<CalloutLogEntry, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -1783,10 +1833,11 @@ public class actionController {
 			KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
 			KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
 			KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
 			
 			timeline.getKeyFrames()
-					.add(keyFrame);
+			        .add(keyFrame);
 			
 			timeline.play();
 			lowerPane.setVisible(false);
@@ -1800,10 +1851,11 @@ public class actionController {
 			KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
 			KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
 			KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
 			
 			timeline.getKeyFrames()
-					.add(keyFrame);
+			        .add(keyFrame);
 			
 			timeline.play();
 			lowerPane.setVisible(true);
@@ -1814,7 +1866,7 @@ public class actionController {
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel()
-					.getSelectedItem();
+			                                             .getSelectedItem();
 			if (calloutEntry != null) {
 				calnum.setText(calloutEntry.getCalloutNumber());
 				caladdress.setText(calloutEntry.getAddress());
@@ -1824,7 +1876,7 @@ public class actionController {
 				calarea.setText(calloutEntry.getArea());
 				caltype.setText(calloutEntry.getResponeType());
 				calloutTable.getSelectionModel()
-						.clearSelection();
+				            .clearSelection();
 			} else {
 				calnum.setText("");
 				caladdress.setText("");
@@ -1858,8 +1910,8 @@ public class actionController {
 			
 			for (CalloutLogEntry entry : logs) {
 				if (entry.getDate()
-						.equals(calloutEntry.getDate()) && entry.getTime()
-						.equals(calloutEntry.getTime())) {
+				         .equals(calloutEntry.getDate()) && entry.getTime()
+				                                                 .equals(calloutEntry.getTime())) {
 					entry.CalloutNumber = calnum.getText();
 					entry.Address = caladdress.getText();
 					entry.NotesTextArea = calnotes.getText();
@@ -1898,7 +1950,7 @@ public class actionController {
 			
 			for (PatrolLogEntry entry : logs) {
 				if (entry.getPatrolDate()
-						.equals(patrolEntry.getPatrolDate())) {
+				         .equals(patrolEntry.getPatrolDate())) {
 					entry.patrolNumber = patnum.getText();
 					entry.patrolComments = patcomments.getText();
 					entry.patrolLength = patlength.getText();
@@ -1921,7 +1973,7 @@ public class actionController {
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel()
-					.getSelectedItem();
+			                                          .getSelectedItem();
 			if (patrolEntry != null) {
 				patnum.setText(patrolEntry.getPatrolNumber());
 				patcomments.setText(patrolEntry.getPatrolComments());
@@ -1930,7 +1982,7 @@ public class actionController {
 				patstoptime.setText(patrolEntry.getPatrolStopTime());
 				patvehicle.setText(patrolEntry.getOfficerVehicle());
 				patrolTable.getSelectionModel()
-						.clearSelection();
+				           .clearSelection();
 			} else {
 				patnum.setText("");
 				patcomments.setText("");
@@ -1971,8 +2023,8 @@ public class actionController {
 			
 			for (TrafficStopLogEntry entry : logs) {
 				if (entry.getDate()
-						.equals(trafficStopEntry.getDate()) && entry.getTime()
-						.equals(trafficStopEntry.getTime())) {
+				         .equals(trafficStopEntry.getDate()) && entry.getTime()
+				                                                     .equals(trafficStopEntry.getTime())) {
 					entry.PlateNumber = trafplatenum.getText();
 					entry.Color = trafcolor.getText();
 					entry.Type = traftype.getText();
@@ -2003,7 +2055,7 @@ public class actionController {
 	public void onTrafficStopRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel()
-					.getSelectedItem();
+			                                                         .getSelectedItem();
 			if (trafficStopEntry != null) {
 				trafstreet.setText(trafficStopEntry.getStreet());
 				trafotherinfo.setText(trafficStopEntry.getResponseOtherInfo());
@@ -2021,7 +2073,7 @@ public class actionController {
 				trafplatenum.setText(trafficStopEntry.getPlateNumber());
 				trafcounty.setText(trafficStopEntry.getCounty());
 				trafficStopTable.getSelectionModel()
-						.clearSelection();
+				                .clearSelection();
 			} else {
 				trafstreet.setText("");
 				trafotherinfo.setText("");
@@ -2065,8 +2117,8 @@ public class actionController {
 			
 			for (IncidentLogEntry entry : logs) {
 				if (entry.getIncidentDate()
-						.equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime()
-						.equals(incidentEntry.getIncidentTime())) {
+				         .equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime()
+				                                                          .equals(incidentEntry.getIncidentTime())) {
 					entry.incidentNumber = incnum.getText();
 					entry.incidentStatement = incstatement.getText();
 					entry.incidentWitnesses = incwitness.getText();
@@ -2090,7 +2142,7 @@ public class actionController {
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel()
-					.getSelectedItem();
+			                                                .getSelectedItem();
 			if (incidentEntry != null) {
 				incnum.setText(incidentEntry.incidentNumber);
 				incactionstaken.setText(incidentEntry.incidentActionsTaken);
@@ -2102,7 +2154,7 @@ public class actionController {
 				incstatement.setText(incidentEntry.incidentStatement);
 				incwitness.setText(incidentEntry.incidentWitnesses);
 				incidentTable.getSelectionModel()
-						.clearSelection();
+				             .clearSelection();
 			} else {
 				incnum.setText("");
 				incactionstaken.setText("");
@@ -2141,8 +2193,8 @@ public class actionController {
 			
 			for (ImpoundLogEntry entry : logs) {
 				if (entry.getImpoundDate()
-						.equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime()
-						.equals(impoundEntry.getImpoundTime())) {
+				         .equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime()
+				                                                        .equals(impoundEntry.getImpoundTime())) {
 					entry.impoundPlateNumber = impplatenum.getText();
 					entry.impoundColor = impcolor.getText();
 					entry.impoundType = imptype.getText();
@@ -2167,7 +2219,7 @@ public class actionController {
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel()
-					.getSelectedItem();
+			                                             .getSelectedItem();
 			if (impoundEntry != null) {
 				impnum.setText(impoundEntry.impoundNumber);
 				impname.setText(impoundEntry.ownerName);
@@ -2180,7 +2232,7 @@ public class actionController {
 				impmodel.setText(impoundEntry.impoundModel);
 				impaddress.setText(impoundEntry.ownerAddress);
 				impoundTable.getSelectionModel()
-						.clearSelection();
+				            .clearSelection();
 			} else {
 				impnum.setText("");
 				impname.setText("");
@@ -2200,7 +2252,7 @@ public class actionController {
 	public void onCitationRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel()
-					.getSelectedItem();
+			                                                       .getSelectedItem();
 			if (citationEntry != null) {
 				citnumber.setText(citationEntry.citationNumber);
 				citvehother.setText(citationEntry.offenderVehicleOther);
@@ -2219,7 +2271,7 @@ public class actionController {
 				cittype.setText(citationEntry.offenderVehicleType);
 				citcounty.setText(citationEntry.citationCounty);
 				citationTable.getSelectionModel()
-						.clearSelection();
+				             .clearSelection();
 			} else {
 				citnumber.setText("");
 				citvehother.setText("");
@@ -2271,8 +2323,8 @@ public class actionController {
 			
 			for (TrafficCitationLogEntry entry : logs) {
 				if (entry.getCitationDate()
-						.equals(citationEntry.getCitationDate()) && entry.getCitationTime()
-						.equals(citationEntry.getCitationTime())) {
+				         .equals(citationEntry.getCitationDate()) && entry.getCitationTime()
+				                                                          .equals(citationEntry.getCitationTime())) {
 					entry.citationNumber = citnumber.getText();
 					entry.offenderVehicleOther = citvehother.getText();
 					entry.offenderVehiclePlate = citplatenum.getText();
@@ -2303,7 +2355,7 @@ public class actionController {
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			searchEntry = (SearchLogEntry) searchTable.getSelectionModel()
-					.getSelectedItem();
+			                                          .getSelectedItem();
 			if (searchEntry != null) {
 				searchnum.setText(searchEntry.SearchNumber);
 				searchperson.setText(searchEntry.searchedPersons);
@@ -2320,7 +2372,7 @@ public class actionController {
 				searchbacmeasure.setText(searchEntry.breathalyzerBACMeasure);
 				searchcounty.setText(searchEntry.searchCounty);
 				searchTable.getSelectionModel()
-						.clearSelection();
+				           .clearSelection();
 			} else {
 				searchnum.setText("");
 				searchperson.setText("");
@@ -2368,8 +2420,8 @@ public class actionController {
 			
 			for (SearchLogEntry entry : logs) {
 				if (entry.getSearchDate()
-						.equals(searchEntry.getSearchDate()) && entry.getSearchTime()
-						.equals(searchEntry.getSearchTime())) {
+				         .equals(searchEntry.getSearchDate()) && entry.getSearchTime()
+				                                                      .equals(searchEntry.getSearchTime())) {
 					entry.SearchNumber = searchnum.getText();
 					entry.searchedPersons = searchperson.getText();
 					entry.searchMethod = searchmethod.getText();
@@ -2398,7 +2450,7 @@ public class actionController {
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel()
-					.getSelectedItem();
+			                                          .getSelectedItem();
 			if (arrestEntry != null) {
 				arrestnum.setText(arrestEntry.arrestNumber);
 				arrestcounty.setText(arrestEntry.arrestCounty);
@@ -2415,7 +2467,7 @@ public class actionController {
 				arresttaser.setText(arrestEntry.TaserYesNo);
 				arrestcharges.setText(arrestEntry.arrestCharges);
 				arrestTable.getSelectionModel()
-						.clearSelection();
+				           .clearSelection();
 			} else {
 				arrestnum.setText("");
 				arrestcounty.setText("");
@@ -2470,8 +2522,8 @@ public class actionController {
 			
 			for (ArrestLogEntry entry : logs) {
 				if (entry.getArrestDate()
-						.equals(arrestEntry.getArrestDate()) && entry.getArrestTime()
-						.equals(arrestEntry.getArrestTime())) {
+				         .equals(arrestEntry.getArrestDate()) && entry.getArrestTime()
+				                                                      .equals(arrestEntry.getArrestTime())) {
 					entry.arrestNumber = arrestnum.getText();
 					entry.arrestCharges = arrestcharges.getText();
 					entry.arrestCounty = arrestcounty.getText();
@@ -2504,13 +2556,13 @@ public class actionController {
 				serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
 				if (clientController != null) {
 					clientController.getPortField()
-							.setText("");
+					                .setText("");
 					clientController.getInetField()
-							.setText("");
+					                .setText("");
 					clientController.getStatusLabel()
-							.setText("Not Connected");
+					                .setText("Not Connected");
 					clientController.getStatusLabel()
-							.setStyle("-fx-background-color: #ff5e5e;");
+					                .setStyle("-fx-background-color: #ff5e5e;");
 					serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e;");
 				}
 			} else {
@@ -2523,13 +2575,13 @@ public class actionController {
 						throw new RuntimeException(e);
 					}
 					clientController.getPortField()
-							.setText(ClientUtils.port);
+					                .setText(ClientUtils.port);
 					clientController.getInetField()
-							.setText(ClientUtils.inet);
+					                .setText(ClientUtils.inet);
 					clientController.getStatusLabel()
-							.setText("Connected");
+					                .setText("Connected");
 					clientController.getStatusLabel()
-							.setStyle("-fx-background-color: green;");
+					                .setStyle("-fx-background-color: green;");
 				}
 			}
 		});
@@ -2538,7 +2590,7 @@ public class actionController {
 	public void refreshChart() throws IOException {
 		
 		reportChart.getData()
-				.clear();
+		           .clear();
 		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
 		CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
 		
@@ -2550,17 +2602,17 @@ public class actionController {
 		for (String category : categories) {
 			XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1);
 			data.nodeProperty()
-					.addListener((obs, oldNode, newNode) -> {
-						if (newNode != null) {
-							newNode.setStyle("-fx-bar-fill: " + color + ";");
-						}
-					});
+			    .addListener((obs, oldNode, newNode) -> {
+				    if (newNode != null) {
+					    newNode.setStyle("-fx-bar-fill: " + color + ";");
+				    }
+			    });
 			series1.getData()
-					.add(data);
+			       .add(data);
 		}
 		
 		getReportChart().getData()
-				.add(series1);
+		                .add(series1);
 	}
 	
 	private void loadTheme() throws IOException {
@@ -2644,13 +2696,12 @@ public class actionController {
 	
 	//</editor-fold>
 	
- 
 	public void initialize() throws IOException {
 		
 		titlebar = reportCreationUtil.createTitleBar("Reports Plus");
 		
 		vbox.getChildren()
-				.add(titlebar);
+		    .add(titlebar);
 		
 		AnchorPane.setTopAnchor(titlebar, 0.0);
 		AnchorPane.setLeftAnchor(titlebar, 0.0);
@@ -2681,11 +2732,11 @@ public class actionController {
 		String agency = ConfigReader.configRead("Agency");
 		
 		getOfficerInfoRank().getItems()
-				.addAll(dropdownInfo.ranks);
+		                    .addAll(dropdownInfo.ranks);
 		getOfficerInfoDivision().getItems()
-				.addAll(dropdownInfo.divisions);
+		                        .addAll(dropdownInfo.divisions);
 		getOfficerInfoAgency().getItems()
-				.addAll(dropdownInfo.agencies);
+		                      .addAll(dropdownInfo.agencies);
 		
 		OfficerInfoName.setText(name);
 		OfficerInfoDivision.setValue(division);
@@ -2697,7 +2748,7 @@ public class actionController {
 		generatedDateTag.setText("Generated at: " + time);
 		
 		areaReportChart.getData()
-				.add(parseEveryLog("area"));
+		               .add(parseEveryLog("area"));
 		
 		getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
@@ -2741,23 +2792,23 @@ public class actionController {
 		lowerPane.setVisible(false);
 		
 		tabPane.getSelectionModel()
-				.selectedItemProperty()
-				.addListener((obs, oldTab, newTab) -> {
-					calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
-					patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
-					trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
-					incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
-					impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
-					arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
-					searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
-					citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
-				});
+		       .selectedItemProperty()
+		       .addListener((obs, oldTab, newTab) -> {
+			       calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
+			       patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
+			       trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
+			       incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
+			       impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
+			       arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
+			       searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
+			       citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
+		       });
 		
 		Platform.runLater(() -> {
 			
 			versionLabel.setText(stringUtil.version);
 			Stage stge = (Stage) vbox.getScene()
-					.getWindow();
+			                         .getWindow();
 			
 			stge.setOnHiding(event -> handleClose());
 			

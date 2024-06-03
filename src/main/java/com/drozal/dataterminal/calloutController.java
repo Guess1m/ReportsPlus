@@ -24,14 +24,8 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-/**
- * The type Callout controller.
- */
 public class calloutController {
 	
-	/**
-	 * The Top bar.
-	 */
 	static AnchorPane topBar;
 	@javafx.fxml.FXML
 	private BorderPane root;
@@ -54,20 +48,10 @@ public class calloutController {
 	@javafx.fxml.FXML
 	private TextField typeField;
 	
-	/**
-	 * Gets top bar.
-	 *
-	 * @return the top bar
-	 */
 	public static AnchorPane getTopBar() {
 		return topBar;
 	}
 	
-	/**
-	 * Gets callout.
-	 *
-	 * @return the callout
-	 */
 	public static Callout getCallout() {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";
 		File file = new File(filePath);
@@ -94,9 +78,6 @@ public class calloutController {
 		}
 	}
 	
-	/**
-	 * Initialize.
-	 */
 	public void initialize() {
 		topBar = reportCreationUtil.createTitleBar("Callout Manager");
 		
@@ -135,15 +116,12 @@ public class calloutController {
 		watchCalloutChanges();
 	}
 	
-	/**
-	 * Watch callout changes.
-	 */
 	public void watchCalloutChanges() {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 		
 		Thread watchThread = new Thread(() -> {
 			try (WatchService watcher = FileSystems.getDefault()
-					.newWatchService()) {
+			                                       .newWatchService()) {
 				dir.register(watcher, ENTRY_MODIFY);
 				
 				while (true) {
@@ -152,7 +130,7 @@ public class calloutController {
 						key = watcher.take();
 					} catch (InterruptedException x) {
 						Thread.currentThread()
-								.interrupt();
+						      .interrupt();
 						return;
 					}
 					
@@ -167,7 +145,7 @@ public class calloutController {
 						Path fileName = ev.context();
 						
 						if (fileName.toString()
-								.equals("ServerCallout.xml")) {
+						            .equals("ServerCallout.xml")) {
 							log("Callout is being updated", LogUtils.Severity.INFO);
 							
 							Platform.runLater(() -> {

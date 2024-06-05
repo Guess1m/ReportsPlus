@@ -670,14 +670,8 @@ public class actionController {
 		
 		IDStage.show();
 		IDStage.centerOnScreen();
-		if (ConfigReader.configRead("AOTID")
-		                .equals("true")) {
-			IDStage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			IDStage.setAlwaysOnTop(false);
-		}
+		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
+		                                   .equals("true"));
 		showAnimation(showIDBtn);
 		windowUtils.centerStageOnMainApp(IDStage);
 		
@@ -706,14 +700,8 @@ public class actionController {
 		mapStage.setResizable(false);
 		mapStage.show();
 		mapStage.centerOnScreen();
-		if (ConfigReader.configRead("AOTMap")
-		                .equals("true")) {
-			mapStage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			mapStage.setAlwaysOnTop(false);
-		}
+		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTMap")
+		                                    .equals("true"));
 		showAnimation(mapButton);
 		
 		windowUtils.centerStageOnMainApp(mapStage);
@@ -763,14 +751,8 @@ public class actionController {
 		          .add(getClass().getResource("css/notification-styles.css")
 		                         .toExternalForm());
 		showAnimation(notesButton);
-		if (ConfigReader.configRead("AOTNotes")
-		                .equals("true")) {
-			notesStage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			notesStage.setAlwaysOnTop(false);
-		}
+		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTNotes")
+		                                      .equals("true"));
 		
 		notesStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
@@ -812,14 +794,8 @@ public class actionController {
 		CalloutStage.setScene(newScene);
 		CalloutStage.show();
 		CalloutStage.centerOnScreen();
-		if (ConfigReader.configRead("AOTCallout")
-		                .equals("true")) {
-			CalloutStage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			CalloutStage.setAlwaysOnTop(false);
-		}
+		CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
+		                                        .equals("true"));
 		showAnimation(showCalloutBtn);
 		
 		windowUtils.centerStageOnMainApp(CalloutStage);
@@ -862,14 +838,12 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onArrestReportBtnClick(
-			ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
 		newArrest(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onCitationReportBtnClick(
-			ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
 		newCitation(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
@@ -903,14 +877,8 @@ public class actionController {
 			clientStage.setResizable(false);
 			clientStage.show();
 			clientStage.centerOnScreen();
-			if (ConfigReader.configRead("AOTClient")
-			                .equals("true")) {
-				clientStage.setAlwaysOnTop(true);
-				
-			} else {
-				
-				clientStage.setAlwaysOnTop(false);
-			}
+			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTClient")
+			                                       .equals("true"));
 			
 			windowUtils.centerStageOnMainApp(clientStage);
 			
@@ -1077,14 +1045,8 @@ public class actionController {
 		settingsStage.setScene(newScene);
 		settingsStage.show();
 		settingsStage.centerOnScreen();
-		if (ConfigReader.configRead("AOTSettings")
-		                .equals("true")) {
-			settingsStage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			settingsStage.setAlwaysOnTop(false);
-		}
+		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings")
+		                                         .equals("true"));
 		showAnimation(settingsBtn);
 		
 		windowUtils.centerStageOnMainApp(settingsStage);

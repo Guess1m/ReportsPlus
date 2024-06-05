@@ -22,11 +22,7 @@ public class ImpoundLogEntry {
 	public ImpoundLogEntry() {
 	}
 	
-	public ImpoundLogEntry(String impoundNumber, String impoundDate, String impoundTime, String ownerName,
-	                       String ownerAge, String ownerGender, String ownerAddress, String impoundPlateNumber,
-	                       String impoundModel, String impoundType, String impoundColor, String impoundComments,
-	                       String officerRank, String officerName, String officerNumber, String officerDivision,
-	                       String officerAgency) {
+	public ImpoundLogEntry(String impoundNumber, String impoundDate, String impoundTime, String ownerName, String ownerAge, String ownerGender, String ownerAddress, String impoundPlateNumber, String impoundModel, String impoundType, String impoundColor, String impoundComments, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency) {
 		this.impoundNumber = impoundNumber;
 		this.impoundDate = impoundDate;
 		this.impoundTime = impoundTime;

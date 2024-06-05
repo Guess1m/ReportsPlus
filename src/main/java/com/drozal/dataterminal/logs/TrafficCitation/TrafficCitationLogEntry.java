@@ -28,14 +28,7 @@ public class TrafficCitationLogEntry {
 	public TrafficCitationLogEntry() {
 	}
 	
-	public TrafficCitationLogEntry(String citationNumber, String citationDate, String citationTime,
-	                               String citationCharges, String citationCounty, String citationArea,
-	                               String citationStreet, String offenderName, String offenderGender,
-	                               String offenderAge, String offenderHomeAddress, String offenderDescription,
-	                               String offenderVehicleModel, String offenderVehicleColor, String offenderVehicleType,
-	                               String offenderVehiclePlate, String offenderVehicleOther, String officerRank,
-	                               String officerName, String officerNumber, String officerDivision,
-	                               String officerAgency, String citationComments) {
+	public TrafficCitationLogEntry(String citationNumber, String citationDate, String citationTime, String citationCharges, String citationCounty, String citationArea, String citationStreet, String offenderName, String offenderGender, String offenderAge, String offenderHomeAddress, String offenderDescription, String offenderVehicleModel, String offenderVehicleColor, String offenderVehicleType, String offenderVehiclePlate, String offenderVehicleOther, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency, String citationComments) {
 		this.citationNumber = citationNumber;
 		this.citationDate = citationDate;
 		this.citationTime = citationTime;

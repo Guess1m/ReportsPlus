@@ -17,9 +17,7 @@ public class PatrolLogEntry {
 	public PatrolLogEntry() {
 	}
 	
-	public PatrolLogEntry(String patrolNumber, String patrolDate, String patrolLength, String patrolStartTime,
-	                      String patrolStopTime, String officerRank, String officerName, String officerNumber,
-	                      String officerDivision, String officerAgency, String officerVehicle, String patrolComments) {
+	public PatrolLogEntry(String patrolNumber, String patrolDate, String patrolLength, String patrolStartTime, String patrolStopTime, String officerRank, String officerName, String officerNumber, String officerDivision, String officerAgency, String officerVehicle, String patrolComments) {
 		this.patrolNumber = patrolNumber;
 		this.patrolDate = patrolDate;
 		this.patrolLength = patrolLength;

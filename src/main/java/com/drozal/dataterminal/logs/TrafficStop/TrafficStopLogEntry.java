@@ -30,10 +30,7 @@ public class TrafficStopLogEntry {
 	
 	}
 	
-	public TrafficStopLogEntry(String date, String time, String model, String otherInfo, String oName, String oAge,
-	                           String oAddress, String oDescription, String oGender, String name, String rank,
-	                           String number, String division, String agency, String sNumber, String comments,
-	                           String street, String county, String area, String plateN, String color, String type) {
+	public TrafficStopLogEntry(String date, String time, String model, String otherInfo, String oName, String oAge, String oAddress, String oDescription, String oGender, String name, String rank, String number, String division, String agency, String sNumber, String comments, String street, String county, String area, String plateN, String color, String type) {
 		this.Date = date;
 		this.Time = time;
 		this.ResponseModel = model;

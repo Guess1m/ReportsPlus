@@ -21,11 +21,7 @@ public class IncidentLogEntry {
 	public IncidentLogEntry() {
 	}
 	
-	public IncidentLogEntry(String incidentNumber, String incidentDate, String incidentTime, String incidentStatement,
-	                        String incidentWitnesses, String incidentVictims, String officerName, String officerRank,
-	                        String officerNumber, String officerAgency, String officerDivision, String incidentStreet,
-	                        String incidentArea, String incidentCounty, String incidentActionsTaken,
-	                        String incidentComments) {
+	public IncidentLogEntry(String incidentNumber, String incidentDate, String incidentTime, String incidentStatement, String incidentWitnesses, String incidentVictims, String officerName, String officerRank, String officerNumber, String officerAgency, String officerDivision, String incidentStreet, String incidentArea, String incidentCounty, String incidentActionsTaken, String incidentComments) {
 		this.incidentNumber = incidentNumber;
 		this.incidentDate = incidentDate;
 		this.incidentTime = incidentTime;

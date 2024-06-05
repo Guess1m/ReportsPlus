@@ -26,12 +26,7 @@ public class SearchLogEntry {
 	public SearchLogEntry() {
 	}
 	
-	public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime,
-	                      String searchSeizedItems, String searchGrounds, String searchType, String searchMethod,
-	                      String searchWitnesses, String officerRank, String officerName, String officerNumber,
-	                      String officerAgency, String officerDivision, String searchStreet, String searchArea,
-	                      String searchCounty, String searchComments, String testsConducted, String testResults,
-	                      String breathalyzerBACMeasure) {
+	public SearchLogEntry(String searchNumber, String searchedPersons, String searchDate, String searchTime, String searchSeizedItems, String searchGrounds, String searchType, String searchMethod, String searchWitnesses, String officerRank, String officerName, String officerNumber, String officerAgency, String officerDivision, String searchStreet, String searchArea, String searchCounty, String searchComments, String testsConducted, String testResults, String breathalyzerBACMeasure) {
 		this.SearchNumber = searchNumber;
 		this.searchedPersons = searchedPersons;
 		this.searchDate = searchDate;

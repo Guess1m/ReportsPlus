@@ -346,9 +346,7 @@ public class reportCreationUtil {
 		return titleBar;
 	}
 	
-	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits,
-	                                                     TransferConfig transferConfig,
-	                                                     SectionConfig... sectionConfigs) {
+	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, TransferConfig transferConfig, SectionConfig... sectionConfigs) {
 		String placeholder;
 		try {
 			placeholder = ConfigReader.configRead("reportHeading");
@@ -653,8 +651,7 @@ public class reportCreationUtil {
 		return result;
 	}
 	
-	private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex,
-	                                     Map<String, Object> fieldsMap) {
+	private static void addRowToGridPane(GridPane gridPane, RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
 		String placeholder;
 		try {
 			if (ConfigReader.configRead("reportWindowDarkMode")
@@ -1247,8 +1244,7 @@ public class reportCreationUtil {
 		return calloutReport;
 	}
 	
-	public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                              NotesViewController notesViewController) {
+	public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> calloutReport = calloutLayout();
 		
 		Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
@@ -1395,8 +1391,7 @@ public class reportCreationUtil {
 		return impoundReport;
 	}
 	
-	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                              NotesViewController notesViewController) {
+	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> impoundReport = impoundLayout();
 		
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -1537,8 +1532,7 @@ public class reportCreationUtil {
 		return patrolReport;
 	}
 	
-	public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                             NotesViewController notesViewController) {
+	public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> patrolReport = patrolLayout();
 		
 		Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport.get("Patrol Report Map");
@@ -1703,8 +1697,7 @@ public class reportCreationUtil {
 		return citationReport;
 	}
 	
-	public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                               NotesViewController notesViewController) {
+	public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> citationReport = citationLayout();
 		
 		Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
@@ -2009,8 +2002,7 @@ public class reportCreationUtil {
 		return incidentReport;
 	}
 	
-	public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                               NotesViewController notesViewController) {
+	public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> incidentReport = incidentLayout();
 		
 		Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
@@ -2174,8 +2166,7 @@ public class reportCreationUtil {
 		return searchReport;
 	}
 	
-	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                             NotesViewController notesViewController) {
+	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> searchReport = searchLayout();
 		
 		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
@@ -2366,8 +2357,7 @@ public class reportCreationUtil {
 		return arrestReport;
 	}
 	
-	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                             NotesViewController notesViewController) {
+	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> arrestReport = arrestLayout();
 		
 		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
@@ -2914,8 +2904,7 @@ public class reportCreationUtil {
 		return trafficStopReport;
 	}
 	
-	public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox,
-	                                  NotesViewController notesViewController) {
+	public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
 		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(

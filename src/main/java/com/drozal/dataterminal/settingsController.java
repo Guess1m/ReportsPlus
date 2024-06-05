@@ -278,8 +278,7 @@ public class settingsController {
 		backgroundPickerReport.valueProperty()
 		                      .addListener(new ChangeListener<Color>() {
 			                      @Override
-			                      public void changed(ObservableValue<? extends Color> observable, Color oldValue,
-			                                          Color newValue) {
+			                      public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
 				                      Color selectedColor = newValue;
 				                      updateReportBackground(selectedColor);
 				                      try {
@@ -294,8 +293,7 @@ public class settingsController {
 		accentPickerReport.valueProperty()
 		                  .addListener(new ChangeListener<Color>() {
 			                  @Override
-			                  public void changed(ObservableValue<? extends Color> observable, Color oldValue,
-			                                      Color newValue) {
+			                  public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
 				                  Color selectedColor = newValue;
 				                  updateReportAccent(selectedColor);
 				                  try {
@@ -310,8 +308,7 @@ public class settingsController {
 		headingPickerReport.valueProperty()
 		                   .addListener(new ChangeListener<Color>() {
 			                   @Override
-			                   public void changed(ObservableValue<? extends Color> observable, Color oldValue,
-			                                       Color newValue) {
+			                   public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
 				                   Color selectedColor = newValue;
 				                   updateReportHeading(selectedColor);
 				                   try {
@@ -326,8 +323,7 @@ public class settingsController {
 		secPickerReport.valueProperty()
 		               .addListener(new ChangeListener<Color>() {
 			               @Override
-			               public void changed(ObservableValue<? extends Color> observable, Color oldValue,
-			                                   Color newValue) {
+			               public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
 				               Color selectedColor = newValue;
 				               updateReportSecondary(selectedColor);
 				               try {
@@ -563,14 +559,8 @@ public class settingsController {
 		stage.setScene(newScene);
 		stage.show();
 		stage.centerOnScreen();
-		if (ConfigReader.configRead("AOTDebug")
-		                .equals("true")) {
-			stage.setAlwaysOnTop(true);
-			
-		} else {
-			
-			stage.setAlwaysOnTop(false);
-		}
+		stage.setAlwaysOnTop(ConfigReader.configRead("AOTDebug")
+		                                 .equals("true"));
 		
 		windowUtils.centerStageOnMainApp(stage);
 	}

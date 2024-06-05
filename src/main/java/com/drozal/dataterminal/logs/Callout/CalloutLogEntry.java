@@ -23,9 +23,7 @@ public class CalloutLogEntry {
 	
 	}
 	
-	public CalloutLogEntry(String date, String time, String name, String rank, String number, String division,
-	                       String agency, String responseType, String responseGrade, String cNumber, String notes,
-	                       String address, String county, String area) {
+	public CalloutLogEntry(String date, String time, String name, String rank, String number, String division, String agency, String responseType, String responseGrade, String cNumber, String notes, String address, String county, String area) {
 		this.Date = date;
 		this.Time = time;
 		this.Name = name;

@@ -13,8 +13,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class FileUtlis {
 	
-	public static void receiveFileFromServer(String host, int port, String outputFileNameLocation,
-	                                         int fileSize) throws IOException {
+	public static void receiveFileFromServer(String host, int port, String outputFileNameLocation, int fileSize) throws IOException {
 		int bytesRead;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;

@@ -531,6 +531,10 @@ public class actionController {
 		System.exit(0);
 	}
 	
+	public Label getServerStatusLabel() {
+		return serverStatusLabel;
+	}
+	
 	public ToggleButton getShowManagerToggle() {
 		return showManagerToggle;
 	}
@@ -687,6 +691,7 @@ public class actionController {
 	public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
 		if (mapStage != null && mapStage.isShowing()) {
 			mapStage.close();
+			mapStage = null;
 			return;
 		}
 		
@@ -715,6 +720,7 @@ public class actionController {
 	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
 		if (notesStage != null && notesStage.isShowing()) {
 			notesStage.close();
+			notesStage = null;
 			return;
 		}
 		
@@ -783,6 +789,7 @@ public class actionController {
 	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
 		if (CalloutStage != null && CalloutStage.isShowing()) {
 			CalloutStage.close();
+			CalloutStage = null;
 			return;
 		}
 		CalloutStage = new Stage();
@@ -862,6 +869,7 @@ public class actionController {
 		
 		if (clientStage != null && clientStage.isShowing()) {
 			clientStage.close();
+			clientStage = null;
 			return;
 		}
 		
@@ -1034,6 +1042,7 @@ public class actionController {
 	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
 		if (settingsStage != null && settingsStage.isShowing()) {
 			settingsStage.close();
+			settingsStage = null;
 			return;
 		}
 		settingsStage = new Stage();
@@ -2589,6 +2598,8 @@ public class actionController {
 		detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("secondaryColor");
+		getServerStatusLabel().setStyle(
+				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 		sidepane.setStyle("-fx-background-color: " + secclr + ";");
 		secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
 		secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");

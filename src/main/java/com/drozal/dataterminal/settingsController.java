@@ -601,6 +601,8 @@ public class settingsController {
 		lbl0.setStyle("-fx-background-color: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("secondaryColor");
+		controllerVar.getServerStatusLabel()
+		             .setStyle("-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 		controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor3Bkg()
 		             .setStyle("-fx-background-color: " + secclr + ";");

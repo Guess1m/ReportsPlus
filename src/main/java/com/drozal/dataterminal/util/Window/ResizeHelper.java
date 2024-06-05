@@ -32,7 +32,7 @@ public class ResizeHelper {
 		}
 	}
 	
-	public static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
+	private static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
 		node.addEventHandler(MouseEvent.MOUSE_MOVED, listener);
 		node.addEventHandler(MouseEvent.MOUSE_PRESSED, listener);
 		node.addEventHandler(MouseEvent.MOUSE_DRAGGED, listener);
@@ -48,7 +48,7 @@ public class ResizeHelper {
 	
 	static class ResizeListener implements EventHandler<MouseEvent> {
 		private final Stage stage;
-		private final int border = 7;
+		private final int border = 5;
 		private Cursor cursorEvent = Cursor.DEFAULT;
 		private double startX = 0;
 		private double startY = 0;
@@ -127,4 +127,5 @@ public class ResizeHelper {
 			}
 		}
 	}
+	
 }

@@ -14,8 +14,8 @@
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -402,7 +402,7 @@
                 </AnchorPane>
                 <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0" layoutY="298.0"
                        style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;" styleClass="headingBig"
-                       stylesheets="@css/menu/menuLabels.css" text="No Record Found." textAlignment="CENTER"
+                       stylesheets="@css/menu/menuLabels.css" text="No Record In System." textAlignment="CENTER"
                        visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                        AnchorPane.topAnchor="298.0">
                     <font>
@@ -590,7 +590,7 @@
                 </AnchorPane>
                 <Label fx:id="noRecordFoundLabelPed" alignment="CENTER" layoutX="386.0" layoutY="221.0"
                        style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;" styleClass="headingBig"
-                       stylesheets="@css/menu/menuLabels.css" text="No Record Found." textAlignment="CENTER"
+                       stylesheets="@css/menu/menuLabels.css" text="No Record In System." textAlignment="CENTER"
                        visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <font>
                         <Font name="Segoe UI Black" size="20.0"/>
@@ -1806,8 +1806,9 @@
                         <AnchorPane prefHeight="86.0" prefWidth="430.0" GridPane.columnIndex="1"
                                     GridPane.columnSpan="4">
                             <children>
-                                <HBox alignment="CENTER" layoutX="-2.0" layoutY="32.0" AnchorPane.leftAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+                                <HBox alignment="CENTER" layoutY="45.0" prefHeight="36.0" prefWidth="164.0"
+                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="18.0"
+                                      AnchorPane.topAnchor="45.0">
                                     <children>
                                         <Label alignment="CENTER" prefHeight="36.0" text="Server:" textFill="WHITE"
                                                textOverrun="CLIP" HBox.hgrow="ALWAYS">
@@ -1827,9 +1828,9 @@
                                             </HBox.margin>
                                         </Label>
                                         <Label fx:id="serverStatusLabel" alignment="CENTER"
-                                               onMouseClicked="#onServerStatusLabelClick" prefHeight="36.0"
-                                               text="Not Connected" textAlignment="CENTER" textFill="#ff5a5a"
-                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                               onMouseClicked="#onServerStatusLabelClick" text="Not Connected"
+                                               textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
@@ -1844,9 +1845,6 @@
                                             <HBox.margin>
                                                 <Insets left="10.0"/>
                                             </HBox.margin>
-                                            <padding>
-                                                <Insets top="2.0"/>
-                                            </padding>
                                         </Label>
                                     </children>
                                 </HBox>

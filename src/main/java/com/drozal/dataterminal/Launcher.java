@@ -19,6 +19,8 @@ import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationData
 
 public class Launcher {
 	
+	public static boolean firstSignIn;
+	
 	public static void main(String[] args) throws IOException {
 		
 		try {
@@ -34,7 +36,6 @@ public class Launcher {
 			logError("An error occurred while clearing the log file: ", e);
 		}
 		
-		/* TODO: TEMP REMOVED | Remove serverData folder elements for testing */
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
 			Path path = Path.of(filePath);
@@ -145,8 +146,10 @@ public class Launcher {
 		}
 		
 		if (ConfigReader.doesConfigExist()) {
+			firstSignIn = false;
 			DataTerminalHomeApplication.main(args);
 		} else {
+			firstSignIn = true;
 			newOfficerApplication.main(args);
 		}
 		

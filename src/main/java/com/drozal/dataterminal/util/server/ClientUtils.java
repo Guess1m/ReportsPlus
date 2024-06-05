@@ -45,7 +45,7 @@ public class ClientUtils {
 	private static boolean canActivateUpdateCallout = true;
 	private static boolean canActivateUpdateWorldPed = true;
 	private static boolean canActivateUpdateWorldVeh = true;
-	private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	
 	public static void disconnectFromService() {
 		try {
@@ -136,12 +136,8 @@ public class ClientUtils {
 									IDStage.show();
 									IDStage.centerOnScreen();
 									try {
-										if (ConfigReader.configRead("AOTID")
-										                .equals("true")) {
-											IDStage.setAlwaysOnTop(true);
-										} else {
-											IDStage.setAlwaysOnTop(false);
-										}
+										IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
+										                                   .equals("true"));
 									} catch (IOException e) {
 										logError("Could not fetch AOTID: ", e);
 									}
@@ -169,6 +165,7 @@ public class ClientUtils {
 								Platform.runLater(() -> {
 									if (CalloutStage != null && CalloutStage.isShowing()) {
 										CalloutStage.close();
+										CalloutStage = null;
 										return;
 									}
 									CalloutStage = new Stage();
@@ -184,12 +181,8 @@ public class ClientUtils {
 									CalloutStage.setTitle("Callout Display");
 									CalloutStage.setScene(newScene);
 									try {
-										if (ConfigReader.configRead("AOTCallout")
-										                .equals("true")) {
-											CalloutStage.setAlwaysOnTop(true);
-										} else {
-											CalloutStage.setAlwaysOnTop(false);
-										}
+										CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
+										                                        .equals("true"));
 									} catch (IOException e) {
 										logError("Could not fetch AOTCallout: ", e);
 									}

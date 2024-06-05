@@ -104,7 +104,7 @@ public class reportCreationUtil {
 		return accentColor;
 	}
 
-    /* EXAMPLE
+    /* Example Note Pull
 
       -n Jefferson Amato -a 28 -g Male -add 192 Forum Drive -desc Short Blonde Hair, Brown Eyes, tall
 
@@ -119,20 +119,6 @@ public class reportCreationUtil {
       -cmt additional units were needed, corresponding reports #3
 
       */
-
-    /*
-    Pull from Config
-
-    static {
-        try {
-            primaryColor = ConfigReader.configRead("getSecondaryColor()");
-            getSecondaryColor() = ConfigReader.configRead("mainColor");
-            getAccentColor() = ConfigReader.configRead("getAccentColor()");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
 	
 	public static AnchorPane createTitleBar(String titleText) {
 		ColorAdjust colorAdjust = new ColorAdjust();

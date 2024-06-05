@@ -17,7 +17,6 @@ public class ConfigWriter {
 		String configFilePath = null;
 		
 		try {
-			
 			String jarPath = ConfigWriter.class.getProtectionDomain()
 			                                   .getCodeSource()
 			                                   .getLocation()

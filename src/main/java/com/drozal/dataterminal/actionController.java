@@ -517,6 +517,8 @@ public class actionController {
 	private Button settingsBtn;
 	@javafx.fxml.FXML
 	private TextField pedaddressfield;
+	@javafx.fxml.FXML
+	private AnchorPane tutorialOverlay;
 	
 	
 	//</editor-fold>
@@ -718,17 +720,6 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
-		if (ConfigReader.configRead("firstLogin")
-		                .equals("true")) {
-			ConfigWriter.configwrite("firstLogin", "false");
-			
-			System.out.println("first login");
-			
-		} else {
-			System.out.println("not first login");
-			
-		}
-		
 		if (notesStage != null && notesStage.isShowing()) {
 			notesStage.close();
 			notesStage = null;
@@ -2681,6 +2672,20 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
+		
+		if (ConfigReader.configRead("firstLogin")
+		                .equals("true")) {
+			ConfigWriter.configwrite("firstLogin", "false");
+			
+			log("First Login, Showing Tutorial", LogUtils.Severity.DEBUG);
+			tutorialOverlay.setVisible(true);
+			tutorialOverlay.setOnMouseClicked(mouseEvent -> {
+				tutorialOverlay.setVisible(false);
+			});
+		} else {
+			tutorialOverlay.setVisible(false);
+			log("Not First Login", LogUtils.Severity.DEBUG);
+		}
 		
 		titlebar = reportCreationUtil.createTitleBar("Reports Plus");
 		

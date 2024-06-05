@@ -4,18 +4,19 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
-                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="115.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -2213,6 +2214,148 @@
             <effect>
                 <DropShadow/>
             </effect>
+        </AnchorPane>
+        <AnchorPane fx:id="tutorialOverlay" prefHeight="200.0" prefWidth="200.0"
+                    style="-fx-background-color: rgb(0,0,0,0.35);" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <Group layoutX="122.7530517578125" layoutY="267.611083984375" mouseTransparent="true"
+                       AnchorPane.leftAnchor="122.75304031281757" AnchorPane.topAnchor="173.0">
+                    <children>
+                        <Line endX="88.24696350097656" endY="-56.61109924316406" startX="3.5355224609375"
+                              startY="-21.983062744140625" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="88.2469482421875" layoutY="-94.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" prefHeight="76.0"
+                                       prefWidth="271.0" text="Create New Report" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </Group>
+                <Group layoutX="699.0" layoutY="190.0" mouseTransparent="true" AnchorPane.rightAnchor="22.7530517578125"
+                       AnchorPane.topAnchor="73.03191375732422">
+                    <children>
+                        <Line endX="373.07080078125" endY="-47.61106872558594" startX="360.3115234375"
+                              startY="-113.43254852294922" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="157.2469482421875" layoutY="-47.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" text="Connect To Server"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </Group>
+                <Group layoutX="476.0" layoutY="99.0" mouseTransparent="true" AnchorPane.rightAnchor="147.759521484375"
+                       AnchorPane.topAnchor="21.994766235351562">
+                    <children>
+                        <Line endX="428.2469482421875" endY="-59.115501403808594" startX="522.7049560546875"
+                              startY="-73.46969604492188" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="157.2469482421875" layoutY="-70.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" text="Open UI Settings"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </Group>
+                <Group layoutX="149.0" layoutY="402.0" mouseTransparent="true"
+                       AnchorPane.leftAnchor="159.43599319458008" AnchorPane.topAnchor="307.388916015625">
+                    <children>
+                        <Line endX="88.24693298339844" endY="-68.65185546875" startX="13.971527099609375"
+                              startY="-83.00607299804688" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="88.2469482421875" layoutY="-94.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" prefHeight="76.0"
+                                       prefWidth="271.0" text="Browse Your Logs" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </Group>
+                <Group layoutX="493.0" layoutY="533.0" mouseTransparent="true"
+                       AnchorPane.bottomAnchor="140.3833465576172" AnchorPane.rightAnchor="228.7530517578125">
+                    <children>
+                        <Line endX="292.7469482421875" endY="-47.611083984375" startX="276.0377197265625"
+                              startY="-116.71649169921875" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="157.2469482421875" layoutY="-47.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" text="Report Statistics"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <Line endX="262.847900390625" endY="65.08111572265625" layoutX="10.0" layoutY="53.0"
+                              startX="282.7469482421875" startY="-24.61114501953125" stroke="WHITE" strokeWidth="5.0"/>
+                    </children>
+                </Group>
+                <Group layoutX="205.0" layoutY="575.0" mouseTransparent="true" AnchorPane.leftAnchor="165.8156280517578"
+                       AnchorPane.topAnchor="417.53269958496094">
+                    <children>
+                        <Line endX="47.28654479980469" endY="-68.65191650390625" startX="-8.53533935546875"
+                              startY="-68.65191650390625" stroke="WHITE" strokeWidth="5.0"/>
+                        <AnchorPane layoutX="51.2469482421875" layoutY="-105.611083984375" prefHeight="76.0"
+                                    prefWidth="271.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                            <children>
+                                <Label alignment="CENTER" layoutX="97.0" layoutY="30.0" prefHeight="60.0"
+                                       prefWidth="271.0" text="GTA Data" AnchorPane.bottomAnchor="16.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="24.0"/>
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" layoutX="8.0" layoutY="35.0" prefHeight="41.0"
+                                       prefWidth="271.0" text="(Requires Server)" textFill="#616161"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="17.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <Line endX="-31.640350341796875" endY="-147.98263549804688" layoutX="21.0" layoutY="10.0"
+                              startX="-31.640350341796875" startY="-78.65191650390625" stroke="WHITE"
+                              strokeWidth="5.0"/>
+                        <Line endX="-41.640350341796875" endY="-92.1875" layoutX="31.0" layoutY="20.0"
+                              startX="-41.640350341796875" startY="-6.466064453125" stroke="WHITE" strokeWidth="5.0"/>
+                        <Line endX="-51.64033508300781" endY="-13.966064453125" layoutX="41.0" layoutY="30.0"
+                              startX="-76.64883422851562" startY="6.55413818359375" stroke="WHITE" strokeWidth="5.0"/>
+                        <Line endX="-61.64033508300781" endY="-180.48263549804688" layoutX="51.0" layoutY="40.0"
+                              startX="-81.86408996582031" startY="-193.9317626953125" stroke="WHITE" strokeWidth="5.0"/>
+                    </children>
+                </Group>
+            </children>
         </AnchorPane>
     </children>
 </AnchorPane>

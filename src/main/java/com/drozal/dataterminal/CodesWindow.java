@@ -11,11 +11,11 @@ import static com.drozal.dataterminal.NotesViewController.codesStage;
 
 public class CodesWindow {
 	AnchorPane topBar;
+	Boolean isToggled = false;
 	@javafx.fxml.FXML
 	private AnchorPane codesPane;
 	@javafx.fxml.FXML
 	private BorderPane root;
-	Boolean isToggled = false;
 	@javafx.fxml.FXML
 	private ColumnConstraints usageColumn;
 	

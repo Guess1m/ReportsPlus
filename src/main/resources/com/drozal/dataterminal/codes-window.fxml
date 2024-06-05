@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.CodesWindow">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="283.0" prefWidth="333.0"
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.CodesWindow">
     <center>
         <AnchorPane fx:id="codesPane" prefHeight="283.0" prefWidth="700.0"
                     style="-fx-background-color: rgb(255, 255, 255,0.98);">
@@ -14,8 +14,8 @@
                           AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" minWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0"/>
-                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="145.0"/>
+                        <ColumnConstraints fx:id="usageColumn" hgrow="ALWAYS" maxWidth="0.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="NEVER"/>
@@ -189,8 +189,8 @@
                                 <Font name="Segoe UI Semibold" size="13.0"/>
                             </font>
                         </Label>
-                        <Label alignment="CENTER" text="USAGE:" textFill="#2c2c2c" GridPane.columnIndex="2"
-                               GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label alignment="CENTER" text="USAGE:" textFill="#2c2c2c" textOverrun="CLIP"
+                               GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
@@ -226,6 +226,10 @@
                                 </TextArea>
                             </children>
                         </AnchorPane>
+                        <Button mnemonicParsing="false" onAction="#helpbtnpress" prefHeight="25.0" prefWidth="20.0"
+                                style="-fx-padding: 0; -fx-label-padding: 0;" styleClass="incidentbtn"
+                                stylesheets="@css/menu/menuStyles.css" text="&gt;" GridPane.columnIndex="1"
+                                GridPane.halignment="RIGHT"/>
                     </children>
                 </GridPane>
             </children>

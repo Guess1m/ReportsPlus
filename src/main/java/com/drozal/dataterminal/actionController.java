@@ -1100,7 +1100,6 @@ public class actionController {
 	}
 	
 	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
-		
 		impoundTable.getItems()
 		            .clear();
 		

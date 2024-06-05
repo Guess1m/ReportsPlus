@@ -25,9 +25,8 @@
                 </TextArea>
                 <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="560.0" layoutY="235.0" maxHeight="-Infinity"
                         maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                        onAction="#onclearclick" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn"
-                        stylesheets="@css/menu/menuStyles.css" text="Clear" textFill="#0074b3"
-                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+                        onAction="#onclearclick" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                        text="Clear" textFill="#0074b3" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0"/>
                     </font>
@@ -36,6 +35,14 @@
                               minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDarkModeToggle"
                               prefHeight="20.0" prefWidth="20.0" style="-fx-padding: 0; -fx-background-color: grey;"
                               AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0"/>
+                <Button fx:id="codesbtnnotepad" alignment="CENTER" layoutX="523.0" layoutY="230.0" maxHeight="-Infinity"
+                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#oncodesclick" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                        text="Codes" textFill="#0074b3" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="75.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="18.0"/>
+                    </font>
+                </Button>
             </children>
         </AnchorPane>
     </center>

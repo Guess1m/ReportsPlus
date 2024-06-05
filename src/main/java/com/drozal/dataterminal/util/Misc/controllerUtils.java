@@ -52,7 +52,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class controllerUtils {
 	
-	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-phonenumber", "-phone", "-contact", "-telephonenumber", "-nu"}, {"-age", "-years", "-old", "-birthdate", "-a", "-dob", "-date", "-dateofbirth"}, {"-address", "-addr", "-residence", "-place", "-add", "-ad", "-add"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-platenumber", "-licenseplate", "-lc", "-plt", "-plte", "-p"}, {"-gender", "-sex", "-identity", "-biological", "-g", "-gen"}, {"-area", "-region", "-zone", "-territory", "-locale", "-ar"}, {"-county", "-cty", "-state", "-province", "-territorial", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-notepad", "-comments", "-cmts", "-cmt"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items", "-item"}, {"-street", "-st", "-road", "-avenue", "-boulevard", "-dr", "-strt"}};
+	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
 	
 	public static void showAnimation(Node node) {
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), node);

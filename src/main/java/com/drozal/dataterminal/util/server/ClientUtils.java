@@ -35,17 +35,16 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
 	private static final int TIMEOUT_SECONDS = 10;
+	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
-	
 	private static boolean canActivateUpdateId = true;
 	private static boolean canActivateUpdateCallout = true;
 	private static boolean canActivateUpdateWorldPed = true;
 	private static boolean canActivateUpdateWorldVeh = true;
-	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	
 	public static void disconnectFromService() {
 		try {

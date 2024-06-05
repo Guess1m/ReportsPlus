@@ -78,6 +78,8 @@ public class newOfficerController {
 		ConfigWriter.configwrite("AOTDebug", "true");
 		ConfigWriter.configwrite("AOTClient", "true");
 		
+		ConfigWriter.configwrite("firstLogin", "true");
+		
 		updateReportBackground(Color.valueOf("#505d62"));
 		updateReportSecondary(Color.valueOf("#323c41"));
 		updateReportAccent(Color.valueOf("#263238"));
@@ -171,7 +173,6 @@ public class newOfficerController {
 				log("exists, printing values", LogUtils.Severity.INFO);
 			} else {
 				try {
-					
 					configFile.createNewFile();
 					log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
 				} catch (IOException e) {

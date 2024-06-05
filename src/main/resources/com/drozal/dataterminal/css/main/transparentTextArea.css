@@ -3,7 +3,6 @@
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 17px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 
 }
 .text-area .scroll-pane {

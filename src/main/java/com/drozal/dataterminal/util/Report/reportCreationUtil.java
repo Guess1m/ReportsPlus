@@ -234,7 +234,7 @@ public class reportCreationUtil {
 		return titleBar;
 	}
 	
-	public static AnchorPane createSimpleTitleBar(String titleText, boolean resiable) {
+	public static AnchorPane createSimpleTitleBar(String titleText, boolean resizable) {
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setSaturation(-1.0);
 		colorAdjust.setBrightness(-0.45);
@@ -321,7 +321,7 @@ public class reportCreationUtil {
 			yOffset = event.getSceneY();
 		});
 		
-		if (resiable) {
+		if (resizable) {
 			Platform.runLater(() -> {
 				Stage stage1 = (Stage) titleBar.getScene()
 				                               .getWindow();

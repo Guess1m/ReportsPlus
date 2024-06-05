@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.application.Platform;
@@ -18,8 +19,6 @@ import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFi
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
 
 public class Launcher {
-	
-	public static boolean firstSignIn;
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -146,10 +145,9 @@ public class Launcher {
 		}
 		
 		if (ConfigReader.doesConfigExist()) {
-			firstSignIn = false;
+			ConfigWriter.configwrite("firstLogin", "false");
 			DataTerminalHomeApplication.main(args);
 		} else {
-			firstSignIn = true;
 			newOfficerApplication.main(args);
 		}
 		

@@ -718,6 +718,17 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
+		if (ConfigReader.configRead("firstLogin")
+		                .equals("true")) {
+			ConfigWriter.configwrite("firstLogin", "false");
+			
+			System.out.println("first login");
+			
+		} else {
+			System.out.println("not first login");
+			
+		}
+		
 		if (notesStage != null && notesStage.isShowing()) {
 			notesStage.close();
 			notesStage = null;

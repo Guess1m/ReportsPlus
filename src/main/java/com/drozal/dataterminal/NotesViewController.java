@@ -3,19 +3,27 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
 public class NotesViewController {
 	
 	public static AnchorPane titlebar = null;
-	
+	public static Stage codesStage = null;
 	@javafx.fxml.FXML
 	private TextArea notepadTextArea;
 	@javafx.fxml.FXML
@@ -24,18 +32,28 @@ public class NotesViewController {
 	private BorderPane borderPane;
 	@javafx.fxml.FXML
 	private ToggleButton modeToggle;
+	@javafx.fxml.FXML
+	private AnchorPane notesPane;
+	@javafx.fxml.FXML
+	private Button codesbtnnotepad;
+	private CodesWindow codesViewController;
 	
 	public AnchorPane getTitlebar() {
 		return titlebar;
 	}
 	
 	public void initialize() throws IOException {
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
-		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("accentColor");
+		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor") + ";";
+		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+		String padding = " -fx-padding: 2 7 2 7;";
 		
-		clearbtnnotepad.setStyle(initialStyle);
-		clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle));
-		clearbtnnotepad.setOnMouseExited(e -> clearbtnnotepad.setStyle(initialStyle));
+		clearbtnnotepad.setStyle(initialStyle + padding);
+		clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle + padding));
+		clearbtnnotepad.setOnMouseExited(e -> clearbtnnotepad.setStyle(initialStyle + padding));
+		
+		codesbtnnotepad.setStyle(initialStyle + padding);
+		codesbtnnotepad.setOnMouseEntered(e -> codesbtnnotepad.setStyle(hoverStyle + padding));
+		codesbtnnotepad.setOnMouseExited(e -> codesbtnnotepad.setStyle(initialStyle + padding));
 		
 		titlebar = reportCreationUtil.createTitleBar("NotePad");
 		borderPane.setTop(titlebar);
@@ -85,5 +103,34 @@ public class NotesViewController {
 					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void oncodesclick(ActionEvent actionEvent) throws IOException {
+		if (codesStage != null && codesStage.isShowing()) {
+			codesStage.close();
+			codesStage = null;
+			return;
+		}
+		codesStage = new Stage();
+		codesStage.initStyle(StageStyle.UNDECORATED);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("codes-window.fxml"));
+		Parent root = loader.load();
+		codesViewController = loader.getController();
+		Scene newScene = new Scene(root);
+		codesStage.setTitle("Codes");
+		codesStage.setScene(newScene);
+		codesStage.setAlwaysOnTop(true);
+		
+		codesStage.show();
+		
+		windowUtils.centerStageOnMainApp(codesStage);
+		
+		codesStage.setOnHidden(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				codesStage = null;
+			}
+		});
 	}
 }

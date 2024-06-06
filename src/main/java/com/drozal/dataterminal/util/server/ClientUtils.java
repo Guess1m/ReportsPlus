@@ -41,7 +41,7 @@ public class ClientUtils {
 	public static String inet;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
-	private static boolean canActivateUpdateId = true;
+	private static final boolean canActivateUpdateId = true;
 	private static boolean canActivateUpdateCallout = true;
 	private static boolean canActivateUpdateWorldPed = true;
 	private static boolean canActivateUpdateWorldVeh = true;
@@ -106,10 +106,6 @@ public class ClientUtils {
 							disconnectFromService();
 							break label;
 						case "UPDATE_ID":
-							if (canActivateUpdateId) {
-								canActivateUpdateId = false;
-								executorService.schedule(() -> canActivateUpdateId = true, 1, TimeUnit.SECONDS);
-								
 								log("Received ID update message from server.", LogUtils.Severity.DEBUG);
 								FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
 								                                getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml",
@@ -150,7 +146,6 @@ public class ClientUtils {
 										}
 									});
 								});
-							}
 							break;
 						case "UPDATE_CALLOUT":
 							if (canActivateUpdateCallout) {

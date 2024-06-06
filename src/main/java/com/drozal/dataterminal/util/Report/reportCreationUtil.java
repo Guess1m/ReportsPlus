@@ -1552,6 +1552,7 @@ public class reportCreationUtil {
 			throw new RuntimeException(e);
 		}
 		stoptime.setText(getTime());
+		date.setText(getDate());
 		
 		Button pullNotesBtn = (Button) patrolReport.get("pullNotesBtn");
 		

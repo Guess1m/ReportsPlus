@@ -2808,7 +2808,7 @@ public class actionController {
 					versionLabel.setStyle("-fx-text-fill: red;");
 				}
 			} else {
-				versionLabel.setText("Development");
+				versionLabel.setText("V1.0.2-alpha- Development Version");
 			}
 		});
 		

@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import javafx.event.Event;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -7,10 +8,27 @@ import javafx.scene.input.ScrollEvent;
 import static org.controlsfx.tools.Utils.clamp;
 
 public class mapController {
+	@javafx.fxml.FXML
 	public ImageView losSantosMap;
 	private double lastX;
 	private double lastY;
+	private double defaultTX;
+	private double defaultTY;
+	private double defaultXS;
+	private double defaultYS;
+	private double defaulutXPos;
+	private double defaulutYPos;
 	
+	public void initialize() {
+		defaultTX = losSantosMap.getTranslateX();
+		defaultTY = losSantosMap.getTranslateY();
+		defaultXS = losSantosMap.getScaleX();
+		defaultYS = losSantosMap.getScaleY();
+		defaulutXPos = losSantosMap.getX();
+		defaulutYPos = losSantosMap.getY();
+	}
+	
+	@javafx.fxml.FXML
 	public void onLosSantosMapScroll(ScrollEvent scrollEvent) {
 		double deltaYScroll = scrollEvent.getDeltaY();
 		double MIN_SCALE = 1.0;
@@ -47,6 +65,7 @@ public class mapController {
 		scrollEvent.consume();
 	}
 	
+	@javafx.fxml.FXML
 	public void mapMouseDrag(MouseEvent mouseEvent) {
 		double deltaX = mouseEvent.getSceneX() - lastX;
 		double deltaY = mouseEvent.getSceneY() - lastY;
@@ -58,15 +77,18 @@ public class mapController {
 		lastY = mouseEvent.getSceneY();
 	}
 	
+	@javafx.fxml.FXML
 	public void mapMousePress(MouseEvent mouseEvent) {
 		lastX = mouseEvent.getSceneX();
 		lastY = mouseEvent.getSceneY();
 	}
 	
+	@javafx.fxml.FXML
 	public void onZoomInPressed(MouseEvent mouseEvent) {
 		zoom(losSantosMap, 1.5);
 	}
 	
+	@javafx.fxml.FXML
 	public void onZoomOutPressed(MouseEvent mouseEvent) {
 		zoom(losSantosMap, 0.5);
 	}
@@ -87,4 +109,13 @@ public class mapController {
 		imageView.setScaleY(newScaleY);
 	}
 	
+	@javafx.fxml.FXML
+	public void onRefreshPress(Event event) {
+		losSantosMap.setTranslateX(defaultTX);
+		losSantosMap.setTranslateY(defaultTY);
+		losSantosMap.setScaleX(defaultXS);
+		losSantosMap.setScaleY(defaultYS);
+		losSantosMap.setX(defaulutXPos);
+		losSantosMap.setY(defaulutYPos);
+	}
 }

@@ -34,9 +34,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
-	private static final int TIMEOUT_SECONDS = 10;
 	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-	private static final boolean canActivateUpdateId = true;
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
@@ -45,6 +43,7 @@ public class ClientUtils {
 	private static boolean canActivateUpdateCallout = true;
 	private static boolean canActivateUpdateWorldPed = true;
 	private static boolean canActivateUpdateWorldVeh = true;
+	private static boolean canActivateUpdateId = true;
 	
 	public static void disconnectFromService() {
 		try {
@@ -106,46 +105,49 @@ public class ClientUtils {
 							disconnectFromService();
 							break label;
 						case "UPDATE_ID":
-							log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-							FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
-							                                getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml",
-							                                4096);
-							Platform.runLater(() -> {
-								if (IDStage != null && IDStage.isShowing()) {
-									IDStage.close();
-									IDStage = null;
-								}
-								IDStage = new Stage();
-								IDStage.initStyle(StageStyle.UNDECORATED);
-								FXMLLoader loader = new FXMLLoader(
-										actionController.class.getResource("currentID-view.fxml"));
-								Parent root = null;
-								try {
-									root = loader.load();
-								} catch (IOException e) {
-									throw new RuntimeException(e);
-								}
-								Scene newScene = new Scene(root);
-								IDStage.setTitle("Current ID");
-								IDStage.setScene(newScene);
-								IDStage.show();
-								IDStage.centerOnScreen();
-								try {
-									IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
-									                                   .equals("true"));
-								} catch (IOException e) {
-									logError("Could not fetch AOTID: ", e);
-								}
-								
-								windowUtils.centerStageOnMainApp(IDStage);
-								
-								IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-									@Override
-									public void handle(WindowEvent event) {
+							if (canActivateUpdateId) {
+								canActivateUpdateId = false;
+								log("Received ID update message from server.", LogUtils.Severity.DEBUG);
+								FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
+								                                getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml",
+								                                4096);
+								Platform.runLater(() -> {
+									if (IDStage != null && IDStage.isShowing()) {
+										IDStage.close();
 										IDStage = null;
 									}
+									IDStage = new Stage();
+									IDStage.initStyle(StageStyle.UNDECORATED);
+									FXMLLoader loader = new FXMLLoader(
+											actionController.class.getResource("currentID-view.fxml"));
+									Parent root = null;
+									try {
+										root = loader.load();
+									} catch (IOException e) {
+										throw new RuntimeException(e);
+									}
+									Scene newScene = new Scene(root);
+									IDStage.setTitle("Current ID");
+									IDStage.setScene(newScene);
+									IDStage.show();
+									IDStage.centerOnScreen();
+									try {
+										IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
+										                                   .equals("true"));
+									} catch (IOException e) {
+										logError("Could not fetch AOTID: ", e);
+									}
+									
+									windowUtils.centerStageOnMainApp(IDStage);
+									
+									IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+										@Override
+										public void handle(WindowEvent event) {
+											IDStage = null;
+										}
+									});
 								});
-							});
+							}
 							break;
 						case "UPDATE_CALLOUT":
 							if (canActivateUpdateCallout) {

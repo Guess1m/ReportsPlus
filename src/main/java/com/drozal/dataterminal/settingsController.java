@@ -550,7 +550,6 @@ public class settingsController {
 			             .setStyle(
 					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
-		
 	}
 	
 	@javafx.fxml.FXML
@@ -761,6 +760,16 @@ public class settingsController {
 		controllerVar.updateInfoBtn.setOnMouseExited(e -> {
 			controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
 		});
+		
+		if (isConnected) {
+			controllerVar.getServerStatusLabel()
+			             .setStyle(
+					             "-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+		} else {
+			controllerVar.getServerStatusLabel()
+			             .setStyle(
+					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+		}
 	}
 	
 	private void loadColors() {

@@ -1,15 +1,12 @@
 module com.drozal.dataterminal {
 	requires javafx.controls;
 	requires javafx.fxml;
-	requires javafx.web;
 	requires transitive javafx.graphics;
 	requires transitive javafx.base;
-	requires jdk.jsobject;
 	
 	requires jakarta.activation;
 	requires jakarta.xml.bind;
 	requires org.controlsfx.controls;
-	requires jmdns;
 	requires java.desktop;
 	
 	opens com.drozal.dataterminal.logs to javafx.base;

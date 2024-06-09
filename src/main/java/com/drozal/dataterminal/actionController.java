@@ -2525,7 +2525,8 @@ public class actionController {
 			if (!isConnected) {
 				LogUtils.log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
-				serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a;");
+				serverStatusLabel.setStyle(
+						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					clientController.getPortField()
 					                .setText("");
@@ -2535,11 +2536,14 @@ public class actionController {
 					                .setText("Not Connected");
 					clientController.getStatusLabel()
 					                .setStyle("-fx-background-color: #ff5e5e;");
-					serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e;");
+					serverStatusLabel.setStyle(
+							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				}
 			} else {
 				serverStatusLabel.setText("Connected");
-				serverStatusLabel.setStyle("-fx-text-fill: #00da16;");
+				
+				serverStatusLabel.setStyle(
+						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					try {
 						Thread.sleep(500);

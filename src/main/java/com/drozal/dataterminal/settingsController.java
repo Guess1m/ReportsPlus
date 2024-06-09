@@ -25,6 +25,7 @@ import java.io.IOException;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
 public class settingsController {
 	
@@ -539,6 +540,17 @@ public class settingsController {
 			stage.setMinWidth(stage.getWidth());
 			stage.setMinHeight(stage.getHeight());
 		});
+		
+		if (isConnected) {
+			controllerVar.getServerStatusLabel()
+			             .setStyle(
+					             "-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+		} else {
+			controllerVar.getServerStatusLabel()
+			             .setStyle(
+					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+		}
+		
 	}
 	
 	@javafx.fxml.FXML

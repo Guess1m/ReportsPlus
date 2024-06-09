@@ -51,13 +51,14 @@ Ensure you have the following installed:
 1. Download the `Server` from the <a href="https://github.com/Guess1m/ReportsPlus/releases">Releases</a> tab in Github.
 2. Move the contents of the ReportsPlus Server folder to the base GTA directory on the PC running GTA. This will move a
    folder named ReportsPlus to the base GTA directory.
-3. Open the ReportsPlusServer JAR. If there are issues, ensure the prerequisites are installed.
-4. The server will display your PC's local IPV4 address, which must be entered into the ReportsPlus application
+3. Go on duty in LSPDFR (Not required but i've had less issues)
+4. Open the ReportsPlusServer JAR. If there are issues, ensure the prerequisites are installed.
+5. The server will display your PC's local IPV4 address, which must be entered into the ReportsPlus application
    connection window.
-5. Choose a port for the connection. If 5000 is in use, try 5001, 5002, etc. You will know the server is running if the
+6. Choose a port for the connection. If 5000 is in use, try 5001, 5002, etc. You will know the server is running if the
    connection window says "server started."
-6. Ensure the port and address match between the Server and ReportsPlus application.
-7. **Use the help button on both applications for additional assistance.**
+7. Ensure the port and address match between the Server and ReportsPlus application.
+8. **Use the help button on both applications for additional assistance.**
 
 ### Reports Plus Setup: (Instructions in download)
 
@@ -65,10 +66,11 @@ Ensure you have the following installed:
    Github.
 2. Move the Reports Plus folder to any location on the computer NOT running GTA.
 3. Run the JAR file inside the ReportsPlus folder. Ensure the prerequisites are installed if there are any issues.
-4. Open the connection window by clicking the server connection status below the settings in the top right.
-5. Ensure the server is open and started, then copy the displayed address into the appropriate field in ReportsPlus.
-6. Choose a port that matches the one used on the server, and connect to the server.
-7. **Use the help button on both applications for additional assistance.**
+4. Go on duty in LSPDFR (Not required but i've had less issues)
+5. Open the connection window by clicking the server connection status below the settings in the top right.
+6. Ensure the server is open and started, then copy the displayed address into the appropriate field in ReportsPlus.
+7. Choose a port that matches the one used on the server, and connect to the server.
+8. **Use the help button on both applications for additional assistance.**
 
 ### **2. Installation `without` Server/GTA Integration**
 
@@ -82,3 +84,4 @@ Ensure you have the following installed:
   to do with the Sync messing with the files, I recommend moving the application to a folder that is not backed up by
   iCloud. Putting the ReportsPlus folder in the `{user}\Applications` folder has worked fine for me, this directory
   shouldn't be getting backed up by iCloud.
+- If you are getting blank ID or Callout windows, try closing both the application and server and relaunching both then reconnecting to the server. This is likely caused by the messages from the server getting out of sync, im currently working on a fix.

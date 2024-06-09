@@ -2808,8 +2808,13 @@ public class actionController {
 			
 			if (!stringUtil.version.equals("dev")) {
 				if (!stringUtil.version.equals(gitVersion)) {
-					versionLabel.setText(gitVersion + " Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
+					if (gitVersion.equals("null")) {
+						versionLabel.setText("New Version Available!");
+						versionLabel.setStyle("-fx-text-fill: red;");
+					} else {
+						versionLabel.setText(gitVersion + " Available!");
+						versionLabel.setStyle("-fx-text-fill: red;");
+					}
 				}
 			} else {
 				versionLabel.setText("V1.0.2-alpha- Development Version");

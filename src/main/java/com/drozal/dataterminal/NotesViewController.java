@@ -73,7 +73,6 @@ public class NotesViewController {
 			}
 			notepadTextArea.setStyle(notepadStyle);
 			modeToggle.setStyle(modeToggleStyle);
-			System.out.println(notepadMode);
 		} else {
 			notepadTextArea.setStyle(
 					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");

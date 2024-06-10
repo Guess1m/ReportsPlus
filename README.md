@@ -84,4 +84,6 @@ Ensure you have the following installed:
   to do with the Sync messing with the files, I recommend moving the application to a folder that is not backed up by
   iCloud. Putting the ReportsPlus folder in the `{user}\Applications` folder has worked fine for me, this directory
   shouldn't be getting backed up by iCloud.
-- If you are getting blank ID or Callout windows, try closing both the application and server and relaunching both then reconnecting to the server. This is likely caused by the messages from the server getting out of sync, im currently working on a fix.
+- If you are getting blank ID or Callout windows, try closing both the application and server and relaunching both then
+  reconnecting to the server. This is likely caused by the messages from the server getting out of sync, im currently
+  working on a fix.

@@ -61,6 +61,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.drozal.dataterminal.util.Misc.LogUtils.endLog;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
@@ -528,6 +529,7 @@ public class actionController {
 	
 	public static void handleClose() {
 		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		endLog();
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);

@@ -7,7 +7,6 @@ import com.drozal.dataterminal.util.Misc.dropdownInfo;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,8 +29,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
-import static com.drozal.dataterminal.util.Misc.LogUtils.log;
-import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.actionController.handleClose;
+import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
@@ -135,7 +134,8 @@ public class newOfficerController {
 	
 	@javafx.fxml.FXML
 	public void onExitButtonClick(MouseEvent actionEvent) {
-		Platform.exit();
+		endLog();
+		handleClose();
 	}
 	
 	@javafx.fxml.FXML

@@ -17,7 +17,6 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
@@ -25,25 +24,19 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class ClientUtils {
 	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-	private static final boolean canActivateUpdateId = true;
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
-	private static boolean canActivateUpdateCallout = true;
-	private static boolean canActivateUpdateWorldPed = true;
-	private static boolean canActivateUpdateWorldVeh = true;
 	
 	public static void disconnectFromService() {
 		try {
@@ -106,9 +99,7 @@ public class ClientUtils {
 							break label;
 						case "UPDATE_ID":
 							log("Received ID update message from server.", LogUtils.Severity.DEBUG);
-							FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
-							                                getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml",
-							                                4096);
+							FileUtlis.receiveIDFromServer(4096);
 							Platform.runLater(() -> {
 								if (IDStage != null && IDStage.isShowing()) {
 									IDStage.close();
@@ -147,14 +138,8 @@ public class ClientUtils {
 							});
 							break;
 						case "UPDATE_CALLOUT":
-							if (canActivateUpdateCallout) {
-								canActivateUpdateCallout = false;
-								executorService.schedule(() -> canActivateUpdateCallout = true, 1, TimeUnit.SECONDS);
-								
 								log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
-								FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
-								                                getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml",
-								                                4096);
+							FileUtlis.receiveCalloutFromServer(4096);
 								Platform.runLater(() -> {
 									if (CalloutStage != null && CalloutStage.isShowing()) {
 										CalloutStage.close();
@@ -218,31 +203,17 @@ public class ClientUtils {
 										}
 									});
 								});
-							}
 							break;
 						case "UPDATE_WORLD_PED":
-							if (canActivateUpdateWorldPed) {
-								canActivateUpdateWorldPed = false;
-								executorService.schedule(() -> canActivateUpdateWorldPed = true, 1, TimeUnit.SECONDS);
-								
 								log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
-								FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
-								                                getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data",
-								                                4096);
-							}
+							FileUtlis.receiveWorldPedFromServer(4096);
 							break;
 						case "UPDATE_WORLD_VEH":
-							if (canActivateUpdateWorldVeh) {
-								canActivateUpdateWorldVeh = false;
-								executorService.schedule(() -> canActivateUpdateWorldVeh = true, 1, TimeUnit.SECONDS);
-								
 								log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
-								FileUtlis.receiveFileFromServer(inet, Integer.parseInt(port),
-								                                getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data",
-								                                4096);
-							}
+							FileUtlis.receiveWorldVehFromServer(4096);
+							
 							break;
-						case "HEARTBEAT":
+						default:
 							break;
 					}
 				}

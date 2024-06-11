@@ -195,7 +195,9 @@ public class ClientUtils {
 											} catch (IOException e) {
 												logError("Callout could not be closed: ", e);
 											}
-											delay.setOnFinished(event -> CalloutStage.close());
+											if (CalloutStage != null) {
+												delay.setOnFinished(event -> CalloutStage.close());
+											}
 											delay.play();
 										}
 									} catch (IOException e) {

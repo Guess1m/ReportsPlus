@@ -662,10 +662,14 @@ public class reportUtil {
 					                                  .toUpperCase());
 					textArea.setPrefRowCount(5);
 					textArea.setMaxWidth(Double.MAX_VALUE);
+					textArea.setMinHeight(150);
+					textArea.setPrefHeight(150);
+					textArea.setMaxHeight(Region.USE_COMPUTED_SIZE);
 					gridPane.add(textArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), textArea);
 					
 					GridPane.setHgrow(textArea, Priority.ALWAYS);
+					GridPane.setVgrow(textArea, Priority.ALWAYS);
 					break;
 				case COMBO_BOX_AREA:
 					ComboBox<String> comboBoxArea = new ComboBox<>();

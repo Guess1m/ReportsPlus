@@ -1,7 +1,7 @@
 .incidentformButton {
     -fx-background-color: rgb(94, 115, 135,0.8); /* Background color */
     -fx-border-width: 1;
-    -fx-border-color: rgb(220,220,220,0.8); /* Border color */
+    -fx-border-color: rgb(1,1,1,0.2); /* Border color */
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;

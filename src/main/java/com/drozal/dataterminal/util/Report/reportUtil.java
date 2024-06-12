@@ -4,6 +4,7 @@ import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
+import com.drozal.dataterminal.util.Misc.AutoCompleteComboBoxListener;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
 import com.drozal.dataterminal.util.Window.ResizeHelper;
@@ -665,6 +666,54 @@ public class reportUtil {
 					fieldsMap.put(fieldConfig.getFieldName(), textArea);
 					
 					GridPane.setHgrow(textArea, Priority.ALWAYS);
+					break;
+				case COMBO_BOX_AREA:
+					ComboBox<String> comboBoxArea = new ComboBox<>();
+					new AutoCompleteComboBoxListener<>(comboBoxArea);
+					comboBoxArea.getStyleClass()
+					            .add("comboboxnew");
+					comboBoxArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+					comboBoxArea.getEditor()
+					            .setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+					comboBoxArea.focusedProperty()
+					            .addListener((observable, oldValue, newValue) -> {
+						            if (newValue) {
+							            comboBoxArea.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						            } else {
+							            comboBoxArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						            }
+					            });
+					comboBoxArea.focusedProperty()
+					            .addListener((observable, oldValue, newValue) -> {
+						            if (newValue) {
+							            comboBoxArea.getEditor()
+							                        .setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						            } else {
+							            comboBoxArea.getEditor()
+							                        .setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						            }
+					            });
+					comboBoxArea.getItems()
+					            .addAll(dropdownInfo.areaList);
+					comboBoxArea.setPromptText(fieldConfig.getFieldName()
+					                                      .toUpperCase());
+					comboBoxArea.setButtonCell(new ListCell() {
+						@Override
+						protected void updateItem(Object item, boolean empty) {
+							super.updateItem(item, empty);
+							if (empty || item == null) {
+								setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+							} else {
+								setStyle("-fx-text-fill: " + placeholder + ";");
+								comboBoxArea.getEditor()
+								            .setStyle("-fx-text-fill: " + placeholder + ";");
+								setText(item.toString());
+							}
+						}
+					});
+					comboBoxArea.setMaxWidth(Double.MAX_VALUE);
+					gridPane.add(comboBoxArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					fieldsMap.put(fieldConfig.getFieldName(), comboBoxArea);
 					break;
 				case COMBO_BOX_COLOR:
 					ComboBox<String> comboBoxColor = new ComboBox<>();

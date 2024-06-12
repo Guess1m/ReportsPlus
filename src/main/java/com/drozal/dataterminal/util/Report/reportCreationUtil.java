@@ -55,7 +55,7 @@ public class reportCreationUtil {
 		TextField officeragen = (TextField) calloutReportMap.get("agency");
 		TextField officernum = (TextField) calloutReportMap.get("number");
 		TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
-		TextField calloutarea = (TextField) calloutReportMap.get("area");
+		ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
 		TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
 		TextField calloutcounty = (TextField) calloutReportMap.get("county");
 		TextField calloutstreet = (TextField) calloutReportMap.get("street");
@@ -81,7 +81,7 @@ public class reportCreationUtil {
 		Button pullNotesBtn = (Button) calloutReport.get("pullNotesBtn");
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(calloutarea, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(calloutarea.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
@@ -122,7 +122,8 @@ public class reportCreationUtil {
 			                             officerrank.getText(), officernum.getText(), officerdiv.getText(),
 			                             officeragen.getText(), callouttype.getText(), calloutcode.getText(),
 			                             calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(),
-			                             calloutcounty.getText(), calloutarea.getText()
+			                             calloutcounty.getText(), calloutarea.getEditor()
+			                                                                 .getText()
 			
 			));
 			
@@ -348,7 +349,7 @@ public class reportCreationUtil {
 		TextField offenderAddress = (TextField) citationReportMap.get("offender address");
 		TextField offenderDescription = (TextField) citationReportMap.get("offender description");
 		
-		TextField area = (TextField) citationReportMap.get("area");
+		ComboBox area = (ComboBox) citationReportMap.get("area");
 		TextField street = (TextField) citationReportMap.get("street");
 		TextField county = (TextField) citationReportMap.get("county");
 		TextField num = (TextField) citationReportMap.get("citation number");
@@ -390,7 +391,7 @@ public class reportCreationUtil {
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
@@ -564,7 +565,8 @@ public class reportCreationUtil {
 				}
 				
 				logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(),
-				                                     stringBuilder.toString(), county.getText(), area.getText(),
+				                                     stringBuilder.toString(), county.getText(), area.getEditor()
+				                                                                                     .getText(),
 				                                     street.getText(), offenderName.getText(), offenderGender.getText(),
 				                                     offenderAge.getText(), offenderAddress.getText(),
 				                                     offenderDescription.getText(), model.getText(), color.getValue()
@@ -598,7 +600,7 @@ public class reportCreationUtil {
 		TextField date = (TextField) incidentReportMap.get("date");
 		TextField time = (TextField) incidentReportMap.get("time");
 		TextField street = (TextField) incidentReportMap.get("street");
-		TextField area = (TextField) incidentReportMap.get("area");
+		ComboBox area = (ComboBox) incidentReportMap.get("area");
 		TextField county = (TextField) incidentReportMap.get("county");
 		
 		TextField suspects = (TextField) incidentReportMap.get("suspect(s)");
@@ -630,7 +632,7 @@ public class reportCreationUtil {
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(vicwit, notesViewController.getNotepadTextArea(), "-name");
@@ -673,7 +675,8 @@ public class reportCreationUtil {
 			logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(),
 			                              suspects.getText(), vicwit.getText(), name.getText(), rank.getText(),
 			                              num.getText(), agen.getText(), div.getText(), street.getText(),
-			                              area.getText(), county.getText(), summary.getText(), notes.getText()));
+			                              area.getEditor()
+			                                  .getText(), county.getText(), summary.getText(), notes.getText()));
 			
 			IncidentReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -699,7 +702,7 @@ public class reportCreationUtil {
 		TextField date = (TextField) searchReportMap.get("date");
 		TextField time = (TextField) searchReportMap.get("time");
 		TextField street = (TextField) searchReportMap.get("street");
-		TextField area = (TextField) searchReportMap.get("area");
+		ComboBox area = (ComboBox) searchReportMap.get("area");
 		TextField county = (TextField) searchReportMap.get("county");
 		
 		TextField grounds = (TextField) searchReportMap.get("grounds for search");
@@ -737,7 +740,7 @@ public class reportCreationUtil {
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(searchedindividual, notesViewController.getNotepadTextArea(), "-name");
@@ -783,7 +786,8 @@ public class reportCreationUtil {
 			                                                                                          .toString(),
 			                            method.getValue()
 			                                  .toString(), witness.getText(), rank.getText(), name.getText(),
-			                            num.getText(), agen.getText(), div.getText(), street.getText(), area.getText(),
+			                            num.getText(), agen.getText(), div.getText(), street.getText(), area.getEditor()
+			                                                                                                .getText(),
 			                            county.getText(), notes.getText(), testconducted.getText(), result.getText(),
 			                            bacmeasurement.getText()));
 			
@@ -813,7 +817,7 @@ public class reportCreationUtil {
 		TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
 		TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
 		
-		TextField area = (TextField) arrestReportMap.get("area");
+		ComboBox area = (ComboBox) arrestReportMap.get("area");
 		TextField street = (TextField) arrestReportMap.get("street");
 		TextField county = (TextField) arrestReportMap.get("county");
 		TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
@@ -857,7 +861,7 @@ public class reportCreationUtil {
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(area, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
@@ -1000,7 +1004,7 @@ public class reportCreationUtil {
 			TextField dateinc = (TextField) incidentReportMap.get("date");
 			TextField timeinc = (TextField) incidentReportMap.get("time");
 			TextField streetinc = (TextField) incidentReportMap.get("street");
-			TextField areainc = (TextField) incidentReportMap.get("area");
+			ComboBox areainc = (ComboBox) incidentReportMap.get("area");
 			TextField countyinc = (TextField) incidentReportMap.get("county");
 			
 			TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
@@ -1029,7 +1033,9 @@ public class reportCreationUtil {
 			timeinc.setText(time.getText());
 			incidentnum.setText(arrestnum.getText());
 			countyinc.setText(county.getText());
-			areainc.setText(area.getText());
+			areainc.getEditor()
+			       .setText(area.getEditor()
+			                    .getText());
 			streetinc.setText(street.getText());
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
@@ -1038,7 +1044,7 @@ public class reportCreationUtil {
 			
 			pullNotesBtninc.setOnAction(event1 -> {
 				if (notesViewController != null) {
-					updateTextFromNotepad(areainc, notesViewController.getNotepadTextArea(), "-area");
+					updateTextFromNotepad(areainc.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 					updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
 					updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
 					updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
@@ -1082,7 +1088,8 @@ public class reportCreationUtil {
 				                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
 				                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
 				                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-				                              areainc.getText(), countyinc.getText(), summaryinc.getText(),
+				                              areainc.getEditor()
+				                                     .getText(), countyinc.getText(), summaryinc.getText(),
 				                              notesinc.getText()));
 				IncidentReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
@@ -1108,7 +1115,7 @@ public class reportCreationUtil {
 			TextField datesrch = (TextField) searchReportMap.get("date");
 			TextField timesrch = (TextField) searchReportMap.get("time");
 			TextField streetsrch = (TextField) searchReportMap.get("street");
-			TextField areasrch = (TextField) searchReportMap.get("area");
+			ComboBox areasrch = (ComboBox) searchReportMap.get("area");
 			TextField countysrch = (TextField) searchReportMap.get("county");
 			
 			TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
@@ -1142,7 +1149,9 @@ public class reportCreationUtil {
 			datesrch.setText(date.getText());
 			searchedindividualsrch.setText(offenderName.getText());
 			countysrch.setText(county.getText());
-			areasrch.setText(area.getText());
+			areasrch.getEditor()
+			        .setText(area.getEditor()
+			                     .getText());
 			streetsrch.setText(street.getText());
 			
 			Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1151,7 +1160,7 @@ public class reportCreationUtil {
 			
 			pullNotesBtnsrch.setOnAction(event1 -> {
 				if (notesViewController != null) {
-					updateTextFromNotepad(areasrch, notesViewController.getNotepadTextArea(), "-area");
+					updateTextFromNotepad(areasrch.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 					updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
 					updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
 					updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(), "-name");
@@ -1199,7 +1208,8 @@ public class reportCreationUtil {
 				                                                           .toString(), witnesssrch.getText(),
 				                            ranksrch.getText(), namesrch.getText(), numsrch.getText(),
 				                            agensrch.getText(), divsrch.getText(), streetsrch.getText(),
-				                            areasrch.getText(), countysrch.getText(), notessrch.getText(),
+				                            areasrch.getEditor()
+				                                    .getText(), countysrch.getText(), notessrch.getText(),
 				                            testconductedsrch.getText(), resultsrch.getText(),
 				                            bacmeasurementsrch.getText()));
 				
@@ -1250,7 +1260,8 @@ public class reportCreationUtil {
 				}
 				
 				logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(),
-				                            stringBuilder.toString(), county.getText(), area.getText(),
+				                            stringBuilder.toString(), county.getText(), area.getEditor()
+				                                                                            .getText(),
 				                            street.getText(), offenderName.getText(), offenderAge.getText(),
 				                            offenderGender.getText(), offenderDescription.getText(),
 				                            ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(),
@@ -1291,7 +1302,7 @@ public class reportCreationUtil {
 		TextField otherInfots = (TextField) trafficStopReportMap.get("other info");
 		TextField modelts = (TextField) trafficStopReportMap.get("model");
 		
-		TextField areats = (TextField) trafficStopReportMap.get("area");
+		ComboBox areats = (ComboBox) trafficStopReportMap.get("area");
 		TextField streetts = (TextField) trafficStopReportMap.get("street");
 		TextField countyts = (TextField) trafficStopReportMap.get("county");
 		TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
@@ -1326,7 +1337,7 @@ public class reportCreationUtil {
 		
 		pullNotesBtnts.setOnAction(event -> {
 			if (notesViewController != null) {
-				updateTextFromNotepad(areats, notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(areats.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(countyts, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(streetts, notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderNamets, notesViewController.getNotepadTextArea(), "-name");
@@ -1360,7 +1371,7 @@ public class reportCreationUtil {
 			TextField offenderAddressarr = (TextField) arrestReportMap.get("offender address");
 			TextField offenderDescriptionarr = (TextField) arrestReportMap.get("offender description");
 			
-			TextField areaarr = (TextField) arrestReportMap.get("area");
+			ComboBox areaarr = (ComboBox) arrestReportMap.get("area");
 			TextField streetarr = (TextField) arrestReportMap.get("street");
 			TextField countyarr = (TextField) arrestReportMap.get("county");
 			TextField arrestnumarr = (TextField) arrestReportMap.get("arrest number");
@@ -1402,7 +1413,9 @@ public class reportCreationUtil {
 			offenderGenderarr.setText(offenderGenderts.getText());
 			offenderAgearr.setText(offenderAgets.getText());
 			offenderDescriptionarr.setText(offenderDescriptionts.getText());
-			areaarr.setText(areats.getText());
+			areaarr.getEditor()
+			       .setText(areats.getEditor()
+			                      .getText());
 			countyarr.setText(countyts.getText());
 			streetarr.setText(streetts.getText());
 			arrestnumarr.setText(stopnumts.getText());
@@ -1410,7 +1423,7 @@ public class reportCreationUtil {
 			
 			pullNotesBtnarr.setOnAction(event1 -> {
 				if (notesViewController != null) {
-					updateTextFromNotepad(areaarr, notesViewController.getNotepadTextArea(), "-area");
+					updateTextFromNotepad(areaarr.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 					updateTextFromNotepad(countyarr, notesViewController.getNotepadTextArea(), "-county");
 					updateTextFromNotepad(streetarr, notesViewController.getNotepadTextArea(), "-street");
 					updateTextFromNotepad(offenderNamearr, notesViewController.getNotepadTextArea(), "-name");
@@ -1554,7 +1567,7 @@ public class reportCreationUtil {
 				TextField dateinc = (TextField) incidentReportMap.get("date");
 				TextField timeinc = (TextField) incidentReportMap.get("time");
 				TextField streetinc = (TextField) incidentReportMap.get("street");
-				TextField areainc = (TextField) incidentReportMap.get("area");
+				ComboBox areainc = (ComboBox) incidentReportMap.get("area");
 				TextField countyinc = (TextField) incidentReportMap.get("county");
 				
 				TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
@@ -1583,7 +1596,9 @@ public class reportCreationUtil {
 				timeinc.setText(timearr.getText());
 				incidentnum.setText(arrestnumarr.getText());
 				countyinc.setText(countyarr.getText());
-				areainc.setText(areaarr.getText());
+				areainc.getEditor()
+				       .setText(areaarr.getEditor()
+				                       .getText());
 				streetinc.setText(streetarr.getText());
 				suspectsinc.setText(offenderNamearr.getText());
 				notesinc.setText(notesarr.getText());
@@ -1592,7 +1607,7 @@ public class reportCreationUtil {
 				
 				pullNotesBtninc.setOnAction(event1 -> {
 					if (notesViewController != null) {
-						updateTextFromNotepad(areainc, notesViewController.getNotepadTextArea(), "-area");
+						updateTextFromNotepad(areainc.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 						updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
 						updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
 						updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
@@ -1636,7 +1651,8 @@ public class reportCreationUtil {
 					                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
 					                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
 					                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-					                              areainc.getText(), countyinc.getText(), summaryinc.getText(),
+					                              areainc.getEditor()
+					                                     .getText(), countyinc.getText(), summaryinc.getText(),
 					                              notesinc.getText()));
 					IncidentReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
@@ -1662,7 +1678,7 @@ public class reportCreationUtil {
 				TextField datesrch = (TextField) searchReportMap.get("date");
 				TextField timesrch = (TextField) searchReportMap.get("time");
 				TextField streetsrch = (TextField) searchReportMap.get("street");
-				TextField areasrch = (TextField) searchReportMap.get("area");
+				ComboBox areasrch = (ComboBox) searchReportMap.get("area");
 				TextField countysrch = (TextField) searchReportMap.get("county");
 				
 				TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
@@ -1696,7 +1712,9 @@ public class reportCreationUtil {
 				datesrch.setText(datearr.getText());
 				searchedindividualsrch.setText(offenderNamearr.getText());
 				countysrch.setText(countyarr.getText());
-				areasrch.setText(areaarr.getText());
+				areasrch.getEditor()
+				        .setText(areaarr.getEditor()
+				                        .getText());
 				streetsrch.setText(streetarr.getText());
 				
 				Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1705,7 +1723,7 @@ public class reportCreationUtil {
 				
 				pullNotesBtnsrch.setOnAction(event1 -> {
 					if (notesViewController != null) {
-						updateTextFromNotepad(areasrch, notesViewController.getNotepadTextArea(), "-area");
+						updateTextFromNotepad(areasrch.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 						updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
 						updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
 						updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(),
@@ -1755,7 +1773,8 @@ public class reportCreationUtil {
 					                                                                                  .toString(),
 					                            witnesssrch.getText(), ranksrch.getText(), namesrch.getText(),
 					                            numsrch.getText(), agensrch.getText(), divsrch.getText(),
-					                            streetsrch.getText(), areasrch.getText(), countysrch.getText(),
+					                            streetsrch.getText(), areasrch.getEditor()
+					                                                          .getText(), countysrch.getText(),
 					                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
 					                            bacmeasurementsrch.getText()));
 					
@@ -1806,7 +1825,8 @@ public class reportCreationUtil {
 					}
 					
 					logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(),
-					                            stringBuilder.toString(), countyarr.getText(), areaarr.getText(),
+					                            stringBuilder.toString(), countyarr.getText(), areaarr.getEditor()
+					                                                                                  .getText(),
 					                            streetarr.getText(), offenderNamearr.getText(),
 					                            offenderAgearr.getText(), offenderGenderarr.getText(),
 					                            offenderDescriptionarr.getText(), ambulancereqarr.getText(),
@@ -1842,7 +1862,7 @@ public class reportCreationUtil {
 			TextField offenderAddresscit = (TextField) citationReportMap.get("offender address");
 			TextField offenderDescriptioncit = (TextField) citationReportMap.get("offender description");
 			
-			TextField areacit = (TextField) citationReportMap.get("area");
+			ComboBox areacit = (ComboBox) citationReportMap.get("area");
 			TextField streetcit = (TextField) citationReportMap.get("street");
 			TextField countycit = (TextField) citationReportMap.get("county");
 			TextField numcit = (TextField) citationReportMap.get("citation number");
@@ -1887,7 +1907,9 @@ public class reportCreationUtil {
 			offenderGendercit.setText(offenderGenderts.getText());
 			offenderAgecit.setText(offenderAgets.getText());
 			offenderDescriptioncit.setText(offenderDescriptionts.getText());
-			areacit.setText(areats.getText());
+			areacit.getEditor()
+			       .setText(areats.getEditor()
+			                      .getText());
 			countycit.setText(countyts.getText());
 			streetcit.setText(streetts.getText());
 			modelcit.setText(modelts.getText());
@@ -1898,7 +1920,7 @@ public class reportCreationUtil {
 			
 			pullNotesBtncit.setOnAction(event1 -> {
 				if (notesViewController != null) {
-					updateTextFromNotepad(areacit, notesViewController.getNotepadTextArea(), "-area");
+					updateTextFromNotepad(areacit.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 					updateTextFromNotepad(countycit, notesViewController.getNotepadTextArea(), "-county");
 					updateTextFromNotepad(streetcit, notesViewController.getNotepadTextArea(), "-street");
 					updateTextFromNotepad(offenderNamecit, notesViewController.getNotepadTextArea(), "-name");
@@ -2075,7 +2097,8 @@ public class reportCreationUtil {
 					
 					logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
 					                                     stringBuilder.toString(), countycit.getText(),
-					                                     areacit.getText(), streetcit.getText(),
+					                                     areacit.getEditor()
+					                                            .getText(), streetcit.getText(),
 					                                     offenderNamecit.getText(), offenderGendercit.getText(),
 					                                     offenderAgecit.getText(), offenderAddresscit.getText(),
 					                                     offenderDescriptioncit.getText(), modelcit.getText(),
@@ -2129,7 +2152,8 @@ public class reportCreationUtil {
 				                                 officernamets.getText(), officerrankts.getText(),
 				                                 officernumarrestts.getText(), officerdivts.getText(),
 				                                 officeragents.getText(), stopnumts.getText(), notests.getText(),
-				                                 streetts.getText(), countyts.getText(), areats.getText(),
+				                                 streetts.getText(), countyts.getText(), areats.getEditor()
+				                                                                               .getText(),
 				                                 plateNumberts.getText(), colorts.getValue()
 				                                                                 .toString(), typets.getValue()
 				                                                                                    .toString()));

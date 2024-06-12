@@ -9,13 +9,36 @@
        -fx-border-width: 0 0 2px 0; /* Set bottom border width */
        -fx-border-color: #262626; /* Set initial border color to transparent */
 }
+.comboboxnew .text-field {
+   -fx-text-fill: black !important;
+       -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15.5px;
+    -fx-padding: 8.5;
+       -fx-background-color: rgb(242, 242, 242, 0.6);
+       -fx-prompt-text-fill: rgba(0, 0, 0, 0.4);
+       -fx-background-insets: 0;
+       -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
+       -fx-border-width: 0 0 0.3px 0; /* Set bottom border width */
+       -fx-border-color: #262626; /* Set initial border color to transparent */
+}
 .comboboxnew .list-cell {
     -fx-text-fill:  black; /* Set the text color */
 }
 .comboboxnew-popup .list-view .list-cell {
     -fx-text-fill: black; /* Text color only for dropdown options */
     -fx-background-color:  #f2f2f2;
-    -fx-border-color: none;
+    -fx-border-color: transparent;
+}
+.combo-box .list-view .list-cell:hover,
+.combo-box .text-field .list-view .list-cell:hover{
+    -fx-background-color: rgb(94, 115, 135,0.4); /* Set the hover background color */
+    -fx-border-color: transparent;
+}
+
+.combo-box .list-view .list-cell:selected,
+.combo-box .text-field .list-view .list-cell:selected {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
 .comboboxnew .scroll-bar {
     -fx-background-color: #f2f2f2; /* Transparent background */
@@ -36,4 +59,24 @@
         -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
         -fx-background-color: rgb(242, 242, 242);
         -fx-effect: none;
+}
+.comboboxnew .text-field:focused {
+       -fx-border-color: black;
+    -fx-border-width: 0 0 0.55px 0;
+    -fx-background-color: rgb(242, 242, 242);
+    -fx-effect: none;
+}
+.comboboxnew .arrow-button {
+    -fx-background-color: rgb(0,0,0,0.1);
+    -fx-shape: "";
+    -fx-background-insets: 0;
+    -fx-padding: 8;
+    -fx-min-width: 5;
+    -fx-min-height: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.comboboxnew .arrow-button:focused {
+    -fx-background-color: rgb(0,0,0,0.15);
 }

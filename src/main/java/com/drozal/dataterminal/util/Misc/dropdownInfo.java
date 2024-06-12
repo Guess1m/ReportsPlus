@@ -4,18 +4,42 @@ import java.util.Arrays;
 import java.util.List;
 
 public class dropdownInfo {
-	public static final List<String> genders = Arrays.asList("Male", "Female", "Other");
+	public static final List<String> areaList = Arrays.asList("Alamo Sea", "Alta", "Backlot City", "Banham Canyon",
+	                                                          "Banning", "Baytree Canyon", "Bolingbroke Penitentiary",
+	                                                          "Burton", "Cape Catfish", "Cayo Perico",
+	                                                          "Chamberlain Hills", "Chiliad Mountain State Wilderness",
+	                                                          "Chumash", "Cypress Flats", "Davis", "Davis Quartz",
+	                                                          "Del Perro", "Del Perro Beach", "Dignity Village",
+	                                                          "Downtown Vinewood", "East Vinewood", "El Burro Heights",
+	                                                          "Elysian Island", "Fort Zancudo", "Galilee",
+	                                                          "Galileo Park", "Great Chaparral",
+	                                                          "GWC and Golfing Society", "Harmony",
+	                                                          "Heart Attacks Beach", "La Mesa", "La Puerta",
+	                                                          "Lago Zancudo", "Lake Vinewood", "Lake Vinewood Estates",
+	                                                          "Legion Square", "Little Seoul",
+	                                                          "Los Santos International Airport", "Ludendorff",
+	                                                          "Marlowe Vineyards", "Mirror Park",
+	                                                          "Mirror Park Railyard", "Mission Row", "Morningwood",
+	                                                          "Mount Chiliad", "Mount Gordo", "Mount Josiah",
+	                                                          "Murrieta Heights", "North Chumash", "North Point",
+	                                                          "Pacific Bluffs", "Paleto Bay", "Paleto Cove",
+	                                                          "Palomino Highlands", "Pillbox Hill",
+	                                                          "Port of Los Santos", "Procopio Beach", "Puerto Del Sol",
+	                                                          "Rancho", "Redwood Lights Track", "Richman (HD Universe)",
+	                                                          "Richman Glen", "Rockford Hills", "Sandy Shores",
+	                                                          "Stab City", "Strawberry", "Tataviam Mountains",
+	                                                          "Terminal", "Textile City", "Tongva Hills",
+	                                                          "Tongva Valley", "Vespucci Beach", "Vespucci Canals",
+	                                                          "Vinewood Hills", "Vinewood Racetrack", "West Vinewood");
 	public static final List<String> searchMethods = Arrays.asList("N/A", "Search Warrant", "Probable Cause",
 	                                                               "Consent Search", "Exigent Circumstances",
 	                                                               "Plain View Doctrine", "Incident to Arrest",
-	                                                               "Inventory Search", "Stop and Frisk", "Terry Frisk",
-	                                                               "K-9 Search", "Electronic Surveillance",
-	                                                               "Field Sobriety Test");
+	                                                               "Stop and Frisk", "Terry Frisk", "K-9 Search",
+	                                                               "Electronic Surveillance", "Field Sobriety Test");
 	public static final List<String> searchTypes = Arrays.asList("N/A", "Vehicle Search", "Personal Search",
 	                                                             "Premises Search", "Pat-down Search", "Baggage Search",
-	                                                             "Strip Search", "Digital Search",
-	                                                             "Probable Cause Search", "Consent Search",
-	                                                             "Inventory Search", "Exigent Circumstances Search");
+	                                                             "Strip Search", "Digital Search", "Consent Search",
+	                                                             "Inventory Search");
 	public static final List<String> carColors = Arrays.asList("N/A", "Black", "White", "Silver", "Gray", "Red", "Blue",
 	                                                           "Green", "Yellow", "Orange", "Brown", "Purple", "Pink",
 	                                                           "Teal", "Magenta", "Turquoise", "Gold", "Bronze", "Cyan",

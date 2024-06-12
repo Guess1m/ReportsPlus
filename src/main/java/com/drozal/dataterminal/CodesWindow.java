@@ -1,6 +1,6 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +20,7 @@ public class CodesWindow {
 	private ColumnConstraints usageColumn;
 	
 	public void initialize() {
-		topBar = reportCreationUtil.createSimpleTitleBar("Notepad Codes", true);
+		topBar = reportUtil.createSimpleTitleBar("Notepad Codes", true);
 		root.setTop(topBar);
 		usageColumn.setMaxWidth(0);
 	}

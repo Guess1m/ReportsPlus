@@ -2,7 +2,7 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,7 +55,7 @@ public class NotesViewController {
 		codesbtnnotepad.setOnMouseEntered(e -> codesbtnnotepad.setStyle(hoverStyle + padding));
 		codesbtnnotepad.setOnMouseExited(e -> codesbtnnotepad.setStyle(initialStyle + padding));
 		
-		titlebar = reportCreationUtil.createTitleBar("NotePad");
+		titlebar = reportUtil.createTitleBar("NotePad");
 		borderPane.setTop(titlebar);
 		
 		notepadTextArea.setText(actionController.notesText);

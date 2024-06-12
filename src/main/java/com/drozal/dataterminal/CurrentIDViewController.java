@@ -1,7 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.Objects.ID.ID;
 import com.drozal.dataterminal.util.server.Objects.ID.IDs;
 import jakarta.xml.bind.JAXBContext;
@@ -80,7 +80,7 @@ public class CurrentIDViewController {
 	}
 	
 	public void initialize() {
-		titleBar = reportCreationUtil.createSimpleTitleBar("Current ID", false);
+		titleBar = reportUtil.createSimpleTitleBar("Current ID", false);
 		root.setTop(titleBar);
 		cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
 		

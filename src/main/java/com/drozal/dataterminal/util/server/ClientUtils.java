@@ -138,78 +138,78 @@ public class ClientUtils {
 							});
 							break;
 						case "UPDATE_CALLOUT":
-								log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
+							log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveCalloutFromServer(4096);
-								Platform.runLater(() -> {
-									if (CalloutStage != null && CalloutStage.isShowing()) {
-										CalloutStage.close();
+							Platform.runLater(() -> {
+								if (CalloutStage != null && CalloutStage.isShowing()) {
+									CalloutStage.close();
+									CalloutStage = null;
+									return;
+								}
+								CalloutStage = new Stage();
+								FXMLLoader loader = new FXMLLoader(
+										actionController.class.getResource("callout-view.fxml"));
+								Parent root = null;
+								try {
+									root = loader.load();
+								} catch (IOException e) {
+									throw new RuntimeException(e);
+								}
+								Scene newScene = new Scene(root);
+								CalloutStage.setTitle("Callout Display");
+								CalloutStage.setScene(newScene);
+								try {
+									CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
+									                                        .equals("true"));
+								} catch (IOException e) {
+									logError("Could not fetch AOTCallout: ", e);
+								}
+								CalloutStage.initStyle(StageStyle.UNDECORATED);
+								CalloutStage.show();
+								CalloutStage.centerOnScreen();
+								
+								windowUtils.centerStageOnMainApp(CalloutStage);
+								
+								try {
+									if (!ConfigReader.configRead("calloutDuration")
+									                 .equals("infinite")) {
+										PauseTransition delay = null;
+										try {
+											delay = new PauseTransition(Duration.seconds(
+													Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
+										} catch (IOException e) {
+											logError("Callout could not be closed: ", e);
+										}
+										if (CalloutStage != null) {
+											delay.setOnFinished(event -> CalloutStage.close());
+										}
+										delay.play();
+									}
+								} catch (IOException e) {
+									logError("could not read calloutDuration: ", e);
+								}
+								
+								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+									@Override
+									public void handle(WindowEvent event) {
 										CalloutStage = null;
-										return;
 									}
-									CalloutStage = new Stage();
-									FXMLLoader loader = new FXMLLoader(
-											actionController.class.getResource("callout-view.fxml"));
-									Parent root = null;
-									try {
-										root = loader.load();
-									} catch (IOException e) {
-										throw new RuntimeException(e);
-									}
-									Scene newScene = new Scene(root);
-									CalloutStage.setTitle("Callout Display");
-									CalloutStage.setScene(newScene);
-									try {
-										CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
-										                                        .equals("true"));
-									} catch (IOException e) {
-										logError("Could not fetch AOTCallout: ", e);
-									}
-									CalloutStage.initStyle(StageStyle.UNDECORATED);
-									CalloutStage.show();
-									CalloutStage.centerOnScreen();
-									
-									windowUtils.centerStageOnMainApp(CalloutStage);
-									
-									try {
-										if (!ConfigReader.configRead("calloutDuration")
-										                 .equals("infinite")) {
-											PauseTransition delay = null;
-											try {
-												delay = new PauseTransition(Duration.seconds(Double.parseDouble(
-														ConfigReader.configRead("calloutDuration"))));
-											} catch (IOException e) {
-												logError("Callout could not be closed: ", e);
-											}
-											if (CalloutStage != null) {
-												delay.setOnFinished(event -> CalloutStage.close());
-											}
-											delay.play();
-										}
-									} catch (IOException e) {
-										logError("could not read calloutDuration: ", e);
-									}
-									
-									CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-										@Override
-										public void handle(WindowEvent event) {
-											CalloutStage = null;
-										}
-									});
-									
-									CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-										@Override
-										public void handle(WindowEvent event) {
-											CalloutStage = null;
-										}
-									});
 								});
+								
+								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
+									@Override
+									public void handle(WindowEvent event) {
+										CalloutStage = null;
+									}
+								});
+							});
 							break;
 						case "UPDATE_WORLD_PED":
-								log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
+							log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldPedFromServer(4096);
 							break;
 						case "UPDATE_WORLD_VEH":
-								log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
+							log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldVehFromServer(4096);
 							
 							break;

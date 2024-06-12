@@ -3,7 +3,7 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -125,7 +125,7 @@ public class settingsController {
 			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
 		}
 		
-		topBar = reportCreationUtil.createSimpleTitleBar("ReportsPlus", true);
+		topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
 		
 		root.setTop(topBar);
 		

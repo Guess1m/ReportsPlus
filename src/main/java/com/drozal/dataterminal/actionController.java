@@ -22,7 +22,7 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.controllerUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
 import com.drozal.dataterminal.util.Misc.stringUtil;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
@@ -2692,7 +2692,7 @@ public class actionController {
 			log("Not First Login", LogUtils.Severity.DEBUG);
 		}
 		
-		titlebar = reportCreationUtil.createTitleBar("Reports Plus");
+		titlebar = reportUtil.createTitleBar("Reports Plus");
 		
 		vbox.getChildren()
 		    .add(titlebar);

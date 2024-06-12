@@ -1,7 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -44,7 +44,7 @@ public class ClientController {
 	}
 	
 	public void initialize() throws IOException {
-		titleBar = reportCreationUtil.createSimpleTitleBar("Client Interface", false);
+		titleBar = reportUtil.createSimpleTitleBar("Client Interface", false);
 		
 		root.setTop(titleBar);
 		

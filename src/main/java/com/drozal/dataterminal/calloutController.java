@@ -1,7 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
+import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -79,7 +79,7 @@ public class calloutController {
 	}
 	
 	public void initialize() {
-		topBar = reportCreationUtil.createTitleBar("Callout Manager");
+		topBar = reportUtil.createTitleBar("Callout Manager");
 		
 		root.setTop(topBar);
 		

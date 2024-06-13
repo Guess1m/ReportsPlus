@@ -40,43 +40,7 @@ Ensure you have the following installed:
 
 ## Installation
 
-### **1. Installation `With` GTA Integration - For Using Another PC/Laptop (Recommended)**
-
-- GTA V Integration **`REQUIRES`** `Stop The Ped` and `Callout Interface`!
-- The computer `NOT` running GTA needs the Reports Plus application download.
-- The computer `RUNNING` GTA needs the Server download.
-
-### Server/Plugin Setup: (Instructions in download)
-
-1. Download the `Server` from the <a href="https://github.com/Guess1m/ReportsPlus/releases">Releases</a> tab in Github.
-2. Move the contents of the ReportsPlus Server folder to the base GTA directory on the PC running GTA. This will move a
-   folder named ReportsPlus to the base GTA directory.
-3. Go on duty in LSPDFR (Not required but i've had less issues)
-4. Open the ReportsPlusServer JAR. If there are issues, ensure the prerequisites are installed.
-5. The server will display your PC's local IPV4 address, which must be entered into the ReportsPlus application
-   connection window.
-6. Choose a port for the connection. If 5000 is in use, try 5001, 5002, etc. You will know the server is running if the
-   connection window says "server started."
-7. Ensure the port and address match between the Server and ReportsPlus application.
-8. **Use the help button on both applications for additional assistance.**
-
-### Reports Plus Setup: (Instructions in download)
-
-1. Download the `Application` from the <a href="https://github.com/Guess1m/ReportsPlus/releases">Releases</a> tab in
-   Github.
-2. Move the Reports Plus folder to any location on the computer NOT running GTA.
-3. Run the JAR file inside the ReportsPlus folder. Ensure the prerequisites are installed if there are any issues.
-4. Go on duty in LSPDFR (Not required but i've had less issues)
-5. Open the connection window by clicking the server connection status below the settings in the top right.
-6. Ensure the server is open and started, then copy the displayed address into the appropriate field in ReportsPlus.
-7. Choose a port that matches the one used on the server, and connect to the server.
-8. **Use the help button on both applications for additional assistance.**
-
-### **2. Installation `without` Server/GTA Integration**
-
-1. Download only the Reports Plus Application.
-2. Move the downloaded folder to any location (Desktop or Documents work fine).
-3. Run the JAR file inside the ReportsPlus folder. Ensure the prerequisites are installed if there are any issues.
+### `Please view the page on lcpdfr.com for installation`
 
 ## Troubleshooting
 

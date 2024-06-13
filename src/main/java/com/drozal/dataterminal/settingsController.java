@@ -29,6 +29,9 @@ import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
 public class settingsController {
 	
+	//<editor-fold desc="FXML">
+	
+	
 	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private CheckBox startupFullscreenCheckbox;
@@ -115,6 +118,13 @@ public class settingsController {
 	private Label headingLabelReport;
 	@javafx.fxml.FXML
 	private ComboBox presetComboBoxReport;
+	@javafx.fxml.FXML
+	private ComboBox idDurComboBox;
+	@javafx.fxml.FXML
+	private Label lbl7;
+	
+	
+	//</editor-fold>
 	
 	public void initialize() throws IOException {
 		if (DataTerminalHomeApplication.controller != null) {
@@ -534,6 +544,16 @@ public class settingsController {
 			ConfigWriter.configwrite("calloutDuration", selectedDur);
 		});
 		
+		String[] idDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
+		idDurComboBox.getItems()
+		                  .addAll(idDurations);
+		idDurComboBox.setValue(ConfigReader.configRead("IDDuration"));
+		idDurComboBox.setOnAction(actionEvent -> {
+			String selectedDur = (String) idDurComboBox.getSelectionModel()
+			                                                .getSelectedItem();
+			ConfigWriter.configwrite("IDDuration", selectedDur);
+		});
+		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene()
 			                          .getWindow();
@@ -629,6 +649,7 @@ public class settingsController {
 		lbl4.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl5.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl6.setStyle("-fx-text-fill: " + secclr + ";");
+		lbl7.setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String accclr = ConfigReader.configRead("accentColor");
 		
@@ -919,4 +940,6 @@ public class settingsController {
 			AOTDebug.setSelected(false);
 		}
 	}
+	
+	
 }

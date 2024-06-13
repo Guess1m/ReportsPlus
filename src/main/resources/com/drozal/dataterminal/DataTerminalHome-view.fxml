@@ -32,7 +32,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
+<AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
@@ -168,17 +168,35 @@
         </AnchorPane>
         <AnchorPane fx:id="vehLookupPane" layoutX="227.0" layoutY="110.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
-                <Label layoutX="60.0" layoutY="45.0" style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search Plate:" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="20.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="vehSearchField" layoutX="203.0" layoutY="48.0" prefHeight="36.0" prefWidth="565.0" promptText="Search by Plate Number" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
-                    <font>
-                        <Font name="Segoe UI Semibold" size="16.0" />
-                    </font>
-                </TextField>
-                <Button fx:id="vehSearchBtn" layoutX="789.0" layoutY="47.0" mnemonicParsing="false" onAction="#onVehSearchBtnClick" prefHeight="36.0" prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Search" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="47.0" />
+            <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="NEVER" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                      <Label style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search Plate:" textAlignment="CENTER">
+                          <font>
+                              <Font name="Segoe UI Black" size="20.0" />
+                          </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                      </Label>
+                      <TextField fx:id="vehSearchField" prefHeight="36.0" prefWidth="565.0" promptText="Search by Plate Number" GridPane.columnIndex="1">
+                          <font>
+                              <Font name="Segoe UI Semibold" size="16.0" />
+                          </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin>
+                      </TextField>
+                      <Button fx:id="vehSearchBtn" mnemonicParsing="false" onAction="#onVehSearchBtnClick" prefHeight="36.0" prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Search" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
                 <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0">
                     <children>
                         <AnchorPane layoutX="1.0" layoutY="53.0">
@@ -291,17 +309,6 @@
         </AnchorPane>
         <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
-                <Label layoutX="60.0" layoutY="46.0" style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search Ped:" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="46.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="20.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="pedSearchField" layoutX="192.0" layoutY="48.0" prefHeight="36.0" prefWidth="576.0" promptText="Search by Name" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="48.0">
-                    <font>
-                        <Font name="Segoe UI Semibold" size="16.0" />
-                    </font>
-                </TextField>
-                <Button fx:id="pedSearchBtn" layoutX="789.0" layoutY="47.0" mnemonicParsing="false" onAction="#onPedSearchBtnClick" prefHeight="36.0" prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Search" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="47.0" />
                 <AnchorPane fx:id="pedRecordPane" layoutX="88.0" layoutY="112.0" prefWidth="771.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="112.0">
                     <children>
                         <AnchorPane layoutX="1.0" layoutY="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
@@ -400,6 +407,33 @@
                         <Font name="Segoe UI Black" size="20.0" />
                     </font>
                 </Label>
+            <GridPane AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="NEVER" />
+                  <ColumnConstraints hgrow="NEVER" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                      <Label style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="Search Ped:" textAlignment="CENTER">
+                          <font>
+                              <Font name="Segoe UI Black" size="20.0" />
+                          </font>
+                      </Label>
+                      <TextField fx:id="pedSearchField" prefHeight="36.0" prefWidth="576.0" promptText="Search by Name" GridPane.columnIndex="1">
+                          <font>
+                              <Font name="Segoe UI Semibold" size="16.0" />
+                          </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin>
+                      </TextField>
+                      <Button fx:id="pedSearchBtn" mnemonicParsing="false" onAction="#onPedSearchBtnClick" prefHeight="36.0" prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;" styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css" text="Search" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">

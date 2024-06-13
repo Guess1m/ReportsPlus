@@ -129,6 +129,31 @@ public class ClientUtils {
 								
 								windowUtils.centerStageOnMainApp(IDStage);
 								
+								try {
+									if (!ConfigReader.configRead("IDDuration")
+									                 .equals("infinite")) {
+										PauseTransition delay = null;
+										try {
+											delay = new PauseTransition(Duration.seconds(
+													Double.parseDouble(ConfigReader.configRead("IDDuration"))));
+										} catch (IOException e) {
+											logError("ID could not be closed: ", e);
+										}
+										if (IDStage != null) {
+											delay.setOnFinished(event -> {
+												try {
+													IDStage.close();
+												} catch (NullPointerException e) {
+													log("IDStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
+												}
+											});
+										}
+										delay.play();
+									}
+								} catch (IOException e) {
+									logError("could not read IDDuration: ", e);
+								}
+								
 								IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 									@Override
 									public void handle(WindowEvent event) {
@@ -181,7 +206,13 @@ public class ClientUtils {
 											logError("Callout could not be closed: ", e);
 										}
 										if (CalloutStage != null) {
-											delay.setOnFinished(event -> CalloutStage.close());
+											delay.setOnFinished(event -> {
+												try {
+													CalloutStage.close();
+												} catch (NullPointerException e) {
+													log("CalloutStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
+												}
+											});
 										}
 										delay.play();
 									}
@@ -189,12 +220,6 @@ public class ClientUtils {
 									logError("could not read calloutDuration: ", e);
 								}
 								
-								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-									@Override
-									public void handle(WindowEvent event) {
-										CalloutStage = null;
-									}
-								});
 								
 								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
 									@Override

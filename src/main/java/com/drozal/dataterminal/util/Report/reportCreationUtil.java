@@ -1033,9 +1033,8 @@ public class reportCreationUtil {
 			timeinc.setText(time.getText());
 			incidentnum.setText(arrestnum.getText());
 			countyinc.setText(county.getText());
-			areainc.getEditor()
-			       .setText(area.getEditor()
-			                    .getText());
+			areainc.setValue(area.getEditor()
+			                     .getText());
 			streetinc.setText(street.getText());
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
@@ -1149,9 +1148,8 @@ public class reportCreationUtil {
 			datesrch.setText(date.getText());
 			searchedindividualsrch.setText(offenderName.getText());
 			countysrch.setText(county.getText());
-			areasrch.getEditor()
-			        .setText(area.getEditor()
-			                     .getText());
+			areasrch.setValue(area.getEditor()
+			                      .getText());
 			streetsrch.setText(street.getText());
 			
 			Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1413,9 +1411,8 @@ public class reportCreationUtil {
 			offenderGenderarr.setText(offenderGenderts.getText());
 			offenderAgearr.setText(offenderAgets.getText());
 			offenderDescriptionarr.setText(offenderDescriptionts.getText());
-			areaarr.getEditor()
-			       .setText(areats.getEditor()
-			                      .getText());
+			areaarr.setValue(areats.getEditor()
+			                       .getText());
 			countyarr.setText(countyts.getText());
 			streetarr.setText(streetts.getText());
 			arrestnumarr.setText(stopnumts.getText());
@@ -1596,9 +1593,8 @@ public class reportCreationUtil {
 				timeinc.setText(timearr.getText());
 				incidentnum.setText(arrestnumarr.getText());
 				countyinc.setText(countyarr.getText());
-				areainc.getEditor()
-				       .setText(areaarr.getEditor()
-				                       .getText());
+				areainc.setValue(areaarr.getEditor()
+				                        .getText());
 				streetinc.setText(streetarr.getText());
 				suspectsinc.setText(offenderNamearr.getText());
 				notesinc.setText(notesarr.getText());
@@ -1712,9 +1708,8 @@ public class reportCreationUtil {
 				datesrch.setText(datearr.getText());
 				searchedindividualsrch.setText(offenderNamearr.getText());
 				countysrch.setText(countyarr.getText());
-				areasrch.getEditor()
-				        .setText(areaarr.getEditor()
-				                        .getText());
+				areasrch.setValue(areaarr.getEditor()
+				                         .getText());
 				streetsrch.setText(streetarr.getText());
 				
 				Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1907,9 +1902,8 @@ public class reportCreationUtil {
 			offenderGendercit.setText(offenderGenderts.getText());
 			offenderAgecit.setText(offenderAgets.getText());
 			offenderDescriptioncit.setText(offenderDescriptionts.getText());
-			areacit.getEditor()
-			       .setText(areats.getEditor()
-			                      .getText());
+			areacit.setValue(areats.getEditor()
+			                       .getText());
 			countycit.setText(countyts.getText());
 			streetcit.setText(streetts.getText());
 			modelcit.setText(modelts.getText());

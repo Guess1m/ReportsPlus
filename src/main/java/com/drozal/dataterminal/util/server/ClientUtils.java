@@ -154,6 +154,7 @@ public class ClientUtils {
 									logError("could not read IDDuration: ", e);
 								}
 								
+								
 								IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 									@Override
 									public void handle(WindowEvent event) {

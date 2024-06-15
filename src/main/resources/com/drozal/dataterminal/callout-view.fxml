@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="342.0"
-            prefWidth="618.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="369.0"
             style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;"
-            xmlns="http://javafx.com/javafx/21"
+            prefWidth="638.0" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.calloutController">
     <center>
         <AnchorPane style="-fx-background-color: #505d62;">

@@ -27,7 +27,6 @@ import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -2527,6 +2526,9 @@ public class actionController {
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
 			if (!isConnected) {
+				lookupBtn.setVisible(false);
+				showCalloutBtn.setVisible(false);
+				showIDBtn.setVisible(false);
 				LogUtils.log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
 				serverStatusLabel.setStyle(
@@ -2544,6 +2546,9 @@ public class actionController {
 							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				}
 			} else {
+				lookupBtn.setVisible(true);
+				showCalloutBtn.setVisible(true);
+				showIDBtn.setVisible(true);
 				serverStatusLabel.setText("Connected");
 				
 				serverStatusLabel.setStyle(
@@ -2679,6 +2684,10 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
+		
+		lookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
 		
 		if (ConfigReader.configRead("firstLogin")
 		                .equals("true")) {
@@ -2832,7 +2841,7 @@ public class actionController {
 			
 			if (!stringUtil.version.equals("dev")) {
 				if (!stringUtil.version.equals(gitVersion)) {
-					if (gitVersion.equals("null")) {
+					if (gitVersion == null) {
 						versionLabel.setText("New Version Available!");
 						versionLabel.setStyle("-fx-text-fill: red;");
 					} else {

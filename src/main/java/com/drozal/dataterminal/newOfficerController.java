@@ -67,6 +67,7 @@ public class newOfficerController {
 		ConfigWriter.configwrite("reportWindowDarkMode", "false");
 		
 		ConfigWriter.configwrite("calloutDuration", "7");
+		ConfigWriter.configwrite("IDDuration", "infinite");
 		
 		ConfigWriter.configwrite("AOTNotes", "true");
 		ConfigWriter.configwrite("AOTReport", "true");

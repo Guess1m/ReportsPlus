@@ -18,6 +18,9 @@ public class Callout {
 	@XmlElement(name = "Description")
 	private String description;
 	
+	@XmlElement(name = "Message")
+	private String message;
+	
 	@XmlElement(name = "Priority")
 	private String priority;
 	
@@ -78,6 +81,14 @@ public class Callout {
 	
 	public String getArea() {
 		return area;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	public void setArea(String area) {

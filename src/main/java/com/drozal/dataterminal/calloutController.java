@@ -94,6 +94,7 @@ public class calloutController {
 				dateField.setText(callout.getStartDate());
 				countyField.setText(callout.getCounty());
 				descriptionField.setText(callout.getDescription());
+				descriptionField.appendText("\n" + callout.getMessage());
 				typeField.setText(callout.getType());
 				
 			} else {
@@ -159,6 +160,7 @@ public class calloutController {
 									dateField.setText(callout.getStartDate());
 									countyField.setText(callout.getCounty());
 									descriptionField.setText(callout.getDescription());
+									descriptionField.appendText("\n" + callout.getMessage());
 									typeField.setText(callout.getType());
 									
 								} else {

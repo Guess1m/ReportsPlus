@@ -528,13 +528,6 @@ public class actionController {
 	
 	//<editor-fold desc="Getters">
 	
-	public static void handleClose() {
-		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-		endLog();
-		ClientUtils.disconnectFromService();
-		Platform.exit();
-		System.exit(0);
-	}
 	
 	public Label getServerStatusLabel() {
 		return serverStatusLabel;
@@ -652,15 +645,20 @@ public class actionController {
 		return secondaryColor4Bkg;
 	}
 	
+	public static void handleClose() {
+		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		endLog();
+		ClientUtils.disconnectFromService();
+		Platform.exit();
+		System.exit(0);
+	}
+	
 	
 	//</editor-fold>
 	
 	
 	//<editor-fold desc="Events">
 	
-	public Label getSecondaryColor5Bkg() {
-		return secondaryColor5Bkg;
-	}
 	
 	@javafx.fxml.FXML
 	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
@@ -2598,6 +2596,10 @@ public class actionController {
 		
 		getReportChart().getData()
 		                .add(series1);
+	}
+	
+	public Label getSecondaryColor5Bkg() {
+		return secondaryColor5Bkg;
 	}
 	
 	private void loadTheme() throws IOException {

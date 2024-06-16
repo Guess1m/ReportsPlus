@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0"
-            prefHeight="395.0"
-            prefWidth="620.0" xmlns="http://javafx.com/javafx/21"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" maxHeight="-Infinity" minHeight="395.0" minWidth="586.0" prefHeight="395.0"
+            prefWidth="620.0" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.newOfficerController">
     <children>
         <AnchorPane layoutX="21.0" layoutY="6.0" minHeight="-Infinity" minWidth="-Infinity"
@@ -95,8 +94,8 @@
                         </VBox>
                         <Label alignment="CENTER" layoutX="17.0" layoutY="8.0" maxHeight="-Infinity"
                                minHeight="-Infinity" prefHeight="38.0" prefWidth="460.0" styleClass="heading"
-                               stylesheets="@css/menu/menuLabels.css" text="Sign In" AnchorPane.leftAnchor="17.0"
-                               AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="8.0"/>
+                               stylesheets="@css/menu/menuLabels.css" text="New Officer Login"
+                               AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="8.0"/>
                         <Button fx:id="loginBtn" defaultButton="true" layoutX="374.0" layoutY="272.0"
                                 maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                                 mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0"

@@ -145,8 +145,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="vehLookupPane" layoutX="227.0" layoutY="110.0" prefHeight="641.0" prefWidth="797.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
             <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0">
                <columnConstraints>
@@ -197,18 +197,30 @@
                                         <AnchorPane>
                                             <children>
                                                 <Label layoutY="14.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="License Plate:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
-                                                <TextField fx:id="vehplatefield2" layoutY="56.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="vehplatefield2" editable="false" layoutY="56.0"
+                                                           styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
+                                                           AnchorPane.rightAnchor="0.0"/>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="vehmodelfield" layoutY="56.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="vehmodelfield" editable="false" layoutY="56.0"
+                                                           styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
+                                                           AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutY="14.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Model:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="1">
                                             <children>
-                                                <TextField fx:id="vehstolenfield" layoutX="1.0" layoutY="27.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="vehstolenfield" editable="false" layoutX="1.0"
+                                                           layoutY="27.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="0.0"
+                                                           AnchorPane.rightAnchor="0.0"/>
                                                 <Label style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Vehicle Stolen:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
                                             </children>
                                         </AnchorPane>
@@ -257,19 +269,31 @@
                                     <children>
                                         <AnchorPane>
                                             <children>
-                                                <TextField fx:id="vehownerfield" layoutY="50.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                                <TextField fx:id="vehownerfield" editable="false" layoutY="50.0"
+                                                           styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="50.0"/>
                                                 <Label style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Owner:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="vehregfield" layoutX="1.0" layoutY="27.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                                <TextField fx:id="vehregfield" editable="false" layoutX="1.0"
+                                                           layoutY="27.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="50.0"/>
                                                 <Label style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Registration Status:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="2">
                                             <children>
-                                                <TextField fx:id="vehinsfield" layoutX="1.0" layoutY="27.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                                <TextField fx:id="vehinsfield" editable="false" layoutX="1.0"
+                                                           layoutY="27.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="50.0"/>
                                                 <Label style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Insurance Status:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
                                             </children>
                                         </AnchorPane>
@@ -311,43 +335,64 @@
                                     <children>
                                         <AnchorPane>
                                             <children>
-                                                <TextField fx:id="pedfnamefield" layoutX="13.0" layoutY="46.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedfnamefield" editable="false" layoutX="13.0"
+                                                           layoutY="46.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="12.0" layoutY="19.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="First Name:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="pedlnamefield" layoutX="13.0" layoutY="48.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedlnamefield" editable="false" layoutX="13.0"
+                                                           layoutY="48.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="12.0" layoutY="21.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Last Name:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="1">
                                             <children>
-                                                <TextField fx:id="pedwantedfield" layoutX="26.0" layoutY="47.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedwantedfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Wanted Status:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane prefHeight="103.0" prefWidth="223.0" GridPane.columnIndex="2">
                                             <children>
-                                                <TextField fx:id="pedgenfield" layoutX="26.0" layoutY="47.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedgenfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Gender:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <TextField fx:id="pedlicensefield" layoutX="27.0" layoutY="47.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedlicensefield" editable="false" layoutX="27.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="License Status:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                             <children>
-                                                <TextField fx:id="peddobfield" layoutX="26.0" layoutY="47.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="peddobfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Birthday:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="2">
                                             <children>
-                                                <TextField fx:id="pedaddressfield" layoutX="26.0" layoutY="47.0" styleClass="calloutField" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                <TextField fx:id="pedaddressfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                                                 <Label layoutX="25.0" layoutY="20.0" style="-fx-font-size: 13;" styleClass="sub-heading" stylesheets="@css/menu/menuLabels.css" text="Address:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="19.0" />
                                             </children>
                                         </AnchorPane>

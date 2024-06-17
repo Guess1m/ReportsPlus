@@ -3,12 +3,10 @@ package com.drozal.dataterminal;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Misc.sleepUtil;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.application.Platform;
 import javafx.scene.text.Font;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -24,14 +22,6 @@ import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationData
 public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
-		
-		try {
-			sleepUtil preventSleep = new sleepUtil();
-			preventSleep.startPreventSleep();
-			log("Started PreventSleep", Severity.DEBUG);
-		} catch (AWTException e) {
-			logError("Could not start SleepUtil: ", e);
-		}
 		
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";

@@ -31,7 +31,6 @@ public class settingsController {
 	
 	//<editor-fold desc="FXML">
 	
-	
 	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private CheckBox startupFullscreenCheckbox;
@@ -546,11 +545,11 @@ public class settingsController {
 		
 		String[] idDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		idDurComboBox.getItems()
-		                  .addAll(idDurations);
+		             .addAll(idDurations);
 		idDurComboBox.setValue(ConfigReader.configRead("IDDuration"));
 		idDurComboBox.setOnAction(actionEvent -> {
 			String selectedDur = (String) idDurComboBox.getSelectionModel()
-			                                                .getSelectedItem();
+			                                           .getSelectedItem();
 			ConfigWriter.configwrite("IDDuration", selectedDur);
 		});
 		
@@ -940,6 +939,5 @@ public class settingsController {
 			AOTDebug.setSelected(false);
 		}
 	}
-	
 	
 }

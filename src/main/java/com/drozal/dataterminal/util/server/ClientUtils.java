@@ -144,7 +144,8 @@ public class ClientUtils {
 												try {
 													IDStage.close();
 												} catch (NullPointerException e) {
-													log("IDStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
+													log("IDStage was closed before it could be automtically closed",
+													    LogUtils.Severity.WARN);
 												}
 											});
 										}
@@ -211,7 +212,8 @@ public class ClientUtils {
 												try {
 													CalloutStage.close();
 												} catch (NullPointerException e) {
-													log("CalloutStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
+													log("CalloutStage was closed before it could be automtically closed",
+													    LogUtils.Severity.WARN);
 												}
 											});
 										}

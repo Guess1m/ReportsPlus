@@ -13,9 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -168,7 +165,7 @@ public class CalloutManager {
 		return null;
 	}
 	
-	public static void loadCalloutsIntoTable(TableView tableView, TableColumn id, TableColumn status, TableColumn title, TableColumn address, TableColumn code, TableColumn area) {
+	public static void loadCalloutsIntoTable(TableView<Callout> tableView, TableColumn<Callout, String> id, TableColumn<Callout, String> status, TableColumn<Callout, String> title, TableColumn<Callout, String> address, TableColumn<Callout, String> priority, TableColumn<Callout, String> area) {
 		try {
 			tableView.getItems()
 			         .clear();
@@ -178,18 +175,18 @@ public class CalloutManager {
 			File xmlFile = new File(calloutData);
 			Callouts callouts = (Callouts) unmarshaller.unmarshal(xmlFile);
 			
-			
-			ObservableList<Callout> calloutList = FXCollections.observableArrayList(callouts.getCalloutList());
-			
-			
-			tableView.setItems(calloutList);
-			
+			if (callouts != null && callouts.getCalloutList() != null) {
+				ObservableList<Callout> calloutList = FXCollections.observableArrayList(callouts.getCalloutList());
+				tableView.setItems(calloutList);
+			} else {
+				tableView.setItems(FXCollections.observableArrayList());
+			}
 			
 			id.setCellValueFactory(new PropertyValueFactory<>("Number"));
 			status.setCellValueFactory(new PropertyValueFactory<>("number"));
-			title.setCellValueFactory(new PropertyValueFactory<>("Type"));
-			address.setCellValueFactory(new PropertyValueFactory<>("Street"));
-			code.setCellValueFactory(new PropertyValueFactory<>("Priority"));
+			title.setCellValueFactory(new PropertyValueFactory<>("type"));
+			address.setCellValueFactory(new PropertyValueFactory<>("street"));
+			priority.setCellValueFactory(new PropertyValueFactory<>("Priority"));
 			area.setCellValueFactory(new PropertyValueFactory<>("Area"));
 			
 		} catch (JAXBException e) {

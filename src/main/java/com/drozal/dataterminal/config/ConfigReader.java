@@ -128,5 +128,4 @@ public class ConfigReader {
 		checkAndSetDefaultValue("secondaryColor", "#665CB6");
 	}
 	
-	
 }

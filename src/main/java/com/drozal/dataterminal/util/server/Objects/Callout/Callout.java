@@ -83,16 +83,16 @@ public class Callout {
 		return area;
 	}
 	
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
 	public String getMessage() {
 		return message;
 	}
 	
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	
-	public void setArea(String area) {
-		this.area = area;
 	}
 	
 	public String getCounty() {

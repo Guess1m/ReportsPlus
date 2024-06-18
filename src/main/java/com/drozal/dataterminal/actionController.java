@@ -22,8 +22,6 @@ import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
-import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -543,6 +541,13 @@ public class actionController {
 	
 	//<editor-fold desc="Getters">
 	
+	public static void handleClose() {
+		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		endLog();
+		ClientUtils.disconnectFromService();
+		Platform.exit();
+		System.exit(0);
+	}
 	
 	public Label getServerStatusLabel() {
 		return serverStatusLabel;
@@ -660,20 +665,11 @@ public class actionController {
 		return secondaryColor4Bkg;
 	}
 	
-	public static void handleClose() {
-		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-		endLog();
-		ClientUtils.disconnectFromService();
-		Platform.exit();
-		System.exit(0);
-	}
-	
 	
 	//</editor-fold>
 	
 	
 	//<editor-fold desc="Events">
-	
 	
 	@javafx.fxml.FXML
 	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
@@ -2880,16 +2876,22 @@ public class actionController {
 		CalloutManager.deleteCallout(calloutData, "1");
 		CalloutManager.deleteCallout(calloutData, "2");
 		CalloutManager.deleteCallout(calloutData, "3");
-		CalloutManager.addCallout(calloutData, "1", "one one", "Gas leak at commercial building", "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00", "2024-06-17");
-		CalloutManager.addCallout(calloutData, "3", "twooo", "Gas leak at commercial building", "Evacuate the building immediately", "Code 2", "Market St", "Uptown", "King", "15:00", "2024-06-17");
-		CalloutManager.addCallout(calloutData, "2", "third", "Gas leak at commercial building", "Evacuate the building immediately", "Code 1", "Market St", "Uptown", "King", "15:00", "2024-06-17");
-		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus,calHisColumnTitle,calHisColumnAddress,calHisColumnCode,calHisColumnArea);
+		CalloutManager.addCallout(calloutData, "1", "one one", "Gas leak at commercial building",
+		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
+		                          "2024-06-17");
+		CalloutManager.addCallout(calloutData, "1", "twooo", "Gas leak at commercial building",
+		                          "Evacuate the building immediately", "Code 2", "Market St", "Uptown", "King", "15:00",
+		                          "2024-06-17");
+		CalloutManager.addCallout(calloutData, "2", "third", "Gas leak at commercial building",
+		                          "Evacuate the building immediately", "Code 1", "Market St", "Uptown", "King", "15:00",
+		                          "2024-06-17");
+		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus, calHisColumnTitle,
+		                                     calHisColumnAddress, calHisColumnCode, calHisColumnArea);
 	}
 	
-	private void showCalloutPane(){
-		setDisable(shiftInformationPane,logPane, pedLookupPane, vehLookupPane);
+	private void showCalloutPane() {
+		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
 		setActive(calloutPane);
-		
 		
 	}
 }

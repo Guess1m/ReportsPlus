@@ -18,13 +18,12 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Misc.controllerUtils;
-import com.drozal.dataterminal.util.Misc.dropdownInfo;
-import com.drozal.dataterminal.util.Misc.stringUtil;
+import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
+import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -521,6 +520,22 @@ public class actionController {
 	private TextField pedaddressfield;
 	@javafx.fxml.FXML
 	private AnchorPane tutorialOverlay;
+	@javafx.fxml.FXML
+	private AnchorPane calloutPane;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnStatus;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnAddress;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnID;
+	@javafx.fxml.FXML
+	private TableView calHistoryTable;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnArea;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnTitle;
+	@javafx.fxml.FXML
+	private TableColumn calHisColumnCode;
 	
 	
 	//</editor-fold>
@@ -775,7 +790,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-		setDisable(logPane, pedLookupPane, vehLookupPane);
+		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane);
 		setActive(shiftInformationPane);
 		showAnimation(shiftInfoBtn);
 		controllerUtils.refreshChart(areaReportChart, "area");
@@ -784,7 +799,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onLogsButtonClick(ActionEvent actionEvent) {
 		showAnimation(logsButton);
-		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane);
+		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane, calloutPane);
 		setActive(logPane);
 	}
 	
@@ -813,7 +828,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onVehLookupBtnClick(ActionEvent actionEvent) {
-		setDisable(logPane, pedLookupPane, shiftInformationPane);
+		setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane);
 		vehRecordPane.setVisible(false);
 		noRecordFoundLabelVeh.setVisible(false);
 		setActive(vehLookupPane);
@@ -821,7 +836,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onPedLookupBtnClick(ActionEvent actionEvent) {
-		setDisable(logPane, vehLookupPane, shiftInformationPane);
+		setDisable(logPane, vehLookupPane, shiftInformationPane, calloutPane);
 		pedRecordPane.setVisible(false);
 		noRecordFoundLabelPed.setVisible(false);
 		setActive(pedLookupPane);
@@ -2717,7 +2732,7 @@ public class actionController {
 		
 		checkForUpdates();
 		
-		setDisable(logPane, pedLookupPane, vehLookupPane);
+		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane);
 		setActive(shiftInformationPane);
 		needRefresh.set(0);
 		needRefresh.addListener((obs, oldValue, newValue) -> {
@@ -2858,4 +2873,23 @@ public class actionController {
 		
 	}
 	
+	@javafx.fxml.FXML
+	public void test(ActionEvent actionEvent) {
+		showCalloutPane();
+		String calloutData = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
+		CalloutManager.deleteCallout(calloutData, "1");
+		CalloutManager.deleteCallout(calloutData, "2");
+		CalloutManager.deleteCallout(calloutData, "3");
+		CalloutManager.addCallout(calloutData, "1", "one one", "Gas leak at commercial building", "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00", "2024-06-17");
+		CalloutManager.addCallout(calloutData, "3", "twooo", "Gas leak at commercial building", "Evacuate the building immediately", "Code 2", "Market St", "Uptown", "King", "15:00", "2024-06-17");
+		CalloutManager.addCallout(calloutData, "2", "third", "Gas leak at commercial building", "Evacuate the building immediately", "Code 1", "Market St", "Uptown", "King", "15:00", "2024-06-17");
+		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus,calHisColumnTitle,calHisColumnAddress,calHisColumnCode,calHisColumnArea);
+	}
+	
+	private void showCalloutPane(){
+		setDisable(shiftInformationPane,logPane, pedLookupPane, vehLookupPane);
+		setActive(calloutPane);
+		
+		
+	}
 }

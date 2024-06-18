@@ -93,8 +93,13 @@ public class calloutController {
 				timeField.setText(callout.getStartTime());
 				dateField.setText(callout.getStartDate());
 				countyField.setText(callout.getCounty());
-				descriptionField.setText(callout.getDescription());
-				descriptionField.appendText("\n" + callout.getMessage());
+				if (!callout.getDescription().isEmpty()) descriptionField.setText(callout.getDescription());
+				if (!callout.getMessage().isEmpty()) descriptionField.appendText("\n" + callout.getMessage());
+				
+				//todo write to calloutData.xml file with new callout's data   if not available, set as "Not Available"
+				
+				
+				
 				typeField.setText(callout.getType());
 				
 			} else {

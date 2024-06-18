@@ -110,6 +110,13 @@ public class Launcher {
 			log("Server Data Folder Already Exists", LogUtils.Severity.INFO);
 		}
 		
+		String calloutData = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
+		File calloutDataFile = new File(calloutData);
+		if (!calloutDataFile.exists()) {
+			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
+			calloutDataFile.createNewFile();
+		}
+		
 		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
 		File chargesFile = new File(chargesFilePath);
 		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";

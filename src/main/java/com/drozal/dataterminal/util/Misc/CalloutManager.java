@@ -18,10 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 
 public class CalloutManager {
-	private static String calloutData = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate) {
 		Callouts callouts = null;
@@ -170,9 +169,14 @@ public class CalloutManager {
 			tableView.getItems()
 			         .clear();
 			
+			File xmlFile = new File(calloutDataURL);
+			if (!xmlFile.exists() || xmlFile.length() == 0) {
+				System.err.println("The XML file does not exist or is empty.");
+				return;
+			}
+			
 			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			File xmlFile = new File(calloutData);
 			Callouts callouts = (Callouts) unmarshaller.unmarshal(xmlFile);
 			
 			if (callouts != null && callouts.getCalloutList() != null) {

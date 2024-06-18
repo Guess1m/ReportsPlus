@@ -15,6 +15,7 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
@@ -110,8 +111,7 @@ public class Launcher {
 			log("Server Data Folder Already Exists", LogUtils.Severity.INFO);
 		}
 		
-		String calloutData = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
-		File calloutDataFile = new File(calloutData);
+		File calloutDataFile = new File(calloutDataURL);
 		if (!calloutDataFile.exists()) {
 			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
 			calloutDataFile.createNewFile();

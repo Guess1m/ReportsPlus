@@ -2872,19 +2872,20 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void test(ActionEvent actionEvent) {
 		showCalloutPane();
-		String calloutData = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
-		CalloutManager.deleteCallout(calloutData, "1");
-		CalloutManager.deleteCallout(calloutData, "2");
-		CalloutManager.deleteCallout(calloutData, "3");
-		CalloutManager.addCallout(calloutData, "1", "one one", "Gas leak at commercial building",
+		/*
+		CalloutManager.deleteCallout(calloutDataURL, "1");
+		CalloutManager.deleteCallout(calloutDataURL, "2");
+		CalloutManager.deleteCallout(calloutDataURL, "3");
+		CalloutManager.addCallout(calloutDataURL, "1", "one one", "Gas leak at commercial building",
 		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
 		                          "2024-06-17");
-		CalloutManager.addCallout(calloutData, "1", "twooo", "Gas leak at commercial building",
+		CalloutManager.addCallout(calloutDataURL, "1", "twooo", "Gas leak at commercial building",
 		                          "Evacuate the building immediately", "Code 2", "Market St", "Uptown", "King", "15:00",
 		                          "2024-06-17");
-		CalloutManager.addCallout(calloutData, "2", "third", "Gas leak at commercial building",
+		CalloutManager.addCallout(calloutDataURL, "2", "third", "Gas leak at commercial building",
 		                          "Evacuate the building immediately", "Code 1", "Market St", "Uptown", "King", "15:00",
 		                          "2024-06-17");
+		*/
 		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus, calHisColumnTitle,
 		                                     calHisColumnAddress, calHisColumnCode, calHisColumnArea);
 	}

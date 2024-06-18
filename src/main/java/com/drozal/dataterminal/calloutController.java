@@ -1,5 +1,6 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
@@ -8,6 +9,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +22,7 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
@@ -27,25 +30,25 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 public class calloutController {
 	
 	static AnchorPane topBar;
-	@javafx.fxml.FXML
+	@FXML
 	private BorderPane root;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField streetField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField numberField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField areaField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField priorityField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField timeField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField dateField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField countyField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextArea descriptionField;
-	@javafx.fxml.FXML
+	@FXML
 	private TextField typeField;
 	
 	public static AnchorPane getTopBar() {
@@ -85,27 +88,39 @@ public class calloutController {
 		
 		Platform.runLater(() -> {
 			Callout callout = getCallout();
+			
+			String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
+			String type = callout.getType() != null ? callout.getType() : "Not Available";
+			String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
+			String area = callout.getArea() != null ? callout.getArea() : "Not Available";
+			String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
+			String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
+			String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
+			String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
+			String desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
+			String message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+			
 			if (callout != null) {
-				streetField.setText(callout.getStreet());
-				numberField.setText(callout.getNumber());
-				areaField.setText(callout.getArea());
-				priorityField.setText(callout.getPriority());
-				timeField.setText(callout.getStartTime());
-				dateField.setText(callout.getStartDate());
-				countyField.setText(callout.getCounty());
+				streetField.setText(street);
+				numberField.setText(number);
+				areaField.setText(area);
+				priorityField.setText(priority);
+				timeField.setText(time);
+				dateField.setText(date);
+				countyField.setText(county);
+				typeField.setText(type);
 				if (!callout.getDescription()
 				            .isEmpty()) {
-					descriptionField.setText(callout.getDescription());
+					descriptionField.setText(desc);
 				}
 				if (!callout.getMessage()
 				            .isEmpty()) {
-					descriptionField.appendText("\n" + callout.getMessage());
+					descriptionField.appendText("\n " + message);
 				}
 				
-				//todo write to calloutData.xml file with new callout's data   if not available, set as "Not Available"
-				
-				
-				typeField.setText(callout.getType());
+				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
+				                          time, date);
+				System.out.println("added callout");
 				
 			} else {
 				

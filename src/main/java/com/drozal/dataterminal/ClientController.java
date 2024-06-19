@@ -93,11 +93,6 @@ public class ClientController {
 		showHelpDialog(stage);
 	}
 	
-	/**
-	 * Shows a dialog with help information for the user.
-	 * This method creates an Alert of type INFORMATION and sets its content text to provide
-	 * instructions and descriptions of various features in the application.
-	 */
 	private void showHelpDialog(Stage owner) {
 		Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
 		helpDialog.setTitle("Help");

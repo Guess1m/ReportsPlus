@@ -6,29 +6,17 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +67,8 @@ public class CalloutManager {
 			newCallout.setStreet(street);
 			newCallout.setArea(area);
 			newCallout.setCounty(county);
-			newCallout.setStartTime(startTime);
 			newCallout.setStartDate(startDate);
+			newCallout.setStartTime(startTime);
 			newCallout.setStatus(status);
 			callouts.getCalloutList()
 			        .add(newCallout);
@@ -139,34 +127,62 @@ public class CalloutManager {
 		}
 	}
 	
+	public static void handleSelectedNode(ListView<Node> listView, AnchorPane pane,TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
+		Node selectedNode = listView.getSelectionModel()
+		                            .getSelectedItem();
+		if (selectedNode!=null){
+			pane.setVisible(true);
+			pane.setDisable(false);
+		if (selectedNode instanceof GridPane) {
+			GridPane gridPane = (GridPane) selectedNode;
+			String number = ((Label) gridPane.getChildren()
+			                                 .get(1)).getText();
+			
+			// Retrieve the relevant data from the XML file using the extracted number
+			String type = getValueByNumber(calloutDataURL, number, "Type");
+			String description = getValueByNumber(calloutDataURL, number, "Description");
+			String message = getValueByNumber(calloutDataURL, number, "Message");
+			String priority = getValueByNumber(calloutDataURL, number, "Priority");
+			String street = getValueByNumber(calloutDataURL, number, "Street");
+			String area = getValueByNumber(calloutDataURL, number, "Area");
+			String county = getValueByNumber(calloutDataURL, number, "County");
+			String status = getValueByNumber(calloutDataURL, number, "Status");
+			String time = getValueByNumber(calloutDataURL, number, "StartTime");
+			String date = getValueByNumber(calloutDataURL, number, "StartDate");
+			
+			calArea.setText(area);
+			calNum.setText(number);
+			calPriority.setText(priority);
+			caltype.setText(type);
+			calCounty.setText(county);
+			calDate.setText(date);
+			caladdress.setText(street);
+			calDesc.setText(description);
+			if (message!=null) calDesc.appendText("\n"+message);
+			calTime.setText(time);
+		}
+		} else {
+			pane.setVisible(false);
+		}
+	}
+	
 	public static String getValueByNumber(String xmlFile, String number, String fieldName) {
 		Callouts callouts = null;
 		
 		try {
 			
-			fieldName = fieldName.substring(0, 1)
-			                     .toUpperCase() + fieldName.substring(1)
-			                                               .toLowerCase();
-			
-			
 			if (xmlFile.length() != 0) {
-				
 				JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
 				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 				callouts = (Callouts) unmarshaller.unmarshal(new File(xmlFile));
 			} else {
-				
 				return null;
 			}
 			
-			
 			List<Callout> calloutList = callouts.getCalloutList();
-			
-			
 			if (calloutList == null) {
 				return null;
 			}
-			
 			
 			for (Callout callout : calloutList) {
 				if (callout.getNumber()
@@ -178,7 +194,6 @@ public class CalloutManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		return null;
 	}
@@ -201,8 +216,8 @@ public class CalloutManager {
 			if (callouts != null && callouts.getCalloutList() != null) {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
-					Node calloutNode = createCalloutNode(callout.getNumber(), callout.getStatus(), callout.getType(), callout.getStreet(),
-					                                     callout.getPriority(), callout.getArea());
+					Node calloutNode = createCalloutNode(callout.getNumber(), callout.getStatus(), callout.getType(),
+					                                     callout.getStreet(), callout.getPriority(), callout.getArea());
 					listView.getItems()
 					        .add(calloutNode);
 				}
@@ -226,7 +241,8 @@ public class CalloutManager {
 		ColumnConstraints col4 = new ColumnConstraints();
 		col4.setHgrow(Priority.NEVER);
 		
-		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
+		gridPane.getColumnConstraints()
+		        .addAll(col1, col2, col3, col4);
 		
 		Label numberLabel = createLabel("Number:", true);
 		gridPane.add(numberLabel, 0, 0);
@@ -234,7 +250,9 @@ public class CalloutManager {
 		
 		Label statusLabel = createLabel("Status:", true);
 		Label statusVal = new Label(status);
-		if (status.equals("Not Responded")) statusVal.setStyle("-fx-text-fill: red;");
+		if (status.equals("Not Responded")) {
+			statusVal.setStyle("-fx-text-fill: red;");
+		}
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
 		
@@ -262,4 +280,31 @@ public class CalloutManager {
 		label.setStyle("-fx-font-weight: " + (bold ? "bold" : "normal"));
 		return label;
 	}
+	
+	public static void extractDataFromSelectedNode(Node selectedNode) {
+		if (selectedNode instanceof GridPane) {
+			GridPane gridPane = (GridPane) selectedNode;
+			String number = ((Label) gridPane.getChildren()
+			                                 .get(1)).getText();
+			String status = ((Label) gridPane.getChildren()
+			                                 .get(3)).getText();
+			String type = ((Label) gridPane.getChildren()
+			                               .get(5)).getText();
+			String street = ((Label) gridPane.getChildren()
+			                                 .get(7)).getText();
+			String priority = ((Label) gridPane.getChildren()
+			                                   .get(9)).getText();
+			String area = ((Label) gridPane.getChildren()
+			                               .get(11)).getText();
+			
+			System.out.println("Selected Callout:");
+			System.out.println("Number: " + number);
+			System.out.println("Status: " + status);
+			System.out.println("Type: " + type);
+			System.out.println("Street: " + street);
+			System.out.println("Priority: " + priority);
+			System.out.println("Area: " + area);
+		}
+	}
+	
 }

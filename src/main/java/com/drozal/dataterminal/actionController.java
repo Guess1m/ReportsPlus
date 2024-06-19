@@ -22,6 +22,7 @@ import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -56,10 +57,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNode;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -531,6 +534,30 @@ public class actionController {
 	private ToggleButton callHistoryBtn;
 	@javafx.fxml.FXML
 	private ToggleButton activeCallsBtn;
+	@javafx.fxml.FXML
+	private AnchorPane currentCalPane;
+	@javafx.fxml.FXML
+	private ToggleButton showCurrentCalToggle;
+	@javafx.fxml.FXML
+	private TextField calPriority;
+	@javafx.fxml.FXML
+	private TextField calCounty;
+	@javafx.fxml.FXML
+	private TextField calDate;
+	@javafx.fxml.FXML
+	private TextField calNum;
+	@javafx.fxml.FXML
+	private TextField calTime;
+	@javafx.fxml.FXML
+	private TextField calStreet;
+	@javafx.fxml.FXML
+	private Label calloutInfoTitle;
+	@javafx.fxml.FXML
+	private TextField calArea;
+	@javafx.fxml.FXML
+	private TextArea calDesc;
+	@javafx.fxml.FXML
+	private TextField calType;
 	
 	
 	//</editor-fold>
@@ -2880,13 +2907,44 @@ public class actionController {
 			              }
 		              });
 		
+		currentCalPane.setPrefHeight(0);
+		currentCalPane.setMaxHeight(0);
+		currentCalPane.setMinHeight(0);
+		currentCalPane.setVisible(false);
+		calActiveList.getSelectionModel()
+		             .selectedItemProperty()
+		             .addListener((obs, oldSelection, newSelection) -> {
+			             if (newSelection != null) {
+				             double fromHeight = currentCalPane.getPrefHeight();
+				             double toHeight = 356;
+				             
+				             Timeline timeline = new Timeline();
+				             
+				             KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+				             KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+				             KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+				             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+				                                              keyValueMinHeight);
+				             
+				             timeline.getKeyFrames()
+				                     .add(keyFrame);
+				             
+				             timeline.play();
+				             currentCalPane.setVisible(true);
+				             handleSelectedNode(calActiveList, currentCalPane,calNum, calArea,calCounty,calDate,calStreet,calDesc,calType,calTime, calPriority);
+							 showCurrentCalToggle.setSelected(true);
+			             } else {
+				             currentCalPane.setVisible(false);
+			             }
+		             });
 	}
 	
 	@javafx.fxml.FXML
 	public void test(ActionEvent actionEvent) {
 		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
 		setActive(calloutPane);
-		CalloutManager.deleteCallout(calloutDataURL,"1234588");
+		CalloutManager.deleteCallout(calloutDataURL, "12345");
+		CalloutManager.deleteCallout(calloutDataURL, "23456");
 		CalloutManager.addCallout(calloutDataURL, "12345", "Gas Leak", "Gas leak at commercial building",
 		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
 		                          "2024-06-17", "Not Responded");
@@ -2894,7 +2952,7 @@ public class actionController {
 		
 		CalloutManager.addCallout(calloutDataURL, "23456", "House Fire", "Fire at residential building",
 		                          "Extinguish the fire and rescue occupants", "Code 2", "Elm St", "Downtown", "Queen",
-		                          "12:30", "2024-06-18", "Not Responded");
+		                          "aaaaa", "bbbbbb", "Not Responded");/*
 		
 		CalloutManager.addCallout(calloutDataURL, "34567", "Medical Emergency", "Medical emergency at park",
 		                          "Provide first aid and transport to hospital", "Code 1", "Oak Park", "Suburbia",
@@ -2926,9 +2984,46 @@ public class actionController {
 		
 		CalloutManager.addCallout(calloutDataURL, "01234", "Animal Rescue", "Animal rescue in suburban area",
 		                          "Rescue and relocate the animal", "Code 1", "Pine St", "Suburbia", "Sam", "10:15",
-		                          "2024-06-26", "Not Responded");
+		                          "2024-06-26", "Not Responded");*/
 		
 		CalloutManager.loadCalloutsIntoListView(calActiveList);
 		
+	}
+	
+	@javafx.fxml.FXML
+	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
+		if (!showCurrentCalToggle.isSelected()) {
+			double toHeight = 0;
+			
+			Timeline timeline = new Timeline();
+			
+			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
+			
+			timeline.getKeyFrames()
+			        .add(keyFrame);
+			
+			timeline.play();
+			currentCalPane.setVisible(false);
+		} else {
+			double toHeight = 356;
+			
+			Timeline timeline = new Timeline();
+			
+			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
+			
+			timeline.getKeyFrames()
+			        .add(keyFrame);
+			
+			timeline.play();
+			currentCalPane.setVisible(true);
+		}
 	}
 }

@@ -33,14 +33,30 @@ public class Callout {
 	@XmlElement(name = "County")
 	private String county;
 	
-	@XmlElement(name = "StartTime")
-	private String startTime;
-	
 	@XmlElement(name = "StartDate")
 	private String startDate;
 	
+	@XmlElement(name = "StartTime")
+	private String startTime;
+	
 	@XmlElement(name = "Status")
 	private String status;
+	
+	public String getStartTime() {
+		return startTime;
+	}
+	
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+	
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
 	
 	public String getStatus() {
 		return status;
@@ -112,21 +128,5 @@ public class Callout {
 	
 	public void setCounty(String county) {
 		this.county = county;
-	}
-	
-	public String getStartTime() {
-		return startTime;
-	}
-	
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	
-	public String getStartDate() {
-		return startDate;
-	}
-	
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
 	}
 }

@@ -1,0 +1,66 @@
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-padding: 10 10 10 20;
+    -fx-background-color: rgb(94, 115, 135,0.2);
+}
+
+.list-cell:even {
+    -fx-background-color: rgb(249,249,249);
+}
+.list-cell:odd {
+    -fx-background-color: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgb(94, 115, 135,0.1);
+    -fx-text-fill: black;
+}
+.text {
+    -fx-fill: black; /* Set the text color to black */
+}
+.list-view {
+    -fx-border-color: gray;
+    -fx-effect: none;
+    -fx-text-fill: black;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: #f2f2f2;
+    -fx-background-insets: 0; /* Remove the default background insets */
+    -fx-border-width: 0.5;
+}
+.list-cell{
+    -fx-padding: 10 10 10 10;
+    -fx-border-color: rgb(0,0,0,0.2);
+    -fx-border-width: 0 0 0.6 0;
+}
+.list-cell:filled:selected .text {
+    -fx-text-fill: black; /* Set text color to black when selected */
+}
+
+
+
+
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 14px; /* Thicker width */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #5e7387; /* Thumb color */
+    -fx-min-height: 14px; /* Thicker thumb */
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Define styles for the track of the scroll bars */
+.scroll-bar .track {
+    -fx-background-color: transparent; /* Transparent track */
+    -fx-border-color: transparent;
+}
+/* Define styles for the vertical scroll bar when pressed */
+.scroll-bar:vertical:pressed .thumb {
+    -fx-background-color: #34404b; /* Thumb color when pressed */
+}

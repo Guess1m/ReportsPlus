@@ -119,8 +119,7 @@ public class calloutController {
 				}
 				
 				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
-				                          time, date);
-				System.out.println("added callout");
+				                          time, date, "Not Responded");
 				
 			} else {
 				

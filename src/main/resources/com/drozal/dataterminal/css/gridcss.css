@@ -1,0 +1,25 @@
+.table-grid {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+}
+.table-grid .cell{
+    -fx-background-color: red;
+}
+.table-grid .header-label {
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.table-grid .data-label {
+    -fx-padding: 5px;
+}
+.table-grid .row-separator {
+    -fx-background-color: black;
+    -fx-padding: 0.5px; /* Adjust the padding to change the thickness of the separator */
+}
+.table-grid .first-row-label {
+    -fx-background-color: #ddd; /* Light gray background color */
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}

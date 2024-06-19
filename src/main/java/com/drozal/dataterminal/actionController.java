@@ -45,6 +45,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -62,6 +63,7 @@ import java.util.Map;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.*;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
@@ -534,6 +536,8 @@ public class actionController {
 	private TableColumn calHisColumnTitle;
 	@javafx.fxml.FXML
 	private TableColumn calHisColumnCode;
+	@javafx.fxml.FXML
+	private GridPane calGrid;
 	
 	
 	//</editor-fold>
@@ -800,29 +804,6 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
-		if (CalloutStage != null && CalloutStage.isShowing()) {
-			CalloutStage.close();
-			CalloutStage = null;
-			return;
-		}
-		CalloutStage = new Stage();
-		CalloutStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		CalloutStage.setTitle("Callout Display");
-		CalloutStage.setScene(newScene);
-		CalloutStage.show();
-		CalloutStage.centerOnScreen();
-		CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
-		                                        .equals("true"));
-		showAnimation(showCalloutBtn);
-		
-		windowUtils.centerStageOnMainApp(CalloutStage);
-	}
-	
-	@javafx.fxml.FXML
 	public void onVehLookupBtnClick(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane);
 		vehRecordPane.setVisible(false);
@@ -1044,6 +1025,29 @@ public class actionController {
 			pedRecordPane.setVisible(false);
 			noRecordFoundLabelPed.setVisible(true);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
+		if (CalloutStage != null && CalloutStage.isShowing()) {
+			CalloutStage.close();
+			CalloutStage = null;
+			return;
+		}
+		CalloutStage = new Stage();
+		CalloutStage.initStyle(StageStyle.UNDECORATED);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
+		Parent root = loader.load();
+		Scene newScene = new Scene(root);
+		CalloutStage.setTitle("Callout Display");
+		CalloutStage.setScene(newScene);
+		CalloutStage.show();
+		CalloutStage.centerOnScreen();
+		CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
+		                                        .equals("true"));
+		showAnimation(showCalloutBtn);
+		
+		windowUtils.centerStageOnMainApp(CalloutStage);
 	}
 	
 	
@@ -2871,28 +2875,51 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void test(ActionEvent actionEvent) {
-		showCalloutPane();
-		/*
-		CalloutManager.deleteCallout(calloutDataURL, "1");
-		CalloutManager.deleteCallout(calloutDataURL, "2");
-		CalloutManager.deleteCallout(calloutDataURL, "3");
-		CalloutManager.addCallout(calloutDataURL, "1", "one one", "Gas leak at commercial building",
-		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
-		                          "2024-06-17");
-		CalloutManager.addCallout(calloutDataURL, "1", "twooo", "Gas leak at commercial building",
-		                          "Evacuate the building immediately", "Code 2", "Market St", "Uptown", "King", "15:00",
-		                          "2024-06-17");
-		CalloutManager.addCallout(calloutDataURL, "2", "third", "Gas leak at commercial building",
-		                          "Evacuate the building immediately", "Code 1", "Market St", "Uptown", "King", "15:00",
-		                          "2024-06-17");
-		*/
-		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus, calHisColumnTitle,
-		                                     calHisColumnAddress, calHisColumnCode, calHisColumnArea);
-	}
-	
-	private void showCalloutPane() {
 		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
 		setActive(calloutPane);
+		CalloutManager.addCallout(calloutDataURL, "12345", "Gas Leak", "Gas leak at commercial building",
+		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
+		                          "2024-06-17");
+		
+		CalloutManager.addCallout(calloutDataURL, "23456", "House Fire", "Fire at residential building",
+		                          "Extinguish the fire and rescue occupants", "Code 2", "Elm St", "Downtown", "Queen",
+		                          "12:30", "2024-06-18");
+		
+		CalloutManager.addCallout(calloutDataURL, "34567", "Medical Emergency", "Medical emergency at park",
+		                          "Provide first aid and transport to hospital", "Code 1", "Oak Park", "Suburbia",
+		                          "Jack", "14:45", "2024-06-19");
+		
+		CalloutManager.addCallout(calloutDataURL, "45678", "Traffic Accident", "Traffic accident on highway",
+		                          "Clear the highway and assist injured", "Code 3", "Highway 101", "Outskirts", "Ace",
+		                          "09:15", "2024-06-20");
+		
+		CalloutManager.addCallout(calloutDataURL, "56789", "Robbery", "Robbery at convenience store",
+		                          "Secure the area and apprehend suspects", "Code 2", "Main St", "Downtown", "Max",
+		                          "22:45", "2024-06-21");
+		
+		CalloutManager.addCallout(calloutDataURL, "67890", "Vandalism", "Vandalism at public property",
+		                          "Report the incident and document damage", "Code 1", "Central Park", "Midtown", "Leo",
+		                          "11:00", "2024-06-22");
+		
+		CalloutManager.addCallout(calloutDataURL, "78901", "Lost Child", "Lost child in shopping mall",
+		                          "Assist in search and rescue operation", "Code 3", "Mall St", "Uptown", "Jill",
+		                          "16:30", "2024-06-23");
+		
+		CalloutManager.addCallout(calloutDataURL, "89012", "Suspicious Package", "Suspicious package at airport",
+		                          "Evacuate the area and investigate package", "Code 2", "Airport Blvd", "Outskirts",
+		                          "Mike", "08:00", "2024-06-24");
+		
+		CalloutManager.addCallout(calloutDataURL, "90123", "Flood Warning", "Flood warning in low-lying area",
+		                          "Issue flood warnings and evacuate residents", "Code 3", "River Rd", "Suburbia",
+		                          "Kate", "17:45", "2024-06-25");
+		
+		CalloutManager.addCallout(calloutDataURL, "01234", "Animal Rescue", "Animal rescue in suburban area",
+		                          "Rescue and relocate the animal", "Code 1", "Pine St", "Suburbia", "Sam", "10:15",
+		                          "2024-06-26");
+		
+		CalloutManager.loadCalloutsIntoTable(calHistoryTable, calHisColumnID, calHisColumnStatus, calHisColumnTitle,
+		                                     calHisColumnAddress, calHisColumnCode, calHisColumnArea);
+		CalloutManager.loadCalloutsIntoGrid(calGrid);
 		
 	}
 }

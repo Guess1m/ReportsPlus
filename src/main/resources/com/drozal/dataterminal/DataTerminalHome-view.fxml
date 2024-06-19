@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
+            xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
@@ -208,43 +208,69 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+        <AnchorPane fx:id="calloutPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
-                <VBox layoutX="163.0" layoutY="228.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox layoutX="163.0" layoutY="228.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <AnchorPane VBox.vgrow="ALWAYS">
                             <children>
-                                <TableView fx:id="calHistoryTable" layoutX="30.0" layoutY="90.0" prefHeight="595.0"
-                                           prefWidth="887.0" style="-fx-background-color: none; -fx-border-color: none;"
-                                           styleClass="calloutTABLE" stylesheets="@css/testTable.css"
+                                <TableView fx:id="calHistoryTable" disable="true" layoutY="384.0" prefHeight="326.0"
+                                           prefWidth="947.0" style="-fx-background-color: none; -fx-border-color: none;"
+                                           styleClass="calloutTABLE" stylesheets="@css/testTable.css" visible="false"
                                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="384.0">
                                     <columns>
-                                        <TableColumn fx:id="calHisColumnID" maxWidth="140.0" minWidth="-1.0"
-                                                     prefWidth="75.0" text="ID"/>
-                                        <TableColumn fx:id="calHisColumnCode" maxWidth="140.0" minWidth="-1.0"
+                                        <TableColumn fx:id="calHisColumnID" minWidth="-1.0" prefWidth="70.0" text="ID"/>
+                                        <TableColumn fx:id="calHisColumnCode" minWidth="-1.0" prefWidth="70.0"
                                                      text="Code"/>
-                                        <TableColumn fx:id="calHisColumnTitle" minWidth="-1.0" prefWidth="100.0"
+                                        <TableColumn fx:id="calHisColumnTitle" minWidth="1.0" prefWidth="100.0"
                                                      text="Title"/>
-                                        <TableColumn fx:id="calHisColumnAddress" minWidth="-1.0" prefWidth="100.0"
+                                        <TableColumn fx:id="calHisColumnAddress" minWidth="1.0" prefWidth="100.0"
                                                      text="Address"/>
-                                        <TableColumn fx:id="calHisColumnArea" minWidth="-1.0" prefWidth="100.0"
+                                        <TableColumn fx:id="calHisColumnArea" minWidth="1.0" prefWidth="100.0"
                                                      text="Area"/>
-                                        <TableColumn fx:id="calHisColumnStatus" minWidth="-1.0" prefWidth="90.0"
+                                        <TableColumn fx:id="calHisColumnStatus" minWidth="-1.0" prefWidth="70.0"
                                                      text="Status"/>
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
                                 </TableView>
-                                <Label alignment="CENTER" layoutY="36.0" text="Call History" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="29.0"/>
-                                    </font>
-                                </Label>
+                                <AnchorPane layoutX="710.0" layoutY="38.0" prefHeight="632.0" prefWidth="200.0"
+                                            AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0"
+                                            AnchorPane.topAnchor="41.0">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="200.0"
+                                               text="Call History" AnchorPane.leftAnchor="0.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="29.0"/>
+                                            </font>
+                                        </Label>
+                                        <ListView fx:id="calHistoryList" layoutY="46.0" prefHeight="492.0"
+                                                  prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                  AnchorPane.topAnchor="46.0"/>
+                                    </children>
+                                </AnchorPane>
+                                <GridPane fx:id="calGrid" disable="true" hgap="5.0" layoutX="36.0" layoutY="132.0"
+                                          prefHeight="221.0" prefWidth="874.0" styleClass="table-grid"
+                                          stylesheets="@css/gridcss.css" vgap="5.0" visible="false"
+                                          AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="37.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                </GridPane>
                             </children>
                         </AnchorPane>
                     </children>

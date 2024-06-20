@@ -621,6 +621,8 @@ public class settingsController {
 		changeStatisticColors(controllerVar.getAreaReportChart());
 		
 		String mainclr = ConfigReader.configRead("mainColor");
+		controllerVar.getCalloutInfoTitle()
+		             .setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
@@ -631,6 +633,8 @@ public class settingsController {
 		lbl0.setStyle("-fx-background-color: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("secondaryColor");
+		controllerVar.getCurrentCalPane()
+		             .setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getServerStatusLabel()
 		             .setStyle("-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 		controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");

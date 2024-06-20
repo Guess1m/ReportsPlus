@@ -6,15 +6,11 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -22,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class CalloutManager {
 	
@@ -127,40 +123,42 @@ public class CalloutManager {
 		}
 	}
 	
-	public static void handleSelectedNode(ListView<Node> listView, AnchorPane pane,TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
+	public static void handleSelectedNode(ListView<Node> listView, AnchorPane pane, TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
 		Node selectedNode = listView.getSelectionModel()
 		                            .getSelectedItem();
-		if (selectedNode!=null){
+		if (selectedNode != null) {
 			pane.setVisible(true);
 			pane.setDisable(false);
-		if (selectedNode instanceof GridPane) {
-			GridPane gridPane = (GridPane) selectedNode;
-			String number = ((Label) gridPane.getChildren()
-			                                 .get(1)).getText();
-			
-			// Retrieve the relevant data from the XML file using the extracted number
-			String type = getValueByNumber(calloutDataURL, number, "Type");
-			String description = getValueByNumber(calloutDataURL, number, "Description");
-			String message = getValueByNumber(calloutDataURL, number, "Message");
-			String priority = getValueByNumber(calloutDataURL, number, "Priority");
-			String street = getValueByNumber(calloutDataURL, number, "Street");
-			String area = getValueByNumber(calloutDataURL, number, "Area");
-			String county = getValueByNumber(calloutDataURL, number, "County");
-			String status = getValueByNumber(calloutDataURL, number, "Status");
-			String time = getValueByNumber(calloutDataURL, number, "StartTime");
-			String date = getValueByNumber(calloutDataURL, number, "StartDate");
-			
-			calArea.setText(area);
-			calNum.setText(number);
-			calPriority.setText(priority);
-			caltype.setText(type);
-			calCounty.setText(county);
-			calDate.setText(date);
-			caladdress.setText(street);
-			calDesc.setText(description);
-			if (message!=null) calDesc.appendText("\n"+message);
-			calTime.setText(time);
-		}
+			if (selectedNode instanceof GridPane) {
+				GridPane gridPane = (GridPane) selectedNode;
+				String number = ((Label) gridPane.getChildren()
+				                                 .get(1)).getText();
+				
+				// Retrieve the relevant data from the XML file using the extracted number
+				String type = getValueByNumber(calloutDataURL, number, "Type");
+				String description = getValueByNumber(calloutDataURL, number, "Description");
+				String message = getValueByNumber(calloutDataURL, number, "Message");
+				String priority = getValueByNumber(calloutDataURL, number, "Priority");
+				String street = getValueByNumber(calloutDataURL, number, "Street");
+				String area = getValueByNumber(calloutDataURL, number, "Area");
+				String county = getValueByNumber(calloutDataURL, number, "County");
+				String status = getValueByNumber(calloutDataURL, number, "Status");
+				String time = getValueByNumber(calloutDataURL, number, "StartTime");
+				String date = getValueByNumber(calloutDataURL, number, "StartDate");
+				
+				calArea.setText(area);
+				calNum.setText(number);
+				calPriority.setText(priority);
+				caltype.setText(type);
+				calCounty.setText(county);
+				calDate.setText(date);
+				caladdress.setText(street);
+				calDesc.setText(description);
+				if (message != null) {
+					calDesc.appendText("\n" + message);
+				}
+				calTime.setText(time);
+			}
 		} else {
 			pane.setVisible(false);
 		}
@@ -198,7 +196,7 @@ public class CalloutManager {
 		return null;
 	}
 	
-	public static void loadCalloutsIntoListView(ListView<Node> listView) {
+	public static void loadActiveCallouts(ListView<Node> listView) {
 		try {
 			listView.getItems()
 			        .clear();
@@ -216,8 +214,9 @@ public class CalloutManager {
 			if (callouts != null && callouts.getCalloutList() != null) {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
-					Node calloutNode = createCalloutNode(callout.getNumber(), callout.getStatus(), callout.getType(),
-					                                     callout.getStreet(), callout.getPriority(), callout.getArea());
+					Node calloutNode = createActiveCalloutNode(callout.getNumber(), callout.getStatus(),
+					                                           callout.getType(), callout.getStreet(),
+					                                           callout.getPriority(), callout.getArea());
 					listView.getItems()
 					        .add(calloutNode);
 				}
@@ -227,10 +226,41 @@ public class CalloutManager {
 		}
 	}
 	
-	private static Node createCalloutNode(String number, String status, String type, String street, String priority, String area) {
+	public static void loadHistoryCallouts(ListView<Node> listView) {
+		try {
+			listView.getItems()
+			        .clear();
+			
+			File xmlFile = new File(calloutDataURL);
+			if (!xmlFile.exists() || xmlFile.length() == 0) {
+				System.err.println("The XML file does not exist or is empty.");
+				return;
+			}
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			Callouts callouts = (Callouts) unmarshaller.unmarshal(xmlFile);
+			
+			if (callouts != null && callouts.getCalloutList() != null) {
+				List<Callout> calloutList = callouts.getCalloutList();
+				for (Callout callout : calloutList) {
+					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
+					                                            callout.getType(), callout.getStreet(),
+					                                            callout.getPriority(), callout.getArea());
+					listView.getItems()
+					        .add(calloutNode);
+				}
+			}
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static Node createActiveCalloutNode(String number, String status, String type, String street, String priority, String area) {
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(6);
 		gridPane.setVgap(6);
+		gridPane.setPadding(new Insets(10));
 		
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setHgrow(Priority.NEVER);
@@ -252,6 +282,8 @@ public class CalloutManager {
 		Label statusVal = new Label(status);
 		if (status.equals("Not Responded")) {
 			statusVal.setStyle("-fx-text-fill: red;");
+		} else if (status.equals("Responded")) {
+			statusVal.setStyle("-fx-text-fill: green;");
 		}
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
@@ -272,6 +304,77 @@ public class CalloutManager {
 		gridPane.add(areaLabel, 0, 4);
 		gridPane.add(new Label(area), 1, 4, 3, 1);
 		
+		return gridPane;
+	}
+	
+	private static Node createHistoryCalloutNode(String number, String status, String type, String street, String priority, String area) {
+		GridPane gridPane = new GridPane();
+		gridPane.setHgap(20); // Increased horizontal gap for better spacing
+		gridPane.setVgap(10);
+		gridPane.setPadding(new Insets(10));
+		
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setHgrow(Priority.NEVER);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col2.setHgrow(Priority.SOMETIMES);
+		ColumnConstraints col3 = new ColumnConstraints();
+		col3.setHgrow(Priority.NEVER);
+		ColumnConstraints col4 = new ColumnConstraints();
+		col4.setHgrow(Priority.SOMETIMES);
+		ColumnConstraints col5 = new ColumnConstraints();
+		col5.setHgrow(Priority.NEVER);
+		ColumnConstraints col6 = new ColumnConstraints();
+		col6.setHgrow(Priority.SOMETIMES);
+		
+		gridPane.getColumnConstraints()
+		        .addAll(col1, col2, col3, col4, col5, col6);
+		
+		Label numberLabel = createLabel("Number:", true);
+		gridPane.add(numberLabel, 0, 0);
+		gridPane.add(new Label(number), 1, 0);
+		
+		Label statusLabel = createLabel("Status:", true);
+		Label statusVal = new Label(status);
+		if (status.equals("Not Responded")) {
+			statusVal.setStyle("-fx-text-fill: red;");
+		} else if (status.equals("Responded")) {
+			statusVal.setStyle("-fx-text-fill: green;");
+		}
+		gridPane.add(statusLabel, 2, 0);
+		gridPane.add(statusVal, 3, 0);
+		
+		Label typeLabel = createLabel("Type:", true);
+		gridPane.add(typeLabel, 4, 0);
+		gridPane.add(new Label(type), 5, 0);
+		
+		Label streetLabel = createLabel("Street:", true);
+		gridPane.add(streetLabel, 0, 1);
+		gridPane.add(new Label(street), 1, 1, 5, 1);
+		
+		Label priorityLabel = createLabel("Priority:", true);
+		gridPane.add(priorityLabel, 0, 2);
+		gridPane.add(new Label(priority), 1, 2, 5, 1);
+		
+		Label areaLabel = createLabel("Area:", true);
+		gridPane.add(areaLabel, 0, 3);
+		gridPane.add(new Label(area), 1, 3, 5, 1);
+		
+		Button actionButton = new Button("Action");
+		GridPane.setHalignment(actionButton, HPos.LEFT);
+		GridPane.setColumnSpan(actionButton, 2);
+		actionButton.setPadding(new Insets(5, 10, 5, 10));
+		actionButton.setText("Create Callout Report");
+		
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
+		                                                  0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"";
+		actionButton.setStyle(def);
+		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
+		
+		actionButton.setOnMouseClicked(actionEvent -> {
+			System.out.println(number);
+		});
+		
+		gridPane.add(actionButton, 4, 3);
 		return gridPane;
 	}
 	

@@ -101,8 +101,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -210,8 +210,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -301,8 +301,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -495,8 +495,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -540,8 +540,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -655,8 +655,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -764,8 +764,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -955,8 +955,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -1066,8 +1066,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -1182,8 +1182,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -1231,8 +1231,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}
@@ -1515,8 +1515,8 @@ public class reportCreationUtil {
 							                                           .toString()
 							                                           .trim()
 							                                           .isEmpty()) {
-								allFieldsFilled = false;
-								break;
+								comboBox.getSelectionModel()
+								        .selectFirst();
 							}
 						}
 					}
@@ -1626,8 +1626,8 @@ public class reportCreationUtil {
 							                                           .toString()
 							                                           .trim()
 							                                           .isEmpty()) {
-								allFieldsFilled = false;
-								break;
+								comboBox.getSelectionModel()
+								        .selectFirst();
 							}
 						}
 					}
@@ -1744,8 +1744,8 @@ public class reportCreationUtil {
 							                                           .toString()
 							                                           .trim()
 							                                           .isEmpty()) {
-								allFieldsFilled = false;
-								break;
+								comboBox.getSelectionModel()
+								        .selectFirst();
 							}
 						}
 					}
@@ -1793,8 +1793,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -2019,8 +2019,8 @@ public class reportCreationUtil {
 							                                           .toString()
 							                                           .trim()
 							                                           .isEmpty()) {
-								allFieldsFilled = false;
-								break;
+								comboBox.getSelectionModel()
+								        .selectFirst();
 							}
 						}
 					}
@@ -2065,8 +2065,8 @@ public class reportCreationUtil {
 						                                           .toString()
 						                                           .trim()
 						                                           .isEmpty()) {
-							allFieldsFilled = false;
-							break;
+							comboBox.getSelectionModel()
+							        .selectFirst();
 						}
 					}
 				}
@@ -2124,8 +2124,8 @@ public class reportCreationUtil {
 					                                           .toString()
 					                                           .trim()
 					                                           .isEmpty()) {
-						allFieldsFilled = false;
-						break;
+						comboBox.getSelectionModel()
+						        .selectFirst();
 					}
 				}
 			}

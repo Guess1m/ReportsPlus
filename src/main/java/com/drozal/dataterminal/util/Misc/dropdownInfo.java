@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class dropdownInfo {
-	public static final List<String> areaList = Arrays.asList("Alamo Sea", "Alta", "Backlot City", "Banham Canyon",
+	public static final List<String> areaList = Arrays.asList("N/A", "Alamo Sea", "Alta", "Backlot City",
+	                                                          "Banham Canyon",
 	                                                          "Banning", "Baytree Canyon", "Bolingbroke Penitentiary",
 	                                                          "Burton", "Cape Catfish", "Cayo Perico",
 	                                                          "Chamberlain Hills", "Chiliad Mountain State Wilderness",

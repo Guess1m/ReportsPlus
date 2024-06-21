@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -62,6 +63,8 @@ public class calloutController {
 	private String status;
 	
 	private int i;
+	@FXML
+	private Label statusLabel;
 	
 	public static AnchorPane getTopBar() {
 		return topBar;
@@ -95,6 +98,9 @@ public class calloutController {
 	
 	public void initialize() {
 		topBar = reportUtil.createTitleBar("Callout Manager");
+		statusLabel.setVisible(false);
+		respondBtn.setVisible(true);
+		ignoreBtn.setVisible(true);
 		
 		root.setTop(topBar);
 		
@@ -118,9 +124,17 @@ public class calloutController {
 			
 			respondBtn.setOnAction(actionEvent -> {
 				status = "Responded";
+				statusLabel.setText("Responded.");
+				statusLabel.setVisible(true);
+				respondBtn.setVisible(false);
+				ignoreBtn.setVisible(false);
 			});
 			ignoreBtn.setOnAction(actionEvent -> {
 				status = "Not Responded";
+				statusLabel.setText("Ignored.");
+				statusLabel.setVisible(true);
+				respondBtn.setVisible(false);
+				ignoreBtn.setVisible(false);
 			});
 			
 			if (callout != null) {
@@ -156,8 +170,12 @@ public class calloutController {
 			}
 			
 			stage.setOnHidden(windowEvent -> {
+				log("Added Callout To Active", LogUtils.Severity.INFO);
 				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
 				                          time, date, status);
+				
+				CalloutStage.close();
+				CalloutStage = null;
 			});
 		});
 		watchCalloutChanges();

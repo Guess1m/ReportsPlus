@@ -169,7 +169,6 @@ public class CalloutManager {
 				calTime.setText(time);
 			}
 		} else {
-			System.out.println("setting not visible1");
 			pane.setVisible(false);
 		}
 	}
@@ -211,7 +210,6 @@ public class CalloutManager {
 				calTime.setText(time);
 			}
 		} else {
-			System.out.println("setting not visible2");
 			pane.setVisible(false);
 		}
 	}

@@ -89,7 +89,7 @@ public class Launcher {
 		}
 		
 		try {
-			String filePath = stringUtil.getJarPath() + File.separator + "data"+File.separator+"calloutData.xml";
+			String filePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);
@@ -102,7 +102,7 @@ public class Launcher {
 		}
 		
 		try {
-			String filePath = stringUtil.getJarPath() + File.separator + "data"+File.separator+"calloutHistory.xml";
+			String filePath = stringUtil.getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);

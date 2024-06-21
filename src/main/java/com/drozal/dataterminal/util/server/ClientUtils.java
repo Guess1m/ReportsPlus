@@ -24,6 +24,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.CalloutStage;
 import static com.drozal.dataterminal.actionController.IDStage;
@@ -32,11 +33,13 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ClientUtils {
 	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
+	private static volatile boolean canUpdateCallout = true;
 	
 	public static void disconnectFromService() {
 		try {
@@ -165,13 +168,19 @@ public class ClientUtils {
 							});
 							break;
 						case "UPDATE_CALLOUT":
+							if (!canUpdateCallout) {
+								break;
+							}
+							
+							canUpdateCallout = false;
+							scheduler.schedule(() -> canUpdateCallout = true, 4, TimeUnit.SECONDS);
+							
 							log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveCalloutFromServer(4096);
 							Platform.runLater(() -> {
 								if (CalloutStage != null && CalloutStage.isShowing()) {
 									CalloutStage.close();
 									CalloutStage = null;
-									return;
 								}
 								CalloutStage = new Stage();
 								FXMLLoader loader = new FXMLLoader(
@@ -211,8 +220,9 @@ public class ClientUtils {
 											delay.setOnFinished(event -> {
 												try {
 													CalloutStage.close();
+													CalloutStage = null;
 												} catch (NullPointerException e) {
-													log("CalloutStage was closed before it could be automtically closed",
+													log("CalloutStage was closed before it could be automatically closed",
 													    LogUtils.Severity.WARN);
 												}
 											});
@@ -222,7 +232,6 @@ public class ClientUtils {
 								} catch (IOException e) {
 									logError("could not read calloutDuration: ", e);
 								}
-								
 								
 								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
 									@Override

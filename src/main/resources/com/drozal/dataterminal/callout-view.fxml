@@ -215,6 +215,13 @@
                                         <Font name="Segoe UI Black" size="15.0"/>
                                     </font>
                                 </ToggleButton>
+                                <Label fx:id="statusLabel" alignment="CENTER" layoutX="414.0" layoutY="122.0"
+                                       prefHeight="28.0" prefWidth="248.0" text="Responded." textFill="WHITE"
+                                       visible="false" AnchorPane.bottomAnchor="-8.0" AnchorPane.rightAnchor="44.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="14.0"/>
+                                    </font>
+                                </Label>
                             </children>
                         </AnchorPane>
                     </children>

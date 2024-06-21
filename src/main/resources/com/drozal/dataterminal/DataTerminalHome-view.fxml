@@ -271,6 +271,7 @@
                                                 <RowConstraints maxHeight="24.0" minHeight="24.0" prefHeight="24.0"
                                                                 vgrow="SOMETIMES"/>
                                                 <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints/>
                                             </rowConstraints>
                                             <children>
                                                 <AnchorPane GridPane.columnSpan="3">
@@ -2285,8 +2286,6 @@
                                         <Insets top="2.0"/>
                                     </padding>
                                 </Label>
-                                <Button layoutX="471.0" layoutY="30.0" mnemonicParsing="false" onAction="#test"
-                                        text="Button"/>
                             </children>
                         </AnchorPane>
                     </children>

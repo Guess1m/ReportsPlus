@@ -1068,26 +1068,69 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
-		if (CalloutStage != null && CalloutStage.isShowing()) {
-			CalloutStage.close();
-			CalloutStage = null;
-			return;
+	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
+		calActiveList.getSelectionModel()
+		             .clearSelection();
+		calHistoryList.getSelectionModel()
+		              .clearSelection();
+		if (!showCurrentCalToggle.isSelected()) {
+			double toHeight = 0;
+			
+			Timeline timeline = new Timeline();
+			
+			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
+			
+			timeline.getKeyFrames()
+			        .add(keyFrame);
+			
+			timeline.play();
+			currentCalPane.setVisible(false);
+		} else {
+			double toHeight = 329;
+			
+			Timeline timeline = new Timeline();
+			
+			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+			                                 keyValueMinHeight);
+			
+			timeline.getKeyFrames()
+			        .add(keyFrame);
+			
+			timeline.play();
+			currentCalPane.setVisible(true);
 		}
-		CalloutStage = new Stage();
-		CalloutStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("callout-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		CalloutStage.setTitle("Callout Display");
-		CalloutStage.setScene(newScene);
-		CalloutStage.show();
-		CalloutStage.centerOnScreen();
-		CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
-		                                        .equals("true"));
-		showAnimation(showCalloutBtn);
+	}
+	
+	@javafx.fxml.FXML
+	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
+		double toHeight = 0;
 		
-		windowUtils.centerStageOnMainApp(CalloutStage);
+		Timeline timeline = new Timeline();
+		
+		KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+		KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+		KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+		KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+		                                 keyValueMinHeight);
+		
+		timeline.getKeyFrames()
+		        .add(keyFrame);
+		
+		timeline.play();
+		currentCalPane.setVisible(false);
+		
+		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
+		setActive(calloutPane);
+		
+		CalloutManager.loadActiveCallouts(calActiveList);
+		CalloutManager.loadHistoryCallouts(calHistoryList);
 	}
 	
 	
@@ -2976,72 +3019,6 @@ public class actionController {
 			              }
 		              });
 		
-	}
-	
-	@javafx.fxml.FXML
-	public void test(ActionEvent actionEvent) {
-		double toHeight = 0;
-		
-		Timeline timeline = new Timeline();
-		
-		KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-		KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-		KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-		KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-		                                 keyValueMinHeight);
-		
-		timeline.getKeyFrames()
-		        .add(keyFrame);
-		
-		timeline.play();
-		currentCalPane.setVisible(false);
-		
-		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
-		setActive(calloutPane);
-		
-		CalloutManager.loadActiveCallouts(calActiveList);
-		CalloutManager.loadHistoryCallouts(calHistoryList);
-	}
-	
-	@javafx.fxml.FXML
-	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
-		calActiveList.getSelectionModel()
-		             .clearSelection();
-		calHistoryList.getSelectionModel()
-		              .clearSelection();
-		if (!showCurrentCalToggle.isSelected()) {
-			double toHeight = 0;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
-			
-			timeline.play();
-			currentCalPane.setVisible(false);
-		} else {
-			double toHeight = 329;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
-			
-			timeline.play();
-			currentCalPane.setVisible(true);
-		}
 	}
 	
 }

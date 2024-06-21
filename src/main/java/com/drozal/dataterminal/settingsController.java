@@ -649,13 +649,19 @@ public class settingsController {
 		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
 		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
 		
-		controllerVar.getCalActiveList().setStyle(updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
-		controllerVar.getCalHistoryList().setStyle(updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
+		controllerVar.getCalActiveList()
+		             .setStyle(updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
+		controllerVar.getCalHistoryList()
+		             .setStyle(updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
 		
-		controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", secclr));
-		controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", secclr));
-		controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", accclr));
-		controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", accclr));
+		controllerVar.getActivecalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", secclr));
+		controllerVar.getCalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", secclr));
+		controllerVar.getActivecalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", accclr));
+		controllerVar.getCalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", accclr));
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
@@ -796,7 +802,8 @@ public class settingsController {
 					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
 		
-		controllerVar.getServerStatusLabel().setStyle(updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
+		controllerVar.getServerStatusLabel()
+		             .setStyle(updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 	}
 	
 	private void loadColors() {

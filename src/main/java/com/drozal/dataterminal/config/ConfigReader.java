@@ -112,7 +112,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("Number", "Error");
 		checkAndSetDefaultValue("Rank", "Error");
 		checkAndSetDefaultValue("accentColor", "#9C95D0");
-		checkAndSetDefaultValue("calloutDuration", "7");
+		checkAndSetDefaultValue("calloutDuration", "10");
 		checkAndSetDefaultValue("IDDuration", "infinite");
 		checkAndSetDefaultValue("firstLogin", "false");
 		checkAndSetDefaultValue("fullscreenOnStartup", "true");

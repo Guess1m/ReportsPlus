@@ -88,6 +88,32 @@ public class Launcher {
 			logError("An error occurred while deleting the server world cars file: ", e);
 		}
 		
+		try {
+			String filePath = stringUtil.getJarPath() + File.separator + "data"+File.separator+"calloutData.xml";
+			Path path = Path.of(filePath);
+			if (Files.exists(path)) {
+				Files.write(path, new byte[0]);
+				log("Call Data cleared successfully.", Severity.INFO);
+			} else {
+				log("Call Data does not exist.", Severity.WARN);
+			}
+		} catch (IOException e) {
+			logError("An error occurred while clearing the Call Data: ", e);
+		}
+		
+		try {
+			String filePath = stringUtil.getJarPath() + File.separator + "data"+File.separator+"calloutHistory.xml";
+			Path path = Path.of(filePath);
+			if (Files.exists(path)) {
+				Files.write(path, new byte[0]);
+				log("Call History cleared successfully.", Severity.INFO);
+			} else {
+				log("Call History does not exist.", Severity.WARN);
+			}
+		} catch (IOException e) {
+			logError("An error occurred while clearing the Call History: ", e);
+		}
+		
 		loadFonts();
 		
 		String folderPath = "";

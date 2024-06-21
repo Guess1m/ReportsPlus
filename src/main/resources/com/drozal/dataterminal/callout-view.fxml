@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="369.0"
-            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;"
-            prefWidth="638.0" xmlns="http://javafx.com/javafx/22"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="388.0"
+            prefWidth="638.0"
+            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.calloutController">
     <center>
         <AnchorPane style="-fx-background-color: #505d62;">
@@ -186,14 +186,35 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="69.0" prefWidth="585.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
                             <children>
-                                <TextArea fx:id="descriptionField" editable="false" layoutX="23.0" layoutY="27.0"
-                                          prefHeight="66.0" prefWidth="574.0" styleClass="calloutTextArea"
-                                          stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
+                                <TextArea fx:id="descriptionField" editable="false" layoutX="23.0" layoutY="19.0"
+                                          prefHeight="90.0" prefWidth="591.0" styleClass="calloutTextArea"
+                                          stylesheets="@css/menu/menuStyles.css" AnchorPane.bottomAnchor="27.0"
                                           AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                          AnchorPane.topAnchor="27.0"/>
-                                <Label style="-fx-font-size: 15; -fx-text-fill: white;" styleClass="statisticSubHeading"
-                                       stylesheets="@css/menu/menuLabels.css" text="Description:"
-                                       AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0"/>
+                                          AnchorPane.topAnchor="19.0"/>
+                                <Label layoutX="5.0" layoutY="-9.0" style="-fx-font-size: 15; -fx-text-fill: white;"
+                                       styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
+                                       text="Description:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="-9.0"/>
+                                <ToggleButton fx:id="respondBtn" layoutX="310.0" layoutY="117.0" mnemonicParsing="false"
+                                              onAction="#respondBtnAction" prefHeight="26.0" prefWidth="112.0"
+                                              style="-fx-background-color: rgb(0,150,0,0.4); -fx-padding: 3;"
+                                              text="Respond" textFill="WHITE" AnchorPane.bottomAnchor="-8.0"
+                                              AnchorPane.rightAnchor="179.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="15.0"/>
+                                    </font>
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="respondToggle"/>
+                                    </toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="ignoreBtn" layoutX="350.0" layoutY="117.0" mnemonicParsing="false"
+                                              onAction="#ignoreBtnAction" prefHeight="26.0" prefWidth="112.0"
+                                              style="-fx-background-color: rgb(200,0,0,0.4); -fx-padding: 3;"
+                                              text="Ignore" textFill="WHITE" toggleGroup="$respondToggle"
+                                              AnchorPane.bottomAnchor="-8.0" AnchorPane.rightAnchor="45.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="15.0"/>
+                                    </font>
+                                </ToggleButton>
                             </children>
                         </AnchorPane>
                     </children>

@@ -537,7 +537,6 @@ public class reportUtil {
 		stage.setTitle(reportName);
 		
 		
-		
 		titleBar.setOnMouseClicked(event -> {
 			if (event.getClickCount() == 2) {
 				windowUtils.toggleWindowedFullscreen(stage, preferredWidth, preferredHeight);

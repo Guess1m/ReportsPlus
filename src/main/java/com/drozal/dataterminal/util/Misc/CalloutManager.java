@@ -10,15 +10,12 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import org.controlsfx.control.spreadsheet.Grid;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -269,7 +266,8 @@ public class CalloutManager {
 			}
 			
 			for (Callout callout : calloutList) {
-				if (callout.getNumber().equals(number)) {
+				if (callout.getNumber()
+				           .equals(number)) {
 					Method method = Callout.class.getMethod("set" + fieldName, String.class);
 					method.invoke(callout, newValue);
 					
@@ -295,7 +293,6 @@ public class CalloutManager {
 			
 			File xmlFile = new File(calloutDataURL);
 			if (!xmlFile.exists() || xmlFile.length() == 0) {
-				System.err.println("The XML file does not exist or is empty.");
 				return;
 			}
 			
@@ -325,7 +322,6 @@ public class CalloutManager {
 			
 			File xmlFile = new File(calloutHistoryURL);
 			if (!xmlFile.exists() || xmlFile.length() == 0) {
-				System.err.println("The XML file does not exist or is empty.");
 				return;
 			}
 			
@@ -399,29 +395,34 @@ public class CalloutManager {
 		ComboBox statusDropdown = new ComboBox();
 		statusDropdown.setValue(status);
 		String[] statuses = {"Responded", "Not Responded"};
-		statusDropdown.getItems().addAll(statuses);
+		statusDropdown.getItems()
+		              .addAll(statuses);
 		statusDropdown.setOnAction(actionEvent -> {
-			String selected = statusDropdown.getSelectionModel().getSelectedItem()
+			String selected = statusDropdown.getSelectionModel()
+			                                .getSelectedItem()
 			                                .toString();
-			if (selected.equals("Responded")){
+			if (selected.equals("Responded")) {
 				setValueByNumber(calloutDataURL, number, "Status", "Responded");
 				statusVal.setText("Responded");
 				statusVal.setStyle("-fx-text-fill: green;");
-			} else if (selected.equals("Not Responded")){
+			} else if (selected.equals("Not Responded")) {
 				setValueByNumber(calloutDataURL, number, "Status", "Not Responded");
 				statusVal.setText("Not Responded");
-				statusVal.setStyle("-fx-text-fill: red;");}
+				statusVal.setStyle("-fx-text-fill: red;");
+			}
 		});
 		BorderPane statusPane = new BorderPane(statusDropdown);
 		statusDropdown.getStylesheets()
 		              .add(actionController.class.getResource("css/form/formComboBox.css")
-		                             .toExternalForm());
-		statusDropdown.getStyleClass().add("combo-boxCal");
+		                                         .toExternalForm());
+		statusDropdown.getStyleClass()
+		              .add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
 		Button closeBtn = new Button("Close Callout");
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
+		                                                  0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
 		closeBtn.setStyle(def);
 		GridPane.setHalignment(closeBtn, HPos.RIGHT);
 		GridPane.setValignment(closeBtn, VPos.CENTER);
@@ -438,7 +439,8 @@ public class CalloutManager {
 		String starttime1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartTime");
 		
 		closeBtn.setOnAction(actionEvent -> {
-			addCallout(calloutHistoryURL, number1,type1, desc1,message1,priority1,street1,area1,county1,starttime1,startdate1,statusVal.getText());
+			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1,
+			           starttime1, startdate1, statusVal.getText());
 			if (DataTerminalHomeApplication.controller != null) {
 				controllerVar = DataTerminalHomeApplication.controller;
 			} else if (newOfficerController.controller != null) {
@@ -477,7 +479,8 @@ public class CalloutManager {
 		ColumnConstraints col7 = new ColumnConstraints();
 		col7.setHgrow(Priority.NEVER);
 		
-		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
+		gridPane.getColumnConstraints()
+		        .addAll(col1, col2, col3, col4, col5, col6, col7);
 		
 		Label numberLabel = createLabel("Number:", true);
 		gridPane.add(numberLabel, 0, 0);
@@ -515,7 +518,8 @@ public class CalloutManager {
 		GridPane.setRowSpan(actionButton, 1);
 		actionButton.setPadding(new Insets(5, 10, 5, 10));
 		
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
+		                                                  0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
 		actionButton.setStyle(def);
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
@@ -528,7 +532,10 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> callout = reportCreationUtil.newCallout(controllerVar.getReportChart(), controllerVar.getAreaReportChart(), controllerVar.vbox, controllerVar.notesViewController);
+			Map<String, Object> callout = reportCreationUtil.newCallout(controllerVar.getReportChart(),
+			                                                            controllerVar.getAreaReportChart(),
+			                                                            controllerVar.vbox,
+			                                                            controllerVar.notesViewController);
 			TextField calloutnum = (TextField) callout.get("calloutnumber");
 			ComboBox calloutarea = (ComboBox) callout.get("area");
 			TextArea calloutnotes = (TextArea) callout.get("notes");
@@ -552,7 +559,9 @@ public class CalloutManager {
 			calloutnum.setText(number1);
 			calloutarea.setValue(area1);
 			calloutnotes.setText(desc1);
-			if (message1!=null) calloutnotes.appendText("\n"+message1);
+			if (message1 != null) {
+				calloutnotes.appendText("\n" + message1);
+			}
 			calloutcounty.setText(county1);
 			calloutstreet.setText(street1);
 			calloutdate.setText(startdate1);

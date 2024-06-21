@@ -9,11 +9,12 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +51,17 @@ public class calloutController {
 	private TextArea descriptionField;
 	@FXML
 	private TextField typeField;
+	@FXML
+	private ToggleGroup respondToggle;
+	@FXML
+	private Label calloutInfoTitle;
+	@FXML
+	private ToggleButton respondBtn;
+	@FXML
+	private ToggleButton ignoreBtn;
+	private String status;
+	
+	private int i;
 	
 	public static AnchorPane getTopBar() {
 		return topBar;
@@ -87,6 +99,9 @@ public class calloutController {
 		root.setTop(topBar);
 		
 		Platform.runLater(() -> {
+			Stage stage = (Stage) root.getScene()
+			                          .getWindow();
+			
 			Callout callout = getCallout();
 			
 			String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
@@ -99,6 +114,14 @@ public class calloutController {
 			String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
 			String desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
 			String message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+			status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+			
+			respondBtn.setOnAction(actionEvent -> {
+				status = "Responded";
+			});
+			ignoreBtn.setOnAction(actionEvent -> {
+				status = "Not Responded";
+			});
 			
 			if (callout != null) {
 				streetField.setText(street);
@@ -118,9 +141,6 @@ public class calloutController {
 					descriptionField.appendText("\n " + message);
 				}
 				
-				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
-				                          time, date, "Not Responded");
-				
 			} else {
 				
 				log("No Callouts found.", LogUtils.Severity.WARN);
@@ -134,10 +154,12 @@ public class calloutController {
 				descriptionField.setText(/*No Data*/"");
 				typeField.setText(/*No Data*/"");
 			}
+			
+			stage.setOnHidden(windowEvent -> {
+				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
+				                          time, date, status);
+			});
 		});
-		
-		root.requestFocus();
-		
 		watchCalloutChanges();
 	}
 	
@@ -218,4 +240,13 @@ public class calloutController {
 		watchThread.start();
 	}
 	
+	@FXML
+	public void respondBtnAction(ActionEvent actionEvent) {
+	
+	}
+	
+	@FXML
+	public void ignoreBtnAction(ActionEvent actionEvent) {
+	
+	}
 }

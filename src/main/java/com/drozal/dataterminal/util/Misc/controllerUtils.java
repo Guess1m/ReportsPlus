@@ -55,7 +55,8 @@ public class controllerUtils {
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
 	
 	public static String updateStyleProperty(Node node, String property, String value) {
-		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
+		String updatedStyle = node.getStyle()
+		                          .replaceAll(property + ": [^;]*;", "");
 		return updatedStyle + property + ": " + value + ";";
 	}
 	
@@ -327,19 +328,15 @@ public class controllerUtils {
 	
 	public static void clearDataFolder() {
 		try {
+			String dataFolderPath = getJarPath() + File.separator + "data";
+			log("Data folder path: " + dataFolderPath, LogUtils.Severity.INFO);
 			
-			String dataLogsFolderPath = getJarPath() + File.separator + "data";
-			
-			log("Data folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
-			
-			File dataLogsFolder = new File(dataLogsFolderPath);
-			if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
+			File dataFolder = new File(dataFolderPath);
+			if (dataFolder.exists() && dataFolder.isDirectory()) {
 				log("Data folder exists.", LogUtils.Severity.INFO);
 				
-				File[] files = dataLogsFolder.listFiles();
-				
+				File[] files = dataFolder.listFiles();
 				if (files != null) {
-					
 					for (File file : files) {
 						if (file.isFile()) {
 							try {
@@ -348,9 +345,11 @@ public class controllerUtils {
 							} catch (IOException e) {
 								logError("Failed to delete file: " + file.getName() + " ", e);
 							}
+						} else if (file.isDirectory()) {
+							clearDirectory(file);
 						}
 					}
-					log("All files in Data folder deleted successfully.", LogUtils.Severity.INFO);
+					log("All files and subdirectories in Data folder deleted successfully.", LogUtils.Severity.INFO);
 				} else {
 					log("Data folder is empty.", LogUtils.Severity.WARN);
 				}
@@ -359,6 +358,30 @@ public class controllerUtils {
 			}
 		} catch (Exception e) {
 			logError("Error Clearing Data Folder ", e);
+		}
+	}
+	
+	private static void clearDirectory(File directory) {
+		File[] files = directory.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					try {
+						Files.deleteIfExists(file.toPath());
+						log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
+					} catch (IOException e) {
+						logError("Failed to delete file: " + file.getName() + " ", e);
+					}
+				} else if (file.isDirectory()) {
+					clearDirectory(file);
+				}
+			}
+		}
+		try {
+			Files.deleteIfExists(directory.toPath());
+			log("Deleted directory: " + directory.getName(), LogUtils.Severity.INFO);
+		} catch (IOException e) {
+			logError("Failed to delete directory: " + directory.getName() + " ", e);
 		}
 	}
 	

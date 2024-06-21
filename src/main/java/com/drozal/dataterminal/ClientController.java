@@ -61,14 +61,6 @@ public class ClientController {
 				              inputPortField.setText(newValue.replaceAll("[^\\d]", ""));
 			              }
 		              });
-		
-		/* Temp removed for localhost ability
-		inputHostField.textProperty()
-		              .addListener((observable, oldValue, newValue) -> {
-			              if (!newValue.matches("[0-9.]*")) {
-				              inputHostField.setText(oldValue);
-			              }
-		              });*/
 	}
 	
 	@javafx.fxml.FXML

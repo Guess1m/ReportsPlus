@@ -40,18 +40,22 @@
 
 
 
-.scroll-bar:vertical {
+.scroll-bar:vertical,
+.scroll-bar:horizontal{
     -fx-background-color: transparent; /* Transparent background */
     -fx-pref-width: 14px; /* Thicker width */
 }
 
-.scroll-bar:vertical .thumb {
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb{
     -fx-background-color: #5e7387; /* Thumb color */
     -fx-min-height: 14px; /* Thicker thumb */
 }
 
 .scroll-bar:vertical .increment-button,
-.scroll-bar:vertical .decrement-button {
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button{
     -fx-background-color: transparent; /* Transparent buttons */
 }
 
@@ -61,6 +65,7 @@
     -fx-border-color: transparent;
 }
 /* Define styles for the vertical scroll bar when pressed */
-.scroll-bar:vertical:pressed .thumb {
+.scroll-bar:vertical:pressed .thumb,
+.scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #34404b; /* Thumb color when pressed */
 }

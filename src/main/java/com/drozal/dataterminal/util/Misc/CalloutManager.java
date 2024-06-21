@@ -1,5 +1,9 @@
 package com.drozal.dataterminal.util.Misc;
 
+import com.drozal.dataterminal.DataTerminalHomeApplication;
+import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.newOfficerController;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -16,11 +20,15 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class CalloutManager {
+	
+	private static actionController controllerVar;
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate, String status) {
 		Callouts callouts = null;
@@ -85,14 +93,14 @@ public class CalloutManager {
 		try {
 			File file = new File(xmlFile);
 			
-			// Check if the file exists and is not empty
+			
 			if (file.exists() && file.length() != 0) {
 				try {
 					JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
 					Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 					callouts = (Callouts) unmarshaller.unmarshal(file);
 				} catch (JAXBException e) {
-					// Handle file format issues here
+					
 					System.out.println("The file is not properly formatted: " + e.getMessage());
 					return;
 				}
@@ -134,7 +142,7 @@ public class CalloutManager {
 				String number = ((Label) gridPane.getChildren()
 				                                 .get(1)).getText();
 				
-				// Retrieve the relevant data from the XML file using the extracted number
+				
 				String type = getValueByNumber(calloutDataURL, number, "Type");
 				String description = getValueByNumber(calloutDataURL, number, "Description");
 				String message = getValueByNumber(calloutDataURL, number, "Message");
@@ -160,6 +168,7 @@ public class CalloutManager {
 				calTime.setText(time);
 			}
 		} else {
+			System.out.println("setting not visible");
 			pane.setVisible(false);
 		}
 	}
@@ -309,8 +318,8 @@ public class CalloutManager {
 	
 	private static Node createHistoryCalloutNode(String number, String status, String type, String street, String priority, String area) {
 		GridPane gridPane = new GridPane();
-		gridPane.setHgap(20); // Increased horizontal gap for better spacing
-		gridPane.setVgap(10);
+		gridPane.setHgap(20);
+		gridPane.setVgap(15);
 		gridPane.setPadding(new Insets(10));
 		
 		ColumnConstraints col1 = new ColumnConstraints();
@@ -325,9 +334,10 @@ public class CalloutManager {
 		col5.setHgrow(Priority.NEVER);
 		ColumnConstraints col6 = new ColumnConstraints();
 		col6.setHgrow(Priority.SOMETIMES);
+		ColumnConstraints col7 = new ColumnConstraints();
+		col7.setHgrow(Priority.NEVER);
 		
-		gridPane.getColumnConstraints()
-		        .addAll(col1, col2, col3, col4, col5, col6);
+		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
 		Label numberLabel = createLabel("Number:", true);
 		gridPane.add(numberLabel, 0, 0);
@@ -349,32 +359,72 @@ public class CalloutManager {
 		
 		Label streetLabel = createLabel("Street:", true);
 		gridPane.add(streetLabel, 0, 1);
-		gridPane.add(new Label(street), 1, 1, 5, 1);
+		gridPane.add(new Label(street), 1, 1, 6, 1);
 		
 		Label priorityLabel = createLabel("Priority:", true);
 		gridPane.add(priorityLabel, 0, 2);
-		gridPane.add(new Label(priority), 1, 2, 5, 1);
+		gridPane.add(new Label(priority), 1, 2, 6, 1);
 		
 		Label areaLabel = createLabel("Area:", true);
 		gridPane.add(areaLabel, 0, 3);
-		gridPane.add(new Label(area), 1, 3, 5, 1);
+		gridPane.add(new Label(area), 1, 3, 6, 1);
 		
-		Button actionButton = new Button("Action");
-		GridPane.setHalignment(actionButton, HPos.LEFT);
-		GridPane.setColumnSpan(actionButton, 2);
+		Button actionButton = new Button("Create Callout Report");
+		GridPane.setHalignment(actionButton, HPos.CENTER);
+		GridPane.setColumnSpan(actionButton, 1);
+		GridPane.setRowSpan(actionButton, 1);
 		actionButton.setPadding(new Insets(5, 10, 5, 10));
-		actionButton.setText("Create Callout Report");
 		
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
-		                                                  0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
 		actionButton.setStyle(def);
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
 		actionButton.setOnMouseClicked(actionEvent -> {
-			System.out.println(number);
+			if (DataTerminalHomeApplication.controller != null) {
+				controllerVar = DataTerminalHomeApplication.controller;
+			} else if (newOfficerController.controller != null) {
+				controllerVar = newOfficerController.controller;
+			} else {
+				log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+			}
+			Map<String, Object> callout = reportCreationUtil.newCallout(controllerVar.getReportChart(), controllerVar.getAreaReportChart(), controllerVar.vbox, controllerVar.notesViewController);
+			TextField calloutnum = (TextField) callout.get("calloutnumber");
+			ComboBox calloutarea = (ComboBox) callout.get("area");
+			TextArea calloutnotes = (TextArea) callout.get("notes");
+			TextField calloutcounty = (TextField) callout.get("county");
+			TextField calloutstreet = (TextField) callout.get("street");
+			TextField calloutdate = (TextField) callout.get("date");
+			TextField callouttime = (TextField) callout.get("time");
+			TextField callouttype = (TextField) callout.get("type");
+			TextField calloutcode = (TextField) callout.get("code");
+			
+			String number1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Number");
+			String type1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Type");
+			String desc1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Description");
+			String message1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Message");
+			String priority1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Priority");
+			String street1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Street");
+			String area1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Area");
+			String county1 = CalloutManager.getValueByNumber(calloutDataURL, number, "County");
+			String startdate1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartDate");
+			String starttime1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartTime");
+			calloutnum.setText(number1);
+			calloutarea.setValue(area1);
+			calloutnotes.setText(desc1);
+			if (message1!=null) calloutnotes.appendText("\n"+message1);
+			calloutcounty.setText(county1);
+			calloutstreet.setText(street1);
+			calloutdate.setText(startdate1);
+			callouttime.setText(starttime1);
+			callouttype.setText(type1);
+			calloutcode.setText(priority1);
+			
 		});
 		
-		gridPane.add(actionButton, 4, 3);
+		BorderPane actionButtonPane = new BorderPane(actionButton);
+		
+		gridPane.add(actionButtonPane, 3, 2, 3, 2); // Spanning columns 4 to 6 to center the button and moving it to row 4
+		
 		return gridPane;
 	}
 	

@@ -133,7 +133,7 @@ public class actionController {
 	public Button updateInfoBtn;
 	actionController controller;
 	AnchorPane titlebar;
-	private NotesViewController notesViewController;
+	public NotesViewController notesViewController;
 	@javafx.fxml.FXML
 	private Label secondaryColor3Bkg;
 	@javafx.fxml.FXML
@@ -550,6 +550,10 @@ public class actionController {
 	private TextArea calDesc;
 	@javafx.fxml.FXML
 	private TextField calType;
+	@javafx.fxml.FXML
+	private Label calfill;
+	@javafx.fxml.FXML
+	private Label activecalfill;
 	
 	
 	//</editor-fold>
@@ -563,6 +567,22 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public ListView getCalHistoryList() {
+		return calHistoryList;
+	}
+	
+	public ListView getCalActiveList() {
+		return calActiveList;
+	}
+	
+	public Label getActivecalfill() {
+		return activecalfill;
+	}
+	
+	public Label getCalfill() {
+		return calfill;
 	}
 	
 	public Label getCalloutInfoTitle() {
@@ -2640,8 +2660,11 @@ public class actionController {
 	private void loadTheme() throws IOException {
 		changeBarColors(getReportChart());
 		changeStatisticColors(areaReportChart);
-		
+		String accclr = ConfigReader.configRead("accentColor");
+		String secclr = ConfigReader.configRead("secondaryColor");
 		String mainclr = ConfigReader.configRead("mainColor");
+		
+		//main
 		getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 		topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
@@ -2649,7 +2672,12 @@ public class actionController {
 		logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
 		detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
 		
-		String secclr = ConfigReader.configRead("secondaryColor");
+		//secondary
+		activecalfill.setStyle(updateStyleProperty(activecalfill, "-fx-text-fill", secclr));
+		calfill.setStyle(updateStyleProperty(calfill, "-fx-text-fill", secclr));
+		activecalfill.setStyle(updateStyleProperty(activecalfill, "-fx-border-color", accclr));
+		calfill.setStyle(updateStyleProperty(calfill, "-fx-border-color", accclr));
+		
 		getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
 		getServerStatusLabel().setStyle(
 				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -2659,8 +2687,9 @@ public class actionController {
 		secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
 		reportPlusLabelFill.setStyle("-fx-text-fill: " + secclr + ";");
 		
-		String accclr = ConfigReader.configRead("accentColor");
-		
+		//accent / events
+		getCalActiveList().setStyle(updateStyleProperty(getCalActiveList(), "-fx-border-color", accclr));
+		getCalHistoryList().setStyle(updateStyleProperty(getCalHistoryList(), "-fx-border-color", accclr));
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
@@ -2919,8 +2948,6 @@ public class actionController {
 				             handleSelectedNode(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate,
 				                                calStreet, calDesc, calType, calTime, calPriority);
 				             showCurrentCalToggle.setSelected(true);
-			             } else {
-				             currentCalPane.setVisible(false);
 			             }
 		             });
 	}
@@ -2947,15 +2974,15 @@ public class actionController {
 		setActive(calloutPane);
 		CalloutManager.deleteCallout(calloutDataURL, "12345");
 		CalloutManager.deleteCallout(calloutDataURL, "23456");
-		CalloutManager.deleteCallout(calloutDataURL, "81237");
+		CalloutManager.deleteCallout(calloutDataURL, "18292");
 		
-		CalloutManager.addCallout(calloutDataURL, "12345", "Gas Leak", "Gas leak at commercial building",
+		CalloutManager.addCallout(calloutDataURL, "18292", "Gas Leak", "Gas leak at commercial building",
 		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
 		                          "2024-06-17", "Not Responded");
 		
-		CalloutManager.addCallout(calloutDataURL, "81237", "Gas Leak", "Gas leak at commercial building",
-		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
-		                          "2024-06-17", "Responded");
+		CalloutManager.addCallout(calloutDataURL, "12345", "type8172", "desc190838",
+		                          "message29328289", "priority298832", "street29832823", "area3289328", "county2983", "99:99203329",
+		                          "9999-99-99", "status99999");
 		
 		CalloutManager.addCallout(calloutDataURL, "23456", "House Fire", "Fire at residential building",
 		                          "Extinguish the fire and rescue occupants", "Code 2", "Elm St", "Downtown", "Queen",

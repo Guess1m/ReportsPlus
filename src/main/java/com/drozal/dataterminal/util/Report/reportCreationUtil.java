@@ -44,7 +44,7 @@ import static com.drozal.dataterminal.util.Report.Layouts.*;
 
 public class reportCreationUtil {
 	
-	public static void newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static Map<String, Object> newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> calloutReport = calloutLayout();
 		
 		Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
@@ -136,6 +136,7 @@ public class reportCreationUtil {
 			                              .getWindow();
 			rootstage.close();
 		});
+		return calloutReportMap;
 	}
 	
 	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {

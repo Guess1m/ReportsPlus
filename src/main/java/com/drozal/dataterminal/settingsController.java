@@ -2,6 +2,7 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
@@ -156,9 +157,6 @@ public class settingsController {
 		                                  .equals("true"));
 		AOTDebug.setSelected(ConfigReader.configRead("AOTDebug")
 		                                 .equals("true"));
-		
-		loadColors();
-		loadTheme();
 		
 		String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
 		mainWindowComboBox.getItems()
@@ -559,16 +557,8 @@ public class settingsController {
 			stage.setMinWidth(stage.getWidth());
 			stage.setMinHeight(stage.getHeight());
 		});
-		
-		if (isConnected) {
-			controllerVar.getServerStatusLabel()
-			             .setStyle(
-					             "-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-		} else {
-			controllerVar.getServerStatusLabel()
-			             .setStyle(
-					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-		}
+		loadColors();
+		loadTheme();
 	}
 	
 	@javafx.fxml.FXML
@@ -655,6 +645,17 @@ public class settingsController {
 		lbl7.setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String accclr = ConfigReader.configRead("accentColor");
+		
+		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
+		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
+		
+		controllerVar.getCalActiveList().setStyle(updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
+		controllerVar.getCalHistoryList().setStyle(updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
+		
+		controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", secclr));
+		controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", secclr));
+		controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", accclr));
+		controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", accclr));
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
@@ -794,6 +795,8 @@ public class settingsController {
 			             .setStyle(
 					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
+		
+		controllerVar.getServerStatusLabel().setStyle(updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 	}
 	
 	private void loadColors() {

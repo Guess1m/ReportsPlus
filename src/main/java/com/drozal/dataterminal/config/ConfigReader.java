@@ -77,7 +77,7 @@ public class ConfigReader {
 				String jarDirPath = new File(jarUrl.toURI()).getParent();
 				try (InputStream input = new FileInputStream(jarDirPath + File.separator + "config.properties")) {
 					prop.load(input);
-					// Check if the property exists in the loaded properties
+					
 					return prop.containsKey("database." + property);
 				}
 			} else {

@@ -536,8 +536,7 @@ public class reportUtil {
 		stage.setScene(scene);
 		stage.setTitle(reportName);
 		
-		stage.show();
-		stage.toFront();
+		
 		
 		titleBar.setOnMouseClicked(event -> {
 			if (event.getClickCount() == 2) {
@@ -593,6 +592,8 @@ public class reportUtil {
 		} catch (IOException e) {
 			logError("Could not get AOTReport: ", e);
 		}
+		stage.show();
+		stage.toFront();
 		return result;
 	}
 	

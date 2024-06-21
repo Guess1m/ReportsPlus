@@ -124,3 +124,46 @@
         -fx-background-color: #f2f2f2;
         -fx-effect: none;
 }
+
+.combo-boxCal {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 10.5px;
+    -fx-background-color: none;
+    -fx-background-insets: 0;
+    -fx-padding: 0px;
+    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
+    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
+    -fx-border-color: grey; /* Set initial border color to transparent */
+}
+.combo-boxCal .list-cell {
+    -fx-text-fill:  black; /* Set the text color */
+}
+.combo-boxCal .list-view .list-cell {
+    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-background-color:  #f2f2f2;
+    -fx-border-color: none;
+}
+.combo-boxCal .scroll-bar {
+    -fx-background-color: #f2f2f2; /* Transparent background */
+        -fx-pref-width: 11px; /* Thicker width */
+}
+.combo-boxCal .scroll-bar .increment-arrow,
+.combo-boxCal .scroll-bar .decrement-arrow {
+    -fx-background-color: none; /* Change arrow color */
+    -fx-fill: none;
+}
+.combo-boxCal .scroll-bar .thumb {
+    -fx-background-color: #5e7387; /* Change arrow color */
+}
+.combo-boxCal .scroll-bar .thumb:pressed {
+    -fx-background-color: #495a69; /* Change arrow color */
+}
+.combo-boxCal .list-view .list-cell:hover {
+    -fx-background-color: rgb(94, 115, 135,0.4); /* Set the hover background color */
+}
+.combo-boxCal:focused {
+    -fx-border-color: #5e7387; /* Change border color when focused */
+    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-effect: none;
+}

@@ -20,6 +20,7 @@ public class stringUtil {
 	public static String trafficCitationLogURL = getDataLogsFolderPath() + "trafficCitationLogs.xml";
 	public static String impoundLogURL = getDataLogsFolderPath() + "impoundLogs.xml";
 	public static String calloutDataURL = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
+	public static String calloutHistoryURL = getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

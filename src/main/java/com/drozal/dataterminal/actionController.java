@@ -60,11 +60,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNode;
+import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
+import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Misc.updateUtil.*;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
@@ -2945,11 +2945,59 @@ public class actionController {
 				             
 				             timeline.play();
 				             currentCalPane.setVisible(true);
-				             handleSelectedNode(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate,
+				             handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate,
 				                                calStreet, calDesc, calType, calTime, calPriority);
 				             showCurrentCalToggle.setSelected(true);
 			             }
 		             });
+		
+		calHistoryList.getSelectionModel()
+		             .selectedItemProperty()
+		             .addListener((obs, oldSelection, newSelection) -> {
+			             if (newSelection != null) {
+				             double toHeight = 329;
+				             
+				             Timeline timeline = new Timeline();
+				             
+				             KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+				             KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+				             KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+				             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight,
+				                                              keyValueMaxHeight, keyValueMinHeight);
+				             
+				             timeline.getKeyFrames()
+				                     .add(keyFrame);
+				             
+				             timeline.play();
+				             currentCalPane.setVisible(true);
+				             handleSelectedNodeHistory(calHistoryList, currentCalPane, calNum, calArea, calCounty, calDate,
+				                                calStreet, calDesc, calType, calTime, calPriority);
+				             showCurrentCalToggle.setSelected(true);
+			             }
+		             });
+		
+		
+		CalloutManager.deleteCallout(calloutDataURL, "12345");
+		CalloutManager.deleteCallout(calloutDataURL, "23456");
+		CalloutManager.deleteCallout(calloutDataURL, "18292");
+		CalloutManager.deleteCallout(calloutDataURL, "81237");
+		
+		CalloutManager.deleteCallout(calloutHistoryURL, "12345");
+		CalloutManager.deleteCallout(calloutHistoryURL, "23456");
+		CalloutManager.deleteCallout(calloutHistoryURL, "18292");
+		CalloutManager.deleteCallout(calloutHistoryURL, "81237");
+		
+		CalloutManager.addCallout(calloutDataURL, "18292", "Gas Leak", "Gas leak at commercial building",
+		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
+		                          "2024-06-17", "Not Responded");
+		
+		CalloutManager.addCallout(calloutDataURL, "12345", "type8172", "desc190838",
+		                          "message29328289", "priority298832", "street29832823", "area3289328", "county2983", "99:99203329",
+		                          "9999-99-99", "status99999");
+		
+		CalloutManager.addCallout(calloutDataURL, "23456", "House Fire", "Fire at residential building",
+		                          "Extinguish the fire and rescue occupants", "Code 2", "Elm St", "Downtown", "Queen",
+		                          "aaaaa", "bbbbbb", "Not Responded");
 	}
 	
 	@javafx.fxml.FXML
@@ -2972,21 +3020,6 @@ public class actionController {
 		
 		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
 		setActive(calloutPane);
-		CalloutManager.deleteCallout(calloutDataURL, "12345");
-		CalloutManager.deleteCallout(calloutDataURL, "23456");
-		CalloutManager.deleteCallout(calloutDataURL, "18292");
-		
-		CalloutManager.addCallout(calloutDataURL, "18292", "Gas Leak", "Gas leak at commercial building",
-		                          "Evacuate the building immediately", "Code 3", "Market St", "Uptown", "King", "15:00",
-		                          "2024-06-17", "Not Responded");
-		
-		CalloutManager.addCallout(calloutDataURL, "12345", "type8172", "desc190838",
-		                          "message29328289", "priority298832", "street29832823", "area3289328", "county2983", "99:99203329",
-		                          "9999-99-99", "status99999");
-		
-		CalloutManager.addCallout(calloutDataURL, "23456", "House Fire", "Fire at residential building",
-		                          "Extinguish the fire and rescue occupants", "Code 2", "Elm St", "Downtown", "Queen",
-		                          "aaaaa", "bbbbbb", "Not Responded");
 		
 		CalloutManager.loadActiveCallouts(calActiveList);
 		CalloutManager.loadHistoryCallouts(calHistoryList);

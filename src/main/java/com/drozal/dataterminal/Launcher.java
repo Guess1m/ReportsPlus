@@ -15,8 +15,7 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
 
@@ -115,6 +114,12 @@ public class Launcher {
 		if (!calloutDataFile.exists()) {
 			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
 			calloutDataFile.createNewFile();
+		}
+		
+		File calloutHistoryFile = new File(calloutHistoryURL);
+		if (!calloutHistoryFile.exists()) {
+			log("Callout History File Doesn't Exist, Creating", Severity.INFO);
+			calloutHistoryFile.createNewFile();
 		}
 		
 		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";

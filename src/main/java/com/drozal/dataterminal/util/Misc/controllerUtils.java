@@ -54,6 +54,18 @@ public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
 	
+	public static String lowerPaneToToRGB(String hexColor, double alpha) {
+		if (!hexColor.matches("^#[0-9A-Fa-f]{6}$")) {
+			throw new IllegalArgumentException("Invalid hexadecimal color: " + hexColor);
+		}
+		
+		int r = Integer.parseInt(hexColor.substring(1, 3), 16) - 120;
+		int g = Integer.parseInt(hexColor.substring(3, 5), 16) - 120;
+		int b = Integer.parseInt(hexColor.substring(5, 7), 16) - 120;
+		
+		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, alpha);
+	}
+	
 	public static String updateStyleProperty(Node node, String property, String value) {
 		String updatedStyle = node.getStyle()
 		                          .replaceAll(property + ": [^;]*;", "");

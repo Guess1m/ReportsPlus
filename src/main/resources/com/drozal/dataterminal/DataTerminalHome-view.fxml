@@ -15,14 +15,14 @@
             xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
-                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
+                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="115.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                             AnchorPane.topAnchor="0.0">
                     <content>
-                        <VBox>
+                        <VBox fx:id="bkgclr1">
                             <children>
                                 <GridPane minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
                                     <columnConstraints>
@@ -952,12 +952,12 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
+        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="115.0">
             <children>
-                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0">
+                <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="41.0" prefWidth="722.0"
                                     VBox.vgrow="NEVER">
@@ -1012,7 +1012,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-                        <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="889.0"
+                        <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="951.0"
                                  stylesheets="@css/main/Logtabpane.css" VBox.vgrow="ALWAYS">
                             <tabs>
                                 <Tab fx:id="calloutTab" closable="false" text="Callouts">

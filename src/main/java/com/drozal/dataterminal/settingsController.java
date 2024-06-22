@@ -662,6 +662,33 @@ public class settingsController {
 		lbl6.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl7.setStyle("-fx-text-fill: " + secclr + ";");
 		
+		String bkgclr = ConfigReader.configRead("bkgColor");
+		controllerVar.getBkgclr1()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getBkgclr2()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getTabPane()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getArrestTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getCalloutTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getCitationTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getImpoundTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getIncidentTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getPatrolTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getSearchTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getTrafficStopTable()
+		             .setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getLowerPane()
+		             .setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.5) + ";");
+		System.out.println("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.5) + ";");
+		
 		String accclr = ConfigReader.configRead("accentColor");
 		
 		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());

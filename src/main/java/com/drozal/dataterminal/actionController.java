@@ -46,6 +46,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -556,6 +557,10 @@ public class actionController {
 	private Label calfill;
 	@javafx.fxml.FXML
 	private Label activecalfill;
+	@javafx.fxml.FXML
+	private VBox bkgclr1;
+	@javafx.fxml.FXML
+	private VBox bkgclr2;
 	
 	
 	//</editor-fold>
@@ -569,6 +574,54 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public AnchorPane getLowerPane() {
+		return lowerPane;
+	}
+	
+	public TableView getArrestTable() {
+		return arrestTable;
+	}
+	
+	public TableView getCalloutTable() {
+		return calloutTable;
+	}
+	
+	public TableView getCitationTable() {
+		return citationTable;
+	}
+	
+	public TableView getImpoundTable() {
+		return impoundTable;
+	}
+	
+	public TableView getIncidentTable() {
+		return incidentTable;
+	}
+	
+	public TableView getPatrolTable() {
+		return patrolTable;
+	}
+	
+	public TableView getSearchTable() {
+		return searchTable;
+	}
+	
+	public TableView getTrafficStopTable() {
+		return trafficStopTable;
+	}
+	
+	public TabPane getTabPane() {
+		return tabPane;
+	}
+	
+	public VBox getBkgclr2() {
+		return bkgclr2;
+	}
+	
+	public VBox getBkgclr1() {
+		return bkgclr1;
 	}
 	
 	public ListView getCalHistoryList() {

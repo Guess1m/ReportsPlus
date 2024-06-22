@@ -9,7 +9,6 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -256,15 +255,5 @@ public class calloutController {
 		
 		watchThread.setDaemon(true);
 		watchThread.start();
-	}
-	
-	@FXML
-	public void respondBtnAction(ActionEvent actionEvent) {
-	
-	}
-	
-	@FXML
-	public void ignoreBtnAction(ActionEvent actionEvent) {
-	
 	}
 }

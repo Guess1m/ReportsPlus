@@ -15,8 +15,8 @@
             xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
-                    visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
-                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-1.0"
+                    AnchorPane.topAnchor="115.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -145,9 +145,9 @@
                                         </Label>
                                         <BarChart fx:id="reportChart" layoutX="35.0" layoutY="37.0"
                                                   legendVisible="false" prefHeight="226.0" prefWidth="868.0"
-                                                  stylesheets="@css/main/chartCSS.css" AnchorPane.bottomAnchor="0.0"
-                                                  AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0"
-                                                  AnchorPane.topAnchor="35.0">
+                                                  styleClass="customchart" stylesheets="@css/main/chartCSS.css"
+                                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0"
+                                                  AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
                                             <xAxis>
                                                 <CategoryAxis tickLabelGap="2.0" tickLabelRotation="360.0"
                                                               tickLength="13.0">
@@ -952,7 +952,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
+        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="115.0">
             <children>

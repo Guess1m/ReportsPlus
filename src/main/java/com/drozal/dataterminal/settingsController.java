@@ -687,7 +687,6 @@ public class settingsController {
 		             .setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane()
 		             .setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.5) + ";");
-		System.out.println("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.5) + ";");
 		
 		String accclr = ConfigReader.configRead("accentColor");
 		

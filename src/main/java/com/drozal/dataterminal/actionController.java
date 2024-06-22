@@ -52,9 +52,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -884,7 +882,7 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
+	public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
 		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane);
 		setActive(shiftInformationPane);
 		showAnimation(shiftInfoBtn);
@@ -915,42 +913,42 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onCalloutReportButtonClick(ActionEvent actionEvent) throws IOException {
+	public void onCalloutReportButtonClick(ActionEvent actionEvent) {
 		newCallout(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void trafficStopReportButtonClick(ActionEvent actionEvent) throws IOException {
+	public void trafficStopReportButtonClick(ActionEvent actionEvent) {
 		newTrafficStop(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onIncidentReportBtnClick(ActionEvent actionEvent) throws IOException {
+	public void onIncidentReportBtnClick(ActionEvent actionEvent) {
 		newIncident(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onSearchReportBtnClick(ActionEvent actionEvent) throws IOException {
+	public void onSearchReportBtnClick(ActionEvent actionEvent) {
 		newSearch(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onArrestReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onArrestReportBtnClick(ActionEvent actionEvent) {
 		newArrest(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onCitationReportBtnClick(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException {
+	public void onCitationReportBtnClick(ActionEvent actionEvent) {
 		newCitation(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onPatrolButtonClick(ActionEvent actionEvent) throws IOException {
+	public void onPatrolButtonClick(ActionEvent actionEvent) {
 		newPatrol(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
-	public void onImpoundReportBtnClick(ActionEvent actionEvent) throws IOException {
+	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
 		newImpound(reportChart, areaReportChart, vbox, notesViewController);
 	}
 	
@@ -3034,15 +3032,15 @@ public class actionController {
 				});
 			});
 			
-				if (!stringUtil.version.equals(gitVersion)) {
-					if (gitVersion == null) {
-						versionLabel.setText("New Version Available!");
-						versionLabel.setStyle("-fx-text-fill: red;");
-					} else {
-						versionLabel.setText(gitVersion + " Available!");
-						versionLabel.setStyle("-fx-text-fill: red;");
-					}
+			if (!stringUtil.version.equals(gitVersion)) {
+				if (gitVersion == null) {
+					versionLabel.setText("New Version Available!");
+					versionLabel.setStyle("-fx-text-fill: red;");
+				} else {
+					versionLabel.setText(gitVersion + " Available!");
+					versionLabel.setStyle("-fx-text-fill: red;");
 				}
+			}
 		});
 		
 		currentCalPane.setPrefHeight(0);

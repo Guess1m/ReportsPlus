@@ -138,8 +138,7 @@ public class CalloutManager {
 		if (selectedNode != null) {
 			pane.setVisible(true);
 			pane.setDisable(false);
-			if (selectedNode instanceof GridPane) {
-				GridPane gridPane = (GridPane) selectedNode;
+			if (selectedNode instanceof GridPane gridPane) {
 				String number = ((Label) gridPane.getChildren()
 				                                 .get(1)).getText();
 				
@@ -179,8 +178,7 @@ public class CalloutManager {
 		if (selectedNode != null) {
 			pane.setVisible(true);
 			pane.setDisable(false);
-			if (selectedNode instanceof GridPane) {
-				GridPane gridPane = (GridPane) selectedNode;
+			if (selectedNode instanceof GridPane gridPane) {
 				String number = ((Label) gridPane.getChildren()
 				                                 .get(1)).getText();
 				

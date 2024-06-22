@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="388.0"
             prefWidth="638.0"
-            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
+            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.calloutController">
     <center>
         <AnchorPane style="-fx-background-color: #505d62;">
@@ -195,7 +195,7 @@
                                        styleClass="statisticSubHeading" stylesheets="@css/menu/menuLabels.css"
                                        text="Description:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="-9.0"/>
                                 <ToggleButton fx:id="respondBtn" layoutX="310.0" layoutY="117.0" mnemonicParsing="false"
-                                              onAction="#respondBtnAction" prefHeight="26.0" prefWidth="112.0"
+                                              prefHeight="26.0" prefWidth="112.0"
                                               style="-fx-background-color: rgb(0,150,0,0.4); -fx-padding: 3;"
                                               text="Respond" textFill="WHITE" AnchorPane.bottomAnchor="-8.0"
                                               AnchorPane.rightAnchor="179.0">
@@ -207,7 +207,7 @@
                                     </toggleGroup>
                                 </ToggleButton>
                                 <ToggleButton fx:id="ignoreBtn" layoutX="350.0" layoutY="117.0" mnemonicParsing="false"
-                                              onAction="#ignoreBtnAction" prefHeight="26.0" prefWidth="112.0"
+                                              prefHeight="26.0" prefWidth="112.0"
                                               style="-fx-background-color: rgb(200,0,0,0.4); -fx-padding: 3;"
                                               text="Ignore" textFill="WHITE" toggleGroup="$respondToggle"
                                               AnchorPane.bottomAnchor="-8.0" AnchorPane.rightAnchor="45.0">

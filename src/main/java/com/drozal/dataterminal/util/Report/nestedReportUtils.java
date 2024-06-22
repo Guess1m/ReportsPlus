@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class nestedReportUtils {
-	public static enum FieldType {
+	public enum FieldType {
 		TEXT_FIELD, TEXT_AREA, COMBO_BOX_AREA, COMBO_BOX_COLOR, COMBO_BOX_TYPE, COMBO_BOX_SEARCH_TYPE, COMBO_BOX_SEARCH_METHOD, CITATION_TREE_VIEW, CHARGES_TREE_VIEW, TRANSFER_BUTTON
 	}
 	

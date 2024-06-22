@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+@SuppressWarnings("ALL")
 public class OutputViewController {
 	private static AnchorPane titlebar = null;
 	@FXML

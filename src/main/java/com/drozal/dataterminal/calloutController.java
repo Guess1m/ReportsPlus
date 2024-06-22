@@ -28,6 +28,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+@SuppressWarnings({"ConstantValue", "unchecked"})
 public class calloutController {
 	
 	static AnchorPane topBar;
@@ -109,6 +110,7 @@ public class calloutController {
 			
 			Callout callout = getCallout();
 			
+			assert callout != null;
 			String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
 			String type = callout.getType() != null ? callout.getType() : "Not Available";
 			String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";

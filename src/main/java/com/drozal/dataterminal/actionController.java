@@ -58,6 +58,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
@@ -71,6 +72,7 @@ import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
+@SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
 	
 	
@@ -865,8 +867,8 @@ public class actionController {
 		}
 		notesStage.getScene()
 		          .getStylesheets()
-		          .add(getClass().getResource("css/notification-styles.css")
-		                         .toExternalForm());
+		          .add(Objects.requireNonNull(getClass().getResource("css/notification-styles.css"))
+		                      .toExternalForm());
 		showAnimation(notesButton);
 		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTNotes")
 		                                      .equals("true"));

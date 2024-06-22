@@ -8,19 +8,20 @@ import java.net.URISyntaxException;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+@SuppressWarnings("UnnecessaryLocalVariable")
 public class stringUtil {
-	public static String version = "v1.0.5-alpha";
-	public static String name = "Reports Plus";
-	public static String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";
-	public static String trafficstopLogURL = getDataLogsFolderPath() + "trafficStopLogs.xml";
-	public static String incidentLogURL = getDataLogsFolderPath() + "incidentLogs.xml";
-	public static String searchLogURL = getDataLogsFolderPath() + "searchLogs.xml";
-	public static String arrestLogURL = getDataLogsFolderPath() + "arrestLogs.xml";
-	public static String patrolLogURL = getDataLogsFolderPath() + "patrolLogs.xml";
-	public static String trafficCitationLogURL = getDataLogsFolderPath() + "trafficCitationLogs.xml";
-	public static String impoundLogURL = getDataLogsFolderPath() + "impoundLogs.xml";
-	public static String calloutDataURL = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
-	public static String calloutHistoryURL = getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
+	public static final String version = "v1.0.5-alpha";
+	public static final String name = "Reports Plus";
+	public static final String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";
+	public static final String trafficstopLogURL = getDataLogsFolderPath() + "trafficStopLogs.xml";
+	public static final String incidentLogURL = getDataLogsFolderPath() + "incidentLogs.xml";
+	public static final String searchLogURL = getDataLogsFolderPath() + "searchLogs.xml";
+	public static final String arrestLogURL = getDataLogsFolderPath() + "arrestLogs.xml";
+	public static final String patrolLogURL = getDataLogsFolderPath() + "patrolLogs.xml";
+	public static final String trafficCitationLogURL = getDataLogsFolderPath() + "trafficCitationLogs.xml";
+	public static final String impoundLogURL = getDataLogsFolderPath() + "impoundLogs.xml";
+	public static final String calloutDataURL = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
+	public static final String calloutHistoryURL = getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

@@ -10,26 +10,20 @@ import javafx.scene.input.KeyEvent;
 public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 	
 	private final ComboBox<T> comboBox;
-	private final StringBuilder sb;
 	private final ObservableList<T> data;
 	private boolean moveCaretToPos = false;
 	private int caretPos;
 	
 	public AutoCompleteComboBoxListener(ComboBox<T> comboBox) {
 		this.comboBox = comboBox;
-		sb = new StringBuilder();
 		data = comboBox.getItems();
 		
 		this.comboBox.setEditable(true);
-		this.comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent t) {
-				comboBox.hide();
-			}
-		});
+		this.comboBox.setOnKeyPressed(t -> comboBox.hide());
 		this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
 	}
 	
+	@SuppressWarnings("ForLoopReplaceableByForEach")
 	@Override
 	public void handle(KeyEvent event) {
 		if (event.getCode() == KeyCode.UP) {

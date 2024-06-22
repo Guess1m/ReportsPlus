@@ -16,8 +16,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+@SuppressWarnings("TextBlockMigration")
 public class ClientController {
-	private static AnchorPane titleBar;
 	@javafx.fxml.FXML
 	private TextField inetField;
 	@javafx.fxml.FXML
@@ -44,7 +44,7 @@ public class ClientController {
 	}
 	
 	public void initialize() throws IOException {
-		titleBar = reportUtil.createSimpleTitleBar("Client Interface", false);
+		AnchorPane titleBar = reportUtil.createSimpleTitleBar("Client Interface", false);
 		
 		root.setTop(titleBar);
 		

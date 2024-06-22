@@ -21,10 +21,11 @@ public class LogUtils {
 	private static boolean inErrorBlock = false;
 	
 	static {
-		try {
-			PrintStream console = System.out;
-			FileOutputStream fos = new FileOutputStream(stringUtil.getJarPath() + File.separator + "output.log", true);
-			PrintStream fileAndConsole = new PrintStream(new OutputStream() {
+		PrintStream console = System.out;
+		PrintStream fileAndConsole;
+		try (FileOutputStream fos = new FileOutputStream(stringUtil.getJarPath() + File.separator + "output.log",
+		                                                 true)) {
+			fileAndConsole = new PrintStream(new OutputStream() {
 				@Override
 				public void write(int b) throws IOException {
 					console.write(b);
@@ -55,15 +56,13 @@ public class LogUtils {
 					fos.close();
 				}
 			});
-			System.setOut(fileAndConsole);
-			System.setErr(fileAndConsole);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Failed to create log file", e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
+		System.setOut(fileAndConsole);
+		System.setErr(fileAndConsole);
 		
-		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
-			logError("Uncaught exception in thread " + thread, e);
-		});
+		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("Uncaught exception in thread " + thread, e));
 	}
 	
 	public static void endLog() {
@@ -104,7 +103,7 @@ public class LogUtils {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logError("Cant Read Log File: ", e);
 		}
 	}
 	

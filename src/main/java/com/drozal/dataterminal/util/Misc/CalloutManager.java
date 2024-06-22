@@ -22,16 +22,19 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
+@SuppressWarnings("ALL")
 public class CalloutManager {
 	
 	private static actionController controllerVar;
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate, String status) {
+		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -89,6 +92,7 @@ public class CalloutManager {
 	}
 	
 	public static void deleteCallout(String xmlFile, String number) {
+		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -213,6 +217,7 @@ public class CalloutManager {
 	}
 	
 	public static String getValueByNumber(String xmlFile, String number, String fieldName) {
+		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -245,6 +250,7 @@ public class CalloutManager {
 	}
 	
 	public static boolean setValueByNumber(String xmlFile, String number, String fieldName, String newValue) {
+		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -409,8 +415,8 @@ public class CalloutManager {
 		});
 		BorderPane statusPane = new BorderPane(statusDropdown);
 		statusDropdown.getStylesheets()
-		              .add(actionController.class.getResource("css/form/formComboBox.css")
-		                                         .toExternalForm());
+		              .add(Objects.requireNonNull(actionController.class.getResource("css/form/formComboBox.css"))
+		                          .toExternalForm());
 		statusDropdown.getStyleClass()
 		              .add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");

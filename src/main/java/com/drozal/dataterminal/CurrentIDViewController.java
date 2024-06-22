@@ -25,9 +25,9 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+@SuppressWarnings("unchecked")
 public class CurrentIDViewController {
 	
-	private static AnchorPane titleBar;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -80,7 +80,7 @@ public class CurrentIDViewController {
 	}
 	
 	public void initialize() {
-		titleBar = reportUtil.createSimpleTitleBar("Current ID", false);
+		AnchorPane titleBar = reportUtil.createSimpleTitleBar("Current ID", false);
 		root.setTop(titleBar);
 		cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
 		

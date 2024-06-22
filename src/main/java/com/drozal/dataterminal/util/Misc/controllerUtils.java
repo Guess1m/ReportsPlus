@@ -50,6 +50,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
+@SuppressWarnings("ALL")
 public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
@@ -270,33 +271,17 @@ public class controllerUtils {
 			                          .size(); i++) {
 				XYChart.Data<String, Number> data = series.getData()
 				                                          .get(i);
-				int reportsCount = 0;
-				switch (i) {
-					case 0:
-						reportsCount = CalloutReportLogs.countReports();
-						break;
-					case 1:
-						reportsCount = ArrestReportLogs.countReports();
-						break;
-					case 2:
-						reportsCount = TrafficStopReportLogs.countReports();
-						break;
-					case 3:
-						reportsCount = PatrolReportLogs.countReports();
-						break;
-					case 4:
-						reportsCount = SearchReportLogs.countReports();
-						break;
-					case 5:
-						reportsCount = IncidentReportLogs.countReports();
-						break;
-					case 6:
-						reportsCount = ImpoundReportLogs.countReports();
-						break;
-					case 7:
-						reportsCount = TrafficCitationReportLogs.countReports();
-						break;
-				}
+				int reportsCount = switch (i) {
+					case 0 -> CalloutReportLogs.countReports();
+					case 1 -> ArrestReportLogs.countReports();
+					case 2 -> TrafficStopReportLogs.countReports();
+					case 3 -> PatrolReportLogs.countReports();
+					case 4 -> SearchReportLogs.countReports();
+					case 5 -> IncidentReportLogs.countReports();
+					case 6 -> ImpoundReportLogs.countReports();
+					case 7 -> TrafficCitationReportLogs.countReports();
+					default -> 0;
+				};
 				if (data.getYValue()
 				        .intValue() != reportsCount) {
 					
@@ -413,13 +398,14 @@ public class controllerUtils {
 	}
 	
 	public static void clearDataLogsAsync() {
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-		
-		executor.submit(() -> {
-			clearDataLogs();
-		});
-		
-		executor.shutdown();
+		try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
+			
+			executor.submit(() -> {
+				clearDataLogs();
+			});
+			
+			executor.shutdown();
+		}
 	}
 	
 	public static void confirmSaveDataClearDialog(Stage ownerStage) {

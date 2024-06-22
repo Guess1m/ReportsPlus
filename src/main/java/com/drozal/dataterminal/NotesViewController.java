@@ -5,7 +5,6 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -36,7 +34,6 @@ public class NotesViewController {
 	private AnchorPane notesPane;
 	@javafx.fxml.FXML
 	private Button codesbtnnotepad;
-	private CodesWindow codesViewController;
 	
 	public AnchorPane getTitlebar() {
 		return titlebar;
@@ -115,7 +112,7 @@ public class NotesViewController {
 		codesStage.initStyle(StageStyle.UNDECORATED);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("codes-window.fxml"));
 		Parent root = loader.load();
-		codesViewController = loader.getController();
+		CodesWindow codesViewController = loader.getController();
 		Scene newScene = new Scene(root);
 		codesStage.setTitle("Codes");
 		codesStage.setScene(newScene);
@@ -125,11 +122,6 @@ public class NotesViewController {
 		
 		windowUtils.centerStageOnMainApp(codesStage);
 		
-		codesStage.setOnHidden(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				codesStage = null;
-			}
-		});
+		codesStage.setOnHidden(event -> codesStage = null);
 	}
 }

@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.handleClose;
@@ -34,6 +35,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
+@SuppressWarnings("ALL")
 public class newOfficerController {
 	public static actionController controller;
 	@javafx.fxml.FXML
@@ -165,7 +167,7 @@ public class newOfficerController {
 				logError("NewOfficer JarPath URISyntax Exception", e);
 			}
 			
-			jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
+			jarPath = URLDecoder.decode(Objects.requireNonNull(jarPath), StandardCharsets.UTF_8);
 			
 			String jarDir = new File(jarPath).getParent();
 			
@@ -175,6 +177,7 @@ public class newOfficerController {
 				log("exists, printing values", LogUtils.Severity.INFO);
 			} else {
 				try {
+					//noinspection ResultOfMethodCallIgnored
 					configFile.createNewFile();
 					log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
 				} catch (IOException e) {
@@ -208,7 +211,8 @@ public class newOfficerController {
 			mainRT.setScene(scene);
 			mainRT.initStyle(StageStyle.UNDECORATED);
 			mainRT.getIcons()
-			      .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+			      .add(new Image(Objects.requireNonNull(
+					      newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 			mainRT.show();
 			
 			String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -261,6 +265,7 @@ public class newOfficerController {
 		} else {
 			try {
 				
+				//noinspection ResultOfMethodCallIgnored
 				configFile.createNewFile();
 				log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
 			} catch (IOException e) {
@@ -287,7 +292,8 @@ public class newOfficerController {
 		Scene scene = new Scene(root);
 		mainRT.setScene(scene);
 		mainRT.getIcons()
-		      .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		      .add(new Image(
+				      Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("mainWindowLayout");

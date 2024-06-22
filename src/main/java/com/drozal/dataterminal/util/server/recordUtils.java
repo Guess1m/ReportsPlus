@@ -4,12 +4,14 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
+@SuppressWarnings("DuplicateExpressions")
 public class recordUtils {
 	
 	public static void parseWorldPedData(String data) {
@@ -70,12 +72,13 @@ public class recordUtils {
 	}
 	
 	public static Map<String, String> grabPedData(String filePath, String pedName) throws IOException {
-		if (!Files.exists(Paths.get(filePath))) {
+		final Path path = Paths.get(filePath);
+		if (!Files.exists(path)) {
 			log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
 			return new HashMap<>();
 		}
 		
-		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
+		byte[] encodedBytes = Files.readAllBytes(path);
 		String data = new String(encodedBytes);
 		
 		String[] pedestrians = data.split(",");

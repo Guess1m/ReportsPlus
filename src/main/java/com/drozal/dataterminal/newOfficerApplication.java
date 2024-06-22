@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Objects;
+
 public class newOfficerApplication extends Application {
 	
 	public static void main(String[] args) {
@@ -26,7 +28,8 @@ public class newOfficerApplication extends Application {
 		newOfficerStage.initStyle(StageStyle.UNDECORATED);
 		newOfficerStage.setResizable(true);
 		newOfficerStage.getIcons()
-		               .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		               .add(new Image(Objects.requireNonNull(
+				               newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		newOfficerStage.show();
 		newOfficerStage.setMinHeight(newOfficerStage.getHeight());
 		newOfficerStage.setMinWidth(newOfficerStage.getWidth());

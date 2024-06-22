@@ -28,6 +28,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
+@SuppressWarnings({"ALL", "Convert2Diamond"})
 public class settingsController {
 	
 	//<editor-fold desc="FXML">

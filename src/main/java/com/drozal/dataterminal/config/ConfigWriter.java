@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Properties;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -47,7 +48,7 @@ public class ConfigWriter {
 			
 			prop.setProperty("database." + database, value);
 			
-			output = new FileOutputStream(configFilePath);
+			output = new FileOutputStream(Objects.requireNonNull(configFilePath));
 			prop.store(output, null);
 		} catch (IOException e) {
 			logError("ConfigWrite Error Code 3 ", e);

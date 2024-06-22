@@ -12,6 +12,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
@@ -55,7 +56,8 @@ public class DataTerminalHomeApplication extends Application {
 		Scene scene = new Scene(root);
 		mainRT.setScene(scene);
 		mainRT.getIcons()
-		      .add(new Image(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png")));
+		      .add(new Image(
+				      Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("mainWindowLayout");

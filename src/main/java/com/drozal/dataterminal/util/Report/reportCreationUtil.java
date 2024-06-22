@@ -42,6 +42,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Report.Layouts.*;
 
+@SuppressWarnings("ALL")
 public class reportCreationUtil {
 	
 	public static Map<String, Object> newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {

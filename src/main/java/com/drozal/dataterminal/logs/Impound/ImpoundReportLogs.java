@@ -80,6 +80,7 @@ public class ImpoundReportLogs {
 		return logEntries;
 	}
 	
+	@SuppressWarnings("ConstantValue")
 	public static String getTagValue(Element element, String tagName) {
 		NodeList nodeList = element.getElementsByTagName(tagName);
 		if (nodeList != null && nodeList.getLength() > 0) {

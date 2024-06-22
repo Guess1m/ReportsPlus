@@ -7,13 +7,11 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
@@ -31,6 +29,7 @@ import static com.drozal.dataterminal.actionController.IDStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
+@SuppressWarnings("ConstantValue")
 public class ClientUtils {
 	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -112,6 +111,7 @@ public class ClientUtils {
 								IDStage.initStyle(StageStyle.UNDECORATED);
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("currentID-view.fxml"));
+								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -143,6 +143,7 @@ public class ClientUtils {
 											logError("ID could not be closed: ", e);
 										}
 										if (IDStage != null) {
+											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													IDStage.close();
@@ -152,6 +153,7 @@ public class ClientUtils {
 												}
 											});
 										}
+										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {
@@ -159,12 +161,7 @@ public class ClientUtils {
 								}
 								
 								
-								IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-									@Override
-									public void handle(WindowEvent event) {
-										IDStage = null;
-									}
-								});
+								IDStage.setOnHidden(event -> IDStage = null);
 							});
 							break;
 						case "UPDATE_CALLOUT":
@@ -185,6 +182,7 @@ public class ClientUtils {
 								CalloutStage = new Stage();
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("callout-view.fxml"));
+								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -217,6 +215,7 @@ public class ClientUtils {
 											logError("Callout could not be closed: ", e);
 										}
 										if (CalloutStage != null) {
+											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													CalloutStage.close();
@@ -227,18 +226,14 @@ public class ClientUtils {
 												}
 											});
 										}
+										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {
 									logError("could not read calloutDuration: ", e);
 								}
 								
-								CalloutStage.setOnHidden(new EventHandler<WindowEvent>() {
-									@Override
-									public void handle(WindowEvent event) {
-										CalloutStage = null;
-									}
-								});
+								CalloutStage.setOnHidden(event -> CalloutStage = null);
 							});
 							break;
 						case "UPDATE_WORLD_PED":

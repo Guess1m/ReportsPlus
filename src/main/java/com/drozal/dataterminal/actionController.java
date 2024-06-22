@@ -65,7 +65,8 @@ import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNod
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.Misc.updateUtil.*;
+import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
+import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
@@ -86,6 +87,7 @@ public class actionController {
 	public static Stage clientStage = null;
 	static double minColumnWidth = 185.0;
 	private static Stage mapStage = null;
+	private static Stage versionStage = null;
 	
 	
 	//</editor-fold>
@@ -2948,9 +2950,37 @@ public class actionController {
 			
 			stge.setOnHiding(event -> handleClose());
 			
-			versionLabel.setOnMouseClicked(event -> openWebpage("https://github.com/Guess1m/ReportsPlus/releases"));
+			versionLabel.setOnMouseClicked(event -> {
+				if (versionStage != null && versionStage.isShowing()) {
+					versionStage.close();
+					versionStage = null;
+					return;
+				}
+				versionStage = new Stage();
+				versionStage.initStyle(StageStyle.UNDECORATED);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("updates-view.fxml"));
+				Parent root = null;
+				try {
+					root = loader.load();
+				} catch (IOException e) {
+					logError("Error starting VersionStage: ", e);
+				}
+				Scene newScene = new Scene(root);
+				versionStage.setTitle("Version Information");
+				versionStage.setScene(newScene);
+				
+				versionStage.show();
+				versionStage.centerOnScreen();
+				windowUtils.centerStageOnMainApp(versionStage);
+				
+				versionStage.setOnHidden(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						versionStage = null;
+					}
+				});
+			});
 			
-			if (!stringUtil.version.equals("dev")) {
 				if (!stringUtil.version.equals(gitVersion)) {
 					if (gitVersion == null) {
 						versionLabel.setText("New Version Available!");
@@ -2960,9 +2990,6 @@ public class actionController {
 						versionLabel.setStyle("-fx-text-fill: red;");
 					}
 				}
-			} else {
-				versionLabel.setText("V1.0.2-alpha- Development Version");
-			}
 		});
 		
 		currentCalPane.setPrefHeight(0);

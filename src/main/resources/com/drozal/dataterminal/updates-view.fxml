@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="531.0" prefWidth="407.0"
+            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/22"
+            fx:controller="com.drozal.dataterminal.updatesController">
+    <center>
+        <AnchorPane prefHeight="514.0" prefWidth="389.0" style="-fx-background-color: #1A2130;">
+            <children>
+                <Label alignment="CENTER" layoutY="9.0" style="-fx-text-fill: #FDFFE2;" text="ReportsPlus"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="9.0">
+                    <font>
+                        <Font name="Segoe UI Black" size="31.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutY="48.0" style="-fx-text-fill: #5A72A0;" text="Version Information"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+                    <font>
+                        <Font name="Segoe UI Black" size="21.0"/>
+                    </font>
+                </Label>
+                <BorderPane layoutY="92.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="92.0">
+                    <center>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label style="-fx-text-fill: #83B4FF;" text="Current Version:"
+                                       GridPane.halignment="RIGHT">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="18.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="currentVer" style="-fx-text-fill: #FDFFE2;" text="v1.0.4-alpha"
+                                       GridPane.columnIndex="1">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="15.0"/>
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets left="15.0"/>
+                                    </GridPane.margin>
+                                </Label>
+                            </children>
+                        </GridPane>
+                    </center>
+                </BorderPane>
+                <BorderPane layoutY="119.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="119.0">
+                    <center>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label style="-fx-text-fill: #83B4FF;" text="Most Recent Version:"
+                                       GridPane.halignment="RIGHT">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="18.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="recentVer" style="-fx-text-fill: #FDFFE2;" text="v1.0.4-alpha"
+                                       GridPane.columnIndex="1">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="15.0"/>
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets left="15.0"/>
+                                    </GridPane.margin>
+                                </Label>
+                            </children>
+                        </GridPane>
+                    </center>
+                </BorderPane>
+                <GridPane layoutX="14.0" layoutY="204.0" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="204.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="verChangelog" alignment="CENTER" style="-fx-text-fill: #5A72A0;">
+                            <font>
+                                <Font name="Segoe UI Black" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;" text="Changelog"
+                               GridPane.columnIndex="1">
+                            <font>
+                                <Font name="Segoe UI Black" size="18.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="7.0"/>
+                            </GridPane.margin>
+                        </Label>
+                    </children>
+                </GridPane>
+                <GridPane layoutX="79.0" layoutY="258.0" prefHeight="295.0" prefWidth="348.0"
+                          style="-fx-background-color: rgb(90, 114, 160,0.1); -fx-background-radius: 10;"
+                          AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
+                          AnchorPane.topAnchor="236.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <HBox>
+                            <GridPane.margin>
+                                <Insets left="20.0" right="20.0" top="10.0"/>
+                            </GridPane.margin>
+                            <children>
+                                <VBox spacing="3.0" HBox.hgrow="NEVER">
+                                    <children>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
+                                               style="-fx-text-fill: #FDFFE2;" text="-">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Thicker Notes Windows">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Java Version Update">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Better Callout Update Msg. Debounce">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" New Callout Window">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Active Callouts">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Callout History">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Status for Callouts">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Added Version Info Window">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text=" Fixed &quot;Optional&quot; Sections of Forms not being optional"
+                                               wrapText="true">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </GridPane>
+                <Separator layoutX="50.0" layoutY="83.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
+                           AnchorPane.rightAnchor="50.0"/>
+                <Separator layoutX="50.0" layoutY="152.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
+                           AnchorPane.rightAnchor="50.0"/>
+                <Button layoutX="110.0" layoutY="165.0" mnemonicParsing="false" onAction="#updateBtnAction"
+                        prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: rgb(0,0,0,0.2);"
+                        text="Check For Updates" textFill="#5a72a0" AnchorPane.leftAnchor="110.0"
+                        AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="165.0">
+                    <font>
+                        <Font name="Segoe UI Black" size="12.0"/>
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

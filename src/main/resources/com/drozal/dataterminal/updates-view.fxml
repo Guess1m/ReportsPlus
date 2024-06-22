@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="531.0" prefWidth="407.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="585.0" prefWidth="466.0"
             style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.updatesController">
     <center>
@@ -109,10 +109,10 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane layoutX="79.0" layoutY="258.0" prefHeight="295.0" prefWidth="348.0"
+                <GridPane layoutX="25.0" layoutY="236.0" prefHeight="278.0" prefWidth="414.0"
                           style="-fx-background-color: rgb(90, 114, 160,0.1); -fx-background-radius: 10;"
                           AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
-                          AnchorPane.topAnchor="236.0">
+                          AnchorPane.topAnchor="238.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                     </columnConstraints>

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
+            xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
@@ -208,7 +208,7 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"

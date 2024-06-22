@@ -73,8 +73,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Label lbl1;
 	@javafx.fxml.FXML
-	private Label lbl4;
-	@javafx.fxml.FXML
 	private Label lbl2;
 	@javafx.fxml.FXML
 	private Label lbl3;
@@ -122,6 +120,12 @@ public class settingsController {
 	private ComboBox idDurComboBox;
 	@javafx.fxml.FXML
 	private Label lbl7;
+	@javafx.fxml.FXML
+	private ColorPicker bkgPicker;
+	@javafx.fxml.FXML
+	private Label bkgLabel;
+	@javafx.fxml.FXML
+	private TabPane tabpane;
 	
 	
 	//</editor-fold>
@@ -237,6 +241,21 @@ public class settingsController {
 		mainWindowComboBox.setOnAction(comboBoxHandler);
 		notesWindowComboBox.setOnAction(comboBoxHandler);
 		ReportWindowComboBox.setOnAction(comboBoxHandler);
+		
+		bkgPicker.valueProperty()
+		         .addListener(new ChangeListener<Color>() {
+			         @Override
+			         public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+				         Color selectedColor = newValue;
+				         updatebackground(selectedColor);
+				         try {
+					         loadTheme();
+					         loadColors();
+				         } catch (IOException e) {
+					         logError("LoadTheme IO Error Code 33 ", e);
+				         }
+			         }
+		         });
 		
 		primPicker.valueProperty()
 		          .addListener(new ChangeListener<Color>() {
@@ -639,7 +658,6 @@ public class settingsController {
 		lbl1.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl2.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl3.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl4.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl5.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl6.setStyle("-fx-text-fill: " + secclr + ";");
 		lbl7.setStyle("-fx-text-fill: " + secclr + ";");
@@ -811,6 +829,7 @@ public class settingsController {
 			Color primary = Color.valueOf(ConfigReader.configRead("mainColor"));
 			Color secondary = Color.valueOf(ConfigReader.configRead("secondaryColor"));
 			Color accent = Color.valueOf(ConfigReader.configRead("accentColor"));
+			Color bkg = Color.valueOf(ConfigReader.configRead("bkgColor"));
 			
 			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportBackground"));
 			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSecondary"));
@@ -820,9 +839,12 @@ public class settingsController {
 			primPicker.setValue(primary);
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
+			bkgPicker.setValue(bkg);
 			primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
+			bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
+			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
 			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);

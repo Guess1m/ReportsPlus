@@ -112,7 +112,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("Number", "Error");
 		checkAndSetDefaultValue("Rank", "Error");
 		checkAndSetDefaultValue("accentColor", "#9C95D0");
-		checkAndSetDefaultValue("calloutDuration", "10");
+		checkAndSetDefaultValue("calloutDuration", "7");
 		checkAndSetDefaultValue("IDDuration", "infinite");
 		checkAndSetDefaultValue("firstLogin", "false");
 		checkAndSetDefaultValue("fullscreenOnStartup", "true");
@@ -126,6 +126,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("reportWindowDarkMode", "false");
 		checkAndSetDefaultValue("reportWindowLayout", "Default");
 		checkAndSetDefaultValue("secondaryColor", "#665CB6");
+		checkAndSetDefaultValue("bkgColor", "#FFFFFF");
 	}
 	
 }

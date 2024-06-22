@@ -95,6 +95,11 @@ public class controllerUtils {
 		ConfigWriter.configwrite("accentColor", hexColor);
 	}
 	
+	public static void updatebackground(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("bkgColor", hexColor);
+	}
+	
 	public static void updateMain(Color color) {
 		String hexColor = toHexString(color);
 		ConfigWriter.configwrite("mainColor", hexColor);

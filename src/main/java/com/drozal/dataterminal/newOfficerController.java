@@ -59,6 +59,7 @@ public class newOfficerController {
 		updateMain(Color.valueOf("#524992"));
 		updateSecondary(Color.valueOf("#665cb6"));
 		updateAccent(Color.valueOf("#9c95d0"));
+		updatebackground(Color.valueOf("#ffffff"));
 		
 		ConfigWriter.configwrite("mainWindowLayout", "Default");
 		ConfigWriter.configwrite("notesWindowLayout", "Default");
@@ -66,7 +67,7 @@ public class newOfficerController {
 		
 		ConfigWriter.configwrite("reportWindowDarkMode", "false");
 		
-		ConfigWriter.configwrite("calloutDuration", "10");
+		ConfigWriter.configwrite("calloutDuration", "7");
 		ConfigWriter.configwrite("IDDuration", "infinite");
 		
 		ConfigWriter.configwrite("AOTNotes", "true");

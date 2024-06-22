@@ -687,7 +687,7 @@ public class settingsController {
 		controllerVar.getTrafficStopTable()
 		             .setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane()
-		             .setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.5) + ";");
+		             .setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.2) + ";");
 		
 		String accclr = ConfigReader.configRead("accentColor");
 		

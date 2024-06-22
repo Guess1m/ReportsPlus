@@ -60,9 +60,9 @@ public class controllerUtils {
 			throw new IllegalArgumentException("Invalid hexadecimal color: " + hexColor);
 		}
 		
-		int r = Integer.parseInt(hexColor.substring(1, 3), 16) - 120;
-		int g = Integer.parseInt(hexColor.substring(3, 5), 16) - 120;
-		int b = Integer.parseInt(hexColor.substring(5, 7), 16) - 120;
+		int r = Integer.parseInt(hexColor.substring(1, 3), 16) - 70;
+		int g = Integer.parseInt(hexColor.substring(3, 5), 16) - 70;
+		int b = Integer.parseInt(hexColor.substring(5, 7), 16) - 70;
 		
 		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, alpha);
 	}

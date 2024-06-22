@@ -21,14 +21,6 @@ public class DataTerminalHomeApplication extends Application {
 	public static Stage mainRT;
 	public static actionController controller;
 	
-	public static Stage getMainRT() {
-		return mainRT;
-	}
-	
-	public static void setMainRT(Stage mainRT) {
-		DataTerminalHomeApplication.mainRT = mainRT;
-	}
-	
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

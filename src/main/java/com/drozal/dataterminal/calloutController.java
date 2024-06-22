@@ -10,7 +10,10 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -53,22 +56,13 @@ public class calloutController {
 	@FXML
 	private TextField typeField;
 	@FXML
-	private ToggleGroup respondToggle;
-	@FXML
-	private Label calloutInfoTitle;
-	@FXML
 	private ToggleButton respondBtn;
 	@FXML
 	private ToggleButton ignoreBtn;
 	private String status;
 	
-	private int i;
 	@FXML
 	private Label statusLabel;
-	
-	public static AnchorPane getTopBar() {
-		return topBar;
-	}
 	
 	public static Callout getCallout() {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";

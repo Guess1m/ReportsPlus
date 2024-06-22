@@ -4,7 +4,6 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -64,7 +63,7 @@ public class ClientController {
 	}
 	
 	@javafx.fxml.FXML
-	public void connectBtnPress(ActionEvent actionEvent) throws IOException {
+	public void connectBtnPress() throws IOException {
 		if (!inputHostField.getText()
 		                   .isEmpty() && !inputPortField.getText()
 		                                                .isEmpty()) {
@@ -79,7 +78,7 @@ public class ClientController {
 	}
 	
 	@javafx.fxml.FXML
-	public void helpBtnPress(ActionEvent actionEvent) {
+	public void helpBtnPress() {
 		Stage stage = (Stage) root.getScene()
 		                          .getWindow();
 		showHelpDialog(stage);

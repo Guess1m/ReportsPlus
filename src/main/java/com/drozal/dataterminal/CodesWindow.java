@@ -1,7 +1,6 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.util.Report.reportUtil;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -12,8 +11,6 @@ import static com.drozal.dataterminal.NotesViewController.codesStage;
 public class CodesWindow {
 	AnchorPane topBar;
 	Boolean isToggled = false;
-	@javafx.fxml.FXML
-	private AnchorPane codesPane;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -26,7 +23,7 @@ public class CodesWindow {
 	}
 	
 	@javafx.fxml.FXML
-	public void helpbtnpress(ActionEvent actionEvent) {
+	public void helpbtnpress() {
 		if (!isToggled) {
 			usageColumn.setMaxWidth(Region.USE_COMPUTED_SIZE);
 			codesStage.setWidth(650);

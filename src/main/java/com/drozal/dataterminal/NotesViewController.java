@@ -4,7 +4,6 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,13 +30,7 @@ public class NotesViewController {
 	@javafx.fxml.FXML
 	private ToggleButton modeToggle;
 	@javafx.fxml.FXML
-	private AnchorPane notesPane;
-	@javafx.fxml.FXML
 	private Button codesbtnnotepad;
-	
-	public AnchorPane getTitlebar() {
-		return titlebar;
-	}
 	
 	public void initialize() throws IOException {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor") + ";";
@@ -78,7 +71,7 @@ public class NotesViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onclearclick(ActionEvent actionEvent) {
+	public void onclearclick() {
 		notepadTextArea.setText("");
 	}
 	
@@ -87,7 +80,7 @@ public class NotesViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onDarkModeToggle(ActionEvent actionEvent) {
+	public void onDarkModeToggle() {
 		if (modeToggle.isSelected()) {
 			ConfigWriter.configwrite("notepadMode", "Dark");
 			notepadTextArea.setStyle(
@@ -102,7 +95,7 @@ public class NotesViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void oncodesclick(ActionEvent actionEvent) throws IOException {
+	public void oncodesclick() throws IOException {
 		if (codesStage != null && codesStage.isShowing()) {
 			codesStage.close();
 			codesStage = null;
@@ -112,7 +105,6 @@ public class NotesViewController {
 		codesStage.initStyle(StageStyle.UNDECORATED);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("codes-window.fxml"));
 		Parent root = loader.load();
-		CodesWindow codesViewController = loader.getController();
 		Scene newScene = new Scene(root);
 		codesStage.setTitle("Codes");
 		codesStage.setScene(newScene);

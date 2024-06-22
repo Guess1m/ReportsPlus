@@ -14,62 +14,85 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 @SuppressWarnings("DuplicateExpressions")
 public class recordUtils {
 	
-	public static void parseWorldPedData(String data) {
-		String[] pedestrians = data.split(",");
-		for (String pedestrian : pedestrians) {
-			String[] attributes = pedestrian.split("&");
-			for (String attribute : attributes) {
-				String[] keyValue = attribute.split("=");
-				if (keyValue.length > 1) {
-					System.out.println(keyValue[0] + ": " + keyValue[1].trim());
-				} else {
-					System.out.println(keyValue[0] + ": " + "No value provided");
-				}
-			}
-			System.out.println();
-		}
-	}
-	
-	public static String searchForPedAttribute(String data, String pedName, String requiredAttribute) {
-		String[] pedestrians = data.split(",");
-		for (String pedestrian : pedestrians) {
-			Map<String, String> attributesMap = new HashMap<>();
-			String[] attributes = pedestrian.split("&");
-			for (String attribute : attributes) {
-				String[] keyValue = attribute.split("=");
-				if (keyValue.length > 1) {
-					attributesMap.put(keyValue[0].toLowerCase(), keyValue[1].trim());
-				} else {
-					attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
-				}
-			}
-			
-			if (attributesMap.containsKey("name") && attributesMap.get("name")
-			                                                      .equalsIgnoreCase(pedName)) {
-				return attributesMap.getOrDefault(requiredAttribute.toLowerCase(), "Attribute not found");
-			}
-		}
-		return "Pedestrian not found";
-	}
-	
-	public static void parseWorldVehicleData(String filePath) throws IOException {
-		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
-		String data = new String(encodedBytes);
-		
-		String[] vehicles = data.split(",");
-		for (String vehicle : vehicles) {
-			String[] attributes = vehicle.split("&");
-			for (String attribute : attributes) {
-				String[] keyValue = attribute.split("=");
-				if (keyValue.length > 1) {
-					System.out.println(keyValue[0] + ": " + keyValue[1].trim());
-				} else {
-					System.out.println(keyValue[0] + ": " + "No value provided");
-				}
-			}
-			System.out.println();
-		}
-	}
+	/**
+	 * public static void parseWorldPedData(String data) {
+	 * String[] pedestrians = data.split(",");
+	 * for (String pedestrian : pedestrians) {
+	 * String[] attributes = pedestrian.split("&");
+	 * for (String attribute : attributes) {
+	 * String[] keyValue = attribute.split("=");
+	 * if (keyValue.length > 1) {
+	 * System.out.println(keyValue[0] + ": " + keyValue[1].trim());
+	 * } else {
+	 * System.out.println(keyValue[0] + ": " + "No value provided");
+	 * }
+	 * }
+	 * System.out.println();
+	 * }
+	 * }
+	 * <p>
+	 * public static String searchForPedAttribute(String data, String pedName, String requiredAttribute) {
+	 * String[] pedestrians = data.split(",");
+	 * for (String pedestrian : pedestrians) {
+	 * Map<String, String> attributesMap = new HashMap<>();
+	 * String[] attributes = pedestrian.split("&");
+	 * for (String attribute : attributes) {
+	 * String[] keyValue = attribute.split("=");
+	 * if (keyValue.length > 1) {
+	 * attributesMap.put(keyValue[0].toLowerCase(), keyValue[1].trim());
+	 * } else {
+	 * attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
+	 * }
+	 * }
+	 * <p>
+	 * if (attributesMap.containsKey("name") && attributesMap.get("name")
+	 * .equalsIgnoreCase(pedName)) {
+	 * return attributesMap.getOrDefault(requiredAttribute.toLowerCase(), "Attribute not found");
+	 * }
+	 * }
+	 * return "Pedestrian not found";
+	 * }
+	 * <p>
+	 * public static void parseWorldVehicleData(String filePath) throws IOException {
+	 * byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
+	 * String data = new String(encodedBytes);
+	 * <p>
+	 * String[] vehicles = data.split(",");
+	 * for (String vehicle : vehicles) {
+	 * String[] attributes = vehicle.split("&");
+	 * for (String attribute : attributes) {
+	 * String[] keyValue = attribute.split("=");
+	 * if (keyValue.length > 1) {
+	 * System.out.println(keyValue[0] + ": " + keyValue[1].trim());
+	 * } else {
+	 * System.out.println(keyValue[0] + ": " + "No value provided");
+	 * }
+	 * }
+	 * System.out.println();
+	 * }
+	 * }
+	 * <p>
+	 * public static String searchForVehicleAttribute(String data, String licensePlate, String requiredAttribute) {
+	 * String[] vehicles = data.split(",");
+	 * for (String vehicle : vehicles) {
+	 * Map<String, String> attributesMap = new HashMap<>();
+	 * String[] attributes = vehicle.split("&");
+	 * for (String attribute : attributes) {
+	 * String[] keyValue = attribute.split("=");
+	 * if (keyValue.length > 1) {
+	 * attributesMap.put(keyValue[0].toLowerCase(), keyValue[1].trim());
+	 * } else {
+	 * attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
+	 * }
+	 * }
+	 * if (attributesMap.getOrDefault("licenseplate", "")
+	 * .equalsIgnoreCase(licensePlate)) {
+	 * return attributesMap.getOrDefault(requiredAttribute.toLowerCase(), "Attribute not found");
+	 * }
+	 * }
+	 * return "Vehicle not found";
+	 * }
+	 */
 	
 	public static Map<String, String> grabPedData(String filePath, String pedName) throws IOException {
 		final Path path = Paths.get(filePath);
@@ -138,27 +161,6 @@ public class recordUtils {
 		Map<String, String> notFoundMap = new HashMap<>();
 		notFoundMap.put("error", "vehicle not found");
 		return notFoundMap;
-	}
-	
-	public static String searchForVehicleAttribute(String data, String licensePlate, String requiredAttribute) {
-		String[] vehicles = data.split(",");
-		for (String vehicle : vehicles) {
-			Map<String, String> attributesMap = new HashMap<>();
-			String[] attributes = vehicle.split("&");
-			for (String attribute : attributes) {
-				String[] keyValue = attribute.split("=");
-				if (keyValue.length > 1) {
-					attributesMap.put(keyValue[0].toLowerCase(), keyValue[1].trim());
-				} else {
-					attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
-				}
-			}
-			if (attributesMap.getOrDefault("licenseplate", "")
-			                 .equalsIgnoreCase(licensePlate)) {
-				return attributesMap.getOrDefault(requiredAttribute.toLowerCase(), "Attribute not found");
-			}
-		}
-		return "Vehicle not found";
 	}
 	
 }

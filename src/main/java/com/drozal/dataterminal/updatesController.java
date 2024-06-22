@@ -2,7 +2,6 @@ package com.drozal.dataterminal;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -70,7 +69,7 @@ public class updatesController {
 	}
 	
 	@javafx.fxml.FXML
-	public void updateBtnAction(ActionEvent actionEvent) {
+	public void updateBtnAction() {
 		checkUpdates();
 	}
 	

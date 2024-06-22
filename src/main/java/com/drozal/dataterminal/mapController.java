@@ -84,12 +84,12 @@ public class mapController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onZoomInPressed(MouseEvent mouseEvent) {
+	public void onZoomInPressed() {
 		zoom(losSantosMap, 1.5);
 	}
 	
 	@javafx.fxml.FXML
-	public void onZoomOutPressed(MouseEvent mouseEvent) {
+	public void onZoomOutPressed() {
 		zoom(losSantosMap, 0.5);
 	}
 	

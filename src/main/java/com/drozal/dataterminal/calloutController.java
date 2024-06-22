@@ -173,6 +173,9 @@ public class calloutController {
 				CalloutStage = null;
 			});
 		});
+		
+		// Fixed rem root.requestFocus()
+		
 		watchCalloutChanges();
 	}
 	

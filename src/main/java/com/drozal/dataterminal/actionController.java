@@ -561,6 +561,8 @@ public class actionController {
 	private VBox bkgclr1;
 	@javafx.fxml.FXML
 	private VBox bkgclr2;
+	@javafx.fxml.FXML
+	private Label logbrwsrlbl;
 	
 	
 	//</editor-fold>
@@ -574,6 +576,818 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public TextField getArrestaddress() {
+		return arrestaddress;
+	}
+	
+	public TextField getArrestage() {
+		return arrestage;
+	}
+	
+	public TextField getArrestambulance() {
+		return arrestambulance;
+	}
+	
+	public TextField getArrestarea() {
+		return arrestarea;
+	}
+	
+	public TextField getArrestcharges() {
+		return arrestcharges;
+	}
+	
+	public TextField getArrestcounty() {
+		return arrestcounty;
+	}
+	
+	public TextField getArrestdesc() {
+		return arrestdesc;
+	}
+	
+	public TextField getArrestdetails() {
+		return arrestdetails;
+	}
+	
+	public ArrestLogEntry getArrestEntry() {
+		return arrestEntry;
+	}
+	
+	public TextField getArrestgender() {
+		return arrestgender;
+	}
+	
+	public HBox getArrestInfo() {
+		return arrestInfo;
+	}
+	
+	public TextField getArrestmedinfo() {
+		return arrestmedinfo;
+	}
+	
+	public TextField getArrestname() {
+		return arrestname;
+	}
+	
+	public TextField getArrestnum() {
+		return arrestnum;
+	}
+	
+	public MenuItem getArrestReportButton() {
+		return arrestReportButton;
+	}
+	
+	public TextField getArreststreet() {
+		return arreststreet;
+	}
+	
+	public Tab getArrestTab() {
+		return arrestTab;
+	}
+	
+	public TextField getArresttaser() {
+		return arresttaser;
+	}
+	
+	public Label getArrestupdatedlabel() {
+		return arrestupdatedlabel;
+	}
+	
+	public TextField getCaladdress() {
+		return caladdress;
+	}
+	
+	public TextField getCalarea() {
+		return calarea;
+	}
+	
+	public TextField getCalArea() {
+		return calArea;
+	}
+	
+	public TextField getCalcounty() {
+		return calcounty;
+	}
+	
+	public TextField getCalCounty() {
+		return calCounty;
+	}
+	
+	public TextField getCalDate() {
+		return calDate;
+	}
+	
+	public TextArea getCalDesc() {
+		return calDesc;
+	}
+	
+	public TextField getCalgrade() {
+		return calgrade;
+	}
+	
+	public CalloutLogEntry getCalloutEntry() {
+		return calloutEntry;
+	}
+	
+	public HBox getCalloutInfo() {
+		return calloutInfo;
+	}
+	
+	public AnchorPane getCalloutPane() {
+		return calloutPane;
+	}
+	
+	public MenuItem getCalloutReportButton() {
+		return calloutReportButton;
+	}
+	
+	public static Stage getCalloutStage() {
+		return CalloutStage;
+	}
+	
+	public Tab getCalloutTab() {
+		return calloutTab;
+	}
+	
+	public TextField getCalnotes() {
+		return calnotes;
+	}
+	
+	public TextField getCalnum() {
+		return calnum;
+	}
+	
+	public TextField getCalNum() {
+		return calNum;
+	}
+	
+	public TextField getCalPriority() {
+		return calPriority;
+	}
+	
+	public TextField getCalStreet() {
+		return calStreet;
+	}
+	
+	public TextField getCalTime() {
+		return calTime;
+	}
+	
+	public TextField getCaltype() {
+		return caltype;
+	}
+	
+	public TextField getCalType() {
+		return calType;
+	}
+	
+	public Label getCalupdatedlabel() {
+		return calupdatedlabel;
+	}
+	
+	public TextField getCitaddress() {
+		return citaddress;
+	}
+	
+	public TextField getCitage() {
+		return citage;
+	}
+	
+	public TextField getCitarea() {
+		return citarea;
+	}
+	
+	public TrafficCitationLogEntry getCitationEntry() {
+		return citationEntry;
+	}
+	
+	public HBox getCitationInfo() {
+		return citationInfo;
+	}
+	
+	public Tab getCitationTab() {
+		return citationTab;
+	}
+	
+	public TextField getCitcharges() {
+		return citcharges;
+	}
+	
+	public TextField getCitcolor() {
+		return citcolor;
+	}
+	
+	public TextField getCitcomments() {
+		return citcomments;
+	}
+	
+	public TextField getCitcounty() {
+		return citcounty;
+	}
+	
+	public TextField getCitdesc() {
+		return citdesc;
+	}
+	
+	public TextField getCitgender() {
+		return citgender;
+	}
+	
+	public TextField getCitmodel() {
+		return citmodel;
+	}
+	
+	public TextField getCitname() {
+		return citname;
+	}
+	
+	public TextField getCitnumber() {
+		return citnumber;
+	}
+	
+	public TextField getCitplatenum() {
+		return citplatenum;
+	}
+	
+	public TextField getCitstreet() {
+		return citstreet;
+	}
+	
+	public TextField getCittype() {
+		return cittype;
+	}
+	
+	public Label getCitupdatedlabel() {
+		return citupdatedlabel;
+	}
+	
+	public TextField getCitvehother() {
+		return citvehother;
+	}
+	
+	public static ClientController getClientController() {
+		return clientController;
+	}
+	
+	public static Stage getClientStage() {
+		return clientStage;
+	}
+	
+	public actionController getController() {
+		return controller;
+	}
+	
+	public Label getGeneratedByTag() {
+		return generatedByTag;
+	}
+	
+	public Label getGeneratedDateTag() {
+		return generatedDateTag;
+	}
+	
+	public static Stage getIDStage() {
+		return IDStage;
+	}
+	
+	public TextField getImpaddress() {
+		return impaddress;
+	}
+	
+	public TextField getImpage() {
+		return impage;
+	}
+	
+	public TextField getImpcolor() {
+		return impcolor;
+	}
+	
+	public TextField getImpcomments() {
+		return impcomments;
+	}
+	
+	public TextField getImpgender() {
+		return impgender;
+	}
+	
+	public TextField getImpmodel() {
+		return impmodel;
+	}
+	
+	public TextField getImpname() {
+		return impname;
+	}
+	
+	public TextField getImpnum() {
+		return impnum;
+	}
+	
+	public ImpoundLogEntry getImpoundEntry() {
+		return impoundEntry;
+	}
+	
+	public HBox getImpoundInfo() {
+		return impoundInfo;
+	}
+	
+	public MenuItem getImpoundReportButton() {
+		return impoundReportButton;
+	}
+	
+	public Tab getImpoundTab() {
+		return impoundTab;
+	}
+	
+	public TextField getImpplatenum() {
+		return impplatenum;
+	}
+	
+	public TextField getImptype() {
+		return imptype;
+	}
+	
+	public Label getImpupdatedLabel() {
+		return impupdatedLabel;
+	}
+	
+	public TextField getIncactionstaken() {
+		return incactionstaken;
+	}
+	
+	public TextField getIncarea() {
+		return incarea;
+	}
+	
+	public TextField getInccomments() {
+		return inccomments;
+	}
+	
+	public TextField getInccounty() {
+		return inccounty;
+	}
+	
+	public IncidentLogEntry getIncidentEntry() {
+		return incidentEntry;
+	}
+	
+	public HBox getIncidentInfo() {
+		return incidentInfo;
+	}
+	
+	public MenuItem getIncidentReportButton() {
+		return incidentReportButton;
+	}
+	
+	public Tab getIncidentTab() {
+		return incidentTab;
+	}
+	
+	public TextField getIncnum() {
+		return incnum;
+	}
+	
+	public TextField getIncstatement() {
+		return incstatement;
+	}
+	
+	public TextField getIncstreet() {
+		return incstreet;
+	}
+	
+	public Label getIncupdatedlabel() {
+		return incupdatedlabel;
+	}
+	
+	public TextField getIncvictims() {
+		return incvictims;
+	}
+	
+	public TextField getIncwitness() {
+		return incwitness;
+	}
+	
+	public AnchorPane getLogPane() {
+		return logPane;
+	}
+	
+	public Label getMainColor8() {
+		return mainColor8;
+	}
+	
+	public Label getMainColor9Bkg() {
+		return mainColor9Bkg;
+	}
+	
+	public static Stage getMapStage() {
+		return mapStage;
+	}
+	
+	public static double getMinColumnWidth() {
+		return minColumnWidth;
+	}
+	
+	public static int getNeedRefresh() {
+		return needRefresh.get();
+	}
+	
+	public static SimpleIntegerProperty needRefreshProperty() {
+		return needRefresh;
+	}
+	
+	public Label getNoRecordFoundLabelPed() {
+		return noRecordFoundLabelPed;
+	}
+	
+	public Label getNoRecordFoundLabelVeh() {
+		return noRecordFoundLabelVeh;
+	}
+	
+	public Button getNotesButton() {
+		return notesButton;
+	}
+	
+	public static Stage getNotesStage() {
+		return notesStage;
+	}
+	
+	public static String getNotesText() {
+		return notesText;
+	}
+	
+	public NotesViewController getNotesViewController() {
+		return notesViewController;
+	}
+	
+	public TextField getPatcomments() {
+		return patcomments;
+	}
+	
+	public TextField getPatlength() {
+		return patlength;
+	}
+	
+	public TextField getPatnum() {
+		return patnum;
+	}
+	
+	public PatrolLogEntry getPatrolEntry() {
+		return patrolEntry;
+	}
+	
+	public HBox getPatrolInfo() {
+		return patrolInfo;
+	}
+	
+	public MenuItem getPatrolReportButton() {
+		return patrolReportButton;
+	}
+	
+	public Tab getPatrolTab() {
+		return patrolTab;
+	}
+	
+	public TextField getPatstarttime() {
+		return patstarttime;
+	}
+	
+	public TextField getPatstoptime() {
+		return patstoptime;
+	}
+	
+	public Label getPatupdatedlabel() {
+		return patupdatedlabel;
+	}
+	
+	public TextField getPatvehicle() {
+		return patvehicle;
+	}
+	
+	public TextField getPedaddressfield() {
+		return pedaddressfield;
+	}
+	
+	public TextField getPeddobfield() {
+		return peddobfield;
+	}
+	
+	public TextField getPedfnamefield() {
+		return pedfnamefield;
+	}
+	
+	public TextField getPedgenfield() {
+		return pedgenfield;
+	}
+	
+	public TextField getPedlicensefield() {
+		return pedlicensefield;
+	}
+	
+	public TextField getPedlnamefield() {
+		return pedlnamefield;
+	}
+	
+	public MenuItem getPedLookupBtn() {
+		return pedLookupBtn;
+	}
+	
+	public AnchorPane getPedLookupPane() {
+		return pedLookupPane;
+	}
+	
+	public Label getPedrecordnamefield() {
+		return pedrecordnamefield;
+	}
+	
+	public AnchorPane getPedRecordPane() {
+		return pedRecordPane;
+	}
+	
+	public Button getPedSearchBtn() {
+		return pedSearchBtn;
+	}
+	
+	public TextField getPedSearchField() {
+		return pedSearchField;
+	}
+	
+	public TextField getPedwantedfield() {
+		return pedwantedfield;
+	}
+	
+	public TextField getSearcharea() {
+		return searcharea;
+	}
+	
+	public TextField getSearchbacmeasure() {
+		return searchbacmeasure;
+	}
+	
+	public TextField getSearchbreathresult() {
+		return searchbreathresult;
+	}
+	
+	public TextField getSearchbreathused() {
+		return searchbreathused;
+	}
+	
+	public TextField getSearchcomments() {
+		return searchcomments;
+	}
+	
+	public TextField getSearchcounty() {
+		return searchcounty;
+	}
+	
+	public SearchLogEntry getSearchEntry() {
+		return searchEntry;
+	}
+	
+	public TextField getSearchgrounds() {
+		return searchgrounds;
+	}
+	
+	public HBox getSearchInfo() {
+		return searchInfo;
+	}
+	
+	public TextField getSearchmethod() {
+		return searchmethod;
+	}
+	
+	public TextField getSearchnum() {
+		return searchnum;
+	}
+	
+	public TextField getSearchperson() {
+		return searchperson;
+	}
+	
+	public MenuItem getSearchReportButton() {
+		return searchReportButton;
+	}
+	
+	public TextField getSearchseizeditems() {
+		return searchseizeditems;
+	}
+	
+	public TextField getSearchstreet() {
+		return searchstreet;
+	}
+	
+	public Tab getSearchTab() {
+		return searchTab;
+	}
+	
+	public TextField getSearchtype() {
+		return searchtype;
+	}
+	
+	public Label getSearchupdatedlabel() {
+		return searchupdatedlabel;
+	}
+	
+	public TextField getSearchwitness() {
+		return searchwitness;
+	}
+	
+	public static Stage getSettingsStage() {
+		return settingsStage;
+	}
+	
+	public Button getShiftInfoBtn() {
+		return shiftInfoBtn;
+	}
+	
+	public AnchorPane getShiftInformationPane() {
+		return shiftInformationPane;
+	}
+	
+	public ToggleButton getShowCurrentCalToggle() {
+		return showCurrentCalToggle;
+	}
+	
+	public AnchorPane getSidepane() {
+		return sidepane;
+	}
+	
+	public AnchorPane getTitlebar() {
+		return titlebar;
+	}
+	
+	public AnchorPane getTopPane() {
+		return topPane;
+	}
+	
+	public TextField getTrafaddress() {
+		return trafaddress;
+	}
+	
+	public TextField getTrafage() {
+		return trafage;
+	}
+	
+	public TextField getTrafarea() {
+		return trafarea;
+	}
+	
+	public TextField getTrafcolor() {
+		return trafcolor;
+	}
+	
+	public TextField getTrafcomments() {
+		return trafcomments;
+	}
+	
+	public TextField getTrafcounty() {
+		return trafcounty;
+	}
+	
+	public TextField getTrafdesc() {
+		return trafdesc;
+	}
+	
+	public MenuItem getTrafficCitationReportButton() {
+		return trafficCitationReportButton;
+	}
+	
+	public MenuItem getTrafficReportButton() {
+		return trafficReportButton;
+	}
+	
+	public TrafficStopLogEntry getTrafficStopEntry() {
+		return trafficStopEntry;
+	}
+	
+	public HBox getTrafficStopInfo() {
+		return trafficStopInfo;
+	}
+	
+	public Tab getTrafficStopTab() {
+		return trafficStopTab;
+	}
+	
+	public TextField getTrafgender() {
+		return trafgender;
+	}
+	
+	public TextField getTrafmodel() {
+		return trafmodel;
+	}
+	
+	public TextField getTrafname() {
+		return trafname;
+	}
+	
+	public TextField getTrafnum() {
+		return trafnum;
+	}
+	
+	public TextField getTrafotherinfo() {
+		return trafotherinfo;
+	}
+	
+	public TextField getTrafplatenum() {
+		return trafplatenum;
+	}
+	
+	public TextField getTrafstreet() {
+		return trafstreet;
+	}
+	
+	public TextField getTraftype() {
+		return traftype;
+	}
+	
+	public Label getTrafupdatedlabel() {
+		return trafupdatedlabel;
+	}
+	
+	public AnchorPane getTutorialOverlay() {
+		return tutorialOverlay;
+	}
+	
+	public Label getUpdatedNotification() {
+		return updatedNotification;
+	}
+	
+	public Button getUpdateInfoBtn() {
+		return updateInfoBtn;
+	}
+	
+	public AnchorPane getVbox() {
+		return vbox;
+	}
+	
+	public AnchorPane getVehcolordisplay() {
+		return vehcolordisplay;
+	}
+	
+	public TextField getVehinsfield() {
+		return vehinsfield;
+	}
+	
+	public MenuItem getVehLookupBtn() {
+		return vehLookupBtn;
+	}
+	
+	public AnchorPane getVehLookupPane() {
+		return vehLookupPane;
+	}
+	
+	public TextField getVehmodelfield() {
+		return vehmodelfield;
+	}
+	
+	public Label getVehnocolorlabel() {
+		return vehnocolorlabel;
+	}
+	
+	public TextField getVehownerfield() {
+		return vehownerfield;
+	}
+	
+	public TextField getVehplatefield2() {
+		return vehplatefield2;
+	}
+	
+	public Label getVehplatefield() {
+		return vehplatefield;
+	}
+	
+	public AnchorPane getVehRecordPane() {
+		return vehRecordPane;
+	}
+	
+	public TextField getVehregfield() {
+		return vehregfield;
+	}
+	
+	public Button getVehSearchBtn() {
+		return vehSearchBtn;
+	}
+	
+	public TextField getVehSearchField() {
+		return vehSearchField;
+	}
+	
+	public TextField getVehstolenfield() {
+		return vehstolenfield;
+	}
+	
+	public Label getVersionLabel() {
+		return versionLabel;
+	}
+	
+	public static Stage getVersionStage() {
+		return versionStage;
+	}
+	
+	public TextField getOfficerInfoCallsign() {
+		return OfficerInfoCallsign;
+	}
+	
+	public Label getLogbrwsrlbl() {
+		return logbrwsrlbl;
 	}
 	
 	public AnchorPane getLowerPane() {
@@ -2620,6 +3434,7 @@ public class actionController {
 	
 	//<editor-fold desc="Utils">
 	
+	
 	@javafx.fxml.FXML
 	public void onArrUpdateValues(ActionEvent actionEvent) {
 		if (arrestEntry != null) {
@@ -2755,97 +3570,6 @@ public class actionController {
 		return secondaryColor5Bkg;
 	}
 	
-	private void loadTheme() throws IOException {
-		changeBarColors(getReportChart());
-		changeStatisticColors(areaReportChart);
-		String accclr = ConfigReader.configRead("accentColor");
-		String secclr = ConfigReader.configRead("secondaryColor");
-		String mainclr = ConfigReader.configRead("mainColor");
-		
-		//main
-		getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
-		topPane.setStyle("-fx-background-color: " + mainclr + ";");
-		mainColor8.setStyle("-fx-text-fill: " + mainclr + ";");
-		mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
-		logManagerLabelBkg.setStyle("-fx-background-color: " + mainclr + ";");
-		detailsLabelFill.setStyle("-fx-text-fill: " + mainclr + ";");
-		
-		//secondary
-		activecalfill.setStyle(updateStyleProperty(activecalfill, "-fx-text-fill", secclr));
-		calfill.setStyle(updateStyleProperty(calfill, "-fx-text-fill", secclr));
-		activecalfill.setStyle(updateStyleProperty(activecalfill, "-fx-border-color", accclr));
-		calfill.setStyle(updateStyleProperty(calfill, "-fx-border-color", accclr));
-		
-		getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
-		getServerStatusLabel().setStyle(
-				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
-		sidepane.setStyle("-fx-background-color: " + secclr + ";");
-		secondaryColor3Bkg.setStyle("-fx-background-color: " + secclr + ";");
-		secondaryColor4Bkg.setStyle("-fx-background-color: " + secclr + ";");
-		secondaryColor5Bkg.setStyle("-fx-background-color: " + secclr + ";");
-		reportPlusLabelFill.setStyle("-fx-text-fill: " + secclr + ";");
-		
-		//accent / events
-		getCalActiveList().setStyle(updateStyleProperty(getCalActiveList(), "-fx-border-color", accclr));
-		getCalHistoryList().setStyle(updateStyleProperty(getCalHistoryList(), "-fx-border-color", accclr));
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
-		String initialStyle = "-fx-background-color: transparent;";
-		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
-		updateInfoBtn.setStyle(nonTransparentBtn);
-		showManagerToggle.setStyle(nonTransparentBtn);
-		settingsBtn.setStyle(initialStyle);
-		btn1.setStyle(nonTransparentBtn);
-		btn2.setStyle(nonTransparentBtn);
-		btn3.setStyle(nonTransparentBtn);
-		btn4.setStyle(nonTransparentBtn);
-		btn5.setStyle(nonTransparentBtn);
-		btn6.setStyle(nonTransparentBtn);
-		btn7.setStyle(nonTransparentBtn);
-		btn8.setStyle(nonTransparentBtn);
-		
-		btn1.setOnMouseEntered(e -> btn1.setStyle(hoverStyle));
-		btn1.setOnMouseExited(e -> btn1.setStyle(nonTransparentBtn));
-		btn2.setOnMouseEntered(e -> btn2.setStyle(hoverStyle));
-		btn2.setOnMouseExited(e -> btn2.setStyle(nonTransparentBtn));
-		btn3.setOnMouseEntered(e -> btn3.setStyle(hoverStyle));
-		btn3.setOnMouseExited(e -> btn3.setStyle(nonTransparentBtn));
-		btn4.setOnMouseEntered(e -> btn4.setStyle(hoverStyle));
-		btn4.setOnMouseExited(e -> btn4.setStyle(nonTransparentBtn));
-		btn5.setOnMouseEntered(e -> btn5.setStyle(hoverStyle));
-		btn5.setOnMouseExited(e -> btn5.setStyle(nonTransparentBtn));
-		btn6.setOnMouseEntered(e -> btn6.setStyle(hoverStyle));
-		btn6.setOnMouseExited(e -> btn6.setStyle(nonTransparentBtn));
-		btn7.setOnMouseEntered(e -> btn7.setStyle(hoverStyle));
-		btn7.setOnMouseExited(e -> btn7.setStyle(nonTransparentBtn));
-		btn8.setOnMouseEntered(e -> btn8.setStyle(hoverStyle));
-		btn8.setOnMouseExited(e -> btn8.setStyle(nonTransparentBtn));
-		showManagerToggle.setOnMouseEntered(e -> showManagerToggle.setStyle(hoverStyle));
-		showManagerToggle.setOnMouseExited(e -> showManagerToggle.setStyle(nonTransparentBtn));
-		shiftInfoBtn.setOnMouseEntered(e -> shiftInfoBtn.setStyle(hoverStyle));
-		shiftInfoBtn.setOnMouseExited(e -> shiftInfoBtn.setStyle(initialStyle));
-		settingsBtn.setOnMouseEntered(e -> settingsBtn.setStyle("-fx-background-color: " + secclr + ";"));
-		settingsBtn.setOnMouseExited(e -> settingsBtn.setStyle(initialStyle));
-		notesButton.setOnMouseEntered(e -> notesButton.setStyle(hoverStyle));
-		notesButton.setOnMouseExited(e -> notesButton.setStyle(initialStyle));
-		createReportBtn.setOnMouseEntered(e -> createReportBtn.setStyle(hoverStyle));
-		createReportBtn.setOnMouseExited(e -> createReportBtn.setStyle(initialStyle));
-		logsButton.setOnMouseEntered(e -> logsButton.setStyle(hoverStyle));
-		logsButton.setOnMouseExited(e -> logsButton.setStyle(initialStyle));
-		mapButton.setOnMouseEntered(e -> mapButton.setStyle(hoverStyle));
-		mapButton.setOnMouseExited(e -> mapButton.setStyle(initialStyle));
-		showIDBtn.setOnMouseEntered(e -> showIDBtn.setStyle(hoverStyle));
-		showIDBtn.setOnMouseExited(e -> showIDBtn.setStyle(initialStyle));
-		showCalloutBtn.setOnMouseEntered(e -> showCalloutBtn.setStyle(hoverStyle));
-		showCalloutBtn.setOnMouseExited(e -> showCalloutBtn.setStyle(initialStyle));
-		lookupBtn.setOnMouseEntered(e -> lookupBtn.setStyle(hoverStyle));
-		lookupBtn.setOnMouseExited(e -> lookupBtn.setStyle(initialStyle));
-		
-		updateInfoBtn.setOnMouseEntered(e -> updateInfoBtn.setStyle(hoverStyle));
-		updateInfoBtn.setOnMouseExited(e -> {
-			updateInfoBtn.setStyle(nonTransparentBtn);
-		});
-	}
-	
 	
 	//</editor-fold>
 	
@@ -2944,7 +3668,6 @@ public class actionController {
 				};
 			}
 		});
-		loadTheme();
 		
 		initializeCalloutColumns();
 		initializeArrestColumns();
@@ -3042,6 +3765,12 @@ public class actionController {
 					versionLabel.setText(gitVersion + " Available!");
 					versionLabel.setStyle("-fx-text-fill: red;");
 				}
+			}
+			
+			try {
+				settingsController.loadTheme();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 		});
 		

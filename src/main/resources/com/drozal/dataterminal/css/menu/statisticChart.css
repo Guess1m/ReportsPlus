@@ -1,20 +1,48 @@
-.chart-series-area-fill {
-    -fx-fill: rgb(104, 94, 135,0.5); /* Red color */
+.darkchart .chart-series-area-fill {
+    -fx-fill: rgb(104, 94, 135,0.5);
     -fx-stroke: grey;
 
 }
-.chart-series-area-line{
-    -fx-fill: rgb(104, 94, 135,1); /* Red color */
+.darkchart .chart-series-area-line{
+    -fx-fill: rgb(104, 94, 135,1);
     -fx-stroke: rgb(104, 94, 135,1);
     -fx-stroke-width: 5px;
 }
-.chart-area-symbol {
-    -fx-background-color: white; /* Change to your desired color */
+.darkchart .chart-area-symbol {
+    -fx-background-color: white;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-border-color: black;
     -fx-border-width: 1;
 }
-.chart-plot-background {
-     -fx-background-color: rgb(240,240,240,0.5); /* Change this to your desired color */
+.darkchart .chart-plot-background {
+     -fx-background-color: rgb(10, 10,10, 0.1);
  }
+.darkchart .axis {
+     -fx-tick-label-fill: rgb(10,10,10, 0.55);
+}
+
+
+.lightchart .chart-series-area-fill {
+    -fx-fill: rgb(104, 94, 135,0.5);
+    -fx-stroke: grey;
+
+}
+.lightchart .chart-series-area-line{
+    -fx-fill: rgb(104, 94, 135,1);
+    -fx-stroke: rgb(104, 94, 135,1);
+    -fx-stroke-width: 5px;
+}
+.lightchart .chart-area-symbol {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+.lightchart .chart-plot-background {
+     -fx-background-color: rgb(200, 200, 200, 0.4);
+ }
+.lightchart .axis {
+            -fx-tick-label-fill: rgb(255,255,255, 0.8);
+}

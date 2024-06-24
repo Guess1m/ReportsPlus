@@ -1,47 +1,94 @@
-/* Material Design ComboBox */
-.combo-box {
+.combo-boxdark {
     -fx-text-fill: black !important;
     -fx-font-family: "Roboto";
     -fx-font-size: 15px;
-    -fx-background-color: rgb(242, 242, 242, 0.6);
-    -fx-prompt-text-fill: #524992 !important;
+    -fx-background-color: rgb(10, 10,10, 0.1);
+    -fx-prompt-text-fill: rgb(115, 115, 115,1) !important;
     -fx-background-insets: 0;
     -fx-padding: 3px;
     -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
     -fx-border-width: 0 0 2px 0; /* Set bottom border width */
     -fx-border-color: grey; /* Set initial border color to transparent */
 }
-.combo-box .list-cell {
+.combo-boxdark .list-cell {
     -fx-text-fill:  black; /* Set the text color */
 }
-.combo-box .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
-    -fx-background-color:  #f2f2f2;
+.combo-boxdark .list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-background-color:  rgb(30,30,30,0.10);
     -fx-border-color: none;
 }
-.combo-box .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-        -fx-pref-width: 11px; /* Thicker width */
+.combo-boxdark .scroll-bar {
+    -fx-background-color: rgb(30,30,30,0.10);
+        -fx-pref-width: 11px;
 }
-.combo-box .scroll-bar .increment-arrow,
-.combo-box .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+.combo-boxdark .scroll-bar .increment-arrow,
+.combo-boxdark .scroll-bar .decrement-arrow {
+    -fx-background-color: none;
 }
-.combo-box .scroll-bar .thumb {
+.combo-boxdark .scroll-bar .thumb {
     -fx-background-color: #5e7387; /* Change arrow color */
 }
-.combo-box .scroll-bar .thumb:pressed {
+.combo-boxdark .scroll-bar .thumb:pressed {
     -fx-background-color: #495a69; /* Change arrow color */
 }
-.combo-box .list-view .list-cell:hover {
+.combo-boxdark .list-view .list-cell:hover {
     -fx-background-color: rgb(94, 115, 135,0.4); /* Set the hover background color */
 }
-.combo-box:focused {
+.combo-boxdark:focused {
     -fx-border-color: #5e7387; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
     -fx-effect: none;
-    -fx-background-color: rgb(242, 242, 242);
+    -fx-background-color: rgb(10, 10,10, 0.3);
 }
+
+
+
+.combo-boxlight {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
+    -fx-background-color: rgb(200, 200, 200, 0.4);
+    -fx-prompt-text-fill: rgb(50, 50, 50,1);
+    -fx-background-insets: 0;
+    -fx-padding: 3px;
+    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
+    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
+    -fx-border-color: grey; /* Set initial border color to transparent */
+}
+.combo-boxlight .list-cell {
+    -fx-text-fill:  black; /* Set the text color */
+}
+.combo-boxlight .list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-background-color:  rgb(255,255,255,0.10);
+    -fx-border-color: none;
+}
+.combo-boxlight .scroll-bar {
+    -fx-background-color: rgb(255,255,255,0.10);
+    -fx-pref-width: 11px;
+}
+.combo-boxlight .scroll-bar .increment-arrow,
+.combo-boxlight .scroll-bar .decrement-arrow {
+    -fx-background-color: none;
+}
+.combo-boxlight .scroll-bar .thumb {
+    -fx-background-color: #5e7387; /* Change arrow color */
+}
+.combo-boxlight .scroll-bar .thumb:pressed {
+    -fx-background-color: #495a69; /* Change arrow color */
+}
+.combo-boxlight .list-view .list-cell:hover {
+    -fx-background-color: rgb(94, 115, 135,0.4); /* Set the hover background color */
+}
+.combo-boxlight:focused {
+    -fx-border-color: #5e7387; /* Change border color when focused */
+    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-effect: none;
+    -fx-background-color: rgb(240, 240, 240, 0.6);
+}
+
+
 
 .comboboxnew {
    -fx-text-fill: white !important;

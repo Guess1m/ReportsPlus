@@ -76,10 +76,10 @@
     -fx-font-size: 27px;
 }
 
+
 .chargesTable .filler {
     -fx-background-color: transparent;
 }
-
 .chargesTable{
    -fx-background-color: transparent;
 }
@@ -98,7 +98,7 @@
 .chargesTable .column-header {
     -fx-background-color: transparent;
     -fx-border-width: 0 1.5px 0 0px; /* top right bottom left */
-    -fx-border-color: white;
+    -fx-border-color: rgb(255,255,255,0.3);
 }
 .chargesTable .table-cell{
     -fx-text-fill: #262626;
@@ -117,7 +117,7 @@
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }
 .chargesTable .table-row-cell:even{
-    -fx-background-color: white;
+    -fx-background-color: rgb(255, 255, 255,0.6);
     -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
         -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
 }

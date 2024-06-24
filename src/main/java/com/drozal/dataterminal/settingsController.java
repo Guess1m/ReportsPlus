@@ -31,6 +31,9 @@ import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class settingsController {
 	
+	private static String UILightColor = "rgb(255,255,255,0.75)";
+	private static String UIDarkColor = "rgb(0,0,0,0.75)";
+	
 	//<editor-fold desc="FXML">
 	
 	AnchorPane topBar;
@@ -62,7 +65,7 @@ public class settingsController {
 	private Label accLabel;
 	@javafx.fxml.FXML
 	private Button resetDefaultsBtn;
-	private actionController controllerVar;
+	private static actionController controllerVar;
 	@javafx.fxml.FXML
 	private Button debugLogBtn;
 	@javafx.fxml.FXML
@@ -127,6 +130,8 @@ public class settingsController {
 	private Label bkgLabel;
 	@javafx.fxml.FXML
 	private TabPane tabpane;
+	@javafx.fxml.FXML
+	private ComboBox textClrComboBox;
 	
 	
 	//</editor-fold>
@@ -364,11 +369,14 @@ public class settingsController {
 		               });
 		
 		String[] reportdarklight = {"dark", "light"};
+		String[] uidarklight = {"dark", "light"};
 		String[] themes = {"dark", "purple", "blue", "grey", "green"};
 		String[] presets = {"dark", "light", "grey", "green", "blue"};
 		
 		reportStyleComboBox.getItems()
 		                   .addAll(reportdarklight);
+		textClrComboBox.getItems()
+		                   .addAll(uidarklight);
 		
 		themeComboBox.getItems()
 		             .addAll(themes);
@@ -384,6 +392,25 @@ public class settingsController {
 			} else {
 				reportStyleComboBox.getSelectionModel()
 				                   .selectLast();
+			}
+		} catch (IOException e) {
+			logError("DarkMode IO Error Code 1 ", e);
+			
+		}
+		try {
+			if (ConfigReader.configRead("UIDarkMode")
+			                .equals("true")) {
+				textClrComboBox.getSelectionModel()
+				                   .selectFirst();
+				controllerVar.generatedByTag.setStyle("-fx-text-fill: "+UIDarkColor+";");
+				controllerVar.generatedDateTag.setStyle("-fx-text-fill: "+UIDarkColor+";");
+				controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: "+UIDarkColor+";");
+			} else {
+				textClrComboBox.getSelectionModel()
+				                   .selectLast();
+				controllerVar.generatedByTag.setStyle("-fx-text-fill: "+UILightColor+";");
+				controllerVar.generatedDateTag.setStyle("-fx-text-fill: "+UILightColor+";");
+				controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: "+UILightColor+";");
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);
@@ -468,6 +495,20 @@ public class settingsController {
 				ConfigWriter.configwrite("reportWindowDarkMode", "false");
 			}
 		});
+		textClrComboBox.setOnAction(event -> {
+			if (textClrComboBox.getSelectionModel()
+			                       .getSelectedItem()
+			                       .equals("dark")) {
+				ConfigWriter.configwrite("UIDarkMode", "true");
+			} else {
+				ConfigWriter.configwrite("UIDarkMode", "false");
+			}
+			try {
+				loadTheme();
+			} catch (IOException e) {
+				logError("loadtheme code 28939: ",e);
+			}
+		});
 		
 		presetComboBoxReport.setOnAction(actionEvent -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel()
@@ -543,13 +584,21 @@ public class settingsController {
 			
 		});
 		
-		if (reportStyleComboBox.getSelectionModel()
+		/*if (reportStyleComboBox.getSelectionModel()
 		                       .getSelectedItem()
 		                       .equals("dark")) {
 			ConfigWriter.configwrite("reportWindowDarkMode", "true");
 		} else {
 			ConfigWriter.configwrite("reportWindowDarkMode", "false");
 		}
+		
+		if (textClrComboBox.getSelectionModel()
+		                       .getSelectedItem()
+		                       .equals("dark")) {
+			ConfigWriter.configwrite("UIDarkMode", "true");
+		} else {
+			ConfigWriter.configwrite("UIDarkMode", "false");
+		}*/
 		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems()
@@ -618,6 +667,7 @@ public class settingsController {
 		updateMain(Color.valueOf("#524992"));
 		updateSecondary(Color.valueOf("#665cb6"));
 		updateAccent(Color.valueOf("#9c95d0"));
+		updatebackground(Color.valueOf("#ffffff"));
 		try {
 			loadTheme();
 			loadColors();
@@ -626,7 +676,14 @@ public class settingsController {
 		}
 	}
 	
-	private void loadTheme() throws IOException {
+	public static void loadTheme() throws IOException {
+		if (DataTerminalHomeApplication.controller != null) {
+			controllerVar = DataTerminalHomeApplication.controller;
+		} else if (newOfficerController.controller != null) {
+			controllerVar = newOfficerController.controller;
+		} else {
+			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+		}
 		changeBarColors(controllerVar.getReportChart());
 		changeStatisticColors(controllerVar.getAreaReportChart());
 		
@@ -640,7 +697,6 @@ public class settingsController {
 		             .setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getDetailsLabelFill()
 		             .setStyle("-fx-text-fill: " + mainclr + ";");
-		lbl0.setStyle("-fx-background-color: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("secondaryColor");
 		controllerVar.getCurrentCalPane()
@@ -656,12 +712,6 @@ public class settingsController {
 		             .setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getReportPlusLabelFill()
 		             .setStyle("-fx-text-fill: " + secclr + ";");
-		lbl1.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl2.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl3.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl5.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl6.setStyle("-fx-text-fill: " + secclr + ";");
-		lbl7.setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String bkgclr = ConfigReader.configRead("bkgColor");
 		controllerVar.getBkgclr1()
@@ -847,8 +897,295 @@ public class settingsController {
 					             "-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
 		
+		if (ConfigReader.configRead("UIDarkMode").equals("true")){
+			addDarkStyles();
+		} else {
+			addLightStyles();
+		}
+		
 		controllerVar.getServerStatusLabel()
 		             .setStyle(updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
+	}
+	
+	private static void addDarkStyles(){
+		controllerVar.generatedByTag.setStyle("-fx-text-fill: "+UIDarkColor+";");
+		controllerVar.generatedDateTag.setStyle("-fx-text-fill: "+UIDarkColor+";");
+		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: "+UIDarkColor+";");
+		
+		controllerVar.getAreaReportChart().getStyleClass().clear();
+		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
+		controllerVar.getReportChart().getStyleClass().clear();
+		controllerVar.getReportChart().getStyleClass().add("customchartdark");
+		
+		addDarkForm(controllerVar.getOfficerInfoName());
+		addDarkForm(controllerVar.getOfficerInfoNumber());
+		addDarkForm(controllerVar.getOfficerInfoCallsign());
+		
+		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxdark");
+		controllerVar.getOfficerInfoRank().getStyleClass().clear();
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxdark");
+		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxdark");
+		
+		addDarkForm(controllerVar.getArrestaddress());
+		addDarkForm(controllerVar.getArrestage());
+		addDarkForm(controllerVar.getArrestambulance());
+		addDarkForm(controllerVar.getArrestarea());
+		addDarkForm(controllerVar.getArrestcharges());
+		addDarkForm(controllerVar.getArrestcounty());
+		addDarkForm(controllerVar.getArrestdesc());
+		addDarkForm(controllerVar.getArrestdetails());
+		addDarkForm(controllerVar.getArrestgender());
+		addDarkForm(controllerVar.getArrestmedinfo());
+		addDarkForm(controllerVar.getArrestname());
+		addDarkForm(controllerVar.getArrestnum());
+		addDarkForm(controllerVar.getArreststreet());
+		addDarkForm(controllerVar.getArresttaser());
+		addDarkForm(controllerVar.getCaladdress());
+		addDarkForm(controllerVar.getCalarea());
+		addDarkForm(controllerVar.getCalArea());
+		addDarkForm(controllerVar.getCalcounty());
+		addDarkForm(controllerVar.getCalCounty());
+		addDarkForm(controllerVar.getCalDate());
+		addDarkForm(controllerVar.getCalgrade());
+		addDarkForm(controllerVar.getCalnotes());
+		addDarkForm(controllerVar.getCalnum());
+		addDarkForm(controllerVar.getCalNum());
+		addDarkForm(controllerVar.getCalPriority());
+		addDarkForm(controllerVar.getCalStreet());
+		addDarkForm(controllerVar.getCalTime());
+		addDarkForm(controllerVar.getCaltype());
+		addDarkForm(controllerVar.getCalType());
+		addDarkForm(controllerVar.getCitaddress());
+		addDarkForm(controllerVar.getCitage());
+		addDarkForm(controllerVar.getCitarea());
+		addDarkForm(controllerVar.getCitcharges());
+		addDarkForm(controllerVar.getCitcolor());
+		addDarkForm(controllerVar.getCitcomments());
+		addDarkForm(controllerVar.getCitcounty());
+		addDarkForm(controllerVar.getCitdesc());
+		addDarkForm(controllerVar.getCitgender());
+		addDarkForm(controllerVar.getCitmodel());
+		addDarkForm(controllerVar.getCitname());
+		addDarkForm(controllerVar.getCitnumber());
+		addDarkForm(controllerVar.getCitplatenum());
+		addDarkForm(controllerVar.getCitstreet());
+		addDarkForm(controllerVar.getCittype());
+		addDarkForm(controllerVar.getCitvehother());
+		addDarkForm(controllerVar.getImpaddress());
+		addDarkForm(controllerVar.getImpage());
+		addDarkForm(controllerVar.getImpcolor());
+		addDarkForm(controllerVar.getImpcomments());
+		addDarkForm(controllerVar.getImpgender());
+		addDarkForm(controllerVar.getImpmodel());
+		addDarkForm(controllerVar.getImpname());
+		addDarkForm(controllerVar.getImpnum());
+		addDarkForm(controllerVar.getImpplatenum());
+		addDarkForm(controllerVar.getImptype());
+		addDarkForm(controllerVar.getIncactionstaken());
+		addDarkForm(controllerVar.getIncarea());
+		addDarkForm(controllerVar.getInccomments());
+		addDarkForm(controllerVar.getInccounty());
+		addDarkForm(controllerVar.getIncnum());
+		addDarkForm(controllerVar.getIncstatement());
+		addDarkForm(controllerVar.getIncstreet());
+		addDarkForm(controllerVar.getIncvictims());
+		addDarkForm(controllerVar.getIncwitness());
+		addDarkForm(controllerVar.getPatcomments());
+		addDarkForm(controllerVar.getPatlength());
+		addDarkForm(controllerVar.getPatnum());
+		addDarkForm(controllerVar.getPatstarttime());
+		addDarkForm(controllerVar.getPatstoptime());
+		addDarkForm(controllerVar.getPatvehicle());
+		addDarkForm(controllerVar.getPedaddressfield());
+		addDarkForm(controllerVar.getPeddobfield());
+		addDarkForm(controllerVar.getPedfnamefield());
+		addDarkForm(controllerVar.getPedgenfield());
+		addDarkForm(controllerVar.getPedlicensefield());
+		addDarkForm(controllerVar.getPedlnamefield());
+		addDarkForm(controllerVar.getPedwantedfield());
+		addDarkForm(controllerVar.getSearcharea());
+		addDarkForm(controllerVar.getSearchbacmeasure());
+		addDarkForm(controllerVar.getSearchbreathresult());
+		addDarkForm(controllerVar.getSearchbreathused());
+		addDarkForm(controllerVar.getSearchcomments());
+		addDarkForm(controllerVar.getSearchcounty());
+		addDarkForm(controllerVar.getSearchgrounds());
+		addDarkForm(controllerVar.getSearchmethod());
+		addDarkForm(controllerVar.getSearchnum());
+		addDarkForm(controllerVar.getSearchperson());
+		addDarkForm(controllerVar.getSearchseizeditems());
+		addDarkForm(controllerVar.getSearchstreet());
+		addDarkForm(controllerVar.getSearchtype());
+		addDarkForm(controllerVar.getSearchwitness());
+		addDarkForm(controllerVar.getTrafaddress());
+		addDarkForm(controllerVar.getTrafage());
+		addDarkForm(controllerVar.getTrafarea());
+		addDarkForm(controllerVar.getTrafcolor());
+		addDarkForm(controllerVar.getTrafcomments());
+		addDarkForm(controllerVar.getTrafcounty());
+		addDarkForm(controllerVar.getTrafdesc());
+		addDarkForm(controllerVar.getTrafgender());
+		addDarkForm(controllerVar.getTrafmodel());
+		addDarkForm(controllerVar.getTrafname());
+		addDarkForm(controllerVar.getTrafnum());
+		addDarkForm(controllerVar.getTrafotherinfo());
+		addDarkForm(controllerVar.getTrafplatenum());
+		addDarkForm(controllerVar.getTrafstreet());
+		addDarkForm(controllerVar.getTraftype());
+		addDarkForm(controllerVar.getVehinsfield());
+		addDarkForm(controllerVar.getVehmodelfield());
+		addDarkForm(controllerVar.getVehownerfield());
+		addDarkForm(controllerVar.getVehplatefield2());
+		addDarkForm(controllerVar.getVehregfield());
+		addDarkForm(controllerVar.getVehSearchField());
+		addDarkForm(controllerVar.getVehstolenfield());
+	}
+	
+	private static void addLightStyles(){
+		controllerVar.generatedByTag.setStyle("-fx-text-fill: "+UILightColor+";");
+		controllerVar.generatedDateTag.setStyle("-fx-text-fill: "+UILightColor+";");
+		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: "+UILightColor+";");
+		
+		controllerVar.getAreaReportChart().getStyleClass().clear();
+		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");
+		controllerVar.getReportChart().getStyleClass().clear();
+		controllerVar.getReportChart().getStyleClass().add("customchartlight");
+		
+		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxlight");
+		controllerVar.getOfficerInfoRank().getStyleClass().clear();
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxlight");
+		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxlight");
+		
+		addLightForm(controllerVar.getOfficerInfoName());
+		addLightForm(controllerVar.getOfficerInfoNumber());
+		addLightForm(controllerVar.getOfficerInfoCallsign());
+		addLightForm(controllerVar.getArrestaddress());
+		addLightForm(controllerVar.getArrestage());
+		addLightForm(controllerVar.getArrestambulance());
+		addLightForm(controllerVar.getArrestarea());
+		addLightForm(controllerVar.getArrestcharges());
+		addLightForm(controllerVar.getArrestcounty());
+		addLightForm(controllerVar.getArrestdesc());
+		addLightForm(controllerVar.getArrestdetails());
+		addLightForm(controllerVar.getArrestgender());
+		addLightForm(controllerVar.getArrestmedinfo());
+		addLightForm(controllerVar.getArrestname());
+		addLightForm(controllerVar.getArrestnum());
+		addLightForm(controllerVar.getArreststreet());
+		addLightForm(controllerVar.getArresttaser());
+		addLightForm(controllerVar.getCaladdress());
+		addLightForm(controllerVar.getCalarea());
+		addLightForm(controllerVar.getCalArea());
+		addLightForm(controllerVar.getCalcounty());
+		addLightForm(controllerVar.getCalCounty());
+		addLightForm(controllerVar.getCalDate());
+		addLightForm(controllerVar.getCalgrade());
+		addLightForm(controllerVar.getCalnotes());
+		addLightForm(controllerVar.getCalnum());
+		addLightForm(controllerVar.getCalNum());
+		addLightForm(controllerVar.getCalPriority());
+		addLightForm(controllerVar.getCalStreet());
+		addLightForm(controllerVar.getCalTime());
+		addLightForm(controllerVar.getCaltype());
+		addLightForm(controllerVar.getCalType());
+		addLightForm(controllerVar.getCitaddress());
+		addLightForm(controllerVar.getCitage());
+		addLightForm(controllerVar.getCitarea());
+		addLightForm(controllerVar.getCitcharges());
+		addLightForm(controllerVar.getCitcolor());
+		addLightForm(controllerVar.getCitcomments());
+		addLightForm(controllerVar.getCitcounty());
+		addLightForm(controllerVar.getCitdesc());
+		addLightForm(controllerVar.getCitgender());
+		addLightForm(controllerVar.getCitmodel());
+		addLightForm(controllerVar.getCitname());
+		addLightForm(controllerVar.getCitnumber());
+		addLightForm(controllerVar.getCitplatenum());
+		addLightForm(controllerVar.getCitstreet());
+		addLightForm(controllerVar.getCittype());
+		addLightForm(controllerVar.getCitvehother());
+		addLightForm(controllerVar.getImpaddress());
+		addLightForm(controllerVar.getImpage());
+		addLightForm(controllerVar.getImpcolor());
+		addLightForm(controllerVar.getImpcomments());
+		addLightForm(controllerVar.getImpgender());
+		addLightForm(controllerVar.getImpmodel());
+		addLightForm(controllerVar.getImpname());
+		addLightForm(controllerVar.getImpnum());
+		addLightForm(controllerVar.getImpplatenum());
+		addLightForm(controllerVar.getImptype());
+		addLightForm(controllerVar.getIncactionstaken());
+		addLightForm(controllerVar.getIncarea());
+		addLightForm(controllerVar.getInccomments());
+		addLightForm(controllerVar.getInccounty());
+		addLightForm(controllerVar.getIncnum());
+		addLightForm(controllerVar.getIncstatement());
+		addLightForm(controllerVar.getIncstreet());
+		addLightForm(controllerVar.getIncvictims());
+		addLightForm(controllerVar.getIncwitness());
+		addLightForm(controllerVar.getPatcomments());
+		addLightForm(controllerVar.getPatlength());
+		addLightForm(controllerVar.getPatnum());
+		addLightForm(controllerVar.getPatstarttime());
+		addLightForm(controllerVar.getPatstoptime());
+		addLightForm(controllerVar.getPatvehicle());
+		addLightForm(controllerVar.getPedaddressfield());
+		addLightForm(controllerVar.getPeddobfield());
+		addLightForm(controllerVar.getPedfnamefield());
+		addLightForm(controllerVar.getPedgenfield());
+		addLightForm(controllerVar.getPedlicensefield());
+		addLightForm(controllerVar.getPedlnamefield());
+		addLightForm(controllerVar.getPedwantedfield());
+		addLightForm(controllerVar.getSearcharea());
+		addLightForm(controllerVar.getSearchbacmeasure());
+		addLightForm(controllerVar.getSearchbreathresult());
+		addLightForm(controllerVar.getSearchbreathused());
+		addLightForm(controllerVar.getSearchcomments());
+		addLightForm(controllerVar.getSearchcounty());
+		addLightForm(controllerVar.getSearchgrounds());
+		addLightForm(controllerVar.getSearchmethod());
+		addLightForm(controllerVar.getSearchnum());
+		addLightForm(controllerVar.getSearchperson());
+		addLightForm(controllerVar.getSearchseizeditems());
+		addLightForm(controllerVar.getSearchstreet());
+		addLightForm(controllerVar.getSearchtype());
+		addLightForm(controllerVar.getSearchwitness());
+		addLightForm(controllerVar.getTrafaddress());
+		addLightForm(controllerVar.getTrafage());
+		addLightForm(controllerVar.getTrafarea());
+		addLightForm(controllerVar.getTrafcolor());
+		addLightForm(controllerVar.getTrafcomments());
+		addLightForm(controllerVar.getTrafcounty());
+		addLightForm(controllerVar.getTrafdesc());
+		addLightForm(controllerVar.getTrafgender());
+		addLightForm(controllerVar.getTrafmodel());
+		addLightForm(controllerVar.getTrafname());
+		addLightForm(controllerVar.getTrafnum());
+		addLightForm(controllerVar.getTrafotherinfo());
+		addLightForm(controllerVar.getTrafplatenum());
+		addLightForm(controllerVar.getTrafstreet());
+		addLightForm(controllerVar.getTraftype());
+		addLightForm(controllerVar.getVehinsfield());
+		addLightForm(controllerVar.getVehmodelfield());
+		addLightForm(controllerVar.getVehownerfield());
+		addLightForm(controllerVar.getVehplatefield2());
+		addLightForm(controllerVar.getVehregfield());
+		addLightForm(controllerVar.getVehSearchField());
+		addLightForm(controllerVar.getVehstolenfield());
+	}
+	
+	private static void addLightForm(TextField textField){
+		textField.getStyleClass().clear();
+		textField.getStyleClass().add("formFieldlight");
+	}
+	
+	private static void addDarkForm(TextField textField){
+		textField.getStyleClass().clear();
+		textField.getStyleClass().add("formFielddark");
 	}
 	
 	private void loadColors() {
@@ -872,6 +1209,14 @@ public class settingsController {
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
 			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
+			
+			lbl0.setStyle("-fx-background-color: " + toHexString(primary) + ";");
+			lbl1.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl2.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);

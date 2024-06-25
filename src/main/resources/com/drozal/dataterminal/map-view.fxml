@@ -4,9 +4,8 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="790.0" prefWidth="639.0" style="-fx-background-color: #143d6b;"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="639.0"
       xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.mapController">
     <padding>
         <Insets bottom="0.0" left="0.0" right="0.0" top="0.0"/>
@@ -44,6 +43,15 @@
                            onMousePressed="#onRefreshPress" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imgs/icons/refresh.png"/>
+                    </image>
+                    <effect>
+                        <ColorAdjust brightness="0.81" contrast="-1.0"/>
+                    </effect>
+                </ImageView>
+                <ImageView fitHeight="34.0" fitWidth="35.0" layoutX="45.0" layoutY="751.0"
+                           onMousePressed="#onOverlayPress" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgs/icons/dtInfo.png"/>
                     </image>
                     <effect>
                         <ColorAdjust brightness="0.81" contrast="-1.0"/>

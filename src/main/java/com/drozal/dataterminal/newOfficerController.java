@@ -92,10 +92,8 @@ public class newOfficerController {
 	}
 	
 	public void initialize() {
-		rankDropdown.getItems()
-		            .addAll(dropdownInfo.ranks);
-		divisionDropDown.getItems()
-		                .addAll(dropdownInfo.divisions);
+		rankDropdown.getItems().addAll(dropdownInfo.ranks);
+		divisionDropDown.getItems().addAll(dropdownInfo.divisions);
 		divisionDropDown.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
 			public ListCell<String> call(ListView<String> p) {
@@ -119,14 +117,12 @@ public class newOfficerController {
 				};
 			}
 		});
-		agencyDropDown.getItems()
-		              .addAll(dropdownInfo.agencies);
+		agencyDropDown.getItems().addAll(dropdownInfo.agencies);
 	}
 	
 	@javafx.fxml.FXML
 	public void onMouseDrag(MouseEvent mouseEvent) {
-		Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene()
-		                                                     .getWindow();
+		Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
 		stage.setX(mouseEvent.getScreenX() - xOffset);
 		stage.setY(mouseEvent.getScreenY() - yOffset);
 	}
@@ -146,9 +142,7 @@ public class newOfficerController {
 	@javafx.fxml.FXML
 	public void loginButtonClick(ActionEvent actionEvent) throws IOException {
 		
-		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText()
-		                                                                                                                            .isEmpty() || numberField.getText()
-		                                                                                                                                                     .isEmpty()) {
+		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText().isEmpty() || numberField.getText().isEmpty()) {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
@@ -159,11 +153,7 @@ public class newOfficerController {
 		} else {
 			String jarPath = null;
 			try {
-				jarPath = newOfficerApplication.class.getProtectionDomain()
-				                                     .getCodeSource()
-				                                     .getLocation()
-				                                     .toURI()
-				                                     .getPath();
+				jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			} catch (URISyntaxException e) {
 				logError("NewOfficer JarPath URISyntax Exception", e);
 			}
@@ -186,12 +176,9 @@ public class newOfficerController {
 				}
 			}
 			
-			String agency = agencyDropDown.getValue()
-			                              .toString();
-			String division = divisionDropDown.getValue()
-			                                  .toString();
-			String rank = rankDropdown.getValue()
-			                          .toString();
+			String agency = agencyDropDown.getValue().toString();
+			String division = divisionDropDown.getValue().toString();
+			String rank = rankDropdown.getValue().toString();
 			
 			ConfigWriter.configwrite("Agency", agency);
 			ConfigWriter.configwrite("Division", division);
@@ -200,8 +187,7 @@ public class newOfficerController {
 			ConfigWriter.configwrite("Number", numberField.getText());
 			addConfigurationValues();
 			
-			Stage stag = (Stage) vbox.getScene()
-			                         .getWindow();
+			Stage stag = (Stage) vbox.getScene().getWindow();
 			stag.close();
 			
 			mainRT = new Stage();
@@ -211,9 +197,8 @@ public class newOfficerController {
 			Scene scene = new Scene(root);
 			mainRT.setScene(scene);
 			mainRT.initStyle(StageStyle.UNDECORATED);
-			mainRT.getIcons()
-			      .add(new Image(Objects.requireNonNull(
-					      newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+			mainRT.getIcons().add(new Image(
+					Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 			mainRT.show();
 			
 			String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -228,8 +213,7 @@ public class newOfficerController {
 					mainRT.centerOnScreen();
 					mainRT.setMinHeight(450);
 					mainRT.setMinWidth(450);
-					if (ConfigReader.configRead("fullscreenOnStartup")
-					                .equals("true")) {
+					if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
 						windowUtils.setWindowedFullscreen(mainRT);
 					} else {
 						mainRT.setHeight(800);
@@ -245,11 +229,7 @@ public class newOfficerController {
 	public void bypassButtonClick(ActionEvent actionEvent) throws IOException {
 		String jarPath = null;
 		try {
-			jarPath = newOfficerApplication.class.getProtectionDomain()
-			                                     .getCodeSource()
-			                                     .getLocation()
-			                                     .toURI()
-			                                     .getPath();
+			jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		} catch (URISyntaxException e) {
 			logError("BypassBtnJarPath URISyntax Exception", e);
 			throw new RuntimeException(e);
@@ -281,8 +261,7 @@ public class newOfficerController {
 		ConfigWriter.configwrite("Number", "1-18");
 		addConfigurationValues();
 		
-		Stage stag = (Stage) vbox.getScene()
-		                         .getWindow();
+		Stage stag = (Stage) vbox.getScene().getWindow();
 		stag.close();
 		
 		mainRT = new Stage();
@@ -292,9 +271,8 @@ public class newOfficerController {
 		controller = loader.getController();
 		Scene scene = new Scene(root);
 		mainRT.setScene(scene);
-		mainRT.getIcons()
-		      .add(new Image(
-				      Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		mainRT.getIcons().add(new Image(
+				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -309,8 +287,7 @@ public class newOfficerController {
 				mainRT.centerOnScreen();
 				mainRT.setMinHeight(450);
 				mainRT.setMinWidth(450);
-				if (ConfigReader.configRead("fullscreenOnStartup")
-				                .equals("true")) {
+				if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
 					windowUtils.setWindowedFullscreen(mainRT);
 				} else {
 					mainRT.setHeight(800);

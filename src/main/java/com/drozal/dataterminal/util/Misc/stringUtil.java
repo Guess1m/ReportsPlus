@@ -56,11 +56,7 @@ public class stringUtil {
 	public static String getJarPath() {
 		try {
 			
-			String jarPath = stringUtil.class.getProtectionDomain()
-			                                 .getCodeSource()
-			                                 .getLocation()
-			                                 .toURI()
-			                                 .getPath();
+			String jarPath = stringUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			
 			String jarDir = new File(jarPath).getParent();
 			

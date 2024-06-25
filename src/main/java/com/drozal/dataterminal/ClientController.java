@@ -54,19 +54,16 @@ public class ClientController {
 			inputPortField.setText(ConfigReader.configRead("lastPortConnection"));
 		}
 		
-		inputPortField.textProperty()
-		              .addListener((observable, oldValue, newValue) -> {
-			              if (!newValue.matches("\\d*")) {
-				              inputPortField.setText(newValue.replaceAll("[^\\d]", ""));
-			              }
-		              });
+		inputPortField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue.matches("\\d*")) {
+				inputPortField.setText(newValue.replaceAll("[^\\d]", ""));
+			}
+		});
 	}
 	
 	@javafx.fxml.FXML
 	public void connectBtnPress() throws IOException {
-		if (!inputHostField.getText()
-		                   .isEmpty() && !inputPortField.getText()
-		                                                .isEmpty()) {
+		if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
 			ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
 		} else {
 			String beforeText = statusLabel.getText();
@@ -79,8 +76,7 @@ public class ClientController {
 	
 	@javafx.fxml.FXML
 	public void helpBtnPress() {
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		showHelpDialog(stage);
 	}
 	

@@ -44,8 +44,7 @@ public class IncidentReportLogs {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file);
-			doc.getDocumentElement()
-			   .normalize();
+			doc.getDocumentElement().normalize();
 			
 			NodeList logsList = doc.getElementsByTagName("logs");
 			
@@ -85,8 +84,7 @@ public class IncidentReportLogs {
 	public static String getTagValue(Element element, String tagName) {
 		NodeList nodeList = element.getElementsByTagName(tagName);
 		if (nodeList != null && nodeList.getLength() > 0) {
-			return nodeList.item(0)
-			               .getTextContent();
+			return nodeList.item(0).getTextContent();
 		}
 		return "";
 	}

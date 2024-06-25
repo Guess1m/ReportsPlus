@@ -578,6 +578,54 @@ public class actionController {
 		System.exit(0);
 	}
 	
+	public static Stage getCalloutStage() {
+		return CalloutStage;
+	}
+	
+	public static ClientController getClientController() {
+		return clientController;
+	}
+	
+	public static Stage getClientStage() {
+		return clientStage;
+	}
+	
+	public static Stage getIDStage() {
+		return IDStage;
+	}
+	
+	public static Stage getMapStage() {
+		return mapStage;
+	}
+	
+	public static double getMinColumnWidth() {
+		return minColumnWidth;
+	}
+	
+	public static int getNeedRefresh() {
+		return needRefresh.get();
+	}
+	
+	public static SimpleIntegerProperty needRefreshProperty() {
+		return needRefresh;
+	}
+	
+	public static Stage getNotesStage() {
+		return notesStage;
+	}
+	
+	public static String getNotesText() {
+		return notesText;
+	}
+	
+	public static Stage getSettingsStage() {
+		return settingsStage;
+	}
+	
+	public static Stage getVersionStage() {
+		return versionStage;
+	}
+	
 	public TextField getArrestaddress() {
 		return arrestaddress;
 	}
@@ -702,10 +750,6 @@ public class actionController {
 		return calloutReportButton;
 	}
 	
-	public static Stage getCalloutStage() {
-		return CalloutStage;
-	}
-	
 	public Tab getCalloutTab() {
 		return calloutTab;
 	}
@@ -826,14 +870,6 @@ public class actionController {
 		return citvehother;
 	}
 	
-	public static ClientController getClientController() {
-		return clientController;
-	}
-	
-	public static Stage getClientStage() {
-		return clientStage;
-	}
-	
 	public actionController getController() {
 		return controller;
 	}
@@ -844,10 +880,6 @@ public class actionController {
 	
 	public Label getGeneratedDateTag() {
 		return generatedDateTag;
-	}
-	
-	public static Stage getIDStage() {
-		return IDStage;
 	}
 	
 	public TextField getImpaddress() {
@@ -978,22 +1010,6 @@ public class actionController {
 		return mainColor9Bkg;
 	}
 	
-	public static Stage getMapStage() {
-		return mapStage;
-	}
-	
-	public static double getMinColumnWidth() {
-		return minColumnWidth;
-	}
-	
-	public static int getNeedRefresh() {
-		return needRefresh.get();
-	}
-	
-	public static SimpleIntegerProperty needRefreshProperty() {
-		return needRefresh;
-	}
-	
 	public Label getNoRecordFoundLabelPed() {
 		return noRecordFoundLabelPed;
 	}
@@ -1004,14 +1020,6 @@ public class actionController {
 	
 	public Button getNotesButton() {
 		return notesButton;
-	}
-	
-	public static Stage getNotesStage() {
-		return notesStage;
-	}
-	
-	public static String getNotesText() {
-		return notesText;
 	}
 	
 	public NotesViewController getNotesViewController() {
@@ -1188,10 +1196,6 @@ public class actionController {
 	
 	public TextField getSearchwitness() {
 		return searchwitness;
-	}
-	
-	public static Stage getSettingsStage() {
-		return settingsStage;
 	}
 	
 	public Button getShiftInfoBtn() {
@@ -1376,10 +1380,6 @@ public class actionController {
 	
 	public Label getVersionLabel() {
 		return versionLabel;
-	}
-	
-	public static Stage getVersionStage() {
-		return versionStage;
 	}
 	
 	public TextField getOfficerInfoCallsign() {
@@ -1601,8 +1601,7 @@ public class actionController {
 		
 		IDStage.show();
 		IDStage.centerOnScreen();
-		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
-		                                   .equals("true"));
+		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID").equals("true"));
 		showAnimation(showIDBtn);
 		windowUtils.centerStageOnMainApp(IDStage);
 		
@@ -1632,8 +1631,7 @@ public class actionController {
 		mapStage.setResizable(false);
 		mapStage.show();
 		mapStage.centerOnScreen();
-		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTMap")
-		                                    .equals("true"));
+		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTMap").equals("true"));
 		showAnimation(mapButton);
 		
 		windowUtils.centerStageOnMainApp(mapStage);
@@ -1679,20 +1677,16 @@ public class actionController {
 				notesStage.setMinWidth(300);
 			}
 		}
-		notesStage.getScene()
-		          .getStylesheets()
-		          .add(Objects.requireNonNull(getClass().getResource("css/notification-styles.css"))
-		                      .toExternalForm());
+		notesStage.getScene().getStylesheets().add(
+				Objects.requireNonNull(getClass().getResource("css/notification-styles.css")).toExternalForm());
 		showAnimation(notesButton);
-		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTNotes")
-		                                      .equals("true"));
+		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTNotes").equals("true"));
 		
 		notesStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
 				notesStage = null;
-				actionController.notesText = notesViewController.getNotepadTextArea()
-				                                                .getText();
+				actionController.notesText = notesViewController.getNotepadTextArea().getText();
 			}
 		});
 	}
@@ -1789,8 +1783,7 @@ public class actionController {
 			clientStage.setResizable(false);
 			clientStage.show();
 			clientStage.centerOnScreen();
-			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTClient")
-			                                       .equals("true"));
+			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTClient").equals("true"));
 			
 			windowUtils.centerStageOnMainApp(clientStage);
 			
@@ -1805,9 +1798,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void updateInfoButtonClick(ActionEvent actionEvent) {
-		if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText()
-		                                                                                                                                                               .isEmpty() || getOfficerInfoNumber().getText()
-		                                                                                                                                                                                                   .isEmpty()) {
+		if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() || getOfficerInfoNumber().getText().isEmpty()) {
 			updatedNotification.setText("Fill Out Form.");
 			updatedNotification.setStyle("-fx-text-fill: red;");
 			updatedNotification.setVisible(true);
@@ -1816,13 +1807,10 @@ public class actionController {
 			}));
 			timeline1.play();
 		} else {
-			ConfigWriter.configwrite("Agency", getOfficerInfoAgency().getValue()
-			                                                         .toString());
-			ConfigWriter.configwrite("Division", getOfficerInfoDivision().getValue()
-			                                                             .toString());
+			ConfigWriter.configwrite("Agency", getOfficerInfoAgency().getValue().toString());
+			ConfigWriter.configwrite("Division", getOfficerInfoDivision().getValue().toString());
 			ConfigWriter.configwrite("Name", getOfficerInfoName().getText());
-			ConfigWriter.configwrite("Rank", getOfficerInfoRank().getValue()
-			                                                     .toString());
+			ConfigWriter.configwrite("Rank", getOfficerInfoRank().getValue().toString());
 			ConfigWriter.configwrite("Number", getOfficerInfoNumber().getText());
 			generatedByTag.setText("Generated By:" + " " + getOfficerInfoName().getText());
 			updatedNotification.setText("updated.");
@@ -1909,12 +1897,10 @@ public class actionController {
 			pedwantedfield.setText(isWanted);
 			pedlicensefield.setText(licenseStatus);
 			
-			if (pedlicensefield.getText()
-			                   .equals("Expired")) {
+			if (pedlicensefield.getText().equals("Expired")) {
 				pedlicensefield.setText("EXPIRED");
 				pedlicensefield.setStyle("-fx-text-fill: red !important;");
-			} else if (pedlicensefield.getText()
-			                          .equals("Suspended")) {
+			} else if (pedlicensefield.getText().equals("Suspended")) {
 				pedlicensefield.setText("SUSPENDED");
 				pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			} else {
@@ -1922,8 +1908,7 @@ public class actionController {
 				pedlicensefield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			if (pedwantedfield.getText()
-			                  .equals("True")) {
+			if (pedwantedfield.getText().equals("True")) {
 				pedwantedfield.setText("WANTED");
 				pedwantedfield.setStyle("-fx-text-fill: red !important;");
 			} else {
@@ -1938,10 +1923,8 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
-		calActiveList.getSelectionModel()
-		             .clearSelection();
-		calHistoryList.getSelectionModel()
-		              .clearSelection();
+		calActiveList.getSelectionModel().clearSelection();
+		calHistoryList.getSelectionModel().clearSelection();
 		if (!showCurrentCalToggle.isSelected()) {
 			double toHeight = 0;
 			
@@ -1953,8 +1936,7 @@ public class actionController {
 			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
 			                                 keyValueMinHeight);
 			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
+			timeline.getKeyFrames().add(keyFrame);
 			
 			timeline.play();
 			currentCalPane.setVisible(false);
@@ -1969,8 +1951,7 @@ public class actionController {
 			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
 			                                 keyValueMinHeight);
 			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
+			timeline.getKeyFrames().add(keyFrame);
 			
 			timeline.play();
 			currentCalPane.setVisible(true);
@@ -1989,8 +1970,7 @@ public class actionController {
 		KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
 		                                 keyValueMinHeight);
 		
-		timeline.getKeyFrames()
-		        .add(keyFrame);
+		timeline.getKeyFrames().add(keyFrame);
 		
 		timeline.play();
 		currentCalPane.setVisible(false);
@@ -2024,8 +2004,7 @@ public class actionController {
 		settingsStage.setScene(newScene);
 		settingsStage.show();
 		settingsStage.centerOnScreen();
-		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings")
-		                                         .equals("true"));
+		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings").equals("true"));
 		showAnimation(settingsBtn);
 		
 		windowUtils.centerStageOnMainApp(settingsStage);
@@ -2068,67 +2047,51 @@ public class actionController {
 	}
 	
 	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
-		impoundTable.getItems()
-		            .clear();
+		impoundTable.getItems().clear();
 		
-		impoundTable.getItems()
-		            .addAll(logEntries);
+		impoundTable.getItems().addAll(logEntries);
 	}
 	
 	public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
 		
-		citationTable.getItems()
-		             .clear();
-		citationTable.getItems()
-		             .addAll(logEntries);
+		citationTable.getItems().clear();
+		citationTable.getItems().addAll(logEntries);
 	}
 	
 	public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
 		
-		patrolTable.getItems()
-		           .clear();
-		patrolTable.getItems()
-		           .addAll(logEntries);
+		patrolTable.getItems().clear();
+		patrolTable.getItems().addAll(logEntries);
 	}
 	
 	public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
 		
-		arrestTable.getItems()
-		           .clear();
-		arrestTable.getItems()
-		           .addAll(logEntries);
+		arrestTable.getItems().clear();
+		arrestTable.getItems().addAll(logEntries);
 	}
 	
 	public void searchLogUpdate(List<SearchLogEntry> logEntries) {
 		
-		searchTable.getItems()
-		           .clear();
-		searchTable.getItems()
-		           .addAll(logEntries);
+		searchTable.getItems().clear();
+		searchTable.getItems().addAll(logEntries);
 	}
 	
 	public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
 		
-		incidentTable.getItems()
-		             .clear();
-		incidentTable.getItems()
-		             .addAll(logEntries);
+		incidentTable.getItems().clear();
+		incidentTable.getItems().addAll(logEntries);
 	}
 	
 	public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
 		
-		trafficStopTable.getItems()
-		                .clear();
-		trafficStopTable.getItems()
-		                .addAll(logEntries);
+		trafficStopTable.getItems().clear();
+		trafficStopTable.getItems().addAll(logEntries);
 	}
 	
 	public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
 		
-		calloutTable.getItems()
-		            .clear();
-		calloutTable.getItems()
-		            .addAll(logEntries);
+		calloutTable.getItems().clear();
+		calloutTable.getItems().addAll(logEntries);
 	}
 	
 	public void initializeImpoundColumns() {
@@ -2190,8 +2153,7 @@ public class actionController {
 				impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
 				officerDivisionColumn, officerAgencyColumn);
 		
-		impoundTable.getColumns()
-		            .addAll(impoundColumns);
+		impoundTable.getColumns().addAll(impoundColumns);
 		
 		for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -2250,8 +2212,7 @@ public class actionController {
 				officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn,
 				officerVehicleColumn, patrolCommentsColumn);
 		
-		patrolTable.getColumns()
-		           .addAll(patrolColumns);
+		patrolTable.getColumns().addAll(patrolColumns);
 		
 		for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -2343,8 +2304,7 @@ public class actionController {
 				offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn,
 				officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
 		
-		citationTable.getColumns()
-		             .addAll(citationColumns);
+		citationTable.getColumns().addAll(citationColumns);
 		
 		for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -2431,8 +2391,7 @@ public class actionController {
 				arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn,
 				officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
 		
-		arrestTable.getColumns()
-		           .addAll(arrestColumns);
+		arrestTable.getColumns().addAll(arrestColumns);
 		
 		for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -2503,8 +2462,7 @@ public class actionController {
 				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
 				incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
 		
-		incidentTable.getColumns()
-		             .addAll(incidentColumns);
+		incidentTable.getColumns().addAll(incidentColumns);
 		for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -2586,8 +2544,7 @@ public class actionController {
 				searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn,
 				BACMeasurementColumn);
 		
-		searchTable.getColumns()
-		           .addAll(searchColumns);
+		searchTable.getColumns().addAll(searchColumns);
 		
 		for (TableColumn<SearchLogEntry, ?> column : searchColumns) {
 			column.setMinWidth(minColumnWidth);
@@ -2674,8 +2631,7 @@ public class actionController {
 				rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn,
 				countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
 		
-		trafficStopTable.getColumns()
-		                .addAll(trafficStopColumns);
+		trafficStopTable.getColumns().addAll(trafficStopColumns);
 		for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -2749,8 +2705,7 @@ public class actionController {
 		                                                                                            addressColumn,
 		                                                                                            countyColumn,
 		                                                                                            areaColumn);
-		calloutTable.getColumns()
-		            .addAll(columns);
+		calloutTable.getColumns().addAll(columns);
 		for (TableColumn<CalloutLogEntry, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);
 		}
@@ -2776,8 +2731,7 @@ public class actionController {
 			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
 			                                 keyValueMinHeight);
 			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
+			timeline.getKeyFrames().add(keyFrame);
 			
 			timeline.play();
 			lowerPane.setVisible(false);
@@ -2794,8 +2748,7 @@ public class actionController {
 			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
 			                                 keyValueMinHeight);
 			
-			timeline.getKeyFrames()
-			        .add(keyFrame);
+			timeline.getKeyFrames().add(keyFrame);
 			
 			timeline.play();
 			lowerPane.setVisible(true);
@@ -2805,8 +2758,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel()
-			                                             .getSelectedItem();
+			calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel().getSelectedItem();
 			if (calloutEntry != null) {
 				calnum.setText(calloutEntry.getCalloutNumber());
 				caladdress.setText(calloutEntry.getAddress());
@@ -2815,8 +2767,7 @@ public class actionController {
 				calgrade.setText(calloutEntry.getResponseGrade());
 				calarea.setText(calloutEntry.getArea());
 				caltype.setText(calloutEntry.getResponeType());
-				calloutTable.getSelectionModel()
-				            .clearSelection();
+				calloutTable.getSelectionModel().clearSelection();
 			} else {
 				calnum.setText("");
 				caladdress.setText("");
@@ -2849,9 +2800,7 @@ public class actionController {
 			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 			
 			for (CalloutLogEntry entry : logs) {
-				if (entry.getDate()
-				         .equals(calloutEntry.getDate()) && entry.getTime()
-				                                                 .equals(calloutEntry.getTime())) {
+				if (entry.getDate().equals(calloutEntry.getDate()) && entry.getTime().equals(calloutEntry.getTime())) {
 					entry.CalloutNumber = calnum.getText();
 					entry.Address = caladdress.getText();
 					entry.NotesTextArea = calnotes.getText();
@@ -2889,8 +2838,7 @@ public class actionController {
 			List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
 			
 			for (PatrolLogEntry entry : logs) {
-				if (entry.getPatrolDate()
-				         .equals(patrolEntry.getPatrolDate())) {
+				if (entry.getPatrolDate().equals(patrolEntry.getPatrolDate())) {
 					entry.patrolNumber = patnum.getText();
 					entry.patrolComments = patcomments.getText();
 					entry.patrolLength = patlength.getText();
@@ -2912,8 +2860,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel()
-			                                          .getSelectedItem();
+			patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel().getSelectedItem();
 			if (patrolEntry != null) {
 				patnum.setText(patrolEntry.getPatrolNumber());
 				patcomments.setText(patrolEntry.getPatrolComments());
@@ -2921,8 +2868,7 @@ public class actionController {
 				patstarttime.setText(patrolEntry.getPatrolStartTime());
 				patstoptime.setText(patrolEntry.getPatrolStopTime());
 				patvehicle.setText(patrolEntry.getOfficerVehicle());
-				patrolTable.getSelectionModel()
-				           .clearSelection();
+				patrolTable.getSelectionModel().clearSelection();
 			} else {
 				patnum.setText("");
 				patcomments.setText("");
@@ -2962,9 +2908,8 @@ public class actionController {
 			List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
 			
 			for (TrafficStopLogEntry entry : logs) {
-				if (entry.getDate()
-				         .equals(trafficStopEntry.getDate()) && entry.getTime()
-				                                                     .equals(trafficStopEntry.getTime())) {
+				if (entry.getDate().equals(trafficStopEntry.getDate()) && entry.getTime().equals(
+						trafficStopEntry.getTime())) {
 					entry.PlateNumber = trafplatenum.getText();
 					entry.Color = trafcolor.getText();
 					entry.Type = traftype.getText();
@@ -2994,8 +2939,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onTrafficStopRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel()
-			                                                         .getSelectedItem();
+			trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel().getSelectedItem();
 			if (trafficStopEntry != null) {
 				trafstreet.setText(trafficStopEntry.getStreet());
 				trafotherinfo.setText(trafficStopEntry.getResponseOtherInfo());
@@ -3012,8 +2956,7 @@ public class actionController {
 				traftype.setText(trafficStopEntry.getType());
 				trafplatenum.setText(trafficStopEntry.getPlateNumber());
 				trafcounty.setText(trafficStopEntry.getCounty());
-				trafficStopTable.getSelectionModel()
-				                .clearSelection();
+				trafficStopTable.getSelectionModel().clearSelection();
 			} else {
 				trafstreet.setText("");
 				trafotherinfo.setText("");
@@ -3056,9 +2999,8 @@ public class actionController {
 			List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
 			
 			for (IncidentLogEntry entry : logs) {
-				if (entry.getIncidentDate()
-				         .equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime()
-				                                                          .equals(incidentEntry.getIncidentTime())) {
+				if (entry.getIncidentDate().equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime().equals(
+						incidentEntry.getIncidentTime())) {
 					entry.incidentNumber = incnum.getText();
 					entry.incidentStatement = incstatement.getText();
 					entry.incidentWitnesses = incwitness.getText();
@@ -3081,8 +3023,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel()
-			                                                .getSelectedItem();
+			incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel().getSelectedItem();
 			if (incidentEntry != null) {
 				incnum.setText(incidentEntry.incidentNumber);
 				incactionstaken.setText(incidentEntry.incidentActionsTaken);
@@ -3093,8 +3034,7 @@ public class actionController {
 				incvictims.setText(incidentEntry.incidentVictims);
 				incstatement.setText(incidentEntry.incidentStatement);
 				incwitness.setText(incidentEntry.incidentWitnesses);
-				incidentTable.getSelectionModel()
-				             .clearSelection();
+				incidentTable.getSelectionModel().clearSelection();
 			} else {
 				incnum.setText("");
 				incactionstaken.setText("");
@@ -3132,9 +3072,8 @@ public class actionController {
 			List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 			
 			for (ImpoundLogEntry entry : logs) {
-				if (entry.getImpoundDate()
-				         .equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime()
-				                                                        .equals(impoundEntry.getImpoundTime())) {
+				if (entry.getImpoundDate().equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime().equals(
+						impoundEntry.getImpoundTime())) {
 					entry.impoundPlateNumber = impplatenum.getText();
 					entry.impoundColor = impcolor.getText();
 					entry.impoundType = imptype.getText();
@@ -3158,8 +3097,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel()
-			                                             .getSelectedItem();
+			impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel().getSelectedItem();
 			if (impoundEntry != null) {
 				impnum.setText(impoundEntry.impoundNumber);
 				impname.setText(impoundEntry.ownerName);
@@ -3171,8 +3109,7 @@ public class actionController {
 				impcomments.setText(impoundEntry.impoundComments);
 				impmodel.setText(impoundEntry.impoundModel);
 				impaddress.setText(impoundEntry.ownerAddress);
-				impoundTable.getSelectionModel()
-				            .clearSelection();
+				impoundTable.getSelectionModel().clearSelection();
 			} else {
 				impnum.setText("");
 				impname.setText("");
@@ -3191,8 +3128,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onCitationRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel()
-			                                                       .getSelectedItem();
+			citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel().getSelectedItem();
 			if (citationEntry != null) {
 				citnumber.setText(citationEntry.citationNumber);
 				citvehother.setText(citationEntry.offenderVehicleOther);
@@ -3210,8 +3146,7 @@ public class actionController {
 				citmodel.setText(citationEntry.offenderVehicleModel);
 				cittype.setText(citationEntry.offenderVehicleType);
 				citcounty.setText(citationEntry.citationCounty);
-				citationTable.getSelectionModel()
-				             .clearSelection();
+				citationTable.getSelectionModel().clearSelection();
 			} else {
 				citnumber.setText("");
 				citvehother.setText("");
@@ -3262,9 +3197,8 @@ public class actionController {
 			List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
 			
 			for (TrafficCitationLogEntry entry : logs) {
-				if (entry.getCitationDate()
-				         .equals(citationEntry.getCitationDate()) && entry.getCitationTime()
-				                                                          .equals(citationEntry.getCitationTime())) {
+				if (entry.getCitationDate().equals(citationEntry.getCitationDate()) && entry.getCitationTime().equals(
+						citationEntry.getCitationTime())) {
 					entry.citationNumber = citnumber.getText();
 					entry.offenderVehicleOther = citvehother.getText();
 					entry.offenderVehiclePlate = citplatenum.getText();
@@ -3294,8 +3228,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			searchEntry = (SearchLogEntry) searchTable.getSelectionModel()
-			                                          .getSelectedItem();
+			searchEntry = (SearchLogEntry) searchTable.getSelectionModel().getSelectedItem();
 			if (searchEntry != null) {
 				searchnum.setText(searchEntry.SearchNumber);
 				searchperson.setText(searchEntry.searchedPersons);
@@ -3311,8 +3244,7 @@ public class actionController {
 				searchwitness.setText(searchEntry.searchWitnesses);
 				searchbacmeasure.setText(searchEntry.breathalyzerBACMeasure);
 				searchcounty.setText(searchEntry.searchCounty);
-				searchTable.getSelectionModel()
-				           .clearSelection();
+				searchTable.getSelectionModel().clearSelection();
 			} else {
 				searchnum.setText("");
 				searchperson.setText("");
@@ -3359,9 +3291,8 @@ public class actionController {
 			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 			
 			for (SearchLogEntry entry : logs) {
-				if (entry.getSearchDate()
-				         .equals(searchEntry.getSearchDate()) && entry.getSearchTime()
-				                                                      .equals(searchEntry.getSearchTime())) {
+				if (entry.getSearchDate().equals(searchEntry.getSearchDate()) && entry.getSearchTime().equals(
+						searchEntry.getSearchTime())) {
 					entry.SearchNumber = searchnum.getText();
 					entry.searchedPersons = searchperson.getText();
 					entry.searchMethod = searchmethod.getText();
@@ -3389,8 +3320,7 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel()
-			                                          .getSelectedItem();
+			arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel().getSelectedItem();
 			if (arrestEntry != null) {
 				arrestnum.setText(arrestEntry.arrestNumber);
 				arrestcounty.setText(arrestEntry.arrestCounty);
@@ -3406,8 +3336,7 @@ public class actionController {
 				arreststreet.setText(arrestEntry.arrestStreet);
 				arresttaser.setText(arrestEntry.TaserYesNo);
 				arrestcharges.setText(arrestEntry.arrestCharges);
-				arrestTable.getSelectionModel()
-				           .clearSelection();
+				arrestTable.getSelectionModel().clearSelection();
 			} else {
 				arrestnum.setText("");
 				arrestcounty.setText("");
@@ -3433,7 +3362,6 @@ public class actionController {
 	
 	
 	//<editor-fold desc="Utils">
-	
 	
 	@javafx.fxml.FXML
 	public void onArrUpdateValues(ActionEvent actionEvent) {
@@ -3462,9 +3390,8 @@ public class actionController {
 			List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
 			
 			for (ArrestLogEntry entry : logs) {
-				if (entry.getArrestDate()
-				         .equals(arrestEntry.getArrestDate()) && entry.getArrestTime()
-				                                                      .equals(arrestEntry.getArrestTime())) {
+				if (entry.getArrestDate().equals(arrestEntry.getArrestDate()) && entry.getArrestTime().equals(
+						arrestEntry.getArrestTime())) {
 					entry.arrestNumber = arrestnum.getText();
 					entry.arrestCharges = arrestcharges.getText();
 					entry.arrestCounty = arrestcounty.getText();
@@ -3500,14 +3427,10 @@ public class actionController {
 				serverStatusLabel.setStyle(
 						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
-					clientController.getPortField()
-					                .setText("");
-					clientController.getInetField()
-					                .setText("");
-					clientController.getStatusLabel()
-					                .setText("Not Connected");
-					clientController.getStatusLabel()
-					                .setStyle("-fx-background-color: #ff5e5e;");
+					clientController.getPortField().setText("");
+					clientController.getInetField().setText("");
+					clientController.getStatusLabel().setText("Not Connected");
+					clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
 					serverStatusLabel.setStyle(
 							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 				}
@@ -3525,14 +3448,10 @@ public class actionController {
 					} catch (InterruptedException e) {
 						throw new RuntimeException(e);
 					}
-					clientController.getPortField()
-					                .setText(ClientUtils.port);
-					clientController.getInetField()
-					                .setText(ClientUtils.inet);
-					clientController.getStatusLabel()
-					                .setText("Connected");
-					clientController.getStatusLabel()
-					                .setStyle("-fx-background-color: green;");
+					clientController.getPortField().setText(ClientUtils.port);
+					clientController.getInetField().setText(ClientUtils.inet);
+					clientController.getStatusLabel().setText("Connected");
+					clientController.getStatusLabel().setStyle("-fx-background-color: green;");
 				}
 			}
 		});
@@ -3540,8 +3459,7 @@ public class actionController {
 	
 	public void refreshChart() throws IOException {
 		
-		reportChart.getData()
-		           .clear();
+		reportChart.getData().clear();
 		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
 		CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
 		
@@ -3552,18 +3470,15 @@ public class actionController {
 		String color = ConfigReader.configRead("mainColor");
 		for (String category : categories) {
 			XYChart.Data<String, Number> data = new XYChart.Data<>(category, 1);
-			data.nodeProperty()
-			    .addListener((obs, oldNode, newNode) -> {
-				    if (newNode != null) {
-					    newNode.setStyle("-fx-bar-fill: " + color + ";");
-				    }
-			    });
-			series1.getData()
-			       .add(data);
+			data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+				if (newNode != null) {
+					newNode.setStyle("-fx-bar-fill: " + color + ";");
+				}
+			});
+			series1.getData().add(data);
 		}
 		
-		getReportChart().getData()
-		                .add(series1);
+		getReportChart().getData().add(series1);
 	}
 	
 	public Label getSecondaryColor5Bkg() {
@@ -3579,8 +3494,7 @@ public class actionController {
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
-		if (ConfigReader.configRead("firstLogin")
-		                .equals("true")) {
+		if (ConfigReader.configRead("firstLogin").equals("true")) {
 			ConfigWriter.configwrite("firstLogin", "false");
 			
 			log("First Login, Showing Tutorial", LogUtils.Severity.DEBUG);
@@ -3595,8 +3509,7 @@ public class actionController {
 		
 		titlebar = reportUtil.createTitleBar("Reports Plus");
 		
-		vbox.getChildren()
-		    .add(titlebar);
+		vbox.getChildren().add(titlebar);
 		
 		AnchorPane.setTopAnchor(titlebar, 0.0);
 		AnchorPane.setLeftAnchor(titlebar, 0.0);
@@ -3626,12 +3539,9 @@ public class actionController {
 		String number = ConfigReader.configRead("Number");
 		String agency = ConfigReader.configRead("Agency");
 		
-		getOfficerInfoRank().getItems()
-		                    .addAll(dropdownInfo.ranks);
-		getOfficerInfoDivision().getItems()
-		                        .addAll(dropdownInfo.divisions);
-		getOfficerInfoAgency().getItems()
-		                      .addAll(dropdownInfo.agencies);
+		getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
+		getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
+		getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
 		
 		OfficerInfoName.setText(name);
 		OfficerInfoDivision.setValue(division);
@@ -3642,8 +3552,7 @@ public class actionController {
 		String time = DataTerminalHomeApplication.getTime();
 		generatedDateTag.setText("Generated at: " + time);
 		
-		areaReportChart.getData()
-		               .add(parseEveryLog("area"));
+		areaReportChart.getData().add(parseEveryLog("area"));
 		
 		getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
@@ -3705,24 +3614,21 @@ public class actionController {
 		});
 		
 		
-		tabPane.getSelectionModel()
-		       .selectedItemProperty()
-		       .addListener((obs, oldTab, newTab) -> {
-			       calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
-			       patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
-			       trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
-			       incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
-			       impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
-			       arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
-			       searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
-			       citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
-		       });
+		tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+			calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
+			patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
+			trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
+			incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
+			impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
+			arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
+			searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
+			citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
+		});
 		
 		Platform.runLater(() -> {
 			
 			versionLabel.setText(stringUtil.version);
-			Stage stge = (Stage) vbox.getScene()
-			                         .getWindow();
+			Stage stge = (Stage) vbox.getScene().getWindow();
 			
 			stge.setOnHiding(event -> handleClose());
 			
@@ -3778,55 +3684,49 @@ public class actionController {
 		currentCalPane.setMaxHeight(0);
 		currentCalPane.setMinHeight(0);
 		currentCalPane.setVisible(false);
-		calActiveList.getSelectionModel()
-		             .selectedItemProperty()
-		             .addListener((obs, oldSelection, newSelection) -> {
-			             if (newSelection != null) {
-				             double toHeight = 329;
-				             
-				             Timeline timeline = new Timeline();
-				             
-				             KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				             KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				             KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-				             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight,
-				                                              keyValueMaxHeight, keyValueMinHeight);
-				             
-				             timeline.getKeyFrames()
-				                     .add(keyFrame);
-				             
-				             timeline.play();
-				             currentCalPane.setVisible(true);
-				             handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty,
-				                                      calDate, calStreet, calDesc, calType, calTime, calPriority);
-				             showCurrentCalToggle.setSelected(true);
-			             }
-		             });
+		calActiveList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				double toHeight = 329;
+				
+				Timeline timeline = new Timeline();
+				
+				KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+				KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+				                                 keyValueMinHeight);
+				
+				timeline.getKeyFrames().add(keyFrame);
+				
+				timeline.play();
+				currentCalPane.setVisible(true);
+				handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate, calStreet,
+				                         calDesc, calType, calTime, calPriority);
+				showCurrentCalToggle.setSelected(true);
+			}
+		});
 		
-		calHistoryList.getSelectionModel()
-		              .selectedItemProperty()
-		              .addListener((obs, oldSelection, newSelection) -> {
-			              if (newSelection != null) {
-				              double toHeight = 329;
-				              
-				              Timeline timeline = new Timeline();
-				              
-				              KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				              KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				              KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-				              KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight,
-				                                               keyValueMaxHeight, keyValueMinHeight);
-				              
-				              timeline.getKeyFrames()
-				                      .add(keyFrame);
-				              
-				              timeline.play();
-				              currentCalPane.setVisible(true);
-				              handleSelectedNodeHistory(calHistoryList, currentCalPane, calNum, calArea, calCounty,
-				                                        calDate, calStreet, calDesc, calType, calTime, calPriority);
-				              showCurrentCalToggle.setSelected(true);
-			              }
-		              });
+		calHistoryList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				double toHeight = 329;
+				
+				Timeline timeline = new Timeline();
+				
+				KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+				KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
+				                                 keyValueMinHeight);
+				
+				timeline.getKeyFrames().add(keyFrame);
+				
+				timeline.play();
+				currentCalPane.setVisible(true);
+				handleSelectedNodeHistory(calHistoryList, currentCalPane, calNum, calArea, calCounty, calDate,
+				                          calStreet, calDesc, calType, calTime, calPriority);
+				showCurrentCalToggle.setSelected(true);
+			}
+		});
 		
 	}
 	

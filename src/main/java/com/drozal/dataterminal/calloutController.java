@@ -99,8 +99,7 @@ public class calloutController {
 		root.setTop(topBar);
 		
 		Platform.runLater(() -> {
-			Stage stage = (Stage) root.getScene()
-			                          .getWindow();
+			Stage stage = (Stage) root.getScene().getWindow();
 			
 			Callout callout = getCallout();
 			
@@ -141,12 +140,10 @@ public class calloutController {
 				dateField.setText(date);
 				countyField.setText(county);
 				typeField.setText(type);
-				if (!callout.getDescription()
-				            .isEmpty()) {
+				if (!callout.getDescription().isEmpty()) {
 					descriptionField.setText(desc);
 				}
-				if (!callout.getMessage()
-				            .isEmpty()) {
+				if (!callout.getMessage().isEmpty()) {
 					descriptionField.appendText("\n " + message);
 				}
 				
@@ -183,8 +180,7 @@ public class calloutController {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 		
 		Thread watchThread = new Thread(() -> {
-			try (WatchService watcher = FileSystems.getDefault()
-			                                       .newWatchService()) {
+			try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
 				dir.register(watcher, ENTRY_MODIFY);
 				
 				while (true) {
@@ -192,8 +188,7 @@ public class calloutController {
 					try {
 						key = watcher.take();
 					} catch (InterruptedException x) {
-						Thread.currentThread()
-						      .interrupt();
+						Thread.currentThread().interrupt();
 						return;
 					}
 					
@@ -207,8 +202,7 @@ public class calloutController {
 						WatchEvent<Path> ev = (WatchEvent<Path>) event;
 						Path fileName = ev.context();
 						
-						if (fileName.toString()
-						            .equals("ServerCallout.xml")) {
+						if (fileName.toString().equals("ServerCallout.xml")) {
 							log("Callout is being updated", LogUtils.Severity.INFO);
 							
 							Platform.runLater(() -> {

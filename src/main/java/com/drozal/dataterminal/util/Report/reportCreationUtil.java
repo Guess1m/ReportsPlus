@@ -98,12 +98,8 @@ public class reportCreationUtil {
 			for (String fieldName : calloutReportMap.keySet()) {
 				Object field = calloutReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -123,8 +119,7 @@ public class reportCreationUtil {
 			                             officerrank.getText(), officernum.getText(), officerdiv.getText(),
 			                             officeragen.getText(), callouttype.getText(), calloutcode.getText(),
 			                             calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(),
-			                             calloutcounty.getText(), calloutarea.getEditor()
-			                                                                 .getText()
+			                             calloutcounty.getText(), calloutarea.getEditor().getText()
 			
 			));
 			
@@ -133,8 +128,7 @@ public class reportCreationUtil {
 			updateChartIfMismatch(reportChart);
 			controllerUtils.refreshChart(areaReportChart, "area");
 			showNotification("Reports", "A new Callout Report has been submitted.", vbox);
-			Stage rootstage = (Stage) root.getScene()
-			                              .getWindow();
+			Stage rootstage = (Stage) root.getScene().getWindow();
 			rootstage.close();
 		});
 		return calloutReportMap;
@@ -168,8 +162,7 @@ public class reportCreationUtil {
 		TextArea notes = (TextArea) impoundReportMap.get("notes");
 		
 		BorderPane root = (BorderPane) impoundReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
 		Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
@@ -207,12 +200,8 @@ public class reportCreationUtil {
 			for (String fieldName : impoundReportMap.keySet()) {
 				Object field = impoundReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -229,11 +218,10 @@ public class reportCreationUtil {
 				
 				logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(),
 				                             offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(),
-				                             plateNumber.getText(), model.getText(), type.getValue()
-				                                                                         .toString(), color.getValue()
-				                                                                                           .toString(),
-				                             notes.getText(), officerrank.getText(), officername.getText(),
-				                             officernum.getText(), officerdiv.getText(), officeragen.getText()));
+				                             plateNumber.getText(), model.getText(), type.getValue().toString(),
+				                             color.getValue().toString(), notes.getText(), officerrank.getText(),
+				                             officername.getText(), officernum.getText(), officerdiv.getText(),
+				                             officeragen.getText()));
 				ImpoundReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -263,8 +251,7 @@ public class reportCreationUtil {
 		TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 		
 		BorderPane root = (BorderPane) patrolReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
 		
@@ -298,12 +285,8 @@ public class reportCreationUtil {
 			for (String fieldName : patrolReportMap.keySet()) {
 				Object field = patrolReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -373,8 +356,7 @@ public class reportCreationUtil {
 		transferimpoundbtn.setText("New Impound Report");
 		
 		BorderPane root = (BorderPane) citationReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) citationReport.get("warningLabel");
 		Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
@@ -439,8 +421,7 @@ public class reportCreationUtil {
 			TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 			
 			BorderPane rootimp = (BorderPane) impoundReport.get("root");
-			Stage stageimp = (Stage) rootimp.getScene()
-			                                .getWindow();
+			Stage stageimp = (Stage) rootimp.getScene().getWindow();
 			
 			if (!stageimp.isFocused()) {
 				stageimp.requestFocus();
@@ -463,12 +444,8 @@ public class reportCreationUtil {
 			plateNumberimp.setText(plateNumber.getText());
 			notesimp.setText(notes.getText());
 			modelimp.setText(model.getText());
-			typeimp.getSelectionModel()
-			       .select(type.getSelectionModel()
-			                   .getSelectedItem());
-			colorimp.getSelectionModel()
-			        .select(color.getSelectionModel()
-			                     .getSelectedItem());
+			typeimp.getSelectionModel().select(type.getSelectionModel().getSelectedItem());
+			colorimp.getSelectionModel().select(color.getSelectionModel().getSelectedItem());
 			numimp.setText(num.getText());
 			
 			pullNotesBtnimp.setOnAction(event1 -> {
@@ -492,12 +469,8 @@ public class reportCreationUtil {
 				for (String fieldName : impoundReportMap.keySet()) {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -515,12 +488,11 @@ public class reportCreationUtil {
 					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
 					                             offenderNameimp.getText(), offenderAgeimp.getText(),
 					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-					                                                                                  .toString(),
-					                             colorimp.getValue()
-					                                     .toString(), notesimp.getText(), officerrankimp.getText(),
-					                             officernameimp.getText(), officernumimp.getText(),
-					                             officerdivimp.getText(), officeragenimp.getText()));
+					                             plateNumberimp.getText(), modelimp.getText(),
+					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+					                             officernumimp.getText(), officerdivimp.getText(),
+					                             officeragenimp.getText()));
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -537,12 +509,8 @@ public class reportCreationUtil {
 			for (String fieldName : citationReportMap.keySet()) {
 				Object field = citationReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -559,24 +527,22 @@ public class reportCreationUtil {
 				ObservableList<CitationsData> formDataList = citationtable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
 				for (CitationsData formData : formDataList) {
-					stringBuilder.append(formData.getCitation())
-					             .append(" | ");
+					stringBuilder.append(formData.getCitation()).append(" | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
 				}
 				
 				logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(),
-				                                     stringBuilder.toString(), county.getText(), area.getEditor()
-				                                                                                     .getText(),
-				                                     street.getText(), offenderName.getText(), offenderGender.getText(),
+				                                     stringBuilder.toString(), county.getText(),
+				                                     area.getEditor().getText(), street.getText(),
+				                                     offenderName.getText(), offenderGender.getText(),
 				                                     offenderAge.getText(), offenderAddress.getText(),
-				                                     offenderDescription.getText(), model.getText(), color.getValue()
-				                                                                                          .toString(),
-				                                     type.getValue()
-				                                         .toString(), plateNumber.getText(), otherInfo.getText(),
-				                                     officerrank.getText(), officername.getText(), officernum.getText(),
-				                                     officerdiv.getText(), officeragen.getText(), notes.getText()));
+				                                     offenderDescription.getText(), model.getText(),
+				                                     color.getValue().toString(), type.getValue().toString(),
+				                                     plateNumber.getText(), otherInfo.getText(), officerrank.getText(),
+				                                     officername.getText(), officernum.getText(), officerdiv.getText(),
+				                                     officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
@@ -613,8 +579,7 @@ public class reportCreationUtil {
 		TextArea notes = (TextArea) incidentReportMap.get("notes");
 		
 		BorderPane root = (BorderPane) incidentReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) incidentReport.get("warningLabel");
 		
@@ -652,12 +617,8 @@ public class reportCreationUtil {
 			for (String fieldName : incidentReportMap.keySet()) {
 				Object field = incidentReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -677,8 +638,8 @@ public class reportCreationUtil {
 			logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(),
 			                              suspects.getText(), vicwit.getText(), name.getText(), rank.getText(),
 			                              num.getText(), agen.getText(), div.getText(), street.getText(),
-			                              area.getEditor()
-			                                  .getText(), county.getText(), summary.getText(), notes.getText()));
+			                              area.getEditor().getText(), county.getText(), summary.getText(),
+			                              notes.getText()));
 			
 			IncidentReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -721,8 +682,7 @@ public class reportCreationUtil {
 		TextArea notes = (TextArea) searchReportMap.get("comments");
 		
 		BorderPane root = (BorderPane) searchReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) searchReport.get("warningLabel");
 		
@@ -761,12 +721,8 @@ public class reportCreationUtil {
 			for (String fieldName : searchReportMap.keySet()) {
 				Object field = searchReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -784,14 +740,11 @@ public class reportCreationUtil {
 			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 			
 			logs.add(new SearchLogEntry(searchnum.getText(), searchedindividual.getText(), date.getText(),
-			                            time.getText(), seizeditems.getText(), grounds.getText(), type.getValue()
-			                                                                                          .toString(),
-			                            method.getValue()
-			                                  .toString(), witness.getText(), rank.getText(), name.getText(),
-			                            num.getText(), agen.getText(), div.getText(), street.getText(), area.getEditor()
-			                                                                                                .getText(),
-			                            county.getText(), notes.getText(), testconducted.getText(), result.getText(),
-			                            bacmeasurement.getText()));
+			                            time.getText(), seizeditems.getText(), grounds.getText(),
+			                            type.getValue().toString(), method.getValue().toString(), witness.getText(),
+			                            rank.getText(), name.getText(), num.getText(), agen.getText(), div.getText(),
+			                            street.getText(), area.getEditor().getText(), county.getText(), notes.getText(),
+			                            testconducted.getText(), result.getText(), bacmeasurement.getText()));
 			
 			SearchReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
@@ -843,8 +796,7 @@ public class reportCreationUtil {
 		transfersearchbtn.setText("New Search Report");
 		
 		BorderPane root = (BorderPane) arrestReport.get("root");
-		Stage stage = (Stage) root.getScene()
-		                          .getWindow();
+		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) arrestReport.get("warningLabel");
 		Button pullNotesBtn = (Button) arrestReport.get("pullNotesBtn");
@@ -907,8 +859,7 @@ public class reportCreationUtil {
 			TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 			
 			BorderPane rootimp = (BorderPane) impoundReport.get("root");
-			Stage stageimp = (Stage) rootimp.getScene()
-			                                .getWindow();
+			Stage stageimp = (Stage) rootimp.getScene().getWindow();
 			
 			if (!stageimp.isFocused()) {
 				stageimp.requestFocus();
@@ -952,12 +903,8 @@ public class reportCreationUtil {
 				for (String fieldName : impoundReportMap.keySet()) {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -975,12 +922,11 @@ public class reportCreationUtil {
 					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
 					                             offenderNameimp.getText(), offenderAgeimp.getText(),
 					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-					                                                                                  .toString(),
-					                             colorimp.getValue()
-					                                     .toString(), notesimp.getText(), officerrankimp.getText(),
-					                             officernameimp.getText(), officernumimp.getText(),
-					                             officerdivimp.getText(), officeragenimp.getText()));
+					                             plateNumberimp.getText(), modelimp.getText(),
+					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+					                             officernumimp.getText(), officerdivimp.getText(),
+					                             officeragenimp.getText()));
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -1017,8 +963,7 @@ public class reportCreationUtil {
 			TextArea notesinc = (TextArea) incidentReportMap.get("notes");
 			
 			BorderPane rootinc = (BorderPane) incidentReport.get("root");
-			Stage stageinc = (Stage) rootinc.getScene()
-			                                .getWindow();
+			Stage stageinc = (Stage) rootinc.getScene().getWindow();
 			
 			if (!stageinc.isFocused()) {
 				stageinc.requestFocus();
@@ -1035,8 +980,7 @@ public class reportCreationUtil {
 			timeinc.setText(time.getText());
 			incidentnum.setText(arrestnum.getText());
 			countyinc.setText(county.getText());
-			areainc.setValue(area.getEditor()
-			                     .getText());
+			areainc.setValue(area.getEditor().getText());
 			streetinc.setText(street.getText());
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
@@ -1063,12 +1007,8 @@ public class reportCreationUtil {
 				for (String fieldName : incidentReportMap.keySet()) {
 					Object field = incidentReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -1089,8 +1029,7 @@ public class reportCreationUtil {
 				                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
 				                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
 				                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-				                              areainc.getEditor()
-				                                     .getText(), countyinc.getText(), summaryinc.getText(),
+				                              areainc.getEditor().getText(), countyinc.getText(), summaryinc.getText(),
 				                              notesinc.getText()));
 				IncidentReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
@@ -1133,8 +1072,7 @@ public class reportCreationUtil {
 			TextArea notessrch = (TextArea) searchReportMap.get("comments");
 			
 			BorderPane rootsrch = (BorderPane) searchReport.get("root");
-			Stage stagesrch = (Stage) rootsrch.getScene()
-			                                  .getWindow();
+			Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
 			
 			if (!stagesrch.isFocused()) {
 				stagesrch.requestFocus();
@@ -1150,8 +1088,7 @@ public class reportCreationUtil {
 			datesrch.setText(date.getText());
 			searchedindividualsrch.setText(offenderName.getText());
 			countysrch.setText(county.getText());
-			areasrch.setValue(area.getEditor()
-			                      .getText());
+			areasrch.setValue(area.getEditor().getText());
 			streetsrch.setText(street.getText());
 			
 			Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1179,12 +1116,8 @@ public class reportCreationUtil {
 				for (String fieldName : searchReportMap.keySet()) {
 					Object field = searchReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -1203,14 +1136,11 @@ public class reportCreationUtil {
 				
 				logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(),
 				                            timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(),
-				                            typesrch.getValue()
-				                                    .toString(), methodsrch.getValue()
-				                                                           .toString(), witnesssrch.getText(),
-				                            ranksrch.getText(), namesrch.getText(), numsrch.getText(),
-				                            agensrch.getText(), divsrch.getText(), streetsrch.getText(),
-				                            areasrch.getEditor()
-				                                    .getText(), countysrch.getText(), notessrch.getText(),
-				                            testconductedsrch.getText(), resultsrch.getText(),
+				                            typesrch.getValue().toString(), methodsrch.getValue().toString(),
+				                            witnesssrch.getText(), ranksrch.getText(), namesrch.getText(),
+				                            numsrch.getText(), agensrch.getText(), divsrch.getText(),
+				                            streetsrch.getText(), areasrch.getEditor().getText(), countysrch.getText(),
+				                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
 				                            bacmeasurementsrch.getText()));
 				
 				SearchReportLogs.saveLogsToXML(logs);
@@ -1228,12 +1158,8 @@ public class reportCreationUtil {
 			for (String fieldName : arrestReportMap.keySet()) {
 				Object field = arrestReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -1252,16 +1178,14 @@ public class reportCreationUtil {
 				ObservableList<ChargesData> formDataList = chargetable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
 				for (ChargesData formData : formDataList) {
-					stringBuilder.append(formData.getCharge())
-					             .append(" | ");
+					stringBuilder.append(formData.getCharge()).append(" | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
 				}
 				
 				logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(),
-				                            stringBuilder.toString(), county.getText(), area.getEditor()
-				                                                                            .getText(),
+				                            stringBuilder.toString(), county.getText(), area.getEditor().getText(),
 				                            street.getText(), offenderName.getText(), offenderAge.getText(),
 				                            offenderGender.getText(), offenderDescription.getText(),
 				                            ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(),
@@ -1317,8 +1241,7 @@ public class reportCreationUtil {
 		transfercitationbtnts.setText("New Citation Report");
 		
 		BorderPane rootts = (BorderPane) trafficStopReport.get("root");
-		Stage stagets = (Stage) rootts.getScene()
-		                              .getWindow();
+		Stage stagets = (Stage) rootts.getScene().getWindow();
 		
 		Label warningLabelts = (Label) trafficStopReport.get("warningLabel");
 		Button pullNotesBtnts = (Button) trafficStopReport.get("pullNotesBtn");
@@ -1395,8 +1318,7 @@ public class reportCreationUtil {
 			transfersearchbtnarr.setText("New Search Report");
 			
 			BorderPane rootarr = (BorderPane) arrestReport.get("root");
-			Stage stagearr = (Stage) rootarr.getScene()
-			                                .getWindow();
+			Stage stagearr = (Stage) rootarr.getScene().getWindow();
 			
 			Label warningLabelarr = (Label) arrestReport.get("warningLabel");
 			Button pullNotesBtnarr = (Button) arrestReport.get("pullNotesBtn");
@@ -1413,8 +1335,7 @@ public class reportCreationUtil {
 			offenderGenderarr.setText(offenderGenderts.getText());
 			offenderAgearr.setText(offenderAgets.getText());
 			offenderDescriptionarr.setText(offenderDescriptionts.getText());
-			areaarr.setValue(areats.getEditor()
-			                       .getText());
+			areaarr.setValue(areats.getEditor().getText());
 			countyarr.setText(countyts.getText());
 			streetarr.setText(streetts.getText());
 			arrestnumarr.setText(stopnumts.getText());
@@ -1467,8 +1388,7 @@ public class reportCreationUtil {
 				TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 				
 				BorderPane rootimp = (BorderPane) impoundReport.get("root");
-				Stage stageimp = (Stage) rootimp.getScene()
-				                                .getWindow();
+				Stage stageimp = (Stage) rootimp.getScene().getWindow();
 				
 				if (!stageimp.isFocused()) {
 					stageimp.requestFocus();
@@ -1512,12 +1432,8 @@ public class reportCreationUtil {
 					for (String fieldName : impoundReportMap.keySet()) {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue()
-							                                           .toString()
-							                                           .trim()
-							                                           .isEmpty()) {
-								comboBox.getSelectionModel()
-								        .selectFirst();
+							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+								comboBox.getSelectionModel().selectFirst();
 							}
 						}
 					}
@@ -1535,10 +1451,9 @@ public class reportCreationUtil {
 						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
 						                             offenderNameimp.getText(), offenderAgeimp.getText(),
 						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-						                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-						                                                                                  .toString(),
-						                             colorimp.getValue()
-						                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+						                             plateNumberimp.getText(), modelimp.getText(),
+						                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+						                             notesimp.getText(), officerrankimp.getText(),
 						                             officernameimp.getText(), officernumimp.getText(),
 						                             officerdivimp.getText(), officeragenimp.getText()));
 						ImpoundReportLogs.saveLogsToXML(logs);
@@ -1577,8 +1492,7 @@ public class reportCreationUtil {
 				TextArea notesinc = (TextArea) incidentReportMap.get("notes");
 				
 				BorderPane rootinc = (BorderPane) incidentReport.get("root");
-				Stage stageinc = (Stage) rootinc.getScene()
-				                                .getWindow();
+				Stage stageinc = (Stage) rootinc.getScene().getWindow();
 				
 				if (!stageinc.isFocused()) {
 					stageinc.requestFocus();
@@ -1595,8 +1509,7 @@ public class reportCreationUtil {
 				timeinc.setText(timearr.getText());
 				incidentnum.setText(arrestnumarr.getText());
 				countyinc.setText(countyarr.getText());
-				areainc.setValue(areaarr.getEditor()
-				                        .getText());
+				areainc.setValue(areaarr.getEditor().getText());
 				streetinc.setText(streetarr.getText());
 				suspectsinc.setText(offenderNamearr.getText());
 				notesinc.setText(notesarr.getText());
@@ -1623,12 +1536,8 @@ public class reportCreationUtil {
 					for (String fieldName : incidentReportMap.keySet()) {
 						Object field = incidentReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue()
-							                                           .toString()
-							                                           .trim()
-							                                           .isEmpty()) {
-								comboBox.getSelectionModel()
-								        .selectFirst();
+							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+								comboBox.getSelectionModel().selectFirst();
 							}
 						}
 					}
@@ -1649,9 +1558,8 @@ public class reportCreationUtil {
 					                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
 					                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
 					                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-					                              areainc.getEditor()
-					                                     .getText(), countyinc.getText(), summaryinc.getText(),
-					                              notesinc.getText()));
+					                              areainc.getEditor().getText(), countyinc.getText(),
+					                              summaryinc.getText(), notesinc.getText()));
 					IncidentReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
@@ -1693,8 +1601,7 @@ public class reportCreationUtil {
 				TextArea notessrch = (TextArea) searchReportMap.get("comments");
 				
 				BorderPane rootsrch = (BorderPane) searchReport.get("root");
-				Stage stagesrch = (Stage) rootsrch.getScene()
-				                                  .getWindow();
+				Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
 				
 				if (!stagesrch.isFocused()) {
 					stagesrch.requestFocus();
@@ -1710,8 +1617,7 @@ public class reportCreationUtil {
 				datesrch.setText(datearr.getText());
 				searchedindividualsrch.setText(offenderNamearr.getText());
 				countysrch.setText(countyarr.getText());
-				areasrch.setValue(areaarr.getEditor()
-				                         .getText());
+				areasrch.setValue(areaarr.getEditor().getText());
 				streetsrch.setText(streetarr.getText());
 				
 				Label warningLabelsrch = (Label) searchReport.get("warningLabel");
@@ -1741,12 +1647,8 @@ public class reportCreationUtil {
 					for (String fieldName : searchReportMap.keySet()) {
 						Object field = searchReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue()
-							                                           .toString()
-							                                           .trim()
-							                                           .isEmpty()) {
-								comboBox.getSelectionModel()
-								        .selectFirst();
+							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+								comboBox.getSelectionModel().selectFirst();
 							}
 						}
 					}
@@ -1765,13 +1667,11 @@ public class reportCreationUtil {
 					
 					logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(),
 					                            datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(),
-					                            groundssrch.getText(), typesrch.getValue()
-					                                                           .toString(), methodsrch.getValue()
-					                                                                                  .toString(),
-					                            witnesssrch.getText(), ranksrch.getText(), namesrch.getText(),
-					                            numsrch.getText(), agensrch.getText(), divsrch.getText(),
-					                            streetsrch.getText(), areasrch.getEditor()
-					                                                          .getText(), countysrch.getText(),
+					                            groundssrch.getText(), typesrch.getValue().toString(),
+					                            methodsrch.getValue().toString(), witnesssrch.getText(),
+					                            ranksrch.getText(), namesrch.getText(), numsrch.getText(),
+					                            agensrch.getText(), divsrch.getText(), streetsrch.getText(),
+					                            areasrch.getEditor().getText(), countysrch.getText(),
 					                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
 					                            bacmeasurementsrch.getText()));
 					
@@ -1790,12 +1690,8 @@ public class reportCreationUtil {
 				for (String fieldName : arrestReportMap.keySet()) {
 					Object field = arrestReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -1814,22 +1710,20 @@ public class reportCreationUtil {
 					ObservableList<ChargesData> formDataList = chargetablearr.getItems();
 					StringBuilder stringBuilder = new StringBuilder();
 					for (ChargesData formData : formDataList) {
-						stringBuilder.append(formData.getCharge())
-						             .append(" | ");
+						stringBuilder.append(formData.getCharge()).append(" | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
 					}
 					
 					logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(),
-					                            stringBuilder.toString(), countyarr.getText(), areaarr.getEditor()
-					                                                                                  .getText(),
-					                            streetarr.getText(), offenderNamearr.getText(),
-					                            offenderAgearr.getText(), offenderGenderarr.getText(),
-					                            offenderDescriptionarr.getText(), ambulancereqarr.getText(),
-					                            taserdeparr.getText(), othermedinfoarr.getText(),
-					                            offenderAddressarr.getText(), notesarr.getText(),
-					                            officerrankarr.getText(), officernamearr.getText(),
+					                            stringBuilder.toString(), countyarr.getText(),
+					                            areaarr.getEditor().getText(), streetarr.getText(),
+					                            offenderNamearr.getText(), offenderAgearr.getText(),
+					                            offenderGenderarr.getText(), offenderDescriptionarr.getText(),
+					                            ambulancereqarr.getText(), taserdeparr.getText(),
+					                            othermedinfoarr.getText(), offenderAddressarr.getText(),
+					                            notesarr.getText(), officerrankarr.getText(), officernamearr.getText(),
 					                            officernumarrestarr.getText(), officerdivarr.getText(),
 					                            officeragenarr.getText()));
 					ArrestReportLogs.saveLogsToXML(logs);
@@ -1880,8 +1774,7 @@ public class reportCreationUtil {
 			Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
 			
 			BorderPane rootcit = (BorderPane) citationReport.get("root");
-			Stage stagecit = (Stage) rootcit.getScene()
-			                                .getWindow();
+			Stage stagecit = (Stage) rootcit.getScene().getWindow();
 			
 			Label warningLabelcit = (Label) citationReport.get("warningLabel");
 			Button pullNotesBtncit = (Button) citationReport.get("pullNotesBtn");
@@ -1893,19 +1786,14 @@ public class reportCreationUtil {
 			officernumcit.setText(officernumarrestts.getText());
 			timecit.setText(timets.getText());
 			datecit.setText(datets.getText());
-			typecit.getSelectionModel()
-			       .select(typets.getSelectionModel()
-			                     .getSelectedItem());
-			colorcit.getSelectionModel()
-			        .select(colorts.getSelectionModel()
-			                       .getSelectedItem());
+			typecit.getSelectionModel().select(typets.getSelectionModel().getSelectedItem());
+			colorcit.getSelectionModel().select(colorts.getSelectionModel().getSelectedItem());
 			offenderNamecit.setText(offenderNamets.getText());
 			offenderAddresscit.setText(offenderAddressts.getText());
 			offenderGendercit.setText(offenderGenderts.getText());
 			offenderAgecit.setText(offenderAgets.getText());
 			offenderDescriptioncit.setText(offenderDescriptionts.getText());
-			areacit.setValue(areats.getEditor()
-			                       .getText());
+			areacit.setValue(areats.getEditor().getText());
 			countycit.setText(countyts.getText());
 			streetcit.setText(streetts.getText());
 			modelcit.setText(modelts.getText());
@@ -1963,8 +1851,7 @@ public class reportCreationUtil {
 				TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 				
 				BorderPane rootimp = (BorderPane) impoundReport.get("root");
-				Stage stageimp = (Stage) rootimp.getScene()
-				                                .getWindow();
+				Stage stageimp = (Stage) rootimp.getScene().getWindow();
 				
 				if (!stageimp.isFocused()) {
 					stageimp.requestFocus();
@@ -1987,12 +1874,8 @@ public class reportCreationUtil {
 				plateNumberimp.setText(plateNumbercit.getText());
 				notesimp.setText(notescit.getText());
 				modelimp.setText(modelcit.getText());
-				typeimp.getSelectionModel()
-				       .select(typecit.getSelectionModel()
-				                      .getSelectedItem());
-				colorimp.getSelectionModel()
-				        .select(colorcit.getSelectionModel()
-				                        .getSelectedItem());
+				typeimp.getSelectionModel().select(typecit.getSelectionModel().getSelectedItem());
+				colorimp.getSelectionModel().select(colorcit.getSelectionModel().getSelectedItem());
 				numimp.setText(numcit.getText());
 				
 				pullNotesBtnimp.setOnAction(event1 -> {
@@ -2016,12 +1899,8 @@ public class reportCreationUtil {
 					for (String fieldName : impoundReportMap.keySet()) {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue()
-							                                           .toString()
-							                                           .trim()
-							                                           .isEmpty()) {
-								comboBox.getSelectionModel()
-								        .selectFirst();
+							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+								comboBox.getSelectionModel().selectFirst();
 							}
 						}
 					}
@@ -2039,10 +1918,9 @@ public class reportCreationUtil {
 						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
 						                             offenderNameimp.getText(), offenderAgeimp.getText(),
 						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-						                             plateNumberimp.getText(), modelimp.getText(), typeimp.getValue()
-						                                                                                  .toString(),
-						                             colorimp.getValue()
-						                                     .toString(), notesimp.getText(), officerrankimp.getText(),
+						                             plateNumberimp.getText(), modelimp.getText(),
+						                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+						                             notesimp.getText(), officerrankimp.getText(),
 						                             officernameimp.getText(), officernumimp.getText(),
 						                             officerdivimp.getText(), officeragenimp.getText()));
 						ImpoundReportLogs.saveLogsToXML(logs);
@@ -2062,12 +1940,8 @@ public class reportCreationUtil {
 				for (String fieldName : citationReportMap.keySet()) {
 					Object field = citationReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue()
-						                                           .toString()
-						                                           .trim()
-						                                           .isEmpty()) {
-							comboBox.getSelectionModel()
-							        .selectFirst();
+						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+							comboBox.getSelectionModel().selectFirst();
 						}
 					}
 				}
@@ -2084,8 +1958,7 @@ public class reportCreationUtil {
 					ObservableList<CitationsData> formDataList = citationtable.getItems();
 					StringBuilder stringBuilder = new StringBuilder();
 					for (CitationsData formData : formDataList) {
-						stringBuilder.append(formData.getCitation())
-						             .append(" | ");
+						stringBuilder.append(formData.getCitation()).append(" | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
@@ -2093,14 +1966,11 @@ public class reportCreationUtil {
 					
 					logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
 					                                     stringBuilder.toString(), countycit.getText(),
-					                                     areacit.getEditor()
-					                                            .getText(), streetcit.getText(),
+					                                     areacit.getEditor().getText(), streetcit.getText(),
 					                                     offenderNamecit.getText(), offenderGendercit.getText(),
 					                                     offenderAgecit.getText(), offenderAddresscit.getText(),
 					                                     offenderDescriptioncit.getText(), modelcit.getText(),
-					                                     colorcit.getValue()
-					                                             .toString(), typecit.getValue()
-					                                                                 .toString(),
+					                                     colorcit.getValue().toString(), typecit.getValue().toString(),
 					                                     plateNumbercit.getText(), otherInfocit.getText(),
 					                                     officerrankcit.getText(), officernamecit.getText(),
 					                                     officernumcit.getText(), officerdivcit.getText(),
@@ -2121,12 +1991,8 @@ public class reportCreationUtil {
 			for (String fieldName : trafficStopReportMap.keySet()) {
 				Object field = trafficStopReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue()
-					                                           .toString()
-					                                           .trim()
-					                                           .isEmpty()) {
-						comboBox.getSelectionModel()
-						        .selectFirst();
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
 					}
 				}
 			}
@@ -2148,11 +2014,9 @@ public class reportCreationUtil {
 				                                 officernamets.getText(), officerrankts.getText(),
 				                                 officernumarrestts.getText(), officerdivts.getText(),
 				                                 officeragents.getText(), stopnumts.getText(), notests.getText(),
-				                                 streetts.getText(), countyts.getText(), areats.getEditor()
-				                                                                               .getText(),
-				                                 plateNumberts.getText(), colorts.getValue()
-				                                                                 .toString(), typets.getValue()
-				                                                                                    .toString()));
+				                                 streetts.getText(), countyts.getText(), areats.getEditor().getText(),
+				                                 plateNumberts.getText(), colorts.getValue().toString(),
+				                                 typets.getValue().toString()));
 				TrafficStopReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);

@@ -18,11 +18,7 @@ public class ConfigWriter {
 		String configFilePath = null;
 		
 		try {
-			String jarPath = ConfigWriter.class.getProtectionDomain()
-			                                   .getCodeSource()
-			                                   .getLocation()
-			                                   .toURI()
-			                                   .getPath();
+			String jarPath = ConfigWriter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			
 			jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
 			

@@ -47,11 +47,7 @@ public class ConfigReader {
 	public static boolean doesConfigExist() {
 		try {
 			
-			String jarPath = ConfigReader.class.getProtectionDomain()
-			                                   .getCodeSource()
-			                                   .getLocation()
-			                                   .toURI()
-			                                   .getPath();
+			String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			
 			jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
 			

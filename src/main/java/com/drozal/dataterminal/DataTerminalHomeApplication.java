@@ -47,9 +47,8 @@ public class DataTerminalHomeApplication extends Application {
 		controller = loader.getController();
 		Scene scene = new Scene(root);
 		mainRT.setScene(scene);
-		mainRT.getIcons()
-		      .add(new Image(
-				      Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		mainRT.getIcons().add(new Image(
+				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("mainWindowLayout");
@@ -64,8 +63,7 @@ public class DataTerminalHomeApplication extends Application {
 				mainRT.centerOnScreen();
 				mainRT.setMinHeight(450);
 				mainRT.setMinWidth(450);
-				if (ConfigReader.configRead("fullscreenOnStartup")
-				                .equals("true")) {
+				if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
 					setWindowedFullscreen(mainRT);
 					
 				} else {

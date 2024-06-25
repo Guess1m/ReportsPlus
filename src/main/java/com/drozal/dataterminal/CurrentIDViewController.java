@@ -128,8 +128,7 @@ public class CurrentIDViewController {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 		
 		Thread watchThread = new Thread(() -> {
-			try (WatchService watcher = FileSystems.getDefault()
-			                                       .newWatchService()) {
+			try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
 				dir.register(watcher, ENTRY_MODIFY);
 				
 				while (true) {
@@ -137,8 +136,7 @@ public class CurrentIDViewController {
 					try {
 						key = watcher.take();
 					} catch (InterruptedException x) {
-						Thread.currentThread()
-						      .interrupt();
+						Thread.currentThread().interrupt();
 						return;
 					}
 					
@@ -152,8 +150,7 @@ public class CurrentIDViewController {
 						WatchEvent<Path> ev = (WatchEvent<Path>) event;
 						Path fileName = ev.context();
 						
-						if (fileName.toString()
-						            .equals("ServerCurrentID.xml")) {
+						if (fileName.toString().equals("ServerCurrentID.xml")) {
 							log("ID is being updated", LogUtils.Severity.INFO);
 							
 							Platform.runLater(() -> {

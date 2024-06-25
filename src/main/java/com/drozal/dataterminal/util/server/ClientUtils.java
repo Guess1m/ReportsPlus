@@ -60,10 +60,8 @@ public class ClientUtils {
 			try {
 				socket = new Socket();
 				Platform.runLater(() -> {
-					actionController.clientController.getStatusLabel()
-					                                 .setText("Testing Connection...");
-					actionController.clientController.getStatusLabel()
-					                                 .setStyle("-fx-background-color: orange;");
+					actionController.clientController.getStatusLabel().setText("Testing Connection...");
+					actionController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 				});
 				
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
@@ -124,8 +122,7 @@ public class ClientUtils {
 								IDStage.show();
 								IDStage.centerOnScreen();
 								try {
-									IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID")
-									                                   .equals("true"));
+									IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID").equals("true"));
 								} catch (IOException e) {
 									logError("Could not fetch AOTID: ", e);
 								}
@@ -133,8 +130,7 @@ public class ClientUtils {
 								windowUtils.centerStageOnMainApp(IDStage);
 								
 								try {
-									if (!ConfigReader.configRead("IDDuration")
-									                 .equals("infinite")) {
+									if (!ConfigReader.configRead("IDDuration").equals("infinite")) {
 										PauseTransition delay = null;
 										try {
 											delay = new PauseTransition(Duration.seconds(
@@ -193,8 +189,7 @@ public class ClientUtils {
 								CalloutStage.setTitle("Callout Display");
 								CalloutStage.setScene(newScene);
 								try {
-									CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout")
-									                                        .equals("true"));
+									CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout").equals("true"));
 								} catch (IOException e) {
 									logError("Could not fetch AOTCallout: ", e);
 								}
@@ -205,8 +200,7 @@ public class ClientUtils {
 								windowUtils.centerStageOnMainApp(CalloutStage);
 								
 								try {
-									if (!ConfigReader.configRead("calloutDuration")
-									                 .equals("infinite")) {
+									if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
 										PauseTransition delay = null;
 										try {
 											delay = new PauseTransition(Duration.seconds(

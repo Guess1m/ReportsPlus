@@ -36,8 +36,7 @@ public class treeViewUtils {
 		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCharges)) {
 			if (inputStream != null) {
 				
-				Path destinationPathCharges = destinationDir.resolve(Paths.get(sourcePathCharges)
-				                                                          .getFileName());
+				Path destinationPathCharges = destinationDir.resolve(Paths.get(sourcePathCharges).getFileName());
 				
 				Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
 			} else {
@@ -58,8 +57,7 @@ public class treeViewUtils {
 		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCitations)) {
 			if (inputStream != null) {
 				
-				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCitations)
-				                                                            .getFileName());
+				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCitations).getFileName());
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {
@@ -73,8 +71,7 @@ public class treeViewUtils {
 			
 			File file = new File(getJarPath() + "/" + path);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			Document document = factory.newDocumentBuilder()
-			                           .parse(file);
+			Document document = factory.newDocumentBuilder().parse(file);
 			
 			Element selectedElement = findElementByValue(document.getDocumentElement(), selectedValue);
 			if (selectedElement != null) {
@@ -96,8 +93,7 @@ public class treeViewUtils {
 			Node childNode = childNodes.item(i);
 			if (childNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element childElement = (Element) childNode;
-				if (childElement.getAttribute("name")
-				                .equals(value)) {
+				if (childElement.getAttribute("name").equals(value)) {
 					return childElement;
 				}
 				
@@ -121,16 +117,14 @@ public class treeViewUtils {
 					nodeName = childElement.getAttribute("name");
 				}
 				TreeItem<String> item = new TreeItem<>(nodeName);
-				parentItem.getChildren()
-				          .add(item);
+				parentItem.getChildren().add(item);
 				parseTreeXML(childElement, item);
 			}
 		}
 	}
 	
 	public static void expandTreeItem(TreeItem<String> root, String itemName) {
-		if (root.getValue()
-		        .equals(itemName)) {
+		if (root.getValue().equals(itemName)) {
 			root.setExpanded(true);
 			return;
 		}

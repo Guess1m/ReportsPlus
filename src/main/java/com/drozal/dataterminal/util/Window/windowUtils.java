@@ -129,8 +129,7 @@ public class windowUtils {
 		double centerY = stage.getY() + stage.getHeight() / 2.0;
 		
 		for (Screen screen : Screen.getScreens()) {
-			if (screen.getVisualBounds()
-			          .contains(centerX, centerY)) {
+			if (screen.getVisualBounds().contains(centerX, centerY)) {
 				return screen;
 			}
 		}
@@ -140,14 +139,10 @@ public class windowUtils {
 	public static void setWindowedFullscreen(Stage stage) {
 		Screen screen = getScreenContainingStage(stage);
 		if (screen != null) {
-			double screenWidth = screen.getVisualBounds()
-			                           .getWidth();
-			double screenHeight = screen.getVisualBounds()
-			                            .getHeight();
-			stage.setX(screen.getVisualBounds()
-			                 .getMinX());
-			stage.setY(screen.getVisualBounds()
-			                 .getMinY());
+			double screenWidth = screen.getVisualBounds().getWidth();
+			double screenHeight = screen.getVisualBounds().getHeight();
+			stage.setX(screen.getVisualBounds().getMinX());
+			stage.setY(screen.getVisualBounds().getMinY());
 			stage.setWidth(screenWidth);
 			stage.setHeight(screenHeight);
 		} else {
@@ -178,11 +173,7 @@ public class windowUtils {
 	}
 	
 	public static void toggleWindowedFullscreen(Stage stage, double width, double height) {
-		if (!(stage.getX() == Screen.getPrimary()
-		                            .getBounds()
-		                            .getMinX() || stage.getY() == Screen.getPrimary()
-		                                                                .getBounds()
-		                                                                .getMinY())) {
+		if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary().getBounds().getMinY())) {
 			setWindowedFullscreen(stage);
 		} else {
 			restoreDefaultState(stage, width, height);

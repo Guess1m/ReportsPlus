@@ -138,11 +138,7 @@ public class Launcher {
 		}
 		
 		try {
-			String jarPath = Launcher.class.getProtectionDomain()
-			                               .getCodeSource()
-			                               .getLocation()
-			                               .toURI()
-			                               .getPath();
+			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			File jarFile = new File(jarPath);
 			String jarDir = jarFile.getParent();
 			folderPath = jarDir + File.separator + "DataLogs";
@@ -171,13 +167,12 @@ public class Launcher {
 			newOfficerApplication.main(args);
 		}
 		
-		Runtime.getRuntime()
-		       .addShutdownHook(new Thread(() -> {
-			       log("Shutdown Request Recieved", Severity.DEBUG);
-			       endLog();
-			       Platform.exit();
-			       System.exit(0);
-		       }));
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			log("Shutdown Request Recieved", Severity.DEBUG);
+			endLog();
+			Platform.exit();
+			System.exit(0);
+		}));
 		
 	}
 	

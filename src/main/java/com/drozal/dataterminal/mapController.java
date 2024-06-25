@@ -46,10 +46,8 @@ public class mapController {
 		double newScale = currentScaleX + deltaYScroll * SCROLL_FACTOR;
 		newScale = clamp(newScale, MIN_SCALE, MAX_SCALE);
 		
-		double pivotX = mouseX - losSantosMap.getBoundsInParent()
-		                                     .getMinX();
-		double pivotY = mouseY - losSantosMap.getBoundsInParent()
-		                                     .getMinY();
+		double pivotX = mouseX - losSantosMap.getBoundsInParent().getMinX();
+		double pivotY = mouseY - losSantosMap.getBoundsInParent().getMinY();
 		double pivotDeltaX = (pivotX * (newScale - currentScaleX));
 		double pivotDeltaY = (pivotY * (newScale - currentScaleY));
 		

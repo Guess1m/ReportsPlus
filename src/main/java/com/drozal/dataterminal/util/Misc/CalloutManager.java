@@ -58,8 +58,7 @@ public class CalloutManager {
 			
 			
 			for (Callout existingCallout : callouts.getCalloutList()) {
-				if (existingCallout.getNumber()
-				                   .equals(number)) {
+				if (existingCallout.getNumber().equals(number)) {
 					
 					return;
 				}
@@ -78,8 +77,7 @@ public class CalloutManager {
 			newCallout.setStartDate(startDate);
 			newCallout.setStartTime(startTime);
 			newCallout.setStatus(status);
-			callouts.getCalloutList()
-			        .add(newCallout);
+			callouts.getCalloutList().add(newCallout);
 			
 			
 			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
@@ -120,10 +118,8 @@ public class CalloutManager {
 				return;
 			}
 			
-			calloutList = calloutList.stream()
-			                         .filter(callout -> !callout.getNumber()
-			                                                    .equals(number))
-			                         .collect(Collectors.toList());
+			calloutList = calloutList.stream().filter(callout -> !callout.getNumber().equals(number)).collect(
+					Collectors.toList());
 			
 			callouts.setCalloutList(calloutList);
 			
@@ -137,14 +133,12 @@ public class CalloutManager {
 	}
 	
 	public static void handleSelectedNodeActive(ListView<Node> listView, AnchorPane pane, TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
-		Node selectedNode = listView.getSelectionModel()
-		                            .getSelectedItem();
+		Node selectedNode = listView.getSelectionModel().getSelectedItem();
 		if (selectedNode != null) {
 			pane.setVisible(true);
 			pane.setDisable(false);
 			if (selectedNode instanceof GridPane gridPane) {
-				String number = ((Label) gridPane.getChildren()
-				                                 .get(1)).getText();
+				String number = ((Label) gridPane.getChildren().get(1)).getText();
 				
 				
 				String type = getValueByNumber(calloutDataURL, number, "Type");
@@ -177,14 +171,12 @@ public class CalloutManager {
 	}
 	
 	public static void handleSelectedNodeHistory(ListView<Node> listView, AnchorPane pane, TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
-		Node selectedNode = listView.getSelectionModel()
-		                            .getSelectedItem();
+		Node selectedNode = listView.getSelectionModel().getSelectedItem();
 		if (selectedNode != null) {
 			pane.setVisible(true);
 			pane.setDisable(false);
 			if (selectedNode instanceof GridPane gridPane) {
-				String number = ((Label) gridPane.getChildren()
-				                                 .get(1)).getText();
+				String number = ((Label) gridPane.getChildren().get(1)).getText();
 				
 				
 				String type = getValueByNumber(calloutHistoryURL, number, "Type");
@@ -236,8 +228,7 @@ public class CalloutManager {
 			}
 			
 			for (Callout callout : calloutList) {
-				if (callout.getNumber()
-				           .equals(number)) {
+				if (callout.getNumber().equals(number)) {
 					Method method = Callout.class.getMethod("get" + fieldName);
 					return (String) method.invoke(callout);
 				}
@@ -268,8 +259,7 @@ public class CalloutManager {
 			}
 			
 			for (Callout callout : calloutList) {
-				if (callout.getNumber()
-				           .equals(number)) {
+				if (callout.getNumber().equals(number)) {
 					Method method = Callout.class.getMethod("set" + fieldName, String.class);
 					method.invoke(callout, newValue);
 					
@@ -290,8 +280,7 @@ public class CalloutManager {
 	
 	public static void loadActiveCallouts(ListView<Node> listView) {
 		try {
-			listView.getItems()
-			        .clear();
+			listView.getItems().clear();
 			
 			File xmlFile = new File(calloutDataURL);
 			if (!xmlFile.exists() || xmlFile.length() == 0) {
@@ -308,8 +297,7 @@ public class CalloutManager {
 					Node calloutNode = createActiveCalloutNode(callout.getNumber(), callout.getStatus(),
 					                                           callout.getType(), callout.getStreet(),
 					                                           callout.getPriority(), callout.getArea());
-					listView.getItems()
-					        .add(calloutNode);
+					listView.getItems().add(calloutNode);
 				}
 			}
 		} catch (JAXBException e) {
@@ -319,8 +307,7 @@ public class CalloutManager {
 	
 	public static void loadHistoryCallouts(ListView<Node> listView) {
 		try {
-			listView.getItems()
-			        .clear();
+			listView.getItems().clear();
 			
 			File xmlFile = new File(calloutHistoryURL);
 			if (!xmlFile.exists() || xmlFile.length() == 0) {
@@ -337,8 +324,7 @@ public class CalloutManager {
 					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
 					                                            callout.getType(), callout.getStreet(),
 					                                            callout.getPriority(), callout.getArea());
-					listView.getItems()
-					        .add(calloutNode);
+					listView.getItems().add(calloutNode);
 				}
 			}
 		} catch (JAXBException e) {
@@ -361,8 +347,7 @@ public class CalloutManager {
 		ColumnConstraints col4 = new ColumnConstraints();
 		col4.setHgrow(Priority.NEVER);
 		
-		gridPane.getColumnConstraints()
-		        .addAll(col1, col2, col3, col4);
+		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 		
 		Label numberLabel = createLabel("Number:", true);
 		gridPane.add(numberLabel, 0, 0);
@@ -397,12 +382,9 @@ public class CalloutManager {
 		ComboBox statusDropdown = new ComboBox();
 		statusDropdown.setValue(status);
 		String[] statuses = {"Responded", "Not Responded"};
-		statusDropdown.getItems()
-		              .addAll(statuses);
+		statusDropdown.getItems().addAll(statuses);
 		statusDropdown.setOnAction(actionEvent -> {
-			String selected = statusDropdown.getSelectionModel()
-			                                .getSelectedItem()
-			                                .toString();
+			String selected = statusDropdown.getSelectionModel().getSelectedItem().toString();
 			if (selected.equals("Responded")) {
 				setValueByNumber(calloutDataURL, number, "Status", "Responded");
 				statusVal.setText("Responded");
@@ -414,11 +396,9 @@ public class CalloutManager {
 			}
 		});
 		BorderPane statusPane = new BorderPane(statusDropdown);
-		statusDropdown.getStylesheets()
-		              .add(Objects.requireNonNull(actionController.class.getResource("css/form/formComboBox.css"))
-		                          .toExternalForm());
-		statusDropdown.getStyleClass()
-		              .add("combo-boxCal");
+		statusDropdown.getStylesheets().add(Objects.requireNonNull(
+				actionController.class.getResource("css/form/formComboBox.css")).toExternalForm());
+		statusDropdown.getStyleClass().add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
@@ -481,8 +461,7 @@ public class CalloutManager {
 		ColumnConstraints col7 = new ColumnConstraints();
 		col7.setHgrow(Priority.NEVER);
 		
-		gridPane.getColumnConstraints()
-		        .addAll(col1, col2, col3, col4, col5, col6, col7);
+		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
 		Label numberLabel = createLabel("Number:", true);
 		gridPane.add(numberLabel, 0, 0);

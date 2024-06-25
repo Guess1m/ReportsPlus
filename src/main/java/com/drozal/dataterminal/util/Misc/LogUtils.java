@@ -87,8 +87,7 @@ public class LogUtils {
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				if (line.trim()
-				        .equals("***")) {
+				if (line.trim().equals("***")) {
 					if (inErrorBlock) {
 						inErrorBlock = false;
 						continue;
@@ -97,8 +96,7 @@ public class LogUtils {
 				
 				TextFlow textFlow = createStyledText(line);
 				textFlow.setStyle("-fx-background-color: transparent;");
-				if (!textFlow.getChildren()
-				             .isEmpty()) {
+				if (!textFlow.getChildren().isEmpty()) {
 					logItems.add(textFlow);
 				}
 			}
@@ -109,8 +107,7 @@ public class LogUtils {
 	
 	private static TextFlow createStyledText(String line) {
 		TextFlow textFlow = new TextFlow();
-		if (line.trim()
-		        .equals("***")) {
+		if (line.trim().equals("***")) {
 			if (inErrorBlock) {
 				inErrorBlock = false;
 			}
@@ -123,22 +120,19 @@ public class LogUtils {
 				String errorTextStr = line.substring(0, endIndex);
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
-				textFlow.getChildren()
-				        .add(errorText);
+				textFlow.getChildren().add(errorText);
 				inErrorBlock = false;
 				
 				if (endIndex + 3 < line.length()) {
 					String afterErrorTextStr = line.substring(endIndex + 3);
 					Text afterErrorText = new Text(afterErrorTextStr);
 					setColorBasedOnTag(afterErrorText, afterErrorTextStr);
-					textFlow.getChildren()
-					        .add(afterErrorText);
+					textFlow.getChildren().add(afterErrorText);
 				}
 			} else {
 				Text errorText = new Text(line);
 				errorText.setFill(Color.RED);
-				textFlow.getChildren()
-				        .add(errorText);
+				textFlow.getChildren().add(errorText);
 			}
 		} else if (line.contains("***")) {
 			int startErrorIndex = line.indexOf("***");
@@ -148,38 +142,33 @@ public class LogUtils {
 				String beforeErrorTextStr = line.substring(0, startErrorIndex);
 				Text beforeErrorText = new Text(beforeErrorTextStr);
 				setColorBasedOnTag(beforeErrorText, beforeErrorTextStr);
-				textFlow.getChildren()
-				        .add(beforeErrorText);
+				textFlow.getChildren().add(beforeErrorText);
 			}
 			
 			if (endErrorIndex != -1) {
 				String errorTextStr = line.substring(startErrorIndex + 3, endErrorIndex);
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
-				textFlow.getChildren()
-				        .add(errorText);
+				textFlow.getChildren().add(errorText);
 				inErrorBlock = false;
 				
 				if (endErrorIndex + 3 < line.length()) {
 					String afterErrorTextStr = line.substring(endErrorIndex + 3);
 					Text afterErrorText = new Text(afterErrorTextStr);
 					setColorBasedOnTag(afterErrorText, afterErrorTextStr);
-					textFlow.getChildren()
-					        .add(afterErrorText);
+					textFlow.getChildren().add(afterErrorText);
 				}
 			} else {
 				String errorTextStr = line.substring(startErrorIndex + 4);
 				Text errorText = new Text(errorTextStr);
 				errorText.setFill(Color.RED);
-				textFlow.getChildren()
-				        .add(errorText);
+				textFlow.getChildren().add(errorText);
 				inErrorBlock = true;
 			}
 		} else {
 			Text normalText = new Text(line);
 			setColorBasedOnTag(normalText, line);
-			textFlow.getChildren()
-			        .add(normalText);
+			textFlow.getChildren().add(normalText);
 		}
 		return textFlow;
 	}

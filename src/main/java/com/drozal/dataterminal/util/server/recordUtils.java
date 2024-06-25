@@ -117,8 +117,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.containsKey("name") && attributesMap.get("name")
-			                                                      .equalsIgnoreCase(pedName)) {
+			if (attributesMap.containsKey("name") && attributesMap.get("name").equalsIgnoreCase(pedName)) {
 				return attributesMap;
 			}
 		}
@@ -151,9 +150,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.getOrDefault("licensePlate", "")
-			                 .toLowerCase()
-			                 .equals(normalizedLicensePlate)) {
+			if (attributesMap.getOrDefault("licensePlate", "").toLowerCase().equals(normalizedLicensePlate)) {
 				return attributesMap;
 			}
 		}

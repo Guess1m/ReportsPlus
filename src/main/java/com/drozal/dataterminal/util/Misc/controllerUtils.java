@@ -60,16 +60,15 @@ public class controllerUtils {
 			throw new IllegalArgumentException("Invalid hexadecimal color: " + hexColor);
 		}
 		
-		int r = Integer.parseInt(hexColor.substring(1, 3), 16) - 70;
-		int g = Integer.parseInt(hexColor.substring(3, 5), 16) - 70;
-		int b = Integer.parseInt(hexColor.substring(5, 7), 16) - 70;
+		int r = Integer.parseInt(hexColor.substring(1, 3), 16) + 70;
+		int g = Integer.parseInt(hexColor.substring(3, 5), 16) + 70;
+		int b = Integer.parseInt(hexColor.substring(5, 7), 16) + 70;
 		
 		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, alpha);
 	}
 	
 	public static String updateStyleProperty(Node node, String property, String value) {
-		String updatedStyle = node.getStyle()
-		                          .replaceAll(property + ": [^;]*;", "");
+		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
 		return updatedStyle + property + ": " + value + ";";
 	}
 	
@@ -85,11 +84,7 @@ public class controllerUtils {
 	public static String getJarDirectoryPath() {
 		try {
 			
-			String jarPath = actionController.class.getProtectionDomain()
-			                                       .getCodeSource()
-			                                       .getLocation()
-			                                       .toURI()
-			                                       .getPath();
+			String jarPath = actionController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			
 			return new File(jarPath).getParent();
 		} catch (Exception e) {
@@ -143,16 +138,10 @@ public class controllerUtils {
 		
 		VBox vbox1 = new VBox(label);
 		vbox1.setAlignment(Pos.CENTER);
-		Notifications noti = Notifications.create()
-		                                  .title(title)
-		                                  .text(message)
-		                                  .graphic(null)
-		                                  .position(Pos.TOP_RIGHT)
-		                                  .hideAfter(Duration.seconds(1.15))
-		                                  .owner(owner);
+		Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(
+				Pos.TOP_RIGHT).hideAfter(Duration.seconds(1.15)).owner(owner);
 		noti.show();
-		noti.getStyleClass()
-		    .add("notification-pane");
+		noti.getStyleClass().add("notification-pane");
 	}
 	
 	public static void showLogClearNotification(String title, String message, Object owner) {
@@ -160,16 +149,10 @@ public class controllerUtils {
 		
 		VBox vbox1 = new VBox(label);
 		vbox1.setAlignment(Pos.CENTER);
-		Notifications noti = Notifications.create()
-		                                  .title(title)
-		                                  .text(message)
-		                                  .graphic(null)
-		                                  .position(Pos.TOP_CENTER)
-		                                  .hideAfter(Duration.seconds(1.15))
-		                                  .owner(owner);
+		Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(
+				Pos.TOP_CENTER).hideAfter(Duration.seconds(1.15)).owner(owner);
 		noti.show();
-		noti.getStyleClass()
-		    .add("notification-pane");
+		noti.getStyleClass().add("notification-pane");
 	}
 	
 	public static void setActive(AnchorPane pane) {
@@ -197,24 +180,21 @@ public class controllerUtils {
 			dialog.close();
 		});
 		Button noButton = new Button("No");
-		noButton.getStyleClass()
-		        .add("menuButton");
+		noButton.getStyleClass().add("menuButton");
 		noButton.setOnAction(e -> {
 			dialog.setResult(false);
 			dialog.close();
 		});
 		
-		dialog.getDialogPane()
-		      .setContent(new VBox(10, messageLabel, yesButton, noButton));
+		dialog.getDialogPane().setContent(new VBox(10, messageLabel, yesButton, noButton));
 		
-		dialog.showAndWait()
-		      .ifPresent(result -> {
-			      if (result) {
-				      clearDataLogs();
-				      updateChartIfMismatch(barChart);
-				      controllerUtils.refreshChart(areaChart, "area");
-			      }
-		      });
+		dialog.showAndWait().ifPresent(result -> {
+			if (result) {
+				clearDataLogs();
+				updateChartIfMismatch(barChart);
+				controllerUtils.refreshChart(areaChart, "area");
+			}
+		});
 	}
 	
 	public static void changeBarColors(BarChart<String, Number> barChart) throws IOException {
@@ -239,10 +219,8 @@ public class controllerUtils {
 		String accclr = ConfigReader.configRead("accentColor");
 		String mainclr = ConfigReader.configRead("mainColor");
 		String secclr = ConfigReader.configRead("secondaryColor");
-		chart.lookup(".chart-series-area-fill")
-		     .setStyle("-fx-fill: " + accclr + ";");
-		chart.lookup(".chart-series-area-line")
-		     .setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
+		chart.lookup(".chart-series-area-fill").setStyle("-fx-fill: " + accclr + ";");
+		chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
 	}
 	
 	public static void setSmallColumnWidth(TableColumn column) {
@@ -259,18 +237,15 @@ public class controllerUtils {
 	public static void updateChartIfMismatch(BarChart<String, Number> chart) {
 		XYChart.Series<String, Number> series = null;
 		for (XYChart.Series<String, Number> s : chart.getData()) {
-			if (s.getName()
-			     .equals("Series 1")) {
+			if (s.getName().equals("Series 1")) {
 				series = s;
 				break;
 			}
 		}
 		
 		if (series != null) {
-			for (int i = 0; i < series.getData()
-			                          .size(); i++) {
-				XYChart.Data<String, Number> data = series.getData()
-				                                          .get(i);
+			for (int i = 0; i < series.getData().size(); i++) {
+				XYChart.Data<String, Number> data = series.getData().get(i);
 				int reportsCount = switch (i) {
 					case 0 -> CalloutReportLogs.countReports();
 					case 1 -> ArrestReportLogs.countReports();
@@ -282,8 +257,7 @@ public class controllerUtils {
 					case 7 -> TrafficCitationReportLogs.countReports();
 					default -> 0;
 				};
-				if (data.getYValue()
-				        .intValue() != reportsCount) {
+				if (data.getYValue().intValue() != reportsCount) {
 					
 					data.setYValue(reportsCount);
 				}
@@ -422,25 +396,22 @@ public class controllerUtils {
 			dialog.close();
 		});
 		Button noButton = new Button("No");
-		noButton.getStyleClass()
-		        .add("menuButton");
+		noButton.getStyleClass().add("menuButton");
 		noButton.setOnAction(e -> {
 			dialog.setResult(false);
 			dialog.close();
 		});
 		
-		dialog.getDialogPane()
-		      .setContent(new VBox(10, messageLabel, yesButton, noButton));
+		dialog.getDialogPane().setContent(new VBox(10, messageLabel, yesButton, noButton));
 		
-		dialog.showAndWait()
-		      .ifPresent(result -> {
-			      if (result) {
-				      clearDataLogsAsync();
-				      clearConfig();
-				      clearDataFolderAsync();
-				      handleClose();
-			      }
-		      });
+		dialog.showAndWait().ifPresent(result -> {
+			if (result) {
+				clearDataLogsAsync();
+				clearConfig();
+				clearDataFolderAsync();
+				handleClose();
+			}
+		});
 	}
 	
 	public static void clearConfig() {
@@ -478,19 +449,15 @@ public class controllerUtils {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(xmlFile);
-			doc.getDocumentElement()
-			   .normalize();
+			doc.getDocumentElement().normalize();
 			
 			NodeList nodeList = doc.getElementsByTagName("*");
 			
 			for (int temp = 0; temp < nodeList.getLength(); temp++) {
 				Element element = (Element) nodeList.item(temp);
 				String nodeName = element.getNodeName();
-				if (nodeName.toLowerCase()
-				            .contains(value) && !nodeName.toLowerCase()
-				                                         .contains("textarea")) {
-					String area = element.getTextContent()
-					                     .trim();
+				if (nodeName.toLowerCase().contains(value) && !nodeName.toLowerCase().contains("textarea")) {
+					String area = element.getTextContent().trim();
 					if (!area.isEmpty()) {
 						combinedAreasMap.put(area, combinedAreasMap.getOrDefault(area, 0) + 1);
 					}
@@ -517,17 +484,14 @@ public class controllerUtils {
 		
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
-			series.getData()
-			      .add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+			series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
 		}
 		return series;
 	}
 	
 	public static void refreshChart(AreaChart chart, String value) {
-		chart.getData()
-		     .clear();
-		chart.getData()
-		     .add(parseEveryLog(value));
+		chart.getData().clear();
+		chart.getData().add(parseEveryLog(value));
 		try {
 			changeStatisticColors(chart);
 		} catch (IOException e) {
@@ -574,8 +538,7 @@ public class controllerUtils {
 			}
 			
 			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey()
-				                          .split("\\|")) {
+				for (String altKey : entry.getKey().split("\\|")) {
 					if (altKey.equals(key)) {
 						extractedValue = entry.getValue();
 						break;
@@ -604,8 +567,7 @@ public class controllerUtils {
 			}
 			
 			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey()
-				                          .split("\\|")) {
+				for (String altKey : entry.getKey().split("\\|")) {
 					if (altKey.equals(key)) {
 						extractedValue = entry.getValue();
 						break;
@@ -633,8 +595,7 @@ public class controllerUtils {
 			}
 			
 			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey()
-				                          .split("\\|")) {
+				for (String altKey : entry.getKey().split("\\|")) {
 					if (altKey.equals(key)) {
 						extractedValue = entry.getValue();
 						break;
@@ -649,7 +610,6 @@ public class controllerUtils {
 			}
 		}
 		String labelText = (extractedValue != null) ? extractedValue : "0";
-		spinner.getEditor()
-		       .setText(labelText);
+		spinner.getEditor().setText(labelText);
 	}
 }

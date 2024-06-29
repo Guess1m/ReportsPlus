@@ -94,7 +94,7 @@ public class ConfigReader {
 	}
 	
 	public static void checkAndSetDefaultValues() {
-		checkAndSetDefaultValue("UIDarkMode", "false");
+		checkAndSetDefaultValue("UIDarkMode", "true");
 		checkAndSetDefaultValue("AOTCallout", "true");
 		checkAndSetDefaultValue("AOTClient", "true");
 		checkAndSetDefaultValue("AOTDebug", "true");

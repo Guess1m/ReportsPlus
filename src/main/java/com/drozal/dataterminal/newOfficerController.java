@@ -68,7 +68,7 @@ public class newOfficerController {
 		ConfigWriter.configwrite("reportWindowLayout", "Default");
 		
 		ConfigWriter.configwrite("reportWindowDarkMode", "false");
-		ConfigWriter.configwrite("UIDarkMode", "false");
+		ConfigWriter.configwrite("UIDarkMode", "true");
 		
 		ConfigWriter.configwrite("calloutDuration", "7");
 		ConfigWriter.configwrite("IDDuration", "infinite");

@@ -548,6 +548,7 @@ public class reportUtil {
 					stage.setY(windowY);
 				} else {
 					stage.centerOnScreen();
+					windowUtils.centerStageOnMainApp(stage);
 				}
 			}
 		}

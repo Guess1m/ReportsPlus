@@ -8,6 +8,7 @@ module com.drozal.dataterminal {
 	requires jakarta.xml.bind;
 	requires org.controlsfx.controls;
 	requires java.desktop;
+	requires com.fasterxml.jackson.databind;
 	
 	opens com.drozal.dataterminal.logs to javafx.base;
 	opens com.drozal.dataterminal to javafx.fxml;

@@ -17,8 +17,7 @@ import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValu
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
-import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
-import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
 public class Launcher {
 	
@@ -132,11 +131,16 @@ public class Launcher {
 		File chargesFile = new File(chargesFilePath);
 		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
 		File citationsFile = new File(citationsFilePath);
+		String customizationFilePath = getJarPath() + File.separator + "data" + File.separator + "customization.json";
+		File customizationFile = new File(customizationFilePath);
 		if (!chargesFile.exists()) {
 			copyChargeDataFile();
 		}
 		if (!citationsFile.exists()) {
 			copyCitationDataFile();
+		}
+		if (!customizationFile.exists()) {
+			copyCustomizationDataFile();
 		}
 		
 		try {

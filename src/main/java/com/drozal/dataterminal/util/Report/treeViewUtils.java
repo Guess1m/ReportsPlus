@@ -66,6 +66,28 @@ public class treeViewUtils {
 		}
 	}
 	
+	public static void copyCustomizationDataFile() throws IOException {
+		
+		String sourcePathCustomization = "/com/drozal/dataterminal/data/customization.json";
+		Path destinationDir = Paths.get(getJarPath(), "data");
+		
+		if (!Files.exists(destinationDir)) {
+			Files.createDirectories(destinationDir);
+		}
+		
+		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCustomization)) {
+			if (inputStream != null) {
+				
+				Path destinationPathCitations = destinationDir.resolve(
+						Paths.get(sourcePathCustomization).getFileName());
+				
+				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
+			} else {
+				log("Resource not found: " + sourcePathCustomization, LogUtils.Severity.ERROR);
+			}
+		}
+	}
+	
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
 			

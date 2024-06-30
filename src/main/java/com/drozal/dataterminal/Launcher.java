@@ -24,13 +24,12 @@ public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
 		
-		getOperatingSystemAndArch();
-		
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);
+				getOperatingSystemAndArch();
 				log("Log file cleared successfully.", Severity.INFO);
 			} else {
 				log("Log file does not exist.", Severity.WARN);

@@ -21,46 +21,15 @@ public class LogUtils {
 	private static boolean inErrorBlock = false;
 	
 	static {
-		PrintStream console = System.out;
-		PrintStream fileAndConsole;
-		try (FileOutputStream fos = new FileOutputStream(stringUtil.getJarPath() + File.separator + "output.log",
-		                                                 true)) {
-			fileAndConsole = new PrintStream(new OutputStream() {
-				@Override
-				public void write(int b) throws IOException {
-					console.write(b);
-					fos.write(b);
-				}
-				
-				@Override
-				public void write(byte[] b) throws IOException {
-					console.write(b);
-					fos.write(b);
-				}
-				
-				@Override
-				public void write(byte[] b, int off, int len) throws IOException {
-					console.write(b, off, len);
-					fos.write(b, off, len);
-				}
-				
-				@Override
-				public void flush() throws IOException {
-					console.flush();
-					fos.flush();
-				}
-				
-				@Override
-				public void close() throws IOException {
-					console.close();
-					fos.close();
-				}
-			});
+		try {
+			String logFilePath = stringUtil.getJarPath() + File.separator + "output.log";
+			FileOutputStream fos = new FileOutputStream(logFilePath, true);
+			PrintStream fileAndConsole = new TeePrintStream(System.out, new PrintStream(fos));
+			System.setOut(fileAndConsole);
+			System.setErr(fileAndConsole);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		System.setOut(fileAndConsole);
-		System.setErr(fileAndConsole);
 		
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("Uncaught exception in thread " + thread, e));
 	}
@@ -192,7 +161,6 @@ public class LogUtils {
 	}
 	
 	public static void addOutputToListview(ListView<TextFlow> listView) {
-		
 		ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
 		readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
 		listView.setItems(logItems);
@@ -227,4 +195,31 @@ public class LogUtils {
 		DEBUG, INFO, WARN, ERROR,
 	}
 	
+	// A custom PrintStream to handle output to both console and file
+	private static class TeePrintStream extends PrintStream {
+		private final PrintStream second;
+		
+		public TeePrintStream(PrintStream main, PrintStream second) {
+			super(main);
+			this.second = second;
+		}
+		
+		@Override
+		public void write(byte[] buf, int off, int len) {
+			super.write(buf, off, len);
+			second.write(buf, off, len);
+		}
+		
+		@Override
+		public void flush() {
+			super.flush();
+			second.flush();
+		}
+		
+		@Override
+		public void close() {
+			super.close();
+			second.close();
+		}
+	}
 }

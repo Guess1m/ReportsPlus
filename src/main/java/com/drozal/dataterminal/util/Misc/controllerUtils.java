@@ -57,12 +57,12 @@ public class controllerUtils {
 	
 	public static void getOperatingSystemAndArch() {
 		log("====================== System Info ======================", LogUtils.Severity.INFO);
-		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.INFO);
-		log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.INFO);
-		log("Java Version: " + System.getProperty("java.version"), LogUtils.Severity.INFO);
-		log("Java Runtime Version: " + System.getProperty("java.runtime.version"), LogUtils.Severity.INFO);
-		log("Java Home Directory: " + System.getProperty("java.home"), LogUtils.Severity.INFO);
-		log("Java Class Version: " + System.getProperty("java.class.version"), LogUtils.Severity.INFO);
+		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);
+		log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.DEBUG);
+		log("Java Version: " + System.getProperty("java.version"), LogUtils.Severity.DEBUG);
+		log("Java Runtime Version: " + System.getProperty("java.runtime.version"), LogUtils.Severity.DEBUG);
+		log("Java Home Directory: " + System.getProperty("java.home"), LogUtils.Severity.DEBUG);
+		log("Java Class Version: " + System.getProperty("java.class.version"), LogUtils.Severity.DEBUG);
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

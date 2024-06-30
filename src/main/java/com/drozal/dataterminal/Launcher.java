@@ -15,6 +15,7 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyChargeDataFile;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationDataFile;
@@ -22,6 +23,8 @@ import static com.drozal.dataterminal.util.Report.treeViewUtils.copyCitationData
 public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
+		
+		getOperatingSystemAndArch();
 		
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";

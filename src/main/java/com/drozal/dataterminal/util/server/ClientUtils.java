@@ -17,9 +17,7 @@ import javafx.util.Duration;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -255,14 +253,51 @@ public class ClientUtils {
 		}).start();
 	}
 	
-	public static void setStatusListener(ServerStatusListener statusListener) {
-		ClientUtils.statusListener = statusListener;
+	public static void setStatusListener(ServerStatusListener listener) {
+		statusListener = listener;
 	}
 	
-	public static void notifyStatusChanged(boolean isConnected) {
+	private static void notifyStatusChanged(boolean status) {
 		if (statusListener != null) {
-			Platform.runLater(() -> statusListener.onStatusChanged(isConnected));
+			Platform.runLater(() -> statusListener.onStatusChanged(status));
 		}
 	}
 	
+	public static void listenForServerBroadcasts() {
+		try (DatagramSocket socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"))) {
+			socket.setBroadcast(true);
+			while (true) {
+				if (!isConnected) {
+					byte[] buffer = new byte[256];
+					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+					socket.receive(packet);
+					
+					String message = new String(packet.getData(), 0, packet.getLength());
+					if (message.startsWith("SERVER_DISCOVERY:")) {
+						String[] parts = message.split(":");
+						String serverAddress = packet.getAddress().getHostAddress();
+						int serverPort = Integer.parseInt(parts[1]);
+						
+						log("Discovered server at " + serverAddress + ":" + serverPort, LogUtils.Severity.INFO);
+						Platform.runLater(() -> {
+							try {
+								connectToService(serverAddress, serverPort);
+							} catch (IOException e) {
+								log("Error connecting to discovered server: " + e.getMessage(),
+								    LogUtils.Severity.ERROR);
+							}
+						});
+					}
+				} else {
+					System.out.println("already cnted");
+				}
+			}
+		} catch (IOException e) {
+			log("Error listening for broadcasts: " + e.getMessage(), LogUtils.Severity.ERROR);
+		}
+	}
+	
+	public interface ServerStatusListener {
+		void onStatusChanged(boolean isConnected);
+	}
 }

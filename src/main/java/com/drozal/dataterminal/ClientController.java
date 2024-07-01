@@ -63,7 +63,8 @@ public class ClientController {
 	
 	@javafx.fxml.FXML
 	public void connectBtnPress() throws IOException {
-		if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
+		new Thread(ClientUtils::listenForServerBroadcasts).start();
+		/*if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
 			ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
 		} else {
 			String beforeText = statusLabel.getText();
@@ -71,7 +72,7 @@ public class ClientController {
 			PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
 			pause.setOnFinished(event -> statusLabel.setText(beforeText));
 			pause.play();
-		}
+		}*/
 	}
 	
 	@javafx.fxml.FXML

@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputFilter;
 import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -266,8 +267,15 @@ public class ClientUtils {
 	}
 	
 	public static void listenForServerBroadcasts() {
-		// TODO: get broadcast port from config
-		try (DatagramSocket socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"))) {
+		int broadCastPort = 8888;
+		try {
+			broadCastPort = Integer.parseInt(ConfigReader.configRead("broadcastPort"));
+			log("Using broadcastPort: "+broadCastPort, LogUtils.Severity.DEBUG);
+		} catch (IOException e) {
+			logError("Could not get broadcastPort from config: ", e);
+		}
+		
+		try (DatagramSocket socket = new DatagramSocket(broadCastPort, InetAddress.getByName("0.0.0.0"))) {
 			socket.setBroadcast(true);
 			while (true) {
 				if (!isConnected) {
@@ -286,7 +294,7 @@ public class ClientUtils {
 							try {
 								connectToService(serverAddress, serverPort);
 							} catch (IOException e) {
-								log("Error connecting to server; " + serverAddress + ":" + serverPort+" | " + e.getMessage(),
+								log("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage(),
 								    LogUtils.Severity.ERROR);
 							}
 						});

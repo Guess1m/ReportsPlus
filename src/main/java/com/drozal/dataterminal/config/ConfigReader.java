@@ -125,6 +125,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("reportWindowLayout", "Default");
 		checkAndSetDefaultValue("secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("bkgColor", "#FFFFFF");
+		checkAndSetDefaultValue("broadcastPort", "8888");
 	}
 	
 }

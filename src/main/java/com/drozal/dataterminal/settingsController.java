@@ -31,6 +31,10 @@ import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class settingsController {
 	
+	//TODO Finish broadcast port configuration
+	//TODO Finish Save Button for broadcast port
+	
+	
 	private static String UILightColor = "rgb(255,255,255,0.75)";
 	private static String UIDarkColor = "rgb(0,0,0,0.75)";
 	
@@ -133,6 +137,12 @@ public class settingsController {
 	private ComboBox textClrComboBox;
 	@javafx.fxml.FXML
 	private CheckBox serverAutoconnectCheckbox;
+	@javafx.fxml.FXML
+	private Button broadcastPortSaveBtn;
+	@javafx.fxml.FXML
+	private TextField broadcastPortField;
+	@javafx.fxml.FXML
+	private Label lbl8;
 	
 	
 	//</editor-fold>

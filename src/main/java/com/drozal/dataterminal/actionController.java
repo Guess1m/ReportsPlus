@@ -1792,7 +1792,6 @@ public class actionController {
 			});
 			
 			clientController = loader.getController();
-			ClientUtils.setStatusListener(this::updateConnectionStatus);
 		}
 	}
 	
@@ -3625,6 +3624,8 @@ public class actionController {
 			citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
 		});
 		
+		ClientUtils.setStatusListener(this::updateConnectionStatus);
+		
 		Platform.runLater(() -> {
 			
 			versionLabel.setText(stringUtil.version);
@@ -3677,6 +3678,17 @@ public class actionController {
 				settingsController.loadTheme();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
+			}
+			
+			try {
+				if (ConfigReader.configRead("serverAutoConnect").equals("true")) {
+					Platform.runLater(() -> {
+						log("Searching For Server...", Severity.DEBUG);
+						new Thread(ClientUtils::listenForServerBroadcasts).start();
+					});
+				}
+			} catch (IOException e) {
+				logError("Not able to read serverautoconnect: ",e);
 			}
 		});
 		

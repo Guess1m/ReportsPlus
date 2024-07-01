@@ -131,6 +131,8 @@ public class settingsController {
 	private TabPane tabpane;
 	@javafx.fxml.FXML
 	private ComboBox textClrComboBox;
+	@javafx.fxml.FXML
+	private CheckBox serverAutoconnectCheckbox;
 	
 	
 	//</editor-fold>
@@ -585,6 +587,7 @@ public class settingsController {
 		root.setTop(topBar);
 		
 		startupFullscreenCheckbox.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
+		serverAutoconnectCheckbox.setSelected(ConfigReader.configRead("serverAutoConnect").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTMap").equals("true"));
@@ -1235,4 +1238,14 @@ public class settingsController {
 		}
 	}
 	
+	@javafx.fxml.FXML
+	public void serverAutoConnectClick(ActionEvent actionEvent) {
+		if (serverAutoconnectCheckbox.isSelected()) {
+			ConfigWriter.configwrite("serverAutoConnect", "true");
+			serverAutoconnectCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("serverAutoConnect", "false");
+			serverAutoconnectCheckbox.setSelected(false);
+		}
+	}
 }

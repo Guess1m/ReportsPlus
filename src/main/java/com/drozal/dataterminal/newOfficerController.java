@@ -31,6 +31,7 @@ import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.handleClose;
+import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
@@ -54,42 +55,6 @@ public class newOfficerController {
 	public Label incompleteLabel;
 	private double xOffset = 0;
 	private double yOffset = 0;
-	
-	private static void addConfigurationValues() {
-		ConfigWriter.configwrite("fullscreenOnStartup", "true");
-		
-		updateMain(Color.valueOf("#524992"));
-		updateSecondary(Color.valueOf("#665cb6"));
-		updateAccent(Color.valueOf("#9c95d0"));
-		updatebackground(Color.valueOf("#ffffff"));
-		
-		ConfigWriter.configwrite("mainWindowLayout", "Default");
-		ConfigWriter.configwrite("notesWindowLayout", "Default");
-		ConfigWriter.configwrite("reportWindowLayout", "Default");
-		
-		ConfigWriter.configwrite("reportWindowDarkMode", "false");
-		ConfigWriter.configwrite("UIDarkMode", "true");
-		
-		ConfigWriter.configwrite("calloutDuration", "7");
-		ConfigWriter.configwrite("IDDuration", "infinite");
-		
-		ConfigWriter.configwrite("AOTNotes", "true");
-		ConfigWriter.configwrite("AOTReport", "true");
-		ConfigWriter.configwrite("AOTCallout", "true");
-		ConfigWriter.configwrite("AOTID", "true");
-		ConfigWriter.configwrite("AOTSettings", "true");
-		ConfigWriter.configwrite("AOTMap", "true");
-		ConfigWriter.configwrite("AOTDebug", "true");
-		ConfigWriter.configwrite("AOTClient", "true");
-		
-		ConfigWriter.configwrite("firstLogin", "true");
-		
-		updateReportBackground(Color.valueOf("#505d62"));
-		updateReportSecondary(Color.valueOf("#323c41"));
-		updateReportAccent(Color.valueOf("#263238"));
-		updateReportHeading(Color.valueOf("white"));
-		
-	}
 	
 	public void initialize() {
 		rankDropdown.getItems().addAll(dropdownInfo.ranks);
@@ -185,7 +150,7 @@ public class newOfficerController {
 			ConfigWriter.configwrite("Name", nameField.getText());
 			ConfigWriter.configwrite("Rank", rank);
 			ConfigWriter.configwrite("Number", numberField.getText());
-			addConfigurationValues();
+			checkAndSetDefaultValues();
 			
 			Stage stag = (Stage) vbox.getScene().getWindow();
 			stag.close();
@@ -259,7 +224,7 @@ public class newOfficerController {
 		ConfigWriter.configwrite("Name", "McKennedy");
 		ConfigWriter.configwrite("Rank", "Deputy Sheriff");
 		ConfigWriter.configwrite("Number", "1-18");
-		addConfigurationValues();
+		checkAndSetDefaultValues();
 		
 		Stage stag = (Stage) vbox.getScene().getWindow();
 		stag.close();

@@ -58,8 +58,10 @@ public class ClientUtils {
 			try {
 				socket = new Socket();
 				Platform.runLater(() -> {
-					actionController.clientController.getStatusLabel().setText("Testing Connection...");
-					actionController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
+					if (actionController.clientController != null) {
+						actionController.clientController.getStatusLabel().setText("Testing Connection...");
+						actionController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
+					}
 				});
 				
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
@@ -264,6 +266,7 @@ public class ClientUtils {
 	}
 	
 	public static void listenForServerBroadcasts() {
+		// TODO: get broadcast port from config
 		try (DatagramSocket socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"))) {
 			socket.setBroadcast(true);
 			while (true) {
@@ -283,13 +286,13 @@ public class ClientUtils {
 							try {
 								connectToService(serverAddress, serverPort);
 							} catch (IOException e) {
-								log("Error connecting to discovered server: " + e.getMessage(),
+								log("Error connecting to server; " + serverAddress + ":" + serverPort+" | " + e.getMessage(),
 								    LogUtils.Severity.ERROR);
 							}
 						});
 					}
 				} else {
-					System.out.println("already cnted");
+					log("Already connected", LogUtils.Severity.WARN);
 				}
 			}
 		} catch (IOException e) {

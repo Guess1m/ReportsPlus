@@ -1,9 +1,11 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +16,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
 @SuppressWarnings("TextBlockMigration")
 public class ClientController {
@@ -63,16 +68,19 @@ public class ClientController {
 	
 	@javafx.fxml.FXML
 	public void connectBtnPress() throws IOException {
-		new Thread(ClientUtils::listenForServerBroadcasts).start();
-		/*if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
-			ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
+		if (!isConnected) {
+			if (!inputHostField.getText().isEmpty() && !inputPortField.getText().isEmpty()) {
+				ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
+			} else {
+				String beforeText = statusLabel.getText();
+				statusLabel.setText("Please Input The Server Address and Port");
+				PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
+				pause.setOnFinished(event -> statusLabel.setText(beforeText));
+				pause.play();
+			}
 		} else {
-			String beforeText = statusLabel.getText();
-			statusLabel.setText("Please Input The Server Address and Port");
-			PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
-			pause.setOnFinished(event -> statusLabel.setText(beforeText));
-			pause.play();
-		}*/
+			log("Tried to connect, but there is already a connection established", LogUtils.Severity.WARN);
+		}
 	}
 	
 	@javafx.fxml.FXML

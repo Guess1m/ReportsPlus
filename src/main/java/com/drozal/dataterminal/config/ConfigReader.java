@@ -113,6 +113,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("IDDuration", "infinite");
 		checkAndSetDefaultValue("firstLogin", "false");
 		checkAndSetDefaultValue("fullscreenOnStartup", "true");
+		checkAndSetDefaultValue("serverAutoConnect", "true");
 		checkAndSetDefaultValue("mainColor", "#524992");
 		checkAndSetDefaultValue("mainWindowLayout", "Default");
 		checkAndSetDefaultValue("notesWindowLayout", "Default");

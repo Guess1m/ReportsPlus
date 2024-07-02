@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -33,7 +32,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.handleClose;
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
 @SuppressWarnings("ALL")

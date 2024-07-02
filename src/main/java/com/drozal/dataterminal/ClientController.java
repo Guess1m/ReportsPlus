@@ -5,7 +5,6 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

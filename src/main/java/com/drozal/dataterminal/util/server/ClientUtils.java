@@ -17,7 +17,6 @@ import javafx.util.Duration;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputFilter;
 import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -270,7 +269,7 @@ public class ClientUtils {
 		int broadCastPort = 8888;
 		try {
 			broadCastPort = Integer.parseInt(ConfigReader.configRead("broadcastPort"));
-			log("Using broadcastPort: "+broadCastPort, LogUtils.Severity.DEBUG);
+			log("Using broadcastPort: " + broadCastPort, LogUtils.Severity.DEBUG);
 		} catch (IOException e) {
 			logError("Could not get broadcastPort from config: ", e);
 		}

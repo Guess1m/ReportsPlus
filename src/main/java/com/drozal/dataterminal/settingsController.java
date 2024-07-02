@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -33,7 +34,6 @@ public class settingsController {
 	
 	//TODO Finish broadcast port configuration
 	//TODO Finish Save Button for broadcast port
-	
 	
 	private static String UILightColor = "rgb(255,255,255,0.75)";
 	private static String UIDarkColor = "rgb(0,0,0,0.75)";
@@ -137,8 +137,6 @@ public class settingsController {
 	private ComboBox textClrComboBox;
 	@javafx.fxml.FXML
 	private CheckBox serverAutoconnectCheckbox;
-	@javafx.fxml.FXML
-	private Button broadcastPortSaveBtn;
 	@javafx.fxml.FXML
 	private TextField broadcastPortField;
 	@javafx.fxml.FXML
@@ -682,6 +680,35 @@ public class settingsController {
 		mainWindowComboBox.setOnAction(comboBoxHandler);
 		notesWindowComboBox.setOnAction(comboBoxHandler);
 		ReportWindowComboBox.setOnAction(comboBoxHandler);
+		
+		broadcastPortField.setText(ConfigReader.configRead("broadcastPort"));
+		
+		broadcastPortField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = broadcastPortField.getText();
+			
+			if (!character.matches("[0-9]")) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			if (newText.length() > 5) {
+				event.consume();
+				return;
+			}
+			
+			int newValue;
+			try {
+				newValue = Integer.parseInt(newText);
+			} catch (NumberFormatException e) {
+				event.consume();
+				return;
+			}
+			
+			ConfigWriter.configwrite("broadcastPort", newText);
+		});
 		
 		bkgPicker.valueProperty().addListener(new ChangeListener<Color>() {
 			@Override

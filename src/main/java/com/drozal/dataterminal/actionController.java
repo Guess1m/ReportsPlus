@@ -3688,7 +3688,7 @@ public class actionController {
 					});
 				}
 			} catch (IOException e) {
-				logError("Not able to read serverautoconnect: ",e);
+				logError("Not able to read serverautoconnect: ", e);
 			}
 		});
 		

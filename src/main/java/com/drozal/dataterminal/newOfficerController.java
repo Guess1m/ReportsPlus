@@ -143,11 +143,11 @@ public class newOfficerController {
 			String division = divisionDropDown.getValue().toString();
 			String rank = rankDropdown.getValue().toString();
 			
-			ConfigWriter.configwrite("Agency", agency);
-			ConfigWriter.configwrite("Division", division);
-			ConfigWriter.configwrite("Name", nameField.getText());
-			ConfigWriter.configwrite("Rank", rank);
-			ConfigWriter.configwrite("Number", numberField.getText());
+			ConfigWriter.configwrite("userInfo", "Agency", agency);
+			ConfigWriter.configwrite("userInfo", "Division", division);
+			ConfigWriter.configwrite("userInfo", "Name", nameField.getText());
+			ConfigWriter.configwrite("userInfo", "Rank", rank);
+			ConfigWriter.configwrite("userInfo", "Number", numberField.getText());
 			checkAndSetDefaultValues();
 			
 			Stage stag = (Stage) vbox.getScene().getWindow();
@@ -164,7 +164,7 @@ public class newOfficerController {
 					Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 			mainRT.show();
 			
-			String startupValue = ConfigReader.configRead("mainWindowLayout");
+			String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
 			switch (startupValue) {
 				case "TopLeft" -> snapToTopLeft(mainRT);
 				case "TopRight" -> snapToTopRight(mainRT);
@@ -176,7 +176,7 @@ public class newOfficerController {
 					mainRT.centerOnScreen();
 					mainRT.setMinHeight(450);
 					mainRT.setMinWidth(450);
-					if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+					if (ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true")) {
 						windowUtils.setWindowedFullscreen(mainRT);
 					} else {
 						mainRT.setHeight(800);
@@ -217,11 +217,11 @@ public class newOfficerController {
 			}
 		}
 		
-		ConfigWriter.configwrite("Agency", "Los Santos Sheriffs Office");
-		ConfigWriter.configwrite("Division", "North Area Patrol Division");
-		ConfigWriter.configwrite("Name", "McKennedy");
-		ConfigWriter.configwrite("Rank", "Deputy Sheriff");
-		ConfigWriter.configwrite("Number", "1-18");
+		ConfigWriter.configwrite("userInfo", "Agency", "Los Santos Sheriffs Office");
+		ConfigWriter.configwrite("userInfo", "Division", "North Area Patrol Division");
+		ConfigWriter.configwrite("userInfo", "Name", "McKennedy");
+		ConfigWriter.configwrite("userInfo", "Rank", "Deputy Sheriff");
+		ConfigWriter.configwrite("userInfo", "Number", "1-18");
 		checkAndSetDefaultValues();
 		
 		Stage stag = (Stage) vbox.getScene().getWindow();
@@ -238,7 +238,7 @@ public class newOfficerController {
 				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
-		String startupValue = ConfigReader.configRead("mainWindowLayout");
+		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
 		switch (startupValue) {
 			case "TopLeft" -> snapToTopLeft(mainRT);
 			case "TopRight" -> snapToTopRight(mainRT);
@@ -250,7 +250,7 @@ public class newOfficerController {
 				mainRT.centerOnScreen();
 				mainRT.setMinHeight(450);
 				mainRT.setMinWidth(450);
-				if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+				if (ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true")) {
 					windowUtils.setWindowedFullscreen(mainRT);
 				} else {
 					mainRT.setHeight(800);

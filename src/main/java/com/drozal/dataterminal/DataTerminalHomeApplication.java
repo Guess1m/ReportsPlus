@@ -51,7 +51,7 @@ public class DataTerminalHomeApplication extends Application {
 				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
-		String startupValue = ConfigReader.configRead("mainWindowLayout");
+		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
 		switch (startupValue) {
 			case "TopLeft" -> snapToTopLeft(mainRT);
 			case "TopRight" -> snapToTopRight(mainRT);
@@ -63,7 +63,7 @@ public class DataTerminalHomeApplication extends Application {
 				mainRT.centerOnScreen();
 				mainRT.setMinHeight(450);
 				mainRT.setMinWidth(450);
-				if (ConfigReader.configRead("fullscreenOnStartup").equals("true")) {
+				if (ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true")) {
 					setWindowedFullscreen(mainRT);
 					
 				} else {

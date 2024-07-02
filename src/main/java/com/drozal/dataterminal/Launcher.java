@@ -164,7 +164,7 @@ public class Launcher {
 		}
 		
 		if (ConfigReader.doesConfigExist()) {
-			ConfigWriter.configwrite("firstLogin", "false");
+			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			
 			checkAndSetDefaultValues();
 			

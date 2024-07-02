@@ -106,42 +106,42 @@ public class controllerUtils {
 	
 	public static void updateSecondary(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("secondaryColor", hexColor);
+		ConfigWriter.configwrite("uiColors", "secondaryColor", hexColor);
 	}
 	
 	public static void updateAccent(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("accentColor", hexColor);
+		ConfigWriter.configwrite("uiColors", "accentColor", hexColor);
 	}
 	
 	public static void updatebackground(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("bkgColor", hexColor);
+		ConfigWriter.configwrite("uiColors", "bkgColor", hexColor);
 	}
 	
 	public static void updateMain(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("mainColor", hexColor);
+		ConfigWriter.configwrite("uiColors", "mainColor", hexColor);
 	}
 	
 	public static void updateReportBackground(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("reportBackground", hexColor);
+		ConfigWriter.configwrite("reportSettings", "reportBackground", hexColor);
 	}
 	
 	public static void updateReportSecondary(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("reportSecondary", hexColor);
+		ConfigWriter.configwrite("reportSettings", "reportSecondary", hexColor);
 	}
 	
 	public static void updateReportAccent(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("reportAccent", hexColor);
+		ConfigWriter.configwrite("reportSettings", "reportAccent", hexColor);
 	}
 	
 	public static void updateReportHeading(Color color) {
 		String hexColor = toHexString(color);
-		ConfigWriter.configwrite("reportHeading", hexColor);
+		ConfigWriter.configwrite("reportSettings", "reportHeading", hexColor);
 	}
 	
 	public static void showNotification(String title, String message, Object owner) {
@@ -218,18 +218,18 @@ public class controllerUtils {
 				
 				javafx.scene.Node node = data.getNode();
 				
-				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead(
-						"accentColor") + "; -fx-border-color: " + ConfigReader.configRead(
-						"secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
+				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("uiColors",
+				                                                         "accentColor") + "; -fx-border-color: " + ConfigReader.configRead(
+						"uiColors", "secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
 			}
 		}
 	}
 	
 	public static void changeStatisticColors(AreaChart chart) throws IOException {
 		
-		String accclr = ConfigReader.configRead("accentColor");
-		String mainclr = ConfigReader.configRead("mainColor");
-		String secclr = ConfigReader.configRead("secondaryColor");
+		String accclr = ConfigReader.configRead("uiColors", "accentColor");
+		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
+		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		chart.lookup(".chart-series-area-fill").setStyle("-fx-fill: " + accclr + ";");
 		chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
 	}

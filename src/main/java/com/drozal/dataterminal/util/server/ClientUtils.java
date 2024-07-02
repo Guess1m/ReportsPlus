@@ -76,8 +76,8 @@ public class ClientUtils {
 				log("CONNECTED: " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
-				ConfigWriter.configwrite("lastIPV4Connection", serviceAddress);
-				ConfigWriter.configwrite("lastPortConnection", String.valueOf(servicePort));
+				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
+				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
 			} catch (IOException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
@@ -122,7 +122,8 @@ public class ClientUtils {
 								IDStage.show();
 								IDStage.centerOnScreen();
 								try {
-									IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTID").equals("true"));
+									IDStage.setAlwaysOnTop(
+											ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
 								} catch (IOException e) {
 									logError("Could not fetch AOTID: ", e);
 								}
@@ -130,11 +131,11 @@ public class ClientUtils {
 								windowUtils.centerStageOnMainApp(IDStage);
 								
 								try {
-									if (!ConfigReader.configRead("IDDuration").equals("infinite")) {
+									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 										PauseTransition delay = null;
 										try {
 											delay = new PauseTransition(Duration.seconds(
-													Double.parseDouble(ConfigReader.configRead("IDDuration"))));
+													Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
 										} catch (IOException e) {
 											logError("ID could not be closed: ", e);
 										}
@@ -189,7 +190,8 @@ public class ClientUtils {
 								CalloutStage.setTitle("Callout Display");
 								CalloutStage.setScene(newScene);
 								try {
-									CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTCallout").equals("true"));
+									CalloutStage.setAlwaysOnTop(
+											ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
 								} catch (IOException e) {
 									logError("Could not fetch AOTCallout: ", e);
 								}
@@ -200,11 +202,11 @@ public class ClientUtils {
 								windowUtils.centerStageOnMainApp(CalloutStage);
 								
 								try {
-									if (!ConfigReader.configRead("calloutDuration").equals("infinite")) {
+									if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
 										PauseTransition delay = null;
 										try {
-											delay = new PauseTransition(Duration.seconds(
-													Double.parseDouble(ConfigReader.configRead("calloutDuration"))));
+											delay = new PauseTransition(Duration.seconds(Double.parseDouble(
+													ConfigReader.configRead("misc", "calloutDuration"))));
 										} catch (IOException e) {
 											logError("Callout could not be closed: ", e);
 										}
@@ -268,7 +270,7 @@ public class ClientUtils {
 	public static void listenForServerBroadcasts() {
 		int broadCastPort = 8888;
 		try {
-			broadCastPort = Integer.parseInt(ConfigReader.configRead("broadcastPort"));
+			broadCastPort = Integer.parseInt(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 			log("Using broadcastPort: " + broadCastPort, LogUtils.Severity.DEBUG);
 		} catch (IOException e) {
 			logError("Could not get broadcastPort from config: ", e);

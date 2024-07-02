@@ -156,13 +156,13 @@ public class settingsController {
 		changeBarColors(controllerVar.getReportChart());
 		changeStatisticColors(controllerVar.getAreaReportChart());
 		
-		String mainclr = ConfigReader.configRead("mainColor");
+		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getLogManagerLabelBkg().setStyle("-fx-background-color: " + mainclr + ";");
 		
-		String secclr = ConfigReader.configRead("secondaryColor");
+		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getServerStatusLabel().setStyle(
 				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -172,7 +172,7 @@ public class settingsController {
 		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		
 		
-		String bkgclr = ConfigReader.configRead("bkgColor");
+		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
 		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getBkgclr2().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getTabPane().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -186,7 +186,7 @@ public class settingsController {
 		controllerVar.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane().setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.4) + ";");
 		
-		String accclr = ConfigReader.configRead("accentColor");
+		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
 		controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
 		controllerVar.getDetailsLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
@@ -207,7 +207,7 @@ public class settingsController {
 		controllerVar.getCalfill().setStyle(
 				updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", accclr));
 		
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
+		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
@@ -278,7 +278,7 @@ public class settingsController {
 					"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
 		
-		if (ConfigReader.configRead("UIDarkMode").equals("true")) {
+		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
 			addDarkStyles();
 		} else {
 			addLightStyles();
@@ -594,16 +594,18 @@ public class settingsController {
 		
 		root.setTop(topBar);
 		
-		startupFullscreenCheckbox.setSelected(ConfigReader.configRead("fullscreenOnStartup").equals("true"));
-		serverAutoconnectCheckbox.setSelected(ConfigReader.configRead("serverAutoConnect").equals("true"));
-		AOTNotes.setSelected(ConfigReader.configRead("AOTNotes").equals("true"));
-		AOTReport.setSelected(ConfigReader.configRead("AOTReport").equals("true"));
-		AOTMap.setSelected(ConfigReader.configRead("AOTMap").equals("true"));
-		AOTID.setSelected(ConfigReader.configRead("AOTID").equals("true"));
-		AOTCallout.setSelected(ConfigReader.configRead("AOTCallout").equals("true"));
-		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings").equals("true"));
-		AOTClient.setSelected(ConfigReader.configRead("AOTClient").equals("true"));
-		AOTDebug.setSelected(ConfigReader.configRead("AOTDebug").equals("true"));
+		startupFullscreenCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
+		serverAutoconnectCheckbox.setSelected(
+				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
+		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
+		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
+		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
+		AOTID.setSelected(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
+		AOTCallout.setSelected(ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
+		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
+		AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
+		AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equals("true"));
 		
 		String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
 		mainWindowComboBox.getItems().addAll(displayPlacements);
@@ -611,9 +613,9 @@ public class settingsController {
 		ReportWindowComboBox.getItems().addAll(displayPlacements);
 		
 		try {
-			mainWindowComboBox.setValue(ConfigReader.configRead("mainWindowLayout"));
-			notesWindowComboBox.setValue(ConfigReader.configRead("notesWindowLayout"));
-			ReportWindowComboBox.setValue(ConfigReader.configRead("reportWindowLayout"));
+			mainWindowComboBox.setValue(ConfigReader.configRead("layout", "mainWindowLayout"));
+			notesWindowComboBox.setValue(ConfigReader.configRead("layout", "notesWindowLayout"));
+			ReportWindowComboBox.setValue(ConfigReader.configRead("layout", "reportWindowLayout"));
 		} catch (IOException e) {
 			logError("Could not set reportwindowboxes from config: ", e);
 		}
@@ -624,55 +626,55 @@ public class settingsController {
 			
 			if (comboBox == mainWindowComboBox) {
 				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "Default");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "Default");
 				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "TopLeft");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "TopLeft");
 				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "TopRight");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "TopRight");
 				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "BottomLeft");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "BottomLeft");
 				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "BottomRight");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "BottomRight");
 				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "FullLeft");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "FullLeft");
 				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("mainWindowLayout", "FullRight");
+					ConfigWriter.configwrite("layout", "mainWindowLayout", "FullRight");
 				}
 			}
 			
 			if (comboBox == notesWindowComboBox) {
 				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "Default");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "Default");
 				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "TopLeft");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "TopLeft");
 				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "TopRight");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "TopRight");
 				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "BottomLeft");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "BottomLeft");
 				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "BottomRight");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "BottomRight");
 				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "FullLeft");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "FullLeft");
 				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("notesWindowLayout", "FullRight");
+					ConfigWriter.configwrite("layout", "notesWindowLayout", "FullRight");
 				}
 			}
 			
 			if (comboBox == ReportWindowComboBox) {
 				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "Default");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "Default");
 				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "TopLeft");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "TopLeft");
 				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "TopRight");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "TopRight");
 				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "BottomLeft");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "BottomLeft");
 				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "BottomRight");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "BottomRight");
 				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "FullLeft");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "FullLeft");
 				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("reportWindowLayout", "FullRight");
+					ConfigWriter.configwrite("layout", "reportWindowLayout", "FullRight");
 				}
 			}
 		};
@@ -681,7 +683,7 @@ public class settingsController {
 		notesWindowComboBox.setOnAction(comboBoxHandler);
 		ReportWindowComboBox.setOnAction(comboBoxHandler);
 		
-		broadcastPortField.setText(ConfigReader.configRead("broadcastPort"));
+		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 		
 		broadcastPortField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
@@ -707,7 +709,7 @@ public class settingsController {
 				return;
 			}
 			
-			ConfigWriter.configwrite("broadcastPort", newText);
+			ConfigWriter.configwrite("connectionSettings", "broadcastPort", newText);
 		});
 		
 		bkgPicker.valueProperty().addListener(new ChangeListener<Color>() {
@@ -835,7 +837,7 @@ public class settingsController {
 		presetComboBoxReport.getItems().addAll(presets);
 		
 		try {
-			if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
 				reportStyleComboBox.getSelectionModel().selectFirst();
 			} else {
 				reportStyleComboBox.getSelectionModel().selectLast();
@@ -845,7 +847,7 @@ public class settingsController {
 			
 		}
 		try {
-			if (ConfigReader.configRead("UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
 				textClrComboBox.getSelectionModel().selectFirst();
 				controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -931,16 +933,16 @@ public class settingsController {
 		});
 		reportStyleComboBox.setOnAction(event -> {
 			if (reportStyleComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
-				ConfigWriter.configwrite("reportWindowDarkMode", "true");
+				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
 			} else {
-				ConfigWriter.configwrite("reportWindowDarkMode", "false");
+				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "false");
 			}
 		});
 		textClrComboBox.setOnAction(event -> {
 			if (textClrComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
-				ConfigWriter.configwrite("UIDarkMode", "true");
+				ConfigWriter.configwrite("uiColors", "UIDarkMode", "true");
 			} else {
-				ConfigWriter.configwrite("UIDarkMode", "false");
+				ConfigWriter.configwrite("uiColors", "UIDarkMode", "false");
 			}
 			try {
 				loadTheme();
@@ -1041,18 +1043,18 @@ public class settingsController {
 		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems().addAll(calloutDurations);
-		calloutDurComboBox.setValue(ConfigReader.configRead("calloutDuration"));
+		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));
 		calloutDurComboBox.setOnAction(actionEvent -> {
 			String selectedDur = (String) calloutDurComboBox.getSelectionModel().getSelectedItem();
-			ConfigWriter.configwrite("calloutDuration", selectedDur);
+			ConfigWriter.configwrite("misc", "calloutDuration", selectedDur);
 		});
 		
 		String[] idDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		idDurComboBox.getItems().addAll(idDurations);
-		idDurComboBox.setValue(ConfigReader.configRead("IDDuration"));
+		idDurComboBox.setValue(ConfigReader.configRead("misc", "IDDuration"));
 		idDurComboBox.setOnAction(actionEvent -> {
 			String selectedDur = (String) idDurComboBox.getSelectionModel().getSelectedItem();
-			ConfigWriter.configwrite("IDDuration", selectedDur);
+			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
 		
 		Platform.runLater(() -> {
@@ -1081,7 +1083,7 @@ public class settingsController {
 		stage.setScene(newScene);
 		stage.show();
 		stage.centerOnScreen();
-		stage.setAlwaysOnTop(ConfigReader.configRead("AOTDebug").equals("true"));
+		stage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTDebug").equals("true"));
 		
 		windowUtils.centerStageOnMainApp(stage);
 	}
@@ -1109,15 +1111,15 @@ public class settingsController {
 	
 	private void loadColors() {
 		try {
-			Color primary = Color.valueOf(ConfigReader.configRead("mainColor"));
-			Color secondary = Color.valueOf(ConfigReader.configRead("secondaryColor"));
-			Color accent = Color.valueOf(ConfigReader.configRead("accentColor"));
-			Color bkg = Color.valueOf(ConfigReader.configRead("bkgColor"));
+			Color primary = Color.valueOf(ConfigReader.configRead("uiColors", "mainColor"));
+			Color secondary = Color.valueOf(ConfigReader.configRead("uiColors", "secondaryColor"));
+			Color accent = Color.valueOf(ConfigReader.configRead("uiColors", "accentColor"));
+			Color bkg = Color.valueOf(ConfigReader.configRead("uiColors", "bkgColor"));
 			
-			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportBackground"));
-			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSecondary"));
-			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportAccent"));
-			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportHeading"));
+			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportSettings", "reportBackground"));
+			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSettings", "reportSecondary"));
+			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
+			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
 			
 			primPicker.setValue(primary);
 			secPicker.setValue(secondary);
@@ -1145,7 +1147,7 @@ public class settingsController {
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
 			
-			if (ConfigReader.configRead("UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
 				tabpane.getStyleClass().clear();
 				tabpane.getStyleClass().add("darktabpane");
 			} else {
@@ -1154,8 +1156,9 @@ public class settingsController {
 			}
 			
 			try {
-				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor");
-				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
+				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
+				                                                                              "accentColor") + ";";
 				resetDefaultsBtn.setStyle(nonTransparentBtn);
 				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
 				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
@@ -1179,10 +1182,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void startupFullscreenClick(ActionEvent actionEvent) {
 		if (startupFullscreenCheckbox.isSelected()) {
-			ConfigWriter.configwrite("fullscreenOnStartup", "true");
+			ConfigWriter.configwrite("uiSettings", "fullscreenOnStartup", "true");
 			startupFullscreenCheckbox.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("fullscreenOnStartup", "false");
+			ConfigWriter.configwrite("uiSettings", "fullscreenOnStartup", "false");
 			startupFullscreenCheckbox.setSelected(false);
 		}
 	}
@@ -1190,10 +1193,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void settingsAOTClick(ActionEvent actionEvent) {
 		if (AOTSettings.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTSettings", "true");
 			AOTSettings.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTSettings", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTSettings", "false");
 			AOTSettings.setSelected(false);
 		}
 	}
@@ -1201,10 +1204,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void reportAOTClick(ActionEvent actionEvent) {
 		if (AOTReport.isSelected()) {
-			ConfigWriter.configwrite("AOTReport", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTReport", "true");
 			AOTReport.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTReport", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTReport", "false");
 			AOTReport.setSelected(false);
 		}
 	}
@@ -1212,10 +1215,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void mapAOTClick(ActionEvent actionEvent) {
 		if (AOTMap.isSelected()) {
-			ConfigWriter.configwrite("AOTMap", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTMap", "true");
 			AOTMap.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTMap", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTMap", "false");
 			AOTMap.setSelected(false);
 		}
 	}
@@ -1223,10 +1226,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void calloutAOTClick(ActionEvent actionEvent) {
 		if (AOTCallout.isSelected()) {
-			ConfigWriter.configwrite("AOTCallout", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTCallout", "true");
 			AOTCallout.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTCallout", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTCallout", "false");
 			AOTCallout.setSelected(false);
 		}
 	}
@@ -1234,10 +1237,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void IDAOTClick(ActionEvent actionEvent) {
 		if (AOTID.isSelected()) {
-			ConfigWriter.configwrite("AOTID", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTID", "true");
 			AOTID.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTID", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTID", "false");
 			AOTID.setSelected(false);
 		}
 	}
@@ -1245,10 +1248,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void NotesAOTClick(ActionEvent actionEvent) {
 		if (AOTNotes.isSelected()) {
-			ConfigWriter.configwrite("AOTNotes", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTNotes", "true");
 			AOTNotes.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTNotes", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTNotes", "false");
 			AOTNotes.setSelected(false);
 		}
 	}
@@ -1256,10 +1259,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void ClientAOTClick(ActionEvent actionEvent) {
 		if (AOTClient.isSelected()) {
-			ConfigWriter.configwrite("AOTClient", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTClient", "true");
 			AOTClient.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTClient", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTClient", "false");
 			AOTClient.setSelected(false);
 		}
 	}
@@ -1267,10 +1270,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void debugAOTClick(ActionEvent actionEvent) {
 		if (AOTDebug.isSelected()) {
-			ConfigWriter.configwrite("AOTDebug", "true");
+			ConfigWriter.configwrite("AOTSettings", "AOTDebug", "true");
 			AOTDebug.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("AOTDebug", "false");
+			ConfigWriter.configwrite("AOTSettings", "AOTDebug", "false");
 			AOTDebug.setSelected(false);
 		}
 	}
@@ -1278,10 +1281,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void serverAutoConnectClick(ActionEvent actionEvent) {
 		if (serverAutoconnectCheckbox.isSelected()) {
-			ConfigWriter.configwrite("serverAutoConnect", "true");
+			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "true");
 			serverAutoconnectCheckbox.setSelected(true);
 		} else {
-			ConfigWriter.configwrite("serverAutoConnect", "false");
+			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "false");
 			serverAutoconnectCheckbox.setSelected(false);
 		}
 	}

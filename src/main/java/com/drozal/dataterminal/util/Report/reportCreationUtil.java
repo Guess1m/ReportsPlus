@@ -68,11 +68,11 @@ public class reportCreationUtil {
 		Label warningLabel = (Label) calloutReport.get("warningLabel");
 		
 		try {
-			officername.setText(ConfigReader.configRead("Name"));
-			officerrank.setText(ConfigReader.configRead("Rank"));
-			officerdiv.setText(ConfigReader.configRead("Division"));
-			officeragen.setText(ConfigReader.configRead("Agency"));
-			officernum.setText(ConfigReader.configRead("Number"));
+			officername.setText(ConfigReader.configRead("userInfo", "Name"));
+			officerrank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			officerdiv.setText(ConfigReader.configRead("userInfo", "Division"));
+			officeragen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			officernum.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -168,11 +168,11 @@ public class reportCreationUtil {
 		Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
 		
 		try {
-			officername.setText(ConfigReader.configRead("Name"));
-			officerrank.setText(ConfigReader.configRead("Rank"));
-			officerdiv.setText(ConfigReader.configRead("Division"));
-			officeragen.setText(ConfigReader.configRead("Agency"));
-			officernum.setText(ConfigReader.configRead("Number"));
+			officername.setText(ConfigReader.configRead("userInfo", "Name"));
+			officerrank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			officerdiv.setText(ConfigReader.configRead("userInfo", "Division"));
+			officeragen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			officernum.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -256,11 +256,11 @@ public class reportCreationUtil {
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
 		
 		try {
-			name.setText(ConfigReader.configRead("Name"));
-			rank.setText(ConfigReader.configRead("Rank"));
-			div.setText(ConfigReader.configRead("Division"));
-			agen.setText(ConfigReader.configRead("Agency"));
-			num.setText(ConfigReader.configRead("Number"));
+			name.setText(ConfigReader.configRead("userInfo", "Name"));
+			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			div.setText(ConfigReader.configRead("userInfo", "Division"));
+			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			num.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -362,11 +362,11 @@ public class reportCreationUtil {
 		Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
 		
 		try {
-			officername.setText(ConfigReader.configRead("Name"));
-			officerrank.setText(ConfigReader.configRead("Rank"));
-			officerdiv.setText(ConfigReader.configRead("Division"));
-			officeragen.setText(ConfigReader.configRead("Agency"));
-			officernum.setText(ConfigReader.configRead("Number"));
+			officername.setText(ConfigReader.configRead("userInfo", "Name"));
+			officerrank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			officerdiv.setText(ConfigReader.configRead("userInfo", "Division"));
+			officeragen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			officernum.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -584,11 +584,11 @@ public class reportCreationUtil {
 		Label warningLabel = (Label) incidentReport.get("warningLabel");
 		
 		try {
-			name.setText(ConfigReader.configRead("Name"));
-			rank.setText(ConfigReader.configRead("Rank"));
-			div.setText(ConfigReader.configRead("Division"));
-			agen.setText(ConfigReader.configRead("Agency"));
-			num.setText(ConfigReader.configRead("Number"));
+			name.setText(ConfigReader.configRead("userInfo", "Name"));
+			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			div.setText(ConfigReader.configRead("userInfo", "Division"));
+			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			num.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -687,11 +687,11 @@ public class reportCreationUtil {
 		Label warningLabel = (Label) searchReport.get("warningLabel");
 		
 		try {
-			name.setText(ConfigReader.configRead("Name"));
-			rank.setText(ConfigReader.configRead("Rank"));
-			div.setText(ConfigReader.configRead("Division"));
-			agen.setText(ConfigReader.configRead("Agency"));
-			num.setText(ConfigReader.configRead("Number"));
+			name.setText(ConfigReader.configRead("userInfo", "Name"));
+			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			div.setText(ConfigReader.configRead("userInfo", "Division"));
+			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			num.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -802,11 +802,11 @@ public class reportCreationUtil {
 		Button pullNotesBtn = (Button) arrestReport.get("pullNotesBtn");
 		
 		try {
-			officername.setText(ConfigReader.configRead("Name"));
-			officerrank.setText(ConfigReader.configRead("Rank"));
-			officerdiv.setText(ConfigReader.configRead("Division"));
-			officeragen.setText(ConfigReader.configRead("Agency"));
-			officernumarrest.setText(ConfigReader.configRead("Number"));
+			officername.setText(ConfigReader.configRead("userInfo", "Name"));
+			officerrank.setText(ConfigReader.configRead("userInfo", "Rank"));
+			officerdiv.setText(ConfigReader.configRead("userInfo", "Division"));
+			officeragen.setText(ConfigReader.configRead("userInfo", "Agency"));
+			officernumarrest.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -1247,11 +1247,11 @@ public class reportCreationUtil {
 		Button pullNotesBtnts = (Button) trafficStopReport.get("pullNotesBtn");
 		
 		try {
-			officernamets.setText(ConfigReader.configRead("Name"));
-			officerrankts.setText(ConfigReader.configRead("Rank"));
-			officerdivts.setText(ConfigReader.configRead("Division"));
-			officeragents.setText(ConfigReader.configRead("Agency"));
-			officernumarrestts.setText(ConfigReader.configRead("Number"));
+			officernamets.setText(ConfigReader.configRead("userInfo", "Name"));
+			officerrankts.setText(ConfigReader.configRead("userInfo", "Rank"));
+			officerdivts.setText(ConfigReader.configRead("userInfo", "Division"));
+			officeragents.setText(ConfigReader.configRead("userInfo", "Agency"));
+			officernumarrestts.setText(ConfigReader.configRead("userInfo", "Number"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

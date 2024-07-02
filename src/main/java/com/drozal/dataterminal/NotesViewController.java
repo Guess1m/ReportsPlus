@@ -33,8 +33,8 @@ public class NotesViewController {
 	private Button codesbtnnotepad;
 	
 	public void initialize() throws IOException {
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("mainColor") + ";";
-		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("accentColor") + ";";
+		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
+		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
 		String padding = " -fx-padding: 2 7 2 7;";
 		
 		clearbtnnotepad.setStyle(initialStyle + padding);
@@ -50,7 +50,7 @@ public class NotesViewController {
 		
 		notepadTextArea.setText(actionController.notesText);
 		
-		String notepadMode = ConfigReader.configRead("notepadMode");
+		String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
 		if (notepadMode != null) {
 			String notepadStyle;
 			String modeToggleStyle;
@@ -82,12 +82,12 @@ public class NotesViewController {
 	@javafx.fxml.FXML
 	public void onDarkModeToggle() {
 		if (modeToggle.isSelected()) {
-			ConfigWriter.configwrite("notepadMode", "Dark");
+			ConfigWriter.configwrite("notepad", "notepadMode", "Dark");
 			notepadTextArea.setStyle(
 					"-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;");
 			modeToggle.setStyle("-fx-background-color: white;");
 		} else {
-			ConfigWriter.configwrite("notepadMode", "Light");
+			ConfigWriter.configwrite("notepad", "notepadMode", "Light");
 			notepadTextArea.setStyle(
 					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent;");
 			modeToggle.setStyle("-fx-background-color: grey;");

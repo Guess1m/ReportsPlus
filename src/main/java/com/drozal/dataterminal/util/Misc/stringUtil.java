@@ -44,7 +44,7 @@ public class stringUtil {
 	
 	public static String getSecondaryColor() {
 		try {
-			return ConfigReader.configRead("secondaryColor");
+			return ConfigReader.configRead("uiColors", "secondaryColor");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

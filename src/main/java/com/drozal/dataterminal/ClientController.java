@@ -51,11 +51,11 @@ public class ClientController {
 		
 		root.setTop(titleBar);
 		
-		if (ConfigReader.configRead("lastIPV4Connection") != null) {
-			inputHostField.setText(ConfigReader.configRead("lastIPV4Connection"));
+		if (ConfigReader.configRead("connectionSettings", "lastIPV4Connection") != null) {
+			inputHostField.setText(ConfigReader.configRead("connectionSettings", "lastIPV4Connection"));
 		}
-		if (ConfigReader.configRead("lastPortConnection") != null) {
-			inputPortField.setText(ConfigReader.configRead("lastPortConnection"));
+		if (ConfigReader.configRead("connectionSettings", "lastPortConnection") != null) {
+			inputPortField.setText(ConfigReader.configRead("connectionSettings", "lastPortConnection"));
 		}
 		
 		inputPortField.textProperty().addListener((observable, oldValue, newValue) -> {

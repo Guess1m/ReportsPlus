@@ -11,7 +11,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ConfigWriter {
 	
-	public static void configwrite(String database, String value) {
+	public static void configwrite(String database, String property, String value) {
 		Properties prop = new Properties();
 		OutputStream output = null;
 		FileInputStream input = null;
@@ -42,7 +42,7 @@ public class ConfigWriter {
 		
 		try {
 			
-			prop.setProperty("database." + database, value);
+			prop.setProperty(database + "." + property, value);
 			
 			output = new FileOutputStream(Objects.requireNonNull(configFilePath));
 			prop.store(output, null);

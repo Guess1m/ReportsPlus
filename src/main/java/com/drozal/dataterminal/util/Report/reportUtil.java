@@ -53,7 +53,7 @@ public class reportUtil {
 	private static String getPrimaryColor() {
 		String primaryColor;
 		try {
-			primaryColor = ConfigReader.configRead("reportSecondary");
+			primaryColor = ConfigReader.configRead("reportSettings", "reportSecondary");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -63,7 +63,7 @@ public class reportUtil {
 	private static String getSecondaryColor() {
 		String secondaryColor;
 		try {
-			secondaryColor = ConfigReader.configRead("reportAccent");
+			secondaryColor = ConfigReader.configRead("reportSettings", "reportAccent");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -73,7 +73,7 @@ public class reportUtil {
 	private static String getAccentColor() {
 		String accentColor;
 		try {
-			accentColor = ConfigReader.configRead("reportBackground");
+			accentColor = ConfigReader.configRead("reportSettings", "reportBackground");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -284,7 +284,7 @@ public class reportUtil {
 	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
 		String placeholder;
 		try {
-			placeholder = ConfigReader.configRead("reportHeading");
+			placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -454,7 +454,7 @@ public class reportUtil {
 		Scene scene = new Scene(borderPane);
 		
 		try {
-			if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
 				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
@@ -526,7 +526,7 @@ public class reportUtil {
 		
 		String startupValue = null;
 		try {
-			startupValue = ConfigReader.configRead("reportWindowLayout");
+			startupValue = ConfigReader.configRead("layout", "reportWindowLayout");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -561,7 +561,7 @@ public class reportUtil {
 		result.put("root", borderPane);
 		
 		try {
-			stage.setAlwaysOnTop(ConfigReader.configRead("AOTReport").equals("true"));
+			stage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		} catch (IOException e) {
 			logError("Could not get AOTReport: ", e);
 		}
@@ -573,7 +573,7 @@ public class reportUtil {
 	private static void addRowToGridPane(GridPane gridPane, nestedReportUtils.RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
 		String placeholder;
 		try {
-			if (ConfigReader.configRead("reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
 				placeholder = "black";
 			} else {
 				placeholder = "white";

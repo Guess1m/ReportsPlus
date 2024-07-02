@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="585.0" prefWidth="466.0"
-            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/21"
+            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.updatesController">
     <center>
         <AnchorPane prefHeight="514.0" prefWidth="389.0" style="-fx-background-color: #1A2130;">
@@ -122,145 +122,106 @@
                     <children>
                         <HBox>
                             <GridPane.margin>
-                                <Insets left="20.0" right="20.0" top="10.0"/>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                             </GridPane.margin>
                             <children>
-                                <VBox spacing="3.0" HBox.hgrow="NEVER">
-                                    <children>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER_RIGHT" prefHeight="21.0"
-                                               style="-fx-text-fill: #FDFFE2;" text="-">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
                                 <VBox spacing="3.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Thicker Notes Windows">
+                                               text="* Callout History">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Java Version Update">
+                                               text="* Active Callouts">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Better Callout Update Msg. Debounce">
+                                               text="* Many Bug Fixes">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" New Callout Window">
+                                               text="* Status for Callouts">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Active Callouts">
+                                               text="* Enhanced Logging">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Callout History">
+                                               text="* Java Version Update">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Status for Callouts">
+                                               text="* New Callout Window">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Added Version Info Window">
+                                               text="* Thicker Notes Windows">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Added more maps; Atlas, Road, Area">
+                                               text="* Added Version Info Window">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Enhanced Customization; Background/UI Colors">
+                                               text="* Fixed &quot;Optional&quot; Sections of Forms" wrapText="true">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
-                                               text=" Fixed &quot;Optional&quot; Sections of Forms" wrapText="true">
+                                               text="* Added more maps; Atlas, Road, Area">
                                             <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text="* Better Callout Update Msg. Debounce">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text="* New Configuration Options / Sections" wrapText="true">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text="* Customization.json for customizing dropdowns" wrapText="true">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text="* Enhanced Customization; Background/UI Colors">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" style="-fx-text-fill: #5A72A0;"
+                                               text="* Server Autoconnection / Broadcasting Port Configuration"
+                                               wrapText="true">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
                                     </children>

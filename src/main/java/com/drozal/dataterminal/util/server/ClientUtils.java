@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 @SuppressWarnings("ConstantValue")
 public class ClientUtils {
-	private static final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static Boolean isConnected = false;
 	public static String port;
@@ -52,11 +52,14 @@ public class ClientUtils {
 	
 	public static void connectToService(String serviceAddress, int servicePort) throws IOException {
 		if (socket != null && !socket.isClosed()) {
+			log("Closing existing socket before reconnecting.", LogUtils.Severity.INFO);
 			socket.close();
 		}
 		new Thread(() -> {
 			try {
+				log("Initializing socket.", LogUtils.Severity.INFO);
 				socket = new Socket();
+				
 				Platform.runLater(() -> {
 					if (actionController.clientController != null) {
 						actionController.clientController.getStatusLabel().setText("Testing Connection...");
@@ -64,24 +67,35 @@ public class ClientUtils {
 					}
 				});
 				
+				log("Attempting to connect to " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
+				log("Socket connected successfully.", LogUtils.Severity.INFO);
+				
 				socket.setSoTimeout(10000);
+				log("Socket timeout set to 10000ms.", LogUtils.Severity.INFO);
 				
 				isConnected = true;
 				notifyStatusChanged(isConnected);
+				
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				Thread readerThread = new Thread(() -> receiveMessages(in));
 				readerThread.start();
 				
+				log("Reader thread started.", LogUtils.Severity.INFO);
 				log("CONNECTED: " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
+				
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
+				
+				log("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort,
+				    LogUtils.Severity.INFO);
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
 			} catch (IOException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
+				log("Stack trace: " + Arrays.toString(e.getStackTrace()), LogUtils.Severity.ERROR);
 			}
 		}).start();
 	}
@@ -263,6 +277,7 @@ public class ClientUtils {
 	
 	private static void notifyStatusChanged(boolean status) {
 		if (statusListener != null) {
+			log("Client Connection Status Changed: " + isConnected, LogUtils.Severity.DEBUG);
 			Platform.runLater(() -> statusListener.onStatusChanged(status));
 		}
 	}

@@ -151,6 +151,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiSettings", "fullscreenOnStartup", "true");
 		// Connection Settings
 		checkAndSetDefaultValue("connectionSettings", "serverAutoConnect", "true");
+		checkAndSetDefaultValue("connectionSettings", "lastIPV4Connection", "");
+		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
 		// Layout Settings
 		checkAndSetDefaultValue("layout", "mainWindowLayout", "Default");

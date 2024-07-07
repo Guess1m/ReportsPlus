@@ -4,10 +4,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.*;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -34,6 +31,9 @@ public class updateUtil {
 			} else {
 				log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
 			}
+		} catch (UnknownHostException e) {
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
+			    LogUtils.Severity.ERROR);
 		} catch (IOException e) {
 			logError("Cant check for updates: ", e);
 		}

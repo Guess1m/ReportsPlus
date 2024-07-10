@@ -37,6 +37,53 @@ public class Launcher {
 			logError("An error occurred while clearing the log file: ", e);
 		}
 		
+		deleteFiles();
+		
+		loadFonts();
+		
+		createFilesFolders();
+		
+		copyInternalFiles();
+		
+		createDataLogsDir();
+		
+		if (ConfigReader.doesConfigExist()) {
+			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
+			
+			checkAndSetDefaultValues();
+			
+			DataTerminalHomeApplication.main(args);
+		} else {
+			newOfficerApplication.main(args);
+		}
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			log("Shutdown Request Recieved", Severity.DEBUG);
+			endLog();
+			Platform.exit();
+			System.exit(0);
+		}));
+		
+	}
+	
+	public static void loadFonts() {
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara_Bold.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/SansSerifFLF.otf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLA.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLAB.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/arial.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
+		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Fat.ttf"), 14);
+	}
+	
+	private static void deleteFiles() {
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
 			Path path = Path.of(filePath);
@@ -88,10 +135,9 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world cars file: ", e);
 		}
-		
-		loadFonts();
-		
-		String folderPath = "";
+	}
+	
+	private static void createFilesFolders() {
 		String dataFolderPath = getJarPath() + File.separator + "data";
 		String serverData = getJarPath() + File.separator + "serverData";
 		
@@ -117,32 +163,27 @@ public class Launcher {
 		if (!calloutDataFile.exists()) {
 			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
 			//noinspection ResultOfMethodCallIgnored
-			calloutDataFile.createNewFile();
+			try {
+				calloutDataFile.createNewFile();
+			} catch (IOException e) {
+				logError("Could not create Callout Data File: ", e);
+			}
 		}
 		
 		File calloutHistoryFile = new File(calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
 			log("Callout History File Doesn't Exist, Creating", Severity.INFO);
 			//noinspection ResultOfMethodCallIgnored
-			calloutHistoryFile.createNewFile();
+			try {
+				calloutHistoryFile.createNewFile();
+			} catch (IOException e) {
+				logError("Could not create Callout Data File: ", e);
+			}
 		}
-		
-		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
-		File chargesFile = new File(chargesFilePath);
-		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
-		File citationsFile = new File(citationsFilePath);
-		String customizationFilePath = getJarPath() + File.separator + "data" + File.separator + "customization.json";
-		File customizationFile = new File(customizationFilePath);
-		if (!chargesFile.exists()) {
-			copyChargeDataFile();
-		}
-		if (!citationsFile.exists()) {
-			copyCitationDataFile();
-		}
-		if (!customizationFile.exists()) {
-			copyCustomizationDataFile();
-		}
-		
+	}
+	
+	private static void createDataLogsDir() {
+		String folderPath = "";
 		try {
 			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			File jarFile = new File(jarPath);
@@ -162,41 +203,35 @@ public class Launcher {
 		} else {
 			log("DataLogs Folder already exists.", LogUtils.Severity.INFO);
 		}
-		
-		if (ConfigReader.doesConfigExist()) {
-			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-			
-			checkAndSetDefaultValues();
-			
-			DataTerminalHomeApplication.main(args);
-		} else {
-			newOfficerApplication.main(args);
-		}
-		
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			log("Shutdown Request Recieved", Severity.DEBUG);
-			endLog();
-			Platform.exit();
-			System.exit(0);
-		}));
-		
 	}
 	
-	public static void loadFonts() {
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Candara_Bold.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/SansSerifFLF.otf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLA.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/CONSOLAB.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/arial.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Fat.ttf"), 14);
+	private static void copyInternalFiles() {
+		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+		File chargesFile = new File(chargesFilePath);
+		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+		File citationsFile = new File(citationsFilePath);
+		String customizationFilePath = getJarPath() + File.separator + "data" + File.separator + "customization.json";
+		File customizationFile = new File(customizationFilePath);
+		if (!chargesFile.exists()) {
+			try {
+				copyChargeDataFile();
+			} catch (IOException e) {
+			}
+		}
+		if (!citationsFile.exists()) {
+			try {
+				copyCitationDataFile();
+			} catch (IOException e) {
+				logError("Could not copy CitationData file: ", e);
+			}
+		}
+		if (!customizationFile.exists()) {
+			try {
+				copyCustomizationDataFile();
+			} catch (IOException e) {
+				logError("Could not copy Customization file: ", e);
+			}
+		}
 	}
 	
 }

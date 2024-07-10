@@ -25,7 +25,7 @@ public class updatesController {
 	private Label verChangelog;
 	
 	public void initialize() {
-		topBar = createSimpleTitleBar("Version Information", true);
+		topBar = createSimpleTitleBar("Version Information", false);
 		root.setTop(topBar);
 		
 		verChangelog.setText(version);

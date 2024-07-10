@@ -109,3 +109,63 @@
 .formPane .scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #262626; /* Thumb color when pressed */
 }
+
+
+.versionPane .scroll-pane {
+    -fx-background: transparent;
+}
+
+.versionPane .scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.versionPane .scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+/* Vertical Scroll Bar */
+.versionPane .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 14px; /* Thicker width */
+}
+
+.versionPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #5e7387; /* Thumb color */
+    -fx-min-height: 14px; /* Thicker thumb */
+}
+
+.versionPane .scroll-bar:vertical .increment-button,
+.versionPane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Horizontal Scroll Bar */
+.versionPane .scroll-bar:horizontal {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-height: 14px; /* Thicker height */
+}
+
+.versionPane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #5e7387; /* Thumb color */
+    -fx-min-width: 14px; /* Thicker thumb */
+}
+
+.versionPane .scroll-bar:horizontal .increment-button,
+.versionPane .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent; /* Transparent buttons */
+}
+
+/* Track of the Scroll Bars */
+.versionPane .scroll-bar .track {
+    -fx-background-color: none; /* Transparent track */
+}
+
+/* Thumb Color When Pressed - Vertical */
+.versionPane .scroll-bar:vertical:pressed .thumb {
+    -fx-background-color: #34404b; /* Thumb color when pressed */
+}
+
+/* Thumb Color When Pressed - Horizontal */
+.versionPane .scroll-bar:horizontal:pressed .thumb {
+    -fx-background-color: #34404b; /* Thumb color when pressed */
+}

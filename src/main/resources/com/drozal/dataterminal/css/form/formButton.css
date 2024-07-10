@@ -32,3 +32,32 @@
     -fx-background-color: #495a69; /* Background color */
     -fx-border-width: 0;
 }
+
+
+.codesBtn {
+    -fx-background-color: transparent; /* Background color */
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 5 0 5 0;
+    -fx-border-color: rgb(40,40,40,0.3); /* Border color */
+    -fx-text-fill: black;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14;
+}
+.codesBtn:hover {
+    -fx-background-color: rgb(200, 200, 200, 0.2);  /* Background color */
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 5 0 5 0;
+    -fx-border-color: rgb(40,40,40,0.3); /* Border color */
+    -fx-text-fill: black;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.4;
+}
+.codesBtn:pressed {
+    -fx-background-color: rgb(200, 200, 200, 0.4); /* Background color */
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 5 0 5 0;
+    -fx-border-color: rgb(40,40,40,0.3); /* Border color */
+    -fx-text-fill: black;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14.5;
+}

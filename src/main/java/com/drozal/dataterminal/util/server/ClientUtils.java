@@ -171,7 +171,6 @@ public class ClientUtils {
 									logError("could not read IDDuration: ", e);
 								}
 								
-								
 								IDStage.setOnHidden(event -> IDStage = null);
 							});
 							break;

@@ -142,6 +142,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("userInfo", "Name", "Error");
 		checkAndSetDefaultValue("userInfo", "Number", "Error");
 		checkAndSetDefaultValue("userInfo", "Rank", "Error");
+		checkAndSetDefaultValue("userInfo", "Callsign", "");
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
 		checkAndSetDefaultValue("misc", "IDDuration", "infinite");

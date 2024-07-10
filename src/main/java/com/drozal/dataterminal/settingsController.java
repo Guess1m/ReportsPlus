@@ -142,7 +142,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Label lbl8;
 	
-	
 	//</editor-fold>
 	
 	public static void loadTheme() throws IOException {
@@ -170,7 +169,6 @@ public class settingsController {
 		controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
-		
 		
 		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
 		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");

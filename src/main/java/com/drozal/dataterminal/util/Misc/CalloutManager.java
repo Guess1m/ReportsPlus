@@ -51,11 +51,9 @@ public class CalloutManager {
 				callouts.setCalloutList(new ArrayList<>());
 			}
 			
-			
 			if (callouts.getCalloutList() == null) {
 				callouts.setCalloutList(new ArrayList<>());
 			}
-			
 			
 			for (Callout existingCallout : callouts.getCalloutList()) {
 				if (existingCallout.getNumber().equals(number)) {
@@ -63,7 +61,6 @@ public class CalloutManager {
 					return;
 				}
 			}
-			
 			
 			Callout newCallout = new Callout();
 			newCallout.setNumber(number);
@@ -78,7 +75,6 @@ public class CalloutManager {
 			newCallout.setStartTime(startTime);
 			newCallout.setStatus(status);
 			callouts.getCalloutList().add(newCallout);
-			
 			
 			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
@@ -95,7 +91,6 @@ public class CalloutManager {
 		
 		try {
 			File file = new File(xmlFile);
-			
 			
 			if (file.exists() && file.length() != 0) {
 				try {
@@ -140,7 +135,6 @@ public class CalloutManager {
 			if (selectedNode instanceof GridPane gridPane) {
 				String number = ((Label) gridPane.getChildren().get(1)).getText();
 				
-				
 				String type = getValueByNumber(calloutDataURL, number, "Type");
 				String description = getValueByNumber(calloutDataURL, number, "Description");
 				String message = getValueByNumber(calloutDataURL, number, "Message");
@@ -177,7 +171,6 @@ public class CalloutManager {
 			pane.setDisable(false);
 			if (selectedNode instanceof GridPane gridPane) {
 				String number = ((Label) gridPane.getChildren().get(1)).getText();
-				
 				
 				String type = getValueByNumber(calloutHistoryURL, number, "Type");
 				String description = getValueByNumber(calloutHistoryURL, number, "Description");

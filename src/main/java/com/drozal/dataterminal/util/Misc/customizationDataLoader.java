@@ -40,13 +40,11 @@ public class customizationDataLoader {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(new File(customizationURL));
 		
-		
 		JsonNode vehicleTypesNode = rootNode.get("vehicleTypes");
 		for (JsonNode node : vehicleTypesNode) {
 			vehicleTypes.add(node.asText());
 		}
 		log("loaded vehicleTypes from Json", LogUtils.Severity.INFO);
-		
 		
 		JsonNode carColorsNode = rootNode.get("carColors");
 		for (JsonNode node : carColorsNode) {
@@ -54,13 +52,11 @@ public class customizationDataLoader {
 		}
 		log("loaded carColors from Json", LogUtils.Severity.INFO);
 		
-		
 		JsonNode searchTypesNode = rootNode.get("searchTypes");
 		for (JsonNode node : searchTypesNode) {
 			searchTypes.add(node.asText());
 		}
 		log("loaded searchTypes from Json", LogUtils.Severity.INFO);
-		
 		
 		JsonNode searchMethodsNode = rootNode.get("searchMethods");
 		for (JsonNode node : searchMethodsNode) {
@@ -68,13 +64,11 @@ public class customizationDataLoader {
 		}
 		log("loaded searchMethods from Json", LogUtils.Severity.INFO);
 		
-		
 		JsonNode areaListNode = rootNode.get("areaList");
 		for (JsonNode node : areaListNode) {
 			areaList.add(node.asText());
 		}
 		log("loaded areaList from Json", LogUtils.Severity.INFO);
-		
 		
 		JsonNode divisionsNode = rootNode.get("divisions");
 		for (JsonNode node : divisionsNode) {
@@ -82,13 +76,11 @@ public class customizationDataLoader {
 		}
 		log("loaded divisions from Json", LogUtils.Severity.INFO);
 		
-		
 		JsonNode agenciesNode = rootNode.get("agencies");
 		for (JsonNode node : agenciesNode) {
 			agencies.add(node.asText());
 		}
 		log("loaded agencies from Json", LogUtils.Severity.INFO);
-		
 		
 		JsonNode ranksNode = rootNode.get("ranks");
 		for (JsonNode node : ranksNode) {

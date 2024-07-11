@@ -64,6 +64,12 @@ public class calloutController {
 	@FXML
 	private Label statusLabel;
 	
+	/**
+	 * Retrieves the most recent Callout from the XML file.
+	 * This method unmarshals the XML content into Callout objects and returns the last Callout in the list.
+	 *
+	 * @return the most recent Callout object or null if no valid Callout is found.
+	 */
 	public static Callout getCallout() {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";
 		File file = new File(filePath);
@@ -87,6 +93,9 @@ public class calloutController {
 		} catch (JAXBException e) {
 			logError("Error unmarshalling file: " + filePath + " Trace:", e);
 			return null;
+		} catch (Exception e) {
+			logError("Unexpected error occurred while reading file: " + filePath + " Trace:", e);
+			return null;
 		}
 	}
 	
@@ -103,35 +112,34 @@ public class calloutController {
 			
 			Callout callout = getCallout();
 			
-			assert callout != null;
-			String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
-			String type = callout.getType() != null ? callout.getType() : "Not Available";
-			String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
-			String area = callout.getArea() != null ? callout.getArea() : "Not Available";
-			String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
-			String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
-			String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
-			String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
-			String desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
-			String message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
-			status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
-			
-			respondBtn.setOnAction(actionEvent -> {
-				status = "Responded";
-				statusLabel.setText("Responded.");
-				statusLabel.setVisible(true);
-				respondBtn.setVisible(false);
-				ignoreBtn.setVisible(false);
-			});
-			ignoreBtn.setOnAction(actionEvent -> {
-				status = "Not Responded";
-				statusLabel.setText("Ignored.");
-				statusLabel.setVisible(true);
-				respondBtn.setVisible(false);
-				ignoreBtn.setVisible(false);
-			});
-			
 			if (callout != null) {
+				String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
+				String type = callout.getType() != null ? callout.getType() : "Not Available";
+				String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
+				String area = callout.getArea() != null ? callout.getArea() : "Not Available";
+				String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
+				String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
+				String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
+				String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
+				String desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
+				String message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+				status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+				
+				respondBtn.setOnAction(actionEvent -> {
+					status = "Responded";
+					statusLabel.setText("Responded.");
+					statusLabel.setVisible(true);
+					respondBtn.setVisible(false);
+					ignoreBtn.setVisible(false);
+				});
+				ignoreBtn.setOnAction(actionEvent -> {
+					status = "Not Responded";
+					statusLabel.setText("Ignored.");
+					statusLabel.setVisible(true);
+					respondBtn.setVisible(false);
+					ignoreBtn.setVisible(false);
+				});
+				
 				streetField.setText(street);
 				numberField.setText(number);
 				areaField.setText(area);
@@ -140,41 +148,40 @@ public class calloutController {
 				dateField.setText(date);
 				countyField.setText(county);
 				typeField.setText(type);
-				if (!callout.getDescription().isEmpty()) {
-					descriptionField.setText(desc);
-				}
-				if (!callout.getMessage().isEmpty()) {
-					descriptionField.appendText("\n " + message);
-				}
+				descriptionField.setText(desc.isEmpty() ? message : desc + "\n" + message);
 				
 			} else {
+				log("No Callout found, callout = null, possibly connected to a server ", LogUtils.Severity.ERROR);
+				streetField.setText("No Data");
+				numberField.setText("No Data");
+				areaField.setText("No Data");
+				priorityField.setText("No Data");
+				timeField.setText("No Data");
+				dateField.setText("No Data");
+				countyField.setText("No Data");
+				descriptionField.setText("No Data");
+				typeField.setText("No Data");
 				
-				log("No Callouts found.", LogUtils.Severity.WARN);
-				streetField.setText(/*No Data*/"");
-				numberField.setText(/*No Data*/"");
-				areaField.setText(/*No Data*/"");
-				priorityField.setText(/*No Data*/"");
-				timeField.setText(/*No Data*/"");
-				dateField.setText(/*No Data*/"");
-				countyField.setText(/*No Data*/"");
-				descriptionField.setText(/*No Data*/"");
-				typeField.setText(/*No Data*/"");
+				CalloutStage.close();
+				CalloutStage = null;
+				log("Closed Null Stage", LogUtils.Severity.ERROR);
 			}
 			
 			stage.setOnHidden(windowEvent -> {
 				log("Added Callout To Active", LogUtils.Severity.INFO);
-				CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county,
-				                          time, date, status);
+				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(),
+				                          descriptionField.getText(), "Message", priorityField.getText(),
+				                          streetField.getText(), areaField.getText(), countyField.getText(),
+				                          timeField.getText(), dateField.getText(), status);
 				
 				CalloutStage.close();
 				CalloutStage = null;
 			});
 		});
 		
-		// Fixed rem root.requestFocus()
-		
 		watchCalloutChanges();
 	}
+	
 	
 	public void watchCalloutChanges() {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");

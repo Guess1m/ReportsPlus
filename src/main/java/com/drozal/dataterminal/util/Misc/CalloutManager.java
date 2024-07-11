@@ -287,7 +287,12 @@ public class CalloutManager {
 			if (callouts != null && callouts.getCalloutList() != null) {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
-					Node calloutNode = createActiveCalloutNode(callout.getNumber(), callout.getStatus(),
+					String statusProp = "Not Available";
+					if (callout.getStatus() != null){
+						statusProp = callout.getStatus();
+					}
+					
+					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp,
 					                                           callout.getType(), callout.getStreet(),
 					                                           callout.getPriority(), callout.getArea());
 					listView.getItems().add(calloutNode);

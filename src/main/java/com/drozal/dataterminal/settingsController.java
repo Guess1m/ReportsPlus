@@ -182,6 +182,9 @@ public class settingsController {
 		controllerVar.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane().setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.4) + ";");
 		
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
@@ -375,13 +378,6 @@ public class settingsController {
 		addDarkForm(controllerVar.getPatstarttime());
 		addDarkForm(controllerVar.getPatstoptime());
 		addDarkForm(controllerVar.getPatvehicle());
-		addDarkForm(controllerVar.getPedaddressfield());
-		addDarkForm(controllerVar.getPeddobfield());
-		addDarkForm(controllerVar.getPedfnamefield());
-		addDarkForm(controllerVar.getPedgenfield());
-		addDarkForm(controllerVar.getPedlicensefield());
-		addDarkForm(controllerVar.getPedlnamefield());
-		addDarkForm(controllerVar.getPedwantedfield());
 		addDarkForm(controllerVar.getSearcharea());
 		addDarkForm(controllerVar.getSearchbacmeasure());
 		addDarkForm(controllerVar.getSearchbreathresult());
@@ -411,13 +407,6 @@ public class settingsController {
 		addDarkForm(controllerVar.getTrafplatenum());
 		addDarkForm(controllerVar.getTrafstreet());
 		addDarkForm(controllerVar.getTraftype());
-		addDarkForm(controllerVar.getVehinsfield());
-		addDarkForm(controllerVar.getVehmodelfield());
-		addDarkForm(controllerVar.getVehownerfield());
-		addDarkForm(controllerVar.getVehplatefield2());
-		addDarkForm(controllerVar.getVehregfield());
-		addDarkForm(controllerVar.getVehSearchField());
-		addDarkForm(controllerVar.getVehstolenfield());
 	}
 	
 	private static void addLightStyles() {
@@ -508,13 +497,6 @@ public class settingsController {
 		addLightForm(controllerVar.getPatstarttime());
 		addLightForm(controllerVar.getPatstoptime());
 		addLightForm(controllerVar.getPatvehicle());
-		addLightForm(controllerVar.getPedaddressfield());
-		addLightForm(controllerVar.getPeddobfield());
-		addLightForm(controllerVar.getPedfnamefield());
-		addLightForm(controllerVar.getPedgenfield());
-		addLightForm(controllerVar.getPedlicensefield());
-		addLightForm(controllerVar.getPedlnamefield());
-		addLightForm(controllerVar.getPedwantedfield());
 		addLightForm(controllerVar.getSearcharea());
 		addLightForm(controllerVar.getSearchbacmeasure());
 		addLightForm(controllerVar.getSearchbreathresult());
@@ -544,13 +526,6 @@ public class settingsController {
 		addLightForm(controllerVar.getTrafplatenum());
 		addLightForm(controllerVar.getTrafstreet());
 		addLightForm(controllerVar.getTraftype());
-		addLightForm(controllerVar.getVehinsfield());
-		addLightForm(controllerVar.getVehmodelfield());
-		addLightForm(controllerVar.getVehownerfield());
-		addLightForm(controllerVar.getVehplatefield2());
-		addLightForm(controllerVar.getVehregfield());
-		addLightForm(controllerVar.getVehSearchField());
-		addLightForm(controllerVar.getVehstolenfield());
 	}
 	
 	private static void addLightForm(TextField textField) {

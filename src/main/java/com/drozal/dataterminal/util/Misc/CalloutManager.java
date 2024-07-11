@@ -288,13 +288,13 @@ public class CalloutManager {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
 					String statusProp = "Not Available";
-					if (callout.getStatus() != null){
+					if (callout.getStatus() != null) {
 						statusProp = callout.getStatus();
 					}
 					
-					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp,
-					                                           callout.getType(), callout.getStreet(),
-					                                           callout.getPriority(), callout.getArea());
+					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp, callout.getType(),
+					                                           callout.getStreet(), callout.getPriority(),
+					                                           callout.getArea());
 					listView.getItems().add(calloutNode);
 				}
 			}

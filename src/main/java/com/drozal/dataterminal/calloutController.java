@@ -182,7 +182,6 @@ public class calloutController {
 		watchCalloutChanges();
 	}
 	
-	
 	public void watchCalloutChanges() {
 		Path dir = Paths.get(getJarPath() + File.separator + "serverData");
 		

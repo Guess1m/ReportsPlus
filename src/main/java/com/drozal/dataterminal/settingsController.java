@@ -141,6 +141,8 @@ public class settingsController {
 	private TextField broadcastPortField;
 	@javafx.fxml.FXML
 	private Label lbl8;
+	@javafx.fxml.FXML
+	private Button resetReportDefaultsBtn;
 	
 	//</editor-fold>
 	
@@ -1160,16 +1162,21 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
-		updateMain(Color.valueOf("#524992"));
-		updateSecondary(Color.valueOf("#665cb6"));
-		updateAccent(Color.valueOf("#9c95d0"));
-		updatebackground(Color.valueOf("#ffffff"));
+		textClrComboBox.getSelectionModel().select("dark");
+		themeComboBox.getSelectionModel().select("purple");
 		try {
 			loadTheme();
 			loadColors();
 		} catch (IOException e) {
 			logError("LoadTheme IO Error Code 2 ", e);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void resetReportDefaultsBtnPress(ActionEvent actionEvent) {
+		presetComboBoxReport.getSelectionModel().select("dark");
+		reportStyleComboBox.getSelectionModel().select("light");
+		loadColors();
 	}
 	
 	private void loadColors() {
@@ -1233,6 +1240,9 @@ public class settingsController {
 				resetDefaultsBtn.setStyle(nonTransparentBtn);
 				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
 				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
+				resetReportDefaultsBtn.setStyle(nonTransparentBtn);
+				resetReportDefaultsBtn.setOnMouseEntered(e -> resetReportDefaultsBtn.setStyle(hoverStyle));
+				resetReportDefaultsBtn.setOnMouseExited(e -> resetReportDefaultsBtn.setStyle(nonTransparentBtn));
 				clrLogsBtn.setStyle(nonTransparentBtn);
 				clrLogsBtn.setOnMouseEntered(e -> clrLogsBtn.setStyle(hoverStyle));
 				clrLogsBtn.setOnMouseExited(e -> clrLogsBtn.setStyle(nonTransparentBtn));
@@ -1359,4 +1369,5 @@ public class settingsController {
 			serverAutoconnectCheckbox.setSelected(false);
 		}
 	}
+	
 }

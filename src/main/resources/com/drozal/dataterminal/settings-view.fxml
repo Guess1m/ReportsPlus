@@ -286,6 +286,7 @@
                                                         <ComboBox fx:id="reportStyleComboBox" layoutX="135.0" layoutY="10.0" prefHeight="26.0" prefWidth="106.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
+                                    <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false" onAction="#resetReportDefaultsBtnPress" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Reset Defaults" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                             </children>
                                         </GridPane>
                                     </children>

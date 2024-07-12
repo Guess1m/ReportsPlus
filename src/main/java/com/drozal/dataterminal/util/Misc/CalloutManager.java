@@ -26,6 +26,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 @SuppressWarnings("ALL")
@@ -99,11 +100,11 @@ public class CalloutManager {
 					callouts = (Callouts) unmarshaller.unmarshal(file);
 				} catch (JAXBException e) {
 					
-					System.out.println("The file is not properly formatted: " + e.getMessage());
+					logError("The file is not properly formatted: ", e);
 					return;
 				}
 			} else {
-				System.out.println("The file is empty or does not exist.");
+				log("The file is empty or does not exist.", LogUtils.Severity.ERROR);
 				return;
 			}
 			
@@ -158,7 +159,6 @@ public class CalloutManager {
 					description = description + "\n" + message;
 				}
 				calTime.setText(time);
-				System.out.println(description);
 				String text = description.trim();
 				if (!text.isEmpty() || !text.isBlank()) {
 					calDesc.setText(description);
@@ -201,7 +201,6 @@ public class CalloutManager {
 					description = description + "\n" + message;
 				}
 				calTime.setText(time);
-				System.out.println(description);
 				String text = description.trim();
 				if (!text.isEmpty() || !text.isBlank()) {
 					calDesc.setText(description);

@@ -155,9 +155,16 @@ public class CalloutManager {
 				caladdress.setText(street);
 				calDesc.setText(description);
 				if (message != null) {
-					calDesc.appendText("\n" + message);
+					description = description + "\n" + message;
 				}
 				calTime.setText(time);
+				System.out.println(description);
+				String text = description.trim();
+				if (!text.isEmpty() || !text.isBlank()) {
+					calDesc.setText(description);
+				} else {
+					calDesc.setText("No further Information");
+				}
 			}
 		} else {
 			pane.setVisible(false);
@@ -190,11 +197,17 @@ public class CalloutManager {
 				calCounty.setText(county);
 				calDate.setText(date);
 				caladdress.setText(street);
-				calDesc.setText(description);
 				if (message != null) {
-					calDesc.appendText("\n" + message);
+					description = description + "\n" + message;
 				}
 				calTime.setText(time);
+				System.out.println(description);
+				String text = description.trim();
+				if (!text.isEmpty() || !text.isBlank()) {
+					calDesc.setText(description);
+				} else {
+					calDesc.setText("No further Information");
+				}
 			}
 		} else {
 			pane.setVisible(false);

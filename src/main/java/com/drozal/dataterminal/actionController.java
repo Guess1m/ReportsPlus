@@ -601,6 +601,54 @@ public class actionController {
 		System.exit(0);
 	}
 	
+	public static Stage getCalloutStage() {
+		return CalloutStage;
+	}
+	
+	public static ClientController getClientController() {
+		return clientController;
+	}
+	
+	public static Stage getClientStage() {
+		return clientStage;
+	}
+	
+	public static Stage getIDStage() {
+		return IDStage;
+	}
+	
+	public static Stage getMapStage() {
+		return mapStage;
+	}
+	
+	public static double getMinColumnWidth() {
+		return minColumnWidth;
+	}
+	
+	public static int getNeedRefresh() {
+		return needRefresh.get();
+	}
+	
+	public static SimpleIntegerProperty needRefreshProperty() {
+		return needRefresh;
+	}
+	
+	public static Stage getNotesStage() {
+		return notesStage;
+	}
+	
+	public static String getNotesText() {
+		return notesText;
+	}
+	
+	public static Stage getSettingsStage() {
+		return settingsStage;
+	}
+	
+	public static Stage getVersionStage() {
+		return versionStage;
+	}
+	
 	public Label getPlt1() {
 		return plt1;
 	}
@@ -655,54 +703,6 @@ public class actionController {
 	
 	public Label getPed7() {
 		return ped7;
-	}
-	
-	public static Stage getCalloutStage() {
-		return CalloutStage;
-	}
-	
-	public static ClientController getClientController() {
-		return clientController;
-	}
-	
-	public static Stage getClientStage() {
-		return clientStage;
-	}
-	
-	public static Stage getIDStage() {
-		return IDStage;
-	}
-	
-	public static Stage getMapStage() {
-		return mapStage;
-	}
-	
-	public static double getMinColumnWidth() {
-		return minColumnWidth;
-	}
-	
-	public static int getNeedRefresh() {
-		return needRefresh.get();
-	}
-	
-	public static SimpleIntegerProperty needRefreshProperty() {
-		return needRefresh;
-	}
-	
-	public static Stage getNotesStage() {
-		return notesStage;
-	}
-	
-	public static String getNotesText() {
-		return notesText;
-	}
-	
-	public static Stage getSettingsStage() {
-		return settingsStage;
-	}
-	
-	public static Stage getVersionStage() {
-		return versionStage;
 	}
 	
 	public TextField getArrestaddress() {

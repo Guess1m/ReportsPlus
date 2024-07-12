@@ -112,6 +112,8 @@ public class calloutController {
 			
 			Callout callout = getCallout();
 			
+			String message;
+			String desc;
 			if (callout != null) {
 				String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
 				String type = callout.getType() != null ? callout.getType() : "Not Available";
@@ -121,8 +123,8 @@ public class calloutController {
 				String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
 				String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
 				String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
-				String desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
-				String message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+				desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
+				message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
 				status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
 				
 				respondBtn.setOnAction(actionEvent -> {
@@ -151,6 +153,8 @@ public class calloutController {
 				descriptionField.setText(desc.isEmpty() ? message : desc + "\n" + message);
 				
 			} else {
+				message = "No Data";
+				desc = "No Data";
 				log("No Callout found, callout = null, possibly connected to a server ", LogUtils.Severity.ERROR);
 				streetField.setText("No Data");
 				numberField.setText("No Data");
@@ -169,10 +173,9 @@ public class calloutController {
 			
 			stage.setOnHidden(windowEvent -> {
 				log("Added Callout To Active", LogUtils.Severity.INFO);
-				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(),
-				                          descriptionField.getText(), "Message", priorityField.getText(),
-				                          streetField.getText(), areaField.getText(), countyField.getText(),
-				                          timeField.getText(), dateField.getText(), status);
+				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
+				                          priorityField.getText(), streetField.getText(), areaField.getText(),
+				                          countyField.getText(), timeField.getText(), dateField.getText(), status);
 				
 				CalloutStage.close();
 				CalloutStage = null;

@@ -201,12 +201,9 @@ public class settingsController {
 				updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
 		
 		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", secclr));
-		controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", secclr));
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", accclr));
+				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
 		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", accclr));
+				updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
@@ -314,6 +311,11 @@ public class settingsController {
 		controllerVar.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getActivecalfill().setStyle(
+				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
+		controllerVar.getCalfill().setStyle(
+				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
@@ -452,7 +454,11 @@ public class settingsController {
 		controllerVar.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
-
+		
+		controllerVar.getActivecalfill().setStyle(
+				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
+		controllerVar.getCalfill().setStyle(
+				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");

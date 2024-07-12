@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="800.0" prefWidth="1150.0"
             styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css"
-            xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.actionController">
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
@@ -208,7 +208,7 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"
@@ -237,8 +237,7 @@
                                     </children>
                                 </HBox>
                                 <ListView fx:id="calActiveList" layoutX="10.0" layoutY="47.0" prefHeight="599.0"
-                                          prefWidth="281.0"
-                                          style="-fx-border-color: gray; -fx-border-width: 2; -fx-background-color: rgb(255,255,255,0.5);"
+                                          prefWidth="281.0" style="-fx-border-color: gray; -fx-border-width: 2;"
                                           stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0"
                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                           AnchorPane.topAnchor="61.0"/>
@@ -514,7 +513,7 @@
                                     <children>
                                         <ListView fx:id="calHistoryList" layoutX="-29.0" layoutY="61.0"
                                                   prefHeight="282.0" prefWidth="589.0"
-                                                  style="-fx-border-color: gray; -fx-background-color: rgb(255,255,255,0.5); -fx-border-width: 2;"
+                                                  style="-fx-border-color: gray; -fx-border-width: 2;"
                                                   stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0"
                                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                   AnchorPane.topAnchor="61.0"/>
@@ -798,8 +797,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <AnchorPane fx:id="pedRecordPane" layoutX="88.0" layoutY="112.0" prefWidth="771.0"
                             AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="112.0">

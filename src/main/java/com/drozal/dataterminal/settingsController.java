@@ -826,15 +826,9 @@ public class settingsController {
 		
 		String[] reportdarklight = {"dark", "light"};
 		String[] uidarklight = {"dark", "light"};
-		String[] themes = {"dark", "purple", "blue", "grey", "green"};
-		String[] presets = {"dark", "light", "grey", "green", "blue"};
 		
 		reportStyleComboBox.getItems().addAll(reportdarklight);
 		textClrComboBox.getItems().addAll(uidarklight);
-		
-		themeComboBox.getItems().addAll(themes);
-		
-		presetComboBoxReport.getItems().addAll(presets);
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
@@ -863,74 +857,6 @@ public class settingsController {
 			
 		}
 		
-		themeComboBox.setOnAction(actionEvent -> {
-			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
-			
-			switch (selectedTheme) {
-				case "dark" -> {
-					log("Dark Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#263238"));
-					updateSecondary(Color.valueOf("#323C41"));
-					updateAccent(Color.valueOf("#505d62"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
-				}
-				case "purple" -> {
-					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#524992"));
-					updateSecondary(Color.valueOf("#665cb6"));
-					updateAccent(Color.valueOf("#9c95d0"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
-				}
-				case "blue" -> {
-					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#4d66cc"));
-					updateSecondary(Color.valueOf("#6680e6"));
-					updateAccent(Color.valueOf("#b3ccff"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
-				}
-				case "grey" -> {
-					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#666666"));
-					updateSecondary(Color.valueOf("#808080"));
-					updateAccent(Color.valueOf("#4d4d4d"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
-				}
-				case "green" -> {
-					log("Green Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#4d804d"));
-					updateSecondary(Color.valueOf("#669966"));
-					updateAccent(Color.valueOf("#99cc99"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
-				}
-				
-			}
-			
-		});
 		reportStyleComboBox.setOnAction(event -> {
 			if (reportStyleComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
 				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
@@ -952,6 +878,102 @@ public class settingsController {
 			}
 		});
 		
+		String[] themes = {"dark", "purple", "blue", "grey", "green", "red", "orange", "pink", "teal", "brown", "magenta", "lime", "indigo"};
+		themeComboBox.getItems().addAll(themes);
+		themeComboBox.setOnAction(actionEvent -> {
+			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
+			
+			switch (selectedTheme) {
+				case "dark" -> {
+					log("Dark Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#263238"));
+					updateSecondary(Color.valueOf("#323C41"));
+					updateAccent(Color.valueOf("#505d62"));
+				}
+				case "purple" -> {
+					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#524992"));
+					updateSecondary(Color.valueOf("#665cb6"));
+					updateAccent(Color.valueOf("#9c95d0"));
+				}
+				case "blue" -> {
+					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#4d66cc"));
+					updateSecondary(Color.valueOf("#6680e6"));
+					updateAccent(Color.valueOf("#b3ccff"));
+				}
+				case "grey" -> {
+					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#666666"));
+					updateSecondary(Color.valueOf("#808080"));
+					updateAccent(Color.valueOf("#4d4d4d"));
+				}
+				case "green" -> {
+					log("Green Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#4d804d"));
+					updateSecondary(Color.valueOf("#669966"));
+					updateAccent(Color.valueOf("#99cc99"));
+				}
+				case "red" -> {
+					log("Red Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#cc4d4d"));
+					updateSecondary(Color.valueOf("#e65c5c"));
+					updateAccent(Color.valueOf("#ff6666"));
+				}
+				case "orange" -> {
+					log("Orange Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#cc804d"));
+					updateSecondary(Color.valueOf("#e6994d"));
+					updateAccent(Color.valueOf("#ffb366"));
+				}
+				case "pink" -> {
+					log("Pink Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#cc3399"));
+					updateSecondary(Color.valueOf("#e64da1"));
+					updateAccent(Color.valueOf("#ff66b3"));
+				}
+				case "teal" -> {
+					log("Teal Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#339999"));
+					updateSecondary(Color.valueOf("#4db3b3"));
+					updateAccent(Color.valueOf("#66cccc"));
+				}
+				case "brown" -> {
+					log("Brown Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#6c3d2c"));
+					updateSecondary(Color.valueOf("#7e4e3c"));
+					updateAccent(Color.valueOf("#5b3b30"));
+				}
+				case "magenta" -> {
+					log("Magenta Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#c2185b"));
+					updateSecondary(Color.valueOf("#e91e63"));
+					updateAccent(Color.valueOf("#f06292"));
+				}
+				case "lime" -> {
+					log("Lime Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#cddc39"));
+					updateSecondary(Color.valueOf("#d4e157"));
+					updateAccent(Color.valueOf("#dce775"));
+				}
+				case "indigo" -> {
+					log("Indigo Theme Selected", LogUtils.Severity.DEBUG);
+					updateMain(Color.valueOf("#3f51b5"));
+					updateSecondary(Color.valueOf("#5c6bc0"));
+					updateAccent(Color.valueOf("#7986cb"));
+				}
+			}
+			
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme Error", e);
+			}
+		});
+		
+		String[] presets = {"dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal", "brown", "magenta", "lime", "indigo"};
+		presetComboBoxReport.getItems().addAll(presets);
 		presetComboBoxReport.setOnAction(actionEvent -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel().getSelectedItem();
 			
@@ -962,12 +984,6 @@ public class settingsController {
 					updateReportSecondary(Color.valueOf("#323c41"));
 					updateReportAccent(Color.valueOf("#263238"));
 					updateReportHeading(Color.valueOf("white"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
 				}
 				case "light" -> {
 					log("Light Theme Selected: Report", LogUtils.Severity.DEBUG);
@@ -975,12 +991,6 @@ public class settingsController {
 					updateReportSecondary(Color.valueOf("#cccccc"));
 					updateReportAccent(Color.valueOf("#b3b3b3"));
 					updateReportHeading(Color.valueOf("#333333"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
 				}
 				case "grey" -> {
 					log("Grey Theme Selected: Report", LogUtils.Severity.DEBUG);
@@ -988,12 +998,6 @@ public class settingsController {
 					updateReportSecondary(Color.valueOf("gray"));
 					updateReportAccent(Color.valueOf("#666666"));
 					updateReportHeading(Color.valueOf("white"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
 				}
 				case "green" -> {
 					log("Green Theme Selected: Report", LogUtils.Severity.DEBUG);
@@ -1001,12 +1005,6 @@ public class settingsController {
 					updateReportSecondary(Color.valueOf("#669966"));
 					updateReportAccent(Color.valueOf("#4d804d"));
 					updateReportHeading(Color.valueOf("white"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
 				}
 				case "blue" -> {
 					log("Blue Theme Selected: Report", LogUtils.Severity.DEBUG);
@@ -1014,16 +1012,81 @@ public class settingsController {
 					updateReportSecondary(Color.valueOf("#6680e6"));
 					updateReportAccent(Color.valueOf("#4d66cc"));
 					updateReportHeading(Color.valueOf("white"));
-					try {
-						loadTheme();
-						loadColors();
-					} catch (IOException e) {
-						logError("LoadTheme Error", e);
-					}
+				}
+				case "red" -> {
+					log("Red Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#ff6666"));
+					updateReportSecondary(Color.valueOf("#e65c5c"));
+					updateReportAccent(Color.valueOf("#cc4d4d"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "purple" -> {
+					log("Purple Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#b366ff"));
+					updateReportSecondary(Color.valueOf("#994dff"));
+					updateReportAccent(Color.valueOf("#7f33ff"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "orange" -> {
+					log("Orange Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#ffb366"));
+					updateReportSecondary(Color.valueOf("#e6994d"));
+					updateReportAccent(Color.valueOf("#cc804d"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "pink" -> {
+					log("Pink Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#ff66b3"));
+					updateReportSecondary(Color.valueOf("#e64da1"));
+					updateReportAccent(Color.valueOf("#cc3399"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "teal" -> {
+					log("Teal Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#66cccc"));
+					updateReportSecondary(Color.valueOf("#4db3b3"));
+					updateReportAccent(Color.valueOf("#339999"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "brown" -> {
+					log("Brown Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#6c3d2c"));
+					updateReportSecondary(Color.valueOf("#7e4e3c"));
+					updateReportAccent(Color.valueOf("#5b3b30"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "magenta" -> {
+					log("Magenta Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#f06292"));
+					updateReportSecondary(Color.valueOf("#e91e63"));
+					updateReportAccent(Color.valueOf("#c2185b"));
+					updateReportHeading(Color.valueOf("white"));
+				}
+				case "lime" -> {
+					log("Lime Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#dce775"));
+					updateReportSecondary(Color.valueOf("#d4e157"));
+					updateReportAccent(Color.valueOf("#cddc39"));
+					updateReportHeading(Color.valueOf("#333333"));
+				}
+				case "indigo" -> {
+					log("Indigo Theme Selected: Report", LogUtils.Severity.DEBUG);
+					updateReportBackground(Color.valueOf("#7986cb"));
+					updateReportSecondary(Color.valueOf("#5c6bc0"));
+					updateReportAccent(Color.valueOf("#3f51b5"));
+					updateReportHeading(Color.valueOf("white"));
 				}
 			}
 			
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme Error", e);
+			}
 		});
+
+
 		
 		/*if (reportStyleComboBox.getSelectionModel()
 		                       .getSelectedItem()
@@ -1128,7 +1191,15 @@ public class settingsController {
 			primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
-			bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
+			
+			if (toHexString(bkg).toLowerCase().equals("#ffffff") || toHexString(bkg).toLowerCase().equals(
+					"#f2f2f2") || toHexString(bkg).toLowerCase().equals("#e6e6e6") || toHexString(
+					bkg).toLowerCase().equals("#cccccc")) {
+				bkgLabel.setStyle("-fx-text-fill: black;");
+			} else {
+				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
+			}
+			
 			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
 			
 			lbl0.setStyle("-fx-background-color: " + toHexString(primary) + ";");

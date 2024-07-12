@@ -560,6 +560,34 @@ public class actionController {
 	private VBox bkgclr2;
 	@javafx.fxml.FXML
 	private Label logbrwsrlbl;
+	@javafx.fxml.FXML
+	private Label plt4;
+	@javafx.fxml.FXML
+	private Label plt5;
+	@javafx.fxml.FXML
+	private Label plt6;
+	@javafx.fxml.FXML
+	private Label plt7;
+	@javafx.fxml.FXML
+	private Label plt1;
+	@javafx.fxml.FXML
+	private Label plt2;
+	@javafx.fxml.FXML
+	private Label plt3;
+	@javafx.fxml.FXML
+	private Label ped3;
+	@javafx.fxml.FXML
+	private Label ped4;
+	@javafx.fxml.FXML
+	private Label ped5;
+	@javafx.fxml.FXML
+	private Label ped6;
+	@javafx.fxml.FXML
+	private Label ped1;
+	@javafx.fxml.FXML
+	private Label ped2;
+	@javafx.fxml.FXML
+	private Label ped7;
 	
 	//</editor-fold>
 	
@@ -571,6 +599,62 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public Label getPlt1() {
+		return plt1;
+	}
+	
+	public Label getPlt2() {
+		return plt2;
+	}
+	
+	public Label getPlt3() {
+		return plt3;
+	}
+	
+	public Label getPlt4() {
+		return plt4;
+	}
+	
+	public Label getPlt5() {
+		return plt5;
+	}
+	
+	public Label getPlt6() {
+		return plt6;
+	}
+	
+	public Label getPlt7() {
+		return plt7;
+	}
+	
+	public Label getPed1() {
+		return ped1;
+	}
+	
+	public Label getPed2() {
+		return ped2;
+	}
+	
+	public Label getPed3() {
+		return ped3;
+	}
+	
+	public Label getPed4() {
+		return ped4;
+	}
+	
+	public Label getPed5() {
+		return ped5;
+	}
+	
+	public Label getPed6() {
+		return ped6;
+	}
+	
+	public Label getPed7() {
+		return ped7;
 	}
 	
 	public static Stage getCalloutStage() {

@@ -296,6 +296,24 @@ public class settingsController {
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
@@ -416,6 +434,25 @@ public class settingsController {
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
+
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");

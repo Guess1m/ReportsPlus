@@ -3562,8 +3562,8 @@ public class actionController {
 	
 	public void initialize() throws IOException {
 		
-		lookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
+		lookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {

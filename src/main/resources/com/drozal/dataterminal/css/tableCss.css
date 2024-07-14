@@ -108,7 +108,9 @@
     -fx-text-fill: #262626;
     -fx-font-family: "Segoe UI"; /* Change the font family */
     -fx-alignment: center; /* Center text horizontally */
-    -fx-padding: 0 80px; /* Add padding to the left and right of the cells */
+    -fx-padding: 0 5.5 0 5.5; /* Add padding to the left and right of the cells */
+    -fx-border-color: rgb(240,240,240,0.5);
+    -fx-border-width: 0 1 0 1;
 }
 .chargesTable .table-row-cell{
     -fx-table-cell-border-color: transparent;

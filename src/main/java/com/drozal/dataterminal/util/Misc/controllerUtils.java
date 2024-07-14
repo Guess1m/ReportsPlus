@@ -66,6 +66,14 @@ public class controllerUtils {
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	
+	public static void addTooltip(Node node, String text) {
+		Tooltip tooltip = new Tooltip(text);
+		tooltip.setShowDelay(Duration.seconds(0.3));
+		tooltip.setStyle(
+				"-fx-background-color: rgb(50,50,50,0.6); -fx-font-family: Segoe UI Semibold; -fx-text-fill: rgb(255,255,255);");
+		Tooltip.install(node, tooltip);
+	}
+	
 	public static String lowerPaneToToRGB(String hexColor, double alpha) {
 		if (!hexColor.matches("^#[0-9A-Fa-f]{6}$")) {
 			throw new IllegalArgumentException("Invalid hexadecimal color: " + hexColor);

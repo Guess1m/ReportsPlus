@@ -143,6 +143,26 @@ public class settingsController {
 	private Label lbl8;
 	@javafx.fxml.FXML
 	private Button resetReportDefaultsBtn;
+	@javafx.fxml.FXML
+	private Label tt10;
+	@javafx.fxml.FXML
+	private Label tt1;
+	@javafx.fxml.FXML
+	private Label tt3;
+	@javafx.fxml.FXML
+	private Label tt2;
+	@javafx.fxml.FXML
+	private Label tt5;
+	@javafx.fxml.FXML
+	private Label tt4;
+	@javafx.fxml.FXML
+	private Label tt7;
+	@javafx.fxml.FXML
+	private Label tt6;
+	@javafx.fxml.FXML
+	private Label tt9;
+	@javafx.fxml.FXML
+	private Label tt8;
 	
 	//</editor-fold>
 	
@@ -1129,6 +1149,40 @@ public class settingsController {
 		});
 		loadColors();
 		loadTheme();
+		
+		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
+		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		
+		addTooltip(AOTCallout, "Keep Callout Window On Top");
+		addTooltip(AOTClient, "Keep Client Window On Top");
+		addTooltip(AOTID, "Keep ID Window On Top");
+		addTooltip(AOTDebug, "Keep Debug Window On Top");
+		addTooltip(AOTMap, "Keep Map Window On Top");
+		addTooltip(AOTNotes, "Keep Notes Window On Top");
+		addTooltip(AOTReport, "Keep Report Window On Top");
+		addTooltip(AOTSettings, "Keep Settings Window On Top");
+		
+		addTooltip(tt1, "Main Window Location On Startup");
+		addTooltip(tt2, "Notes Window Location On Startup");
+		addTooltip(tt3, "Report Window Location On Startup");
+		addTooltip(tt4, "UI Theme Presets");
+		addTooltip(tt5, "UI Text Color");
+		addTooltip(tt6, "Report Theme Presets");
+		addTooltip(tt7, "Report TextField Color");
+		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
+		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
+		addTooltip(tt10,
+		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		
+		addTooltip(bkgLabel, "Application Background Color");
+		addTooltip(primLabel, "Application Primary Color");
+		addTooltip(secLabel, "Application Secondary Color");
+		addTooltip(accLabel, "Application Accent Color");
+		
+		addTooltip(headingLabelReport, "Report Heading Color");
+		addTooltip(backgroundLabelReport, "Report Background Color");
+		addTooltip(secLabelReport, "Report Secondary Color");
+		addTooltip(accentLabelReport, "Report Accent Color");
 	}
 	
 	@javafx.fxml.FXML

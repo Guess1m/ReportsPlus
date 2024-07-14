@@ -3814,7 +3814,6 @@ public class actionController {
 				showCurrentCalToggle.setSelected(true);
 			}
 		});
-		
 	}
 	
 }

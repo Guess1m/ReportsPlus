@@ -163,6 +163,10 @@ public class settingsController {
 	private Label tt9;
 	@javafx.fxml.FXML
 	private Label tt8;
+	@javafx.fxml.FXML
+	private Label tt11;
+	@javafx.fxml.FXML
+	private TextField socketTimeoutField;
 	
 	//</editor-fold>
 	
@@ -734,6 +738,35 @@ public class settingsController {
 			ConfigWriter.configwrite("connectionSettings", "broadcastPort", newText);
 		});
 		
+		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
+		
+		socketTimeoutField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = socketTimeoutField.getText();
+			
+			if (!character.matches("[0-9]")) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			if (newText.length() > 5) {
+				event.consume();
+				return;
+			}
+			
+			int newValue;
+			try {
+				newValue = Integer.parseInt(newText);
+			} catch (NumberFormatException e) {
+				event.consume();
+				return;
+			}
+			
+			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
+		});
+		
 		bkgPicker.valueProperty().addListener(new ChangeListener<Color>() {
 			@Override
 			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
@@ -1095,24 +1128,6 @@ public class settingsController {
 			}
 		});
 
-
-		
-		/*if (reportStyleComboBox.getSelectionModel()
-		                       .getSelectedItem()
-		                       .equals("dark")) {
-			ConfigWriter.configwrite("reportWindowDarkMode", "true");
-		} else {
-			ConfigWriter.configwrite("reportWindowDarkMode", "false");
-		}
-		
-		if (textClrComboBox.getSelectionModel()
-		                       .getSelectedItem()
-		                       .equals("dark")) {
-			ConfigWriter.configwrite("UIDarkMode", "true");
-		} else {
-			ConfigWriter.configwrite("UIDarkMode", "false");
-		}*/
-		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems().addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));
@@ -1160,6 +1175,7 @@ public class settingsController {
 		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
 		addTooltip(tt10,
 		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
 		
 		addTooltip(bkgLabel, "Application Background Color");
 		addTooltip(primLabel, "Application Primary Color");

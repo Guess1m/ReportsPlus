@@ -71,8 +71,9 @@ public class ClientUtils {
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
 				log("Socket connected successfully.", LogUtils.Severity.INFO);
 				
-				socket.setSoTimeout(10000);
-				log("Socket timeout set to 10000ms.", LogUtils.Severity.INFO);
+				socket.setSoTimeout(Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
+				log("Socket timeout set to " + Integer.parseInt(
+						ConfigReader.configRead("connectionSettings", "socketTimeout")), LogUtils.Severity.INFO);
 				
 				isConnected = true;
 				notifyStatusChanged(isConnected);

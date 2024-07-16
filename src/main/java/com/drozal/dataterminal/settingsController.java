@@ -900,7 +900,7 @@ public class settingsController {
 			}
 		});
 		
-		String[] themes = {"dark", "purple", "blue", "grey", "green", "red", "orange", "pink", "teal", "brown", "magenta", "lime", "indigo"};
+		String[] themes = {"dark", "purple", "blue", "grey", "green", "red", "orange", "pink", "teal", "brown", "magenta", "indigo"};
 		themeComboBox.getItems().addAll(themes);
 		themeComboBox.setOnAction(actionEvent -> {
 			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
@@ -916,13 +916,13 @@ public class settingsController {
 					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#524992"));
 					updateSecondary(Color.valueOf("#665cb6"));
-					updateAccent(Color.valueOf("#9c95d0"));
+					updateAccent(Color.valueOf("#544f7f"));
 				}
 				case "blue" -> {
 					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d66cc"));
 					updateSecondary(Color.valueOf("#6680e6"));
-					updateAccent(Color.valueOf("#b3ccff"));
+					updateAccent(Color.valueOf("#516ca5"));
 				}
 				case "grey" -> {
 					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
@@ -934,31 +934,31 @@ public class settingsController {
 					log("Green Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d804d"));
 					updateSecondary(Color.valueOf("#669966"));
-					updateAccent(Color.valueOf("#99cc99"));
+					updateAccent(Color.valueOf("#4a6f4a"));
 				}
 				case "red" -> {
 					log("Red Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc4d4d"));
 					updateSecondary(Color.valueOf("#e65c5c"));
-					updateAccent(Color.valueOf("#ff6666"));
+					updateAccent(Color.valueOf("#914f4f"));
 				}
 				case "orange" -> {
 					log("Orange Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc804d"));
 					updateSecondary(Color.valueOf("#e6994d"));
-					updateAccent(Color.valueOf("#ffb366"));
+					updateAccent(Color.valueOf("#a57749"));
 				}
 				case "pink" -> {
 					log("Pink Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc3399"));
 					updateSecondary(Color.valueOf("#e64da1"));
-					updateAccent(Color.valueOf("#ff66b3"));
+					updateAccent(Color.valueOf("#955b78"));
 				}
 				case "teal" -> {
 					log("Teal Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#339999"));
 					updateSecondary(Color.valueOf("#4db3b3"));
-					updateAccent(Color.valueOf("#66cccc"));
+					updateAccent(Color.valueOf("#4c8d8d"));
 				}
 				case "brown" -> {
 					log("Brown Theme Selected", LogUtils.Severity.DEBUG);
@@ -970,19 +970,13 @@ public class settingsController {
 					log("Magenta Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#c2185b"));
 					updateSecondary(Color.valueOf("#e91e63"));
-					updateAccent(Color.valueOf("#f06292"));
-				}
-				case "lime" -> {
-					log("Lime Theme Selected", LogUtils.Severity.DEBUG);
-					updateMain(Color.valueOf("#cddc39"));
-					updateSecondary(Color.valueOf("#d4e157"));
-					updateAccent(Color.valueOf("#dce775"));
+					updateAccent(Color.valueOf("#9d546c"));
 				}
 				case "indigo" -> {
 					log("Indigo Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#3f51b5"));
 					updateSecondary(Color.valueOf("#5c6bc0"));
-					updateAccent(Color.valueOf("#7986cb"));
+					updateAccent(Color.valueOf("#4b5483"));
 				}
 			}
 			
@@ -994,7 +988,7 @@ public class settingsController {
 			}
 		});
 		
-		String[] presets = {"dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal", "brown", "magenta", "lime", "indigo"};
+		String[] presets = {"dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal", "brown", "magenta", "indigo"};
 		presetComboBoxReport.getItems().addAll(presets);
 		presetComboBoxReport.setOnAction(actionEvent -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel().getSelectedItem();
@@ -1037,7 +1031,7 @@ public class settingsController {
 				}
 				case "red" -> {
 					log("Red Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#ff6666"));
+					updateReportBackground(Color.valueOf("#914f4f"));
 					updateReportSecondary(Color.valueOf("#e65c5c"));
 					updateReportAccent(Color.valueOf("#cc4d4d"));
 					updateReportHeading(Color.valueOf("white"));
@@ -1051,21 +1045,21 @@ public class settingsController {
 				}
 				case "orange" -> {
 					log("Orange Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#ffb366"));
+					updateReportBackground(Color.valueOf("#a57749"));
 					updateReportSecondary(Color.valueOf("#e6994d"));
 					updateReportAccent(Color.valueOf("#cc804d"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "pink" -> {
 					log("Pink Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#ff66b3"));
+					updateReportBackground(Color.valueOf("#955b78"));
 					updateReportSecondary(Color.valueOf("#e64da1"));
 					updateReportAccent(Color.valueOf("#cc3399"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "teal" -> {
 					log("Teal Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#66cccc"));
+					updateReportBackground(Color.valueOf("#4c8d8d"));
 					updateReportSecondary(Color.valueOf("#4db3b3"));
 					updateReportAccent(Color.valueOf("#339999"));
 					updateReportHeading(Color.valueOf("white"));
@@ -1079,21 +1073,14 @@ public class settingsController {
 				}
 				case "magenta" -> {
 					log("Magenta Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#f06292"));
+					updateReportBackground(Color.valueOf("#9d546c"));
 					updateReportSecondary(Color.valueOf("#e91e63"));
 					updateReportAccent(Color.valueOf("#c2185b"));
 					updateReportHeading(Color.valueOf("white"));
 				}
-				case "lime" -> {
-					log("Lime Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#dce775"));
-					updateReportSecondary(Color.valueOf("#d4e157"));
-					updateReportAccent(Color.valueOf("#cddc39"));
-					updateReportHeading(Color.valueOf("#333333"));
-				}
 				case "indigo" -> {
 					log("Indigo Theme Selected: Report", LogUtils.Severity.DEBUG);
-					updateReportBackground(Color.valueOf("#7986cb"));
+					updateReportBackground(Color.valueOf("#4b5483"));
 					updateReportSecondary(Color.valueOf("#5c6bc0"));
 					updateReportAccent(Color.valueOf("#3f51b5"));
 					updateReportHeading(Color.valueOf("white"));

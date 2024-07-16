@@ -123,7 +123,7 @@ public class ConfigReader {
 		log("====================== Configuration ======================", LogUtils.Severity.INFO);
 		// UI Settings
 		checkAndSetDefaultValue("uiColors", "UIDarkMode", "true");
-		checkAndSetDefaultValue("uiColors", "accentColor", "#9C95D0");
+		checkAndSetDefaultValue("uiColors", "accentColor", "#544f7f");
 		checkAndSetDefaultValue("uiColors", "mainColor", "#524992");
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");

@@ -23,6 +23,7 @@ public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
 		
+		log("---=== Client Log ===---", Severity.INFO);
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";
 			Path path = Path.of(filePath);

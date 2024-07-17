@@ -88,6 +88,12 @@ public class actionController {
 	static double minColumnWidth = 185.0;
 	private static Stage mapStage = null;
 	private static Stage versionStage = null;
+	public static boolean IDFirstShown = true;
+	public static double IDx;
+	public static double IDy;
+	public static boolean CalloutFirstShown = true;
+	public static double Calloutx;
+	public static double Callouty;
 	
 	//</editor-fold>
 	
@@ -1677,14 +1683,26 @@ public class actionController {
 		IDStage.setScene(newScene);
 		
 		IDStage.show();
-		IDStage.centerOnScreen();
 		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
 		showAnimation(showIDBtn);
-		windowUtils.centerStageOnMainApp(IDStage);
+		
+		// TODO: add check "Save ID Window Location" config value beforehand
+		if (IDFirstShown) {
+			windowUtils.centerStageOnMainApp(IDStage);
+			log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
+		} else {
+			IDStage.setX(IDx);
+			IDStage.setY(IDy);
+			log("IDStage opened via showIDBtn, XValue: "+IDx+" YValue: "+IDy, Severity.INFO);
+		}
 		
 		IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
+				IDx = IDStage.getX();
+				IDy = IDStage.getY();
+				log("IDStage closed via showIDBtn, set XValue: "+IDx+" YValue: "+IDy, Severity.DEBUG);
+				IDFirstShown=false;
 				IDStage = null;
 			}
 		});

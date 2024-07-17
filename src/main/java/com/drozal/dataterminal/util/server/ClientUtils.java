@@ -7,11 +7,13 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
@@ -23,8 +25,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.drozal.dataterminal.actionController.CalloutStage;
-import static com.drozal.dataterminal.actionController.IDStage;
+import static com.drozal.dataterminal.actionController.*;
+import static com.drozal.dataterminal.actionController.Callouty;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -143,7 +145,15 @@ public class ClientUtils {
 									logError("Could not fetch AOTID: ", e);
 								}
 								
-								windowUtils.centerStageOnMainApp(IDStage);
+								// TODO: add check "Save ID Window Location" config value beforehand
+								if (IDFirstShown) {
+									windowUtils.centerStageOnMainApp(IDStage);
+									log("IDStage opened via UPDATE_ID message, first time centered", LogUtils.Severity.INFO);
+								} else {
+									IDStage.setX(IDx);
+									IDStage.setY(IDy);
+									log("IDStage opened via UPDATE_ID message, XValue: "+IDx+" YValue: "+IDy, LogUtils.Severity.INFO);
+								}
 								
 								try {
 									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
@@ -172,7 +182,16 @@ public class ClientUtils {
 									logError("could not read IDDuration: ", e);
 								}
 								
-								IDStage.setOnHidden(event -> IDStage = null);
+								IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+									@Override
+									public void handle(WindowEvent event) {
+										IDx = IDStage.getX();
+										IDy = IDStage.getY();
+										log("IDStage closed via UPDATE_ID message, set XValue: "+IDx+" YValue: "+IDy, LogUtils.Severity.DEBUG);
+										IDFirstShown=false;
+										IDStage = null;
+									}
+								});
 							});
 							break;
 						case "UPDATE_CALLOUT":
@@ -213,7 +232,15 @@ public class ClientUtils {
 								CalloutStage.show();
 								CalloutStage.centerOnScreen();
 								
-								windowUtils.centerStageOnMainApp(CalloutStage);
+								// TODO: add check "Save Callout Window Location" config value beforehand
+								if (CalloutFirstShown) {
+									windowUtils.centerStageOnMainApp(CalloutStage);
+									log("CalloutStage opened via UPDATE_CALLOUT message, first time centered", LogUtils.Severity.INFO);
+								} else {
+									CalloutStage.setX(Calloutx);
+									CalloutStage.setY(Callouty);
+									log("CalloutStage opened via UPDATE_CALLOUT message, XValue: "+Calloutx+" YValue: "+Callouty, LogUtils.Severity.INFO);
+								}
 								
 								try {
 									if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {

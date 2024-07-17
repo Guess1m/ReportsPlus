@@ -145,16 +145,24 @@ public class ClientUtils {
 									logError("Could not fetch AOTID: ", e);
 								}
 								
-								// TODO: add check "Save ID Window Location" config value beforehand
-								if (IDFirstShown) {
-									windowUtils.centerStageOnMainApp(IDStage);
-									log("IDStage opened via UPDATE_ID message, first time centered", LogUtils.Severity.INFO);
-								} else {
-									IDStage.setX(IDx);
-									IDStage.setY(IDy);
-									log("IDStage opened via UPDATE_ID message, XValue: "+IDx+" YValue: "+IDy, LogUtils.Severity.INFO);
+								try {
+									if (ConfigReader.configRead("layout","rememberIDLocation").equals("true")) {
+										if (IDFirstShown) {
+											windowUtils.centerStageOnMainApp(IDStage);
+											log("IDStage opened via UPDATE_ID message, first time centered",
+											    LogUtils.Severity.INFO);
+										} else {
+											IDStage.setX(IDx);
+											IDStage.setY(IDy);
+											log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy,
+											    LogUtils.Severity.INFO);
+										}
+									} else {
+										windowUtils.centerStageOnMainApp(IDStage);
+									}
+								} catch (IOException e) {
+									logError("Could not read rememberIDLocation from UPDATE_ID: ",e);
 								}
-								
 								try {
 									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 										PauseTransition delay = null;
@@ -232,14 +240,21 @@ public class ClientUtils {
 								CalloutStage.show();
 								CalloutStage.centerOnScreen();
 								
-								// TODO: add check "Save Callout Window Location" config value beforehand
-								if (CalloutFirstShown) {
-									windowUtils.centerStageOnMainApp(CalloutStage);
-									log("CalloutStage opened via UPDATE_CALLOUT message, first time centered", LogUtils.Severity.INFO);
-								} else {
-									CalloutStage.setX(Calloutx);
-									CalloutStage.setY(Callouty);
-									log("CalloutStage opened via UPDATE_CALLOUT message, XValue: "+Calloutx+" YValue: "+Callouty, LogUtils.Severity.INFO);
+								try {
+									if (ConfigReader.configRead("layout","rememberCalloutLocation").equals("true")) {
+										if (CalloutFirstShown) {
+											windowUtils.centerStageOnMainApp(CalloutStage);
+											log("CalloutStage opened via UPDATE_CALLOUT message, first time centered",
+											    LogUtils.Severity.INFO);
+										} else {
+											CalloutStage.setX(Calloutx);
+											CalloutStage.setY(Callouty);
+											log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty,
+											    LogUtils.Severity.INFO);
+										}
+									}
+								} catch (IOException e) {
+									logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ",e);
 								}
 								
 								try {

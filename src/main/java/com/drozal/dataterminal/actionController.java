@@ -1686,16 +1686,18 @@ public class actionController {
 		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
 		showAnimation(showIDBtn);
 		
-		// TODO: add check "Save ID Window Location" config value beforehand
-		if (IDFirstShown) {
-			windowUtils.centerStageOnMainApp(IDStage);
-			log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
+		if (ConfigReader.configRead("layout","rememberIDLocation").equals("true")) {
+			if (IDFirstShown) {
+				windowUtils.centerStageOnMainApp(IDStage);
+				log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
+			} else {
+				IDStage.setX(IDx);
+				IDStage.setY(IDy);
+				log("IDStage opened via showIDBtn, XValue: " + IDx + " YValue: " + IDy, Severity.INFO);
+			}
 		} else {
-			IDStage.setX(IDx);
-			IDStage.setY(IDy);
-			log("IDStage opened via showIDBtn, XValue: "+IDx+" YValue: "+IDy, Severity.INFO);
+			windowUtils.centerStageOnMainApp(IDStage);
 		}
-		
 		IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
@@ -3582,7 +3584,7 @@ public class actionController {
 		
 		lookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		showIDBtn.setVisible(true);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");

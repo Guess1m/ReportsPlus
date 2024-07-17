@@ -164,6 +164,10 @@ public class settingsController {
 	private Label tt11;
 	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
+	@javafx.fxml.FXML
+	private CheckBox saveCalloutLocationCheckbox;
+	@javafx.fxml.FXML
+	private CheckBox saveIDLocationCheckbox;
 	
 	//</editor-fold>
 	
@@ -621,6 +625,10 @@ public class settingsController {
 				ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
 		serverAutoconnectCheckbox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
+		saveCalloutLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
+		saveIDLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
@@ -1152,6 +1160,9 @@ public class settingsController {
 		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
 		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
 		
+		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
+		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
+		
 		addTooltip(AOTCallout, "Keep Callout Window On Top");
 		addTooltip(AOTClient, "Keep Client Window On Top");
 		addTooltip(AOTID, "Keep ID Window On Top");
@@ -1424,4 +1435,25 @@ public class settingsController {
 		}
 	}
 	
+	@javafx.fxml.FXML
+	public void rememberIDLocationClick(ActionEvent actionEvent) {
+		if (saveIDLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberIDLocation", "true");
+			saveIDLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberIDLocation", "false");
+			saveIDLocationCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void rememberCalloutLocationClick(ActionEvent actionEvent) {
+		if (saveCalloutLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "true");
+			saveCalloutLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "false");
+			saveCalloutLocationCheckbox.setSelected(false);
+		}
+	}
 }

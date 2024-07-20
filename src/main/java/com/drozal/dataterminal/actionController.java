@@ -3584,7 +3584,7 @@ public class actionController {
 		
 		lookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(true);
+		showIDBtn.setVisible(false);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");

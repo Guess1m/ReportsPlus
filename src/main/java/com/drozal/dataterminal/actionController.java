@@ -80,6 +80,7 @@ public class actionController {
 	public static String notesText;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
 	public static Stage IDStage = null;
+	public static Stage CourtStage = null;
 	public static Stage settingsStage = null;
 	public static Stage CalloutStage = null;
 	public static ClientController clientController;
@@ -594,6 +595,8 @@ public class actionController {
 	private Label ped2;
 	@javafx.fxml.FXML
 	private Label ped7;
+	@javafx.fxml.FXML
+	private Button showCourtCasesBtn;
 	
 	//</editor-fold>
 	
@@ -605,6 +608,10 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public Button getShowCourtCasesBtn() {
+		return showCourtCasesBtn;
 	}
 	
 	public static Stage getCalloutStage() {
@@ -1666,6 +1673,27 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
+	
+	@javafx.fxml.FXML
+	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) throws IOException {
+		if (CourtStage != null && CourtStage.isShowing()) {
+			CourtStage.close();
+			CourtStage = null;
+			return;
+		}
+		CourtStage = new Stage();
+		CourtStage.initStyle(StageStyle.UNDECORATED);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("court-view.fxml"));
+		Parent root = loader.load();
+		Scene newScene = new Scene(root);
+		CourtStage.setTitle("Current ID");
+		CourtStage.setScene(newScene);
+		
+		CourtStage.show();
+		// TODO: add always on top for court stage
+		// CourtStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
+		showAnimation(showCourtCasesBtn);
+	}
 	
 	@javafx.fxml.FXML
 	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
@@ -3585,6 +3613,8 @@ public class actionController {
 		lookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
+		// TODO: change back to false when done
+		showCourtCasesBtn.setVisible(true);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");

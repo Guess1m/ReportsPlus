@@ -23,6 +23,9 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.controllerUtils;
+import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
+import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
+import jakarta.xml.bind.JAXBException;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
@@ -41,6 +44,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Report.Layouts.*;
+import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 
 @SuppressWarnings("ALL")
 public class reportCreationUtil {
@@ -544,6 +548,25 @@ public class reportCreationUtil {
 				                                     officername.getText(), officernum.getText(), officerdiv.getText(),
 				                                     officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
+				Case case1 = new Case();
+				case1.setCaseNumber(generateCaseNumber());
+				case1.setCourtDate(getDate());
+				case1.setName(offenderName.getText());
+				case1.setOffenceDate(date.getText());
+				case1.setAge(offenderAge.getText());
+				case1.setOffenceLocation(area.getEditor().getText());
+				case1.setNotes(notes.getText());
+				case1.setOffences(stringBuilder.toString());
+				case1.setOutcomes("OutcomeTestCitation");
+				try {
+					CourtUtils.addCase(case1);
+				} catch (JAXBException e) {
+					throw new RuntimeException(e);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				
+				System.out.println("Added case from citation");
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");

@@ -289,6 +289,10 @@ public class settingsController {
 				e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
 		controllerVar.getLookupBtn().setOnMouseEntered(e -> controllerVar.getLookupBtn().setStyle(hoverStyle));
 		controllerVar.getLookupBtn().setOnMouseExited(e -> controllerVar.getLookupBtn().setStyle(initialStyle));
+		controllerVar.getShowCourtCasesBtn().setOnMouseEntered(
+				e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
+		controllerVar.getShowCourtCasesBtn().setOnMouseExited(
+				e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
 		
 		controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
 		controllerVar.updateInfoBtn.setOnMouseExited(e -> {

@@ -23,6 +23,7 @@ public class stringUtil {
 	public static final String calloutDataURL = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
 	public static final String calloutHistoryURL = getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
 	public static final String customizationURL = getJarPath() + File.separator + "data" + File.separator + "customization.json";
+	public static final String courtDataURL = getJarPath() + File.separator + "data" + File.separator + "courtData.xml";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

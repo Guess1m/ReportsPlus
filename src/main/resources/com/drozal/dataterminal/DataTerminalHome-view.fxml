@@ -2572,7 +2572,7 @@
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false"
                                         onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show Callout"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Callouts"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2582,6 +2582,22 @@
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@imgs/icons/callout.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="showCourtCasesBtn" graphicTextGap="6.0" mnemonicParsing="false"
+                                        onAction="#onShowCourtCasesButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Court Cases"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/courtIcon.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>

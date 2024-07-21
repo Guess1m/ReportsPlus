@@ -187,6 +187,7 @@ public class settingsController {
 		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getLogManagerLabelBkg().setStyle("-fx-background-color: " + mainclr + ";");
+		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
@@ -196,6 +197,8 @@ public class settingsController {
 		controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
+		controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
 		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -213,6 +216,7 @@ public class settingsController {
 		controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane().setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.4) + ";");
+		controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
@@ -320,6 +324,8 @@ public class settingsController {
 	private static void addDarkStyles() {
 		controllerVar.getTabPane().getStyleClass().clear();
 		controllerVar.getTabPane().getStyleClass().add("darktabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-dark");
 		
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -334,6 +340,19 @@ public class settingsController {
 		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -458,11 +477,25 @@ public class settingsController {
 		addDarkForm(controllerVar.getTrafplatenum());
 		addDarkForm(controllerVar.getTrafstreet());
 		addDarkForm(controllerVar.getTraftype());
+		
+		addDarkForm(controllerVar.getCaseNumField());
+		addDarkForm(controllerVar.getCaseCourtDateField());
+		addDarkForm(controllerVar.getCaseOffenceDateField());
+		addDarkForm(controllerVar.getCaseFirstNameField());
+		addDarkForm(controllerVar.getCaseLastNameField());
+		addDarkForm(controllerVar.getCaseAgeField());
+		addDarkForm(controllerVar.getCaseGenderField());
+		addDarkForm(controllerVar.getCaseAddressField());
+		addDarkForm(controllerVar.getCaseStreetField());
+		addDarkForm(controllerVar.getCaseAreaField());
+		addDarkForm(controllerVar.getCaseCountyField());
 	}
 	
 	private static void addLightStyles() {
 		controllerVar.getTabPane().getStyleClass().clear();
 		controllerVar.getTabPane().getStyleClass().add("lighttabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
 		
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -477,6 +510,19 @@ public class settingsController {
 		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -600,6 +646,18 @@ public class settingsController {
 		addLightForm(controllerVar.getTrafplatenum());
 		addLightForm(controllerVar.getTrafstreet());
 		addLightForm(controllerVar.getTraftype());
+		
+		addLightForm(controllerVar.getCaseNumField());
+		addLightForm(controllerVar.getCaseCourtDateField());
+		addLightForm(controllerVar.getCaseOffenceDateField());
+		addLightForm(controllerVar.getCaseFirstNameField());
+		addLightForm(controllerVar.getCaseLastNameField());
+		addLightForm(controllerVar.getCaseAgeField());
+		addLightForm(controllerVar.getCaseGenderField());
+		addLightForm(controllerVar.getCaseAddressField());
+		addLightForm(controllerVar.getCaseStreetField());
+		addLightForm(controllerVar.getCaseAreaField());
+		addLightForm(controllerVar.getCaseCountyField());
 	}
 	
 	private static void addLightForm(TextField textField) {
@@ -631,8 +689,7 @@ public class settingsController {
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
 		saveCalloutLocationCheckbox.setSelected(
 				ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
-		saveIDLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
+		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
@@ -1136,7 +1193,7 @@ public class settingsController {
 				logError("LoadTheme Error", e);
 			}
 		});
-
+		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems().addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));

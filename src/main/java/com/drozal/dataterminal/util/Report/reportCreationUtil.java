@@ -558,12 +558,16 @@ public class reportCreationUtil {
 				
 				Case case1 = new Case();
 				case1.setCaseNumber(generateCaseNumber());
-				case1.setCourtDate(getDate());
-				case1.setCaseTime(getTime());
+				case1.setCourtDate(date.getText());
+				case1.setCaseTime(time.getText());
 				case1.setName(offenderName.getText());
 				case1.setOffenceDate(date.getText());
 				case1.setAge(offenderAge.getText());
-				case1.setOffenceLocation(area.getEditor().getText());
+				case1.setAddress(offenderAddress.getText());
+				case1.setGender(offenderGender.getText());
+				case1.setCounty(county.getText());
+				case1.setStreet(street.getText());
+				case1.setArea(area.getEditor().getText());
 				case1.setNotes(notes.getText());
 				case1.setOffences(stringBuilder.toString());
 				case1.setOutcomes(chargesBuilder.toString());

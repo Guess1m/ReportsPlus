@@ -25,6 +25,7 @@ import com.drozal.dataterminal.util.server.ClientUtils;
 import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
 import com.drozal.dataterminal.util.server.Objects.CourtData.CourtCases;
 import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
+import com.drozal.dataterminal.util.server.Objects.CourtData.CustomCaseCell;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -610,8 +611,6 @@ public class actionController {
 	@javafx.fxml.FXML
 	private ListView caseOffencesListView;
 	@javafx.fxml.FXML
-	private TextField caseNotesField;
-	@javafx.fxml.FXML
 	private ListView caseList;
 	@javafx.fxml.FXML
 	private TextField caseCourtDateField;
@@ -620,13 +619,55 @@ public class actionController {
 	@javafx.fxml.FXML
 	private TextField caseAgeField;
 	@javafx.fxml.FXML
-	private TextField caseOffenceLocationField;
-	@javafx.fxml.FXML
 	private ListView caseOutcomesListView;
 	@javafx.fxml.FXML
 	private TextField caseOffenceDateField;
 	@javafx.fxml.FXML
-	private TextField caseNameField;
+	private TextField caseStreetField;
+	@javafx.fxml.FXML
+	private TextField caseFirstNameField;
+	@javafx.fxml.FXML
+	private TextArea caseNotesField;
+	@javafx.fxml.FXML
+	private TextField caseAddressField;
+	@javafx.fxml.FXML
+	private TextField caseLastNameField;
+	@javafx.fxml.FXML
+	private TextField caseGenderField;
+	@javafx.fxml.FXML
+	private TextField caseAreaField;
+	@javafx.fxml.FXML
+	private TextField caseCountyField;
+	@javafx.fxml.FXML
+	private Label caseSec1;
+	@javafx.fxml.FXML
+	private Label caseSec2;
+	@javafx.fxml.FXML
+	private Label casePrim1;
+	@javafx.fxml.FXML
+	private Label caselbl5;
+	@javafx.fxml.FXML
+	private Label caselbl4;
+	@javafx.fxml.FXML
+	private Label caselbl3;
+	@javafx.fxml.FXML
+	private Label caselbl2;
+	@javafx.fxml.FXML
+	private Label caselbl1;
+	@javafx.fxml.FXML
+	private Label caselbl9;
+	@javafx.fxml.FXML
+	private Label caselbl8;
+	@javafx.fxml.FXML
+	private Label caselbl7;
+	@javafx.fxml.FXML
+	private Label caselbl6;
+	@javafx.fxml.FXML
+	private Label caselbl12;
+	@javafx.fxml.FXML
+	private Label caselbl11;
+	@javafx.fxml.FXML
+	private Label caselbl10;
 	
 	//</editor-fold>
 	
@@ -638,6 +679,122 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public TextField getCaseAddressField() {
+		return caseAddressField;
+	}
+	
+	public TextField getCaseAreaField() {
+		return caseAreaField;
+	}
+	
+	public TextField getCaseCountyField() {
+		return caseCountyField;
+	}
+	
+	public TextField getCaseFirstNameField() {
+		return caseFirstNameField;
+	}
+	
+	public TextField getCaseGenderField() {
+		return caseGenderField;
+	}
+	
+	public TextField getCaseLastNameField() {
+		return caseLastNameField;
+	}
+	
+	public TextArea getCaseNotesField() {
+		return caseNotesField;
+	}
+	
+	public TextField getCaseStreetField() {
+		return caseStreetField;
+	}
+	
+	public Label getCaselbl10() {
+		return caselbl10;
+	}
+	
+	public Label getCaselbl11() {
+		return caselbl11;
+	}
+	
+	public Label getCaselbl12() {
+		return caselbl12;
+	}
+	
+	public Label getCaselbl1() {
+		return caselbl1;
+	}
+	
+	public Label getCaselbl2() {
+		return caselbl2;
+	}
+	
+	public Label getCaselbl3() {
+		return caselbl3;
+	}
+	
+	public Label getCaselbl4() {
+		return caselbl4;
+	}
+	
+	public Label getCaselbl5() {
+		return caselbl5;
+	}
+	
+	public Label getCaselbl6() {
+		return caselbl6;
+	}
+	
+	public Label getCaselbl7() {
+		return caselbl7;
+	}
+	
+	public Label getCaselbl8() {
+		return caselbl8;
+	}
+	
+	public Label getCaselbl9() {
+		return caselbl9;
+	}
+	
+	public AnchorPane getCourtPane() {
+		return courtPane;
+	}
+	
+	public Label getCaseTotalLabel() {
+		return caseTotalLabel;
+	}
+	
+	public ListView getCaseOutcomesListView() {
+		return caseOutcomesListView;
+	}
+	
+	public ListView getCaseOffencesListView() {
+		return caseOffencesListView;
+	}
+	
+	public TextField getCaseOffenceDateField() {
+		return caseOffenceDateField;
+	}
+	
+	public TextField getCaseNumField() {
+		return caseNumField;
+	}
+	
+	public ListView getCaseList() {
+		return caseList;
+	}
+	
+	public TextField getCaseCourtDateField() {
+		return caseCourtDateField;
+	}
+	
+	public TextField getCaseAgeField() {
+		return caseAgeField;
 	}
 	
 	public Label getSecondaryColor5Bkg() {
@@ -1704,6 +1861,18 @@ public class actionController {
 		return secondaryColor4Bkg;
 	}
 	
+	public Label getCasePrim1() {
+		return casePrim1;
+	}
+	
+	public Label getCaseSec1() {
+		return caseSec1;
+	}
+	
+	public Label getCaseSec2() {
+		return caseSec2;
+	}
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
@@ -1736,7 +1905,7 @@ public class actionController {
 		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
 		showAnimation(showIDBtn);
 		
-		if (ConfigReader.configRead("layout","rememberIDLocation").equals("true")) {
+		if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
 			if (IDFirstShown) {
 				windowUtils.centerStageOnMainApp(IDStage);
 				log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
@@ -1753,8 +1922,8 @@ public class actionController {
 			public void handle(WindowEvent event) {
 				IDx = IDStage.getX();
 				IDy = IDStage.getY();
-				log("IDStage closed via showIDBtn, set XValue: "+IDx+" YValue: "+IDy, Severity.DEBUG);
-				IDFirstShown=false;
+				log("IDStage closed via showIDBtn, set XValue: " + IDx + " YValue: " + IDy, Severity.DEBUG);
+				IDFirstShown = false;
 				IDStage = null;
 			}
 		});
@@ -3638,21 +3807,14 @@ public class actionController {
 						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName());
 					}
 				}
+				
 				listView.setItems(caseNames);
 				
 				listView.setCellFactory(new Callback<>() {
 					@Override
 					public ListCell<String> call(ListView<String> param) {
 						return new ListCell<>() {
-							private final HBox hbox;
-							private final Label label;
-							
-							{
-								hbox = new HBox();
-								label = new Label();
-								label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
-								hbox.getChildren().add(label);
-							}
+							private final CustomCaseCell customCaseCell = new CustomCaseCell();
 							
 							@Override
 							protected void updateItem(String item, boolean empty) {
@@ -3660,8 +3822,14 @@ public class actionController {
 								if (empty || item == null) {
 									setGraphic(null);
 								} else {
-									label.setText(item);
-									setGraphic(hbox);
+									for (Case case1 : sortedCases) {
+										if (item.equals(case1.getOffenceDate().replaceAll("-",
+										                                                  "/") + " " + case1.getCaseTime() + " " + case1.getName())) {
+											customCaseCell.updateCase(case1);
+											break;
+										}
+									}
+									setGraphic(customCaseCell);
 								}
 							}
 						};
@@ -3685,14 +3853,39 @@ public class actionController {
 		}
 	}
 	
+	private void setCellFactory(ListView<Label> listView) {
+		listView.setCellFactory(new Callback<>() {
+			@Override
+			public ListCell<Label> call(ListView<Label> param) {
+				return new ListCell<>() {
+					@Override
+					protected void updateItem(Label item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty || item == null) {
+							setText(null);
+							setGraphic(null);
+						} else {
+							setGraphic(item);
+						}
+					}
+				};
+			}
+		});
+	}
+	
 	private void updateFields(Case case1) {
 		caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
 		caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
-		caseOffenceLocationField.setText(case1.getOffenceLocation() != null ? case1.getOffenceLocation() : "");
+		caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
+		caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
+		caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
+		caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
 		caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
-		caseNameField.setText(case1.getName() != null ? case1.getName() : "");
+		caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
+		caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
 		caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
 		caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
+		caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
 		
 		ObservableList<Label> offenceLabels = createLabels(case1.getOffences());
 		ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
@@ -3734,34 +3927,13 @@ public class actionController {
 		return fineTotal;
 	}
 	
-	private void setCellFactory(ListView<Label> listView) {
-		listView.setCellFactory(new Callback<>() {
-			@Override
-			public ListCell<Label> call(ListView<Label> param) {
-				return new ListCell<>() {
-					@Override
-					protected void updateItem(Label item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty || item == null) {
-							setText(null);
-							setGraphic(null);
-						} else {
-							setGraphic(item);
-						}
-					}
-				};
-			}
-		});
-	}
-	
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		
-		lookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
 		// TODO: change back to false when done
+		lookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		showCourtCasesBtn.setVisible(true);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {

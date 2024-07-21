@@ -25,8 +25,20 @@ public class Case {
 	@XmlElement(name = "Age")
 	private String age;
 	
-	@XmlElement(name = "OffenceLocation")
-	private String offenceLocation;
+	@XmlElement(name = "Address")
+	private String address;
+	
+	@XmlElement(name = "Gender")
+	private String gender;
+	
+	@XmlElement(name = "Street")
+	private String street;
+	
+	@XmlElement(name = "Area")
+	private String area;
+	
+	@XmlElement(name = "County")
+	private String county;
 	
 	@XmlElement(name = "Notes")
 	private String notes;
@@ -127,12 +139,43 @@ public class Case {
 		this.offenceDate = offenceDate;
 	}
 	
-	public String getOffenceLocation() {
-		return offenceLocation;
+	public String getGender() {
+		return gender;
 	}
 	
-	public void setOffenceLocation(String offenceLocation) {
-		this.offenceLocation = offenceLocation;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
+	public String getArea() {
+		return area;
+	}
+	
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
+	public String getCounty() {
+		return county;
+	}
+	
+	public void setCounty(String county) {
+		this.county = county;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+	
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

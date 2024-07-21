@@ -13,7 +13,7 @@ import java.util.Optional;
 import static com.drozal.dataterminal.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
-	private static final int CASE_NUMBER_LENGTH = 6;
+	private static final int CASE_NUMBER_LENGTH = 7;
 	
 	public static String generateCaseNumber() {
 		StringBuilder caseNumber = new StringBuilder("CN-");

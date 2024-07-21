@@ -44,6 +44,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Report.Layouts.*;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 
 @SuppressWarnings("ALL")
@@ -530,8 +531,12 @@ public class reportCreationUtil {
 				List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
 				ObservableList<CitationsData> formDataList = citationtable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
 				for (CitationsData formData : formDataList) {
 					stringBuilder.append(formData.getCitation()).append(" | ");
+					chargesBuilder.append(
+							"Fined: " + findXMLValue(formData.getCitation(), "fine", "data/Citations.xml")).append(
+							" | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
@@ -552,13 +557,14 @@ public class reportCreationUtil {
 				Case case1 = new Case();
 				case1.setCaseNumber(generateCaseNumber());
 				case1.setCourtDate(getDate());
+				case1.setCaseTime(getTime());
 				case1.setName(offenderName.getText());
 				case1.setOffenceDate(date.getText());
 				case1.setAge(offenderAge.getText());
 				case1.setOffenceLocation(area.getEditor().getText());
 				case1.setNotes(notes.getText());
 				case1.setOffences(stringBuilder.toString());
-				case1.setOutcomes("OutcomeTestCitation");
+				case1.setOutcomes(chargesBuilder.toString());
 				try {
 					CourtUtils.addCase(case1);
 				} catch (JAXBException e) {

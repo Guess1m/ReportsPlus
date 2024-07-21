@@ -10,6 +10,9 @@ public class Case {
 	@XmlElement(name = "CaseNumber")
 	private String caseNumber;
 	
+	@XmlElement(name = "CaseTime")
+	private String caseTime;
+	
 	@XmlElement(name = "CourtDate")
 	private String courtDate;
 	
@@ -50,6 +53,14 @@ public class Case {
 			}
 		}
 		return "";
+	}
+	
+	public String getCaseTime() {
+		return caseTime;
+	}
+	
+	public void setCaseTime(String caseTime) {
+		this.caseTime = caseTime;
 	}
 	
 	public String getOffences() {

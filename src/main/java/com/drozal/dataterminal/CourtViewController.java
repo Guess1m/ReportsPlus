@@ -16,9 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static com.drozal.dataterminal.util.Report.reportUtil.createTitleBar;
+import static com.drozal.dataterminal.util.Report.reportUtil.createSimpleTitleBar;
 
 public class CourtViewController {
 	
@@ -47,7 +46,7 @@ public class CourtViewController {
 	private ListView caseList;
 	
 	public void initialize() {
-		topBar = createTitleBar("Court Cases");
+		topBar = createSimpleTitleBar("Court Cases", true);
 		root.setTop(topBar);
 		
 		loadCaseLabels(caseList);
@@ -60,7 +59,7 @@ public class CourtViewController {
 			if (courtCases.getCaseList() != null) {
 				for (Case case1 : courtCases.getCaseList()) {
 					if (!case1.getName().isEmpty()) {
-						caseNames.add(case1.getName());
+						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getName());
 					}
 				}
 				listView.setItems(caseNames);
@@ -76,7 +75,6 @@ public class CourtViewController {
 								hbox = new HBox();
 								label = new Label();
 								hbox.getChildren().add(label);
-								hbox.setStyle("-fx-alignment: center;");
 							}
 							
 							@Override
@@ -93,22 +91,80 @@ public class CourtViewController {
 					}
 				});
 				
-				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newValue) -> {
+				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
 						for (Case case1 : courtCases.getCaseList()) {
-							if (newValue.equals(case1.getName())) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getName())) {
 								offenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
-								ageField.setText(case1.getAge() != null ? case1.getAge() : "");
+								ageField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
 								offenceLocationField.setText(
 										case1.getOffenceLocation() != null ? case1.getOffenceLocation() : "");
 								notesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
 								nameField.setText(case1.getName() != null ? case1.getName() : "");
 								courtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
 								caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
-								outcomesListView.setItems(FXCollections.observableArrayList(
-										case1.getOutcomes() != null ? case1.getOutcomes() : new ArrayList<>()));
-								offencesListView.setItems(FXCollections.observableArrayList(
-										case1.getOffences() != null ? case1.getOffences() : new ArrayList<>()));
+								
+								ObservableList<Label> outcomeLabels = FXCollections.observableArrayList();
+								if (case1.getOutcomes() != null) {
+									String[] outcomes = case1.getOutcomes().split("\\|");
+									for (String outcome : outcomes) {
+										if (!outcome.trim().isEmpty()) {
+											Label label = new Label(outcome.trim());
+											outcomeLabels.add(label);
+										}
+									}
+								}
+								
+								ObservableList<Label> offenceLabels = FXCollections.observableArrayList();
+								if (case1.getOffences() != null) {
+									String[] offences = case1.getOffences().split("\\|");
+									for (String offence : offences) {
+										if (!offence.trim().isEmpty()) {
+											Label label = new Label(offence.trim());
+											offenceLabels.add(label);
+										}
+									}
+								}
+								
+								outcomesListView.setItems(outcomeLabels);
+								offencesListView.setItems(offenceLabels);
+								
+								outcomesListView.setCellFactory(new Callback<ListView<Label>, ListCell<Label>>() {
+									@Override
+									public ListCell<Label> call(ListView<Label> param) {
+										return new ListCell<Label>() {
+											@Override
+											protected void updateItem(Label item, boolean empty) {
+												super.updateItem(item, empty);
+												if (empty || item == null) {
+													setText(null);
+													setGraphic(null);
+												} else {
+													setGraphic(item);
+												}
+											}
+										};
+									}
+								});
+								
+								offencesListView.setCellFactory(new Callback<ListView<Label>, ListCell<Label>>() {
+									@Override
+									public ListCell<Label> call(ListView<Label> param) {
+										return new ListCell<Label>() {
+											@Override
+											protected void updateItem(Label item, boolean empty) {
+												super.updateItem(item, empty);
+												if (empty || item == null) {
+													setText(null);
+													setGraphic(null);
+												} else {
+													setGraphic(item);
+												}
+											}
+										};
+									}
+								});
+								
 								break;
 							}
 						}

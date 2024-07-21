@@ -554,6 +554,8 @@ public class reportCreationUtil {
 				                                     officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
 				
+				// TODO: Add Charges parsing
+				
 				Case case1 = new Case();
 				case1.setCaseNumber(generateCaseNumber());
 				case1.setCourtDate(getDate());

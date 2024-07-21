@@ -44,13 +44,14 @@
 .scroll-bar:vertical,
 .scroll-bar:horizontal{
     -fx-background-color: transparent; /* Transparent background */
-    -fx-pref-width: 14px; /* Thicker width */
+    -fx-pref-width: 9.5px;
+    -fx-pref-height: 9.5px;
 }
 
 .scroll-bar:vertical .thumb,
 .scroll-bar:horizontal .thumb{
     -fx-background-color: #5e7387; /* Thumb color */
-    -fx-min-height: 14px; /* Thicker thumb */
+    -fx-min-height: 9.5px; /* Thicker thumb */
 }
 
 .scroll-bar:vertical .increment-button,

@@ -38,10 +38,10 @@
                                 <TextField fx:id="notesField" layoutX="10.0" layoutY="164.0" prefHeight="25.0"
                                            prefWidth="352.0" AnchorPane.leftAnchor="10.0"
                                            AnchorPane.rightAnchor="10.0"/>
-                                <HBox layoutX="10.0" layoutY="200.0" prefHeight="143.0" prefWidth="383.0" spacing="10.0"
+                                <HBox layoutX="10.0" layoutY="214.0" prefHeight="187.0" prefWidth="528.0" spacing="10.0"
                                       style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0"
                                       AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-                                      AnchorPane.topAnchor="196.0">
+                                      AnchorPane.topAnchor="214.0">
                                     <children>
                                         <ListView fx:id="offencesListView" styleClass="list-view-custom"
                                                   stylesheets="@css/courtListView.css" HBox.hgrow="SOMETIMES"/>
@@ -49,6 +49,8 @@
                                                   stylesheets="@css/courtListView.css" HBox.hgrow="NEVER"/>
                                     </children>
                                 </HBox>
+                                <Label fx:id="totalLabel" layoutX="286.0" layoutY="197.0" AnchorPane.leftAnchor="286.0"
+                                       AnchorPane.rightAnchor="0.0"/>
                             </children>
                         </AnchorPane>
                     </items>

@@ -548,6 +548,7 @@ public class reportCreationUtil {
 				                                     officername.getText(), officernum.getText(), officerdiv.getText(),
 				                                     officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
+				
 				Case case1 = new Case();
 				case1.setCaseNumber(generateCaseNumber());
 				case1.setCourtDate(getDate());
@@ -565,8 +566,8 @@ public class reportCreationUtil {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				
 				System.out.println("Added case from citation");
+				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");

@@ -26,7 +26,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.*;
-import static com.drozal.dataterminal.actionController.Callouty;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -301,10 +300,14 @@ public class ClientUtils {
 							break;
 					}
 				}
-			} catch (SocketException e) {
+			} catch (SocketTimeoutException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
-				log("Server Disconnected", LogUtils.Severity.ERROR);
+				try {
+					log("Read timed out after " + socket.getSoTimeout() + " milliseconds", LogUtils.Severity.ERROR);
+				} catch (SocketException ex) {
+					logError("Could not getSoTimeout: ", e);
+				}
 			} catch (IOException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);

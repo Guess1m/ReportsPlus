@@ -208,6 +208,63 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
+        <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="115.0">
+            <children>
+                <SplitPane dividerPositions="0.29735449735449737" layoutX="259.0" layoutY="189.0"
+                           style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="10.0"
+                           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <items>
+                        <ListView fx:id="caseList" prefHeight="200.0" prefWidth="200.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"
+                                    style="-fx-background-color: #cccccc;">
+                            <children>
+                                <TextField fx:id="caseNameField" layoutX="10.0" layoutY="32.0" prefHeight="25.0"
+                                           prefWidth="218.0" AnchorPane.leftAnchor="10.0"
+                                           AnchorPane.rightAnchor="10.0"/>
+                                <TextField fx:id="caseNumField" layoutX="10.0" layoutY="64.0" prefHeight="25.0"
+                                           prefWidth="193.0" AnchorPane.leftAnchor="10.0"
+                                           AnchorPane.rightAnchor="200.0"/>
+                                <TextField fx:id="caseAgeField" layoutX="162.0" layoutY="64.0" prefHeight="25.0"
+                                           prefWidth="184.0" AnchorPane.rightAnchor="10.0"/>
+                                <TextField fx:id="caseCourtDateField" layoutX="10.0" layoutY="99.0" prefHeight="25.0"
+                                           prefWidth="192.0" AnchorPane.leftAnchor="10.0"
+                                           AnchorPane.rightAnchor="200.0"/>
+                                <TextField fx:id="caseOffenceDateField" layoutX="209.0" layoutY="99.0" prefHeight="25.0"
+                                           prefWidth="184.0" AnchorPane.rightAnchor="10.0"/>
+                                <TextField fx:id="caseOffenceLocationField" layoutX="10.0" layoutY="132.0"
+                                           prefHeight="25.0" prefWidth="219.0" AnchorPane.leftAnchor="10.0"
+                                           AnchorPane.rightAnchor="10.0"/>
+                                <TextField fx:id="caseNotesField" layoutX="10.0" layoutY="164.0" prefHeight="25.0"
+                                           prefWidth="352.0" AnchorPane.leftAnchor="10.0"
+                                           AnchorPane.rightAnchor="10.0"/>
+                                <GridPane layoutX="10.0" layoutY="214.0" AnchorPane.bottomAnchor="10.0"
+                                          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                          AnchorPane.topAnchor="214.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="70.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <ListView fx:id="caseOffencesListView" styleClass="list-view-custom"
+                                                  stylesheets="@css/courtListView.css"/>
+                                        <ListView fx:id="caseOutcomesListView" styleClass="list-view-custom"
+                                                  stylesheets="@css/courtListView.css" GridPane.columnIndex="1"/>
+                                    </children>
+                                </GridPane>
+                                <Label fx:id="caseTotalLabel" layoutX="442.0" layoutY="197.0" prefHeight="17.0"
+                                       prefWidth="212.0" text="Fined:" AnchorPane.leftAnchor="442.0"
+                                       AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children>
+        </AnchorPane>
         <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
@@ -1024,9 +1081,9 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+        <AnchorPane fx:id="logPane" disable="true" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
@@ -2342,8 +2399,7 @@
                                     </effect>
                                 </Label>
                                 <Label fx:id="versionLabel" layoutX="78.0" layoutY="63.0" prefHeight="15.0"
-                                       prefWidth="384.0" textFill="WHITE" textOverrun="CLIP"
-                                       AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="4.0">
+                                       textFill="WHITE" textOverrun="CLIP" AnchorPane.leftAnchor="78.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="10.0"/>
                                     </font>

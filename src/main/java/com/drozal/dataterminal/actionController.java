@@ -22,6 +22,10 @@ import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
+import com.drozal.dataterminal.util.server.Objects.CourtData.CourtCases;
+import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
+import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -55,10 +59,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
@@ -597,6 +601,30 @@ public class actionController {
 	private Label ped7;
 	@javafx.fxml.FXML
 	private Button showCourtCasesBtn;
+	@javafx.fxml.FXML
+	private Label caseTotalLabel;
+	@javafx.fxml.FXML
+	private TextField caseNumField;
+	@javafx.fxml.FXML
+	private ListView caseOffencesListView;
+	@javafx.fxml.FXML
+	private TextField caseNotesField;
+	@javafx.fxml.FXML
+	private ListView caseList;
+	@javafx.fxml.FXML
+	private TextField caseCourtDateField;
+	@javafx.fxml.FXML
+	private AnchorPane courtPane;
+	@javafx.fxml.FXML
+	private TextField caseAgeField;
+	@javafx.fxml.FXML
+	private TextField caseOffenceLocationField;
+	@javafx.fxml.FXML
+	private ListView caseOutcomesListView;
+	@javafx.fxml.FXML
+	private TextField caseOffenceDateField;
+	@javafx.fxml.FXML
+	private TextField caseNameField;
 	
 	//</editor-fold>
 	
@@ -608,6 +636,10 @@ public class actionController {
 		ClientUtils.disconnectFromService();
 		Platform.exit();
 		System.exit(0);
+	}
+	
+	public Label getSecondaryColor5Bkg() {
+		return secondaryColor5Bkg;
 	}
 	
 	public Button getShowCourtCasesBtn() {
@@ -1676,23 +1708,11 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) throws IOException {
-		if (CourtStage != null && CourtStage.isShowing()) {
-			CourtStage.close();
-			CourtStage = null;
-			return;
-		}
-		CourtStage = new Stage();
-		CourtStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("court-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		CourtStage.setTitle("Current ID");
-		CourtStage.setScene(newScene);
-		
-		CourtStage.show();
-		// TODO: add always on top for court stage
-		// CourtStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
+		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane, shiftInformationPane);
+		setActive(courtPane);
 		showAnimation(showCourtCasesBtn);
+		
+		loadCaseLabels(caseList);
 	}
 	
 	@javafx.fxml.FXML
@@ -1818,7 +1838,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
-		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane);
+		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(shiftInformationPane);
 		showAnimation(shiftInfoBtn);
 		controllerUtils.refreshChart(areaReportChart, "area");
@@ -1827,13 +1847,13 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onLogsButtonClick(ActionEvent actionEvent) {
 		showAnimation(logsButton);
-		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane, calloutPane);
+		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(logPane);
 	}
 	
 	@javafx.fxml.FXML
 	public void onVehLookupBtnClick(ActionEvent actionEvent) {
-		setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane);
+		setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane, courtPane);
 		vehRecordPane.setVisible(false);
 		noRecordFoundLabelVeh.setVisible(false);
 		setActive(vehLookupPane);
@@ -1841,7 +1861,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onPedLookupBtnClick(ActionEvent actionEvent) {
-		setDisable(logPane, vehLookupPane, shiftInformationPane, calloutPane);
+		setDisable(logPane, vehLookupPane, shiftInformationPane, calloutPane, courtPane);
 		pedRecordPane.setVisible(false);
 		noRecordFoundLabelPed.setVisible(false);
 		setActive(pedLookupPane);
@@ -2100,7 +2120,7 @@ public class actionController {
 		timeline.play();
 		currentCalPane.setVisible(false);
 		
-		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane);
+		setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane, courtPane);
 		setActive(calloutPane);
 		
 		CalloutManager.loadActiveCallouts(calActiveList);
@@ -3602,8 +3622,134 @@ public class actionController {
 		getReportChart().getData().add(series1);
 	}
 	
-	public Label getSecondaryColor5Bkg() {
-		return secondaryColor5Bkg;
+	public void loadCaseLabels(ListView<String> listView) {
+		try {
+			CourtCases courtCases = CourtUtils.loadCourtCases();
+			ObservableList<String> caseNames = FXCollections.observableArrayList();
+			if (courtCases.getCaseList() != null) {
+				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(
+						Comparator.comparing(Case::getCaseTime).reversed()).collect(Collectors.toList());
+				
+				for (Case case1 : sortedCases) {
+					if (!case1.getName().isEmpty()) {
+						caseNames.add(case1.getOffenceDate().replaceAll("-",
+						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName());
+					}
+				}
+				listView.setItems(caseNames);
+				
+				listView.setCellFactory(new Callback<>() {
+					@Override
+					public ListCell<String> call(ListView<String> param) {
+						return new ListCell<>() {
+							private final HBox hbox;
+							private final Label label;
+							
+							{
+								hbox = new HBox();
+								label = new Label();
+								label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+								hbox.getChildren().add(label);
+							}
+							
+							@Override
+							protected void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty || item == null) {
+									setGraphic(null);
+								} else {
+									label.setText(item);
+									setGraphic(hbox);
+								}
+							}
+						};
+					}
+				});
+				
+				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+					if (newValue != null) {
+						for (Case case1 : sortedCases) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-",
+							                                                      "/") + " " + case1.getCaseTime() + " " + case1.getName())) {
+								updateFields(case1);
+								break;
+							}
+						}
+					}
+				});
+			}
+		} catch (JAXBException | IOException e) {
+			System.err.println("Error loading Case labels: " + e.getMessage());
+		}
+	}
+	
+	private void updateFields(Case case1) {
+		caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
+		caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
+		caseOffenceLocationField.setText(case1.getOffenceLocation() != null ? case1.getOffenceLocation() : "");
+		caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
+		caseNameField.setText(case1.getName() != null ? case1.getName() : "");
+		caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
+		caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
+		
+		ObservableList<Label> offenceLabels = createLabels(case1.getOffences());
+		ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
+		
+		int fineTotal = calculateFineTotal(case1.getOutcomes());
+		caseTotalLabel.setText("Fine Total: " + fineTotal);
+		
+		caseOutcomesListView.setItems(outcomeLabels);
+		caseOffencesListView.setItems(offenceLabels);
+		
+		setCellFactory(caseOutcomesListView);
+		setCellFactory(caseOffencesListView);
+	}
+	
+	private ObservableList<Label> createLabels(String text) {
+		ObservableList<Label> labels = FXCollections.observableArrayList();
+		if (text != null) {
+			String[] items = text.split("\\|");
+			for (String item : items) {
+				if (!item.trim().isEmpty()) {
+					Label label = new Label(item.trim());
+					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					labels.add(label);
+				}
+			}
+		}
+		return labels;
+	}
+	
+	private int calculateFineTotal(String outcomes) {
+		int fineTotal = 0;
+		if (outcomes != null) {
+			Pattern FINE_PATTERN = Pattern.compile("Fined: (\\d+)");
+			Matcher matcher = FINE_PATTERN.matcher(outcomes);
+			while (matcher.find()) {
+				fineTotal += Integer.parseInt(matcher.group(1));
+			}
+		}
+		return fineTotal;
+	}
+	
+	private void setCellFactory(ListView<Label> listView) {
+		listView.setCellFactory(new Callback<>() {
+			@Override
+			public ListCell<Label> call(ListView<Label> param) {
+				return new ListCell<>() {
+					@Override
+					protected void updateItem(Label item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty || item == null) {
+							setText(null);
+							setGraphic(null);
+						} else {
+							setGraphic(item);
+						}
+					}
+				};
+			}
+		});
 	}
 	
 	//</editor-fold>
@@ -3640,7 +3786,7 @@ public class actionController {
 		
 		checkForUpdates();
 		
-		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane);
+		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(shiftInformationPane);
 		needRefresh.set(0);
 		needRefresh.addListener((obs, oldValue, newValue) -> {

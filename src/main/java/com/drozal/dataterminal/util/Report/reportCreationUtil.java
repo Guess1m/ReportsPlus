@@ -572,6 +572,7 @@ public class reportCreationUtil {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
+				// TODO: get rid of all sout
 				System.out.println("Added case from citation");
 				
 				actionController.needRefresh.set(1);

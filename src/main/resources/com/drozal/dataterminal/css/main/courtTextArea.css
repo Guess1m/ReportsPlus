@@ -151,3 +151,4 @@
 /* Define styles for the horizontal scroll bar when pressed */
 .text-area-light .scroll-pane .scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */
+    }

@@ -220,297 +220,42 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"
                                     style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                             <children>
-                                <GridPane hgap="10.0" layoutX="15.0" layoutY="1.0" vgap="12.0"
-                                          AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
-                                          AnchorPane.topAnchor="0.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                                    </rowConstraints>
+                                <VBox layoutX="15.0" spacing="10.0" AnchorPane.bottomAnchor="15.0"
+                                      AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+                                      AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <TextField fx:id="caseNumField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="casePrim1" text="Court Case Information:" GridPane.columnSpan="6">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="34.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="caselbl1" text="Case Number:" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseCourtDateField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="3"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caselbl2" text="Court Date:" GridPane.columnIndex="2"
-                                               GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="caselbl3" text="Offence Date:" GridPane.columnIndex="4"
-                                               GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseOffenceDateField" editable="false"
-                                                   focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="5"
-                                                   GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                </GridPane>
-                                <GridPane hgap="10.0" layoutX="15.0" layoutY="107.0" vgap="14.0"
-                                          AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
-                                                        vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
-                                                        vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <TextField fx:id="caseFirstNameField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caseSec1" text="Defendant Information:" GridPane.columnSpan="4">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="25.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="caselbl4" text="First Name:" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseLastNameField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="3"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caselbl5" text="Last Name:" GridPane.columnIndex="2"
-                                               GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="caselbl6" text="Age/DOB:" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseAgeField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="2">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <TextField fx:id="caseGenderField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="3"
-                                                   GridPane.rowIndex="2">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caselbl7" text="Gender:" GridPane.columnIndex="2"
-                                               GridPane.rowIndex="2">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="caselbl8" text="Defendant Address:" GridPane.columnSpan="2"
-                                               GridPane.rowIndex="3">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseAddressField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="1"
-                                                   GridPane.columnSpan="3" GridPane.rowIndex="3">
-                                            <GridPane.margin>
-                                                <Insets left="85.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                </GridPane>
-                                <GridPane hgap="10.0" layoutX="15.0" layoutY="294.0" vgap="14.0"
-                                          AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <TextField fx:id="caseStreetField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caseSec2" text="Offence Information:" GridPane.columnSpan="6">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="25.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="caselbl9" text="Street:" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <TextField fx:id="caseAreaField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="3"
-                                                   GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                        <Label fx:id="caselbl10" text="Area:" GridPane.columnIndex="2"
-                                               GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="10.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="caselbl11" text="County:" GridPane.columnIndex="4"
-                                               GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="caseCountyField" editable="false" focusTraversable="false"
-                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
-                                                   styleClass="formFielddark"
-                                                   stylesheets="@css/form/light/formFields.css" GridPane.columnIndex="5"
-                                                   GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                </GridPane>
-                                <GridPane layoutX="10.0" layoutY="384.0" prefHeight="291.0" prefWidth="605.0"
-                                          vgap="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
-                                          AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="384.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" percentHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" percentHeight="70.0" vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <GridPane>
+                                        <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="NEVER">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints vgrow="NEVER"/>
-                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
                                             </rowConstraints>
                                             <children>
-                                                <TextArea fx:id="caseNotesField" editable="false"
-                                                          focusTraversable="false" prefHeight="75.0"
-                                                          styleClass="text-area-dark"
-                                                          stylesheets="@css/main/courtTextArea.css"
-                                                          GridPane.rowIndex="1">
+                                                <TextField fx:id="caseNumField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
                                                     <GridPane.margin>
-                                                        <Insets left="10.0" right="10.0"/>
+                                                        <Insets left="5.0"/>
                                                     </GridPane.margin>
-                                                </TextArea>
-                                                <Label fx:id="caselbl12" text="Case Notes:">
+                                                </TextField>
+                                                <Label fx:id="casePrim1" text="Court Case Information:"
+                                                       GridPane.columnSpan="6">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="34.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="caselbl1" text="Case Number:" GridPane.rowIndex="1">
                                                     <font>
                                                         <Font name="Segoe UI Black" size="20.0"/>
                                                     </font>
@@ -518,33 +263,360 @@
                                                         <Insets left="10.0"/>
                                                     </GridPane.margin>
                                                 </Label>
+                                                <TextField fx:id="caseCourtDateField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caselbl2" text="Court Date:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Label fx:id="caselbl3" text="Offence Date:" GridPane.columnIndex="4"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="caseOffenceDateField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
                                             </children>
                                         </GridPane>
-                                        <GridPane prefHeight="162.0" prefWidth="615.0" GridPane.rowIndex="1">
+                                        <Separator prefWidth="200.0">
+                                            <padding>
+                                                <Insets bottom="5.0" top="5.0"/>
+                                            </padding>
+                                        </Separator>
+                                        <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="NEVER">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="70.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints vgrow="SOMETIMES"/>
                                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
                                             </rowConstraints>
                                             <children>
-                                                <ListView fx:id="caseOffencesListView"
-                                                          style="-fx-background-color: red;"
-                                                          styleClass="list-view-custom"
-                                                          stylesheets="@css/courtListView.css" GridPane.rowIndex="1"/>
-                                                <ListView fx:id="caseOutcomesListView"
-                                                          style="-fx-background-color: blue;"
-                                                          styleClass="list-view-custom"
-                                                          stylesheets="@css/courtListView.css" GridPane.columnIndex="1"
-                                                          GridPane.rowIndex="1"/>
-                                                <Label fx:id="caseTotalLabel" prefHeight="17.0" prefWidth="212.0"
-                                                       text="Fined:" GridPane.columnIndex="1"/>
+                                                <TextField fx:id="caseFirstNameField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caseSec1" text="Defendant Information:"
+                                                       GridPane.columnSpan="4">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="25.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="caselbl4" text="First Name:" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="caseLastNameField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caselbl5" text="Last Name:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Label fx:id="caselbl6" text="Age/DOB:" GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="caseAgeField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <TextField fx:id="caseGenderField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caselbl7" text="Gender:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Label fx:id="caselbl8" text="Defendant Address:"
+                                                       GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="caseAddressField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="1" GridPane.columnSpan="3"
+                                                           GridPane.rowIndex="3">
+                                                    <GridPane.margin>
+                                                        <Insets left="85.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                            </children>
+                                        </GridPane>
+                                        <Separator prefWidth="200.0">
+                                            <padding>
+                                                <Insets bottom="5.0" top="5.0"/>
+                                            </padding>
+                                        </Separator>
+                                        <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="NEVER">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <TextField fx:id="caseStreetField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caseSec2" text="Offence Information:"
+                                                       GridPane.columnSpan="6">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="25.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="caselbl9" text="Street:" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="caseAreaField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="1"
+                                                           GridPane.vgrow="ALWAYS">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                                <Label fx:id="caselbl10" text="Area:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0"/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Label fx:id="caselbl11" text="County:" GridPane.columnIndex="4"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="caseCountyField" editable="false"
+                                                           focusTraversable="false"
+                                                           style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                           styleClass="formFielddark"
+                                                           stylesheets="@css/form/light/formFields.css"
+                                                           GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                                    <GridPane.margin>
+                                                        <Insets left="5.0"/>
+                                                    </GridPane.margin>
+                                                </TextField>
+                                            </children>
+                                        </GridPane>
+                                        <Separator prefWidth="200.0">
+                                            <padding>
+                                                <Insets bottom="5.0" top="5.0"/>
+                                            </padding>
+                                        </Separator>
+                                        <GridPane prefHeight="291.0" prefWidth="605.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" percentHeight="35.0"
+                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" percentHeight="65.0"
+                                                                vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <GridPane vgap="5.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                        <RowConstraints vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <TextArea fx:id="caseNotesField" editable="false"
+                                                                  focusTraversable="false" styleClass="text-area-dark"
+                                                                  stylesheets="@css/main/courtTextArea.css"
+                                                                  GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" right="10.0"/>
+                                                            </GridPane.margin>
+                                                        </TextArea>
+                                                        <Label fx:id="caselbl12" text="Case Notes:">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0"/>
+                                                            </font>
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0"/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane prefHeight="162.0" prefWidth="615.0" vgap="3.0"
+                                                          GridPane.rowIndex="1">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"
+                                                                           percentWidth="42.5"/>
+                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0"
+                                                                           minWidth="10.0" percentWidth="20.0"
+                                                                           prefWidth="225.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="129.0"
+                                                                           minWidth="10.0" percentWidth="37.5"
+                                                                           prefWidth="129.0"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <ListView fx:id="caseOffencesListView"
+                                                                  style="-fx-background-color: #e2e2e2;"
+                                                                  styleClass="list-view-custom"
+                                                                  stylesheets="@css/courtListView.css"
+                                                                  GridPane.rowIndex="1"/>
+                                                        <ListView fx:id="caseOutcomesListView"
+                                                                  style="-fx-background-color: #f2f2f2;"
+                                                                  styleClass="list-view-custom"
+                                                                  stylesheets="@css/courtListView.css"
+                                                                  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                                        <AnchorPane prefHeight="200.0" prefWidth="200.0"
+                                                                    style="-fx-background-color: #cccccc;"
+                                                                    GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                            <children>
+                                                                <Label fx:id="caseTotalLabel" alignment="CENTER"
+                                                                       layoutY="35.0" AnchorPane.leftAnchor="0.0"
+                                                                       AnchorPane.rightAnchor="0.0"
+                                                                       AnchorPane.topAnchor="10.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <Label text="Charges:">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <Label text="Outcomes:" GridPane.columnIndex="1">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <Label text="Court Case Outcome:" GridPane.columnIndex="2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0" right="10.0"/>
+                                                    </GridPane.margin>
+                                                </GridPane>
                                             </children>
                                         </GridPane>
                                     </children>
-                                </GridPane>
+                                </VBox>
                             </children>
                         </AnchorPane>
                     </children>

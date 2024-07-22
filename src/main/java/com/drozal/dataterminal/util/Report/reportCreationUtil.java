@@ -555,30 +555,35 @@ public class reportCreationUtil {
 				
 				// TODO: Add Charges parsing
 				
-				Case case1 = new Case();
-				case1.setCaseNumber(generateCaseNumber());
-				case1.setCourtDate(date.getText());
-				case1.setCaseTime(time.getText());
-				case1.setName(offenderName.getText());
-				case1.setOffenceDate(date.getText());
-				case1.setAge(offenderAge.getText());
-				case1.setAddress(offenderAddress.getText());
-				case1.setGender(offenderGender.getText());
-				case1.setCounty(county.getText());
-				case1.setStreet(street.getText());
-				case1.setArea(area.getEditor().getText());
-				case1.setNotes(notes.getText());
-				case1.setOffences(stringBuilder.toString());
-				case1.setOutcomes(chargesBuilder.toString());
-				try {
-					CourtUtils.addCase(case1);
-				} catch (JAXBException e) {
-					throw new RuntimeException(e);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
+				// TODO add check for offences being empty
+				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+					Case case1 = new Case();
+					case1.setCaseNumber(generateCaseNumber());
+					case1.setCourtDate(date.getText());
+					case1.setCaseTime(time.getText());
+					case1.setName(offenderName.getText());
+					case1.setOffenceDate(date.getText());
+					case1.setAge(offenderAge.getText());
+					case1.setAddress(offenderAddress.getText());
+					case1.setGender(offenderGender.getText());
+					case1.setCounty(county.getText());
+					case1.setStreet(street.getText());
+					case1.setArea(area.getEditor().getText());
+					case1.setNotes(notes.getText());
+					case1.setOffences(stringBuilder.toString());
+					case1.setOutcomes(chargesBuilder.toString());
+					try {
+						CourtUtils.addCase(case1);
+					} catch (JAXBException e) {
+						throw new RuntimeException(e);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					// TODO: get rid of all sout
+					System.out.println("Added case from citation");
+				} else {
+					System.out.println("could not add case from citation because either name or offences were empty");
 				}
-				// TODO: get rid of all sout
-				System.out.println("Added case from citation");
 				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);

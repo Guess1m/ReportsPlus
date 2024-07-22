@@ -1506,7 +1506,7 @@ public class actionController {
 	}
 	
 	public void loadCaseLabels(ListView<String> listView) {
-		System.out.println("loaded case lables");
+		listView.getItems().clear();
 		try {
 			CourtCases courtCases = CourtUtils.loadCourtCases();
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
@@ -1515,12 +1515,12 @@ public class actionController {
 						Comparator.comparing(Case::getCaseTime).reversed()).collect(Collectors.toList());
 				
 				for (Case case1 : sortedCases) {
-					if (!case1.getName().isEmpty()) {
+					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
 						caseNames.add(case1.getOffenceDate().replaceAll("-",
 						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName());
 					}
 				}
-				listView.getItems().clear();
+				
 				listView.setItems(caseNames);
 				
 				listView.setCellFactory(new Callback<>() {

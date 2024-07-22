@@ -24,7 +24,6 @@ import java.nio.file.*;
 import java.util.List;
 
 import static com.drozal.dataterminal.actionController.*;
-import static com.drozal.dataterminal.actionController.CalloutFirstShown;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -180,8 +179,9 @@ public class calloutController {
 				
 				Calloutx = CalloutStage.getX();
 				Callouty = CalloutStage.getY();
-				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: "+Calloutx+" YValue: "+Callouty, LogUtils.Severity.DEBUG);
-				CalloutFirstShown=false;
+				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
+				    LogUtils.Severity.DEBUG);
+				CalloutFirstShown = false;
 				CalloutStage.close();
 				CalloutStage = null;
 			});

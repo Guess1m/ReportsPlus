@@ -12,17 +12,14 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import com.drozal.dataterminal.newOfficerApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -32,10 +29,11 @@ import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -58,7 +56,6 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.handleClose;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -181,14 +178,14 @@ public class controllerUtils {
 			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 			
 			// Icon
-			ImageView icon = new ImageView(new Image(
-					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			ImageView icon = new ImageView(
+					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
 			// Close button
-			ImageView closeIcon = new ImageView(new Image(
-					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			ImageView closeIcon = new ImageView(
+					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 			closeIcon.setFitWidth(12);
 			closeIcon.setFitHeight(13);
 			closeIcon.setEffect(new ColorAdjust(-0.75, -0.62, 0.24, -0.26));
@@ -241,17 +238,10 @@ public class controllerUtils {
 			popup.show();
 			
 			Timeline timeline = new Timeline(
-					new KeyFrame(
-							Duration.seconds(1),
-							new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
-							new KeyValue(popup.opacityProperty(), 1)
-					),
-					new KeyFrame(
-							Duration.seconds(1.7),
-							new KeyValue(popup.maxHeightProperty(), 0),
-							new KeyValue(popup.opacityProperty(), 0)
-					)
-			);
+					new KeyFrame(Duration.seconds(1), new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
+					             new KeyValue(popup.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.maxHeightProperty(), 0),
+					             new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();
 		});
@@ -271,14 +261,14 @@ public class controllerUtils {
 			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 			
 			// Icon
-			ImageView icon = new ImageView(new Image(
-					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			ImageView icon = new ImageView(
+					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
 			// Close button
-			ImageView closeIcon = new ImageView(new Image(
-					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			ImageView closeIcon = new ImageView(
+					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 			closeIcon.setFitWidth(12);
 			closeIcon.setFitHeight(13);
 			closeIcon.setEffect(new ColorAdjust(-0.39, -0.62, 0.24, -0.26));
@@ -331,17 +321,10 @@ public class controllerUtils {
 			popup.show();
 			
 			Timeline timeline = new Timeline(
-					new KeyFrame(
-							Duration.seconds(1.2),
-							new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
-							new KeyValue(popup.opacityProperty(), 1)
-					),
-					new KeyFrame(
-							Duration.seconds(1.7),
-							new KeyValue(popup.maxHeightProperty(), 0),
-							new KeyValue(popup.opacityProperty(), 0)
-					)
-			);
+					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
+					             new KeyValue(popup.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.maxHeightProperty(), 0),
+					             new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();
 		});

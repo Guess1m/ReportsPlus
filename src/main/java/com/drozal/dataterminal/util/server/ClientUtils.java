@@ -145,7 +145,7 @@ public class ClientUtils {
 								}
 								
 								try {
-									if (ConfigReader.configRead("layout","rememberIDLocation").equals("true")) {
+									if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
 										if (IDFirstShown) {
 											windowUtils.centerStageOnMainApp(IDStage);
 											log("IDStage opened via UPDATE_ID message, first time centered",
@@ -160,7 +160,7 @@ public class ClientUtils {
 										windowUtils.centerStageOnMainApp(IDStage);
 									}
 								} catch (IOException e) {
-									logError("Could not read rememberIDLocation from UPDATE_ID: ",e);
+									logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
 								}
 								try {
 									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
@@ -194,8 +194,9 @@ public class ClientUtils {
 									public void handle(WindowEvent event) {
 										IDx = IDStage.getX();
 										IDy = IDStage.getY();
-										log("IDStage closed via UPDATE_ID message, set XValue: "+IDx+" YValue: "+IDy, LogUtils.Severity.DEBUG);
-										IDFirstShown=false;
+										log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy,
+										    LogUtils.Severity.DEBUG);
+										IDFirstShown = false;
 										IDStage = null;
 									}
 								});
@@ -240,7 +241,7 @@ public class ClientUtils {
 								CalloutStage.centerOnScreen();
 								
 								try {
-									if (ConfigReader.configRead("layout","rememberCalloutLocation").equals("true")) {
+									if (ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true")) {
 										if (CalloutFirstShown) {
 											windowUtils.centerStageOnMainApp(CalloutStage);
 											log("CalloutStage opened via UPDATE_CALLOUT message, first time centered",
@@ -253,7 +254,7 @@ public class ClientUtils {
 										}
 									}
 								} catch (IOException e) {
-									logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ",e);
+									logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
 								}
 								
 								try {

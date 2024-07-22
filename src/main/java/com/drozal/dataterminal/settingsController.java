@@ -217,6 +217,7 @@ public class settingsController {
 		controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getLowerPane().setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.4) + ";");
 		controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
@@ -332,6 +333,7 @@ public class settingsController {
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -502,6 +504,7 @@ public class settingsController {
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");

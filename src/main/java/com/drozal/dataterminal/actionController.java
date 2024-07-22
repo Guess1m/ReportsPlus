@@ -90,6 +90,9 @@ public class actionController {
 		showIDBtn.setVisible(true);
 		showCourtCasesBtn.setVisible(true);
 		
+		blankCourtInfoPane.setVisible(true);
+		courtInfoPane.setVisible(false);
+		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			
@@ -942,9 +945,19 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
-		if (!caseNumField.getText().isEmpty()) {
+		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
 			selectedCaseNum = caseNumField.getText();
-			showNotificationWarning("Court Case Manager", "Case Number To Delete: " + selectedCaseNum, mainRT);
+			try {
+				CourtUtils.deleteCase(selectedCaseNum);
+			} catch (JAXBException e) {
+				logError("Could not delete case, JAXBException:", e);
+			} catch (IOException e) {
+				logError("Could not delete case, IOException:", e);
+			}
+			blankCourtInfoPane.setVisible(true);
+			courtInfoPane.setVisible(false);
+			showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum, mainRT);
+			loadCaseLabels(caseList);
 		}
 	}
 	
@@ -955,6 +968,7 @@ public class actionController {
 		showAnimation(showCourtCasesBtn);
 		
 		loadCaseLabels(caseList);
+		caseList.getSelectionModel().clearSelection();
 	}
 	
 	@javafx.fxml.FXML
@@ -1492,6 +1506,7 @@ public class actionController {
 	}
 	
 	public void loadCaseLabels(ListView<String> listView) {
+		System.out.println("loaded case lables");
 		try {
 			CourtCases courtCases = CourtUtils.loadCourtCases();
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
@@ -1505,7 +1520,7 @@ public class actionController {
 						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName());
 					}
 				}
-				
+				listView.getItems().clear();
 				listView.setItems(caseNames);
 				
 				listView.setCellFactory(new Callback<>() {
@@ -1536,6 +1551,8 @@ public class actionController {
 				
 				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
+						blankCourtInfoPane.setVisible(false);
+						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
 							if (newValue.equals(case1.getOffenceDate().replaceAll("-",
 							                                                      "/") + " " + case1.getCaseTime() + " " + case1.getName())) {

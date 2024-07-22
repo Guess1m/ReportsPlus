@@ -246,8 +246,8 @@ public class controllerUtils {
 							new KeyValue(popup.opacityProperty(), 1)
 					),
 					new KeyFrame(
-							Duration.seconds(3),
-							new KeyValue(popup.opacityProperty(), 0)
+							Duration.seconds(30),
+							new KeyValue(popup.opacityProperty(), 1)
 					)
 			);
 			timeline.setOnFinished(event -> popup.hide());
@@ -334,8 +334,8 @@ public class controllerUtils {
 							new KeyValue(popup.opacityProperty(), 1)
 					),
 					new KeyFrame(
-							Duration.seconds(3),
-							new KeyValue(popup.opacityProperty(), 0)
+							Duration.seconds(30),
+							new KeyValue(popup.opacityProperty(), 1)
 					)
 			);
 			timeline.setOnFinished(event -> popup.hide());

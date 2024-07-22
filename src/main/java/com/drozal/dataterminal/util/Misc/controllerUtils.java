@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.Misc;
 
+import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
@@ -11,20 +12,32 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.newOfficerApplication;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import org.w3c.dom.Document;
@@ -38,12 +51,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.handleClose;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -152,15 +167,180 @@ public class controllerUtils {
 		ConfigWriter.configwrite("reportSettings", "reportHeading", hexColor);
 	}
 	
-	public static void showNotification(String title, String message, Object owner) {
-		Label label = new Label(message);
-		
-		VBox vbox1 = new VBox(label);
-		vbox1.setAlignment(Pos.CENTER);
-		Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(
-				Pos.TOP_RIGHT).hideAfter(Duration.seconds(1.15)).owner(owner);
-		noti.show();
-		noti.getStyleClass().add("notification-pane");
+	public static void showNotificationInfo(String title, String message, Object owner) {
+		Platform.runLater(() -> {
+			Stage ownerStage = (Stage) owner;
+			
+			// Title label
+			Label titleLabel = new Label(title);
+			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
+			
+			// Message label
+			Label messageLabel = new Label(message);
+			messageLabel.setWrapText(true);
+			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+			
+			// Icon
+			ImageView icon = new ImageView(new Image(
+					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			icon.setFitWidth(24);
+			icon.setFitHeight(24);
+			
+			// Close button
+			ImageView closeIcon = new ImageView(new Image(
+					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			closeIcon.setFitWidth(12);
+			closeIcon.setFitHeight(13);
+			closeIcon.setEffect(new ColorAdjust(-0.75, -0.62, 0.24, -0.26));
+			
+			Button closeButton = new Button();
+			closeButton.setGraphic(closeIcon);
+			closeButton.setStyle("-fx-background-color: transparent;");
+			
+			AnchorPane closePane = new AnchorPane(closeButton);
+			closePane.setStyle("-fx-background-color: rgba(100,100,100,0.2);");
+			closePane.setPrefSize(29, 66);
+			AnchorPane.setLeftAnchor(closeButton, 0.0);
+			AnchorPane.setRightAnchor(closeButton, 0.0);
+			AnchorPane.setTopAnchor(closeButton, 0.0);
+			AnchorPane.setBottomAnchor(closeButton, 0.0);
+			
+			// Main container
+			VBox contentBox = new VBox(5, titleLabel, messageLabel);
+			contentBox.setAlignment(Pos.CENTER_LEFT);
+			contentBox.setPadding(new Insets(0));
+			contentBox.setStyle("-fx-background-color: #367af6; -fx-background-radius: 7;");
+			
+			HBox mainBox = new HBox(10, icon, contentBox, closePane);
+			mainBox.setAlignment(Pos.CENTER_LEFT);
+			mainBox.setPadding(new Insets(0, 0, 0, 10));
+			mainBox.setStyle("-fx-background-color: #367af6; -fx-background-radius: 7;");
+			
+			AnchorPane anchorPane = new AnchorPane(mainBox);
+			anchorPane.setStyle("-fx-background-color: #367af6;");
+			AnchorPane.setBottomAnchor(mainBox, 0.0);
+			AnchorPane.setLeftAnchor(mainBox, 0.0);
+			AnchorPane.setRightAnchor(mainBox, 0.0);
+			AnchorPane.setTopAnchor(mainBox, 0.0);
+			
+			Stage popup = new Stage();
+			popup.initOwner(ownerStage);
+			popup.initStyle(StageStyle.TRANSPARENT);
+			Scene scene = new Scene(anchorPane);
+			scene.setFill(null);
+			popup.setScene(scene);
+			popup.setAlwaysOnTop(true);
+			
+			closeButton.setOnAction(event -> popup.hide());
+			
+			double x = ownerStage.getX() + 30;
+			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
+			
+			popup.setX(x);
+			popup.setY(y);
+			popup.show();
+			
+			Timeline timeline = new Timeline(
+					new KeyFrame(
+							Duration.seconds(1.5),
+							new KeyValue(popup.opacityProperty(), 1)
+					),
+					new KeyFrame(
+							Duration.seconds(3),
+							new KeyValue(popup.opacityProperty(), 0)
+					)
+			);
+			timeline.setOnFinished(event -> popup.hide());
+			timeline.play();
+		});
+	}
+	
+	public static void showNotificationWarning(String title, String message, Object owner) {
+		Platform.runLater(() -> {
+			Stage ownerStage = (Stage) owner;
+			
+			// Title label
+			Label titleLabel = new Label(title);
+			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
+			
+			// Message label
+			Label messageLabel = new Label(message);
+			messageLabel.setWrapText(true);
+			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+			
+			// Icon
+			ImageView icon = new ImageView(new Image(
+					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			icon.setFitWidth(24);
+			icon.setFitHeight(24);
+			
+			// Close button
+			ImageView closeIcon = new ImageView(new Image(
+					Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			closeIcon.setFitWidth(12);
+			closeIcon.setFitHeight(13);
+			closeIcon.setEffect(new ColorAdjust(-0.39, -0.62, 0.24, -0.26));
+			
+			Button closeButton = new Button();
+			closeButton.setGraphic(closeIcon);
+			closeButton.setStyle("-fx-background-color: transparent;");
+			
+			AnchorPane closePane = new AnchorPane(closeButton);
+			closePane.setStyle("-fx-background-color: rgba(100,100,100,0.2);");
+			closePane.setPrefSize(29, 66);
+			AnchorPane.setLeftAnchor(closeButton, 0.0);
+			AnchorPane.setRightAnchor(closeButton, 0.0);
+			AnchorPane.setTopAnchor(closeButton, 0.0);
+			AnchorPane.setBottomAnchor(closeButton, 0.0);
+			
+			// Main container
+			VBox contentBox = new VBox(5, titleLabel, messageLabel);
+			contentBox.setAlignment(Pos.CENTER_LEFT);
+			contentBox.setPadding(new Insets(0));
+			contentBox.setStyle("-fx-background-color: #FFA726; -fx-background-radius: 7;");
+			
+			HBox mainBox = new HBox(10, icon, contentBox, closePane);
+			mainBox.setAlignment(Pos.CENTER_LEFT);
+			mainBox.setPadding(new Insets(0, 0, 0, 10));
+			mainBox.setStyle("-fx-background-color: #FFA726; -fx-background-radius: 7;");
+			
+			AnchorPane anchorPane = new AnchorPane(mainBox);
+			anchorPane.setStyle("-fx-background-color: #FFA726;");
+			AnchorPane.setBottomAnchor(mainBox, 0.0);
+			AnchorPane.setLeftAnchor(mainBox, 0.0);
+			AnchorPane.setRightAnchor(mainBox, 0.0);
+			AnchorPane.setTopAnchor(mainBox, 0.0);
+			
+			Stage popup = new Stage();
+			popup.initOwner(ownerStage);
+			popup.initStyle(StageStyle.TRANSPARENT);
+			Scene scene = new Scene(anchorPane);
+			scene.setFill(null);
+			popup.setScene(scene);
+			popup.setAlwaysOnTop(true);
+			
+			closeButton.setOnAction(event -> popup.hide());
+			
+			double x = ownerStage.getX() + 30;
+			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
+			
+			popup.setX(x);
+			popup.setY(y);
+			popup.show();
+			
+			Timeline timeline = new Timeline(
+					new KeyFrame(
+							Duration.seconds(1.5),
+							new KeyValue(popup.opacityProperty(), 1)
+					),
+					new KeyFrame(
+							Duration.seconds(3),
+							new KeyValue(popup.opacityProperty(), 0)
+					)
+			);
+			timeline.setOnFinished(event -> popup.hide());
+			timeline.play();
+		});
 	}
 	
 	public static void showLogClearNotification(String title, String message, Object owner) {

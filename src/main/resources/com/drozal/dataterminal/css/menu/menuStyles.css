@@ -31,6 +31,25 @@
     -fx-font-size: 14.5px;
 }
 
+.dangerbutton {
+    background-color: red; /* Red background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add some padding */
+    font-size: 16px; /* Increase font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.dangerbutton:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+.dangerbutton:active {
+    background-color: #990000; /* Even darker red on click */
+}
+
 /*TextFields*/
 .menuField {
     -fx-text-fill: black !important;

@@ -65,6 +65,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
@@ -668,6 +669,8 @@ public class actionController {
 	private Label caselbl11;
 	@javafx.fxml.FXML
 	private Label caselbl10;
+	@javafx.fxml.FXML
+	private Button deleteCaseBtn;
 	
 	//</editor-fold>
 	
@@ -1876,6 +1879,15 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
+	
+	@javafx.fxml.FXML
+	public void deleteCaseBtnPress(ActionEvent actionEvent) {
+		String selectedCaseNum;
+		if (!caseNumField.getText().isEmpty()){
+			selectedCaseNum=caseNumField.getText();
+			showNotificationWarning("Court Case Manager", "Case Number To Delete: "+selectedCaseNum, mainRT);
+		}
+	}
 	
 	@javafx.fxml.FXML
 	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) throws IOException {

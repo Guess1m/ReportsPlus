@@ -131,7 +131,7 @@ public class reportCreationUtil {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			controllerUtils.refreshChart(areaReportChart, "area");
-			showNotificationInfo("Reports", "A new Callout Report has been submitted.", mainRT);
+			showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
 			Stage rootstage = (Stage) root.getScene().getWindow();
 			rootstage.close();
 		});
@@ -230,7 +230,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Impound Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 				stage.close();
 			}
 		});
@@ -315,7 +315,7 @@ public class reportCreationUtil {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			controllerUtils.refreshChart(areaReportChart, "area");
-			showNotificationInfo("Reports", "A new Patrol Report has been submitted.", mainRT);
+			showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
 			
 			stage.close();
 		});
@@ -501,7 +501,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Impound Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 					stageimp.close();
 				}
 			});
@@ -583,7 +583,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Citation Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
 				stage.close();
 			}
 		});
@@ -681,7 +681,7 @@ public class reportCreationUtil {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			controllerUtils.refreshChart(areaReportChart, "area");
-			showNotificationInfo("Reports", "A new Incident Report has been submitted.", mainRT);
+			showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 			stage.close();
 		});
 	}
@@ -786,7 +786,7 @@ public class reportCreationUtil {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			controllerUtils.refreshChart(areaReportChart, "area");
-			showNotificationInfo("Reports", "A new Search Report has been submitted.", mainRT);
+			showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 			stage.close();
 		});
 	}
@@ -967,7 +967,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Impound Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 					stageimp.close();
 				}
 			});
@@ -1071,7 +1071,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Incident Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 				stageinc.close();
 			});
 		});
@@ -1183,7 +1183,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Search Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 				stagesrch.close();
 			});
 		});
@@ -1232,7 +1232,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Arrest Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
 				stage.close();
 			}
 		});
@@ -1496,7 +1496,7 @@ public class reportCreationUtil {
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
 						controllerUtils.refreshChart(areaReportChart, "area");
-						showNotificationInfo("Reports", "A new Impound Report has been submitted.", mainRT);
+						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 						stageimp.close();
 					}
 				});
@@ -1600,7 +1600,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Incident Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 					stageinc.close();
 				});
 			});
@@ -1715,7 +1715,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Search Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 					stagesrch.close();
 				});
 			});
@@ -1766,7 +1766,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Arrest Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
 					stagearr.close();
 				}
 			});
@@ -1963,7 +1963,7 @@ public class reportCreationUtil {
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
 						controllerUtils.refreshChart(areaReportChart, "area");
-						showNotificationInfo("Reports", "A new Impound Report has been submitted.", mainRT);
+						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 						stageimp.close();
 					}
 				});
@@ -2015,7 +2015,7 @@ public class reportCreationUtil {
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(areaReportChart, "area");
-					showNotificationInfo("Reports", "A new Citation Report has been submitted.", mainRT);
+					showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
 					stagecit.close();
 				}
 			});
@@ -2057,7 +2057,7 @@ public class reportCreationUtil {
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				controllerUtils.refreshChart(areaReportChart, "area");
-				showNotificationInfo("Reports", "A new Traffic Stop Report has been submitted.", mainRT);
+				showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
 				stagets.close();
 			}
 		});

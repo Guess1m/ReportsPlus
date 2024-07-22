@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="66.0" prefWidth="234.0" style="-fx-background-color: orange;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="66.0" prefWidth="234.0" style="-fx-background-color: #367af6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane hgap="5.0" layoutX="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -46,7 +46,7 @@
                               <Image url="@imgs/icons/cross.png" />
                            </image>
                            <effect>
-                              <ColorAdjust brightness="-0.39" contrast="-0.62" hue="0.24" saturation="-0.26" />
+                              <ColorAdjust brightness="-0.39" contrast="-0.62" hue="-0.75" saturation="-0.26" />
                            </effect>
                         </ImageView>
                      </graphic>

@@ -593,14 +593,14 @@ public class reportCreationUtil {
 		System.out.println("----- Traffic Charges: -----");
 		if (!outcomeSuspChance.isEmpty() && !outcomeMinSusp.isEmpty() && !outcomeMaxSusp.isEmpty()) {
 			isTrafficCharge = true;
-			System.out.println("Traffic Charge: TRUE");
+			System.out.println("Traffic Charge: " + isTrafficCharge);
 			System.out.println("Suspension Chance: " + outcomeSuspChance);
 			System.out.println("Min Suspension: " + outcomeMinSusp + " months");
 			System.out.println("Max Suspension: " + outcomeMaxSusp + " months");
 			System.out.println("Revocation Chance: " + outcomeRevokeChance);
 		} else {
 			isTrafficCharge = false;
-			System.out.println("Traffic Charge: FALSE");
+			System.out.println("Traffic Charge: " + isTrafficCharge);
 		}
 		System.out.println("OUTCOMES: ");
 		calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, probationChance, outcomeSuspChance,

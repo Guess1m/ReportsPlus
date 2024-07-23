@@ -67,6 +67,24 @@ public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
 	
+	public static String toTitleCase(String input) {
+		if (input != null || !input.isEmpty()) {
+			
+			String[] words = input.split(" ");
+			StringBuilder titleCased = new StringBuilder();
+			
+			for (String word : words) {
+				if (word.length() > 0) {
+					String lowerCasedWord = word.toLowerCase();
+					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(
+							lowerCasedWord.substring(1)).append(" ");
+				}
+			}
+			return titleCased.toString().trim();
+		}
+		return "";
+	}
+	
 	public static void getOperatingSystemAndArch() {
 		log("====================== System Info ======================", LogUtils.Severity.INFO);
 		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);

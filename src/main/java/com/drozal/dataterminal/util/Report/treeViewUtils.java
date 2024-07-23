@@ -102,6 +102,7 @@ public class treeViewUtils {
 				return XMLValue;
 			} else {
 				log("Element not found for value: " + selectedValue, LogUtils.Severity.WARN);
+				return null;
 			}
 		} catch (ParserConfigurationException | IOException | SAXException e) {
 			logError("Find XML value error ", e);

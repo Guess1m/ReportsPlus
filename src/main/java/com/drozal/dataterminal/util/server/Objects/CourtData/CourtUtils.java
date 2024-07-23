@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.server.Objects.CourtData;
 
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Optional;
 
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
@@ -19,7 +22,7 @@ public class CourtUtils {
 		StringBuilder caseNumber = new StringBuilder("CN-");
 		for (int i = 0; i < CASE_NUMBER_LENGTH; i++) {
 			SecureRandom RANDOM = new SecureRandom();
-			int digit = RANDOM.nextInt(10); // Generate a digit between 0 and 9
+			int digit = RANDOM.nextInt(10);
 			caseNumber.append(digit);
 		}
 		return caseNumber.toString();
@@ -36,7 +39,7 @@ public class CourtUtils {
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			return (CourtCases) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
-			System.err.println("Error loading courtcases: " + e.getMessage());
+			logError("Error loading courtcases: ", e);
 			throw e;
 		}
 	}
@@ -64,7 +67,7 @@ public class CourtUtils {
 			courtCases.getCaseList().add(courtCase);
 			saveCourtCases(courtCases);
 		} else {
-			System.err.println("Court Case with number " + courtCase.getCaseNumber() + " already exists.");
+			log("Court Case with number " + courtCase.getCaseNumber() + " already exists.", LogUtils.Severity.WARN);
 		}
 	}
 	
@@ -87,7 +90,7 @@ public class CourtUtils {
 		return Optional.empty();
 	}
 	
-	public static void modifyEmployee(String number, Case updatedCase) throws JAXBException, IOException {
+	public static void modifyCase(String number, Case updatedCase) throws JAXBException, IOException {
 		CourtCases courtCases = loadCourtCases();
 		
 		if (courtCases.getCaseList() != null) {
@@ -103,3 +106,4 @@ public class CourtUtils {
 	}
 	
 }
+

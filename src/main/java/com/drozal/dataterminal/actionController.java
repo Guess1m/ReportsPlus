@@ -1564,7 +1564,7 @@ public class actionController {
 				});
 			}
 		} catch (JAXBException | IOException e) {
-			System.err.println("Error loading Case labels: " + e.getMessage());
+			logError("Error loading Case labels: ", e);
 		}
 	}
 	

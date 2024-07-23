@@ -130,7 +130,7 @@ public class reportCreationUtil {
 			CalloutReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
-			controllerUtils.refreshChart(areaReportChart, "area");
+			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
 			Stage rootstage = (Stage) root.getScene().getWindow();
 			rootstage.close();
@@ -229,7 +229,7 @@ public class reportCreationUtil {
 				ImpoundReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 				stage.close();
 			}
@@ -314,7 +314,7 @@ public class reportCreationUtil {
 			PatrolReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
-			controllerUtils.refreshChart(areaReportChart, "area");
+			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
 			
 			stage.close();
@@ -500,7 +500,7 @@ public class reportCreationUtil {
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 					stageimp.close();
 				}
@@ -553,21 +553,19 @@ public class reportCreationUtil {
 				                                     officeragen.getText(), notes.getText()));
 				TrafficCitationReportLogs.saveLogsToXML(logs);
 				
-				// TODO: Add Charges parsing
-				
-				// TODO add check for offences being empty
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					Case case1 = new Case();
-					case1.setCaseNumber(generateCaseNumber());
+					String casenum = generateCaseNumber();
+					case1.setCaseNumber(casenum);
 					case1.setCourtDate(date.getText());
 					case1.setCaseTime(time.getText());
-					case1.setName(offenderName.getText());
+					case1.setName(controllerUtils.toTitleCase(offenderName.getText()));
 					case1.setOffenceDate(date.getText());
-					case1.setAge(offenderAge.getText());
-					case1.setAddress(offenderAddress.getText());
-					case1.setGender(offenderGender.getText());
-					case1.setCounty(county.getText());
-					case1.setStreet(street.getText());
+					case1.setAge(controllerUtils.toTitleCase(offenderAge.getText()));
+					case1.setAddress(controllerUtils.toTitleCase(offenderAddress.getText()));
+					case1.setGender(controllerUtils.toTitleCase(offenderGender.getText()));
+					case1.setCounty(controllerUtils.toTitleCase(county.getText()));
+					case1.setStreet(controllerUtils.toTitleCase(street.getText()));
 					case1.setArea(area.getEditor().getText());
 					case1.setNotes(notes.getText());
 					case1.setOffences(stringBuilder.toString());
@@ -579,15 +577,16 @@ public class reportCreationUtil {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-					// TODO: get rid of all sout
-					System.out.println("Added case from citation");
+					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
+					    LogUtils.Severity.INFO);
 				} else {
-					System.out.println("could not add case from citation because either name or offences were empty");
+					log("Could not create court case from citation because either name or offences field(s) were empty.",
+					    LogUtils.Severity.ERROR);
 				}
 				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
 				stage.close();
 			}
@@ -685,7 +684,7 @@ public class reportCreationUtil {
 			IncidentReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
-			controllerUtils.refreshChart(areaReportChart, "area");
+			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 			stage.close();
 		});
@@ -790,7 +789,7 @@ public class reportCreationUtil {
 			SearchReportLogs.saveLogsToXML(logs);
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
-			controllerUtils.refreshChart(areaReportChart, "area");
+			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 			stage.close();
 		});
@@ -971,7 +970,7 @@ public class reportCreationUtil {
 					ImpoundReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 					stageimp.close();
 				}
@@ -1075,7 +1074,7 @@ public class reportCreationUtil {
 				IncidentReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 				stageinc.close();
 			});
@@ -1187,7 +1186,7 @@ public class reportCreationUtil {
 				SearchReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 				stagesrch.close();
 			});
@@ -1218,8 +1217,78 @@ public class reportCreationUtil {
 				
 				ObservableList<ChargesData> formDataList = chargetable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
 				for (ChargesData formData : formDataList) {
+					System.out.println("----------------------------------------------------------------------------");
+					String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
+					String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+					String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+					String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+					String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
+					
+					String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+					String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
+					
+					String outcomeMin = "";
+					String outcomeMax = "";
+					String outcomeTime = "";
+					String outcomeSuspChance = "";
+					String outcomeMinSusp = "";
+					String outcomeMaxSusp = "";
+					String outcomeRevokeChance = "";
+					
+					if (minYears != null && !minYears.isEmpty()) {
+						outcomeMin = minYears;
+						outcomeTime = "years";
+					} else if (minMonths != null && !minMonths.isEmpty()) {
+						outcomeMin = minMonths;
+						outcomeTime = "months";
+					}
+					
+					if (maxYears != null && !maxYears.isEmpty()) {
+						outcomeMax = maxYears;
+						outcomeTime = "years";
+					} else if (maxMonths != null && !maxMonths.isEmpty()) {
+						outcomeMax = maxMonths;
+						outcomeTime = "months";
+					}
+					
+					if (suspChance != null && !suspChance.isEmpty()) {
+						outcomeSuspChance = suspChance;
+					}
+					
+					if (minSusp != null && !minSusp.isEmpty()) {
+						outcomeMinSusp = minSusp;
+					}
+					
+					if (maxSusp != null && !maxSusp.isEmpty()) {
+						outcomeMaxSusp = maxSusp;
+					}
+					
+					if (revokeChance != null && !revokeChance.isEmpty()) {
+						outcomeRevokeChance = revokeChance;
+					}
+					
+					System.out.println("Charge: " + formData.getCharge());
+					System.out.println("Min: " + outcomeMin + " " + outcomeTime);
+					System.out.println("Max: " + outcomeMax + " " + outcomeTime);
+					System.out.println("Chance Probation: " + probationChance);
+					System.out.println("----- Traffic Charges: -----");
+					if (!suspChance.isEmpty() && !minSusp.isEmpty() && !maxSusp.isEmpty()) {
+						System.out.println("Traffic Charge: TRUE");
+						System.out.println("Suspension Chance: " + outcomeSuspChance);
+						System.out.println("Min Suspension: " + outcomeMinSusp);
+						System.out.println("Max Suspension: " + outcomeMaxSusp);
+						System.out.println("Revocation Chance: " + outcomeRevokeChance);
+					} else {
+						System.out.println("Traffic Charge: FALSE");
+					}
+					System.out.println("----------------------------------------------------------------------------");
+					
 					stringBuilder.append(formData.getCharge()).append(" | ");
+					chargesBuilder.append("Charged: " + formData.getCharge() + " | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
@@ -1234,9 +1303,42 @@ public class reportCreationUtil {
 				                            officername.getText(), officernumarrest.getText(), officerdiv.getText(),
 				                            officeragen.getText()));
 				ArrestReportLogs.saveLogsToXML(logs);
+				
+				// TODO: Add Charges parsing
+				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+					Case case1 = new Case();
+					String casenum = generateCaseNumber();
+					case1.setCaseNumber(casenum);
+					case1.setCourtDate(date.getText());
+					case1.setCaseTime(time.getText());
+					case1.setName(controllerUtils.toTitleCase(offenderName.getText()));
+					case1.setOffenceDate(date.getText());
+					case1.setAge(controllerUtils.toTitleCase(offenderAge.getText()));
+					case1.setAddress(controllerUtils.toTitleCase(offenderAddress.getText()));
+					case1.setGender(controllerUtils.toTitleCase(offenderGender.getText()));
+					case1.setCounty(controllerUtils.toTitleCase(county.getText()));
+					case1.setStreet(controllerUtils.toTitleCase(street.getText()));
+					case1.setArea(area.getEditor().getText());
+					case1.setNotes(notes.getText());
+					case1.setOffences(stringBuilder.toString());
+					case1.setOutcomes(chargesBuilder.toString());
+					try {
+						CourtUtils.addCase(case1);
+					} catch (JAXBException e) {
+						throw new RuntimeException(e);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
+					    LogUtils.Severity.INFO);
+				} else {
+					log("Could not create court case from citation because either name or offences field(s) were empty.",
+					    LogUtils.Severity.ERROR);
+				}
+				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
 				stage.close();
 			}
@@ -1500,7 +1602,7 @@ public class reportCreationUtil {
 						ImpoundReportLogs.saveLogsToXML(logs);
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
-						controllerUtils.refreshChart(areaReportChart, "area");
+						refreshChart(areaReportChart, "area");
 						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 						stageimp.close();
 					}
@@ -1604,7 +1706,7 @@ public class reportCreationUtil {
 					IncidentReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
 					stageinc.close();
 				});
@@ -1719,7 +1821,7 @@ public class reportCreationUtil {
 					SearchReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
 					stagesrch.close();
 				});
@@ -1770,7 +1872,7 @@ public class reportCreationUtil {
 					ArrestReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
 					stagearr.close();
 				}
@@ -1967,7 +2069,7 @@ public class reportCreationUtil {
 						ImpoundReportLogs.saveLogsToXML(logs);
 						actionController.needRefresh.set(1);
 						updateChartIfMismatch(reportChart);
-						controllerUtils.refreshChart(areaReportChart, "area");
+						refreshChart(areaReportChart, "area");
 						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 						stageimp.close();
 					}
@@ -2019,7 +2121,7 @@ public class reportCreationUtil {
 					TrafficCitationReportLogs.saveLogsToXML(logs);
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(areaReportChart, "area");
+					refreshChart(areaReportChart, "area");
 					showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
 					stagecit.close();
 				}
@@ -2061,7 +2163,7 @@ public class reportCreationUtil {
 				TrafficStopReportLogs.saveLogsToXML(logs);
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
-				controllerUtils.refreshChart(areaReportChart, "area");
+				refreshChart(areaReportChart, "area");
 				showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
 				stagets.close();
 			}

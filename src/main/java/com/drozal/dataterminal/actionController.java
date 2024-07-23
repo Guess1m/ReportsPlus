@@ -80,6 +80,14 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
+	@javafx.fxml.FXML
+	private Label caseTotalProbationLabel;
+	@javafx.fxml.FXML
+	private Label caseSuspensionDuration;
+	@javafx.fxml.FXML
+	private Label caseLicenseStatLabel;
+	@javafx.fxml.FXML
+	private Label caseTotalJailTimeLabel;
 	
 	// TODO: fix css for court window
 	
@@ -1588,6 +1596,67 @@ public class actionController {
 		});
 	}
 	
+	public static String calculateTotalTime(String input, String key) {
+		String patternString = key + ": ([^\\.]+)\\.";
+		Pattern pattern = Pattern.compile(patternString);
+		Matcher matcher = pattern.matcher(input);
+		
+		int totalMonths = 0;
+		
+		while (matcher.find()) {
+			String timeString = matcher.group(1).trim();
+			
+			Pattern yearsPattern = Pattern.compile("(\\d+) years?");
+			Pattern monthsPattern = Pattern.compile("(\\d+) months?");
+			
+			Matcher yearsMatcher = yearsPattern.matcher(timeString);
+			Matcher monthsMatcher = monthsPattern.matcher(timeString);
+			
+			int months = 0;
+			
+			if (yearsMatcher.find()) {
+				int years = Integer.parseInt(yearsMatcher.group(1));
+				months += years * 12;
+			}
+			
+			if (monthsMatcher.find()) {
+				months += Integer.parseInt(monthsMatcher.group(1));
+			}
+			
+			totalMonths += months;
+		}
+		
+		int years = totalMonths / 12;
+		int months = totalMonths % 12;
+		
+		return (years > 0 ? years + " years " : "") + (months > 0 ? months + " months" : "").trim();
+	}
+	
+	public List<String> parseCharges(String input, String key) {
+		List<String> results = new ArrayList<>();
+		
+		String patternString = key + ": ([^\\.]+)\\.";
+		Pattern pattern = Pattern.compile(patternString);
+		Matcher matcher = pattern.matcher(input);
+		
+		while (matcher.find()) {
+			results.add(matcher.group(1).trim());
+		}
+		
+		return results;
+	}
+	
+	public String extractInteger(String input) {
+		Pattern pattern = Pattern.compile("-?\\d+");
+		Matcher matcher = pattern.matcher(input);
+		
+		if (matcher.find()) {
+			return matcher.group();
+		} else {
+			return "";
+		}
+	}
+	
 	private void updateFields(Case case1) {
 		caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
 		caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
@@ -1602,10 +1671,61 @@ public class actionController {
 		caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
 		caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
 		
+		boolean areTrafficChargesPresent;
+		List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
+		String outcomeSuspension = calculateTotalTime(case1.getOutcomes(), "License Suspension Time");
+		String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
+		String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
+		
+		System.out.println("lcl:" + licenseStatusList + " outsus:" + outcomeSuspension);
+		if (licenseStatusList.isEmpty() && outcomeSuspension.isEmpty()) {
+			areTrafficChargesPresent = false;
+		} else {
+			areTrafficChargesPresent = true;
+		}
+		String licenseStatus = "";
+		if (licenseStatusList.contains("Valid")) {
+			licenseStatus = "Valid";
+		}
+		if (licenseStatusList.contains("Suspended")) {
+			licenseStatus = "Suspended";
+		}
+		if (licenseStatusList.contains("Revoked")) {
+			licenseStatus = "Revoked";
+		}
+		
+		if (!totalJailTime.isEmpty()) {
+			caseTotalJailTimeLabel.setText("Total Jail Time: " + totalJailTime);
+		} else {
+			caseTotalJailTimeLabel.setText("Total Jail Time: " + "0");
+		}
+		
+		if (!outcomeProbation.isEmpty()) {
+			caseTotalProbationLabel.setText("Total Probation Time: " + outcomeProbation);
+		} else {
+			caseTotalProbationLabel.setText("Total Probation Time: " + "0");
+		}
+		
+		if (areTrafficChargesPresent) {
+			caseLicenseStatLabel.setVisible(true);
+			caseSuspensionDuration.setVisible(true);
+			caseLicenseStatLabel.setText("License Status: " + licenseStatus);
+			if (!outcomeSuspension.isEmpty()) {
+				caseSuspensionDuration.setText("Suspension Duration: " + outcomeSuspension);
+			} else {
+				caseSuspensionDuration.setText("Suspension Duration: " + "0");
+			}
+		} else {
+			caseLicenseStatLabel.setVisible(false);
+			caseSuspensionDuration.setVisible(false);
+		}
+		
+		
 		ObservableList<Label> offenceLabels = createLabels(case1.getOffences());
 		ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 		
 		int fineTotal = calculateFineTotal(case1.getOutcomes());
+		// TODO check if fines are present
 		caseTotalLabel.setText("Fine Total: " + fineTotal);
 		
 		caseOutcomesListView.setItems(outcomeLabels);

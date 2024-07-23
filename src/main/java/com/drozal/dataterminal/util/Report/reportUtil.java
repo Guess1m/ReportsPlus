@@ -985,6 +985,7 @@ public class reportUtil {
 					expandTreeItem(rootItem2, "Charges");
 					
 					TextField chargeNameField = new TextField();
+					chargeNameField.setEditable(false);
 					chargeNameField.setPromptText("Charge Name");
 					
 					Button addButton2 = new Button("Add");

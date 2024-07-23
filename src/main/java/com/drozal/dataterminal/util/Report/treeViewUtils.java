@@ -90,24 +90,22 @@ public class treeViewUtils {
 	
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
-			
 			File file = new File(getJarPath() + "/" + path);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			Document document = factory.newDocumentBuilder().parse(file);
 			
 			Element selectedElement = findElementByValue(document.getDocumentElement(), selectedValue);
 			if (selectedElement != null) {
-				
 				String XMLValue = selectedElement.getAttribute(value);
-				return XMLValue;
+				return XMLValue.isEmpty() ? null : XMLValue;
 			} else {
 				log("Element not found for value: " + selectedValue, LogUtils.Severity.WARN);
 				return null;
 			}
 		} catch (ParserConfigurationException | IOException | SAXException e) {
-			logError("Find XML value error ", e);
+			logError("Find XML value error", e);
+			return null;
 		}
-		return selectedValue;
 	}
 	
 	private static Element findElementByValue(Element parentElement, String value) {

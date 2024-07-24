@@ -82,8 +82,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
 	
-	// TODO: fix css for court window
-	
 	public void initialize() throws IOException {
 		// TODO: change back to false when done
 		lookupBtn.setVisible(true);
@@ -377,7 +375,6 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="FXML Elements">
-	
 	
 	@javafx.fxml.FXML
 	public Button notesButton;
@@ -975,7 +972,6 @@ public class actionController {
 	@javafx.fxml.FXML
 	private AnchorPane courtInfoPane;
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
@@ -1508,6 +1504,7 @@ public class actionController {
 				lookupBtn.setVisible(true);
 				showCalloutBtn.setVisible(true);
 				showIDBtn.setVisible(true);
+				showCourtCasesBtn.setVisible(true);
 				serverStatusLabel.setText("Connected");
 				
 				serverStatusLabel.setStyle(
@@ -1788,7 +1785,6 @@ public class actionController {
 		ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 		
 		int fineTotal = calculateFineTotal(case1.getOutcomes());
-		// TODO check if fines are present
 		if (fineTotal > 1500) {
 			caseTotalLabel.setStyle("-fx-text-fill: red;");
 			caseTotalLabel.setText("$" + fineTotal + ".00");

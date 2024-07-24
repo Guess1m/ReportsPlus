@@ -46,6 +46,8 @@ import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.g
 @SuppressWarnings("ALL")
 public class reportCreationUtil {
 	
+	// TODO add citation and arrest court logic for transfers
+	
 	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> arrestReport = arrestLayout();
 		
@@ -501,7 +503,6 @@ public class reportCreationUtil {
 				                            officeragen.getText()));
 				ArrestReportLogs.saveLogsToXML(logs);
 				
-				
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					Case case1 = new Case();
 					String casenum = generateCaseNumber();
@@ -591,8 +592,7 @@ public class reportCreationUtil {
 			isTrafficCharge = false;
 		}
 		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, probationChance,
-		                         outcomeSuspChance,
-		                  outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance);
+		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance);
 	}
 	
 	private static String calculateOutcomes(boolean isTrafficCharge, String outcomeMin, String outcomeMax, String outcomeTime, String probationChance, String outcomeSuspChance, String outcomeMinSusp, String outcomeMaxSusp, String outcomeRevokeChance) {
@@ -1193,7 +1193,6 @@ public class reportCreationUtil {
 					log("Could not create court case from citation because either name or offences field(s) were empty.",
 					    LogUtils.Severity.ERROR);
 				}
-				
 				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);

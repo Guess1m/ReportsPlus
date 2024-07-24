@@ -501,7 +501,7 @@ public class reportCreationUtil {
 				                            officeragen.getText()));
 				ArrestReportLogs.saveLogsToXML(logs);
 				
-				// TODO: Add Charges parsing
+				
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					Case case1 = new Case();
 					String casenum = generateCaseNumber();
@@ -528,6 +528,7 @@ public class reportCreationUtil {
 					}
 					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
 					    LogUtils.Severity.INFO);
+					actionController.needCourtRefresh.set(1);
 				} else {
 					log("Could not create court case from citation because either name or offences field(s) were empty.",
 					    LogUtils.Severity.ERROR);
@@ -1187,10 +1188,12 @@ public class reportCreationUtil {
 					}
 					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
 					    LogUtils.Severity.INFO);
+					actionController.needCourtRefresh.set(1);
 				} else {
 					log("Could not create court case from citation because either name or offences field(s) were empty.",
 					    LogUtils.Severity.ERROR);
 				}
+				
 				
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);

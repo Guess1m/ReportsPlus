@@ -81,22 +81,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
-	@javafx.fxml.FXML
-	public Button notesButton;
-	@javafx.fxml.FXML
-	private Label casesec4;
-	@javafx.fxml.FXML
-	private Label casesec3;
-	@javafx.fxml.FXML
-	private Label casesec2;
-	@javafx.fxml.FXML
-	private Label casesec1;
-	@javafx.fxml.FXML
-	private Label caseprim1;
-	@javafx.fxml.FXML
-	private GridPane caseVerdictPane;
-	@javafx.fxml.FXML
-	private Label caseprim2;
 	
 	// TODO: fix css for court window
 	
@@ -141,6 +125,14 @@ public class actionController {
 			if (newValue.equals(1)) {
 				loadLogs();
 				needRefresh.set(0);
+			}
+		});
+		
+		needCourtRefresh.set(0);
+		needCourtRefresh.addListener((obs, oldValue, newValue) -> {
+			if (newValue.equals(1)) {
+				loadCaseLabels(caseList);
+				needCourtRefresh.set(0);
 			}
 		});
 		
@@ -364,6 +356,7 @@ public class actionController {
 	
 	public static String notesText;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
 	public static Stage IDStage = null;
 	public static Stage CourtStage = null;
 	public static Stage settingsStage = null;
@@ -384,6 +377,24 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="FXML Elements">
+	
+	
+	@javafx.fxml.FXML
+	public Button notesButton;
+	@javafx.fxml.FXML
+	private Label casesec4;
+	@javafx.fxml.FXML
+	private Label casesec3;
+	@javafx.fxml.FXML
+	private Label casesec2;
+	@javafx.fxml.FXML
+	private Label casesec1;
+	@javafx.fxml.FXML
+	private Label caseprim1;
+	@javafx.fxml.FXML
+	private GridPane caseVerdictPane;
+	@javafx.fxml.FXML
+	private Label caseprim2;
 	@javafx.fxml.FXML
 	private Label caseprim3;
 	@javafx.fxml.FXML
@@ -963,6 +974,7 @@ public class actionController {
 	private AnchorPane blankCourtInfoPane;
 	@javafx.fxml.FXML
 	private AnchorPane courtInfoPane;
+	
 	
 	//</editor-fold>
 	
@@ -3400,6 +3412,10 @@ public class actionController {
 	
 	public static int getNeedRefresh() {
 		return needRefresh.get();
+	}
+	
+	public static int getNeedCourtRefresh() {
+		return needCourtRefresh.get();
 	}
 	
 	public static SimpleIntegerProperty needRefreshProperty() {

@@ -188,6 +188,9 @@ public class settingsController {
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getLogManagerLabelBkg().setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
@@ -199,6 +202,11 @@ public class settingsController {
 		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
 		controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
 		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");

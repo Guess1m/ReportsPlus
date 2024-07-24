@@ -50,6 +50,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -81,13 +82,21 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 @SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
 	@javafx.fxml.FXML
-	private Label caseTotalProbationLabel;
+	public Button notesButton;
 	@javafx.fxml.FXML
-	private Label caseSuspensionDuration;
+	private Label casesec4;
 	@javafx.fxml.FXML
-	private Label caseLicenseStatLabel;
+	private Label casesec3;
 	@javafx.fxml.FXML
-	private Label caseTotalJailTimeLabel;
+	private Label casesec2;
+	@javafx.fxml.FXML
+	private Label casesec1;
+	@javafx.fxml.FXML
+	private Label caseprim1;
+	@javafx.fxml.FXML
+	private GridPane caseVerdictPane;
+	@javafx.fxml.FXML
+	private Label caseprim2;
 	
 	// TODO: fix css for court window
 	
@@ -375,9 +384,18 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="FXML Elements">
-	
 	@javafx.fxml.FXML
-	public Button notesButton;
+	private Label caseprim3;
+	@javafx.fxml.FXML
+	private Label caseTotalProbationLabel;
+	@javafx.fxml.FXML
+	private Label caseSuspensionDuration;
+	@javafx.fxml.FXML
+	private Label caseLicenseStatLabel;
+	@javafx.fxml.FXML
+	private Label caseTotalJailTimeLabel;
+	@javafx.fxml.FXML
+	private Label caseSuspensionDurationlbl;
 	@javafx.fxml.FXML
 	public Button shiftInfoBtn;
 	@javafx.fxml.FXML
@@ -949,6 +967,14 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
+	
+	public static void handleClose() {
+		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		endLog();
+		ClientUtils.disconnectFromService();
+		Platform.exit();
+		System.exit(0);
+	}
 	
 	@javafx.fxml.FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
@@ -1677,7 +1703,6 @@ public class actionController {
 		String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
 		String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
 		
-		System.out.println("lcl:" + licenseStatusList + " outsus:" + outcomeSuspension);
 		if (licenseStatusList.isEmpty() && outcomeSuspension.isEmpty()) {
 			areTrafficChargesPresent = false;
 		} else {
@@ -1685,48 +1710,86 @@ public class actionController {
 		}
 		String licenseStatus = "";
 		if (licenseStatusList.contains("Valid")) {
-			licenseStatus = "Valid";
+			licenseStatus = "N/A";
+			caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
 		}
 		if (licenseStatusList.contains("Suspended")) {
 			licenseStatus = "Suspended";
+			caseLicenseStatLabel.setStyle("-fx-text-fill: #cc5200;");
 		}
 		if (licenseStatusList.contains("Revoked")) {
 			licenseStatus = "Revoked";
+			caseLicenseStatLabel.setStyle("-fx-text-fill: red;");
 		}
 		
 		if (!totalJailTime.isEmpty()) {
-			caseTotalJailTimeLabel.setText("Total Jail Time: " + totalJailTime);
+			if (totalJailTime.contains("years")) {
+				if (Integer.parseInt(extractInteger(totalJailTime)) >= 10) {
+					caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
+				} else {
+					caseTotalJailTimeLabel.setStyle("-fx-text-fill: #cc5200;");
+				}
+			} else {
+				caseTotalJailTimeLabel.setStyle("-fx-text-fill: black;");
+			}
+			caseTotalJailTimeLabel.setText(totalJailTime);
 		} else {
-			caseTotalJailTimeLabel.setText("Total Jail Time: " + "0");
+			caseTotalJailTimeLabel.setStyle("-fx-text-fill: gray;");
+			caseTotalJailTimeLabel.setText("None");
 		}
 		
 		if (!outcomeProbation.isEmpty()) {
-			caseTotalProbationLabel.setText("Total Probation Time: " + outcomeProbation);
+			caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
+			caseTotalProbationLabel.setText(outcomeProbation);
 		} else {
-			caseTotalProbationLabel.setText("Total Probation Time: " + "0");
+			caseTotalProbationLabel.setStyle("-fx-text-fill: gray;");
+			caseTotalProbationLabel.setText("None");
 		}
 		
 		if (areTrafficChargesPresent) {
-			caseLicenseStatLabel.setVisible(true);
-			caseSuspensionDuration.setVisible(true);
-			caseLicenseStatLabel.setText("License Status: " + licenseStatus);
+			caseLicenseStatLabel.setText(licenseStatus);
 			if (!outcomeSuspension.isEmpty()) {
-				caseSuspensionDuration.setText("Suspension Duration: " + outcomeSuspension);
+				if (outcomeSuspension.contains("years")) {
+					if (Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
+						caseSuspensionDuration.setStyle("-fx-text-fill: red;");
+					} else {
+						caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
+					}
+				} else if (outcomeSuspension.contains("months")) {
+					caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
+				} else {
+					caseSuspensionDuration.setStyle("-fx-text-fill: black;");
+				}
+				caseSuspensionDuration.setText(outcomeSuspension);
 			} else {
-				caseSuspensionDuration.setText("Suspension Duration: " + "0");
+				caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
+				caseSuspensionDuration.setText("None");
 			}
 		} else {
-			caseLicenseStatLabel.setVisible(false);
-			caseSuspensionDuration.setVisible(false);
+			caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
+			caseLicenseStatLabel.setText("N/A");
+			caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
+			caseSuspensionDuration.setText("None");
 		}
-		
 		
 		ObservableList<Label> offenceLabels = createLabels(case1.getOffences());
 		ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 		
 		int fineTotal = calculateFineTotal(case1.getOutcomes());
 		// TODO check if fines are present
-		caseTotalLabel.setText("Fine Total: " + fineTotal);
+		if (fineTotal > 1500) {
+			caseTotalLabel.setStyle("-fx-text-fill: red;");
+			caseTotalLabel.setText("$" + fineTotal + ".00");
+		} else if (fineTotal > 700) {
+			caseTotalLabel.setStyle("-fx-text-fill: #cc5200;");
+			caseTotalLabel.setText("$" + fineTotal + ".00");
+		} else if (fineTotal > 0) {
+			caseTotalLabel.setStyle("-fx-text-fill: black;");
+			caseTotalLabel.setText("$" + fineTotal + ".00");
+		} else {
+			caseTotalLabel.setStyle("-fx-text-fill: gray;");
+			caseTotalLabel.setText("$0.00");
+		}
 		
 		caseOutcomesListView.setItems(outcomeLabels);
 		caseOffencesListView.setItems(offenceLabels);
@@ -3139,12 +3202,40 @@ public class actionController {
 	
 	//<editor-fold desc="Getters">
 	
-	public static void handleClose() {
-		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-		endLog();
-		ClientUtils.disconnectFromService();
-		Platform.exit();
-		System.exit(0);
+	public Label getCaseprim1() {
+		return caseprim1;
+	}
+	
+	public Label getCasesec1() {
+		return casesec1;
+	}
+	
+	public Label getCasesec2() {
+		return casesec2;
+	}
+	
+	public Label getCasesec3() {
+		return casesec3;
+	}
+	
+	public Label getCasesec4() {
+		return casesec4;
+	}
+	
+	public Label getCaseSuspensionDurationlbl() {
+		return caseSuspensionDurationlbl;
+	}
+	
+	public GridPane getCaseVerdictPane() {
+		return caseVerdictPane;
+	}
+	
+	public Label getCaseprim2() {
+		return caseprim2;
+	}
+	
+	public Label getCaseprim3() {
+		return caseprim3;
 	}
 	
 	public AnchorPane getBlankCourtInfoPane() {

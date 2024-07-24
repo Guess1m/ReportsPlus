@@ -79,7 +79,6 @@ import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
-@SuppressWarnings({"ALL", "Convert2Diamond"})
 public class actionController {
 	
 	public void initialize() throws IOException {

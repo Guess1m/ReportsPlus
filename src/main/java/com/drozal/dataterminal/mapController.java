@@ -28,8 +28,6 @@ public class mapController {
 	
 	public void initialize() {
 		currentImagePath = "/com/drozal/dataterminal/imgs/losSantos.jpg";
-		
-		// Load initial image
 		Image initialImage = new Image(Launcher.class.getResourceAsStream(currentImagePath));
 		losSantosMap.setImage(initialImage);
 		root.setStyle("-fx-background-color:  #143d6b;");

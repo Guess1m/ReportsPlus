@@ -6,7 +6,6 @@ import java.util.Map;
 
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public class Layouts {
 	
 	public static Map<String, Object> calloutLayout() {

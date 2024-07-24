@@ -62,7 +62,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
-@SuppressWarnings("ALL")
 public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
@@ -186,22 +185,18 @@ public class controllerUtils {
 		Platform.runLater(() -> {
 			Stage ownerStage = (Stage) owner;
 			
-			// Title label
 			Label titleLabel = new Label(title);
 			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
 			
-			// Message label
 			Label messageLabel = new Label(message);
 			messageLabel.setWrapText(true);
 			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 			
-			// Icon
 			ImageView icon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
-			// Close button
 			ImageView closeIcon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 			closeIcon.setFitWidth(12);
@@ -220,7 +215,6 @@ public class controllerUtils {
 			AnchorPane.setTopAnchor(closeButton, 0.0);
 			AnchorPane.setBottomAnchor(closeButton, 0.0);
 			
-			// Main container
 			VBox contentBox = new VBox(5, titleLabel, messageLabel);
 			contentBox.setAlignment(Pos.CENTER_LEFT);
 			contentBox.setPadding(new Insets(0));
@@ -269,22 +263,18 @@ public class controllerUtils {
 		Platform.runLater(() -> {
 			Stage ownerStage = (Stage) owner;
 			
-			// Title label
 			Label titleLabel = new Label(title);
 			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
 			
-			// Message label
 			Label messageLabel = new Label(message);
 			messageLabel.setWrapText(true);
 			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 			
-			// Icon
 			ImageView icon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
-			// Close button
 			ImageView closeIcon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 			closeIcon.setFitWidth(12);
@@ -303,7 +293,6 @@ public class controllerUtils {
 			AnchorPane.setTopAnchor(closeButton, 0.0);
 			AnchorPane.setBottomAnchor(closeButton, 0.0);
 			
-			// Main container
 			VBox contentBox = new VBox(5, titleLabel, messageLabel);
 			contentBox.setAlignment(Pos.CENTER_LEFT);
 			contentBox.setPadding(new Insets(0));

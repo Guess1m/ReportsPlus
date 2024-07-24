@@ -33,7 +33,6 @@ public class updatesController {
 		checkUpdates();
 	}
 	
-	@SuppressWarnings("IfStatementWithIdenticalBranches")
 	private void checkUpdates() {
 		checkForUpdates();
 		

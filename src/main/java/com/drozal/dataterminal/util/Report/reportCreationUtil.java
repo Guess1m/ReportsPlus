@@ -43,7 +43,6 @@ import static com.drozal.dataterminal.util.Report.Layouts.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 
-@SuppressWarnings("ALL")
 public class reportCreationUtil {
 	
 	// TODO add citation and arrest court logic for transfers

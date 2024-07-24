@@ -25,7 +25,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-@SuppressWarnings("unchecked")
 public class CurrentIDViewController {
 	
 	@javafx.fxml.FXML

@@ -29,13 +29,11 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
-@SuppressWarnings("ALL")
 public class CalloutManager {
 	
 	private static actionController controllerVar;
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate, String status) {
-		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -214,7 +212,6 @@ public class CalloutManager {
 	}
 	
 	public static String getValueByNumber(String xmlFile, String number, String fieldName) {
-		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {

@@ -8,7 +8,6 @@ import java.net.URISyntaxException;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public class stringUtil {
 	public static final String version = "v1.0.6-alpha";
 	public static final String name = "Reports Plus";

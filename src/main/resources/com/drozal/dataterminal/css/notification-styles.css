@@ -1,5 +1,5 @@
 .notificationpaneDefault {
-    -fx-background-color: #f2f2f2; /* Background color */
-    -fx-background-radius: 5px; /* Rounded corners */
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 5px;
     -fx-border-color: transparent;
 }

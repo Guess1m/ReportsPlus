@@ -31,7 +31,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-@SuppressWarnings({"ConstantValue", "unchecked"})
 public class calloutController {
 	
 	static AnchorPane topBar;

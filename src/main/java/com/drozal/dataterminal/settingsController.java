@@ -29,7 +29,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
-@SuppressWarnings({"ALL", "Convert2Diamond"})
 public class settingsController {
 	
 	private static String UILightColor = "rgb(255,255,255,0.75)";

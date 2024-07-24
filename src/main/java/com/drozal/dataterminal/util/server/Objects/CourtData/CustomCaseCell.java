@@ -22,11 +22,9 @@ public class CustomCaseCell extends GridPane {
 	private Label offenceTimeLabel;
 	
 	public CustomCaseCell() {
-		// Set GridPane properties
 		this.setVgap(3.0);
 		this.setPadding(new Insets(2.0, 3.0, 2.0, 3.0));
 		
-		// Column constraints
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setHalignment(javafx.geometry.HPos.LEFT);
 		col1.setHgrow(Priority.NEVER);
@@ -41,7 +39,6 @@ public class CustomCaseCell extends GridPane {
 		
 		this.getColumnConstraints().addAll(col1, col2);
 		
-		// Row constraints
 		RowConstraints row1 = new RowConstraints();
 		row1.setMinHeight(10.0);
 		row1.setVgrow(Priority.SOMETIMES);
@@ -52,13 +49,11 @@ public class CustomCaseCell extends GridPane {
 		
 		this.getRowConstraints().addAll(row1, row2);
 		
-		// Initialize labels
 		caseNumLabel = createLabel("", "Segoe UI Black", 12.0, 0, 0);
 		nameLabel = createLabel("", "Segoe UI Black", 12.0, 0, 1);
 		offenceDateLabel = createLabel("", "Segoe UI Semibold", 12.0, 1, 0);
 		offenceTimeLabel = createLabel("", "Segoe UI Semibold", 12.0, 1, 1);
 		
-		// Add labels to the GridPane
 		this.getChildren().addAll(caseNumLabel, nameLabel, offenceDateLabel, offenceTimeLabel);
 	}
 	

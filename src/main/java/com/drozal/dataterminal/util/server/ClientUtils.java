@@ -29,7 +29,6 @@ import static com.drozal.dataterminal.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-@SuppressWarnings("ConstantValue")
 public class ClientUtils {
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static Boolean isConnected = false;
@@ -125,7 +124,6 @@ public class ClientUtils {
 								IDStage.initStyle(StageStyle.UNDECORATED);
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("currentID-view.fxml"));
-								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -182,7 +180,6 @@ public class ClientUtils {
 												}
 											});
 										}
-										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {
@@ -267,7 +264,6 @@ public class ClientUtils {
 											logError("Callout could not be closed: ", e);
 										}
 										if (CalloutStage != null) {
-											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													CalloutStage.close();
@@ -278,7 +274,6 @@ public class ClientUtils {
 												}
 											});
 										}
-										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {

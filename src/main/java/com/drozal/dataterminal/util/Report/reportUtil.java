@@ -43,7 +43,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
-@SuppressWarnings("ALL")
 public class reportUtil {
 	static double windowX = 0;
 	static double windowY = 0;
@@ -99,7 +98,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		@SuppressWarnings("DataFlowIssue") Image placeholderImage = new Image(
+		Image placeholderImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
@@ -109,7 +108,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image closeImage = new Image(
+		 Image closeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
@@ -118,7 +117,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image maximizeImage = new Image(
+		Image maximizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
@@ -127,7 +126,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
 		maximizeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image minimizeImage = new Image(
+		 Image minimizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
@@ -207,7 +206,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		@SuppressWarnings("DataFlowIssue") Image placeholderImage = new Image(
+		Image placeholderImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
@@ -217,7 +216,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image closeImage = new Image(
+		Image closeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
@@ -226,7 +225,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image minimizeImage = new Image(
+		Image minimizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
@@ -455,47 +454,33 @@ public class reportUtil {
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formComboBox.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
 			} else {
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
 			}

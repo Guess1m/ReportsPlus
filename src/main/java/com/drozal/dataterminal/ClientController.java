@@ -19,7 +19,6 @@ import java.io.IOException;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
-@SuppressWarnings("TextBlockMigration")
 public class ClientController {
 	@javafx.fxml.FXML
 	private TextField inetField;

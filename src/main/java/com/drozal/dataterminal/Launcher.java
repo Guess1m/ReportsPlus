@@ -144,7 +144,6 @@ public class Launcher {
 		
 		File dataFolder = new File(dataFolderPath);
 		if (!dataFolder.exists()) {
-			//noinspection ResultOfMethodCallIgnored
 			dataFolder.mkdirs();
 			log("Created Data Folder", LogUtils.Severity.INFO);
 		} else {
@@ -153,7 +152,6 @@ public class Launcher {
 		
 		File serverDataFolder = new File(serverData);
 		if (!serverDataFolder.exists()) {
-			//noinspection ResultOfMethodCallIgnored
 			serverDataFolder.mkdirs();
 			log("Created Server Data Folder", LogUtils.Severity.INFO);
 		} else {
@@ -174,7 +172,6 @@ public class Launcher {
 		File calloutHistoryFile = new File(calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
 			log("Callout History File Doesn't Exist, Creating", Severity.INFO);
-			//noinspection ResultOfMethodCallIgnored
 			try {
 				calloutHistoryFile.createNewFile();
 			} catch (IOException e) {

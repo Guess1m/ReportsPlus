@@ -24,7 +24,6 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-@SuppressWarnings("ConstantValue")
 @XmlRootElement
 public class ArrestReportLogs {
 	private List<ArrestLogEntry> logs;

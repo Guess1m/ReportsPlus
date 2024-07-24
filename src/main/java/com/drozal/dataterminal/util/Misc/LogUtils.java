@@ -195,7 +195,6 @@ public class LogUtils {
 		DEBUG, INFO, WARN, ERROR,
 	}
 	
-	// A custom PrintStream to handle output to both console and file
 	private static class TeePrintStream extends PrintStream {
 		private final PrintStream second;
 		

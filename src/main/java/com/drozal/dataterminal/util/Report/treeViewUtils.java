@@ -22,7 +22,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public class treeViewUtils {
 	public static void copyChargeDataFile() throws IOException {
 		

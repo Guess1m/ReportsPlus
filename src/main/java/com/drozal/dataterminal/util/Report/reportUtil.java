@@ -108,7 +108,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		 Image closeImage = new Image(
+		Image closeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
@@ -126,7 +126,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
 		maximizeImageView.setEffect(colorAdjust);
 		
-		 Image minimizeImage = new Image(
+		Image minimizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);

@@ -448,12 +448,12 @@
                                                             </rowConstraints>
                                                             <children>
                                                                 <ListView fx:id="caseOffencesListView"
-                                                                          style="-fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 1 0 0;"
+                                                                          style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;"
                                                                           styleClass="list-view-custom"
                                                                           stylesheets="@css/courtListView.css"
                                                                           GridPane.rowIndex="1"/>
                                                                 <ListView fx:id="caseOutcomesListView"
-                                                                          style="-fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 1 0 0;"
+                                                                          style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;"
                                                                           styleClass="list-view-custom"
                                                                           stylesheets="@css/courtListView.css"
                                                                           GridPane.columnIndex="1"
@@ -582,7 +582,7 @@
                                                                     </children>
                                                                 </AnchorPane>
                                                                 <AnchorPane
-                                                                        style="-fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 1 0 0;">
+                                                                        style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;">
                                                                     <GridPane.margin>
                                                                         <Insets/>
                                                                     </GridPane.margin>
@@ -599,7 +599,7 @@
                                                                     </children>
                                                                 </AnchorPane>
                                                                 <AnchorPane
-                                                                        style="-fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 1 0 0;"
+                                                                        style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;"
                                                                         GridPane.columnIndex="1">
                                                                     <GridPane.margin>
                                                                         <Insets/>
@@ -630,6 +630,17 @@
                                                                                       size="18.0"/>
                                                                             </font>
                                                                         </Label>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                                <AnchorPane GridPane.columnSpan="3">
+                                                                    <GridPane.margin>
+                                                                        <Insets/>
+                                                                    </GridPane.margin>
+                                                                    <children>
+                                                                        <Separator layoutY="27.0" opacity="0.41"
+                                                                                   AnchorPane.bottomAnchor="5.0"
+                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                   AnchorPane.rightAnchor="0.0"/>
                                                                     </children>
                                                                 </AnchorPane>
                                                             </children>

@@ -434,13 +434,12 @@
                                                                   GridPane.rowIndex="1">
                                                             <columnConstraints>
                                                                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"
-                                                                                   percentWidth="25.0"/>
+                                                                                   percentWidth="20.0"/>
                                                                 <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0"
-                                                                                   minWidth="10.0" percentWidth="45.0"
+                                                                                   minWidth="10.0" percentWidth="40.0"
                                                                                    prefWidth="225.0"/>
-                                                                <ColumnConstraints hgrow="ALWAYS" maxWidth="129.0"
-                                                                                   minWidth="10.0" percentWidth="30.0"
-                                                                                   prefWidth="129.0"/>
+                                                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"
+                                                                                   percentWidth="40.0"/>
                                                             </columnConstraints>
                                                             <rowConstraints>
                                                                 <RowConstraints vgrow="SOMETIMES" />
@@ -636,12 +635,6 @@
                                                                     <GridPane.margin>
                                                                         <Insets/>
                                                                     </GridPane.margin>
-                                                                    <children>
-                                                                        <Separator layoutY="27.0" opacity="0.41"
-                                                                                   AnchorPane.bottomAnchor="5.0"
-                                                                                   AnchorPane.leftAnchor="0.0"
-                                                                                   AnchorPane.rightAnchor="0.0"/>
-                                                                    </children>
                                                                 </AnchorPane>
                                                             </children>
                                                             <GridPane.margin>

@@ -315,7 +315,7 @@
                                                         </AnchorPane>
                                                         <Button fx:id="colorPageTwoBtn" contentDisplay="RIGHT"
                                                                 mnemonicParsing="false" onAction="#colorPageTwoBtnClick"
-                                                                style="-fx-background-color: rgb(0,0,0,0.01);"
+                                                                style="-fx-background-color: rgb(0,0,0,0.065);"
                                                                 text="Page 2" GridPane.columnIndex="1"
                                                                 GridPane.halignment="RIGHT"
                                                                 GridPane.valignment="CENTER">
@@ -323,13 +323,16 @@
                                                                 <Insets right="15.0"/>
                                                             </GridPane.margin>
                                                             <graphic>
-                                                                <ImageView fitHeight="14.0" fitWidth="10.0"
+                                                                <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
                                                                         <Image url="@imgs/icons/right-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
+                                                            <font>
+                                                                <Font name="Segoe UI Semibold" size="12.3"/>
+                                                            </font>
                                                         </Button>
                                                     </children>
                                                 </GridPane>
@@ -353,12 +356,10 @@
                                                                         vgrow="SOMETIMES"/>
                                                         <RowConstraints minHeight="10.0" percentHeight="25.0"
                                                                         vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                        prefHeight="30.0" vgrow="SOMETIMES"/>
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id="lbl9" style="-fx-text-fill: #665CB6;"
-                                                               text="Notification Color Settings" textFill="#505d64"
+                                                               text="Notification Settings" textFill="#505d64"
                                                                GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                             <font>
                                                                 <Font name="Segoe UI Black" size="17.0"/>
@@ -366,21 +367,96 @@
                                                         </Label>
                                                         <Button fx:id="colorPageOneBtn" mnemonicParsing="false"
                                                                 onAction="#colorPageOneBtnClick"
-                                                                style="-fx-background-color: rgb(0,0,0,0.01);"
+                                                                style="-fx-background-color: rgb(0,0,0,0.065);"
                                                                 text="Page 1" GridPane.halignment="LEFT"
                                                                 GridPane.valignment="CENTER">
                                                             <GridPane.margin>
                                                                 <Insets left="15.0"/>
                                                             </GridPane.margin>
                                                             <graphic>
-                                                                <ImageView fitHeight="14.0" fitWidth="10.0"
+                                                                <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
                                                                         <Image url="@imgs/icons/left-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
+                                                            <font>
+                                                                <Font name="Segoe UI Semibold" size="12.3"/>
+                                                            </font>
                                                         </Button>
+                                                        <AnchorPane GridPane.rowIndex="1">
+                                                            <children>
+                                                                <Label fx:id="tt16" layoutX="9.0" layoutY="12.0"
+                                                                       text="Notification:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ComboBox fx:id="notificationComboBox" layoutX="103.0"
+                                                                          layoutY="10.0" prefHeight="26.0"
+                                                                          prefWidth="173.0"
+                                                                          AnchorPane.leftAnchor="103.0"
+                                                                          AnchorPane.rightAnchor="20.0"
+                                                                          AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                            <center>
+                                                                <Button fx:id="previewNotificationBtn"
+                                                                        mnemonicParsing="false"
+                                                                        style="-fx-padding: 3 14 3 14;"
+                                                                        styleClass="purpleButton"
+                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                        text="Preview Notification"/>
+                                                            </center>
+                                                        </BorderPane>
+                                                        <AnchorPane GridPane.rowIndex="2">
+                                                            <children>
+                                                                <Label fx:id="tt12" layoutX="9.0" layoutY="12.0"
+                                                                       text="Prim. Color:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="notiPrimPicker" layoutX="125.0"
+                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.rowIndex="3">
+                                                            <children>
+                                                                <Label fx:id="tt15" layoutX="9.0" layoutY="12.0"
+                                                                       text="Text Color:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="notiTextColorPicker" layoutX="125.0"
+                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                            <center>
+                                                                <Button fx:id="resetNotiDefaultsBtn"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#resetNotiDefaultsBtnPress"
+                                                                        style="-fx-padding: 3 14 3 14;"
+                                                                        styleClass="purpleButton"
+                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                        text="Reset Defaults">
+                                                                    <BorderPane.margin>
+                                                                        <Insets bottom="3.0"/>
+                                                                    </BorderPane.margin>
+                                                                </Button>
+                                                            </center>
+                                                        </BorderPane>
                                                     </children>
                                                 </GridPane>
                                             </children>

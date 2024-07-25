@@ -26,9 +26,10 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -181,34 +182,87 @@ public class controllerUtils {
 		ConfigWriter.configwrite("reportSettings", "reportHeading", hexColor);
 	}
 	
+	public static void updateInfoNotiPrim(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", hexColor);
+	}
+	
+	public static void updateInfoNotiTextColor(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationInfoTextColor", hexColor);
+	}
+	
+	public static void updateWarnNotiPrim(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationWarnPrimary", hexColor);
+	}
+	
+	public static void updateWarnNotiTextColor(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", hexColor);
+	}
+	
+	public static WritableImage changeImageColor(Image image, String hexColor) {
+		Color color = Color.web(hexColor);
+		int width = (int) image.getWidth();
+		int height = (int) image.getHeight();
+		WritableImage coloredImage = new WritableImage(width, height);
+		PixelWriter pixelWriter = coloredImage.getPixelWriter();
+		
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				Color originalColor = image.getPixelReader().getColor(x, y);
+				double opacity = originalColor.getOpacity();
+				pixelWriter.setColor(x, y, new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity));
+			}
+		}
+		return coloredImage;
+	}
+	
 	public static void showNotificationInfo(String title, String message, Object owner) {
 		Platform.runLater(() -> {
 			Stage ownerStage = (Stage) owner;
 			
+			String textClr;
+			try {
+				textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			String primClr;
+			try {
+				primClr = ConfigReader.configRead("notificationSettings", "notificationInfoPrimary");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			
 			Label titleLabel = new Label(title);
-			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
+			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
 			
 			Label messageLabel = new Label(message);
 			messageLabel.setWrapText(true);
-			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 			
 			ImageView icon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			Image coloredImage = changeImageColor(icon.getImage(), textClr);
+			icon.setImage(coloredImage);
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
 			ImageView closeIcon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			Image coloredImageClose = changeImageColor(closeIcon.getImage(), textClr);
+			closeIcon.setImage(coloredImageClose);
 			closeIcon.setFitWidth(12);
 			closeIcon.setFitHeight(13);
-			closeIcon.setEffect(new ColorAdjust(-0.75, -0.62, 0.24, -0.26));
 			
 			Button closeButton = new Button();
 			closeButton.setGraphic(closeIcon);
 			closeButton.setStyle("-fx-background-color: transparent;");
 			
 			AnchorPane closePane = new AnchorPane(closeButton);
-			closePane.setStyle("-fx-background-color: rgba(100,100,100,0.2);");
+			closePane.setStyle("-fx-background-color: rgba(50,50,50,0.2);");
 			closePane.setPrefSize(29, 66);
 			AnchorPane.setLeftAnchor(closeButton, 0.0);
 			AnchorPane.setRightAnchor(closeButton, 0.0);
@@ -218,15 +272,15 @@ public class controllerUtils {
 			VBox contentBox = new VBox(5, titleLabel, messageLabel);
 			contentBox.setAlignment(Pos.CENTER_LEFT);
 			contentBox.setPadding(new Insets(0));
-			contentBox.setStyle("-fx-background-color: #367af6; -fx-background-radius: 7;");
+			contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
 			HBox mainBox = new HBox(10, icon, contentBox, closePane);
 			mainBox.setAlignment(Pos.CENTER_LEFT);
 			mainBox.setPadding(new Insets(0, 0, 0, 10));
-			mainBox.setStyle("-fx-background-color: #367af6; -fx-background-radius: 7;");
+			mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
 			AnchorPane anchorPane = new AnchorPane(mainBox);
-			anchorPane.setStyle("-fx-background-color: #367af6;");
+			anchorPane.setStyle("-fx-background-color: " + primClr + ";");
 			AnchorPane.setBottomAnchor(mainBox, 0.0);
 			AnchorPane.setLeftAnchor(mainBox, 0.0);
 			AnchorPane.setRightAnchor(mainBox, 0.0);
@@ -249,9 +303,9 @@ public class controllerUtils {
 			popup.setY(y);
 			popup.show();
 			
-			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.2),
-					             new KeyValue(popup.opacityProperty(), 1)), new KeyFrame(Duration.seconds(1.7),
-					             new KeyValue(popup.opacityProperty(), 0)));
+			Timeline timeline = new Timeline(
+					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();
 		});
@@ -261,30 +315,46 @@ public class controllerUtils {
 		Platform.runLater(() -> {
 			Stage ownerStage = (Stage) owner;
 			
+			String textClr;
+			try {
+				textClr = ConfigReader.configRead("notificationSettings", "notificationWarnTextColor");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			String primClr;
+			try {
+				primClr = ConfigReader.configRead("notificationSettings", "notificationWarnPrimary");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			
 			Label titleLabel = new Label(title);
-			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white;");
+			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
 			
 			Label messageLabel = new Label(message);
 			messageLabel.setWrapText(true);
-			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 			
 			ImageView icon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+			Image coloredImage = changeImageColor(icon.getImage(), textClr);
+			icon.setImage(coloredImage);
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
 			ImageView closeIcon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+			Image coloredImageClose = changeImageColor(closeIcon.getImage(), textClr);
+			closeIcon.setImage(coloredImageClose);
 			closeIcon.setFitWidth(12);
 			closeIcon.setFitHeight(13);
-			closeIcon.setEffect(new ColorAdjust(-0.39, -0.62, 0.24, -0.26));
 			
 			Button closeButton = new Button();
 			closeButton.setGraphic(closeIcon);
 			closeButton.setStyle("-fx-background-color: transparent;");
 			
 			AnchorPane closePane = new AnchorPane(closeButton);
-			closePane.setStyle("-fx-background-color: rgba(100,100,100,0.2);");
+			closePane.setStyle("-fx-background-color: rgba(50,50,50,0.2);");
 			closePane.setPrefSize(29, 66);
 			AnchorPane.setLeftAnchor(closeButton, 0.0);
 			AnchorPane.setRightAnchor(closeButton, 0.0);
@@ -294,15 +364,15 @@ public class controllerUtils {
 			VBox contentBox = new VBox(5, titleLabel, messageLabel);
 			contentBox.setAlignment(Pos.CENTER_LEFT);
 			contentBox.setPadding(new Insets(0));
-			contentBox.setStyle("-fx-background-color: #FFA726; -fx-background-radius: 7;");
+			contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
 			HBox mainBox = new HBox(10, icon, contentBox, closePane);
 			mainBox.setAlignment(Pos.CENTER_LEFT);
 			mainBox.setPadding(new Insets(0, 0, 0, 10));
-			mainBox.setStyle("-fx-background-color: #FFA726; -fx-background-radius: 7;");
+			mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
 			AnchorPane anchorPane = new AnchorPane(mainBox);
-			anchorPane.setStyle("-fx-background-color: #FFA726;");
+			anchorPane.setStyle("-fx-background-color: " + primClr + ";");
 			AnchorPane.setBottomAnchor(mainBox, 0.0);
 			AnchorPane.setLeftAnchor(mainBox, 0.0);
 			AnchorPane.setRightAnchor(mainBox, 0.0);
@@ -325,9 +395,9 @@ public class controllerUtils {
 			popup.setY(y);
 			popup.show();
 			
-			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.2),
-					             new KeyValue(popup.opacityProperty(), 1)), new KeyFrame(Duration.seconds(1.7),
-					             new KeyValue(popup.opacityProperty(), 0)));
+			Timeline timeline = new Timeline(
+					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();
 		});

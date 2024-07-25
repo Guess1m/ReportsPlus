@@ -7,8 +7,6 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +22,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -34,7 +34,7 @@ public class settingsController {
 	
 	private static String UILightColor = "rgb(255,255,255,0.75)";
 	private static String UIDarkColor = "rgb(0,0,0,0.75)";
-	
+	private static AtomicReference<String> selectedNotification;
 	//<editor-fold desc="FXML">
 	
 	private static actionController controllerVar;
@@ -179,6 +179,22 @@ public class settingsController {
 	private Button colorPageTwoBtn;
 	@javafx.fxml.FXML
 	private Button colorPageOneBtn;
+	@javafx.fxml.FXML
+	private Label tt15;
+	@javafx.fxml.FXML
+	private Label tt16;
+	@javafx.fxml.FXML
+	private Label tt12;
+	@javafx.fxml.FXML
+	private Button previewNotificationBtn;
+	@javafx.fxml.FXML
+	private ColorPicker notiPrimPicker;
+	@javafx.fxml.FXML
+	private ColorPicker notiTextColorPicker;
+	@javafx.fxml.FXML
+	private ComboBox notificationComboBox;
+	@javafx.fxml.FXML
+	private Button resetNotiDefaultsBtn;
 	
 	//</editor-fold>
 	
@@ -855,115 +871,91 @@ public class settingsController {
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
 		});
 		
-		bkgPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updatebackground(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 33 ", e);
-				}
+		bkgPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updatebackground(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 33 ", e);
 			}
 		});
 		
-		primPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateMain(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 3 ", e);
-				}
+		primPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateMain(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 3 ", e);
 			}
 		});
 		
-		secPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateSecondary(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 4 ", e);
-				}
+		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateSecondary(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 4 ", e);
 			}
 		});
 		
-		accPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateAccent(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 5 ", e);
-				}
+		accPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateAccent(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 5 ", e);
 			}
 		});
 		
-		backgroundPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportBackground(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 6 ", e);
-				}
+		backgroundPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportBackground(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 6 ", e);
 			}
 		});
 		
-		accentPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportAccent(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 7 ", e);
-				}
+		accentPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportAccent(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 7 ", e);
 			}
 		});
 		
-		headingPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportHeading(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 8 ", e);
-				}
+		headingPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportHeading(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 8 ", e);
 			}
 		});
 		
-		secPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportSecondary(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 9 ", e);
-				}
+		secPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportSecondary(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 9 ", e);
 			}
 		});
 		
@@ -1244,10 +1236,81 @@ public class settingsController {
 			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
 		
+		String[] notifications = {"Information", "Warning"};
+		selectedNotification = new AtomicReference<>("Information");
+		notificationComboBox.getItems().addAll(notifications);
+		notificationComboBox.setValue(selectedNotification);
+		notificationComboBox.setOnAction(actionEvent -> {
+			String selectedItem = (String) notificationComboBox.getSelectionModel().getSelectedItem();
+			
+			switch (selectedItem) {
+				case "Information" -> {
+					selectedNotification.set("Information");
+					try {
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					try {
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				case "Warning" -> {
+					selectedNotification.set("Warning");
+					try {
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					try {
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			}
+		});
+		
+		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiPrim(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiPrim(selectedColor);
+			}
+		});
+		notiTextColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiTextColor(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiTextColor(selectedColor);
+			}
+		});
+		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene().getWindow();
 			stage.setMinWidth(stage.getWidth());
 			stage.setMinHeight(stage.getHeight());
+			
+			previewNotificationBtn.setOnAction(actionEvent -> {
+				if (selectedNotification.get().equals("Information")) {
+					showNotificationInfo("Sample Info Notification",
+					                     "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
+				}
+				if (selectedNotification.get().equals("Warning")) {
+					showNotificationWarning("Sample Warning Notification",
+					                        "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
+				}
+			});
 		});
 		loadColors();
 		loadTheme();
@@ -1282,6 +1345,8 @@ public class settingsController {
 		addTooltip(tt10,
 		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
 		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
+		
+		//TODO add new tooltips for notis
 		
 		addTooltip(bkgLabel, "Application Background Color");
 		addTooltip(primLabel, "Application Primary Color");
@@ -1366,6 +1431,9 @@ public class settingsController {
 			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
 			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
 			
+			Color notiprim;
+			Color notitext;
+			
 			primPicker.setValue(primary);
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
@@ -1394,11 +1462,23 @@ public class settingsController {
 			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			
-			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);
 			headingPickerReport.setValue(reportHeading);
 			secPickerReport.setValue(reportSecondary);
+			
+			if (selectedNotification.get().equals("Information")) {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+			} else {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+			}
+			
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
@@ -1580,5 +1660,17 @@ public class settingsController {
 	public void colorPageTwoBtnClick(ActionEvent actionEvent) {
 		colorPageOne.setVisible(false);
 		colorPageTwo.setVisible(true);
+	}
+	
+	@javafx.fxml.FXML
+	public void resetNotiDefaultsBtnPress(ActionEvent actionEvent) {
+		if (selectedNotification.get().equals("Information")) {
+			ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", "#367af6");
+			ConfigWriter.configwrite("notificationSettings", "notificationInfoTextColor", "#ffffff");
+		} else {
+			ConfigWriter.configwrite("notificationSettings", "notificationWarnPrimary", "#FFA726");
+			ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", "#ffffff");
+		}
+		loadColors();
 	}
 }

@@ -15,7 +15,6 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
@@ -23,13 +22,11 @@ public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
 		
-		log("---=== Client Log ===---", Severity.INFO);
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);
-				getOperatingSystemAndArch();
 				log("Log file cleared successfully.", Severity.INFO);
 			} else {
 				log("Log file does not exist.", Severity.WARN);

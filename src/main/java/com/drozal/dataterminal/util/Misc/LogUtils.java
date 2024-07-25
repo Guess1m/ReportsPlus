@@ -13,25 +13,56 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class LogUtils {
 	private static boolean inErrorBlock = false;
 	
 	static {
 		try {
-			String logFilePath = stringUtil.getJarPath() + File.separator + "output.log";
+			String logFilePath = getJarPath() + File.separator + "output.log";
 			FileOutputStream fos = new FileOutputStream(logFilePath, true);
 			PrintStream fileAndConsole = new TeePrintStream(System.out, new PrintStream(fos));
 			System.setOut(fileAndConsole);
 			System.setErr(fileAndConsole);
+			log("---=== Client Log ===---", Severity.INFO);
+			getOperatingSystemAndArch();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			System.out.println(checkFolderPermissions(Path.of(getJarPath())));
+			logError("Unable to create output.log file, Check folder permissions: ", e);
 		}
 		
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("Uncaught exception in thread " + thread, e));
+	}
+	
+	private static String checkFolderPermissions(Path folderPath) {
+		StringBuilder permissions = new StringBuilder();
+		permissions.append("Permissions for folder ").append(folderPath).append(":\n");
+		
+		if (Files.isReadable(folderPath)) {
+			permissions.append("Readable: Yes\n");
+		} else {
+			permissions.append("Readable: No\n");
+		}
+		
+		if (Files.isWritable(folderPath)) {
+			permissions.append("Writable: Yes\n");
+		} else {
+			permissions.append("Writable: No\n");
+		}
+		
+		if (Files.isExecutable(folderPath)) {
+			permissions.append("Executable: Yes\n");
+		} else {
+			permissions.append("Executable: No\n");
+		}
+		return permissions.toString();
 	}
 	
 	public static void endLog() {
@@ -162,7 +193,7 @@ public class LogUtils {
 	
 	public static void addOutputToListview(ListView<TextFlow> listView) {
 		ObservableList<TextFlow> logItems = FXCollections.observableArrayList();
-		readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
+		readLogFile(getJarPath() + File.separator + "output.log", logItems);
 		listView.setItems(logItems);
 		
 		listView.setStyle("-fx-padding: 0;");
@@ -185,7 +216,7 @@ public class LogUtils {
 		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 			logItems.clear();
-			readLogFile(stringUtil.getJarPath() + File.separator + "output.log", logItems);
+			readLogFile(getJarPath() + File.separator + "output.log", logItems);
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();

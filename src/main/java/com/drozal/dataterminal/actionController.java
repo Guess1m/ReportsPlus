@@ -82,11 +82,11 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 public class actionController {
 	
 	public void initialize() throws IOException {
-		// TODO: change back to false when done
-		lookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
-		showCourtCasesBtn.setVisible(true);
+		lookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
+		showCourtCasesBtn.setVisible(false);
+		
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);

@@ -45,8 +45,6 @@ import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.g
 
 public class reportCreationUtil {
 	
-	// TODO add citation and arrest court logic for transfers
-	
 	public static void newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> arrestReport = arrestLayout();
 		

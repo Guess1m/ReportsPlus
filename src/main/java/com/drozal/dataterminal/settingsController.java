@@ -1347,6 +1347,7 @@ public class settingsController {
 		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
 		
 		//TODO add new tooltips for notis
+		//TODO add more notification settings
 		
 		addTooltip(bkgLabel, "Application Background Color");
 		addTooltip(primLabel, "Application Primary Color");
@@ -1431,9 +1432,6 @@ public class settingsController {
 			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
 			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
 			
-			Color notiprim;
-			Color notitext;
-			
 			primPicker.setValue(primary);
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
@@ -1495,6 +1493,12 @@ public class settingsController {
 				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
 				                                                                              "accentColor") + ";";
+				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
+				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
+				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));
+				previewNotificationBtn.setStyle(nonTransparentBtn);
+				previewNotificationBtn.setOnMouseEntered(e -> previewNotificationBtn.setStyle(hoverStyle));
+				previewNotificationBtn.setOnMouseExited(e -> previewNotificationBtn.setStyle(nonTransparentBtn));
 				resetDefaultsBtn.setStyle(nonTransparentBtn);
 				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
 				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
@@ -1514,7 +1518,7 @@ public class settingsController {
 				throw new RuntimeException(e);
 			}
 		} catch (IOException e) {
-			logError("LoadTheme IO Error Code 1 ", e);
+			logError("LoadTheme IO Error Code 917 ", e);
 		}
 	}
 	

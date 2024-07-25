@@ -1532,7 +1532,7 @@ public class reportCreationUtil {
 			officernumarrestarr.setText(officernumarrestts.getText());
 			timearr.setText(timets.getText());
 			datearr.setText(datets.getText());
-			offenderNamets.setText(offenderNamets.getText());
+			offenderNamearr.setText(offenderNamets.getText());
 			offenderAddressarr.setText(offenderAddressts.getText());
 			offenderGenderarr.setText(offenderGenderts.getText());
 			offenderAgearr.setText(offenderAgets.getText());
@@ -1911,8 +1911,25 @@ public class reportCreationUtil {
 					
 					ObservableList<ChargesData> formDataList = chargetablearr.getItems();
 					StringBuilder stringBuilder = new StringBuilder();
+					StringBuilder chargesBuilder = new StringBuilder();
 					for (ChargesData formData : formDataList) {
+						String probationChance = findXMLValue(formData.getCharge(), "probation_chance",
+						                                      "data/Charges.xml");
+						
+						String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+						String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+						String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+						String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
+						
+						String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+						String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+						String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+						String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
+						
 						stringBuilder.append(formData.getCharge()).append(" | ");
+						chargesBuilder.append(
+								parseCourtData(formData.getCharge(), probationChance, minYears, maxYears, minMonths,
+								               maxMonths, suspChance, minSusp, maxSusp, revokeChance) + " | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
@@ -1929,6 +1946,39 @@ public class reportCreationUtil {
 					                            officernumarrestarr.getText(), officerdivarr.getText(),
 					                            officeragenarr.getText()));
 					ArrestReportLogs.saveLogsToXML(logs);
+					
+					if (!offenderNamearr.getText().isEmpty() && offenderNamearr.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+						Case case1 = new Case();
+						String casenum = generateCaseNumber();
+						case1.setCaseNumber(casenum);
+						case1.setCourtDate(datearr.getText());
+						case1.setCaseTime(timearr.getText());
+						case1.setName(controllerUtils.toTitleCase(offenderNamearr.getText()));
+						case1.setOffenceDate(datearr.getText());
+						case1.setAge(controllerUtils.toTitleCase(offenderAgearr.getText()));
+						case1.setAddress(controllerUtils.toTitleCase(offenderAddressarr.getText()));
+						case1.setGender(controllerUtils.toTitleCase(offenderGenderarr.getText()));
+						case1.setCounty(controllerUtils.toTitleCase(countyarr.getText()));
+						case1.setStreet(controllerUtils.toTitleCase(streetarr.getText()));
+						case1.setArea(areaarr.getEditor().getText());
+						case1.setNotes(notesarr.getText());
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						try {
+							CourtUtils.addCase(case1);
+						} catch (JAXBException e) {
+							throw new RuntimeException(e);
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						}
+						log("Added case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamearr.getText(),
+						    LogUtils.Severity.INFO);
+						actionController.needCourtRefresh.set(1);
+					} else {
+						log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
+						    LogUtils.Severity.ERROR);
+					}
+					
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					refreshChart(areaReportChart, "area");
@@ -2159,8 +2209,12 @@ public class reportCreationUtil {
 					List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
 					ObservableList<CitationsData> formDataList = citationtable.getItems();
 					StringBuilder stringBuilder = new StringBuilder();
+					StringBuilder chargesBuilder = new StringBuilder();
 					for (CitationsData formData : formDataList) {
 						stringBuilder.append(formData.getCitation()).append(" | ");
+						chargesBuilder.append(
+								"Fined: " + findXMLValue(formData.getCitation(), "fine", "data/Citations.xml")).append(
+								" | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
@@ -2178,6 +2232,39 @@ public class reportCreationUtil {
 					                                     officernumcit.getText(), officerdivcit.getText(),
 					                                     officeragencit.getText(), notescit.getText()));
 					TrafficCitationReportLogs.saveLogsToXML(logs);
+					
+					if (!offenderNamecit.getText().isEmpty() && offenderNamecit.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+						Case case1 = new Case();
+						String casenum = generateCaseNumber();
+						case1.setCaseNumber(casenum);
+						case1.setCourtDate(datecit.getText());
+						case1.setCaseTime(timecit.getText());
+						case1.setName(controllerUtils.toTitleCase(offenderNamecit.getText()));
+						case1.setOffenceDate(datecit.getText());
+						case1.setAge(controllerUtils.toTitleCase(offenderAgecit.getText()));
+						case1.setAddress(controllerUtils.toTitleCase(offenderAddresscit.getText()));
+						case1.setGender(controllerUtils.toTitleCase(offenderGendercit.getText()));
+						case1.setCounty(controllerUtils.toTitleCase(countycit.getText()));
+						case1.setStreet(controllerUtils.toTitleCase(streetcit.getText()));
+						case1.setArea(areacit.getEditor().getText());
+						case1.setNotes(notescit.getText());
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						try {
+							CourtUtils.addCase(case1);
+						} catch (JAXBException e) {
+							throw new RuntimeException(e);
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						}
+						log("Added case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
+						    LogUtils.Severity.INFO);
+						actionController.needCourtRefresh.set(1);
+					} else {
+						log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
+						    LogUtils.Severity.ERROR);
+					}
+					
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					refreshChart(areaReportChart, "area");

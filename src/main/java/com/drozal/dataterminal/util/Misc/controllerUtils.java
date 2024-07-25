@@ -249,10 +249,8 @@ public class controllerUtils {
 			popup.setY(y);
 			popup.show();
 			
-			Timeline timeline = new Timeline(
-					new KeyFrame(Duration.seconds(1), new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
-					             new KeyValue(popup.opacityProperty(), 1)),
-					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.maxHeightProperty(), 0),
+			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.2),
+					             new KeyValue(popup.opacityProperty(), 1)), new KeyFrame(Duration.seconds(1.7),
 					             new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();
@@ -327,10 +325,8 @@ public class controllerUtils {
 			popup.setY(y);
 			popup.show();
 			
-			Timeline timeline = new Timeline(
-					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.maxHeightProperty(), popup.getHeight()),
-					             new KeyValue(popup.opacityProperty(), 1)),
-					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.maxHeightProperty(), 0),
+			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.2),
+					             new KeyValue(popup.opacityProperty(), 1)), new KeyFrame(Duration.seconds(1.7),
 					             new KeyValue(popup.opacityProperty(), 0)));
 			timeline.setOnFinished(event -> popup.hide());
 			timeline.play();

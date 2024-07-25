@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -168,6 +169,16 @@ public class settingsController {
 	private CheckBox saveCalloutLocationCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox saveIDLocationCheckbox;
+	@javafx.fxml.FXML
+	private GridPane colorPageTwo;
+	@javafx.fxml.FXML
+	private GridPane colorPageOne;
+	@javafx.fxml.FXML
+	private Label lbl9;
+	@javafx.fxml.FXML
+	private Button colorPageTwoBtn;
+	@javafx.fxml.FXML
+	private Button colorPageOneBtn;
 	
 	//</editor-fold>
 	
@@ -1241,6 +1252,9 @@ public class settingsController {
 		loadColors();
 		loadTheme();
 		
+		colorPageOne.setVisible(true);
+		colorPageTwo.setVisible(false);
+		
 		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
 		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
 		
@@ -1311,25 +1325,33 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
-		textClrComboBox.getSelectionModel().clearSelection();
-		textClrComboBox.getSelectionModel().select("dark");
-		themeComboBox.getSelectionModel().clearSelection();
-		themeComboBox.getSelectionModel().select("purple");
+		ConfigWriter.configwrite("uiColors", "UIDarkMode", "true");
+		updateMain(Color.valueOf("#524992"));
+		updateSecondary(Color.valueOf("#665cb6"));
+		updateAccent(Color.valueOf("#544f7f"));
+		updatebackground(Color.valueOf("#ffffff"));
+		log("Reset Color Defaults", LogUtils.Severity.DEBUG);
 		try {
 			loadTheme();
 			loadColors();
 		} catch (IOException e) {
 			logError("LoadTheme IO Error Code 2 ", e);
 		}
+		themeComboBox.getSelectionModel().select("purple");
+		textClrComboBox.getSelectionModel().select("dark");
 	}
 	
 	@javafx.fxml.FXML
 	public void resetReportDefaultsBtnPress(ActionEvent actionEvent) {
-		presetComboBoxReport.getSelectionModel().clearSelection();
-		reportStyleComboBox.getSelectionModel().clearSelection();
+		updateReportBackground(Color.valueOf("#505d62"));
+		updateReportSecondary(Color.valueOf("#323c41"));
+		updateReportAccent(Color.valueOf("#263238"));
+		updateReportHeading(Color.valueOf("white"));
+		ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
+		log("Reset Report Color Defaults", LogUtils.Severity.DEBUG);
+		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
-		loadColors();
 	}
 	
 	private void loadColors() {
@@ -1369,6 +1391,9 @@ public class settingsController {
 			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			
 			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);
@@ -1543,5 +1568,17 @@ public class settingsController {
 			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "false");
 			saveCalloutLocationCheckbox.setSelected(false);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void colorPageOneBtnClick(ActionEvent actionEvent) {
+		colorPageOne.setVisible(true);
+		colorPageTwo.setVisible(false);
+	}
+	
+	@javafx.fxml.FXML
+	public void colorPageTwoBtnClick(ActionEvent actionEvent) {
+		colorPageOne.setVisible(false);
+		colorPageTwo.setVisible(true);
 	}
 }

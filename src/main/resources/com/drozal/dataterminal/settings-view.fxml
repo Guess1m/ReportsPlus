@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="341.0" prefWidth="622.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.settingsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -174,131 +176,215 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                             style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0"
-                                                  AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0"
-                                                                   percentWidth="50.0" prefWidth="245.0"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="20.0"
-                                                                   percentWidth="50.0" prefWidth="346.0"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints maxHeight="56.0" minHeight="10.0" percentHeight="25.0"
-                                                                prefHeight="49.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0"
-                                                                vgrow="SOMETIMES"/>
-                                            </rowConstraints>
+                                        <StackPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
+                                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
+                                                   AnchorPane.topAnchor="14.0">
                                             <children>
-                                                <Label fx:id="lbl3" style="-fx-text-fill: #665CB6;"
-                                                       text="Application Color Settings" textFill="#505d64"
-                                                       GridPane.columnSpan="2" GridPane.halignment="CENTER">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
-                                                    </font>
-                                                </Label>
-                                                <AnchorPane GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                                                            GridPane.valignment="CENTER">
+                                                <GridPane fx:id="colorPageOne" visible="false">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
+                                                                           minWidth="10.0" percentWidth="50.0"
+                                                                           prefWidth="245.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0"
+                                                                           minWidth="20.0" percentWidth="50.0"
+                                                                           prefWidth="346.0"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints maxHeight="36.0" minHeight="-Infinity"
+                                                                        percentHeight="25.0" prefHeight="36.0"
+                                                                        vgrow="NEVER"/>
+                                                        <RowConstraints maxHeight="56.0" minHeight="10.0"
+                                                                        percentHeight="25.0" prefHeight="49.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="26.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
+                                                                        prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="primLabel" layoutX="9.0" layoutY="12.0"
-                                                               text="Prim. Color:" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="lbl3" style="-fx-text-fill: #665CB6;"
+                                                               text="Application Color Settings" textFill="#505d64"
+                                                               GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                             <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
+                                                                <Font name="Segoe UI Black" size="17.0"/>
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="primPicker" layoutX="125.0" layoutY="9.0"
-                                                                     AnchorPane.leftAnchor="109.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <AnchorPane GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                                                    GridPane.valignment="CENTER">
+                                                            <children>
+                                                                <Label fx:id="primLabel" layoutX="9.0" layoutY="12.0"
+                                                                       text="Prim. Color:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="primPicker" layoutX="125.0"
+                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.rowIndex="3">
+                                                            <children>
+                                                                <Label fx:id="secLabel" text="Sec. Color:"
+                                                                       AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="secPicker" layoutX="134.0"
+                                                                             layoutY="1.0" AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.rowIndex="4">
+                                                            <children>
+                                                                <Label fx:id="accLabel" text="Accent Color:"
+                                                                       AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="accPicker" layoutX="144.0"
+                                                                             layoutY="12.0"
+                                                                             AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                            <children>
+                                                                <Label fx:id="tt4" layoutX="9.0" layoutY="12.0"
+                                                                       text="UI Theme:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ComboBox fx:id="themeComboBox" layoutX="94.0"
+                                                                          layoutY="10.0" prefHeight="26.0"
+                                                                          prefWidth="182.0" AnchorPane.leftAnchor="94.0"
+                                                                          AnchorPane.rightAnchor="20.0"
+                                                                          AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
+                                                                onAction="#resetDefaultsBtnPress"
+                                                                styleClass="purpleButton"
+                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                text="Reset Defaults" GridPane.columnIndex="1"
+                                                                GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                                                                GridPane.valignment="CENTER"/>
+                                                        <AnchorPane GridPane.rowIndex="1">
+                                                            <children>
+                                                                <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0"
+                                                                       text="Bkg. Color" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ColorPicker fx:id="bkgPicker" layoutX="125.0"
+                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
+                                                                             AnchorPane.rightAnchor="20.0"
+                                                                             AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <children>
+                                                                <Label fx:id="tt5" layoutX="9.0" layoutY="12.0"
+                                                                       text="UI Text Color:" AnchorPane.leftAnchor="9.0"
+                                                                       AnchorPane.topAnchor="12.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <ComboBox fx:id="textClrComboBox" layoutX="115.0"
+                                                                          layoutY="10.0" prefHeight="26.0"
+                                                                          prefWidth="160.0"
+                                                                          AnchorPane.leftAnchor="115.0"
+                                                                          AnchorPane.rightAnchor="20.0"
+                                                                          AnchorPane.topAnchor="10.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <Button fx:id="colorPageTwoBtn" contentDisplay="RIGHT"
+                                                                mnemonicParsing="false" onAction="#colorPageTwoBtnClick"
+                                                                style="-fx-background-color: rgb(0,0,0,0.01);"
+                                                                text="Page 2" GridPane.columnIndex="1"
+                                                                GridPane.halignment="RIGHT"
+                                                                GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets right="15.0"/>
+                                                            </GridPane.margin>
+                                                            <graphic>
+                                                                <ImageView fitHeight="14.0" fitWidth="10.0"
+                                                                           pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@imgs/icons/right-arrow.png"/>
+                                                                    </image>
+                                                                </ImageView>
+                                                            </graphic>
+                                                        </Button>
                                                     </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.rowIndex="3">
+                                                </GridPane>
+                                                <GridPane fx:id="colorPageTwo" layoutX="10.0" layoutY="10.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
+                                                                           minWidth="10.0" percentWidth="50.0"
+                                                                           prefWidth="245.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0"
+                                                                           minWidth="20.0" percentWidth="50.0"
+                                                                           prefWidth="346.0"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints maxHeight="36.0" minHeight="-Infinity"
+                                                                        percentHeight="25.0" prefHeight="36.0"
+                                                                        vgrow="NEVER"/>
+                                                        <RowConstraints maxHeight="56.0" minHeight="10.0"
+                                                                        percentHeight="25.0" prefHeight="49.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="26.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
+                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
+                                                                        prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="secLabel" text="Sec. Color:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="lbl9" style="-fx-text-fill: #665CB6;"
+                                                               text="Notification Color Settings" textFill="#505d64"
+                                                               GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                             <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
+                                                                <Font name="Segoe UI Black" size="17.0"/>
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="secPicker" layoutX="134.0" layoutY="1.0"
-                                                                     AnchorPane.leftAnchor="109.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <Button fx:id="colorPageOneBtn" mnemonicParsing="false"
+                                                                onAction="#colorPageOneBtnClick"
+                                                                style="-fx-background-color: rgb(0,0,0,0.01);"
+                                                                text="Page 1" GridPane.halignment="LEFT"
+                                                                GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="15.0"/>
+                                                            </GridPane.margin>
+                                                            <graphic>
+                                                                <ImageView fitHeight="14.0" fitWidth="10.0"
+                                                                           pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@imgs/icons/left-arrow.png"/>
+                                                                    </image>
+                                                                </ImageView>
+                                                            </graphic>
+                                                        </Button>
                                                     </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.rowIndex="4">
-                                                    <children>
-                                                        <Label fx:id="accLabel" text="Accent Color:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ColorPicker fx:id="accPicker" layoutX="144.0" layoutY="12.0"
-                                                                     AnchorPane.leftAnchor="109.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                    <children>
-                                                        <Label fx:id="tt4" layoutX="9.0" layoutY="12.0" text="UI Theme:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="themeComboBox" layoutX="94.0" layoutY="10.0"
-                                                                  prefHeight="26.0" prefWidth="182.0"
-                                                                  AnchorPane.leftAnchor="94.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
-                                                        onAction="#resetDefaultsBtnPress" styleClass="purpleButton"
-                                                        stylesheets="@css/menu/menuStyles.css" text="Reset Defaults"
-                                                        GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                        GridPane.rowIndex="4" GridPane.valignment="CENTER"/>
-                                                <AnchorPane GridPane.rowIndex="1">
-                                                    <children>
-                                                        <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0"
-                                                               text="Bkg. Color" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ColorPicker fx:id="bkgPicker" layoutX="125.0" layoutY="9.0"
-                                                                     AnchorPane.leftAnchor="109.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                    <children>
-                                                        <Label fx:id="tt5" layoutX="9.0" layoutY="12.0"
-                                                               text="UI Text Color:" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="textClrComboBox" layoutX="115.0" layoutY="10.0"
-                                                                  prefHeight="26.0" prefWidth="160.0"
-                                                                  AnchorPane.leftAnchor="115.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
+                                                </GridPane>
                                             </children>
-                                        </GridPane>
+                                        </StackPane>
                                     </children>
                                 </AnchorPane>
                             </content>

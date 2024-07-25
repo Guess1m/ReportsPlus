@@ -35,6 +35,7 @@ public class settingsController {
 	private static String UIDarkColor = "rgb(0,0,0,0.75)";
 	
 	//<editor-fold desc="FXML">
+	
 	private static actionController controllerVar;
 	AnchorPane topBar;
 	@javafx.fxml.FXML
@@ -1020,72 +1021,84 @@ public class settingsController {
 					updateMain(Color.valueOf("#263238"));
 					updateSecondary(Color.valueOf("#323C41"));
 					updateAccent(Color.valueOf("#505d62"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "purple" -> {
 					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#524992"));
 					updateSecondary(Color.valueOf("#665cb6"));
 					updateAccent(Color.valueOf("#544f7f"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "blue" -> {
 					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d66cc"));
 					updateSecondary(Color.valueOf("#6680e6"));
 					updateAccent(Color.valueOf("#516ca5"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "grey" -> {
 					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#666666"));
 					updateSecondary(Color.valueOf("#808080"));
 					updateAccent(Color.valueOf("#4d4d4d"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "green" -> {
 					log("Green Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d804d"));
 					updateSecondary(Color.valueOf("#669966"));
 					updateAccent(Color.valueOf("#4a6f4a"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "red" -> {
 					log("Red Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc4d4d"));
 					updateSecondary(Color.valueOf("#e65c5c"));
 					updateAccent(Color.valueOf("#914f4f"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "orange" -> {
 					log("Orange Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc804d"));
 					updateSecondary(Color.valueOf("#e6994d"));
 					updateAccent(Color.valueOf("#a57749"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "pink" -> {
 					log("Pink Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc3399"));
 					updateSecondary(Color.valueOf("#e64da1"));
 					updateAccent(Color.valueOf("#955b78"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "teal" -> {
 					log("Teal Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#339999"));
 					updateSecondary(Color.valueOf("#4db3b3"));
 					updateAccent(Color.valueOf("#4c8d8d"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "brown" -> {
 					log("Brown Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#6c3d2c"));
 					updateSecondary(Color.valueOf("#7e4e3c"));
 					updateAccent(Color.valueOf("#5b3b30"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "magenta" -> {
 					log("Magenta Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#c2185b"));
 					updateSecondary(Color.valueOf("#e91e63"));
 					updateAccent(Color.valueOf("#9d546c"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "indigo" -> {
 					log("Indigo Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#3f51b5"));
 					updateSecondary(Color.valueOf("#5c6bc0"));
 					updateAccent(Color.valueOf("#4b5483"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 			}
 			
@@ -1298,7 +1311,9 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
+		textClrComboBox.getSelectionModel().clearSelection();
 		textClrComboBox.getSelectionModel().select("dark");
+		themeComboBox.getSelectionModel().clearSelection();
 		themeComboBox.getSelectionModel().select("purple");
 		try {
 			loadTheme();
@@ -1310,6 +1325,8 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetReportDefaultsBtnPress(ActionEvent actionEvent) {
+		presetComboBoxReport.getSelectionModel().clearSelection();
+		reportStyleComboBox.getSelectionModel().clearSelection();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
 		loadColors();

@@ -296,13 +296,37 @@ public class controllerUtils {
 			
 			closeButton.setOnAction(event -> popup.hide());
 			
+			String configPosition = "BottomLeft";
+			try {
+				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
+			} catch (IOException e) {
+				logError("Could not pull notificationPosition from config: ",e);
+			}
+			
+			popup.show();
 			double x = ownerStage.getX() + 30;
 			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
+			switch (configPosition) {
+				case "BottomLeft" -> {
+					x = ownerStage.getX() + 223;
+					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+				}
+				case "BottomRight" -> {
+					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
+					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+				}
+				case "TopLeft" -> {
+					x = ownerStage.getX() + 223;
+					y = ownerStage.getY() + 136;
+				}
+				case "TopRight" -> {
+					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
+					y = ownerStage.getY() + 136;
+				}
+			}
 			
 			popup.setX(x);
 			popup.setY(y);
-			popup.show();
-			
 			Timeline timeline = new Timeline(
 					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.opacityProperty(), 1)),
 					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.opacityProperty(), 0)));
@@ -464,7 +488,7 @@ public class controllerUtils {
 			
 			for (XYChart.Data<String, Number> data : series.getData()) {
 				
-				javafx.scene.Node node = data.getNode();
+				Node node = data.getNode();
 				
 				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("uiColors",
 				                                                         "accentColor") + "; -fx-border-color: " + ConfigReader.configRead(

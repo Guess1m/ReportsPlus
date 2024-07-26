@@ -195,6 +195,18 @@ public class settingsController {
 	private ComboBox notificationComboBox;
 	@javafx.fxml.FXML
 	private Button resetNotiDefaultsBtn;
+	@javafx.fxml.FXML
+	private ComboBox notiPosCombobox;
+	@javafx.fxml.FXML
+	private Label tt17;
+	@javafx.fxml.FXML
+	private Label tt13;
+	@javafx.fxml.FXML
+	private Label tt14;
+	@javafx.fxml.FXML
+	private TextField notiFadeOutDurField;
+	@javafx.fxml.FXML
+	private TextField notiDisplayDurField;
 	
 	//</editor-fold>
 	
@@ -1274,6 +1286,21 @@ public class settingsController {
 						throw new RuntimeException(e);
 					}
 				}
+			}
+		});
+		
+		String[] notificationPositions = {"BottomLeft", "BottomRight", "TopLeft", "TopRight"};
+		notiPosCombobox.getItems().addAll(notificationPositions);
+		notiPosCombobox.setOnAction(actionEvent -> {
+			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
+			switch (selectedPosition) {
+				case "BottomLeft" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
+				case "BottomRight" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
+				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
+				case "TopRight" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
 		});
 		

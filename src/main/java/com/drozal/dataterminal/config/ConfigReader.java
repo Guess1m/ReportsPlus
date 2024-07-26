@@ -128,9 +128,9 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
 		// Notification Settings
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomLeft");
 		checkAndSetDefaultValue("notificationSettings", "notificationWarnTextColor", "#ffffff");
 		checkAndSetDefaultValue("notificationSettings", "notificationWarnPrimary", "#FFA726");
-		
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoTextColor", "#ffffff");
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
 		// AOT (Always on Top) Settings

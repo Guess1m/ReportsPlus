@@ -12,7 +12,9 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import javafx.animation.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -297,7 +299,7 @@ public class controllerUtils {
 			try {
 				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
 			} catch (IOException e) {
-				logError("Could not pull notificationPosition from config: ",e);
+				logError("Could not pull notificationPosition from config: ", e);
 			}
 			
 			popup.show();
@@ -326,25 +328,25 @@ public class controllerUtils {
 			popup.setX(x);
 			popup.setY(y);
 			
-			
 			String displayDuration = "1.2";
 			try {
 				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 			} catch (IOException e) {
-				logError("Could not pull displayDuration from config: ",e);
+				logError("Could not pull displayDuration from config: ", e);
 			}
 			String fadeOutDuration = "1.7";
 			try {
 				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
 			} catch (IOException e) {
-				logError("Could not pull fadeOutDuration from config: ",e);
+				logError("Could not pull fadeOutDuration from config: ", e);
 			}
 			
-			PauseTransition pauseTransition = new PauseTransition(Duration.seconds(Double.parseDouble(displayDuration)));
+			PauseTransition pauseTransition = new PauseTransition(
+					Duration.seconds(Double.parseDouble(displayDuration)));
 			String finalFadeOutDuration = fadeOutDuration;
 			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(
-						Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
+				FadeTransition fadeOutTransition = new FadeTransition(
+						Duration.seconds(Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
 				fadeOutTransition.setFromValue(1);
 				fadeOutTransition.setToValue(0);
 				fadeOutTransition.setOnFinished(e -> popup.hide());
@@ -436,7 +438,7 @@ public class controllerUtils {
 			try {
 				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
 			} catch (IOException e) {
-				logError("Could not pull notificationPosition from config: ",e);
+				logError("Could not pull notificationPosition from config: ", e);
 			}
 			
 			popup.show();
@@ -465,25 +467,25 @@ public class controllerUtils {
 			popup.setX(x);
 			popup.setY(y);
 			
-			
 			String displayDuration = "1.2";
 			try {
 				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 			} catch (IOException e) {
-				logError("Could not pull displayDuration from config: ",e);
+				logError("Could not pull displayDuration from config: ", e);
 			}
 			String fadeOutDuration = "1.7";
 			try {
 				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
 			} catch (IOException e) {
-				logError("Could not pull fadeOutDuration from config: ",e);
+				logError("Could not pull fadeOutDuration from config: ", e);
 			}
 			
-			PauseTransition pauseTransition = new PauseTransition(Duration.seconds(Double.parseDouble(displayDuration)));
+			PauseTransition pauseTransition = new PauseTransition(
+					Duration.seconds(Double.parseDouble(displayDuration)));
 			String finalFadeOutDuration = fadeOutDuration;
 			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(
-						Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
+				FadeTransition fadeOutTransition = new FadeTransition(
+						Duration.seconds(Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
 				fadeOutTransition.setFromValue(1);
 				fadeOutTransition.setToValue(0);
 				fadeOutTransition.setOnFinished(e -> popup.hide());

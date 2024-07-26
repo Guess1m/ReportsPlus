@@ -1371,8 +1371,10 @@ public class settingsController {
 				return;
 			}
 		});
-		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration", notiFadeOutDurField.getText()));
-		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration", notiDisplayDurField.getText()));
+		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
+		                                                                   notiFadeOutDurField.getText()));
+		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
+		                                                                      notiDisplayDurField.getText()));
 		
 		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			Color selectedColor = newValue;
@@ -1443,8 +1445,12 @@ public class settingsController {
 		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
 		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
 		
-		//TODO add new tooltips for notis
-		//TODO add more notification settings
+		addTooltip(tt16, "Notification Type to be Modified");
+		addTooltip(tt12, "Primary Notification Color");
+		addTooltip(tt15, "Notification Text Color");
+		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
+		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
+		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
 		
 		addTooltip(bkgLabel, "Application Background Color");
 		addTooltip(primLabel, "Application Primary Color");

@@ -87,7 +87,6 @@ public class actionController {
 		showIDBtn.setVisible(false);
 		showCourtCasesBtn.setVisible(false);
 		
-		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
 		

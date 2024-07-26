@@ -128,7 +128,11 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
 		// Notification Settings
+		checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.2");
+		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.7");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomLeft");
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "fadeOutDuration");
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "displayDuration");
 		checkAndSetDefaultValue("notificationSettings", "notificationWarnTextColor", "#ffffff");
 		checkAndSetDefaultValue("notificationSettings", "notificationWarnPrimary", "#FFA726");
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoTextColor", "#ffffff");

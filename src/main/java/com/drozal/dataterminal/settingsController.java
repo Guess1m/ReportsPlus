@@ -207,6 +207,10 @@ public class settingsController {
 	private TextField notiFadeOutDurField;
 	@javafx.fxml.FXML
 	private TextField notiDisplayDurField;
+	@javafx.fxml.FXML
+	private Button saveDisplayDurBtn;
+	@javafx.fxml.FXML
+	private Button saveFadeDurBtn;
 	
 	//</editor-fold>
 	
@@ -1291,6 +1295,7 @@ public class settingsController {
 		
 		String[] notificationPositions = {"BottomLeft", "BottomRight", "TopLeft", "TopRight"};
 		notiPosCombobox.getItems().addAll(notificationPositions);
+		notiPosCombobox.setValue(ConfigReader.configRead("notificationSettings", "notificationPosition"));
 		notiPosCombobox.setOnAction(actionEvent -> {
 			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
 			switch (selectedPosition) {
@@ -1299,10 +1304,75 @@ public class settingsController {
 				case "BottomRight" ->
 						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
 				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
-				case "TopRight" ->
-						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
+				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
 		});
+		
+		notiDisplayDurField.setText(ConfigReader.configRead("notificationSettings", "displayDuration"));
+		notiDisplayDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiDisplayDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+				return;
+			}
+			
+		});
+		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
+		notiFadeOutDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiFadeOutDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+				return;
+			}
+		});
+		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration", notiFadeOutDurField.getText()));
+		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration", notiDisplayDurField.getText()));
 		
 		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			Color selectedColor = newValue;

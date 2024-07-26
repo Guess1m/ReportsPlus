@@ -312,22 +312,24 @@
                                                         </BorderPane>
                                           <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <children>
-                                                <Label fx:id="tt13" layoutX="4.0" layoutY="12.0" text="Display Duration:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
+                                                <Label fx:id="tt13" layoutX="4.0" layoutY="12.0" text="Display Duration (Sec):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Segoe UI Semibold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="notiDisplayDurField" layoutX="127.0" layoutY="8.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
+                                                <TextField fx:id="notiDisplayDurField" layoutX="160.0" layoutY="8.0" prefWidth="63.0" promptText="Def. 1.2" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="8.0" />
+                                                <Button fx:id="saveDisplayDurBtn" layoutX="251.0" layoutY="8.0" mnemonicParsing="false" text="Save" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <children>
-                                                <Label fx:id="tt14" layoutX="4.0" layoutY="12.0" text="Fade Out Time:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
+                                                <Label fx:id="tt14" layoutX="4.0" layoutY="12.0" text="Fade Out Time (Sec):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Segoe UI Semibold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="notiFadeOutDurField" layoutX="116.0" layoutY="8.0" prefWidth="165.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
+                                                <TextField fx:id="notiFadeOutDurField" layoutX="148.0" layoutY="8.0" prefWidth="75.0" promptText="Def. 1.7" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="8.0" />
+                                                <Button fx:id="saveFadeDurBtn" layoutX="259.0" layoutY="9.0" mnemonicParsing="false" text="Save" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">

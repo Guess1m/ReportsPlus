@@ -12,10 +12,7 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -304,6 +301,7 @@ public class controllerUtils {
 			}
 			
 			popup.show();
+			
 			double x = ownerStage.getX() + 30;
 			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
 			switch (configPosition) {
@@ -327,11 +325,33 @@ public class controllerUtils {
 			
 			popup.setX(x);
 			popup.setY(y);
-			Timeline timeline = new Timeline(
-					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.opacityProperty(), 1)),
-					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.opacityProperty(), 0)));
-			timeline.setOnFinished(event -> popup.hide());
-			timeline.play();
+			
+			
+			String displayDuration = "1.2";
+			try {
+				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
+			} catch (IOException e) {
+				logError("Could not pull displayDuration from config: ",e);
+			}
+			String fadeOutDuration = "1.7";
+			try {
+				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
+			} catch (IOException e) {
+				logError("Could not pull fadeOutDuration from config: ",e);
+			}
+			
+			PauseTransition pauseTransition = new PauseTransition(Duration.seconds(Double.parseDouble(displayDuration)));
+			String finalFadeOutDuration = fadeOutDuration;
+			pauseTransition.setOnFinished(event -> {
+				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(
+						Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
+				fadeOutTransition.setFromValue(1);
+				fadeOutTransition.setToValue(0);
+				fadeOutTransition.setOnFinished(e -> popup.hide());
+				fadeOutTransition.play();
+			});
+			
+			pauseTransition.play();
 		});
 	}
 	
@@ -412,18 +432,65 @@ public class controllerUtils {
 			
 			closeButton.setOnAction(event -> popup.hide());
 			
+			String configPosition = "BottomLeft";
+			try {
+				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
+			} catch (IOException e) {
+				logError("Could not pull notificationPosition from config: ",e);
+			}
+			
+			popup.show();
+			
 			double x = ownerStage.getX() + 30;
 			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
+			switch (configPosition) {
+				case "BottomLeft" -> {
+					x = ownerStage.getX() + 223;
+					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+				}
+				case "BottomRight" -> {
+					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
+					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+				}
+				case "TopLeft" -> {
+					x = ownerStage.getX() + 223;
+					y = ownerStage.getY() + 136;
+				}
+				case "TopRight" -> {
+					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
+					y = ownerStage.getY() + 136;
+				}
+			}
 			
 			popup.setX(x);
 			popup.setY(y);
-			popup.show();
 			
-			Timeline timeline = new Timeline(
-					new KeyFrame(Duration.seconds(1.2), new KeyValue(popup.opacityProperty(), 1)),
-					new KeyFrame(Duration.seconds(1.7), new KeyValue(popup.opacityProperty(), 0)));
-			timeline.setOnFinished(event -> popup.hide());
-			timeline.play();
+			
+			String displayDuration = "1.2";
+			try {
+				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
+			} catch (IOException e) {
+				logError("Could not pull displayDuration from config: ",e);
+			}
+			String fadeOutDuration = "1.7";
+			try {
+				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
+			} catch (IOException e) {
+				logError("Could not pull fadeOutDuration from config: ",e);
+			}
+			
+			PauseTransition pauseTransition = new PauseTransition(Duration.seconds(Double.parseDouble(displayDuration)));
+			String finalFadeOutDuration = fadeOutDuration;
+			pauseTransition.setOnFinished(event -> {
+				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(
+						Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
+				fadeOutTransition.setFromValue(1);
+				fadeOutTransition.setToValue(0);
+				fadeOutTransition.setOnFinished(e -> popup.hide());
+				fadeOutTransition.play();
+			});
+			
+			pauseTransition.play();
 		});
 	}
 	

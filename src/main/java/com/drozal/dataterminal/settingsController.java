@@ -211,6 +211,8 @@ public class settingsController {
 	private Button saveDisplayDurBtn;
 	@javafx.fxml.FXML
 	private Button saveFadeDurBtn;
+	@javafx.fxml.FXML
+	private CheckBox saveReportLocationCheckbox;
 	
 	//</editor-fold>
 	
@@ -743,6 +745,8 @@ public class settingsController {
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
 		saveCalloutLocationCheckbox.setSelected(
 				ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
+		saveReportLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
 		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
@@ -1419,6 +1423,7 @@ public class settingsController {
 		
 		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
 		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
 		
 		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
 		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
@@ -1779,5 +1784,16 @@ public class settingsController {
 			ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", "#ffffff");
 		}
 		loadColors();
+	}
+	
+	@javafx.fxml.FXML
+	public void rememberReportLocationClick(ActionEvent actionEvent) {
+		if (saveReportLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberReportLocation", "true");
+			saveReportLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberReportLocation", "false");
+			saveReportLocationCheckbox.setSelected(false);
+		}
 	}
 }

@@ -46,6 +46,8 @@ import static com.drozal.dataterminal.util.Window.windowUtils.*;
 public class reportUtil {
 	static double windowX = 0;
 	static double windowY = 0;
+	static double windowWidth = 0;
+	static double windowHeight = 0;
 	private static double xOffset;
 	private static double yOffset;
 	
@@ -287,6 +289,12 @@ public class reportUtil {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		boolean rememberLocationSize;
+		try {
+			rememberLocationSize = ConfigReader.configRead("layout", "rememberReportLocation").equals("true");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 		
 		Screen screen = Screen.getPrimary();
 		double screenWidth = screen.getVisualBounds().getWidth();
@@ -506,6 +514,8 @@ public class reportUtil {
 		stage.setOnHidden(event -> {
 			windowX = stage.getX();
 			windowY = stage.getY();
+			windowWidth = stage.getWidth();
+			windowHeight = stage.getHeight();
 		});
 		
 		String startupValue = null;
@@ -523,11 +533,16 @@ public class reportUtil {
 			case "FullLeft" -> snapToLeft(stage);
 			case "FullRight" -> snapToRight(stage);
 			default -> {
-				stage.setWidth(preferredWidth);
-				stage.setHeight(preferredHeight);
-				stage.setMinHeight(300);
-				stage.setMinWidth(300);
-				if (windowX != 0 && windowY != 0) {
+				if (rememberLocationSize && windowHeight != 0 && windowWidth != 0) {
+					stage.setWidth(windowWidth);
+					stage.setHeight(windowHeight);
+				} else {
+					stage.setWidth(preferredWidth);
+					stage.setHeight(preferredHeight);
+					stage.setMinHeight(300);
+					stage.setMinWidth(300);
+				}
+				if (rememberLocationSize && windowX != 0 && windowY != 0) {
 					stage.setX(windowX);
 					stage.setY(windowY);
 				} else {

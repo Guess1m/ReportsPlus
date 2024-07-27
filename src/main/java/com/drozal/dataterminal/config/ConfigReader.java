@@ -172,6 +172,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("layout", "reportWindowLayout", "Default");
 		checkAndSetDefaultValue("layout", "rememberIDLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
+		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
 		checkAndSetDefaultValue("reportSettings", "reportBackground", "#505D62");

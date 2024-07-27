@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
@@ -3153,6 +3153,25 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
+                                <Button fx:id="showCourtCasesBtn" graphicTextGap="6.0" mnemonicParsing="false"
+                                        onAction="#onShowCourtCasesButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Court Cases"
+                                        textFill="#828797">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons/courtIcon.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <VBox.margin>
+                                        <Insets top="20.0"/>
+                                    </VBox.margin>
+                                </Button>
                                 <Button fx:id="showIDBtn" graphicTextGap="8.0" mnemonicParsing="false"
                                         onAction="#onShowIDButtonClick" prefHeight="50.0" prefWidth="184.0"
                                         styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show ID"
@@ -3169,7 +3188,7 @@
                                         </ImageView>
                                     </graphic>
                                     <VBox.margin>
-                                        <Insets top="22.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false"
@@ -3184,22 +3203,6 @@
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@imgs/icons/callout.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="showCourtCasesBtn" graphicTextGap="6.0" mnemonicParsing="false"
-                                        onAction="#onShowCourtCasesButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Court Cases"
-                                        textFill="#828797">
-                                    <font>
-                                        <Font size="18.0"/>
-                                    </font>
-                                    <graphic>
-                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@imgs/icons/courtIcon.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>

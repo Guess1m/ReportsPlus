@@ -85,7 +85,6 @@ public class actionController {
 		lookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
-		showCourtCasesBtn.setVisible(false);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -1502,7 +1501,6 @@ public class actionController {
 				lookupBtn.setVisible(true);
 				showCalloutBtn.setVisible(true);
 				showIDBtn.setVisible(true);
-				showCourtCasesBtn.setVisible(true);
 				serverStatusLabel.setText("Connected");
 				
 				serverStatusLabel.setStyle(

@@ -1,3 +1,26 @@
+<!--
+    ReportsPlus Charges.xml
+
+        Charge Attributes:
+        * "name" is the name of the charge and how it will appear in the application
+        * "fine" defines the maximum fine for that charge
+        * "fine_k" defines the maximum fine for that charge in thousands Ex: fine_k="3" would be a maximum fine of 3000
+        * "probation_chance" chance of the offender recieving probation
+        * "min_years" minimum years of jailtime
+        * "max_years" maximum years of jailtime, can be set to "life"
+        * "min_months" minimum months of jailtime
+        * "max_months" maximum months of jailtime
+
+        Traffic Attributes
+            - The charges below will only apply if traffic="true"
+        * "susp_chance" defines the chance that the suspects license will get suspended
+        * "min_susp" defines the minimum license suspension
+        * "max_susp" defines the maximum license suspension
+        * "revoke_chance" defines the chance that the suspects license gets revoked
+
+        You cannot use "fine" and "fine_k" in the same charge
+        You cannot use "min_years/max_years" and "min_months/max_months" in the same charge, it is either years or months
+-->
 <Charges>
     <ChargeGroup name="Violent Crimes - Homicide/Manslaughter">
         <Charge name="(F)Voluntary Manslaughter" fine_k="10" probation_chance="0" min_years="25" max_years="60"/>

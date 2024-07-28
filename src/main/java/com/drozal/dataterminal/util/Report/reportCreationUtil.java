@@ -482,10 +482,13 @@ public class reportCreationUtil {
 					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
 					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
 					
+					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
+					
 					stringBuilder.append(formData.getCharge()).append(" | ");
 					chargesBuilder.append(
 							parseCourtData(probationChance, minYears, maxYears, minMonths,
-							               maxMonths, suspChance, minSusp, maxSusp, revokeChance) + " | ");
+							               maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
@@ -542,7 +545,7 @@ public class reportCreationUtil {
 		});
 	}
 	
-	private static String parseCourtData(String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance) {
+	private static String parseCourtData(String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance, String fine, String finek) {
 		String outcomeMin = "";
 		String outcomeMax = "";
 		String outcomeTime = "";
@@ -551,6 +554,13 @@ public class reportCreationUtil {
 		String outcomeMaxSusp = "";
 		String outcomeProbChance = "";
 		String outcomeRevokeChance = "";
+		String outcomeFine = "";
+		
+		if (finek != null && !finek.isEmpty()) {
+			outcomeFine = finek+"000";
+		} else if (fine != null && !fine.isEmpty()) {
+			outcomeFine = fine;
+		}
 		
 		if (minYears != null && !minYears.isEmpty()) {
 			outcomeMin = minYears;
@@ -591,10 +601,10 @@ public class reportCreationUtil {
 		boolean isTrafficCharge;
 		isTrafficCharge = !outcomeSuspChance.isEmpty() && !outcomeMinSusp.isEmpty() && !outcomeMaxSusp.isEmpty();
 		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance,
-		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance);
+		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance, outcomeFine);
 	}
 	
-	private static String calculateOutcomes(boolean isTrafficCharge, String outcomeMin, String outcomeMax, String outcomeTime, String probationChance, String outcomeSuspChance, String outcomeMinSusp, String outcomeMaxSusp, String outcomeRevokeChance) {
+	private static String calculateOutcomes(boolean isTrafficCharge, String outcomeMin, String outcomeMax, String outcomeTime, String probationChance, String outcomeSuspChance, String outcomeMinSusp, String outcomeMaxSusp, String outcomeRevokeChance, String outcomeFine) {
 		StringBuilder result = new StringBuilder();
 		String minJailTime = String.valueOf(outcomeMin.isEmpty() ? 0 : outcomeMin);
 		String maxJailTime = String.valueOf(outcomeMax.isEmpty() ? 0 : outcomeMax);
@@ -602,18 +612,17 @@ public class reportCreationUtil {
 		String suspChance = String.valueOf(outcomeSuspChance.isEmpty() ? 0 : outcomeSuspChance);
 		String minSuspTime = String.valueOf(outcomeMinSusp.isEmpty() ? 0 : outcomeMinSusp);
 		String maxSuspTime = String.valueOf(outcomeMaxSusp.isEmpty() ? 0 : outcomeMaxSusp);
+		int maxFine = outcomeFine.isEmpty() ? 0 : Integer.parseInt(outcomeFine);
 		int revChance = Math.min(outcomeRevokeChance.isEmpty() ? 0 : Integer.parseInt(outcomeRevokeChance), 100);
 		
-		System.out.println("Min Jail Time: " + minJailTime);
-		System.out.println("Max Jail Time: " + maxJailTime);
-		System.out.println("Probation Chance: " + probChance);
-		System.out.println("Suspension Chance: " + suspChance);
-		System.out.println("Min Suspension Time: " + minSuspTime);
-		System.out.println("Max Suspension Time: " + maxSuspTime);
-		System.out.println("Revocation Chance: " + revChance);
-		System.out.println("Outcome Time: " + outcomeTime);
-		
 		Random random = new Random();
+		
+		if (maxFine != 0) {
+			random = new Random();
+			maxFine = random.nextInt(maxFine + 1);
+			result.append("Fined: "+maxFine+". ");
+		}
+		
 		
 		boolean onlyProbation = outcomeTime.equals("months") && random.nextInt(100) < 10;
 		
@@ -1959,10 +1968,13 @@ public class reportCreationUtil {
 						String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
 						String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
 						
+						String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+						String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
+						
 						stringBuilder.append(formData.getCharge()).append(" | ");
 						chargesBuilder.append(
 								parseCourtData(probationChance, minYears, maxYears, minMonths,
-								               maxMonths, suspChance, minSusp, maxSusp, revokeChance) + " | ");
+								               maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);

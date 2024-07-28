@@ -1427,12 +1427,11 @@ public class actionController {
 	//<editor-fold desc="Utils">
 	
 	@javafx.fxml.FXML
-	public void onArrUpdateValues(ActionEvent actionEvent) {
+	public void onArrUpdateValues() {
 		if (arrestEntry != null) {
 			arrestupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				arrestupdatedlabel.setVisible(false);
-			}));
+			Timeline timeline1 = new Timeline(
+					new KeyFrame(Duration.seconds(1), evt -> arrestupdatedlabel.setVisible(false)));
 			timeline1.play();
 			
 			arrestEntry.arrestNumber = arrestnum.getText();
@@ -1556,7 +1555,7 @@ public class actionController {
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
 						caseNames.add(case1.getOffenceDate().replaceAll("-",
-						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName());
+						                                                "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber());
 					}
 				}
 				
@@ -1576,7 +1575,7 @@ public class actionController {
 								} else {
 									for (Case case1 : sortedCases) {
 										if (item.equals(case1.getOffenceDate().replaceAll("-",
-										                                                  "/") + " " + case1.getCaseTime() + " " + case1.getName())) {
+										                                                  "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber())) {
 											customCaseCell.updateCase(case1);
 											break;
 										}
@@ -1594,7 +1593,7 @@ public class actionController {
 						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
 							if (newValue.equals(case1.getOffenceDate().replaceAll("-",
-							                                                      "/") + " " + case1.getCaseTime() + " " + case1.getName())) {
+							                                                      "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber())) {
 								updateFields(case1);
 								break;
 							}

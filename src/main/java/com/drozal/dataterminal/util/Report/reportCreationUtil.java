@@ -2016,7 +2016,7 @@ public class reportCreationUtil {
 						} catch (IOException e) {
 							throw new RuntimeException(e);
 						}
-						log("Added case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamearr.getText(),
+						log("Added arrest case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamearr.getText(),
 						    LogUtils.Severity.INFO);
 						actionController.needCourtRefresh.set(1);
 					} else {
@@ -2292,30 +2292,30 @@ public class reportCreationUtil {
 					TrafficCitationReportLogs.saveLogsToXML(logs);
 					
 					if (!offenderNamecit.getText().isEmpty() && offenderNamecit.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-						Case case1 = new Case();
+						Case casecit = new Case();
 						String casenum = generateCaseNumber();
-						case1.setCaseNumber(casenum);
-						case1.setCourtDate(datecit.getText());
-						case1.setCaseTime(timecit.getText());
-						case1.setName(controllerUtils.toTitleCase(offenderNamecit.getText()));
-						case1.setOffenceDate(datecit.getText());
-						case1.setAge(controllerUtils.toTitleCase(offenderAgecit.getText()));
-						case1.setAddress(controllerUtils.toTitleCase(offenderAddresscit.getText()));
-						case1.setGender(controllerUtils.toTitleCase(offenderGendercit.getText()));
-						case1.setCounty(controllerUtils.toTitleCase(countycit.getText()));
-						case1.setStreet(controllerUtils.toTitleCase(streetcit.getText()));
-						case1.setArea(areacit.getEditor().getText());
-						case1.setNotes(notescit.getText());
-						case1.setOffences(stringBuilder.toString());
-						case1.setOutcomes(chargesBuilder.toString());
+						casecit.setCaseNumber(casenum);
+						casecit.setCourtDate(datecit.getText());
+						casecit.setCaseTime(timecit.getText());
+						casecit.setName(controllerUtils.toTitleCase(offenderNamecit.getText()));
+						casecit.setOffenceDate(datecit.getText());
+						casecit.setAge(controllerUtils.toTitleCase(offenderAgecit.getText()));
+						casecit.setAddress(controllerUtils.toTitleCase(offenderAddresscit.getText()));
+						casecit.setGender(controllerUtils.toTitleCase(offenderGendercit.getText()));
+						casecit.setCounty(controllerUtils.toTitleCase(countycit.getText()));
+						casecit.setStreet(controllerUtils.toTitleCase(streetcit.getText()));
+						casecit.setArea(areacit.getEditor().getText());
+						casecit.setNotes(notescit.getText());
+						casecit.setOffences(stringBuilder.toString());
+						casecit.setOutcomes(chargesBuilder.toString());
 						try {
-							CourtUtils.addCase(case1);
+							CourtUtils.addCase(casecit);
 						} catch (JAXBException e) {
 							throw new RuntimeException(e);
 						} catch (IOException e) {
 							throw new RuntimeException(e);
 						}
-						log("Added case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
+						log("Added citation case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
 						    LogUtils.Severity.INFO);
 						actionController.needCourtRefresh.set(1);
 					} else {

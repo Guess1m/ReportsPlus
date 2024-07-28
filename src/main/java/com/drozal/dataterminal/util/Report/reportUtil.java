@@ -818,7 +818,7 @@ public class reportUtil {
 					
 					parseTreeXML(root, rootItem);
 					treeView.setRoot(rootItem);
-					expandTreeItem(rootItem, "Citations");
+					expandTreeItem(rootItem);
 					
 					TextField citationNameField = new TextField();
 					citationNameField.setPromptText("Citation Name");
@@ -982,7 +982,7 @@ public class reportUtil {
 					
 					parseTreeXML(root2, rootItem2);
 					chargestreeView.setRoot(rootItem2);
-					expandTreeItem(rootItem2, "Charges");
+					expandTreeItem(rootItem2);
 					
 					TextField chargeNameField = new TextField();
 					chargeNameField.setEditable(false);

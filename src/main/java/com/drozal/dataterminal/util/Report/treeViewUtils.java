@@ -143,13 +143,7 @@ public class treeViewUtils {
 		}
 	}
 	
-	public static void expandTreeItem(TreeItem<String> root, String itemName) {
-		if (root.getValue().equals(itemName)) {
-			root.setExpanded(true);
-			return;
-		}
-		for (TreeItem<String> child : root.getChildren()) {
-			expandTreeItem(child, itemName);
-		}
+	public static void expandTreeItem(TreeItem<String> root) {
+		root.setExpanded(true);
 	}
 }

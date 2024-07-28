@@ -548,6 +548,7 @@ public class reportCreationUtil {
 		String outcomeSuspChance = "";
 		String outcomeMinSusp = "";
 		String outcomeMaxSusp = "";
+		String outcomeProbChance = "";
 		String outcomeRevokeChance = "";
 		
 		if (minYears != null && !minYears.isEmpty()) {
@@ -570,6 +571,10 @@ public class reportCreationUtil {
 			outcomeSuspChance = suspChance;
 		}
 		
+		if (probationChance != null && !probationChance.isEmpty()) {
+			outcomeProbChance = probationChance;
+		}
+		
 		if (minSusp != null && !minSusp.isEmpty()) {
 			outcomeMinSusp = minSusp;
 		}
@@ -588,7 +593,7 @@ public class reportCreationUtil {
 		} else {
 			isTrafficCharge = false;
 		}
-		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, probationChance,
+		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance,
 		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance);
 	}
 	

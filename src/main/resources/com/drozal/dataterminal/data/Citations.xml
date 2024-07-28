@@ -1,3 +1,11 @@
+<!--
+    ReportsPlus Citations.xml
+
+        Charge Attributes:
+        * "name" is the name of the charge and how it will appear in the application
+        * "fine" defines the maximum fine for that charge
+        * "arrestable" defines if the citation is arrestable
+-->
 <Citations>
     <CitationGroup name="Public Violations">
         <Citation name="Public Intoxication" fine="1000"/>

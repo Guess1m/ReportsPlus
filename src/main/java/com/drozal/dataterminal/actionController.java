@@ -1706,7 +1706,11 @@ public class actionController {
 		List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
 		String outcomeSuspension = calculateTotalTime(case1.getOutcomes(), "License Suspension Time");
 		String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
+		List<String> jailTimeList = parseCharges(case1.getOutcomes(), "Jail Time");
 		String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
+		if (jailTimeList.contains("Life sentence")){
+			totalJailTime="Life Sentence";
+		}
 		
 		if (licenseStatusList.isEmpty() && outcomeSuspension.isEmpty()) {
 			areTrafficChargesPresent = false;
@@ -1734,8 +1738,10 @@ public class actionController {
 				} else {
 					caseTotalJailTimeLabel.setStyle("-fx-text-fill: #cc5200;");
 				}
-			} else {
+			} else if (totalJailTime.contains("months")) {
 				caseTotalJailTimeLabel.setStyle("-fx-text-fill: black;");
+			} else if (totalJailTime.contains("Life")) {
+				caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
 			}
 			caseTotalJailTimeLabel.setText(totalJailTime);
 		} else {

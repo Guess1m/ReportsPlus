@@ -588,24 +588,29 @@ public class reportCreationUtil {
 		}
 		
 		boolean isTrafficCharge;
-		if (!outcomeSuspChance.isEmpty() && !outcomeMinSusp.isEmpty() && !outcomeMaxSusp.isEmpty()) {
-			isTrafficCharge = true;
-		} else {
-			isTrafficCharge = false;
-		}
+		isTrafficCharge = !outcomeSuspChance.isEmpty() && !outcomeMinSusp.isEmpty() && !outcomeMaxSusp.isEmpty();
 		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance,
 		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance);
 	}
 	
 	private static String calculateOutcomes(boolean isTrafficCharge, String outcomeMin, String outcomeMax, String outcomeTime, String probationChance, String outcomeSuspChance, String outcomeMinSusp, String outcomeMaxSusp, String outcomeRevokeChance) {
 		StringBuilder result = new StringBuilder();
-		int minJailTime = outcomeMin.isEmpty() ? 0 : Integer.parseInt(outcomeMin);
-		int maxJailTime = outcomeMax.isEmpty() ? 0 : Integer.parseInt(outcomeMax);
-		int probChance = probationChance.isEmpty() ? 0 : Integer.parseInt(probationChance);
-		int suspChance = outcomeSuspChance.isEmpty() ? 0 : Integer.parseInt(outcomeSuspChance);
-		int minSuspTime = outcomeMinSusp.isEmpty() ? 0 : Integer.parseInt(outcomeMinSusp);
-		int maxSuspTime = outcomeMaxSusp.isEmpty() ? 0 : Integer.parseInt(outcomeMaxSusp);
+		String minJailTime = String.valueOf(outcomeMin.isEmpty() ? 0 : outcomeMin);
+		String maxJailTime = String.valueOf(outcomeMax.isEmpty() ? 0 : outcomeMax);
+		String probChance = String.valueOf(probationChance.isEmpty() ? 0 : probationChance);
+		String suspChance = String.valueOf(outcomeSuspChance.isEmpty() ? 0 : outcomeSuspChance);
+		String minSuspTime = String.valueOf(outcomeMinSusp.isEmpty() ? 0 : outcomeMinSusp);
+		String maxSuspTime = String.valueOf(outcomeMaxSusp.isEmpty() ? 0 : outcomeMaxSusp);
 		int revChance = Math.min(outcomeRevokeChance.isEmpty() ? 0 : Integer.parseInt(outcomeRevokeChance), 100);
+		
+		System.out.println("Min Jail Time: " + minJailTime);
+		System.out.println("Max Jail Time: " + maxJailTime);
+		System.out.println("Probation Chance: " + probChance);
+		System.out.println("Suspension Chance: " + suspChance);
+		System.out.println("Min Suspension Time: " + minSuspTime);
+		System.out.println("Max Suspension Time: " + maxSuspTime);
+		System.out.println("Revocation Chance: " + revChance);
+		System.out.println("Outcome Time: " + outcomeTime);
 		
 		Random random = new Random();
 		
@@ -614,41 +619,52 @@ public class reportCreationUtil {
 		if (outcomeTime.equals("years")) {
 			onlyProbation = false;
 		}
-		
-		if (onlyProbation) {
-			result.append("Probation: Granted. ");
-			result.append("Probation Time: ").append(
-					Math.round(minJailTime + (maxJailTime - minJailTime) * random.nextDouble())).append(" months. ");
-			result.append("Jail Time: Dismissed. ");
-		} else {
-			boolean probationGranted = random.nextInt(100) < probChance;
-			
-			double jailTime = 0;
-			if (probationGranted) {
-				jailTime = minJailTime + (maxJailTime - minJailTime) * random.nextDouble();
-				jailTime = jailTime / 3;
-				result.append("Probation: Granted. ");
-				result.append("Probation Time: ").append(Math.round(jailTime * 2)).append(" months. ");
+		if (maxJailTime.equals("life")) {
+			if (random.nextBoolean()) {
+				result.append("Jail Time: Life sentence. ");
 			} else {
-				jailTime = minJailTime + (maxJailTime - minJailTime) * random.nextDouble();
-				result.append("Probation: Denied. ");
+				result.append("Jail Time: ").append(minJailTime).append(" years. ");
 			}
-			
-			if (outcomeTime.equals("years")) {
-				result.append("Jail Time: ").append(Math.round(jailTime)).append(" years. ");
+		} else {
+			if (onlyProbation) {
+				result.append("Probation: Granted. ");
+				result.append("Probation Time: ").append(Math.round(
+						Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+								minJailTime)) * random.nextDouble())).append(" months. ");
+				result.append("Jail Time: Dismissed. ");
 			} else {
-				result.append("Jail Time: ").append(Math.round(jailTime)).append(" months. ");
+				boolean probationGranted = random.nextInt(100) < Integer.parseInt(probChance);
+				
+				double jailTime = 0;
+				if (probationGranted) {
+					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+							minJailTime)) * random.nextDouble();
+					jailTime = jailTime / 3;
+					result.append("Probation: Granted. ");
+					result.append("Probation Time: ").append(Math.round(jailTime * 2)).append(" months. ");
+				} else {
+					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+							minJailTime)) * random.nextDouble();
+					result.append("Probation: Denied. ");
+				}
+				
+				if (outcomeTime.equals("years")) {
+					result.append("Jail Time: ").append(Math.round(jailTime)).append(" years. ");
+				} else {
+					result.append("Jail Time: ").append(Math.round(jailTime)).append(" months. ");
+				}
 			}
 		}
-		
 		boolean revocationGranted = random.nextInt(100) < revChance;
 		
 		if (isTrafficCharge) {
 			if (revocationGranted) {
 				result.append("License: Revoked.");
 			} else {
-				if (random.nextInt(100) < suspChance) {
-					int randomSuspTime = random.nextInt(maxSuspTime - minSuspTime + 1) + minSuspTime;
+				if (random.nextInt(100) < Integer.parseInt(suspChance)) {
+					int randomSuspTime = random.nextInt(
+							Integer.parseInt(maxSuspTime) - Integer.parseInt(minSuspTime) + 1) + Integer.parseInt(
+							minSuspTime);
 					result.append("License: Suspended.");
 					result.append("License Suspension Time: ").append(randomSuspTime).append(" months. ");
 				} else {

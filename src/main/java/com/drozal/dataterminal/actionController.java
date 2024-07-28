@@ -1707,8 +1707,8 @@ public class actionController {
 		String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
 		List<String> jailTimeList = parseCharges(case1.getOutcomes(), "Jail Time");
 		String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
-		if (jailTimeList.contains("Life sentence")){
-			totalJailTime="Life Sentence";
+		if (jailTimeList.contains("Life sentence")) {
+			totalJailTime = "Life Sentence";
 		}
 		
 		if (licenseStatusList.isEmpty() && outcomeSuspension.isEmpty()) {

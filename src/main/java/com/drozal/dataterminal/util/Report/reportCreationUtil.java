@@ -22,7 +22,6 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Misc.controllerUtils;
 import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
 import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
 import jakarta.xml.bind.JAXBException;
@@ -485,10 +484,12 @@ public class reportCreationUtil {
 					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
 					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
 					
+					String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
+					
 					stringBuilder.append(formData.getCharge()).append(" | ");
 					chargesBuilder.append(
-							parseCourtData(probationChance, minYears, maxYears, minMonths,
-							               maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
+							parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths,
+							               suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
@@ -510,13 +511,13 @@ public class reportCreationUtil {
 					case1.setCaseNumber(casenum);
 					case1.setCourtDate(date.getText());
 					case1.setCaseTime(time.getText());
-					case1.setName(controllerUtils.toTitleCase(offenderName.getText()));
+					case1.setName(toTitleCase(offenderName.getText()));
 					case1.setOffenceDate(date.getText());
-					case1.setAge(controllerUtils.toTitleCase(offenderAge.getText()));
-					case1.setAddress(controllerUtils.toTitleCase(offenderAddress.getText()));
-					case1.setGender(controllerUtils.toTitleCase(offenderGender.getText()));
-					case1.setCounty(controllerUtils.toTitleCase(county.getText()));
-					case1.setStreet(controllerUtils.toTitleCase(street.getText()));
+					case1.setAge(toTitleCase(offenderAge.getText()));
+					case1.setAddress(toTitleCase(offenderAddress.getText()));
+					case1.setGender(toTitleCase(offenderGender.getText()));
+					case1.setCounty(toTitleCase(county.getText()));
+					case1.setStreet(toTitleCase(street.getText()));
 					case1.setArea(area.getEditor().getText());
 					case1.setNotes(notes.getText());
 					case1.setOffences(stringBuilder.toString());
@@ -545,7 +546,7 @@ public class reportCreationUtil {
 		});
 	}
 	
-	private static String parseCourtData(String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance, String fine, String finek) {
+	private static String parseCourtData(String isTraffic, String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance, String fine, String finek) {
 		String outcomeMin = "";
 		String outcomeMax = "";
 		String outcomeTime = "";
@@ -557,7 +558,7 @@ public class reportCreationUtil {
 		String outcomeFine = "";
 		
 		if (finek != null && !finek.isEmpty()) {
-			outcomeFine = finek+"000";
+			outcomeFine = finek + "000";
 		} else if (fine != null && !fine.isEmpty()) {
 			outcomeFine = fine;
 		}
@@ -598,8 +599,12 @@ public class reportCreationUtil {
 			outcomeRevokeChance = revokeChance;
 		}
 		
-		boolean isTrafficCharge;
-		isTrafficCharge = !outcomeSuspChance.isEmpty() && !outcomeMinSusp.isEmpty() && !outcomeMaxSusp.isEmpty();
+		boolean isTrafficCharge = false;
+		if (isTraffic != null) {
+			if (isTraffic.equals("true")) {
+				isTrafficCharge = true;
+			}
+		}
 		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance,
 		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance, outcomeFine);
 	}
@@ -620,9 +625,8 @@ public class reportCreationUtil {
 		if (maxFine != 0) {
 			random = new Random();
 			maxFine = random.nextInt(maxFine + 1);
-			result.append("Fined: "+maxFine+". ");
+			result.append("Fined: " + maxFine + ". ");
 		}
-		
 		
 		boolean onlyProbation = outcomeTime.equals("months") && random.nextInt(100) < 10;
 		
@@ -1180,7 +1184,7 @@ public class reportCreationUtil {
 							int randomFine = random.nextInt(maxFine + 1);
 							chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
 						} catch (NumberFormatException e) {
-							logError("Error parsing fine value " + fine+": ",e);
+							logError("Error parsing fine value " + fine + ": ", e);
 							chargesBuilder.append("Fined: ").append(fine).append(" | ");
 						}
 					} else {
@@ -1209,13 +1213,13 @@ public class reportCreationUtil {
 					case1.setCaseNumber(casenum);
 					case1.setCourtDate(date.getText());
 					case1.setCaseTime(time.getText());
-					case1.setName(controllerUtils.toTitleCase(offenderName.getText()));
+					case1.setName(toTitleCase(offenderName.getText()));
 					case1.setOffenceDate(date.getText());
-					case1.setAge(controllerUtils.toTitleCase(offenderAge.getText()));
-					case1.setAddress(controllerUtils.toTitleCase(offenderAddress.getText()));
-					case1.setGender(controllerUtils.toTitleCase(offenderGender.getText()));
-					case1.setCounty(controllerUtils.toTitleCase(county.getText()));
-					case1.setStreet(controllerUtils.toTitleCase(street.getText()));
+					case1.setAge(toTitleCase(offenderAge.getText()));
+					case1.setAddress(toTitleCase(offenderAddress.getText()));
+					case1.setGender(toTitleCase(offenderGender.getText()));
+					case1.setCounty(toTitleCase(county.getText()));
+					case1.setStreet(toTitleCase(street.getText()));
 					case1.setArea(area.getEditor().getText());
 					case1.setNotes(notes.getText());
 					case1.setOffences(stringBuilder.toString());
@@ -1971,10 +1975,12 @@ public class reportCreationUtil {
 						String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
 						String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
 						
+						String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
+						
 						stringBuilder.append(formData.getCharge()).append(" | ");
 						chargesBuilder.append(
-								parseCourtData(probationChance, minYears, maxYears, minMonths,
-								               maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
+								parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths,
+								               suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);
@@ -1998,13 +2004,13 @@ public class reportCreationUtil {
 						case1.setCaseNumber(casenum);
 						case1.setCourtDate(datearr.getText());
 						case1.setCaseTime(timearr.getText());
-						case1.setName(controllerUtils.toTitleCase(offenderNamearr.getText()));
+						case1.setName(toTitleCase(offenderNamearr.getText()));
 						case1.setOffenceDate(datearr.getText());
-						case1.setAge(controllerUtils.toTitleCase(offenderAgearr.getText()));
-						case1.setAddress(controllerUtils.toTitleCase(offenderAddressarr.getText()));
-						case1.setGender(controllerUtils.toTitleCase(offenderGenderarr.getText()));
-						case1.setCounty(controllerUtils.toTitleCase(countyarr.getText()));
-						case1.setStreet(controllerUtils.toTitleCase(streetarr.getText()));
+						case1.setAge(toTitleCase(offenderAgearr.getText()));
+						case1.setAddress(toTitleCase(offenderAddressarr.getText()));
+						case1.setGender(toTitleCase(offenderGenderarr.getText()));
+						case1.setCounty(toTitleCase(countyarr.getText()));
+						case1.setStreet(toTitleCase(streetarr.getText()));
 						case1.setArea(areaarr.getEditor().getText());
 						case1.setNotes(notesarr.getText());
 						case1.setOffences(stringBuilder.toString());
@@ -2267,7 +2273,7 @@ public class reportCreationUtil {
 								int randomFine = random.nextInt(maxFine + 1);
 								chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
 							} catch (NumberFormatException e) {
-								logError("Error parsing fine value " + fine+": ",e);
+								logError("Error parsing fine value " + fine + ": ", e);
 								chargesBuilder.append("Fined: ").append(fine).append(" | ");
 							}
 						} else {
@@ -2297,13 +2303,13 @@ public class reportCreationUtil {
 						casecit.setCaseNumber(casenum);
 						casecit.setCourtDate(datecit.getText());
 						casecit.setCaseTime(timecit.getText());
-						casecit.setName(controllerUtils.toTitleCase(offenderNamecit.getText()));
+						casecit.setName(toTitleCase(offenderNamecit.getText()));
 						casecit.setOffenceDate(datecit.getText());
-						casecit.setAge(controllerUtils.toTitleCase(offenderAgecit.getText()));
-						casecit.setAddress(controllerUtils.toTitleCase(offenderAddresscit.getText()));
-						casecit.setGender(controllerUtils.toTitleCase(offenderGendercit.getText()));
-						casecit.setCounty(controllerUtils.toTitleCase(countycit.getText()));
-						casecit.setStreet(controllerUtils.toTitleCase(streetcit.getText()));
+						casecit.setAge(toTitleCase(offenderAgecit.getText()));
+						casecit.setAddress(toTitleCase(offenderAddresscit.getText()));
+						casecit.setGender(toTitleCase(offenderGendercit.getText()));
+						casecit.setCounty(toTitleCase(countycit.getText()));
+						casecit.setStreet(toTitleCase(streetcit.getText()));
 						casecit.setArea(areacit.getEditor().getText());
 						casecit.setNotes(notescit.getText());
 						casecit.setOffences(stringBuilder.toString());

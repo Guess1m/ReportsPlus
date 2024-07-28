@@ -38,6 +38,7 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Report.Layouts.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
@@ -483,7 +484,7 @@ public class reportCreationUtil {
 					
 					stringBuilder.append(formData.getCharge()).append(" | ");
 					chargesBuilder.append(
-							parseCourtData(formData.getCharge(), probationChance, minYears, maxYears, minMonths,
+							parseCourtData(probationChance, minYears, maxYears, minMonths,
 							               maxMonths, suspChance, minSusp, maxSusp, revokeChance) + " | ");
 				}
 				if (stringBuilder.length() > 0) {
@@ -541,7 +542,7 @@ public class reportCreationUtil {
 		});
 	}
 	
-	private static String parseCourtData(String formData, String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance) {
+	private static String parseCourtData(String probationChance, String minYears, String maxYears, String minMonths, String maxMonths, String suspChance, String minSusp, String maxSusp, String revokeChance) {
 		String outcomeMin = "";
 		String outcomeMax = "";
 		String outcomeTime = "";
@@ -1160,9 +1161,22 @@ public class reportCreationUtil {
 				StringBuilder chargesBuilder = new StringBuilder();
 				for (CitationsData formData : formDataList) {
 					stringBuilder.append(formData.getCitation()).append(" | ");
-					chargesBuilder.append(
-							"Fined: " + findXMLValue(formData.getCitation(), "fine", "data/Citations.xml")).append(
-							" | ");
+					
+					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
+					
+					if (fine != null) {
+						try {
+							int maxFine = Integer.parseInt(fine);
+							Random random = new Random();
+							int randomFine = random.nextInt(maxFine + 1);
+							chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
+						} catch (NumberFormatException e) {
+							logError("Error parsing fine value " + fine+": ",e);
+							chargesBuilder.append("Fined: ").append(fine).append(" | ");
+						}
+					} else {
+						chargesBuilder.append("Fined: Not Found | ");
+					}
 				}
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 2);
@@ -1947,7 +1961,7 @@ public class reportCreationUtil {
 						
 						stringBuilder.append(formData.getCharge()).append(" | ");
 						chargesBuilder.append(
-								parseCourtData(formData.getCharge(), probationChance, minYears, maxYears, minMonths,
+								parseCourtData(probationChance, minYears, maxYears, minMonths,
 								               maxMonths, suspChance, minSusp, maxSusp, revokeChance) + " | ");
 					}
 					if (stringBuilder.length() > 0) {
@@ -2231,9 +2245,22 @@ public class reportCreationUtil {
 					StringBuilder chargesBuilder = new StringBuilder();
 					for (CitationsData formData : formDataList) {
 						stringBuilder.append(formData.getCitation()).append(" | ");
-						chargesBuilder.append(
-								"Fined: " + findXMLValue(formData.getCitation(), "fine", "data/Citations.xml")).append(
-								" | ");
+						
+						String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
+						
+						if (fine != null) {
+							try {
+								int maxFine = Integer.parseInt(fine);
+								Random random = new Random();
+								int randomFine = random.nextInt(maxFine + 1);
+								chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
+							} catch (NumberFormatException e) {
+								logError("Error parsing fine value " + fine+": ",e);
+								chargesBuilder.append("Fined: ").append(fine).append(" | ");
+							}
+						} else {
+							chargesBuilder.append("Fined: Not Found | ");
+						}
 					}
 					if (stringBuilder.length() > 0) {
 						stringBuilder.setLength(stringBuilder.length() - 2);

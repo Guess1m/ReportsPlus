@@ -1547,8 +1547,8 @@ public class settingsController {
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			
 			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
-					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(
-					bkg).equalsIgnoreCase("#cccccc")) {
+					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
+					"#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");

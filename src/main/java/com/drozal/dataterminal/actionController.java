@@ -1909,6 +1909,11 @@ public class actionController {
 				TextField modeofdeath = (TextField) deathReport1.get("mode of death");
 				TextField witnesses = (TextField) deathReport1.get("witnesses");
 				TextArea notes = (TextArea) deathReport1.get("notes");
+				TextField timeofdeath = (TextField) deathReport1.get("time of death");
+				TextField dateofdeath = (TextField) deathReport1.get("date of death");
+				
+				timeofdeath.setText(deathReport.getTimeOfDeath());
+				dateofdeath.setText(deathReport.getDateOfDeath());
 				name.setText(deathReport.getName());
 				rank.setText(deathReport.getRank());
 				div.setText(deathReport.getDivision());
@@ -2091,6 +2096,12 @@ public class actionController {
 		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death");
 		modeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("modeOfDeath"));
 		
+		TableColumn<DeathReport, String> timeofDeathColumn = new TableColumn<>("Time of Death");
+		timeofDeathColumn.setCellValueFactory(new PropertyValueFactory<>("timeOfDeath"));
+		
+		TableColumn<DeathReport, String> dateOfDeathColumn = new TableColumn<>("Date of Death");
+		dateOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfDeath"));
+		
 		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(notesColumn,
 		                                                                                                   divisionColumn,
 		                                                                                                   agencyColumn,
@@ -2110,7 +2121,9 @@ public class actionController {
 		                                                                                                   addressColumn,
 		                                                                                                   witnessesColumn,
 		                                                                                                   causeOfDeathColumn,
-		                                                                                                   modeOfDeathColumn);
+		                                                                                                   modeOfDeathColumn,
+		                                                                                                   timeofDeathColumn,
+		                                                                                                   dateOfDeathColumn);
 		
 		deathReportTable.getColumns().addAll(deathReportColumns);
 		
@@ -2121,6 +2134,8 @@ public class actionController {
 		setSmallColumnWidth(deathReportNumberColumn);
 		setSmallColumnWidth(dateColumn);
 		setSmallColumnWidth(timeColumn);
+		setSmallColumnWidth(timeofDeathColumn);
+		setSmallColumnWidth(dateOfDeathColumn);
 		setSmallColumnWidth(ageColumn);
 		setSmallColumnWidth(genderColumn);
 		setSmallColumnWidth(numberColumn);

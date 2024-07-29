@@ -67,6 +67,28 @@ public class DeathReport {
 	@XmlElement(name = "ModeOfDeath")
 	private String modeOfDeath;
 	
+	@XmlElement(name = "TimeOfDeath")
+	private String timeOfDeath;
+	
+	@XmlElement(name = "DateOfDeath")
+	private String dateOfDeath;
+	
+	public String getDateOfDeath() {
+		return dateOfDeath;
+	}
+	
+	public void setDateOfDeath(String dateOfDeath) {
+		this.dateOfDeath = dateOfDeath;
+	}
+	
+	public String getTimeOfDeath() {
+		return timeOfDeath;
+	}
+	
+	public void setTimeOfDeath(String timeOfDeath) {
+		this.timeOfDeath = timeOfDeath;
+	}
+	
 	public String getAddress() {
 		return address;
 	}

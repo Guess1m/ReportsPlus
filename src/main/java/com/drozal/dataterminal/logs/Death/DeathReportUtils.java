@@ -125,6 +125,15 @@ public class DeathReportUtils {
 		                                                                                         true,
 		                                                                                         new nestedReportUtils.RowConfig(
 				                                                                                         new nestedReportUtils.FieldConfig(
+						                                                                                         "time of death",
+						                                                                                         6,
+						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                         new nestedReportUtils.FieldConfig(
+						                                                                                         "date of death",
+						                                                                                         6,
+						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                                                         new nestedReportUtils.RowConfig(
+				                                                                                         new nestedReportUtils.FieldConfig(
 						                                                                                         "cause of death",
 						                                                                                         12,
 						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
@@ -176,6 +185,9 @@ public class DeathReportUtils {
 		TextField modeofdeath = (TextField) deathReportMap.get("mode of death");
 		TextField witnesses = (TextField) deathReportMap.get("witnesses");
 		
+		TextField timeofdeath = (TextField) deathReportMap.get("time of death");
+		TextField dateofdeath = (TextField) deathReportMap.get("date of death");
+		
 		TextArea notes = (TextArea) deathReportMap.get("notes");
 		
 		BorderPane root = (BorderPane) deathReport.get("root");
@@ -192,12 +204,23 @@ public class DeathReportUtils {
 		}
 		time.setText(getTime());
 		date.setText(getDate());
+		timeofdeath.setText(getTime());
+		dateofdeath.setText(getDate());
 		
 		Button pullNotesBtn = (Button) deathReport.get("pullNotesBtn");
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
 				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
+				updateTextFromNotepad(decedent, notesViewController.getNotepadTextArea(), "-name");
+				updateTextFromNotepad(age, notesViewController.getNotepadTextArea(), "-age");
+				updateTextFromNotepad(address, notesViewController.getNotepadTextArea(), "-address");
+				updateTextFromNotepad(description, notesViewController.getNotepadTextArea(), "-description");
+				updateTextFromNotepad(deathNum, notesViewController.getNotepadTextArea(), "-number");
+				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
+				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
+				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(gender, notesViewController.getNotepadTextArea(), "-gender");
 			} else {
 				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
 			}
@@ -235,6 +258,8 @@ public class DeathReportUtils {
 			deathReport1.setNotesTextArea(notes.getText());
 			deathReport1.setNumber(num.getText());
 			deathReport1.setRank(rank.getText());
+			deathReport1.setTimeOfDeath(timeofdeath.getText());
+			deathReport1.setDateOfDeath(dateofdeath.getText());
 			try {
 				DeathReportUtils.addDeathReport(deathReport1);
 			} catch (JAXBException e) {

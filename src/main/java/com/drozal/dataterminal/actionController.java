@@ -6,6 +6,9 @@ import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Death.DeathReport;
+import com.drozal.dataterminal.logs.Death.DeathReportUtils;
+import com.drozal.dataterminal.logs.Death.DeathReports;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -19,6 +22,7 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.*;
+import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
@@ -67,6 +71,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
@@ -80,6 +85,13 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
+	
+	@javafx.fxml.FXML
+	private MenuItem deathReportButton;
+	@javafx.fxml.FXML
+	private Tab deathTab;
+	@javafx.fxml.FXML
+	private TableView deathReportTable;
 	
 	public void initialize() throws IOException {
 		lookupBtn.setVisible(false);
@@ -192,6 +204,7 @@ public class actionController {
 		initializePatrolColumns();
 		initializeSearchColumns();
 		initializeTrafficStopColumns();
+		initializeDeathReportColumns();
 		loadLogs();
 		
 		calloutInfo.setVisible(true);
@@ -982,6 +995,35 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
+	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
+		if (settingsStage != null && settingsStage.isShowing()) {
+			settingsStage.close();
+			settingsStage = null;
+			return;
+		}
+		settingsStage = new Stage();
+		settingsStage.initStyle(StageStyle.UNDECORATED);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
+		Parent root = loader.load();
+		Scene newScene = new Scene(root);
+		settingsStage.setTitle("Settings");
+		settingsStage.setScene(newScene);
+		settingsStage.show();
+		settingsStage.centerOnScreen();
+		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
+		showAnimation(settingsBtn);
+		
+		windowUtils.centerStageOnMainApp(settingsStage);
+		
+		settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				settingsStage = null;
+			}
+		});
+	}
+	
+	@javafx.fxml.FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
 		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
@@ -1200,6 +1242,11 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
 		newImpound(reportChart, areaReportChart, vbox, notesViewController);
+	}
+	
+	@javafx.fxml.FXML
+	public void onDeathReportButtonClick(ActionEvent actionEvent) {
+		newDeathReport(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1838,33 +1885,59 @@ public class actionController {
 	
 	//<editor-fold desc="Log Methods">
 	
+	
 	@javafx.fxml.FXML
-	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
-		if (settingsStage != null && settingsStage.isShowing()) {
-			settingsStage.close();
-			settingsStage = null;
-			return;
-		}
-		settingsStage = new Stage();
-		settingsStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		settingsStage.setTitle("Settings");
-		settingsStage.setScene(newScene);
-		settingsStage.show();
-		settingsStage.centerOnScreen();
-		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
-		showAnimation(settingsBtn);
-		
-		windowUtils.centerStageOnMainApp(settingsStage);
-		
-		settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				settingsStage = null;
+	public void onDeathReportRowClick(MouseEvent event) {
+		if (event.getClickCount() == 1) {
+			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
+			
+			if (deathReport != null) {
+				Map<String, Object> deathReport1 = DeathReportUtils.newDeathReport(getReportChart(), getAreaReportChart(), notesViewController);
+				TextField name = (TextField) deathReport1.get("name");
+				TextField rank = (TextField) deathReport1.get("rank");
+				TextField div = (TextField) deathReport1.get("division");
+				TextField agen = (TextField) deathReport1.get("agency");
+				TextField num = (TextField) deathReport1.get("number");
+				TextField date = (TextField) deathReport1.get("date");
+				TextField time = (TextField) deathReport1.get("time");
+				TextField street = (TextField) deathReport1.get("street");
+				ComboBox area = (ComboBox) deathReport1.get("area");
+				TextField county = (TextField) deathReport1.get("county");
+				TextField deathNum = (TextField) deathReport1.get("death num");
+				TextField decedent = (TextField) deathReport1.get("decedent name");
+				TextField age = (TextField) deathReport1.get("age/dob");
+				TextField gender = (TextField) deathReport1.get("gender");
+				TextField address = (TextField) deathReport1.get("address");
+				TextField description = (TextField) deathReport1.get("description");
+				TextField causeofdeath = (TextField) deathReport1.get("cause of death");
+				TextField modeofdeath = (TextField) deathReport1.get("mode of death");
+				TextField witnesses = (TextField) deathReport1.get("witnesses");
+				TextArea notes = (TextArea) deathReport1.get("notes");
+				name.setText(deathReport.getName());
+				rank.setText(deathReport.getRank());
+				div.setText(deathReport.getDivision());
+				agen.setText(deathReport.getAgency());
+				num.setText(deathReport.getNumber());
+				date.setText(deathReport.getDate());
+				time.setText(deathReport.getTime());
+				street.setText(deathReport.getStreet());
+				area.getEditor().setText(deathReport.getArea());
+				county.setText(deathReport.getCounty());
+				deathNum.setText(deathReport.getDeathReportNumber());
+				decedent.setText(deathReport.getDecedent());
+				age.setText(deathReport.getAge());
+				gender.setText(deathReport.getGender());
+				address.setText(deathReport.getAddress());
+				description.setText(deathReport.getDescription());
+				causeofdeath.setText(deathReport.getCauseOfDeath());
+				modeofdeath.setText(deathReport.getModeOfDeath());
+				witnesses.setText(deathReport.getWitnesses());
+				notes.setText(deathReport.getNotesTextArea());
+				deathNum.setEditable(false);
+				
+				deathReportTable.getSelectionModel().clearSelection();
 			}
-		});
+		}
 	}
 	
 	private void loadLogs() {
@@ -1894,12 +1967,14 @@ public class actionController {
 		
 		List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
 		calloutLogUpdate(calloutLogEntryList);
-	}
-	
-	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
-		impoundTable.getItems().clear();
 		
-		impoundTable.getItems().addAll(logEntries);
+		try {
+			DeathReports deathReports = DeathReportUtils.loadDeathReports();
+			List<DeathReport> deathReportList = deathReports.getDeathReportList();
+			deathReportUpdate(deathReportList);
+		} catch (JAXBException e) {
+			logError("Error loading DeathReports: ", e);
+		}
 	}
 	
 	public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
@@ -1942,6 +2017,98 @@ public class actionController {
 		
 		calloutTable.getItems().clear();
 		calloutTable.getItems().addAll(logEntries);
+	}
+	
+	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
+		impoundTable.getItems().clear();
+		
+		impoundTable.getItems().addAll(logEntries);
+	}
+	
+	public void deathReportUpdate(List<DeathReport> logEntries) {
+		deathReportTable.getItems().clear();
+		deathReportTable.getItems().addAll(logEntries);
+	}
+	
+	public void initializeDeathReportColumns() {
+		TableColumn<DeathReport, String> notesColumn = new TableColumn<>("Notes");
+		notesColumn.setCellValueFactory(new PropertyValueFactory<>("notesTextArea"));
+		
+		TableColumn<DeathReport, String> divisionColumn = new TableColumn<>("Division");
+		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
+		
+		TableColumn<DeathReport, String> agencyColumn = new TableColumn<>("Agency");
+		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("agency"));
+		
+		TableColumn<DeathReport, String> numberColumn = new TableColumn<>("Number");
+		numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
+		
+		TableColumn<DeathReport, String> rankColumn = new TableColumn<>("Rank");
+		rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
+		
+		TableColumn<DeathReport, String> nameColumn = new TableColumn<>("Name");
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		
+		TableColumn<DeathReport, String> streetColumn = new TableColumn<>("Street");
+		streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
+		
+		TableColumn<DeathReport, String> countyColumn = new TableColumn<>("County");
+		countyColumn.setCellValueFactory(new PropertyValueFactory<>("county"));
+		
+		TableColumn<DeathReport, String> areaColumn = new TableColumn<>("Area");
+		areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+		
+		TableColumn<DeathReport, String> dateColumn = new TableColumn<>("Date");
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+		
+		TableColumn<DeathReport, String> timeColumn = new TableColumn<>("Time");
+		timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+		
+		TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Death Report Number");
+		deathReportNumberColumn.setCellValueFactory(new PropertyValueFactory<>("deathReportNumber"));
+		
+		TableColumn<DeathReport, String> decedentColumn = new TableColumn<>("Decedent");
+		decedentColumn.setCellValueFactory(new PropertyValueFactory<>("decedent"));
+		
+		TableColumn<DeathReport, String> ageColumn = new TableColumn<>("Age");
+		ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+		
+		TableColumn<DeathReport, String> genderColumn = new TableColumn<>("Gender");
+		genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		
+		TableColumn<DeathReport, String> descriptionColumn = new TableColumn<>("Description");
+		descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+		
+		TableColumn<DeathReport, String> addressColumn = new TableColumn<>("Address");
+		addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+		
+		TableColumn<DeathReport, String> witnessesColumn = new TableColumn<>("Witnesses");
+		witnessesColumn.setCellValueFactory(new PropertyValueFactory<>("witnesses"));
+		
+		TableColumn<DeathReport, String> causeOfDeathColumn = new TableColumn<>("Cause of Death");
+		causeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("causeOfDeath"));
+		
+		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death");
+		modeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("modeOfDeath"));
+		
+		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(
+				notesColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn, streetColumn,
+				countyColumn, areaColumn, dateColumn, timeColumn, deathReportNumberColumn, decedentColumn,
+				ageColumn, genderColumn, descriptionColumn, addressColumn, witnessesColumn, causeOfDeathColumn,
+				modeOfDeathColumn);
+		
+		deathReportTable.getColumns().addAll(deathReportColumns);
+		
+		for (TableColumn<DeathReport, ?> column : deathReportColumns) {
+			column.setMinWidth(minColumnWidth);
+		}
+		
+		setSmallColumnWidth(deathReportNumberColumn);
+		setSmallColumnWidth(dateColumn);
+		setSmallColumnWidth(timeColumn);
+		setSmallColumnWidth(ageColumn);
+		setSmallColumnWidth(genderColumn);
+		setSmallColumnWidth(numberColumn);
 	}
 	
 	public void initializeImpoundColumns() {

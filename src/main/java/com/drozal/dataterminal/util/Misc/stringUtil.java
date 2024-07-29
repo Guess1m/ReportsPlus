@@ -11,6 +11,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 public class stringUtil {
 	public static final String version = "v1.0.6-alpha";
 	public static final String name = "Reports Plus";
+	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
 	public static final String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";
 	public static final String trafficstopLogURL = getDataLogsFolderPath() + "trafficStopLogs.xml";
 	public static final String incidentLogURL = getDataLogsFolderPath() + "incidentLogs.xml";

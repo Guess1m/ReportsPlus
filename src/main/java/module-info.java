@@ -21,6 +21,7 @@ module com.drozal.dataterminal {
 	opens com.drozal.dataterminal.logs.Impound to jakarta.xml.bind;
 	opens com.drozal.dataterminal.logs.TrafficCitation to jakarta.xml.bind;
 	opens com.drozal.dataterminal.util.server.Objects.CourtData to jakarta.xml.bind;
+	opens com.drozal.dataterminal.logs.Death to jakarta.xml.bind, javafx.base;
 	
 	exports com.drozal.dataterminal;
 	exports com.drozal.dataterminal.logs.Callout;

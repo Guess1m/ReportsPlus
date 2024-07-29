@@ -6,6 +6,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
@@ -607,6 +608,7 @@ public class controllerUtils {
 					case 5 -> IncidentReportLogs.countReports();
 					case 6 -> ImpoundReportLogs.countReports();
 					case 7 -> TrafficCitationReportLogs.countReports();
+					case 8 -> DeathReportUtils.countReports();
 					default -> 0;
 				};
 				if (data.getYValue().intValue() != reportsCount) {
@@ -830,13 +832,16 @@ public class controllerUtils {
 		parseLogData(stringUtil.searchLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
+		parseLogData(stringUtil.DeathReportLogURL, combinedAreasMap, value);
 		
 		Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		sortedAreasMap.putAll(combinedAreasMap);
 		
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
-			series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+			if (!entry.getKey().equals("N/A")) {
+				series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+			}
 		}
 		return series;
 	}

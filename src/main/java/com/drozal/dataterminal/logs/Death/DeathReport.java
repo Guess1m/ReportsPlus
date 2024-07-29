@@ -43,13 +43,12 @@ public class DeathReport {
 	@XmlElement(name = "DeathReportNumber")
 	private String deathReportNumber;
 	
-	
 	@XmlElement(name = "Decedent")
 	private String decedent;
 	
 	@XmlElement(name = "Age")
 	private String age;
-
+	
 	@XmlElement(name = "Gender")
 	private String gender;
 	
@@ -58,7 +57,6 @@ public class DeathReport {
 	
 	@XmlElement(name = "Address")
 	private String address;
-	
 	
 	@XmlElement(name = "Witnesses")
 	private String witnesses;

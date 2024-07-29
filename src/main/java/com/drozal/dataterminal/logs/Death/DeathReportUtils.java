@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.SecureRandom;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,15 +28,29 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.stringUtil.DeathReportLogURL;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class DeathReportUtils {
 	
+	public static int countReports() {
+		try {
+			List<DeathReport> logs = DeathReportUtils.loadDeathReports().getDeathReportList();
+			
+			if (logs == null) {
+				return 0;
+			}
+			
+			return logs.size();
+		} catch (Exception e) {
+			logError("Exception", e);
+			return -1;
+		}
+	}
+	
 	public static Map<String, Object> deathReportLayout() {
-		Map<String, Object> deathReport = createReportWindow("Death Report", 5, 7, null,
+		Map<String, Object> deathReport = createReportWindow("Death Report", 7, 8, null,
 		                                                     new nestedReportUtils.SectionConfig("Officer Information",
 		                                                                                         true,
 		                                                                                         new nestedReportUtils.RowConfig(
@@ -192,6 +206,14 @@ public class DeathReportUtils {
 		Button submitBtn = (Button) deathReport.get("submitBtn");
 		
 		submitBtn.setOnAction(event -> {
+			for (String fieldName : deathReportMap.keySet()) {
+				Object field = deathReportMap.get(fieldName);
+				if (field instanceof ComboBox<?> comboBox) {
+					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+						comboBox.getSelectionModel().selectFirst();
+					}
+				}
+			}
 			DeathReport deathReport1 = new DeathReport();
 			deathReport1.setAddress(address.getText());
 			deathReport1.setCauseOfDeath(causeofdeath.getText());
@@ -262,9 +284,8 @@ public class DeathReportUtils {
 			DeathReports.setDeathReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<DeathReport> existingReport = DeathReports.getDeathReportList().stream()
-		                                                   .filter(e -> e.getDeathReportNumber().equals(DeathReport.getDeathReportNumber()))
-		                                                   .findFirst();
+		Optional<DeathReport> existingReport = DeathReports.getDeathReportList().stream().filter(
+				e -> e.getDeathReportNumber().equals(DeathReport.getDeathReportNumber())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			DeathReports.getDeathReportList().remove(existingReport.get());

@@ -250,6 +250,5 @@ public class CourtUtils {
 		return result.toString();
 	}
 	
-	
 }
 

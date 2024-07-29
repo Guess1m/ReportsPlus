@@ -32,8 +32,8 @@ import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
 public class settingsController {
 	
-	private static String UILightColor = "rgb(255,255,255,0.75)";
-	private static String UIDarkColor = "rgb(0,0,0,0.75)";
+	private static final String UILightColor = "rgb(255,255,255,0.75)";
+	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	private static AtomicReference<String> selectedNotification;
 	//<editor-fold desc="FXML">
 	
@@ -1340,7 +1340,6 @@ public class settingsController {
 				}
 			} catch (NumberFormatException e) {
 				event.consume();
-				return;
 			}
 			
 		});
@@ -1372,7 +1371,6 @@ public class settingsController {
 				}
 			} catch (NumberFormatException e) {
 				event.consume();
-				return;
 			}
 		});
 		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
@@ -1548,9 +1546,9 @@ public class settingsController {
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			
-			if (toHexString(bkg).toLowerCase().equals("#ffffff") || toHexString(bkg).toLowerCase().equals(
-					"#f2f2f2") || toHexString(bkg).toLowerCase().equals("#e6e6e6") || toHexString(
-					bkg).toLowerCase().equals("#cccccc")) {
+			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
+					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(
+					bkg).equalsIgnoreCase("#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");

@@ -16,10 +16,10 @@ import java.io.IOException;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.toHexString;
 
 public class CustomCaseCell extends GridPane {
-	private Label caseNumLabel;
-	private Label nameLabel;
-	private Label offenceDateLabel;
-	private Label offenceTimeLabel;
+	private final Label caseNumLabel;
+	private final Label nameLabel;
+	private final Label offenceDateLabel;
+	private final Label offenceTimeLabel;
 	
 	public CustomCaseCell() {
 		this.setVgap(3.0);

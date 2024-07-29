@@ -22,7 +22,6 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.*;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
@@ -1569,7 +1568,7 @@ public class actionController {
 	public void refreshChart() throws IOException {
 		
 		reportChart.getData().clear();
-		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations"};
+		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations", "Death Reports"};
 		CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
 		
 		xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));
@@ -1758,11 +1757,7 @@ public class actionController {
 			totalJailTime = "Life Sentence";
 		}
 		
-		if (licenseStatusList.isEmpty() && outcomeSuspension.isEmpty()) {
-			areTrafficChargesPresent = false;
-		} else {
-			areTrafficChargesPresent = true;
-		}
+		areTrafficChargesPresent = !licenseStatusList.isEmpty() || !outcomeSuspension.isEmpty();
 		String licenseStatus = "";
 		if (licenseStatusList.contains("Valid")) {
 			licenseStatus = "N/A";
@@ -1885,14 +1880,15 @@ public class actionController {
 	
 	//<editor-fold desc="Log Methods">
 	
-	
 	@javafx.fxml.FXML
 	public void onDeathReportRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
 			
 			if (deathReport != null) {
-				Map<String, Object> deathReport1 = DeathReportUtils.newDeathReport(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> deathReport1 = DeathReportUtils.newDeathReport(getReportChart(),
+				                                                                   getAreaReportChart(),
+				                                                                   notesViewController);
 				TextField name = (TextField) deathReport1.get("name");
 				TextField rank = (TextField) deathReport1.get("rank");
 				TextField div = (TextField) deathReport1.get("division");
@@ -2026,6 +2022,10 @@ public class actionController {
 	}
 	
 	public void deathReportUpdate(List<DeathReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
+		
 		deathReportTable.getItems().clear();
 		deathReportTable.getItems().addAll(logEntries);
 	}
@@ -2091,11 +2091,26 @@ public class actionController {
 		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death");
 		modeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("modeOfDeath"));
 		
-		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(
-				notesColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn, streetColumn,
-				countyColumn, areaColumn, dateColumn, timeColumn, deathReportNumberColumn, decedentColumn,
-				ageColumn, genderColumn, descriptionColumn, addressColumn, witnessesColumn, causeOfDeathColumn,
-				modeOfDeathColumn);
+		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(notesColumn,
+		                                                                                                   divisionColumn,
+		                                                                                                   agencyColumn,
+		                                                                                                   numberColumn,
+		                                                                                                   rankColumn,
+		                                                                                                   nameColumn,
+		                                                                                                   streetColumn,
+		                                                                                                   countyColumn,
+		                                                                                                   areaColumn,
+		                                                                                                   dateColumn,
+		                                                                                                   timeColumn,
+		                                                                                                   deathReportNumberColumn,
+		                                                                                                   decedentColumn,
+		                                                                                                   ageColumn,
+		                                                                                                   genderColumn,
+		                                                                                                   descriptionColumn,
+		                                                                                                   addressColumn,
+		                                                                                                   witnessesColumn,
+		                                                                                                   causeOfDeathColumn,
+		                                                                                                   modeOfDeathColumn);
 		
 		deathReportTable.getColumns().addAll(deathReportColumns);
 		

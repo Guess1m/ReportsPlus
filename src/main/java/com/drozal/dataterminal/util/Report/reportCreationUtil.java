@@ -9,8 +9,6 @@ import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
-import com.drozal.dataterminal.logs.Death.DeathReport;
-import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -36,7 +34,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -193,7 +193,7 @@ public class reportCreationUtil {
 			
 			Button submitBtnimp = (Button) impoundReport.get("submitBtn");
 			submitBtnimp.setOnAction(event2 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : impoundReportMap.keySet()) {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -202,32 +202,23 @@ public class reportCreationUtil {
 						}
 					}
 				}
-				if (!allFieldsFilled) {
-					warningLabelimp.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelimp.setVisible(false);
-						}
-					}, 3000);
-				} else {
-					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-					                             offenderNameimp.getText(), offenderAgeimp.getText(),
-					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(),
-					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-					                             officernumimp.getText(), officerdivimp.getText(),
-					                             officeragenimp.getText()));
-					ImpoundReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-					stageimp.close();
-				}
+				
+				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+				
+				logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+				                             offenderNameimp.getText(), offenderAgeimp.getText(),
+				                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+				                             plateNumberimp.getText(), modelimp.getText(),
+				                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+				                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+				                             officernumimp.getText(), officerdivimp.getText(),
+				                             officeragenimp.getText()));
+				ImpoundReportLogs.saveLogsToXML(logs);
+				actionController.needRefresh.set(1);
+				updateChartIfMismatch(reportChart);
+				refreshChart(areaReportChart, "area");
+				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+				stageimp.close();
 			});
 		});
 		
@@ -297,7 +288,7 @@ public class reportCreationUtil {
 			Button submitBtninc = (Button) incidentReport.get("submitBtn");
 			
 			submitBtninc.setOnAction(event2 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : incidentReportMap.keySet()) {
 					Object field = incidentReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -305,16 +296,6 @@ public class reportCreationUtil {
 							comboBox.getSelectionModel().selectFirst();
 						}
 					}
-				}
-				if (!allFieldsFilled) {
-					warningLabelinc.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelinc.setVisible(false);
-						}
-					}, 3000);
-					return;
 				}
 				
 				List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
@@ -406,7 +387,7 @@ public class reportCreationUtil {
 			Button submitBtnsrch = (Button) searchReport.get("submitBtn");
 			
 			submitBtnsrch.setOnAction(event2 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : searchReportMap.keySet()) {
 					Object field = searchReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -414,16 +395,6 @@ public class reportCreationUtil {
 							comboBox.getSelectionModel().selectFirst();
 						}
 					}
-				}
-				if (!allFieldsFilled) {
-					warningLabelsrch.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelsrch.setVisible(false);
-						}
-					}, 3000);
-					return;
 				}
 				
 				List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
@@ -448,7 +419,7 @@ public class reportCreationUtil {
 		
 		Button submitBtn = (Button) arrestReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : arrestReportMap.keySet()) {
 				Object field = arrestReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -457,96 +428,85 @@ public class reportCreationUtil {
 					}
 				}
 			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-			} else {
+			
+			List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+			
+			ObservableList<ChargesData> formDataList = chargetable.getItems();
+			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder chargesBuilder = new StringBuilder();
+			for (ChargesData formData : formDataList) {
+				String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
 				
-				List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+				String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+				String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+				String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+				String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
 				
-				ObservableList<ChargesData> formDataList = chargetable.getItems();
-				StringBuilder stringBuilder = new StringBuilder();
-				StringBuilder chargesBuilder = new StringBuilder();
-				for (ChargesData formData : formDataList) {
-					String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
-					
-					String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
-					String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
-					String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
-					String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
-					
-					String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
-					String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
-					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
-					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
-					
-					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
-					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
-					
-					String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
-					
-					stringBuilder.append(formData.getCharge()).append(" | ");
-					chargesBuilder.append(
-							parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths,
-							               suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
-				}
-				if (stringBuilder.length() > 0) {
-					stringBuilder.setLength(stringBuilder.length() - 2);
-				}
+				String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+				String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+				String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+				String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
 				
-				logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(),
-				                            stringBuilder.toString(), county.getText(), area.getEditor().getText(),
-				                            street.getText(), offenderName.getText(), offenderAge.getText(),
-				                            offenderGender.getText(), offenderDescription.getText(),
-				                            ambulancereq.getText(), taserdep.getText(), othermedinfo.getText(),
-				                            offenderAddress.getText(), notes.getText(), officerrank.getText(),
-				                            officername.getText(), officernumarrest.getText(), officerdiv.getText(),
-				                            officeragen.getText()));
-				ArrestReportLogs.saveLogsToXML(logs);
+				String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+				String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
 				
-				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-					Case case1 = new Case();
-					String casenum = generateCaseNumber();
-					case1.setCaseNumber(casenum);
-					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText());
-					case1.setName(toTitleCase(offenderName.getText()));
-					case1.setOffenceDate(date.getText());
-					case1.setAge(toTitleCase(offenderAge.getText()));
-					case1.setAddress(toTitleCase(offenderAddress.getText()));
-					case1.setGender(toTitleCase(offenderGender.getText()));
-					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getText()));
-					case1.setArea(area.getEditor().getText());
-					case1.setNotes(notes.getText());
-					case1.setOffences(stringBuilder.toString());
-					case1.setOutcomes(chargesBuilder.toString());
-					try {
-						CourtUtils.addCase(case1);
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
-					    LogUtils.Severity.INFO);
-					actionController.needCourtRefresh.set(1);
-				} else {
-					log("Could not create court case from citation because either name or offences field(s) were empty.",
-					    LogUtils.Severity.ERROR);
-				}
+				String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
 				
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
-				stage.close();
+				stringBuilder.append(formData.getCharge()).append(" | ");
+				chargesBuilder.append(
+						parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance,
+						               minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 			}
+			if (stringBuilder.length() > 0) {
+				stringBuilder.setLength(stringBuilder.length() - 2);
+			}
+			
+			logs.add(new ArrestLogEntry(arrestnum.getText(), date.getText(), time.getText(), stringBuilder.toString(),
+			                            county.getText(), area.getEditor().getText(), street.getText(),
+			                            offenderName.getText(), offenderAge.getText(), offenderGender.getText(),
+			                            offenderDescription.getText(), ambulancereq.getText(), taserdep.getText(),
+			                            othermedinfo.getText(), offenderAddress.getText(), notes.getText(),
+			                            officerrank.getText(), officername.getText(), officernumarrest.getText(),
+			                            officerdiv.getText(), officeragen.getText()));
+			ArrestReportLogs.saveLogsToXML(logs);
+			
+			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+				Case case1 = new Case();
+				String casenum = generateCaseNumber();
+				case1.setCaseNumber(casenum);
+				case1.setCourtDate(date.getText());
+				case1.setCaseTime(time.getText());
+				case1.setName(toTitleCase(offenderName.getText()));
+				case1.setOffenceDate(date.getText());
+				case1.setAge(toTitleCase(offenderAge.getText()));
+				case1.setAddress(toTitleCase(offenderAddress.getText()));
+				case1.setGender(toTitleCase(offenderGender.getText()));
+				case1.setCounty(toTitleCase(county.getText()));
+				case1.setStreet(toTitleCase(street.getText()));
+				case1.setArea(area.getEditor().getText());
+				case1.setNotes(notes.getText());
+				case1.setOffences(stringBuilder.toString());
+				case1.setOutcomes(chargesBuilder.toString());
+				try {
+					CourtUtils.addCase(case1);
+				} catch (JAXBException e) {
+					throw new RuntimeException(e);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
+				    LogUtils.Severity.INFO);
+				actionController.needCourtRefresh.set(1);
+			} else {
+				log("Could not create court case from citation because either name or offences field(s) were empty.",
+				    LogUtils.Severity.ERROR);
+			}
+			
+			actionController.needRefresh.set(1);
+			updateChartIfMismatch(reportChart);
+			refreshChart(areaReportChart, "area");
+			showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
+			stage.close();
 		});
 	}
 	
@@ -599,7 +559,7 @@ public class reportCreationUtil {
 		
 		Button submitBtn = (Button) calloutReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : calloutReportMap.keySet()) {
 				Object field = calloutReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -608,16 +568,7 @@ public class reportCreationUtil {
 					}
 				}
 			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-				return;
-			}
+			
 			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
 			
 			logs.add(new CalloutLogEntry(calloutdate.getText(), callouttime.getText(), officername.getText(),
@@ -701,7 +652,7 @@ public class reportCreationUtil {
 		
 		Button submitBtn = (Button) impoundReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : impoundReportMap.keySet()) {
 				Object field = impoundReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -710,30 +661,20 @@ public class reportCreationUtil {
 					}
 				}
 			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-			} else {
-				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-				
-				logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(),
-				                             offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(),
-				                             plateNumber.getText(), model.getText(), type.getValue().toString(),
-				                             color.getValue().toString(), notes.getText(), officerrank.getText(),
-				                             officername.getText(), officernum.getText(), officerdiv.getText(),
-				                             officeragen.getText()));
-				ImpoundReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-				stage.close();
-			}
+			List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+			
+			logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(),
+			                             offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(),
+			                             plateNumber.getText(), model.getText(), type.getValue().toString(),
+			                             color.getValue().toString(), notes.getText(), officerrank.getText(),
+			                             officername.getText(), officernum.getText(), officerdiv.getText(),
+			                             officeragen.getText()));
+			ImpoundReportLogs.saveLogsToXML(logs);
+			actionController.needRefresh.set(1);
+			updateChartIfMismatch(reportChart);
+			refreshChart(areaReportChart, "area");
+			showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+			stage.close();
 		});
 	}
 	
@@ -786,7 +727,7 @@ public class reportCreationUtil {
 		Button submitBtn = (Button) patrolReport.get("submitBtn");
 		
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : patrolReportMap.keySet()) {
 				Object field = patrolReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -794,16 +735,6 @@ public class reportCreationUtil {
 						comboBox.getSelectionModel().selectFirst();
 					}
 				}
-			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-				return;
 			}
 			
 			List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
@@ -970,7 +901,7 @@ public class reportCreationUtil {
 			
 			Button submitBtnimp = (Button) impoundReport.get("submitBtn");
 			submitBtnimp.setOnAction(event2 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : impoundReportMap.keySet()) {
 					Object field = impoundReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -979,38 +910,28 @@ public class reportCreationUtil {
 						}
 					}
 				}
-				if (!allFieldsFilled) {
-					warningLabelimp.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelimp.setVisible(false);
-						}
-					}, 3000);
-				} else {
-					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-					                             offenderNameimp.getText(), offenderAgeimp.getText(),
-					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(),
-					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-					                             officernumimp.getText(), officerdivimp.getText(),
-					                             officeragenimp.getText()));
-					ImpoundReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-					stageimp.close();
-				}
+				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+				
+				logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+				                             offenderNameimp.getText(), offenderAgeimp.getText(),
+				                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+				                             plateNumberimp.getText(), modelimp.getText(),
+				                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+				                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+				                             officernumimp.getText(), officerdivimp.getText(),
+				                             officeragenimp.getText()));
+				ImpoundReportLogs.saveLogsToXML(logs);
+				actionController.needRefresh.set(1);
+				updateChartIfMismatch(reportChart);
+				refreshChart(areaReportChart, "area");
+				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+				stageimp.close();
 			});
 		});
 		
 		Button submitBtn = (Button) citationReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : citationReportMap.keySet()) {
 				Object field = citationReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -1019,92 +940,81 @@ public class reportCreationUtil {
 					}
 				}
 			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-			} else {
-				List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-				ObservableList<CitationsData> formDataList = citationtable.getItems();
-				StringBuilder stringBuilder = new StringBuilder();
-				StringBuilder chargesBuilder = new StringBuilder();
-				for (CitationsData formData : formDataList) {
-					stringBuilder.append(formData.getCitation()).append(" | ");
-					
-					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
-					
-					if (fine != null) {
-						try {
-							int maxFine = Integer.parseInt(fine);
-							Random random = new Random();
-							int randomFine = random.nextInt(maxFine + 1);
-							chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
-						} catch (NumberFormatException e) {
-							logError("Error parsing fine value " + fine + ": ", e);
-							chargesBuilder.append("Fined: ").append(fine).append(" | ");
-						}
-					} else {
-						chargesBuilder.append("Fined: Not Found | ");
-					}
-				}
-				if (stringBuilder.length() > 0) {
-					stringBuilder.setLength(stringBuilder.length() - 2);
-				}
+			List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+			ObservableList<CitationsData> formDataList = citationtable.getItems();
+			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder chargesBuilder = new StringBuilder();
+			for (CitationsData formData : formDataList) {
+				stringBuilder.append(formData.getCitation()).append(" | ");
 				
-				logs.add(new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(),
-				                                     stringBuilder.toString(), county.getText(),
-				                                     area.getEditor().getText(), street.getText(),
-				                                     offenderName.getText(), offenderGender.getText(),
-				                                     offenderAge.getText(), offenderAddress.getText(),
-				                                     offenderDescription.getText(), model.getText(),
-				                                     color.getValue().toString(), type.getValue().toString(),
-				                                     plateNumber.getText(), otherInfo.getText(), officerrank.getText(),
-				                                     officername.getText(), officernum.getText(), officerdiv.getText(),
-				                                     officeragen.getText(), notes.getText()));
-				TrafficCitationReportLogs.saveLogsToXML(logs);
+				String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
 				
-				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-					Case case1 = new Case();
-					String casenum = generateCaseNumber();
-					case1.setCaseNumber(casenum);
-					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText());
-					case1.setName(toTitleCase(offenderName.getText()));
-					case1.setOffenceDate(date.getText());
-					case1.setAge(toTitleCase(offenderAge.getText()));
-					case1.setAddress(toTitleCase(offenderAddress.getText()));
-					case1.setGender(toTitleCase(offenderGender.getText()));
-					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getText()));
-					case1.setArea(area.getEditor().getText());
-					case1.setNotes(notes.getText());
-					case1.setOffences(stringBuilder.toString());
-					case1.setOutcomes(chargesBuilder.toString());
+				if (fine != null) {
 					try {
-						CourtUtils.addCase(case1);
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
+						int maxFine = Integer.parseInt(fine);
+						Random random = new Random();
+						int randomFine = random.nextInt(maxFine + 1);
+						chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
+					} catch (NumberFormatException e) {
+						logError("Error parsing fine value " + fine + ": ", e);
+						chargesBuilder.append("Fined: ").append(fine).append(" | ");
 					}
-					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
-					    LogUtils.Severity.INFO);
-					actionController.needCourtRefresh.set(1);
 				} else {
-					log("Could not create court case from citation because either name or offences field(s) were empty.",
-					    LogUtils.Severity.ERROR);
+					chargesBuilder.append("Fined: Not Found | ");
 				}
-				
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
-				stage.close();
 			}
+			if (stringBuilder.length() > 0) {
+				stringBuilder.setLength(stringBuilder.length() - 2);
+			}
+			
+			logs.add(
+					new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(), stringBuilder.toString(),
+					                            county.getText(), area.getEditor().getText(), street.getText(),
+					                            offenderName.getText(), offenderGender.getText(), offenderAge.getText(),
+					                            offenderAddress.getText(), offenderDescription.getText(),
+					                            model.getText(), color.getValue().toString(),
+					                            type.getValue().toString(), plateNumber.getText(), otherInfo.getText(),
+					                            officerrank.getText(), officername.getText(), officernum.getText(),
+					                            officerdiv.getText(), officeragen.getText(), notes.getText()));
+			TrafficCitationReportLogs.saveLogsToXML(logs);
+			
+			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+				Case case1 = new Case();
+				String casenum = generateCaseNumber();
+				case1.setCaseNumber(casenum);
+				case1.setCourtDate(date.getText());
+				case1.setCaseTime(time.getText());
+				case1.setName(toTitleCase(offenderName.getText()));
+				case1.setOffenceDate(date.getText());
+				case1.setAge(toTitleCase(offenderAge.getText()));
+				case1.setAddress(toTitleCase(offenderAddress.getText()));
+				case1.setGender(toTitleCase(offenderGender.getText()));
+				case1.setCounty(toTitleCase(county.getText()));
+				case1.setStreet(toTitleCase(street.getText()));
+				case1.setArea(area.getEditor().getText());
+				case1.setNotes(notes.getText());
+				case1.setOffences(stringBuilder.toString());
+				case1.setOutcomes(chargesBuilder.toString());
+				try {
+					CourtUtils.addCase(case1);
+				} catch (JAXBException e) {
+					throw new RuntimeException(e);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
+				    LogUtils.Severity.INFO);
+				actionController.needCourtRefresh.set(1);
+			} else {
+				log("Could not create court case from citation because either name or offences field(s) were empty.",
+				    LogUtils.Severity.ERROR);
+			}
+			
+			actionController.needRefresh.set(1);
+			updateChartIfMismatch(reportChart);
+			refreshChart(areaReportChart, "area");
+			showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
+			stage.close();
 		});
 	}
 	
@@ -1168,7 +1078,7 @@ public class reportCreationUtil {
 		Button submitBtn = (Button) incidentReport.get("submitBtn");
 		
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : incidentReportMap.keySet()) {
 				Object field = incidentReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -1176,16 +1086,6 @@ public class reportCreationUtil {
 						comboBox.getSelectionModel().selectFirst();
 					}
 				}
-			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-				return;
 			}
 			
 			List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
@@ -1272,7 +1172,7 @@ public class reportCreationUtil {
 		Button submitBtn = (Button) searchReport.get("submitBtn");
 		
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : searchReportMap.keySet()) {
 				Object field = searchReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -1280,16 +1180,6 @@ public class reportCreationUtil {
 						comboBox.getSelectionModel().selectFirst();
 					}
 				}
-			}
-			if (!allFieldsFilled) {
-				warningLabel.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabel.setVisible(false);
-					}
-				}, 3000);
-				return;
 			}
 			
 			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
@@ -1536,7 +1426,7 @@ public class reportCreationUtil {
 				
 				Button submitBtnimp = (Button) impoundReport.get("submitBtn");
 				submitBtnimp.setOnAction(event3 -> {
-					boolean allFieldsFilled = true;
+					
 					for (String fieldName : impoundReportMap.keySet()) {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
@@ -1545,32 +1435,22 @@ public class reportCreationUtil {
 							}
 						}
 					}
-					if (!allFieldsFilled) {
-						warningLabelimp.setVisible(true);
-						new Timer().schedule(new TimerTask() {
-							@Override
-							public void run() {
-								warningLabelimp.setVisible(false);
-							}
-						}, 3000);
-					} else {
-						List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-						
-						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-						                             offenderNameimp.getText(), offenderAgeimp.getText(),
-						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-						                             plateNumberimp.getText(), modelimp.getText(),
-						                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-						                             notesimp.getText(), officerrankimp.getText(),
-						                             officernameimp.getText(), officernumimp.getText(),
-						                             officerdivimp.getText(), officeragenimp.getText()));
-						ImpoundReportLogs.saveLogsToXML(logs);
-						actionController.needRefresh.set(1);
-						updateChartIfMismatch(reportChart);
-						refreshChart(areaReportChart, "area");
-						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-						stageimp.close();
-					}
+					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+					
+					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+					                             offenderNameimp.getText(), offenderAgeimp.getText(),
+					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+					                             plateNumberimp.getText(), modelimp.getText(),
+					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+					                             officernumimp.getText(), officerdivimp.getText(),
+					                             officeragenimp.getText()));
+					ImpoundReportLogs.saveLogsToXML(logs);
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					refreshChart(areaReportChart, "area");
+					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+					stageimp.close();
 				});
 			});
 			
@@ -1640,7 +1520,7 @@ public class reportCreationUtil {
 				Button submitBtninc = (Button) incidentReport.get("submitBtn");
 				
 				submitBtninc.setOnAction(event2 -> {
-					boolean allFieldsFilled = true;
+					
 					for (String fieldName : incidentReportMap.keySet()) {
 						Object field = incidentReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
@@ -1648,16 +1528,6 @@ public class reportCreationUtil {
 								comboBox.getSelectionModel().selectFirst();
 							}
 						}
-					}
-					if (!allFieldsFilled) {
-						warningLabelinc.setVisible(true);
-						new Timer().schedule(new TimerTask() {
-							@Override
-							public void run() {
-								warningLabelinc.setVisible(false);
-							}
-						}, 3000);
-						return;
 					}
 					
 					List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
@@ -1751,7 +1621,7 @@ public class reportCreationUtil {
 				Button submitBtnsrch = (Button) searchReport.get("submitBtn");
 				
 				submitBtnsrch.setOnAction(event2 -> {
-					boolean allFieldsFilled = true;
+					
 					for (String fieldName : searchReportMap.keySet()) {
 						Object field = searchReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
@@ -1760,17 +1630,6 @@ public class reportCreationUtil {
 							}
 						}
 					}
-					if (!allFieldsFilled) {
-						warningLabelsrch.setVisible(true);
-						new Timer().schedule(new TimerTask() {
-							@Override
-							public void run() {
-								warningLabelsrch.setVisible(false);
-							}
-						}, 3000);
-						return;
-					}
-					
 					List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
 					
 					logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(),
@@ -1794,7 +1653,7 @@ public class reportCreationUtil {
 			
 			Button submitBtn = (Button) arrestReport.get("submitBtn");
 			submitBtn.setOnAction(event5 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : arrestReportMap.keySet()) {
 					Object field = arrestReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -1803,99 +1662,87 @@ public class reportCreationUtil {
 						}
 					}
 				}
-				if (!allFieldsFilled) {
-					warningLabelarr.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelarr.setVisible(false);
-						}
-					}, 3000);
-				} else {
+				
+				List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+				
+				ObservableList<ChargesData> formDataList = chargetablearr.getItems();
+				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
+				for (ChargesData formData : formDataList) {
+					String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
 					
-					List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
+					String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+					String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+					String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+					String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
 					
-					ObservableList<ChargesData> formDataList = chargetablearr.getItems();
-					StringBuilder stringBuilder = new StringBuilder();
-					StringBuilder chargesBuilder = new StringBuilder();
-					for (ChargesData formData : formDataList) {
-						String probationChance = findXMLValue(formData.getCharge(), "probation_chance",
-						                                      "data/Charges.xml");
-						
-						String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
-						String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
-						String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
-						String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
-						
-						String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
-						String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
-						String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
-						String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
-						
-						String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
-						String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
-						
-						String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
-						
-						stringBuilder.append(formData.getCharge()).append(" | ");
-						chargesBuilder.append(
-								parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths,
-								               suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
-					}
-					if (stringBuilder.length() > 0) {
-						stringBuilder.setLength(stringBuilder.length() - 2);
-					}
+					String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+					String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
 					
-					logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(),
-					                            stringBuilder.toString(), countyarr.getText(),
-					                            areaarr.getEditor().getText(), streetarr.getText(),
-					                            offenderNamearr.getText(), offenderAgearr.getText(),
-					                            offenderGenderarr.getText(), offenderDescriptionarr.getText(),
-					                            ambulancereqarr.getText(), taserdeparr.getText(),
-					                            othermedinfoarr.getText(), offenderAddressarr.getText(),
-					                            notesarr.getText(), officerrankarr.getText(), officernamearr.getText(),
-					                            officernumarrestarr.getText(), officerdivarr.getText(),
-					                            officeragenarr.getText()));
-					ArrestReportLogs.saveLogsToXML(logs);
+					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
 					
-					if (!offenderNamearr.getText().isEmpty() && offenderNamearr.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-						Case case1 = new Case();
-						String casenum = generateCaseNumber();
-						case1.setCaseNumber(casenum);
-						case1.setCourtDate(datearr.getText());
-						case1.setCaseTime(timearr.getText());
-						case1.setName(toTitleCase(offenderNamearr.getText()));
-						case1.setOffenceDate(datearr.getText());
-						case1.setAge(toTitleCase(offenderAgearr.getText()));
-						case1.setAddress(toTitleCase(offenderAddressarr.getText()));
-						case1.setGender(toTitleCase(offenderGenderarr.getText()));
-						case1.setCounty(toTitleCase(countyarr.getText()));
-						case1.setStreet(toTitleCase(streetarr.getText()));
-						case1.setArea(areaarr.getEditor().getText());
-						case1.setNotes(notesarr.getText());
-						case1.setOffences(stringBuilder.toString());
-						case1.setOutcomes(chargesBuilder.toString());
-						try {
-							CourtUtils.addCase(case1);
-						} catch (JAXBException e) {
-							throw new RuntimeException(e);
-						} catch (IOException e) {
-							throw new RuntimeException(e);
-						}
-						log("Added arrest case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamearr.getText(),
-						    LogUtils.Severity.INFO);
-						actionController.needCourtRefresh.set(1);
-					} else {
-						log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
-						    LogUtils.Severity.ERROR);
-					}
+					String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
 					
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
-					stagearr.close();
+					stringBuilder.append(formData.getCharge()).append(" | ");
+					chargesBuilder.append(
+							parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths,
+							               suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 				}
+				if (stringBuilder.length() > 0) {
+					stringBuilder.setLength(stringBuilder.length() - 2);
+				}
+				
+				logs.add(new ArrestLogEntry(arrestnumarr.getText(), datearr.getText(), timearr.getText(),
+				                            stringBuilder.toString(), countyarr.getText(),
+				                            areaarr.getEditor().getText(), streetarr.getText(),
+				                            offenderNamearr.getText(), offenderAgearr.getText(),
+				                            offenderGenderarr.getText(), offenderDescriptionarr.getText(),
+				                            ambulancereqarr.getText(), taserdeparr.getText(), othermedinfoarr.getText(),
+				                            offenderAddressarr.getText(), notesarr.getText(), officerrankarr.getText(),
+				                            officernamearr.getText(), officernumarrestarr.getText(),
+				                            officerdivarr.getText(), officeragenarr.getText()));
+				ArrestReportLogs.saveLogsToXML(logs);
+				
+				if (!offenderNamearr.getText().isEmpty() && offenderNamearr.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+					Case case1 = new Case();
+					String casenum = generateCaseNumber();
+					case1.setCaseNumber(casenum);
+					case1.setCourtDate(datearr.getText());
+					case1.setCaseTime(timearr.getText());
+					case1.setName(toTitleCase(offenderNamearr.getText()));
+					case1.setOffenceDate(datearr.getText());
+					case1.setAge(toTitleCase(offenderAgearr.getText()));
+					case1.setAddress(toTitleCase(offenderAddressarr.getText()));
+					case1.setGender(toTitleCase(offenderGenderarr.getText()));
+					case1.setCounty(toTitleCase(countyarr.getText()));
+					case1.setStreet(toTitleCase(streetarr.getText()));
+					case1.setArea(areaarr.getEditor().getText());
+					case1.setNotes(notesarr.getText());
+					case1.setOffences(stringBuilder.toString());
+					case1.setOutcomes(chargesBuilder.toString());
+					try {
+						CourtUtils.addCase(case1);
+					} catch (JAXBException e) {
+						throw new RuntimeException(e);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					log("Added arrest case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamearr.getText(),
+					    LogUtils.Severity.INFO);
+					actionController.needCourtRefresh.set(1);
+				} else {
+					log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
+					    LogUtils.Severity.ERROR);
+				}
+				
+				actionController.needRefresh.set(1);
+				updateChartIfMismatch(reportChart);
+				refreshChart(areaReportChart, "area");
+				showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
+				stagearr.close();
 			});
 		});
 		
@@ -2058,7 +1905,7 @@ public class reportCreationUtil {
 				
 				Button submitBtnimp = (Button) impoundReport.get("submitBtn");
 				submitBtnimp.setOnAction(event3 -> {
-					boolean allFieldsFilled = true;
+					
 					for (String fieldName : impoundReportMap.keySet()) {
 						Object field = impoundReportMap.get(fieldName);
 						if (field instanceof ComboBox<?> comboBox) {
@@ -2067,39 +1914,29 @@ public class reportCreationUtil {
 							}
 						}
 					}
-					if (!allFieldsFilled) {
-						warningLabelimp.setVisible(true);
-						new Timer().schedule(new TimerTask() {
-							@Override
-							public void run() {
-								warningLabelimp.setVisible(false);
-							}
-						}, 3000);
-					} else {
-						List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-						
-						logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-						                             offenderNameimp.getText(), offenderAgeimp.getText(),
-						                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-						                             plateNumberimp.getText(), modelimp.getText(),
-						                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-						                             notesimp.getText(), officerrankimp.getText(),
-						                             officernameimp.getText(), officernumimp.getText(),
-						                             officerdivimp.getText(), officeragenimp.getText()));
-						ImpoundReportLogs.saveLogsToXML(logs);
-						actionController.needRefresh.set(1);
-						updateChartIfMismatch(reportChart);
-						refreshChart(areaReportChart, "area");
-						showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-						stageimp.close();
-					}
+					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
+					
+					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
+					                             offenderNameimp.getText(), offenderAgeimp.getText(),
+					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
+					                             plateNumberimp.getText(), modelimp.getText(),
+					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
+					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
+					                             officernumimp.getText(), officerdivimp.getText(),
+					                             officeragenimp.getText()));
+					ImpoundReportLogs.saveLogsToXML(logs);
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					refreshChart(areaReportChart, "area");
+					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+					stageimp.close();
 				});
 			});
 			transferimpoundbtn.setText("New Impound Report");
 			
 			Button submitBtncit = (Button) citationReport.get("submitBtn");
 			submitBtncit.setOnAction(event3 -> {
-				boolean allFieldsFilled = true;
+				
 				for (String fieldName : citationReportMap.keySet()) {
 					Object field = citationReportMap.get(fieldName);
 					if (field instanceof ComboBox<?> comboBox) {
@@ -2108,99 +1945,89 @@ public class reportCreationUtil {
 						}
 					}
 				}
-				if (!allFieldsFilled) {
-					warningLabelcit.setVisible(true);
-					new Timer().schedule(new TimerTask() {
-						@Override
-						public void run() {
-							warningLabelcit.setVisible(false);
-						}
-					}, 3000);
-				} else {
-					List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-					ObservableList<CitationsData> formDataList = citationtable.getItems();
-					StringBuilder stringBuilder = new StringBuilder();
-					StringBuilder chargesBuilder = new StringBuilder();
-					for (CitationsData formData : formDataList) {
-						stringBuilder.append(formData.getCitation()).append(" | ");
-						
-						String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
-						
-						if (fine != null) {
-							try {
-								int maxFine = Integer.parseInt(fine);
-								Random random = new Random();
-								int randomFine = random.nextInt(maxFine + 1);
-								chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
-							} catch (NumberFormatException e) {
-								logError("Error parsing fine value " + fine + ": ", e);
-								chargesBuilder.append("Fined: ").append(fine).append(" | ");
-							}
-						} else {
-							chargesBuilder.append("Fined: Not Found | ");
-						}
-					}
-					if (stringBuilder.length() > 0) {
-						stringBuilder.setLength(stringBuilder.length() - 2);
-					}
+				List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
+				ObservableList<CitationsData> formDataList = citationtable.getItems();
+				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
+				for (CitationsData formData : formDataList) {
+					stringBuilder.append(formData.getCitation()).append(" | ");
 					
-					logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
-					                                     stringBuilder.toString(), countycit.getText(),
-					                                     areacit.getEditor().getText(), streetcit.getText(),
-					                                     offenderNamecit.getText(), offenderGendercit.getText(),
-					                                     offenderAgecit.getText(), offenderAddresscit.getText(),
-					                                     offenderDescriptioncit.getText(), modelcit.getText(),
-					                                     colorcit.getValue().toString(), typecit.getValue().toString(),
-					                                     plateNumbercit.getText(), otherInfocit.getText(),
-					                                     officerrankcit.getText(), officernamecit.getText(),
-					                                     officernumcit.getText(), officerdivcit.getText(),
-					                                     officeragencit.getText(), notescit.getText()));
-					TrafficCitationReportLogs.saveLogsToXML(logs);
+					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
 					
-					if (!offenderNamecit.getText().isEmpty() && offenderNamecit.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-						Case casecit = new Case();
-						String casenum = generateCaseNumber();
-						casecit.setCaseNumber(casenum);
-						casecit.setCourtDate(datecit.getText());
-						casecit.setCaseTime(timecit.getText());
-						casecit.setName(toTitleCase(offenderNamecit.getText()));
-						casecit.setOffenceDate(datecit.getText());
-						casecit.setAge(toTitleCase(offenderAgecit.getText()));
-						casecit.setAddress(toTitleCase(offenderAddresscit.getText()));
-						casecit.setGender(toTitleCase(offenderGendercit.getText()));
-						casecit.setCounty(toTitleCase(countycit.getText()));
-						casecit.setStreet(toTitleCase(streetcit.getText()));
-						casecit.setArea(areacit.getEditor().getText());
-						casecit.setNotes(notescit.getText());
-						casecit.setOffences(stringBuilder.toString());
-						casecit.setOutcomes(chargesBuilder.toString());
+					if (fine != null) {
 						try {
-							CourtUtils.addCase(casecit);
-						} catch (JAXBException e) {
-							throw new RuntimeException(e);
-						} catch (IOException e) {
-							throw new RuntimeException(e);
+							int maxFine = Integer.parseInt(fine);
+							Random random = new Random();
+							int randomFine = random.nextInt(maxFine + 1);
+							chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
+						} catch (NumberFormatException e) {
+							logError("Error parsing fine value " + fine + ": ", e);
+							chargesBuilder.append("Fined: ").append(fine).append(" | ");
 						}
-						log("Added citation case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
-						    LogUtils.Severity.INFO);
-						actionController.needCourtRefresh.set(1);
 					} else {
-						log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
-						    LogUtils.Severity.ERROR);
+						chargesBuilder.append("Fined: Not Found | ");
 					}
-					
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
-					stagecit.close();
 				}
+				if (stringBuilder.length() > 0) {
+					stringBuilder.setLength(stringBuilder.length() - 2);
+				}
+				
+				logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
+				                                     stringBuilder.toString(), countycit.getText(),
+				                                     areacit.getEditor().getText(), streetcit.getText(),
+				                                     offenderNamecit.getText(), offenderGendercit.getText(),
+				                                     offenderAgecit.getText(), offenderAddresscit.getText(),
+				                                     offenderDescriptioncit.getText(), modelcit.getText(),
+				                                     colorcit.getValue().toString(), typecit.getValue().toString(),
+				                                     plateNumbercit.getText(), otherInfocit.getText(),
+				                                     officerrankcit.getText(), officernamecit.getText(),
+				                                     officernumcit.getText(), officerdivcit.getText(),
+				                                     officeragencit.getText(), notescit.getText()));
+				TrafficCitationReportLogs.saveLogsToXML(logs);
+				
+				if (!offenderNamecit.getText().isEmpty() && offenderNamecit.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+					Case casecit = new Case();
+					String casenum = generateCaseNumber();
+					casecit.setCaseNumber(casenum);
+					casecit.setCourtDate(datecit.getText());
+					casecit.setCaseTime(timecit.getText());
+					casecit.setName(toTitleCase(offenderNamecit.getText()));
+					casecit.setOffenceDate(datecit.getText());
+					casecit.setAge(toTitleCase(offenderAgecit.getText()));
+					casecit.setAddress(toTitleCase(offenderAddresscit.getText()));
+					casecit.setGender(toTitleCase(offenderGendercit.getText()));
+					casecit.setCounty(toTitleCase(countycit.getText()));
+					casecit.setStreet(toTitleCase(streetcit.getText()));
+					casecit.setArea(areacit.getEditor().getText());
+					casecit.setNotes(notescit.getText());
+					casecit.setOffences(stringBuilder.toString());
+					casecit.setOutcomes(chargesBuilder.toString());
+					try {
+						CourtUtils.addCase(casecit);
+					} catch (JAXBException e) {
+						throw new RuntimeException(e);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					log("Added citation case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
+					    LogUtils.Severity.INFO);
+					actionController.needCourtRefresh.set(1);
+				} else {
+					log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
+					    LogUtils.Severity.ERROR);
+				}
+				
+				actionController.needRefresh.set(1);
+				updateChartIfMismatch(reportChart);
+				refreshChart(areaReportChart, "area");
+				showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
+				stagecit.close();
 			});
 		});
 		
 		Button submitBtn = (Button) trafficStopReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			boolean allFieldsFilled = true;
+			
 			for (String fieldName : trafficStopReportMap.keySet()) {
 				Object field = trafficStopReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -2209,34 +2036,23 @@ public class reportCreationUtil {
 					}
 				}
 			}
-			if (!allFieldsFilled) {
-				warningLabelts.setVisible(true);
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						warningLabelts.setVisible(false);
-					}
-				}, 3000);
-			} else {
-				List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
-				
-				logs.add(new TrafficStopLogEntry(datets.getText(), timets.getText(), modelts.getText(),
-				                                 otherInfots.getText(), offenderNamets.getText(),
-				                                 offenderAgets.getText(), offenderAddressts.getText(),
-				                                 offenderDescriptionts.getText(), offenderGenderts.getText(),
-				                                 officernamets.getText(), officerrankts.getText(),
-				                                 officernumarrestts.getText(), officerdivts.getText(),
-				                                 officeragents.getText(), stopnumts.getText(), notests.getText(),
-				                                 streetts.getText(), countyts.getText(), areats.getEditor().getText(),
-				                                 plateNumberts.getText(), colorts.getValue().toString(),
-				                                 typets.getValue().toString()));
-				TrafficStopReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
-				stagets.close();
-			}
+			List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
+			
+			logs.add(new TrafficStopLogEntry(datets.getText(), timets.getText(), modelts.getText(),
+			                                 otherInfots.getText(), offenderNamets.getText(), offenderAgets.getText(),
+			                                 offenderAddressts.getText(), offenderDescriptionts.getText(),
+			                                 offenderGenderts.getText(), officernamets.getText(),
+			                                 officerrankts.getText(), officernumarrestts.getText(),
+			                                 officerdivts.getText(), officeragents.getText(), stopnumts.getText(),
+			                                 notests.getText(), streetts.getText(), countyts.getText(),
+			                                 areats.getEditor().getText(), plateNumberts.getText(),
+			                                 colorts.getValue().toString(), typets.getValue().toString()));
+			TrafficStopReportLogs.saveLogsToXML(logs);
+			actionController.needRefresh.set(1);
+			updateChartIfMismatch(reportChart);
+			refreshChart(areaReportChart, "area");
+			showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
+			stagets.close();
 		});
 	}
 	

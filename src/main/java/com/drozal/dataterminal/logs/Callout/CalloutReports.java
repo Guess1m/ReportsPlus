@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "CalloutReports")
+@XmlRootElement(name = "calloutReportLogs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalloutReports {
 	

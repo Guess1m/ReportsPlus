@@ -26,6 +26,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutLogURL;
+import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class CalloutReportUtils {
@@ -139,6 +140,7 @@ public class CalloutReportUtils {
 		}
 		calloutdate.setText(getDate());
 		callouttime.setText(getTime());
+		calloutnum.setText(generateReportNumber());
 		
 		Button pullNotesBtn = (Button) calloutReport.get("pullNotesBtn");
 		pullNotesBtn.setOnAction(event -> {

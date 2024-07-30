@@ -4,7 +4,6 @@ import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.newOfficerController;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;

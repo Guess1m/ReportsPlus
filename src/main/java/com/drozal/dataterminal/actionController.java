@@ -4,7 +4,9 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.logs.Callout.*;
+import com.drozal.dataterminal.logs.Callout.CalloutReport;
+import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
+import com.drozal.dataterminal.logs.Callout.CalloutReports;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReports;
@@ -50,7 +52,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -196,12 +200,6 @@ public class actionController {
 		initializeDeathReportColumns(deathReportTable);
 		loadLogs();
 		
-		calloutInfo.setVisible(true);
-		lowerPane.setPrefHeight(0);
-		lowerPane.setMaxHeight(0);
-		lowerPane.setMinHeight(0);
-		lowerPane.setVisible(false);
-		
 		vehSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				try {
@@ -219,17 +217,6 @@ public class actionController {
 					logError("Error executing pedsearch from Enter: ", e);
 				}
 			}
-		});
-		
-		tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-			calloutInfo.setVisible(newTab != null && "calloutTab".equals(newTab.getId()));
-			patrolInfo.setVisible(newTab != null && "patrolTab".equals(newTab.getId()));
-			trafficStopInfo.setVisible(newTab != null && "trafficStopTab".equals(newTab.getId()));
-			incidentInfo.setVisible(newTab != null && "incidentTab".equals(newTab.getId()));
-			impoundInfo.setVisible(newTab != null && "impoundTab".equals(newTab.getId()));
-			arrestInfo.setVisible(newTab != null && "arrestTab".equals(newTab.getId()));
-			searchInfo.setVisible(newTab != null && "searchTab".equals(newTab.getId()));
-			citationInfo.setVisible(newTab != null && "citationTab".equals(newTab.getId()));
 		});
 		
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
@@ -448,8 +435,6 @@ public class actionController {
 	AnchorPane titlebar;
 	@javafx.fxml.FXML
 	private Label secondaryColor3Bkg;
-	@javafx.fxml.FXML
-	private TextField citcounty;
 	private PatrolLogEntry patrolEntry;
 	private TrafficStopLogEntry trafficStopEntry;
 	@javafx.fxml.FXML
@@ -481,109 +466,11 @@ public class actionController {
 	@javafx.fxml.FXML
 	private AreaChart areaReportChart;
 	@javafx.fxml.FXML
-	private TextField searchbreathresult;
-	@javafx.fxml.FXML
-	private HBox patrolInfo;
-	@javafx.fxml.FXML
-	private TextField citvehother;
-	@javafx.fxml.FXML
-	private TextField trafcolor;
-	@javafx.fxml.FXML
-	private TextField trafmodel;
-	@javafx.fxml.FXML
-	private TextField searchnum;
-	@javafx.fxml.FXML
-	private TextField patstarttime;
-	@javafx.fxml.FXML
-	private TextField searchperson;
-	@javafx.fxml.FXML
-	private TextField arrestdetails;
-	@javafx.fxml.FXML
 	private Tab searchTab;
-	@javafx.fxml.FXML
-	private TextField citplatenum;
-	@javafx.fxml.FXML
-	private TextField traftype;
-	@javafx.fxml.FXML
-	private Label trafupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField inccomments;
-	@javafx.fxml.FXML
-	private TextField trafcounty;
-	@javafx.fxml.FXML
-	private TextField citcharges;
 	@javafx.fxml.FXML
 	private TableView searchTable;
 	@javafx.fxml.FXML
-	private TextField arrestmedinfo;
-	@javafx.fxml.FXML
-	private TextField searchmethod;
-	@javafx.fxml.FXML
-	private HBox incidentInfo;
-	@javafx.fxml.FXML
-	private TextField impcolor;
-	@javafx.fxml.FXML
-	private TextField arrestaddress;
-	@javafx.fxml.FXML
-	private ToggleButton showManagerToggle;
-	@javafx.fxml.FXML
-	private AnchorPane lowerPane;
-	@javafx.fxml.FXML
-	private TextField trafstreet;
-	@javafx.fxml.FXML
-	private Label citupdatedlabel;
-	@javafx.fxml.FXML
 	private Tab arrestTab;
-	@javafx.fxml.FXML
-	private Label calupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField citcolor;
-	@javafx.fxml.FXML
-	private TextField searchseizeditems;
-	@javafx.fxml.FXML
-	private TextField patvehicle;
-	@javafx.fxml.FXML
-	private TextField searchtype;
-	@javafx.fxml.FXML
-	private TextField patstoptime;
-	@javafx.fxml.FXML
-	private TextField searchcomments;
-	@javafx.fxml.FXML
-	private TextField impnum;
-	@javafx.fxml.FXML
-	private TextField arrestgender;
-	@javafx.fxml.FXML
-	private TextField searchbreathused;
-	@javafx.fxml.FXML
-	private TextField impmodel;
-	@javafx.fxml.FXML
-	private TextField citcomments;
-	@javafx.fxml.FXML
-	private TextField patcomments;
-	@javafx.fxml.FXML
-	private TextField calnotes;
-	@javafx.fxml.FXML
-	private TextField searchstreet;
-	@javafx.fxml.FXML
-	private TextField incstatement;
-	@javafx.fxml.FXML
-	private TextField citaddress;
-	@javafx.fxml.FXML
-	private TextField arrestnum;
-	@javafx.fxml.FXML
-	private TextField arrestcharges;
-	@javafx.fxml.FXML
-	private TextField calnum;
-	@javafx.fxml.FXML
-	private TextField incnum;
-	@javafx.fxml.FXML
-	private HBox impoundInfo;
-	@javafx.fxml.FXML
-	private Label incupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField trafotherinfo;
-	@javafx.fxml.FXML
-	private TextField caladdress;
 	@javafx.fxml.FXML
 	private AnchorPane logPane;
 	@javafx.fxml.FXML
@@ -591,174 +478,36 @@ public class actionController {
 	@javafx.fxml.FXML
 	private TableView arrestTable;
 	@javafx.fxml.FXML
-	private TextField trafcomments;
-	@javafx.fxml.FXML
-	private TextField citname;
-	@javafx.fxml.FXML
 	private TableView impoundTable;
 	@javafx.fxml.FXML
 	private TableView citationTable;
 	@javafx.fxml.FXML
-	private TextField arrestcounty;
-	@javafx.fxml.FXML
-	private TextField searcharea;
-	@javafx.fxml.FXML
-	private TextField searchgrounds;
-	@javafx.fxml.FXML
-	private TextField citdesc;
-	@javafx.fxml.FXML
-	private TextField searchwitness;
-	@javafx.fxml.FXML
-	private TextField impname;
-	@javafx.fxml.FXML
-	private TextField citage;
-	@javafx.fxml.FXML
 	private Tab citationTab;
-	@javafx.fxml.FXML
-	private TextField citarea;
-	@javafx.fxml.FXML
-	private TextField trafage;
-	@javafx.fxml.FXML
-	private TextField searchbacmeasure;
-	@javafx.fxml.FXML
-	private TextField arrestdesc;
-	@javafx.fxml.FXML
-	private TextField arrestarea;
-	@javafx.fxml.FXML
-	private TextField citgender;
-	@javafx.fxml.FXML
-	private TextField incactionstaken;
-	@javafx.fxml.FXML
-	private TextField arrestambulance;
-	@javafx.fxml.FXML
-	private TextField citstreet;
-	@javafx.fxml.FXML
-	private TextField arrestname;
 	@javafx.fxml.FXML
 	private TableView calloutTable;
 	@javafx.fxml.FXML
-	private TextField patnum;
-	@javafx.fxml.FXML
-	private TextField incarea;
-	@javafx.fxml.FXML
-	private HBox trafficStopInfo;
-	@javafx.fxml.FXML
-	private TextField citmodel;
-	@javafx.fxml.FXML
-	private TextField calcounty;
-	@javafx.fxml.FXML
-	private TextField calgrade;
-	@javafx.fxml.FXML
-	private TextField inccounty;
-	@javafx.fxml.FXML
-	private Label impupdatedLabel;
-	@javafx.fxml.FXML
-	private TextField impgender;
-	@javafx.fxml.FXML
-	private TextField caltype;
-	@javafx.fxml.FXML
 	private Tab calloutTab;
-	@javafx.fxml.FXML
-	private TextField impplatenum;
-	@javafx.fxml.FXML
-	private TextField arrestage;
 	@javafx.fxml.FXML
 	private Tab patrolTab;
 	@javafx.fxml.FXML
-	private TextField searchcounty;
-	@javafx.fxml.FXML
-	private TextField cittype;
-	@javafx.fxml.FXML
-	private Label searchupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField imptype;
-	@javafx.fxml.FXML
-	private TextField trafname;
-	@javafx.fxml.FXML
-	private TextField incstreet;
-	@javafx.fxml.FXML
-	private TextField impage;
-	@javafx.fxml.FXML
-	private HBox searchInfo;
-	@javafx.fxml.FXML
-	private TextField trafdesc;
-	@javafx.fxml.FXML
 	private Tab incidentTab;
-	@javafx.fxml.FXML
-	private Label patupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField impcomments;
-	@javafx.fxml.FXML
-	private HBox calloutInfo;
-	@javafx.fxml.FXML
-	private TextField incvictims;
 	@javafx.fxml.FXML
 	private Tab trafficStopTab;
 	@javafx.fxml.FXML
-	private TextField trafnum;
-	@javafx.fxml.FXML
-	private TextField arreststreet;
-	@javafx.fxml.FXML
-	private TextField trafaddress;
-	@javafx.fxml.FXML
-	private TextField citnumber;
-	@javafx.fxml.FXML
-	private TextField patlength;
-	@javafx.fxml.FXML
-	private Label arrestupdatedlabel;
-	@javafx.fxml.FXML
-	private TextField trafarea;
-	@javafx.fxml.FXML
 	private Tab impoundTab;
-	@javafx.fxml.FXML
-	private TextField trafgender;
 	private IncidentLogEntry incidentEntry;
 	private ImpoundLogEntry impoundEntry;
 	private SearchLogEntry searchEntry;
 	private ArrestLogEntry arrestEntry;
 	private TrafficCitationLogEntry citationEntry;
 	@javafx.fxml.FXML
-	private Label detailsLabelFill;
-	@javafx.fxml.FXML
-	private Label logManagerLabelBkg;
-	@javafx.fxml.FXML
 	private Label reportPlusLabelFill;
 	@javafx.fxml.FXML
-	private Button btn8;
-	@javafx.fxml.FXML
-	private Button btn6;
-	@javafx.fxml.FXML
-	private Button btn7;
-	@javafx.fxml.FXML
-	private Button btn4;
-	@javafx.fxml.FXML
-	private Button btn5;
-	@javafx.fxml.FXML
-	private Button btn2;
-	@javafx.fxml.FXML
-	private Button btn3;
-	@javafx.fxml.FXML
-	private Button btn1;
-	@javafx.fxml.FXML
-	private HBox citationInfo;
-	@javafx.fxml.FXML
 	private TableView patrolTable;
-	@javafx.fxml.FXML
-	private TextField calarea;
-	@javafx.fxml.FXML
-	private TextField impaddress;
-	@javafx.fxml.FXML
-	private TextField arresttaser;
-	@javafx.fxml.FXML
-	private TextField trafplatenum;
-	@javafx.fxml.FXML
-	private HBox arrestInfo;
 	@javafx.fxml.FXML
 	private TabPane tabPane;
 	@javafx.fxml.FXML
 	private TableView incidentTable;
-	@javafx.fxml.FXML
-	private TextField incwitness;
 	@javafx.fxml.FXML
 	private Label serverStatusLabel;
 	@javafx.fxml.FXML
@@ -1465,58 +1214,6 @@ public class actionController {
 	
 	//<editor-fold desc="Utils">
 	
-	@javafx.fxml.FXML
-	public void onArrUpdateValues() {
-		if (arrestEntry != null) {
-			arrestupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(
-					new KeyFrame(Duration.seconds(1), evt -> arrestupdatedlabel.setVisible(false)));
-			timeline1.play();
-			
-			arrestEntry.arrestNumber = arrestnum.getText();
-			arrestEntry.arrestCharges = arrestcharges.getText();
-			arrestEntry.arrestCounty = arrestcounty.getText();
-			arrestEntry.arresteeDescription = arrestdesc.getText();
-			arrestEntry.arrestArea = arrestarea.getText();
-			arrestEntry.ambulanceYesNo = arrestambulance.getText();
-			arrestEntry.arresteeName = arrestname.getText();
-			arrestEntry.arrestDetails = arrestdetails.getText();
-			arrestEntry.arresteeMedicalInformation = arrestmedinfo.getText();
-			arrestEntry.arresteeHomeAddress = arrestaddress.getText();
-			arrestEntry.arresteeAge = arrestage.getText();
-			arrestEntry.arresteeGender = arrestgender.getText();
-			arrestEntry.arrestStreet = arreststreet.getText();
-			arrestEntry.TaserYesNo = arresttaser.getText();
-			
-			List<ArrestLogEntry> logs = ArrestReportLogs.loadLogsFromXML();
-			
-			for (ArrestLogEntry entry : logs) {
-				if (entry.getArrestDate().equals(arrestEntry.getArrestDate()) && entry.getArrestTime().equals(
-						arrestEntry.getArrestTime())) {
-					entry.arrestNumber = arrestnum.getText();
-					entry.arrestCharges = arrestcharges.getText();
-					entry.arrestCounty = arrestcounty.getText();
-					entry.arresteeDescription = arrestdesc.getText();
-					entry.arrestArea = arrestarea.getText();
-					entry.ambulanceYesNo = arrestambulance.getText();
-					entry.arresteeName = arrestname.getText();
-					entry.arrestDetails = arrestdetails.getText();
-					entry.arresteeMedicalInformation = arrestmedinfo.getText();
-					entry.arresteeHomeAddress = arrestaddress.getText();
-					entry.arresteeAge = arrestage.getText();
-					entry.arresteeGender = arrestgender.getText();
-					entry.arrestStreet = arreststreet.getText();
-					entry.TaserYesNo = arresttaser.getText();
-					break;
-				}
-			}
-			
-			ArrestReportLogs.saveLogsToXML(logs);
-			
-			arrestTable.refresh();
-		}
-	}
-	
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
 			if (!isConnected) {
@@ -1880,8 +1577,8 @@ public class actionController {
 			
 			if (deathReport != null) {
 				Map<String, Object> deathReportObj = DeathReportUtils.newDeathReport(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
+				                                                                     getAreaReportChart(),
+				                                                                     notesViewController);
 				
 				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
 				
@@ -2042,45 +1739,6 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onManagerToggle(ActionEvent actionEvent) {
-		if (!showManagerToggle.isSelected()) {
-			
-			double fromHeight = lowerPane.getPrefHeight();
-			double toHeight = 0;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames().add(keyFrame);
-			
-			timeline.play();
-			lowerPane.setVisible(false);
-		} else {
-			
-			double fromHeight = lowerPane.getPrefHeight();
-			double toHeight = 356;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(lowerPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(lowerPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(lowerPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames().add(keyFrame);
-			
-			timeline.play();
-			lowerPane.setVisible(true);
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
@@ -2088,8 +1746,8 @@ public class actionController {
 			if (calloutReport != null) {
 				
 				Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(getReportChart(),
-				                                                          getAreaReportChart(),
-				                                                          notesViewController);
+				                                                                     getAreaReportChart(),
+				                                                                     notesViewController);
 				
 				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 				
@@ -2133,580 +1791,46 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onCalUpdateValues(ActionEvent actionEvent) {
-		System.out.println("calupdatevalues pressed");
-		/*if (calloutEntry != null) {
-			calupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				calupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			calloutEntry.CalloutNumber = calnum.getText();
-			calloutEntry.Address = caladdress.getText();
-			calloutEntry.NotesTextArea = calnotes.getText();
-			calloutEntry.County = calcounty.getText();
-			calloutEntry.ResponseGrade = calgrade.getText();
-			calloutEntry.Area = calarea.getText();
-			calloutEntry.ResponeType = caltype.getText();
-			
-			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-			
-			for (CalloutLogEntry entry : logs) {
-				if (entry.getDate().equals(calloutEntry.getDate()) && entry.getTime().equals(calloutEntry.getTime())) {
-					entry.CalloutNumber = calnum.getText();
-					entry.Address = caladdress.getText();
-					entry.NotesTextArea = calnotes.getText();
-					entry.County = calcounty.getText();
-					entry.ResponseGrade = calgrade.getText();
-					entry.Area = calarea.getText();
-					entry.ResponeType = caltype.getText();
-					break;
-				}
-			}
-			
-			CalloutReportLogs.saveLogsToXML(logs);
-			
-			calloutTable.refresh();
-			
-		}*/
-	}
-	
-	@javafx.fxml.FXML
-	public void onPatUpdateValues(ActionEvent actionEvent) {
-		if (patrolEntry != null) {
-			patupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				patupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			patrolEntry.patrolNumber = patnum.getText();
-			patrolEntry.patrolComments = patcomments.getText();
-			patrolEntry.patrolLength = patlength.getText();
-			patrolEntry.patrolStartTime = patstarttime.getText();
-			patrolEntry.patrolStopTime = patstoptime.getText();
-			patrolEntry.officerVehicle = patvehicle.getText();
-			
-			List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
-			
-			for (PatrolLogEntry entry : logs) {
-				if (entry.getPatrolDate().equals(patrolEntry.getPatrolDate())) {
-					entry.patrolNumber = patnum.getText();
-					entry.patrolComments = patcomments.getText();
-					entry.patrolLength = patlength.getText();
-					entry.patrolStartTime = patstarttime.getText();
-					entry.patrolStopTime = patstoptime.getText();
-					entry.officerVehicle = patvehicle.getText();
-					
-					break;
-				}
-			}
-			
-			PatrolReportLogs.saveLogsToXML(logs);
-			
-			patrolTable.refresh();
-			
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			patrolEntry = (PatrolLogEntry) patrolTable.getSelectionModel().getSelectedItem();
-			if (patrolEntry != null) {
-				patnum.setText(patrolEntry.getPatrolNumber());
-				patcomments.setText(patrolEntry.getPatrolComments());
-				patlength.setText(patrolEntry.getPatrolLength());
-				patstarttime.setText(patrolEntry.getPatrolStartTime());
-				patstoptime.setText(patrolEntry.getPatrolStopTime());
-				patvehicle.setText(patrolEntry.getOfficerVehicle());
-				patrolTable.getSelectionModel().clearSelection();
-			} else {
-				patnum.setText("");
-				patcomments.setText("");
-				patlength.setText("");
-				patstarttime.setText("");
-				patstoptime.setText("");
-				patvehicle.setText("");
-			}
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void onTrafUpdateValues(ActionEvent actionEvent) {
-		if (trafficStopEntry != null) {
-			trafupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				trafupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			trafficStopEntry.PlateNumber = trafplatenum.getText();
-			trafficStopEntry.Color = trafcolor.getText();
-			trafficStopEntry.Type = traftype.getText();
-			trafficStopEntry.StopNumber = trafnum.getText();
-			trafficStopEntry.ResponseModel = trafmodel.getText();
-			trafficStopEntry.ResponseOtherInfo = trafotherinfo.getText();
-			trafficStopEntry.CommentsTextArea = trafcomments.getText();
-			trafficStopEntry.County = trafcounty.getText();
-			trafficStopEntry.Area = trafarea.getText();
-			trafficStopEntry.Street = trafstreet.getText();
-			trafficStopEntry.operatorName = trafname.getText();
-			trafficStopEntry.operatorAge = trafage.getText();
-			trafficStopEntry.operatorDescription = trafdesc.getText();
-			trafficStopEntry.operatorAddress = trafaddress.getText();
-			trafficStopEntry.operatorGender = trafgender.getText();
-			
-			List<TrafficStopLogEntry> logs = TrafficStopReportLogs.loadLogsFromXML();
-			
-			for (TrafficStopLogEntry entry : logs) {
-				if (entry.getDate().equals(trafficStopEntry.getDate()) && entry.getTime().equals(
-						trafficStopEntry.getTime())) {
-					entry.PlateNumber = trafplatenum.getText();
-					entry.Color = trafcolor.getText();
-					entry.Type = traftype.getText();
-					entry.StopNumber = trafnum.getText();
-					entry.ResponseModel = trafmodel.getText();
-					entry.ResponseOtherInfo = trafotherinfo.getText();
-					entry.CommentsTextArea = trafcomments.getText();
-					entry.County = trafcounty.getText();
-					entry.Area = trafarea.getText();
-					entry.Street = trafstreet.getText();
-					entry.operatorName = trafname.getText();
-					entry.operatorAge = trafage.getText();
-					entry.operatorDescription = trafdesc.getText();
-					entry.operatorAddress = trafaddress.getText();
-					entry.operatorGender = trafgender.getText();
-					break;
-				}
-			}
-			
-			TrafficStopReportLogs.saveLogsToXML(logs);
-			
-			trafficStopTable.refresh();
-			
+		
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onTrafficStopRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			trafficStopEntry = (TrafficStopLogEntry) trafficStopTable.getSelectionModel().getSelectedItem();
-			if (trafficStopEntry != null) {
-				trafstreet.setText(trafficStopEntry.getStreet());
-				trafotherinfo.setText(trafficStopEntry.getResponseOtherInfo());
-				trafname.setText(trafficStopEntry.getOperatorName());
-				trafcomments.setText(trafficStopEntry.getCommentsTextArea());
-				trafdesc.setText(trafficStopEntry.getOperatorDescription());
-				trafcolor.setText(trafficStopEntry.getColor());
-				trafnum.setText(trafficStopEntry.getStopNumber());
-				trafmodel.setText(trafficStopEntry.getResponseModel());
-				trafaddress.setText(trafficStopEntry.getOperatorAddress());
-				trafarea.setText(trafficStopEntry.getArea());
-				trafgender.setText(trafficStopEntry.getOperatorGender());
-				trafage.setText(trafficStopEntry.getOperatorAge());
-				traftype.setText(trafficStopEntry.getType());
-				trafplatenum.setText(trafficStopEntry.getPlateNumber());
-				trafcounty.setText(trafficStopEntry.getCounty());
-				trafficStopTable.getSelectionModel().clearSelection();
-			} else {
-				trafstreet.setText("");
-				trafotherinfo.setText("");
-				trafname.setText("");
-				trafcomments.setText("");
-				trafdesc.setText("");
-				trafcolor.setText("");
-				trafnum.setText("");
-				trafmodel.setText("");
-				trafaddress.setText("");
-				trafarea.setText("");
-				trafgender.setText("");
-				trafage.setText("");
-				traftype.setText("");
-				trafplatenum.setText("");
-				trafcounty.setText("");
-			}
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void onIncUpdateValues(ActionEvent actionEvent) {
-		if (incidentEntry != null) {
-			incupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				incupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			incidentEntry.incidentNumber = incnum.getText();
-			incidentEntry.incidentActionsTaken = incactionstaken.getText();
-			incidentEntry.incidentArea = incarea.getText();
-			incidentEntry.incidentCounty = inccounty.getText();
-			incidentEntry.incidentComments = inccomments.getText();
-			incidentEntry.incidentStreet = incstreet.getText();
-			incidentEntry.incidentVictims = incvictims.getText();
-			incidentEntry.incidentStatement = incstatement.getText();
-			incidentEntry.incidentWitnesses = incwitness.getText();
-			
-			List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
-			
-			for (IncidentLogEntry entry : logs) {
-				if (entry.getIncidentDate().equals(incidentEntry.getIncidentDate()) && entry.getIncidentTime().equals(
-						incidentEntry.getIncidentTime())) {
-					entry.incidentNumber = incnum.getText();
-					entry.incidentStatement = incstatement.getText();
-					entry.incidentWitnesses = incwitness.getText();
-					entry.incidentVictims = incvictims.getText();
-					entry.incidentStreet = incstreet.getText();
-					entry.incidentArea = incarea.getText();
-					entry.incidentCounty = inccounty.getText();
-					entry.incidentActionsTaken = incactionstaken.getText();
-					entry.incidentComments = inccomments.getText();
-					break;
-				}
-			}
-			
-			IncidentReportLogs.saveLogsToXML(logs);
-			
-			incidentTable.refresh();
+		
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			incidentEntry = (IncidentLogEntry) incidentTable.getSelectionModel().getSelectedItem();
-			if (incidentEntry != null) {
-				incnum.setText(incidentEntry.incidentNumber);
-				incactionstaken.setText(incidentEntry.incidentActionsTaken);
-				incarea.setText(incidentEntry.incidentArea);
-				inccounty.setText(incidentEntry.incidentCounty);
-				inccomments.setText(incidentEntry.incidentComments);
-				incstreet.setText(incidentEntry.incidentStreet);
-				incvictims.setText(incidentEntry.incidentVictims);
-				incstatement.setText(incidentEntry.incidentStatement);
-				incwitness.setText(incidentEntry.incidentWitnesses);
-				incidentTable.getSelectionModel().clearSelection();
-			} else {
-				incnum.setText("");
-				incactionstaken.setText("");
-				incarea.setText("");
-				inccounty.setText("");
-				inccomments.setText("");
-				incstreet.setText("");
-				incvictims.setText("");
-				incstatement.setText("");
-				incwitness.setText("");
-			}
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void onImpUpdateValues(ActionEvent actionEvent) {
-		if (impoundEntry != null) {
-			impupdatedLabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				impupdatedLabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			impoundEntry.impoundPlateNumber = impplatenum.getText();
-			impoundEntry.impoundColor = impcolor.getText();
-			impoundEntry.impoundType = imptype.getText();
-			impoundEntry.impoundNumber = impnum.getText();
-			impoundEntry.impoundModel = impmodel.getText();
-			impoundEntry.impoundComments = impcomments.getText();
-			impoundEntry.ownerName = impname.getText();
-			impoundEntry.ownerAddress = impaddress.getText();
-			impoundEntry.ownerGender = impgender.getText();
-			impoundEntry.ownerAge = impage.getText();
-			
-			List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-			
-			for (ImpoundLogEntry entry : logs) {
-				if (entry.getImpoundDate().equals(impoundEntry.getImpoundDate()) && entry.getImpoundTime().equals(
-						impoundEntry.getImpoundTime())) {
-					entry.impoundPlateNumber = impplatenum.getText();
-					entry.impoundColor = impcolor.getText();
-					entry.impoundType = imptype.getText();
-					entry.impoundNumber = impnum.getText();
-					entry.impoundModel = impmodel.getText();
-					entry.impoundComments = impcomments.getText();
-					entry.ownerName = impname.getText();
-					entry.ownerAddress = impaddress.getText();
-					entry.ownerGender = impgender.getText();
-					entry.ownerAge = impage.getText();
-					break;
-				}
-			}
-			
-			ImpoundReportLogs.saveLogsToXML(logs);
-			
-			impoundTable.refresh();
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			impoundEntry = (ImpoundLogEntry) impoundTable.getSelectionModel().getSelectedItem();
-			if (impoundEntry != null) {
-				impnum.setText(impoundEntry.impoundNumber);
-				impname.setText(impoundEntry.ownerName);
-				impgender.setText(impoundEntry.ownerGender);
-				impcolor.setText(impoundEntry.impoundColor);
-				impplatenum.setText(impoundEntry.impoundPlateNumber);
-				imptype.setText(impoundEntry.impoundType);
-				impage.setText(impoundEntry.ownerAge);
-				impcomments.setText(impoundEntry.impoundComments);
-				impmodel.setText(impoundEntry.impoundModel);
-				impaddress.setText(impoundEntry.ownerAddress);
-				impoundTable.getSelectionModel().clearSelection();
-			} else {
-				impnum.setText("");
-				impname.setText("");
-				impgender.setText("");
-				impcolor.setText("");
-				impplatenum.setText("");
-				imptype.setText("");
-				impage.setText("");
-				impcomments.setText("");
-				impmodel.setText("");
-				impaddress.setText("");
-			}
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onCitationRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			citationEntry = (TrafficCitationLogEntry) citationTable.getSelectionModel().getSelectedItem();
-			if (citationEntry != null) {
-				citnumber.setText(citationEntry.citationNumber);
-				citvehother.setText(citationEntry.offenderVehicleOther);
-				citplatenum.setText(citationEntry.offenderVehiclePlate);
-				citcharges.setText(citationEntry.citationCharges);
-				citcolor.setText(citationEntry.offenderVehicleColor);
-				citcomments.setText(citationEntry.citationComments);
-				citaddress.setText(citationEntry.offenderHomeAddress);
-				citname.setText(citationEntry.offenderName);
-				citdesc.setText(citationEntry.offenderDescription);
-				citage.setText(citationEntry.offenderAge);
-				citarea.setText(citationEntry.citationArea);
-				citgender.setText(citationEntry.offenderGender);
-				citstreet.setText(citationEntry.citationStreet);
-				citmodel.setText(citationEntry.offenderVehicleModel);
-				cittype.setText(citationEntry.offenderVehicleType);
-				citcounty.setText(citationEntry.citationCounty);
-				citationTable.getSelectionModel().clearSelection();
-			} else {
-				citnumber.setText("");
-				citvehother.setText("");
-				citplatenum.setText("");
-				citcharges.setText("");
-				citcolor.setText("");
-				citcomments.setText("");
-				citaddress.setText("");
-				citname.setText("");
-				citdesc.setText("");
-				citage.setText("");
-				citarea.setText("");
-				citgender.setText("");
-				citstreet.setText("");
-				citmodel.setText("");
-				cittype.setText("");
-				citcounty.setText("");
-			}
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void onCitationUpdateValues(ActionEvent actionEvent) {
-		if (citationEntry != null) {
-			citupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				citupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			citationEntry.citationNumber = citnumber.getText();
-			citationEntry.offenderVehicleOther = citvehother.getText();
-			citationEntry.offenderVehiclePlate = citplatenum.getText();
-			citationEntry.citationCharges = citcharges.getText();
-			citationEntry.offenderVehicleColor = citcolor.getText();
-			citationEntry.citationComments = citcomments.getText();
-			citationEntry.offenderHomeAddress = citaddress.getText();
-			citationEntry.offenderName = citname.getText();
-			citationEntry.offenderDescription = citdesc.getText();
-			citationEntry.offenderAge = citage.getText();
-			citationEntry.citationArea = citarea.getText();
-			citationEntry.offenderGender = citgender.getText();
-			citationEntry.citationStreet = citstreet.getText();
-			citationEntry.offenderVehicleModel = citmodel.getText();
-			citationEntry.offenderVehicleType = cittype.getText();
-			citationEntry.citationCounty = citcounty.getText();
-			
-			List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-			
-			for (TrafficCitationLogEntry entry : logs) {
-				if (entry.getCitationDate().equals(citationEntry.getCitationDate()) && entry.getCitationTime().equals(
-						citationEntry.getCitationTime())) {
-					entry.citationNumber = citnumber.getText();
-					entry.offenderVehicleOther = citvehother.getText();
-					entry.offenderVehiclePlate = citplatenum.getText();
-					entry.citationCharges = citcharges.getText();
-					entry.offenderVehicleColor = citcolor.getText();
-					entry.citationComments = citcomments.getText();
-					entry.offenderHomeAddress = citaddress.getText();
-					entry.offenderName = citname.getText();
-					entry.offenderDescription = citdesc.getText();
-					entry.offenderAge = citage.getText();
-					entry.citationArea = citarea.getText();
-					entry.offenderGender = citgender.getText();
-					entry.citationStreet = citstreet.getText();
-					entry.offenderVehicleModel = citmodel.getText();
-					entry.offenderVehicleType = cittype.getText();
-					entry.citationCounty = citcounty.getText();
-					break;
-				}
-			}
-			
-			TrafficCitationReportLogs.saveLogsToXML(logs);
-			
-			citationTable.refresh();
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			searchEntry = (SearchLogEntry) searchTable.getSelectionModel().getSelectedItem();
-			if (searchEntry != null) {
-				searchnum.setText(searchEntry.SearchNumber);
-				searchperson.setText(searchEntry.searchedPersons);
-				searchmethod.setText(searchEntry.searchMethod);
-				searchseizeditems.setText(searchEntry.searchSeizedItems);
-				searchtype.setText(searchEntry.searchType);
-				searchcomments.setText(searchEntry.searchComments);
-				searchbreathused.setText(searchEntry.testsConducted);
-				searchbreathresult.setText(searchEntry.testResults);
-				searchstreet.setText(searchEntry.searchStreet);
-				searcharea.setText(searchEntry.searchArea);
-				searchgrounds.setText(searchEntry.searchGrounds);
-				searchwitness.setText(searchEntry.searchWitnesses);
-				searchbacmeasure.setText(searchEntry.breathalyzerBACMeasure);
-				searchcounty.setText(searchEntry.searchCounty);
-				searchTable.getSelectionModel().clearSelection();
-			} else {
-				searchnum.setText("");
-				searchperson.setText("");
-				searchmethod.setText("");
-				searchseizeditems.setText("");
-				searchtype.setText("");
-				searchcomments.setText("");
-				searchbreathused.setText("");
-				searchbreathresult.setText("");
-				searchstreet.setText("");
-				searcharea.setText("");
-				searchgrounds.setText("");
-				searchwitness.setText("");
-				searchbacmeasure.setText("");
-				searchcounty.setText("");
-			}
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void onSearchUpdateValues(ActionEvent actionEvent) {
-		if (searchEntry != null) {
-			searchupdatedlabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				searchupdatedlabel.setVisible(false);
-			}));
-			timeline1.play();
-			
-			searchEntry.SearchNumber = searchnum.getText();
-			searchEntry.searchedPersons = searchperson.getText();
-			searchEntry.searchMethod = searchmethod.getText();
-			searchEntry.searchSeizedItems = searchseizeditems.getText();
-			searchEntry.searchType = searchtype.getText();
-			searchEntry.searchComments = searchcomments.getText();
-			searchEntry.testsConducted = searchbreathused.getText();
-			searchEntry.searchStreet = searchstreet.getText();
-			searchEntry.searchArea = searcharea.getText();
-			searchEntry.searchGrounds = searchgrounds.getText();
-			searchEntry.searchWitnesses = searchwitness.getText();
-			searchEntry.breathalyzerBACMeasure = searchbacmeasure.getText();
-			searchEntry.searchCounty = searchcounty.getText();
-			searchEntry.testResults = searchbreathresult.getText();
-			
-			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
-			
-			for (SearchLogEntry entry : logs) {
-				if (entry.getSearchDate().equals(searchEntry.getSearchDate()) && entry.getSearchTime().equals(
-						searchEntry.getSearchTime())) {
-					entry.SearchNumber = searchnum.getText();
-					entry.searchedPersons = searchperson.getText();
-					entry.searchMethod = searchmethod.getText();
-					entry.searchSeizedItems = searchseizeditems.getText();
-					entry.searchType = searchtype.getText();
-					entry.searchComments = searchcomments.getText();
-					entry.testsConducted = searchbreathused.getText();
-					entry.searchStreet = searchstreet.getText();
-					entry.searchArea = searcharea.getText();
-					entry.searchGrounds = searchgrounds.getText();
-					entry.searchWitnesses = searchwitness.getText();
-					entry.breathalyzerBACMeasure = searchbacmeasure.getText();
-					entry.searchCounty = searchcounty.getText();
-					entry.testResults = searchbreathresult.getText();
-					break;
-				}
-			}
-			
-			SearchReportLogs.saveLogsToXML(logs);
-			
-			searchTable.refresh();
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			arrestEntry = (ArrestLogEntry) arrestTable.getSelectionModel().getSelectedItem();
-			if (arrestEntry != null) {
-				arrestnum.setText(arrestEntry.arrestNumber);
-				arrestcounty.setText(arrestEntry.arrestCounty);
-				arrestdesc.setText(arrestEntry.arresteeDescription);
-				arrestarea.setText(arrestEntry.arrestArea);
-				arrestambulance.setText(arrestEntry.ambulanceYesNo);
-				arrestname.setText(arrestEntry.arresteeName);
-				arrestdetails.setText(arrestEntry.arrestDetails);
-				arrestmedinfo.setText(arrestEntry.arresteeMedicalInformation);
-				arrestaddress.setText(arrestEntry.arresteeHomeAddress);
-				arrestage.setText(arrestEntry.arresteeAge);
-				arrestgender.setText(arrestEntry.arresteeGender);
-				arreststreet.setText(arrestEntry.arrestStreet);
-				arresttaser.setText(arrestEntry.TaserYesNo);
-				arrestcharges.setText(arrestEntry.arrestCharges);
-				arrestTable.getSelectionModel().clearSelection();
-			} else {
-				arrestnum.setText("");
-				arrestcounty.setText("");
-				arrestdesc.setText("");
-				arrestarea.setText("");
-				arrestambulance.setText("");
-				arrestname.setText("");
-				arrestdetails.setText("");
-				arrestmedinfo.setText("");
-				arrestaddress.setText("");
-				arrestage.setText("");
-				arrestgender.setText("");
-				arreststreet.setText("");
-				arresttaser.setText("");
-				arrestcharges.setText("");
-				
-			}
 		}
 	}
 	
@@ -2990,96 +2114,20 @@ public class actionController {
 		return ped7;
 	}
 	
-	public TextField getArrestaddress() {
-		return arrestaddress;
-	}
-	
-	public TextField getArrestage() {
-		return arrestage;
-	}
-	
-	public TextField getArrestambulance() {
-		return arrestambulance;
-	}
-	
-	public TextField getArrestarea() {
-		return arrestarea;
-	}
-	
-	public TextField getArrestcharges() {
-		return arrestcharges;
-	}
-	
-	public TextField getArrestcounty() {
-		return arrestcounty;
-	}
-	
-	public TextField getArrestdesc() {
-		return arrestdesc;
-	}
-	
-	public TextField getArrestdetails() {
-		return arrestdetails;
-	}
-	
 	public ArrestLogEntry getArrestEntry() {
 		return arrestEntry;
-	}
-	
-	public TextField getArrestgender() {
-		return arrestgender;
-	}
-	
-	public HBox getArrestInfo() {
-		return arrestInfo;
-	}
-	
-	public TextField getArrestmedinfo() {
-		return arrestmedinfo;
-	}
-	
-	public TextField getArrestname() {
-		return arrestname;
-	}
-	
-	public TextField getArrestnum() {
-		return arrestnum;
 	}
 	
 	public MenuItem getArrestReportButton() {
 		return arrestReportButton;
 	}
 	
-	public TextField getArreststreet() {
-		return arreststreet;
-	}
-	
 	public Tab getArrestTab() {
 		return arrestTab;
 	}
 	
-	public TextField getArresttaser() {
-		return arresttaser;
-	}
-	
-	public Label getArrestupdatedlabel() {
-		return arrestupdatedlabel;
-	}
-	
-	public TextField getCaladdress() {
-		return caladdress;
-	}
-	
-	public TextField getCalarea() {
-		return calarea;
-	}
-	
 	public TextField getCalArea() {
 		return calArea;
-	}
-	
-	public TextField getCalcounty() {
-		return calcounty;
 	}
 	
 	public TextField getCalCounty() {
@@ -3094,14 +2142,6 @@ public class actionController {
 		return calDesc;
 	}
 	
-	public TextField getCalgrade() {
-		return calgrade;
-	}
-	
-	public HBox getCalloutInfo() {
-		return calloutInfo;
-	}
-	
 	public AnchorPane getCalloutPane() {
 		return calloutPane;
 	}
@@ -3112,14 +2152,6 @@ public class actionController {
 	
 	public Tab getCalloutTab() {
 		return calloutTab;
-	}
-	
-	public TextField getCalnotes() {
-		return calnotes;
-	}
-	
-	public TextField getCalnum() {
-		return calnum;
 	}
 	
 	public TextField getCalNum() {
@@ -3138,96 +2170,16 @@ public class actionController {
 		return calTime;
 	}
 	
-	public TextField getCaltype() {
-		return caltype;
-	}
-	
 	public TextField getCalType() {
 		return calType;
-	}
-	
-	public Label getCalupdatedlabel() {
-		return calupdatedlabel;
-	}
-	
-	public TextField getCitaddress() {
-		return citaddress;
-	}
-	
-	public TextField getCitage() {
-		return citage;
-	}
-	
-	public TextField getCitarea() {
-		return citarea;
 	}
 	
 	public TrafficCitationLogEntry getCitationEntry() {
 		return citationEntry;
 	}
 	
-	public HBox getCitationInfo() {
-		return citationInfo;
-	}
-	
 	public Tab getCitationTab() {
 		return citationTab;
-	}
-	
-	public TextField getCitcharges() {
-		return citcharges;
-	}
-	
-	public TextField getCitcolor() {
-		return citcolor;
-	}
-	
-	public TextField getCitcomments() {
-		return citcomments;
-	}
-	
-	public TextField getCitcounty() {
-		return citcounty;
-	}
-	
-	public TextField getCitdesc() {
-		return citdesc;
-	}
-	
-	public TextField getCitgender() {
-		return citgender;
-	}
-	
-	public TextField getCitmodel() {
-		return citmodel;
-	}
-	
-	public TextField getCitname() {
-		return citname;
-	}
-	
-	public TextField getCitnumber() {
-		return citnumber;
-	}
-	
-	public TextField getCitplatenum() {
-		return citplatenum;
-	}
-	
-	public TextField getCitstreet() {
-		return citstreet;
-	}
-	
-	public TextField getCittype() {
-		return cittype;
-	}
-	
-	public Label getCitupdatedlabel() {
-		return citupdatedlabel;
-	}
-	
-	public TextField getCitvehother() {
-		return citvehother;
 	}
 	
 	public actionController getController() {
@@ -3242,44 +2194,8 @@ public class actionController {
 		return generatedDateTag;
 	}
 	
-	public TextField getImpaddress() {
-		return impaddress;
-	}
-	
-	public TextField getImpage() {
-		return impage;
-	}
-	
-	public TextField getImpcolor() {
-		return impcolor;
-	}
-	
-	public TextField getImpcomments() {
-		return impcomments;
-	}
-	
-	public TextField getImpgender() {
-		return impgender;
-	}
-	
-	public TextField getImpmodel() {
-		return impmodel;
-	}
-	
-	public TextField getImpname() {
-		return impname;
-	}
-	
-	public TextField getImpnum() {
-		return impnum;
-	}
-	
 	public ImpoundLogEntry getImpoundEntry() {
 		return impoundEntry;
-	}
-	
-	public HBox getImpoundInfo() {
-		return impoundInfo;
 	}
 	
 	public MenuItem getImpoundReportButton() {
@@ -3290,40 +2206,8 @@ public class actionController {
 		return impoundTab;
 	}
 	
-	public TextField getImpplatenum() {
-		return impplatenum;
-	}
-	
-	public TextField getImptype() {
-		return imptype;
-	}
-	
-	public Label getImpupdatedLabel() {
-		return impupdatedLabel;
-	}
-	
-	public TextField getIncactionstaken() {
-		return incactionstaken;
-	}
-	
-	public TextField getIncarea() {
-		return incarea;
-	}
-	
-	public TextField getInccomments() {
-		return inccomments;
-	}
-	
-	public TextField getInccounty() {
-		return inccounty;
-	}
-	
 	public IncidentLogEntry getIncidentEntry() {
 		return incidentEntry;
-	}
-	
-	public HBox getIncidentInfo() {
-		return incidentInfo;
 	}
 	
 	public MenuItem getIncidentReportButton() {
@@ -3332,30 +2216,6 @@ public class actionController {
 	
 	public Tab getIncidentTab() {
 		return incidentTab;
-	}
-	
-	public TextField getIncnum() {
-		return incnum;
-	}
-	
-	public TextField getIncstatement() {
-		return incstatement;
-	}
-	
-	public TextField getIncstreet() {
-		return incstreet;
-	}
-	
-	public Label getIncupdatedlabel() {
-		return incupdatedlabel;
-	}
-	
-	public TextField getIncvictims() {
-		return incvictims;
-	}
-	
-	public TextField getIncwitness() {
-		return incwitness;
 	}
 	
 	public AnchorPane getLogPane() {
@@ -3386,24 +2246,8 @@ public class actionController {
 		return notesViewController;
 	}
 	
-	public TextField getPatcomments() {
-		return patcomments;
-	}
-	
-	public TextField getPatlength() {
-		return patlength;
-	}
-	
-	public TextField getPatnum() {
-		return patnum;
-	}
-	
 	public PatrolLogEntry getPatrolEntry() {
 		return patrolEntry;
-	}
-	
-	public HBox getPatrolInfo() {
-		return patrolInfo;
 	}
 	
 	public MenuItem getPatrolReportButton() {
@@ -3412,22 +2256,6 @@ public class actionController {
 	
 	public Tab getPatrolTab() {
 		return patrolTab;
-	}
-	
-	public TextField getPatstarttime() {
-		return patstarttime;
-	}
-	
-	public TextField getPatstoptime() {
-		return patstoptime;
-	}
-	
-	public Label getPatupdatedlabel() {
-		return patupdatedlabel;
-	}
-	
-	public TextField getPatvehicle() {
-		return patvehicle;
 	}
 	
 	public TextField getPedaddressfield() {
@@ -3482,80 +2310,16 @@ public class actionController {
 		return pedwantedfield;
 	}
 	
-	public TextField getSearcharea() {
-		return searcharea;
-	}
-	
-	public TextField getSearchbacmeasure() {
-		return searchbacmeasure;
-	}
-	
-	public TextField getSearchbreathresult() {
-		return searchbreathresult;
-	}
-	
-	public TextField getSearchbreathused() {
-		return searchbreathused;
-	}
-	
-	public TextField getSearchcomments() {
-		return searchcomments;
-	}
-	
-	public TextField getSearchcounty() {
-		return searchcounty;
-	}
-	
 	public SearchLogEntry getSearchEntry() {
 		return searchEntry;
-	}
-	
-	public TextField getSearchgrounds() {
-		return searchgrounds;
-	}
-	
-	public HBox getSearchInfo() {
-		return searchInfo;
-	}
-	
-	public TextField getSearchmethod() {
-		return searchmethod;
-	}
-	
-	public TextField getSearchnum() {
-		return searchnum;
-	}
-	
-	public TextField getSearchperson() {
-		return searchperson;
 	}
 	
 	public MenuItem getSearchReportButton() {
 		return searchReportButton;
 	}
 	
-	public TextField getSearchseizeditems() {
-		return searchseizeditems;
-	}
-	
-	public TextField getSearchstreet() {
-		return searchstreet;
-	}
-	
 	public Tab getSearchTab() {
 		return searchTab;
-	}
-	
-	public TextField getSearchtype() {
-		return searchtype;
-	}
-	
-	public Label getSearchupdatedlabel() {
-		return searchupdatedlabel;
-	}
-	
-	public TextField getSearchwitness() {
-		return searchwitness;
 	}
 	
 	public Button getShiftInfoBtn() {
@@ -3582,34 +2346,6 @@ public class actionController {
 		return topPane;
 	}
 	
-	public TextField getTrafaddress() {
-		return trafaddress;
-	}
-	
-	public TextField getTrafage() {
-		return trafage;
-	}
-	
-	public TextField getTrafarea() {
-		return trafarea;
-	}
-	
-	public TextField getTrafcolor() {
-		return trafcolor;
-	}
-	
-	public TextField getTrafcomments() {
-		return trafcomments;
-	}
-	
-	public TextField getTrafcounty() {
-		return trafcounty;
-	}
-	
-	public TextField getTrafdesc() {
-		return trafdesc;
-	}
-	
 	public MenuItem getTrafficCitationReportButton() {
 		return trafficCitationReportButton;
 	}
@@ -3622,48 +2358,8 @@ public class actionController {
 		return trafficStopEntry;
 	}
 	
-	public HBox getTrafficStopInfo() {
-		return trafficStopInfo;
-	}
-	
 	public Tab getTrafficStopTab() {
 		return trafficStopTab;
-	}
-	
-	public TextField getTrafgender() {
-		return trafgender;
-	}
-	
-	public TextField getTrafmodel() {
-		return trafmodel;
-	}
-	
-	public TextField getTrafname() {
-		return trafname;
-	}
-	
-	public TextField getTrafnum() {
-		return trafnum;
-	}
-	
-	public TextField getTrafotherinfo() {
-		return trafotherinfo;
-	}
-	
-	public TextField getTrafplatenum() {
-		return trafplatenum;
-	}
-	
-	public TextField getTrafstreet() {
-		return trafstreet;
-	}
-	
-	public TextField getTraftype() {
-		return traftype;
-	}
-	
-	public Label getTrafupdatedlabel() {
-		return trafupdatedlabel;
 	}
 	
 	public AnchorPane getTutorialOverlay() {
@@ -3750,10 +2446,6 @@ public class actionController {
 		return logbrwsrlbl;
 	}
 	
-	public AnchorPane getLowerPane() {
-		return lowerPane;
-	}
-	
 	public TableView getArrestTable() {
 		return arrestTable;
 	}
@@ -3826,10 +2518,6 @@ public class actionController {
 		return serverStatusLabel;
 	}
 	
-	public ToggleButton getShowManagerToggle() {
-		return showManagerToggle;
-	}
-	
 	public Button getShowIDBtn() {
 		return showIDBtn;
 	}
@@ -3852,38 +2540,6 @@ public class actionController {
 	
 	public MenuButton getLookupBtn() {
 		return lookupBtn;
-	}
-	
-	public Button getBtn1() {
-		return btn1;
-	}
-	
-	public Button getBtn2() {
-		return btn2;
-	}
-	
-	public Button getBtn3() {
-		return btn3;
-	}
-	
-	public Button getBtn4() {
-		return btn4;
-	}
-	
-	public Button getBtn5() {
-		return btn5;
-	}
-	
-	public Button getBtn6() {
-		return btn6;
-	}
-	
-	public Button getBtn7() {
-		return btn7;
-	}
-	
-	public Button getBtn8() {
-		return btn8;
 	}
 	
 	public Button getSettingsBtn() {
@@ -3916,14 +2572,6 @@ public class actionController {
 	
 	public AreaChart getAreaReportChart() {
 		return areaReportChart;
-	}
-	
-	public Label getLogManagerLabelBkg() {
-		return logManagerLabelBkg;
-	}
-	
-	public Label getDetailsLabelFill() {
-		return detailsLabelFill;
 	}
 	
 	public Label getReportPlusLabelFill() {

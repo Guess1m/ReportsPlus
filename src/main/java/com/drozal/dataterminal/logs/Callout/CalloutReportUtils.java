@@ -11,7 +11,10 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -186,7 +189,7 @@ public class CalloutReportUtils {
 			try {
 				CalloutReportUtils.addCalloutReport(callout1);
 			} catch (JAXBException e) {
-				logError("Could not create new JAXB CalloutReport:",e);
+				logError("Could not create new JAXB CalloutReport:", e);
 			}
 			
 			actionController.needRefresh.set(1);

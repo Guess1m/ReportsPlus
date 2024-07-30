@@ -11,7 +11,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalloutReports {
 	
-	@XmlElement(name = "CalloutReport")
+	@XmlElement(name = "logs")
 	private List<CalloutReport> calloutReportList;
 	
 	public List<CalloutReport> getCalloutReportList() {

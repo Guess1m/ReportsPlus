@@ -724,19 +724,19 @@ public class InitTableColumns {
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		
 		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
-		                                                                                            dateColumn,
-		                                                                                            timeColumn,
-		                                                                                            notesTextAreaColumn,
-		                                                                                            responseGradeColumn,
-		                                                                                            responseTypeColumn,
-		                                                                                            divisionColumn,
-		                                                                                            agencyColumn,
-		                                                                                            numberColumn,
-		                                                                                            rankColumn,
-		                                                                                            nameColumn,
-		                                                                                            addressColumn,
-		                                                                                            countyColumn,
-		                                                                                            areaColumn);
+		                                                                                          dateColumn,
+		                                                                                          timeColumn,
+		                                                                                          notesTextAreaColumn,
+		                                                                                          responseGradeColumn,
+		                                                                                          responseTypeColumn,
+		                                                                                          divisionColumn,
+		                                                                                          agencyColumn,
+		                                                                                          numberColumn,
+		                                                                                          rankColumn,
+		                                                                                          nameColumn,
+		                                                                                          addressColumn,
+		                                                                                          countyColumn,
+		                                                                                          areaColumn);
 		tableview.getColumns().addAll(columns);
 		for (TableColumn<CalloutReport, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);

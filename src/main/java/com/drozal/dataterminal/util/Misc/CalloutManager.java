@@ -2,6 +2,7 @@ package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.newOfficerController;
 import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
@@ -520,10 +521,12 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> callout = reportCreationUtil.newCallout(controllerVar.getReportChart(),
-			                                                            controllerVar.getAreaReportChart(),
-			                                                            controllerVar.vbox,
-			                                                            controllerVar.notesViewController);
+			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(),
+			                                                                     controllerVar.getAreaReportChart(),
+			                                                                     controllerVar.getNotesViewController());
+			
+			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
+			
 			TextField calloutnum = (TextField) callout.get("calloutnumber");
 			ComboBox calloutarea = (ComboBox) callout.get("area");
 			TextArea calloutnotes = (TextArea) callout.get("notes");

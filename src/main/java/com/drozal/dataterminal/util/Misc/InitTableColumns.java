@@ -1,7 +1,7 @@
 package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
-import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
+import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
@@ -681,49 +681,49 @@ public class InitTableColumns {
 	
 	public static void initializeCalloutColumns(TableView tableview) {
 		
-		TableColumn<CalloutLogEntry, String> calloutNumberColumn = new TableColumn<>("Callout #");
+		TableColumn<CalloutReport, String> calloutNumberColumn = new TableColumn<>("Callout #");
 		calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
 		
-		TableColumn<CalloutLogEntry, String> notesTextAreaColumn = new TableColumn<>("Notes");
+		TableColumn<CalloutReport, String> notesTextAreaColumn = new TableColumn<>("Notes");
 		notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
 		
-		TableColumn<CalloutLogEntry, String> responseGradeColumn = new TableColumn<>("Grade");
+		TableColumn<CalloutReport, String> responseGradeColumn = new TableColumn<>("Grade");
 		responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
 		
-		TableColumn<CalloutLogEntry, String> responseTypeColumn = new TableColumn<>("Type");
-		responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponeType"));
+		TableColumn<CalloutReport, String> responseTypeColumn = new TableColumn<>("Type");
+		responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseType"));
 		
-		TableColumn<CalloutLogEntry, String> timeColumn = new TableColumn<>("Time");
+		TableColumn<CalloutReport, String> timeColumn = new TableColumn<>("Time");
 		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
 		
-		TableColumn<CalloutLogEntry, String> dateColumn = new TableColumn<>("Date");
+		TableColumn<CalloutReport, String> dateColumn = new TableColumn<>("Date");
 		dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
 		
-		TableColumn<CalloutLogEntry, String> divisionColumn = new TableColumn<>("Division");
+		TableColumn<CalloutReport, String> divisionColumn = new TableColumn<>("Division");
 		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
 		
-		TableColumn<CalloutLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+		TableColumn<CalloutReport, String> agencyColumn = new TableColumn<>("Agency");
 		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
 		
-		TableColumn<CalloutLogEntry, String> numberColumn = new TableColumn<>("Number");
+		TableColumn<CalloutReport, String> numberColumn = new TableColumn<>("Number");
 		numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
 		
-		TableColumn<CalloutLogEntry, String> rankColumn = new TableColumn<>("Rank");
+		TableColumn<CalloutReport, String> rankColumn = new TableColumn<>("Rank");
 		rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
 		
-		TableColumn<CalloutLogEntry, String> nameColumn = new TableColumn<>("Name");
+		TableColumn<CalloutReport, String> nameColumn = new TableColumn<>("Name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 		
-		TableColumn<CalloutLogEntry, String> addressColumn = new TableColumn<>("Address");
+		TableColumn<CalloutReport, String> addressColumn = new TableColumn<>("Address");
 		addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
 		
-		TableColumn<CalloutLogEntry, String> countyColumn = new TableColumn<>("County");
+		TableColumn<CalloutReport, String> countyColumn = new TableColumn<>("County");
 		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
 		
-		TableColumn<CalloutLogEntry, String> areaColumn = new TableColumn<>("Area");
+		TableColumn<CalloutReport, String> areaColumn = new TableColumn<>("Area");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		
-		ObservableList<TableColumn<CalloutLogEntry, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
+		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
 		                                                                                            dateColumn,
 		                                                                                            timeColumn,
 		                                                                                            notesTextAreaColumn,
@@ -738,7 +738,7 @@ public class InitTableColumns {
 		                                                                                            countyColumn,
 		                                                                                            areaColumn);
 		tableview.getColumns().addAll(columns);
-		for (TableColumn<CalloutLogEntry, ?> column : columns) {
+		for (TableColumn<CalloutReport, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(calloutNumberColumn);

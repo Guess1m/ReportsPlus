@@ -8,49 +8,6 @@ import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class Layouts {
 	
-	public static Map<String, Object> calloutLayout() {
-		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
-		                                                       new SectionConfig("Officer Information", true,
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("name", 5,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("rank", 5,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("number", 2,
-				                                                                                         FieldType.TEXT_FIELD)),
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("division", 6,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("agency", 6,
-				                                                                                         FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Location Information", true,
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("street", 5,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("area", 4,
-				                                                                                         FieldType.COMBO_BOX_AREA),
-				                                                                         new FieldConfig("county", 3,
-				                                                                                         FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Callout Information", true,
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("date", 6,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("time", 6,
-				                                                                                         FieldType.TEXT_FIELD)),
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("type", 4,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("code", 4,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig(
-						                                                                         "calloutnumber", 4,
-						                                                                         FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Callout Notes", true, new RowConfig(
-				                                                       new FieldConfig("notes", 12,
-				                                                                       FieldType.TEXT_AREA))));
-		return calloutReport;
-	}
-	
 	public static Map<String, Object> impoundLayout() {
 		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
 		                                                       new SectionConfig("Officer Information", true,

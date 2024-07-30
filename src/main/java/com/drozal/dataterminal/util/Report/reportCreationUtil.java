@@ -5,8 +5,6 @@ import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
-import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
 import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
@@ -508,86 +506,6 @@ public class reportCreationUtil {
 			showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
 			stage.close();
 		});
-	}
-	
-	public static Map<String, Object> newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
-		Map<String, Object> calloutReport = calloutLayout();
-		
-		Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");
-		
-		TextField officername = (TextField) calloutReportMap.get("name");
-		TextField officerrank = (TextField) calloutReportMap.get("rank");
-		TextField officerdiv = (TextField) calloutReportMap.get("division");
-		TextField officeragen = (TextField) calloutReportMap.get("agency");
-		TextField officernum = (TextField) calloutReportMap.get("number");
-		TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
-		ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
-		TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
-		TextField calloutcounty = (TextField) calloutReportMap.get("county");
-		TextField calloutstreet = (TextField) calloutReportMap.get("street");
-		TextField calloutdate = (TextField) calloutReportMap.get("date");
-		TextField callouttime = (TextField) calloutReportMap.get("time");
-		TextField callouttype = (TextField) calloutReportMap.get("type");
-		BorderPane root = (BorderPane) calloutReport.get("root");
-		TextField calloutcode = (TextField) calloutReportMap.get("code");
-		Label warningLabel = (Label) calloutReport.get("warningLabel");
-		
-		try {
-			officername.setText(ConfigReader.configRead("userInfo", "Name"));
-			officerrank.setText(ConfigReader.configRead("userInfo", "Rank"));
-			officerdiv.setText(ConfigReader.configRead("userInfo", "Division"));
-			officeragen.setText(ConfigReader.configRead("userInfo", "Agency"));
-			officernum.setText(ConfigReader.configRead("userInfo", "Number"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		calloutdate.setText(getDate());
-		callouttime.setText(getTime());
-		
-		Button pullNotesBtn = (Button) calloutReport.get("pullNotesBtn");
-		pullNotesBtn.setOnAction(event -> {
-			if (notesViewController != null) {
-				updateTextFromNotepad(calloutarea.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-				updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
-				updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
-				updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
-			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-			}
-		});
-		
-		Button submitBtn = (Button) calloutReport.get("submitBtn");
-		submitBtn.setOnAction(event -> {
-			
-			for (String fieldName : calloutReportMap.keySet()) {
-				Object field = calloutReportMap.get(fieldName);
-				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-						comboBox.getSelectionModel().selectFirst();
-					}
-				}
-			}
-			
-			List<CalloutLogEntry> logs = CalloutReportLogs.loadLogsFromXML();
-			
-			logs.add(new CalloutLogEntry(calloutdate.getText(), callouttime.getText(), officername.getText(),
-			                             officerrank.getText(), officernum.getText(), officerdiv.getText(),
-			                             officeragen.getText(), callouttype.getText(), calloutcode.getText(),
-			                             calloutnum.getText(), calloutnotes.getText(), calloutstreet.getText(),
-			                             calloutcounty.getText(), calloutarea.getEditor().getText()
-			
-			));
-			
-			CalloutReportLogs.saveLogsToXML(logs);
-			actionController.needRefresh.set(1);
-			updateChartIfMismatch(reportChart);
-			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
-			Stage rootstage = (Stage) root.getScene().getWindow();
-			rootstage.close();
-		});
-		return calloutReportMap;
 	}
 	
 	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {

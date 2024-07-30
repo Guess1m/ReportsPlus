@@ -274,7 +274,7 @@ public class DeathReportUtils {
 			stage.close();
 		});
 		
-		return deathReportMap;
+		return deathReport;
 	}
 	
 	public static DeathReports loadDeathReports() throws JAXBException {

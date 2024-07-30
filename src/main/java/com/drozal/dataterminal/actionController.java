@@ -4,8 +4,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.logs.Callout.CalloutLogEntry;
-import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
+import com.drozal.dataterminal.logs.Callout.*;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReports;
@@ -51,10 +50,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -69,6 +65,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
@@ -453,7 +450,6 @@ public class actionController {
 	private Label secondaryColor3Bkg;
 	@javafx.fxml.FXML
 	private TextField citcounty;
-	private CalloutLogEntry calloutEntry;
 	private PatrolLogEntry patrolEntry;
 	private TrafficStopLogEntry trafficStopEntry;
 	@javafx.fxml.FXML
@@ -1202,7 +1198,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onCalloutReportButtonClick(ActionEvent actionEvent) {
-		newCallout(reportChart, areaReportChart, vbox, notesViewController);
+		newCallout(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1883,9 +1879,12 @@ public class actionController {
 			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
 			
 			if (deathReport != null) {
-				Map<String, Object> deathReport1 = DeathReportUtils.newDeathReport(getReportChart(),
-				                                                                   getAreaReportChart(),
-				                                                                   notesViewController);
+				Map<String, Object> deathReportObj = DeathReportUtils.newDeathReport(getReportChart(),
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
+				
+				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
+				
 				TextField name = (TextField) deathReport1.get("name");
 				TextField rank = (TextField) deathReport1.get("rank");
 				TextField div = (TextField) deathReport1.get("division");
@@ -1931,7 +1930,10 @@ public class actionController {
 				modeofdeath.setText(toTitleCase(deathReport.getModeOfDeath()));
 				witnesses.setText(toTitleCase(deathReport.getWitnesses()));
 				notes.setText(deathReport.getNotesTextArea());
+				
 				deathNum.setEditable(false);
+				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
 				
 				deathReportTable.getSelectionModel().clearSelection();
 			}
@@ -1963,8 +1965,13 @@ public class actionController {
 				stringUtil.trafficstopLogURL);
 		trafficStopLogUpdate(trafficLogEntryList);
 		
-		List<CalloutLogEntry> calloutLogEntryList = CalloutReportLogs.extractLogEntries(stringUtil.calloutLogURL);
-		calloutLogUpdate(calloutLogEntryList);
+		try {
+			CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
+			List<CalloutReport> calloutReportListl = calloutReports.getCalloutReportList();
+			calloutLogUpdate(calloutReportListl);
+		} catch (JAXBException e) {
+			logError("Error loading CalloutReports: ", e);
+		}
 		
 		try {
 			DeathReports deathReports = DeathReportUtils.loadDeathReports();
@@ -2011,8 +2018,10 @@ public class actionController {
 		trafficStopTable.getItems().addAll(logEntries);
 	}
 	
-	public void calloutLogUpdate(List<CalloutLogEntry> logEntries) {
-		
+	public void calloutLogUpdate(List<CalloutReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		calloutTable.getItems().clear();
 		calloutTable.getItems().addAll(logEntries);
 	}
@@ -2074,31 +2083,59 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-			calloutEntry = (CalloutLogEntry) calloutTable.getSelectionModel().getSelectedItem();
-			if (calloutEntry != null) {
-				calnum.setText(calloutEntry.getCalloutNumber());
-				caladdress.setText(calloutEntry.getAddress());
-				calnotes.setText(calloutEntry.getNotesTextArea());
-				calcounty.setText(calloutEntry.getCounty());
-				calgrade.setText(calloutEntry.getResponseGrade());
-				calarea.setText(calloutEntry.getArea());
-				caltype.setText(calloutEntry.getResponeType());
+			CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
+			
+			if (calloutReport != null) {
+				
+				Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(getReportChart(),
+				                                                          getAreaReportChart(),
+				                                                          notesViewController);
+				
+				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
+				
+				TextField officername = (TextField) calloutReportMap.get("name");
+				TextField officerrank = (TextField) calloutReportMap.get("rank");
+				TextField officerdiv = (TextField) calloutReportMap.get("division");
+				TextField officeragen = (TextField) calloutReportMap.get("agency");
+				TextField officernum = (TextField) calloutReportMap.get("number");
+				TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
+				ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
+				TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
+				TextField calloutcounty = (TextField) calloutReportMap.get("county");
+				TextField calloutstreet = (TextField) calloutReportMap.get("street");
+				TextField calloutdate = (TextField) calloutReportMap.get("date");
+				TextField callouttime = (TextField) calloutReportMap.get("time");
+				TextField callouttype = (TextField) calloutReportMap.get("type");
+				TextField calloutcode = (TextField) calloutReportMap.get("code");
+				
+				officername.setText(toTitleCase(calloutReport.getName()));
+				officerrank.setText(calloutReport.getRank());
+				officerdiv.setText(toTitleCase(calloutReport.getDivision()));
+				officeragen.setText(toTitleCase(calloutReport.getAgency()));
+				officernum.setText(toTitleCase(calloutReport.getNumber()));
+				calloutdate.setText(calloutReport.getDate());
+				callouttime.setText(calloutReport.getTime());
+				calloutstreet.setText(toTitleCase(calloutReport.getAddress()));
+				calloutarea.getEditor().setText(toTitleCase(calloutReport.getArea()));
+				calloutcounty.setText(toTitleCase(calloutReport.getCounty()));
+				calloutnotes.setText(calloutReport.getNotesTextArea());
+				calloutnum.setText(calloutReport.getCalloutNumber());
+				callouttype.setText(toTitleCase(calloutReport.getResponseType()));
+				calloutcode.setText(toTitleCase(calloutReport.getResponseGrade()));
+				
+				Button pullNotesBtn = (Button) calloutReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				calloutnum.setEditable(false);
+				
 				calloutTable.getSelectionModel().clearSelection();
-			} else {
-				calnum.setText("");
-				caladdress.setText("");
-				calnotes.setText("");
-				calcounty.setText("");
-				calgrade.setText("");
-				calarea.setText("");
-				caltype.setText("");
 			}
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void onCalUpdateValues(ActionEvent actionEvent) {
-		if (calloutEntry != null) {
+		System.out.println("calupdatevalues pressed");
+		/*if (calloutEntry != null) {
 			calupdatedlabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
 				calupdatedlabel.setVisible(false);
@@ -2132,7 +2169,7 @@ public class actionController {
 			
 			calloutTable.refresh();
 			
-		}
+		}*/
 	}
 	
 	@javafx.fxml.FXML
@@ -3059,10 +3096,6 @@ public class actionController {
 	
 	public TextField getCalgrade() {
 		return calgrade;
-	}
-	
-	public CalloutLogEntry getCalloutEntry() {
-		return calloutEntry;
 	}
 	
 	public HBox getCalloutInfo() {

@@ -4,7 +4,7 @@ import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
@@ -602,7 +602,7 @@ public class controllerUtils {
 				int reportsCount = switch (i) {
 					// TODO add new countReports method from util class
 					case 0 -> CalloutReportUtils.countReports();
-					case 1 -> ArrestReportLogs.countReports();
+					case 1 -> ArrestReportUtils.countReports();
 					case 2 -> TrafficStopReportLogs.countReports();
 					case 3 -> PatrolReportUtils.countReports();
 					case 4 -> SearchReportUtils.countReports();

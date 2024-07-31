@@ -2,8 +2,9 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
-import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
+import com.drozal.dataterminal.logs.Arrest.ArrestReport;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
+import com.drozal.dataterminal.logs.Arrest.ArrestReports;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Callout.CalloutReports;
@@ -72,6 +73,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
 import static com.drozal.dataterminal.logs.Impound.ImpoundReportUtils.newImpound;
@@ -347,6 +349,7 @@ public class actionController {
 	
 	//<editor-fold desc="VARS">
 	
+	
 	public static String notesText;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
 	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
@@ -365,9 +368,11 @@ public class actionController {
 	public static double Calloutx;
 	public static double Callouty;
 	
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="FXML Elements">
+	
 	
 	@javafx.fxml.FXML
 	private MenuItem deathReportButton;
@@ -503,7 +508,6 @@ public class actionController {
 	private Tab trafficStopTab;
 	@javafx.fxml.FXML
 	private Tab impoundTab;
-	private ArrestLogEntry arrestEntry;
 	@javafx.fxml.FXML
 	private Label reportPlusLabelFill;
 	@javafx.fxml.FXML
@@ -727,9 +731,11 @@ public class actionController {
 	@javafx.fxml.FXML
 	private AnchorPane courtInfoPane;
 	
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
+	
 	
 	public static void handleClose() {
 		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
@@ -971,7 +977,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onArrestReportBtnClick(ActionEvent actionEvent) {
-		newArrest(reportChart, areaReportChart, vbox, notesViewController);
+		newArrest(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1214,9 +1220,11 @@ public class actionController {
 		CalloutManager.loadHistoryCallouts(calHistoryList);
 	}
 	
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="Utils">
+	
 	
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
@@ -1570,9 +1578,11 @@ public class actionController {
 		return fineTotal;
 	}
 	
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="Log Methods">
+	
 	
 	private void loadLogs() {
 		// TODO add new loading for logs
@@ -1600,8 +1610,13 @@ public class actionController {
 			logError("Error loading PatrolReports: ", e);
 		}
 		
-		List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
-		arrestLogUpdate(arrestLogEntryList);
+		try {
+			ArrestReports arrestReports = ArrestReportUtils.loadArrestReports();
+			List<ArrestReport> arrestReportList = arrestReports.getArrestReportList();
+			arrestLogUpdate(arrestReportList);
+		} catch (JAXBException e) {
+			logError("Error loading ArrestReport: ", e);
+		}
 		
 		try {
 			SearchReports searchReports = SearchReportUtils.loadSearchReports();
@@ -1658,8 +1673,10 @@ public class actionController {
 		patrolTable.getItems().addAll(logEntries);
 	}
 	
-	public void arrestLogUpdate(List<ArrestLogEntry> logEntries) {
-		
+	public void arrestLogUpdate(List<ArrestReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		arrestTable.getItems().clear();
 		arrestTable.getItems().addAll(logEntries);
 	}
@@ -2019,10 +2036,11 @@ public class actionController {
 			
 			if (trafficCitationReport != null) {
 				Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
+				                                                                          getAreaReportChart(),
+				                                                                          notesViewController);
 				
-				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
+				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
+						"Citation Report Map");
 				
 				TextField officername = (TextField) citationReportMap.get("name");
 				TextField officerrank = (TextField) citationReportMap.get("rank");
@@ -2089,7 +2107,6 @@ public class actionController {
 			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
 			
 			if (searchReport != null) {
-				
 				Map<String, Object> searchReportObj = SearchReportUtils.newSearch(getReportChart(),
 				                                                                  getAreaReportChart(),
 				                                                                  notesViewController);
@@ -2159,8 +2176,68 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
+			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
+			
+			if (arrestReport != null) {
+				Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart, notesViewController);
+				
+				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
+				
+				TextField officername = (TextField) arrestReportMap.get("name");
+				TextField officerrank = (TextField) arrestReportMap.get("rank");
+				TextField officerdiv = (TextField) arrestReportMap.get("division");
+				TextField officeragen = (TextField) arrestReportMap.get("agency");
+				TextField officernumarrest = (TextField) arrestReportMap.get("number");
+				
+				TextField offenderName = (TextField) arrestReportMap.get("offender name");
+				TextField offenderAge = (TextField) arrestReportMap.get("offender age");
+				TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
+				TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
+				TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+				
+				ComboBox area = (ComboBox) arrestReportMap.get("area");
+				TextField street = (TextField) arrestReportMap.get("street");
+				TextField county = (TextField) arrestReportMap.get("county");
+				TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
+				TextField date = (TextField) arrestReportMap.get("date");
+				TextField time = (TextField) arrestReportMap.get("time");
+				
+				TextField ambulancereq = (TextField) arrestReportMap.get("ambulance required (Y/N)");
+				TextField taserdep = (TextField) arrestReportMap.get("taser deployed (Y/N)");
+				TextField othermedinfo = (TextField) arrestReportMap.get("other information");
+				
+				TextArea notes = (TextArea) arrestReportMap.get("notes");
+				
+				arrestnum.setText(arrestReport.getArrestNumber());
+				officername.setText(arrestReport.getOfficerName());
+				officerdiv.setText(arrestReport.getOfficerDivision());
+				officeragen.setText(arrestReport.getOfficerAgency());
+				officernumarrest.setText(arrestReport.getOfficerNumber());
+				officerrank.setText(arrestReport.getOfficerRank());
+				offenderName.setText(arrestReport.getArresteeName());
+				offenderAge.setText(arrestReport.getArresteeAge());
+				offenderGender.setText(arrestReport.getArresteeGender());
+				offenderAddress.setText(arrestReport.getArresteeHomeAddress());
+				offenderDescription.setText(arrestReport.getArresteeDescription());
+				street.setText(arrestReport.getArrestStreet());
+				county.setText(arrestReport.getArrestCounty());
+				ambulancereq.setText(arrestReport.getAmbulanceYesNo());
+				taserdep.setText(arrestReport.getTaserYesNo());
+				othermedinfo.setText(arrestReport.getArresteeMedicalInformation());
+				area.setValue(arrestReport.getArrestArea());
+				date.setText(arrestReport.getArrestDate());
+				time.setText(arrestReport.getArrestTime());
+				notes.setText(arrestReport.getArrestDetails());
+				
+				Button pullNotesBtn = (Button) arrestReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				arrestnum.setEditable(false);
+				
+				arrestTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
+	
 	
 	//</editor-fold>
 	
@@ -2440,10 +2517,6 @@ public class actionController {
 	
 	public Label getPed7() {
 		return ped7;
-	}
-	
-	public ArrestLogEntry getArrestEntry() {
-		return arrestEntry;
 	}
 	
 	public MenuItem getArrestReportButton() {

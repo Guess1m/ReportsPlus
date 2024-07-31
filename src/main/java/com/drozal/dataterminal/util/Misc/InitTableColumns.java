@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.util.Misc;
 
-import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
+import com.drozal.dataterminal.logs.Arrest.ArrestReport;
+import com.drozal.dataterminal.logs.Arrest.ArrestReports;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundReport;
@@ -355,70 +356,70 @@ public class InitTableColumns {
 	
 	public static void initializeArrestColumns(TableView tableview) {
 		
-		TableColumn<ArrestLogEntry, String> arrestNumberColumn = new TableColumn<>("Arrest #");
+		TableColumn<ArrestReport, String> arrestNumberColumn = new TableColumn<>("Arrest #");
 		arrestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("arrestNumber"));
 		
-		TableColumn<ArrestLogEntry, String> arrestDateColumn = new TableColumn<>("Arrest Date");
+		TableColumn<ArrestReport, String> arrestDateColumn = new TableColumn<>("Arrest Date");
 		arrestDateColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDate"));
 		
-		TableColumn<ArrestLogEntry, String> arrestTimeColumn = new TableColumn<>("Arrest Time");
+		TableColumn<ArrestReport, String> arrestTimeColumn = new TableColumn<>("Arrest Time");
 		arrestTimeColumn.setCellValueFactory(new PropertyValueFactory<>("arrestTime"));
 		
-		TableColumn<ArrestLogEntry, String> arrestChargesColumn = new TableColumn<>("Charges");
+		TableColumn<ArrestReport, String> arrestChargesColumn = new TableColumn<>("Charges");
 		arrestChargesColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCharges"));
 		
-		TableColumn<ArrestLogEntry, String> arrestCountyColumn = new TableColumn<>("County");
+		TableColumn<ArrestReport, String> arrestCountyColumn = new TableColumn<>("County");
 		arrestCountyColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCounty"));
 		
-		TableColumn<ArrestLogEntry, String> arrestAreaColumn = new TableColumn<>("Area");
+		TableColumn<ArrestReport, String> arrestAreaColumn = new TableColumn<>("Area");
 		arrestAreaColumn.setCellValueFactory(new PropertyValueFactory<>("arrestArea"));
 		
-		TableColumn<ArrestLogEntry, String> arrestStreetColumn = new TableColumn<>("Street");
+		TableColumn<ArrestReport, String> arrestStreetColumn = new TableColumn<>("Street");
 		arrestStreetColumn.setCellValueFactory(new PropertyValueFactory<>("arrestStreet"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeNameColumn = new TableColumn<>("Sus. Name");
+		TableColumn<ArrestReport, String> arresteeNameColumn = new TableColumn<>("Sus. Name");
 		arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeAgeColumn = new TableColumn<>("Sus. Age/DOB");
+		TableColumn<ArrestReport, String> arresteeAgeColumn = new TableColumn<>("Sus. Age/DOB");
 		arresteeAgeColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeAge"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeGenderColumn = new TableColumn<>("Sus. Gender");
+		TableColumn<ArrestReport, String> arresteeGenderColumn = new TableColumn<>("Sus. Gender");
 		arresteeGenderColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeGender"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeDescriptionColumn = new TableColumn<>("Sus. Description");
+		TableColumn<ArrestReport, String> arresteeDescriptionColumn = new TableColumn<>("Sus. Description");
 		arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
 		
-		TableColumn<ArrestLogEntry, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance (Y/N)");
+		TableColumn<ArrestReport, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance (Y/N)");
 		ambulanceYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("ambulanceYesNo"));
 		
-		TableColumn<ArrestLogEntry, String> taserYesNoColumn = new TableColumn<>("Taser (Y/N)");
+		TableColumn<ArrestReport, String> taserYesNoColumn = new TableColumn<>("Taser (Y/N)");
 		taserYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("TaserYesNo"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeMedicalInformationColumn = new TableColumn<>("Med. Info.");
+		TableColumn<ArrestReport, String> arresteeMedicalInformationColumn = new TableColumn<>("Med. Info.");
 		arresteeMedicalInformationColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeMedicalInformation"));
 		
-		TableColumn<ArrestLogEntry, String> arresteeHomeAddressColumn = new TableColumn<>("Sus. Address");
+		TableColumn<ArrestReport, String> arresteeHomeAddressColumn = new TableColumn<>("Sus. Address");
 		arresteeHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeHomeAddress"));
 		
-		TableColumn<ArrestLogEntry, String> arrestDetailsColumn = new TableColumn<>("Details");
+		TableColumn<ArrestReport, String> arrestDetailsColumn = new TableColumn<>("Details");
 		arrestDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDetails"));
 		
-		TableColumn<ArrestLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		TableColumn<ArrestReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<ArrestLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+		TableColumn<ArrestReport, String> officerNameColumn = new TableColumn<>("Officer Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<ArrestLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+		TableColumn<ArrestReport, String> officerNumberColumn = new TableColumn<>("Officer #");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<ArrestLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		TableColumn<ArrestReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<ArrestLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		TableColumn<ArrestReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ArrestLogEntry, ?>> arrestColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(
 				arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn,
 				arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn,
 				arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn,
@@ -427,7 +428,7 @@ public class InitTableColumns {
 		
 		tableview.getColumns().addAll(arrestColumns);
 		
-		for (TableColumn<ArrestLogEntry, ?> column : arrestColumns) {
+		for (TableColumn<ArrestReport, ?> column : arrestColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(arrestNumberColumn);

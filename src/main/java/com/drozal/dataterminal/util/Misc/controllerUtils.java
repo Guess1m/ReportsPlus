@@ -8,7 +8,7 @@ import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
-import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
@@ -606,7 +606,7 @@ public class controllerUtils {
 					case 2 -> TrafficStopReportLogs.countReports();
 					case 3 -> PatrolReportUtils.countReports();
 					case 4 -> SearchReportLogs.countReports();
-					case 5 -> IncidentReportLogs.countReports();
+					case 5 -> IncidentReportUtils.countReports();
 					case 6 -> ImpoundReportLogs.countReports();
 					case 7 -> TrafficCitationReportLogs.countReports();
 					case 8 -> DeathReportUtils.countReports();
@@ -941,33 +941,5 @@ public class controllerUtils {
 		}
 		String labelText = extractedValue;
 		textArea.setText(labelText);
-	}
-	
-	public static void updateTextFromNotepad(Spinner spinner, TextArea notepadText, String... keys) {
-		Map<String, String> values = pullNotesValues(notepadText.getText());
-		String extractedValue = null;
-		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null) {
-				break;
-			}
-			
-			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey().split("\\|")) {
-					if (altKey.equals(key)) {
-						extractedValue = entry.getValue();
-						break;
-					}
-				}
-				if (extractedValue != null) {
-					break;
-				}
-			}
-			if (extractedValue != null) {
-				break;
-			}
-		}
-		String labelText = (extractedValue != null) ? extractedValue : "0";
-		spinner.getEditor().setText(labelText);
 	}
 }

@@ -12,8 +12,7 @@ import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReports;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
-import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
-import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import com.drozal.dataterminal.logs.Incident.*;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReports;
@@ -73,6 +72,7 @@ import java.util.stream.Collectors;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
+import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncident;
 import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
@@ -497,7 +497,6 @@ public class actionController {
 	private Tab trafficStopTab;
 	@javafx.fxml.FXML
 	private Tab impoundTab;
-	private IncidentLogEntry incidentEntry;
 	private ImpoundLogEntry impoundEntry;
 	private SearchLogEntry searchEntry;
 	private ArrestLogEntry arrestEntry;
@@ -959,7 +958,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onIncidentReportBtnClick(ActionEvent actionEvent) {
-		newIncident(reportChart, areaReportChart, vbox, notesViewController);
+		newIncident(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1617,9 +1616,9 @@ public class actionController {
 				date.setText(deathReport.getDate());
 				time.setText(deathReport.getTime());
 				street.setText(toTitleCase(deathReport.getStreet()));
-				area.getEditor().setText(toTitleCase(deathReport.getArea()));
+				area.setValue(toTitleCase(deathReport.getArea()));
 				county.setText(toTitleCase(deathReport.getCounty()));
-				deathNum.setText(toTitleCase(deathReport.getDeathReportNumber()));
+				deathNum.setText(deathReport.getDeathReportNumber());
 				decedent.setText(toTitleCase(deathReport.getDecedent()));
 				age.setText(toTitleCase(deathReport.getAge()));
 				gender.setText(toTitleCase(deathReport.getGender()));
@@ -1662,8 +1661,13 @@ public class actionController {
 		List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
 		searchLogUpdate(searchLogEntryList);
 		
-		List<IncidentLogEntry> incidentLogEntryList = IncidentReportLogs.extractLogEntries(stringUtil.incidentLogURL);
-		incidentLogUpdate(incidentLogEntryList);
+		try {
+			IncidentReports incidentReports = IncidentReportUtils.loadIncidentReports();
+			List<IncidentReport> incidentReportList1 = incidentReports.getIncidentReportList();
+			incidentLogUpdate(incidentReportList1);
+		} catch (JAXBException e) {
+			logError("Error loading IncidentReports: ", e);
+		}
 		
 		List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(
 				stringUtil.trafficstopLogURL);
@@ -1715,8 +1719,10 @@ public class actionController {
 		searchTable.getItems().addAll(logEntries);
 	}
 	
-	public void incidentLogUpdate(List<IncidentLogEntry> logEntries) {
-		
+	public void incidentLogUpdate(List<IncidentReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		incidentTable.getItems().clear();
 		incidentTable.getItems().addAll(logEntries);
 	}
@@ -1787,7 +1793,7 @@ public class actionController {
 				calloutdate.setText(calloutReport.getDate());
 				callouttime.setText(calloutReport.getTime());
 				calloutstreet.setText(toTitleCase(calloutReport.getAddress()));
-				calloutarea.getEditor().setText(toTitleCase(calloutReport.getArea()));
+				calloutarea.setValue(toTitleCase(calloutReport.getArea()));
 				calloutcounty.setText(toTitleCase(calloutReport.getCounty()));
 				calloutnotes.setText(calloutReport.getNotesTextArea());
 				calloutnum.setText(calloutReport.getCalloutNumber());
@@ -1831,7 +1837,7 @@ public class actionController {
 				TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 				
 				name.setText(toTitleCase(patrolReport.getOfficerName()));
-				patrolnum.setText(toTitleCase(patrolReport.getPatrolNumber()));
+				patrolnum.setText(patrolReport.getPatrolNumber());
 				rank.setText(toTitleCase(patrolReport.getOfficerRank()));
 				div.setText(toTitleCase(patrolReport.getOfficerDivision()));
 				agen.setText(toTitleCase(patrolReport.getOfficerAgency()));
@@ -1862,6 +1868,62 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
+			IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
+			
+			if (incidentReport != null) {
+				
+				Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(getReportChart(),
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
+				
+				
+				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
+				
+				TextField name = (TextField) incidentReportMap.get("name");
+				TextField rank = (TextField) incidentReportMap.get("rank");
+				TextField div = (TextField) incidentReportMap.get("division");
+				TextField agen = (TextField) incidentReportMap.get("agency");
+				TextField num = (TextField) incidentReportMap.get("number");
+				
+				TextField incidentnum = (TextField) incidentReportMap.get("incident num");
+				TextField date = (TextField) incidentReportMap.get("date");
+				TextField time = (TextField) incidentReportMap.get("time");
+				TextField street = (TextField) incidentReportMap.get("street");
+				ComboBox area = (ComboBox) incidentReportMap.get("area");
+				TextField county = (TextField) incidentReportMap.get("county");
+				
+				TextField suspects = (TextField) incidentReportMap.get("suspect(s)");
+				TextField vicwit = (TextField) incidentReportMap.get("victim(s) / witness(s)");
+				TextArea statement = (TextArea) incidentReportMap.get("statement");
+				
+				TextArea summary = (TextArea) incidentReportMap.get("summary");
+				TextArea notes = (TextArea) incidentReportMap.get("notes");
+				
+				name.setText(toTitleCase(incidentReport.getOfficerName()));
+				incidentnum.setText(incidentReport.getIncidentNumber());
+				rank.setText(toTitleCase(incidentReport.getOfficerRank()));
+				div.setText(toTitleCase(incidentReport.getOfficerDivision()));
+				agen.setText(toTitleCase(incidentReport.getOfficerAgency()));
+				num.setText(toTitleCase(incidentReport.getOfficerNumber()));
+				
+				street.setText(toTitleCase(incidentReport.getIncidentStreet()));
+				area.setValue(toTitleCase(incidentReport.getIncidentArea()));
+				county.setText(toTitleCase(incidentReport.getIncidentCounty()));
+				suspects.setText(toTitleCase(incidentReport.getIncidentWitnesses()));
+				vicwit.setText(toTitleCase(incidentReport.getIncidentVictims()));
+				statement.setText(toTitleCase(incidentReport.getIncidentStatement()));
+
+				date.setText(incidentReport.getIncidentDate());
+				time.setText(incidentReport.getIncidentTime());
+				summary.setText(incidentReport.getIncidentActionsTaken());
+				notes.setText(incidentReport.getIncidentComments());
+				
+				Button pullNotesBtn = (Button) incidentReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				incidentnum.setEditable(false);
+				
+				incidentTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2259,10 +2321,6 @@ public class actionController {
 	
 	public Tab getImpoundTab() {
 		return impoundTab;
-	}
-	
-	public IncidentLogEntry getIncidentEntry() {
-		return incidentEntry;
 	}
 	
 	public MenuItem getIncidentReportButton() {

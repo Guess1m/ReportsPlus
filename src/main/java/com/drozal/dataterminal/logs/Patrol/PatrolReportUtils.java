@@ -169,7 +169,7 @@ public class PatrolReportUtils {
 					}
 				}
 			}
-			// TODO use addCase instead of using the reportlogs
+			//TODO use addCase instead of using the reportlogs
 			
 			PatrolReport patrolReport1 = new PatrolReport();
 			patrolReport1.setPatrolNumber(toTitleCase(patrolnum.getText()));

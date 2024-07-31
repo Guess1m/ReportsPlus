@@ -138,59 +138,6 @@ public class Layouts {
 		return citationReport;
 	}
 	
-	public static Map<String, Object> incidentLayout() {
-		Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null,
-		                                                        new SectionConfig("Officer Information", true,
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("name", 5,
-				                                                                                          FieldType.TEXT_FIELD),
-				                                                                          new FieldConfig("rank", 5,
-				                                                                                          FieldType.TEXT_FIELD),
-				                                                                          new FieldConfig("number", 2,
-				                                                                                          FieldType.TEXT_FIELD)),
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("division", 6,
-				                                                                                          FieldType.TEXT_FIELD),
-				                                                                          new FieldConfig("agency", 6,
-				                                                                                          FieldType.TEXT_FIELD))),
-		                                                        new SectionConfig("Timestamp / Location Information",
-		                                                                          true, new RowConfig(
-				                                                        new FieldConfig("date", 3,
-				                                                                        FieldType.TEXT_FIELD),
-				                                                        new FieldConfig("time", 4,
-				                                                                        FieldType.TEXT_FIELD),
-				                                                        new FieldConfig("incident num", 5,
-				                                                                        FieldType.TEXT_FIELD)),
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("street", 5,
-				                                                                                          FieldType.TEXT_FIELD),
-				                                                                          new FieldConfig("area", 4,
-				                                                                                          FieldType.COMBO_BOX_AREA),
-				                                                                          new FieldConfig("county", 3,
-				                                                                                          FieldType.TEXT_FIELD))),
-		                                                        new SectionConfig("Parties Involved", false,
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("suspect(s)",
-				                                                                                          6,
-				                                                                                          FieldType.TEXT_FIELD),
-				                                                                          new FieldConfig(
-						                                                                          "victim(s) / witness(s)",
-						                                                                          6,
-						                                                                          FieldType.TEXT_FIELD)),
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("statement",
-				                                                                                          12,
-				                                                                                          FieldType.TEXT_AREA))),
-		                                                        new SectionConfig("Notes / Summary", true,
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("summary", 12,
-				                                                                                          FieldType.TEXT_AREA)),
-		                                                                          new RowConfig(
-				                                                                          new FieldConfig("notes", 12,
-				                                                                                          FieldType.TEXT_AREA))));
-		return incidentReport;
-	}
-	
 	public static Map<String, Object> searchLayout() {
 		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
 		                                                      new SectionConfig("Officer Information", true,

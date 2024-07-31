@@ -9,8 +9,7 @@ import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
-import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
-import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
+import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -219,9 +218,10 @@ public class reportCreationUtil {
 		});
 		
 		transferincidentbtn.setOnAction(event -> {
-			Map<String, Object> incidentReport = incidentLayout();
+			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart,
+			                                                                        notesViewController);
 			
-			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
+			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 			
 			TextField nameinc = (TextField) incidentReportMap.get("name");
 			TextField rankinc = (TextField) incidentReportMap.get("rank");
@@ -237,20 +237,7 @@ public class reportCreationUtil {
 			TextField countyinc = (TextField) incidentReportMap.get("county");
 			
 			TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
-			TextField vicwitinc = (TextField) incidentReportMap.get("victim(s) / witness(s)");
-			TextArea statementinc = (TextArea) incidentReportMap.get("statement");
-			
-			TextArea summaryinc = (TextArea) incidentReportMap.get("summary");
 			TextArea notesinc = (TextArea) incidentReportMap.get("notes");
-			
-			BorderPane rootinc = (BorderPane) incidentReport.get("root");
-			Stage stageinc = (Stage) rootinc.getScene().getWindow();
-			
-			if (!stageinc.isFocused()) {
-				stageinc.requestFocus();
-			}
-			
-			Label warningLabelinc = (Label) incidentReport.get("warningLabel");
 			
 			nameinc.setText(officername.getText());
 			divinc.setText(officerdiv.getText());
@@ -265,50 +252,6 @@ public class reportCreationUtil {
 			streetinc.setText(street.getText());
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
-			
-			Button pullNotesBtninc = (Button) incidentReport.get("pullNotesBtn");
-			
-			pullNotesBtninc.setOnAction(event1 -> {
-				if (notesViewController != null) {
-					updateTextFromNotepad(areainc.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-					updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
-					updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
-					updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
-					updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
-					updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
-				} else {
-					log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-				}
-			});
-			
-			Button submitBtninc = (Button) incidentReport.get("submitBtn");
-			
-			submitBtninc.setOnAction(event2 -> {
-				
-				for (String fieldName : incidentReportMap.keySet()) {
-					Object field = incidentReportMap.get(fieldName);
-					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-							comboBox.getSelectionModel().selectFirst();
-						}
-					}
-				}
-				
-				List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
-				
-				logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(),
-				                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
-				                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
-				                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-				                              areainc.getEditor().getText(), countyinc.getText(), summaryinc.getText(),
-				                              notesinc.getText()));
-				IncidentReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
-				stageinc.close();
-			});
 		});
 		
 		transfersearchbtn.setOnAction(event -> {
@@ -859,93 +802,6 @@ public class reportCreationUtil {
 		});
 	}
 	
-	public static void newIncident(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
-		Map<String, Object> incidentReport = incidentLayout();
-		
-		Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
-		
-		TextField name = (TextField) incidentReportMap.get("name");
-		TextField rank = (TextField) incidentReportMap.get("rank");
-		TextField div = (TextField) incidentReportMap.get("division");
-		TextField agen = (TextField) incidentReportMap.get("agency");
-		TextField num = (TextField) incidentReportMap.get("number");
-		
-		TextField incidentnum = (TextField) incidentReportMap.get("incident num");
-		TextField date = (TextField) incidentReportMap.get("date");
-		TextField time = (TextField) incidentReportMap.get("time");
-		TextField street = (TextField) incidentReportMap.get("street");
-		ComboBox area = (ComboBox) incidentReportMap.get("area");
-		TextField county = (TextField) incidentReportMap.get("county");
-		
-		TextField suspects = (TextField) incidentReportMap.get("suspect(s)");
-		TextField vicwit = (TextField) incidentReportMap.get("victim(s) / witness(s)");
-		TextArea statement = (TextArea) incidentReportMap.get("statement");
-		
-		TextArea summary = (TextArea) incidentReportMap.get("summary");
-		TextArea notes = (TextArea) incidentReportMap.get("notes");
-		
-		BorderPane root = (BorderPane) incidentReport.get("root");
-		Stage stage = (Stage) root.getScene().getWindow();
-		
-		Label warningLabel = (Label) incidentReport.get("warningLabel");
-		
-		try {
-			name.setText(ConfigReader.configRead("userInfo", "Name"));
-			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
-			div.setText(ConfigReader.configRead("userInfo", "Division"));
-			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
-			num.setText(ConfigReader.configRead("userInfo", "Number"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		date.setText(getDate());
-		time.setText(getTime());
-		
-		Button pullNotesBtn = (Button) incidentReport.get("pullNotesBtn");
-		
-		pullNotesBtn.setOnAction(event -> {
-			if (notesViewController != null) {
-				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
-				updateTextFromNotepad(vicwit, notesViewController.getNotepadTextArea(), "-name");
-				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
-				updateTextFromNotepad(incidentnum, notesViewController.getNotepadTextArea(), "-number");
-			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-			}
-		});
-		
-		Button submitBtn = (Button) incidentReport.get("submitBtn");
-		
-		submitBtn.setOnAction(event -> {
-			
-			for (String fieldName : incidentReportMap.keySet()) {
-				Object field = incidentReportMap.get(fieldName);
-				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-						comboBox.getSelectionModel().selectFirst();
-					}
-				}
-			}
-			
-			List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
-			
-			logs.add(new IncidentLogEntry(incidentnum.getText(), date.getText(), time.getText(), statement.getText(),
-			                              suspects.getText(), vicwit.getText(), name.getText(), rank.getText(),
-			                              num.getText(), agen.getText(), div.getText(), street.getText(),
-			                              area.getEditor().getText(), county.getText(), summary.getText(),
-			                              notes.getText()));
-			
-			IncidentReportLogs.saveLogsToXML(logs);
-			actionController.needRefresh.set(1);
-			updateChartIfMismatch(reportChart);
-			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
-			stage.close();
-		});
-	}
-	
 	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> searchReport = searchLayout();
 		
@@ -1296,38 +1152,25 @@ public class reportCreationUtil {
 			});
 			
 			transferincidentbtnarr.setOnAction(event3 -> {
-				Map<String, Object> incidentReport = incidentLayout();
+				Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart,
+				                                                                        notesViewController);
 				
-				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport.get("Incident Report Map");
+				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
+						"Incident Report Map");
 				
 				TextField nameinc = (TextField) incidentReportMap.get("name");
 				TextField rankinc = (TextField) incidentReportMap.get("rank");
 				TextField divinc = (TextField) incidentReportMap.get("division");
 				TextField ageninc = (TextField) incidentReportMap.get("agency");
 				TextField officernuminc = (TextField) incidentReportMap.get("number");
-				
 				TextField incidentnum = (TextField) incidentReportMap.get("incident num");
 				TextField dateinc = (TextField) incidentReportMap.get("date");
 				TextField timeinc = (TextField) incidentReportMap.get("time");
 				TextField streetinc = (TextField) incidentReportMap.get("street");
 				ComboBox areainc = (ComboBox) incidentReportMap.get("area");
 				TextField countyinc = (TextField) incidentReportMap.get("county");
-				
 				TextField suspectsinc = (TextField) incidentReportMap.get("suspect(s)");
-				TextField vicwitinc = (TextField) incidentReportMap.get("victim(s) / witness(s)");
-				TextArea statementinc = (TextArea) incidentReportMap.get("statement");
-				
-				TextArea summaryinc = (TextArea) incidentReportMap.get("summary");
 				TextArea notesinc = (TextArea) incidentReportMap.get("notes");
-				
-				BorderPane rootinc = (BorderPane) incidentReport.get("root");
-				Stage stageinc = (Stage) rootinc.getScene().getWindow();
-				
-				if (!stageinc.isFocused()) {
-					stageinc.requestFocus();
-				}
-				
-				Label warningLabelinc = (Label) incidentReport.get("warningLabel");
 				
 				nameinc.setText(officernamearr.getText());
 				divinc.setText(officerdivarr.getText());
@@ -1342,50 +1185,6 @@ public class reportCreationUtil {
 				streetinc.setText(streetarr.getText());
 				suspectsinc.setText(offenderNamearr.getText());
 				notesinc.setText(notesarr.getText());
-				
-				Button pullNotesBtninc = (Button) incidentReport.get("pullNotesBtn");
-				
-				pullNotesBtninc.setOnAction(event1 -> {
-					if (notesViewController != null) {
-						updateTextFromNotepad(areainc.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-						updateTextFromNotepad(countyinc, notesViewController.getNotepadTextArea(), "-county");
-						updateTextFromNotepad(streetinc, notesViewController.getNotepadTextArea(), "-street");
-						updateTextFromNotepad(suspectsinc, notesViewController.getNotepadTextArea(), "-name");
-						updateTextFromNotepad(notesinc, notesViewController.getNotepadTextArea(), "-comments");
-						updateTextFromNotepad(officernuminc, notesViewController.getNotepadTextArea(), "-number");
-					} else {
-						log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-					}
-				});
-				
-				Button submitBtninc = (Button) incidentReport.get("submitBtn");
-				
-				submitBtninc.setOnAction(event2 -> {
-					
-					for (String fieldName : incidentReportMap.keySet()) {
-						Object field = incidentReportMap.get(fieldName);
-						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-								comboBox.getSelectionModel().selectFirst();
-							}
-						}
-					}
-					
-					List<IncidentLogEntry> logs = IncidentReportLogs.loadLogsFromXML();
-					
-					logs.add(new IncidentLogEntry(incidentnum.getText(), dateinc.getText(), timeinc.getText(),
-					                              statementinc.getText(), suspectsinc.getText(), vicwitinc.getText(),
-					                              nameinc.getText(), rankinc.getText(), officernuminc.getText(),
-					                              ageninc.getText(), divinc.getText(), streetinc.getText(),
-					                              areainc.getEditor().getText(), countyinc.getText(),
-					                              summaryinc.getText(), notesinc.getText()));
-					IncidentReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
-					stageinc.close();
-				});
 			});
 			
 			transfersearchbtnarr.setOnAction(event4 -> {

@@ -4,7 +4,7 @@ import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
-import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
+import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -441,62 +441,62 @@ public class InitTableColumns {
 	
 	public static void initializeIncidentColumns(TableView tableview) {
 		
-		TableColumn<IncidentLogEntry, String> incidentNumberColumn = new TableColumn<>("Incident #");
+		TableColumn<IncidentReport, String> incidentNumberColumn = new TableColumn<>("Incident #");
 		incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
 		
-		TableColumn<IncidentLogEntry, String> incidentDateColumn = new TableColumn<>("Date");
+		TableColumn<IncidentReport, String> incidentDateColumn = new TableColumn<>("Date");
 		incidentDateColumn.setCellValueFactory(new PropertyValueFactory<>("incidentDate"));
 		
-		TableColumn<IncidentLogEntry, String> incidentTimeColumn = new TableColumn<>("Time");
+		TableColumn<IncidentReport, String> incidentTimeColumn = new TableColumn<>("Time");
 		incidentTimeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentTime"));
 		
-		TableColumn<IncidentLogEntry, String> incidentStatementColumn = new TableColumn<>("Statement");
+		TableColumn<IncidentReport, String> incidentStatementColumn = new TableColumn<>("Statement");
 		incidentStatementColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStatement"));
 		
-		TableColumn<IncidentLogEntry, String> incidentWitnessesColumn = new TableColumn<>("Suspects");
+		TableColumn<IncidentReport, String> incidentWitnessesColumn = new TableColumn<>("Suspects");
 		incidentWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("incidentWitnesses"));
 		
-		TableColumn<IncidentLogEntry, String> incidentVictimsColumn = new TableColumn<>("Victims/Witnesses");
+		TableColumn<IncidentReport, String> incidentVictimsColumn = new TableColumn<>("Victims/Witnesses");
 		incidentVictimsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentVictims"));
 		
-		TableColumn<IncidentLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+		TableColumn<IncidentReport, String> officerNameColumn = new TableColumn<>("Officer Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<IncidentLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		TableColumn<IncidentReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<IncidentLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+		TableColumn<IncidentReport, String> officerNumberColumn = new TableColumn<>("Officer #");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<IncidentLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		TableColumn<IncidentReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		TableColumn<IncidentLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		TableColumn<IncidentReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<IncidentLogEntry, String> incidentStreetColumn = new TableColumn<>("Street");
+		TableColumn<IncidentReport, String> incidentStreetColumn = new TableColumn<>("Street");
 		incidentStreetColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStreet"));
 		
-		TableColumn<IncidentLogEntry, String> incidentAreaColumn = new TableColumn<>("Area");
+		TableColumn<IncidentReport, String> incidentAreaColumn = new TableColumn<>("Area");
 		incidentAreaColumn.setCellValueFactory(new PropertyValueFactory<>("incidentArea"));
 		
-		TableColumn<IncidentLogEntry, String> incidentCountyColumn = new TableColumn<>("County");
+		TableColumn<IncidentReport, String> incidentCountyColumn = new TableColumn<>("County");
 		incidentCountyColumn.setCellValueFactory(new PropertyValueFactory<>("incidentCounty"));
 		
-		TableColumn<IncidentLogEntry, String> incidentActionsTakenColumn = new TableColumn<>("Details");
+		TableColumn<IncidentReport, String> incidentActionsTakenColumn = new TableColumn<>("Details");
 		incidentActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("incidentActionsTaken"));
 		
-		TableColumn<IncidentLogEntry, String> incidentCommentsColumn = new TableColumn<>("Comments");
+		TableColumn<IncidentReport, String> incidentCommentsColumn = new TableColumn<>("Comments");
 		incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
 		
-		ObservableList<TableColumn<IncidentLogEntry, ?>> incidentColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(
 				incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn,
 				incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn,
 				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
 				incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
 		
 		tableview.getColumns().addAll(incidentColumns);
-		for (TableColumn<IncidentLogEntry, ?> column : incidentColumns) {
+		for (TableColumn<IncidentReport, ?> column : incidentColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(incidentNumberColumn);

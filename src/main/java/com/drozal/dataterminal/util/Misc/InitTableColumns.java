@@ -3,7 +3,7 @@ package com.drozal.dataterminal.util.Misc;
 import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
-import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
+import com.drozal.dataterminal.logs.Impound.ImpoundReport;
 import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchReport;
@@ -128,60 +128,61 @@ public class InitTableColumns {
 		setSmallColumnWidth(numberColumn);
 	}
 	
+	//TODO init columns
 	public static void initializeImpoundColumns(TableView tableview) {
 		
-		TableColumn<ImpoundLogEntry, String> impoundNumberColumn = new TableColumn<>("Impound #");
+		TableColumn<ImpoundReport, String> impoundNumberColumn = new TableColumn<>("Impound #");
 		impoundNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundNumber"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundDateColumn = new TableColumn<>("Impound Date");
+		TableColumn<ImpoundReport, String> impoundDateColumn = new TableColumn<>("Impound Date");
 		impoundDateColumn.setCellValueFactory(new PropertyValueFactory<>("impoundDate"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundTimeColumn = new TableColumn<>("Impound Time");
+		TableColumn<ImpoundReport, String> impoundTimeColumn = new TableColumn<>("Impound Time");
 		impoundTimeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundTime"));
 		
-		TableColumn<ImpoundLogEntry, String> ownerNameColumn = new TableColumn<>("Owner Name");
+		TableColumn<ImpoundReport, String> ownerNameColumn = new TableColumn<>("Owner Name");
 		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
 		
-		TableColumn<ImpoundLogEntry, String> ownerAgeColumn = new TableColumn<>("Owner Age");
+		TableColumn<ImpoundReport, String> ownerAgeColumn = new TableColumn<>("Owner Age");
 		ownerAgeColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAge"));
 		
-		TableColumn<ImpoundLogEntry, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
+		TableColumn<ImpoundReport, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
 		ownerGenderColumn.setCellValueFactory(new PropertyValueFactory<>("ownerGender"));
 		
-		TableColumn<ImpoundLogEntry, String> ownerAddressColumn = new TableColumn<>("Owner Address");
+		TableColumn<ImpoundReport, String> ownerAddressColumn = new TableColumn<>("Owner Address");
 		ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAddress"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundPlateNumberColumn = new TableColumn<>("Veh. Plate #");
+		TableColumn<ImpoundReport, String> impoundPlateNumberColumn = new TableColumn<>("Veh. Plate #");
 		impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundModelColumn = new TableColumn<>("Veh. Model");
+		TableColumn<ImpoundReport, String> impoundModelColumn = new TableColumn<>("Veh. Model");
 		impoundModelColumn.setCellValueFactory(new PropertyValueFactory<>("impoundModel"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundTypeColumn = new TableColumn<>("Veh. Type");
+		TableColumn<ImpoundReport, String> impoundTypeColumn = new TableColumn<>("Veh. Type");
 		impoundTypeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundType"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundColorColumn = new TableColumn<>("Veh. Color");
+		TableColumn<ImpoundReport, String> impoundColorColumn = new TableColumn<>("Veh. Color");
 		impoundColorColumn.setCellValueFactory(new PropertyValueFactory<>("impoundColor"));
 		
-		TableColumn<ImpoundLogEntry, String> impoundCommentsColumn = new TableColumn<>("Comments");
+		TableColumn<ImpoundReport, String> impoundCommentsColumn = new TableColumn<>("Comments");
 		impoundCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("impoundComments"));
 		
-		TableColumn<ImpoundLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		TableColumn<ImpoundReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<ImpoundLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+		TableColumn<ImpoundReport, String> officerNameColumn = new TableColumn<>("Officer Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<ImpoundLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+		TableColumn<ImpoundReport, String> officerNumberColumn = new TableColumn<>("Officer #");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<ImpoundLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		TableColumn<ImpoundReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<ImpoundLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		TableColumn<ImpoundReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ImpoundLogEntry, ?>> impoundColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(
 				impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn,
 				ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn,
 				impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
@@ -189,7 +190,7 @@ public class InitTableColumns {
 		
 		tableview.getColumns().addAll(impoundColumns);
 		
-		for (TableColumn<ImpoundLogEntry, ?> column : impoundColumns) {
+		for (TableColumn<ImpoundReport, ?> column : impoundColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(impoundNumberColumn);

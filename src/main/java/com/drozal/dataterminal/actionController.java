@@ -10,8 +10,9 @@ import com.drozal.dataterminal.logs.Callout.CalloutReports;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReports;
-import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
-import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
+import com.drozal.dataterminal.logs.Impound.ImpoundReport;
+import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
+import com.drozal.dataterminal.logs.Impound.ImpoundReports;
 import com.drozal.dataterminal.logs.Incident.*;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
@@ -71,6 +72,7 @@ import java.util.stream.Collectors;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
+import static com.drozal.dataterminal.logs.Impound.ImpoundReportUtils.newImpound;
 import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncident;
 import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
@@ -497,7 +499,6 @@ public class actionController {
 	private Tab trafficStopTab;
 	@javafx.fxml.FXML
 	private Tab impoundTab;
-	private ImpoundLogEntry impoundEntry;
 	private ArrestLogEntry arrestEntry;
 	private TrafficCitationLogEntry citationEntry;
 	@javafx.fxml.FXML
@@ -982,7 +983,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
-		newImpound(reportChart, areaReportChart, vbox, notesViewController);
+		newImpound(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1639,8 +1640,13 @@ public class actionController {
 	
 	private void loadLogs() {
 		// TODO add new loading for logs
-		List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
-		impoundLogUpdate(impoundLogEntryList);
+		try {
+			ImpoundReports impoundReports = ImpoundReportUtils.loadImpoundReports();
+			List<ImpoundReport> impoundReportslist = impoundReports.getImpoundReportList();
+			impoundLogUpdate(impoundReportslist);
+		} catch (JAXBException e) {
+			logError("Error loading ImpoundReports: ", e);
+		}
 		
 		List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(
 				stringUtil.trafficCitationLogURL);
@@ -1747,9 +1753,11 @@ public class actionController {
 		calloutTable.getItems().addAll(logEntries);
 	}
 	
-	public void impoundLogUpdate(List<ImpoundLogEntry> logEntries) {
+	public void impoundLogUpdate(List<ImpoundReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		impoundTable.getItems().clear();
-		
 		impoundTable.getItems().addAll(logEntries);
 	}
 	
@@ -1936,6 +1944,64 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
+			ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
+			
+			if (impoundReport != null) {
+				
+				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(getReportChart(),
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
+				
+				
+				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
+				
+				TextField officername = (TextField) impoundReportMap.get("name");
+				TextField officerrank = (TextField) impoundReportMap.get("rank");
+				TextField officerdiv = (TextField) impoundReportMap.get("division");
+				TextField officeragen = (TextField) impoundReportMap.get("agency");
+				TextField officernum = (TextField) impoundReportMap.get("number");
+				
+				TextField offenderName = (TextField) impoundReportMap.get("offender name");
+				TextField offenderAge = (TextField) impoundReportMap.get("offender age");
+				TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
+				TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
+				
+				TextField num = (TextField) impoundReportMap.get("citation number");
+				TextField date = (TextField) impoundReportMap.get("date");
+				TextField time = (TextField) impoundReportMap.get("time");
+				
+				ComboBox color = (ComboBox) impoundReportMap.get("color");
+				ComboBox type = (ComboBox) impoundReportMap.get("type");
+				TextField plateNumber = (TextField) impoundReportMap.get("plate number");
+				TextField model = (TextField) impoundReportMap.get("model");
+				
+				TextArea notes = (TextArea) impoundReportMap.get("notes");
+				
+				num.setText(impoundReport.getImpoundNumber());
+				date.setText(impoundReport.getImpoundDate());
+				time.setText(impoundReport.getImpoundTime());
+				officerrank.setText(impoundReport.getOfficerRank());
+				notes.setText(impoundReport.getImpoundComments());
+				plateNumber.setText(impoundReport.getImpoundPlateNumber());
+				
+				offenderName.setText(impoundReport.getOwnerName());
+				officername.setText(impoundReport.getOfficerName());
+				officerdiv.setText(impoundReport.getOfficerDivision());
+				officeragen.setText(impoundReport.getOfficerAgency());
+				officernum.setText(impoundReport.getOfficerNumber());
+				offenderAge.setText(impoundReport.getOwnerAge());
+				offenderGender.setText(impoundReport.getOwnerGender());
+				offenderAddress.setText(impoundReport.getOwnerAddress());
+				color.setValue(impoundReport.getImpoundColor());
+				type.setValue(impoundReport.getImpoundType());
+				model.setText(impoundReport.getImpoundModel());
+				
+				Button pullNotesBtn = (Button) impoundReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				num.setEditable(false);
+				
+				impoundTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2383,10 +2449,6 @@ public class actionController {
 	
 	public Label getGeneratedDateTag() {
 		return generatedDateTag;
-	}
-	
-	public ImpoundLogEntry getImpoundEntry() {
-		return impoundEntry;
 	}
 	
 	public MenuItem getImpoundReportButton() {

@@ -25,7 +25,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutLogURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.impoundLogURL;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
@@ -100,7 +100,7 @@ public class ImpoundReportUtils {
 		return impoundReport;
 	}
 	
-	public static void newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static Map<String, Object>  newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
 		Map<String, Object> impoundReport = impoundLayout();
 		
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -144,6 +144,7 @@ public class ImpoundReportUtils {
 		}
 		date.setText(getDate());
 		time.setText(getTime());
+		num.setText(generateReportNumber());
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
@@ -162,7 +163,6 @@ public class ImpoundReportUtils {
 		
 		Button submitBtn = (Button) impoundReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			
 			for (String fieldName : impoundReportMap.keySet()) {
 				Object field = impoundReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -171,25 +171,43 @@ public class ImpoundReportUtils {
 					}
 				}
 			}
-			List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
 			
-			logs.add(new ImpoundLogEntry(num.getText(), date.getText(), time.getText(), offenderName.getText(),
-			                             offenderAge.getText(), offenderGender.getText(), offenderAddress.getText(),
-			                             plateNumber.getText(), model.getText(), type.getValue().toString(),
-			                             color.getValue().toString(), notes.getText(), officerrank.getText(),
-			                             officername.getText(), officernum.getText(), officerdiv.getText(),
-			                             officeragen.getText()));
-			ImpoundReportLogs.saveLogsToXML(logs);
+			ImpoundReport impoundReport1 = new ImpoundReport();
+			impoundReport1.setImpoundNumber(num.getText());
+			impoundReport1.setImpoundDate(date.getText());
+			impoundReport1.setImpoundTime(time.getText());
+			impoundReport1.setOfficerRank(officerrank.getText());
+			impoundReport1.setImpoundComments(notes.getText());
+			impoundReport1.setImpoundPlateNumber(plateNumber.getText());
+			
+			impoundReport1.setOwnerName(toTitleCase(offenderName.getText()));
+			impoundReport1.setOwnerAge(toTitleCase(offenderAge.getText()));
+			impoundReport1.setOwnerGender(toTitleCase(offenderGender.getText()));
+			impoundReport1.setOwnerAddress(toTitleCase(offenderAddress.getText()));
+			impoundReport1.setImpoundModel(toTitleCase(model.getText()));
+			impoundReport1.setImpoundType(toTitleCase(type.getValue().toString()));
+			impoundReport1.setImpoundColor(toTitleCase(color.getValue().toString()));
+			impoundReport1.setOfficerName(toTitleCase(officername.getText()));
+			impoundReport1.setOfficerNumber(toTitleCase(officernum.getText()));
+			impoundReport1.setOfficerDivision(toTitleCase(officerdiv.getText()));
+			impoundReport1.setOfficerAgency(toTitleCase(officeragen.getText()));
+			try {
+				ImpoundReportUtils.addImpoundReport(impoundReport1);
+			} catch (JAXBException e) {
+				logError("Could not create new ImpoundReport: ",e);
+			}
+			
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 			stage.close();
 		});
+		return impoundReport;
 	}
 	
 	public static ImpoundReports loadImpoundReports() throws JAXBException {
-		File file = new File(calloutLogURL);
+		File file = new File(impoundLogURL);
 		if (!file.exists()) {
 			return new ImpoundReports();
 		}
@@ -209,7 +227,7 @@ public class ImpoundReportUtils {
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		
-		File file = new File(calloutLogURL);
+		File file = new File(impoundLogURL);
 		marshaller.marshal(ImpoundReports, file);
 	}
 	
@@ -221,15 +239,15 @@ public class ImpoundReportUtils {
 		}
 		
 		Optional<ImpoundReport> existingReport = ImpoundReports.getImpoundReportList().stream().filter(
-				e -> e.getCalloutNumber().equals(ImpoundReport.getCalloutNumber())).findFirst();
+				e -> e.getImpoundNumber().equals(ImpoundReport.getImpoundNumber())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			ImpoundReports.getImpoundReportList().remove(existingReport.get());
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
-			log("ImpoundReport with number " + ImpoundReport.getCalloutNumber() + " updated.", LogUtils.Severity.INFO);
+			log("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
-			log("ImpoundReport with number " + ImpoundReport.getCalloutNumber() + " added.", LogUtils.Severity.INFO);
+			log("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " added.", LogUtils.Severity.INFO);
 		}
 		
 		saveImpoundReports(ImpoundReports);
@@ -239,7 +257,7 @@ public class ImpoundReportUtils {
 		ImpoundReports ImpoundReports = loadImpoundReports();
 		
 		if (ImpoundReports.getImpoundReportList() != null) {
-			ImpoundReports.getImpoundReportList().removeIf(e -> e.getCalloutNumber().equals(ImpoundReportnumber));
+			ImpoundReports.getImpoundReportList().removeIf(e -> e.getImpoundNumber().equals(ImpoundReportnumber));
 			saveImpoundReports(ImpoundReports);
 		}
 	}
@@ -249,7 +267,7 @@ public class ImpoundReportUtils {
 		
 		if (ImpoundReports.getImpoundReportList() != null) {
 			return ImpoundReports.getImpoundReportList().stream().filter(
-					e -> e.getCalloutNumber().equals(ImpoundReportnumber)).findFirst();
+					e -> e.getImpoundNumber().equals(ImpoundReportnumber)).findFirst();
 		}
 		
 		return Optional.empty();
@@ -261,7 +279,7 @@ public class ImpoundReportUtils {
 		if (ImpoundReports.getImpoundReportList() != null) {
 			for (int i = 0; i < ImpoundReports.getImpoundReportList().size(); i++) {
 				ImpoundReport e = ImpoundReports.getImpoundReportList().get(i);
-				if (e.getCalloutNumber().equals(number)) {
+				if (e.getImpoundNumber().equals(number)) {
 					ImpoundReports.getImpoundReportList().set(i, updatedImpoundReport);
 					saveImpoundReports(ImpoundReports);
 					return;

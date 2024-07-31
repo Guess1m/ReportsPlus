@@ -7,8 +7,7 @@ import com.drozal.dataterminal.logs.Arrest.ArrestLogEntry;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.CitationsData;
-import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
-import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
+import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -121,9 +120,11 @@ public class reportCreationUtil {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReport = impoundLayout();
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
+			                                                                     areaReportChart,
+			                                                                     notesViewController);
 			
-			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
 			TextField officernameimp = (TextField) impoundReportMap.get("name");
 			TextField officerrankimp = (TextField) impoundReportMap.get("rank");
@@ -140,22 +141,7 @@ public class reportCreationUtil {
 			TextField dateimp = (TextField) impoundReportMap.get("date");
 			TextField timeimp = (TextField) impoundReportMap.get("time");
 			
-			ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
-			ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
-			TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
-			TextField modelimp = (TextField) impoundReportMap.get("model");
-			
 			TextArea notesimp = (TextArea) impoundReportMap.get("notes");
-			
-			BorderPane rootimp = (BorderPane) impoundReport.get("root");
-			Stage stageimp = (Stage) rootimp.getScene().getWindow();
-			
-			if (!stageimp.isFocused()) {
-				stageimp.requestFocus();
-			}
-			
-			Label warningLabelimp = (Label) impoundReport.get("warningLabel");
-			Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
 			
 			officernameimp.setText(officername.getText());
 			officerdivimp.setText(officerdiv.getText());
@@ -170,51 +156,6 @@ public class reportCreationUtil {
 			offenderGenderimp.setText(offenderGender.getText());
 			notesimp.setText(notes.getText());
 			numimp.setText(arrestnum.getText());
-			
-			pullNotesBtnimp.setOnAction(event1 -> {
-				if (notesViewController != null) {
-					updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
-					updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
-					updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
-					updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
-					updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
-					updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
-					updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
-					updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
-				} else {
-					log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-				}
-			});
-			
-			Button submitBtnimp = (Button) impoundReport.get("submitBtn");
-			submitBtnimp.setOnAction(event2 -> {
-				
-				for (String fieldName : impoundReportMap.keySet()) {
-					Object field = impoundReportMap.get(fieldName);
-					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-							comboBox.getSelectionModel().selectFirst();
-						}
-					}
-				}
-				
-				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-				
-				logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-				                             offenderNameimp.getText(), offenderAgeimp.getText(),
-				                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-				                             plateNumberimp.getText(), modelimp.getText(),
-				                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-				                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-				                             officernumimp.getText(), officerdivimp.getText(),
-				                             officeragenimp.getText()));
-				ImpoundReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-				stageimp.close();
-			});
 		});
 		
 		transferincidentbtn.setOnAction(event -> {
@@ -459,9 +400,11 @@ public class reportCreationUtil {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReport = impoundLayout();
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
+			                                                                     areaReportChart,
+			                                                                     notesViewController);
 			
-			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
 			TextField officernameimp = (TextField) impoundReportMap.get("name");
 			TextField officerrankimp = (TextField) impoundReportMap.get("rank");
@@ -485,16 +428,6 @@ public class reportCreationUtil {
 			
 			TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 			
-			BorderPane rootimp = (BorderPane) impoundReport.get("root");
-			Stage stageimp = (Stage) rootimp.getScene().getWindow();
-			
-			if (!stageimp.isFocused()) {
-				stageimp.requestFocus();
-			}
-			
-			Label warningLabelimp = (Label) impoundReport.get("warningLabel");
-			Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
-			
 			officernameimp.setText(officername.getText());
 			officerdivimp.setText(officerdiv.getText());
 			officerrankimp.setText(officerrank.getText());
@@ -512,50 +445,6 @@ public class reportCreationUtil {
 			typeimp.getSelectionModel().select(type.getSelectionModel().getSelectedItem());
 			colorimp.getSelectionModel().select(color.getSelectionModel().getSelectedItem());
 			numimp.setText(num.getText());
-			
-			pullNotesBtnimp.setOnAction(event1 -> {
-				if (notesViewController != null) {
-					updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
-					updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
-					updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
-					updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
-					updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
-					updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
-					updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
-					updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
-				} else {
-					log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-				}
-			});
-			
-			Button submitBtnimp = (Button) impoundReport.get("submitBtn");
-			submitBtnimp.setOnAction(event2 -> {
-				
-				for (String fieldName : impoundReportMap.keySet()) {
-					Object field = impoundReportMap.get(fieldName);
-					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-							comboBox.getSelectionModel().selectFirst();
-						}
-					}
-				}
-				List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-				
-				logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-				                             offenderNameimp.getText(), offenderAgeimp.getText(),
-				                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-				                             plateNumberimp.getText(), modelimp.getText(),
-				                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-				                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-				                             officernumimp.getText(), officerdivimp.getText(),
-				                             officeragenimp.getText()));
-				ImpoundReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-				stageimp.close();
-			});
 		});
 		
 		Button submitBtn = (Button) citationReport.get("submitBtn");
@@ -806,9 +695,11 @@ public class reportCreationUtil {
 			
 			transferimpoundbtnarr.setOnAction(event2 -> {
 				
-				Map<String, Object> impoundReport = impoundLayout();
+				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
+				                                                                     areaReportChart,
+				                                                                     notesViewController);
 				
-				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 				
 				TextField officernameimp = (TextField) impoundReportMap.get("name");
 				TextField officerrankimp = (TextField) impoundReportMap.get("rank");
@@ -832,16 +723,6 @@ public class reportCreationUtil {
 				
 				TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 				
-				BorderPane rootimp = (BorderPane) impoundReport.get("root");
-				Stage stageimp = (Stage) rootimp.getScene().getWindow();
-				
-				if (!stageimp.isFocused()) {
-					stageimp.requestFocus();
-				}
-				
-				Label warningLabelimp = (Label) impoundReport.get("warningLabel");
-				Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
-				
 				officernameimp.setText(officernamearr.getText());
 				officerdivimp.setText(officerdivarr.getText());
 				officerrankimp.setText(officerrankarr.getText());
@@ -855,50 +736,6 @@ public class reportCreationUtil {
 				offenderGenderimp.setText(offenderGenderarr.getText());
 				notesimp.setText(notesarr.getText());
 				numimp.setText(arrestnumarr.getText());
-				
-				pullNotesBtnimp.setOnAction(event1 -> {
-					if (notesViewController != null) {
-						updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
-						updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
-						updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
-						updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
-						updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
-						updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
-						updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
-						updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
-					} else {
-						log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-					}
-				});
-				
-				Button submitBtnimp = (Button) impoundReport.get("submitBtn");
-				submitBtnimp.setOnAction(event3 -> {
-					
-					for (String fieldName : impoundReportMap.keySet()) {
-						Object field = impoundReportMap.get(fieldName);
-						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-								comboBox.getSelectionModel().selectFirst();
-							}
-						}
-					}
-					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-					                             offenderNameimp.getText(), offenderAgeimp.getText(),
-					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(),
-					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-					                             officernumimp.getText(), officerdivimp.getText(),
-					                             officeragenimp.getText()));
-					ImpoundReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-					stageimp.close();
-				});
 			});
 			
 			transferincidentbtnarr.setOnAction(event3 -> {
@@ -1155,9 +992,11 @@ public class reportCreationUtil {
 			
 			transferimpoundbtn.setOnAction(event2 -> {
 				
-				Map<String, Object> impoundReport = impoundLayout();
+				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
+				                                                                     areaReportChart,
+				                                                                     notesViewController);
 				
-				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
+				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 				
 				TextField officernameimp = (TextField) impoundReportMap.get("name");
 				TextField officerrankimp = (TextField) impoundReportMap.get("rank");
@@ -1181,16 +1020,6 @@ public class reportCreationUtil {
 				
 				TextArea notesimp = (TextArea) impoundReportMap.get("notes");
 				
-				BorderPane rootimp = (BorderPane) impoundReport.get("root");
-				Stage stageimp = (Stage) rootimp.getScene().getWindow();
-				
-				if (!stageimp.isFocused()) {
-					stageimp.requestFocus();
-				}
-				
-				Label warningLabelimp = (Label) impoundReport.get("warningLabel");
-				Button pullNotesBtnimp = (Button) impoundReport.get("pullNotesBtn");
-				
 				officernameimp.setText(officernamecit.getText());
 				officerdivimp.setText(officerdivcit.getText());
 				officerrankimp.setText(officerrankcit.getText());
@@ -1208,50 +1037,6 @@ public class reportCreationUtil {
 				typeimp.getSelectionModel().select(typecit.getSelectionModel().getSelectedItem());
 				colorimp.getSelectionModel().select(colorcit.getSelectionModel().getSelectedItem());
 				numimp.setText(numcit.getText());
-				
-				pullNotesBtnimp.setOnAction(event1 -> {
-					if (notesViewController != null) {
-						updateTextFromNotepad(offenderNameimp, notesViewController.getNotepadTextArea(), "-name");
-						updateTextFromNotepad(offenderAgeimp, notesViewController.getNotepadTextArea(), "-age");
-						updateTextFromNotepad(offenderGenderimp, notesViewController.getNotepadTextArea(), "-gender");
-						updateTextFromNotepad(notesimp, notesViewController.getNotepadTextArea(), "-comments");
-						updateTextFromNotepad(offenderAddressimp, notesViewController.getNotepadTextArea(), "-address");
-						updateTextFromNotepad(modelimp, notesViewController.getNotepadTextArea(), "-model");
-						updateTextFromNotepad(plateNumberimp, notesViewController.getNotepadTextArea(), "-plate");
-						updateTextFromNotepad(numimp, notesViewController.getNotepadTextArea(), "-number");
-					} else {
-						log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-					}
-				});
-				
-				Button submitBtnimp = (Button) impoundReport.get("submitBtn");
-				submitBtnimp.setOnAction(event3 -> {
-					
-					for (String fieldName : impoundReportMap.keySet()) {
-						Object field = impoundReportMap.get(fieldName);
-						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-								comboBox.getSelectionModel().selectFirst();
-							}
-						}
-					}
-					List<ImpoundLogEntry> logs = ImpoundReportLogs.loadLogsFromXML();
-					
-					logs.add(new ImpoundLogEntry(numimp.getText(), dateimp.getText(), timeimp.getText(),
-					                             offenderNameimp.getText(), offenderAgeimp.getText(),
-					                             offenderGenderimp.getText(), offenderAddressimp.getText(),
-					                             plateNumberimp.getText(), modelimp.getText(),
-					                             typeimp.getValue().toString(), colorimp.getValue().toString(),
-					                             notesimp.getText(), officerrankimp.getText(), officernameimp.getText(),
-					                             officernumimp.getText(), officerdivimp.getText(),
-					                             officeragenimp.getText()));
-					ImpoundReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-					stageimp.close();
-				});
 			});
 			transferimpoundbtn.setText("New Impound Report");
 			

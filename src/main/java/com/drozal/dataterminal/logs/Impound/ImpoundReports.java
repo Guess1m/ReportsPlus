@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Impound;
 
-import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -8,18 +7,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "calloutReportLogs")
+@XmlRootElement(name = "impoundReportLogs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ImpoundReports {
 	
 	@XmlElement(name = "logs")
-	private List<CalloutReport> calloutReportList;
+	private List<ImpoundReport> ImpoundReportList;
 	
-	public List<CalloutReport> getCalloutReportList() {
-		return calloutReportList;
+	public List<ImpoundReport> getImpoundReportList() {
+		return ImpoundReportList;
 	}
 	
-	public void setCalloutReportList(List<CalloutReport> calloutReportList) {
-		this.calloutReportList = calloutReportList;
+	public void setImpoundReportList(List<ImpoundReport> ImpoundReportList) {
+		this.ImpoundReportList = ImpoundReportList;
 	}
 }

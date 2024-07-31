@@ -7,7 +7,7 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
-import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
+import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
@@ -607,7 +607,7 @@ public class controllerUtils {
 					case 3 -> PatrolReportUtils.countReports();
 					case 4 -> SearchReportUtils.countReports();
 					case 5 -> IncidentReportUtils.countReports();
-					case 6 -> ImpoundReportLogs.countReports();
+					case 6 -> ImpoundReportUtils.countReports();
 					case 7 -> TrafficCitationReportLogs.countReports();
 					case 8 -> DeathReportUtils.countReports();
 					default -> 0;

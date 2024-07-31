@@ -11,7 +11,10 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -48,54 +51,75 @@ public class IncidentReportUtils {
 	
 	public static Map<String, Object> incidentLayout() {
 		Map<String, Object> incidentReport = createReportWindow("Incident Report", 5, 7, null,
-		                                                        new nestedReportUtils.SectionConfig("Officer Information", true,
+		                                                        new nestedReportUtils.SectionConfig(
+				                                                        "Officer Information", true,
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "name", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "rank", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "number", 2,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "division", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "agency", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.SectionConfig(
+				                                                        "Timestamp / Location Information", true,
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "date", 3,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "time", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "incident num", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "street", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "area", 4,
+								                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "county", 3,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.SectionConfig("Parties Involved",
+		                                                                                            false,
 		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("name", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("rank", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("number", 2,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("division", 6,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("agency", 6,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Timestamp / Location Information",
-		                                                                                            true, new nestedReportUtils.RowConfig(
-				                                                        new nestedReportUtils.FieldConfig("date", 3,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                        new nestedReportUtils.FieldConfig("time", 4,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                        new nestedReportUtils.FieldConfig("incident num", 5,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("street", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("area", 4,
-				                                                                                                                              nestedReportUtils.FieldType.COMBO_BOX_AREA),
-				                                                                                            new nestedReportUtils.FieldConfig("county", 3,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Parties Involved", false,
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("suspect(s)",
-				                                                                                                                              6,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "suspect(s)",
+						                                                                                            6,
+						                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                                                            new nestedReportUtils.FieldConfig(
 						                                                                                            "victim(s) / witness(s)",
 						                                                                                            6,
 						                                                                                            nestedReportUtils.FieldType.TEXT_FIELD)),
 		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("statement",
-				                                                                                                                              12,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_AREA))),
-		                                                        new nestedReportUtils.SectionConfig("Notes / Summary", true,
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "statement",
+						                                                                                            12,
+						                                                                                            nestedReportUtils.FieldType.TEXT_AREA))),
+		                                                        new nestedReportUtils.SectionConfig("Notes / Summary",
+		                                                                                            true,
 		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("summary", 12,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_AREA)),
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "summary",
+						                                                                                            12,
+						                                                                                            nestedReportUtils.FieldType.TEXT_AREA)),
 		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("notes", 12,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_AREA))));
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "notes",
+						                                                                                            12,
+						                                                                                            nestedReportUtils.FieldType.TEXT_AREA))));
 		return incidentReport;
 	}
 	
@@ -187,7 +211,7 @@ public class IncidentReportUtils {
 			try {
 				IncidentReportUtils.addIncidentReport(incidentReport1);
 			} catch (JAXBException e) {
-				logError("Error creating IncidentReport: ",e);
+				logError("Error creating IncidentReport: ", e);
 			}
 			
 			actionController.needRefresh.set(1);
@@ -237,7 +261,8 @@ public class IncidentReportUtils {
 		if (existingReport.isPresent()) {
 			IncidentReports.getIncidentReportList().remove(existingReport.get());
 			IncidentReports.getIncidentReportList().add(IncidentReport);
-			log("IncidentReport with number " + IncidentReport.getIncidentNumber() + " updated.", LogUtils.Severity.INFO);
+			log("IncidentReport with number " + IncidentReport.getIncidentNumber() + " updated.",
+			    LogUtils.Severity.INFO);
 		} else {
 			IncidentReports.getIncidentReportList().add(IncidentReport);
 			log("IncidentReport with number " + IncidentReport.getIncidentNumber() + " added.", LogUtils.Severity.INFO);

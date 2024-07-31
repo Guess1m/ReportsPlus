@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
-import static com.drozal.dataterminal.logs.Search.SearchReportUtils.searchLayout;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -120,8 +119,7 @@ public class reportCreationUtil {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
-			                                                                     areaReportChart,
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
 			                                                                     notesViewController);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
@@ -400,8 +398,7 @@ public class reportCreationUtil {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
-			                                                                     areaReportChart,
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
 			                                                                     notesViewController);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
@@ -695,8 +692,7 @@ public class reportCreationUtil {
 			
 			transferimpoundbtnarr.setOnAction(event2 -> {
 				
-				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
-				                                                                     areaReportChart,
+				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
 				                                                                     notesViewController);
 				
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
@@ -992,8 +988,7 @@ public class reportCreationUtil {
 			
 			transferimpoundbtn.setOnAction(event2 -> {
 				
-				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart,
-				                                                                     areaReportChart,
+				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
 				                                                                     notesViewController);
 				
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");

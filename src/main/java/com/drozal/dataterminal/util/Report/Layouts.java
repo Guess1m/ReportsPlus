@@ -8,7 +8,6 @@ import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class Layouts {
 	
-	
 	public static Map<String, Object> citationLayout() {
 		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
 		                                                        new TransferConfig("Transfer Information To New Report",

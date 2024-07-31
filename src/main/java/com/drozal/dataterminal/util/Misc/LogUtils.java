@@ -81,7 +81,7 @@ public class LogUtils {
 		System.err.println(errorMessage);
 		e.printStackTrace(System.err);
 		System.err.println("***");
-		showNotificationWarning("ERROR", "ERROR: "+message, mainRT);
+		showNotificationWarning("ERROR", "ERROR: " + message, mainRT);
 	}
 	
 	private static void readLogFile(String filePath, ObservableList<TextFlow> logItems) {

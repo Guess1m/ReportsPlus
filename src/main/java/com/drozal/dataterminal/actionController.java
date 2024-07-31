@@ -13,11 +13,15 @@ import com.drozal.dataterminal.logs.Death.DeathReports;
 import com.drozal.dataterminal.logs.Impound.ImpoundReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReports;
-import com.drozal.dataterminal.logs.Incident.*;
+import com.drozal.dataterminal.logs.Incident.IncidentReport;
+import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
+import com.drozal.dataterminal.logs.Incident.IncidentReports;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReports;
-import com.drozal.dataterminal.logs.Search.*;
+import com.drozal.dataterminal.logs.Search.SearchReport;
+import com.drozal.dataterminal.logs.Search.SearchReportUtils;
+import com.drozal.dataterminal.logs.Search.SearchReports;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
@@ -53,7 +57,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -1831,9 +1834,8 @@ public class actionController {
 			if (patrolReport != null) {
 				
 				Map<String, Object> patrolReportObj = PatrolReportUtils.newPatrol(getReportChart(),
-				                                                                     getAreaReportChart(),
-				                                                                     notesViewController);
-				
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
 				
 				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get("Patrol Report Map");
 				
@@ -1887,11 +1889,11 @@ public class actionController {
 			if (incidentReport != null) {
 				
 				Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
+				                                                                        getAreaReportChart(),
+				                                                                        notesViewController);
 				
-				
-				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
+				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
+						"Incident Report Map");
 				
 				TextField name = (TextField) incidentReportMap.get("name");
 				TextField rank = (TextField) incidentReportMap.get("rank");
@@ -1926,7 +1928,7 @@ public class actionController {
 				suspects.setText(toTitleCase(incidentReport.getIncidentWitnesses()));
 				vicwit.setText(toTitleCase(incidentReport.getIncidentVictims()));
 				statement.setText(toTitleCase(incidentReport.getIncidentStatement()));
-
+				
 				date.setText(incidentReport.getIncidentDate());
 				time.setText(incidentReport.getIncidentTime());
 				summary.setText(incidentReport.getIncidentActionsTaken());
@@ -1949,9 +1951,8 @@ public class actionController {
 			if (impoundReport != null) {
 				
 				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
-				
+				                                                                     getAreaReportChart(),
+				                                                                     notesViewController);
 				
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 				
@@ -2019,9 +2020,8 @@ public class actionController {
 			if (searchReport != null) {
 				
 				Map<String, Object> searchReportObj = SearchReportUtils.newSearch(getReportChart(),
-				                                                                        getAreaReportChart(),
-				                                                                        notesViewController);
-				
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
 				
 				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 				

@@ -11,7 +11,10 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -49,64 +52,100 @@ public class SearchReportUtils {
 	
 	public static Map<String, Object> searchLayout() {
 		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
-		                                                      new nestedReportUtils.SectionConfig("Officer Information", true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5,
-		                                                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig("rank", 5,
-		                                                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig("number",
-		                                                                                                                                                            2,
-		                                                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                      new nestedReportUtils.SectionConfig("Officer Information",
+		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig("division", 6,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig("agency", 6,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Timestamp / Location Information",
-		                                                                                          true, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig("date", 3, nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig("time", 4, nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig("search num", 5,
-				                                                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "name",
+						                                                                                          5,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "rank",
+						                                                                                          5,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "number",
+						                                                                                          2,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
 		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig("street", 5,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig("area", 4,
-				                                                                                                                            nestedReportUtils.FieldType.COMBO_BOX_AREA),
-				                                                                                          new nestedReportUtils.FieldConfig("county", 3,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Search Information", true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                          "grounds for search", 6,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(
-				                                                                                                                          "witness(s)", 6,
-				                                                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                          "searched individual", 12,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "division",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "agency",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                      new nestedReportUtils.SectionConfig(
+				                                                      "Timestamp / Location Information", true,
+				                                                      new nestedReportUtils.RowConfig(
+						                                                      new nestedReportUtils.FieldConfig("date",
+						                                                                                        3,
+						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                      new nestedReportUtils.FieldConfig("time",
+						                                                                                        4,
+						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      "search num", 5,
+								                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                      new nestedReportUtils.RowConfig(
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      "street", 5,
+								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                      new nestedReportUtils.FieldConfig("area",
+						                                                                                        4,
+						                                                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      "county", 3,
+								                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                      new nestedReportUtils.SectionConfig("Search Information",
+		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig("search type",
-				                                                                                                                            6,
-				                                                                                                                            nestedReportUtils.FieldType.COMBO_BOX_SEARCH_TYPE),
-				                                                                                          new nestedReportUtils.FieldConfig("search method",
-				                                                                                                                            6,
-				                                                                                                                            nestedReportUtils.FieldType.COMBO_BOX_SEARCH_METHOD))),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "grounds for search",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "witness(s)",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                                                          new nestedReportUtils.RowConfig(
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "searched individual",
+						                                                                                          12,
+						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                                                          new nestedReportUtils.RowConfig(
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "search type",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.COMBO_BOX_SEARCH_TYPE),
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "search method",
+						                                                                                          6,
+						                                                                                          nestedReportUtils.FieldType.COMBO_BOX_SEARCH_METHOD))),
 		                                                      new nestedReportUtils.SectionConfig(
 				                                                      "Field Sobriety Information (If Applicable)",
 				                                                      false, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig("test(s) conducted", 4,
-				                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                      new nestedReportUtils.FieldConfig(
+						                                                      "test(s) conducted", 4,
+						                                                      nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                      new nestedReportUtils.FieldConfig("result", 4,
 				                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig("bac measurement", 4,
-				                                                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Notes / Summary", true, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig("seized item(s)", 12,
-				                                                                                        nestedReportUtils.FieldType.TEXT_AREA)),
+				                                                      new nestedReportUtils.FieldConfig(
+						                                                      "bac measurement", 4,
+						                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                      new nestedReportUtils.SectionConfig("Notes / Summary",
+		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig("comments", 12,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_AREA))));
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "seized item(s)",
+						                                                                                          12,
+						                                                                                          nestedReportUtils.FieldType.TEXT_AREA)),
+		                                                                                          new nestedReportUtils.RowConfig(
+				                                                                                          new nestedReportUtils.FieldConfig(
+						                                                                                          "comments",
+						                                                                                          12,
+						                                                                                          nestedReportUtils.FieldType.TEXT_AREA))));
 		return searchReport;
 	}
 	
@@ -212,7 +251,7 @@ public class SearchReportUtils {
 			try {
 				SearchReportUtils.addSearchReport(searchReport1);
 			} catch (JAXBException e) {
-				logError("Error creating SearchReport: ",e);
+				logError("Error creating SearchReport: ", e);
 			}
 			
 			actionController.needRefresh.set(1);

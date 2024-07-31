@@ -200,6 +200,7 @@ public class PatrolReportUtils {
 		});
 		return patrolReport;
 	}
+	
 	// TODO change url
 	public static PatrolReports loadPatrolReports() throws JAXBException {
 		File file = new File(patrolLogURL);

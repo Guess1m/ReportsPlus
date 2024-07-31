@@ -7,7 +7,6 @@ import com.drozal.dataterminal.logs.Impound.ImpoundReport;
 import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchReport;
-import com.drozal.dataterminal.logs.Search.SearchReport;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import javafx.collections.FXCollections;
@@ -20,6 +19,7 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.setSmallColumnWi
 
 public class InitTableColumns {
 	static double minColumnWidth = 185.0;
+	
 	//TODO change initcolumns
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
@@ -128,7 +128,6 @@ public class InitTableColumns {
 		setSmallColumnWidth(numberColumn);
 	}
 	
-	//TODO init columns
 	public static void initializeImpoundColumns(TableView tableview) {
 		
 		TableColumn<ImpoundReport, String> impoundNumberColumn = new TableColumn<>("Impound #");

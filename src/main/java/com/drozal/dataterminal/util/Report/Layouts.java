@@ -8,59 +8,6 @@ import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class Layouts {
 	
-	public static Map<String, Object> impoundLayout() {
-		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
-		                                                       new SectionConfig("Officer Information", true,
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("name", 5,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("rank", 5,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("number", 2,
-				                                                                                         FieldType.TEXT_FIELD)),
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("division", 6,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("agency", 6,
-				                                                                                         FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Location / Timestamp Information",
-		                                                                         true, new RowConfig(
-				                                                       new FieldConfig("date", 5, FieldType.TEXT_FIELD),
-				                                                       new FieldConfig("time", 5, FieldType.TEXT_FIELD),
-				                                                       new FieldConfig("citation number", 2,
-				                                                                       FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Offender Information", true,
-		                                                                         new RowConfig(new FieldConfig(
-				                                                                         "offender name", 4,
-				                                                                         FieldType.TEXT_FIELD),
-		                                                                                       new FieldConfig(
-				                                                                                       "offender age",
-				                                                                                       4,
-				                                                                                       FieldType.TEXT_FIELD),
-		                                                                                       new FieldConfig(
-				                                                                                       "offender gender",
-				                                                                                       4,
-				                                                                                       FieldType.TEXT_FIELD)),
-		                                                                         new RowConfig(new FieldConfig(
-				                                                                         "offender address", 12,
-				                                                                         FieldType.TEXT_FIELD))),
-		                                                       new SectionConfig("Offender Vehicle Information", true,
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("model", 6,
-				                                                                                         FieldType.TEXT_FIELD),
-				                                                                         new FieldConfig("plate number",
-				                                                                                         6,
-				                                                                                         FieldType.TEXT_FIELD)),
-		                                                                         new RowConfig(
-				                                                                         new FieldConfig("type", 7,
-				                                                                                         FieldType.COMBO_BOX_TYPE),
-				                                                                         new FieldConfig("color", 5,
-				                                                                                         FieldType.COMBO_BOX_COLOR))),
-		                                                       new SectionConfig("Citation Notes", true, new RowConfig(
-				                                                       new FieldConfig("notes", 12,
-				                                                                       FieldType.TEXT_AREA))));
-		return impoundReport;
-	}
 	
 	public static Map<String, Object> citationLayout() {
 		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
@@ -137,7 +84,6 @@ public class Layouts {
 				                                                                        FieldType.CITATION_TREE_VIEW))));
 		return citationReport;
 	}
-	
 	
 	public static Map<String, Object> arrestLayout() {
 		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,

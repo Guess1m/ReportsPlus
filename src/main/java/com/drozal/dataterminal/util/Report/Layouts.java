@@ -62,43 +62,6 @@ public class Layouts {
 		return impoundReport;
 	}
 	
-	public static Map<String, Object> patrolLayout() {
-		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
-		                                                      new SectionConfig("Officer Information", true,
-		                                                                        new RowConfig(new FieldConfig("name", 5,
-		                                                                                                      FieldType.TEXT_FIELD),
-		                                                                                      new FieldConfig("rank", 5,
-		                                                                                                      FieldType.TEXT_FIELD),
-		                                                                                      new FieldConfig("number",
-		                                                                                                      2,
-		                                                                                                      FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("division", 6,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("agency", 6,
-				                                                                                        FieldType.TEXT_FIELD))),
-		                                                      new SectionConfig("Shift Information", true,
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("starttime", 3,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("stoptime", 4,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("patrolnumber",
-				                                                                                        5,
-				                                                                                        FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("length", 3,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("date", 3,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("vehicle", 6,
-				                                                                                        FieldType.TEXT_FIELD))),
-		                                                      new SectionConfig("Callout Notes", true, new RowConfig(
-				                                                      new FieldConfig("notes", 12,
-				                                                                      FieldType.TEXT_AREA))));
-		return patrolReport;
-	}
-	
 	public static Map<String, Object> citationLayout() {
 		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
 		                                                        new TransferConfig("Transfer Information To New Report",

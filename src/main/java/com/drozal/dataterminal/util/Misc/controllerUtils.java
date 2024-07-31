@@ -9,7 +9,7 @@ import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
+import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
@@ -600,10 +600,11 @@ public class controllerUtils {
 			for (int i = 0; i < series.getData().size(); i++) {
 				XYChart.Data<String, Number> data = series.getData().get(i);
 				int reportsCount = switch (i) {
+					// TODO add new countReports method from util class
 					case 0 -> CalloutReportUtils.countReports();
 					case 1 -> ArrestReportLogs.countReports();
 					case 2 -> TrafficStopReportLogs.countReports();
-					case 3 -> PatrolReportLogs.countReports();
+					case 3 -> PatrolReportUtils.countReports();
 					case 4 -> SearchReportLogs.countReports();
 					case 5 -> IncidentReportLogs.countReports();
 					case 6 -> ImpoundReportLogs.countReports();

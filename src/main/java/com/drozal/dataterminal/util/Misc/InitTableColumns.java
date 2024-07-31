@@ -5,7 +5,7 @@ import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
-import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
+import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
@@ -19,6 +19,7 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.setSmallColumnWi
 
 public class InitTableColumns {
 	static double minColumnWidth = 185.0;
+	//TODO change initcolumns
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
 		TableColumn<DeathReport, String> notesColumn = new TableColumn<>("Notes");
@@ -203,50 +204,50 @@ public class InitTableColumns {
 	
 	public static void initializePatrolColumns(TableView tableview) {
 		
-		TableColumn<PatrolLogEntry, String> patrolNumberColumn = new TableColumn<>("Patrol #");
+		TableColumn<PatrolReport, String> patrolNumberColumn = new TableColumn<>("Patrol #");
 		patrolNumberColumn.setCellValueFactory(new PropertyValueFactory<>("patrolNumber"));
 		
-		TableColumn<PatrolLogEntry, String> patrolDateColumn = new TableColumn<>("Date");
+		TableColumn<PatrolReport, String> patrolDateColumn = new TableColumn<>("Date");
 		patrolDateColumn.setCellValueFactory(new PropertyValueFactory<>("patrolDate"));
 		
-		TableColumn<PatrolLogEntry, String> patrolLengthColumn = new TableColumn<>("Length");
+		TableColumn<PatrolReport, String> patrolLengthColumn = new TableColumn<>("Length");
 		patrolLengthColumn.setCellValueFactory(new PropertyValueFactory<>("patrolLength"));
 		
-		TableColumn<PatrolLogEntry, String> patrolStartTimeColumn = new TableColumn<>("Start Time");
+		TableColumn<PatrolReport, String> patrolStartTimeColumn = new TableColumn<>("Start Time");
 		patrolStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStartTime"));
 		
-		TableColumn<PatrolLogEntry, String> patrolStopTimeColumn = new TableColumn<>("Stop Time");
+		TableColumn<PatrolReport, String> patrolStopTimeColumn = new TableColumn<>("Stop Time");
 		patrolStopTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStopTime"));
 		
-		TableColumn<PatrolLogEntry, String> officerRankColumn = new TableColumn<>("Rank");
+		TableColumn<PatrolReport, String> officerRankColumn = new TableColumn<>("Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<PatrolLogEntry, String> officerNameColumn = new TableColumn<>("Name");
+		TableColumn<PatrolReport, String> officerNameColumn = new TableColumn<>("Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<PatrolLogEntry, String> officerNumberColumn = new TableColumn<>("Number");
+		TableColumn<PatrolReport, String> officerNumberColumn = new TableColumn<>("Number");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<PatrolLogEntry, String> officerDivisionColumn = new TableColumn<>("Division");
+		TableColumn<PatrolReport, String> officerDivisionColumn = new TableColumn<>("Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<PatrolLogEntry, String> officerAgencyColumn = new TableColumn<>("Agency");
+		TableColumn<PatrolReport, String> officerAgencyColumn = new TableColumn<>("Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		TableColumn<PatrolLogEntry, String> officerVehicleColumn = new TableColumn<>("Vehicle");
+		TableColumn<PatrolReport, String> officerVehicleColumn = new TableColumn<>("Vehicle");
 		officerVehicleColumn.setCellValueFactory(new PropertyValueFactory<>("officerVehicle"));
 		
-		TableColumn<PatrolLogEntry, String> patrolCommentsColumn = new TableColumn<>("Comments");
+		TableColumn<PatrolReport, String> patrolCommentsColumn = new TableColumn<>("Comments");
 		patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 		
-		ObservableList<TableColumn<PatrolLogEntry, ?>> patrolColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(
 				patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn,
 				officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn,
 				officerVehicleColumn, patrolCommentsColumn);
 		
 		tableview.getColumns().addAll(patrolColumns);
 		
-		for (TableColumn<PatrolLogEntry, ?> column : patrolColumns) {
+		for (TableColumn<PatrolReport, ?> column : patrolColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(patrolNumberColumn);

@@ -14,8 +14,9 @@ import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
-import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
+import com.drozal.dataterminal.logs.Patrol.PatrolReport;
+import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
+import com.drozal.dataterminal.logs.Patrol.PatrolReports;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -53,6 +54,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -71,6 +73,7 @@ import java.util.stream.Collectors;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
+import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -435,7 +438,6 @@ public class actionController {
 	AnchorPane titlebar;
 	@javafx.fxml.FXML
 	private Label secondaryColor3Bkg;
-	private PatrolLogEntry patrolEntry;
 	private TrafficStopLogEntry trafficStopEntry;
 	@javafx.fxml.FXML
 	private Label secondaryColor4Bkg;
@@ -977,7 +979,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onPatrolButtonClick(ActionEvent actionEvent) {
-		newPatrol(reportChart, areaReportChart, vbox, notesViewController);
+		newPatrol(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1638,7 +1640,7 @@ public class actionController {
 	}
 	
 	private void loadLogs() {
-		
+		// TODO add new loading for logs
 		List<ImpoundLogEntry> impoundLogEntryList = ImpoundReportLogs.extractLogEntries(stringUtil.impoundLogURL);
 		impoundLogUpdate(impoundLogEntryList);
 		
@@ -1646,8 +1648,13 @@ public class actionController {
 				stringUtil.trafficCitationLogURL);
 		citationLogUpdate(citationLogEntryList);
 		
-		List<PatrolLogEntry> patrolLogEntryList = PatrolReportLogs.extractLogEntries(stringUtil.patrolLogURL);
-		patrolLogUpdate(patrolLogEntryList);
+		try {
+			PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
+			List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
+			patrolLogUpdate(patrolReportList);
+		} catch (JAXBException e) {
+			logError("Error loading PatrolReports: ", e);
+		}
 		
 		List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
 		arrestLogUpdate(arrestLogEntryList);
@@ -1679,13 +1686,18 @@ public class actionController {
 		}
 	}
 	
+	// TODO add new log update
+	
 	public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
 		
 		citationTable.getItems().clear();
 		citationTable.getItems().addAll(logEntries);
 	}
 	
-	public void patrolLogUpdate(List<PatrolLogEntry> logEntries) {
+	public void patrolLogUpdate(List<PatrolReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		
 		patrolTable.getItems().clear();
 		patrolTable.getItems().addAll(logEntries);
@@ -1738,6 +1750,7 @@ public class actionController {
 		deathReportTable.getItems().addAll(logEntries);
 	}
 	
+	//TODO add new row click
 	@javafx.fxml.FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
@@ -1793,7 +1806,49 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-		
+			PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
+			
+			if (patrolReport != null) {
+				
+				Map<String, Object> patrolReportObj = PatrolReportUtils.newPatrol(getReportChart(),
+				                                                                     getAreaReportChart(),
+				                                                                     notesViewController);
+				
+				
+				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get("Patrol Report Map");
+				
+				TextField name = (TextField) patrolReportMap.get("name");
+				TextField rank = (TextField) patrolReportMap.get("rank");
+				TextField div = (TextField) patrolReportMap.get("division");
+				TextField agen = (TextField) patrolReportMap.get("agency");
+				TextField num = (TextField) patrolReportMap.get("number");
+				TextField patrolnum = (TextField) patrolReportMap.get("patrolnumber");
+				TextArea notes = (TextArea) patrolReportMap.get("notes");
+				TextField date = (TextField) patrolReportMap.get("date");
+				TextField starttime = (TextField) patrolReportMap.get("starttime");
+				TextField stoptime = (TextField) patrolReportMap.get("stoptime");
+				TextField length = (TextField) patrolReportMap.get("length");
+				TextField vehicle = (TextField) patrolReportMap.get("vehicle");
+				
+				name.setText(toTitleCase(patrolReport.getOfficerName()));
+				patrolnum.setText(toTitleCase(patrolReport.getPatrolNumber()));
+				rank.setText(toTitleCase(patrolReport.getOfficerRank()));
+				div.setText(toTitleCase(patrolReport.getOfficerDivision()));
+				agen.setText(toTitleCase(patrolReport.getOfficerAgency()));
+				num.setText(toTitleCase(patrolReport.getOfficerNumber()));
+				date.setText(patrolReport.getPatrolDate());
+				starttime.setText(patrolReport.getPatrolStartTime());
+				stoptime.setText(patrolReport.getPatrolStopTime());
+				length.setText(toTitleCase(patrolReport.getPatrolLength()));
+				vehicle.setText(toTitleCase(patrolReport.getOfficerVehicle()));
+				notes.setText(patrolReport.getPatrolComments());
+				
+				Button pullNotesBtn = (Button) patrolReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				patrolnum.setEditable(false);
+				
+				patrolTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2244,10 +2299,6 @@ public class actionController {
 	
 	public NotesViewController getNotesViewController() {
 		return notesViewController;
-	}
-	
-	public PatrolLogEntry getPatrolEntry() {
-		return patrolEntry;
 	}
 	
 	public MenuItem getPatrolReportButton() {

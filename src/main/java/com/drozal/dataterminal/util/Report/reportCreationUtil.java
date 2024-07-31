@@ -11,8 +11,6 @@ import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.Patrol.PatrolLogEntry;
-import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
 import com.drozal.dataterminal.logs.Search.SearchLogEntry;
 import com.drozal.dataterminal.logs.Search.SearchReportLogs;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
@@ -592,81 +590,6 @@ public class reportCreationUtil {
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
 			showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-			stage.close();
-		});
-	}
-	
-	public static void newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
-		Map<String, Object> patrolReport = patrolLayout();
-		
-		Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport.get("Patrol Report Map");
-		
-		TextField name = (TextField) patrolReportMap.get("name");
-		TextField rank = (TextField) patrolReportMap.get("rank");
-		TextField div = (TextField) patrolReportMap.get("division");
-		TextField agen = (TextField) patrolReportMap.get("agency");
-		TextField num = (TextField) patrolReportMap.get("number");
-		TextField patrolnum = (TextField) patrolReportMap.get("patrolnumber");
-		TextArea notes = (TextArea) patrolReportMap.get("notes");
-		TextField date = (TextField) patrolReportMap.get("date");
-		TextField starttime = (TextField) patrolReportMap.get("starttime");
-		TextField stoptime = (TextField) patrolReportMap.get("stoptime");
-		TextField length = (TextField) patrolReportMap.get("length");
-		TextField vehicle = (TextField) patrolReportMap.get("vehicle");
-		
-		BorderPane root = (BorderPane) patrolReport.get("root");
-		Stage stage = (Stage) root.getScene().getWindow();
-		
-		Label warningLabel = (Label) patrolReport.get("warningLabel");
-		
-		try {
-			name.setText(ConfigReader.configRead("userInfo", "Name"));
-			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
-			div.setText(ConfigReader.configRead("userInfo", "Division"));
-			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
-			num.setText(ConfigReader.configRead("userInfo", "Number"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		stoptime.setText(getTime());
-		date.setText(getDate());
-		
-		Button pullNotesBtn = (Button) patrolReport.get("pullNotesBtn");
-		
-		pullNotesBtn.setOnAction(event -> {
-			if (notesViewController != null) {
-				updateTextFromNotepad(patrolnum, notesViewController.getNotepadTextArea(), "-number");
-				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
-			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-			}
-		});
-		
-		Button submitBtn = (Button) patrolReport.get("submitBtn");
-		
-		submitBtn.setOnAction(event -> {
-			
-			for (String fieldName : patrolReportMap.keySet()) {
-				Object field = patrolReportMap.get(fieldName);
-				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-						comboBox.getSelectionModel().selectFirst();
-					}
-				}
-			}
-			
-			List<PatrolLogEntry> logs = PatrolReportLogs.loadLogsFromXML();
-			
-			logs.add(new PatrolLogEntry(patrolnum.getText(), date.getText(), length.getText(), starttime.getText(),
-			                            stoptime.getText(), rank.getText(), name.getText(), num.getText(),
-			                            div.getText(), agen.getText(), vehicle.getText(), notes.getText()));
-			
-			PatrolReportLogs.saveLogsToXML(logs);
-			actionController.needRefresh.set(1);
-			updateChartIfMismatch(reportChart);
-			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
-			
 			stage.close();
 		});
 	}

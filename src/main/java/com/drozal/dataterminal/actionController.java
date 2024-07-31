@@ -1574,73 +1574,6 @@ public class actionController {
 	
 	//<editor-fold desc="Log Methods">
 	
-	@javafx.fxml.FXML
-	public void onDeathReportRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
-			
-			if (deathReport != null) {
-				Map<String, Object> deathReportObj = DeathReportUtils.newDeathReport(getReportChart(),
-				                                                                     getAreaReportChart(),
-				                                                                     notesViewController);
-				
-				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
-				
-				TextField name = (TextField) deathReport1.get("name");
-				TextField rank = (TextField) deathReport1.get("rank");
-				TextField div = (TextField) deathReport1.get("division");
-				TextField agen = (TextField) deathReport1.get("agency");
-				TextField num = (TextField) deathReport1.get("number");
-				TextField date = (TextField) deathReport1.get("date");
-				TextField time = (TextField) deathReport1.get("time");
-				TextField street = (TextField) deathReport1.get("street");
-				ComboBox area = (ComboBox) deathReport1.get("area");
-				TextField county = (TextField) deathReport1.get("county");
-				TextField deathNum = (TextField) deathReport1.get("death num");
-				TextField decedent = (TextField) deathReport1.get("decedent name");
-				TextField age = (TextField) deathReport1.get("age/dob");
-				TextField gender = (TextField) deathReport1.get("gender");
-				TextField address = (TextField) deathReport1.get("address");
-				TextField description = (TextField) deathReport1.get("description");
-				TextField causeofdeath = (TextField) deathReport1.get("cause of death");
-				TextField modeofdeath = (TextField) deathReport1.get("mode of death");
-				TextField witnesses = (TextField) deathReport1.get("witnesses");
-				TextArea notes = (TextArea) deathReport1.get("notes");
-				TextField timeofdeath = (TextField) deathReport1.get("time of death");
-				TextField dateofdeath = (TextField) deathReport1.get("date of death");
-				
-				timeofdeath.setText(deathReport.getTimeOfDeath());
-				dateofdeath.setText(deathReport.getDateOfDeath());
-				name.setText(toTitleCase(deathReport.getName()));
-				rank.setText(deathReport.getRank());
-				div.setText(toTitleCase(deathReport.getDivision()));
-				agen.setText(toTitleCase(deathReport.getAgency()));
-				num.setText(toTitleCase(deathReport.getNumber()));
-				date.setText(deathReport.getDate());
-				time.setText(deathReport.getTime());
-				street.setText(toTitleCase(deathReport.getStreet()));
-				area.setValue(toTitleCase(deathReport.getArea()));
-				county.setText(toTitleCase(deathReport.getCounty()));
-				deathNum.setText(deathReport.getDeathReportNumber());
-				decedent.setText(toTitleCase(deathReport.getDecedent()));
-				age.setText(toTitleCase(deathReport.getAge()));
-				gender.setText(toTitleCase(deathReport.getGender()));
-				address.setText(toTitleCase(deathReport.getAddress()));
-				description.setText(toTitleCase(deathReport.getDescription()));
-				causeofdeath.setText(toTitleCase(deathReport.getCauseOfDeath()));
-				modeofdeath.setText(toTitleCase(deathReport.getModeOfDeath()));
-				witnesses.setText(toTitleCase(deathReport.getWitnesses()));
-				notes.setText(deathReport.getNotesTextArea());
-				
-				deathNum.setEditable(false);
-				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				
-				deathReportTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
-	
 	private void loadLogs() {
 		// TODO add new loading for logs
 		try {
@@ -1774,6 +1707,74 @@ public class actionController {
 	}
 	
 	//TODO add new row click
+	
+	@javafx.fxml.FXML
+	public void onDeathReportRowClick(MouseEvent event) {
+		if (event.getClickCount() == 1) {
+			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
+			
+			if (deathReport != null) {
+				Map<String, Object> deathReportObj = DeathReportUtils.newDeathReport(getReportChart(),
+				                                                                     getAreaReportChart(),
+				                                                                     notesViewController);
+				
+				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
+				
+				TextField name = (TextField) deathReport1.get("name");
+				TextField rank = (TextField) deathReport1.get("rank");
+				TextField div = (TextField) deathReport1.get("division");
+				TextField agen = (TextField) deathReport1.get("agency");
+				TextField num = (TextField) deathReport1.get("number");
+				TextField date = (TextField) deathReport1.get("date");
+				TextField time = (TextField) deathReport1.get("time");
+				TextField street = (TextField) deathReport1.get("street");
+				ComboBox area = (ComboBox) deathReport1.get("area");
+				TextField county = (TextField) deathReport1.get("county");
+				TextField deathNum = (TextField) deathReport1.get("death num");
+				TextField decedent = (TextField) deathReport1.get("decedent name");
+				TextField age = (TextField) deathReport1.get("age/dob");
+				TextField gender = (TextField) deathReport1.get("gender");
+				TextField address = (TextField) deathReport1.get("address");
+				TextField description = (TextField) deathReport1.get("description");
+				TextField causeofdeath = (TextField) deathReport1.get("cause of death");
+				TextField modeofdeath = (TextField) deathReport1.get("mode of death");
+				TextField witnesses = (TextField) deathReport1.get("witnesses");
+				TextArea notes = (TextArea) deathReport1.get("notes");
+				TextField timeofdeath = (TextField) deathReport1.get("time of death");
+				TextField dateofdeath = (TextField) deathReport1.get("date of death");
+				
+				timeofdeath.setText(deathReport.getTimeOfDeath());
+				dateofdeath.setText(deathReport.getDateOfDeath());
+				name.setText(deathReport.getName());
+				rank.setText(deathReport.getRank());
+				div.setText(deathReport.getDivision());
+				agen.setText(deathReport.getAgency());
+				num.setText(deathReport.getNumber());
+				date.setText(deathReport.getDate());
+				time.setText(deathReport.getTime());
+				street.setText(deathReport.getStreet());
+				area.setValue(deathReport.getArea());
+				county.setText(deathReport.getCounty());
+				deathNum.setText(deathReport.getDeathReportNumber());
+				decedent.setText(deathReport.getDecedent());
+				age.setText(deathReport.getAge());
+				gender.setText(deathReport.getGender());
+				address.setText(deathReport.getAddress());
+				description.setText(deathReport.getDescription());
+				causeofdeath.setText(deathReport.getCauseOfDeath());
+				modeofdeath.setText(deathReport.getModeOfDeath());
+				witnesses.setText(deathReport.getWitnesses());
+				notes.setText(deathReport.getNotesTextArea());
+				
+				deathNum.setEditable(false);
+				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				
+				deathReportTable.getSelectionModel().clearSelection();
+			}
+		}
+	}
+	
 	@javafx.fxml.FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
@@ -1802,20 +1803,20 @@ public class actionController {
 				TextField callouttype = (TextField) calloutReportMap.get("type");
 				TextField calloutcode = (TextField) calloutReportMap.get("code");
 				
-				officername.setText(toTitleCase(calloutReport.getName()));
+				officername.setText(calloutReport.getName());
 				officerrank.setText(calloutReport.getRank());
-				officerdiv.setText(toTitleCase(calloutReport.getDivision()));
-				officeragen.setText(toTitleCase(calloutReport.getAgency()));
-				officernum.setText(toTitleCase(calloutReport.getNumber()));
+				officerdiv.setText(calloutReport.getDivision());
+				officeragen.setText(calloutReport.getAgency());
+				officernum.setText(calloutReport.getNumber());
 				calloutdate.setText(calloutReport.getDate());
 				callouttime.setText(calloutReport.getTime());
-				calloutstreet.setText(toTitleCase(calloutReport.getAddress()));
-				calloutarea.setValue(toTitleCase(calloutReport.getArea()));
-				calloutcounty.setText(toTitleCase(calloutReport.getCounty()));
+				calloutstreet.setText(calloutReport.getAddress());
+				calloutarea.setValue(calloutReport.getArea());
+				calloutcounty.setText(calloutReport.getCounty());
 				calloutnotes.setText(calloutReport.getNotesTextArea());
 				calloutnum.setText(calloutReport.getCalloutNumber());
-				callouttype.setText(toTitleCase(calloutReport.getResponseType()));
-				calloutcode.setText(toTitleCase(calloutReport.getResponseGrade()));
+				callouttype.setText(calloutReport.getResponseType());
+				calloutcode.setText(calloutReport.getResponseGrade());
 				
 				Button pullNotesBtn = (Button) calloutReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -1852,17 +1853,17 @@ public class actionController {
 				TextField length = (TextField) patrolReportMap.get("length");
 				TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 				
-				name.setText(toTitleCase(patrolReport.getOfficerName()));
+				name.setText(patrolReport.getOfficerName());
 				patrolnum.setText(patrolReport.getPatrolNumber());
-				rank.setText(toTitleCase(patrolReport.getOfficerRank()));
-				div.setText(toTitleCase(patrolReport.getOfficerDivision()));
-				agen.setText(toTitleCase(patrolReport.getOfficerAgency()));
-				num.setText(toTitleCase(patrolReport.getOfficerNumber()));
+				rank.setText(patrolReport.getOfficerRank());
+				div.setText(patrolReport.getOfficerDivision());
+				agen.setText(patrolReport.getOfficerAgency());
+				num.setText(patrolReport.getOfficerNumber());
 				date.setText(patrolReport.getPatrolDate());
 				starttime.setText(patrolReport.getPatrolStartTime());
 				stoptime.setText(patrolReport.getPatrolStopTime());
-				length.setText(toTitleCase(patrolReport.getPatrolLength()));
-				vehicle.setText(toTitleCase(patrolReport.getOfficerVehicle()));
+				length.setText(patrolReport.getPatrolLength());
+				vehicle.setText(patrolReport.getOfficerVehicle());
 				notes.setText(patrolReport.getPatrolComments());
 				
 				Button pullNotesBtn = (Button) patrolReportObj.get("pullNotesBtn");
@@ -1915,19 +1916,19 @@ public class actionController {
 				TextArea summary = (TextArea) incidentReportMap.get("summary");
 				TextArea notes = (TextArea) incidentReportMap.get("notes");
 				
-				name.setText(toTitleCase(incidentReport.getOfficerName()));
+				name.setText(incidentReport.getOfficerName());
 				incidentnum.setText(incidentReport.getIncidentNumber());
-				rank.setText(toTitleCase(incidentReport.getOfficerRank()));
-				div.setText(toTitleCase(incidentReport.getOfficerDivision()));
-				agen.setText(toTitleCase(incidentReport.getOfficerAgency()));
-				num.setText(toTitleCase(incidentReport.getOfficerNumber()));
+				rank.setText(incidentReport.getOfficerRank());
+				div.setText(incidentReport.getOfficerDivision());
+				agen.setText(incidentReport.getOfficerAgency());
+				num.setText(incidentReport.getOfficerNumber());
 				
-				street.setText(toTitleCase(incidentReport.getIncidentStreet()));
-				area.setValue(toTitleCase(incidentReport.getIncidentArea()));
-				county.setText(toTitleCase(incidentReport.getIncidentCounty()));
-				suspects.setText(toTitleCase(incidentReport.getIncidentWitnesses()));
-				vicwit.setText(toTitleCase(incidentReport.getIncidentVictims()));
-				statement.setText(toTitleCase(incidentReport.getIncidentStatement()));
+				street.setText(incidentReport.getIncidentStreet());
+				area.setValue(incidentReport.getIncidentArea());
+				county.setText(incidentReport.getIncidentCounty());
+				suspects.setText(incidentReport.getIncidentWitnesses());
+				vicwit.setText(incidentReport.getIncidentVictims());
+				statement.setText(incidentReport.getIncidentStatement());
 				
 				date.setText(incidentReport.getIncidentDate());
 				time.setText(incidentReport.getIncidentTime());
@@ -2051,23 +2052,23 @@ public class actionController {
 				TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
 				TextArea notes = (TextArea) searchReportMap.get("comments");
 				
-				name.setText(toTitleCase(searchReport.getOfficerName()));
-				div.setText(toTitleCase(searchReport.getOfficerDivision()));
-				agen.setText(toTitleCase(searchReport.getOfficerAgency()));
-				num.setText(toTitleCase(searchReport.getOfficerNumber()));
+				name.setText(searchReport.getOfficerName());
+				div.setText(searchReport.getOfficerDivision());
+				agen.setText(searchReport.getOfficerAgency());
+				num.setText(searchReport.getOfficerNumber());
 				
-				street.setText(toTitleCase(searchReport.getSearchStreet()));
-				area.setValue(toTitleCase(searchReport.getSearchArea()));
-				county.setText(toTitleCase(searchReport.getSearchCounty()));
+				street.setText(searchReport.getSearchStreet());
+				area.setValue(searchReport.getSearchArea());
+				county.setText(searchReport.getSearchCounty());
 				
-				testconducted.setText(toTitleCase(searchReport.getTestsConducted()));
-				grounds.setText(toTitleCase(searchReport.getSearchGrounds()));
-				witness.setText(toTitleCase(searchReport.getSearchWitnesses()));
-				searchedindividual.setText(toTitleCase(searchReport.getSearchedPersons()));
-				type.setValue(toTitleCase(searchReport.getSearchType()));
-				method.setValue(toTitleCase(searchReport.getSearchMethod()));
-				result.setText(toTitleCase(searchReport.getTestResults()));
-				bacmeasurement.setText(toTitleCase(searchReport.getBreathalyzerBACMeasure()));
+				testconducted.setText(searchReport.getTestsConducted());
+				grounds.setText(searchReport.getSearchGrounds());
+				witness.setText(searchReport.getSearchWitnesses());
+				searchedindividual.setText(searchReport.getSearchedPersons());
+				type.setValue(searchReport.getSearchType());
+				method.setValue(searchReport.getSearchMethod());
+				result.setText(searchReport.getTestResults());
+				bacmeasurement.setText(searchReport.getBreathalyzerBACMeasure());
 				
 				searchnum.setText(searchReport.getSearchNumber());
 				rank.setText(searchReport.getOfficerRank());

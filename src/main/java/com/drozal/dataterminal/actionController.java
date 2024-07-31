@@ -22,8 +22,7 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReports;
 import com.drozal.dataterminal.logs.Search.SearchReport;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReports;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.*;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.*;
@@ -79,12 +78,14 @@ import static com.drozal.dataterminal.logs.Impound.ImpoundReportUtils.newImpound
 import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncident;
 import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
+import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.name;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
@@ -503,7 +504,6 @@ public class actionController {
 	@javafx.fxml.FXML
 	private Tab impoundTab;
 	private ArrestLogEntry arrestEntry;
-	private TrafficCitationLogEntry citationEntry;
 	@javafx.fxml.FXML
 	private Label reportPlusLabelFill;
 	@javafx.fxml.FXML
@@ -976,7 +976,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onCitationReportBtnClick(ActionEvent actionEvent) {
-		newCitation(reportChart, areaReportChart, vbox, notesViewController);
+		newCitation(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1584,9 +1584,13 @@ public class actionController {
 			logError("Error loading ImpoundReports: ", e);
 		}
 		
-		List<TrafficCitationLogEntry> citationLogEntryList = TrafficCitationReportLogs.extractLogEntries(
-				stringUtil.trafficCitationLogURL);
-		citationLogUpdate(citationLogEntryList);
+		try {
+			TrafficCitationReports trafficCitationReports = TrafficCitationUtils.loadTrafficCitationReports();
+			List<TrafficCitationReport> trafficCitationList = trafficCitationReports.getTrafficCitationReportList();
+			citationLogUpdate(trafficCitationList);
+		} catch (JAXBException e) {
+			logError("Error loading TrafficCitationReports: ", e);
+		}
 		
 		try {
 			PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
@@ -1638,8 +1642,10 @@ public class actionController {
 	
 	// TODO add new log update
 	
-	public void citationLogUpdate(List<TrafficCitationLogEntry> logEntries) {
-		
+	public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		citationTable.getItems().clear();
 		citationTable.getItems().addAll(logEntries);
 	}
@@ -1648,7 +1654,6 @@ public class actionController {
 		if (logEntries == null) {
 			logEntries = new ArrayList<>();
 		}
-		
 		patrolTable.getItems().clear();
 		patrolTable.getItems().addAll(logEntries);
 	}
@@ -2010,6 +2015,71 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onCitationRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
+			TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel().getSelectedItem();
+			
+			if (trafficCitationReport != null) {
+				Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(getReportChart(),
+				                                                                  getAreaReportChart(),
+				                                                                  notesViewController);
+				
+				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
+				
+				TextField officername = (TextField) citationReportMap.get("name");
+				TextField officerrank = (TextField) citationReportMap.get("rank");
+				TextField officerdiv = (TextField) citationReportMap.get("division");
+				TextField officeragen = (TextField) citationReportMap.get("agency");
+				TextField officernum = (TextField) citationReportMap.get("number");
+				
+				TextField offenderName = (TextField) citationReportMap.get("offender name");
+				TextField offenderAge = (TextField) citationReportMap.get("offender age");
+				TextField offenderGender = (TextField) citationReportMap.get("offender gender");
+				TextField offenderAddress = (TextField) citationReportMap.get("offender address");
+				TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+				
+				ComboBox area = (ComboBox) citationReportMap.get("area");
+				TextField street = (TextField) citationReportMap.get("street");
+				TextField county = (TextField) citationReportMap.get("county");
+				TextField num = (TextField) citationReportMap.get("citation number");
+				TextField date = (TextField) citationReportMap.get("date");
+				TextField time = (TextField) citationReportMap.get("time");
+				
+				ComboBox color = (ComboBox) citationReportMap.get("color");
+				ComboBox type = (ComboBox) citationReportMap.get("type");
+				TextField plateNumber = (TextField) citationReportMap.get("plate number");
+				TextField otherInfo = (TextField) citationReportMap.get("other info");
+				TextField model = (TextField) citationReportMap.get("model");
+				
+				TextArea notes = (TextArea) citationReportMap.get("notes");
+				
+				officername.setText(trafficCitationReport.getOfficerName());
+				officerrank.setText(trafficCitationReport.getOfficerRank());
+				officerdiv.setText(trafficCitationReport.getOfficerDivision());
+				officeragen.setText(trafficCitationReport.getOfficerAgency());
+				officernum.setText(trafficCitationReport.getOfficerNumber());
+				street.setText(trafficCitationReport.getCitationStreet());
+				area.setValue(trafficCitationReport.getCitationArea());
+				county.setText(trafficCitationReport.getCitationCounty());
+				type.setValue(trafficCitationReport.getOffenderVehicleType());
+				color.setValue(trafficCitationReport.getOffenderVehicleColor());
+				date.setText(trafficCitationReport.getCitationDate());
+				time.setText(trafficCitationReport.getCitationTime());
+				notes.setText(trafficCitationReport.getCitationComments());
+				num.setText(trafficCitationReport.getCitationNumber());
+				plateNumber.setText(trafficCitationReport.getOffenderVehiclePlate());
+				otherInfo.setText(trafficCitationReport.getOffenderVehicleOther());
+				model.setText(trafficCitationReport.getOffenderVehicleModel());
+				offenderName.setText(trafficCitationReport.getOffenderName());
+				offenderAge.setText(trafficCitationReport.getOffenderAge());
+				offenderGender.setText(trafficCitationReport.getOffenderGender());
+				offenderDescription.setText(trafficCitationReport.getOffenderDescription());
+				offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
+				
+				Button pullNotesBtn = (Button) trafficCitationObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				num.setEditable(false);
+				
+				citationTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2430,10 +2500,6 @@ public class actionController {
 	
 	public TextField getCalType() {
 		return calType;
-	}
-	
-	public TrafficCitationLogEntry getCitationEntry() {
-		return citationEntry;
 	}
 	
 	public Tab getCitationTab() {

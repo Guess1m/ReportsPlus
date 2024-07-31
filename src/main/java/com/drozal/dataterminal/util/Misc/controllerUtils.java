@@ -11,7 +11,7 @@ import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -608,7 +608,7 @@ public class controllerUtils {
 					case 4 -> SearchReportUtils.countReports();
 					case 5 -> IncidentReportUtils.countReports();
 					case 6 -> ImpoundReportUtils.countReports();
-					case 7 -> TrafficCitationReportLogs.countReports();
+					case 7 -> TrafficCitationUtils.countReports();
 					case 8 -> DeathReportUtils.countReports();
 					default -> 0;
 				};

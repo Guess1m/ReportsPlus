@@ -10,8 +10,7 @@ import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -689,9 +688,11 @@ public class reportCreationUtil {
 		});
 		
 		transfercitationbtnts.setOnAction(event -> {
-			Map<String, Object> citationReport = citationLayout();
+			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart,
+			                                                                          areaReportChart,
+			                                                                          notesViewController);
 			
-			Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
+			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 			
 			TextField officernamecit = (TextField) citationReportMap.get("name");
 			TextField officerrankcit = (TextField) citationReportMap.get("rank");
@@ -720,17 +721,6 @@ public class reportCreationUtil {
 			
 			TextArea notescit = (TextArea) citationReportMap.get("notes");
 			
-			TreeView citationtreeview = (TreeView) citationReportMap.get("citationview");
-			TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
-			
-			Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
-			
-			BorderPane rootcit = (BorderPane) citationReport.get("root");
-			Stage stagecit = (Stage) rootcit.getScene().getWindow();
-			
-			Label warningLabelcit = (Label) citationReport.get("warningLabel");
-			Button pullNotesBtncit = (Button) citationReport.get("pullNotesBtn");
-			
 			officernamecit.setText(officernamets.getText());
 			officerdivcit.setText(officerdivts.getText());
 			officerrankcit.setText(officerrankts.getText());
@@ -753,165 +743,6 @@ public class reportCreationUtil {
 			otherInfocit.setText(otherInfots.getText());
 			numcit.setText(stopnumts.getText());
 			notescit.setText(notests.getText());
-			
-			pullNotesBtncit.setOnAction(event1 -> {
-				if (notesViewController != null) {
-					updateTextFromNotepad(areacit.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-					updateTextFromNotepad(countycit, notesViewController.getNotepadTextArea(), "-county");
-					updateTextFromNotepad(streetcit, notesViewController.getNotepadTextArea(), "-street");
-					updateTextFromNotepad(offenderNamecit, notesViewController.getNotepadTextArea(), "-name");
-					updateTextFromNotepad(offenderAgecit, notesViewController.getNotepadTextArea(), "-age");
-					updateTextFromNotepad(offenderGendercit, notesViewController.getNotepadTextArea(), "-gender");
-					updateTextFromNotepad(offenderDescriptioncit, notesViewController.getNotepadTextArea(),
-					                      "-description");
-					updateTextFromNotepad(notescit, notesViewController.getNotepadTextArea(), "-comments");
-					updateTextFromNotepad(offenderAddresscit, notesViewController.getNotepadTextArea(), "-address");
-					updateTextFromNotepad(modelcit, notesViewController.getNotepadTextArea(), "-model");
-					updateTextFromNotepad(plateNumbercit, notesViewController.getNotepadTextArea(), "-plate");
-					updateTextFromNotepad(numcit, notesViewController.getNotepadTextArea(), "-number");
-				} else {
-					log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-				}
-			});
-			
-			transferimpoundbtn.setOnAction(event2 -> {
-				
-				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
-				                                                                     notesViewController);
-				
-				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
-				
-				TextField officernameimp = (TextField) impoundReportMap.get("name");
-				TextField officerrankimp = (TextField) impoundReportMap.get("rank");
-				TextField officerdivimp = (TextField) impoundReportMap.get("division");
-				TextField officeragenimp = (TextField) impoundReportMap.get("agency");
-				TextField officernumimp = (TextField) impoundReportMap.get("number");
-				
-				TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
-				TextField offenderAgeimp = (TextField) impoundReportMap.get("offender age");
-				TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
-				TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
-				
-				TextField numimp = (TextField) impoundReportMap.get("citation number");
-				TextField dateimp = (TextField) impoundReportMap.get("date");
-				TextField timeimp = (TextField) impoundReportMap.get("time");
-				
-				ComboBox colorimp = (ComboBox) impoundReportMap.get("color");
-				ComboBox typeimp = (ComboBox) impoundReportMap.get("type");
-				TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
-				TextField modelimp = (TextField) impoundReportMap.get("model");
-				
-				TextArea notesimp = (TextArea) impoundReportMap.get("notes");
-				
-				officernameimp.setText(officernamecit.getText());
-				officerdivimp.setText(officerdivcit.getText());
-				officerrankimp.setText(officerrankcit.getText());
-				officeragenimp.setText(officeragencit.getText());
-				officernumimp.setText(officernumcit.getText());
-				timeimp.setText(timecit.getText());
-				dateimp.setText(datecit.getText());
-				offenderAddressimp.setText(offenderAddresscit.getText());
-				offenderNameimp.setText(offenderNamecit.getText());
-				offenderAgeimp.setText(offenderAgecit.getText());
-				offenderGenderimp.setText(offenderGendercit.getText());
-				plateNumberimp.setText(plateNumbercit.getText());
-				notesimp.setText(notescit.getText());
-				modelimp.setText(modelcit.getText());
-				typeimp.getSelectionModel().select(typecit.getSelectionModel().getSelectedItem());
-				colorimp.getSelectionModel().select(colorcit.getSelectionModel().getSelectedItem());
-				numimp.setText(numcit.getText());
-			});
-			transferimpoundbtn.setText("New Impound Report");
-			
-			Button submitBtncit = (Button) citationReport.get("submitBtn");
-			submitBtncit.setOnAction(event3 -> {
-				
-				for (String fieldName : citationReportMap.keySet()) {
-					Object field = citationReportMap.get(fieldName);
-					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-							comboBox.getSelectionModel().selectFirst();
-						}
-					}
-				}
-				List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
-				ObservableList<CitationsData> formDataList = citationtable.getItems();
-				StringBuilder stringBuilder = new StringBuilder();
-				StringBuilder chargesBuilder = new StringBuilder();
-				for (CitationsData formData : formDataList) {
-					stringBuilder.append(formData.getCitation()).append(" | ");
-					
-					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
-					
-					if (fine != null) {
-						try {
-							int maxFine = Integer.parseInt(fine);
-							Random random = new Random();
-							int randomFine = random.nextInt(maxFine + 1);
-							chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
-						} catch (NumberFormatException e) {
-							logError("Error parsing fine value " + fine + ": ", e);
-							chargesBuilder.append("Fined: ").append(fine).append(" | ");
-						}
-					} else {
-						chargesBuilder.append("Fined: Not Found | ");
-					}
-				}
-				if (stringBuilder.length() > 0) {
-					stringBuilder.setLength(stringBuilder.length() - 2);
-				}
-				
-				logs.add(new TrafficCitationLogEntry(numcit.getText(), datecit.getText(), timecit.getText(),
-				                                     stringBuilder.toString(), countycit.getText(),
-				                                     areacit.getEditor().getText(), streetcit.getText(),
-				                                     offenderNamecit.getText(), offenderGendercit.getText(),
-				                                     offenderAgecit.getText(), offenderAddresscit.getText(),
-				                                     offenderDescriptioncit.getText(), modelcit.getText(),
-				                                     colorcit.getValue().toString(), typecit.getValue().toString(),
-				                                     plateNumbercit.getText(), otherInfocit.getText(),
-				                                     officerrankcit.getText(), officernamecit.getText(),
-				                                     officernumcit.getText(), officerdivcit.getText(),
-				                                     officeragencit.getText(), notescit.getText()));
-				TrafficCitationReportLogs.saveLogsToXML(logs);
-				
-				if (!offenderNamecit.getText().isEmpty() && offenderNamecit.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-					Case casecit = new Case();
-					String casenum = generateCaseNumber();
-					casecit.setCaseNumber(casenum);
-					casecit.setCourtDate(datecit.getText());
-					casecit.setCaseTime(timecit.getText());
-					casecit.setName(toTitleCase(offenderNamecit.getText()));
-					casecit.setOffenceDate(datecit.getText());
-					casecit.setAge(toTitleCase(offenderAgecit.getText()));
-					casecit.setAddress(toTitleCase(offenderAddresscit.getText()));
-					casecit.setGender(toTitleCase(offenderGendercit.getText()));
-					casecit.setCounty(toTitleCase(countycit.getText()));
-					casecit.setStreet(toTitleCase(streetcit.getText()));
-					casecit.setArea(areacit.getEditor().getText());
-					casecit.setNotes(notescit.getText());
-					casecit.setOffences(stringBuilder.toString());
-					casecit.setOutcomes(chargesBuilder.toString());
-					try {
-						CourtUtils.addCase(casecit);
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-					log("Added citation case from Traffic Stop, Case#: " + casenum + " Name: " + offenderNamecit.getText(),
-					    LogUtils.Severity.INFO);
-					actionController.needCourtRefresh.set(1);
-				} else {
-					log("Could not create court case from Traffic Stop because either name or offences field(s) were empty.",
-					    LogUtils.Severity.ERROR);
-				}
-				
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
-				stagecit.close();
-			});
 		});
 		
 		Button submitBtn = (Button) trafficStopReport.get("submitBtn");

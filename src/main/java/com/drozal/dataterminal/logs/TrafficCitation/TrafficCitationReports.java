@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficCitation;
 
-import com.drozal.dataterminal.logs.Search.SearchReport;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -8,18 +7,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "searchReportLogs")
+@XmlRootElement(name = "trafficCitationReportLogs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TrafficCitationReports {
 	
 	@XmlElement(name = "logs")
-	private List<SearchReport> SearchReportList;
+	private List<TrafficCitationReport> TrafficCitationReportList;
 	
-	public List<SearchReport> getSearchReportList() {
-		return SearchReportList;
+	public List<TrafficCitationReport> getTrafficCitationReportList() {
+		return TrafficCitationReportList;
 	}
 	
-	public void setSearchReportList(List<SearchReport> SearchReportList) {
-		this.SearchReportList = SearchReportList;
+	public void setTrafficCitationReportList(List<TrafficCitationReport> TrafficCitationReportList) {
+		this.TrafficCitationReportList = TrafficCitationReportList;
 	}
 }

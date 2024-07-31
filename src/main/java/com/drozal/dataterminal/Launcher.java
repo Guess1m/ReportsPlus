@@ -20,6 +20,8 @@ import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
 public class Launcher {
 	
+	//TODO fix ranks being titlecase / request stage focus on transfer only / set button text on rowclick to "update" / fix citation table not being correct when updating
+	
 	public static void main(String[] args) throws IOException {
 		
 		try {

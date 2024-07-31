@@ -5,8 +5,6 @@ import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
-import com.drozal.dataterminal.logs.Search.SearchReport;
-import com.drozal.dataterminal.logs.Search.SearchReports;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
@@ -33,8 +31,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.searchLogURL;
-import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
+import static com.drozal.dataterminal.util.Misc.stringUtil.trafficCitationLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
@@ -43,7 +40,7 @@ public class TrafficCitationUtils {
 	
 	public static int countReports() {
 		try {
-			List<SearchReport> logs = TrafficCitationUtils.loadSearchReports().getSearchReportList();
+			List<TrafficCitationReport> logs = TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList();
 			
 			if (logs == null) {
 				return 0;
@@ -132,7 +129,7 @@ public class TrafficCitationUtils {
 		return citationReport;
 	}
 	
-	public static void newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
+	public static Map<String, Object> newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
 		Map<String, Object> citationReport = citationLayout();
 		
 		Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
@@ -173,7 +170,6 @@ public class TrafficCitationUtils {
 		BorderPane root = (BorderPane) citationReport.get("root");
 		Stage stage = (Stage) root.getScene().getWindow();
 		
-		Label warningLabel = (Label) citationReport.get("warningLabel");
 		Button pullNotesBtn = (Button) citationReport.get("pullNotesBtn");
 		
 		try {
@@ -187,6 +183,7 @@ public class TrafficCitationUtils {
 		}
 		date.setText(getDate());
 		time.setText(getTime());
+		num.setText(generateCaseNumber());
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
@@ -257,7 +254,6 @@ public class TrafficCitationUtils {
 		
 		Button submitBtn = (Button) citationReport.get("submitBtn");
 		submitBtn.setOnAction(event -> {
-			
 			for (String fieldName : citationReportMap.keySet()) {
 				Object field = citationReportMap.get(fieldName);
 				if (field instanceof ComboBox<?> comboBox) {
@@ -266,7 +262,6 @@ public class TrafficCitationUtils {
 					}
 				}
 			}
-			List<TrafficCitationLogEntry> logs = TrafficCitationReportLogs.loadLogsFromXML();
 			ObservableList<CitationsData> formDataList = citationtable.getItems();
 			StringBuilder stringBuilder = new StringBuilder();
 			StringBuilder chargesBuilder = new StringBuilder();
@@ -293,16 +288,36 @@ public class TrafficCitationUtils {
 				stringBuilder.setLength(stringBuilder.length() - 2);
 			}
 			
-			logs.add(
-					new TrafficCitationLogEntry(num.getText(), date.getText(), time.getText(), stringBuilder.toString(),
-					                            county.getText(), area.getEditor().getText(), street.getText(),
-					                            offenderName.getText(), offenderGender.getText(), offenderAge.getText(),
-					                            offenderAddress.getText(), offenderDescription.getText(),
-					                            model.getText(), color.getValue().toString(),
-					                            type.getValue().toString(), plateNumber.getText(), otherInfo.getText(),
-					                            officerrank.getText(), officername.getText(), officernum.getText(),
-					                            officerdiv.getText(), officeragen.getText(), notes.getText()));
-			TrafficCitationReportLogs.saveLogsToXML(logs);
+			TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
+			trafficCitationReport.setOfficerRank(officerrank.getText());
+			trafficCitationReport.setCitationNumber(num.getText());
+			trafficCitationReport.setCitationDate(date.getText());
+			trafficCitationReport.setCitationTime(time.getText());
+			trafficCitationReport.setCitationCharges(stringBuilder.toString());
+			trafficCitationReport.setCitationComments(notes.getText());
+			
+			trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
+			trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
+			trafficCitationReport.setCitationStreet(toTitleCase(street.getText()));
+			trafficCitationReport.setOffenderName(toTitleCase(offenderName.getText()));
+			trafficCitationReport.setOffenderGender(toTitleCase(offenderGender.getText()));
+			trafficCitationReport.setOffenderAge(toTitleCase(offenderAge.getText()));
+			trafficCitationReport.setOffenderHomeAddress(toTitleCase(offenderAddress.getText()));
+			trafficCitationReport.setOffenderDescription(toTitleCase(offenderDescription.getText()));
+			trafficCitationReport.setOffenderVehicleModel(toTitleCase(model.getText()));
+			trafficCitationReport.setOffenderVehicleColor(toTitleCase(color.getValue().toString()));
+			trafficCitationReport.setOffenderVehicleType(toTitleCase(type.getValue().toString()));
+			trafficCitationReport.setOffenderVehiclePlate(toTitleCase(plateNumber.getText()));
+			trafficCitationReport.setOffenderVehicleOther(toTitleCase(otherInfo.getText()));
+			trafficCitationReport.setOfficerName(toTitleCase(officername.getText()));
+			trafficCitationReport.setOfficerNumber(toTitleCase(officernum.getText()));
+			trafficCitationReport.setOfficerDivision(toTitleCase(officerdiv.getText()));
+			trafficCitationReport.setOfficerAgency(toTitleCase(officeragen.getText()));
+			try {
+				TrafficCitationUtils.addTrafficCitationReport(trafficCitationReport);
+			} catch (JAXBException e) {
+				logError("Could not create TrafficCitationReport: ",e);
+			}
 			
 			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 				Case case1 = new Case();
@@ -342,84 +357,85 @@ public class TrafficCitationUtils {
 			showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
 			stage.close();
 		});
+		return citationReport;
 	}
 	
-	public static SearchReports loadSearchReports() throws JAXBException {
-		File file = new File(searchLogURL);
+	public static TrafficCitationReports loadTrafficCitationReports() throws JAXBException {
+		File file = new File(trafficCitationLogURL);
 		if (!file.exists()) {
-			return new SearchReports();
+			return new TrafficCitationReports();
 		}
 		
 		try {
-			JAXBContext context = JAXBContext.newInstance(SearchReports.class);
+			JAXBContext context = JAXBContext.newInstance(TrafficCitationReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
-			return (SearchReports) unmarshaller.unmarshal(file);
+			return (TrafficCitationReports) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
-			logError("Error loading SearchReports: ", e);
+			logError("Error loading TrafficCitationReports: ", e);
 			throw e;
 		}
 	}
 	
-	private static void saveSearchReports(SearchReports SearchReports) throws JAXBException {
-		JAXBContext context = JAXBContext.newInstance(SearchReports.class);
+	private static void saveTrafficCitationReports(TrafficCitationReports TrafficCitationReports) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(TrafficCitationReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		
-		File file = new File(searchLogURL);
-		marshaller.marshal(SearchReports, file);
+		File file = new File(trafficCitationLogURL);
+		marshaller.marshal(TrafficCitationReports, file);
 	}
 	
-	public static void addSearchReport(SearchReport SearchReport) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
+	public static void addTrafficCitationReport(TrafficCitationReport TrafficCitationReport) throws JAXBException {
+		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
-		if (SearchReports.getSearchReportList() == null) {
-			SearchReports.setSearchReportList(new java.util.ArrayList<>());
+		if (TrafficCitationReports.getTrafficCitationReportList() == null) {
+			TrafficCitationReports.setTrafficCitationReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<SearchReport> existingReport = SearchReports.getSearchReportList().stream().filter(
-				e -> e.getSearchNumber().equals(SearchReport.getSearchNumber())).findFirst();
+		Optional<TrafficCitationReport> existingReport = TrafficCitationReports.getTrafficCitationReportList().stream().filter(
+				e -> e.getCitationNumber().equals(TrafficCitationReport.getCitationNumber())).findFirst();
 		
 		if (existingReport.isPresent()) {
-			SearchReports.getSearchReportList().remove(existingReport.get());
-			SearchReports.getSearchReportList().add(SearchReport);
-			log("SearchReport with number " + SearchReport.getSearchNumber() + " updated.", LogUtils.Severity.INFO);
+			TrafficCitationReports.getTrafficCitationReportList().remove(existingReport.get());
+			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.", LogUtils.Severity.INFO);
 		} else {
-			SearchReports.getSearchReportList().add(SearchReport);
-			log("SearchReport with number " + SearchReport.getSearchNumber() + " added.", LogUtils.Severity.INFO);
+			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.", LogUtils.Severity.INFO);
 		}
 		
-		saveSearchReports(SearchReports);
+		saveTrafficCitationReports(TrafficCitationReports);
 	}
 	
-	public static void deleteSearchReport(String SearchReportnumber) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
+	public static void deleteTrafficCitationReport(String TrafficCitationReportnumber) throws JAXBException {
+		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
-		if (SearchReports.getSearchReportList() != null) {
-			SearchReports.getSearchReportList().removeIf(e -> e.getSearchNumber().equals(SearchReportnumber));
-			saveSearchReports(SearchReports);
+		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
+			TrafficCitationReports.getTrafficCitationReportList().removeIf(e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
+			saveTrafficCitationReports(TrafficCitationReports);
 		}
 	}
 	
-	public static Optional<SearchReport> findSearchReportByNumber(String SearchReportnumber) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
+	public static Optional<TrafficCitationReport> findTrafficCitationReportByNumber(String TrafficCitationReportnumber) throws JAXBException {
+		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
-		if (SearchReports.getSearchReportList() != null) {
-			return SearchReports.getSearchReportList().stream().filter(
-					e -> e.getSearchNumber().equals(SearchReportnumber)).findFirst();
+		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
+			return TrafficCitationReports.getTrafficCitationReportList().stream().filter(
+					e -> e.getCitationNumber().equals(TrafficCitationReportnumber)).findFirst();
 		}
 		
 		return Optional.empty();
 	}
 	
-	public static void modifySearchReport(String number, SearchReport updatedSearchReport) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
+	public static void modifyTrafficCitationReport(String number, TrafficCitationReport updatedTrafficCitationReport) throws JAXBException {
+		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
-		if (SearchReports.getSearchReportList() != null) {
-			for (int i = 0; i < SearchReports.getSearchReportList().size(); i++) {
-				SearchReport e = SearchReports.getSearchReportList().get(i);
-				if (e.getSearchNumber().equals(number)) {
-					SearchReports.getSearchReportList().set(i, updatedSearchReport);
-					saveSearchReports(SearchReports);
+		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
+			for (int i = 0; i < TrafficCitationReports.getTrafficCitationReportList().size(); i++) {
+				TrafficCitationReport e = TrafficCitationReports.getTrafficCitationReportList().get(i);
+				if (e.getCitationNumber().equals(number)) {
+					TrafficCitationReports.getTrafficCitationReportList().set(i, updatedTrafficCitationReport);
+					saveTrafficCitationReports(TrafficCitationReports);
 					return;
 				}
 			}

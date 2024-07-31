@@ -8,30 +8,56 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "logs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TrafficCitationReport {
+	@XmlElement(name = "citationNumber")
+	private String citationNumber;
 	
-	@XmlElement(name = "SearchNumber")
-	private String SearchNumber;
+	@XmlElement(name = "citationDate")
+	private String citationDate;
 	
-	@XmlElement(name = "searchDate")
-	private String searchDate;
+	@XmlElement(name = "citationTime")
+	private String citationTime;
 	
-	@XmlElement(name = "searchTime")
-	private String searchTime;
+	@XmlElement(name = "citationCharges")
+	private String citationCharges;
 	
-	@XmlElement(name = "searchSeizedItems")
-	private String searchSeizedItems;
+	@XmlElement(name = "citationCounty")
+	private String citationCounty;
 	
-	@XmlElement(name = "searchGrounds")
-	private String searchGrounds;
+	@XmlElement(name = "citationArea")
+	private String citationArea;
 	
-	@XmlElement(name = "searchType")
-	private String searchType;
+	@XmlElement(name = "citationStreet")
+	private String citationStreet;
 	
-	@XmlElement(name = "searchMethod")
-	private String searchMethod;
+	@XmlElement(name = "offenderName")
+	private String offenderName;
 	
-	@XmlElement(name = "searchWitnesses")
-	private String searchWitnesses;
+	@XmlElement(name = "offenderGender")
+	private String offenderGender;
+	
+	@XmlElement(name = "offenderAge")
+	private String offenderAge;
+	
+	@XmlElement(name = "offenderHomeAddress")
+	private String offenderHomeAddress;
+	
+	@XmlElement(name = "offenderDescription")
+	private String offenderDescription;
+	
+	@XmlElement(name = "offenderVehicleModel")
+	private String offenderVehicleModel;
+	
+	@XmlElement(name = "offenderVehicleColor")
+	private String offenderVehicleColor;
+	
+	@XmlElement(name = "offenderVehicleType")
+	private String offenderVehicleType;
+	
+	@XmlElement(name = "offenderVehiclePlate")
+	private String offenderVehiclePlate;
+	
+	@XmlElement(name = "offenderVehicleOther")
+	private String offenderVehicleOther;
 	
 	@XmlElement(name = "officerRank")
 	private String officerRank;
@@ -42,50 +68,157 @@ public class TrafficCitationReport {
 	@XmlElement(name = "officerNumber")
 	private String officerNumber;
 	
-	@XmlElement(name = "officerAgency")
-	private String officerAgency;
-	
 	@XmlElement(name = "officerDivision")
 	private String officerDivision;
 	
-	@XmlElement(name = "searchStreet")
-	private String searchStreet;
+	@XmlElement(name = "officerAgency")
+	private String officerAgency;
 	
-	@XmlElement(name = "searchArea")
-	private String searchArea;
+	@XmlElement(name = "citationComments")
+	private String citationComments;
 	
-	@XmlElement(name = "searchCounty")
-	private String searchCounty;
-	
-	@XmlElement(name = "searchComments")
-	private String searchComments;
-	
-	@XmlElement(name = "searchedPersons")
-	private String searchedPersons;
-	
-	@XmlElement(name = "testsConducted")
-	private String testsConducted;
-	
-	@XmlElement(name = "testResults")
-	private String testResults;
-	
-	@XmlElement(name = "breathalyzerBACMeasure")
-	private String breathalyzerBACMeasure;
-	
-	public String getSearchComments() {
-		return searchComments;
+	public String getCitationArea() {
+		return citationArea;
 	}
 	
-	public void setSearchComments(String searchComments) {
-		this.searchComments = searchComments;
+	public void setCitationArea(String citationArea) {
+		this.citationArea = citationArea;
 	}
 	
-	public String getBreathalyzerBACMeasure() {
-		return breathalyzerBACMeasure;
+	public String getCitationCharges() {
+		return citationCharges;
 	}
 	
-	public void setBreathalyzerBACMeasure(String breathalyzerBACMeasure) {
-		this.breathalyzerBACMeasure = breathalyzerBACMeasure;
+	public void setCitationCharges(String citationCharges) {
+		this.citationCharges = citationCharges;
+	}
+	
+	public String getCitationComments() {
+		return citationComments;
+	}
+	
+	public void setCitationComments(String citationComments) {
+		this.citationComments = citationComments;
+	}
+	
+	public String getCitationCounty() {
+		return citationCounty;
+	}
+	
+	public void setCitationCounty(String citationCounty) {
+		this.citationCounty = citationCounty;
+	}
+	
+	public String getCitationDate() {
+		return citationDate;
+	}
+	
+	public void setCitationDate(String citationDate) {
+		this.citationDate = citationDate;
+	}
+	
+	public String getCitationNumber() {
+		return citationNumber;
+	}
+	
+	public void setCitationNumber(String citationNumber) {
+		this.citationNumber = citationNumber;
+	}
+	
+	public String getCitationStreet() {
+		return citationStreet;
+	}
+	
+	public void setCitationStreet(String citationStreet) {
+		this.citationStreet = citationStreet;
+	}
+	
+	public String getCitationTime() {
+		return citationTime;
+	}
+	
+	public void setCitationTime(String citationTime) {
+		this.citationTime = citationTime;
+	}
+	
+	public String getOffenderAge() {
+		return offenderAge;
+	}
+	
+	public void setOffenderAge(String offenderAge) {
+		this.offenderAge = offenderAge;
+	}
+	
+	public String getOffenderDescription() {
+		return offenderDescription;
+	}
+	
+	public void setOffenderDescription(String offenderDescription) {
+		this.offenderDescription = offenderDescription;
+	}
+	
+	public String getOffenderGender() {
+		return offenderGender;
+	}
+	
+	public void setOffenderGender(String offenderGender) {
+		this.offenderGender = offenderGender;
+	}
+	
+	public String getOffenderHomeAddress() {
+		return offenderHomeAddress;
+	}
+	
+	public void setOffenderHomeAddress(String offenderHomeAddress) {
+		this.offenderHomeAddress = offenderHomeAddress;
+	}
+	
+	public String getOffenderName() {
+		return offenderName;
+	}
+	
+	public void setOffenderName(String offenderName) {
+		this.offenderName = offenderName;
+	}
+	
+	public String getOffenderVehicleColor() {
+		return offenderVehicleColor;
+	}
+	
+	public void setOffenderVehicleColor(String offenderVehicleColor) {
+		this.offenderVehicleColor = offenderVehicleColor;
+	}
+	
+	public String getOffenderVehicleModel() {
+		return offenderVehicleModel;
+	}
+	
+	public void setOffenderVehicleModel(String offenderVehicleModel) {
+		this.offenderVehicleModel = offenderVehicleModel;
+	}
+	
+	public String getOffenderVehicleOther() {
+		return offenderVehicleOther;
+	}
+	
+	public void setOffenderVehicleOther(String offenderVehicleOther) {
+		this.offenderVehicleOther = offenderVehicleOther;
+	}
+	
+	public String getOffenderVehiclePlate() {
+		return offenderVehiclePlate;
+	}
+	
+	public void setOffenderVehiclePlate(String offenderVehiclePlate) {
+		this.offenderVehiclePlate = offenderVehiclePlate;
+	}
+	
+	public String getOffenderVehicleType() {
+		return offenderVehicleType;
+	}
+	
+	public void setOffenderVehicleType(String offenderVehicleType) {
+		this.offenderVehicleType = offenderVehicleType;
 	}
 	
 	public String getOfficerAgency() {
@@ -126,117 +259,5 @@ public class TrafficCitationReport {
 	
 	public void setOfficerRank(String officerRank) {
 		this.officerRank = officerRank;
-	}
-	
-	public String getSearchArea() {
-		return searchArea;
-	}
-	
-	public void setSearchArea(String searchArea) {
-		this.searchArea = searchArea;
-	}
-	
-	public String getSearchCounty() {
-		return searchCounty;
-	}
-	
-	public void setSearchCounty(String searchCounty) {
-		this.searchCounty = searchCounty;
-	}
-	
-	public String getSearchDate() {
-		return searchDate;
-	}
-	
-	public void setSearchDate(String searchDate) {
-		this.searchDate = searchDate;
-	}
-	
-	public String getSearchedPersons() {
-		return searchedPersons;
-	}
-	
-	public void setSearchedPersons(String searchedPersons) {
-		this.searchedPersons = searchedPersons;
-	}
-	
-	public String getSearchGrounds() {
-		return searchGrounds;
-	}
-	
-	public void setSearchGrounds(String searchGrounds) {
-		this.searchGrounds = searchGrounds;
-	}
-	
-	public String getSearchMethod() {
-		return searchMethod;
-	}
-	
-	public void setSearchMethod(String searchMethod) {
-		this.searchMethod = searchMethod;
-	}
-	
-	public String getSearchNumber() {
-		return SearchNumber;
-	}
-	
-	public void setSearchNumber(String searchNumber) {
-		SearchNumber = searchNumber;
-	}
-	
-	public String getSearchSeizedItems() {
-		return searchSeizedItems;
-	}
-	
-	public void setSearchSeizedItems(String searchSeizedItems) {
-		this.searchSeizedItems = searchSeizedItems;
-	}
-	
-	public String getSearchStreet() {
-		return searchStreet;
-	}
-	
-	public void setSearchStreet(String searchStreet) {
-		this.searchStreet = searchStreet;
-	}
-	
-	public String getSearchTime() {
-		return searchTime;
-	}
-	
-	public void setSearchTime(String searchTime) {
-		this.searchTime = searchTime;
-	}
-	
-	public String getSearchType() {
-		return searchType;
-	}
-	
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-	
-	public String getSearchWitnesses() {
-		return searchWitnesses;
-	}
-	
-	public void setSearchWitnesses(String searchWitnesses) {
-		this.searchWitnesses = searchWitnesses;
-	}
-	
-	public String getTestResults() {
-		return testResults;
-	}
-	
-	public void setTestResults(String testResults) {
-		this.testResults = testResults;
-	}
-	
-	public String getTestsConducted() {
-		return testsConducted;
-	}
-	
-	public void setTestsConducted(String testsConducted) {
-		this.testsConducted = testsConducted;
 	}
 }

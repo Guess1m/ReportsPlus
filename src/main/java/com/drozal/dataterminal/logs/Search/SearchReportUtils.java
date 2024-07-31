@@ -33,7 +33,6 @@ import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateRep
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 
 public class SearchReportUtils {
-	//TODO fix ranks being titlecase / request stage focus on transfer only / set button text on rowclick to "update"
 	
 	public static int countReports() {
 		try {

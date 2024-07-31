@@ -7,7 +7,7 @@ import com.drozal.dataterminal.logs.Impound.ImpoundReport;
 import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchReport;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReport;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -261,76 +261,76 @@ public class InitTableColumns {
 	
 	public static void initializeCitationColumns(TableView tableview) {
 		
-		TableColumn<TrafficCitationLogEntry, String> citationNumberColumn = new TableColumn<>("Citation #");
+		TableColumn<TrafficCitationReport, String> citationNumberColumn = new TableColumn<>("Citation #");
 		citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationDateColumn = new TableColumn<>("Citation Date");
+		TableColumn<TrafficCitationReport, String> citationDateColumn = new TableColumn<>("Citation Date");
 		citationDateColumn.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationTimeColumn = new TableColumn<>("Citation Time");
+		TableColumn<TrafficCitationReport, String> citationTimeColumn = new TableColumn<>("Citation Time");
 		citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationChargesColumn = new TableColumn<>("Charges");
+		TableColumn<TrafficCitationReport, String> citationChargesColumn = new TableColumn<>("Charges");
 		citationChargesColumn.setCellValueFactory(new PropertyValueFactory<>("citationCharges"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationCountyColumn = new TableColumn<>("County");
+		TableColumn<TrafficCitationReport, String> citationCountyColumn = new TableColumn<>("County");
 		citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationAreaColumn = new TableColumn<>("Area");
+		TableColumn<TrafficCitationReport, String> citationAreaColumn = new TableColumn<>("Area");
 		citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationStreetColumn = new TableColumn<>("Street");
+		TableColumn<TrafficCitationReport, String> citationStreetColumn = new TableColumn<>("Street");
 		citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderNameColumn = new TableColumn<>("Sus. Name");
+		TableColumn<TrafficCitationReport, String> offenderNameColumn = new TableColumn<>("Sus. Name");
 		offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderGenderColumn = new TableColumn<>("Sus. Gender");
+		TableColumn<TrafficCitationReport, String> offenderGenderColumn = new TableColumn<>("Sus. Gender");
 		offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderAgeColumn = new TableColumn<>("Sus. Age");
+		TableColumn<TrafficCitationReport, String> offenderAgeColumn = new TableColumn<>("Sus. Age");
 		offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderHomeAddressColumn = new TableColumn<>("Sus. Address");
+		TableColumn<TrafficCitationReport, String> offenderHomeAddressColumn = new TableColumn<>("Sus. Address");
 		offenderHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("offenderHomeAddress"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderDescriptionColumn = new TableColumn<>("Sus. Description");
+		TableColumn<TrafficCitationReport, String> offenderDescriptionColumn = new TableColumn<>("Sus. Description");
 		offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderVehicleModelColumn = new TableColumn<>("Sus. Veh. Model");
+		TableColumn<TrafficCitationReport, String> offenderVehicleModelColumn = new TableColumn<>("Sus. Veh. Model");
 		offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderVehicleColorColumn = new TableColumn<>("Sus. Veh. Color");
+		TableColumn<TrafficCitationReport, String> offenderVehicleColorColumn = new TableColumn<>("Sus. Veh. Color");
 		offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderVehicleTypeColumn = new TableColumn<>("Sus. Veh. Type");
+		TableColumn<TrafficCitationReport, String> offenderVehicleTypeColumn = new TableColumn<>("Sus. Veh. Type");
 		offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderVehiclePlateColumn = new TableColumn<>("Sus. Veh. Plate");
+		TableColumn<TrafficCitationReport, String> offenderVehiclePlateColumn = new TableColumn<>("Sus. Veh. Plate");
 		offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
 		
-		TableColumn<TrafficCitationLogEntry, String> offenderVehicleOtherColumn = new TableColumn<>("Sus. Veh. Other");
+		TableColumn<TrafficCitationReport, String> offenderVehicleOtherColumn = new TableColumn<>("Sus. Veh. Other");
 		offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
 		
-		TableColumn<TrafficCitationLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		TableColumn<TrafficCitationReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<TrafficCitationLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+		TableColumn<TrafficCitationReport, String> officerNameColumn = new TableColumn<>("Officer Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<TrafficCitationLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+		TableColumn<TrafficCitationReport, String> officerNumberColumn = new TableColumn<>("Officer #");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<TrafficCitationLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		TableColumn<TrafficCitationReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<TrafficCitationLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		TableColumn<TrafficCitationReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		TableColumn<TrafficCitationLogEntry, String> citationCommentsColumn = new TableColumn<>("Comments");
+		TableColumn<TrafficCitationReport, String> citationCommentsColumn = new TableColumn<>("Comments");
 		citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 		
-		ObservableList<TableColumn<TrafficCitationLogEntry, ?>> citationColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(
 				citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn,
 				citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn,
 				offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn,
@@ -340,7 +340,7 @@ public class InitTableColumns {
 		
 		tableview.getColumns().addAll(citationColumns);
 		
-		for (TableColumn<TrafficCitationLogEntry, ?> column : citationColumns) {
+		for (TableColumn<TrafficCitationReport, ?> column : citationColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(citationNumberColumn);

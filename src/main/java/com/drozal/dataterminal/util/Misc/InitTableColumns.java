@@ -6,7 +6,8 @@ import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
-import com.drozal.dataterminal.logs.Search.SearchLogEntry;
+import com.drozal.dataterminal.logs.Search.SearchReport;
+import com.drozal.dataterminal.logs.Search.SearchReport;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
 import javafx.collections.FXCollections;
@@ -507,70 +508,70 @@ public class InitTableColumns {
 	
 	public static void initializeSearchColumns(TableView tableview) {
 		
-		TableColumn<SearchLogEntry, String> searchNumberColumn = new TableColumn<>("Search #");
+		TableColumn<SearchReport, String> searchNumberColumn = new TableColumn<>("Search #");
 		searchNumberColumn.setCellValueFactory(new PropertyValueFactory<>("SearchNumber"));
 		
-		TableColumn<SearchLogEntry, String> searchDateColumn = new TableColumn<>("Date");
+		TableColumn<SearchReport, String> searchDateColumn = new TableColumn<>("Date");
 		searchDateColumn.setCellValueFactory(new PropertyValueFactory<>("searchDate"));
 		
-		TableColumn<SearchLogEntry, String> searchTimeColumn = new TableColumn<>("Time");
+		TableColumn<SearchReport, String> searchTimeColumn = new TableColumn<>("Time");
 		searchTimeColumn.setCellValueFactory(new PropertyValueFactory<>("searchTime"));
 		
-		TableColumn<SearchLogEntry, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sob.");
+		TableColumn<SearchReport, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sob.");
 		searchSeizedItemsColumn.setCellValueFactory(new PropertyValueFactory<>("searchSeizedItems"));
 		
-		TableColumn<SearchLogEntry, String> searchGroundsColumn = new TableColumn<>("Grounds");
+		TableColumn<SearchReport, String> searchGroundsColumn = new TableColumn<>("Grounds");
 		searchGroundsColumn.setCellValueFactory(new PropertyValueFactory<>("searchGrounds"));
 		
-		TableColumn<SearchLogEntry, String> searchTypeColumn = new TableColumn<>("Type");
+		TableColumn<SearchReport, String> searchTypeColumn = new TableColumn<>("Type");
 		searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
 		
-		TableColumn<SearchLogEntry, String> searchMethodColumn = new TableColumn<>("Method");
+		TableColumn<SearchReport, String> searchMethodColumn = new TableColumn<>("Method");
 		searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
 		
-		TableColumn<SearchLogEntry, String> searchWitnessesColumn = new TableColumn<>("Witnesses");
+		TableColumn<SearchReport, String> searchWitnessesColumn = new TableColumn<>("Witnesses");
 		searchWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("searchWitnesses"));
 		
-		TableColumn<SearchLogEntry, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		TableColumn<SearchReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
 		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
 		
-		TableColumn<SearchLogEntry, String> officerNameColumn = new TableColumn<>("Officer Name");
+		TableColumn<SearchReport, String> officerNameColumn = new TableColumn<>("Officer Name");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		
-		TableColumn<SearchLogEntry, String> officerNumberColumn = new TableColumn<>("Officer #");
+		TableColumn<SearchReport, String> officerNumberColumn = new TableColumn<>("Officer #");
 		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
 		
-		TableColumn<SearchLogEntry, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		TableColumn<SearchReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		TableColumn<SearchLogEntry, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		TableColumn<SearchReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
 		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
 		
-		TableColumn<SearchLogEntry, String> searchStreetColumn = new TableColumn<>("Street");
+		TableColumn<SearchReport, String> searchStreetColumn = new TableColumn<>("Street");
 		searchStreetColumn.setCellValueFactory(new PropertyValueFactory<>("searchStreet"));
 		
-		TableColumn<SearchLogEntry, String> searchAreaColumn = new TableColumn<>("Area");
+		TableColumn<SearchReport, String> searchAreaColumn = new TableColumn<>("Area");
 		searchAreaColumn.setCellValueFactory(new PropertyValueFactory<>("searchArea"));
 		
-		TableColumn<SearchLogEntry, String> searchCountyColumn = new TableColumn<>("County");
+		TableColumn<SearchReport, String> searchCountyColumn = new TableColumn<>("County");
 		searchCountyColumn.setCellValueFactory(new PropertyValueFactory<>("searchCounty"));
 		
-		TableColumn<SearchLogEntry, String> searchCommentsColumn = new TableColumn<>("Comments");
+		TableColumn<SearchReport, String> searchCommentsColumn = new TableColumn<>("Comments");
 		searchCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("searchComments"));
 		
-		TableColumn<SearchLogEntry, String> searchedPersonsColumn = new TableColumn<>("Sus. Searched");
+		TableColumn<SearchReport, String> searchedPersonsColumn = new TableColumn<>("Sus. Searched");
 		searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 		
-		TableColumn<SearchLogEntry, String> testsConductedColumn = new TableColumn<>("Test(s) Cond.");
+		TableColumn<SearchReport, String> testsConductedColumn = new TableColumn<>("Test(s) Cond.");
 		testsConductedColumn.setCellValueFactory(new PropertyValueFactory<>("testsConducted"));
 		
-		TableColumn<SearchLogEntry, String> resultsColumn = new TableColumn<>("Result(s)");
+		TableColumn<SearchReport, String> resultsColumn = new TableColumn<>("Result(s)");
 		resultsColumn.setCellValueFactory(new PropertyValueFactory<>("testResults"));
 		
-		TableColumn<SearchLogEntry, String> BACMeasurementColumn = new TableColumn<>("BAC");
+		TableColumn<SearchReport, String> BACMeasurementColumn = new TableColumn<>("BAC");
 		BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
 		
-		ObservableList<TableColumn<SearchLogEntry, ?>> searchColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(
 				searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn,
 				searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn,
 				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn,
@@ -579,7 +580,7 @@ public class InitTableColumns {
 		
 		tableview.getColumns().addAll(searchColumns);
 		
-		for (TableColumn<SearchLogEntry, ?> column : searchColumns) {
+		for (TableColumn<SearchReport, ?> column : searchColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(searchNumberColumn);

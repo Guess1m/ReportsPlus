@@ -138,68 +138,6 @@ public class Layouts {
 		return citationReport;
 	}
 	
-	public static Map<String, Object> searchLayout() {
-		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
-		                                                      new SectionConfig("Officer Information", true,
-		                                                                        new RowConfig(new FieldConfig("name", 5,
-		                                                                                                      FieldType.TEXT_FIELD),
-		                                                                                      new FieldConfig("rank", 5,
-		                                                                                                      FieldType.TEXT_FIELD),
-		                                                                                      new FieldConfig("number",
-		                                                                                                      2,
-		                                                                                                      FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("division", 6,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("agency", 6,
-				                                                                                        FieldType.TEXT_FIELD))),
-		                                                      new SectionConfig("Timestamp / Location Information",
-		                                                                        true, new RowConfig(
-				                                                      new FieldConfig("date", 3, FieldType.TEXT_FIELD),
-				                                                      new FieldConfig("time", 4, FieldType.TEXT_FIELD),
-				                                                      new FieldConfig("search num", 5,
-				                                                                      FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("street", 5,
-				                                                                                        FieldType.TEXT_FIELD),
-				                                                                        new FieldConfig("area", 4,
-				                                                                                        FieldType.COMBO_BOX_AREA),
-				                                                                        new FieldConfig("county", 3,
-				                                                                                        FieldType.TEXT_FIELD))),
-		                                                      new SectionConfig("Search Information", true,
-		                                                                        new RowConfig(new FieldConfig(
-				                                                                        "grounds for search", 6,
-				                                                                        FieldType.TEXT_FIELD),
-		                                                                                      new FieldConfig(
-				                                                                                      "witness(s)", 6,
-				                                                                                      FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(new FieldConfig(
-				                                                                        "searched individual", 12,
-				                                                                        FieldType.TEXT_FIELD)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("search type",
-				                                                                                        6,
-				                                                                                        FieldType.COMBO_BOX_SEARCH_TYPE),
-				                                                                        new FieldConfig("search method",
-				                                                                                        6,
-				                                                                                        FieldType.COMBO_BOX_SEARCH_METHOD))),
-		                                                      new SectionConfig(
-				                                                      "Field Sobriety Information (If Applicable)",
-				                                                      false, new RowConfig(
-				                                                      new FieldConfig("test(s) conducted", 4,
-				                                                                      FieldType.TEXT_FIELD),
-				                                                      new FieldConfig("result", 4,
-				                                                                      FieldType.TEXT_FIELD),
-				                                                      new FieldConfig("bac measurement", 4,
-				                                                                      FieldType.TEXT_FIELD))),
-		                                                      new SectionConfig("Notes / Summary", true, new RowConfig(
-				                                                      new FieldConfig("seized item(s)", 12,
-				                                                                      FieldType.TEXT_AREA)),
-		                                                                        new RowConfig(
-				                                                                        new FieldConfig("comments", 12,
-				                                                                                        FieldType.TEXT_AREA))));
-		return searchReport;
-	}
 	
 	public static Map<String, Object> arrestLayout() {
 		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,

@@ -10,7 +10,7 @@ import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
-import com.drozal.dataterminal.logs.Search.SearchReportLogs;
+import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
 import javafx.animation.FadeTransition;
@@ -605,7 +605,7 @@ public class controllerUtils {
 					case 1 -> ArrestReportLogs.countReports();
 					case 2 -> TrafficStopReportLogs.countReports();
 					case 3 -> PatrolReportUtils.countReports();
-					case 4 -> SearchReportLogs.countReports();
+					case 4 -> SearchReportUtils.countReports();
 					case 5 -> IncidentReportUtils.countReports();
 					case 6 -> ImpoundReportLogs.countReports();
 					case 7 -> TrafficCitationReportLogs.countReports();

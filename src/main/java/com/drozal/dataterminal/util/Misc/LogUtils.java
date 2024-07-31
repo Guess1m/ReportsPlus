@@ -16,9 +16,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
-import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.showNotificationWarning;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class LogUtils {
@@ -81,6 +81,7 @@ public class LogUtils {
 		System.err.println(errorMessage);
 		e.printStackTrace(System.err);
 		System.err.println("***");
+		showNotificationWarning("ERROR", "ERROR: "+message, mainRT);
 	}
 	
 	private static void readLogFile(String filePath, ObservableList<TextFlow> logItems) {

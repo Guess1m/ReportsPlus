@@ -16,8 +16,7 @@ import com.drozal.dataterminal.logs.Incident.*;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReports;
-import com.drozal.dataterminal.logs.Search.SearchLogEntry;
-import com.drozal.dataterminal.logs.Search.SearchReportLogs;
+import com.drozal.dataterminal.logs.Search.*;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
@@ -74,6 +73,7 @@ import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
 import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncident;
 import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
+import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -498,7 +498,6 @@ public class actionController {
 	@javafx.fxml.FXML
 	private Tab impoundTab;
 	private ImpoundLogEntry impoundEntry;
-	private SearchLogEntry searchEntry;
 	private ArrestLogEntry arrestEntry;
 	private TrafficCitationLogEntry citationEntry;
 	@javafx.fxml.FXML
@@ -963,7 +962,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void onSearchReportBtnClick(ActionEvent actionEvent) {
-		newSearch(reportChart, areaReportChart, vbox, notesViewController);
+		newSearch(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1658,8 +1657,13 @@ public class actionController {
 		List<ArrestLogEntry> arrestLogEntryList = ArrestReportLogs.extractLogEntries(stringUtil.arrestLogURL);
 		arrestLogUpdate(arrestLogEntryList);
 		
-		List<SearchLogEntry> searchLogEntryList = SearchReportLogs.extractLogEntries(stringUtil.searchLogURL);
-		searchLogUpdate(searchLogEntryList);
+		try {
+			SearchReports searchReports = SearchReportUtils.loadSearchReports();
+			List<SearchReport> searchReportsList1 = searchReports.getSearchReportList();
+			searchLogUpdate(searchReportsList1);
+		} catch (JAXBException e) {
+			logError("Error loading SearchReports: ", e);
+		}
 		
 		try {
 			IncidentReports incidentReports = IncidentReportUtils.loadIncidentReports();
@@ -1713,8 +1717,10 @@ public class actionController {
 		arrestTable.getItems().addAll(logEntries);
 	}
 	
-	public void searchLogUpdate(List<SearchLogEntry> logEntries) {
-		
+	public void searchLogUpdate(List<SearchReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		searchTable.getItems().clear();
 		searchTable.getItems().addAll(logEntries);
 	}
@@ -1942,6 +1948,74 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
+			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
+			
+			if (searchReport != null) {
+				
+				Map<String, Object> searchReportObj = SearchReportUtils.newSearch(getReportChart(),
+				                                                                        getAreaReportChart(),
+				                                                                        notesViewController);
+				
+				
+				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
+				
+				TextField name = (TextField) searchReportMap.get("name");
+				TextField rank = (TextField) searchReportMap.get("rank");
+				TextField div = (TextField) searchReportMap.get("division");
+				TextField agen = (TextField) searchReportMap.get("agency");
+				TextField num = (TextField) searchReportMap.get("number");
+				
+				TextField searchnum = (TextField) searchReportMap.get("search num");
+				TextField date = (TextField) searchReportMap.get("date");
+				TextField time = (TextField) searchReportMap.get("time");
+				TextField street = (TextField) searchReportMap.get("street");
+				ComboBox area = (ComboBox) searchReportMap.get("area");
+				TextField county = (TextField) searchReportMap.get("county");
+				
+				TextField grounds = (TextField) searchReportMap.get("grounds for search");
+				TextField witness = (TextField) searchReportMap.get("witness(s)");
+				TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
+				ComboBox type = (ComboBox) searchReportMap.get("search type");
+				ComboBox method = (ComboBox) searchReportMap.get("search method");
+				
+				TextField testconducted = (TextField) searchReportMap.get("test(s) conducted");
+				TextField result = (TextField) searchReportMap.get("result");
+				TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
+				
+				TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
+				TextArea notes = (TextArea) searchReportMap.get("comments");
+				
+				name.setText(toTitleCase(searchReport.getOfficerName()));
+				div.setText(toTitleCase(searchReport.getOfficerDivision()));
+				agen.setText(toTitleCase(searchReport.getOfficerAgency()));
+				num.setText(toTitleCase(searchReport.getOfficerNumber()));
+				
+				street.setText(toTitleCase(searchReport.getSearchStreet()));
+				area.setValue(toTitleCase(searchReport.getSearchArea()));
+				county.setText(toTitleCase(searchReport.getSearchCounty()));
+				
+				testconducted.setText(toTitleCase(searchReport.getTestsConducted()));
+				grounds.setText(toTitleCase(searchReport.getSearchGrounds()));
+				witness.setText(toTitleCase(searchReport.getSearchWitnesses()));
+				searchedindividual.setText(toTitleCase(searchReport.getSearchedPersons()));
+				type.setValue(toTitleCase(searchReport.getSearchType()));
+				method.setValue(toTitleCase(searchReport.getSearchMethod()));
+				result.setText(toTitleCase(searchReport.getTestResults()));
+				bacmeasurement.setText(toTitleCase(searchReport.getBreathalyzerBACMeasure()));
+				
+				searchnum.setText(searchReport.getSearchNumber());
+				rank.setText(searchReport.getOfficerRank());
+				date.setText(searchReport.getSearchDate());
+				time.setText(searchReport.getSearchTime());
+				seizeditems.setText(searchReport.getSearchSeizedItems());
+				notes.setText(searchReport.getSearchComments());
+				
+				Button pullNotesBtn = (Button) searchReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				searchnum.setEditable(false);
+				
+				searchTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2417,10 +2491,6 @@ public class actionController {
 	
 	public TextField getPedwantedfield() {
 		return pedwantedfield;
-	}
-	
-	public SearchLogEntry getSearchEntry() {
-		return searchEntry;
 	}
 	
 	public MenuItem getSearchReportButton() {

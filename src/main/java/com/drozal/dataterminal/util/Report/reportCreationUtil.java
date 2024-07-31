@@ -10,8 +10,7 @@ import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundLogEntry;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
-import com.drozal.dataterminal.logs.Search.SearchLogEntry;
-import com.drozal.dataterminal.logs.Search.SearchReportLogs;
+import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationLogEntry;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
@@ -34,6 +33,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.logs.Search.SearchReportUtils.searchLayout;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -255,9 +255,10 @@ public class reportCreationUtil {
 		});
 		
 		transfersearchbtn.setOnAction(event -> {
-			Map<String, Object> searchReport = searchLayout();
+			Map<String, Object> searchReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart,
+			                                                                  notesViewController);
 			
-			Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+			Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 			
 			TextField namesrch = (TextField) searchReportMap.get("name");
 			TextField ranksrch = (TextField) searchReportMap.get("rank");
@@ -272,25 +273,7 @@ public class reportCreationUtil {
 			ComboBox areasrch = (ComboBox) searchReportMap.get("area");
 			TextField countysrch = (TextField) searchReportMap.get("county");
 			
-			TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
-			TextField witnesssrch = (TextField) searchReportMap.get("witness(s)");
 			TextField searchedindividualsrch = (TextField) searchReportMap.get("searched individual");
-			ComboBox typesrch = (ComboBox) searchReportMap.get("search type");
-			ComboBox methodsrch = (ComboBox) searchReportMap.get("search method");
-			
-			TextField testconductedsrch = (TextField) searchReportMap.get("test(s) conducted");
-			TextField resultsrch = (TextField) searchReportMap.get("result");
-			TextField bacmeasurementsrch = (TextField) searchReportMap.get("bac measurement");
-			
-			TextArea seizeditemssrch = (TextArea) searchReportMap.get("seized item(s)");
-			TextArea notessrch = (TextArea) searchReportMap.get("comments");
-			
-			BorderPane rootsrch = (BorderPane) searchReport.get("root");
-			Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
-			
-			if (!stagesrch.isFocused()) {
-				stagesrch.requestFocus();
-			}
 			
 			searchnum.setText(arrestnum.getText());
 			namesrch.setText(officername.getText());
@@ -304,56 +287,6 @@ public class reportCreationUtil {
 			countysrch.setText(county.getText());
 			areasrch.setValue(area.getEditor().getText());
 			streetsrch.setText(street.getText());
-			
-			Label warningLabelsrch = (Label) searchReport.get("warningLabel");
-			
-			Button pullNotesBtnsrch = (Button) searchReport.get("pullNotesBtn");
-			
-			pullNotesBtnsrch.setOnAction(event1 -> {
-				if (notesViewController != null) {
-					updateTextFromNotepad(areasrch.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-					updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
-					updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
-					updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(), "-name");
-					updateTextFromNotepad(notessrch, notesViewController.getNotepadTextArea(), "-comments");
-					updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
-					updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(), "-searchitems");
-				} else {
-					log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-				}
-			});
-			
-			Button submitBtnsrch = (Button) searchReport.get("submitBtn");
-			
-			submitBtnsrch.setOnAction(event2 -> {
-				
-				for (String fieldName : searchReportMap.keySet()) {
-					Object field = searchReportMap.get(fieldName);
-					if (field instanceof ComboBox<?> comboBox) {
-						if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-							comboBox.getSelectionModel().selectFirst();
-						}
-					}
-				}
-				
-				List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
-				
-				logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(), datesrch.getText(),
-				                            timesrch.getText(), seizeditemssrch.getText(), groundssrch.getText(),
-				                            typesrch.getValue().toString(), methodsrch.getValue().toString(),
-				                            witnesssrch.getText(), ranksrch.getText(), namesrch.getText(),
-				                            numsrch.getText(), agensrch.getText(), divsrch.getText(),
-				                            streetsrch.getText(), areasrch.getEditor().getText(), countysrch.getText(),
-				                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
-				                            bacmeasurementsrch.getText()));
-				
-				SearchReportLogs.saveLogsToXML(logs);
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
-				showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
-				stagesrch.close();
-			});
 		});
 		
 		Button submitBtn = (Button) arrestReport.get("submitBtn");
@@ -802,101 +735,6 @@ public class reportCreationUtil {
 		});
 	}
 	
-	public static void newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
-		Map<String, Object> searchReport = searchLayout();
-		
-		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
-		
-		TextField name = (TextField) searchReportMap.get("name");
-		TextField rank = (TextField) searchReportMap.get("rank");
-		TextField div = (TextField) searchReportMap.get("division");
-		TextField agen = (TextField) searchReportMap.get("agency");
-		TextField num = (TextField) searchReportMap.get("number");
-		
-		TextField searchnum = (TextField) searchReportMap.get("search num");
-		TextField date = (TextField) searchReportMap.get("date");
-		TextField time = (TextField) searchReportMap.get("time");
-		TextField street = (TextField) searchReportMap.get("street");
-		ComboBox area = (ComboBox) searchReportMap.get("area");
-		TextField county = (TextField) searchReportMap.get("county");
-		
-		TextField grounds = (TextField) searchReportMap.get("grounds for search");
-		TextField witness = (TextField) searchReportMap.get("witness(s)");
-		TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
-		ComboBox type = (ComboBox) searchReportMap.get("search type");
-		ComboBox method = (ComboBox) searchReportMap.get("search method");
-		
-		TextField testconducted = (TextField) searchReportMap.get("test(s) conducted");
-		TextField result = (TextField) searchReportMap.get("result");
-		TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
-		
-		TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
-		TextArea notes = (TextArea) searchReportMap.get("comments");
-		
-		BorderPane root = (BorderPane) searchReport.get("root");
-		Stage stage = (Stage) root.getScene().getWindow();
-		
-		Label warningLabel = (Label) searchReport.get("warningLabel");
-		
-		try {
-			name.setText(ConfigReader.configRead("userInfo", "Name"));
-			rank.setText(ConfigReader.configRead("userInfo", "Rank"));
-			div.setText(ConfigReader.configRead("userInfo", "Division"));
-			agen.setText(ConfigReader.configRead("userInfo", "Agency"));
-			num.setText(ConfigReader.configRead("userInfo", "Number"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		date.setText(getDate());
-		time.setText(getTime());
-		
-		Button pullNotesBtn = (Button) searchReport.get("pullNotesBtn");
-		
-		pullNotesBtn.setOnAction(event -> {
-			if (notesViewController != null) {
-				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
-				updateTextFromNotepad(searchedindividual, notesViewController.getNotepadTextArea(), "-name");
-				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
-				updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
-				updateTextFromNotepad(seizeditems, notesViewController.getNotepadTextArea(), "-searchitems");
-			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-			}
-		});
-		
-		Button submitBtn = (Button) searchReport.get("submitBtn");
-		
-		submitBtn.setOnAction(event -> {
-			
-			for (String fieldName : searchReportMap.keySet()) {
-				Object field = searchReportMap.get(fieldName);
-				if (field instanceof ComboBox<?> comboBox) {
-					if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-						comboBox.getSelectionModel().selectFirst();
-					}
-				}
-			}
-			
-			List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
-			
-			logs.add(new SearchLogEntry(searchnum.getText(), searchedindividual.getText(), date.getText(),
-			                            time.getText(), seizeditems.getText(), grounds.getText(),
-			                            type.getValue().toString(), method.getValue().toString(), witness.getText(),
-			                            rank.getText(), name.getText(), num.getText(), agen.getText(), div.getText(),
-			                            street.getText(), area.getEditor().getText(), county.getText(), notes.getText(),
-			                            testconducted.getText(), result.getText(), bacmeasurement.getText()));
-			
-			SearchReportLogs.saveLogsToXML(logs);
-			actionController.needRefresh.set(1);
-			updateChartIfMismatch(reportChart);
-			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
-			stage.close();
-		});
-	}
-	
 	public static void newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, Object vbox, NotesViewController notesViewController) {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
@@ -1188,9 +1026,10 @@ public class reportCreationUtil {
 			});
 			
 			transfersearchbtnarr.setOnAction(event4 -> {
-				Map<String, Object> searchReport = searchLayout();
+				Map<String, Object> searchReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart,
+				                                                                  notesViewController);
 				
-				Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 				
 				TextField namesrch = (TextField) searchReportMap.get("name");
 				TextField ranksrch = (TextField) searchReportMap.get("rank");
@@ -1205,25 +1044,7 @@ public class reportCreationUtil {
 				ComboBox areasrch = (ComboBox) searchReportMap.get("area");
 				TextField countysrch = (TextField) searchReportMap.get("county");
 				
-				TextField groundssrch = (TextField) searchReportMap.get("grounds for search");
-				TextField witnesssrch = (TextField) searchReportMap.get("witness(s)");
 				TextField searchedindividualsrch = (TextField) searchReportMap.get("searched individual");
-				ComboBox typesrch = (ComboBox) searchReportMap.get("search type");
-				ComboBox methodsrch = (ComboBox) searchReportMap.get("search method");
-				
-				TextField testconductedsrch = (TextField) searchReportMap.get("test(s) conducted");
-				TextField resultsrch = (TextField) searchReportMap.get("result");
-				TextField bacmeasurementsrch = (TextField) searchReportMap.get("bac measurement");
-				
-				TextArea seizeditemssrch = (TextArea) searchReportMap.get("seized item(s)");
-				TextArea notessrch = (TextArea) searchReportMap.get("comments");
-				
-				BorderPane rootsrch = (BorderPane) searchReport.get("root");
-				Stage stagesrch = (Stage) rootsrch.getScene().getWindow();
-				
-				if (!stagesrch.isFocused()) {
-					stagesrch.requestFocus();
-				}
 				
 				searchnum.setText(arrestnumarr.getText());
 				namesrch.setText(officernamearr.getText());
@@ -1237,58 +1058,6 @@ public class reportCreationUtil {
 				countysrch.setText(countyarr.getText());
 				areasrch.setValue(areaarr.getEditor().getText());
 				streetsrch.setText(streetarr.getText());
-				
-				Label warningLabelsrch = (Label) searchReport.get("warningLabel");
-				
-				Button pullNotesBtnsrch = (Button) searchReport.get("pullNotesBtn");
-				
-				pullNotesBtnsrch.setOnAction(event1 -> {
-					if (notesViewController != null) {
-						updateTextFromNotepad(areasrch.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-						updateTextFromNotepad(countysrch, notesViewController.getNotepadTextArea(), "-county");
-						updateTextFromNotepad(streetsrch, notesViewController.getNotepadTextArea(), "-street");
-						updateTextFromNotepad(searchedindividualsrch, notesViewController.getNotepadTextArea(),
-						                      "-name");
-						updateTextFromNotepad(notessrch, notesViewController.getNotepadTextArea(), "-comments");
-						updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
-						updateTextFromNotepad(seizeditemssrch, notesViewController.getNotepadTextArea(),
-						                      "-searchitems");
-					} else {
-						log("NotesViewController Is Null", LogUtils.Severity.ERROR);
-					}
-				});
-				
-				Button submitBtnsrch = (Button) searchReport.get("submitBtn");
-				
-				submitBtnsrch.setOnAction(event2 -> {
-					
-					for (String fieldName : searchReportMap.keySet()) {
-						Object field = searchReportMap.get(fieldName);
-						if (field instanceof ComboBox<?> comboBox) {
-							if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-								comboBox.getSelectionModel().selectFirst();
-							}
-						}
-					}
-					List<SearchLogEntry> logs = SearchReportLogs.loadLogsFromXML();
-					
-					logs.add(new SearchLogEntry(searchnum.getText(), searchedindividualsrch.getText(),
-					                            datesrch.getText(), timesrch.getText(), seizeditemssrch.getText(),
-					                            groundssrch.getText(), typesrch.getValue().toString(),
-					                            methodsrch.getValue().toString(), witnesssrch.getText(),
-					                            ranksrch.getText(), namesrch.getText(), numsrch.getText(),
-					                            agensrch.getText(), divsrch.getText(), streetsrch.getText(),
-					                            areasrch.getEditor().getText(), countysrch.getText(),
-					                            notessrch.getText(), testconductedsrch.getText(), resultsrch.getText(),
-					                            bacmeasurementsrch.getText()));
-					
-					SearchReportLogs.saveLogsToXML(logs);
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					refreshChart(areaReportChart, "area");
-					showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
-					stagesrch.close();
-				});
 			});
 			
 			Button submitBtn = (Button) arrestReport.get("submitBtn");

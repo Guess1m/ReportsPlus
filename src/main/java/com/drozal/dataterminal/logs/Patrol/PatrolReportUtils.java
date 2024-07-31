@@ -25,7 +25,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutLogURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.patrolLogURL;
 import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -103,7 +102,7 @@ public class PatrolReportUtils {
 						                                                                                          "vehicle",
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Callout Notes", true,
+		                                                      new nestedReportUtils.SectionConfig("Patrol Notes", true,
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
 						                                                                                          "notes",
@@ -222,8 +221,8 @@ public class PatrolReportUtils {
 		JAXBContext context = JAXBContext.newInstance(PatrolReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		
-		File file = new File(calloutLogURL);
+		// TODO update other url
+		File file = new File(patrolLogURL);
 		marshaller.marshal(PatrolReports, file);
 	}
 	

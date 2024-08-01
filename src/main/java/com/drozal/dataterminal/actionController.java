@@ -62,6 +62,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -1785,6 +1786,26 @@ public class actionController {
 				witnesses.setText(deathReport.getWitnesses());
 				notes.setText(deathReport.getNotesTextArea());
 				
+				BorderPane root = (BorderPane) deathReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) deathReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = deathNum.getText();
+					try {
+						DeathReportUtils.deleteDeathReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete DeathReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
+				
 				deathNum.setEditable(false);
 				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -1840,6 +1861,26 @@ public class actionController {
 				callouttype.setText(calloutReport.getResponseType());
 				calloutcode.setText(calloutReport.getResponseGrade());
 				
+				BorderPane root = (BorderPane) calloutReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) calloutReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = calloutnum.getText();
+					try {
+						CalloutReportUtils.deleteCalloutReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete CalloutReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
+				
 				Button pullNotesBtn = (Button) calloutReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				calloutnum.setEditable(false);
@@ -1890,6 +1931,26 @@ public class actionController {
 				length.setText(patrolReport.getPatrolLength());
 				vehicle.setText(patrolReport.getOfficerVehicle());
 				notes.setText(patrolReport.getPatrolComments());
+				
+				BorderPane root = (BorderPane) patrolReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) patrolReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = patrolnum.getText();
+					try {
+						PatrolReportUtils.deletePatrolReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete PatrolReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
 				
 				Button pullNotesBtn = (Button) patrolReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -1968,6 +2029,26 @@ public class actionController {
 				typets.setValue(trafficStopReport.getType());
 				modelts.setText(trafficStopReport.getResponseModel());
 				
+				BorderPane root = (BorderPane) trafficStopReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) trafficStopReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = stopnumts.getText();
+					try {
+						TrafficStopReportUtils.deleteTrafficStopReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete TrafficStopReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
+				
 				Button pullNotesBtn = (Button) trafficStopReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				stopnumts.setEditable(false);
@@ -2032,6 +2113,26 @@ public class actionController {
 				time.setText(incidentReport.getIncidentTime());
 				summary.setText(incidentReport.getIncidentActionsTaken());
 				notes.setText(incidentReport.getIncidentComments());
+				
+				BorderPane root = (BorderPane) incidentReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) incidentReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = incidentnum.getText();
+					try {
+						IncidentReportUtils.deleteIncidentReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete IncidentReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
 				
 				Button pullNotesBtn = (Button) incidentReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -2098,6 +2199,26 @@ public class actionController {
 				color.setValue(impoundReport.getImpoundColor());
 				type.setValue(impoundReport.getImpoundType());
 				model.setText(impoundReport.getImpoundModel());
+				
+				BorderPane root = (BorderPane) impoundReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) impoundReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = num.getText();
+					try {
+						ImpoundReportUtils.deleteImpoundReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete ImpoundReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
 				
 				Button pullNotesBtn = (Button) impoundReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -2173,6 +2294,26 @@ public class actionController {
 				offenderGender.setText(trafficCitationReport.getOffenderGender());
 				offenderDescription.setText(trafficCitationReport.getOffenderDescription());
 				offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
+				
+				BorderPane root = (BorderPane) trafficCitationObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) trafficCitationObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = num.getText();
+					try {
+						TrafficCitationUtils.deleteTrafficCitationReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete TrafficCitationReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
 				
 				Button pullNotesBtn = (Button) trafficCitationObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
@@ -2255,6 +2396,26 @@ public class actionController {
 				seizeditems.setText(searchReport.getSearchSeizedItems());
 				notes.setText(searchReport.getSearchComments());
 				
+				BorderPane root = (BorderPane) searchReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) searchReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = searchnum.getText();
+					try {
+						SearchReportUtils.deleteSearchReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete SearchReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
+				
 				Button pullNotesBtn = (Button) searchReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				searchnum.setEditable(false);
@@ -2323,6 +2484,26 @@ public class actionController {
 				date.setText(arrestReport.getArrestDate());
 				time.setText(arrestReport.getArrestTime());
 				notes.setText(arrestReport.getArrestDetails());
+				
+				BorderPane root = (BorderPane) arrestReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) arrestReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = arrestnum.getText();
+					try {
+						ArrestReportUtils.deleteArrestReport(numToDelete);
+					} catch (JAXBException e) {
+						logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
 				
 				Button pullNotesBtn = (Button) arrestReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);

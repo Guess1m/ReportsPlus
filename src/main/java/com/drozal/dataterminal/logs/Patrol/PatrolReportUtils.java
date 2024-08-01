@@ -249,6 +249,7 @@ public class PatrolReportUtils {
 		if (PatrolReports.getPatrolReportList() != null) {
 			PatrolReports.getPatrolReportList().removeIf(e -> e.getPatrolNumber().equals(PatrolReportnumber));
 			savePatrolReports(PatrolReports);
+			log("PatrolReport with number " + PatrolReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

@@ -255,6 +255,7 @@ public class CalloutReportUtils {
 		if (CalloutReports.getCalloutReportList() != null) {
 			CalloutReports.getCalloutReportList().removeIf(e -> e.getCalloutNumber().equals(CalloutReportnumber));
 			saveCalloutReports(CalloutReports);
+			log("CalloutReport with number " + CalloutReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

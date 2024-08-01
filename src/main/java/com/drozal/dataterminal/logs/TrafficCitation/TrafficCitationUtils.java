@@ -442,6 +442,8 @@ public class TrafficCitationUtils {
 			TrafficCitationReports.getTrafficCitationReportList().removeIf(
 					e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
 			saveTrafficCitationReports(TrafficCitationReports);
+			log("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.",
+			    LogUtils.Severity.INFO);
 		}
 	}
 	

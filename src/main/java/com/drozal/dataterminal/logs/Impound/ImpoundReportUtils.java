@@ -150,9 +150,9 @@ public class ImpoundReportUtils {
 		
 		BorderPane root = (BorderPane) impoundReport.get("root");
 		Stage stage = (Stage) root.getScene().getWindow();
+		Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
 		
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
-		Button pullNotesBtn = (Button) impoundReport.get("pullNotesBtn");
 		
 		try {
 			officername.setText(ConfigReader.configRead("userInfo", "Name"));
@@ -280,6 +280,7 @@ public class ImpoundReportUtils {
 		if (ImpoundReports.getImpoundReportList() != null) {
 			ImpoundReports.getImpoundReportList().removeIf(e -> e.getImpoundNumber().equals(ImpoundReportnumber));
 			saveImpoundReports(ImpoundReports);
+			log("ImpoundReport with number " + ImpoundReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

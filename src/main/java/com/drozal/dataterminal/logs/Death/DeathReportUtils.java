@@ -330,6 +330,7 @@ public class DeathReportUtils {
 		if (DeathReports.getDeathReportList() != null) {
 			DeathReports.getDeathReportList().removeIf(e -> e.getDeathReportNumber().equals(DeathReportnumber));
 			saveDeathReports(DeathReports);
+			log("DeathReport with number " + DeathReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

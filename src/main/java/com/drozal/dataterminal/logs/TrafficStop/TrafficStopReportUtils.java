@@ -432,6 +432,7 @@ public class TrafficStopReportUtils {
 			TrafficStopReports.getTrafficStopReportList().removeIf(
 					e -> e.getStopNumber().equals(TrafficStopReportnumber));
 			saveTrafficStopReports(TrafficStopReports);
+			log("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

@@ -392,7 +392,23 @@ public class reportUtil {
 			}
 		});
 		
-		HBox buttonBox = new HBox(10, pullNotesBtn, warningLabel, submitBtn);
+		Button delBtn = new Button("Delete Report");
+		delBtn.setVisible(false);
+		delBtn.setDisable(true);
+		delBtn.getStyleClass().add("incidentformButton");
+		delBtn.setStyle("-fx-padding: 15; -fx-border-color:red; -fx-border-width: 1;");
+		delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+		delBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue) {
+				delBtn.setStyle(
+						"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+			} else {
+				delBtn.setStyle(
+						"-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+			}
+		});
+		
+		HBox buttonBox = new HBox(10, delBtn, pullNotesBtn, warningLabel, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 		VBox root = new VBox(10, mainHeaderLabel, gridPane);
 		
@@ -555,6 +571,7 @@ public class reportUtil {
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put(reportName + " Map", fieldsMap);
+		result.put("delBtn", delBtn);
 		result.put("pullNotesBtn", pullNotesBtn);
 		result.put("warningLabel", warningLabel);
 		result.put("submitBtn", submitBtn);

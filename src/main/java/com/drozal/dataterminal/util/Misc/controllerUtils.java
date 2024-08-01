@@ -838,17 +838,21 @@ public class controllerUtils {
 		sortedAreasMap.putAll(combinedAreasMap);
 		
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		
 		for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
-			if (!entry.getKey().equals("N/A")) {
+			if (!entry.getKey().equalsIgnoreCase("N/A")) {
 				series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
 			}
 		}
 		return series;
 	}
 	
-	public static void refreshChart(AreaChart chart, String value) {
+	public static void refreshChart(AreaChart<String, Number> chart, String value) {
 		chart.getData().clear();
-		chart.getData().add(parseEveryLog(value));
+		
+		XYChart.Series<String, Number> newSeries = parseEveryLog(value);
+		chart.getData().add(newSeries);
+		
 		try {
 			changeStatisticColors(chart);
 		} catch (IOException e) {

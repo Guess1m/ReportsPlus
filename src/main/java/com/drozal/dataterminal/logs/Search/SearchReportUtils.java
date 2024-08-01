@@ -315,6 +315,7 @@ public class SearchReportUtils {
 		if (SearchReports.getSearchReportList() != null) {
 			SearchReports.getSearchReportList().removeIf(e -> e.getSearchNumber().equals(SearchReportnumber));
 			saveSearchReports(SearchReports);
+			log("SearchReport with number " + SearchReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

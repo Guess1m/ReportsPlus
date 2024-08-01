@@ -277,6 +277,7 @@ public class IncidentReportUtils {
 		if (IncidentReports.getIncidentReportList() != null) {
 			IncidentReports.getIncidentReportList().removeIf(e -> e.getIncidentNumber().equals(IncidentReportnumber));
 			saveIncidentReports(IncidentReports);
+			log("IncidentReport with number " + IncidentReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

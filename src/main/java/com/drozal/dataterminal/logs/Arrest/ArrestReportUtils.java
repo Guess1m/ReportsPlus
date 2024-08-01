@@ -514,6 +514,7 @@ public class ArrestReportUtils {
 		if (ArrestReports.getArrestReportList() != null) {
 			ArrestReports.getArrestReportList().removeIf(e -> e.getArrestNumber().equals(ArrestReportnumber));
 			saveArrestReports(ArrestReports);
+			log("ArrestReport with number " + ArrestReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

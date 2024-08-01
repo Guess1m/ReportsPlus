@@ -106,7 +106,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 	
-	
 	//<editor-fold desc="VARS">
 	
 	public static String notesText;
@@ -125,6 +124,7 @@ public class actionController {
 	public static double IDy;
 	public static Screen IDScreen = null;
 	public static Screen CalloutScreen = null;
+	
 	public void initialize() throws IOException {
 		// TODO change back
 		lookupBtn.setVisible(true);
@@ -375,6 +375,7 @@ public class actionController {
 			}
 		});
 	}
+	
 	public static boolean CalloutFirstShown = true;
 	public static double Calloutx;
 	public static double Callouty;

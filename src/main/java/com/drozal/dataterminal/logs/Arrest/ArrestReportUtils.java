@@ -33,8 +33,8 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.arrestLogURL;
-import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
+import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.parseCourtData;
@@ -416,7 +416,7 @@ public class ArrestReportUtils {
 			try {
 				ArrestReportUtils.addArrestReport(arrestReport1);
 			} catch (JAXBException e) {
-				logError("Could not create new ArrestReport: ",e);
+				logError("Could not create new ArrestReport: ", e);
 			}
 			
 			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {

@@ -55,77 +55,102 @@ public class TrafficCitationUtils {
 	
 	public static Map<String, Object> citationLayout() {
 		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
-		                                                        new nestedReportUtils.TransferConfig("Transfer Information To New Report",
-		                                                                                             new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                             "transferimpoundbtn", 12,
-				                                                                                             nestedReportUtils.FieldType.TRANSFER_BUTTON))),
-		                                                        new nestedReportUtils.SectionConfig("Officer Information", true,
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("name", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("rank", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("number", 2,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("division", 6,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("agency", 6,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Location / Timestamp Information",
-		                                                                                            true, new nestedReportUtils.RowConfig(
-				                                                        new nestedReportUtils.FieldConfig("street", 4,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                        new nestedReportUtils.FieldConfig("area", 4,
-				                                                                                          nestedReportUtils.FieldType.COMBO_BOX_AREA),
-				                                                        new nestedReportUtils.FieldConfig("county", 4,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig("date", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig("time", 5,
-				                                                                                                                              nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                            new nestedReportUtils.FieldConfig(
-						                                                                                            "citation number", 2,
-						                                                                                            nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Offender Information", true,
-		                                                                                            new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                            "offender name", 4,
-				                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                            new nestedReportUtils.FieldConfig(
-				                                                                                                                            "offender age",
-				                                                                                                                            4,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                            new nestedReportUtils.FieldConfig(
-				                                                                                                                            "offender gender",
-				                                                                                                                            4,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                            new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                            "offender address", 6,
-				                                                                                            nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                            new nestedReportUtils.FieldConfig(
-				                                                                                                                            "offender description",
-				                                                                                                                            6,
-				                                                                                                                            nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.TransferConfig(
+				                                                        "Transfer Information To New Report",
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "transferimpoundbtn", 12,
+								                                                        nestedReportUtils.FieldType.TRANSFER_BUTTON))),
+		                                                        new nestedReportUtils.SectionConfig(
+				                                                        "Officer Information", true,
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "name", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "rank", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "number", 2,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "division", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "agency", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.SectionConfig(
+				                                                        "Location / Timestamp Information", true,
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "street", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "area", 4,
+								                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "county", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "date", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "time", 5,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "citation number", 2,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.SectionConfig(
+				                                                        "Offender Information", true,
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "offender name", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "offender age", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "offender gender", 4,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "offender address", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "offender description", 6,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
 		                                                        new nestedReportUtils.SectionConfig(
 				                                                        "(If Applicable) Offender Vehicle Information",
-				                                                        false, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("model", 4,
-				                                                                                                                                 nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                               new nestedReportUtils.FieldConfig(
-						                                                                                               "plate number", 4,
-						                                                                                               nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                               new nestedReportUtils.FieldConfig("color", 4,
-				                                                                                                                                 nestedReportUtils.FieldType.COMBO_BOX_COLOR)),
-				                                                        new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("type", 4,
-				                                                                                                                          nestedReportUtils.FieldType.COMBO_BOX_TYPE),
-				                                                                                        new nestedReportUtils.FieldConfig("other info", 8,
-				                                                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Citation Notes", true, new nestedReportUtils.RowConfig(
-				                                                        new nestedReportUtils.FieldConfig("notes", 12,
-				                                                                                          nestedReportUtils.FieldType.TEXT_AREA))),
-		                                                        new nestedReportUtils.SectionConfig("Citation(s)", true, new nestedReportUtils.RowConfig(
-				                                                        new nestedReportUtils.FieldConfig("citationview", 6,
-				                                                                                          nestedReportUtils.FieldType.CITATION_TREE_VIEW))));
+				                                                        false, new nestedReportUtils.RowConfig(
+				                                                        new nestedReportUtils.FieldConfig("model", 4,
+				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                        new nestedReportUtils.FieldConfig(
+						                                                        "plate number", 4,
+						                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                        new nestedReportUtils.FieldConfig("color", 4,
+				                                                                                          nestedReportUtils.FieldType.COMBO_BOX_COLOR)),
+				                                                        new nestedReportUtils.RowConfig(
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "type", 4,
+								                                                        nestedReportUtils.FieldType.COMBO_BOX_TYPE),
+						                                                        new nestedReportUtils.FieldConfig(
+								                                                        "other info", 8,
+								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                        new nestedReportUtils.SectionConfig("Citation Notes",
+		                                                                                            true,
+		                                                                                            new nestedReportUtils.RowConfig(
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "notes",
+						                                                                                            12,
+						                                                                                            nestedReportUtils.FieldType.TEXT_AREA))),
+		                                                        new nestedReportUtils.SectionConfig("Citation(s)", true,
+		                                                                                            new nestedReportUtils.RowConfig(
+				                                                                                            new nestedReportUtils.FieldConfig(
+						                                                                                            "citationview",
+						                                                                                            6,
+						                                                                                            nestedReportUtils.FieldType.CITATION_TREE_VIEW))));
 		return citationReport;
 	}
 	
@@ -316,7 +341,7 @@ public class TrafficCitationUtils {
 			try {
 				TrafficCitationUtils.addTrafficCitationReport(trafficCitationReport);
 			} catch (JAXBException e) {
-				logError("Could not create TrafficCitationReport: ",e);
+				logError("Could not create TrafficCitationReport: ", e);
 			}
 			
 			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
@@ -398,10 +423,12 @@ public class TrafficCitationUtils {
 		if (existingReport.isPresent()) {
 			TrafficCitationReports.getTrafficCitationReportList().remove(existingReport.get());
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.", LogUtils.Severity.INFO);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.",
+			    LogUtils.Severity.INFO);
 		} else {
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.", LogUtils.Severity.INFO);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.",
+			    LogUtils.Severity.INFO);
 		}
 		
 		saveTrafficCitationReports(TrafficCitationReports);
@@ -411,7 +438,8 @@ public class TrafficCitationUtils {
 		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
 		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
-			TrafficCitationReports.getTrafficCitationReportList().removeIf(e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
+			TrafficCitationReports.getTrafficCitationReportList().removeIf(
+					e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
 			saveTrafficCitationReports(TrafficCitationReports);
 		}
 	}

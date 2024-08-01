@@ -34,6 +34,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -1093,5 +1094,16 @@ public class reportUtil {
 			columnIndex += fieldConfig.getSize();
 			
 		}
+	}
+	
+	public static String generateReportNumber() {
+		int num_length = 7;
+		StringBuilder DeathReportNumber = new StringBuilder();
+		for (int i = 0; i < num_length; i++) {
+			SecureRandom RANDOM = new SecureRandom();
+			int digit = RANDOM.nextInt(10);
+			DeathReportNumber.append(digit);
+		}
+		return DeathReportNumber.toString();
 	}
 }

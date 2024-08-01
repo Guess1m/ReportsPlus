@@ -29,8 +29,8 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutLogURL;
-import static com.drozal.dataterminal.util.Report.reportCreationUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
+import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 
 public class CalloutReportUtils {
 	

@@ -351,7 +351,6 @@ public class actionController {
 	
 	//<editor-fold desc="VARS">
 	
-	
 	public static String notesText;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
 	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
@@ -370,11 +369,9 @@ public class actionController {
 	public static double Calloutx;
 	public static double Callouty;
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="FXML Elements">
-	
 	
 	@javafx.fxml.FXML
 	private MenuItem deathReportButton;
@@ -732,11 +729,9 @@ public class actionController {
 	@javafx.fxml.FXML
 	private AnchorPane courtInfoPane;
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="Events">
-	
 	
 	public static void handleClose() {
 		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
@@ -1221,11 +1216,9 @@ public class actionController {
 		CalloutManager.loadHistoryCallouts(calHistoryList);
 	}
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="Utils">
-	
 	
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
@@ -1579,11 +1572,9 @@ public class actionController {
 		return fineTotal;
 	}
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="Log Methods">
-	
 	
 	private void loadLogs() {
 		try {
@@ -2248,7 +2239,8 @@ public class actionController {
 			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
 			
 			if (arrestReport != null) {
-				Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart, notesViewController);
+				Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart,
+				                                                                  notesViewController);
 				
 				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 				
@@ -2306,7 +2298,6 @@ public class actionController {
 			}
 		}
 	}
-	
 	
 	//</editor-fold>
 	

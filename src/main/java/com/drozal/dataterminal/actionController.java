@@ -8,6 +8,8 @@ import com.drozal.dataterminal.logs.Arrest.ArrestReports;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Callout.CalloutReports;
+import com.drozal.dataterminal.logs.ChargesData;
+import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReports;
@@ -93,6 +95,8 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
+import static com.drozal.dataterminal.util.Report.treeViewUtils.addCitationsToTable;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
@@ -2174,6 +2178,12 @@ public class actionController {
 				pullNotesBtn.setVisible(false);
 				num.setEditable(false);
 				
+				TableView citationtable1 = (TableView) citationReportMap.get("CitationTableView");
+				ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
+				citationtable1.setItems(citationList);
+				
+				addCitationsToTable(trafficCitationReport.getCitationCharges(), citationList);
+				
 				Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -2317,6 +2327,12 @@ public class actionController {
 				Button pullNotesBtn = (Button) arrestReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				arrestnum.setEditable(false);
+				
+				TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
+				ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
+				chargetable.setItems(chargeList);
+				
+				addChargesToTable(arrestReport.getArrestCharges(), chargeList);
 				
 				Button submitBtn = (Button) arrestReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");

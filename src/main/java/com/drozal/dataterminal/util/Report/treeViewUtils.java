@@ -1,6 +1,9 @@
 package com.drozal.dataterminal.util.Report;
 
+import com.drozal.dataterminal.logs.ChargesData;
+import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -145,5 +148,25 @@ public class treeViewUtils {
 	
 	public static void expandTreeItem(TreeItem<String> root) {
 		root.setExpanded(true);
+	}
+	
+	public static void addChargesToTable(String chargesString, ObservableList<ChargesData> chargeList) {
+		String[] chargesArray = chargesString.split("\\|");
+		for (String charge : chargesArray) {
+			charge = charge.trim();
+			if (!charge.isEmpty()) {
+				chargeList.add(new ChargesData(charge));
+			}
+		}
+	}
+	
+	public static void addCitationsToTable(String citationsString, ObservableList<CitationsData> citList) {
+		String[] citationsArray = citationsString.split("\\|");
+		for (String cit : citationsArray) {
+			cit = cit.trim();
+			if (!cit.isEmpty()) {
+				citList.add(new CitationsData(cit));
+			}
+		}
 	}
 }

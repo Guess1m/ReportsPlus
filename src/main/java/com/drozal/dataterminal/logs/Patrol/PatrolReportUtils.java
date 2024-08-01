@@ -46,8 +46,6 @@ public class PatrolReportUtils {
 		}
 	}
 	
-	// TODO add layout / new map
-	
 	public static Map<String, Object> patrolLayout() {
 		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
 		                                                      new nestedReportUtils.SectionConfig("Officer Information",
@@ -169,8 +167,6 @@ public class PatrolReportUtils {
 					}
 				}
 			}
-			//TODO use addCase instead of using the reportlogs
-			
 			PatrolReport patrolReport1 = new PatrolReport();
 			patrolReport1.setPatrolNumber(toTitleCase(patrolnum.getText()));
 			patrolReport1.setPatrolDate(date.getText());
@@ -201,7 +197,6 @@ public class PatrolReportUtils {
 		return patrolReport;
 	}
 	
-	// TODO change url
 	public static PatrolReports loadPatrolReports() throws JAXBException {
 		File file = new File(patrolLogURL);
 		if (!file.exists()) {
@@ -222,7 +217,6 @@ public class PatrolReportUtils {
 		JAXBContext context = JAXBContext.newInstance(PatrolReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// TODO update other url
 		File file = new File(patrolLogURL);
 		marshaller.marshal(PatrolReports, file);
 	}

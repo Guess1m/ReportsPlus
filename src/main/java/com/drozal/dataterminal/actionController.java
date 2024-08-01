@@ -23,9 +23,12 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReports;
 import com.drozal.dataterminal.logs.Search.SearchReport;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReports;
-import com.drozal.dataterminal.logs.TrafficCitation.*;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReport;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReports;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReport;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReports;
 import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
@@ -81,16 +84,15 @@ import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncid
 import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
 import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
+import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.Misc.stringUtil.name;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
-import static com.drozal.dataterminal.util.Report.reportCreationUtil.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
@@ -449,7 +451,6 @@ public class actionController {
 	AnchorPane titlebar;
 	@javafx.fxml.FXML
 	private Label secondaryColor3Bkg;
-	private TrafficStopLogEntry trafficStopEntry;
 	@javafx.fxml.FXML
 	private Label secondaryColor4Bkg;
 	@javafx.fxml.FXML
@@ -962,7 +963,7 @@ public class actionController {
 	
 	@javafx.fxml.FXML
 	public void trafficStopReportButtonClick(ActionEvent actionEvent) {
-		newTrafficStop(reportChart, areaReportChart, vbox, notesViewController);
+		newTrafficStop(reportChart, areaReportChart, notesViewController);
 	}
 	
 	@javafx.fxml.FXML
@@ -1585,7 +1586,6 @@ public class actionController {
 	
 	
 	private void loadLogs() {
-		// TODO add new loading for logs
 		try {
 			ImpoundReports impoundReports = ImpoundReportUtils.loadImpoundReports();
 			List<ImpoundReport> impoundReportslist = impoundReports.getImpoundReportList();
@@ -1634,9 +1634,13 @@ public class actionController {
 			logError("Error loading IncidentReports: ", e);
 		}
 		
-		List<TrafficStopLogEntry> trafficLogEntryList = TrafficStopReportLogs.extractLogEntries(
-				stringUtil.trafficstopLogURL);
-		trafficStopLogUpdate(trafficLogEntryList);
+		try {
+			TrafficStopReports trafficStopReports = TrafficStopReportUtils.loadTrafficStopReports();
+			List<TrafficStopReport> trafficStopReportList = trafficStopReports.getTrafficStopReportList();
+			trafficStopLogUpdate(trafficStopReportList);
+		} catch (JAXBException e) {
+			logError("Error loading TrafficStopReports: ", e);
+		}
 		
 		try {
 			CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
@@ -1654,8 +1658,6 @@ public class actionController {
 			logError("Error loading DeathReports: ", e);
 		}
 	}
-	
-	// TODO add new log update
 	
 	public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
 		if (logEntries == null) {
@@ -1697,8 +1699,10 @@ public class actionController {
 		incidentTable.getItems().addAll(logEntries);
 	}
 	
-	public void trafficStopLogUpdate(List<TrafficStopLogEntry> logEntries) {
-		
+	public void trafficStopLogUpdate(List<TrafficStopReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
 		trafficStopTable.getItems().clear();
 		trafficStopTable.getItems().addAll(logEntries);
 	}
@@ -1727,8 +1731,6 @@ public class actionController {
 		deathReportTable.getItems().clear();
 		deathReportTable.getItems().addAll(logEntries);
 	}
-	
-	//TODO add new row click
 	
 	@javafx.fxml.FXML
 	public void onDeathReportRowClick(MouseEvent event) {
@@ -1900,7 +1902,74 @@ public class actionController {
 	@javafx.fxml.FXML
 	public void onTrafficStopRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
-		
+			TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel().getSelectedItem();
+			
+			if (trafficStopReport != null) {
+				
+				Map<String, Object> trafficStopReportObj = newTrafficStop(getReportChart(), getAreaReportChart(),
+				                                                          notesViewController);
+				
+				Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(
+						"Traffic Stop Report Map");
+				
+				TextField officernamets = (TextField) trafficStopReportMap.get("name");
+				TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
+				TextField officerdivts = (TextField) trafficStopReportMap.get("division");
+				TextField officeragents = (TextField) trafficStopReportMap.get("agency");
+				TextField officernumarrestts = (TextField) trafficStopReportMap.get("number");
+				
+				TextField offenderNamets = (TextField) trafficStopReportMap.get("offender name");
+				TextField offenderAgets = (TextField) trafficStopReportMap.get("offender age");
+				TextField offenderGenderts = (TextField) trafficStopReportMap.get("offender gender");
+				TextField offenderAddressts = (TextField) trafficStopReportMap.get("offender address");
+				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get("offender description");
+				
+				ComboBox colorts = (ComboBox) trafficStopReportMap.get("color");
+				ComboBox typets = (ComboBox) trafficStopReportMap.get("type");
+				TextField plateNumberts = (TextField) trafficStopReportMap.get("plate number");
+				TextField otherInfots = (TextField) trafficStopReportMap.get("other info");
+				TextField modelts = (TextField) trafficStopReportMap.get("model");
+				
+				ComboBox areats = (ComboBox) trafficStopReportMap.get("area");
+				TextField streetts = (TextField) trafficStopReportMap.get("street");
+				TextField countyts = (TextField) trafficStopReportMap.get("county");
+				TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
+				TextField datets = (TextField) trafficStopReportMap.get("date");
+				TextField timets = (TextField) trafficStopReportMap.get("time");
+				
+				TextArea notests = (TextArea) trafficStopReportMap.get("notes");
+				
+				stopnumts.setText(trafficStopReport.getStopNumber());
+				datets.setText(trafficStopReport.getDate());
+				timets.setText(trafficStopReport.getTime());
+				officerrankts.setText(trafficStopReport.getRank());
+				notests.setText(trafficStopReport.getCommentsTextArea());
+				plateNumberts.setText(trafficStopReport.getPlateNumber());
+				
+				offenderDescriptionts.setText(trafficStopReport.getOperatorDescription());
+				otherInfots.setText(trafficStopReport.getResponseOtherInfo());
+				areats.setValue(trafficStopReport.getArea());
+				streetts.setText(trafficStopReport.getStreet());
+				countyts.setText(trafficStopReport.getCounty());
+				
+				offenderNamets.setText(trafficStopReport.getOperatorName());
+				officernamets.setText(trafficStopReport.getName());
+				officerdivts.setText(trafficStopReport.getDivision());
+				officeragents.setText(trafficStopReport.getAgency());
+				officernumarrestts.setText(trafficStopReport.getNumber());
+				offenderAgets.setText(trafficStopReport.getOperatorAge());
+				offenderGenderts.setText(trafficStopReport.getOperatorGender());
+				offenderAddressts.setText(trafficStopReport.getOperatorAddress());
+				colorts.setValue(trafficStopReport.getColor());
+				typets.setValue(trafficStopReport.getType());
+				modelts.setText(trafficStopReport.getResponseModel());
+				
+				Button pullNotesBtn = (Button) trafficStopReportObj.get("pullNotesBtn");
+				pullNotesBtn.setVisible(false);
+				stopnumts.setEditable(false);
+				
+				trafficStopTable.getSelectionModel().clearSelection();
+			}
 		}
 	}
 	
@@ -2733,10 +2802,6 @@ public class actionController {
 	
 	public MenuItem getTrafficReportButton() {
 		return trafficReportButton;
-	}
-	
-	public TrafficStopLogEntry getTrafficStopEntry() {
-		return trafficStopEntry;
 	}
 	
 	public Tab getTrafficStopTab() {

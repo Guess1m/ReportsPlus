@@ -1,7 +1,6 @@
 package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.logs.Arrest.ArrestReport;
-import com.drozal.dataterminal.logs.Arrest.ArrestReports;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
 import com.drozal.dataterminal.logs.Impound.ImpoundReport;
@@ -9,7 +8,7 @@ import com.drozal.dataterminal.logs.Incident.IncidentReport;
 import com.drozal.dataterminal.logs.Patrol.PatrolReport;
 import com.drozal.dataterminal.logs.Search.SearchReport;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReport;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopLogEntry;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -20,8 +19,6 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.setSmallColumnWi
 
 public class InitTableColumns {
 	static double minColumnWidth = 185.0;
-	
-	//TODO change initcolumns
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
 		TableColumn<DeathReport, String> notesColumn = new TableColumn<>("Notes");
@@ -594,80 +591,80 @@ public class InitTableColumns {
 	}
 	
 	public static void initializeTrafficStopColumns(TableView tableview) {
-		TableColumn<TrafficStopLogEntry, String> dateColumn = new TableColumn<>("Date");
+		TableColumn<TrafficStopReport, String> dateColumn = new TableColumn<>("Date");
 		dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
 		
-		TableColumn<TrafficStopLogEntry, String> timeColumn = new TableColumn<>("Time");
+		TableColumn<TrafficStopReport, String> timeColumn = new TableColumn<>("Time");
 		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
 		
-		TableColumn<TrafficStopLogEntry, String> nameColumn = new TableColumn<>("Name");
+		TableColumn<TrafficStopReport, String> nameColumn = new TableColumn<>("Name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 		
-		TableColumn<TrafficStopLogEntry, String> rankColumn = new TableColumn<>("Rank");
+		TableColumn<TrafficStopReport, String> rankColumn = new TableColumn<>("Rank");
 		rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
 		
-		TableColumn<TrafficStopLogEntry, String> numberColumn = new TableColumn<>("Number");
+		TableColumn<TrafficStopReport, String> numberColumn = new TableColumn<>("Number");
 		numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
 		
-		TableColumn<TrafficStopLogEntry, String> divisionColumn = new TableColumn<>("Division");
+		TableColumn<TrafficStopReport, String> divisionColumn = new TableColumn<>("Division");
 		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
 		
-		TableColumn<TrafficStopLogEntry, String> agencyColumn = new TableColumn<>("Agency");
+		TableColumn<TrafficStopReport, String> agencyColumn = new TableColumn<>("Agency");
 		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
 		
-		TableColumn<TrafficStopLogEntry, String> stopNumberColumn = new TableColumn<>("Stop #");
+		TableColumn<TrafficStopReport, String> stopNumberColumn = new TableColumn<>("Stop #");
 		stopNumberColumn.setCellValueFactory(new PropertyValueFactory<>("StopNumber"));
 		
-		TableColumn<TrafficStopLogEntry, String> commentsTextAreaColumn = new TableColumn<>("Comments");
+		TableColumn<TrafficStopReport, String> commentsTextAreaColumn = new TableColumn<>("Comments");
 		commentsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("CommentsTextArea"));
 		
-		TableColumn<TrafficStopLogEntry, String> streetColumn = new TableColumn<>("Street");
+		TableColumn<TrafficStopReport, String> streetColumn = new TableColumn<>("Street");
 		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
 		
-		TableColumn<TrafficStopLogEntry, String> countyColumn = new TableColumn<>("County");
+		TableColumn<TrafficStopReport, String> countyColumn = new TableColumn<>("County");
 		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
 		
-		TableColumn<TrafficStopLogEntry, String> areaColumn = new TableColumn<>("Area");
+		TableColumn<TrafficStopReport, String> areaColumn = new TableColumn<>("Area");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		
-		TableColumn<TrafficStopLogEntry, String> plateNumberColumn = new TableColumn<>("Plate #");
+		TableColumn<TrafficStopReport, String> plateNumberColumn = new TableColumn<>("Plate #");
 		plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
 		
-		TableColumn<TrafficStopLogEntry, String> colorColumn = new TableColumn<>("Color");
+		TableColumn<TrafficStopReport, String> colorColumn = new TableColumn<>("Color");
 		colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
 		
-		TableColumn<TrafficStopLogEntry, String> typeColumn = new TableColumn<>("Type");
+		TableColumn<TrafficStopReport, String> typeColumn = new TableColumn<>("Type");
 		typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
 		
-		TableColumn<TrafficStopLogEntry, String> modelColumn = new TableColumn<>("Model");
+		TableColumn<TrafficStopReport, String> modelColumn = new TableColumn<>("Model");
 		modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
 		
-		TableColumn<TrafficStopLogEntry, String> otherInfoColumn = new TableColumn<>("Other Info.");
+		TableColumn<TrafficStopReport, String> otherInfoColumn = new TableColumn<>("Other Info.");
 		otherInfoColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseOtherInfo"));
 		
-		TableColumn<TrafficStopLogEntry, String> operatorNameColumn = new TableColumn<>("Operator Name");
+		TableColumn<TrafficStopReport, String> operatorNameColumn = new TableColumn<>("Operator Name");
 		operatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
 		
-		TableColumn<TrafficStopLogEntry, String> operatorAgeColumn = new TableColumn<>("Operator Age");
+		TableColumn<TrafficStopReport, String> operatorAgeColumn = new TableColumn<>("Operator Age");
 		operatorAgeColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAge"));
 		
-		TableColumn<TrafficStopLogEntry, String> operatorGenderColumn = new TableColumn<>("Operator Gender");
+		TableColumn<TrafficStopReport, String> operatorGenderColumn = new TableColumn<>("Operator Gender");
 		operatorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("operatorGender"));
 		
-		TableColumn<TrafficStopLogEntry, String> operatorDescriptionColumn = new TableColumn<>("Operator Description");
+		TableColumn<TrafficStopReport, String> operatorDescriptionColumn = new TableColumn<>("Operator Description");
 		operatorDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("operatorDescription"));
 		
-		TableColumn<TrafficStopLogEntry, String> operatorAddressColumn = new TableColumn<>("Operator Address");
+		TableColumn<TrafficStopReport, String> operatorAddressColumn = new TableColumn<>("Operator Address");
 		operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
 		
-		ObservableList<TableColumn<TrafficStopLogEntry, ?>> trafficStopColumns = FXCollections.observableArrayList(
+		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(
 				stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn,
 				operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn,
 				rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn,
 				countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
 		
 		tableview.getColumns().addAll(trafficStopColumns);
-		for (TableColumn<TrafficStopLogEntry, ?> column : trafficStopColumns) {
+		for (TableColumn<TrafficStopReport, ?> column : trafficStopColumns) {
 			column.setMinWidth(minColumnWidth);
 		}
 		setSmallColumnWidth(stopNumberColumn);

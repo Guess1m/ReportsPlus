@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "logs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PatrolReport {
-	// TODO make sure cases match
 	@XmlElement(name = "patrolNumber")
 	private String patrolNumber;
 	

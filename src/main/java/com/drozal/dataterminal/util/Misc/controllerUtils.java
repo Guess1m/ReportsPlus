@@ -12,7 +12,7 @@ import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
@@ -600,10 +600,9 @@ public class controllerUtils {
 			for (int i = 0; i < series.getData().size(); i++) {
 				XYChart.Data<String, Number> data = series.getData().get(i);
 				int reportsCount = switch (i) {
-					// TODO add new countReports method from util class
 					case 0 -> CalloutReportUtils.countReports();
 					case 1 -> ArrestReportUtils.countReports();
-					case 2 -> TrafficStopReportLogs.countReports();
+					case 2 -> TrafficStopReportUtils.countReports();
 					case 3 -> PatrolReportUtils.countReports();
 					case 4 -> SearchReportUtils.countReports();
 					case 5 -> IncidentReportUtils.countReports();

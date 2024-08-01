@@ -173,7 +173,7 @@ public class PatrolReportUtils {
 			patrolReport1.setPatrolLength(toTitleCase(length.getText()));
 			patrolReport1.setPatrolStartTime(starttime.getText());
 			patrolReport1.setPatrolStopTime(stoptime.getText());
-			patrolReport1.setOfficerRank(toTitleCase(rank.getText()));
+			patrolReport1.setOfficerRank((rank.getText()));
 			patrolReport1.setOfficerName(toTitleCase(name.getText()));
 			patrolReport1.setOfficerNumber(toTitleCase(num.getText()));
 			patrolReport1.setOfficerDivision(toTitleCase(div.getText()));

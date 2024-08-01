@@ -207,7 +207,7 @@ public class IncidentReportUtils {
 			incidentReport1.setOfficerDivision(toTitleCase(div.getText()));
 			incidentReport1.setOfficerName(toTitleCase(name.getText()));
 			incidentReport1.setOfficerNumber(toTitleCase(num.getText()));
-			incidentReport1.setOfficerRank(toTitleCase(rank.getText()));
+			incidentReport1.setOfficerRank(rank.getText());
 			try {
 				IncidentReportUtils.addIncidentReport(incidentReport1);
 			} catch (JAXBException e) {

@@ -240,7 +240,7 @@ public class DeathReportUtils {
 			DeathReport deathReport1 = new DeathReport();
 			deathReport1.setAddress(toTitleCase(address.getText()));
 			deathReport1.setCauseOfDeath(toTitleCase(causeofdeath.getText()));
-			deathReport1.setDeathReportNumber(toTitleCase(deathNum.getText()));
+			deathReport1.setDeathReportNumber(deathNum.getText());
 			deathReport1.setAge(toTitleCase(age.getText()));
 			deathReport1.setArea(toTitleCase(area.getEditor().getText()));
 			deathReport1.setAgency(toTitleCase(agen.getText()));

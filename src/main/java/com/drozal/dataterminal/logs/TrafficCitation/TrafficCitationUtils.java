@@ -33,6 +33,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.trafficCitationLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
+import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 
@@ -208,7 +209,7 @@ public class TrafficCitationUtils {
 		}
 		date.setText(getDate());
 		time.setText(getTime());
-		num.setText(generateCaseNumber());
+		num.setText(generateReportNumber());
 		
 		pullNotesBtn.setOnAction(event -> {
 			if (notesViewController != null) {
@@ -320,6 +321,7 @@ public class TrafficCitationUtils {
 			trafficCitationReport.setCitationTime(time.getText());
 			trafficCitationReport.setCitationCharges(stringBuilder.toString());
 			trafficCitationReport.setCitationComments(notes.getText());
+			trafficCitationReport.setOffenderVehiclePlate((plateNumber.getText()));
 			
 			trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
 			trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
@@ -332,7 +334,6 @@ public class TrafficCitationUtils {
 			trafficCitationReport.setOffenderVehicleModel(toTitleCase(model.getText()));
 			trafficCitationReport.setOffenderVehicleColor(toTitleCase(color.getValue().toString()));
 			trafficCitationReport.setOffenderVehicleType(toTitleCase(type.getValue().toString()));
-			trafficCitationReport.setOffenderVehiclePlate(toTitleCase(plateNumber.getText()));
 			trafficCitationReport.setOffenderVehicleOther(toTitleCase(otherInfo.getText()));
 			trafficCitationReport.setOfficerName(toTitleCase(officername.getText()));
 			trafficCitationReport.setOfficerNumber(toTitleCase(officernum.getText()));

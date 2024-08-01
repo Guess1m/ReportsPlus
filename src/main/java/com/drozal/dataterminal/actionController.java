@@ -1785,6 +1785,9 @@ public class actionController {
 				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				
+				Button submitBtn = (Button) deathReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
 				deathReportTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1837,6 +1840,9 @@ public class actionController {
 				pullNotesBtn.setVisible(false);
 				calloutnum.setEditable(false);
 				
+				Button submitBtn = (Button) calloutReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
 				calloutTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1884,6 +1890,9 @@ public class actionController {
 				Button pullNotesBtn = (Button) patrolReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				patrolnum.setEditable(false);
+				
+				Button submitBtn = (Button) patrolReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
 				
 				patrolTable.getSelectionModel().clearSelection();
 			}
@@ -1959,6 +1968,9 @@ public class actionController {
 				pullNotesBtn.setVisible(false);
 				stopnumts.setEditable(false);
 				
+				Button submitBtn = (Button) trafficStopReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
 				trafficStopTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -2020,6 +2032,9 @@ public class actionController {
 				Button pullNotesBtn = (Button) incidentReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				incidentnum.setEditable(false);
+				
+				Button submitBtn = (Button) incidentReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
 				
 				incidentTable.getSelectionModel().clearSelection();
 			}
@@ -2083,6 +2098,9 @@ public class actionController {
 				Button pullNotesBtn = (Button) impoundReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				num.setEditable(false);
+				
+				Button submitBtn = (Button) impoundReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
 				
 				impoundTable.getSelectionModel().clearSelection();
 			}
@@ -2156,6 +2174,9 @@ public class actionController {
 				pullNotesBtn.setVisible(false);
 				num.setEditable(false);
 				
+				Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
 				citationTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -2228,6 +2249,9 @@ public class actionController {
 				pullNotesBtn.setVisible(false);
 				searchnum.setEditable(false);
 				
+				Button submitBtn = (Button) searchReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
 				searchTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -2293,6 +2317,9 @@ public class actionController {
 				Button pullNotesBtn = (Button) arrestReportObj.get("pullNotesBtn");
 				pullNotesBtn.setVisible(false);
 				arrestnum.setEditable(false);
+				
+				Button submitBtn = (Button) arrestReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
 				
 				arrestTable.getSelectionModel().clearSelection();
 			}

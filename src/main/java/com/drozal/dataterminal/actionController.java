@@ -106,30 +106,10 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 	
-	//<editor-fold desc="VARS">
-	
-	public static String notesText;
-	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
-	public static Stage IDStage = null;
-	public static Stage settingsStage = null;
-	public static Stage CalloutStage = null;
-	public static ClientController clientController;
-	public static Stage notesStage = null;
-	public static Stage clientStage = null;
-	private static Stage mapStage = null;
-	private static Stage versionStage = null;
-	public static boolean IDFirstShown = true;
-	public static double IDx;
-	public static double IDy;
-	public static Screen IDScreen = null;
-	public static Screen CalloutScreen = null;
-	
 	public void initialize() throws IOException {
-		// TODO change back
-		lookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
+		lookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -376,6 +356,24 @@ public class actionController {
 		});
 	}
 	
+	//<editor-fold desc="VARS">
+	
+	public static String notesText;
+	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
+	public static Stage IDStage = null;
+	public static Stage settingsStage = null;
+	public static Stage CalloutStage = null;
+	public static ClientController clientController;
+	public static Stage notesStage = null;
+	public static Stage clientStage = null;
+	private static Stage mapStage = null;
+	private static Stage versionStage = null;
+	public static boolean IDFirstShown = true;
+	public static double IDx;
+	public static double IDy;
+	public static Screen IDScreen = null;
+	public static Screen CalloutScreen = null;
 	public static boolean CalloutFirstShown = true;
 	public static double Calloutx;
 	public static double Callouty;

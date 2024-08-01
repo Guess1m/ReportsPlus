@@ -9,8 +9,10 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -149,8 +151,17 @@ public class ClientUtils {
 											log("IDStage opened via UPDATE_ID message, first time centered",
 											    LogUtils.Severity.INFO);
 										} else {
-											IDStage.setX(IDx);
-											IDStage.setY(IDy);
+											if (IDScreen != null) {
+												Rectangle2D screenBounds = IDScreen.getVisualBounds();
+												IDStage.setX(IDx);
+												IDStage.setY(IDy);
+												
+												if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
+													windowUtils.centerStageOnMainApp(IDStage);
+												}
+											} else {
+												windowUtils.centerStageOnMainApp(IDStage);
+											}
 											log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy,
 											    LogUtils.Severity.INFO);
 										}
@@ -160,6 +171,7 @@ public class ClientUtils {
 								} catch (IOException e) {
 									logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
 								}
+								
 								try {
 									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 										PauseTransition delay = null;
@@ -170,7 +182,6 @@ public class ClientUtils {
 											logError("ID could not be closed: ", e);
 										}
 										if (IDStage != null) {
-											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													IDStage.close();
@@ -191,6 +202,9 @@ public class ClientUtils {
 									public void handle(WindowEvent event) {
 										IDx = IDStage.getX();
 										IDy = IDStage.getY();
+										IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(),
+										                                         IDStage.getHeight()).stream().findFirst().orElse(
+												null);
 										log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy,
 										    LogUtils.Severity.DEBUG);
 										IDFirstShown = false;

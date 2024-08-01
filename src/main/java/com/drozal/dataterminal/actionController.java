@@ -51,6 +51,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -65,6 +66,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -104,10 +106,30 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 	
+	public static Screen IDScreen = null;
+	
+	//<editor-fold desc="VARS">
+	
+	public static String notesText;
+	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
+	public static Stage IDStage = null;
+	public static Stage settingsStage = null;
+	public static Stage CalloutStage = null;
+	public static ClientController clientController;
+	public static Stage notesStage = null;
+	public static Stage clientStage = null;
+	private static Stage mapStage = null;
+	private static Stage versionStage = null;
+	public static boolean IDFirstShown = true;
+	public static double IDx;
+	public static double IDy;
+
 	public void initialize() throws IOException {
-		lookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		// TODO change back
+		lookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -353,23 +375,6 @@ public class actionController {
 			}
 		});
 	}
-	
-	//<editor-fold desc="VARS">
-	
-	public static String notesText;
-	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
-	public static Stage IDStage = null;
-	public static Stage settingsStage = null;
-	public static Stage CalloutStage = null;
-	public static ClientController clientController;
-	public static Stage notesStage = null;
-	public static Stage clientStage = null;
-	private static Stage mapStage = null;
-	private static Stage versionStage = null;
-	public static boolean IDFirstShown = true;
-	public static double IDx;
-	public static double IDy;
 	public static boolean CalloutFirstShown = true;
 	public static double Calloutx;
 	public static double Callouty;
@@ -828,18 +833,29 @@ public class actionController {
 				windowUtils.centerStageOnMainApp(IDStage);
 				log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
 			} else {
-				IDStage.setX(IDx);
-				IDStage.setY(IDy);
+				if (IDScreen != null) {
+					Rectangle2D screenBounds = IDScreen.getVisualBounds();
+					IDStage.setX(IDx);
+					IDStage.setY(IDy);
+					if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
+						windowUtils.centerStageOnMainApp(IDStage);
+					}
+				} else {
+					windowUtils.centerStageOnMainApp(IDStage);
+				}
 				log("IDStage opened via showIDBtn, XValue: " + IDx + " YValue: " + IDy, Severity.INFO);
 			}
 		} else {
 			windowUtils.centerStageOnMainApp(IDStage);
 		}
+		
 		IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
 				IDx = IDStage.getX();
 				IDy = IDStage.getY();
+				IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(),
+				                                         IDStage.getHeight()).stream().findFirst().orElse(null);
 				log("IDStage closed via showIDBtn, set XValue: " + IDx + " YValue: " + IDy, Severity.DEBUG);
 				IDFirstShown = false;
 				IDStage = null;
@@ -906,7 +922,7 @@ public class actionController {
 			case "FullLeft" -> snapToLeft(notesStage);
 			case "FullRight" -> snapToRight(notesStage);
 			default -> {
-				notesStage.centerOnScreen();
+				windowUtils.centerStageOnMainApp(notesStage);
 				notesStage.setMinHeight(300);
 				notesStage.setMinWidth(300);
 			}
@@ -916,7 +932,7 @@ public class actionController {
 		showAnimation(notesButton);
 		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		
-		notesStage.setOnHidden(new EventHandler<WindowEvent>() {
+		notesStage.setOnHidden(new EventHandler<>() {
 			@Override
 			public void handle(WindowEvent event) {
 				notesStage = null;

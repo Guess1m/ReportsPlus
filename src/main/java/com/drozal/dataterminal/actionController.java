@@ -106,7 +106,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 	
-	public static Screen IDScreen = null;
 	
 	//<editor-fold desc="VARS">
 	
@@ -124,7 +123,8 @@ public class actionController {
 	public static boolean IDFirstShown = true;
 	public static double IDx;
 	public static double IDy;
-
+	public static Screen IDScreen = null;
+	public static Screen CalloutScreen = null;
 	public void initialize() throws IOException {
 		// TODO change back
 		lookupBtn.setVisible(true);

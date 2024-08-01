@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -170,7 +171,7 @@ public class calloutController {
 				log("Closed Null Stage", LogUtils.Severity.ERROR);
 			}
 			
-			stage.setOnHidden(windowEvent -> {
+			CalloutStage.setOnHidden(windowEvent -> {
 				log("Added Callout To Active", LogUtils.Severity.INFO);
 				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
 				                          priorityField.getText(), streetField.getText(), areaField.getText(),
@@ -178,6 +179,9 @@ public class calloutController {
 				
 				Calloutx = CalloutStage.getX();
 				Callouty = CalloutStage.getY();
+				CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(),
+				                                              CalloutStage.getHeight()).stream().findFirst().orElse(
+						null);
 				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
 				    LogUtils.Severity.DEBUG);
 				CalloutFirstShown = false;

@@ -231,7 +231,6 @@ public class ClientUtils {
 								CalloutStage = new Stage();
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("callout-view.fxml"));
-								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -258,8 +257,17 @@ public class ClientUtils {
 											log("CalloutStage opened via UPDATE_CALLOUT message, first time centered",
 											    LogUtils.Severity.INFO);
 										} else {
-											CalloutStage.setX(Calloutx);
-											CalloutStage.setY(Callouty);
+											if (CalloutScreen != null) {
+												Rectangle2D screenBounds = CalloutScreen.getVisualBounds();
+												CalloutStage.setX(Calloutx);
+												CalloutStage.setY(Callouty);
+												
+												if (Calloutx < screenBounds.getMinX() || Calloutx > screenBounds.getMaxX() || Callouty < screenBounds.getMinY() || Callouty > screenBounds.getMaxY()) {
+													windowUtils.centerStageOnMainApp(CalloutStage);
+												}
+											} else {
+												windowUtils.centerStageOnMainApp(CalloutStage);
+											}
 											log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty,
 											    LogUtils.Severity.INFO);
 										}

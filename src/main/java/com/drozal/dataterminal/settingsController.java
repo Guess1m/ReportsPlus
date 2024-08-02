@@ -35,6 +35,7 @@ public class settingsController {
 	private static final String UILightColor = "rgb(255,255,255,0.75)";
 	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	private static AtomicReference<String> selectedNotification;
+	
 	//<editor-fold desc="FXML">
 	
 	private static actionController controllerVar;
@@ -213,6 +214,8 @@ public class settingsController {
 	private Button saveFadeDurBtn;
 	@javafx.fxml.FXML
 	private CheckBox saveReportLocationCheckbox;
+	@javafx.fxml.FXML
+	private CheckBox saveNotesLocationCheckbox;
 	
 	//</editor-fold>
 	
@@ -532,6 +535,7 @@ public class settingsController {
 		saveReportLocationCheckbox.setSelected(
 				ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
 		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
+		saveNotesLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
@@ -1209,6 +1213,7 @@ public class settingsController {
 		
 		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
 		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
+		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
 		
 		addTooltip(AOTCallout, "Keep Callout Window On Top");
 		addTooltip(AOTClient, "Keep Client Window On Top");
@@ -1576,6 +1581,17 @@ public class settingsController {
 		} else {
 			ConfigWriter.configwrite("layout", "rememberReportLocation", "false");
 			saveReportLocationCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void rememberNotesLocationClick(ActionEvent actionEvent) {
+		if (saveNotesLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberNotesLocation", "true");
+			saveNotesLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberNotesLocation", "false");
+			saveNotesLocationCheckbox.setSelected(false);
 		}
 	}
 }

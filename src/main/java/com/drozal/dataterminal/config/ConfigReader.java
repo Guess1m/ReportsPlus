@@ -173,6 +173,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("layout", "rememberIDLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");
+		checkAndSetDefaultValue("layout", "rememberNotesLocation", "true");
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
 		checkAndSetDefaultValue("reportSettings", "reportBackground", "#505D62");

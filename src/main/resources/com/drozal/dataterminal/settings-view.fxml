@@ -1,169 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0" prefWidth="637.0"
-            style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/22"
-            fx:controller="com.drozal.dataterminal.settingsController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="637.0" style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.settingsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="lbl0" alignment="CENTER" prefHeight="61.0" prefWidth="623.0"
-                       style="-fx-background-color: #524992;" text="Configuration Settings" textFill="WHITE"
-                       AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                <Label fx:id="lbl0" alignment="CENTER" prefHeight="61.0" prefWidth="623.0" style="-fx-background-color: #524992;" text="Configuration Settings" textFill="WHITE" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                     <font>
-                        <Font name="Segoe UI Black" size="20.0"/>
+                        <Font name="Segoe UI Black" size="20.0" />
                     </font>
                 </Label>
-                <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0"
-                         styleClass="darktabpane" stylesheets="@css/main/SettingsTabPane.css"
-                         tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" styleClass="darktabpane" stylesheets="@css/main/SettingsTabPane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                     <tabs>
                         <Tab text="UI Settings">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                            style="-fx-background-color: rgb(255,255,255,0.5);">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                  AnchorPane.topAnchor="14.0">
+                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0"
-                                                                   prefWidth="186.0"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="20.0"
-                                                                   prefWidth="176.0"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                                                                   prefWidth="229.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="186.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="20.0" prefWidth="176.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="229.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints maxHeight="56.0" minHeight="10.0" percentHeight="25.0"
-                                                                prefHeight="49.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0"
-                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="36.0" vgrow="NEVER" />
+                                                <RowConstraints maxHeight="56.0" minHeight="10.0" percentHeight="25.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="26.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="lbl1" style="-fx-text-fill: #665CB6;"
-                                                       text="Default Display Placements" textFill="#505d64"
-                                                       GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                       GridPane.valignment="CENTER">
+                                                <Label fx:id="lbl1" style="-fx-text-fill: #665CB6;" text="Default Display Placements" textFill="#505d64" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
-                                                <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                            GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                     <children>
-                                                        <Label fx:id="tt1" layoutX="9.0" layoutY="12.0"
-                                                               text="Main Window Placement:" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt1" layoutX="9.0" layoutY="12.0" text="Main Window Placement:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="mainWindowComboBox" layoutX="205.0"
-                                                                  layoutY="10.0" prefHeight="25.0" prefWidth="119.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
+                                                        <ComboBox fx:id="mainWindowComboBox" layoutX="205.0" layoutY="10.0" prefHeight="25.0" prefWidth="119.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="2">
                                                     <children>
-                                                        <Label fx:id="tt2" text="Notes Window Placement:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt2" text="Notes Window Placement:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="notesWindowComboBox" layoutX="154.0"
-                                                                  layoutY="6.0" prefHeight="25.0" prefWidth="119.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
+                                                        <ComboBox fx:id="notesWindowComboBox" layoutX="154.0" layoutY="6.0" prefHeight="25.0" prefWidth="119.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3">
                                                     <children>
-                                                        <Label fx:id="tt3" text="Report Windows Placement:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt3" text="Report Windows Placement:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="ReportWindowComboBox" layoutX="210.0"
-                                                                  prefHeight="25.0" prefWidth="114.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
+                                                        <ComboBox fx:id="ReportWindowComboBox" layoutX="210.0" prefHeight="25.0" prefWidth="114.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
-                                                <Label fx:id="lbl2" style="-fx-text-fill: #665CB6;"
-                                                       text="Application Settings" textFill="#505d64"
-                                                       GridPane.columnIndex="2">
+                                                <Label fx:id="lbl2" style="-fx-text-fill: #665CB6;" text="Application Settings" textFill="#505d64" GridPane.columnIndex="2">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                     <children>
-                                                        <Button fx:id="clrLogsBtn" layoutX="35.0" layoutY="10.0"
-                                                                mnemonicParsing="false" onAction="#clearLogsBtnClick"
-                                                                prefHeight="25.0" prefWidth="160.0"
-                                                                styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css" text="CLEAR LOGS"
-                                                                AnchorPane.leftAnchor="35.0"
-                                                                AnchorPane.rightAnchor="34.0"
-                                                                AnchorPane.topAnchor="10.0"/>
+                                                        <Button fx:id="clrLogsBtn" layoutX="35.0" layoutY="10.0" mnemonicParsing="false" onAction="#clearLogsBtnClick" prefHeight="25.0" prefWidth="160.0" styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="CLEAR LOGS" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                     <children>
-                                                        <CheckBox fx:id="startupFullscreenCheckbox" alignment="CENTER"
-                                                                  layoutX="41.0" layoutY="4.0" mnemonicParsing="false"
-                                                                  onAction="#startupFullscreenClick" selected="true"
-                                                                  text="Startup Fullscreen" AnchorPane.leftAnchor="20.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0">
+                                                        <CheckBox fx:id="startupFullscreenCheckbox" alignment="CENTER" layoutX="41.0" layoutY="4.0" mnemonicParsing="false" onAction="#startupFullscreenClick" selected="true" text="Startup Fullscreen" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </CheckBox>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                     <children>
-                                                        <Button fx:id="clrSaveDataBtn" layoutX="35.0" layoutY="10.0"
-                                                                mnemonicParsing="false"
-                                                                onAction="#clearSaveDataBtnClick" prefHeight="26.0"
-                                                                prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css"
-                                                                text="CLEAR ALL SAVE DATA" AnchorPane.leftAnchor="35.0"
-                                                                AnchorPane.rightAnchor="34.0"
-                                                                AnchorPane.topAnchor="10.0"/>
+                                                        <Button fx:id="clrSaveDataBtn" layoutX="35.0" layoutY="10.0" mnemonicParsing="false" onAction="#clearSaveDataBtnClick" prefHeight="26.0" prefWidth="160.0" styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="CLEAR ALL SAVE DATA" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
                                                     <children>
-                                                        <Button fx:id="debugLogBtn" layoutX="35.0" layoutY="10.0"
-                                                                mnemonicParsing="false"
-                                                                onAction="#openDebugLogsBtnClick" prefHeight="26.0"
-                                                                prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css"
-                                                                text="Open Debug Logs" AnchorPane.leftAnchor="35.0"
-                                                                AnchorPane.rightAnchor="34.0"
-                                                                AnchorPane.topAnchor="10.0"/>
+                                                        <Button fx:id="debugLogBtn" layoutX="35.0" layoutY="10.0" mnemonicParsing="false" onAction="#openDebugLogsBtnClick" prefHeight="26.0" prefWidth="160.0" styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="Open Debug Logs" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -174,361 +120,226 @@
                         </Tab>
                         <Tab text="Color Settings">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                            style="-fx-background-color: rgb(255,255,255,0.5);">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <StackPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                   AnchorPane.topAnchor="14.0">
+                                        <StackPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <children>
                                                 <GridPane fx:id="colorPageOne" visible="false">
                                                     <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
-                                                                           minWidth="10.0" percentWidth="50.0"
-                                                                           prefWidth="245.0"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0"
-                                                                           minWidth="20.0" percentWidth="50.0"
-                                                                           prefWidth="346.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" percentWidth="50.0" prefWidth="245.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="20.0" percentWidth="50.0" prefWidth="346.0" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                        percentHeight="25.0" prefHeight="36.0"
-                                                                        vgrow="NEVER"/>
-                                                        <RowConstraints maxHeight="56.0" minHeight="10.0"
-                                                                        percentHeight="25.0" prefHeight="49.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                        prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints maxHeight="36.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="36.0" vgrow="NEVER" />
+                                                        <RowConstraints maxHeight="56.0" minHeight="10.0" percentHeight="25.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" percentHeight="26.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="lbl3" style="-fx-text-fill: #665CB6;"
-                                                               text="Application Color Settings" textFill="#505d64"
-                                                               GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                                                        <Label fx:id="lbl3" style="-fx-text-fill: #665CB6;" text="Application Color Settings" textFill="#505d64" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                             <font>
-                                                                <Font name="Segoe UI Black" size="17.0"/>
+                                                                <Font name="Segoe UI Black" size="17.0" />
                                                             </font>
                                                         </Label>
-                                                        <AnchorPane GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                                                                    GridPane.valignment="CENTER">
+                                                        <AnchorPane GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                                             <children>
-                                                                <Label fx:id="primLabel" layoutX="9.0" layoutY="12.0"
-                                                                       text="Prim. Color:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="primLabel" layoutX="9.0" layoutY="12.0" text="Prim. Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="primPicker" layoutX="125.0"
-                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="primPicker" layoutX="125.0" layoutY="9.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.rowIndex="3">
                                                             <children>
-                                                                <Label fx:id="secLabel" text="Sec. Color:"
-                                                                       AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="secLabel" text="Sec. Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="secPicker" layoutX="134.0"
-                                                                             layoutY="1.0" AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="secPicker" layoutX="134.0" layoutY="1.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.rowIndex="4">
                                                             <children>
-                                                                <Label fx:id="accLabel" text="Accent Color:"
-                                                                       AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="accLabel" text="Accent Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="accPicker" layoutX="144.0"
-                                                                             layoutY="12.0"
-                                                                             AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="accPicker" layoutX="144.0" layoutY="12.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                             <children>
-                                                                <Label fx:id="tt4" layoutX="9.0" layoutY="12.0"
-                                                                       text="UI Theme:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt4" layoutX="9.0" layoutY="12.0" text="UI Theme:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ComboBox fx:id="themeComboBox" layoutX="94.0"
-                                                                          layoutY="10.0" prefHeight="26.0"
-                                                                          prefWidth="182.0" AnchorPane.leftAnchor="94.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="10.0"/>
+                                                                <ComboBox fx:id="themeComboBox" layoutX="94.0" layoutY="10.0" prefHeight="26.0" prefWidth="182.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
-                                                        <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
-                                                                onAction="#resetDefaultsBtnPress"
-                                                                styleClass="purpleButton"
-                                                                stylesheets="@css/menu/menuStyles.css"
-                                                                text="Reset Defaults" GridPane.columnIndex="1"
-                                                                GridPane.halignment="CENTER" GridPane.rowIndex="4"
-                                                                GridPane.valignment="CENTER"/>
+                                                        <Button fx:id="resetDefaultsBtn" mnemonicParsing="false" onAction="#resetDefaultsBtnPress" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Reset Defaults" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                                                         <AnchorPane GridPane.rowIndex="1">
                                                             <children>
-                                                                <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0"
-                                                                       text="Bkg. Color" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0" text="Bkg. Color" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="bkgPicker" layoutX="125.0"
-                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="bkgPicker" layoutX="125.0" layoutY="9.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <children>
-                                                                <Label fx:id="tt5" layoutX="9.0" layoutY="12.0"
-                                                                       text="UI Text Color:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt5" layoutX="9.0" layoutY="12.0" text="UI Text Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ComboBox fx:id="textClrComboBox" layoutX="115.0"
-                                                                          layoutY="10.0" prefHeight="26.0"
-                                                                          prefWidth="160.0"
-                                                                          AnchorPane.leftAnchor="115.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="10.0"/>
+                                                                <ComboBox fx:id="textClrComboBox" layoutX="115.0" layoutY="10.0" prefHeight="26.0" prefWidth="160.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
-                                                        <Button fx:id="colorPageTwoBtn" contentDisplay="RIGHT"
-                                                                mnemonicParsing="false" onAction="#colorPageTwoBtnClick"
-                                                                style="-fx-background-color: rgb(0,0,0,0.065);"
-                                                                text="Page 2" GridPane.columnIndex="1"
-                                                                GridPane.halignment="RIGHT"
-                                                                GridPane.valignment="CENTER">
+                                                        <Button fx:id="colorPageTwoBtn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#colorPageTwoBtnClick" style="-fx-background-color: rgb(0,0,0,0.065);" text="Page 2" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                                                             <GridPane.margin>
-                                                                <Insets right="15.0"/>
+                                                                <Insets right="15.0" />
                                                             </GridPane.margin>
                                                             <graphic>
-                                                                <ImageView fitHeight="14.0" fitWidth="15.0"
-                                                                           pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="14.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/right-arrow.png"/>
+                                                                        <Image url="@imgs/icons/right-arrow.png" />
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="12.3"/>
+                                                                <Font name="Segoe UI Semibold" size="12.3" />
                                                             </font>
                                                         </Button>
                                                     </children>
                                                 </GridPane>
                                                 <GridPane fx:id="colorPageTwo" layoutX="10.0" layoutY="10.0">
                                                     <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
-                                                                           minWidth="10.0" percentWidth="50.0"
-                                                                           prefWidth="245.0"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0"
-                                                                           minWidth="20.0" percentWidth="50.0"
-                                                                           prefWidth="346.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" percentWidth="50.0" prefWidth="245.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="20.0" percentWidth="50.0" prefWidth="346.0" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints maxHeight="50.0" minHeight="30.0"
-                                                                        prefHeight="48.0" vgrow="NEVER"/>
-                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints maxHeight="50.0" minHeight="30.0" prefHeight="48.0" vgrow="NEVER" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="lbl9" style="-fx-text-fill: #665CB6;"
-                                                               text="Notification Settings" textFill="#505d64"
-                                                               GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                                                        <Label fx:id="lbl9" style="-fx-text-fill: #665CB6;" text="Notification Settings" textFill="#505d64" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                             <font>
-                                                                <Font name="Segoe UI Black" size="17.0"/>
+                                                                <Font name="Segoe UI Black" size="17.0" />
                                                             </font>
                                                         </Label>
-                                                        <Button fx:id="colorPageOneBtn" mnemonicParsing="false"
-                                                                onAction="#colorPageOneBtnClick"
-                                                                style="-fx-background-color: rgb(0,0,0,0.065);"
-                                                                text="Page 1" GridPane.halignment="LEFT"
-                                                                GridPane.valignment="CENTER">
+                                                        <Button fx:id="colorPageOneBtn" mnemonicParsing="false" onAction="#colorPageOneBtnClick" style="-fx-background-color: rgb(0,0,0,0.065);" text="Page 1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                                             <GridPane.margin>
-                                                                <Insets left="15.0"/>
+                                                                <Insets left="15.0" />
                                                             </GridPane.margin>
                                                             <graphic>
-                                                                <ImageView fitHeight="14.0" fitWidth="15.0"
-                                                                           pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="14.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/left-arrow.png"/>
+                                                                        <Image url="@imgs/icons/left-arrow.png" />
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="12.3"/>
+                                                                <Font name="Segoe UI Semibold" size="12.3" />
                                                             </font>
                                                         </Button>
                                                         <AnchorPane GridPane.rowIndex="1">
                                                             <children>
-                                                                <Label fx:id="tt16" layoutX="9.0" layoutY="12.0"
-                                                                       text="Notification:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt16" layoutX="9.0" layoutY="12.0" text="Notification:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ComboBox fx:id="notificationComboBox" layoutX="103.0"
-                                                                          layoutY="10.0" AnchorPane.leftAnchor="103.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="10.0"/>
+                                                                <ComboBox fx:id="notificationComboBox" layoutX="103.0" layoutY="10.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <BorderPane GridPane.rowIndex="4">
                                                             <center>
                                                                 <BorderPane>
                                                                     <center>
-                                                                        <Button fx:id="previewNotificationBtn"
-                                                                                minWidth="-Infinity"
-                                                                                mnemonicParsing="false"
-                                                                                prefWidth="274.0"
-                                                                                style="-fx-padding: 3 14 3 14;"
-                                                                                styleClass="settingsBtn"
-                                                                                stylesheets="@css/menu/menuStyles.css"
-                                                                                text="Preview Notification"/>
+                                                                        <Button fx:id="previewNotificationBtn" minWidth="-Infinity" mnemonicParsing="false" prefWidth="274.0" style="-fx-padding: 3 14 3 14;" styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="Preview Notification" />
                                                                     </center>
                                                                 </BorderPane>
                                                             </center>
                                                             <GridPane.margin>
-                                                                <Insets top="5.0"/>
+                                                                <Insets top="5.0" />
                                                             </GridPane.margin>
                                                         </BorderPane>
                                                         <AnchorPane GridPane.rowIndex="2">
                                                             <children>
-                                                                <Label fx:id="tt12" layoutX="9.0" layoutY="12.0"
-                                                                       text="Prim. Color:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt12" layoutX="9.0" layoutY="12.0" text="Prim. Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="notiPrimPicker" layoutX="125.0"
-                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="notiPrimPicker" layoutX="125.0" layoutY="9.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.rowIndex="3">
                                                             <children>
-                                                                <Label fx:id="tt15" layoutX="9.0" layoutY="12.0"
-                                                                       text="Text Color:" AnchorPane.leftAnchor="9.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt15" layoutX="9.0" layoutY="12.0" text="Text Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ColorPicker fx:id="notiTextColorPicker" layoutX="125.0"
-                                                                             layoutY="9.0" AnchorPane.leftAnchor="109.0"
-                                                                             AnchorPane.rightAnchor="20.0"
-                                                                             AnchorPane.topAnchor="10.0"/>
+                                                                <ColorPicker fx:id="notiTextColorPicker" layoutX="125.0" layoutY="9.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                             <center>
                                                                 <BorderPane>
                                                                     <BorderPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets />
                                                                     </BorderPane.margin>
                                                                     <center>
-                                                                        <Button fx:id="resetNotiDefaultsBtn"
-                                                                                minWidth="-Infinity"
-                                                                                mnemonicParsing="false"
-                                                                                onAction="#resetNotiDefaultsBtnPress"
-                                                                                prefWidth="274.0"
-                                                                                style="-fx-padding: 3 14 3 14;"
-                                                                                styleClass="settingsBtn"
-                                                                                stylesheets="@css/menu/menuStyles.css"
-                                                                                text="Reset Defaults"/>
+                                                                        <Button fx:id="resetNotiDefaultsBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetNotiDefaultsBtnPress" prefWidth="274.0" style="-fx-padding: 3 14 3 14;" styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="Reset Defaults" />
                                                                     </center>
                                                                     <padding>
-                                                                        <Insets top="5.0"/>
+                                                                        <Insets top="5.0" />
                                                                     </padding>
                                                                 </BorderPane>
                                                             </center>
                                                         </BorderPane>
                                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                             <children>
-                                                                <Label fx:id="tt13" layoutX="4.0" layoutY="12.0"
-                                                                       text="Display Duration (Sec):"
-                                                                       AnchorPane.leftAnchor="0.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt13" layoutX="4.0" layoutY="12.0" text="Display Duration (Sec):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField fx:id="notiDisplayDurField" layoutX="160.0"
-                                                                           layoutY="8.0" prefWidth="63.0"
-                                                                           promptText="Def. 1.2"
-                                                                           AnchorPane.leftAnchor="160.0"
-                                                                           AnchorPane.rightAnchor="72.0"
-                                                                           AnchorPane.topAnchor="8.0"/>
-                                                                <Button fx:id="saveDisplayDurBtn" layoutX="251.0"
-                                                                        layoutY="8.0" mnemonicParsing="false"
-                                                                        text="Save" AnchorPane.rightAnchor="14.0"
-                                                                        AnchorPane.topAnchor="8.0"/>
+                                                                <TextField fx:id="notiDisplayDurField" layoutX="160.0" layoutY="8.0" prefWidth="63.0" promptText="Def. 1.2" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="8.0" />
+                                                                <Button fx:id="saveDisplayDurBtn" layoutX="251.0" layoutY="8.0" mnemonicParsing="false" text="Save" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <children>
-                                                                <Label fx:id="tt14" layoutX="4.0" layoutY="12.0"
-                                                                       text="Fade Out Time (Sec):"
-                                                                       AnchorPane.leftAnchor="0.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt14" layoutX="4.0" layoutY="12.0" text="Fade Out Time (Sec):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField fx:id="notiFadeOutDurField" layoutX="148.0"
-                                                                           layoutY="8.0" prefWidth="75.0"
-                                                                           promptText="Def. 1.7"
-                                                                           AnchorPane.leftAnchor="148.0"
-                                                                           AnchorPane.rightAnchor="72.0"
-                                                                           AnchorPane.topAnchor="8.0"/>
-                                                                <Button fx:id="saveFadeDurBtn" layoutX="259.0"
-                                                                        layoutY="9.0" mnemonicParsing="false"
-                                                                        text="Save" AnchorPane.rightAnchor="14.0"
-                                                                        AnchorPane.topAnchor="8.0"/>
+                                                                <TextField fx:id="notiFadeOutDurField" layoutX="148.0" layoutY="8.0" prefWidth="75.0" promptText="Def. 1.7" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="8.0" />
+                                                                <Button fx:id="saveFadeDurBtn" layoutX="259.0" layoutY="9.0" mnemonicParsing="false" text="Save" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                                             </children>
                                                         </AnchorPane>
                                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                             <children>
-                                                                <Label fx:id="tt17" layoutX="9.0" layoutY="12.0"
-                                                                       text="Notification Position:"
-                                                                       AnchorPane.leftAnchor="0.0"
-                                                                       AnchorPane.topAnchor="12.0">
+                                                                <Label fx:id="tt17" layoutX="9.0" layoutY="12.0" text="Notification Position:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                                     <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ComboBox fx:id="notiPosCombobox" layoutX="153.0"
-                                                                          layoutY="10.0" prefHeight="28.0"
-                                                                          prefWidth="104.0"
-                                                                          AnchorPane.leftAnchor="153.0"
-                                                                          AnchorPane.rightAnchor="14.0"
-                                                                          AnchorPane.topAnchor="8.0"/>
+                                                                <ComboBox fx:id="notiPosCombobox" layoutX="153.0" layoutY="10.0" prefHeight="28.0" prefWidth="104.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </children>
@@ -541,154 +352,99 @@
                         </Tab>
                         <Tab text="Report Settings">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                            style="-fx-background-color: rgb(255,255,255,0.5);">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                  AnchorPane.topAnchor="14.0">
+                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                   percentWidth="50.0"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                                                                   percentWidth="50.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="36.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="36.0" vgrow="NEVER" />
+                                                <RowConstraints minHeight="36.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="26.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="lbl6" style="-fx-text-fill: #665CB6;"
-                                                       text="Report Color Settings" textFill="#505d64"
-                                                       GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                       GridPane.valignment="CENTER">
+                                                <Label fx:id="lbl6" style="-fx-text-fill: #665CB6;" text="Report Color Settings" textFill="#505d64" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
                                                 <AnchorPane GridPane.rowIndex="1">
                                                     <children>
-                                                        <Label fx:id="headingLabelReport" layoutX="9.0" layoutY="12.0"
-                                                               text="Heading Color:" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="headingLabelReport" layoutX="9.0" layoutY="12.0" text="Heading Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="headingPickerReport" layoutX="134.0"
-                                                                     layoutY="9.0" prefHeight="25.0" prefWidth="208.0"
-                                                                     AnchorPane.leftAnchor="143.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <ColorPicker fx:id="headingPickerReport" layoutX="134.0" layoutY="9.0" prefHeight="25.0" prefWidth="208.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.rowIndex="3">
                                                     <children>
-                                                        <Label fx:id="secLabelReport" text="Secondary Color:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="secLabelReport" text="Secondary Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="secPickerReport" layoutX="134.0"
-                                                                     layoutY="1.0" AnchorPane.leftAnchor="143.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <ColorPicker fx:id="secPickerReport" layoutX="134.0" layoutY="1.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.rowIndex="2">
                                                     <children>
-                                                        <Label fx:id="backgroundLabelReport" text="Background Color:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="backgroundLabelReport" text="Background Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="backgroundPickerReport" layoutX="143.0"
-                                                                     layoutY="12.0" prefHeight="25.0" prefWidth="199.0"
-                                                                     AnchorPane.leftAnchor="143.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <ColorPicker fx:id="backgroundPickerReport" layoutX="143.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.rowIndex="4">
                                                     <children>
-                                                        <Label fx:id="accentLabelReport" text="Accent Color:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="accentLabelReport" text="Accent Color:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ColorPicker fx:id="accentPickerReport" layoutX="134.0"
-                                                                     layoutY="1.0" AnchorPane.leftAnchor="143.0"
-                                                                     AnchorPane.rightAnchor="20.0"
-                                                                     AnchorPane.topAnchor="10.0"/>
+                                                        <ColorPicker fx:id="accentPickerReport" layoutX="134.0" layoutY="1.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                     <children>
-                                                        <Label fx:id="tt6" layoutX="9.0" layoutY="12.0" text="Preset:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt6" layoutX="9.0" layoutY="12.0" text="Preset:" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="presetComboBoxReport" layoutX="65.0"
-                                                                  layoutY="10.0" prefHeight="26.0" prefWidth="144.0"
-                                                                  AnchorPane.leftAnchor="65.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
+                                                        <ComboBox fx:id="presetComboBoxReport" layoutX="65.0" layoutY="10.0" prefHeight="26.0" prefWidth="144.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                     <children>
-                                                        <Label fx:id="tt7" layoutX="10.0" layoutY="12.0"
-                                                               text="Report Text Color:" AnchorPane.leftAnchor="10.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt7" layoutX="10.0" layoutY="12.0" text="Report Text Color:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="reportStyleComboBox" layoutX="141.0"
-                                                                  layoutY="10.0" prefHeight="26.0" prefWidth="105.0"
-                                                                  AnchorPane.leftAnchor="141.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
+                                                        <ComboBox fx:id="reportStyleComboBox" layoutX="141.0" layoutY="10.0" prefHeight="26.0" prefWidth="105.0" AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                                                     </children>
                                                 </AnchorPane>
-                                                <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false"
-                                                        onAction="#resetReportDefaultsBtnPress"
-                                                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
-                                                        text="Reset Defaults" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="4">
+                                                <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false" onAction="#resetReportDefaultsBtnPress" styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css" text="Reset Defaults" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                     <GridPane.margin>
-                                                        <Insets bottom="2.0" top="2.0"/>
+                                                        <Insets bottom="2.0" top="2.0" />
                                                     </GridPane.margin>
                                                 </Button>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                     <children>
-                                                        <CheckBox fx:id="saveReportLocationCheckbox" alignment="CENTER"
-                                                                  mnemonicParsing="false"
-                                                                  onAction="#rememberReportLocationClick"
-                                                                  prefHeight="50.0" selected="true"
-                                                                  text="Remember Report Location/Size"
-                                                                  AnchorPane.bottomAnchor="0.0"
-                                                                  AnchorPane.leftAnchor="10.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="0.0">
+                                                        <CheckBox fx:id="saveReportLocationCheckbox" alignment="CENTER" mnemonicParsing="false" onAction="#rememberReportLocationClick" prefHeight="50.0" selected="true" text="Remember Report Location/Size" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                             <padding>
-                                                                <Insets left="5.0"/>
+                                                                <Insets left="5.0" />
                                                             </padding>
                                                         </CheckBox>
                                                     </children>
@@ -701,227 +457,209 @@
                         </Tab>
                         <Tab text="Window Settings">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                            style="-fx-background-color: rgb(255,255,255,0.5);">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                  AnchorPane.topAnchor="14.0">
+                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-                                                                   minWidth="-Infinity" prefWidth="149.0"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="149.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="36.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="36.0" vgrow="NEVER" />
+                                                <RowConstraints minHeight="36.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="26.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="lbl5" style="-fx-text-fill: #665CB6;"
-                                                       text="Keep Window On Top" textFill="#505d64"
-                                                       GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                       GridPane.valignment="CENTER">
+                                                <Label fx:id="lbl5" style="-fx-text-fill: #665CB6;" text="Keep Window On Top" textFill="#505d64" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
-                                                <CheckBox fx:id="AOTNotes" mnemonicParsing="false"
-                                                          onAction="#NotesAOTClick" selected="true" text="Notes"
-                                                          GridPane.halignment="LEFT" GridPane.rowIndex="1"
-                                                          GridPane.valignment="CENTER">
+                                                <CheckBox fx:id="AOTNotes" mnemonicParsing="false" onAction="#NotesAOTClick" selected="true" text="Notes" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets right="20.0"/>
+                                                        <Insets right="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTCallout" mnemonicParsing="false"
-                                                          onAction="#calloutAOTClick" selected="true" text="Callout"
-                                                          GridPane.halignment="LEFT" GridPane.rowIndex="3"
-                                                          GridPane.valignment="CENTER">
+                                                <CheckBox fx:id="AOTCallout" mnemonicParsing="false" onAction="#calloutAOTClick" selected="true" text="Callout" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets right="20.0"/>
+                                                        <Insets right="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTReport" mnemonicParsing="false"
-                                                          onAction="#reportAOTClick" selected="true" text="Report"
-                                                          GridPane.halignment="LEFT" GridPane.rowIndex="2"
-                                                          GridPane.valignment="CENTER">
+                                                <CheckBox fx:id="AOTReport" mnemonicParsing="false" onAction="#reportAOTClick" selected="true" text="Report" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets right="20.0"/>
+                                                        <Insets right="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTID" mnemonicParsing="false" onAction="#IDAOTClick"
-                                                          selected="true" text="ID" GridPane.halignment="LEFT"
-                                                          GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                                <CheckBox fx:id="AOTID" mnemonicParsing="false" onAction="#IDAOTClick" selected="true" text="ID" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets right="20.0"/>
+                                                        <Insets right="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTSettings" mnemonicParsing="false"
-                                                          onAction="#settingsAOTClick" selected="true" text="Settings"
-                                                          GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                                                          GridPane.rowIndex="1">
+                                                <CheckBox fx:id="AOTSettings" mnemonicParsing="false" onAction="#settingsAOTClick" selected="true" text="Settings" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTMap" mnemonicParsing="false" onAction="#mapAOTClick"
-                                                          selected="true" text="Map" GridPane.columnIndex="1"
-                                                          GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                                                <CheckBox fx:id="AOTMap" mnemonicParsing="false" onAction="#mapAOTClick" selected="true" text="Map" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTClient" mnemonicParsing="false"
-                                                          onAction="#ClientAOTClick" selected="true" text="Client"
-                                                          GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                                                          GridPane.rowIndex="3">
+                                                <CheckBox fx:id="AOTClient" mnemonicParsing="false" onAction="#ClientAOTClick" selected="true" text="Client" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="AOTDebug" mnemonicParsing="false"
-                                                          onAction="#debugAOTClick" selected="true" text="Debug"
-                                                          GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                                                          GridPane.rowIndex="4">
+                                                <CheckBox fx:id="AOTDebug" mnemonicParsing="false" onAction="#debugAOTClick" selected="true" text="Debug" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                                     <font>
-                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                        <Font name="Segoe UI Semibold" size="15.0" />
                                                     </font>
                                                     <padding>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </padding>
                                                     <GridPane.margin>
-                                                        <Insets left="20.0"/>
+                                                        <Insets left="20.0" />
                                                     </GridPane.margin>
                                                 </CheckBox>
-                                                <Label fx:id="lbl7" style="-fx-text-fill: #665CB6;"
-                                                       text="Window Display Durations" textFill="#505d64"
-                                                       GridPane.columnIndex="2">
+                                                <Label fx:id="lbl7" style="-fx-text-fill: #665CB6;" text="Window Display Durations" textFill="#505d64" GridPane.columnIndex="2">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
-                                                <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                    <children>
-                                                        <Label fx:id="tt8" layoutX="9.0" layoutY="12.0"
-                                                               text="Callout Window:" AnchorPane.leftAnchor="20.0"
-                                                               AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="calloutDurComboBox" layoutX="146.0"
-                                                                  layoutY="10.0" prefHeight="26.0" prefWidth="130.0"
-                                                                  AnchorPane.leftAnchor="146.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                                    <children>
-                                                        <Label fx:id="tt9" layoutX="9.0" layoutY="12.0"
-                                                               text="ID Window:" AnchorPane.leftAnchor="20.0"
-                                                               AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="idDurComboBox" layoutX="112.0" layoutY="10.0"
-                                                                  prefHeight="26.0" prefWidth="164.0"
-                                                                  AnchorPane.leftAnchor="112.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
+                                    <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <AnchorPane>
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                             <children>
+                                                              <Label fx:id="tt8" layoutY="13.0" text="Callout:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="13.0">
+                                                                  <font>
+                                                                      <Font name="Segoe UI Semibold" size="15.0" />
+                                                                  </font>
+                                                              </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane GridPane.columnIndex="1" GridPane.hgrow="NEVER">
+                                             <children>
+                                                              <ComboBox fx:id="calloutDurComboBox" layoutY="10.0" prefWidth="114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane GridPane.columnIndex="2">
+                                             <GridPane.margin>
+                                                <Insets left="10.0" right="5.0" />
+                                             </GridPane.margin>
+                                             <children>
+                                                              <Label fx:id="tt9" layoutY="13.0" text="ID:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="13.0">
+                                                                  <font>
+                                                                      <Font name="Segoe UI Semibold" size="15.0" />
+                                                                  </font>
+                                                              </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane GridPane.columnIndex="3">
+                                             <children>
+                                                              <ComboBox fx:id="idDurComboBox" layoutY="10.0" prefWidth="114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets right="20.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets left="20.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                     <children>
-                                                        <CheckBox fx:id="saveCalloutLocationCheckbox" alignment="CENTER"
-                                                                  mnemonicParsing="false"
-                                                                  onAction="#rememberCalloutLocationClick"
-                                                                  prefHeight="50.0" selected="true"
-                                                                  text="Remember Callout Window Location"
-                                                                  AnchorPane.bottomAnchor="0.0"
-                                                                  AnchorPane.leftAnchor="10.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="0.0">
+                                                        <CheckBox fx:id="saveCalloutLocationCheckbox" alignment="CENTER" mnemonicParsing="false" onAction="#rememberCalloutLocationClick" prefHeight="50.0" selected="true" text="Remember Callout Window Location" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                             <padding>
-                                                                <Insets left="5.0"/>
+                                                                <Insets left="5.0" />
                                                             </padding>
                                                         </CheckBox>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
                                                     <children>
-                                                        <CheckBox fx:id="saveIDLocationCheckbox" alignment="CENTER"
-                                                                  mnemonicParsing="false"
-                                                                  onAction="#rememberIDLocationClick" prefHeight="50.0"
-                                                                  selected="true" text="Remember ID Window Location"
-                                                                  AnchorPane.bottomAnchor="0.0"
-                                                                  AnchorPane.leftAnchor="10.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="0.0">
+                                                        <CheckBox fx:id="saveIDLocationCheckbox" alignment="CENTER" mnemonicParsing="false" onAction="#rememberIDLocationClick" prefHeight="50.0" selected="true" text="Remember ID Window Location" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                             <padding>
-                                                                <Insets left="5.0"/>
+                                                                <Insets left="5.0" />
                                                             </padding>
                                                         </CheckBox>
                                                     </children>
                                                 </AnchorPane>
+                                    <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <children>
+                                          <CheckBox fx:id="saveNotesLocationCheckbox" alignment="CENTER" mnemonicParsing="false" onAction="#rememberNotesLocationClick" prefHeight="50.0" selected="true" text="Remember Notes Window Location" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="Segoe UI Semibold" size="15.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </CheckBox>
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                         </GridPane>
                                     </children>
@@ -930,92 +668,57 @@
                         </Tab>
                         <Tab text="Server Settings">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                            style="-fx-background-color: rgb(255,255,255,0.5);">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                  AnchorPane.topAnchor="14.0">
+                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-                                                                   percentWidth="50.0"/>
-                                                <ColumnConstraints/>
+                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="50.0" />
+                                                <ColumnConstraints />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="36.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="36.0" vgrow="NEVER" />
+                                                <RowConstraints minHeight="36.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="26.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                     <children>
-                                                        <Label fx:id="tt10" layoutX="4.0" layoutY="12.0"
-                                                               text="Broadcast Port:" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt10" layoutX="4.0" layoutY="12.0" text="Broadcast Port:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="broadcastPortField" layoutX="110.0"
-                                                                   layoutY="8.0" prefHeight="26.0" prefWidth="171.0"
-                                                                   promptText="Default: 8888"
-                                                                   AnchorPane.bottomAnchor="7.0"
-                                                                   AnchorPane.leftAnchor="110.0"
-                                                                   AnchorPane.rightAnchor="14.0"
-                                                                   AnchorPane.topAnchor="8.0"/>
+                                                        <TextField fx:id="broadcastPortField" layoutX="110.0" layoutY="8.0" prefHeight="26.0" prefWidth="171.0" promptText="Default: 8888" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.rowIndex="1">
                                                     <children>
-                                                        <CheckBox fx:id="serverAutoconnectCheckbox" alignment="CENTER"
-                                                                  mnemonicParsing="false"
-                                                                  onAction="#serverAutoConnectClick" prefHeight="50.0"
-                                                                  selected="true" text="Server Autoconnect on Startup"
-                                                                  AnchorPane.bottomAnchor="0.0"
-                                                                  AnchorPane.leftAnchor="14.0"
-                                                                  AnchorPane.rightAnchor="14.0"
-                                                                  AnchorPane.topAnchor="0.0">
+                                                        <CheckBox fx:id="serverAutoconnectCheckbox" alignment="CENTER" mnemonicParsing="false" onAction="#serverAutoConnectClick" prefHeight="50.0" selected="true" text="Server Autoconnect on Startup" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                             <padding>
-                                                                <Insets left="9.0"/>
+                                                                <Insets left="9.0" />
                                                             </padding>
                                                         </CheckBox>
                                                     </children>
                                                 </AnchorPane>
-                                                <Label fx:id="lbl8" style="-fx-text-fill: #665CB6;"
-                                                       text="Server / Networking Settings" textFill="#505d64"
-                                                       GridPane.columnSpan="3" GridPane.halignment="CENTER"
-                                                       GridPane.valignment="CENTER">
+                                                <Label fx:id="lbl8" style="-fx-text-fill: #665CB6;" text="Server / Networking Settings" textFill="#505d64" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
+                                                        <Font name="Segoe UI Black" size="17.0" />
                                                     </font>
                                                 </Label>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                     <children>
-                                                        <Label fx:id="tt11" layoutX="4.0" layoutY="12.0"
-                                                               text="Socket Timeout (ms):" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt11" layoutX="4.0" layoutY="12.0" text="Socket Timeout (ms):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="12.0">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                <Font name="Segoe UI Semibold" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="socketTimeoutField" layoutX="152.0"
-                                                                   layoutY="8.0" prefHeight="29.0" prefWidth="129.0"
-                                                                   promptText="Default 10000"
-                                                                   AnchorPane.bottomAnchor="7.0"
-                                                                   AnchorPane.leftAnchor="152.0"
-                                                                   AnchorPane.rightAnchor="14.0"
-                                                                   AnchorPane.topAnchor="8.0"/>
+                                                        <TextField fx:id="socketTimeoutField" layoutX="152.0" layoutY="8.0" prefHeight="29.0" prefWidth="129.0" promptText="Default 10000" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </children>

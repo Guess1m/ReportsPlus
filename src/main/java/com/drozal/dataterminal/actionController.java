@@ -377,6 +377,10 @@ public class actionController {
 	public static boolean CalloutFirstShown = true;
 	public static double Calloutx;
 	public static double Callouty;
+	public static boolean NotesFirstShown = true;
+	public static double notesx;
+	public static double notesy;
+	public static Screen NotesScreen = null;
 	
 	//</editor-fold>
 	
@@ -799,7 +803,7 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) throws IOException {
+	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane, shiftInformationPane);
 		setActive(courtPane);
 		showAnimation(showCourtCasesBtn);
@@ -921,9 +925,28 @@ public class actionController {
 			case "FullLeft" -> snapToLeft(notesStage);
 			case "FullRight" -> snapToRight(notesStage);
 			default -> {
-				windowUtils.centerStageOnMainApp(notesStage);
-				notesStage.setMinHeight(300);
-				notesStage.setMinWidth(300);
+				if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
+					if (NotesFirstShown) {
+						windowUtils.centerStageOnMainApp(notesStage);
+						log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
+					} else {
+						if (NotesScreen != null) {
+							Rectangle2D screenBounds = NotesScreen.getVisualBounds();
+							notesStage.setX(notesx);
+							notesStage.setY(notesy);
+							if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
+								windowUtils.centerStageOnMainApp(notesStage);
+							}
+						} else {
+							windowUtils.centerStageOnMainApp(notesStage);
+						}
+						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy, Severity.INFO);
+					}
+				} else {
+					windowUtils.centerStageOnMainApp(notesStage);
+					notesStage.setMinHeight(300);
+					notesStage.setMinWidth(300);
+				}
 			}
 		}
 		notesStage.getScene().getStylesheets().add(
@@ -934,6 +957,14 @@ public class actionController {
 		notesStage.setOnHidden(new EventHandler<>() {
 			@Override
 			public void handle(WindowEvent event) {
+				notesx = notesStage.getX();
+				notesy = notesStage.getY();
+				NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(),
+				                                         notesStage.getHeight()).stream().findFirst().orElse(
+						null);
+				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy,
+				    LogUtils.Severity.DEBUG);
+				NotesFirstShown = false;
 				notesStage = null;
 				actionController.notesText = notesViewController.getNotepadTextArea().getText();
 			}
@@ -941,7 +972,7 @@ public class actionController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onShiftInfoBtnClicked(ActionEvent actionEvent) throws IOException {
+	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(shiftInformationPane);
 		showAnimation(shiftInfoBtn);

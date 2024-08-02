@@ -940,7 +940,8 @@ public class actionController {
 						} else {
 							windowUtils.centerStageOnMainApp(notesStage);
 						}
-						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy, Severity.INFO);
+						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy,
+						    Severity.INFO);
 					}
 				} else {
 					windowUtils.centerStageOnMainApp(notesStage);
@@ -960,8 +961,7 @@ public class actionController {
 				notesx = notesStage.getX();
 				notesy = notesStage.getY();
 				NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(),
-				                                         notesStage.getHeight()).stream().findFirst().orElse(
-						null);
+				                                            notesStage.getHeight()).stream().findFirst().orElse(null);
 				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy,
 				    LogUtils.Severity.DEBUG);
 				NotesFirstShown = false;

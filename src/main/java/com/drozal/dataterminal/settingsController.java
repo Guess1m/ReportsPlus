@@ -535,7 +535,8 @@ public class settingsController {
 		saveReportLocationCheckbox.setSelected(
 				ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
 		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
-		saveNotesLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
+		saveNotesLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));

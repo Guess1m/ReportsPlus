@@ -170,7 +170,7 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0" stylesheets="@css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+        <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0" stylesheets="@css/form/formFields.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <children>
@@ -1086,7 +1086,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                     <children>

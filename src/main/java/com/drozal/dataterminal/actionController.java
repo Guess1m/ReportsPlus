@@ -1538,7 +1538,15 @@ public class actionController {
 		}
 		
 		if (!outcomeProbation.isEmpty()) {
-			caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
+			if (outcomeProbation.contains("years")) {
+				caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
+			} else if (outcomeProbation.contains("months")) {
+				if (Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
+					caseTotalProbationLabel.setStyle("-fx-text-fill: #cc5200;");
+				} else {
+					caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
+				}
+			}
 			caseTotalProbationLabel.setText(outcomeProbation);
 		} else {
 			caseTotalProbationLabel.setStyle("-fx-text-fill: gray;");
@@ -1547,7 +1555,7 @@ public class actionController {
 		
 		if (areTrafficChargesPresent) {
 			caseLicenseStatLabel.setText(licenseStatus);
-			if (!outcomeSuspension.isEmpty()) {
+			if (!outcomeSuspension.isEmpty() && !licenseStatusList.contains("Revoked")) {
 				if (outcomeSuspension.contains("years")) {
 					if (Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
 						caseSuspensionDuration.setStyle("-fx-text-fill: red;");
@@ -1562,7 +1570,7 @@ public class actionController {
 				caseSuspensionDuration.setText(outcomeSuspension);
 			} else {
 				caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
-				caseSuspensionDuration.setText("None");
+				caseSuspensionDuration.setText("License Revoked");
 			}
 		} else {
 			caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");

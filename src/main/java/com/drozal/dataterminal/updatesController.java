@@ -1,11 +1,16 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.stringUtil.version;
 import static com.drozal.dataterminal.util.Misc.updateUtil.*;
@@ -23,14 +28,26 @@ public class updatesController {
 	private Label recentVer;
 	@javafx.fxml.FXML
 	private Label verChangelog;
+	List<String> updates = new ArrayList<>();
+	@javafx.fxml.FXML
+	private VBox changelogBox;
 	
 	public void initialize() {
-		topBar = createSimpleTitleBar("Version Information", false);
+		topBar = createSimpleTitleBar("Version Information", true);
 		root.setTop(topBar);
 		
 		verChangelog.setText(version);
 		
 		checkUpdates();
+		
+		updates.addAll(List.of(stringUtil.updatesList));
+		
+		updates.forEach(string -> {
+			Label label = new Label("* "+string);
+			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Segoe UI\";");
+			changelogBox.getChildren().add(label);
+		});
+		
 	}
 	
 	private void checkUpdates() {
@@ -71,5 +88,7 @@ public class updatesController {
 	public void updateBtnAction() {
 		checkUpdates();
 	}
+	
+	
 	
 }

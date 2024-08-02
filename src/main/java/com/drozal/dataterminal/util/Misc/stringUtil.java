@@ -9,7 +9,27 @@ import java.net.URISyntaxException;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class stringUtil {
+	// Change version.txt
 	public static final String version = "v1.0.6-alpha";
+	public static final String[] updatesList = {
+			"Much Better Xml Parsing For Charges",
+			"Ability To Delete Reports",
+			"Fixed Many Configuration Bugs",
+			"Removed Much Unnecessary Code",
+			"Reworked Reports To Jaxb Objects",
+			"Configuration Tooltips",
+			"Death Report Added",
+			"Remember Callout / Notes / Id Window Locations Fixed/Added",
+			"Socket Timeout Configuration",
+			"Fixed Show Id Button",
+			"New Court System Added {Beta}",
+			"Added Support For Life Sentences To Court System",
+			"Reports No Longer All Caps, Converts To Titlecase On Creation",
+			"Much Better Report Editing",
+			"Map Zoom Fixed",
+	};
+	
+	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
 	public static final String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";

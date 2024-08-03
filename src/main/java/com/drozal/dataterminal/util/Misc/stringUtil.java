@@ -9,7 +9,9 @@ import java.net.URISyntaxException;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class stringUtil {
-	// Change version.txt
+	// version.txt
+	// version
+	// updatesList
 	public static final String version = "v1.0.6-alpha";
 	public static final String[] updatesList = {
 			"Much Better Xml Parsing For Charges",
@@ -26,9 +28,8 @@ public class stringUtil {
 			"Added Support For Life Sentences To Court System",
 			"Reports No Longer All Caps, Converts To Titlecase On Creation",
 			"Much Better Report Editing",
-			"Map Zoom Fixed",
+			"Map Zoom Fixed", "Much Better Notifications", "Error Notifications",
 	};
-	
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

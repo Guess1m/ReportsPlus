@@ -12,8 +12,10 @@ import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
@@ -78,6 +80,7 @@ public class CourtUtils {
 		if (courtCases.getCaseList() != null) {
 			courtCases.getCaseList().removeIf(e -> e.getCaseNumber().equals(casenumber));
 			saveCourtCases(courtCases);
+			showNotificationInfo("Court Case Manager", "Deleted Court Case#: " + casenumber, mainRT);
 		}
 	}
 	

@@ -173,13 +173,13 @@ public class NotificationManager {
 			popup.setX(x);
 			popup.setY(y);
 			
-			String displayDuration = "1.2";
+			String displayDuration = "";
 			try {
 				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 			} catch (IOException e) {
 				logError("Could not pull displayDuration from config: ", e);
 			}
-			String fadeOutDuration = "1.7";
+			String fadeOutDuration = "";
 			try {
 				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
 			} catch (IOException e) {

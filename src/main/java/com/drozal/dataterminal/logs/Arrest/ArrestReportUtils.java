@@ -444,19 +444,26 @@ public class ArrestReportUtils {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
+				NotificationManager.showNotificationInfo("Report Manager",
+				                                         "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(),
+				                                         mainRT);
+				log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(),
 				    LogUtils.Severity.INFO);
 				actionController.needCourtRefresh.set(1);
 			} else {
-				log("Could not create court case from citation because either name or offences field(s) were empty.",
+				NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.",
+				                                         mainRT);
+				NotificationManager.showNotificationWarning("Report Manager",
+				                                            "Could not create court case from arrest because either name or offences field(s) were empty.",
+				                                            mainRT);
+				log("Could not create court case from arrest because either name or offences field(s) were empty.",
 				    LogUtils.Severity.ERROR);
 			}
 			
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.",
-			                                         mainRT);
+			
 			stage.close();
 		});
 		

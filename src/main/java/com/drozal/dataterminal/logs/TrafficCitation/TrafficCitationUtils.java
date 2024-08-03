@@ -370,10 +370,18 @@ public class TrafficCitationUtils {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
+				NotificationManager.showNotificationInfo("Report Manager",
+				                                         "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(),
+				                                         mainRT);
 				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
 				    LogUtils.Severity.INFO);
 				actionController.needCourtRefresh.set(1);
 			} else {
+				NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.",
+				                                         mainRT);
+				NotificationManager.showNotificationWarning("Report Manager",
+				                                            "Could not create court case from citation because either name or offences field(s) were empty.",
+				                                            mainRT);
 				log("Could not create court case from citation because either name or offences field(s) were empty.",
 				    LogUtils.Severity.ERROR);
 			}
@@ -381,8 +389,6 @@ public class TrafficCitationUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.",
-			                                         mainRT);
 			stage.close();
 		});
 		return citationReport;

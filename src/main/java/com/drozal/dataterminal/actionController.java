@@ -94,6 +94,7 @@ import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNod
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
+import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
@@ -1850,6 +1851,7 @@ public class actionController {
 					String numToDelete = deathNum.getText();
 					try {
 						DeathReportUtils.deleteDeathReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete DeathReport #" + numToDelete + ": ", e);
 					}
@@ -1925,6 +1927,7 @@ public class actionController {
 					String numToDelete = calloutnum.getText();
 					try {
 						CalloutReportUtils.deleteCalloutReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete CalloutReport #" + numToDelete + ": ", e);
 					}
@@ -1996,6 +1999,7 @@ public class actionController {
 					String numToDelete = patrolnum.getText();
 					try {
 						PatrolReportUtils.deletePatrolReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete PatrolReport #" + numToDelete + ": ", e);
 					}
@@ -2093,6 +2097,7 @@ public class actionController {
 					String numToDelete = stopnumts.getText();
 					try {
 						TrafficStopReportUtils.deleteTrafficStopReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete TrafficStopReport #" + numToDelete + ": ", e);
 					}
@@ -2178,6 +2183,7 @@ public class actionController {
 					String numToDelete = incidentnum.getText();
 					try {
 						IncidentReportUtils.deleteIncidentReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete IncidentReport #" + numToDelete + ": ", e);
 					}
@@ -2264,6 +2270,7 @@ public class actionController {
 					String numToDelete = num.getText();
 					try {
 						ImpoundReportUtils.deleteImpoundReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete ImpoundReport #" + numToDelete + ": ", e);
 					}
@@ -2359,6 +2366,7 @@ public class actionController {
 					String numToDelete = num.getText();
 					try {
 						TrafficCitationUtils.deleteTrafficCitationReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete TrafficCitationReport #" + numToDelete + ": ", e);
 					}
@@ -2460,6 +2468,7 @@ public class actionController {
 					String numToDelete = searchnum.getText();
 					try {
 						SearchReportUtils.deleteSearchReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete SearchReport #" + numToDelete + ": ", e);
 					}
@@ -2549,6 +2558,7 @@ public class actionController {
 					String numToDelete = arrestnum.getText();
 					try {
 						ArrestReportUtils.deleteArrestReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
 					} catch (JAXBException e) {
 						logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
 					}

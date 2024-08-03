@@ -76,7 +76,7 @@
     </dependencies>
 
     <build>
-        <finalName>ReportsPlus-v1.0.5-alpha</finalName>
+        <finalName>ReportsPlus-v1.0.6-alpha</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

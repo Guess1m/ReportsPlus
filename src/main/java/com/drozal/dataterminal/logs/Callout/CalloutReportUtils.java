@@ -4,6 +4,7 @@ import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -195,7 +196,8 @@ public class CalloutReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.",
+			                                         mainRT);
 			Stage rootstage = (Stage) root.getScene().getWindow();
 			rootstage.close();
 		});

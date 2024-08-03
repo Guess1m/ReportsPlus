@@ -797,7 +797,8 @@ public class actionController {
 			}
 			blankCourtInfoPane.setVisible(true);
 			courtInfoPane.setVisible(false);
-			showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum, mainRT);
+			NotificationManager.showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum,
+			                                            mainRT);
 			loadCaseLabels(caseList);
 		}
 	}

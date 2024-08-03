@@ -4,6 +4,7 @@ import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -221,7 +222,8 @@ public class ImpoundReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.",
+			                                         mainRT);
 			stage.close();
 		});
 		return impoundReport;

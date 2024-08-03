@@ -4,6 +4,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
@@ -1193,12 +1194,14 @@ public class settingsController {
 			
 			previewNotificationBtn.setOnAction(actionEvent -> {
 				if (selectedNotification.get().equals("Information")) {
-					showNotificationInfo("Sample Info Notification",
-					                     "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
+					NotificationManager.showNotificationInfo("Sample Info Notification",
+					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                         mainRT);
 				}
 				if (selectedNotification.get().equals("Warning")) {
-					showNotificationWarning("Sample Warning Notification",
-					                        "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
+					NotificationManager.showNotificationWarning("Sample Warning Notification",
+					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                            mainRT);
 				}
 			});
 		});

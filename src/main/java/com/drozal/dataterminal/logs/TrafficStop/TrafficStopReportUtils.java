@@ -6,6 +6,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -370,7 +371,8 @@ public class TrafficStopReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.",
+			                                         mainRT);
 			stagets.close();
 		});
 		return trafficStopReport;

@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.util.Misc;
 
-import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
@@ -13,30 +12,23 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import org.w3c.dom.Document;
@@ -50,7 +42,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -217,284 +208,6 @@ public class controllerUtils {
 			}
 		}
 		return coloredImage;
-	}
-	
-	public static void showNotificationInfo(String title, String message, Object owner) {
-		Platform.runLater(() -> {
-			Stage ownerStage = (Stage) owner;
-			
-			String textClr;
-			try {
-				textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			String primClr;
-			try {
-				primClr = ConfigReader.configRead("notificationSettings", "notificationInfoPrimary");
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			
-			Label titleLabel = new Label(title);
-			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
-			
-			Label messageLabel = new Label(message);
-			messageLabel.setWrapText(true);
-			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
-			
-			ImageView icon = new ImageView(
-					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
-			Image coloredImage = changeImageColor(icon.getImage(), textClr);
-			icon.setImage(coloredImage);
-			icon.setFitWidth(24);
-			icon.setFitHeight(24);
-			
-			ImageView closeIcon = new ImageView(
-					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
-			Image coloredImageClose = changeImageColor(closeIcon.getImage(), textClr);
-			closeIcon.setImage(coloredImageClose);
-			closeIcon.setFitWidth(12);
-			closeIcon.setFitHeight(13);
-			
-			Button closeButton = new Button();
-			closeButton.setGraphic(closeIcon);
-			closeButton.setStyle("-fx-background-color: transparent;");
-			
-			AnchorPane closePane = new AnchorPane(closeButton);
-			closePane.setStyle("-fx-background-color: rgba(50,50,50,0.2);");
-			closePane.setPrefSize(29, 66);
-			AnchorPane.setLeftAnchor(closeButton, 0.0);
-			AnchorPane.setRightAnchor(closeButton, 0.0);
-			AnchorPane.setTopAnchor(closeButton, 0.0);
-			AnchorPane.setBottomAnchor(closeButton, 0.0);
-			
-			VBox contentBox = new VBox(5, titleLabel, messageLabel);
-			contentBox.setAlignment(Pos.CENTER_LEFT);
-			contentBox.setPadding(new Insets(0));
-			contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-			
-			HBox mainBox = new HBox(10, icon, contentBox, closePane);
-			mainBox.setAlignment(Pos.CENTER_LEFT);
-			mainBox.setPadding(new Insets(0, 0, 0, 10));
-			mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-			
-			AnchorPane anchorPane = new AnchorPane(mainBox);
-			anchorPane.setStyle("-fx-background-color: " + primClr + ";");
-			AnchorPane.setBottomAnchor(mainBox, 0.0);
-			AnchorPane.setLeftAnchor(mainBox, 0.0);
-			AnchorPane.setRightAnchor(mainBox, 0.0);
-			AnchorPane.setTopAnchor(mainBox, 0.0);
-			
-			Stage popup = new Stage();
-			popup.initOwner(ownerStage);
-			popup.initStyle(StageStyle.TRANSPARENT);
-			Scene scene = new Scene(anchorPane);
-			scene.setFill(null);
-			popup.setScene(scene);
-			popup.setAlwaysOnTop(true);
-			
-			closeButton.setOnAction(event -> popup.hide());
-			
-			String configPosition = "BottomLeft";
-			try {
-				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
-			} catch (IOException e) {
-				logError("Could not pull notificationPosition from config: ", e);
-			}
-			
-			popup.show();
-			
-			double x = ownerStage.getX() + 30;
-			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
-			switch (configPosition) {
-				case "BottomLeft" -> {
-					x = ownerStage.getX() + 223;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
-				}
-				case "BottomRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
-				}
-				case "TopLeft" -> {
-					x = ownerStage.getX() + 223;
-					y = ownerStage.getY() + 136;
-				}
-				case "TopRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + 136;
-				}
-			}
-			
-			popup.setX(x);
-			popup.setY(y);
-			
-			String displayDuration = "1.2";
-			try {
-				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
-			} catch (IOException e) {
-				logError("Could not pull displayDuration from config: ", e);
-			}
-			String fadeOutDuration = "1.7";
-			try {
-				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
-			} catch (IOException e) {
-				logError("Could not pull fadeOutDuration from config: ", e);
-			}
-			
-			PauseTransition pauseTransition = new PauseTransition(
-					Duration.seconds(Double.parseDouble(displayDuration)));
-			String finalFadeOutDuration = fadeOutDuration;
-			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(
-						Duration.seconds(Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
-				fadeOutTransition.setFromValue(1);
-				fadeOutTransition.setToValue(0);
-				fadeOutTransition.setOnFinished(e -> popup.hide());
-				fadeOutTransition.play();
-			});
-			
-			pauseTransition.play();
-		});
-	}
-	
-	public static void showNotificationWarning(String title, String message, Object owner) {
-		Platform.runLater(() -> {
-			Stage ownerStage = (Stage) owner;
-			
-			String textClr;
-			try {
-				textClr = ConfigReader.configRead("notificationSettings", "notificationWarnTextColor");
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			String primClr;
-			try {
-				primClr = ConfigReader.configRead("notificationSettings", "notificationWarnPrimary");
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			
-			Label titleLabel = new Label(title);
-			titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
-			
-			Label messageLabel = new Label(message);
-			messageLabel.setWrapText(true);
-			messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
-			
-			ImageView icon = new ImageView(
-					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
-			Image coloredImage = changeImageColor(icon.getImage(), textClr);
-			icon.setImage(coloredImage);
-			icon.setFitWidth(24);
-			icon.setFitHeight(24);
-			
-			ImageView closeIcon = new ImageView(
-					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
-			Image coloredImageClose = changeImageColor(closeIcon.getImage(), textClr);
-			closeIcon.setImage(coloredImageClose);
-			closeIcon.setFitWidth(12);
-			closeIcon.setFitHeight(13);
-			
-			Button closeButton = new Button();
-			closeButton.setGraphic(closeIcon);
-			closeButton.setStyle("-fx-background-color: transparent;");
-			
-			AnchorPane closePane = new AnchorPane(closeButton);
-			closePane.setStyle("-fx-background-color: rgba(50,50,50,0.2);");
-			closePane.setPrefSize(29, 66);
-			AnchorPane.setLeftAnchor(closeButton, 0.0);
-			AnchorPane.setRightAnchor(closeButton, 0.0);
-			AnchorPane.setTopAnchor(closeButton, 0.0);
-			AnchorPane.setBottomAnchor(closeButton, 0.0);
-			
-			VBox contentBox = new VBox(5, titleLabel, messageLabel);
-			contentBox.setAlignment(Pos.CENTER_LEFT);
-			contentBox.setPadding(new Insets(0));
-			contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-			
-			HBox mainBox = new HBox(10, icon, contentBox, closePane);
-			mainBox.setAlignment(Pos.CENTER_LEFT);
-			mainBox.setPadding(new Insets(0, 0, 0, 10));
-			mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-			
-			AnchorPane anchorPane = new AnchorPane(mainBox);
-			anchorPane.setStyle("-fx-background-color: " + primClr + ";");
-			AnchorPane.setBottomAnchor(mainBox, 0.0);
-			AnchorPane.setLeftAnchor(mainBox, 0.0);
-			AnchorPane.setRightAnchor(mainBox, 0.0);
-			AnchorPane.setTopAnchor(mainBox, 0.0);
-			
-			Stage popup = new Stage();
-			popup.initOwner(ownerStage);
-			popup.initStyle(StageStyle.TRANSPARENT);
-			Scene scene = new Scene(anchorPane);
-			scene.setFill(null);
-			popup.setScene(scene);
-			popup.setAlwaysOnTop(true);
-			
-			closeButton.setOnAction(event -> popup.hide());
-			
-			String configPosition = "BottomLeft";
-			try {
-				configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
-			} catch (IOException e) {
-				logError("Could not pull notificationPosition from config: ", e);
-			}
-			
-			popup.show();
-			
-			double x = ownerStage.getX() + 30;
-			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
-			switch (configPosition) {
-				case "BottomLeft" -> {
-					x = ownerStage.getX() + 223;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
-				}
-				case "BottomRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
-				}
-				case "TopLeft" -> {
-					x = ownerStage.getX() + 223;
-					y = ownerStage.getY() + 136;
-				}
-				case "TopRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + 136;
-				}
-			}
-			
-			popup.setX(x);
-			popup.setY(y);
-			
-			String displayDuration = "1.2";
-			try {
-				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
-			} catch (IOException e) {
-				logError("Could not pull displayDuration from config: ", e);
-			}
-			String fadeOutDuration = "1.7";
-			try {
-				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
-			} catch (IOException e) {
-				logError("Could not pull fadeOutDuration from config: ", e);
-			}
-			
-			PauseTransition pauseTransition = new PauseTransition(
-					Duration.seconds(Double.parseDouble(displayDuration)));
-			String finalFadeOutDuration = fadeOutDuration;
-			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(
-						Duration.seconds(Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
-				fadeOutTransition.setFromValue(1);
-				fadeOutTransition.setToValue(0);
-				fadeOutTransition.setOnFinished(e -> popup.hide());
-				fadeOutTransition.play();
-			});
-			
-			pauseTransition.play();
-		});
 	}
 	
 	public static void showLogClearNotification(String title, String message, Object owner) {

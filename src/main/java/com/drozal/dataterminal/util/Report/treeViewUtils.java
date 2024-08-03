@@ -1,6 +1,9 @@
 package com.drozal.dataterminal.util.Report;
 
+import com.drozal.dataterminal.logs.ChargesData;
+import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,7 +25,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public class treeViewUtils {
 	public static void copyChargeDataFile() throws IOException {
 		
@@ -90,23 +92,22 @@ public class treeViewUtils {
 	
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
-			
 			File file = new File(getJarPath() + "/" + path);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			Document document = factory.newDocumentBuilder().parse(file);
 			
 			Element selectedElement = findElementByValue(document.getDocumentElement(), selectedValue);
 			if (selectedElement != null) {
-				
 				String XMLValue = selectedElement.getAttribute(value);
-				return XMLValue;
+				return XMLValue.isEmpty() ? null : XMLValue;
 			} else {
 				log("Element not found for value: " + selectedValue, LogUtils.Severity.WARN);
+				return null;
 			}
 		} catch (ParserConfigurationException | IOException | SAXException e) {
-			logError("Find XML value error ", e);
+			logError("Find XML value error", e);
+			return null;
 		}
-		return selectedValue;
 	}
 	
 	private static Element findElementByValue(Element parentElement, String value) {
@@ -145,13 +146,27 @@ public class treeViewUtils {
 		}
 	}
 	
-	public static void expandTreeItem(TreeItem<String> root, String itemName) {
-		if (root.getValue().equals(itemName)) {
-			root.setExpanded(true);
-			return;
+	public static void expandTreeItem(TreeItem<String> root) {
+		root.setExpanded(true);
+	}
+	
+	public static void addChargesToTable(String chargesString, ObservableList<ChargesData> chargeList) {
+		String[] chargesArray = chargesString.split("\\|");
+		for (String charge : chargesArray) {
+			charge = charge.trim();
+			if (!charge.isEmpty()) {
+				chargeList.add(new ChargesData(charge));
+			}
 		}
-		for (TreeItem<String> child : root.getChildren()) {
-			expandTreeItem(child, itemName);
+	}
+	
+	public static void addCitationsToTable(String citationsString, ObservableList<CitationsData> citList) {
+		String[] citationsArray = citationsString.split("\\|");
+		for (String cit : citationsArray) {
+			cit = cit.trim();
+			if (!cit.isEmpty()) {
+				citList.add(new CitationsData(cit));
+			}
 		}
 	}
 }

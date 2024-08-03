@@ -28,8 +28,6 @@ public class mapController {
 	
 	public void initialize() {
 		currentImagePath = "/com/drozal/dataterminal/imgs/losSantos.jpg";
-		
-		// Load initial image
 		Image initialImage = new Image(Launcher.class.getResourceAsStream(currentImagePath));
 		losSantosMap.setImage(initialImage);
 		root.setStyle("-fx-background-color:  #143d6b;");
@@ -59,19 +57,16 @@ public class mapController {
 		double newScale = currentScaleX + deltaYScroll * SCROLL_FACTOR;
 		newScale = clamp(newScale, MIN_SCALE, MAX_SCALE);
 		
-		double pivotX = mouseX - losSantosMap.getBoundsInParent().getMinX();
-		double pivotY = mouseY - losSantosMap.getBoundsInParent().getMinY();
-		double pivotDeltaX = (pivotX * (newScale - currentScaleX));
-		double pivotDeltaY = (pivotY * (newScale - currentScaleY));
+		double f = newScale / currentScaleX - 1;
 		
-		double deltaX = pivotDeltaX - pivotX * (newScale - currentScaleX);
-		double deltaY = pivotDeltaY - pivotY * (newScale - currentScaleY);
-		
-		losSantosMap.setTranslateX(losSantosMap.getTranslateX() + deltaX);
-		losSantosMap.setTranslateY(losSantosMap.getTranslateY() + deltaY);
+		double dx = mouseX - (losSantosMap.getBoundsInParent().getWidth() / 2 + losSantosMap.getBoundsInParent().getMinX());
+		double dy = mouseY - (losSantosMap.getBoundsInParent().getHeight() / 2 + losSantosMap.getBoundsInParent().getMinY());
 		
 		losSantosMap.setScaleX(newScale);
 		losSantosMap.setScaleY(newScale);
+		
+		losSantosMap.setTranslateX(losSantosMap.getTranslateX() - f * dx);
+		losSantosMap.setTranslateY(losSantosMap.getTranslateY() - f * dy);
 		
 		scrollEvent.consume();
 	}
@@ -176,9 +171,7 @@ public class mapController {
 				break;
 		}
 		
-		// Set the new image
 		Image newImage = new Image(Launcher.class.getResourceAsStream(currentImagePath));
 		losSantosMap.setImage(newImage);
 	}
-	
 }

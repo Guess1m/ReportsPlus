@@ -4,11 +4,10 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -18,24 +17,28 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
-@SuppressWarnings({"ALL", "Convert2Diamond"})
 public class settingsController {
 	
-	private static String UILightColor = "rgb(255,255,255,0.75)";
-	private static String UIDarkColor = "rgb(0,0,0,0.75)";
+	private static final String UILightColor = "rgb(255,255,255,0.75)";
+	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
+	private static AtomicReference<String> selectedNotification;
 	
 	//<editor-fold desc="FXML">
+	
 	private static actionController controllerVar;
 	AnchorPane topBar;
 	@javafx.fxml.FXML
@@ -168,6 +171,52 @@ public class settingsController {
 	private CheckBox saveCalloutLocationCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox saveIDLocationCheckbox;
+	@javafx.fxml.FXML
+	private GridPane colorPageTwo;
+	@javafx.fxml.FXML
+	private GridPane colorPageOne;
+	@javafx.fxml.FXML
+	private Label lbl9;
+	@javafx.fxml.FXML
+	private Button colorPageTwoBtn;
+	@javafx.fxml.FXML
+	private Button colorPageOneBtn;
+	@javafx.fxml.FXML
+	private Label tt15;
+	@javafx.fxml.FXML
+	private Label tt16;
+	@javafx.fxml.FXML
+	private Label tt12;
+	@javafx.fxml.FXML
+	private Button previewNotificationBtn;
+	@javafx.fxml.FXML
+	private ColorPicker notiPrimPicker;
+	@javafx.fxml.FXML
+	private ColorPicker notiTextColorPicker;
+	@javafx.fxml.FXML
+	private ComboBox notificationComboBox;
+	@javafx.fxml.FXML
+	private Button resetNotiDefaultsBtn;
+	@javafx.fxml.FXML
+	private ComboBox notiPosCombobox;
+	@javafx.fxml.FXML
+	private Label tt17;
+	@javafx.fxml.FXML
+	private Label tt13;
+	@javafx.fxml.FXML
+	private Label tt14;
+	@javafx.fxml.FXML
+	private TextField notiFadeOutDurField;
+	@javafx.fxml.FXML
+	private TextField notiDisplayDurField;
+	@javafx.fxml.FXML
+	private Button saveDisplayDurBtn;
+	@javafx.fxml.FXML
+	private Button saveFadeDurBtn;
+	@javafx.fxml.FXML
+	private CheckBox saveReportLocationCheckbox;
+	@javafx.fxml.FXML
+	private CheckBox saveNotesLocationCheckbox;
 	
 	//</editor-fold>
 	
@@ -186,7 +235,10 @@ public class settingsController {
 		controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
-		controllerVar.getLogManagerLabelBkg().setStyle("-fx-background-color: " + mainclr + ";");
+		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
+		controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
 		
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
@@ -196,6 +248,13 @@ public class settingsController {
 		controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
+		controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
+		controllerVar.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
 		
 		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
 		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -212,12 +271,12 @@ public class settingsController {
 		controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getLowerPane().setStyle("-fx-background-color: " + lowerPaneToToRGB(bkgclr, 0.4) + ";");
+		controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
+		controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
 		controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
-		controllerVar.getDetailsLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
 		
 		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
 		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
@@ -236,36 +295,6 @@ public class settingsController {
 		String initialStyle = "-fx-background-color: transparent;";
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
-		controllerVar.getShowManagerToggle().setStyle(nonTransparentBtn);
-		controllerVar.getBtn1().setStyle(nonTransparentBtn);
-		controllerVar.getBtn2().setStyle(nonTransparentBtn);
-		controllerVar.getBtn3().setStyle(nonTransparentBtn);
-		controllerVar.getBtn4().setStyle(nonTransparentBtn);
-		controllerVar.getBtn5().setStyle(nonTransparentBtn);
-		controllerVar.getBtn6().setStyle(nonTransparentBtn);
-		controllerVar.getBtn7().setStyle(nonTransparentBtn);
-		controllerVar.getBtn8().setStyle(nonTransparentBtn);
-		
-		controllerVar.getBtn1().setOnMouseEntered(e -> controllerVar.getBtn1().setStyle(hoverStyle));
-		controllerVar.getBtn1().setOnMouseExited(e -> controllerVar.getBtn1().setStyle(nonTransparentBtn));
-		controllerVar.getBtn2().setOnMouseEntered(e -> controllerVar.getBtn2().setStyle(hoverStyle));
-		controllerVar.getBtn2().setOnMouseExited(e -> controllerVar.getBtn2().setStyle(nonTransparentBtn));
-		controllerVar.getBtn3().setOnMouseEntered(e -> controllerVar.getBtn3().setStyle(hoverStyle));
-		controllerVar.getBtn3().setOnMouseExited(e -> controllerVar.getBtn3().setStyle(nonTransparentBtn));
-		controllerVar.getBtn4().setOnMouseEntered(e -> controllerVar.getBtn4().setStyle(hoverStyle));
-		controllerVar.getBtn4().setOnMouseExited(e -> controllerVar.getBtn4().setStyle(nonTransparentBtn));
-		controllerVar.getBtn5().setOnMouseEntered(e -> controllerVar.getBtn5().setStyle(hoverStyle));
-		controllerVar.getBtn5().setOnMouseExited(e -> controllerVar.getBtn5().setStyle(nonTransparentBtn));
-		controllerVar.getBtn6().setOnMouseEntered(e -> controllerVar.getBtn6().setStyle(hoverStyle));
-		controllerVar.getBtn6().setOnMouseExited(e -> controllerVar.getBtn6().setStyle(nonTransparentBtn));
-		controllerVar.getBtn7().setOnMouseEntered(e -> controllerVar.getBtn7().setStyle(hoverStyle));
-		controllerVar.getBtn7().setOnMouseExited(e -> controllerVar.getBtn7().setStyle(nonTransparentBtn));
-		controllerVar.getBtn8().setOnMouseEntered(e -> controllerVar.getBtn8().setStyle(hoverStyle));
-		controllerVar.getBtn8().setOnMouseExited(e -> controllerVar.getBtn8().setStyle(nonTransparentBtn));
-		controllerVar.getShowManagerToggle().setOnMouseEntered(
-				e -> controllerVar.getShowManagerToggle().setStyle(hoverStyle));
-		controllerVar.getShowManagerToggle().setOnMouseExited(
-				e -> controllerVar.getShowManagerToggle().setStyle(nonTransparentBtn));
 		controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
 		controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
 		controllerVar.getSettingsBtn().setOnMouseEntered(
@@ -289,6 +318,10 @@ public class settingsController {
 				e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
 		controllerVar.getLookupBtn().setOnMouseEntered(e -> controllerVar.getLookupBtn().setStyle(hoverStyle));
 		controllerVar.getLookupBtn().setOnMouseExited(e -> controllerVar.getLookupBtn().setStyle(initialStyle));
+		controllerVar.getShowCourtCasesBtn().setOnMouseEntered(
+				e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
+		controllerVar.getShowCourtCasesBtn().setOnMouseExited(
+				e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
 		
 		controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
 		controllerVar.updateInfoBtn.setOnMouseExited(e -> {
@@ -316,12 +349,15 @@ public class settingsController {
 	private static void addDarkStyles() {
 		controllerVar.getTabPane().getStyleClass().clear();
 		controllerVar.getTabPane().getStyleClass().add("darktabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-dark");
 		
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -330,6 +366,19 @@ public class settingsController {
 		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -363,108 +412,31 @@ public class settingsController {
 		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
 		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxdark");
 		
-		addDarkForm(controllerVar.getArrestaddress());
-		addDarkForm(controllerVar.getArrestage());
-		addDarkForm(controllerVar.getArrestambulance());
-		addDarkForm(controllerVar.getArrestarea());
-		addDarkForm(controllerVar.getArrestcharges());
-		addDarkForm(controllerVar.getArrestcounty());
-		addDarkForm(controllerVar.getArrestdesc());
-		addDarkForm(controllerVar.getArrestdetails());
-		addDarkForm(controllerVar.getArrestgender());
-		addDarkForm(controllerVar.getArrestmedinfo());
-		addDarkForm(controllerVar.getArrestname());
-		addDarkForm(controllerVar.getArrestnum());
-		addDarkForm(controllerVar.getArreststreet());
-		addDarkForm(controllerVar.getArresttaser());
-		addDarkForm(controllerVar.getCaladdress());
-		addDarkForm(controllerVar.getCalarea());
-		addDarkForm(controllerVar.getCalcounty());
-		addDarkForm(controllerVar.getCalgrade());
-		addDarkForm(controllerVar.getCalnotes());
-		addDarkForm(controllerVar.getCalnum());
-		addDarkForm(controllerVar.getCaltype());
-		addDarkForm(controllerVar.getCitaddress());
-		addDarkForm(controllerVar.getCitage());
-		addDarkForm(controllerVar.getCitarea());
-		addDarkForm(controllerVar.getCitcharges());
-		addDarkForm(controllerVar.getCitcolor());
-		addDarkForm(controllerVar.getCitcomments());
-		addDarkForm(controllerVar.getCitcounty());
-		addDarkForm(controllerVar.getCitdesc());
-		addDarkForm(controllerVar.getCitgender());
-		addDarkForm(controllerVar.getCitmodel());
-		addDarkForm(controllerVar.getCitname());
-		addDarkForm(controllerVar.getCitnumber());
-		addDarkForm(controllerVar.getCitplatenum());
-		addDarkForm(controllerVar.getCitstreet());
-		addDarkForm(controllerVar.getCittype());
-		addDarkForm(controllerVar.getCitvehother());
-		addDarkForm(controllerVar.getImpaddress());
-		addDarkForm(controllerVar.getImpage());
-		addDarkForm(controllerVar.getImpcolor());
-		addDarkForm(controllerVar.getImpcomments());
-		addDarkForm(controllerVar.getImpgender());
-		addDarkForm(controllerVar.getImpmodel());
-		addDarkForm(controllerVar.getImpname());
-		addDarkForm(controllerVar.getImpnum());
-		addDarkForm(controllerVar.getImpplatenum());
-		addDarkForm(controllerVar.getImptype());
-		addDarkForm(controllerVar.getIncactionstaken());
-		addDarkForm(controllerVar.getIncarea());
-		addDarkForm(controllerVar.getInccomments());
-		addDarkForm(controllerVar.getInccounty());
-		addDarkForm(controllerVar.getIncnum());
-		addDarkForm(controllerVar.getIncstatement());
-		addDarkForm(controllerVar.getIncstreet());
-		addDarkForm(controllerVar.getIncvictims());
-		addDarkForm(controllerVar.getIncwitness());
-		addDarkForm(controllerVar.getPatcomments());
-		addDarkForm(controllerVar.getPatlength());
-		addDarkForm(controllerVar.getPatnum());
-		addDarkForm(controllerVar.getPatstarttime());
-		addDarkForm(controllerVar.getPatstoptime());
-		addDarkForm(controllerVar.getPatvehicle());
-		addDarkForm(controllerVar.getSearcharea());
-		addDarkForm(controllerVar.getSearchbacmeasure());
-		addDarkForm(controllerVar.getSearchbreathresult());
-		addDarkForm(controllerVar.getSearchbreathused());
-		addDarkForm(controllerVar.getSearchcomments());
-		addDarkForm(controllerVar.getSearchcounty());
-		addDarkForm(controllerVar.getSearchgrounds());
-		addDarkForm(controllerVar.getSearchmethod());
-		addDarkForm(controllerVar.getSearchnum());
-		addDarkForm(controllerVar.getSearchperson());
-		addDarkForm(controllerVar.getSearchseizeditems());
-		addDarkForm(controllerVar.getSearchstreet());
-		addDarkForm(controllerVar.getSearchtype());
-		addDarkForm(controllerVar.getSearchwitness());
-		addDarkForm(controllerVar.getTrafaddress());
-		addDarkForm(controllerVar.getTrafage());
-		addDarkForm(controllerVar.getTrafarea());
-		addDarkForm(controllerVar.getTrafcolor());
-		addDarkForm(controllerVar.getTrafcomments());
-		addDarkForm(controllerVar.getTrafcounty());
-		addDarkForm(controllerVar.getTrafdesc());
-		addDarkForm(controllerVar.getTrafgender());
-		addDarkForm(controllerVar.getTrafmodel());
-		addDarkForm(controllerVar.getTrafname());
-		addDarkForm(controllerVar.getTrafnum());
-		addDarkForm(controllerVar.getTrafotherinfo());
-		addDarkForm(controllerVar.getTrafplatenum());
-		addDarkForm(controllerVar.getTrafstreet());
-		addDarkForm(controllerVar.getTraftype());
+		addDarkForm(controllerVar.getCaseNumField());
+		addDarkForm(controllerVar.getCaseCourtDateField());
+		addDarkForm(controllerVar.getCaseOffenceDateField());
+		addDarkForm(controllerVar.getCaseFirstNameField());
+		addDarkForm(controllerVar.getCaseLastNameField());
+		addDarkForm(controllerVar.getCaseAgeField());
+		addDarkForm(controllerVar.getCaseGenderField());
+		addDarkForm(controllerVar.getCaseAddressField());
+		addDarkForm(controllerVar.getCaseStreetField());
+		addDarkForm(controllerVar.getCaseAreaField());
+		addDarkForm(controllerVar.getCaseCountyField());
 	}
 	
 	private static void addLightStyles() {
 		controllerVar.getTabPane().getStyleClass().clear();
 		controllerVar.getTabPane().getStyleClass().add("lighttabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
 		
 		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -473,6 +445,19 @@ public class settingsController {
 		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -505,97 +490,18 @@ public class settingsController {
 		addLightForm(controllerVar.getOfficerInfoName());
 		addLightForm(controllerVar.getOfficerInfoNumber());
 		addLightForm(controllerVar.getOfficerInfoCallsign());
-		addLightForm(controllerVar.getArrestaddress());
-		addLightForm(controllerVar.getArrestage());
-		addLightForm(controllerVar.getArrestambulance());
-		addLightForm(controllerVar.getArrestarea());
-		addLightForm(controllerVar.getArrestcharges());
-		addLightForm(controllerVar.getArrestcounty());
-		addLightForm(controllerVar.getArrestdesc());
-		addLightForm(controllerVar.getArrestdetails());
-		addLightForm(controllerVar.getArrestgender());
-		addLightForm(controllerVar.getArrestmedinfo());
-		addLightForm(controllerVar.getArrestname());
-		addLightForm(controllerVar.getArrestnum());
-		addLightForm(controllerVar.getArreststreet());
-		addLightForm(controllerVar.getArresttaser());
-		addLightForm(controllerVar.getCaladdress());
-		addLightForm(controllerVar.getCalarea());
-		addLightForm(controllerVar.getCalcounty());
-		addLightForm(controllerVar.getCalgrade());
-		addLightForm(controllerVar.getCalnotes());
-		addLightForm(controllerVar.getCalnum());
-		addLightForm(controllerVar.getCaltype());
-		addLightForm(controllerVar.getCitaddress());
-		addLightForm(controllerVar.getCitage());
-		addLightForm(controllerVar.getCitarea());
-		addLightForm(controllerVar.getCitcharges());
-		addLightForm(controllerVar.getCitcolor());
-		addLightForm(controllerVar.getCitcomments());
-		addLightForm(controllerVar.getCitcounty());
-		addLightForm(controllerVar.getCitdesc());
-		addLightForm(controllerVar.getCitgender());
-		addLightForm(controllerVar.getCitmodel());
-		addLightForm(controllerVar.getCitname());
-		addLightForm(controllerVar.getCitnumber());
-		addLightForm(controllerVar.getCitplatenum());
-		addLightForm(controllerVar.getCitstreet());
-		addLightForm(controllerVar.getCittype());
-		addLightForm(controllerVar.getCitvehother());
-		addLightForm(controllerVar.getImpaddress());
-		addLightForm(controllerVar.getImpage());
-		addLightForm(controllerVar.getImpcolor());
-		addLightForm(controllerVar.getImpcomments());
-		addLightForm(controllerVar.getImpgender());
-		addLightForm(controllerVar.getImpmodel());
-		addLightForm(controllerVar.getImpname());
-		addLightForm(controllerVar.getImpnum());
-		addLightForm(controllerVar.getImpplatenum());
-		addLightForm(controllerVar.getImptype());
-		addLightForm(controllerVar.getIncactionstaken());
-		addLightForm(controllerVar.getIncarea());
-		addLightForm(controllerVar.getInccomments());
-		addLightForm(controllerVar.getInccounty());
-		addLightForm(controllerVar.getIncnum());
-		addLightForm(controllerVar.getIncstatement());
-		addLightForm(controllerVar.getIncstreet());
-		addLightForm(controllerVar.getIncvictims());
-		addLightForm(controllerVar.getIncwitness());
-		addLightForm(controllerVar.getPatcomments());
-		addLightForm(controllerVar.getPatlength());
-		addLightForm(controllerVar.getPatnum());
-		addLightForm(controllerVar.getPatstarttime());
-		addLightForm(controllerVar.getPatstoptime());
-		addLightForm(controllerVar.getPatvehicle());
-		addLightForm(controllerVar.getSearcharea());
-		addLightForm(controllerVar.getSearchbacmeasure());
-		addLightForm(controllerVar.getSearchbreathresult());
-		addLightForm(controllerVar.getSearchbreathused());
-		addLightForm(controllerVar.getSearchcomments());
-		addLightForm(controllerVar.getSearchcounty());
-		addLightForm(controllerVar.getSearchgrounds());
-		addLightForm(controllerVar.getSearchmethod());
-		addLightForm(controllerVar.getSearchnum());
-		addLightForm(controllerVar.getSearchperson());
-		addLightForm(controllerVar.getSearchseizeditems());
-		addLightForm(controllerVar.getSearchstreet());
-		addLightForm(controllerVar.getSearchtype());
-		addLightForm(controllerVar.getSearchwitness());
-		addLightForm(controllerVar.getTrafaddress());
-		addLightForm(controllerVar.getTrafage());
-		addLightForm(controllerVar.getTrafarea());
-		addLightForm(controllerVar.getTrafcolor());
-		addLightForm(controllerVar.getTrafcomments());
-		addLightForm(controllerVar.getTrafcounty());
-		addLightForm(controllerVar.getTrafdesc());
-		addLightForm(controllerVar.getTrafgender());
-		addLightForm(controllerVar.getTrafmodel());
-		addLightForm(controllerVar.getTrafname());
-		addLightForm(controllerVar.getTrafnum());
-		addLightForm(controllerVar.getTrafotherinfo());
-		addLightForm(controllerVar.getTrafplatenum());
-		addLightForm(controllerVar.getTrafstreet());
-		addLightForm(controllerVar.getTraftype());
+		
+		addLightForm(controllerVar.getCaseNumField());
+		addLightForm(controllerVar.getCaseCourtDateField());
+		addLightForm(controllerVar.getCaseOffenceDateField());
+		addLightForm(controllerVar.getCaseFirstNameField());
+		addLightForm(controllerVar.getCaseLastNameField());
+		addLightForm(controllerVar.getCaseAgeField());
+		addLightForm(controllerVar.getCaseGenderField());
+		addLightForm(controllerVar.getCaseAddressField());
+		addLightForm(controllerVar.getCaseStreetField());
+		addLightForm(controllerVar.getCaseAreaField());
+		addLightForm(controllerVar.getCaseCountyField());
 	}
 	
 	private static void addLightForm(TextField textField) {
@@ -627,8 +533,11 @@ public class settingsController {
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
 		saveCalloutLocationCheckbox.setSelected(
 				ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
-		saveIDLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
+		saveReportLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
+		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
+		saveNotesLocationCheckbox.setSelected(
+				ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
@@ -772,115 +681,91 @@ public class settingsController {
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
 		});
 		
-		bkgPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updatebackground(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 33 ", e);
-				}
+		bkgPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updatebackground(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 33 ", e);
 			}
 		});
 		
-		primPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateMain(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 3 ", e);
-				}
+		primPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateMain(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 3 ", e);
 			}
 		});
 		
-		secPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateSecondary(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 4 ", e);
-				}
+		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateSecondary(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 4 ", e);
 			}
 		});
 		
-		accPicker.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateAccent(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 5 ", e);
-				}
+		accPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateAccent(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 5 ", e);
 			}
 		});
 		
-		backgroundPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportBackground(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 6 ", e);
-				}
+		backgroundPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportBackground(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 6 ", e);
 			}
 		});
 		
-		accentPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportAccent(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 7 ", e);
-				}
+		accentPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportAccent(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 7 ", e);
 			}
 		});
 		
-		headingPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportHeading(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 8 ", e);
-				}
+		headingPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportHeading(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 8 ", e);
 			}
 		});
 		
-		secPickerReport.valueProperty().addListener(new ChangeListener<Color>() {
-			@Override
-			public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-				Color selectedColor = newValue;
-				updateReportSecondary(selectedColor);
-				try {
-					loadTheme();
-					loadColors();
-				} catch (IOException e) {
-					logError("LoadTheme IO Error Code 9 ", e);
-				}
+		secPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			updateReportSecondary(selectedColor);
+			try {
+				loadTheme();
+				loadColors();
+			} catch (IOException e) {
+				logError("LoadTheme IO Error Code 9 ", e);
 			}
 		});
 		
@@ -949,72 +834,84 @@ public class settingsController {
 					updateMain(Color.valueOf("#263238"));
 					updateSecondary(Color.valueOf("#323C41"));
 					updateAccent(Color.valueOf("#505d62"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "purple" -> {
 					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#524992"));
 					updateSecondary(Color.valueOf("#665cb6"));
 					updateAccent(Color.valueOf("#544f7f"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "blue" -> {
 					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d66cc"));
 					updateSecondary(Color.valueOf("#6680e6"));
 					updateAccent(Color.valueOf("#516ca5"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "grey" -> {
 					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#666666"));
 					updateSecondary(Color.valueOf("#808080"));
 					updateAccent(Color.valueOf("#4d4d4d"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "green" -> {
 					log("Green Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#4d804d"));
 					updateSecondary(Color.valueOf("#669966"));
 					updateAccent(Color.valueOf("#4a6f4a"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "red" -> {
 					log("Red Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc4d4d"));
 					updateSecondary(Color.valueOf("#e65c5c"));
 					updateAccent(Color.valueOf("#914f4f"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "orange" -> {
 					log("Orange Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc804d"));
 					updateSecondary(Color.valueOf("#e6994d"));
 					updateAccent(Color.valueOf("#a57749"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "pink" -> {
 					log("Pink Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#cc3399"));
 					updateSecondary(Color.valueOf("#e64da1"));
 					updateAccent(Color.valueOf("#955b78"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "teal" -> {
 					log("Teal Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#339999"));
 					updateSecondary(Color.valueOf("#4db3b3"));
 					updateAccent(Color.valueOf("#4c8d8d"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "brown" -> {
 					log("Brown Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#6c3d2c"));
 					updateSecondary(Color.valueOf("#7e4e3c"));
 					updateAccent(Color.valueOf("#5b3b30"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "magenta" -> {
 					log("Magenta Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#c2185b"));
 					updateSecondary(Color.valueOf("#e91e63"));
 					updateAccent(Color.valueOf("#9d546c"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "indigo" -> {
 					log("Indigo Theme Selected", LogUtils.Severity.DEBUG);
 					updateMain(Color.valueOf("#3f51b5"));
 					updateSecondary(Color.valueOf("#5c6bc0"));
 					updateAccent(Color.valueOf("#4b5483"));
+					updatebackground(Color.valueOf("#ffffff"));
 				}
 			}
 			
@@ -1132,7 +1029,7 @@ public class settingsController {
 				logError("LoadTheme Error", e);
 			}
 		});
-
+		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
 		calloutDurComboBox.getItems().addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));
@@ -1149,19 +1046,178 @@ public class settingsController {
 			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
 		
+		String[] notifications = {"Information", "Warning"};
+		selectedNotification = new AtomicReference<>("Information");
+		notificationComboBox.getItems().addAll(notifications);
+		notificationComboBox.setValue(selectedNotification);
+		notificationComboBox.setOnAction(actionEvent -> {
+			String selectedItem = (String) notificationComboBox.getSelectionModel().getSelectedItem();
+			
+			switch (selectedItem) {
+				case "Information" -> {
+					selectedNotification.set("Information");
+					try {
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					try {
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				case "Warning" -> {
+					selectedNotification.set("Warning");
+					try {
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					try {
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			}
+		});
+		
+		String[] notificationPositions = {"BottomLeft", "BottomRight", "TopLeft", "TopRight"};
+		notiPosCombobox.getItems().addAll(notificationPositions);
+		notiPosCombobox.setValue(ConfigReader.configRead("notificationSettings", "notificationPosition"));
+		notiPosCombobox.setOnAction(actionEvent -> {
+			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
+			switch (selectedPosition) {
+				case "BottomLeft" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
+				case "BottomRight" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
+				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
+				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
+			}
+		});
+		
+		notiDisplayDurField.setText(ConfigReader.configRead("notificationSettings", "displayDuration"));
+		notiDisplayDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiDisplayDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+			}
+			
+		});
+		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
+		notiFadeOutDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiFadeOutDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+			}
+		});
+		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
+		                                                                   notiFadeOutDurField.getText()));
+		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
+		                                                                      notiDisplayDurField.getText()));
+		
+		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiPrim(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiPrim(selectedColor);
+			}
+		});
+		notiTextColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiTextColor(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiTextColor(selectedColor);
+			}
+		});
+		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene().getWindow();
 			stage.setMinWidth(stage.getWidth());
 			stage.setMinHeight(stage.getHeight());
+			
+			previewNotificationBtn.setOnAction(actionEvent -> {
+				if (selectedNotification.get().equals("Information")) {
+					NotificationManager.showNotificationInfo("Sample Info Notification",
+					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                         mainRT);
+				}
+				if (selectedNotification.get().equals("Warning")) {
+					NotificationManager.showNotificationWarning("Sample Warning Notification",
+					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                            mainRT);
+				}
+			});
 		});
 		loadColors();
 		loadTheme();
 		
+		colorPageOne.setVisible(true);
+		colorPageTwo.setVisible(false);
+		
 		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
 		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
 		
 		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
 		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
+		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
 		
 		addTooltip(AOTCallout, "Keep Callout Window On Top");
 		addTooltip(AOTClient, "Keep Client Window On Top");
@@ -1184,6 +1240,13 @@ public class settingsController {
 		addTooltip(tt10,
 		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
 		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
+		
+		addTooltip(tt16, "Notification Type to be Modified");
+		addTooltip(tt12, "Primary Notification Color");
+		addTooltip(tt15, "Notification Text Color");
+		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
+		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
+		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
 		
 		addTooltip(bkgLabel, "Application Background Color");
 		addTooltip(primLabel, "Application Primary Color");
@@ -1227,21 +1290,33 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
-		textClrComboBox.getSelectionModel().select("dark");
-		themeComboBox.getSelectionModel().select("purple");
+		ConfigWriter.configwrite("uiColors", "UIDarkMode", "true");
+		updateMain(Color.valueOf("#524992"));
+		updateSecondary(Color.valueOf("#665cb6"));
+		updateAccent(Color.valueOf("#544f7f"));
+		updatebackground(Color.valueOf("#ffffff"));
+		log("Reset Color Defaults", LogUtils.Severity.DEBUG);
 		try {
 			loadTheme();
 			loadColors();
 		} catch (IOException e) {
 			logError("LoadTheme IO Error Code 2 ", e);
 		}
+		themeComboBox.getSelectionModel().select("purple");
+		textClrComboBox.getSelectionModel().select("dark");
 	}
 	
 	@javafx.fxml.FXML
 	public void resetReportDefaultsBtnPress(ActionEvent actionEvent) {
+		updateReportBackground(Color.valueOf("#505d62"));
+		updateReportSecondary(Color.valueOf("#323c41"));
+		updateReportAccent(Color.valueOf("#263238"));
+		updateReportHeading(Color.valueOf("white"));
+		ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
+		log("Reset Report Color Defaults", LogUtils.Severity.DEBUG);
+		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
-		loadColors();
 	}
 	
 	private void loadColors() {
@@ -1264,9 +1339,9 @@ public class settingsController {
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			
-			if (toHexString(bkg).toLowerCase().equals("#ffffff") || toHexString(bkg).toLowerCase().equals(
-					"#f2f2f2") || toHexString(bkg).toLowerCase().equals("#e6e6e6") || toHexString(
-					bkg).toLowerCase().equals("#cccccc")) {
+			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
+					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
+					"#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
@@ -1281,11 +1356,26 @@ public class settingsController {
 			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);
 			headingPickerReport.setValue(reportHeading);
 			secPickerReport.setValue(reportSecondary);
+			
+			if (selectedNotification.get().equals("Information")) {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+			} else {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+			}
+			
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
@@ -1302,6 +1392,12 @@ public class settingsController {
 				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
 				                                                                              "accentColor") + ";";
+				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
+				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
+				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));
+				previewNotificationBtn.setStyle(nonTransparentBtn);
+				previewNotificationBtn.setOnMouseEntered(e -> previewNotificationBtn.setStyle(hoverStyle));
+				previewNotificationBtn.setOnMouseExited(e -> previewNotificationBtn.setStyle(nonTransparentBtn));
 				resetDefaultsBtn.setStyle(nonTransparentBtn);
 				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
 				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
@@ -1321,7 +1417,7 @@ public class settingsController {
 				throw new RuntimeException(e);
 			}
 		} catch (IOException e) {
-			logError("LoadTheme IO Error Code 1 ", e);
+			logError("LoadTheme IO Error Code 917 ", e);
 		}
 	}
 	
@@ -1454,6 +1550,52 @@ public class settingsController {
 		} else {
 			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "false");
 			saveCalloutLocationCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void colorPageOneBtnClick(ActionEvent actionEvent) {
+		colorPageOne.setVisible(true);
+		colorPageTwo.setVisible(false);
+	}
+	
+	@javafx.fxml.FXML
+	public void colorPageTwoBtnClick(ActionEvent actionEvent) {
+		colorPageOne.setVisible(false);
+		colorPageTwo.setVisible(true);
+	}
+	
+	@javafx.fxml.FXML
+	public void resetNotiDefaultsBtnPress(ActionEvent actionEvent) {
+		if (selectedNotification.get().equals("Information")) {
+			ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", "#367af6");
+			ConfigWriter.configwrite("notificationSettings", "notificationInfoTextColor", "#ffffff");
+		} else {
+			ConfigWriter.configwrite("notificationSettings", "notificationWarnPrimary", "#FFA726");
+			ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", "#ffffff");
+		}
+		loadColors();
+	}
+	
+	@javafx.fxml.FXML
+	public void rememberReportLocationClick(ActionEvent actionEvent) {
+		if (saveReportLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberReportLocation", "true");
+			saveReportLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberReportLocation", "false");
+			saveReportLocationCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void rememberNotesLocationClick(ActionEvent actionEvent) {
+		if (saveNotesLocationCheckbox.isSelected()) {
+			ConfigWriter.configwrite("layout", "rememberNotesLocation", "true");
+			saveNotesLocationCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("layout", "rememberNotesLocation", "false");
+			saveNotesLocationCheckbox.setSelected(false);
 		}
 	}
 }

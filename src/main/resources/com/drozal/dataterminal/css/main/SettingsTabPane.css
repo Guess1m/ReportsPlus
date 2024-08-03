@@ -1,15 +1,15 @@
 .lighttabpane .tab-pane {
-    -fx-background-color: white; /* Background color */
+    -fx-background-color: white;
 }
 
 .lighttabpane .tab {
-    -fx-font-size: 15px; /* Font size of tab labels */
+    -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
     -fx-background-color: transparent;
-    -fx-text-fill: white !important; /* Text color of tabs */
-    -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
-    -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
-    -fx-border-color: rgb(128, 128, 128,0.2); /* Change border color when focused */
+    -fx-text-fill: white !important;
+    -fx-padding: 4px 9px;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: rgb(128, 128, 128,0.2);
     -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
 }
 

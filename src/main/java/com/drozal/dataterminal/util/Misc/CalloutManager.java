@@ -2,8 +2,8 @@ package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.actionController;
+import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.newOfficerController;
-import com.drozal.dataterminal.util.Report.reportCreationUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -29,13 +29,11 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
-@SuppressWarnings("ALL")
 public class CalloutManager {
 	
 	private static actionController controllerVar;
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate, String status) {
-		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -214,7 +212,6 @@ public class CalloutManager {
 	}
 	
 	public static String getValueByNumber(String xmlFile, String number, String fieldName) {
-		//noinspection UnusedAssignment
 		Callouts callouts = null;
 		
 		try {
@@ -523,10 +520,12 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> callout = reportCreationUtil.newCallout(controllerVar.getReportChart(),
-			                                                            controllerVar.getAreaReportChart(),
-			                                                            controllerVar.vbox,
-			                                                            controllerVar.notesViewController);
+			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(),
+			                                                                     controllerVar.getAreaReportChart(),
+			                                                                     controllerVar.getNotesViewController());
+			
+			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
+			
 			TextField calloutnum = (TextField) callout.get("calloutnumber");
 			ComboBox calloutarea = (ComboBox) callout.get("area");
 			TextArea calloutnotes = (TextArea) callout.get("notes");

@@ -127,6 +127,16 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiColors", "mainColor", "#524992");
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
+		// Notification Settings
+		checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.7");
+		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.9");
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomLeft");
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "fadeOutDuration");
+		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "displayDuration");
+		checkAndSetDefaultValue("notificationSettings", "notificationWarnTextColor", "#ffffff");
+		checkAndSetDefaultValue("notificationSettings", "notificationWarnPrimary", "#FFA726");
+		checkAndSetDefaultValue("notificationSettings", "notificationInfoTextColor", "#ffffff");
+		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
 		// AOT (Always on Top) Settings
 		checkAndSetDefaultValue("AOTSettings", "AOTCallout", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTClient", "true");
@@ -162,6 +172,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("layout", "reportWindowLayout", "Default");
 		checkAndSetDefaultValue("layout", "rememberIDLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
+		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");
+		checkAndSetDefaultValue("layout", "rememberNotesLocation", "true");
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
 		checkAndSetDefaultValue("reportSettings", "reportBackground", "#505D62");

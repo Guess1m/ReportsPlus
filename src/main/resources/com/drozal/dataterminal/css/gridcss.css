@@ -16,10 +16,10 @@
 }
 .table-grid .row-separator {
     -fx-background-color: black;
-    -fx-padding: 0.5px; /* Adjust the padding to change the thickness of the separator */
+    -fx-padding: 0.5px;
 }
 .table-grid .first-row-label {
-    -fx-background-color: #ddd; /* Light gray background color */
+    -fx-background-color: #ddd;
     -fx-font-weight: bold;
     -fx-padding: 5px;
 }

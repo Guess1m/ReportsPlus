@@ -34,7 +34,6 @@ import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValu
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
-@SuppressWarnings("ALL")
 public class newOfficerController {
 	public static actionController controller;
 	@javafx.fxml.FXML
@@ -131,7 +130,6 @@ public class newOfficerController {
 				log("exists, printing values", LogUtils.Severity.INFO);
 			} else {
 				try {
-					//noinspection ResultOfMethodCallIgnored
 					configFile.createNewFile();
 					log("Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
 				} catch (IOException e) {

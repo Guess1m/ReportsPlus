@@ -23,7 +23,6 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 		this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
 	}
 	
-	@SuppressWarnings("ForLoopReplaceableByForEach")
 	@Override
 	public void handle(KeyEvent event) {
 		if (event.getCode() == KeyCode.UP) {

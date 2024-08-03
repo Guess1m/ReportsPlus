@@ -1,25 +1,25 @@
-/*TextFields*/
+
 .formFieldlight {
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-background-color: rgb(200, 200, 200, 0.4);
     -fx-prompt-text-fill: rgb(50, 50, 50,1) !important;
     -fx-background-insets: 0;
     -fx-padding: 8px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 .formFieldlight:focused {
-    -fx-border-color: #5e7387; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(240, 240, 240, 0.6);
     -fx-effect: none;
 }
 .formFielddark {
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-background-color: rgb(10, 10,10, 0.1);
     -fx-prompt-text-fill: rgb(115, 115, 115,1) !important;
@@ -32,7 +32,7 @@
 .formFielddark:focused {
     -fx-border-color: #5e7387; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
-    -fx-background-color: rgb(10, 10,10, 0.3);
+    -fx-background-color: rgb(10, 10,10, 0.2);
     -fx-effect: none;
 }
 

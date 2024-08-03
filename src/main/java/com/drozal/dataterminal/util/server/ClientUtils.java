@@ -9,8 +9,10 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -26,11 +28,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.actionController.*;
-import static com.drozal.dataterminal.actionController.Callouty;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-@SuppressWarnings("ConstantValue")
 public class ClientUtils {
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static Boolean isConnected = false;
@@ -126,7 +126,6 @@ public class ClientUtils {
 								IDStage.initStyle(StageStyle.UNDECORATED);
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("currentID-view.fxml"));
-								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -146,14 +145,23 @@ public class ClientUtils {
 								}
 								
 								try {
-									if (ConfigReader.configRead("layout","rememberIDLocation").equals("true")) {
+									if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
 										if (IDFirstShown) {
 											windowUtils.centerStageOnMainApp(IDStage);
 											log("IDStage opened via UPDATE_ID message, first time centered",
 											    LogUtils.Severity.INFO);
 										} else {
-											IDStage.setX(IDx);
-											IDStage.setY(IDy);
+											if (IDScreen != null) {
+												Rectangle2D screenBounds = IDScreen.getVisualBounds();
+												IDStage.setX(IDx);
+												IDStage.setY(IDy);
+												
+												if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
+													windowUtils.centerStageOnMainApp(IDStage);
+												}
+											} else {
+												windowUtils.centerStageOnMainApp(IDStage);
+											}
 											log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy,
 											    LogUtils.Severity.INFO);
 										}
@@ -161,8 +169,9 @@ public class ClientUtils {
 										windowUtils.centerStageOnMainApp(IDStage);
 									}
 								} catch (IOException e) {
-									logError("Could not read rememberIDLocation from UPDATE_ID: ",e);
+									logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
 								}
+								
 								try {
 									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 										PauseTransition delay = null;
@@ -173,7 +182,6 @@ public class ClientUtils {
 											logError("ID could not be closed: ", e);
 										}
 										if (IDStage != null) {
-											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													IDStage.close();
@@ -183,7 +191,6 @@ public class ClientUtils {
 												}
 											});
 										}
-										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {
@@ -195,8 +202,12 @@ public class ClientUtils {
 									public void handle(WindowEvent event) {
 										IDx = IDStage.getX();
 										IDy = IDStage.getY();
-										log("IDStage closed via UPDATE_ID message, set XValue: "+IDx+" YValue: "+IDy, LogUtils.Severity.DEBUG);
-										IDFirstShown=false;
+										IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(),
+										                                         IDStage.getHeight()).stream().findFirst().orElse(
+												null);
+										log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy,
+										    LogUtils.Severity.DEBUG);
+										IDFirstShown = false;
 										IDStage = null;
 									}
 								});
@@ -220,7 +231,6 @@ public class ClientUtils {
 								CalloutStage = new Stage();
 								FXMLLoader loader = new FXMLLoader(
 										actionController.class.getResource("callout-view.fxml"));
-								//noinspection UnusedAssignment
 								Parent root = null;
 								try {
 									root = loader.load();
@@ -241,20 +251,29 @@ public class ClientUtils {
 								CalloutStage.centerOnScreen();
 								
 								try {
-									if (ConfigReader.configRead("layout","rememberCalloutLocation").equals("true")) {
+									if (ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true")) {
 										if (CalloutFirstShown) {
 											windowUtils.centerStageOnMainApp(CalloutStage);
 											log("CalloutStage opened via UPDATE_CALLOUT message, first time centered",
 											    LogUtils.Severity.INFO);
 										} else {
-											CalloutStage.setX(Calloutx);
-											CalloutStage.setY(Callouty);
+											if (CalloutScreen != null) {
+												Rectangle2D screenBounds = CalloutScreen.getVisualBounds();
+												CalloutStage.setX(Calloutx);
+												CalloutStage.setY(Callouty);
+												
+												if (Calloutx < screenBounds.getMinX() || Calloutx > screenBounds.getMaxX() || Callouty < screenBounds.getMinY() || Callouty > screenBounds.getMaxY()) {
+													windowUtils.centerStageOnMainApp(CalloutStage);
+												}
+											} else {
+												windowUtils.centerStageOnMainApp(CalloutStage);
+											}
 											log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty,
 											    LogUtils.Severity.INFO);
 										}
 									}
 								} catch (IOException e) {
-									logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ",e);
+									logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
 								}
 								
 								try {
@@ -267,7 +286,6 @@ public class ClientUtils {
 											logError("Callout could not be closed: ", e);
 										}
 										if (CalloutStage != null) {
-											//noinspection DataFlowIssue
 											delay.setOnFinished(event -> {
 												try {
 													CalloutStage.close();
@@ -278,7 +296,6 @@ public class ClientUtils {
 												}
 											});
 										}
-										//noinspection DataFlowIssue
 										delay.play();
 									}
 								} catch (IOException e) {
@@ -301,10 +318,14 @@ public class ClientUtils {
 							break;
 					}
 				}
-			} catch (SocketException e) {
+			} catch (SocketTimeoutException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
-				log("Server Disconnected", LogUtils.Severity.ERROR);
+				try {
+					log("Read timed out after " + socket.getSoTimeout() + " milliseconds", LogUtils.Severity.ERROR);
+				} catch (SocketException ex) {
+					logError("Could not getSoTimeout: ", e);
+				}
 			} catch (IOException e) {
 				isConnected = false;
 				notifyStatusChanged(isConnected);

@@ -11,7 +11,6 @@ import java.util.Map;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
-@SuppressWarnings("DuplicateExpressions")
 public class recordUtils {
 	
 	/**

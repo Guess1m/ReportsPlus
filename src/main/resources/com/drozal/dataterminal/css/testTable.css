@@ -13,7 +13,7 @@
     -fx-text-fill: black;
     -fx-font-size: 16.2px;
     -fx-padding: 7.5px;
-    -fx-font-family: "Segoe UI Black"; /* Change the font family */
+    -fx-font-family: "Segoe UI Black";
 }
 .calloutTABLE .column-header {
     -fx-background-color: #d9d9d9;
@@ -21,25 +21,25 @@
 }
 .calloutTABLE .table-cell{
     -fx-text-fill: #262626;
-    -fx-font-family: "Segoe UI"; /* Change the font family */
+    -fx-font-family: "Segoe UI";
     -fx-border-color: transparent;
-    -fx-alignment: center; /* Center text horizontally */
-    -fx-padding: 0 30px; /* Add padding to the left and right of the cells */
+    -fx-alignment: center;
+    -fx-padding: 0 30px;
 }
 .calloutTABLE .table-row-cell{
     -fx-table-cell-border-color: transparent;
-    -fx-cell-size: 40px; /* Adjust the row height as needed */
-    -fx-alignment: center; /* Center text horizontally */
+    -fx-cell-size: 40px;
+    -fx-alignment: center;
 }
 .calloutTABLE .table-row-cell:odd{
     -fx-background-color: white;
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
+    -fx-border-width: 1px 0 0 0;
+        -fx-border-color: rgb(128, 128, 128,0.2);
 }
 .calloutTABLE .table-row-cell:even{
     -fx-background-color: rgb(250, 250, 250);
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-        -fx-border-color: rgb(128, 128, 128,0.2); /* Set border color */
+    -fx-border-width: 1px 0 0 0;
+        -fx-border-color: rgb(128, 128, 128,0.2);
 }
 .calloutTABLE .table-row-cell:selected {
     -fx-background-color: rgb(31, 133, 234,0.3);

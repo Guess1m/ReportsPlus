@@ -34,6 +34,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,10 +44,11 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
-@SuppressWarnings("ALL")
 public class reportUtil {
 	static double windowX = 0;
 	static double windowY = 0;
+	static double windowWidth = 0;
+	static double windowHeight = 0;
 	private static double xOffset;
 	private static double yOffset;
 	
@@ -99,7 +101,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		@SuppressWarnings("DataFlowIssue") Image placeholderImage = new Image(
+		Image placeholderImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
@@ -109,7 +111,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image closeImage = new Image(
+		Image closeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
@@ -118,7 +120,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image maximizeImage = new Image(
+		Image maximizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
@@ -127,7 +129,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
 		maximizeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image minimizeImage = new Image(
+		Image minimizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
@@ -207,7 +209,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		@SuppressWarnings("DataFlowIssue") Image placeholderImage = new Image(
+		Image placeholderImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
@@ -217,7 +219,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image closeImage = new Image(
+		Image closeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
@@ -226,7 +228,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		@SuppressWarnings("DataFlowIssue") Image minimizeImage = new Image(
+		Image minimizeImage = new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
@@ -285,6 +287,12 @@ public class reportUtil {
 		String placeholder;
 		try {
 			placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		boolean rememberLocationSize;
+		try {
+			rememberLocationSize = ConfigReader.configRead("layout", "rememberReportLocation").equals("true");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -384,7 +392,23 @@ public class reportUtil {
 			}
 		});
 		
-		HBox buttonBox = new HBox(10, pullNotesBtn, warningLabel, submitBtn);
+		Button delBtn = new Button("Delete Report");
+		delBtn.setVisible(false);
+		delBtn.setDisable(true);
+		delBtn.getStyleClass().add("incidentformButton");
+		delBtn.setStyle("-fx-padding: 15; -fx-border-color:red; -fx-border-width: 1;");
+		delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+		delBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue) {
+				delBtn.setStyle(
+						"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+			} else {
+				delBtn.setStyle(
+						"-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+			}
+		});
+		
+		HBox buttonBox = new HBox(10, delBtn, pullNotesBtn, warningLabel, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 		VBox root = new VBox(10, mainHeaderLabel, gridPane);
 		
@@ -455,47 +479,33 @@ public class reportUtil {
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formComboBox.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
 			} else {
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
-				//noinspection DataFlowIssue
 				scene.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
 			}
@@ -521,6 +531,8 @@ public class reportUtil {
 		stage.setOnHidden(event -> {
 			windowX = stage.getX();
 			windowY = stage.getY();
+			windowWidth = stage.getWidth();
+			windowHeight = stage.getHeight();
 		});
 		
 		String startupValue = null;
@@ -538,11 +550,16 @@ public class reportUtil {
 			case "FullLeft" -> snapToLeft(stage);
 			case "FullRight" -> snapToRight(stage);
 			default -> {
-				stage.setWidth(preferredWidth);
-				stage.setHeight(preferredHeight);
-				stage.setMinHeight(300);
-				stage.setMinWidth(300);
-				if (windowX != 0 && windowY != 0) {
+				if (rememberLocationSize && windowHeight != 0 && windowWidth != 0) {
+					stage.setWidth(windowWidth);
+					stage.setHeight(windowHeight);
+				} else {
+					stage.setWidth(preferredWidth);
+					stage.setHeight(preferredHeight);
+					stage.setMinHeight(300);
+					stage.setMinWidth(300);
+				}
+				if (rememberLocationSize && windowX != 0 && windowY != 0) {
 					stage.setX(windowX);
 					stage.setY(windowY);
 				} else {
@@ -554,6 +571,7 @@ public class reportUtil {
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put(reportName + " Map", fieldsMap);
+		result.put("delBtn", delBtn);
 		result.put("pullNotesBtn", pullNotesBtn);
 		result.put("warningLabel", warningLabel);
 		result.put("submitBtn", submitBtn);
@@ -818,7 +836,7 @@ public class reportUtil {
 					
 					parseTreeXML(root, rootItem);
 					treeView.setRoot(rootItem);
-					expandTreeItem(rootItem, "Citations");
+					expandTreeItem(rootItem);
 					
 					TextField citationNameField = new TextField();
 					citationNameField.setPromptText("Citation Name");
@@ -982,9 +1000,10 @@ public class reportUtil {
 					
 					parseTreeXML(root2, rootItem2);
 					chargestreeView.setRoot(rootItem2);
-					expandTreeItem(rootItem2, "Charges");
+					expandTreeItem(rootItem2);
 					
 					TextField chargeNameField = new TextField();
+					chargeNameField.setEditable(false);
 					chargeNameField.setPromptText("Charge Name");
 					
 					Button addButton2 = new Button("Add");
@@ -1092,5 +1111,16 @@ public class reportUtil {
 			columnIndex += fieldConfig.getSize();
 			
 		}
+	}
+	
+	public static String generateReportNumber() {
+		int num_length = 7;
+		StringBuilder DeathReportNumber = new StringBuilder();
+		for (int i = 0; i < num_length; i++) {
+			SecureRandom RANDOM = new SecureRandom();
+			int digit = RANDOM.nextInt(10);
+			DeathReportNumber.append(digit);
+		}
+		return DeathReportNumber.toString();
 	}
 }

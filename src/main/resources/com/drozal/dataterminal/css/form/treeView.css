@@ -18,15 +18,15 @@
   -fx-text-fill: white;
   -fx-font-family: "Segoe UI Semibold";
 }
-/* Define styles for the vertical scroll bar */
+
 .CitationTree .scroll-bar:vertical {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-pref-width: 14px; /* Thicker width */
+    -fx-background-color: transparent;
+    -fx-pref-width: 14px;
 }
 
 .CitationTree .scroll-bar:vertical .thumb {
-    -fx-background-color: #546778; /* Thumb color */
-    -fx-min-height: 14px; /* Thicker thumb */
+    -fx-background-color: #546778;
+    -fx-min-height: 14px;
 }
 
 .CitationTree .corner {
@@ -35,7 +35,7 @@
 
 .CitationTree .scroll-bar:vertical .increment-button,
 .CitationTree .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent; /* Transparent buttons */
+    -fx-background-color: transparent;
 }
 
 /* Define styles for the horizontal scroll bar */

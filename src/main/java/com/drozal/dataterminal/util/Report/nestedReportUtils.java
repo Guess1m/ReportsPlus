@@ -65,7 +65,6 @@ public class nestedReportUtils {
 		
 	}
 	
-	@SuppressWarnings("ClassCanBeRecord")
 	public static class FieldConfig {
 		
 		private final String fieldName;

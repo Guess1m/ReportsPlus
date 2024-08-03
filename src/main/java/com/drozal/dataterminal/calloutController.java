@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,7 +25,6 @@ import java.nio.file.*;
 import java.util.List;
 
 import static com.drozal.dataterminal.actionController.*;
-import static com.drozal.dataterminal.actionController.CalloutFirstShown;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -32,7 +32,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-@SuppressWarnings({"ConstantValue", "unchecked"})
 public class calloutController {
 	
 	static AnchorPane topBar;
@@ -172,7 +171,7 @@ public class calloutController {
 				log("Closed Null Stage", LogUtils.Severity.ERROR);
 			}
 			
-			stage.setOnHidden(windowEvent -> {
+			CalloutStage.setOnHidden(windowEvent -> {
 				log("Added Callout To Active", LogUtils.Severity.INFO);
 				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
 				                          priorityField.getText(), streetField.getText(), areaField.getText(),
@@ -180,8 +179,12 @@ public class calloutController {
 				
 				Calloutx = CalloutStage.getX();
 				Callouty = CalloutStage.getY();
-				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: "+Calloutx+" YValue: "+Callouty, LogUtils.Severity.DEBUG);
-				CalloutFirstShown=false;
+				CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(),
+				                                              CalloutStage.getHeight()).stream().findFirst().orElse(
+						null);
+				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
+				    LogUtils.Severity.DEBUG);
+				CalloutFirstShown = false;
 				CalloutStage.close();
 				CalloutStage = null;
 			});

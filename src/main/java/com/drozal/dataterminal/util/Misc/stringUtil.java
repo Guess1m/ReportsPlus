@@ -8,10 +8,16 @@ import java.net.URISyntaxException;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public class stringUtil {
-	public static final String version = "v1.0.5-alpha";
+	// version.txt
+	// version
+	// updatesList
+	// pom.xml
+	public static final String version = "v1.0.6-alpha";
+	public static final String[] updatesList = {"New Court System Added {Beta}", "Much Better Xml Parsing For Charges", "Ability To Delete Reports", "Fixed Many Configuration Bugs", "Removed Much Unnecessary Code", "Simple Server Config Editing", "Reworked Reports To Jaxb Objects", "Configuration Tooltips", "Death Report Added", "Remember Callout / Notes / Id Window Locations Fixed/Added", "Socket Timeout Configuration", "Fixed Show Id Button", "Added Support For Life Sentences To Court System", "Reports No Longer All Caps, Converts To Titlecase On Creation", "Much Better Report Editing", "Map Zoom Fixed", "Much Better Notifications", "Error Notifications",};
+	
 	public static final String name = "Reports Plus";
+	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
 	public static final String calloutLogURL = getDataLogsFolderPath() + "calloutLogs.xml";
 	public static final String trafficstopLogURL = getDataLogsFolderPath() + "trafficStopLogs.xml";
 	public static final String incidentLogURL = getDataLogsFolderPath() + "incidentLogs.xml";
@@ -23,6 +29,7 @@ public class stringUtil {
 	public static final String calloutDataURL = getJarPath() + File.separator + "data" + File.separator + "calloutData.xml";
 	public static final String calloutHistoryURL = getJarPath() + File.separator + "data" + File.separator + "calloutHistory.xml";
 	public static final String customizationURL = getJarPath() + File.separator + "data" + File.separator + "customization.json";
+	public static final String courtDataURL = getJarPath() + File.separator + "data" + File.separator + "courtData.xml";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

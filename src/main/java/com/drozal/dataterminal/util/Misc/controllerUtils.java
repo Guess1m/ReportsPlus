@@ -3,14 +3,15 @@ package com.drozal.dataterminal.util.Misc;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
-import com.drozal.dataterminal.logs.Arrest.ArrestReportLogs;
-import com.drozal.dataterminal.logs.Callout.CalloutReportLogs;
-import com.drozal.dataterminal.logs.Impound.ImpoundReportLogs;
-import com.drozal.dataterminal.logs.Incident.IncidentReportLogs;
-import com.drozal.dataterminal.logs.Patrol.PatrolReportLogs;
-import com.drozal.dataterminal.logs.Search.SearchReportLogs;
-import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationReportLogs;
-import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportLogs;
+import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
+import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
+import com.drozal.dataterminal.logs.Death.DeathReportUtils;
+import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
+import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
+import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
+import com.drozal.dataterminal.logs.Search.SearchReportUtils;
+import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
+import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -20,6 +21,9 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -50,10 +54,27 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
-@SuppressWarnings("ALL")
 public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
+	
+	public static String toTitleCase(String input) {
+		if (input != null && !input.isEmpty()) {
+			
+			String[] words = input.split(" ");
+			StringBuilder titleCased = new StringBuilder();
+			
+			for (String word : words) {
+				if (word.length() > 0) {
+					String lowerCasedWord = word.toLowerCase();
+					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(
+							lowerCasedWord.substring(1)).append(" ");
+				}
+			}
+			return titleCased.toString().trim();
+		}
+		return "";
+	}
 	
 	public static void getOperatingSystemAndArch() {
 		log("====================== System Info ======================", LogUtils.Severity.INFO);
@@ -152,15 +173,41 @@ public class controllerUtils {
 		ConfigWriter.configwrite("reportSettings", "reportHeading", hexColor);
 	}
 	
-	public static void showNotification(String title, String message, Object owner) {
-		Label label = new Label(message);
+	public static void updateInfoNotiPrim(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", hexColor);
+	}
+	
+	public static void updateInfoNotiTextColor(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationInfoTextColor", hexColor);
+	}
+	
+	public static void updateWarnNotiPrim(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationWarnPrimary", hexColor);
+	}
+	
+	public static void updateWarnNotiTextColor(Color color) {
+		String hexColor = toHexString(color);
+		ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", hexColor);
+	}
+	
+	public static WritableImage changeImageColor(Image image, String hexColor) {
+		Color color = Color.web(hexColor);
+		int width = (int) image.getWidth();
+		int height = (int) image.getHeight();
+		WritableImage coloredImage = new WritableImage(width, height);
+		PixelWriter pixelWriter = coloredImage.getPixelWriter();
 		
-		VBox vbox1 = new VBox(label);
-		vbox1.setAlignment(Pos.CENTER);
-		Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(
-				Pos.TOP_RIGHT).hideAfter(Duration.seconds(1.15)).owner(owner);
-		noti.show();
-		noti.getStyleClass().add("notification-pane");
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				Color originalColor = image.getPixelReader().getColor(x, y);
+				double opacity = originalColor.getOpacity();
+				pixelWriter.setColor(x, y, new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity));
+			}
+		}
+		return coloredImage;
 	}
 	
 	public static void showLogClearNotification(String title, String message, Object owner) {
@@ -224,7 +271,7 @@ public class controllerUtils {
 			
 			for (XYChart.Data<String, Number> data : series.getData()) {
 				
-				javafx.scene.Node node = data.getNode();
+				Node node = data.getNode();
 				
 				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("uiColors",
 				                                                         "accentColor") + "; -fx-border-color: " + ConfigReader.configRead(
@@ -266,14 +313,15 @@ public class controllerUtils {
 			for (int i = 0; i < series.getData().size(); i++) {
 				XYChart.Data<String, Number> data = series.getData().get(i);
 				int reportsCount = switch (i) {
-					case 0 -> CalloutReportLogs.countReports();
-					case 1 -> ArrestReportLogs.countReports();
-					case 2 -> TrafficStopReportLogs.countReports();
-					case 3 -> PatrolReportLogs.countReports();
-					case 4 -> SearchReportLogs.countReports();
-					case 5 -> IncidentReportLogs.countReports();
-					case 6 -> ImpoundReportLogs.countReports();
-					case 7 -> TrafficCitationReportLogs.countReports();
+					case 0 -> CalloutReportUtils.countReports();
+					case 1 -> ArrestReportUtils.countReports();
+					case 2 -> TrafficStopReportUtils.countReports();
+					case 3 -> PatrolReportUtils.countReports();
+					case 4 -> SearchReportUtils.countReports();
+					case 5 -> IncidentReportUtils.countReports();
+					case 6 -> ImpoundReportUtils.countReports();
+					case 7 -> TrafficCitationUtils.countReports();
+					case 8 -> DeathReportUtils.countReports();
 					default -> 0;
 				};
 				if (data.getYValue().intValue() != reportsCount) {
@@ -497,20 +545,27 @@ public class controllerUtils {
 		parseLogData(stringUtil.searchLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
+		parseLogData(stringUtil.DeathReportLogURL, combinedAreasMap, value);
 		
 		Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		sortedAreasMap.putAll(combinedAreasMap);
 		
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		
 		for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
-			series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+			if (!entry.getKey().equalsIgnoreCase("N/A")) {
+				series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+			}
 		}
 		return series;
 	}
 	
-	public static void refreshChart(AreaChart chart, String value) {
+	public static void refreshChart(AreaChart<String, Number> chart, String value) {
 		chart.getData().clear();
-		chart.getData().add(parseEveryLog(value));
+		
+		XYChart.Series<String, Number> newSeries = parseEveryLog(value);
+		chart.getData().add(newSeries);
+		
 		try {
 			changeStatisticColors(chart);
 		} catch (IOException e) {
@@ -604,31 +659,4 @@ public class controllerUtils {
 		textArea.setText(labelText);
 	}
 	
-	public static void updateTextFromNotepad(Spinner spinner, TextArea notepadText, String... keys) {
-		Map<String, String> values = pullNotesValues(notepadText.getText());
-		String extractedValue = null;
-		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null) {
-				break;
-			}
-			
-			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey().split("\\|")) {
-					if (altKey.equals(key)) {
-						extractedValue = entry.getValue();
-						break;
-					}
-				}
-				if (extractedValue != null) {
-					break;
-				}
-			}
-			if (extractedValue != null) {
-				break;
-			}
-		}
-		String labelText = (extractedValue != null) ? extractedValue : "0";
-		spinner.getEditor().setText(labelText);
-	}
 }

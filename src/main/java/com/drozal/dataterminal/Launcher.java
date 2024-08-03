@@ -15,7 +15,6 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
@@ -23,13 +22,11 @@ public class Launcher {
 	
 	public static void main(String[] args) throws IOException {
 		
-		log("---=== Client Log ===---", Severity.INFO);
 		try {
 			String filePath = stringUtil.getJarPath() + File.separator + "output.log";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);
-				getOperatingSystemAndArch();
 				log("Log file cleared successfully.", Severity.INFO);
 			} else {
 				log("Log file does not exist.", Severity.WARN);
@@ -144,7 +141,6 @@ public class Launcher {
 		
 		File dataFolder = new File(dataFolderPath);
 		if (!dataFolder.exists()) {
-			//noinspection ResultOfMethodCallIgnored
 			dataFolder.mkdirs();
 			log("Created Data Folder", LogUtils.Severity.INFO);
 		} else {
@@ -153,7 +149,6 @@ public class Launcher {
 		
 		File serverDataFolder = new File(serverData);
 		if (!serverDataFolder.exists()) {
-			//noinspection ResultOfMethodCallIgnored
 			serverDataFolder.mkdirs();
 			log("Created Server Data Folder", LogUtils.Severity.INFO);
 		} else {
@@ -174,7 +169,6 @@ public class Launcher {
 		File calloutHistoryFile = new File(calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
 			log("Callout History File Doesn't Exist, Creating", Severity.INFO);
-			//noinspection ResultOfMethodCallIgnored
 			try {
 				calloutHistoryFile.createNewFile();
 			} catch (IOException e) {

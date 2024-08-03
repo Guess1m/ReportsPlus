@@ -13,23 +13,7 @@ public class stringUtil {
 	// version
 	// updatesList
 	public static final String version = "v1.0.6-alpha";
-	public static final String[] updatesList = {
-			"Much Better Xml Parsing For Charges",
-			"Ability To Delete Reports",
-			"Fixed Many Configuration Bugs",
-			"Removed Much Unnecessary Code",
-			"Reworked Reports To Jaxb Objects",
-			"Configuration Tooltips",
-			"Death Report Added",
-			"Remember Callout / Notes / Id Window Locations Fixed/Added",
-			"Socket Timeout Configuration",
-			"Fixed Show Id Button",
-			"New Court System Added {Beta}",
-			"Added Support For Life Sentences To Court System",
-			"Reports No Longer All Caps, Converts To Titlecase On Creation",
-			"Much Better Report Editing",
-			"Map Zoom Fixed", "Much Better Notifications", "Error Notifications",
-	};
+	public static final String[] updatesList = {"New Court System Added {Beta}", "Much Better Xml Parsing For Charges", "Ability To Delete Reports", "Fixed Many Configuration Bugs", "Removed Much Unnecessary Code", "Simple Server Config Editing", "Reworked Reports To Jaxb Objects", "Configuration Tooltips", "Death Report Added", "Remember Callout / Notes / Id Window Locations Fixed/Added", "Socket Timeout Configuration", "Fixed Show Id Button", "Added Support For Life Sentences To Court System", "Reports No Longer All Caps, Converts To Titlecase On Creation", "Much Better Report Editing", "Map Zoom Fixed", "Much Better Notifications", "Error Notifications",};
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

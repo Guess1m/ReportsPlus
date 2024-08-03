@@ -43,7 +43,7 @@ public class updatesController {
 		updates.addAll(List.of(stringUtil.updatesList));
 		
 		updates.forEach(string -> {
-			Label label = new Label("* "+string);
+			Label label = new Label("* " + string);
 			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Segoe UI\";");
 			changelogBox.getChildren().add(label);
 		});
@@ -88,7 +88,5 @@ public class updatesController {
 	public void updateBtnAction() {
 		checkUpdates();
 	}
-	
-	
 	
 }

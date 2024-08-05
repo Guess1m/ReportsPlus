@@ -209,8 +209,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
-                    stylesheets="@css/form/formFields.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    stylesheets="@css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -1400,127 +1400,120 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
-                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="115.0">
             <children>
-                <AnchorPane fx:id="pedRecordPane" layoutX="88.0" layoutY="112.0" prefWidth="771.0"
-                            AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="112.0">
+                <AnchorPane fx:id="pedRecordPane" layoutX="15.0" layoutY="65.0" prefHeight="432.0" prefWidth="857.0"
+                            AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+                            AnchorPane.topAnchor="60.0">
                     <children>
-                        <AnchorPane layoutX="1.0" layoutY="53.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+                        <AnchorPane layoutY="36.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
                             <children>
                                 <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" prefHeight="344.0" prefWidth="733.0"
-                                          vgap="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0"
-                                          AnchorPane.topAnchor="35.0">
+                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0"
+                                          AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.3"/>
-                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.3"/>
-                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity"
-                                                           minWidth="10.0" percentWidth="33.3" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="25.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="25.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="25.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="25.0"/>
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints maxHeight="64.0" minHeight="10.0" percentHeight="50.0"
-                                                        prefHeight="63.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints maxHeight="65.0" minHeight="10.0" percentHeight="50.0"
-                                                        prefHeight="65.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints maxHeight="65.0" minHeight="10.0" percentHeight="50.0"
-                                                        prefHeight="65.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
-                                        <AnchorPane>
+                                        <AnchorPane GridPane.rowIndex="1">
                                             <children>
                                                 <TextField fx:id="pedfnamefield" editable="false" layoutX="13.0"
                                                            layoutY="46.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped1" layoutX="12.0" layoutY="19.0"
-                                                       style="-fx-font-size: 14;" text="First Name:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped1" layoutX="12.0" layoutY="19.0" text="First Name:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane GridPane.columnIndex="1">
+                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
                                                 <TextField fx:id="pedlnamefield" editable="false" layoutX="13.0"
                                                            layoutY="48.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped2" layoutX="12.0" layoutY="21.0"
-                                                       style="-fx-font-size: 14;" text="Last Name:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped2" layoutX="12.0" layoutY="21.0" text="Last Name:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane GridPane.rowIndex="1">
+                                        <AnchorPane GridPane.rowIndex="4">
                                             <children>
                                                 <TextField fx:id="pedwantedfield" editable="false" layoutX="26.0"
                                                            layoutY="47.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped4" layoutX="25.0" layoutY="20.0"
-                                                       style="-fx-font-size: 14;" text="Wanted Status:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped4" layoutX="25.0" layoutY="20.0" text="Wanted Status:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane prefHeight="103.0" prefWidth="223.0" GridPane.columnIndex="2">
+                                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                                             <children>
                                                 <TextField fx:id="pedgenfield" editable="false" layoutX="26.0"
                                                            layoutY="47.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped3" layoutX="25.0" layoutY="20.0"
-                                                       style="-fx-font-size: 14;" text="Gender:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped3" layoutX="25.0" layoutY="20.0" text="Gender:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
-                                                    GridPane.rowIndex="1">
+                                        <AnchorPane GridPane.rowIndex="5">
                                             <children>
                                                 <TextField fx:id="pedlicensefield" editable="false" layoutX="27.0"
                                                            layoutY="47.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped5" layoutX="26.0" layoutY="20.0"
-                                                       style="-fx-font-size: 14;" text="License Status:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped5" layoutX="26.0" layoutY="20.0" text="License Status:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2"
-                                                    GridPane.rowIndex="1">
+                                        <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="1">
                                             <children>
                                                 <TextField fx:id="peddobfield" editable="false" layoutX="26.0"
                                                            layoutY="47.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped6" layoutX="25.0" layoutY="20.0"
-                                                       style="-fx-font-size: 14;" text="Birthday:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped6" layoutX="25.0" layoutY="20.0" text="Birthday:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
@@ -1530,28 +1523,94 @@
                                                 <TextField fx:id="pedaddressfield" editable="false" layoutX="26.0"
                                                            layoutY="47.0" styleClass="calloutField"
                                                            stylesheets="@css/menu/menuStyles.css"
-                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
-                                                           AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="ped7" layoutX="25.0" layoutY="20.0"
-                                                       style="-fx-font-size: 14;" text="Address:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped7" layoutX="25.0" layoutY="20.0" text="Address:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.columnSpan="4">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="35.0" prefWidth="747.0"
+                                                       style="-fx-background-color: #5e7387;" styleClass="heading"
+                                                       stylesheets="@css/menu/menuLabels.css"
+                                                       text="Pedestrian Information" textAlignment="CENTER"
+                                                       textFill="WHITE" AnchorPane.bottomAnchor="0.0"
+                                                       AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0"
+                                                       AnchorPane.topAnchor="0.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="19.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <TextField fx:id="peddescfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped8" layoutX="25.0" layoutY="20.0" text="Description:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <children>
+                                                <TextField fx:id="pedlicnumfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped9" layoutX="25.0" layoutY="20.0" text="License Number:"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                            <children>
+                                                <TextField fx:id="pedaliasfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped10" layoutX="25.0" layoutY="20.0" text="Alias(s):"
+                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="13.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.rowIndex="3">
+                                            <children>
+                                                <TextField fx:id="pedaffiliationfield" editable="false" layoutX="26.0"
+                                                           layoutY="47.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                           AnchorPane.topAnchor="46.0"/>
+                                                <Label fx:id="ped11" layoutX="25.0" layoutY="20.0"
+                                                       text="Affiliation(s):" AnchorPane.leftAnchor="12.0"
+                                                       AnchorPane.topAnchor="13.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                     </children>
                                 </GridPane>
-                                <Label alignment="CENTER" prefHeight="35.0" prefWidth="747.0"
-                                       style="-fx-background-color: #5e7387;" styleClass="heading"
-                                       stylesheets="@css/menu/menuLabels.css" text="Pedestrian Information"
-                                       textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="19.0"/>
-                                    </font>
-                                </Label>
                             </children>
                         </AnchorPane>
                         <GridPane hgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -1593,7 +1652,8 @@
                         <Font name="Segoe UI Black" size="20.0"/>
                     </font>
                 </Label>
-                <GridPane AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0">
+                <GridPane layoutX="45.0" layoutY="22.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0"
+                          AnchorPane.topAnchor="22.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                         <ColumnConstraints hgrow="ALWAYS"/>

@@ -190,23 +190,23 @@ public class ConfigReader {
 		checkAndSetDefaultValue("reportSettings", "reportWindowDarkMode", "false");
 		
 		// Ped History Settings
-		checkAndSetDefaultValue("pedHistory", "onParoleChance", "50");
-		checkAndSetDefaultValue("pedHistory", "onProbationChance", "50");
-		checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "50");
-		checkAndSetDefaultValue("pedHistory", "hasBoatingLicense", "50");
-		checkAndSetDefaultValue("pedHistory", "hasHuntingLicense", "50");
+		checkAndSetDefaultValue("pedHistory", "onParoleChance", "15");
+		checkAndSetDefaultValue("pedHistory", "onProbationChance", "25");
+		checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "20");
+		checkAndSetDefaultValue("pedHistory", "hasBoatingLicense", "20");
+		checkAndSetDefaultValue("pedHistory", "hasHuntingLicense", "20");
 		// Arrest
-		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "50");
-		checkAndSetDefaultValue("pedHistoryArrest", "chanceMinimalCharges", "30");
-		checkAndSetDefaultValue("pedHistoryArrest", "chanceFewCharges", "15");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceMinimalCharges", "35");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceFewCharges", "20");
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceManyCharges", "5");
 		// Citation
-		checkAndSetDefaultValue("pedHistoryCitation", "chanceNoCitations", "50");
-		checkAndSetDefaultValue("pedHistoryCitation", "chanceMinimalCitations", "30");
-		checkAndSetDefaultValue("pedHistoryCitation", "chanceFewCitations", "15");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceNoCitations", "60");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceMinimalCitations", "35");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceFewCitations", "20");
 		checkAndSetDefaultValue("pedHistoryCitation", "chanceManyCitations", "5");
 		// Gun Permit
-		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "50");
+		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "25");
 		//Type
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "concealedCarryChance", "30");
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "openCarryChance", "35");

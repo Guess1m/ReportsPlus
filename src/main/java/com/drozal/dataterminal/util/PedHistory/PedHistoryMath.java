@@ -126,9 +126,9 @@ public class PedHistoryMath {
 			log(message, LogUtils.Severity.ERROR);
 			showNotificationError("Error", message, mainRT);
 			//todo put the default values here once I figure out good ones:
-			noChargesProbability = 50;
-			oneToTwoChargesProbability = 30;
-			twoToThreeChargesProbability = 15;
+			noChargesProbability = 60;
+			oneToTwoChargesProbability = 35;
+			twoToThreeChargesProbability = 20;
 			threeToFiveChargesProbability = 5;
 		}
 		
@@ -180,9 +180,9 @@ public class PedHistoryMath {
 			String message = "Check Config: Probabilities do not add up to 100. They equal: " + totalProbability + ". No cit: " + noCitationsProbability + " 1-2 cit: " + oneToTwoCitationsProbability + " 2-3 cit: " + twoToThreeCitationsProbability + " 3-5 cit: " + threeToFiveCitationsProbability;
 			log(message, LogUtils.Severity.ERROR);
 			showNotificationError("Error", message, mainRT);
-			noCitationsProbability = 50;
-			oneToTwoCitationsProbability = 30;
-			twoToThreeCitationsProbability = 15;
+			noCitationsProbability = 60;
+			oneToTwoCitationsProbability = 35;
+			twoToThreeCitationsProbability = 20;
 			threeToFiveCitationsProbability = 5;
 		}
 		

@@ -1166,87 +1166,30 @@ public class actionController {
 	@FXML
 	public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedName = pedSearchField.getText();
+		log("Searched: " + searchedName, Severity.INFO);
+		String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
+		String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
 		
-		Map<String, String> pedData = grabPedData(
-				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
+		Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
+		Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
+		
 		String gender = pedData.getOrDefault("gender", "Not available");
 		String birthday = pedData.getOrDefault("birthday", "Not available");
 		String address = pedData.getOrDefault("address", "Not available");
 		String isWanted = pedData.getOrDefault("iswanted", "Not available");
-		String licenseStatus = pedData.getOrDefault("licensestatus", "Not available");
+		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
 		String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
 		String name = pedData.getOrDefault("name", "Not available");
-		String[] parts = name.split(" ");
-		String firstName = parts[0];
-		String lastName = parts.length > 1 ? parts[1] : "";
-		
-		if (licenseStatus.equalsIgnoreCase("Expired")) {
-			licenseStatus = "EXPIRED";
-		} else if (licenseStatus.equalsIgnoreCase("Suspended")) {
-			licenseStatus = "SUSPENDED";
-		} else {
-			licenseStatus = "Valid";
-		}
+		String owner = ownerSearch.getOrDefault("owner", "Not available");
 		
 		if (!name.equals("Not available")) {
-			Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
-			
-			Ped ped;
-			if (searchedPed.isEmpty()) {
-				ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
-				
-				if (isWanted.equalsIgnoreCase("true")) {
-					try {
-						String warrant = getRandomCharge(chargesFilePath);
-						if (warrant != null) {
-							isWanted = "WANTED - " + warrant;
-							ped.setOutstandingWarrants(warrant);
-						} else {
-							isWanted = "WANTED - No details";
-						}
-					} catch (ParserConfigurationException | SAXException e) {
-						logError("Error getting random charge: ", e);
-						isWanted = "WANTED - Error retrieving details";
-					}
-				}
-				
-				setPedPriors(ped);
-				ped.setFishingLicenseStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-				ped.setBoatingLicenseStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
-				setGunLicenseStatus(ped);
-				
-				try {
-					Ped.PedHistoryUtils.addPed(ped);
-				} catch (JAXBException e) {
-					logError("Error adding ped to PedHistory: ", e);
-				}
-			} else {
-				ped = searchedPed.get();
-			}
-			
-			pedRecordPane.setVisible(true);
-			noRecordFoundLabelPed.setVisible(false);
-			
-			pedrecordnamefield.setText(name + " # " + licenseNumber);
-			pedfnamefield.setText(firstName);
-			pedlnamefield.setText(lastName);
-			pedgenfield.setText(gender);
-			peddobfield.setText(birthday);
-			pedaddressfield.setText(address);
-			pedlicensefield.setText(licenseStatus);
-			if (ped.getOutstandingWarrants() != null) {
-				pedwantedfield.setText(ped.getOutstandingWarrants());
-			} else {
-				pedwantedfield.setText("False");
-			}
-			
-			pedlicensefield.setStyle(licenseStatus.equalsIgnoreCase("EXPIRED") || licenseStatus.equalsIgnoreCase(
-					"SUSPENDED") ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
-			pedwantedfield.setStyle(
-					ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
+			log("Found: " + name + " From WorldPed file", Severity.DEBUG);
+			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
+		} else if (!owner.equalsIgnoreCase("not available")) {
+			log("Found: " + owner + " From WorldVeh file", Severity.DEBUG);
+			processOwnerData(owner);
 		} else {
+			log("No Ped With Name: " + searchedName + " Found Anywhere", Severity.WARN);
 			pedRecordPane.setVisible(false);
 			noRecordFoundLabelPed.setVisible(true);
 		}
@@ -1811,6 +1754,143 @@ public class actionController {
 		
 		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
 		ped.setTimesStopped(totalStops);
+	}
+	
+	private String formatLicenseStatus(String status) {
+		switch (status.toLowerCase()) {
+			case "expired":
+				return "EXPIRED";
+			case "suspended":
+				return "SUSPENDED";
+			default:
+				return "Valid";
+		}
+	}
+	
+	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus) {
+		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
+		Ped ped = searchedPed.orElseGet(() -> {
+			try {
+				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
+			} catch (IOException e) {
+				logError("Error creating new ped: ", e);
+				return null;
+			}
+		});
+		if (ped != null) {
+			setPedRecordFields(ped);
+		}
+		pedRecordPane.setVisible(true);
+		noRecordFoundLabelPed.setVisible(false);
+	}
+	
+	private Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus) throws IOException {
+		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
+		
+		if (isWanted.equalsIgnoreCase("true")) {
+			setPedWarrantStatus(ped);
+		}
+		
+		setPedPriors(ped);
+		ped.setFishingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		try {
+			setGunLicenseStatus(ped);
+		} catch (IOException e) {
+			logError("Could not set gunLicenseStatus: ", e);
+		}
+		
+		try {
+			Ped.PedHistoryUtils.addPed(ped);
+		} catch (JAXBException e) {
+			logError("Error adding ped to PedHistory: ", e);
+		}
+		return ped;
+	}
+	
+	private void setPedWarrantStatus(Ped ped) {
+		try {
+			String warrant = null;
+			try {
+				warrant = getRandomCharge(chargesFilePath);
+			} catch (IOException e) {
+				logError("Error getting randomCharge: ", e);
+			}
+			if (warrant != null) {
+				ped.setOutstandingWarrants("WANTED - " + warrant);
+			} else {
+				ped.setOutstandingWarrants("WANTED - No details");
+			}
+		} catch (ParserConfigurationException | SAXException e) {
+			logError("Error getting random charge: ", e);
+			ped.setOutstandingWarrants("WANTED - Error retrieving details");
+		}
+	}
+	
+	private void processOwnerData(String owner) {
+		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByName(owner);
+		Ped ped = searchedPed.orElseGet(() -> {
+			try {
+				return createOwnerPed(owner);
+			} catch (IOException e) {
+				logError("Error creating ownerPed: ", e);
+				return null;
+			}
+		});
+		
+		if (ped != null) {
+			setPedRecordFields(ped);
+		}
+		pedRecordPane.setVisible(true);
+		noRecordFoundLabelPed.setVisible(false);
+	}
+	
+	private Ped createOwnerPed(String owner) throws IOException {
+		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
+		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
+		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(),
+		                    isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+		
+		if (isWantedOutcome.equalsIgnoreCase("true")) {
+			setPedWarrantStatus(ped);
+		}
+		
+		setPedPriors(ped);
+		ped.setFishingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		try {
+			setGunLicenseStatus(ped);
+		} catch (IOException e) {
+			logError("Could not set gunLicenseStatus: ", e);
+		}
+		
+		try {
+			Ped.PedHistoryUtils.addPed(ped);
+		} catch (JAXBException e) {
+			logError("Error adding ped to PedHistory: ", e);
+		}
+		return ped;
+	}
+	
+	private void setPedRecordFields(Ped ped) {
+		pedrecordnamefield.setText(ped.getName() + " # " + ped.getLicenseNumber());
+		pedfnamefield.setText(ped.getFirstName());
+		pedlnamefield.setText(ped.getLastName());
+		pedgenfield.setText(ped.getGender());
+		peddobfield.setText(ped.getBirthday());
+		pedaddressfield.setText(ped.getAddress());
+		pedlicensefield.setText(ped.getLicenseStatus());
+		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
+		
+		pedlicensefield.setStyle(
+				ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
+						"SUSPENDED") ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
+		pedwantedfield.setStyle(
+				ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
 	}
 	
 	//</editor-fold>

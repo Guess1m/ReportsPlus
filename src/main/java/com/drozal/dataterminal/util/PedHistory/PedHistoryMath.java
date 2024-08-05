@@ -11,6 +11,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
@@ -58,6 +62,30 @@ public class PedHistoryMath {
 		}
 		
 		return result;
+	}
+	
+	public static String calculateLicenseStatus(int chanceValid, int chanceExpired, int chanceSuspended) {
+		int totalChance = chanceValid + chanceSuspended + chanceExpired;
+		if (totalChance != 100) {
+			String message = "License status chances do not add up to 100, they equal: " + totalChance + ". Valid: " + chanceValid + " Suspended: " + chanceSuspended + " Expired: " + chanceExpired;
+			log(message, LogUtils.Severity.ERROR);
+			showNotificationError("Error", message, mainRT);
+			//todo put the default values here once I figure out good ones:
+			chanceValid = 55;
+			chanceExpired = 22;
+			chanceSuspended = 23;
+		}
+		
+		Random random = new Random();
+		int roll = random.nextInt(100) + 1;
+		
+		if (roll <= chanceValid) {
+			return "valid";
+		} else if (roll <= chanceValid + chanceSuspended) {
+			return "suspended";
+		} else {
+			return "expired";
+		}
 	}
 	
 	public static Set<String> getPermitClassBasedOnChances(int chanceHandgun, int chanceShotgun, int chanceLonggun) {
@@ -127,8 +155,8 @@ public class PedHistoryMath {
 			showNotificationError("Error", message, mainRT);
 			//todo put the default values here once I figure out good ones:
 			noChargesProbability = 60;
-			oneToTwoChargesProbability = 35;
-			twoToThreeChargesProbability = 20;
+			oneToTwoChargesProbability = 25;
+			twoToThreeChargesProbability = 10;
 			threeToFiveChargesProbability = 5;
 		}
 		
@@ -181,8 +209,8 @@ public class PedHistoryMath {
 			log(message, LogUtils.Severity.ERROR);
 			showNotificationError("Error", message, mainRT);
 			noCitationsProbability = 60;
-			oneToTwoCitationsProbability = 35;
-			twoToThreeCitationsProbability = 20;
+			oneToTwoCitationsProbability = 25;
+			twoToThreeCitationsProbability = 10;
 			threeToFiveCitationsProbability = 5;
 		}
 		
@@ -250,5 +278,122 @@ public class PedHistoryMath {
 		Random random = new Random();
 		int index = random.nextInt(charges.size());
 		return charges.get(index);
+	}
+	
+	private static final List<String> maleNames = new ArrayList<>(
+			Arrays.asList("James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas",
+			              "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul",
+			              "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Henry", "Peter", "Jack",
+			              "Ryan", "Harry", "Frank", "Gary", "Raymond", "Albert", "Arthur"));
+	
+	private static final List<String> femaleNames = new ArrayList<>(
+			Arrays.asList("Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah",
+			              "Karen", "Nancy", "Lisa", "Margaret", "Betty", "Sandra", "Ashley", "Dorothy", "Kimberly",
+			              "Emily", "Donna", "Michelle", "Carol", "Amanda", "Melissa", "Deborah", "Laura", "Stephanie",
+			              "Rebecca", "Sharon", "Cynthia", "Kathleen", "Helen", "Amy", "Angela", "Anna"));
+	
+	private static final List<String> lastNames = new ArrayList<>(
+			Arrays.asList("Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez",
+			              "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor",
+			              "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez",
+			              "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright",
+			              "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall",
+			              "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"));
+	
+	public static String getRandomFullName(boolean isMale) {
+		Random random = new Random();
+		String firstName;
+		if (isMale) {
+			firstName = maleNames.get(random.nextInt(maleNames.size()));
+		} else {
+			firstName = femaleNames.get(random.nextInt(femaleNames.size()));
+		}
+		String lastName = lastNames.get(random.nextInt(lastNames.size()));
+		return firstName + " " + lastName;
+	}
+	
+	public static String generateLicenseNumber() {
+		StringBuilder caseNumber = new StringBuilder();
+		for (int i = 0; i < 10; i++) {
+			SecureRandom RANDOM = new SecureRandom();
+			int digit = RANDOM.nextInt(10);
+			caseNumber.append(digit);
+		}
+		return caseNumber.toString();
+	}
+	
+	private static final Map<String, String> pedAddresses = new HashMap<>();
+	
+	private static final List<String> losSantosAddresses = new ArrayList<>(
+			List.of("Abattoir Avenue", "Abe Milton Parkway", "Ace Jones Drive", "Adam's Apple Boulevard",
+			        "Aguja Street", "Alta Place", "Alta Street", "Amarillo Vista", "Amarillo Way", "Americano Way",
+			        "Atlee Street", "Autopia Parkway", "Banham Canyon Drive", "Barbareno Road", "Bay City Avenue",
+			        "Bay City Incline", "Baytree Canyon Road", "Boulevard Del Perro", "Bridge Street", "Brouge Avenue",
+			        "Buccaneer Way", "Buen Vino Road", "Caesars Place", "Calais Avenue", "Capital Boulevard",
+			        "Carcer Way", "Carson Avenue", "Chum Street", "Chupacabra Street", "Clinton Avenue",
+			        "Cockingend Drive", "Conquistador Street", "Cortes Street", "Cougar Avenue", "Covenant Avenue",
+			        "Cox Way", "Crusade Road", "Davis Avenue", "Decker Street", "Didion Drive", "Dorset Drive",
+			        "Dorset Place", "Dry Dock Street", "Dunstable Drive", "Dunstable Lane", "Dutch London Street",
+			        "Eastbourne Way", "East Galileo Avenue", "East Mirror Drive", "Eclipse Boulevard", "Edwood Way",
+			        "Elgin Avenue", "El Burro Boulevard", "El Rancho Boulevard", "Equality Way", "Exceptionalists Way",
+			        "Fantastic Place", "Fenwell Place", "Forum Drive", "Fudge Lane", "Galileo Road", "Gentry Lane",
+			        "Ginger Street", "Glory Way", "Goma Street", "Greenwich Parkway", "Greenwich Place",
+			        "Greenwich Way", "Grove Street", "Hanger Way", "Hangman Avenue", "Hardy Way", "Hawick Avenue",
+			        "Heritage Way", "Hillcrest Avenue", "Hillcrest Ridge Access Road", "Imagination Court",
+			        "Industry Passage", "Ineseno Road", "Integrity Way", "Invention Court", "Innocence Boulevard",
+			        "Jamestown Street", "Kimble Hill Drive", "Kortz Drive", "Labor Place", "Laguna Place",
+			        "Lake Vinewood Drive", "Las Lagunas Boulevard", "Liberty Street", "Lindsay Circus",
+			        "Little Bighorn Avenue", "Low Power Street", "Macdonald Street", "Mad Wayne Thunder Drive",
+			        "Magellan Avenue", "Marathon Avenue", "Marlowe Drive", "Melanoma Street", "Meteor Street",
+			        "Milton Road", "Mirror Park Boulevard", "Mirror Place", "Morningwood Boulevard", "Mount Haan Drive",
+			        "Mount Haan Road", "Mount Vinewood Drive", "Movie Star Way", "Mutiny Road", "New Empire Way",
+			        "Nikola Avenue", "Nikola Place", "Normandy Drive", "North Archer Avenue", "North Conker Avenue",
+			        "North Sheldon Avenue", "North Rockford Drive", "Occupation Avenue", "Orchardville Avenue",
+			        "Palomino Avenue", "Peaceful Street", "Perth Street", "Picture Perfect Drive", "Plaice Place",
+			        "Playa Vista", "Popular Street", "Portola Drive", "Power Street", "Prosperity Street",
+			        "Prosperity Street Promenade", "Red Desert Avenue", "Richman Street", "Rockford Drive",
+			        "Roy Lowenstein Boulevard", "Rub Street", "San Andreas Avenue", "Sandcastle Way",
+			        "San Vitus Boulevard", "Senora Road", "Shank Street", "Signal Street", "Sinner Street",
+			        "Sinners Passage", "South Arsenal Street", "South Boulevard Del Perro", "South Mo Milton Drive",
+			        "South Rockford Drive", "South Shambles Street", "Spanish Avenue", "Steele Way",
+			        "Strangeways Drive", "Strawberry Avenue", "Supply Street", "Sustancia Road", "Swiss Street",
+			        "Tackle Street", "Tangerine Street", "Tongva Drive", "Tower Way", "Tug Street", "Utopia Gardens",
+			        "Vespucci Boulevard", "Vinewood Boulevard", "Vinewood Park Drive", "Vitus Street", "Voodoo Place",
+			        "West Eclipse Boulevard", "West Galileo Avenue", "West Mirror Drive", "Whispymound Drive",
+			        "Wild Oats Drive", "York Street", "Zancudo Barranca"));
+	
+	private static final List<String> blaineCountyAddresses = new ArrayList<>(
+			List.of("Algonquin Boulevard", "Alhambra Drive", "Armadillo Avenue", "Baytree Canyon Road", "Calafia Road",
+			        "Cascabel Avenue", "Cassidy Trail", "Cat-Claw Avenue", "Chianski Passage", "Cholla Road",
+			        "Cholla Springs Avenue", "Duluoz Avenue", "East Joshua Road", "Fort Zancudo Approach Road",
+			        "Galileo Road", "Grapeseed Avenue", "Grapeseed Main Street", "Joad Lane", "Joshua Road",
+			        "Lesbos Lane", "Lolita Avenue", "Marina Drive", "Meringue Lane", "Mount Haan Road",
+			        "Mountain View Drive", "Niland Avenue", "North Calafia Way", "Nowhere Road", "O'Neil Way",
+			        "Paleto Boulevard", "Panorama Drive", "Procopio Drive", "Procopio Promenade", "Pyrite Avenue",
+			        "Raton Pass", "Route 68 Approach", "Seaview Road", "Senora Way", "Smoke Tree Road", "Union Road",
+			        "Zancudo Avenue", "Zancudo Road", "Zancudo Trail"));
+	
+	public static String getRandomAddress() {
+		Random random = new Random();
+		List<String> chosenList = random.nextInt(2) == 0 ? losSantosAddresses : blaineCountyAddresses;
+		String address;
+		do {
+			int index = random.nextInt(chosenList.size());
+			String addressNumber = String.format("%03d", random.nextInt(1000));
+			address = addressNumber + " " + chosenList.get(index);
+		} while (pedAddresses.containsValue(address));
+		
+		pedAddresses.put(String.valueOf(pedAddresses.size() + 1), address);
+		return address;
+	}
+	
+	public static String generateBirthday(int maxAge) {
+		Random random = new Random();
+		LocalDate today = LocalDate.now();
+		LocalDate minBirthDate = today.minusYears(maxAge);
+		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, today) + 1);
+		LocalDate birthDate = today.minusDays(randomDays);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		return birthDate.format(formatter);
 	}
 }

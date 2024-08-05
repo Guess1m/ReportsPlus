@@ -109,7 +109,6 @@ public class Ped {
 	
 	public String getAge() {
 		if (birthday != null && !birthday.isEmpty()) {
-			System.out.println(birthday);
 			return calculateAge(birthday);
 		}
 		return "";
@@ -375,6 +374,21 @@ public class Ped {
 			
 			if (Peds.getPedList() != null) {
 				return Peds.getPedList().stream().filter(e -> e.getLicenseNumber().equals(Pednumber)).findFirst();
+			}
+			
+			return Optional.empty();
+		}
+		
+		public static Optional<Ped> findPedByName(String pedname) {
+			Peds Peds = null;
+			try {
+				Peds = loadPeds();
+			} catch (JAXBException e) {
+				logError("JAXB error while trying to loadPeds() by name: ", e);
+			}
+			
+			if (Peds.getPedList() != null) {
+				return Peds.getPedList().stream().filter(e -> e.getName().equals(pedname)).findFirst();
 			}
 			
 			return Optional.empty();

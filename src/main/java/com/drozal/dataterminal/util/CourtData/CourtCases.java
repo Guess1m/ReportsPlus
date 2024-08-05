@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server.Objects.CourtData;
+package com.drozal.dataterminal.util.CourtData;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

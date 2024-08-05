@@ -31,14 +31,14 @@ import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReport;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReports;
+import com.drozal.dataterminal.util.CourtData.Case;
+import com.drozal.dataterminal.util.CourtData.CourtCases;
+import com.drozal.dataterminal.util.CourtData.CourtUtils;
+import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
 import com.drozal.dataterminal.util.Misc.*;
+import com.drozal.dataterminal.util.PedHistory.Ped;
 import com.drozal.dataterminal.util.Report.reportUtil;
-import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.ClientUtils;
-import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
-import com.drozal.dataterminal.util.server.Objects.CourtData.CourtCases;
-import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
-import com.drozal.dataterminal.util.server.Objects.CourtData.CustomCaseCell;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -50,7 +50,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,7 +74,9 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -96,9 +100,11 @@ import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.chargesFilePath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
+import static com.drozal.dataterminal.util.PedHistory.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addCitationsToTable;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
@@ -107,10 +113,409 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 	
+	@FXML
+	public Button notesButton;
+	
+	//<editor-fold desc="VARS">
+	
+	public static String notesText;
+	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
+	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
+	public static Stage IDStage = null;
+	public static Stage settingsStage = null;
+	public static Stage CalloutStage = null;
+	public static ClientController clientController;
+	public static Stage notesStage = null;
+	public static Stage clientStage = null;
+	private static Stage mapStage = null;
+	private static Stage versionStage = null;
+	public static boolean IDFirstShown = true;
+	public static double IDx;
+	public static double IDy;
+	public static Screen IDScreen = null;
+	public static Screen CalloutScreen = null;
+	public static boolean CalloutFirstShown = true;
+	public static double Calloutx;
+	public static double Callouty;
+	public static boolean NotesFirstShown = true;
+	public static double notesx;
+	public static double notesy;
+	public static Screen NotesScreen = null;
+	
+	//</editor-fold>
+	
+	//<editor-fold desc="FXML Elements">
+	@FXML
+	public Button shiftInfoBtn;
+	@FXML
+	public AnchorPane shiftInformationPane;
+	@FXML
+	public TextField OfficerInfoName;
+	@FXML
+	public ComboBox OfficerInfoDivision;
+	@FXML
+	public ComboBox OfficerInfoAgency;
+	@FXML
+	public TextField OfficerInfoCallsign;
+	@FXML
+	public TextField OfficerInfoNumber;
+	@FXML
+	public ComboBox OfficerInfoRank;
+	@FXML
+	public Label generatedDateTag;
+	@FXML
+	public Label generatedByTag;
+	@FXML
+	public Label updatedNotification;
+	@FXML
+	public AnchorPane vbox;
+	@FXML
+	public BarChart reportChart;
+	@FXML
+	public AnchorPane topPane;
+	@FXML
+	public AnchorPane sidepane;
+	@FXML
+	public Label mainColor8;
+	@FXML
+	public Label mainColor9Bkg;
+	@FXML
+	public Button updateInfoBtn;
+	@FXML
+	private MenuItem deathReportButton;
+	@FXML
+	private Tab deathTab;
+	@FXML
+	private TableView deathReportTable;
+	@FXML
+	private Label casesec4;
+	@FXML
+	private Label casesec3;
+	@FXML
+	private Label casesec2;
+	@FXML
+	private Label casesec1;
+	@FXML
+	private Label caseprim1;
+	@FXML
+	private GridPane caseVerdictPane;
+	@FXML
+	private Label caseprim2;
+	@FXML
+	private Label caseprim3;
+	@FXML
+	private Label caseTotalProbationLabel;
+	@FXML
+	private Label caseSuspensionDuration;
+	@FXML
+	private Label caseLicenseStatLabel;
+	@FXML
+	private Label caseTotalJailTimeLabel;
+	@FXML
+	private Label caseSuspensionDurationlbl;
+	@FXML
+	private Label secondaryColor3Bkg;
+	public NotesViewController notesViewController;
+	actionController controller;
+	AnchorPane titlebar;
+	@FXML
+	private Label secondaryColor4Bkg;
+	@FXML
+	private Label secondaryColor5Bkg;
+	@FXML
+	private Button logsButton;
+	@FXML
+	private Button mapButton;
+	@FXML
+	private MenuButton createReportBtn;
+	@FXML
+	private MenuItem searchReportButton;
+	@FXML
+	private MenuItem trafficReportButton;
+	@FXML
+	private MenuItem impoundReportButton;
+	@FXML
+	private MenuItem incidentReportButton;
+	@FXML
+	private MenuItem patrolReportButton;
+	@FXML
+	private MenuItem calloutReportButton;
+	@FXML
+	private MenuItem arrestReportButton;
+	@FXML
+	private MenuItem trafficCitationReportButton;
+	@FXML
+	private AreaChart areaReportChart;
+	@FXML
+	private Tab searchTab;
+	@FXML
+	private TableView searchTable;
+	@FXML
+	private Tab arrestTab;
+	@FXML
+	private AnchorPane logPane;
+	@FXML
+	private TableView trafficStopTable;
+	@FXML
+	private TableView arrestTable;
+	@FXML
+	private TableView impoundTable;
+	@FXML
+	private TableView citationTable;
+	@FXML
+	private Tab citationTab;
+	@FXML
+	private TableView calloutTable;
+	@FXML
+	private Tab calloutTab;
+	@FXML
+	private Tab patrolTab;
+	@FXML
+	private Tab incidentTab;
+	@FXML
+	private Tab trafficStopTab;
+	@FXML
+	private Tab impoundTab;
+	@FXML
+	private Label reportPlusLabelFill;
+	@FXML
+	private TableView patrolTable;
+	@FXML
+	private TabPane tabPane;
+	@FXML
+	private TableView incidentTable;
+	@FXML
+	private Label serverStatusLabel;
+	@FXML
+	private Button showIDBtn;
+	@FXML
+	private Button showCalloutBtn;
+	@FXML
+	private MenuItem vehLookupBtn;
+	@FXML
+	private TextField vehSearchField;
+	@FXML
+	private Button pedSearchBtn;
+	@FXML
+	private TextField pedSearchField;
+	@FXML
+	private AnchorPane pedLookupPane;
+	@FXML
+	private MenuItem pedLookupBtn;
+	@FXML
+	private Button vehSearchBtn;
+	@FXML
+	private AnchorPane vehLookupPane;
+	@FXML
+	private TextField pedgenfield;
+	@FXML
+	private TextField peddobfield;
+	@FXML
+	private TextField pedlicensefield;
+	@FXML
+	private TextField pedwantedfield;
+	@FXML
+	private TextField pedlnamefield;
+	@FXML
+	private TextField pedfnamefield;
+	@FXML
+	private TextField vehinsfield;
+	@FXML
+	private TextField vehownerfield;
+	@FXML
+	private TextField vehregfield;
+	@FXML
+	private TextField vehstolenfield;
+	@FXML
+	private TextField vehmodelfield;
+	@FXML
+	private Label vehplatefield;
+	@FXML
+	private AnchorPane vehcolordisplay;
+	@FXML
+	private TextField vehplatefield2;
+	@FXML
+	private AnchorPane vehRecordPane;
+	@FXML
+	private Label vehnocolorlabel;
+	@FXML
+	private Label versionLabel;
+	@FXML
+	private Label pedrecordnamefield;
+	@FXML
+	private Label noRecordFoundLabelVeh;
+	@FXML
+	private AnchorPane pedRecordPane;
+	@FXML
+	private Label noRecordFoundLabelPed;
+	@FXML
+	private MenuButton lookupBtn;
+	@FXML
+	private Button settingsBtn;
+	@FXML
+	private TextField pedaddressfield;
+	@FXML
+	private AnchorPane tutorialOverlay;
+	@FXML
+	private AnchorPane calloutPane;
+	@FXML
+	private ListView calHistoryList;
+	@FXML
+	private ListView calActiveList;
+	@FXML
+	private AnchorPane currentCalPane;
+	@FXML
+	private ToggleButton showCurrentCalToggle;
+	@FXML
+	private TextField calPriority;
+	@FXML
+	private TextField calCounty;
+	@FXML
+	private TextField calDate;
+	@FXML
+	private TextField calNum;
+	@FXML
+	private TextField calTime;
+	@FXML
+	private TextField calStreet;
+	@FXML
+	private Label calloutInfoTitle;
+	@FXML
+	private TextField calArea;
+	@FXML
+	private TextArea calDesc;
+	@FXML
+	private TextField calType;
+	@FXML
+	private Label calfill;
+	@FXML
+	private Label activecalfill;
+	@FXML
+	private VBox bkgclr1;
+	@FXML
+	private VBox bkgclr2;
+	@FXML
+	private Label logbrwsrlbl;
+	@FXML
+	private Label plt4;
+	@FXML
+	private Label plt5;
+	@FXML
+	private Label plt6;
+	@FXML
+	private Label plt7;
+	@FXML
+	private Label plt1;
+	@FXML
+	private Label plt2;
+	@FXML
+	private Label plt3;
+	@FXML
+	private Label ped3;
+	@FXML
+	private Label ped4;
+	@FXML
+	private Label ped5;
+	@FXML
+	private Label ped6;
+	@FXML
+	private Label ped1;
+	@FXML
+	private Label ped2;
+	@FXML
+	private Label ped7;
+	@FXML
+	private Button showCourtCasesBtn;
+	@FXML
+	private Label caseTotalLabel;
+	@FXML
+	private TextField caseNumField;
+	@FXML
+	private ListView caseOffencesListView;
+	@FXML
+	private ListView caseList;
+	@FXML
+	private TextField caseCourtDateField;
+	@FXML
+	private AnchorPane courtPane;
+	@FXML
+	private TextField caseAgeField;
+	@FXML
+	private ListView caseOutcomesListView;
+	@FXML
+	private TextField caseOffenceDateField;
+	@FXML
+	private TextField caseStreetField;
+	@FXML
+	private TextField caseFirstNameField;
+	@FXML
+	private TextArea caseNotesField;
+	@FXML
+	private TextField caseAddressField;
+	@FXML
+	private TextField caseLastNameField;
+	@FXML
+	private TextField caseGenderField;
+	@FXML
+	private TextField caseAreaField;
+	@FXML
+	private TextField caseCountyField;
+	@FXML
+	private Label caseSec1;
+	@FXML
+	private Label caseSec2;
+	@FXML
+	private Label casePrim1;
+	@FXML
+	private Label caselbl5;
+	@FXML
+	private Label caselbl4;
+	@FXML
+	private Label caselbl3;
+	@FXML
+	private Label caselbl2;
+	@FXML
+	private Label caselbl1;
+	@FXML
+	private Label caselbl9;
+	@FXML
+	private Label caselbl8;
+	@FXML
+	private Label caselbl7;
+	@FXML
+	private Label caselbl6;
+	@FXML
+	private Label caselbl12;
+	@FXML
+	private Label caselbl11;
+	@FXML
+	private Label caselbl10;
+	@FXML
+	private Button deleteCaseBtn;
+	@FXML
+	private Label noCourtCaseSelectedlbl;
+	@FXML
+	private AnchorPane blankCourtInfoPane;
+	@FXML
+	private AnchorPane courtInfoPane;
+
+	public static void handleClose() {
+		log("Stop Request Recieved", Severity.DEBUG);
+		endLog();
+		ClientUtils.disconnectFromService();
+		Platform.exit();
+		System.exit(0);
+	}
+	
+	//</editor-fold>
+	
+	//<editor-fold desc="Events">
+	
 	public void initialize() throws IOException {
-		lookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		// TODO undo
+		lookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -118,14 +523,14 @@ public class actionController {
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			
-			log("First Login, Showing Tutorial", LogUtils.Severity.DEBUG);
+			log("First Login, Showing Tutorial", Severity.DEBUG);
 			tutorialOverlay.setVisible(true);
 			tutorialOverlay.setOnMouseClicked(mouseEvent -> {
 				tutorialOverlay.setVisible(false);
 			});
 		} else {
 			tutorialOverlay.setVisible(false);
-			log("Not First Login", LogUtils.Severity.DEBUG);
+			log("Not First Login", Severity.DEBUG);
 		}
 		
 		titlebar = reportUtil.createTitleBar("Reports Plus");
@@ -197,7 +602,7 @@ public class actionController {
 							setText(null);
 						} else {
 							setText(item);
-							setAlignment(javafx.geometry.Pos.CENTER);
+							setAlignment(Pos.CENTER);
 							
 							if (item.contains("=")) {
 								setStyle("-fx-font-weight: bold;");
@@ -270,7 +675,7 @@ public class actionController {
 				
 				versionStage.show();
 				versionStage.centerOnScreen();
-				windowUtils.centerStageOnMainApp(versionStage);
+				centerStageOnMainApp(versionStage);
 				
 				versionStage.setOnHidden(new EventHandler<WindowEvent>() {
 					@Override
@@ -355,407 +760,10 @@ public class actionController {
 				showCurrentCalToggle.setSelected(true);
 			}
 		});
+		
 	}
 	
-	//<editor-fold desc="VARS">
-	
-	public static String notesText;
-	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
-	public static Stage IDStage = null;
-	public static Stage settingsStage = null;
-	public static Stage CalloutStage = null;
-	public static ClientController clientController;
-	public static Stage notesStage = null;
-	public static Stage clientStage = null;
-	private static Stage mapStage = null;
-	private static Stage versionStage = null;
-	public static boolean IDFirstShown = true;
-	public static double IDx;
-	public static double IDy;
-	public static Screen IDScreen = null;
-	public static Screen CalloutScreen = null;
-	public static boolean CalloutFirstShown = true;
-	public static double Calloutx;
-	public static double Callouty;
-	public static boolean NotesFirstShown = true;
-	public static double notesx;
-	public static double notesy;
-	public static Screen NotesScreen = null;
-	
-	//</editor-fold>
-	
-	//<editor-fold desc="FXML Elements">
-	
-	@javafx.fxml.FXML
-	private MenuItem deathReportButton;
-	@javafx.fxml.FXML
-	private Tab deathTab;
-	@javafx.fxml.FXML
-	private TableView deathReportTable;
-	@javafx.fxml.FXML
-	public Button notesButton;
-	@javafx.fxml.FXML
-	private Label casesec4;
-	@javafx.fxml.FXML
-	private Label casesec3;
-	@javafx.fxml.FXML
-	private Label casesec2;
-	@javafx.fxml.FXML
-	private Label casesec1;
-	@javafx.fxml.FXML
-	private Label caseprim1;
-	@javafx.fxml.FXML
-	private GridPane caseVerdictPane;
-	@javafx.fxml.FXML
-	private Label caseprim2;
-	@javafx.fxml.FXML
-	private Label caseprim3;
-	@javafx.fxml.FXML
-	private Label caseTotalProbationLabel;
-	@javafx.fxml.FXML
-	private Label caseSuspensionDuration;
-	@javafx.fxml.FXML
-	private Label caseLicenseStatLabel;
-	@javafx.fxml.FXML
-	private Label caseTotalJailTimeLabel;
-	@javafx.fxml.FXML
-	private Label caseSuspensionDurationlbl;
-	@javafx.fxml.FXML
-	public Button shiftInfoBtn;
-	@javafx.fxml.FXML
-	public AnchorPane shiftInformationPane;
-	@javafx.fxml.FXML
-	public TextField OfficerInfoName;
-	@javafx.fxml.FXML
-	public ComboBox OfficerInfoDivision;
-	@javafx.fxml.FXML
-	public ComboBox OfficerInfoAgency;
-	@javafx.fxml.FXML
-	public TextField OfficerInfoCallsign;
-	@javafx.fxml.FXML
-	public TextField OfficerInfoNumber;
-	@javafx.fxml.FXML
-	public ComboBox OfficerInfoRank;
-	@javafx.fxml.FXML
-	public Label generatedDateTag;
-	@javafx.fxml.FXML
-	public Label generatedByTag;
-	@javafx.fxml.FXML
-	public Label updatedNotification;
-	@javafx.fxml.FXML
-	public AnchorPane vbox;
-	@javafx.fxml.FXML
-	public BarChart reportChart;
-	@javafx.fxml.FXML
-	public AnchorPane topPane;
-	@javafx.fxml.FXML
-	public AnchorPane sidepane;
-	@javafx.fxml.FXML
-	public Label mainColor8;
-	@javafx.fxml.FXML
-	public Label mainColor9Bkg;
-	@javafx.fxml.FXML
-	public Button updateInfoBtn;
-	public NotesViewController notesViewController;
-	actionController controller;
-	AnchorPane titlebar;
-	@javafx.fxml.FXML
-	private Label secondaryColor3Bkg;
-	@javafx.fxml.FXML
-	private Label secondaryColor4Bkg;
-	@javafx.fxml.FXML
-	private Label secondaryColor5Bkg;
-	@javafx.fxml.FXML
-	private Button logsButton;
-	@javafx.fxml.FXML
-	private Button mapButton;
-	@javafx.fxml.FXML
-	private MenuButton createReportBtn;
-	@javafx.fxml.FXML
-	private MenuItem searchReportButton;
-	@javafx.fxml.FXML
-	private MenuItem trafficReportButton;
-	@javafx.fxml.FXML
-	private MenuItem impoundReportButton;
-	@javafx.fxml.FXML
-	private MenuItem incidentReportButton;
-	@javafx.fxml.FXML
-	private MenuItem patrolReportButton;
-	@javafx.fxml.FXML
-	private MenuItem calloutReportButton;
-	@javafx.fxml.FXML
-	private MenuItem arrestReportButton;
-	@javafx.fxml.FXML
-	private MenuItem trafficCitationReportButton;
-	@javafx.fxml.FXML
-	private AreaChart areaReportChart;
-	@javafx.fxml.FXML
-	private Tab searchTab;
-	@javafx.fxml.FXML
-	private TableView searchTable;
-	@javafx.fxml.FXML
-	private Tab arrestTab;
-	@javafx.fxml.FXML
-	private AnchorPane logPane;
-	@javafx.fxml.FXML
-	private TableView trafficStopTable;
-	@javafx.fxml.FXML
-	private TableView arrestTable;
-	@javafx.fxml.FXML
-	private TableView impoundTable;
-	@javafx.fxml.FXML
-	private TableView citationTable;
-	@javafx.fxml.FXML
-	private Tab citationTab;
-	@javafx.fxml.FXML
-	private TableView calloutTable;
-	@javafx.fxml.FXML
-	private Tab calloutTab;
-	@javafx.fxml.FXML
-	private Tab patrolTab;
-	@javafx.fxml.FXML
-	private Tab incidentTab;
-	@javafx.fxml.FXML
-	private Tab trafficStopTab;
-	@javafx.fxml.FXML
-	private Tab impoundTab;
-	@javafx.fxml.FXML
-	private Label reportPlusLabelFill;
-	@javafx.fxml.FXML
-	private TableView patrolTable;
-	@javafx.fxml.FXML
-	private TabPane tabPane;
-	@javafx.fxml.FXML
-	private TableView incidentTable;
-	@javafx.fxml.FXML
-	private Label serverStatusLabel;
-	@javafx.fxml.FXML
-	private Button showIDBtn;
-	@javafx.fxml.FXML
-	private Button showCalloutBtn;
-	@javafx.fxml.FXML
-	private MenuItem vehLookupBtn;
-	@javafx.fxml.FXML
-	private TextField vehSearchField;
-	@javafx.fxml.FXML
-	private Button pedSearchBtn;
-	@javafx.fxml.FXML
-	private TextField pedSearchField;
-	@javafx.fxml.FXML
-	private AnchorPane pedLookupPane;
-	@javafx.fxml.FXML
-	private MenuItem pedLookupBtn;
-	@javafx.fxml.FXML
-	private Button vehSearchBtn;
-	@javafx.fxml.FXML
-	private AnchorPane vehLookupPane;
-	@javafx.fxml.FXML
-	private TextField pedgenfield;
-	@javafx.fxml.FXML
-	private TextField peddobfield;
-	@javafx.fxml.FXML
-	private TextField pedlicensefield;
-	@javafx.fxml.FXML
-	private TextField pedwantedfield;
-	@javafx.fxml.FXML
-	private TextField pedlnamefield;
-	@javafx.fxml.FXML
-	private TextField pedfnamefield;
-	@javafx.fxml.FXML
-	private TextField vehinsfield;
-	@javafx.fxml.FXML
-	private TextField vehownerfield;
-	@javafx.fxml.FXML
-	private TextField vehregfield;
-	@javafx.fxml.FXML
-	private TextField vehstolenfield;
-	@javafx.fxml.FXML
-	private TextField vehmodelfield;
-	@javafx.fxml.FXML
-	private Label vehplatefield;
-	@javafx.fxml.FXML
-	private AnchorPane vehcolordisplay;
-	@javafx.fxml.FXML
-	private TextField vehplatefield2;
-	@javafx.fxml.FXML
-	private AnchorPane vehRecordPane;
-	@javafx.fxml.FXML
-	private Label vehnocolorlabel;
-	@javafx.fxml.FXML
-	private Label versionLabel;
-	@javafx.fxml.FXML
-	private Label pedrecordnamefield;
-	@javafx.fxml.FXML
-	private Label noRecordFoundLabelVeh;
-	@javafx.fxml.FXML
-	private AnchorPane pedRecordPane;
-	@javafx.fxml.FXML
-	private Label noRecordFoundLabelPed;
-	@javafx.fxml.FXML
-	private MenuButton lookupBtn;
-	@javafx.fxml.FXML
-	private Button settingsBtn;
-	@javafx.fxml.FXML
-	private TextField pedaddressfield;
-	@javafx.fxml.FXML
-	private AnchorPane tutorialOverlay;
-	@javafx.fxml.FXML
-	private AnchorPane calloutPane;
-	@javafx.fxml.FXML
-	private ListView calHistoryList;
-	@javafx.fxml.FXML
-	private ListView calActiveList;
-	@javafx.fxml.FXML
-	private AnchorPane currentCalPane;
-	@javafx.fxml.FXML
-	private ToggleButton showCurrentCalToggle;
-	@javafx.fxml.FXML
-	private TextField calPriority;
-	@javafx.fxml.FXML
-	private TextField calCounty;
-	@javafx.fxml.FXML
-	private TextField calDate;
-	@javafx.fxml.FXML
-	private TextField calNum;
-	@javafx.fxml.FXML
-	private TextField calTime;
-	@javafx.fxml.FXML
-	private TextField calStreet;
-	@javafx.fxml.FXML
-	private Label calloutInfoTitle;
-	@javafx.fxml.FXML
-	private TextField calArea;
-	@javafx.fxml.FXML
-	private TextArea calDesc;
-	@javafx.fxml.FXML
-	private TextField calType;
-	@javafx.fxml.FXML
-	private Label calfill;
-	@javafx.fxml.FXML
-	private Label activecalfill;
-	@javafx.fxml.FXML
-	private VBox bkgclr1;
-	@javafx.fxml.FXML
-	private VBox bkgclr2;
-	@javafx.fxml.FXML
-	private Label logbrwsrlbl;
-	@javafx.fxml.FXML
-	private Label plt4;
-	@javafx.fxml.FXML
-	private Label plt5;
-	@javafx.fxml.FXML
-	private Label plt6;
-	@javafx.fxml.FXML
-	private Label plt7;
-	@javafx.fxml.FXML
-	private Label plt1;
-	@javafx.fxml.FXML
-	private Label plt2;
-	@javafx.fxml.FXML
-	private Label plt3;
-	@javafx.fxml.FXML
-	private Label ped3;
-	@javafx.fxml.FXML
-	private Label ped4;
-	@javafx.fxml.FXML
-	private Label ped5;
-	@javafx.fxml.FXML
-	private Label ped6;
-	@javafx.fxml.FXML
-	private Label ped1;
-	@javafx.fxml.FXML
-	private Label ped2;
-	@javafx.fxml.FXML
-	private Label ped7;
-	@javafx.fxml.FXML
-	private Button showCourtCasesBtn;
-	@javafx.fxml.FXML
-	private Label caseTotalLabel;
-	@javafx.fxml.FXML
-	private TextField caseNumField;
-	@javafx.fxml.FXML
-	private ListView caseOffencesListView;
-	@javafx.fxml.FXML
-	private ListView caseList;
-	@javafx.fxml.FXML
-	private TextField caseCourtDateField;
-	@javafx.fxml.FXML
-	private AnchorPane courtPane;
-	@javafx.fxml.FXML
-	private TextField caseAgeField;
-	@javafx.fxml.FXML
-	private ListView caseOutcomesListView;
-	@javafx.fxml.FXML
-	private TextField caseOffenceDateField;
-	@javafx.fxml.FXML
-	private TextField caseStreetField;
-	@javafx.fxml.FXML
-	private TextField caseFirstNameField;
-	@javafx.fxml.FXML
-	private TextArea caseNotesField;
-	@javafx.fxml.FXML
-	private TextField caseAddressField;
-	@javafx.fxml.FXML
-	private TextField caseLastNameField;
-	@javafx.fxml.FXML
-	private TextField caseGenderField;
-	@javafx.fxml.FXML
-	private TextField caseAreaField;
-	@javafx.fxml.FXML
-	private TextField caseCountyField;
-	@javafx.fxml.FXML
-	private Label caseSec1;
-	@javafx.fxml.FXML
-	private Label caseSec2;
-	@javafx.fxml.FXML
-	private Label casePrim1;
-	@javafx.fxml.FXML
-	private Label caselbl5;
-	@javafx.fxml.FXML
-	private Label caselbl4;
-	@javafx.fxml.FXML
-	private Label caselbl3;
-	@javafx.fxml.FXML
-	private Label caselbl2;
-	@javafx.fxml.FXML
-	private Label caselbl1;
-	@javafx.fxml.FXML
-	private Label caselbl9;
-	@javafx.fxml.FXML
-	private Label caselbl8;
-	@javafx.fxml.FXML
-	private Label caselbl7;
-	@javafx.fxml.FXML
-	private Label caselbl6;
-	@javafx.fxml.FXML
-	private Label caselbl12;
-	@javafx.fxml.FXML
-	private Label caselbl11;
-	@javafx.fxml.FXML
-	private Label caselbl10;
-	@javafx.fxml.FXML
-	private Button deleteCaseBtn;
-	@javafx.fxml.FXML
-	private Label noCourtCaseSelectedlbl;
-	@javafx.fxml.FXML
-	private AnchorPane blankCourtInfoPane;
-	@javafx.fxml.FXML
-	private AnchorPane courtInfoPane;
-	
-	//</editor-fold>
-	
-	//<editor-fold desc="Events">
-	
-	public static void handleClose() {
-		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
-		endLog();
-		ClientUtils.disconnectFromService();
-		Platform.exit();
-		System.exit(0);
-	}
-	
-	@javafx.fxml.FXML
+	@FXML
 	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
 		if (settingsStage != null && settingsStage.isShowing()) {
 			settingsStage.close();
@@ -774,7 +782,7 @@ public class actionController {
 		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
 		showAnimation(settingsBtn);
 		
-		windowUtils.centerStageOnMainApp(settingsStage);
+		centerStageOnMainApp(settingsStage);
 		
 		settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
@@ -784,7 +792,7 @@ public class actionController {
 		});
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
 		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
@@ -804,7 +812,7 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane, shiftInformationPane);
 		setActive(courtPane);
@@ -814,7 +822,7 @@ public class actionController {
 		caseList.getSelectionModel().clearSelection();
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
 		if (IDStage != null && IDStage.isShowing()) {
 			IDStage.close();
@@ -835,7 +843,7 @@ public class actionController {
 		
 		if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
 			if (IDFirstShown) {
-				windowUtils.centerStageOnMainApp(IDStage);
+				centerStageOnMainApp(IDStage);
 				log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
 			} else {
 				if (IDScreen != null) {
@@ -843,15 +851,15 @@ public class actionController {
 					IDStage.setX(IDx);
 					IDStage.setY(IDy);
 					if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
-						windowUtils.centerStageOnMainApp(IDStage);
+						centerStageOnMainApp(IDStage);
 					}
 				} else {
-					windowUtils.centerStageOnMainApp(IDStage);
+					centerStageOnMainApp(IDStage);
 				}
 				log("IDStage opened via showIDBtn, XValue: " + IDx + " YValue: " + IDy, Severity.INFO);
 			}
 		} else {
-			windowUtils.centerStageOnMainApp(IDStage);
+			centerStageOnMainApp(IDStage);
 		}
 		
 		IDStage.setOnHidden(new EventHandler<WindowEvent>() {
@@ -868,7 +876,7 @@ public class actionController {
 		});
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
 		if (mapStage != null && mapStage.isShowing()) {
 			mapStage.close();
@@ -889,14 +897,14 @@ public class actionController {
 		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
 		showAnimation(mapButton);
 		
-		windowUtils.centerStageOnMainApp(mapStage);
+		centerStageOnMainApp(mapStage);
 		
 		mapStage.setOnHidden(event -> {
 			mapStage = null;
 		});
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
 		if (notesStage != null && notesStage.isShowing()) {
 			notesStage.close();
@@ -916,7 +924,7 @@ public class actionController {
 		
 		notesStage.show();
 		
-		windowUtils.centerStageOnMainApp(notesStage);
+		centerStageOnMainApp(notesStage);
 		
 		String startupValue = ConfigReader.configRead("layout", "notesWindowLayout");
 		switch (startupValue) {
@@ -929,7 +937,7 @@ public class actionController {
 			default -> {
 				if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
 					if (NotesFirstShown) {
-						windowUtils.centerStageOnMainApp(notesStage);
+						centerStageOnMainApp(notesStage);
 						log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
 					} else {
 						if (NotesScreen != null) {
@@ -937,16 +945,16 @@ public class actionController {
 							notesStage.setX(notesx);
 							notesStage.setY(notesy);
 							if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
-								windowUtils.centerStageOnMainApp(notesStage);
+								centerStageOnMainApp(notesStage);
 							}
 						} else {
-							windowUtils.centerStageOnMainApp(notesStage);
+							centerStageOnMainApp(notesStage);
 						}
 						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy,
 						    Severity.INFO);
 					}
 				} else {
-					windowUtils.centerStageOnMainApp(notesStage);
+					centerStageOnMainApp(notesStage);
 					notesStage.setMinHeight(300);
 					notesStage.setMinWidth(300);
 				}
@@ -964,8 +972,7 @@ public class actionController {
 				notesy = notesStage.getY();
 				NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(),
 				                                            notesStage.getHeight()).stream().findFirst().orElse(null);
-				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy,
-				    LogUtils.Severity.DEBUG);
+				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy, Severity.DEBUG);
 				NotesFirstShown = false;
 				notesStage = null;
 				actionController.notesText = notesViewController.getNotepadTextArea().getText();
@@ -973,7 +980,7 @@ public class actionController {
 		});
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(shiftInformationPane);
@@ -981,14 +988,14 @@ public class actionController {
 		controllerUtils.refreshChart(areaReportChart, "area");
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onLogsButtonClick(ActionEvent actionEvent) {
 		showAnimation(logsButton);
 		setDisable(shiftInformationPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
 		setActive(logPane);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onVehLookupBtnClick(ActionEvent actionEvent) {
 		setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane, courtPane);
 		vehRecordPane.setVisible(false);
@@ -996,7 +1003,7 @@ public class actionController {
 		setActive(vehLookupPane);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onPedLookupBtnClick(ActionEvent actionEvent) {
 		setDisable(logPane, vehLookupPane, shiftInformationPane, calloutPane, courtPane);
 		pedRecordPane.setVisible(false);
@@ -1004,52 +1011,52 @@ public class actionController {
 		setActive(pedLookupPane);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onCalloutReportButtonClick(ActionEvent actionEvent) {
 		newCallout(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void trafficStopReportButtonClick(ActionEvent actionEvent) {
 		newTrafficStop(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onIncidentReportBtnClick(ActionEvent actionEvent) {
 		newIncident(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onSearchReportBtnClick(ActionEvent actionEvent) {
 		newSearch(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onArrestReportBtnClick(ActionEvent actionEvent) {
 		newArrest(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onCitationReportBtnClick(ActionEvent actionEvent) {
 		newCitation(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onPatrolButtonClick(ActionEvent actionEvent) {
 		newPatrol(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
 		newImpound(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onDeathReportButtonClick(ActionEvent actionEvent) {
 		newDeathReport(reportChart, areaReportChart, notesViewController);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onServerStatusLabelClick(Event event) throws IOException {
 		
 		if (clientStage != null && clientStage.isShowing()) {
@@ -1072,7 +1079,7 @@ public class actionController {
 			clientStage.centerOnScreen();
 			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
 			
-			windowUtils.centerStageOnMainApp(clientStage);
+			centerStageOnMainApp(clientStage);
 			
 			clientStage.setOnHidden(event1 -> {
 				clientStage = null;
@@ -1082,7 +1089,7 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void updateInfoButtonClick(ActionEvent actionEvent) {
 		if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() || getOfficerInfoNumber().getText().isEmpty()) {
 			updatedNotification.setText("Fill Out Form.");
@@ -1111,7 +1118,7 @@ public class actionController {
 		showAnimation(updateInfoBtn);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedPlate = vehSearchField.getText();
 		
@@ -1156,7 +1163,7 @@ public class actionController {
 		
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedName = pedSearchField.getText();
 		
@@ -1167,48 +1174,85 @@ public class actionController {
 		String address = pedData.getOrDefault("address", "Not available");
 		String isWanted = pedData.getOrDefault("iswanted", "Not available");
 		String licenseStatus = pedData.getOrDefault("licensestatus", "Not available");
+		String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
 		String name = pedData.getOrDefault("name", "Not available");
 		String[] parts = name.split(" ");
 		String firstName = parts[0];
 		String lastName = parts.length > 1 ? parts[1] : "";
+		
+		if (licenseStatus.equalsIgnoreCase("Expired")) {
+			licenseStatus = "EXPIRED";
+		} else if (licenseStatus.equalsIgnoreCase("Suspended")) {
+			licenseStatus = "SUSPENDED";
+		} else {
+			licenseStatus = "Valid";
+		}
+		
 		if (!name.equals("Not available")) {
+			Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
+			
+			Ped ped;
+			if (searchedPed.isEmpty()) {
+				ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
+				
+				if (isWanted.equalsIgnoreCase("true")) {
+					try {
+						String warrant = getRandomCharge(chargesFilePath);
+						if (warrant != null) {
+							isWanted = "WANTED - " + warrant;
+							ped.setOutstandingWarrants(warrant);
+						} else {
+							isWanted = "WANTED - No details";
+						}
+					} catch (ParserConfigurationException | SAXException e) {
+						logError("Error getting random charge: ", e);
+						isWanted = "WANTED - Error retrieving details";
+					}
+				}
+				
+				setPedPriors(ped);
+				ped.setFishingLicenseStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+				ped.setBoatingLicenseStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+				setGunLicenseStatus(ped);
+				
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error adding ped to PedHistory: ", e);
+				}
+			} else {
+				ped = searchedPed.get();
+			}
+			
 			pedRecordPane.setVisible(true);
 			noRecordFoundLabelPed.setVisible(false);
 			
-			pedrecordnamefield.setText(name);
+			pedrecordnamefield.setText(name + " # " + licenseNumber);
 			pedfnamefield.setText(firstName);
 			pedlnamefield.setText(lastName);
 			pedgenfield.setText(gender);
 			peddobfield.setText(birthday);
 			pedaddressfield.setText(address);
-			pedwantedfield.setText(isWanted);
 			pedlicensefield.setText(licenseStatus);
-			
-			if (pedlicensefield.getText().equals("Expired")) {
-				pedlicensefield.setText("EXPIRED");
-				pedlicensefield.setStyle("-fx-text-fill: red !important;");
-			} else if (pedlicensefield.getText().equals("Suspended")) {
-				pedlicensefield.setText("SUSPENDED");
-				pedlicensefield.setStyle("-fx-text-fill: red !important;");
-			} else {
-				pedlicensefield.setText("Valid");
-				pedlicensefield.setStyle("-fx-text-fill: black !important;");
-			}
-			
-			if (pedwantedfield.getText().equals("True")) {
-				pedwantedfield.setText("WANTED");
-				pedwantedfield.setStyle("-fx-text-fill: red !important;");
+			if (ped.getOutstandingWarrants() != null) {
+				pedwantedfield.setText(ped.getOutstandingWarrants());
 			} else {
 				pedwantedfield.setText("False");
-				pedwantedfield.setStyle("-fx-text-fill: black !important;");
 			}
+			
+			pedlicensefield.setStyle(licenseStatus.equalsIgnoreCase("EXPIRED") || licenseStatus.equalsIgnoreCase(
+					"SUSPENDED") ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
+			pedwantedfield.setStyle(
+					ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
 		} else {
 			pedRecordPane.setVisible(false);
 			noRecordFoundLabelPed.setVisible(true);
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
 		calActiveList.getSelectionModel().clearSelection();
 		calHistoryList.getSelectionModel().clearSelection();
@@ -1245,8 +1289,8 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
-	public void onShowCalloutButtonClick(ActionEvent actionEvent) throws IOException {
+	@FXML
+	public void onShowCalloutButtonClick(ActionEvent actionEvent) {
 		double toHeight = 0;
 		
 		Timeline timeline = new Timeline();
@@ -1279,7 +1323,7 @@ public class actionController {
 				lookupBtn.setVisible(false);
 				showCalloutBtn.setVisible(false);
 				showIDBtn.setVisible(false);
-				LogUtils.log("No Connection", LogUtils.Severity.WARN);
+				log("No Connection", Severity.WARN);
 				serverStatusLabel.setText("No Connection");
 				serverStatusLabel.setStyle(
 						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -1633,6 +1677,142 @@ public class actionController {
 		return fineTotal;
 	}
 	
+	private Ped createPed(String licenseNumber, String name, String gender, String birthday, String address, String isWanted, String licenseStatus) {
+		Ped ped = new Ped();
+		ped.setLicenseNumber(licenseNumber);
+		ped.setName(name);
+		ped.setGender(gender);
+		ped.setBirthday(birthday);
+		ped.setAddress(address);
+		ped.setWantedStatus(isWanted);
+		ped.setLicenseStatus(licenseStatus);
+		return ped;
+	}
+	
+	private void setGunLicenseStatus(Ped ped) throws IOException {
+		Boolean hasGunLicense = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
+		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
+		
+		if (hasGunLicense) {
+			String licenseType = getGunLicenseType();
+			ped.setGunLicenseType(licenseType);
+			
+			String licenseClasses = getGunLicenseClass();
+			ped.setGunLicenseClass(licenseClasses);
+			
+			ped.setHuntingLicenseStatus(String.valueOf(
+					calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
+		}
+	}
+	
+	private int setArrestPriors(Ped ped) throws IOException {
+		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+		List<String> priorCharges;
+		try {
+			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new RuntimeException(e);
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		int chargeCount = 0;
+		for (String charge : priorCharges) {
+			chargeCount++;
+			stringBuilder.append(charge).append(" | ");
+		}
+		String chargelist = stringBuilder.toString().trim();
+		if (!chargelist.isEmpty()) {
+			ped.setArrestPriors(chargelist);
+		}
+		return chargeCount;
+	}
+	
+	private int setCitationPriors(Ped ped) throws IOException {
+		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+		List<String> priorCitations;
+		try {
+			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new RuntimeException(e);
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		int citCount = 0;
+		for (String cit : priorCitations) {
+			citCount++;
+			stringBuilder.append(cit).append(" | ");
+		}
+		String citList = stringBuilder.toString().trim();
+		if (!citList.isEmpty()) {
+			ped.setCitationPriors(citList);
+		}
+		return citCount;
+	}
+	
+	private String getGunLicenseType() throws IOException {
+		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
+		
+		if (licenseTypeSet.toLowerCase().contains("open")) {
+			return "Open Carry";
+		} else if (licenseTypeSet.toLowerCase().contains("concealed")) {
+			return "Concealed Carry";
+		} else {
+			return "Open Carry / Concealed Carry";
+		}
+	}
+	
+	private String getGunLicenseClass() throws IOException {
+		Set<String> licenseClassSet = getPermitClassBasedOnChances(
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
+		
+		return String.join(" / ", licenseClassSet).trim();
+	}
+	
+	private void setPedPriors(Ped ped) {
+		int totalChargePriors = 0;
+		try {
+			totalChargePriors = setArrestPriors(ped);
+		} catch (IOException e) {
+			logError("Could not fetch arrestPriors: ", e);
+		}
+		int totalCitationPriors = 0;
+		try {
+			totalCitationPriors = setCitationPriors(ped);
+		} catch (IOException e) {
+			logError("Could not fetch citationPriors: ", e);
+		}
+		
+		if (totalChargePriors >= 1) {
+			try {
+				ped.setParoleStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
+			} catch (IOException e) {
+				logError("Could not set ParoleStatus: ", e);
+			}
+			try {
+				ped.setProbationStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
+			} catch (IOException e) {
+				logError("Could not set ProbationStatus: ", e);
+			}
+		}
+		
+		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
+		ped.setTimesStopped(totalStops);
+	}
+	
 	//</editor-fold>
 	
 	//<editor-fold desc="Log Methods">
@@ -1784,15 +1964,14 @@ public class actionController {
 		deathReportTable.getItems().addAll(logEntries);
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onDeathReportRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
 			
 			if (deathReport != null) {
-				Map<String, Object> deathReportObj = DeathReportUtils.newDeathReport(getReportChart(),
-				                                                                     getAreaReportChart(),
-				                                                                     notesViewController);
+				Map<String, Object> deathReportObj = newDeathReport(getReportChart(), getAreaReportChart(),
+				                                                    notesViewController);
 				
 				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
 				
@@ -1875,16 +2054,15 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
 			
 			if (calloutReport != null) {
 				
-				Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(getReportChart(),
-				                                                                     getAreaReportChart(),
-				                                                                     notesViewController);
+				Map<String, Object> calloutReportObj = newCallout(getReportChart(), getAreaReportChart(),
+				                                                  notesViewController);
 				
 				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 				
@@ -1951,16 +2129,15 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
 			
 			if (patrolReport != null) {
 				
-				Map<String, Object> patrolReportObj = PatrolReportUtils.newPatrol(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
+				Map<String, Object> patrolReportObj = newPatrol(getReportChart(), getAreaReportChart(),
+				                                                notesViewController);
 				
 				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get("Patrol Report Map");
 				
@@ -2023,7 +2200,7 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onTrafficStopRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel().getSelectedItem();
@@ -2121,16 +2298,15 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
 			
 			if (incidentReport != null) {
 				
-				Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(getReportChart(),
-				                                                                        getAreaReportChart(),
-				                                                                        notesViewController);
+				Map<String, Object> incidentReportObj = newIncident(getReportChart(), getAreaReportChart(),
+				                                                    notesViewController);
 				
 				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
 						"Incident Report Map");
@@ -2207,16 +2383,15 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
 			
 			if (impoundReport != null) {
 				
-				Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(getReportChart(),
-				                                                                     getAreaReportChart(),
-				                                                                     notesViewController);
+				Map<String, Object> impoundReportObj = newImpound(getReportChart(), getAreaReportChart(),
+				                                                  notesViewController);
 				
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 				
@@ -2294,15 +2469,14 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onCitationRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel().getSelectedItem();
 			
 			if (trafficCitationReport != null) {
-				Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(getReportChart(),
-				                                                                          getAreaReportChart(),
-				                                                                          notesViewController);
+				Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart(),
+				                                                     notesViewController);
 				
 				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
 						"Citation Report Map");
@@ -2396,15 +2570,14 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
 			
 			if (searchReport != null) {
-				Map<String, Object> searchReportObj = SearchReportUtils.newSearch(getReportChart(),
-				                                                                  getAreaReportChart(),
-				                                                                  notesViewController);
+				Map<String, Object> searchReportObj = newSearch(getReportChart(), getAreaReportChart(),
+				                                                notesViewController);
 				
 				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 				
@@ -2492,14 +2665,13 @@ public class actionController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
 			
 			if (arrestReport != null) {
-				Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart,
-				                                                                  notesViewController);
+				Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart, notesViewController);
 				
 				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 				

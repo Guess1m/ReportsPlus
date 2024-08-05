@@ -40,6 +40,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -95,16 +99,43 @@ public class controllerUtils {
 		Tooltip.install(node, tooltip);
 	}
 	
-	public static String lowerPaneToToRGB(String hexColor, double alpha) {
-		if (!hexColor.matches("^#[0-9A-Fa-f]{6}$")) {
-			throw new IllegalArgumentException("Invalid hexadecimal color: " + hexColor);
+	public static String calculateAge(String dateOfBirth) {
+		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
+			log("Error calculating age, dateOfBirth is null or empty", LogUtils.Severity.ERROR);
+			return "Not Available";
 		}
 		
-		int r = Integer.parseInt(hexColor.substring(1, 3), 16) + 70;
-		int g = Integer.parseInt(hexColor.substring(3, 5), 16) + 70;
-		int b = Integer.parseInt(hexColor.substring(5, 7), 16) + 70;
-		
-		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, alpha);
+		try {
+			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy");
+			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy");
+			
+			LocalDate birthDate;
+			try {
+				birthDate = LocalDate.parse(dateOfBirth, formatter1);
+			} catch (DateTimeParseException e1) {
+				try {
+					birthDate = LocalDate.parse(dateOfBirth, formatter2);
+				} catch (DateTimeParseException e2) {
+					birthDate = LocalDate.parse(dateOfBirth, formatter3);
+				}
+			}
+			
+			LocalDate currentDate = LocalDate.now();
+			if (birthDate.isAfter(currentDate)) {
+				log("Error calculating age, birthdate after current date", LogUtils.Severity.ERROR);
+				return "Not Available";
+			}
+			
+			Period age = Period.between(birthDate, currentDate);
+			return String.valueOf(age.getYears());
+		} catch (DateTimeParseException e) {
+			log("Error calculating age, improper syntax", LogUtils.Severity.ERROR);
+			return "Not Available";
+		} catch (Exception e) {
+			log("Unexpected error calculating age", LogUtils.Severity.ERROR);
+			return "Not Available";
+		}
 	}
 	
 	public static String updateStyleProperty(Node node, String property, String value) {

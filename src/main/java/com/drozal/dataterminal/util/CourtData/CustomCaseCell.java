@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server.Objects.CourtData;
+package com.drozal.dataterminal.util.CourtData;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import javafx.geometry.Insets;

@@ -127,6 +127,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiColors", "mainColor", "#524992");
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
+		
 		// Notification Settings
 		checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.7");
 		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.9");
@@ -137,6 +138,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("notificationSettings", "notificationWarnPrimary", "#FFA726");
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoTextColor", "#ffffff");
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
+		
 		// AOT (Always on Top) Settings
 		checkAndSetDefaultValue("AOTSettings", "AOTCallout", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTClient", "true");
@@ -146,6 +148,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("AOTSettings", "AOTNotes", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTReport", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTSettings", "true");
+		
 		// User Information
 		checkAndSetDefaultValue("userInfo", "Agency", "Error");
 		checkAndSetDefaultValue("userInfo", "Division", "Error");
@@ -153,19 +156,23 @@ public class ConfigReader {
 		checkAndSetDefaultValue("userInfo", "Number", "Error");
 		checkAndSetDefaultValue("userInfo", "Rank", "Error");
 		checkAndSetDefaultValue("userInfo", "Callsign", "");
+		
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
 		checkAndSetDefaultValue("misc", "IDDuration", "infinite");
 		checkAndSetDefaultValue("notepad", "notepadMode", "Light");
+		
 		// UI Settings (continued)
 		checkAndSetDefaultValue("uiSettings", "firstLogin", "false");
 		checkAndSetDefaultValue("uiSettings", "fullscreenOnStartup", "true");
+		
 		// Connection Settings
 		checkAndSetDefaultValue("connectionSettings", "serverAutoConnect", "true");
 		checkAndSetDefaultValue("connectionSettings", "lastIPV4Connection", "");
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
 		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "10000");
+		
 		// Layout Settings
 		checkAndSetDefaultValue("layout", "mainWindowLayout", "Default");
 		checkAndSetDefaultValue("layout", "notesWindowLayout", "Default");
@@ -174,12 +181,41 @@ public class ConfigReader {
 		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberNotesLocation", "true");
+		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
 		checkAndSetDefaultValue("reportSettings", "reportBackground", "#505D62");
 		checkAndSetDefaultValue("reportSettings", "reportHeading", "#FFFFFF");
 		checkAndSetDefaultValue("reportSettings", "reportSecondary", "#323C41");
 		checkAndSetDefaultValue("reportSettings", "reportWindowDarkMode", "false");
+		
+		// Ped History Settings
+		checkAndSetDefaultValue("pedHistory", "onParoleChance", "50");
+		checkAndSetDefaultValue("pedHistory", "onProbationChance", "50");
+		checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "50");
+		checkAndSetDefaultValue("pedHistory", "hasBoatingLicense", "50");
+		checkAndSetDefaultValue("pedHistory", "hasHuntingLicense", "50");
+		// Arrest
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "50");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceMinimalCharges", "30");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceFewCharges", "15");
+		checkAndSetDefaultValue("pedHistoryArrest", "chanceManyCharges", "5");
+		// Citation
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceNoCitations", "50");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceMinimalCitations", "30");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceFewCitations", "15");
+		checkAndSetDefaultValue("pedHistoryCitation", "chanceManyCitations", "5");
+		// Gun Permit
+		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "50");
+		//Type
+		checkAndSetDefaultValue("pedHistoryGunPermitType", "concealedCarryChance", "30");
+		checkAndSetDefaultValue("pedHistoryGunPermitType", "openCarryChance", "35");
+		checkAndSetDefaultValue("pedHistoryGunPermitType", "bothChance", "35");
+		//Class
+		checkAndSetDefaultValue("pedHistoryGunPermitClass", "handgunChance", "50");
+		checkAndSetDefaultValue("pedHistoryGunPermitClass", "longgunChance", "28");
+		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");
+		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

@@ -7,11 +7,11 @@ import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
+import com.drozal.dataterminal.util.CourtData.Case;
+import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
-import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
-import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.util.CourtData.CourtUtils.generateCaseNumber;
+import static com.drozal.dataterminal.util.CourtData.CourtUtils.parseCourtData;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -37,8 +39,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.arrestLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
-import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
-import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.parseCourtData;
 
 public class ArrestReportUtils {
 	

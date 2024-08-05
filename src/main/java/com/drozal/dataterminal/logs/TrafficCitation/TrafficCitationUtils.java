@@ -5,11 +5,11 @@ import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
+import com.drozal.dataterminal.util.CourtData.Case;
+import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
-import com.drozal.dataterminal.util.server.Objects.CourtData.Case;
-import com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -29,6 +29,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.util.CourtData.CourtUtils.generateCaseNumber;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -36,7 +37,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.trafficCitationLogURL
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
-import static com.drozal.dataterminal.util.server.Objects.CourtData.CourtUtils.generateCaseNumber;
 
 public class TrafficCitationUtils {
 	

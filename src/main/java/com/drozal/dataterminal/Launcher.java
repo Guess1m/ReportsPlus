@@ -35,7 +35,8 @@ public class Launcher {
 			logError("An error occurred while clearing the log file: ", e);
 		}
 		
-		deleteFiles();
+		//TODO undo
+		//deleteFiles();
 		
 		loadFonts();
 		
@@ -201,7 +202,6 @@ public class Launcher {
 	}
 	
 	private static void copyInternalFiles() {
-		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
 		File chargesFile = new File(chargesFilePath);
 		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
 		File citationsFile = new File(citationsFilePath);

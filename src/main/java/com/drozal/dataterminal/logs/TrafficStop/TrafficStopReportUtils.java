@@ -438,30 +438,4 @@ public class TrafficStopReportUtils {
 		}
 	}
 	
-	public static Optional<TrafficStopReport> findTrafficStopReportByNumber(String TrafficStopReportnumber) throws JAXBException {
-		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
-		
-		if (TrafficStopReports.getTrafficStopReportList() != null) {
-			return TrafficStopReports.getTrafficStopReportList().stream().filter(
-					e -> e.getStopNumber().equals(TrafficStopReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyTrafficStopReport(String number, TrafficStopReport updatedTrafficStopReport) throws JAXBException {
-		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
-		
-		if (TrafficStopReports.getTrafficStopReportList() != null) {
-			for (int i = 0; i < TrafficStopReports.getTrafficStopReportList().size(); i++) {
-				TrafficStopReport e = TrafficStopReports.getTrafficStopReportList().get(i);
-				if (e.getStopNumber().equals(number)) {
-					TrafficStopReports.getTrafficStopReportList().set(i, updatedTrafficStopReport);
-					saveTrafficStopReports(TrafficStopReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

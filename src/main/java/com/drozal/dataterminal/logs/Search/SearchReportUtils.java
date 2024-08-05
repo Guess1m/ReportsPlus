@@ -321,30 +321,4 @@ public class SearchReportUtils {
 		}
 	}
 	
-	public static Optional<SearchReport> findSearchReportByNumber(String SearchReportnumber) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
-		
-		if (SearchReports.getSearchReportList() != null) {
-			return SearchReports.getSearchReportList().stream().filter(
-					e -> e.getSearchNumber().equals(SearchReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifySearchReport(String number, SearchReport updatedSearchReport) throws JAXBException {
-		SearchReports SearchReports = loadSearchReports();
-		
-		if (SearchReports.getSearchReportList() != null) {
-			for (int i = 0; i < SearchReports.getSearchReportList().size(); i++) {
-				SearchReport e = SearchReports.getSearchReportList().get(i);
-				if (e.getSearchNumber().equals(number)) {
-					SearchReports.getSearchReportList().set(i, updatedSearchReport);
-					saveSearchReports(SearchReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

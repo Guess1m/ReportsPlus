@@ -285,31 +285,4 @@ public class ImpoundReportUtils {
 			log("ImpoundReport with number " + ImpoundReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
-	
-	public static Optional<ImpoundReport> findImpoundReportByNumber(String ImpoundReportnumber) throws JAXBException {
-		ImpoundReports ImpoundReports = loadImpoundReports();
-		
-		if (ImpoundReports.getImpoundReportList() != null) {
-			return ImpoundReports.getImpoundReportList().stream().filter(
-					e -> e.getImpoundNumber().equals(ImpoundReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyImpoundReport(String number, ImpoundReport updatedImpoundReport) throws JAXBException {
-		ImpoundReports ImpoundReports = loadImpoundReports();
-		
-		if (ImpoundReports.getImpoundReportList() != null) {
-			for (int i = 0; i < ImpoundReports.getImpoundReportList().size(); i++) {
-				ImpoundReport e = ImpoundReports.getImpoundReportList().get(i);
-				if (e.getImpoundNumber().equals(number)) {
-					ImpoundReports.getImpoundReportList().set(i, updatedImpoundReport);
-					saveImpoundReports(ImpoundReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

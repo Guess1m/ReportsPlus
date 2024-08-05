@@ -60,29 +60,6 @@ public class ConfigReader {
 		}
 	}
 	
-	public static boolean doesConfigValueExist(String database, String property) {
-		try {
-			Properties prop = new Properties();
-			ProtectionDomain protectionDomain = ConfigReader.class.getProtectionDomain();
-			CodeSource codeSource = protectionDomain.getCodeSource();
-			if (codeSource != null) {
-				URL jarUrl = codeSource.getLocation();
-				String jarDirPath = new File(jarUrl.toURI()).getParent();
-				try (InputStream input = new FileInputStream(jarDirPath + File.separator + "config.properties")) {
-					prop.load(input);
-					
-					return prop.containsKey(database + "." + property);
-				}
-			} else {
-				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
-				return false;
-			}
-		} catch (IOException | URISyntaxException e) {
-			log("Error reading config.properties file ", LogUtils.Severity.ERROR);
-			return false;
-		}
-	}
-	
 	public static void checkAndSetDefaultValue(String newDatabase, String property, String defaultValue) {
 		try {
 			Properties prop = new Properties();

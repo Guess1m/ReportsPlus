@@ -336,30 +336,4 @@ public class DeathReportUtils {
 		}
 	}
 	
-	public static Optional<DeathReport> findDeathReportByNumber(String DeathReportnumber) throws JAXBException {
-		DeathReports DeathReports = loadDeathReports();
-		
-		if (DeathReports.getDeathReportList() != null) {
-			return DeathReports.getDeathReportList().stream().filter(
-					e -> e.getDeathReportNumber().equals(DeathReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyDeathReport(String number, DeathReport updatedDeathReport) throws JAXBException {
-		DeathReports DeathReports = loadDeathReports();
-		
-		if (DeathReports.getDeathReportList() != null) {
-			for (int i = 0; i < DeathReports.getDeathReportList().size(); i++) {
-				DeathReport e = DeathReports.getDeathReportList().get(i);
-				if (e.getDeathReportNumber().equals(number)) {
-					DeathReports.getDeathReportList().set(i, updatedDeathReport);
-					saveDeathReports(DeathReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

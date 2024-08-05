@@ -527,30 +527,4 @@ public class ArrestReportUtils {
 		}
 	}
 	
-	public static Optional<ArrestReport> findArrestReportByNumber(String ArrestReportnumber) throws JAXBException {
-		ArrestReports ArrestReports = loadArrestReports();
-		
-		if (ArrestReports.getArrestReportList() != null) {
-			return ArrestReports.getArrestReportList().stream().filter(
-					e -> e.getArrestNumber().equals(ArrestReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyArrestReport(String number, ArrestReport updatedArrestReport) throws JAXBException {
-		ArrestReports ArrestReports = loadArrestReports();
-		
-		if (ArrestReports.getArrestReportList() != null) {
-			for (int i = 0; i < ArrestReports.getArrestReportList().size(); i++) {
-				ArrestReport e = ArrestReports.getArrestReportList().get(i);
-				if (e.getArrestNumber().equals(number)) {
-					ArrestReports.getArrestReportList().set(i, updatedArrestReport);
-					saveArrestReports(ArrestReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

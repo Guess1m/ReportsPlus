@@ -282,31 +282,4 @@ public class IncidentReportUtils {
 			log("IncidentReport with number " + IncidentReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
-	
-	public static Optional<IncidentReport> findIncidentReportByNumber(String IncidentReportnumber) throws JAXBException {
-		IncidentReports IncidentReports = loadIncidentReports();
-		
-		if (IncidentReports.getIncidentReportList() != null) {
-			return IncidentReports.getIncidentReportList().stream().filter(
-					e -> e.getIncidentNumber().equals(IncidentReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyIncidentReport(String number, IncidentReport updatedIncidentReport) throws JAXBException {
-		IncidentReports IncidentReports = loadIncidentReports();
-		
-		if (IncidentReports.getIncidentReportList() != null) {
-			for (int i = 0; i < IncidentReports.getIncidentReportList().size(); i++) {
-				IncidentReport e = IncidentReports.getIncidentReportList().get(i);
-				if (e.getIncidentNumber().equals(number)) {
-					IncidentReports.getIncidentReportList().set(i, updatedIncidentReport);
-					saveIncidentReports(IncidentReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

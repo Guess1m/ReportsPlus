@@ -255,30 +255,4 @@ public class PatrolReportUtils {
 		}
 	}
 	
-	public static Optional<PatrolReport> findPatrolReportByNumber(String PatrolReportnumber) throws JAXBException {
-		PatrolReports PatrolReports = loadPatrolReports();
-		
-		if (PatrolReports.getPatrolReportList() != null) {
-			return PatrolReports.getPatrolReportList().stream().filter(
-					e -> e.getPatrolNumber().equals(PatrolReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyPatrolReport(String number, PatrolReport updatedPatrolReport) throws JAXBException {
-		PatrolReports PatrolReports = loadPatrolReports();
-		
-		if (PatrolReports.getPatrolReportList() != null) {
-			for (int i = 0; i < PatrolReports.getPatrolReportList().size(); i++) {
-				PatrolReport e = PatrolReports.getPatrolReportList().get(i);
-				if (e.getPatrolNumber().equals(number)) {
-					PatrolReports.getPatrolReportList().set(i, updatedPatrolReport);
-					savePatrolReports(PatrolReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

@@ -261,30 +261,4 @@ public class CalloutReportUtils {
 		}
 	}
 	
-	public static Optional<CalloutReport> findCalloutReportByNumber(String CalloutReportnumber) throws JAXBException {
-		CalloutReports CalloutReports = loadCalloutReports();
-		
-		if (CalloutReports.getCalloutReportList() != null) {
-			return CalloutReports.getCalloutReportList().stream().filter(
-					e -> e.getCalloutNumber().equals(CalloutReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyCalloutReport(String number, CalloutReport updatedCalloutReport) throws JAXBException {
-		CalloutReports CalloutReports = loadCalloutReports();
-		
-		if (CalloutReports.getCalloutReportList() != null) {
-			for (int i = 0; i < CalloutReports.getCalloutReportList().size(); i++) {
-				CalloutReport e = CalloutReports.getCalloutReportList().get(i);
-				if (e.getCalloutNumber().equals(number)) {
-					CalloutReports.getCalloutReportList().set(i, updatedCalloutReport);
-					saveCalloutReports(CalloutReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

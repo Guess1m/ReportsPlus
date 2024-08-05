@@ -455,30 +455,4 @@ public class TrafficCitationUtils {
 		}
 	}
 	
-	public static Optional<TrafficCitationReport> findTrafficCitationReportByNumber(String TrafficCitationReportnumber) throws JAXBException {
-		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
-		
-		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
-			return TrafficCitationReports.getTrafficCitationReportList().stream().filter(
-					e -> e.getCitationNumber().equals(TrafficCitationReportnumber)).findFirst();
-		}
-		
-		return Optional.empty();
-	}
-	
-	public static void modifyTrafficCitationReport(String number, TrafficCitationReport updatedTrafficCitationReport) throws JAXBException {
-		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
-		
-		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
-			for (int i = 0; i < TrafficCitationReports.getTrafficCitationReportList().size(); i++) {
-				TrafficCitationReport e = TrafficCitationReports.getTrafficCitationReportList().get(i);
-				if (e.getCitationNumber().equals(number)) {
-					TrafficCitationReports.getTrafficCitationReportList().set(i, updatedTrafficCitationReport);
-					saveTrafficCitationReports(TrafficCitationReports);
-					return;
-				}
-			}
-		}
-	}
-	
 }

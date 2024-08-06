@@ -4,6 +4,7 @@ import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
+import com.drozal.dataterminal.newOfficerController;
 import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -15,6 +16,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -23,10 +25,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.actionController.notesViewController;
@@ -294,6 +293,24 @@ public class TrafficCitationUtils {
                 NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
                 NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.", mainRT);
                 log("Could not create court case from citation because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
+            }
+
+            actionController controllerVar = null;
+            if (controller != null) {
+                controllerVar = controller;
+            } else if (newOfficerController.controller != null) {
+                controllerVar = newOfficerController.controller;
+            } else {
+                log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+            }
+            if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
+                if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                    try {
+                        controllerVar.onPedSearchBtnClick(new ActionEvent());
+                    } catch (IOException e) {
+                        logError("Error searching name to update ped lookup from citationReport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                    }
+                }
             }
 
             actionController.needRefresh.set(1);

@@ -6,6 +6,7 @@ import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
 import com.drozal.dataterminal.logs.Incident.IncidentReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
+import com.drozal.dataterminal.newOfficerController;
 import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -17,6 +18,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -25,9 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.actionController.notesViewController;
@@ -360,6 +360,24 @@ public class ArrestReportUtils {
                 log("Could not create court case from arrest because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
             }
 
+            actionController controllerVar = null;
+            if (controller != null) {
+                controllerVar = controller;
+            } else if (newOfficerController.controller != null) {
+                controllerVar = newOfficerController.controller;
+            } else {
+                log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+            }
+            if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
+                if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                    try {
+                        controllerVar.onPedSearchBtnClick(new ActionEvent());
+                    } catch (IOException e) {
+                        logError("Error searching name to update ped lookup from arrestreport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                    }
+                }
+            }
+
             actionController.needRefresh.set(1);
             updateChartIfMismatch(reportChart);
             refreshChart(areaReportChart, "area");
@@ -399,7 +417,7 @@ public class ArrestReportUtils {
         ArrestReports ArrestReports = loadArrestReports();
 
         if (ArrestReports.getArrestReportList() == null) {
-            ArrestReports.setArrestReportList(new java.util.ArrayList<>());
+            ArrestReports.setArrestReportList(new ArrayList<>());
         }
 
         Optional<ArrestReport> existingReport = ArrestReports.getArrestReportList().stream().filter(e -> e.getArrestNumber().equals(ArrestReport.getArrestNumber())).findFirst();

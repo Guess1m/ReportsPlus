@@ -1,41 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground" stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="115.0">
@@ -1032,7 +1006,12 @@
                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                     </font>
                                                 </Label>
-                                    <Button layoutX="148.0" layoutY="34.0" mnemonicParsing="false" onAction="#pedupdatedesc" style="-fx-background-color: rgb(0,0,0,0.1);" text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                                                <Button layoutX="148.0" layoutY="34.0" mnemonicParsing="false"
+                                                        onAction="#pedupdatedesc" opacity="0.73"
+                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                        styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                                                        text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0"
+                                                        AnchorPane.topAnchor="34.0">
                                        <font>
                                           <Font name="Segoe UI" size="12.0" />
                                        </font>
@@ -1137,6 +1116,16 @@
                                                     </font>
                                                 </Label>
                                                 <ListView fx:id="pedarrestpriorslistview" layoutX="76.0" layoutY="55.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                                <Button layoutX="282.0" layoutY="-5.0" mnemonicParsing="false"
+                                                        onAction="#pedCreateArrestReport" opacity="0.73"
+                                                        prefHeight="25.0" style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                        styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                                                        text="Create New Arrest" textOverrun="CLIP"
+                                                        AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="-5.0">
+                                                    <font>
+                                                        <Font name="Segoe UI" size="12.0"/>
+                                                    </font>
+                                                </Button>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
@@ -1147,6 +1136,16 @@
                                                     </font>
                                                 </Label>
                                                 <ListView fx:id="pedcitationpriorslistview" layoutX="137.0" layoutY="18.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                                <Button layoutX="265.0" layoutY="1.0" mnemonicParsing="false"
+                                                        onAction="#pedCreateCitationReport" opacity="0.73"
+                                                        prefHeight="25.0" style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                        styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                                                        text="Create New Citation" textOverrun="CLIP"
+                                                        AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="-5.0">
+                                                    <font>
+                                                        <Font name="Segoe UI" size="12.0"/>
+                                                    </font>
+                                                </Button>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="3">
@@ -1166,7 +1165,12 @@
                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                     </font>
                                                 </Label>
-                                    <Button layoutX="149.0" layoutY="34.0" mnemonicParsing="false" onAction="#pedupdatealias" style="-fx-background-color: rgb(0,0,0,0.1);" text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                                                <Button layoutX="149.0" layoutY="34.0" mnemonicParsing="false"
+                                                        onAction="#pedupdatealias" opacity="0.73"
+                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                        styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                                                        text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0"
+                                                        AnchorPane.topAnchor="34.0">
                                        <font>
                                           <Font name="Segoe UI" size="12.0" />
                                        </font>
@@ -1209,7 +1213,12 @@
                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                     </font>
                                                 </Label>
-                                    <Button layoutX="147.0" layoutY="26.0" mnemonicParsing="false" onAction="#pedupdateafil" style="-fx-background-color: rgb(0,0,0,0.1);" text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                                                <Button layoutX="147.0" layoutY="26.0" mnemonicParsing="false"
+                                                        onAction="#pedupdateafil" opacity="0.73"
+                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                        styleClass="incidentbtn" stylesheets="@css/menu/menuStyles.css"
+                                                        text="Update" textOverrun="CLIP" AnchorPane.rightAnchor="0.0"
+                                                        AnchorPane.topAnchor="34.0">
                                        <font>
                                           <Font name="Segoe UI" size="12.0" />
                                        </font>

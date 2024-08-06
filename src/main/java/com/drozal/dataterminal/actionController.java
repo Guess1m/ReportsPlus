@@ -1377,6 +1377,58 @@ public class actionController {
         }
     }
 
+    @FXML
+    public void pedCreateCitationReport(ActionEvent actionEvent) {
+        String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+        String age = calculateAge(peddobfield.getText().trim());
+        String gender = pedgenfield.getText().trim();
+        String address = pedaddressfield.getText().trim();
+        String desc = peddescfield.getText().trim();
+
+        Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart());
+
+        Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
+
+        TextField offenderName = (TextField) citationReportMap.get("offender name");
+        TextField offenderAge = (TextField) citationReportMap.get("offender age");
+        TextField offenderGender = (TextField) citationReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) citationReportMap.get("offender address");
+        TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+
+        offenderName.setText(name);
+        offenderAge.setText(age);
+        offenderGender.setText(gender);
+        offenderAddress.setText(address);
+        if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty())
+            offenderDescription.setText(desc);
+    }
+
+    @FXML
+    public void pedCreateArrestReport(ActionEvent actionEvent) {
+        String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+        String age = calculateAge(peddobfield.getText().trim());
+        String gender = pedgenfield.getText().trim();
+        String address = pedaddressfield.getText().trim();
+        String desc = peddescfield.getText().trim();
+
+        Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart);
+
+        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
+
+        TextField offenderName = (TextField) arrestReportMap.get("offender name");
+        TextField offenderAge = (TextField) arrestReportMap.get("offender age");
+        TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
+        TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+
+        offenderName.setText(name);
+        offenderAge.setText(age);
+        offenderGender.setText(gender);
+        offenderAddress.setText(address);
+        if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty())
+            offenderDescription.setText(desc);
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Utils">

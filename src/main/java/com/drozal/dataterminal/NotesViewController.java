@@ -92,8 +92,7 @@ public class NotesViewController {
 			}
 			
 		} else {
-			notepadTextArea.setStyle(
-					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 		}
 		
@@ -111,8 +110,7 @@ public class NotesViewController {
 	public void onDarkModeToggle() throws IOException {
 		if (ConfigReader.configRead("notepad", "notepadMode").equals("Light")) {
 			ConfigWriter.configwrite("notepad", "notepadMode", "Dark");
-			notepadTextArea.setStyle(
-					"-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: white; -fx-background-radius: 0; -fx-border-radius: 0;");
 			codeSelectionPane.setStyle("-fx-background-color: gray;");
 			codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
@@ -120,8 +118,7 @@ public class NotesViewController {
 			codeSelectionlbl.setStyle("-fx-text-fill: #e2e2e2;");
 		} else if (ConfigReader.configRead("notepad", "notepadMode").equals("Dark")) {
 			ConfigWriter.configwrite("notepad", "notepadMode", "Light");
-			notepadTextArea.setStyle(
-					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 			codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
 			codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
@@ -169,8 +166,7 @@ public class NotesViewController {
 			KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
 			KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
 			KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 			
 			timeline.getKeyFrames().add(keyFrame);
 			
@@ -185,8 +181,7 @@ public class NotesViewController {
 			KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
 			KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
 			KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 			
 			timeline.getKeyFrames().add(keyFrame);
 			

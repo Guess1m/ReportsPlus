@@ -48,77 +48,7 @@ public class ImpoundReportUtils {
 	}
 	
 	public static Map<String, Object> impoundLayout() {
-		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Officer Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("name",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("rank",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "number", 2,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "division", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "agency", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Location / Timestamp Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("date",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("time",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "citation number", 2,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Offender Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "offender name", 4,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "offender age", 4,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "offender gender", 4,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "offender address", 12,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Offender Vehicle Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "model", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "plate number", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("type",
-						                                                                                         7,
-						                                                                                         nestedReportUtils.FieldType.COMBO_BOX_TYPE),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "color", 5,
-								                                                       nestedReportUtils.FieldType.COMBO_BOX_COLOR))),
-		                                                       new nestedReportUtils.SectionConfig("Citation Notes",
-		                                                                                           true,
-		                                                                                           new nestedReportUtils.RowConfig(
-				                                                                                           new nestedReportUtils.FieldConfig(
-						                                                                                           "notes",
-						                                                                                           12,
-						                                                                                           nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null, new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location / Timestamp Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("citation number", 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender name", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender age", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender gender", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender address", 12, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Vehicle Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("model", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("plate number", 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("type", 7, nestedReportUtils.FieldType.COMBO_BOX_TYPE), new nestedReportUtils.FieldConfig("color", 5, nestedReportUtils.FieldType.COMBO_BOX_COLOR))), new nestedReportUtils.SectionConfig("Citation Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return impoundReport;
 	}
 	
@@ -222,8 +152,7 @@ public class ImpoundReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
 			stage.close();
 		});
 		return impoundReport;
@@ -261,8 +190,11 @@ public class ImpoundReportUtils {
 			ImpoundReports.setImpoundReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<ImpoundReport> existingReport = ImpoundReports.getImpoundReportList().stream().filter(
-				e -> e.getImpoundNumber().equals(ImpoundReport.getImpoundNumber())).findFirst();
+		Optional<ImpoundReport> existingReport = ImpoundReports.getImpoundReportList()
+		                                                       .stream()
+		                                                       .filter(e -> e.getImpoundNumber()
+		                                                                     .equals(ImpoundReport.getImpoundNumber()))
+		                                                       .findFirst();
 		
 		if (existingReport.isPresent()) {
 			ImpoundReports.getImpoundReportList().remove(existingReport.get());

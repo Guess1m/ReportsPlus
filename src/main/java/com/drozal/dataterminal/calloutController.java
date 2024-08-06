@@ -173,17 +173,15 @@ public class calloutController {
 			
 			CalloutStage.setOnHidden(windowEvent -> {
 				log("Added Callout To Active", LogUtils.Severity.INFO);
-				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
-				                          priorityField.getText(), streetField.getText(), areaField.getText(),
-				                          countyField.getText(), timeField.getText(), dateField.getText(), status);
+				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
 				
 				Calloutx = CalloutStage.getX();
 				Callouty = CalloutStage.getY();
-				CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(),
-				                                              CalloutStage.getHeight()).stream().findFirst().orElse(
-						null);
-				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
-				    LogUtils.Severity.DEBUG);
+				CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(), CalloutStage.getHeight())
+				                      .stream()
+				                      .findFirst()
+				                      .orElse(null);
+				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty, LogUtils.Severity.DEBUG);
 				CalloutFirstShown = false;
 				CalloutStage.close();
 				CalloutStage = null;

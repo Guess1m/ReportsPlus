@@ -242,8 +242,8 @@ public class settingsController {
 		
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
-		controllerVar.getServerStatusLabel().setStyle(
-				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
+		controllerVar.getServerStatusLabel()
+		             .setStyle("-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 		controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 		controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
@@ -281,15 +281,15 @@ public class settingsController {
 		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
 		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
 		
-		controllerVar.getCalActiveList().setStyle(
-				updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
-		controllerVar.getCalHistoryList().setStyle(
-				updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
+		controllerVar.getCalActiveList()
+		             .setStyle(updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
+		controllerVar.getCalHistoryList()
+		             .setStyle(updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
 		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
+		controllerVar.getActivecalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
+		controllerVar.getCalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String initialStyle = "-fx-background-color: transparent;";
@@ -297,31 +297,32 @@ public class settingsController {
 		controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
 		controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
 		controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
-		controllerVar.getSettingsBtn().setOnMouseEntered(
-				e -> controllerVar.getSettingsBtn().setStyle("-fx-background-color: " + secclr + ";"));
+		controllerVar.getSettingsBtn()
+		             .setOnMouseEntered(e -> controllerVar.getSettingsBtn()
+		                                                  .setStyle("-fx-background-color: " + secclr + ";"));
 		controllerVar.getSettingsBtn().setOnMouseExited(e -> controllerVar.getSettingsBtn().setStyle(initialStyle));
 		controllerVar.notesButton.setOnMouseEntered(e -> controllerVar.notesButton.setStyle(hoverStyle));
 		controllerVar.notesButton.setOnMouseExited(e -> controllerVar.notesButton.setStyle(initialStyle));
-		controllerVar.getCreateReportBtn().setOnMouseEntered(
-				e -> controllerVar.getCreateReportBtn().setStyle(hoverStyle));
-		controllerVar.getCreateReportBtn().setOnMouseExited(
-				e -> controllerVar.getCreateReportBtn().setStyle(initialStyle));
+		controllerVar.getCreateReportBtn()
+		             .setOnMouseEntered(e -> controllerVar.getCreateReportBtn().setStyle(hoverStyle));
+		controllerVar.getCreateReportBtn()
+		             .setOnMouseExited(e -> controllerVar.getCreateReportBtn().setStyle(initialStyle));
 		controllerVar.getLogsButton().setOnMouseEntered(e -> controllerVar.getLogsButton().setStyle(hoverStyle));
 		controllerVar.getLogsButton().setOnMouseExited(e -> controllerVar.getLogsButton().setStyle(initialStyle));
 		controllerVar.getMapButton().setOnMouseEntered(e -> controllerVar.getMapButton().setStyle(hoverStyle));
 		controllerVar.getMapButton().setOnMouseExited(e -> controllerVar.getMapButton().setStyle(initialStyle));
 		controllerVar.getShowIDBtn().setOnMouseEntered(e -> controllerVar.getShowIDBtn().setStyle(hoverStyle));
 		controllerVar.getShowIDBtn().setOnMouseExited(e -> controllerVar.getShowIDBtn().setStyle(initialStyle));
-		controllerVar.getShowCalloutBtn().setOnMouseEntered(
-				e -> controllerVar.getShowCalloutBtn().setStyle(hoverStyle));
-		controllerVar.getShowCalloutBtn().setOnMouseExited(
-				e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
+		controllerVar.getShowCalloutBtn()
+		             .setOnMouseEntered(e -> controllerVar.getShowCalloutBtn().setStyle(hoverStyle));
+		controllerVar.getShowCalloutBtn()
+		             .setOnMouseExited(e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
 		controllerVar.getLookupBtn().setOnMouseEntered(e -> controllerVar.getLookupBtn().setStyle(hoverStyle));
 		controllerVar.getLookupBtn().setOnMouseExited(e -> controllerVar.getLookupBtn().setStyle(initialStyle));
-		controllerVar.getShowCourtCasesBtn().setOnMouseEntered(
-				e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
-		controllerVar.getShowCourtCasesBtn().setOnMouseExited(
-				e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
+		controllerVar.getShowCourtCasesBtn()
+		             .setOnMouseEntered(e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
+		controllerVar.getShowCourtCasesBtn()
+		             .setOnMouseExited(e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
 		
 		controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
 		controllerVar.updateInfoBtn.setOnMouseExited(e -> {
@@ -329,11 +330,11 @@ public class settingsController {
 		});
 		
 		if (isConnected) {
-			controllerVar.getServerStatusLabel().setStyle(
-					"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			controllerVar.getServerStatusLabel()
+			             .setStyle("-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		} else {
-			controllerVar.getServerStatusLabel().setStyle(
-					"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			controllerVar.getServerStatusLabel()
+			             .setStyle("-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
 		}
 		
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
@@ -342,8 +343,8 @@ public class settingsController {
 			addLightStyles();
 		}
 		
-		controllerVar.getServerStatusLabel().setStyle(
-				updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
+		controllerVar.getServerStatusLabel()
+		             .setStyle(updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 	}
 	
 	private static void addDarkStyles() {
@@ -356,7 +357,6 @@ public class settingsController {
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -388,10 +388,10 @@ public class settingsController {
 		controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
+		controllerVar.getActivecalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
+		controllerVar.getCalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
@@ -435,7 +435,6 @@ public class settingsController {
 		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPedrecordnamefield().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -467,10 +466,10 @@ public class settingsController {
 		controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
+		controllerVar.getActivecalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
+		controllerVar.getCalfill()
+		             .setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
 		
 		controllerVar.getAreaReportChart().getStyleClass().clear();
 		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");
@@ -527,17 +526,17 @@ public class settingsController {
 		
 		root.setTop(topBar);
 		
-		startupFullscreenCheckbox.setSelected(
-				ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
-		serverAutoconnectCheckbox.setSelected(
-				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
-		saveCalloutLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
-		saveReportLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
+		startupFullscreenCheckbox.setSelected(ConfigReader.configRead("uiSettings", "fullscreenOnStartup")
+		                                                  .equals("true"));
+		serverAutoconnectCheckbox.setSelected(ConfigReader.configRead("connectionSettings", "serverAutoConnect")
+		                                                  .equals("true"));
+		saveCalloutLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberCalloutLocation")
+		                                                    .equals("true"));
+		saveReportLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberReportLocation")
+		                                                   .equals("true"));
 		saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
-		saveNotesLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
+		saveNotesLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberNotesLocation")
+		                                                  .equals("true"));
 		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
@@ -1057,14 +1056,12 @@ public class settingsController {
 				case "Information" -> {
 					selectedNotification.set("Information");
 					try {
-						notiTextColorPicker.setValue(Color.valueOf(
-								ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+						notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
 					try {
-						notiPrimPicker.setValue(Color.valueOf(
-								ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+						notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
@@ -1072,14 +1069,12 @@ public class settingsController {
 				case "Warning" -> {
 					selectedNotification.set("Warning");
 					try {
-						notiTextColorPicker.setValue(Color.valueOf(
-								ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+						notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
 					try {
-						notiPrimPicker.setValue(Color.valueOf(
-								ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+						notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
@@ -1163,10 +1158,8 @@ public class settingsController {
 				event.consume();
 			}
 		});
-		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
-		                                                                   notiFadeOutDurField.getText()));
-		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
-		                                                                      notiDisplayDurField.getText()));
+		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration", notiFadeOutDurField.getText()));
+		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration", notiDisplayDurField.getText()));
 		
 		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			Color selectedColor = newValue;
@@ -1194,14 +1187,10 @@ public class settingsController {
 			
 			previewNotificationBtn.setOnAction(actionEvent -> {
 				if (selectedNotification.get().equals("Information")) {
-					NotificationManager.showNotificationInfo("Sample Info Notification",
-					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                         mainRT);
+					NotificationManager.showNotificationInfo("Sample Info Notification", "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
 				}
 				if (selectedNotification.get().equals("Warning")) {
-					NotificationManager.showNotificationWarning("Sample Warning Notification",
-					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                            mainRT);
+					NotificationManager.showNotificationWarning("Sample Warning Notification", "Lorum ipsum dolor sit amet, consectetur adipiscing elit.", mainRT);
 				}
 			});
 		});
@@ -1237,8 +1226,7 @@ public class settingsController {
 		addTooltip(tt7, "Report TextField Color");
 		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
 		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
-		addTooltip(tt10,
-		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		addTooltip(tt10, "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
 		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
 		
 		addTooltip(tt16, "Notification Type to be Modified");
@@ -1339,9 +1327,7 @@ public class settingsController {
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			
-			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
-					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
-					"#cccccc")) {
+			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase("#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase("#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
@@ -1365,15 +1351,11 @@ public class settingsController {
 			secPickerReport.setValue(reportSecondary);
 			
 			if (selectedNotification.get().equals("Information")) {
-				notiTextColorPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
-				notiPrimPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+				notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+				notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
 			} else {
-				notiTextColorPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
-				notiPrimPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+				notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+				notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
 			}
 			
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
@@ -1390,8 +1372,7 @@ public class settingsController {
 			
 			try {
 				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
-				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
-				                                                                              "accentColor") + ";";
+				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
 				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
 				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
 				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));

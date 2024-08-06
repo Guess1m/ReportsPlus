@@ -91,8 +91,7 @@ public class ClientController {
 		Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
 		helpDialog.setTitle("Help");
 		helpDialog.setHeaderText("How To Use The Client");
-		helpDialog.setContentText(
-				"1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.\n\n" + "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.\n\n" + "3. The top right field is the internal IP of the server the client is connected to.\n\n" + "4. The bottom right field is the port of the established connection.\n\n");
+		helpDialog.setContentText("1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.\n\n" + "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.\n\n" + "3. The top right field is the internal IP of the server the client is connected to.\n\n" + "4. The bottom right field is the port of the established connection.\n\n");
 		
 		helpDialog.initOwner(owner);
 		helpDialog.initModality(Modality.APPLICATION_MODAL);

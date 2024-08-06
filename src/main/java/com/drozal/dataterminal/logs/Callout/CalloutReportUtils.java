@@ -51,64 +51,7 @@ public class CalloutReportUtils {
 	}
 	
 	public static Map<String, Object> calloutLayout() {
-		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Officer Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("name",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("rank",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "number", 2,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "division", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "agency", 6,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Location Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "street", 5,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("area",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.COMBO_BOX_AREA),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "county", 3,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig(
-				                                                       "Callout Information", true,
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("date",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("time",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                       new nestedReportUtils.RowConfig(
-						                                                       new nestedReportUtils.FieldConfig("type",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig("code",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "calloutnumber", 4,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                       new nestedReportUtils.SectionConfig("Callout Notes",
-		                                                                                           true,
-		                                                                                           new nestedReportUtils.RowConfig(
-				                                                                                           new nestedReportUtils.FieldConfig(
-						                                                                                           "notes",
-						                                                                                           12,
-						                                                                                           nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null, new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("street", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("area", 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig("county", 3, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Callout Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("type", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("code", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("calloutnumber", 4, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Callout Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return calloutReport;
 	}
 	
@@ -196,8 +139,7 @@ public class CalloutReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
 			Stage rootstage = (Stage) root.getScene().getWindow();
 			rootstage.close();
 		});
@@ -236,8 +178,11 @@ public class CalloutReportUtils {
 			CalloutReports.setCalloutReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<CalloutReport> existingReport = CalloutReports.getCalloutReportList().stream().filter(
-				e -> e.getCalloutNumber().equals(CalloutReport.getCalloutNumber())).findFirst();
+		Optional<CalloutReport> existingReport = CalloutReports.getCalloutReportList()
+		                                                       .stream()
+		                                                       .filter(e -> e.getCalloutNumber()
+		                                                                     .equals(CalloutReport.getCalloutNumber()))
+		                                                       .findFirst();
 		
 		if (existingReport.isPresent()) {
 			CalloutReports.getCalloutReportList().remove(existingReport.get());

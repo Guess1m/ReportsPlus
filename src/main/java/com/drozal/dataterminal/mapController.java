@@ -59,8 +59,10 @@ public class mapController {
 		
 		double f = newScale / currentScaleX - 1;
 		
-		double dx = mouseX - (losSantosMap.getBoundsInParent().getWidth() / 2 + losSantosMap.getBoundsInParent().getMinX());
-		double dy = mouseY - (losSantosMap.getBoundsInParent().getHeight() / 2 + losSantosMap.getBoundsInParent().getMinY());
+		double dx = mouseX - (losSantosMap.getBoundsInParent().getWidth() / 2 + losSantosMap.getBoundsInParent()
+		                                                                                    .getMinX());
+		double dy = mouseY - (losSantosMap.getBoundsInParent().getHeight() / 2 + losSantosMap.getBoundsInParent()
+		                                                                                     .getMinY());
 		
 		losSantosMap.setScaleX(newScale);
 		losSantosMap.setScaleY(newScale);

@@ -42,7 +42,8 @@ public class TrafficCitationUtils {
 	
 	public static int countReports() {
 		try {
-			List<TrafficCitationReport> logs = TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList();
+			List<TrafficCitationReport> logs = TrafficCitationUtils.loadTrafficCitationReports()
+			                                                       .getTrafficCitationReportList();
 			
 			if (logs == null) {
 				return 0;
@@ -56,103 +57,7 @@ public class TrafficCitationUtils {
 	}
 	
 	public static Map<String, Object> citationLayout() {
-		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
-		                                                        new nestedReportUtils.TransferConfig(
-				                                                        "Transfer Information To New Report",
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "transferimpoundbtn", 12,
-								                                                        nestedReportUtils.FieldType.TRANSFER_BUTTON))),
-		                                                        new nestedReportUtils.SectionConfig(
-				                                                        "Officer Information", true,
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "name", 5,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "rank", 5,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "number", 2,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "division", 6,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "agency", 6,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig(
-				                                                        "Location / Timestamp Information", true,
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "street", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "area", 4,
-								                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "county", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "date", 5,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "time", 5,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "citation number", 2,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig(
-				                                                        "Offender Information", true,
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "offender name", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "offender age", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "offender gender", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "offender address", 6,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "offender description", 6,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig(
-				                                                        "(If Applicable) Offender Vehicle Information",
-				                                                        false, new nestedReportUtils.RowConfig(
-				                                                        new nestedReportUtils.FieldConfig("model", 4,
-				                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                        new nestedReportUtils.FieldConfig(
-						                                                        "plate number", 4,
-						                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                        new nestedReportUtils.FieldConfig("color", 4,
-				                                                                                          nestedReportUtils.FieldType.COMBO_BOX_COLOR)),
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "type", 4,
-								                                                        nestedReportUtils.FieldType.COMBO_BOX_TYPE),
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "other info", 8,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                        new nestedReportUtils.SectionConfig("Citation Notes",
-		                                                                                            true,
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig(
-						                                                                                            "notes",
-						                                                                                            12,
-						                                                                                            nestedReportUtils.FieldType.TEXT_AREA))),
-		                                                        new nestedReportUtils.SectionConfig("Citation(s)", true,
-		                                                                                            new nestedReportUtils.RowConfig(
-				                                                                                            new nestedReportUtils.FieldConfig(
-						                                                                                            "citationview",
-						                                                                                            6,
-						                                                                                            nestedReportUtils.FieldType.CITATION_TREE_VIEW))));
+		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9, new nestedReportUtils.TransferConfig("Transfer Information To New Report", new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("transferimpoundbtn", 12, nestedReportUtils.FieldType.TRANSFER_BUTTON))), new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location / Timestamp Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("street", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("area", 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig("county", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("citation number", 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender name", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender age", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender gender", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender address", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender description", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("(If Applicable) Offender Vehicle Information", false, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("model", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("plate number", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("color", 4, nestedReportUtils.FieldType.COMBO_BOX_COLOR)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("type", 4, nestedReportUtils.FieldType.COMBO_BOX_TYPE), new nestedReportUtils.FieldConfig("other info", 8, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Citation Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))), new nestedReportUtils.SectionConfig("Citation(s)", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("citationview", 6, nestedReportUtils.FieldType.CITATION_TREE_VIEW))));
 		return citationReport;
 	}
 	
@@ -233,8 +138,7 @@ public class TrafficCitationUtils {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
-			                                                                     notesViewController);
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
@@ -346,7 +250,8 @@ public class TrafficCitationUtils {
 				logError("Could not create TrafficCitationReport: ", e);
 			}
 			
-			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString()
+			                                                                                         .isEmpty() && stringBuilder.toString() != null) {
 				Case case1 = new Case();
 				String casenum = generateCaseNumber();
 				case1.setCaseNumber(casenum);
@@ -370,20 +275,13 @@ public class TrafficCitationUtils {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				NotificationManager.showNotificationInfo("Report Manager",
-				                                         "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(),
-				                                         mainRT);
-				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(),
-				    LogUtils.Severity.INFO);
+				NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
+				log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
 				actionController.needCourtRefresh.set(1);
 			} else {
-				NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.",
-				                                         mainRT);
-				NotificationManager.showNotificationWarning("Report Manager",
-				                                            "Could not create court case from citation because either name or offences field(s) were empty.",
-				                                            mainRT);
-				log("Could not create court case from citation because either name or offences field(s) were empty.",
-				    LogUtils.Severity.ERROR);
+				NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
+				NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.", mainRT);
+				log("Could not create court case from citation because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
 			}
 			
 			actionController.needRefresh.set(1);
@@ -426,18 +324,19 @@ public class TrafficCitationUtils {
 			TrafficCitationReports.setTrafficCitationReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<TrafficCitationReport> existingReport = TrafficCitationReports.getTrafficCitationReportList().stream().filter(
-				e -> e.getCitationNumber().equals(TrafficCitationReport.getCitationNumber())).findFirst();
+		Optional<TrafficCitationReport> existingReport = TrafficCitationReports.getTrafficCitationReportList()
+		                                                                       .stream()
+		                                                                       .filter(e -> e.getCitationNumber()
+		                                                                                     .equals(TrafficCitationReport.getCitationNumber()))
+		                                                                       .findFirst();
 		
 		if (existingReport.isPresent()) {
 			TrafficCitationReports.getTrafficCitationReportList().remove(existingReport.get());
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.",
-			    LogUtils.Severity.INFO);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.",
-			    LogUtils.Severity.INFO);
+			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.", LogUtils.Severity.INFO);
 		}
 		
 		saveTrafficCitationReports(TrafficCitationReports);
@@ -447,11 +346,10 @@ public class TrafficCitationUtils {
 		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
 		
 		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
-			TrafficCitationReports.getTrafficCitationReportList().removeIf(
-					e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
+			TrafficCitationReports.getTrafficCitationReportList()
+			                      .removeIf(e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
 			saveTrafficCitationReports(TrafficCitationReports);
-			log("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.",
-			    LogUtils.Severity.INFO);
+			log("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 	

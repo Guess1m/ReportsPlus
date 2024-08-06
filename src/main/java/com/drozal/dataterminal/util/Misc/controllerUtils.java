@@ -71,8 +71,9 @@ public class controllerUtils {
 			for (String word : words) {
 				if (word.length() > 0) {
 					String lowerCasedWord = word.toLowerCase();
-					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(
-							lowerCasedWord.substring(1)).append(" ");
+					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0)))
+					          .append(lowerCasedWord.substring(1))
+					          .append(" ");
 				}
 			}
 			return titleCased.toString().trim();
@@ -94,8 +95,7 @@ public class controllerUtils {
 	public static void addTooltip(Node node, String text) {
 		Tooltip tooltip = new Tooltip(text);
 		tooltip.setShowDelay(Duration.seconds(0.3));
-		tooltip.setStyle(
-				"-fx-background-color: rgb(50,50,50,0.6); -fx-font-family: Segoe UI Semibold; -fx-text-fill: rgb(255,255,255);");
+		tooltip.setStyle("-fx-background-color: rgb(50,50,50,0.6); -fx-font-family: Segoe UI Semibold; -fx-text-fill: rgb(255,255,255);");
 		Tooltip.install(node, tooltip);
 	}
 	
@@ -155,7 +155,11 @@ public class controllerUtils {
 	public static String getJarDirectoryPath() {
 		try {
 			
-			String jarPath = actionController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			String jarPath = actionController.class.getProtectionDomain()
+			                                       .getCodeSource()
+			                                       .getLocation()
+			                                       .toURI()
+			                                       .getPath();
 			
 			return new File(jarPath).getParent();
 		} catch (Exception e) {
@@ -245,9 +249,13 @@ public class controllerUtils {
 		Label label = new Label(message);
 		
 		VBox vbox1 = new VBox(label);
-		vbox1.setAlignment(Pos.CENTER);
-		Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(
-				Pos.TOP_CENTER).hideAfter(Duration.seconds(1.15)).owner(owner);
+		vbox1.setAlignment(Pos.CENTER); Notifications noti = Notifications.create()
+		                                                                  .title(title)
+		                                                                  .text(message)
+		                                                                  .graphic(null)
+		                                                                  .position(Pos.TOP_CENTER)
+		                                                                  .hideAfter(Duration.seconds(1.15))
+		                                                                  .owner(owner);
 		noti.show();
 		noti.getStyleClass().add("notification-pane");
 	}
@@ -304,9 +312,7 @@ public class controllerUtils {
 				
 				Node node = data.getNode();
 				
-				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("uiColors",
-				                                                         "accentColor") + "; -fx-border-color: " + ConfigReader.configRead(
-						"uiColors", "secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
+				node.setStyle("-fx-bar-fill: " + ConfigReader.configRead("uiColors", "accentColor") + "; -fx-border-color: " + ConfigReader.configRead("uiColors", "secondaryColor") + "; -fx-border-width: 2.5 2.5 0.5 2.5");
 			}
 		}
 	}
@@ -327,8 +333,7 @@ public class controllerUtils {
 	}
 	
 	public static String toHexString(Color color) {
-		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255),
-		                     (int) (color.getBlue() * 255));
+		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
 	}
 	
 	public static void updateChartIfMismatch(BarChart<String, Number> chart) {
@@ -486,8 +491,7 @@ public class controllerUtils {
 		dialog.setTitle("Confirm Action");
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		
-		Label messageLabel = new Label(
-				"Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
+		Label messageLabel = new Label("Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
 		Button yesButton = new Button("Yes");
 		yesButton.setOnAction(e -> {
 			dialog.setResult(true);

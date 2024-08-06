@@ -28,7 +28,8 @@ public class ConfigWriter {
 			
 			input = new FileInputStream(configFilePath);
 			prop.load(input);
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException |
+		         URISyntaxException e) {
 			logError("ConfigWrite Error Code 1 ", e);
 		} finally {
 			if (input != null) {

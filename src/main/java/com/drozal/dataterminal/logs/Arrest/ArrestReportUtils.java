@@ -58,109 +58,7 @@ public class ArrestReportUtils {
 	}
 	
 	public static Map<String, Object> arrestLayout() {
-		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,
-		                                                      new nestedReportUtils.TransferConfig(
-				                                                      "Transfer Information To New Report",
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transferimpoundbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transferincidentbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transfersearchbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON))),
-		                                                      new nestedReportUtils.SectionConfig("Officer Information",
-		                                                                                          true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "name",
-						                                                                                          5,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "rank",
-						                                                                                          5,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "number",
-						                                                                                          2,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "division",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "agency",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(
-				                                                      "Location / Timestamp Information", true,
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "street", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig("area",
-						                                                                                        4,
-						                                                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "county", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig("date",
-						                                                                                        5,
-						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig("time",
-						                                                                                        5,
-						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "arrest number", 2,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(
-				                                                      "Offender Information", true,
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "offender name", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "offender age", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "offender gender", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "offender address", 6,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "offender description", 6,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(
-				                                                      "(If Applicable) Offender Medical Information",
-				                                                      false, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig(
-						                                                      "ambulance required (Y/N)", 6,
-						                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig(
-						                                                      "taser deployed (Y/N)", 6,
-						                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "other information", 12,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Charge Notes", true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "notes",
-						                                                                                          12,
-						                                                                                          nestedReportUtils.FieldType.TEXT_AREA))),
-		                                                      new nestedReportUtils.SectionConfig("Charge(s)", true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "chargeview",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.CHARGES_TREE_VIEW))));
+		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9, new nestedReportUtils.TransferConfig("Transfer Information To New Report", new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("transferimpoundbtn", 4, nestedReportUtils.FieldType.TRANSFER_BUTTON), new nestedReportUtils.FieldConfig("transferincidentbtn", 4, nestedReportUtils.FieldType.TRANSFER_BUTTON), new nestedReportUtils.FieldConfig("transfersearchbtn", 4, nestedReportUtils.FieldType.TRANSFER_BUTTON))), new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location / Timestamp Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("street", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("area", 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig("county", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("arrest number", 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender name", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender age", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender gender", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender address", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender description", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("(If Applicable) Offender Medical Information", false, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("ambulance required (Y/N)", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("taser deployed (Y/N)", 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("other information", 12, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Charge Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))), new nestedReportUtils.SectionConfig("Charge(s)", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("chargeview", 6, nestedReportUtils.FieldType.CHARGES_TREE_VIEW))));
 		return arrestReport;
 	}
 	
@@ -241,8 +139,7 @@ public class ArrestReportUtils {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart,
-			                                                                     notesViewController);
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
@@ -279,8 +176,7 @@ public class ArrestReportUtils {
 		});
 		
 		transferincidentbtn.setOnAction(event -> {
-			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart,
-			                                                                        notesViewController);
+			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 			
@@ -316,8 +212,7 @@ public class ArrestReportUtils {
 		});
 		
 		transfersearchbtn.setOnAction(event -> {
-			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart,
-			                                                                  notesViewController);
+			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> ArrestReportMap = (Map<String, Object>) ArrestReportObj.get("Search Report Map");
 			
@@ -383,9 +278,7 @@ public class ArrestReportUtils {
 				String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
 				
 				stringBuilder.append(formData.getCharge()).append(" | ");
-				chargesBuilder.append(
-						parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance,
-						               minSusp, maxSusp, revokeChance, fine, finek) + " | ");
+				chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 			}
 			if (stringBuilder.length() > 0) {
 				stringBuilder.setLength(stringBuilder.length() - 2);
@@ -420,7 +313,8 @@ public class ArrestReportUtils {
 				logError("Could not create new ArrestReport: ", e);
 			}
 			
-			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString()
+			                                                                                         .isEmpty() && stringBuilder.toString() != null) {
 				Case case1 = new Case();
 				String casenum = generateCaseNumber();
 				case1.setCaseNumber(casenum);
@@ -444,20 +338,13 @@ public class ArrestReportUtils {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				NotificationManager.showNotificationInfo("Report Manager",
-				                                         "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(),
-				                                         mainRT);
-				log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(),
-				    LogUtils.Severity.INFO);
+				NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
+				log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
 				actionController.needCourtRefresh.set(1);
 			} else {
-				NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.",
-				                                         mainRT);
-				NotificationManager.showNotificationWarning("Report Manager",
-				                                            "Could not create court case from arrest because either name or offences field(s) were empty.",
-				                                            mainRT);
-				log("Could not create court case from arrest because either name or offences field(s) were empty.",
-				    LogUtils.Severity.ERROR);
+				NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
+				NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from arrest because either name or offences field(s) were empty.", mainRT);
+				log("Could not create court case from arrest because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
 			}
 			
 			actionController.needRefresh.set(1);
@@ -502,8 +389,11 @@ public class ArrestReportUtils {
 			ArrestReports.setArrestReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<ArrestReport> existingReport = ArrestReports.getArrestReportList().stream().filter(
-				e -> e.getArrestNumber().equals(ArrestReport.getArrestNumber())).findFirst();
+		Optional<ArrestReport> existingReport = ArrestReports.getArrestReportList()
+		                                                     .stream()
+		                                                     .filter(e -> e.getArrestNumber()
+		                                                                   .equals(ArrestReport.getArrestNumber()))
+		                                                     .findFirst();
 		
 		if (existingReport.isPresent()) {
 			ArrestReports.getArrestReportList().remove(existingReport.get());

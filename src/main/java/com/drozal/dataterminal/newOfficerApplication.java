@@ -26,9 +26,8 @@ public class newOfficerApplication extends Application {
 		newOfficerStage.setTitle("New Officer Sign In");
 		newOfficerStage.setScene(newScene);
 		newOfficerStage.initStyle(StageStyle.UNDECORATED);
-		newOfficerStage.setResizable(true);
-		newOfficerStage.getIcons().add(new Image(
-				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		newOfficerStage.setResizable(true); newOfficerStage.getIcons()
+		                                                   .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		newOfficerStage.show();
 		newOfficerStage.setMinHeight(newOfficerStage.getHeight());
 		newOfficerStage.setMinWidth(newOfficerStage.getWidth());

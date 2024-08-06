@@ -101,8 +101,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -111,8 +110,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+		Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -120,8 +118,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image maximizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
+		Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
 		maximizeImageView.setFitHeight(15);
@@ -129,8 +126,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
 		maximizeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -178,8 +174,8 @@ public class reportUtil {
 		AnchorPane.setRightAnchor(maximizeRect, 42.5);
 		AnchorPane.setTopAnchor(maximizeRect, 6.3);
 		
-		titleBar.getChildren().addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView,
-		                              maximizeImageView, minimizeImageView);
+		titleBar.getChildren()
+		        .addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
 		Platform.runLater(() -> {
 			Stage stage1 = (Stage) titleBar.getScene().getWindow();
 			ResizeHelper.addResizeListener(stage1);
@@ -209,8 +205,7 @@ public class reportUtil {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -219,8 +214,7 @@ public class reportUtil {
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
 		placeholderImageView.setEffect(colorAdjust);
 		
-		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+		Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -228,8 +222,7 @@ public class reportUtil {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -326,8 +319,7 @@ public class reportUtil {
 		}
 		
 		Label mainHeaderLabel = new Label("New " + reportName);
-		mainHeaderLabel.setStyle(
-				"-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
+		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
 		mainHeaderLabel.setAlignment(Pos.CENTER);
 		GridPane.setColumnSpan(mainHeaderLabel, 12);
 		gridPane.add(mainHeaderLabel, 0, 0);
@@ -339,8 +331,7 @@ public class reportUtil {
 			
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 			sectionLabel.setFont(Font.font("Segoe UI Black"));
-			sectionLabel.setStyle(
-					"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+			sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
 			rowIndex++;
 			
@@ -400,11 +391,9 @@ public class reportUtil {
 		delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 		delBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
-				delBtn.setStyle(
-						"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+				delBtn.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 			} else {
-				delBtn.setStyle(
-						"-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+				delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 			}
 		});
 		
@@ -451,12 +440,9 @@ public class reportUtil {
 			accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
 			accordion.setMaxHeight(Region.USE_PREF_SIZE);
 			
-			paneGrid.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			accordion.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			titledPane.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 			
 			root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
 		}
@@ -479,43 +465,50 @@ public class reportUtil {
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/formComboBox.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formFields.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTextArea.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formButton.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formComboBox.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/Logscrollpane.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/tableCss.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/light/formTitledPane.css")
+				                        .toExternalForm());
 			} else {
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
-						"/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formFields.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTextArea.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formButton.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formComboBox.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/Logscrollpane.css")
+				                        .toExternalForm()); scene.getStylesheets()
+				                                                 .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/tableCss.css")
+				                                                                    .toExternalForm());
+				scene.getStylesheets()
+				     .add(Launcher.class.getResource("/com/drozal/dataterminal/css/form/dark/formTitledPane.css")
+				                        .toExternalForm());
 			}
 		} catch (IOException e) {
 			logError("Could not add stylesheets to reports: ", e);
 		}
 		
 		scrollPane.getStyleClass().add("formPane");
-		scrollPane.setStyle(
-				"-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
+		scrollPane.setStyle("-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 		
 		stage.setScene(scene);
 		stage.setTitle(reportName);
@@ -826,7 +819,9 @@ public class reportUtil {
 					Document document = null;
 					try {
 						document = factory.newDocumentBuilder().parse(file);
-					} catch (SAXException | IOException | ParserConfigurationException e) {
+					} catch (SAXException |
+					         IOException |
+					         ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
 					
@@ -882,8 +877,7 @@ public class reportUtil {
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
 					
-					citationInfoLabel.setStyle(
-							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					citationInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton.getStyleClass().add("incidentformButton");
 					addButton.setStyle("-fx-padding: 15;");
@@ -935,8 +929,7 @@ public class reportUtil {
 						TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							citationNameField.setText(selectedItem.getValue());
-							citationFineField.setText(
-									findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
+							citationFineField.setText(findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
 						} else {
 							citationNameField.setText("");
 							citationFineField.setText("");
@@ -990,7 +983,9 @@ public class reportUtil {
 					Document document2 = null;
 					try {
 						document2 = factory2.newDocumentBuilder().parse(file2);
-					} catch (SAXException | IOException | ParserConfigurationException e) {
+					} catch (SAXException |
+					         IOException |
+					         ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
 					
@@ -1043,8 +1038,7 @@ public class reportUtil {
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 					
-					chargeInfoLabel.setStyle(
-							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton2.getStyleClass().add("incidentformButton");
 					addButton2.setStyle("-fx-padding: 15;");

@@ -51,109 +51,7 @@ public class DeathReportUtils {
 	}
 	
 	public static Map<String, Object> deathReportLayout() {
-		Map<String, Object> deathReport = createReportWindow("Death Report", 7, 8, null,
-		                                                     new nestedReportUtils.SectionConfig("Officer Information",
-		                                                                                         true,
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "name",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "rank",
-						                                                                                         5,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "number",
-						                                                                                         2,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "division",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "agency",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                     new nestedReportUtils.SectionConfig(
-				                                                     "Location / Timestamp Information", true,
-				                                                     new nestedReportUtils.RowConfig(
-						                                                     new nestedReportUtils.FieldConfig("street",
-						                                                                                       4,
-						                                                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                     new nestedReportUtils.FieldConfig("area",
-						                                                                                       4,
-						                                                                                       nestedReportUtils.FieldType.COMBO_BOX_AREA),
-						                                                     new nestedReportUtils.FieldConfig("county",
-						                                                                                       4,
-						                                                                                       nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                     new nestedReportUtils.RowConfig(
-						                                                     new nestedReportUtils.FieldConfig("date",
-						                                                                                       5,
-						                                                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                     new nestedReportUtils.FieldConfig("time",
-						                                                                                       5,
-						                                                                                       nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                     new nestedReportUtils.FieldConfig(
-								                                                     "death num", 2,
-								                                                     nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                     new nestedReportUtils.SectionConfig("Deceased Information",
-		                                                                                         true,
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "decedent name",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "age/dob",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "gender",
-						                                                                                         4,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "address",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "description",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                     new nestedReportUtils.SectionConfig("Death Information",
-		                                                                                         true,
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "time of death",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "date of death",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "cause of death",
-						                                                                                         12,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "mode of death",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "witnesses",
-						                                                                                         6,
-						                                                                                         nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                     new nestedReportUtils.SectionConfig("Death Report Notes",
-		                                                                                         true,
-		                                                                                         new nestedReportUtils.RowConfig(
-				                                                                                         new nestedReportUtils.FieldConfig(
-						                                                                                         "notes",
-						                                                                                         12,
-						                                                                                         nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> deathReport = createReportWindow("Death Report", 7, 8, null, new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location / Timestamp Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("street", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("area", 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig("county", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("death num", 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Deceased Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("decedent name", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("age/dob", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("gender", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("address", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("description", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Death Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("time of death", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("date of death", 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("cause of death", 12, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("mode of death", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("witnesses", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Death Report Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return deathReport;
 	}
 	
@@ -270,8 +168,7 @@ public class DeathReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.", mainRT);
 			
 			stage.close();
 		});
@@ -311,8 +208,11 @@ public class DeathReportUtils {
 			DeathReports.setDeathReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<DeathReport> existingReport = DeathReports.getDeathReportList().stream().filter(
-				e -> e.getDeathReportNumber().equals(DeathReport.getDeathReportNumber())).findFirst();
+		Optional<DeathReport> existingReport = DeathReports.getDeathReportList()
+		                                                   .stream()
+		                                                   .filter(e -> e.getDeathReportNumber()
+		                                                                 .equals(DeathReport.getDeathReportNumber()))
+		                                                   .findFirst();
 		
 		if (existingReport.isPresent()) {
 			DeathReports.getDeathReportList().remove(existingReport.get());

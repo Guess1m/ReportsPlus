@@ -20,8 +20,7 @@ public class FileUtlis {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
-			fos = new FileOutputStream(
-					getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml");
+			fos = new FileOutputStream(getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml");
 			bos = new BufferedOutputStream(fos);
 			
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -29,8 +28,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml" + " downloaded (" + fileSize + " bytes read)",
-			    LogUtils.Severity.INFO);
+			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -57,8 +55,7 @@ public class FileUtlis {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
-			fos = new FileOutputStream(
-					getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml");
+			fos = new FileOutputStream(getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml");
 			bos = new BufferedOutputStream(fos);
 			
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -66,8 +63,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml" + " downloaded (" + fileSize + " bytes read)",
-			    LogUtils.Severity.INFO);
+			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -94,8 +90,7 @@ public class FileUtlis {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
-			fos = new FileOutputStream(
-					getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data");
+			fos = new FileOutputStream(getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data");
 			bos = new BufferedOutputStream(fos);
 			
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -103,8 +98,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data" + " downloaded (" + fileSize + " bytes read)",
-			    LogUtils.Severity.INFO);
+			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -131,8 +125,7 @@ public class FileUtlis {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
-			fos = new FileOutputStream(
-					getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data");
+			fos = new FileOutputStream(getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data");
 			bos = new BufferedOutputStream(fos);
 			
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -140,8 +133,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data" + " downloaded (" + fileSize + " bytes read)",
-			    LogUtils.Severity.INFO);
+			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {

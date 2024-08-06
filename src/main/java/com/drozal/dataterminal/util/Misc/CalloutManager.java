@@ -112,8 +112,9 @@ public class CalloutManager {
 				return;
 			}
 			
-			calloutList = calloutList.stream().filter(callout -> !callout.getNumber().equals(number)).collect(
-					Collectors.toList());
+			calloutList = calloutList.stream()
+			                         .filter(callout -> !callout.getNumber().equals(number))
+			                         .collect(Collectors.toList());
 			
 			callouts.setCalloutList(calloutList);
 			
@@ -301,9 +302,7 @@ public class CalloutManager {
 						statusProp = callout.getStatus();
 					}
 					
-					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp, callout.getType(),
-					                                           callout.getStreet(), callout.getPriority(),
-					                                           callout.getArea());
+					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp, callout.getType(), callout.getStreet(), callout.getPriority(), callout.getArea());
 					listView.getItems().add(calloutNode);
 				}
 			}
@@ -328,9 +327,7 @@ public class CalloutManager {
 			if (callouts != null && callouts.getCalloutList() != null) {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
-					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
-					                                            callout.getType(), callout.getStreet(),
-					                                            callout.getPriority(), callout.getArea());
+					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(), callout.getType(), callout.getStreet(), callout.getPriority(), callout.getArea());
 					listView.getItems().add(calloutNode);
 				}
 			}
@@ -402,16 +399,15 @@ public class CalloutManager {
 				statusVal.setStyle("-fx-text-fill: red;");
 			}
 		});
-		BorderPane statusPane = new BorderPane(statusDropdown);
-		statusDropdown.getStylesheets().add(Objects.requireNonNull(
-				actionController.class.getResource("css/form/formComboBox.css")).toExternalForm());
+		BorderPane statusPane = new BorderPane(statusDropdown); statusDropdown.getStylesheets()
+		                                                                      .add(Objects.requireNonNull(actionController.class.getResource("css/form/formComboBox.css"))
+		                                                                                  .toExternalForm());
 		statusDropdown.getStyleClass().add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
 		Button closeBtn = new Button("Close Callout");
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
-		                                                  0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
 		closeBtn.setStyle(def);
 		GridPane.setHalignment(closeBtn, HPos.RIGHT);
 		GridPane.setValignment(closeBtn, VPos.CENTER);
@@ -428,8 +424,7 @@ public class CalloutManager {
 		String starttime1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartTime");
 		
 		closeBtn.setOnAction(actionEvent -> {
-			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1,
-			           starttime1, startdate1, statusVal.getText());
+			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1, starttime1, startdate1, statusVal.getText());
 			if (DataTerminalHomeApplication.controller != null) {
 				controllerVar = DataTerminalHomeApplication.controller;
 			} else if (newOfficerController.controller != null) {
@@ -506,8 +501,7 @@ public class CalloutManager {
 		GridPane.setRowSpan(actionButton, 1);
 		actionButton.setPadding(new Insets(5, 10, 5, 10));
 		
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
-		                                                  0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
 		actionButton.setStyle(def);
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
@@ -520,9 +514,7 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(),
-			                                                                     controllerVar.getAreaReportChart(),
-			                                                                     controllerVar.getNotesViewController());
+			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(), controllerVar.getAreaReportChart(), controllerVar.getNotesViewController());
 			
 			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 			

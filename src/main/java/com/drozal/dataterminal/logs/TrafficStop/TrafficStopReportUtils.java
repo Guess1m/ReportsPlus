@@ -50,109 +50,14 @@ public class TrafficStopReportUtils {
 	}
 	
 	public static Map<String, Object> trafficStopLayout() {
-		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8,
-		                                                           new nestedReportUtils.TransferConfig(
-				                                                           "Transfer Information To New Report",
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "transferarrestbtn", 6,
-								                                                           nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "transfercitationbtn", 6,
-								                                                           nestedReportUtils.FieldType.TRANSFER_BUTTON))),
-		                                                           new nestedReportUtils.SectionConfig(
-				                                                           "Officer Information", true,
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "name", 5,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "rank", 5,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "number", 2,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "division", 6,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "agency", 6,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                           new nestedReportUtils.SectionConfig(
-				                                                           "Location / Timestamp Information", true,
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "street", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "area", 4,
-								                                                           nestedReportUtils.FieldType.COMBO_BOX_AREA),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "county", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "date", 5,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "time", 5,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "stop number", 2,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                           new nestedReportUtils.SectionConfig(
-				                                                           "Offender Information", true,
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "offender name", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "offender age", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "offender gender", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD)),
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "offender address", 6,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "offender description", 6,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                           new nestedReportUtils.SectionConfig(
-				                                                           "Offender Vehicle Information", true,
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "model", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "plate number", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "color", 4,
-								                                                           nestedReportUtils.FieldType.COMBO_BOX_COLOR)),
-				                                                           new nestedReportUtils.RowConfig(
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "type", 4,
-								                                                           nestedReportUtils.FieldType.COMBO_BOX_TYPE),
-						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "other info", 8,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                           new nestedReportUtils.SectionConfig("Comments", true,
-		                                                                                               new nestedReportUtils.RowConfig(
-				                                                                                               new nestedReportUtils.FieldConfig(
-						                                                                                               "notes",
-						                                                                                               12,
-						                                                                                               nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8, new nestedReportUtils.TransferConfig("Transfer Information To New Report", new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("transferarrestbtn", 6, nestedReportUtils.FieldType.TRANSFER_BUTTON), new nestedReportUtils.FieldConfig("transfercitationbtn", 6, nestedReportUtils.FieldType.TRANSFER_BUTTON))), new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location / Timestamp Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("street", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("area", 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig("county", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("date", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("time", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("stop number", 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender name", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender age", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender gender", 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("offender address", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("offender description", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Offender Vehicle Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("model", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("plate number", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("color", 4, nestedReportUtils.FieldType.COMBO_BOX_COLOR)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("type", 4, nestedReportUtils.FieldType.COMBO_BOX_TYPE), new nestedReportUtils.FieldConfig("other info", 8, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Comments", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return trafficStopReport;
 	}
 	
 	public static Map<String, Object> newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
-		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(
-				"Traffic Stop Report Map");
+		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get("Traffic Stop Report Map");
 		
 		TextField officernamets = (TextField) trafficStopReportMap.get("name");
 		TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
@@ -225,8 +130,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transferarrestbtnts.setOnAction(event -> {
-			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart,
-			                                                                  notesViewController);
+			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 			
@@ -271,8 +175,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transfercitationbtnts.setOnAction(event -> {
-			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart, areaReportChart,
-			                                                                          notesViewController);
+			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart, areaReportChart, notesViewController);
 			
 			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 			
@@ -371,8 +274,7 @@ public class TrafficStopReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
 			stagets.close();
 		});
 		return trafficStopReport;
@@ -410,18 +312,19 @@ public class TrafficStopReportUtils {
 			TrafficStopReports.setTrafficStopReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<TrafficStopReport> existingReport = TrafficStopReports.getTrafficStopReportList().stream().filter(
-				e -> e.getStopNumber().equals(TrafficStopReport.getStopNumber())).findFirst();
+		Optional<TrafficStopReport> existingReport = TrafficStopReports.getTrafficStopReportList()
+		                                                               .stream()
+		                                                               .filter(e -> e.getStopNumber()
+		                                                                             .equals(TrafficStopReport.getStopNumber()))
+		                                                               .findFirst();
 		
 		if (existingReport.isPresent()) {
 			TrafficStopReports.getTrafficStopReportList().remove(existingReport.get());
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.",
-			    LogUtils.Severity.INFO);
+			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.",
-			    LogUtils.Severity.INFO);
+			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.", LogUtils.Severity.INFO);
 		}
 		
 		saveTrafficStopReports(TrafficStopReports);
@@ -431,8 +334,8 @@ public class TrafficStopReportUtils {
 		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
 		
 		if (TrafficStopReports.getTrafficStopReportList() != null) {
-			TrafficStopReports.getTrafficStopReportList().removeIf(
-					e -> e.getStopNumber().equals(TrafficStopReportnumber));
+			TrafficStopReports.getTrafficStopReportList()
+			                  .removeIf(e -> e.getStopNumber().equals(TrafficStopReportnumber));
 			saveTrafficStopReports(TrafficStopReports);
 			log("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}

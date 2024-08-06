@@ -104,7 +104,9 @@ public class newOfficerController {
 	@javafx.fxml.FXML
 	public void loginButtonClick(ActionEvent actionEvent) throws IOException {
 		
-		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText().isEmpty() || numberField.getText().isEmpty()) {
+		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText()
+		                                                                                                                            .isEmpty() || numberField.getText()
+		                                                                                                                                                     .isEmpty()) {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
@@ -115,7 +117,11 @@ public class newOfficerController {
 		} else {
 			String jarPath = null;
 			try {
-				jarPath = newOfficerApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+				jarPath = newOfficerApplication.class.getProtectionDomain()
+				                                     .getCodeSource()
+				                                     .getLocation()
+				                                     .toURI()
+				                                     .getPath();
 			} catch (URISyntaxException e) {
 				logError("NewOfficer JarPath URISyntax Exception", e);
 			}
@@ -157,9 +163,8 @@ public class newOfficerController {
 			controller = loader.getController();
 			Scene scene = new Scene(root);
 			mainRT.setScene(scene);
-			mainRT.initStyle(StageStyle.UNDECORATED);
-			mainRT.getIcons().add(new Image(
-					Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+			mainRT.initStyle(StageStyle.UNDECORATED); mainRT.getIcons()
+			                                                .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 			mainRT.show();
 			
 			String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
@@ -231,9 +236,8 @@ public class newOfficerController {
 		Parent root = loader.load();
 		controller = loader.getController();
 		Scene scene = new Scene(root);
-		mainRT.setScene(scene);
-		mainRT.getIcons().add(new Image(
-				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		mainRT.setScene(scene); mainRT.getIcons()
+		                              .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");

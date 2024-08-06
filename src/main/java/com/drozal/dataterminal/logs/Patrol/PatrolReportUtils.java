@@ -48,65 +48,7 @@ public class PatrolReportUtils {
 	}
 	
 	public static Map<String, Object> patrolLayout() {
-		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
-		                                                      new nestedReportUtils.SectionConfig("Officer Information",
-		                                                                                          true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "name",
-						                                                                                          5,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "rank",
-						                                                                                          5,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "number",
-						                                                                                          2,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "division",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "agency",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Shift Information",
-		                                                                                          true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "starttime",
-						                                                                                          3,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "stoptime",
-						                                                                                          4,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "patrolnumber",
-						                                                                                          5,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "length",
-						                                                                                          3,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "date",
-						                                                                                          3,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "vehicle",
-						                                                                                          6,
-						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Patrol Notes", true,
-		                                                                                          new nestedReportUtils.RowConfig(
-				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "notes",
-						                                                                                          12,
-						                                                                                          nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null, new nestedReportUtils.SectionConfig("Officer Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("name", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("rank", 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("number", 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("division", 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("agency", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Shift Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("starttime", 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("stoptime", 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("patrolnumber", 5, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("length", 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("date", 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig("vehicle", 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Patrol Notes", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("notes", 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return patrolReport;
 	}
 	
@@ -191,8 +133,7 @@ public class PatrolReportUtils {
 			actionController.needRefresh.set(1);
 			updateChartIfMismatch(reportChart);
 			refreshChart(areaReportChart, "area");
-			NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
 			
 			stage.close();
 		});
@@ -230,8 +171,11 @@ public class PatrolReportUtils {
 			PatrolReports.setPatrolReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<PatrolReport> existingReport = PatrolReports.getPatrolReportList().stream().filter(
-				e -> e.getPatrolNumber().equals(PatrolReport.getPatrolNumber())).findFirst();
+		Optional<PatrolReport> existingReport = PatrolReports.getPatrolReportList()
+		                                                     .stream()
+		                                                     .filter(e -> e.getPatrolNumber()
+		                                                                   .equals(PatrolReport.getPatrolNumber()))
+		                                                     .findFirst();
 		
 		if (existingReport.isPresent()) {
 			PatrolReports.getPatrolReportList().remove(existingReport.get());

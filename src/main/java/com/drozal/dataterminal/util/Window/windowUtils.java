@@ -15,8 +15,7 @@ public class windowUtils {
 	
 	public static void snapToTopLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -31,8 +30,7 @@ public class windowUtils {
 	
 	public static void centerStageOnMainApp(Stage stage) {
 		Rectangle2D mainRTBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(),
-		                                                     mainRTBounds.getWidth(), mainRTBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(), mainRTBounds.getWidth(), mainRTBounds.getHeight());
 		
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
@@ -48,8 +46,7 @@ public class windowUtils {
 	
 	public static void snapToBottomLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -64,8 +61,7 @@ public class windowUtils {
 	
 	public static void snapToTopRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -80,8 +76,7 @@ public class windowUtils {
 	
 	public static void snapToBottomRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -96,8 +91,7 @@ public class windowUtils {
 	
 	public static void snapToLeft(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -111,8 +105,7 @@ public class windowUtils {
 	
 	public static void snapToRight(Stage stage) {
 		Rectangle2D parentBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(),
-		                                                     parentBounds.getWidth(), parentBounds.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(parentBounds.getMinX(), parentBounds.getMinY(), parentBounds.getWidth(), parentBounds.getHeight());
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);
 			Rectangle2D screenBounds = screen.getVisualBounds();
@@ -173,7 +166,9 @@ public class windowUtils {
 	}
 	
 	public static void toggleWindowedFullscreen(Stage stage, double width, double height) {
-		if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary().getBounds().getMinY())) {
+		if (!(stage.getX() == Screen.getPrimary().getBounds().getMinX() || stage.getY() == Screen.getPrimary()
+		                                                                                         .getBounds()
+		                                                                                         .getMinY())) {
 			setWindowedFullscreen(stage);
 		} else {
 			restoreDefaultState(stage, width, height);

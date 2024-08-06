@@ -141,6 +141,8 @@ public class ConfigReader {
         // UI Settings (continued)
         checkAndSetDefaultValue("uiSettings", "firstLogin", "false");
         checkAndSetDefaultValue("uiSettings", "fullscreenOnStartup", "true");
+        checkAndSetDefaultValue("uiSettings", "enableCalloutPopup", "true");
+        checkAndSetDefaultValue("uiSettings", "enableIDPopup", "true");
 
         // Connection Settings
         checkAndSetDefaultValue("connectionSettings", "serverAutoConnect", "true");

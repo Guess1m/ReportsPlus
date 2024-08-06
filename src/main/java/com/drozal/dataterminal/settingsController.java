@@ -217,6 +217,20 @@ public class settingsController {
     private CheckBox saveReportLocationCheckbox;
     @javafx.fxml.FXML
     private CheckBox saveNotesLocationCheckbox;
+    @javafx.fxml.FXML
+    private CheckBox enableIDPopupsCheckbox;
+    @javafx.fxml.FXML
+    private CheckBox enableCalloutPopupsCheckbox;
+    @javafx.fxml.FXML
+    private GridPane windowPageOne;
+    @javafx.fxml.FXML
+    private GridPane windowPageTwo;
+    @javafx.fxml.FXML
+    private Button windowPageTwoBtn;
+    @javafx.fxml.FXML
+    private Button windowPageOneBtn;
+    @javafx.fxml.FXML
+    private Label lbl10;
 
     //</editor-fold>
 
@@ -506,6 +520,8 @@ public class settingsController {
 
         root.setTop(topBar);
 
+        enableCalloutPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equals("true"));
+        enableIDPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equals("true"));
         startupFullscreenCheckbox.setSelected(ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
         serverAutoconnectCheckbox.setSelected(ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
         saveCalloutLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
@@ -1175,9 +1191,15 @@ public class settingsController {
         colorPageOne.setVisible(true);
         colorPageTwo.setVisible(false);
 
+        windowPageOne.setVisible(true);
+        windowPageTwo.setVisible(false);
+
         addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
         addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
         addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
+
+        addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
+        addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
 
         addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
         addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
@@ -1319,6 +1341,7 @@ public class settingsController {
             lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
             lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
             lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+            lbl10.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 
             backgroundPickerReport.setValue(reportBackground);
             accentPickerReport.setValue(reportAccent);
@@ -1552,6 +1575,40 @@ public class settingsController {
         } else {
             ConfigWriter.configwrite("layout", "rememberNotesLocation", "false");
             saveNotesLocationCheckbox.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void windowPageTwoBtnClick(ActionEvent actionEvent) {
+        windowPageOne.setVisible(false);
+        windowPageTwo.setVisible(true);
+    }
+
+    @javafx.fxml.FXML
+    public void windowPageOneBtnClick(ActionEvent actionEvent) {
+        windowPageOne.setVisible(true);
+        windowPageTwo.setVisible(false);
+    }
+
+    @javafx.fxml.FXML
+    public void enableIDPopupClick(ActionEvent actionEvent) {
+        if (enableIDPopupsCheckbox.isSelected()) {
+            ConfigWriter.configwrite("uiSettings", "enableIDPopup", "true");
+            enableIDPopupsCheckbox.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("uiSettings", "enableIDPopup", "false");
+            enableIDPopupsCheckbox.setSelected(false);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void enableCalloutPopupClick(ActionEvent actionEvent) {
+        if (enableCalloutPopupsCheckbox.isSelected()) {
+            ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "true");
+            enableCalloutPopupsCheckbox.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "false");
+            enableCalloutPopupsCheckbox.setSelected(false);
         }
     }
 }

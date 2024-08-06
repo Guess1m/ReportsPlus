@@ -155,7 +155,7 @@ public class calloutController {
             } else {
                 message = "No Data";
                 desc = "No Data";
-                log("No Callout found, callout = null, possibly connected to a server ", LogUtils.Severity.ERROR);
+                log("No Callout found, callout == null", LogUtils.Severity.ERROR);
                 streetField.setText("No Data");
                 numberField.setText("No Data");
                 areaField.setText("No Data");

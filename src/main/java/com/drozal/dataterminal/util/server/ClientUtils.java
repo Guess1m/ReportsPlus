@@ -3,8 +3,11 @@ package com.drozal.dataterminal.util.server;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Window.windowUtils;
+import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -25,11 +28,13 @@ import java.net.*;
 import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.actionController.*;
+import static com.drozal.dataterminal.calloutController.getCallout;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 
 public class ClientUtils {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -38,7 +43,6 @@ public class ClientUtils {
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
-    private static volatile boolean canUpdateCallout = true;
 
     public static void disconnectFromService() {
         try {
@@ -115,178 +119,206 @@ public class ClientUtils {
                         case "UPDATE_ID":
                             log("Received ID update message from server.", LogUtils.Severity.DEBUG);
                             FileUtlis.receiveIDFromServer(4096);
-                            Platform.runLater(() -> {
-                                if (IDStage != null && IDStage.isShowing()) {
-                                    IDStage.close();
-                                    IDStage = null;
-                                }
-                                IDStage = new Stage();
-                                IDStage.initStyle(StageStyle.UNDECORATED);
-                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
-                                Parent root = null;
-                                try {
-                                    root = loader.load();
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene newScene = new Scene(root);
-                                IDStage.setTitle("Current ID");
-                                IDStage.setScene(newScene);
-                                IDStage.show();
-                                IDStage.centerOnScreen();
-                                try {
-                                    IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
-                                } catch (IOException e) {
-                                    logError("Could not fetch AOTID: ", e);
-                                }
-
-                                try {
-                                    if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
-                                        if (IDFirstShown) {
-                                            windowUtils.centerStageOnMainApp(IDStage);
-                                            log("IDStage opened via UPDATE_ID message, first time centered", LogUtils.Severity.INFO);
-                                        } else {
-                                            if (IDScreen != null) {
-                                                Rectangle2D screenBounds = IDScreen.getVisualBounds();
-                                                IDStage.setX(IDx);
-                                                IDStage.setY(IDy);
-
-                                                if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
-                                                    windowUtils.centerStageOnMainApp(IDStage);
-                                                }
-                                            } else {
-                                                windowUtils.centerStageOnMainApp(IDStage);
-                                            }
-                                            log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy, LogUtils.Severity.INFO);
-                                        }
-                                    } else {
-                                        windowUtils.centerStageOnMainApp(IDStage);
-                                    }
-                                } catch (IOException e) {
-                                    logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
-                                }
-
-                                try {
-                                    if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
-                                        PauseTransition delay = null;
-                                        try {
-                                            delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
-                                        } catch (IOException e) {
-                                            logError("ID could not be closed: ", e);
-                                        }
-                                        if (IDStage != null) {
-                                            delay.setOnFinished(event -> {
-                                                try {
-                                                    IDStage.close();
-                                                } catch (NullPointerException e) {
-                                                    log("IDStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
-                                                }
-                                            });
-                                        }
-                                        delay.play();
-                                    }
-                                } catch (IOException e) {
-                                    logError("could not read IDDuration: ", e);
-                                }
-
-                                IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-                                    @Override
-                                    public void handle(WindowEvent event) {
-                                        IDx = IDStage.getX();
-                                        IDy = IDStage.getY();
-                                        IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(), IDStage.getHeight()).stream().findFirst().orElse(null);
-                                        log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy, LogUtils.Severity.DEBUG);
-                                        IDFirstShown = false;
+                            if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
+                                Platform.runLater(() -> {
+                                    if (IDStage != null && IDStage.isShowing()) {
+                                        IDStage.close();
                                         IDStage = null;
                                     }
+                                    IDStage = new Stage();
+                                    IDStage.initStyle(StageStyle.UNDECORATED);
+                                    FXMLLoader loader = new FXMLLoader(actionController.class.getResource("currentID-view.fxml"));
+                                    Parent root = null;
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    Scene newScene = new Scene(root);
+                                    IDStage.setTitle("Current ID");
+                                    IDStage.setScene(newScene);
+                                    IDStage.show();
+                                    IDStage.centerOnScreen();
+                                    try {
+                                        IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
+                                    } catch (IOException e) {
+                                        logError("Could not fetch AOTID: ", e);
+                                    }
+
+                                    try {
+                                        if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
+                                            if (IDFirstShown) {
+                                                windowUtils.centerStageOnMainApp(IDStage);
+                                                log("IDStage opened via UPDATE_ID message, first time centered", LogUtils.Severity.INFO);
+                                            } else {
+                                                if (IDScreen != null) {
+                                                    Rectangle2D screenBounds = IDScreen.getVisualBounds();
+                                                    IDStage.setX(IDx);
+                                                    IDStage.setY(IDy);
+
+                                                    if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
+                                                        windowUtils.centerStageOnMainApp(IDStage);
+                                                    }
+                                                } else {
+                                                    windowUtils.centerStageOnMainApp(IDStage);
+                                                }
+                                                log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy, LogUtils.Severity.INFO);
+                                            }
+                                        } else {
+                                            windowUtils.centerStageOnMainApp(IDStage);
+                                        }
+                                    } catch (IOException e) {
+                                        logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
+                                    }
+
+                                    try {
+                                        if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
+                                            PauseTransition delay = null;
+                                            try {
+                                                delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
+                                            } catch (IOException e) {
+                                                logError("ID could not be closed: ", e);
+                                            }
+                                            if (IDStage != null) {
+                                                delay.setOnFinished(event -> {
+                                                    try {
+                                                        IDStage.close();
+                                                    } catch (NullPointerException e) {
+                                                        log("IDStage was closed before it could be automtically closed", LogUtils.Severity.WARN);
+                                                    }
+                                                });
+                                            }
+                                            delay.play();
+                                        }
+                                    } catch (IOException e) {
+                                        logError("could not read IDDuration: ", e);
+                                    }
+
+                                    IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+                                        @Override
+                                        public void handle(WindowEvent event) {
+                                            IDx = IDStage.getX();
+                                            IDy = IDStage.getY();
+                                            IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(), IDStage.getHeight()).stream().findFirst().orElse(null);
+                                            log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy, LogUtils.Severity.DEBUG);
+                                            IDFirstShown = false;
+                                            IDStage = null;
+                                        }
+                                    });
                                 });
-                            });
+                            } else {
+                                log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
+                                NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved", mainRT);
+                            }
                             break;
                         case "UPDATE_CALLOUT":
-                            if (!canUpdateCallout) {
-                                break;
-                            }
-
-                            canUpdateCallout = false;
-                            scheduler.schedule(() -> canUpdateCallout = true, 4, TimeUnit.SECONDS);
-
                             log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
                             FileUtlis.receiveCalloutFromServer(4096);
-                            Platform.runLater(() -> {
-                                if (CalloutStage != null && CalloutStage.isShowing()) {
-                                    CalloutStage.close();
-                                    CalloutStage = null;
-                                }
-                                CalloutStage = new Stage();
-                                FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
-                                Parent root = null;
-                                try {
-                                    root = loader.load();
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene newScene = new Scene(root);
-                                CalloutStage.setTitle("Callout Display");
-                                CalloutStage.setScene(newScene);
-                                try {
-                                    CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
-                                } catch (IOException e) {
-                                    logError("Could not fetch AOTCallout: ", e);
-                                }
-                                CalloutStage.initStyle(StageStyle.UNDECORATED);
-                                CalloutStage.show();
-                                CalloutStage.centerOnScreen();
+                            if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
+                                Platform.runLater(() -> {
+                                    if (CalloutStage != null && CalloutStage.isShowing()) {
+                                        CalloutStage.close();
+                                        CalloutStage = null;
+                                    }
+                                    CalloutStage = new Stage();
+                                    FXMLLoader loader = new FXMLLoader(actionController.class.getResource("callout-view.fxml"));
+                                    Parent root = null;
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    Scene newScene = new Scene(root);
+                                    CalloutStage.setTitle("Callout Display");
+                                    CalloutStage.setScene(newScene);
+                                    try {
+                                        CalloutStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
+                                    } catch (IOException e) {
+                                        logError("Could not fetch AOTCallout: ", e);
+                                    }
+                                    CalloutStage.initStyle(StageStyle.UNDECORATED);
+                                    CalloutStage.show();
+                                    CalloutStage.centerOnScreen();
 
-                                try {
-                                    if (ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true")) {
-                                        if (CalloutFirstShown) {
-                                            windowUtils.centerStageOnMainApp(CalloutStage);
-                                            log("CalloutStage opened via UPDATE_CALLOUT message, first time centered", LogUtils.Severity.INFO);
-                                        } else {
-                                            if (CalloutScreen != null) {
-                                                Rectangle2D screenBounds = CalloutScreen.getVisualBounds();
-                                                CalloutStage.setX(Calloutx);
-                                                CalloutStage.setY(Callouty);
+                                    try {
+                                        if (ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true")) {
+                                            if (CalloutFirstShown) {
+                                                windowUtils.centerStageOnMainApp(CalloutStage);
+                                                log("CalloutStage opened via UPDATE_CALLOUT message, first time centered", LogUtils.Severity.INFO);
+                                            } else {
+                                                if (CalloutScreen != null) {
+                                                    Rectangle2D screenBounds = CalloutScreen.getVisualBounds();
+                                                    CalloutStage.setX(Calloutx);
+                                                    CalloutStage.setY(Callouty);
 
-                                                if (Calloutx < screenBounds.getMinX() || Calloutx > screenBounds.getMaxX() || Callouty < screenBounds.getMinY() || Callouty > screenBounds.getMaxY()) {
+                                                    if (Calloutx < screenBounds.getMinX() || Calloutx > screenBounds.getMaxX() || Callouty < screenBounds.getMinY() || Callouty > screenBounds.getMaxY()) {
+                                                        windowUtils.centerStageOnMainApp(CalloutStage);
+                                                    }
+                                                } else {
                                                     windowUtils.centerStageOnMainApp(CalloutStage);
                                                 }
-                                            } else {
-                                                windowUtils.centerStageOnMainApp(CalloutStage);
+                                                log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty, LogUtils.Severity.INFO);
                                             }
-                                            log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty, LogUtils.Severity.INFO);
                                         }
+                                    } catch (IOException e) {
+                                        logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
                                     }
-                                } catch (IOException e) {
-                                    logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
-                                }
 
-                                try {
-                                    if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
-                                        PauseTransition delay = null;
-                                        try {
-                                            delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
-                                        } catch (IOException e) {
-                                            logError("Callout could not be closed: ", e);
+                                    try {
+                                        if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
+                                            PauseTransition delay = null;
+                                            try {
+                                                delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
+                                            } catch (IOException e) {
+                                                logError("Callout could not be closed: ", e);
+                                            }
+                                            if (CalloutStage != null) {
+                                                delay.setOnFinished(event -> {
+                                                    try {
+                                                        CalloutStage.close();
+                                                        CalloutStage = null;
+                                                    } catch (NullPointerException e) {
+                                                        log("CalloutStage was closed before it could be automatically closed", LogUtils.Severity.WARN);
+                                                    }
+                                                });
+                                            }
+                                            delay.play();
                                         }
-                                        if (CalloutStage != null) {
-                                            delay.setOnFinished(event -> {
-                                                try {
-                                                    CalloutStage.close();
-                                                    CalloutStage = null;
-                                                } catch (NullPointerException e) {
-                                                    log("CalloutStage was closed before it could be automatically closed", LogUtils.Severity.WARN);
-                                                }
-                                            });
-                                        }
-                                        delay.play();
+                                    } catch (IOException e) {
+                                        logError("could not read calloutDuration: ", e);
                                     }
-                                } catch (IOException e) {
-                                    logError("could not read calloutDuration: ", e);
-                                }
 
-                                CalloutStage.setOnHidden(event -> CalloutStage = null);
-                            });
+                                    CalloutStage.setOnHidden(event -> CalloutStage = null);
+                                });
+                            } else {
+                                log("Recieved Callout Update, but popups are disabled", LogUtils.Severity.INFO);
+                                log("Adding Callout To Active", LogUtils.Severity.INFO);
+                                Callout callout = getCallout();
+
+                                String message;
+                                String desc;
+                                String status;
+                                if (callout != null) {
+                                    String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
+                                    String type = callout.getType() != null ? callout.getType() : "Not Available";
+                                    String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
+                                    String area = callout.getArea() != null ? callout.getArea() : "Not Available";
+                                    String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
+                                    String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
+                                    String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
+                                    String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
+                                    desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
+                                    message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+                                    status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+                                    if (desc.isEmpty()) {
+                                        desc = message;
+                                    } else {
+                                        desc = desc + "\n" + message;
+                                    }
+                                    CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
+                                    NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.", mainRT);
+                                }
+                            }
                             break;
                         case "UPDATE_WORLD_PED":
                             log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);

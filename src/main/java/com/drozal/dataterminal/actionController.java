@@ -2179,9 +2179,15 @@ public class actionController {
         // Birthday
         ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
 
+
+        Pattern pattern = Pattern.compile("MaxFine:\\S+");
+        Matcher matcher = pattern.matcher(ped.getCitationPriors());
+        String updatedCitPriors = matcher.replaceAll("").trim();
+
+
         // Arrest and citation priors
         ObservableList<Label> arrestPriors = createLabels(ped.getArrestPriors());
-        ObservableList<Label> citPriors = createLabels(ped.getCitationPriors());
+        ObservableList<Label> citPriors = createLabels(updatedCitPriors);
 
         pedarrestpriorslistview.setItems(arrestPriors);
         pedcitationpriorslistview.setItems(citPriors);

@@ -8,7 +8,6 @@ import com.drozal.dataterminal.util.Misc.AutoCompleteComboBoxListener;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
 import com.drozal.dataterminal.util.Window.ResizeHelper;
-import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -37,6 +36,8 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -153,7 +154,7 @@ public class reportUtil {
         });
         maximizeRect.setOnMouseClicked(event -> {
             Stage stage = (Stage) titleBar.getScene().getWindow();
-            windowUtils.toggleWindowedFullscreen(stage, 850, 750);
+            toggleWindowedFullscreen(stage, 850, 750);
         });
 
         titleBar.setOnMouseDragged(event -> {
@@ -492,11 +493,11 @@ public class reportUtil {
 
         titleBar.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                windowUtils.toggleWindowedFullscreen(stage, preferredWidth, preferredHeight);
+                toggleWindowedFullscreen(stage, preferredWidth, preferredHeight);
             }
         });
 
-        windowUtils.centerStageOnMainApp(stage);
+        centerStageOnMainApp(stage);
 
         stage.setOnHidden(event -> {
             windowX = stage.getX();
@@ -534,7 +535,7 @@ public class reportUtil {
                     stage.setY(windowY);
                 } else {
                     stage.centerOnScreen();
-                    windowUtils.centerStageOnMainApp(stage);
+                    centerStageOnMainApp(stage);
                 }
             }
         }
@@ -811,7 +812,7 @@ public class reportUtil {
                     TextField citationNameField = new TextField();
                     citationNameField.setPromptText("Citation Name");
                     TextField citationFineField = new TextField();
-                    citationFineField.setPromptText("Citation Fine");
+                    citationFineField.setPromptText("Citation Maximum Fine");
 
                     Button addButton = new Button("Add");
                     Button removeButton = new Button("Remove");
@@ -913,7 +914,16 @@ public class reportUtil {
                     addButton.setOnMouseClicked(event -> {
                         String citation = citationNameField.getText();
                         if (!(citation.isBlank() || citation.isEmpty())) {
-                            CitationsData formData = new CitationsData(citation);
+                            CitationsData formData = null;
+
+                            String fine = findXMLValue(citation, "fine", "data/Citations.xml");
+                            if (fine != null) {
+                                formData = new CitationsData(citation);
+                            } else {
+                                System.out.println("Added Ciation via Custom Value: " + citation + " fine: " + citationFineField.getText());
+                                formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
+                            }
+
                             citationTableView.getItems().add(formData);
                         }
                     });
@@ -1078,6 +1088,17 @@ public class reportUtil {
             columnIndex += fieldConfig.getSize();
 
         }
+    }
+
+    public static String extractMaxFine(String citation) {
+        Pattern pattern = Pattern.compile("MaxFine:(\\S+)");
+        Matcher matcher = pattern.matcher(citation);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return null;
     }
 
     public static String generateReportNumber() {

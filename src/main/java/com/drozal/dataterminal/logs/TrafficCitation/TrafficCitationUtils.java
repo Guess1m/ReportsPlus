@@ -36,8 +36,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.trafficCitationLogURL;
-import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
-import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
+import static com.drozal.dataterminal.util.Report.reportUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
 
 public class TrafficCitationUtils {
@@ -222,6 +221,12 @@ public class TrafficCitationUtils {
                             logError("Error parsing fine value " + fine + ": ", e);
                             chargesBuilder.append("Fined: ").append(fine).append(" | ");
                         }
+                    } else if (formData.getCitation().contains("MaxFine:")) {
+                        log("Using Custom fine", LogUtils.Severity.DEBUG);
+                        int maxFine = Integer.parseInt(Objects.requireNonNull(extractMaxFine(formData.getCitation())));
+                        Random random = new Random();
+                        int randomFine = random.nextInt(maxFine + 1);
+                        chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
                     } else {
                         chargesBuilder.append("Fined: Not Found | ");
                     }

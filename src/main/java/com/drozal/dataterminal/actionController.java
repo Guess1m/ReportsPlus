@@ -1629,7 +1629,6 @@ public class actionController {
         while (matcher.find()) {
             results.add(matcher.group(1).trim());
         }
-
         return results;
     }
 
@@ -1770,7 +1769,11 @@ public class actionController {
             caseSuspensionDuration.setText("None");
         }
 
-        ObservableList<Label> offenceLabels = createLabels(case1.getOffences());
+        Pattern pattern = Pattern.compile("MaxFine:\\S+");
+        Matcher matcher = pattern.matcher(case1.getOffences());
+        String updatedOffences = matcher.replaceAll("").trim();
+
+        ObservableList<Label> offenceLabels = createLabels(updatedOffences);
         ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 
         int fineTotal = calculateFineTotal(case1.getOutcomes());

@@ -9,14 +9,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,45 +111,55 @@ public class IncidentReportUtils {
         });
 
         Button submitBtn = (Button) incidentReport.get("submitBtn");
+        Label warningLabel = (Label) incidentReport.get("warningLabel");
 
         submitBtn.setOnAction(event -> {
-            for (String fieldName : incidentReportMap.keySet()) {
-                Object field = incidentReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (incidentnum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Incident Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : incidentReportMap.keySet()) {
+                    Object field = incidentReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
-            }
 
-            IncidentReport incidentReport1 = new IncidentReport();
-            incidentReport1.setIncidentArea(toTitleCase(area.getEditor().getText()));
-            incidentReport1.setIncidentComments(notes.getText());
-            incidentReport1.setIncidentActionsTaken(summary.getText());
-            incidentReport1.setIncidentCounty(toTitleCase(county.getText()));
-            incidentReport1.setIncidentDate(date.getText());
-            incidentReport1.setIncidentNumber(toTitleCase(incidentnum.getText()));
-            incidentReport1.setIncidentStatement(toTitleCase(statement.getText()));
-            incidentReport1.setIncidentStreet(toTitleCase(street.getText()));
-            incidentReport1.setIncidentTime(time.getText());
-            incidentReport1.setIncidentVictims(toTitleCase(vicwit.getText()));
-            incidentReport1.setIncidentWitnesses(toTitleCase(suspects.getText()));
-            incidentReport1.setOfficerAgency(toTitleCase(agen.getText()));
-            incidentReport1.setOfficerDivision(toTitleCase(div.getText()));
-            incidentReport1.setOfficerName(toTitleCase(name.getText()));
-            incidentReport1.setOfficerNumber(toTitleCase(num.getText()));
-            incidentReport1.setOfficerRank(rank.getText());
-            try {
-                IncidentReportUtils.addIncidentReport(incidentReport1);
-            } catch (JAXBException e) {
-                logError("Error creating IncidentReport: ", e);
-            }
+                IncidentReport incidentReport1 = new IncidentReport();
+                incidentReport1.setIncidentArea(toTitleCase(area.getEditor().getText()));
+                incidentReport1.setIncidentComments(notes.getText());
+                incidentReport1.setIncidentActionsTaken(summary.getText());
+                incidentReport1.setIncidentCounty(toTitleCase(county.getText()));
+                incidentReport1.setIncidentDate(date.getText());
+                incidentReport1.setIncidentNumber(toTitleCase(incidentnum.getText()));
+                incidentReport1.setIncidentStatement(toTitleCase(statement.getText()));
+                incidentReport1.setIncidentStreet(toTitleCase(street.getText()));
+                incidentReport1.setIncidentTime(time.getText());
+                incidentReport1.setIncidentVictims(toTitleCase(vicwit.getText()));
+                incidentReport1.setIncidentWitnesses(toTitleCase(suspects.getText()));
+                incidentReport1.setOfficerAgency(toTitleCase(agen.getText()));
+                incidentReport1.setOfficerDivision(toTitleCase(div.getText()));
+                incidentReport1.setOfficerName(toTitleCase(name.getText()));
+                incidentReport1.setOfficerNumber(toTitleCase(num.getText()));
+                incidentReport1.setOfficerRank(rank.getText());
+                try {
+                    IncidentReportUtils.addIncidentReport(incidentReport1);
+                } catch (JAXBException e) {
+                    logError("Error creating IncidentReport: ", e);
+                }
 
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
-            stage.close();
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Incident Report has been submitted.", mainRT);
+                stage.close();
+            }
         });
         return incidentReport;
     }

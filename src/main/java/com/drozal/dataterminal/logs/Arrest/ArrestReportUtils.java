@@ -17,6 +17,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.chart.AreaChart;
@@ -24,6 +25,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -155,7 +157,7 @@ public class ArrestReportUtils {
             TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
             TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
 
-            TextField numimp = (TextField) impoundReportMap.get("citation number");
+            TextField numimp = (TextField) impoundReportMap.get("impound number");
             TextField dateimp = (TextField) impoundReportMap.get("date");
             TextField timeimp = (TextField) impoundReportMap.get("time");
 
@@ -247,142 +249,153 @@ public class ArrestReportUtils {
         });
 
         Button submitBtn = (Button) arrestReport.get("submitBtn");
+        Label warningLabel = (Label) arrestReport.get("warningLabel");
+
         submitBtn.setOnAction(event -> {
-            for (String fieldName : arrestReportMap.keySet()) {
-                Object field = arrestReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (arrestnum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Arrest Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : arrestReportMap.keySet()) {
+                    Object field = arrestReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
-            }
 
-            ObservableList<ChargesData> formDataList = chargetable.getItems();
-            StringBuilder stringBuilder = new StringBuilder();
-            StringBuilder chargesBuilder = new StringBuilder();
-            for (ChargesData formData : formDataList) {
-                String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
+                ObservableList<ChargesData> formDataList = chargetable.getItems();
+                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder chargesBuilder = new StringBuilder();
+                for (ChargesData formData : formDataList) {
+                    String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
 
-                String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
-                String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
-                String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
-                String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
+                    String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+                    String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+                    String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+                    String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
 
-                String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
-                String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
-                String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
-                String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
+                    String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+                    String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+                    String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+                    String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
 
-                String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
-                String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
+                    String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+                    String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
 
-                String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
+                    String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
 
-                stringBuilder.append(formData.getCharge()).append(" | ");
-                chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
-            }
-            if (stringBuilder.length() > 0) {
-                stringBuilder.setLength(stringBuilder.length() - 1);
-            }
-
-            ArrestReport arrestReport1 = new ArrestReport();
-            arrestReport1.setArrestNumber((arrestnum.getText()));
-            arrestReport1.setArrestDate((date.getText()));
-            arrestReport1.setArrestTime((time.getText()));
-            arrestReport1.setArrestCharges((stringBuilder.toString()));
-            arrestReport1.setArrestDetails((notes.getText()));
-            arrestReport1.setOfficerRank((officerrank.getText()));
-
-            arrestReport1.setArrestCounty(toTitleCase(county.getText()));
-            arrestReport1.setArrestArea(toTitleCase(area.getEditor().getText()));
-            arrestReport1.setArrestStreet(toTitleCase(street.getText()));
-            arrestReport1.setArresteeName(toTitleCase(offenderName.getText()));
-            arrestReport1.setArresteeAge(toTitleCase(offenderAge.getText()));
-            arrestReport1.setArresteeGender(toTitleCase(offenderGender.getText()));
-            arrestReport1.setArresteeDescription(toTitleCase(offenderDescription.getText()));
-            arrestReport1.setAmbulanceYesNo(toTitleCase(ambulancereq.getText()));
-            arrestReport1.setTaserYesNo(toTitleCase(taserdep.getText()));
-            arrestReport1.setArresteeMedicalInformation(toTitleCase(othermedinfo.getText()));
-            arrestReport1.setArresteeHomeAddress(toTitleCase(offenderAddress.getText()));
-            arrestReport1.setOfficerName(toTitleCase(officername.getText()));
-            arrestReport1.setOfficerNumber(toTitleCase(officernumarrest.getText()));
-            arrestReport1.setOfficerDivision(toTitleCase(officerdiv.getText()));
-            arrestReport1.setOfficerAgency(toTitleCase(officeragen.getText()));
-            try {
-                ArrestReportUtils.addArrestReport(arrestReport1);
-            } catch (JAXBException e) {
-                logError("Could not create new ArrestReport: ", e);
-            }
-            Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(arrestReport1.getArresteeName());
-            if (pedOptional.isPresent()) {
-                log("Ped is present in history, adding new charges.. ", LogUtils.Severity.DEBUG);
-                Ped ped1 = pedOptional.get();
-                String beforePriors = ped1.getArrestPriors();
-                String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
-                ped1.setArrestPriors(afterPriors);
-                try {
-                    Ped.PedHistoryUtils.addPed(ped1);
-                } catch (JAXBException e) {
-                    logError("Error updating ped priors from arrestReport: ", e);
+                    stringBuilder.append(formData.getCharge()).append(" | ");
+                    chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
                 }
-            }
-
-            if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-                Case case1 = new Case();
-                String casenum = generateCaseNumber();
-                case1.setCaseNumber(casenum);
-                case1.setCourtDate(date.getText());
-                case1.setCaseTime(time.getText());
-                case1.setName(toTitleCase(offenderName.getText()));
-                case1.setOffenceDate(date.getText());
-                case1.setAge(toTitleCase(offenderAge.getText()));
-                case1.setAddress(toTitleCase(offenderAddress.getText()));
-                case1.setGender(toTitleCase(offenderGender.getText()));
-                case1.setCounty(toTitleCase(county.getText()));
-                case1.setStreet(toTitleCase(street.getText()));
-                case1.setArea(area.getEditor().getText());
-                case1.setNotes(notes.getText());
-                case1.setOffences(stringBuilder.toString());
-                case1.setOutcomes(chargesBuilder.toString());
-                try {
-                    CourtUtils.addCase(case1);
-                } catch (JAXBException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.setLength(stringBuilder.length() - 1);
                 }
-                NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
-                log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
-                actionController.needCourtRefresh.set(1);
-            } else {
-                NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
-                NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from arrest because either name or offences field(s) were empty.", mainRT);
-                log("Could not create court case from arrest because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
-            }
 
-            actionController controllerVar = null;
-            if (controller != null) {
-                controllerVar = controller;
-            } else if (newOfficerController.controller != null) {
-                controllerVar = newOfficerController.controller;
-            } else {
-                log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
-            }
-            if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
-                if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                ArrestReport arrestReport1 = new ArrestReport();
+                arrestReport1.setArrestNumber((arrestnum.getText()));
+                arrestReport1.setArrestDate((date.getText()));
+                arrestReport1.setArrestTime((time.getText()));
+                arrestReport1.setArrestCharges((stringBuilder.toString()));
+                arrestReport1.setArrestDetails((notes.getText()));
+                arrestReport1.setOfficerRank((officerrank.getText()));
+
+                arrestReport1.setArrestCounty(toTitleCase(county.getText()));
+                arrestReport1.setArrestArea(toTitleCase(area.getEditor().getText()));
+                arrestReport1.setArrestStreet(toTitleCase(street.getText()));
+                arrestReport1.setArresteeName(toTitleCase(offenderName.getText()));
+                arrestReport1.setArresteeAge(toTitleCase(offenderAge.getText()));
+                arrestReport1.setArresteeGender(toTitleCase(offenderGender.getText()));
+                arrestReport1.setArresteeDescription(toTitleCase(offenderDescription.getText()));
+                arrestReport1.setAmbulanceYesNo(toTitleCase(ambulancereq.getText()));
+                arrestReport1.setTaserYesNo(toTitleCase(taserdep.getText()));
+                arrestReport1.setArresteeMedicalInformation(toTitleCase(othermedinfo.getText()));
+                arrestReport1.setArresteeHomeAddress(toTitleCase(offenderAddress.getText()));
+                arrestReport1.setOfficerName(toTitleCase(officername.getText()));
+                arrestReport1.setOfficerNumber(toTitleCase(officernumarrest.getText()));
+                arrestReport1.setOfficerDivision(toTitleCase(officerdiv.getText()));
+                arrestReport1.setOfficerAgency(toTitleCase(officeragen.getText()));
+                try {
+                    ArrestReportUtils.addArrestReport(arrestReport1);
+                } catch (JAXBException e) {
+                    logError("Could not create new ArrestReport: ", e);
+                }
+                Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(arrestReport1.getArresteeName());
+                if (pedOptional.isPresent()) {
+                    log("Ped is present in history, adding new charges.. ", LogUtils.Severity.DEBUG);
+                    Ped ped1 = pedOptional.get();
+                    String beforePriors = ped1.getArrestPriors();
+                    String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
+                    ped1.setArrestPriors(afterPriors);
                     try {
-                        controllerVar.onPedSearchBtnClick(new ActionEvent());
-                    } catch (IOException e) {
-                        logError("Error searching name to update ped lookup from arrestreport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                        Ped.PedHistoryUtils.addPed(ped1);
+                    } catch (JAXBException e) {
+                        logError("Error updating ped priors from arrestReport: ", e);
                     }
                 }
+
+                if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+                    Case case1 = new Case();
+                    String casenum = generateCaseNumber();
+                    case1.setCaseNumber(casenum);
+                    case1.setCourtDate(date.getText());
+                    case1.setCaseTime(time.getText());
+                    case1.setName(toTitleCase(offenderName.getText()));
+                    case1.setOffenceDate(date.getText());
+                    case1.setAge(toTitleCase(offenderAge.getText()));
+                    case1.setAddress(toTitleCase(offenderAddress.getText()));
+                    case1.setGender(toTitleCase(offenderGender.getText()));
+                    case1.setCounty(toTitleCase(county.getText()));
+                    case1.setStreet(toTitleCase(street.getText()));
+                    case1.setArea(area.getEditor().getText());
+                    case1.setNotes(notes.getText());
+                    case1.setOffences(stringBuilder.toString());
+                    case1.setOutcomes(chargesBuilder.toString());
+                    try {
+                        CourtUtils.addCase(case1);
+                    } catch (JAXBException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
+                    log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+                    actionController.needCourtRefresh.set(1);
+                } else {
+                    NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.", mainRT);
+                    NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from arrest because either name or offences field(s) were empty.", mainRT);
+                    log("Could not create court case from arrest because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
+                }
+
+                actionController controllerVar = null;
+                if (controller != null) {
+                    controllerVar = controller;
+                } else if (newOfficerController.controller != null) {
+                    controllerVar = newOfficerController.controller;
+                } else {
+                    log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+                }
+                if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
+                    if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                        try {
+                            controllerVar.onPedSearchBtnClick(new ActionEvent());
+                        } catch (IOException e) {
+                            logError("Error searching name to update ped lookup from arrestreport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                        }
+                    }
+                }
+
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+
+                stage.close();
             }
-
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-
-            stage.close();
         });
 
         return arrestReport;

@@ -2760,7 +2760,7 @@ public class actionController {
                 TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
                 TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
 
-                TextField num = (TextField) impoundReportMap.get("citation number");
+                TextField num = (TextField) impoundReportMap.get("impound number");
                 TextField date = (TextField) impoundReportMap.get("date");
                 TextField time = (TextField) impoundReportMap.get("time");
 

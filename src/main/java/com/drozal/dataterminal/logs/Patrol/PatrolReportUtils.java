@@ -9,11 +9,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,40 +104,49 @@ public class PatrolReportUtils {
         Button submitBtn = (Button) patrolReport.get("submitBtn");
 
         submitBtn.setOnAction(event -> {
-            for (String fieldName : patrolReportMap.keySet()) {
-                Object field = patrolReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (patrolnum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Patrol Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : patrolReportMap.keySet()) {
+                    Object field = patrolReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
+                PatrolReport patrolReport1 = new PatrolReport();
+                patrolReport1.setPatrolNumber(toTitleCase(patrolnum.getText()));
+                patrolReport1.setPatrolDate(date.getText());
+                patrolReport1.setPatrolLength(toTitleCase(length.getText()));
+                patrolReport1.setPatrolStartTime(starttime.getText());
+                patrolReport1.setPatrolStopTime(stoptime.getText());
+                patrolReport1.setOfficerRank((rank.getText()));
+                patrolReport1.setOfficerName(toTitleCase(name.getText()));
+                patrolReport1.setOfficerNumber(toTitleCase(num.getText()));
+                patrolReport1.setOfficerDivision(toTitleCase(div.getText()));
+                patrolReport1.setOfficerAgency(toTitleCase(agen.getText()));
+                patrolReport1.setOfficerVehicle(toTitleCase(vehicle.getText()));
+                patrolReport1.setPatrolComments(notes.getText());
+
+                try {
+                    PatrolReportUtils.addPatrolReport(patrolReport1);
+                } catch (JAXBException e) {
+                    logError("Could not add new PatrolReport: ", e);
+                }
+
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
+
+                stage.close();
             }
-            PatrolReport patrolReport1 = new PatrolReport();
-            patrolReport1.setPatrolNumber(toTitleCase(patrolnum.getText()));
-            patrolReport1.setPatrolDate(date.getText());
-            patrolReport1.setPatrolLength(toTitleCase(length.getText()));
-            patrolReport1.setPatrolStartTime(starttime.getText());
-            patrolReport1.setPatrolStopTime(stoptime.getText());
-            patrolReport1.setOfficerRank((rank.getText()));
-            patrolReport1.setOfficerName(toTitleCase(name.getText()));
-            patrolReport1.setOfficerNumber(toTitleCase(num.getText()));
-            patrolReport1.setOfficerDivision(toTitleCase(div.getText()));
-            patrolReport1.setOfficerAgency(toTitleCase(agen.getText()));
-            patrolReport1.setOfficerVehicle(toTitleCase(vehicle.getText()));
-            patrolReport1.setPatrolComments(notes.getText());
-
-            try {
-                PatrolReportUtils.addPatrolReport(patrolReport1);
-            } catch (JAXBException e) {
-                logError("Could not add new PatrolReport: ", e);
-            }
-
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.", mainRT);
-
-            stage.close();
         });
         return patrolReport;
     }

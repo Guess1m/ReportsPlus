@@ -15,6 +15,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.chart.AreaChart;
@@ -22,6 +23,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -152,7 +154,7 @@ public class TrafficCitationUtils {
             TextField offenderGenderimp = (TextField) impoundReportMap.get("offender gender");
             TextField offenderAddressimp = (TextField) impoundReportMap.get("offender address");
 
-            TextField numimp = (TextField) impoundReportMap.get("citation number");
+            TextField numimp = (TextField) impoundReportMap.get("impound number");
             TextField dateimp = (TextField) impoundReportMap.get("date");
             TextField timeimp = (TextField) impoundReportMap.get("time");
 
@@ -183,140 +185,151 @@ public class TrafficCitationUtils {
         });
 
         Button submitBtn = (Button) citationReport.get("submitBtn");
+        Label warningLabel = (Label) citationReport.get("warningLabel");
+
         submitBtn.setOnAction(event -> {
-            for (String fieldName : citationReportMap.keySet()) {
-                Object field = citationReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (num.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Citation Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : citationReportMap.keySet()) {
+                    Object field = citationReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
-            }
-            ObservableList<CitationsData> formDataList = citationtable.getItems();
-            StringBuilder stringBuilder = new StringBuilder();
-            StringBuilder chargesBuilder = new StringBuilder();
-            for (CitationsData formData : formDataList) {
-                stringBuilder.append(formData.getCitation()).append(" | ");
+                ObservableList<CitationsData> formDataList = citationtable.getItems();
+                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder chargesBuilder = new StringBuilder();
+                for (CitationsData formData : formDataList) {
+                    stringBuilder.append(formData.getCitation()).append(" | ");
 
-                String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
+                    String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
 
-                if (fine != null) {
-                    try {
-                        int maxFine = Integer.parseInt(fine);
-                        Random random = new Random();
-                        int randomFine = random.nextInt(maxFine + 1);
-                        chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
-                    } catch (NumberFormatException e) {
-                        logError("Error parsing fine value " + fine + ": ", e);
-                        chargesBuilder.append("Fined: ").append(fine).append(" | ");
+                    if (fine != null) {
+                        try {
+                            int maxFine = Integer.parseInt(fine);
+                            Random random = new Random();
+                            int randomFine = random.nextInt(maxFine + 1);
+                            chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
+                        } catch (NumberFormatException e) {
+                            logError("Error parsing fine value " + fine + ": ", e);
+                            chargesBuilder.append("Fined: ").append(fine).append(" | ");
+                        }
+                    } else {
+                        chargesBuilder.append("Fined: Not Found | ");
                     }
-                } else {
-                    chargesBuilder.append("Fined: Not Found | ");
                 }
-            }
-            if (stringBuilder.length() > 0) {
-                stringBuilder.setLength(stringBuilder.length() - 1);
-            }
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.setLength(stringBuilder.length() - 1);
+                }
 
-            TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
-            trafficCitationReport.setOfficerRank(officerrank.getText());
-            trafficCitationReport.setCitationNumber(num.getText());
-            trafficCitationReport.setCitationDate(date.getText());
-            trafficCitationReport.setCitationTime(time.getText());
-            trafficCitationReport.setCitationCharges(stringBuilder.toString());
-            trafficCitationReport.setCitationComments(notes.getText());
-            trafficCitationReport.setOffenderVehiclePlate((plateNumber.getText()));
+                TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
+                trafficCitationReport.setOfficerRank(officerrank.getText());
+                trafficCitationReport.setCitationNumber(num.getText());
+                trafficCitationReport.setCitationDate(date.getText());
+                trafficCitationReport.setCitationTime(time.getText());
+                trafficCitationReport.setCitationCharges(stringBuilder.toString());
+                trafficCitationReport.setCitationComments(notes.getText());
+                trafficCitationReport.setOffenderVehiclePlate((plateNumber.getText()));
 
-            trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
-            trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
-            trafficCitationReport.setCitationStreet(toTitleCase(street.getText()));
-            trafficCitationReport.setOffenderName(toTitleCase(offenderName.getText()));
-            trafficCitationReport.setOffenderGender(toTitleCase(offenderGender.getText()));
-            trafficCitationReport.setOffenderAge(toTitleCase(offenderAge.getText()));
-            trafficCitationReport.setOffenderHomeAddress(toTitleCase(offenderAddress.getText()));
-            trafficCitationReport.setOffenderDescription(toTitleCase(offenderDescription.getText()));
-            trafficCitationReport.setOffenderVehicleModel(toTitleCase(model.getText()));
-            trafficCitationReport.setOffenderVehicleColor(toTitleCase(color.getValue().toString()));
-            trafficCitationReport.setOffenderVehicleType(toTitleCase(type.getValue().toString()));
-            trafficCitationReport.setOffenderVehicleOther(toTitleCase(otherInfo.getText()));
-            trafficCitationReport.setOfficerName(toTitleCase(officername.getText()));
-            trafficCitationReport.setOfficerNumber(toTitleCase(officernum.getText()));
-            trafficCitationReport.setOfficerDivision(toTitleCase(officerdiv.getText()));
-            trafficCitationReport.setOfficerAgency(toTitleCase(officeragen.getText()));
-            try {
-                TrafficCitationUtils.addTrafficCitationReport(trafficCitationReport);
-            } catch (JAXBException e) {
-                logError("Could not create TrafficCitationReport: ", e);
-            }
-            Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(trafficCitationReport.getOffenderName());
-            if (pedOptional.isPresent()) {
-                log("Ped is present in history, adding new citations.. ", LogUtils.Severity.DEBUG);
-                Ped ped1 = pedOptional.get();
-                String beforePriors = ped1.getCitationPriors();
-                String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
-                ped1.setCitationPriors(afterPriors);
+                trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
+                trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
+                trafficCitationReport.setCitationStreet(toTitleCase(street.getText()));
+                trafficCitationReport.setOffenderName(toTitleCase(offenderName.getText()));
+                trafficCitationReport.setOffenderGender(toTitleCase(offenderGender.getText()));
+                trafficCitationReport.setOffenderAge(toTitleCase(offenderAge.getText()));
+                trafficCitationReport.setOffenderHomeAddress(toTitleCase(offenderAddress.getText()));
+                trafficCitationReport.setOffenderDescription(toTitleCase(offenderDescription.getText()));
+                trafficCitationReport.setOffenderVehicleModel(toTitleCase(model.getText()));
+                trafficCitationReport.setOffenderVehicleColor(toTitleCase(color.getValue().toString()));
+                trafficCitationReport.setOffenderVehicleType(toTitleCase(type.getValue().toString()));
+                trafficCitationReport.setOffenderVehicleOther(toTitleCase(otherInfo.getText()));
+                trafficCitationReport.setOfficerName(toTitleCase(officername.getText()));
+                trafficCitationReport.setOfficerNumber(toTitleCase(officernum.getText()));
+                trafficCitationReport.setOfficerDivision(toTitleCase(officerdiv.getText()));
+                trafficCitationReport.setOfficerAgency(toTitleCase(officeragen.getText()));
                 try {
-                    Ped.PedHistoryUtils.addPed(ped1);
+                    TrafficCitationUtils.addTrafficCitationReport(trafficCitationReport);
                 } catch (JAXBException e) {
-                    logError("Error updating ped priors from citationReport: ", e);
+                    logError("Could not create TrafficCitationReport: ", e);
                 }
-            }
-
-            if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-                Case case1 = new Case();
-                String casenum = generateCaseNumber();
-                case1.setCaseNumber(casenum);
-                case1.setCourtDate(date.getText());
-                case1.setCaseTime(time.getText());
-                case1.setName(toTitleCase(offenderName.getText()));
-                case1.setOffenceDate(date.getText());
-                case1.setAge(toTitleCase(offenderAge.getText()));
-                case1.setAddress(toTitleCase(offenderAddress.getText()));
-                case1.setGender(toTitleCase(offenderGender.getText()));
-                case1.setCounty(toTitleCase(county.getText()));
-                case1.setStreet(toTitleCase(street.getText()));
-                case1.setArea(area.getEditor().getText());
-                case1.setNotes(notes.getText());
-                case1.setOffences(stringBuilder.toString());
-                case1.setOutcomes(chargesBuilder.toString());
-                try {
-                    CourtUtils.addCase(case1);
-                } catch (JAXBException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
-                log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
-                actionController.needCourtRefresh.set(1);
-            } else {
-                NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
-                NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.", mainRT);
-                log("Could not create court case from citation because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
-            }
-
-            actionController controllerVar = null;
-            if (controller != null) {
-                controllerVar = controller;
-            } else if (newOfficerController.controller != null) {
-                controllerVar = newOfficerController.controller;
-            } else {
-                log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
-            }
-            if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
-                if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(trafficCitationReport.getOffenderName());
+                if (pedOptional.isPresent()) {
+                    log("Ped is present in history, adding new citations.. ", LogUtils.Severity.DEBUG);
+                    Ped ped1 = pedOptional.get();
+                    String beforePriors = ped1.getCitationPriors();
+                    String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
+                    ped1.setCitationPriors(afterPriors);
                     try {
-                        controllerVar.onPedSearchBtnClick(new ActionEvent());
+                        Ped.PedHistoryUtils.addPed(ped1);
+                    } catch (JAXBException e) {
+                        logError("Error updating ped priors from citationReport: ", e);
+                    }
+                }
+
+                if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
+                    Case case1 = new Case();
+                    String casenum = generateCaseNumber();
+                    case1.setCaseNumber(casenum);
+                    case1.setCourtDate(date.getText());
+                    case1.setCaseTime(time.getText());
+                    case1.setName(toTitleCase(offenderName.getText()));
+                    case1.setOffenceDate(date.getText());
+                    case1.setAge(toTitleCase(offenderAge.getText()));
+                    case1.setAddress(toTitleCase(offenderAddress.getText()));
+                    case1.setGender(toTitleCase(offenderGender.getText()));
+                    case1.setCounty(toTitleCase(county.getText()));
+                    case1.setStreet(toTitleCase(street.getText()));
+                    case1.setArea(area.getEditor().getText());
+                    case1.setNotes(notes.getText());
+                    case1.setOffences(stringBuilder.toString());
+                    case1.setOutcomes(chargesBuilder.toString());
+                    try {
+                        CourtUtils.addCase(case1);
+                    } catch (JAXBException e) {
+                        throw new RuntimeException(e);
                     } catch (IOException e) {
-                        logError("Error searching name to update ped lookup from citationReport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                        throw new RuntimeException(e);
+                    }
+                    NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(), mainRT);
+                    log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+                    actionController.needCourtRefresh.set(1);
+                } else {
+                    NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.", mainRT);
+                    NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.", mainRT);
+                    log("Could not create court case from citation because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
+                }
+
+                actionController controllerVar = null;
+                if (controller != null) {
+                    controllerVar = controller;
+                } else if (newOfficerController.controller != null) {
+                    controllerVar = newOfficerController.controller;
+                } else {
+                    log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+                }
+                if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
+                    if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+                        try {
+                            controllerVar.onPedSearchBtnClick(new ActionEvent());
+                        } catch (IOException e) {
+                            logError("Error searching name to update ped lookup from citationReport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(), e);
+                        }
                     }
                 }
-            }
 
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            stage.close();
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                stage.close();
+            }
         });
         return citationReport;
     }

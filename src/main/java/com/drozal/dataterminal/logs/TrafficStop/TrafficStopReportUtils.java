@@ -11,11 +11,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -231,51 +233,62 @@ public class TrafficStopReportUtils {
         });
 
         Button submitBtn = (Button) trafficStopReport.get("submitBtn");
+        Label warningLabel = (Label) trafficStopReport.get("warningLabel");
+
         submitBtn.setOnAction(event -> {
-            for (String fieldName : trafficStopReportMap.keySet()) {
-                Object field = trafficStopReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (stopnumts.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Stop Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : trafficStopReportMap.keySet()) {
+                    Object field = trafficStopReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
+
+                TrafficStopReport trafficStopReport1 = new TrafficStopReport();
+                trafficStopReport1.setDate((datets.getText()));
+                trafficStopReport1.setTime((timets.getText()));
+                trafficStopReport1.setRank((officerrankts.getText()));
+                trafficStopReport1.setStopNumber((stopnumts.getText()));
+                trafficStopReport1.setPlateNumber((plateNumberts.getText()));
+                trafficStopReport1.setCommentsTextArea((notests.getText()));
+
+                trafficStopReport1.setResponseModel(toTitleCase(modelts.getText()));
+                trafficStopReport1.setResponseOtherInfo(toTitleCase(otherInfots.getText()));
+                trafficStopReport1.setOperatorName(toTitleCase(offenderNamets.getText()));
+                trafficStopReport1.setOperatorAge(toTitleCase(offenderAgets.getText()));
+                trafficStopReport1.setOperatorAddress(toTitleCase(offenderAddressts.getText()));
+                trafficStopReport1.setOperatorDescription(toTitleCase(offenderDescriptionts.getText()));
+                trafficStopReport1.setOperatorGender(toTitleCase(offenderGenderts.getText()));
+                trafficStopReport1.setName(toTitleCase(officernamets.getText()));
+                trafficStopReport1.setNumber(toTitleCase(officernumarrestts.getText()));
+                trafficStopReport1.setDivision(toTitleCase(officerdivts.getText()));
+                trafficStopReport1.setAgency(toTitleCase(officeragents.getText()));
+                trafficStopReport1.setStreet(toTitleCase(streetts.getText()));
+                trafficStopReport1.setCounty(toTitleCase(countyts.getText()));
+                trafficStopReport1.setArea(toTitleCase(areats.getEditor().getText()));
+                trafficStopReport1.setColor(toTitleCase(colorts.getValue().toString()));
+                trafficStopReport1.setType(toTitleCase(typets.getValue().toString()));
+                try {
+                    TrafficStopReportUtils.addTrafficStopReport(trafficStopReport1);
+                } catch (JAXBException e) {
+                    logError("Could not create new TrafficStopReport: ", e);
+                }
+
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
+                stagets.close();
             }
-
-            TrafficStopReport trafficStopReport1 = new TrafficStopReport();
-            trafficStopReport1.setDate((datets.getText()));
-            trafficStopReport1.setTime((timets.getText()));
-            trafficStopReport1.setRank((officerrankts.getText()));
-            trafficStopReport1.setStopNumber((stopnumts.getText()));
-            trafficStopReport1.setPlateNumber((plateNumberts.getText()));
-            trafficStopReport1.setCommentsTextArea((notests.getText()));
-
-            trafficStopReport1.setResponseModel(toTitleCase(modelts.getText()));
-            trafficStopReport1.setResponseOtherInfo(toTitleCase(otherInfots.getText()));
-            trafficStopReport1.setOperatorName(toTitleCase(offenderNamets.getText()));
-            trafficStopReport1.setOperatorAge(toTitleCase(offenderAgets.getText()));
-            trafficStopReport1.setOperatorAddress(toTitleCase(offenderAddressts.getText()));
-            trafficStopReport1.setOperatorDescription(toTitleCase(offenderDescriptionts.getText()));
-            trafficStopReport1.setOperatorGender(toTitleCase(offenderGenderts.getText()));
-            trafficStopReport1.setName(toTitleCase(officernamets.getText()));
-            trafficStopReport1.setNumber(toTitleCase(officernumarrestts.getText()));
-            trafficStopReport1.setDivision(toTitleCase(officerdivts.getText()));
-            trafficStopReport1.setAgency(toTitleCase(officeragents.getText()));
-            trafficStopReport1.setStreet(toTitleCase(streetts.getText()));
-            trafficStopReport1.setCounty(toTitleCase(countyts.getText()));
-            trafficStopReport1.setArea(toTitleCase(areats.getEditor().getText()));
-            trafficStopReport1.setColor(toTitleCase(colorts.getValue().toString()));
-            trafficStopReport1.setType(toTitleCase(typets.getValue().toString()));
-            try {
-                TrafficStopReportUtils.addTrafficStopReport(trafficStopReport1);
-            } catch (JAXBException e) {
-                logError("Could not create new TrafficStopReport: ", e);
-            }
-
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.", mainRT);
-            stagets.close();
         });
         return trafficStopReport;
     }

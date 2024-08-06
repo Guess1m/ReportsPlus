@@ -9,14 +9,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,6 +91,9 @@ public class DeathReportUtils {
         BorderPane root = (BorderPane) deathReport.get("root");
         Stage stage = (Stage) root.getScene().getWindow();
 
+        Label warningLabel = (Label) deathReport.get("warningLabel");
+
+
         try {
             name.setText(ConfigReader.configRead("userInfo", "Name"));
             rank.setText(ConfigReader.configRead("userInfo", "Rank"));
@@ -128,49 +130,58 @@ public class DeathReportUtils {
         Button submitBtn = (Button) deathReport.get("submitBtn");
 
         submitBtn.setOnAction(event -> {
-            for (String fieldName : deathReportMap.keySet()) {
-                Object field = deathReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (deathNum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Death Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : deathReportMap.keySet()) {
+                    Object field = deathReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
-            }
-            DeathReport deathReport1 = new DeathReport();
-            deathReport1.setAddress(toTitleCase(address.getText()));
-            deathReport1.setCauseOfDeath(toTitleCase(causeofdeath.getText()));
-            deathReport1.setDeathReportNumber(deathNum.getText());
-            deathReport1.setAge(toTitleCase(age.getText()));
-            deathReport1.setArea(toTitleCase(area.getEditor().getText()));
-            deathReport1.setAgency(toTitleCase(agen.getText()));
-            deathReport1.setCounty(toTitleCase(county.getText()));
-            deathReport1.setDescription(toTitleCase(description.getText()));
-            deathReport1.setModeOfDeath(toTitleCase(modeofdeath.getText()));
-            deathReport1.setDate(date.getText());
-            deathReport1.setTime(time.getText());
-            deathReport1.setGender(toTitleCase(gender.getText()));
-            deathReport1.setDecedent(toTitleCase(decedent.getText()));
-            deathReport1.setDivision(toTitleCase(div.getText()));
-            deathReport1.setWitnesses(toTitleCase(witnesses.getText()));
-            deathReport1.setStreet(toTitleCase(street.getText()));
-            deathReport1.setName(toTitleCase(name.getText()));
-            deathReport1.setNotesTextArea(notes.getText());
-            deathReport1.setNumber(toTitleCase(num.getText()));
-            deathReport1.setRank(rank.getText());
-            deathReport1.setTimeOfDeath(timeofdeath.getText());
-            deathReport1.setDateOfDeath(dateofdeath.getText());
-            try {
-                DeathReportUtils.addDeathReport(deathReport1);
-            } catch (JAXBException e) {
-                logError("JAXB Error creating death report: ", e);
-            }
+                DeathReport deathReport1 = new DeathReport();
+                deathReport1.setAddress(toTitleCase(address.getText()));
+                deathReport1.setCauseOfDeath(toTitleCase(causeofdeath.getText()));
+                deathReport1.setDeathReportNumber(deathNum.getText());
+                deathReport1.setAge(toTitleCase(age.getText()));
+                deathReport1.setArea(toTitleCase(area.getEditor().getText()));
+                deathReport1.setAgency(toTitleCase(agen.getText()));
+                deathReport1.setCounty(toTitleCase(county.getText()));
+                deathReport1.setDescription(toTitleCase(description.getText()));
+                deathReport1.setModeOfDeath(toTitleCase(modeofdeath.getText()));
+                deathReport1.setDate(date.getText());
+                deathReport1.setTime(time.getText());
+                deathReport1.setGender(toTitleCase(gender.getText()));
+                deathReport1.setDecedent(toTitleCase(decedent.getText()));
+                deathReport1.setDivision(toTitleCase(div.getText()));
+                deathReport1.setWitnesses(toTitleCase(witnesses.getText()));
+                deathReport1.setStreet(toTitleCase(street.getText()));
+                deathReport1.setName(toTitleCase(name.getText()));
+                deathReport1.setNotesTextArea(notes.getText());
+                deathReport1.setNumber(toTitleCase(num.getText()));
+                deathReport1.setRank(rank.getText());
+                deathReport1.setTimeOfDeath(timeofdeath.getText());
+                deathReport1.setDateOfDeath(dateofdeath.getText());
+                try {
+                    DeathReportUtils.addDeathReport(deathReport1);
+                } catch (JAXBException e) {
+                    logError("JAXB Error creating death report: ", e);
+                }
 
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.", mainRT);
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.", mainRT);
 
-            stage.close();
+                stage.close();
+            }
         });
 
         return deathReport;

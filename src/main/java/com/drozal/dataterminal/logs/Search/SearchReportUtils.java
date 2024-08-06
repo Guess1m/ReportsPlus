@@ -9,14 +9,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,6 +88,9 @@ public class SearchReportUtils {
         BorderPane root = (BorderPane) searchReport.get("root");
         Stage stage = (Stage) root.getScene().getWindow();
 
+        Label warningLabel = (Label) searchReport.get("warningLabel");
+
+
         try {
             name.setText(ConfigReader.configRead("userInfo", "Name"));
             rank.setText(ConfigReader.configRead("userInfo", "Rank"));
@@ -121,50 +123,59 @@ public class SearchReportUtils {
         Button submitBtn = (Button) searchReport.get("submitBtn");
 
         submitBtn.setOnAction(event -> {
-            for (String fieldName : searchReportMap.keySet()) {
-                Object field = searchReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+            if (searchnum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Search Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : searchReportMap.keySet()) {
+                    Object field = searchReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
+
+                SearchReport searchReport1 = new SearchReport();
+                searchReport1.setSearchNumber(searchnum.getText());
+                searchReport1.setSearchDate(date.getText());
+                searchReport1.setSearchTime(time.getText());
+                searchReport1.setOfficerRank(rank.getText());
+                searchReport1.setSearchComments(notes.getText());
+                searchReport1.setSearchSeizedItems(seizeditems.getText());
+
+                searchReport1.setSearchGrounds(toTitleCase(grounds.getText()));
+                searchReport1.setSearchType(toTitleCase(type.getValue().toString()));
+                searchReport1.setSearchMethod(toTitleCase(method.getValue().toString()));
+                searchReport1.setSearchWitnesses(toTitleCase(witness.getText()));
+                searchReport1.setOfficerName(toTitleCase(name.getText()));
+                searchReport1.setOfficerNumber(toTitleCase(num.getText()));
+                searchReport1.setOfficerAgency(toTitleCase(agen.getText()));
+                searchReport1.setOfficerDivision(toTitleCase(div.getText()));
+                searchReport1.setSearchStreet(toTitleCase(street.getText()));
+                searchReport1.setSearchArea(toTitleCase(area.getEditor().getText()));
+                searchReport1.setSearchCounty(toTitleCase(county.getText()));
+                searchReport1.setSearchedPersons(toTitleCase(searchedindividual.getText()));
+                searchReport1.setTestsConducted(toTitleCase(testconducted.getText()));
+                searchReport1.setTestResults(toTitleCase(result.getText()));
+                searchReport1.setBreathalyzerBACMeasure(toTitleCase(bacmeasurement.getText()));
+
+                try {
+                    SearchReportUtils.addSearchReport(searchReport1);
+                } catch (JAXBException e) {
+                    logError("Error creating SearchReport: ", e);
+                }
+
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
+                stage.close();
             }
-
-            SearchReport searchReport1 = new SearchReport();
-            searchReport1.setSearchNumber(searchnum.getText());
-            searchReport1.setSearchDate(date.getText());
-            searchReport1.setSearchTime(time.getText());
-            searchReport1.setOfficerRank(rank.getText());
-            searchReport1.setSearchComments(notes.getText());
-            searchReport1.setSearchSeizedItems(seizeditems.getText());
-
-            searchReport1.setSearchGrounds(toTitleCase(grounds.getText()));
-            searchReport1.setSearchType(toTitleCase(type.getValue().toString()));
-            searchReport1.setSearchMethod(toTitleCase(method.getValue().toString()));
-            searchReport1.setSearchWitnesses(toTitleCase(witness.getText()));
-            searchReport1.setOfficerName(toTitleCase(name.getText()));
-            searchReport1.setOfficerNumber(toTitleCase(num.getText()));
-            searchReport1.setOfficerAgency(toTitleCase(agen.getText()));
-            searchReport1.setOfficerDivision(toTitleCase(div.getText()));
-            searchReport1.setSearchStreet(toTitleCase(street.getText()));
-            searchReport1.setSearchArea(toTitleCase(area.getEditor().getText()));
-            searchReport1.setSearchCounty(toTitleCase(county.getText()));
-            searchReport1.setSearchedPersons(toTitleCase(searchedindividual.getText()));
-            searchReport1.setTestsConducted(toTitleCase(testconducted.getText()));
-            searchReport1.setTestResults(toTitleCase(result.getText()));
-            searchReport1.setBreathalyzerBACMeasure(toTitleCase(bacmeasurement.getText()));
-
-            try {
-                SearchReportUtils.addSearchReport(searchReport1);
-            } catch (JAXBException e) {
-                logError("Error creating SearchReport: ", e);
-            }
-
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Search Report has been submitted.", mainRT);
-            stage.close();
         });
         return searchReport;
     }

@@ -9,14 +9,13 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,45 +102,55 @@ public class CalloutReportUtils {
         });
 
         Button submitBtn = (Button) calloutReport.get("submitBtn");
-        submitBtn.setOnAction(event -> {
+        Label warningLabel = (Label) calloutReport.get("warningLabel");
 
-            for (String fieldName : calloutReportMap.keySet()) {
-                Object field = calloutReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+        submitBtn.setOnAction(event -> {
+            if (calloutnum.getText().trim().isEmpty()) {
+                warningLabel.setVisible(true);
+                warningLabel.setText("Callout Number can't be empty!");
+                warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> warningLabel.setVisible(false));
+                pause.play();
+            } else {
+                for (String fieldName : calloutReportMap.keySet()) {
+                    Object field = calloutReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
+
+                CalloutReport callout1 = new CalloutReport();
+                callout1.setDate(calloutdate.getText());
+                callout1.setTime(callouttime.getText());
+                callout1.setName(toTitleCase(officername.getText()));
+                callout1.setRank(officerrank.getText());
+                callout1.setNumber(toTitleCase(officernum.getText()));
+                callout1.setDivision(toTitleCase(officerdiv.getText()));
+                callout1.setAgency(toTitleCase(officeragen.getText()));
+                callout1.setResponseType(toTitleCase(callouttype.getText()));
+                callout1.setResponseGrade(toTitleCase(calloutcode.getText()));
+                callout1.setCalloutNumber(toTitleCase(calloutnum.getText()));
+                callout1.setNotesTextArea(calloutnotes.getText());
+                callout1.setAddress(toTitleCase(calloutstreet.getText()));
+                callout1.setCounty(toTitleCase(calloutcounty.getText()));
+                callout1.setArea(toTitleCase(calloutarea.getEditor().getText()));
+
+                try {
+                    CalloutReportUtils.addCalloutReport(callout1);
+                } catch (JAXBException e) {
+                    logError("Could not create new JAXB CalloutReport:", e);
+                }
+
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
+                Stage rootstage = (Stage) root.getScene().getWindow();
+                rootstage.close();
             }
-
-            CalloutReport callout1 = new CalloutReport();
-            callout1.setDate(calloutdate.getText());
-            callout1.setTime(callouttime.getText());
-            callout1.setName(toTitleCase(officername.getText()));
-            callout1.setRank(officerrank.getText());
-            callout1.setNumber(toTitleCase(officernum.getText()));
-            callout1.setDivision(toTitleCase(officerdiv.getText()));
-            callout1.setAgency(toTitleCase(officeragen.getText()));
-            callout1.setResponseType(toTitleCase(callouttype.getText()));
-            callout1.setResponseGrade(toTitleCase(calloutcode.getText()));
-            callout1.setCalloutNumber(toTitleCase(calloutnum.getText()));
-            callout1.setNotesTextArea(calloutnotes.getText());
-            callout1.setAddress(toTitleCase(calloutstreet.getText()));
-            callout1.setCounty(toTitleCase(calloutcounty.getText()));
-            callout1.setArea(toTitleCase(calloutarea.getEditor().getText()));
-
-            try {
-                CalloutReportUtils.addCalloutReport(callout1);
-            } catch (JAXBException e) {
-                logError("Could not create new JAXB CalloutReport:", e);
-            }
-
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.", mainRT);
-            Stage rootstage = (Stage) root.getScene().getWindow();
-            rootstage.close();
         });
         return calloutReport;
     }

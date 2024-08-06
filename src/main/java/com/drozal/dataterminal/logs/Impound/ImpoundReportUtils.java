@@ -125,45 +125,45 @@ public class ImpoundReportUtils {
                 pause.setOnFinished(e -> warningLabel.setVisible(false));
                 pause.play();
             } else {
-            for (String fieldName : impoundReportMap.keySet()) {
-                Object field = impoundReportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
+                for (String fieldName : impoundReportMap.keySet()) {
+                    Object field = impoundReportMap.get(fieldName);
+                    if (field instanceof ComboBox<?> comboBox) {
+                        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                            comboBox.getSelectionModel().selectFirst();
+                        }
                     }
                 }
-            }
 
-            ImpoundReport impoundReport1 = new ImpoundReport();
-            impoundReport1.setImpoundNumber(num.getText());
-            impoundReport1.setImpoundDate(date.getText());
-            impoundReport1.setImpoundTime(time.getText());
-            impoundReport1.setOfficerRank(officerrank.getText());
-            impoundReport1.setImpoundComments(notes.getText());
-            impoundReport1.setImpoundPlateNumber(plateNumber.getText());
+                ImpoundReport impoundReport1 = new ImpoundReport();
+                impoundReport1.setImpoundNumber(num.getText());
+                impoundReport1.setImpoundDate(date.getText());
+                impoundReport1.setImpoundTime(time.getText());
+                impoundReport1.setOfficerRank(officerrank.getText());
+                impoundReport1.setImpoundComments(notes.getText());
+                impoundReport1.setImpoundPlateNumber(plateNumber.getText());
 
-            impoundReport1.setOwnerName(toTitleCase(offenderName.getText()));
-            impoundReport1.setOwnerAge(toTitleCase(offenderAge.getText()));
-            impoundReport1.setOwnerGender(toTitleCase(offenderGender.getText()));
-            impoundReport1.setOwnerAddress(toTitleCase(offenderAddress.getText()));
-            impoundReport1.setImpoundModel(toTitleCase(model.getText()));
-            impoundReport1.setImpoundType(toTitleCase(type.getValue().toString()));
-            impoundReport1.setImpoundColor(toTitleCase(color.getValue().toString()));
-            impoundReport1.setOfficerName(toTitleCase(officername.getText()));
-            impoundReport1.setOfficerNumber(toTitleCase(officernum.getText()));
-            impoundReport1.setOfficerDivision(toTitleCase(officerdiv.getText()));
-            impoundReport1.setOfficerAgency(toTitleCase(officeragen.getText()));
-            try {
-                ImpoundReportUtils.addImpoundReport(impoundReport1);
-            } catch (JAXBException e) {
-                logError("Could not create new ImpoundReport: ", e);
-            }
+                impoundReport1.setOwnerName(toTitleCase(offenderName.getText()));
+                impoundReport1.setOwnerAge(toTitleCase(offenderAge.getText()));
+                impoundReport1.setOwnerGender(toTitleCase(offenderGender.getText()));
+                impoundReport1.setOwnerAddress(toTitleCase(offenderAddress.getText()));
+                impoundReport1.setImpoundModel(toTitleCase(model.getText()));
+                impoundReport1.setImpoundType(toTitleCase(type.getValue().toString()));
+                impoundReport1.setImpoundColor(toTitleCase(color.getValue().toString()));
+                impoundReport1.setOfficerName(toTitleCase(officername.getText()));
+                impoundReport1.setOfficerNumber(toTitleCase(officernum.getText()));
+                impoundReport1.setOfficerDivision(toTitleCase(officerdiv.getText()));
+                impoundReport1.setOfficerAgency(toTitleCase(officeragen.getText()));
+                try {
+                    ImpoundReportUtils.addImpoundReport(impoundReport1);
+                } catch (JAXBException e) {
+                    logError("Could not create new ImpoundReport: ", e);
+                }
 
-            actionController.needRefresh.set(1);
-            updateChartIfMismatch(reportChart);
-            refreshChart(areaReportChart, "area");
-            NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
-            stage.close();
+                actionController.needRefresh.set(1);
+                updateChartIfMismatch(reportChart);
+                refreshChart(areaReportChart, "area");
+                NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.", mainRT);
+                stage.close();
             }
         });
         return impoundReport;

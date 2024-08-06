@@ -1768,7 +1768,7 @@ public class actionController {
             caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
             caseSuspensionDuration.setText("None");
         }
-        
+
         String offences = case1.getOffences();
         if (offences == null) {
             offences = "";
@@ -2183,12 +2183,12 @@ public class actionController {
 
         // Birthday
         ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
-        
+
         String citationPriors = ped.getCitationPriors();
         if (citationPriors == null) {
             citationPriors = "";
         }
-        
+
         Pattern pattern = Pattern.compile("MaxFine:\\S+");
         Matcher matcher = pattern.matcher(citationPriors);
         String updatedCitPriors = matcher.replaceAll("").trim();

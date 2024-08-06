@@ -1768,9 +1768,14 @@ public class actionController {
             caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
             caseSuspensionDuration.setText("None");
         }
+        
+        String offences = case1.getOffences();
+        if (offences == null) {
+            offences = "";
+        }
 
         Pattern pattern = Pattern.compile("MaxFine:\\S+");
-        Matcher matcher = pattern.matcher(case1.getOffences());
+        Matcher matcher = pattern.matcher(offences);
         String updatedOffences = matcher.replaceAll("").trim();
 
         ObservableList<Label> offenceLabels = createLabels(updatedOffences);
@@ -2178,10 +2183,14 @@ public class actionController {
 
         // Birthday
         ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
-
-
+        
+        String citationPriors = ped.getCitationPriors();
+        if (citationPriors == null) {
+            citationPriors = "";
+        }
+        
         Pattern pattern = Pattern.compile("MaxFine:\\S+");
-        Matcher matcher = pattern.matcher(ped.getCitationPriors());
+        Matcher matcher = pattern.matcher(citationPriors);
         String updatedCitPriors = matcher.replaceAll("").trim();
 
 

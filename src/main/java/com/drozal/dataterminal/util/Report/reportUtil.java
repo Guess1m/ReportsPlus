@@ -1091,6 +1091,9 @@ public class reportUtil {
     }
 
     public static String extractMaxFine(String citation) {
+        if (citation == null) {
+            citation = "";
+        }
         Pattern pattern = Pattern.compile("MaxFine:(\\S+)");
         Matcher matcher = pattern.matcher(citation);
 

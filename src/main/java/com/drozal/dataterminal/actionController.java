@@ -79,6 +79,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1501,7 +1503,8 @@ public class actionController {
             CourtCases courtCases = CourtUtils.loadCourtCases();
             ObservableList<String> caseNames = FXCollections.observableArrayList();
             if (courtCases.getCaseList() != null) {
-                List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing(Case::getCaseTime).reversed()).collect(Collectors.toList());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+                List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> LocalDateTime.parse(case1.getOffenceDate() + " " + case1.getCaseTime(), formatter)).reversed()).collect(Collectors.toList());
 
                 for (Case case1 : sortedCases) {
                     if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {

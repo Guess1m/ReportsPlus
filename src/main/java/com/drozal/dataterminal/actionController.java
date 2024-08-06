@@ -106,6 +106,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.chargesFilePath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
+import static com.drozal.dataterminal.util.PedHistory.Ped.PedHistoryUtils.findPedByName;
 import static com.drozal.dataterminal.util.PedHistory.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addCitationsToTable;
@@ -1222,6 +1223,8 @@ public class actionController {
 
         Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
         Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
+        Optional<Ped> pedOptional = findPedByName(searchedName);
+
 
         String gender = pedData.getOrDefault("gender", "Not available");
         String birthday = pedData.getOrDefault("birthday", "Not available");
@@ -1231,15 +1234,18 @@ public class actionController {
         String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
         String name = pedData.getOrDefault("name", "Not available");
         String owner = ownerSearch.getOrDefault("owner", "Not available");
-
-        if (!name.equals("Not available")) {
+        if (pedOptional.isPresent()) {
+            log("Found: " + name + " From PedHistory file", Severity.DEBUG);
+            Ped ped = pedOptional.get();
+            processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus());
+        } else if (!name.equals("Not available")) {
             log("Found: " + name + " From WorldPed file", Severity.DEBUG);
             processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
-        } else if (!owner.equalsIgnoreCase("not available")) {
+        } else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase("Los Santos Police Department")) {
             log("Found: " + owner + " From WorldVeh file", Severity.DEBUG);
             processOwnerData(owner);
         } else {
-            log("No Ped With Name: " + searchedName + " Found Anywhere", Severity.WARN);
+            log("No Ped With Name: [" + searchedName + "] Found Anywhere", Severity.WARN);
             pedRecordPane.setVisible(false);
             noRecordFoundLabelPed.setVisible(true);
         }
@@ -1662,7 +1668,7 @@ public class actionController {
             totalJailTime = "Life Sentence";
 
         }
-        Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(case1.getName());
+        Optional<Ped> pedOptional = findPedByName(case1.getName());
         Ped ped1 = null;
         if (pedOptional.isPresent()) {
             ped1 = pedOptional.get();
@@ -2006,7 +2012,7 @@ public class actionController {
     }
 
     private void processOwnerData(String owner) {
-        Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByName(owner);
+        Optional<Ped> searchedPed = findPedByName(owner);
         Ped ped = searchedPed.orElseGet(() -> {
             try {
                 return createOwnerPed(owner);

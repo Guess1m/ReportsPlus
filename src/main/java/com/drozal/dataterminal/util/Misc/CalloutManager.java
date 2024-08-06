@@ -398,10 +398,9 @@ public class CalloutManager {
 				statusVal.setText("Not Responded");
 				statusVal.setStyle("-fx-text-fill: red;");
 			}
-		});
-		BorderPane statusPane = new BorderPane(statusDropdown); statusDropdown.getStylesheets()
-		                                                                      .add(Objects.requireNonNull(actionController.class.getResource("css/form/formComboBox.css"))
-		                                                                                  .toExternalForm());
+		}); BorderPane statusPane = new BorderPane(statusDropdown); statusDropdown.getStylesheets()
+		                                                                          .add(Objects.requireNonNull(actionController.class.getResource("css/form/formComboBox.css"))
+		                                                                                      .toExternalForm());
 		statusDropdown.getStyleClass().add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
@@ -514,7 +513,7 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(), controllerVar.getAreaReportChart(), controllerVar.getNotesViewController());
+			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(), controllerVar.getAreaReportChart());
 			
 			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 			

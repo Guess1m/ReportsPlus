@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Impound;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -23,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -52,7 +52,7 @@ public class ImpoundReportUtils {
 		return impoundReport;
 	}
 	
-	public static Map<String, Object> newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> impoundReport = impoundLayout();
 		
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");

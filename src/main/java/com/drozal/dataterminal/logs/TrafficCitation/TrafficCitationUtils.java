@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficCitation;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.CitationsData;
@@ -29,6 +28,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.generateCaseNumber;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -61,7 +61,7 @@ public class TrafficCitationUtils {
 		return citationReport;
 	}
 	
-	public static Map<String, Object> newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newCitation(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> citationReport = citationLayout();
 		
 		Map<String, Object> citationReportMap = (Map<String, Object>) citationReport.get("Citation Report Map");
@@ -138,7 +138,7 @@ public class TrafficCitationUtils {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			

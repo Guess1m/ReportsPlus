@@ -45,9 +45,8 @@ public class DataTerminalHomeApplication extends Application {
 		mainRT.initStyle(StageStyle.UNDECORATED);
 		Parent root = loader.load();
 		controller = loader.getController();
-		Scene scene = new Scene(root);
-		mainRT.setScene(scene); mainRT.getIcons()
-		                              .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		Scene scene = new Scene(root); mainRT.setScene(scene); mainRT.getIcons()
+		                                                             .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");

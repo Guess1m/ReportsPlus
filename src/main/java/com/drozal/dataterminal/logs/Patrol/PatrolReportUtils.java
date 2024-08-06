@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Patrol;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -23,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -52,7 +52,7 @@ public class PatrolReportUtils {
 		return patrolReport;
 	}
 	
-	public static Map<String, Object> newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newPatrol(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> patrolReport = patrolLayout();
 		
 		Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport.get("Patrol Report Map");

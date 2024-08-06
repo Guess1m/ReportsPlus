@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.TrafficStop;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
@@ -25,6 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -54,7 +54,7 @@ public class TrafficStopReportUtils {
 		return trafficStopReport;
 	}
 	
-	public static Map<String, Object> newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
 		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get("Traffic Stop Report Map");
@@ -130,7 +130,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transferarrestbtnts.setOnAction(event -> {
-			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart);
 			
 			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 			
@@ -175,7 +175,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transfercitationbtnts.setOnAction(event -> {
-			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart, areaReportChart);
 			
 			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 			

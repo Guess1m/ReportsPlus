@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Arrest;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.ChargesData;
@@ -30,6 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.generateCaseNumber;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.parseCourtData;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -62,7 +62,7 @@ public class ArrestReportUtils {
 		return arrestReport;
 	}
 	
-	public static Map<String, Object> newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> arrestReport = arrestLayout();
 		
 		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
@@ -139,7 +139,7 @@ public class ArrestReportUtils {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart);
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
@@ -176,7 +176,7 @@ public class ArrestReportUtils {
 		});
 		
 		transferincidentbtn.setOnAction(event -> {
-			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart);
 			
 			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 			
@@ -212,7 +212,7 @@ public class ArrestReportUtils {
 		});
 		
 		transfersearchbtn.setOnAction(event -> {
-			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart, notesViewController);
+			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart);
 			
 			Map<String, Object> ArrestReportMap = (Map<String, Object>) ArrestReportObj.get("Search Report Map");
 			

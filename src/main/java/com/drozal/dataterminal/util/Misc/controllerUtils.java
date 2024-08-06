@@ -248,14 +248,13 @@ public class controllerUtils {
 	public static void showLogClearNotification(String title, String message, Object owner) {
 		Label label = new Label(message);
 		
-		VBox vbox1 = new VBox(label);
-		vbox1.setAlignment(Pos.CENTER); Notifications noti = Notifications.create()
-		                                                                  .title(title)
-		                                                                  .text(message)
-		                                                                  .graphic(null)
-		                                                                  .position(Pos.TOP_CENTER)
-		                                                                  .hideAfter(Duration.seconds(1.15))
-		                                                                  .owner(owner);
+		VBox vbox1 = new VBox(label); vbox1.setAlignment(Pos.CENTER); Notifications noti = Notifications.create()
+		                                                                                                .title(title)
+		                                                                                                .text(message)
+		                                                                                                .graphic(null)
+		                                                                                                .position(Pos.TOP_CENTER)
+		                                                                                                .hideAfter(Duration.seconds(1.15))
+		                                                                                                .owner(owner);
 		noti.show();
 		noti.getStyleClass().add("notification-pane");
 	}
@@ -640,9 +639,9 @@ public class controllerUtils {
 	public static void updateTextFromNotepad(TextField textField, TextArea notepadText, String... keys) {
 		Map<String, String> values = pullNotesValues(notepadText.getText());
 		String extractedValue = null;
+		
 		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null) {
+			extractedValue = values.get(key); if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 				break;
 			}
 			
@@ -650,28 +649,29 @@ public class controllerUtils {
 				for (String altKey : entry.getKey().split("\\|")) {
 					if (altKey.equals(key)) {
 						extractedValue = entry.getValue();
-						break;
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
 					}
-				}
-				if (extractedValue != null) {
+				} if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 					break;
 				}
-			}
-			if (extractedValue != null) {
+			} if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 				break;
 			}
 		}
 		
-		String labelText = extractedValue;
-		textField.setText(labelText);
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			textField.setText(extractedValue);
+		}
 	}
 	
 	public static void updateTextFromNotepad(TextArea textArea, TextArea notepadText, String... keys) {
 		Map<String, String> values = pullNotesValues(notepadText.getText());
 		String extractedValue = null;
+		
 		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null) {
+			extractedValue = values.get(key); if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 				break;
 			}
 			
@@ -679,19 +679,21 @@ public class controllerUtils {
 				for (String altKey : entry.getKey().split("\\|")) {
 					if (altKey.equals(key)) {
 						extractedValue = entry.getValue();
-						break;
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
 					}
-				}
-				if (extractedValue != null) {
+				} if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 					break;
 				}
-			}
-			if (extractedValue != null) {
+			} if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 				break;
 			}
 		}
-		String labelText = extractedValue;
-		textArea.setText(labelText);
+		
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			textArea.setText(extractedValue);
+		}
 	}
 	
 }

@@ -480,7 +480,7 @@ public class actionController {
 	public Label mainColor9Bkg;
 	@FXML
 	public Button updateInfoBtn;
-	public NotesViewController notesViewController;
+	public static NotesViewController notesViewController;
 	actionController controller;
 	AnchorPane titlebar;
 	@FXML
@@ -965,47 +965,47 @@ public class actionController {
 	
 	@FXML
 	public void onCalloutReportButtonClick(ActionEvent actionEvent) {
-		newCallout(reportChart, areaReportChart, notesViewController);
+		newCallout(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void trafficStopReportButtonClick(ActionEvent actionEvent) {
-		newTrafficStop(reportChart, areaReportChart, notesViewController);
+		newTrafficStop(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onIncidentReportBtnClick(ActionEvent actionEvent) {
-		newIncident(reportChart, areaReportChart, notesViewController);
+		newIncident(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onSearchReportBtnClick(ActionEvent actionEvent) {
-		newSearch(reportChart, areaReportChart, notesViewController);
+		newSearch(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onArrestReportBtnClick(ActionEvent actionEvent) {
-		newArrest(reportChart, areaReportChart, notesViewController);
+		newArrest(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onCitationReportBtnClick(ActionEvent actionEvent) {
-		newCitation(reportChart, areaReportChart, notesViewController);
+		newCitation(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onPatrolButtonClick(ActionEvent actionEvent) {
-		newPatrol(reportChart, areaReportChart, notesViewController);
+		newPatrol(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
-		newImpound(reportChart, areaReportChart, notesViewController);
+		newImpound(reportChart, areaReportChart);
 	}
 	
 	@FXML
 	public void onDeathReportButtonClick(ActionEvent actionEvent) {
-		newDeathReport(reportChart, areaReportChart, notesViewController);
+		newDeathReport(reportChart, areaReportChart);
 	}
 	
 	@FXML
@@ -1929,7 +1929,7 @@ public class actionController {
 			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
 			
 			if (deathReport != null) {
-				Map<String, Object> deathReportObj = newDeathReport(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> deathReportObj = newDeathReport(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
 				
@@ -2000,7 +2000,7 @@ public class actionController {
 			
 			if (calloutReport != null) {
 				
-				Map<String, Object> calloutReportObj = newCallout(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> calloutReportObj = newCallout(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 				
@@ -2061,7 +2061,7 @@ public class actionController {
 			
 			if (patrolReport != null) {
 				
-				Map<String, Object> patrolReportObj = newPatrol(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> patrolReportObj = newPatrol(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get("Patrol Report Map");
 				
@@ -2118,7 +2118,7 @@ public class actionController {
 			
 			if (trafficStopReport != null) {
 				
-				Map<String, Object> trafficStopReportObj = newTrafficStop(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> trafficStopReportObj = newTrafficStop(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get("Traffic Stop Report Map");
 				
@@ -2203,7 +2203,7 @@ public class actionController {
 			
 			if (incidentReport != null) {
 				
-				Map<String, Object> incidentReportObj = newIncident(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> incidentReportObj = newIncident(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 				
@@ -2273,7 +2273,7 @@ public class actionController {
 			
 			if (impoundReport != null) {
 				
-				Map<String, Object> impoundReportObj = newImpound(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> impoundReportObj = newImpound(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 				
@@ -2345,7 +2345,7 @@ public class actionController {
 			                                                                                   .getSelectedItem();
 			
 			if (trafficCitationReport != null) {
-				Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 				
@@ -2437,7 +2437,7 @@ public class actionController {
 			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
 			
 			if (searchReport != null) {
-				Map<String, Object> searchReportObj = newSearch(getReportChart(), getAreaReportChart(), notesViewController);
+				Map<String, Object> searchReportObj = newSearch(getReportChart(), getAreaReportChart());
 				
 				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 				
@@ -2516,7 +2516,7 @@ public class actionController {
 			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
 			
 			if (arrestReport != null) {
-				Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart, notesViewController);
+				Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart);
 				
 				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 				

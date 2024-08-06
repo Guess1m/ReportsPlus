@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.logs.Callout;
 
-import com.drozal.dataterminal.NotesViewController;
 import com.drozal.dataterminal.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -26,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -55,7 +55,7 @@ public class CalloutReportUtils {
 		return calloutReport;
 	}
 	
-	public static Map<String, Object> newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart, NotesViewController notesViewController) {
+	public static Map<String, Object> newCallout(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
 		Map<String, Object> calloutReport = calloutLayout();
 		
 		Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReport.get("Callout Report Map");

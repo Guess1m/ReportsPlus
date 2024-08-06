@@ -1300,7 +1300,7 @@ public class settingsController {
 		updateReportSecondary(Color.valueOf("#323c41"));
 		updateReportAccent(Color.valueOf("#263238"));
 		updateReportHeading(Color.valueOf("white"));
-		ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
+		ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "false");
 		log("Reset Report Color Defaults", LogUtils.Severity.DEBUG);
 		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");

@@ -162,9 +162,8 @@ public class newOfficerController {
 			Parent root = loader.load();
 			controller = loader.getController();
 			Scene scene = new Scene(root);
-			mainRT.setScene(scene);
-			mainRT.initStyle(StageStyle.UNDECORATED); mainRT.getIcons()
-			                                                .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+			mainRT.setScene(scene); mainRT.initStyle(StageStyle.UNDECORATED); mainRT.getIcons()
+			                                                                        .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 			mainRT.show();
 			
 			String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
@@ -235,9 +234,8 @@ public class newOfficerController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DataTerminalHome-view.fxml"));
 		Parent root = loader.load();
 		controller = loader.getController();
-		Scene scene = new Scene(root);
-		mainRT.setScene(scene); mainRT.getIcons()
-		                              .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
+		Scene scene = new Scene(root); mainRT.setScene(scene); mainRT.getIcons()
+		                                                             .add(new Image(Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
 		mainRT.show();
 		
 		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");

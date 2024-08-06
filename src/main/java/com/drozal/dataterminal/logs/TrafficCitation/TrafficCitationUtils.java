@@ -8,6 +8,7 @@ import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
+import com.drozal.dataterminal.util.PedHistory.Ped;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -216,7 +217,7 @@ public class TrafficCitationUtils {
 				}
 			}
 			if (stringBuilder.length() > 0) {
-				stringBuilder.setLength(stringBuilder.length() - 2);
+				stringBuilder.setLength(stringBuilder.length() - 1);
 			}
 			
 			TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
@@ -248,6 +249,16 @@ public class TrafficCitationUtils {
 				TrafficCitationUtils.addTrafficCitationReport(trafficCitationReport);
 			} catch (JAXBException e) {
 				logError("Could not create TrafficCitationReport: ", e);
+			} Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(trafficCitationReport.getOffenderName());
+			if (pedOptional.isPresent()) {
+				log("Ped is present in history, adding new citations.. ", LogUtils.Severity.DEBUG);
+				Ped ped1 = pedOptional.get(); String beforePriors = ped1.getCitationPriors();
+				String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
+				ped1.setCitationPriors(afterPriors); try {
+					Ped.PedHistoryUtils.addPed(ped1);
+				} catch (JAXBException e) {
+					logError("Error updating ped priors from citationReport: ", e);
+				}
 			}
 			
 			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString()

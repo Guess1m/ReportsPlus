@@ -390,7 +390,7 @@ public class Ped {
 			}
 			
 			if (Peds.getPedList() != null) {
-				return Peds.getPedList().stream().filter(e -> e.getName().equals(pedname)).findFirst();
+				return Peds.getPedList().stream().filter(e -> e.getName().equalsIgnoreCase(pedname)).findFirst();
 			}
 			
 			return Optional.empty();

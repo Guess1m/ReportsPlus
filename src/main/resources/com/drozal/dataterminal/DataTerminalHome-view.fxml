@@ -1429,7 +1429,7 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
-                                        <RowConstraints prefHeight="130.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints prefHeight="120.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
                                         <AnchorPane GridPane.rowIndex="1">

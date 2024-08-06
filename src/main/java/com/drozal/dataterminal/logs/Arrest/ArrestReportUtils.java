@@ -10,6 +10,7 @@ import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
+import com.drozal.dataterminal.util.PedHistory.Ped;
 import com.drozal.dataterminal.util.Report.nestedReportUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -281,7 +282,7 @@ public class ArrestReportUtils {
 				chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 			}
 			if (stringBuilder.length() > 0) {
-				stringBuilder.setLength(stringBuilder.length() - 2);
+				stringBuilder.setLength(stringBuilder.length() - 1);
 			}
 			
 			ArrestReport arrestReport1 = new ArrestReport();
@@ -311,6 +312,16 @@ public class ArrestReportUtils {
 				ArrestReportUtils.addArrestReport(arrestReport1);
 			} catch (JAXBException e) {
 				logError("Could not create new ArrestReport: ", e);
+			} Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(arrestReport1.getArresteeName());
+			if (pedOptional.isPresent()) {
+				log("Ped is present in history, adding new charges.. ", LogUtils.Severity.DEBUG);
+				Ped ped1 = pedOptional.get(); String beforePriors = ped1.getArrestPriors();
+				String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
+				ped1.setArrestPriors(afterPriors); try {
+					Ped.PedHistoryUtils.addPed(ped1);
+				} catch (JAXBException e) {
+					logError("Error updating ped priors from arrestReport: ", e);
+				}
 			}
 			
 			if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString()

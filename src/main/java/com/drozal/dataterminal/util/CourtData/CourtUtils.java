@@ -264,7 +264,6 @@ public class CourtUtils {
 
         long minSec = delayInSeconds / 3;
         long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
-        log("scheduleOutcomeRevealForSingleCase called with caseNumber: " + caseNumber, LogUtils.Severity.DEBUG);
 
         CourtCases courtCases = loadCourtCases();
         Case caseToUpdate = courtCases.getCaseList().stream().filter(c -> caseNumber.equals(c.getCaseNumber())).findFirst().orElse(null);

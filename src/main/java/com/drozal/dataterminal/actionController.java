@@ -915,8 +915,9 @@ public class actionController {
                         caseToUpdate.setStatus("Closed");
                         modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
                         log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed", LogUtils.Severity.INFO);
-                        loadCaseLabels(caseList);
                         updateFields(caseToUpdate);
+                        loadCaseLabels(caseList);
+                        
                     } catch (JAXBException e) {
                         logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ",
                                  e);
@@ -1723,6 +1724,20 @@ public class actionController {
                 caseLicenseStatLabel.setStyle("-fx-text-fill: black;");
                 caseSuspensionDuration.setText("Pending");
                 caseSuspensionDuration.setStyle("-fx-text-fill: black;");
+                
+                String offences = case1.getOffences() != null ? case1.getOffences() : "";
+                Pattern pattern = Pattern.compile("MaxFine:\\S+");
+                Matcher matcher = pattern.matcher(offences);
+                String updatedOffences = matcher.replaceAll("").trim();
+                
+                ObservableList<Label> offenceLabels = createLabels(updatedOffences);
+                ObservableList<Label> outcomeLabels = createPendingLabels(case1.getOutcomes());
+                
+                caseOutcomesListView.setItems(outcomeLabels);
+                caseOffencesListView.setItems(offenceLabels);
+                
+                setCellFactory(caseOutcomesListView);
+                setCellFactory(caseOffencesListView);
             } else {
                 revealOutcomes(case1);
             }
@@ -1856,15 +1871,7 @@ public class actionController {
                 caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
                 caseSuspensionDuration.setText("None");
             }
-
-            String offences = case1.getOffences() != null ? case1.getOffences() : "";
-            Pattern pattern = Pattern.compile("MaxFine:\\S+");
-            Matcher matcher = pattern.matcher(offences);
-            String updatedOffences = matcher.replaceAll("").trim();
-
-            ObservableList<Label> offenceLabels = createLabels(updatedOffences);
-            ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
-
+            
             int fineTotal = calculateFineTotal(case1.getOutcomes());
             if (fineTotal > 1500) {
                 caseTotalLabel.setStyle("-fx-text-fill: red;");
@@ -1879,6 +1886,14 @@ public class actionController {
                 caseTotalLabel.setStyle("-fx-text-fill: gray;");
                 caseTotalLabel.setText("$0.00");
             }
+            
+            String offences = case1.getOffences() != null ? case1.getOffences() : "";
+            Pattern pattern = Pattern.compile("MaxFine:\\S+");
+            Matcher matcher = pattern.matcher(offences);
+            String updatedOffences = matcher.replaceAll("").trim();
+            
+            ObservableList<Label> offenceLabels = createLabels(updatedOffences);
+            ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 
             caseOutcomesListView.setItems(outcomeLabels);
             caseOffencesListView.setItems(offenceLabels);
@@ -1955,6 +1970,21 @@ public class actionController {
             for (String item : items) {
                 if (!item.trim().isEmpty()) {
                     Label label = new Label(item.trim());
+                    label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+                    labels.add(label);
+                }
+            }
+        }
+        return labels;
+    }
+    
+    private ObservableList<Label> createPendingLabels(String text) {
+        ObservableList<Label> labels = FXCollections.observableArrayList();
+        if (text != null) {
+            String[] items = text.split("\\|");
+            for (String item : items) {
+                if (!item.trim().isEmpty()) {
+                    Label label = new Label("Pending Trial");
                     label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
                     labels.add(label);
                 }

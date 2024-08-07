@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.PedHistory;
+package com.drozal.dataterminal.util.History;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import org.w3c.dom.Document;

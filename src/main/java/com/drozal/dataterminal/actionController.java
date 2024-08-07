@@ -35,8 +35,8 @@ import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtCases;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
+import com.drozal.dataterminal.util.History.Ped;
 import com.drozal.dataterminal.util.Misc.*;
-import com.drozal.dataterminal.util.PedHistory.Ped;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
@@ -100,6 +100,8 @@ import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
 import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
+import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedByName;
+import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -111,8 +113,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.chargesFilePath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
-import static com.drozal.dataterminal.util.PedHistory.Ped.PedHistoryUtils.findPedByName;
-import static com.drozal.dataterminal.util.PedHistory.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addCitationsToTable;
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
@@ -120,9 +120,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
-    
-    @FXML
-    private Button revealOutcomeBtn;
     
     public void initialize() throws IOException {
         // TODO undo
@@ -375,7 +372,6 @@ public class actionController {
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     //<editor-fold desc="VARS">
@@ -408,7 +404,9 @@ public class actionController {
     //</editor-fold>
 
     //<editor-fold desc="FXML Elements">
-
+    
+    @FXML
+    private Button revealOutcomeBtn;
     @FXML
     private Label caldetlbl2;
     @FXML

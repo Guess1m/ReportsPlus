@@ -21,9 +21,88 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.vehicleHistoryURL;
 @XmlRootElement(name = "vehicle")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vehicle {
+	//
+	//	licensePlate=46EEK572&model=0x361ca82c&isStolen=False&isPolice=True&owner=David McReary&driver=John Mckennedy&registration=Valid&insurance=Valid&color=
 	
 	@XmlElement(name = "PlateNumber")
 	private String plateNumber;
+	
+	@XmlElement(name = "Color")
+	private String color;
+	
+	@XmlElement(name = "Model")
+	private String model;
+	
+	@XmlElement(name = "Stolen")
+	private String stolenStatus;
+	
+	@XmlElement(name = "Police")
+	private String policeStatus;
+	
+	@XmlElement(name = "Owner")
+	private String owner;
+	
+	@XmlElement(name = "Registration")
+	private String registration;
+	
+	@XmlElement(name = "Insurance")
+	private String insurance;
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public String getInsurance() {
+		return insurance;
+	}
+	
+	public void setInsurance(String insurance) {
+		this.insurance = insurance;
+	}
+	
+	public String getModel() {
+		return model;
+	}
+	
+	public void setModel(String model) {
+		this.model = model;
+	}
+	
+	public String getOwner() {
+		return owner;
+	}
+	
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
+	public String getPoliceStatus() {
+		return policeStatus;
+	}
+	
+	public void setPoliceStatus(String policeStatus) {
+		this.policeStatus = policeStatus;
+	}
+	
+	public String getRegistration() {
+		return registration;
+	}
+	
+	public void setRegistration(String registration) {
+		this.registration = registration;
+	}
+	
+	public String getStolenStatus() {
+		return stolenStatus;
+	}
+	
+	public void setStolenStatus(String stolenStatus) {
+		this.stolenStatus = stolenStatus;
+	}
 	
 	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;

@@ -36,6 +36,7 @@ import com.drozal.dataterminal.util.CourtData.CourtCases;
 import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
 import com.drozal.dataterminal.util.History.Ped;
+import com.drozal.dataterminal.util.History.Vehicle;
 import com.drozal.dataterminal.util.Misc.*;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
@@ -102,6 +103,7 @@ import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.ne
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedByName;
 import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
+import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -406,6 +408,10 @@ public class actionController {
     //<editor-fold desc="FXML Elements">
     
     @FXML
+    private TextField vehpolicefield;
+    @FXML
+    private Label plt8;
+    @FXML
     private Button revealOutcomeBtn;
     @FXML
     private Label caldetlbl2;
@@ -671,8 +677,6 @@ public class actionController {
     @FXML
     private TextField vehmodelfield;
     @FXML
-    private Label vehplatefield;
-    @FXML
     private AnchorPane vehcolordisplay;
     @FXML
     private TextField vehplatefield2;
@@ -894,8 +898,6 @@ public class actionController {
             }
             blankCourtInfoPane.setVisible(true);
             courtInfoPane.setVisible(false);
-            NotificationManager.showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum,
-                                                        mainRT);
             loadCaseLabels(caseList);
         }
     }
@@ -1240,36 +1242,74 @@ public class actionController {
     @FXML
     public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedPlate = vehSearchField.getText();
-
+        
         Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
-
+        Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
+        
+        String model = vehData.getOrDefault("model", "Not available");
+        String isStolen = vehData.getOrDefault("isStolen", "Not available");
+        String isPolice = vehData.getOrDefault("isPolice", "Not available");
+        String registration = vehData.getOrDefault("registration", "Not available");
+        String insurance = vehData.getOrDefault("insurance", "Not available");
+        String colorValue = vehData.getOrDefault("color", "Not available");
+        String owner = vehData.getOrDefault("owner", "Not available");
+        String[] rgb = colorValue.split("-");
+        String color = "Not available";
+        
         String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
-        if (!licensePlate.equals("Not available")) {
+        
+        if (vehOptional.isPresent()) {
+            log("Found: " + searchedPlate + " From VehHistory file", Severity.DEBUG);
             vehRecordPane.setVisible(true);
             noRecordFoundLabelVeh.setVisible(false);
-            String model = vehData.getOrDefault("model", "Not available");
-            String isStolen = vehData.getOrDefault("isStolen", "Not available");
-            String owner = vehData.getOrDefault("owner", "Not available");
-            String registration = vehData.getOrDefault("registration", "Not available");
-            String insurance = vehData.getOrDefault("insurance", "Not available");
-            String colorValue = vehData.getOrDefault("color", "Not available");
-            String[] rgb = colorValue.split("-");
-            String color = "Not available";
-
+            Vehicle vehicle = vehOptional.get();
+            vehplatefield2.setText(vehicle.getPlateNumber());
+            vehmodelfield.setText(vehicle.getModel());
+            vehstolenfield.setText(vehicle.getStolenStatus());
+            vehownerfield.setText(vehicle.getOwner());
+            vehregfield.setText(vehicle.getRegistration());
+            vehinsfield.setText(vehicle.getInsurance());
+            vehpolicefield.setText(vehicle.getPoliceStatus());
+            if (!vehicle.getColor().equals("Not available")) {
+                vehnocolorlabel.setVisible(false);
+                vehcolordisplay.setStyle(
+                        "-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
+            } else {
+                vehnocolorlabel.setVisible(true);
+                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
+            }
+        } else if (!licensePlate.equals("Not available")) {
+            log("Found: " + searchedPlate + " From WorldVeh file", Severity.DEBUG);
+            vehRecordPane.setVisible(true);
+            noRecordFoundLabelVeh.setVisible(false);
             if (rgb.length == 3) {
                 color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
             }
-
-            vehplatefield.setText(licensePlate);
-            vehplatefield2.setText(licensePlate);
-            vehmodelfield.setText(model);
-            vehstolenfield.setText(isStolen);
-            vehownerfield.setText(owner);
-            vehregfield.setText(registration);
-            vehinsfield.setText(insurance);
-            if (!color.equals("Not available")) {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setPlateNumber(licensePlate);
+            vehicle.setColor(color);
+            vehicle.setModel(model);
+            vehicle.setOwner(owner);
+            vehicle.setInsurance(insurance);
+            vehicle.setPoliceStatus(isPolice);
+            vehicle.setStolenStatus(isStolen);
+            vehicle.setRegistration(registration);
+            try {
+                Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+            } catch (JAXBException e) {
+                logError("Could not add not vehicle from VehHistory:", e);
+            }
+            vehplatefield2.setText(vehicle.getPlateNumber());
+            vehmodelfield.setText(vehicle.getModel());
+            vehstolenfield.setText(vehicle.getStolenStatus());
+            vehownerfield.setText(vehicle.getOwner());
+            vehregfield.setText(vehicle.getRegistration());
+            vehinsfield.setText(vehicle.getInsurance());
+            vehpolicefield.setText(vehicle.getPoliceStatus());
+            if (!vehicle.getColor().equals("Not available")) {
                 vehnocolorlabel.setVisible(false);
-                vehcolordisplay.setStyle("-fx-background-color: " + color + ";" + "-fx-border-color: grey;");
+                vehcolordisplay.setStyle(
+                        "-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
             } else {
                 vehnocolorlabel.setVisible(true);
                 vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
@@ -1287,12 +1327,11 @@ public class actionController {
         log("Searched: " + searchedName, Severity.INFO);
         String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
         String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
-
+        
         Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
         Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
         Optional<Ped> pedOptional = findPedByName(searchedName);
-
-
+        
         String gender = pedData.getOrDefault("gender", "Not available");
         String birthday = pedData.getOrDefault("birthday", "Not available");
         String address = pedData.getOrDefault("address", "Not available");
@@ -1300,17 +1339,24 @@ public class actionController {
         String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
         String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
         String name = pedData.getOrDefault("name", "Not available");
+        
         String owner = ownerSearch.getOrDefault("owner", "Not available");
+        String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not available");
+        
         if (pedOptional.isPresent()) {
             log("Found: " + name + " From PedHistory file", Severity.DEBUG);
             Ped ped = pedOptional.get();
-            processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus());
+            processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(),
+                           ped.getWantedStatus(), ped.getLicenseStatus());
         } else if (!name.equals("Not available")) {
             log("Found: " + name + " From WorldPed file", Severity.DEBUG);
             processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
-        } else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase("Los Santos Police Department")) {
-            log("Found: " + owner + " From WorldVeh file", Severity.DEBUG);
-            processOwnerData(owner);
+        } else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase(
+                "Los Santos Police Department") && !owner.equalsIgnoreCase(
+                "Los Santos Sheriff's Office") && !owner.equalsIgnoreCase(
+                "Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {
+            log("Found Vehicle Owner: " + owner + " From WorldVeh file, plate#: " + ownerPlateNum, Severity.DEBUG);
+            processOwnerData(owner, ownerPlateNum);
         } else {
             log("No Ped With Name: [" + searchedName + "] Found Anywhere", Severity.WARN);
             pedRecordPane.setVisible(false);
@@ -2117,12 +2163,12 @@ public class actionController {
             ped.setOutstandingWarrants("WANTED - Error retrieving details");
         }
     }
-
-    private void processOwnerData(String owner) {
+    
+    private void processOwnerData(String owner, String vehPlateNum) {
         Optional<Ped> searchedPed = findPedByName(owner);
         Ped ped = searchedPed.orElseGet(() -> {
             try {
-                return createOwnerPed(owner);
+                return createOwnerPed(owner, vehPlateNum);
             } catch (IOException e) {
                 logError("Error creating ownerPed: ", e);
                 return null;
@@ -2135,8 +2181,8 @@ public class actionController {
         pedRecordPane.setVisible(true);
         noRecordFoundLabelPed.setVisible(false);
     }
-
-    private Ped createOwnerPed(String owner) throws IOException {
+    
+    private Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
         String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
         String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
         Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
@@ -2148,6 +2194,7 @@ public class actionController {
         setPedPriors(ped);
         ped.setFishingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
         ped.setBoatingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+        ped.setVehiclePlateNum(vehPlateNum);
         try {
             setGunLicenseStatus(ped);
         } catch (IOException e) {
@@ -3501,7 +3548,7 @@ public class actionController {
     public Label getPlt1() {
         return plt1;
     }
-
+    
     public Label getPlt2() {
         return plt2;
     }
@@ -3553,7 +3600,71 @@ public class actionController {
     public Label getPed7() {
         return ped7;
     }
-
+    
+    public Label getPed10() {
+        return ped10;
+    }
+    
+    public Label getPed11() {
+        return ped11;
+    }
+    
+    public Label getPed12() {
+        return ped12;
+    }
+    
+    public Label getPed13() {
+        return ped13;
+    }
+    
+    public Label getPed14() {
+        return ped14;
+    }
+    
+    public Label getPed15() {
+        return ped15;
+    }
+    
+    public Label getPed16() {
+        return ped16;
+    }
+    
+    public Label getPed17() {
+        return ped17;
+    }
+    
+    public Label getPed18() {
+        return ped18;
+    }
+    
+    public Label getPed19() {
+        return ped19;
+    }
+    
+    public Label getPed20() {
+        return ped20;
+    }
+    
+    public Label getPed21() {
+        return ped21;
+    }
+    
+    public Label getPed22() {
+        return ped22;
+    }
+    
+    public Label getPed8() {
+        return ped8;
+    }
+    
+    public Label getPed9() {
+        return ped9;
+    }
+    
+    public Label getPlt8() {
+        return plt8;
+    }
+    
     public MenuItem getArrestReportButton() {
         return arrestReportButton;
     }
@@ -3817,11 +3928,7 @@ public class actionController {
     public TextField getVehplatefield2() {
         return vehplatefield2;
     }
-
-    public Label getVehplatefield() {
-        return vehplatefield;
-    }
-
+    
     public AnchorPane getVehRecordPane() {
         return vehRecordPane;
     }

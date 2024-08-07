@@ -88,6 +88,9 @@ public class Ped {
 
     @XmlElement(name = "CitationPriors")
     private String citationPriors;
+    
+    @XmlElement(name = "VehiclePlateNum")
+    private String vehiclePlateNum;
 
     public String getFirstName() {
         if (name != null && !name.isEmpty()) {
@@ -113,7 +116,15 @@ public class Ped {
         }
         return "";
     }
-
+    
+    public String getVehiclePlateNum() {
+        return vehiclePlateNum;
+    }
+    
+    public void setVehiclePlateNum(String vehiclePlateNum) {
+        this.vehiclePlateNum = vehiclePlateNum;
+    }
+    
     public String getGunLicenseClass() {
         return gunLicenseClass;
     }

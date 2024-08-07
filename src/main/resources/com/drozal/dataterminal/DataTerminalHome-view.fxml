@@ -209,8 +209,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
-                    stylesheets="@css/form/formFields.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    stylesheets="@css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -1165,11 +1165,11 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="vehLookupPane" layoutX="227.0" layoutY="110.0" prefHeight="641.0" prefWidth="797.0"
-                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="115.0">
             <children>
                 <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0"
-                          AnchorPane.topAnchor="45.0">
+                          AnchorPane.topAnchor="15.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                         <ColumnConstraints hgrow="SOMETIMES"/>
@@ -1203,11 +1203,11 @@
                                 GridPane.columnIndex="2"/>
                     </children>
                 </GridPane>
-                <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0" AnchorPane.leftAnchor="88.0"
-                            AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="112.0">
+                <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0" AnchorPane.bottomAnchor="15.0"
+                            AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                     <children>
-                        <AnchorPane layoutX="1.0" layoutY="53.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0">
+                        <AnchorPane layoutX="1.0" layoutY="53.0" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                             <children>
                                 <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" prefHeight="221.0" prefWidth="709.0"
                                           vgap="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0"
@@ -1227,11 +1227,10 @@
                                     <children>
                                         <AnchorPane>
                                             <children>
-                                                <Label fx:id="plt1" layoutY="14.0" style="-fx-font-size: 14;"
-                                                       text="License Plate:" AnchorPane.leftAnchor="0.0"
-                                                       AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt1" layoutY="14.0" text="License Plate:"
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <TextField fx:id="vehplatefield2" editable="false" layoutY="56.0"
@@ -1248,11 +1247,10 @@
                                                            stylesheets="@css/menu/menuStyles.css"
                                                            AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
                                                            AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="plt2" layoutY="14.0" style="-fx-font-size: 14;"
-                                                       text="Model:" AnchorPane.leftAnchor="0.0"
-                                                       AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt2" layoutY="14.0" text="Model:"
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
@@ -1264,21 +1262,20 @@
                                                            stylesheets="@css/menu/menuStyles.css"
                                                            AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
                                                            AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="plt3" style="-fx-font-size: 14;" text="Vehicle Stolen:"
-                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt3" text="Vehicle Stolen:" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane prefHeight="103.0" prefWidth="223.0" GridPane.columnIndex="2">
                                             <children>
-                                                <Label fx:id="plt4" layoutX="1.0" style="-fx-font-size: 14;"
-                                                       text="Color:" AnchorPane.leftAnchor="0.0"
-                                                       AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt4" layoutX="1.0" text="Color:"
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                                 <AnchorPane fx:id="vehcolordisplay" layoutY="-48.0" prefHeight="59.0"
@@ -1296,6 +1293,21 @@
                                                 </AnchorPane>
                                             </children>
                                         </AnchorPane>
+                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <TextField fx:id="vehpolicefield" editable="false" layoutX="1.0"
+                                                           layoutY="27.0" styleClass="calloutField"
+                                                           stylesheets="@css/menu/menuStyles.css"
+                                                           AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
+                                                           AnchorPane.rightAnchor="0.0"/>
+                                                <Label fx:id="plt8" text="Police Vehicle:" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.topAnchor="14.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
                                     </children>
                                 </GridPane>
                                 <Label alignment="CENTER" prefHeight="35.0" prefWidth="747.0"
@@ -1309,36 +1321,9 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="NEVER"/>
-                                <ColumnConstraints hgrow="SOMETIMES"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <Label style="-fx-font-size: 25; -fx-text-fill: #5e7387;" styleClass="headingBig"
-                                       stylesheets="@css/menu/menuLabels.css" text="Vehicle Record:"
-                                       textAlignment="CENTER">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="20.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="vehplatefield" style="-fx-font-size: 15; -fx-text-fill: #4d4d4d;"
-                                       styleClass="headingBig" stylesheets="@css/menu/menuLabels.css" text="PlateNum"
-                                       textAlignment="CENTER" GridPane.columnIndex="1">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="20.0"/>
-                                    </font>
-                                    <GridPane.margin>
-                                        <Insets left="8.0"/>
-                                    </GridPane.margin>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <AnchorPane layoutX="1.0" layoutY="354.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0">
+                        <AnchorPane layoutX="1.0" layoutY="354.0" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                    AnchorPane.topAnchor="354.0">
                             <children>
                                 <GridPane hgap="25.0" layoutX="31.0" layoutY="35.0" prefHeight="103.0" prefWidth="709.0"
                                           vgap="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
@@ -1358,10 +1343,10 @@
                                                            stylesheets="@css/menu/menuStyles.css"
                                                            AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
                                                            AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="plt5" style="-fx-font-size: 14;" text="Owner:"
-                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt5" text="Owner:" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
@@ -1373,11 +1358,10 @@
                                                            stylesheets="@css/menu/menuStyles.css"
                                                            AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
                                                            AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="plt6" style="-fx-font-size: 14;"
-                                                       text="Registration Status:" AnchorPane.leftAnchor="0.0"
-                                                       AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt6" text="Registration Status:"
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
@@ -1389,10 +1373,10 @@
                                                            stylesheets="@css/menu/menuStyles.css"
                                                            AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="0.0"
                                                            AnchorPane.rightAnchor="0.0"/>
-                                                <Label fx:id="plt7" style="-fx-font-size: 14;" text="Insurance Status:"
-                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0">
+                                                <Label fx:id="plt7" text="Insurance Status:" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.topAnchor="14.0">
                                                     <font>
-                                                        <Font name="Segoe UI Black" size="14.0"/>
+                                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
@@ -1464,7 +1448,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped1" layoutX="12.0" layoutY="19.0" text="First Name:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1479,7 +1463,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped2" layoutX="12.0" layoutY="21.0" text="Last Name:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1494,7 +1478,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped4" layoutX="25.0" layoutY="20.0" text="Wanted Status:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1509,7 +1493,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped5" layoutX="26.0" layoutY="20.0" text="License Status:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1524,7 +1508,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped6" layoutX="25.0" layoutY="20.0" text="Birthday:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1539,7 +1523,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped7" layoutX="25.0" layoutY="20.0" text="Address:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1568,7 +1552,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="60.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped8" layoutX="25.0" layoutY="20.0" text="Description:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1593,7 +1577,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped9" layoutX="25.0" layoutY="20.0" text="License Number:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1608,7 +1592,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped12" layoutX="25.0" layoutY="20.0" text="Parole Status:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1623,7 +1607,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped13" layoutX="25.0" layoutY="20.0"
-                                                       text="Probation Status:" AnchorPane.leftAnchor="12.0"
+                                                       text="Probation Status:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1639,7 +1623,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped15" layoutX="25.0" layoutY="20.0"
-                                                       text="Gun License Status:" AnchorPane.leftAnchor="12.0"
+                                                       text="Gun License Status:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1655,7 +1639,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped16" layoutX="25.0" layoutY="20.0"
-                                                       text="Gun License Type:" AnchorPane.leftAnchor="12.0"
+                                                       text="Gun License Type:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1671,7 +1655,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped17" layoutX="25.0" layoutY="20.0"
-                                                       text="Gun License Class:" AnchorPane.leftAnchor="12.0"
+                                                       text="Gun License Class:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1687,7 +1671,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped18" layoutX="25.0" layoutY="20.0"
-                                                       text="Fishing License Status:" AnchorPane.leftAnchor="12.0"
+                                                       text="Fishing License Status:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1703,7 +1687,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped19" layoutX="25.0" layoutY="20.0"
-                                                       text="Boating License Status:" AnchorPane.leftAnchor="12.0"
+                                                       text="Boating License Status:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1719,7 +1703,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped20" layoutX="25.0" layoutY="20.0"
-                                                       text="Hunting License Status:" AnchorPane.leftAnchor="12.0"
+                                                       text="Hunting License Status:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1730,7 +1714,7 @@
                                         <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="9">
                                             <children>
                                                 <Label fx:id="ped21" layoutX="25.0" layoutY="20.0"
-                                                       text="Arrest History:" AnchorPane.leftAnchor="12.0"
+                                                       text="Arrest History:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="-5.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1757,7 +1741,7 @@
                                                     GridPane.rowIndex="9">
                                             <children>
                                                 <Label fx:id="ped22" layoutX="25.0" layoutY="20.0"
-                                                       text="Citation History:" AnchorPane.leftAnchor="12.0"
+                                                       text="Citation History:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="-5.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1802,7 +1786,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="60.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped10" layoutX="25.0" layoutY="20.0" text="Alias(s):"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>
@@ -1857,7 +1841,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped14" layoutX="25.0" layoutY="20.0"
-                                                       text="Time(s) Stopped:" AnchorPane.leftAnchor="12.0"
+                                                       text="Time(s) Stopped:" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1873,7 +1857,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="60.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped11" layoutX="25.0" layoutY="20.0"
-                                                       text="Affiliation(s):" AnchorPane.leftAnchor="12.0"
+                                                       text="Affiliation(s):" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
@@ -1899,7 +1883,7 @@
                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                            AnchorPane.topAnchor="27.0"/>
                                                 <Label fx:id="ped3" layoutX="25.0" layoutY="20.0" text="Gender:"
-                                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <font>
                                                         <Font name="Segoe UI Semibold" size="16.0"/>
                                                     </font>

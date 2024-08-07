@@ -355,7 +355,6 @@ public class settingsController {
         controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-        controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 
         controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -365,6 +364,7 @@ public class settingsController {
         controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 
         controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -388,7 +388,7 @@ public class settingsController {
         controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-
+        
         controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -396,6 +396,21 @@ public class settingsController {
         controllerVar.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 
         controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
         controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
@@ -441,7 +456,6 @@ public class settingsController {
         controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-        controllerVar.getVehplatefield().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 
         controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -451,6 +465,7 @@ public class settingsController {
         controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
 
         controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -474,7 +489,7 @@ public class settingsController {
         controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
-
+        
         controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -482,6 +497,21 @@ public class settingsController {
         controllerVar.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
 
         controllerVar.getActivecalfill().setStyle(updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
         controllerVar.getCalfill().setStyle(updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));

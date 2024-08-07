@@ -46,7 +46,7 @@ public class CourtUtils {
         }
     }
 
-    private static void saveCourtCases(CourtCases courtCases) throws JAXBException {
+    public static void saveCourtCases(CourtCases courtCases) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(CourtCases.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

@@ -15,7 +15,6 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
@@ -30,7 +29,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -239,16 +237,6 @@ public class controllerUtils {
         return coloredImage;
     }
 
-    public static void showLogClearNotification(String title, String message, Object owner) {
-        Label label = new Label(message);
-
-        VBox vbox1 = new VBox(label);
-        vbox1.setAlignment(Pos.CENTER);
-        Notifications noti = Notifications.create().title(title).text(message).graphic(null).position(Pos.TOP_CENTER).hideAfter(Duration.seconds(1.15)).owner(owner);
-        noti.show();
-        noti.getStyleClass().add("notification-pane");
-    }
-
     public static void setActive(AnchorPane pane) {
         pane.setVisible(true);
         pane.setDisable(false);
@@ -287,6 +275,7 @@ public class controllerUtils {
                 clearDataLogs();
                 updateChartIfMismatch(barChart);
                 controllerUtils.refreshChart(areaChart, "area");
+                actionController.needRefresh.set(1);
             }
         });
     }

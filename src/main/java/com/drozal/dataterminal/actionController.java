@@ -116,25 +116,6 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 
-    @FXML
-    private Label caldetlbl2;
-    @FXML
-    private Label caldetlbl1;
-    @FXML
-    private Label caldetlbl4;
-    @FXML
-    private Label caldetlbl3;
-    @FXML
-    private Label caldetlbl6;
-    @FXML
-    private Label caldetlbl5;
-    @FXML
-    private Label caldetlbl8;
-    @FXML
-    private Label caldetlbl7;
-    @FXML
-    private Label caldetlbl9;
-
     public void initialize() throws IOException {
         // TODO undo
         lookupBtn.setVisible(true);
@@ -413,6 +394,24 @@ public class actionController {
 
     //<editor-fold desc="FXML Elements">
 
+    @FXML
+    private Label caldetlbl2;
+    @FXML
+    private Label caldetlbl1;
+    @FXML
+    private Label caldetlbl4;
+    @FXML
+    private Label caldetlbl3;
+    @FXML
+    private Label caldetlbl6;
+    @FXML
+    private Label caldetlbl5;
+    @FXML
+    private Label caldetlbl8;
+    @FXML
+    private Label caldetlbl7;
+    @FXML
+    private Label caldetlbl9;
     @FXML
     private TextField pedgunlicensestatusfield;
     @FXML
@@ -1576,6 +1575,19 @@ public class actionController {
                         }
                     }
                 });
+
+                Map<String, Case> caseMap = new HashMap<>();
+                for (Case case1 : courtCases.getCaseList()) {
+                    String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime();
+                    if (caseMap.containsKey(dateTime)) {
+                        caseMap.put(dateTime, case1);
+                    } else {
+                        caseMap.put(dateTime, case1);
+                    }
+                }
+                courtCases.setCaseList(new ArrayList<>(caseMap.values()));
+                CourtUtils.saveCourtCases(courtCases);
+
             }
         } catch (JAXBException | IOException e) {
             logError("Error loading Case labels: ", e);
@@ -1600,66 +1612,6 @@ public class actionController {
                 };
             }
         });
-    }
-
-    public static String calculateTotalTime(String input, String key) {
-        String patternString = key + ": ([^\\.]+)\\.";
-        Pattern pattern = Pattern.compile(patternString);
-        Matcher matcher = pattern.matcher(input);
-
-        int totalMonths = 0;
-
-        while (matcher.find()) {
-            String timeString = matcher.group(1).trim();
-
-            Pattern yearsPattern = Pattern.compile("(\\d+) years?");
-            Pattern monthsPattern = Pattern.compile("(\\d+) months?");
-
-            Matcher yearsMatcher = yearsPattern.matcher(timeString);
-            Matcher monthsMatcher = monthsPattern.matcher(timeString);
-
-            int months = 0;
-
-            if (yearsMatcher.find()) {
-                int years = Integer.parseInt(yearsMatcher.group(1));
-                months += years * 12;
-            }
-
-            if (monthsMatcher.find()) {
-                months += Integer.parseInt(monthsMatcher.group(1));
-            }
-
-            totalMonths += months;
-        }
-
-        int years = totalMonths / 12;
-        int months = totalMonths % 12;
-
-        return (years > 0 ? years + " years " : "") + (months > 0 ? months + " months" : "").trim();
-    }
-
-    public List<String> parseCharges(String input, String key) {
-        List<String> results = new ArrayList<>();
-
-        String patternString = key + ": ([^\\.]+)\\.";
-        Pattern pattern = Pattern.compile(patternString);
-        Matcher matcher = pattern.matcher(input);
-
-        while (matcher.find()) {
-            results.add(matcher.group(1).trim());
-        }
-        return results;
-    }
-
-    public String extractInteger(String input) {
-        Pattern pattern = Pattern.compile("-?\\d+");
-        Matcher matcher = pattern.matcher(input);
-
-        if (matcher.find()) {
-            return matcher.group();
-        } else {
-            return "";
-        }
     }
 
     private void updateFields(Case case1) {
@@ -1820,6 +1772,66 @@ public class actionController {
 
         setCellFactory(caseOutcomesListView);
         setCellFactory(caseOffencesListView);
+    }
+
+    public static String calculateTotalTime(String input, String key) {
+        String patternString = key + ": ([^\\.]+)\\.";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(input);
+
+        int totalMonths = 0;
+
+        while (matcher.find()) {
+            String timeString = matcher.group(1).trim();
+
+            Pattern yearsPattern = Pattern.compile("(\\d+) years?");
+            Pattern monthsPattern = Pattern.compile("(\\d+) months?");
+
+            Matcher yearsMatcher = yearsPattern.matcher(timeString);
+            Matcher monthsMatcher = monthsPattern.matcher(timeString);
+
+            int months = 0;
+
+            if (yearsMatcher.find()) {
+                int years = Integer.parseInt(yearsMatcher.group(1));
+                months += years * 12;
+            }
+
+            if (monthsMatcher.find()) {
+                months += Integer.parseInt(monthsMatcher.group(1));
+            }
+
+            totalMonths += months;
+        }
+
+        int years = totalMonths / 12;
+        int months = totalMonths % 12;
+
+        return (years > 0 ? years + " years " : "") + (months > 0 ? months + " months" : "").trim();
+    }
+
+    public List<String> parseCharges(String input, String key) {
+        List<String> results = new ArrayList<>();
+
+        String patternString = key + ": ([^\\.]+)\\.";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            results.add(matcher.group(1).trim());
+        }
+        return results;
+    }
+
+    public String extractInteger(String input) {
+        Pattern pattern = Pattern.compile("-?\\d+");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "";
+        }
     }
 
     private ObservableList<Label> createLabels(String text) {

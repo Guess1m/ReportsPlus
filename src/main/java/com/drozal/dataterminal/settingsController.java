@@ -1291,7 +1291,7 @@ public class settingsController {
     public void clearLogsBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) root.getScene().getWindow();
         confirmLogClearDialog(stage, controllerVar.getReportChart(), controllerVar.getAreaReportChart());
-        showLogClearNotification("Log Manager", "Logs have been cleared.", root);
+        NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.", mainRT);
     }
 
     @javafx.fxml.FXML

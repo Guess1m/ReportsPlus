@@ -215,7 +215,8 @@ public class TrafficCitationUtils {
                         try {
                             int maxFine = Integer.parseInt(fine);
                             Random random = new Random();
-                            int randomFine = random.nextInt(maxFine + 1);
+                            int minFine = maxFine / 3;
+                            int randomFine = minFine + random.nextInt(maxFine - minFine + 1);
                             chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
                         } catch (NumberFormatException e) {
                             logError("Error parsing fine value " + fine + ": ", e);
@@ -225,7 +226,8 @@ public class TrafficCitationUtils {
                         log("Using Custom fine", LogUtils.Severity.DEBUG);
                         int maxFine = Integer.parseInt(Objects.requireNonNull(extractMaxFine(formData.getCitation())));
                         Random random = new Random();
-                        int randomFine = random.nextInt(maxFine + 1);
+                        int minFine = maxFine / 3;
+                        int randomFine = minFine + random.nextInt(maxFine - minFine + 1);
                         chargesBuilder.append("Fined: ").append(randomFine).append(" | ");
                     } else {
                         chargesBuilder.append("Fined: Not Found | ");

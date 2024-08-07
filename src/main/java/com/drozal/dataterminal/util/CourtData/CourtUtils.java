@@ -10,6 +10,7 @@ import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -236,6 +237,23 @@ public class CourtUtils {
                 }
             }
         }
+    }
+    
+    public static Optional<Case> findCaseByNumber(String caseNum) {
+        CourtCases cases = null;
+        try {
+            cases = loadCourtCases();
+        } catch (JAXBException e) {
+            logError("JAXB error while trying to loadCourtCases() by number: ", e);
+        } catch (IOException e) {
+            logError("IOException error while trying to loadCourtCases() by number: ", e);
+        }
+        
+        if (cases.getCaseList() != null) {
+            return cases.getCaseList().stream().filter(e -> e.getCaseNumber().equals(caseNum)).findFirst();
+        }
+        
+        return Optional.empty();
     }
 
     private static ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);

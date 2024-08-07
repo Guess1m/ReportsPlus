@@ -105,6 +105,7 @@ import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNod
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
+import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationWarning;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.chargesFilePath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
@@ -119,7 +120,10 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
-
+    
+    @FXML
+    private Button revealOutcomeBtn;
+    
     public void initialize() throws IOException {
         // TODO undo
         lookupBtn.setVisible(true);
@@ -892,8 +896,41 @@ public class actionController {
             }
             blankCourtInfoPane.setVisible(true);
             courtInfoPane.setVisible(false);
-            NotificationManager.showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum, mainRT);
+            NotificationManager.showNotificationWarning("Court Case Manager", "Deleted Case Number: " + selectedCaseNum,
+                                                        mainRT);
             loadCaseLabels(caseList);
+        }
+    }
+    
+    @FXML
+    public void revealOutcomeBtnPress(ActionEvent actionEvent) {
+        String selectedCaseNum;
+        if (!caseNumField.getText().isEmpty() && caseNumField != null) {
+            selectedCaseNum = caseNumField.getText();
+            Optional<Case> caseToUpdateOptional = findCaseByNumber(selectedCaseNum);
+            if (caseToUpdateOptional.isPresent()) {
+                Case caseToUpdate = caseToUpdateOptional.get();
+                if (!caseToUpdate.getStatus().equalsIgnoreCase("closed")) {
+                    try {
+                        caseToUpdate.setStatus("Closed");
+                        modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
+                        log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed", LogUtils.Severity.INFO);
+                        loadCaseLabels(caseList);
+                        updateFields(caseToUpdate);
+                    } catch (JAXBException e) {
+                        logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ",
+                                 e);
+                    } catch (IOException e) {
+                        logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ",
+                                 e);
+                    }
+                } else {
+                    log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!", Severity.WARN);
+                    showNotificationWarning("Court Manager",
+                                            "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed",
+                                            mainRT);
+                }
+            }
         }
     }
 
@@ -1629,8 +1666,7 @@ public class actionController {
     }
 
     private void updateFields(Case case1) {
-        // Initial setup for all fields
-        // Set labels to "Pending"
+        revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
         if (case1.getStatus() != null) {
             if (case1.getStatus().equalsIgnoreCase("pending")) {
                 caseTotalLabel.setText("Pending");
@@ -1644,23 +1680,31 @@ public class actionController {
                 caseSuspensionDuration.setText("Pending");
                 caseSuspensionDuration.setStyle("-fx-text-fill: black;");
             } else {
-                caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
-                caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
-                caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
-                caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
-                caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
-                caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
-                caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
-                caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
-                caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
-                caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
-                caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
-                caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
-
                 revealOutcomes(case1);
             }
+        } else {
+            log("Could not find a caseStatus for: #" + case1.getCaseNumber(), Severity.ERROR);
+            revealOutcomes(case1);
+            case1.setStatus("Closed");
+            try {
+                modifyCase(case1.getCaseNumber(), case1);
+                log("Case: #" + case1.getCaseNumber() + " has been set as closed", Severity.DEBUG);
+            } catch (JAXBException | IOException e) {
+                e.printStackTrace();
+            }
         }
-
+        caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
+        caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
+        caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
+        caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
+        caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
+        caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
+        caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
+        caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
+        caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
+        caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
+        caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
+        caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
     }
 
     public void scheduleOutcomeRevealsForPendingCases() throws JAXBException, IOException {
@@ -3963,8 +4007,7 @@ public class actionController {
     public Label getCaseSec2() {
         return caseSec2;
     }
-
-
+    
     //</editor-fold>
 
 }

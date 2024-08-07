@@ -811,7 +811,7 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"
@@ -849,6 +849,7 @@
                         <VBox prefHeight="239.0" prefWidth="589.0">
                             <children>
                                 <AnchorPane fx:id="currentCalPane" prefHeight="329.0" prefWidth="589.0"
+                                            style="-fx-background-color: rgb(0,0,0,0.1); -fx-border-width: 2;"
                                             styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css"
                                             VBox.vgrow="NEVER">
                                     <children>
@@ -902,25 +903,26 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                     <children>
-                                                        <TextField fx:id="calNum" editable="false" layoutX="71.0"
-                                                                   prefHeight="38.0" prefWidth="117.0"
+                                                        <TextField fx:id="calNum" editable="false" layoutX="80.0"
+                                                                   prefHeight="29.0" prefWidth="93.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
                                                                    stylesheets="@css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
-                                                                   AnchorPane.leftAnchor="74.0"
+                                                                   AnchorPane.leftAnchor="80.0"
                                                                    AnchorPane.rightAnchor="0.0"
                                                                    AnchorPane.topAnchor="0.0">
                                                             <font>
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutX="6.0" layoutY="4.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Number:"
-                                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                        <Label fx:id="caldetlbl1" layoutX="10.0" text="Number:"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -938,36 +940,38 @@
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutX="100.0" layoutY="4.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Date:"
-                                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                        <Label fx:id="caldetlbl3" layoutX="10.0" text="Date:"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
                                                             GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                     <children>
-                                                        <TextField fx:id="calPriority" editable="false" layoutX="60.0"
-                                                                   layoutY="-1.0" prefHeight="38.0" prefWidth="123.0"
+                                                        <TextField fx:id="calPriority" editable="false" layoutX="66.0"
+                                                                   layoutY="-1.0" prefHeight="29.0" prefWidth="97.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
                                                                    stylesheets="@css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
-                                                                   AnchorPane.leftAnchor="60.0"
+                                                                   AnchorPane.leftAnchor="66.0"
                                                                    AnchorPane.rightAnchor="10.0"
                                                                    AnchorPane.topAnchor="0.0">
                                                             <font>
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutY="10.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Priority:"
+                                                        <Label fx:id="caldetlbl5" layoutY="10.0" text="Priority:"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
@@ -987,12 +991,13 @@
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutY="5.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Type:"
+                                                        <Label fx:id="caldetlbl2" layoutY="5.0" text="Type:"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
@@ -1011,35 +1016,37 @@
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutY="5.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Time:"
+                                                        <Label fx:id="caldetlbl4" layoutY="5.0" text="Time:"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                                     <children>
-                                                        <TextField fx:id="calCounty" editable="false" layoutX="8.0"
-                                                                   layoutY="-8.0" prefHeight="38.0" prefWidth="126.0"
+                                                        <TextField fx:id="calCounty" editable="false" layoutX="71.0"
+                                                                   layoutY="-8.0" prefHeight="29.0" prefWidth="102.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
                                                                    stylesheets="@css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
-                                                                   AnchorPane.leftAnchor="66.0"
+                                                                   AnchorPane.leftAnchor="71.0"
                                                                    AnchorPane.rightAnchor="0.0"
                                                                    AnchorPane.topAnchor="0.0">
                                                             <font>
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label layoutX="14.0" layoutY="10.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="County:"
-                                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                        <Label fx:id="caldetlbl6" layoutX="10.0" text="County:"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
@@ -1058,34 +1065,38 @@
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Area:"
+                                                        <Label fx:id="caldetlbl7" text="Area:"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
                                                             GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                     <children>
-                                                        <TextField fx:id="calStreet" editable="false" layoutX="51.0"
-                                                                   prefHeight="36.0" prefWidth="132.0"
+                                                        <TextField fx:id="calStreet" editable="false" layoutX="52.0"
+                                                                   prefHeight="29.0" prefWidth="111.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
                                                                    stylesheets="@css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
-                                                                   AnchorPane.leftAnchor="51.0"
+                                                                   AnchorPane.leftAnchor="52.0"
                                                                    AnchorPane.rightAnchor="10.0"
                                                                    AnchorPane.topAnchor="0.0">
                                                             <font>
                                                                 <Font name="Segoe UI" size="15.0"/>
                                                             </font>
                                                         </TextField>
-                                                        <Label style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Street:"
+                                                        <Label fx:id="caldetlbl8" text="Street:"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="69.0" prefWidth="585.0" GridPane.columnSpan="3"
@@ -1100,12 +1111,12 @@
                                                                   AnchorPane.leftAnchor="10.0"
                                                                   AnchorPane.rightAnchor="10.0"
                                                                   AnchorPane.topAnchor="27.0"/>
-                                                        <Label layoutX="8.0" layoutY="2.0"
-                                                               style="-fx-font-size: 15; -fx-text-fill: white;"
-                                                               styleClass="statisticSubHeading"
-                                                               stylesheets="@css/menu/menuLabels.css"
-                                                               text="Description:" AnchorPane.leftAnchor="8.0"
-                                                               AnchorPane.topAnchor="0.0"/>
+                                                        <Label fx:id="caldetlbl9" layoutX="10.0" text="Description:"
+                                                               AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="14.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -1400,8 +1411,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="pedLookupPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+                    visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <AnchorPane fx:id="pedRecordPane" layoutX="15.0" layoutY="65.0" prefHeight="432.0" prefWidth="857.0"
                             AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"

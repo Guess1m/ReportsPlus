@@ -116,6 +116,25 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class actionController {
 
+    @FXML
+    private Label caldetlbl2;
+    @FXML
+    private Label caldetlbl1;
+    @FXML
+    private Label caldetlbl4;
+    @FXML
+    private Label caldetlbl3;
+    @FXML
+    private Label caldetlbl6;
+    @FXML
+    private Label caldetlbl5;
+    @FXML
+    private Label caldetlbl8;
+    @FXML
+    private Label caldetlbl7;
+    @FXML
+    private Label caldetlbl9;
+
     public void initialize() throws IOException {
         // TODO undo
         lookupBtn.setVisible(true);
@@ -3141,6 +3160,43 @@ public class actionController {
     //</editor-fold>
 
     //<editor-fold desc="Getters">
+
+
+    public Label getCaldetlbl1() {
+        return caldetlbl1;
+    }
+
+    public Label getCaldetlbl2() {
+        return caldetlbl2;
+    }
+
+    public Label getCaldetlbl3() {
+        return caldetlbl3;
+    }
+
+    public Label getCaldetlbl4() {
+        return caldetlbl4;
+    }
+
+    public Label getCaldetlbl5() {
+        return caldetlbl5;
+    }
+
+    public Label getCaldetlbl6() {
+        return caldetlbl6;
+    }
+
+    public Label getCaldetlbl7() {
+        return caldetlbl7;
+    }
+
+    public Label getCaldetlbl8() {
+        return caldetlbl8;
+    }
+
+    public Label getCaldetlbl9() {
+        return caldetlbl9;
+    }
 
     public Label getCaseprim1() {
         return caseprim1;

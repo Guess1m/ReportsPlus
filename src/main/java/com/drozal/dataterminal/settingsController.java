@@ -255,7 +255,6 @@ public class settingsController {
         controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
 
         String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
-        controllerVar.getCurrentCalPane().setStyle("-fx-background-color: " + secclr + ";");
         controllerVar.getServerStatusLabel().setStyle("-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
         controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
         controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
@@ -293,6 +292,8 @@ public class settingsController {
 
         CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
         CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
+
+        controllerVar.getCurrentCalPane().setStyle(updateStyleProperty(controllerVar.getCurrentCalPane(), "-fx-border-color", accclr));
 
         controllerVar.getCalActiveList().setStyle(updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
         controllerVar.getCalHistoryList().setStyle(updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
@@ -364,6 +365,16 @@ public class settingsController {
         controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+
+        controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 
         controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
         controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -440,6 +451,16 @@ public class settingsController {
         controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+
+        controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+        controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
 
         controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
         controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");

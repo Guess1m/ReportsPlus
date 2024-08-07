@@ -9,7 +9,6 @@ import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.Optional;
 import java.util.Random;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
@@ -80,31 +79,6 @@ public class CourtUtils {
             courtCases.getCaseList().removeIf(e -> e.getCaseNumber().equals(casenumber));
             saveCourtCases(courtCases);
             showNotificationInfo("Court Case Manager", "Deleted Court Case#: " + casenumber, mainRT);
-        }
-    }
-
-    public static Optional<Case> findCaseByNumber(String casenumber) throws JAXBException, IOException {
-        CourtCases courtCases = loadCourtCases();
-
-        if (courtCases.getCaseList() != null) {
-            return courtCases.getCaseList().stream().filter(e -> e.getCaseNumber().equals(casenumber)).findFirst();
-        }
-
-        return Optional.empty();
-    }
-
-    public static void modifyCase(String number, Case updatedCase) throws JAXBException, IOException {
-        CourtCases courtCases = loadCourtCases();
-
-        if (courtCases.getCaseList() != null) {
-            for (int i = 0; i < courtCases.getCaseList().size(); i++) {
-                Case e = courtCases.getCaseList().get(i);
-                if (e.getCaseNumber().equals(number)) {
-                    courtCases.getCaseList().set(i, updatedCase);
-                    saveCourtCases(courtCases);
-                    return;
-                }
-            }
         }
     }
 

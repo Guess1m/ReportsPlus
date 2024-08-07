@@ -49,6 +49,9 @@ public class Case {
     @XmlElement(name = "Outcomes")
     private String outcomes;
 
+    @XmlElement(name = "Status")
+    private String status;
+
     public String getFirstName() {
         if (name != null && !name.isEmpty()) {
             String[] parts = name.split(" ");
@@ -89,6 +92,14 @@ public class Case {
 
     public void setOutcomes(String outcomes) {
         this.outcomes = outcomes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getAge() {

@@ -168,6 +168,7 @@ public class ConfigReader {
         checkAndSetDefaultValue("reportSettings", "reportWindowDarkMode", "false");
 
         // Ped History Settings
+        checkAndSetDefaultValue("pedHistory", "courtTrialDelay", "600");
         checkAndSetDefaultValue("pedHistory", "onParoleChance", "15");
         checkAndSetDefaultValue("pedHistory", "onProbationChance", "25");
         checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "20");

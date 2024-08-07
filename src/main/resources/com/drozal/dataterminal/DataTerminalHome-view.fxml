@@ -209,8 +209,8 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
-                    stylesheets="@css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    stylesheets="@css/form/formFields.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -256,7 +256,7 @@
                                                     <children>
                                                         <TextField fx:id="caseNumField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
@@ -282,7 +282,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseCourtDateField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
@@ -311,7 +311,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseOffenceDateField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="5" GridPane.rowIndex="1">
@@ -359,7 +359,7 @@
                                                     <children>
                                                         <TextField fx:id="caseFirstNameField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
@@ -385,7 +385,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseLastNameField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
@@ -413,7 +413,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseAgeField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -423,7 +423,7 @@
                                                         </TextField>
                                                         <TextField fx:id="caseGenderField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="2">
@@ -451,7 +451,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseAddressField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.columnSpan="3"
@@ -484,7 +484,7 @@
                                                     <children>
                                                         <TextField fx:id="caseStreetField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
@@ -509,7 +509,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseAreaField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
@@ -538,7 +538,7 @@
                                                         </Label>
                                                         <TextField fx:id="caseCountyField" editable="false"
                                                                    focusTraversable="false"
-                                                                   style="-fx-padding: 1.5 5 1.5 5; -fx-font-size: 20;"
+                                                                   style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@css/form/light/formFields.css"
                                                                    GridPane.columnIndex="5" GridPane.rowIndex="1">
@@ -811,7 +811,7 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="calloutPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"

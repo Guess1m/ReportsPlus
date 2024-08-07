@@ -33,8 +33,7 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.actionController.notesViewController;
-import static com.drozal.dataterminal.util.CourtData.CourtUtils.generateCaseNumber;
-import static com.drozal.dataterminal.util.CourtData.CourtUtils.parseCourtData;
+import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -356,8 +355,16 @@ public class ArrestReportUtils {
                     case1.setNotes(notes.getText());
                     case1.setOffences(stringBuilder.toString());
                     case1.setOutcomes(chargesBuilder.toString());
+                    case1.setStatus("Pending");
                     try {
                         CourtUtils.addCase(case1);
+                    } catch (JAXBException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
                     } catch (JAXBException e) {
                         throw new RuntimeException(e);
                     } catch (IOException e) {

@@ -82,6 +82,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -96,6 +99,7 @@ import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
 import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
+import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -362,6 +366,12 @@ public class actionController {
             }
         });
 
+        try {
+            scheduleOutcomeRevealsForPendingCases();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     //<editor-fold desc="VARS">
@@ -389,6 +399,7 @@ public class actionController {
     public static double notesx;
     public static double notesy;
     public static Screen NotesScreen = null;
+    private static ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(2);
 
     //</editor-fold>
 
@@ -891,6 +902,9 @@ public class actionController {
         setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane, shiftInformationPane);
         setActive(courtPane);
         showAnimation(showCourtCasesBtn);
+
+        blankCourtInfoPane.setVisible(true);
+        courtInfoPane.setVisible(false);
 
         loadCaseLabels(caseList);
         caseList.getSelectionModel().clearSelection();
@@ -1524,7 +1538,7 @@ public class actionController {
     public void loadCaseLabels(ListView<String> listView) {
         listView.getItems().clear();
         try {
-            CourtCases courtCases = CourtUtils.loadCourtCases();
+            CourtCases courtCases = loadCourtCases();
             ObservableList<String> caseNames = FXCollections.observableArrayList();
             if (courtCases.getCaseList() != null) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
@@ -1586,7 +1600,7 @@ public class actionController {
                     }
                 }
                 courtCases.setCaseList(new ArrayList<>(caseMap.values()));
-                CourtUtils.saveCourtCases(courtCases);
+                saveCourtCases(courtCases);
 
             }
         } catch (JAXBException | IOException e) {
@@ -1615,163 +1629,175 @@ public class actionController {
     }
 
     private void updateFields(Case case1) {
-        caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
-        caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
-        caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
-        caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
-        caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
-        caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
-        caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
-        caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
-        caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
-        caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
-        caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
-        caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
-
-        boolean areTrafficChargesPresent;
-        List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
-        String outcomeSuspension = calculateTotalTime(case1.getOutcomes(), "License Suspension Time");
-        String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
-        List<String> jailTimeList = parseCharges(case1.getOutcomes(), "Jail Time");
-        String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
-        if (jailTimeList.contains("Life sentence")) {
-            totalJailTime = "Life Sentence";
-
-        }
-        Optional<Ped> pedOptional = findPedByName(case1.getName());
-        Ped ped1 = null;
-        if (pedOptional.isPresent()) {
-            ped1 = pedOptional.get();
-        }
-        areTrafficChargesPresent = !licenseStatusList.isEmpty() || !outcomeSuspension.isEmpty();
-        String licenseStatus = "";
-        if (licenseStatusList.contains("Valid")) {
-            licenseStatus = "N/A";
-            caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
-        }
-        if (licenseStatusList.contains("Suspended")) {
-            licenseStatus = "Suspended";
-            caseLicenseStatLabel.setStyle("-fx-text-fill: #cc5200;");
-            if (ped1 != null) {
-                if (!ped1.getLicenseStatus().equalsIgnoreCase("suspended")) {
-                    try {
-                        System.out.println("updated license status as suspended was: " + ped1.getLicenseStatus());
-                        ped1.setLicenseStatus("SUSPENDED");
-                        Ped.PedHistoryUtils.addPed(ped1);
-                    } catch (JAXBException e) {
-                        logError("Error updating ped licenseSuspended from courtCase: ", e);
-                    }
-                }
-            }
-        }
-        if (licenseStatusList.contains("Revoked")) {
-            licenseStatus = "Revoked";
-            caseLicenseStatLabel.setStyle("-fx-text-fill: red;");
-            if (ped1 != null) {
-                if (!ped1.getLicenseStatus().equalsIgnoreCase("revoked")) {
-                    try {
-                        System.out.println("updated license status as revoked was: " + ped1.getLicenseStatus());
-                        ped1.setLicenseStatus("REVOKED");
-                        Ped.PedHistoryUtils.addPed(ped1);
-                    } catch (JAXBException e) {
-                        logError("Error updating ped licenserevoked from courtCase: ", e);
-                    }
-                }
-            }
-        }
-
-        if (!totalJailTime.isEmpty()) {
-            if (totalJailTime.contains("years")) {
-                if (Integer.parseInt(extractInteger(totalJailTime)) >= 10) {
-                    caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
-                } else {
-                    caseTotalJailTimeLabel.setStyle("-fx-text-fill: #cc5200;");
-                }
-            } else if (totalJailTime.contains("months")) {
+        // Initial setup for all fields
+        // Set labels to "Pending"
+        if (case1.getStatus() != null) {
+            if (case1.getStatus().equalsIgnoreCase("pending")) {
+                caseTotalLabel.setText("Pending");
+                caseTotalLabel.setStyle("-fx-text-fill: black;");
+                caseTotalJailTimeLabel.setText("Pending");
                 caseTotalJailTimeLabel.setStyle("-fx-text-fill: black;");
-            } else if (totalJailTime.contains("Life")) {
-                caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
+                caseTotalProbationLabel.setText("Pending");
+                caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
+                caseLicenseStatLabel.setText("Pending");
+                caseLicenseStatLabel.setStyle("-fx-text-fill: black;");
+                caseSuspensionDuration.setText("Pending");
+                caseSuspensionDuration.setStyle("-fx-text-fill: black;");
+            } else {
+                caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
+                caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
+                caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
+                caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
+                caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
+                caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
+                caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
+                caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
+                caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
+                caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
+                caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
+                caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
+
+                revealOutcomes(case1);
             }
-            caseTotalJailTimeLabel.setText(totalJailTime);
-        } else {
-            caseTotalJailTimeLabel.setStyle("-fx-text-fill: gray;");
-            caseTotalJailTimeLabel.setText("None");
         }
 
-        if (!outcomeProbation.isEmpty()) {
-            if (outcomeProbation.contains("years")) {
-                caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
-            } else if (outcomeProbation.contains("months")) {
-                if (Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
+    }
+
+    public void scheduleOutcomeRevealsForPendingCases() throws JAXBException, IOException {
+        long delayInSeconds = Long.parseLong(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
+        Random random = new Random();
+
+        long minSec = delayInSeconds / 3;
+        CourtCases courtCases = loadCourtCases();
+
+        if (courtCases.getCaseList() != null) {
+            List<Case> pendingCases = courtCases.getCaseList().stream().filter(c -> "pending".equalsIgnoreCase(c.getStatus())).collect(Collectors.toList());
+
+            for (Case pendingCase : pendingCases) {
+                long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
+                log("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", Severity.DEBUG);
+
+                Runnable revealTask = () -> {
+
+                    revealOutcomes(pendingCase);
+                    pendingCase.setStatus("Closed");
+
+                    try {
+                        modifyCase(pendingCase.getCaseNumber(), pendingCase);
+                        log("Case: #" + pendingCase.getCaseNumber() + " has been closed", Severity.DEBUG);
+                        showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + " has been closed", mainRT);
+                    } catch (JAXBException | IOException e) {
+                        e.printStackTrace();
+                    }
+                };
+
+                courtPendingChargesExecutor.schedule(revealTask, randomSec, TimeUnit.SECONDS);
+            }
+
+        }
+    }
+
+    private void revealOutcomes(Case case1) {
+        Platform.runLater(() -> {
+            List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
+            String outcomeSuspension = calculateTotalTime(case1.getOutcomes(), "License Suspension Time");
+            String outcomeProbation = calculateTotalTime(case1.getOutcomes(), "Probation Time");
+            List<String> jailTimeList = parseCharges(case1.getOutcomes(), "Jail Time");
+            String totalJailTime = calculateTotalTime(case1.getOutcomes(), "Jail Time");
+            if (jailTimeList.contains("Life sentence")) {
+                totalJailTime = "Life Sentence";
+            }
+
+            boolean areTrafficChargesPresent = !licenseStatusList.isEmpty() || !outcomeSuspension.isEmpty();
+            String licenseStatus = "";
+            if (licenseStatusList.contains("Valid")) {
+                licenseStatus = "N/A";
+                caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
+            } else if (licenseStatusList.contains("Suspended")) {
+                licenseStatus = "Suspended";
+                caseLicenseStatLabel.setStyle("-fx-text-fill: #cc5200;");
+            } else if (licenseStatusList.contains("Revoked")) {
+                licenseStatus = "Revoked";
+                caseLicenseStatLabel.setStyle("-fx-text-fill: red;");
+            }
+
+            if (!totalJailTime.isEmpty()) {
+                if (totalJailTime.contains("years") && Integer.parseInt(extractInteger(totalJailTime)) >= 10) {
+                    caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
+                } else if (totalJailTime.contains("months")) {
+                    caseTotalJailTimeLabel.setStyle("-fx-text-fill: black;");
+                } else if (totalJailTime.contains("Life")) {
+                    caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
+                }
+                caseTotalJailTimeLabel.setText(totalJailTime);
+            } else {
+                caseTotalJailTimeLabel.setStyle("-fx-text-fill: gray;");
+                caseTotalJailTimeLabel.setText("None");
+            }
+
+            if (!outcomeProbation.isEmpty()) {
+                if (outcomeProbation.contains("years")) {
+                    caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
+                } else if (outcomeProbation.contains("months") && Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
                     caseTotalProbationLabel.setStyle("-fx-text-fill: #cc5200;");
                 } else {
                     caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
                 }
+                caseTotalProbationLabel.setText(outcomeProbation);
+            } else {
+                caseTotalProbationLabel.setStyle("-fx-text-fill: gray;");
+                caseTotalProbationLabel.setText("None");
             }
-            caseTotalProbationLabel.setText(outcomeProbation);
-        } else {
-            caseTotalProbationLabel.setStyle("-fx-text-fill: gray;");
-            caseTotalProbationLabel.setText("None");
-        }
 
-        if (areTrafficChargesPresent) {
-            caseLicenseStatLabel.setText(licenseStatus);
-            if (!outcomeSuspension.isEmpty() && !licenseStatusList.contains("Revoked")) {
-                if (outcomeSuspension.contains("years")) {
-                    if (Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
+            if (areTrafficChargesPresent) {
+                caseLicenseStatLabel.setText(licenseStatus);
+                if (!outcomeSuspension.isEmpty() && !licenseStatusList.contains("Revoked")) {
+                    if (outcomeSuspension.contains("years") && Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
                         caseSuspensionDuration.setStyle("-fx-text-fill: red;");
                     } else {
                         caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
                     }
-                } else if (outcomeSuspension.contains("months")) {
-                    caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
+                    caseSuspensionDuration.setText(outcomeSuspension);
                 } else {
-                    caseSuspensionDuration.setStyle("-fx-text-fill: black;");
+                    caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
+                    caseSuspensionDuration.setText("License Revoked");
                 }
-                caseSuspensionDuration.setText(outcomeSuspension);
             } else {
+                caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
+                caseLicenseStatLabel.setText("N/A");
                 caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
-                caseSuspensionDuration.setText("License Revoked");
+                caseSuspensionDuration.setText("None");
             }
-        } else {
-            caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
-            caseLicenseStatLabel.setText("N/A");
-            caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
-            caseSuspensionDuration.setText("None");
-        }
 
-        String offences = case1.getOffences();
-        if (offences == null) {
-            offences = "";
-        }
+            String offences = case1.getOffences() != null ? case1.getOffences() : "";
+            Pattern pattern = Pattern.compile("MaxFine:\\S+");
+            Matcher matcher = pattern.matcher(offences);
+            String updatedOffences = matcher.replaceAll("").trim();
 
-        Pattern pattern = Pattern.compile("MaxFine:\\S+");
-        Matcher matcher = pattern.matcher(offences);
-        String updatedOffences = matcher.replaceAll("").trim();
+            ObservableList<Label> offenceLabels = createLabels(updatedOffences);
+            ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
 
-        ObservableList<Label> offenceLabels = createLabels(updatedOffences);
-        ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
+            int fineTotal = calculateFineTotal(case1.getOutcomes());
+            if (fineTotal > 1500) {
+                caseTotalLabel.setStyle("-fx-text-fill: red;");
+                caseTotalLabel.setText("$" + fineTotal + ".00");
+            } else if (fineTotal > 700) {
+                caseTotalLabel.setStyle("-fx-text-fill: #cc5200;");
+                caseTotalLabel.setText("$" + fineTotal + ".00");
+            } else if (fineTotal > 0) {
+                caseTotalLabel.setStyle("-fx-text-fill: black;");
+                caseTotalLabel.setText("$" + fineTotal + ".00");
+            } else {
+                caseTotalLabel.setStyle("-fx-text-fill: gray;");
+                caseTotalLabel.setText("$0.00");
+            }
 
-        int fineTotal = calculateFineTotal(case1.getOutcomes());
-        if (fineTotal > 1500) {
-            caseTotalLabel.setStyle("-fx-text-fill: red;");
-            caseTotalLabel.setText("$" + fineTotal + ".00");
-        } else if (fineTotal > 700) {
-            caseTotalLabel.setStyle("-fx-text-fill: #cc5200;");
-            caseTotalLabel.setText("$" + fineTotal + ".00");
-        } else if (fineTotal > 0) {
-            caseTotalLabel.setStyle("-fx-text-fill: black;");
-            caseTotalLabel.setText("$" + fineTotal + ".00");
-        } else {
-            caseTotalLabel.setStyle("-fx-text-fill: gray;");
-            caseTotalLabel.setText("$0.00");
-        }
+            caseOutcomesListView.setItems(outcomeLabels);
+            caseOffencesListView.setItems(offenceLabels);
 
-        caseOutcomesListView.setItems(outcomeLabels);
-        caseOffencesListView.setItems(offenceLabels);
-
-        setCellFactory(caseOutcomesListView);
-        setCellFactory(caseOffencesListView);
+            setCellFactory(caseOutcomesListView);
+            setCellFactory(caseOffencesListView);
+        });
     }
 
     public static String calculateTotalTime(String input, String key) {

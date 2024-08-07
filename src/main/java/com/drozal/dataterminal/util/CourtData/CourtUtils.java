@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.CourtData;
 
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -10,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -19,7 +23,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
     private static final int CASE_NUMBER_LENGTH = 7;
-
     public static String generateCaseNumber() {
         StringBuilder caseNumber = new StringBuilder("CN-");
         for (int i = 0; i < CASE_NUMBER_LENGTH; i++) {
@@ -62,7 +65,7 @@ public class CourtUtils {
             courtCases.setCaseList(new java.util.ArrayList<>());
         }
 
-        boolean exists = courtCases.getCaseList().stream().anyMatch(e -> e.getCaseNumber() == courtCase.getCaseNumber());
+        boolean exists = courtCases.getCaseList().stream().anyMatch(e -> e.getCaseNumber().equals(courtCase.getCaseNumber()));
 
         if (!exists) {
             courtCases.getCaseList().add(courtCase);
@@ -220,5 +223,54 @@ public class CourtUtils {
         return result.toString();
     }
 
-}
+    public static void modifyCase(String number, Case updatedCase) throws JAXBException, IOException {
+        CourtCases courtCases = loadCourtCases();
 
+        if (courtCases.getCaseList() != null) {
+            for (int i = 0; i < courtCases.getCaseList().size(); i++) {
+                Case e = courtCases.getCaseList().get(i);
+                if (e.getCaseNumber().equals(number)) {
+                    courtCases.getCaseList().set(i, updatedCase);
+                    saveCourtCases(courtCases);
+                    return;
+                }
+            }
+        }
+    }
+
+    private static ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);
+
+    public static void scheduleOutcomeRevealForSingleCase(String caseNumber) throws JAXBException, IOException {
+        long delayInSeconds = Long.parseLong(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
+        Random random = new Random();
+
+        long minSec = delayInSeconds / 3;
+        long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
+        log("scheduleOutcomeRevealForSingleCase called with caseNumber: " + caseNumber, LogUtils.Severity.DEBUG);
+
+        CourtCases courtCases = loadCourtCases();
+        Case caseToUpdate = courtCases.getCaseList().stream().filter(c -> caseNumber.equals(c.getCaseNumber())).findFirst().orElse(null);
+
+        if (caseToUpdate != null) {
+            log("Scheduled: " + caseToUpdate.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", LogUtils.Severity.DEBUG);
+
+            Runnable revealTask = () -> {
+                try {
+                    synchronized (caseToUpdate) {
+                        caseToUpdate.setStatus("Closed");
+                        modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
+                        log("Case: #" + caseToUpdate.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
+                        showNotificationInfo("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " has been closed", mainRT);
+                    }
+                } catch (JAXBException | IOException e) {
+                    log("Error processing case: #" + caseToUpdate.getCaseNumber() + ". Error: " + e.getMessage(), LogUtils.Severity.ERROR);
+                    e.printStackTrace();
+                }
+            };
+
+            courtPendingChargesExecutor.schedule(revealTask, randomSec, TimeUnit.SECONDS);
+        } else {
+            log("Case with number " + caseNumber + " not found.", LogUtils.Severity.ERROR);
+        }
+    }
+}

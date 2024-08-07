@@ -920,7 +920,7 @@ public class reportUtil {
                             if (fine != null) {
                                 formData = new CitationsData(citation);
                             } else {
-                                System.out.println("Added Ciation via Custom Value: " + citation + " fine: " + citationFineField.getText());
+                                log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(), LogUtils.Severity.DEBUG);
                                 formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
                             }
 

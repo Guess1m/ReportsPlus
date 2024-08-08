@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="705.0" prefWidth="715.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
+            prefHeight="705.0" prefWidth="768.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
             xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.ProbabilitySettingsController">
     <center>
@@ -47,14 +47,15 @@
                     <children>
                         <BorderPane GridPane.rowIndex="1">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="caseOutcomeDelay" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 600">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
                                 </TextField>
                             </center>
                             <top>
-                                <Label text="Case Outcome Max Delay:" BorderPane.alignment="TOP_LEFT">
+                                <Label text="Case Outcome Max Delay (Sec):" BorderPane.alignment="TOP_LEFT">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="12.0"/>
                                     </font>
@@ -63,7 +64,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="fishingLicense" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 20">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -79,7 +81,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="boatingLicense" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 20">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -95,7 +98,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="1">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="gunLicense" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 25">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -111,7 +115,8 @@
                         </BorderPane>
                         <BorderPane GridPane.rowIndex="3">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="onParole" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 15">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -127,7 +132,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="onProbation" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 20">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -143,7 +149,8 @@
                         </BorderPane>
                         <BorderPane GridPane.rowIndex="6">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="noCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 60">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -159,7 +166,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="6">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="minimalCharges" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 25">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -175,7 +183,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="6">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="fewCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 10">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -191,7 +200,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="manyCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 5">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -207,7 +217,8 @@
                         </BorderPane>
                         <BorderPane GridPane.rowIndex="8">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="noCitations" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 60">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -223,7 +234,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="8">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="minimalCitations" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 25">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -239,7 +251,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="8">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="fewCitations" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
+                                           promptText="Default: 10">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -255,7 +268,8 @@
                         </BorderPane>
                         <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="8">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="manyCitations" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 5">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -281,7 +295,8 @@
                             <children>
                                 <BorderPane>
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitTypeConcealed" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 30">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -298,7 +313,8 @@
                                 </BorderPane>
                                 <BorderPane GridPane.columnIndex="1">
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitTypeOpenCarry" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 35">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -314,7 +330,8 @@
                                 </BorderPane>
                                 <BorderPane GridPane.columnIndex="2">
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitTypeBoth" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 35">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -342,7 +359,8 @@
                             <children>
                                 <BorderPane>
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitClassHandgun" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 50">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -358,7 +376,8 @@
                                 </BorderPane>
                                 <BorderPane GridPane.columnIndex="1">
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitClassLonggun" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 28">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -374,7 +393,8 @@
                                 </BorderPane>
                                 <BorderPane GridPane.columnIndex="2">
                                     <center>
-                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                        <TextField fx:id="permitClassShotgun" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 22">
                                             <font>
                                                 <Font name="Segoe UI" size="12.0"/>
                                             </font>
@@ -392,7 +412,8 @@
                         </GridPane>
                         <BorderPane GridPane.rowIndex="14">
                             <center>
-                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                <TextField fx:id="huntingLicense" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 20">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -428,7 +449,7 @@
                                 <Label alignment="CENTER"
                                        style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
                                        styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
-                                       text="Require Prior Charges:" textAlignment="CENTER" textFill="WHITE"
+                                       text="Require Ped To Have Prior Charges:" textAlignment="CENTER" textFill="WHITE"
                                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
@@ -451,14 +472,16 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Label text="ALL FOUR MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
-                               GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                        <Label fx:id="chargeProbabilityLabel" text="ALL FOUR MUST ADD UP TO 100 COMBINED"
+                               textFill="#ffa3a3" GridPane.columnSpan="4" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="5">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text="ALL FOUR MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
-                               GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                        <Label fx:id="citationProbabilityLabel" text="ALL FOUR MUST ADD UP TO 100 COMBINED"
+                               textFill="#ffa3a3" GridPane.columnSpan="4" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="7">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
@@ -478,13 +501,14 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Label text="ALL THREE MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
-                               GridPane.halignment="CENTER" GridPane.rowIndex="10">
+                        <Label fx:id="permitTypeLabel" text="ALL THREE MUST ADD UP TO 100 COMBINED" textFill="#ffa3a3"
+                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text="ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)" textFill="#d34c4c"
+                        <Label fx:id="permitClassLabel"
+                               text="ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)" textFill="#ffa3a3"
                                GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="12">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
@@ -492,17 +516,6 @@
                         </Label>
                         <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14">
                             <children>
-                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="110.0"
-                                            AnchorPane.topAnchor="0.0">
-                                    <center>
-                                        <Button mnemonicParsing="false" onAction="#resetDefaultsBtn"
-                                                style="-fx-background-color: rgb(0,0,0,0.2);" text="Reset Defaults">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="12.0"/>
-                                            </font>
-                                        </Button>
-                                    </center>
-                                </BorderPane>
                                 <BorderPane layoutX="62.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                             AnchorPane.topAnchor="0.0">
                                     <center>

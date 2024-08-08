@@ -283,6 +283,7 @@ public class settingsController {
         controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
         controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
         controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+        controllerVar.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
         controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
         controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
 

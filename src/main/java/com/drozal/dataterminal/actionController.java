@@ -155,8 +155,8 @@ public class actionController {
         titlebar.setPrefHeight(30);
 
         checkForUpdates();
-
-        setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
+        
+        setDisable(logPane, lookupPane, calloutPane, courtPane);
         setActive(shiftInformationPane);
         needRefresh.set(0);
         needRefresh.addListener((obs, oldValue, newValue) -> {
@@ -407,6 +407,8 @@ public class actionController {
 
     //<editor-fold desc="FXML Elements">
     
+    @FXML
+    private SplitPane lookupPane;
     @FXML
     private TextField vehpolicefield;
     @FXML
@@ -937,7 +939,7 @@ public class actionController {
 
     @FXML
     public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
-        setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane, shiftInformationPane);
+        setDisable(logPane, lookupPane, calloutPane, courtPane, shiftInformationPane);
         setActive(courtPane);
         showAnimation(showCourtCasesBtn);
 
@@ -1104,7 +1106,7 @@ public class actionController {
 
     @FXML
     public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-        setDisable(logPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
+        setDisable(logPane, lookupPane, calloutPane, courtPane);
         setActive(shiftInformationPane);
         showAnimation(shiftInfoBtn);
         controllerUtils.refreshChart(areaReportChart, "area");
@@ -1113,24 +1115,28 @@ public class actionController {
     @FXML
     public void onLogsButtonClick(ActionEvent actionEvent) {
         showAnimation(logsButton);
-        setDisable(shiftInformationPane, pedLookupPane, vehLookupPane, calloutPane, courtPane);
+        setDisable(shiftInformationPane, lookupPane, calloutPane, courtPane);
         setActive(logPane);
     }
 
     @FXML
     public void onVehLookupBtnClick(ActionEvent actionEvent) {
-        setDisable(logPane, pedLookupPane, shiftInformationPane, calloutPane, courtPane);
+        setDisable(logPane, shiftInformationPane, calloutPane, courtPane);
         vehRecordPane.setVisible(false);
         noRecordFoundLabelVeh.setVisible(false);
-        setActive(vehLookupPane);
+        pedRecordPane.setVisible(false);
+        noRecordFoundLabelPed.setVisible(false);
+        setActive(lookupPane);
     }
 
     @FXML
     public void onPedLookupBtnClick(ActionEvent actionEvent) {
-        setDisable(logPane, vehLookupPane, shiftInformationPane, calloutPane, courtPane);
+        setDisable(logPane, shiftInformationPane, calloutPane, courtPane);
         pedRecordPane.setVisible(false);
         noRecordFoundLabelPed.setVisible(false);
-        setActive(pedLookupPane);
+        vehRecordPane.setVisible(false);
+        noRecordFoundLabelVeh.setVisible(false);
+        setActive(lookupPane);
     }
 
     @FXML
@@ -1415,8 +1421,8 @@ public class actionController {
 
         timeline.play();
         currentCalPane.setVisible(false);
-
-        setDisable(shiftInformationPane, logPane, pedLookupPane, vehLookupPane, courtPane);
+        
+        setDisable(shiftInformationPane, logPane, lookupPane, courtPane);
         setActive(calloutPane);
 
         CalloutManager.loadActiveCallouts(calActiveList);
@@ -3850,7 +3856,11 @@ public class actionController {
     public AnchorPane getPedLookupPane() {
         return pedLookupPane;
     }
-
+    
+    public SplitPane getLookupPane() {
+        return lookupPane;
+    }
+    
     public AnchorPane getPedRecordPane() {
         return pedRecordPane;
     }

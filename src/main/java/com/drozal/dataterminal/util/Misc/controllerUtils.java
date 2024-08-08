@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -236,14 +235,14 @@ public class controllerUtils {
         }
         return coloredImage;
     }
-
-    public static void setActive(AnchorPane pane) {
+    
+    public static void setActive(Node pane) {
         pane.setVisible(true);
         pane.setDisable(false);
     }
-
-    public static void setDisable(AnchorPane... panes) {
-        for (AnchorPane pane : panes) {
+    
+    public static void setDisable(Node... panes) {
+        for (Node pane : panes) {
             pane.setVisible(false);
             pane.setDisable(true);
         }

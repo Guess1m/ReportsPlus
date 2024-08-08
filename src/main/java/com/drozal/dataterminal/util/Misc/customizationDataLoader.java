@@ -31,11 +31,6 @@ public class customizationDataLoader {
         }
     }
 
-    /**
-     * Loads data (agencies, ranks, and divisions) from the JSON file.
-     *
-     * @throws IOException if an error occurs during file reading
-     */
     private static void loadDataFromJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(new File(customizationURL));

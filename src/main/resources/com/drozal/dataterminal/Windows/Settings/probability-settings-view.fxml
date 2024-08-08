@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="705.0" prefWidth="715.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.drozal.dataterminal.Windows.Settings.ProbabilitySettingsController">
+    <center>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="main1" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                       prefHeight="61.0" prefWidth="623.0" style="-fx-background-color: #524992;"
+                       text="Lookup Data Probabilities Configuration" textFill="WHITE" AnchorPane.leftAnchor="-1.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                    <font>
+                        <Font name="Segoe UI Black" size="20.0"/>
+                    </font>
+                </Label>
+                <GridPane hgap="15.0" layoutY="61.0" vgap="10.0" AnchorPane.bottomAnchor="10.0"
+                          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <BorderPane GridPane.rowIndex="1">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Case Outcome Max Delay:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Fishing License:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Boating License:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Has Gun License:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.rowIndex="3">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Ped Is On Parole:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Ped Is On Probation:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.rowIndex="6">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="No Charges:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Minimal Charges (1-2):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="6">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Few Charges (2-3):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="6">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Many Charges (3-5):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.rowIndex="8">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="No Citations:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Minimal Citations (1-2):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="8">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Few Citations (2-3):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="8">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Many Citations (3-5):" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
+                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="11">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <BorderPane>
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Concealed Carry Permit Type:"
+                                               BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                                <BorderPane GridPane.columnIndex="1">
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Open Carry Permit Type:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                                <BorderPane GridPane.columnIndex="2">
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Has Both Permit Types:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                            </children>
+                        </GridPane>
+                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="13">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <BorderPane>
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Handgun Permit Class:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                                <BorderPane GridPane.columnIndex="1">
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Longgun Permit Class:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                                <BorderPane GridPane.columnIndex="2">
+                                    <center>
+                                        <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Chance Shotgun Permit Class:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                            </children>
+                        </GridPane>
+                        <BorderPane GridPane.rowIndex="14">
+                            <center>
+                                <TextField maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Has Hunting License:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                            <GridPane.margin>
+                                <Insets top="10.0"/>
+                            </GridPane.margin>
+                        </BorderPane>
+                        <AnchorPane GridPane.columnSpan="4">
+                            <children>
+                                <Label alignment="CENTER"
+                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
+                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                       text="No Requirements" textAlignment="CENTER" textFill="WHITE"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="2">
+                            <children>
+                                <Label alignment="CENTER"
+                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
+                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                       text="Require Prior Charges:" textAlignment="CENTER" textFill="WHITE"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="4">
+                            <children>
+                                <Label alignment="CENTER"
+                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
+                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                       text="Prior Citations/Charges Probabilities" textAlignment="CENTER"
+                                       textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <Label text="ALL FOUR MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
+                               GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label text="ALL FOUR MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
+                               GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="9">
+                            <children>
+                                <Label alignment="CENTER"
+                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
+                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                       text="Gun License Probabilities (Require Ped To Have A Gun License)"
+                                       textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <Label text="ALL THREE MUST ADD UP TO 100 COMBINED" textFill="#d34c4c" GridPane.columnSpan="4"
+                               GridPane.halignment="CENTER" GridPane.rowIndex="10">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label text="ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)" textFill="#d34c4c"
+                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="12">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14">
+                            <children>
+                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="110.0"
+                                            AnchorPane.topAnchor="0.0">
+                                    <center>
+                                        <Button mnemonicParsing="false" onAction="#resetDefaultsBtn"
+                                                style="-fx-background-color: rgb(0,0,0,0.2);" text="Reset Defaults">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                    </center>
+                                </BorderPane>
+                                <BorderPane layoutX="62.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                            AnchorPane.topAnchor="0.0">
+                                    <center>
+                                        <Button defaultButton="true" mnemonicParsing="false" onAction="#saveBtn"
+                                                style="-fx-background-color: rgb(0,0,0,0.2);"
+                                                text="Validate &amp; Save">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                    </center>
+                                </BorderPane>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

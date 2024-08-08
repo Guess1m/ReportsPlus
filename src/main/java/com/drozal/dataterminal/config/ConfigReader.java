@@ -107,8 +107,9 @@ public class ConfigReader {
 	    
 	    // Lookup Layout
 	    checkAndSetDefaultValue("lookupWindow", "pedLookupVisible", "true");
-	    checkAndSetDefaultValue("lookupWindow", "vehLookupVisible", "true");
-        
+        checkAndSetDefaultValue("lookupWindow", "vehLookupVisible", "true");
+        checkAndSetDefaultValue("lookupWindow", "lookupOrientation", "horizontal");
+
         // Notification Settings
         checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.7");
         checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.9");
@@ -191,11 +192,11 @@ public class ConfigReader {
         checkAndSetDefaultValue("pedHistoryCitation", "chanceManyCitations", "5");
         // Gun Permit
         checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "25");
-        //Type
+        /*Type*/
         checkAndSetDefaultValue("pedHistoryGunPermitType", "concealedCarryChance", "30");
         checkAndSetDefaultValue("pedHistoryGunPermitType", "openCarryChance", "35");
         checkAndSetDefaultValue("pedHistoryGunPermitType", "bothChance", "35");
-        //Class
+        /*Class*/
         checkAndSetDefaultValue("pedHistoryGunPermitClass", "handgunChance", "50");
         checkAndSetDefaultValue("pedHistoryGunPermitClass", "longgunChance", "28");
         checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");

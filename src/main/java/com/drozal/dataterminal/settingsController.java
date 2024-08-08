@@ -1707,4 +1707,5 @@ public class settingsController {
             enableCalloutPopupsCheckbox.setSelected(false);
         }
     }
+    
 }

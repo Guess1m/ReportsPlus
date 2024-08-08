@@ -104,6 +104,10 @@ public class ConfigReader {
         checkAndSetDefaultValue("uiColors", "mainColor", "#524992");
         checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
         checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
+	    
+	    // Lookup Layout
+	    checkAndSetDefaultValue("lookupWindow", "pedLookupVisible", "true");
+	    checkAndSetDefaultValue("lookupWindow", "vehLookupVisible", "true");
         
         // Notification Settings
         checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.7");

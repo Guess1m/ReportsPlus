@@ -143,7 +143,7 @@ public class CourtUtils {
         
         boolean isTrafficCharge = false;
         if (isTraffic != null) {
-            if (isTraffic.equals("true")) {
+            if (isTraffic.equalsIgnoreCase("true")) {
                 isTrafficCharge = true;
             }
         }
@@ -170,13 +170,13 @@ public class CourtUtils {
             int randomFine = minFine + random.nextInt(maxFine - minFine + 1);
             result.append("Fined: " + randomFine + ". ");
         }
-        
-        boolean onlyProbation = outcomeTime.equals("months") && random.nextInt(100) < 10;
-        
-        if (outcomeTime.equals("years")) {
+
+        boolean onlyProbation = outcomeTime.equalsIgnoreCase("months") && random.nextInt(100) < 10;
+
+        if (outcomeTime.equalsIgnoreCase("years")) {
             onlyProbation = false;
         }
-        if (maxJailTime.equals("life")) {
+        if (maxJailTime.equalsIgnoreCase("life")) {
             if (random.nextBoolean()) {
                 result.append("Jail Time: Life sentence. ");
             } else {
@@ -204,8 +204,8 @@ public class CourtUtils {
                             minJailTime)) * random.nextDouble();
                     result.append("Probation: Denied. ");
                 }
-                
-                if (outcomeTime.equals("years")) {
+
+                if (outcomeTime.equalsIgnoreCase("years")) {
                     result.append("Jail Time: ").append(Math.round(jailTime)).append(" years. ");
                 } else {
                     result.append("Jail Time: ").append(Math.round(jailTime)).append(" months. ");

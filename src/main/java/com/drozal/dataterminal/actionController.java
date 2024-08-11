@@ -357,7 +357,7 @@ public class actionController {
     private Button showIDBtn;
     @FXML
     private Button showCalloutBtn;
-	@FXML
+    @FXML
     private TextField vehSearchField;
     @FXML
     private Button pedSearchBtn;
@@ -365,7 +365,7 @@ public class actionController {
     private TextField pedSearchField;
     @FXML
     private AnchorPane pedLookupPane;
-	@FXML
+    @FXML
     private Button vehSearchBtn;
     @FXML
     private AnchorPane vehLookupPane;
@@ -407,7 +407,7 @@ public class actionController {
     private AnchorPane pedRecordPane;
     @FXML
     private Label noRecordFoundLabelPed;
-	@FXML
+    @FXML
     private Button settingsBtn;
     @FXML
     private TextField pedaddressfield;
@@ -555,7 +555,7 @@ public class actionController {
     private AnchorPane blankCourtInfoPane;
     @FXML
     private AnchorPane courtInfoPane;
-	@FXML
+    @FXML
     private SplitPane lookupSplitPane;
     @FXML
     private AnchorPane lookupPane;
@@ -578,264 +578,264 @@ public class actionController {
     @FXML
     private Button showLookupBtn;
 
-	//</editor-fold>
+    //</editor-fold>
 
     public void initialize() throws IOException {
-		// TODO undo
+        // TODO undo
         showLookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
+        showCalloutBtn.setVisible(true);
+        showIDBtn.setVisible(true);
 
-		blankCourtInfoPane.setVisible(true);
-		courtInfoPane.setVisible(false);
+        blankCourtInfoPane.setVisible(true);
+        courtInfoPane.setVisible(false);
 
         pedRecordPane.setVisible(false);
         noRecordFoundLabelPed.setVisible(false);
         vehRecordPane.setVisible(false);
         noRecordFoundLabelVeh.setVisible(false);
 
-		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
-			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
+        if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
+            ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 
-			log("First Login, Showing Tutorial", Severity.DEBUG);
-			tutorialOverlay.setVisible(true);
-			tutorialOverlay.setOnMouseClicked(mouseEvent -> {
-				tutorialOverlay.setVisible(false);
-			});
-		} else {
-			tutorialOverlay.setVisible(false);
-			log("Not First Login", Severity.DEBUG);
-		}
+            log("First Login, Showing Tutorial", Severity.DEBUG);
+            tutorialOverlay.setVisible(true);
+            tutorialOverlay.setOnMouseClicked(mouseEvent -> {
+                tutorialOverlay.setVisible(false);
+            });
+        } else {
+            tutorialOverlay.setVisible(false);
+            log("Not First Login", Severity.DEBUG);
+        }
 
-		titlebar = reportUtil.createTitleBar("Reports Plus");
+        titlebar = reportUtil.createTitleBar("Reports Plus");
 
-		vbox.getChildren().add(titlebar);
+        vbox.getChildren().add(titlebar);
 
-		AnchorPane.setTopAnchor(titlebar, 0.0);
-		AnchorPane.setLeftAnchor(titlebar, 0.0);
-		AnchorPane.setRightAnchor(titlebar, 0.0);
-		titlebar.setPrefHeight(30);
+        AnchorPane.setTopAnchor(titlebar, 0.0);
+        AnchorPane.setLeftAnchor(titlebar, 0.0);
+        AnchorPane.setRightAnchor(titlebar, 0.0);
+        titlebar.setPrefHeight(30);
 
-		checkForUpdates();
+        checkForUpdates();
 
-		setDisable(logPane, lookupPane, calloutPane, courtPane);
-		setActive(shiftInformationPane);
-		needRefresh.set(0);
-		needRefresh.addListener((obs, oldValue, newValue) -> {
-			if (newValue.equals(1)) {
-				loadLogs();
-				needRefresh.set(0);
-			}
-		});
+        setDisable(logPane, lookupPane, calloutPane, courtPane);
+        setActive(shiftInformationPane);
+        needRefresh.set(0);
+        needRefresh.addListener((obs, oldValue, newValue) -> {
+            if (newValue.equals(1)) {
+                loadLogs();
+                needRefresh.set(0);
+            }
+        });
 
-		needCourtRefresh.set(0);
-		needCourtRefresh.addListener((obs, oldValue, newValue) -> {
-			if (newValue.equals(1)) {
-				loadCaseLabels(caseList);
-				needCourtRefresh.set(0);
-			}
-		});
+        needCourtRefresh.set(0);
+        needCourtRefresh.addListener((obs, oldValue, newValue) -> {
+            if (newValue.equals(1)) {
+                loadCaseLabels(caseList);
+                needCourtRefresh.set(0);
+            }
+        });
 
-		notesText = "";
+        notesText = "";
 
-		refreshChart();
-		updateChartIfMismatch(reportChart);
+        refreshChart();
+        updateChartIfMismatch(reportChart);
 
-		String name = ConfigReader.configRead("userInfo", "Name");
-		String division = ConfigReader.configRead("userInfo", "Division");
-		String rank = ConfigReader.configRead("userInfo", "Rank");
-		String number = ConfigReader.configRead("userInfo", "Number");
-		String agency = ConfigReader.configRead("userInfo", "Agency");
-		String callsign = ConfigReader.configRead("userInfo", "Callsign");
+        String name = ConfigReader.configRead("userInfo", "Name");
+        String division = ConfigReader.configRead("userInfo", "Division");
+        String rank = ConfigReader.configRead("userInfo", "Rank");
+        String number = ConfigReader.configRead("userInfo", "Number");
+        String agency = ConfigReader.configRead("userInfo", "Agency");
+        String callsign = ConfigReader.configRead("userInfo", "Callsign");
 
-		getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
-		getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
-		getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
+        getOfficerInfoRank().getItems().addAll(dropdownInfo.ranks);
+        getOfficerInfoDivision().getItems().addAll(dropdownInfo.divisions);
+        getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
 
-		OfficerInfoName.setText(name);
-		OfficerInfoDivision.setValue(division);
-		OfficerInfoRank.setValue(rank);
-		OfficerInfoAgency.setValue(agency);
-		OfficerInfoNumber.setText(number);
-		getOfficerInfoCallsign().setText(callsign);
+        OfficerInfoName.setText(name);
+        OfficerInfoDivision.setValue(division);
+        OfficerInfoRank.setValue(rank);
+        OfficerInfoAgency.setValue(agency);
+        OfficerInfoNumber.setText(number);
+        getOfficerInfoCallsign().setText(callsign);
 
-		generatedByTag.setText("Generated By:" + " " + name);
-		String time = DataTerminalHomeApplication.getTime();
-		generatedDateTag.setText("Generated at: " + time);
+        generatedByTag.setText("Generated By:" + " " + name);
+        String time = DataTerminalHomeApplication.getTime();
+        generatedDateTag.setText("Generated at: " + time);
 
-		areaReportChart.getData().add(parseEveryLog("area"));
+        areaReportChart.getData().add(parseEveryLog("area"));
 
-		getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-			@Override
-			public ListCell<String> call(ListView<String> p) {
-				return new ListCell<>() {
-					@Override
-					protected void updateItem(String item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item == null || empty) {
-							setText(null);
-						} else {
-							setText(item);
-							setAlignment(Pos.CENTER);
+        getOfficerInfoDivision().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                            setAlignment(Pos.CENTER);
 
-							if (item.contains("=")) {
-								setStyle("-fx-font-weight: bold;");
-							} else {
-								setStyle("-fx-font-weight: none;");
-							}
-						}
-					}
-				};
-			}
-		});
+                            if (item.contains("=")) {
+                                setStyle("-fx-font-weight: bold;");
+                            } else {
+                                setStyle("-fx-font-weight: none;");
+                            }
+                        }
+                    }
+                };
+            }
+        });
 
-		initializeCalloutColumns(calloutTable);
-		initializeArrestColumns(arrestTable);
-		initializeCitationColumns(citationTable);
-		initializeImpoundColumns(impoundTable);
-		initializeIncidentColumns(incidentTable);
-		initializePatrolColumns(patrolTable);
-		initializeSearchColumns(searchTable);
-		initializeTrafficStopColumns(trafficStopTable);
-		initializeDeathReportColumns(deathReportTable);
-		loadLogs();
+        initializeCalloutColumns(calloutTable);
+        initializeArrestColumns(arrestTable);
+        initializeCitationColumns(citationTable);
+        initializeImpoundColumns(impoundTable);
+        initializeIncidentColumns(incidentTable);
+        initializePatrolColumns(patrolTable);
+        initializeSearchColumns(searchTable);
+        initializeTrafficStopColumns(trafficStopTable);
+        initializeDeathReportColumns(deathReportTable);
+        loadLogs();
 
-		vehSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.ENTER) {
-				try {
-					onVehSearchBtnClick(new ActionEvent());
-				} catch (IOException e) {
-					logError("Error executing vehsearch from Enter: ", e);
-				}
-			}
-		});
-		pedSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.ENTER) {
-				try {
-					onPedSearchBtnClick(new ActionEvent());
-				} catch (IOException e) {
-					logError("Error executing pedsearch from Enter: ", e);
-				}
-			}
-		});
+        vehSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onVehSearchBtnClick(new ActionEvent());
+                } catch (IOException e) {
+                    logError("Error executing vehsearch from Enter: ", e);
+                }
+            }
+        });
+        pedSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onPedSearchBtnClick(new ActionEvent());
+                } catch (IOException e) {
+                    logError("Error executing pedsearch from Enter: ", e);
+                }
+            }
+        });
 
-		ClientUtils.setStatusListener(this::updateConnectionStatus);
+        ClientUtils.setStatusListener(this::updateConnectionStatus);
 
-		Platform.runLater(() -> {
+        Platform.runLater(() -> {
 
-			versionLabel.setText(stringUtil.version);
-			Stage stge = (Stage) vbox.getScene().getWindow();
+            versionLabel.setText(stringUtil.version);
+            Stage stge = (Stage) vbox.getScene().getWindow();
 
-			stge.setOnHiding(event -> handleClose());
+            stge.setOnHiding(event -> handleClose());
 
-			versionLabel.setOnMouseClicked(event -> {
-				if (versionStage != null && versionStage.isShowing()) {
-					versionStage.close();
-					versionStage = null;
-					return;
-				}
-				versionStage = new Stage();
-				versionStage.initStyle(StageStyle.UNDECORATED);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("updates-view.fxml"));
-				Parent root = null;
-				try {
-					root = loader.load();
-				} catch (IOException e) {
-					logError("Error starting VersionStage: ", e);
-				}
-				Scene newScene = new Scene(root);
-				versionStage.setTitle("Version Information");
-				versionStage.setScene(newScene);
+            versionLabel.setOnMouseClicked(event -> {
+                if (versionStage != null && versionStage.isShowing()) {
+                    versionStage.close();
+                    versionStage = null;
+                    return;
+                }
+                versionStage = new Stage();
+                versionStage.initStyle(StageStyle.UNDECORATED);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("updates-view.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    logError("Error starting VersionStage: ", e);
+                }
+                Scene newScene = new Scene(root);
+                versionStage.setTitle("Version Information");
+                versionStage.setScene(newScene);
 
-				versionStage.show();
-				versionStage.centerOnScreen();
-				centerStageOnMainApp(versionStage);
+                versionStage.show();
+                versionStage.centerOnScreen();
+                centerStageOnMainApp(versionStage);
 
-				versionStage.setOnHidden(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent event) {
-						versionStage = null;
-					}
-				});
-			});
+                versionStage.setOnHidden(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        versionStage = null;
+                    }
+                });
+            });
 
-			if (!stringUtil.version.equals(gitVersion)) {
-				if (gitVersion == null) {
-					versionLabel.setText("New Version Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
-				} else {
-					versionLabel.setText(gitVersion + " Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
-				}
-			}
+            if (!stringUtil.version.equals(gitVersion)) {
+                if (gitVersion == null) {
+                    versionLabel.setText("New Version Available!");
+                    versionLabel.setStyle("-fx-text-fill: red;");
+                } else {
+                    versionLabel.setText(gitVersion + " Available!");
+                    versionLabel.setStyle("-fx-text-fill: red;");
+                }
+            }
 
-			try {
-				settingsController.loadTheme();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+            try {
+                settingsController.loadTheme();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-			try {
-				if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true")) {
-					Platform.runLater(() -> {
-						log("Searching For Server...", Severity.DEBUG);
-						new Thread(ClientUtils::listenForServerBroadcasts).start();
-					});
-				}
-			} catch (IOException e) {
-				logError("Not able to read serverautoconnect: ", e);
-			}
-		});
+            try {
+                if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true")) {
+                    Platform.runLater(() -> {
+                        log("Searching For Server...", Severity.DEBUG);
+                        new Thread(ClientUtils::listenForServerBroadcasts).start();
+                    });
+                }
+            } catch (IOException e) {
+                logError("Not able to read serverautoconnect: ", e);
+            }
+        });
 
-		currentCalPane.setPrefHeight(0);
-		currentCalPane.setMaxHeight(0);
-		currentCalPane.setMinHeight(0);
-		currentCalPane.setVisible(false);
-		calActiveList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				double toHeight = 329;
-
-				Timeline timeline = new Timeline();
-
-				KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-                KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
-
-				timeline.getKeyFrames().add(keyFrame);
-
-                timeline.play();
-				currentCalPane.setVisible(true);
-                handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate, calStreet, calDesc, calType, calTime, calPriority);
-				showCurrentCalToggle.setSelected(true);
-			}
-		});
-
-        calHistoryList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				double toHeight = 329;
+        currentCalPane.setPrefHeight(0);
+        currentCalPane.setMaxHeight(0);
+        currentCalPane.setMinHeight(0);
+        currentCalPane.setVisible(false);
+        calActiveList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                double toHeight = 329;
 
                 Timeline timeline = new Timeline();
 
                 KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+                KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+                KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
                 KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-				timeline.getKeyFrames().add(keyFrame);
+                timeline.getKeyFrames().add(keyFrame);
 
                 timeline.play();
-				currentCalPane.setVisible(true);
+                currentCalPane.setVisible(true);
+                handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate, calStreet, calDesc, calType, calTime, calPriority);
+                showCurrentCalToggle.setSelected(true);
+            }
+        });
+
+        calHistoryList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                double toHeight = 329;
+
+                Timeline timeline = new Timeline();
+
+                KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
+                KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+                KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+                KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
+
+                timeline.getKeyFrames().add(keyFrame);
+
+                timeline.play();
+                currentCalPane.setVisible(true);
                 handleSelectedNodeHistory(calHistoryList, currentCalPane, calNum, calArea, calCounty, calDate, calStreet, calDesc, calType, calTime, calPriority);
-				showCurrentCalToggle.setSelected(true);
-			}
-		});
+                showCurrentCalToggle.setSelected(true);
+            }
+        });
 
         try {
-			scheduleOutcomeRevealsForPendingCases();
-		} catch (JAXBException e) {
-			throw new RuntimeException(e);
-		}
+            scheduleOutcomeRevealsForPendingCases();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
 
         lookupPedCheckbox.setSelected(Boolean.parseBoolean(ConfigReader.configRead("lookupWindow", "pedLookupVisible")));
         lookupVehCheckbox.setSelected(Boolean.parseBoolean(ConfigReader.configRead("lookupWindow", "vehLookupVisible")));
@@ -2533,248 +2533,248 @@ public class actionController {
 
     //</editor-fold>
 
-	//<editor-fold desc="Log Methods">
+    //<editor-fold desc="Log Methods">
 
     private void loadLogs() {
-		try {
-			ImpoundReports impoundReports = ImpoundReportUtils.loadImpoundReports();
-			List<ImpoundReport> impoundReportslist = impoundReports.getImpoundReportList();
-			impoundLogUpdate(impoundReportslist);
-		} catch (JAXBException e) {
-			logError("Error loading ImpoundReports: ", e);
-		}
+        try {
+            ImpoundReports impoundReports = ImpoundReportUtils.loadImpoundReports();
+            List<ImpoundReport> impoundReportslist = impoundReports.getImpoundReportList();
+            impoundLogUpdate(impoundReportslist);
+        } catch (JAXBException e) {
+            logError("Error loading ImpoundReports: ", e);
+        }
 
         try {
-			TrafficCitationReports trafficCitationReports = TrafficCitationUtils.loadTrafficCitationReports();
-			List<TrafficCitationReport> trafficCitationList = trafficCitationReports.getTrafficCitationReportList();
-			citationLogUpdate(trafficCitationList);
-		} catch (JAXBException e) {
-			logError("Error loading TrafficCitationReports: ", e);
-		}
+            TrafficCitationReports trafficCitationReports = TrafficCitationUtils.loadTrafficCitationReports();
+            List<TrafficCitationReport> trafficCitationList = trafficCitationReports.getTrafficCitationReportList();
+            citationLogUpdate(trafficCitationList);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficCitationReports: ", e);
+        }
 
         try {
-			PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
-			List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
-			patrolLogUpdate(patrolReportList);
-		} catch (JAXBException e) {
-			logError("Error loading PatrolReports: ", e);
-		}
+            PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
+            List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
+            patrolLogUpdate(patrolReportList);
+        } catch (JAXBException e) {
+            logError("Error loading PatrolReports: ", e);
+        }
 
         try {
-			ArrestReports arrestReports = ArrestReportUtils.loadArrestReports();
-			List<ArrestReport> arrestReportList = arrestReports.getArrestReportList();
-			arrestLogUpdate(arrestReportList);
-		} catch (JAXBException e) {
-			logError("Error loading ArrestReport: ", e);
-		}
+            ArrestReports arrestReports = ArrestReportUtils.loadArrestReports();
+            List<ArrestReport> arrestReportList = arrestReports.getArrestReportList();
+            arrestLogUpdate(arrestReportList);
+        } catch (JAXBException e) {
+            logError("Error loading ArrestReport: ", e);
+        }
 
         try {
-			SearchReports searchReports = SearchReportUtils.loadSearchReports();
-			List<SearchReport> searchReportsList1 = searchReports.getSearchReportList();
-			searchLogUpdate(searchReportsList1);
-		} catch (JAXBException e) {
-			logError("Error loading SearchReports: ", e);
-		}
+            SearchReports searchReports = SearchReportUtils.loadSearchReports();
+            List<SearchReport> searchReportsList1 = searchReports.getSearchReportList();
+            searchLogUpdate(searchReportsList1);
+        } catch (JAXBException e) {
+            logError("Error loading SearchReports: ", e);
+        }
 
         try {
-			IncidentReports incidentReports = IncidentReportUtils.loadIncidentReports();
-			List<IncidentReport> incidentReportList1 = incidentReports.getIncidentReportList();
-			incidentLogUpdate(incidentReportList1);
-		} catch (JAXBException e) {
-			logError("Error loading IncidentReports: ", e);
-		}
+            IncidentReports incidentReports = IncidentReportUtils.loadIncidentReports();
+            List<IncidentReport> incidentReportList1 = incidentReports.getIncidentReportList();
+            incidentLogUpdate(incidentReportList1);
+        } catch (JAXBException e) {
+            logError("Error loading IncidentReports: ", e);
+        }
 
         try {
-			TrafficStopReports trafficStopReports = TrafficStopReportUtils.loadTrafficStopReports();
-			List<TrafficStopReport> trafficStopReportList = trafficStopReports.getTrafficStopReportList();
-			trafficStopLogUpdate(trafficStopReportList);
-		} catch (JAXBException e) {
-			logError("Error loading TrafficStopReports: ", e);
-		}
+            TrafficStopReports trafficStopReports = TrafficStopReportUtils.loadTrafficStopReports();
+            List<TrafficStopReport> trafficStopReportList = trafficStopReports.getTrafficStopReportList();
+            trafficStopLogUpdate(trafficStopReportList);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficStopReports: ", e);
+        }
 
         try {
-			CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
-			List<CalloutReport> calloutReportListl = calloutReports.getCalloutReportList();
-			calloutLogUpdate(calloutReportListl);
-		} catch (JAXBException e) {
-			logError("Error loading CalloutReports: ", e);
-		}
+            CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
+            List<CalloutReport> calloutReportListl = calloutReports.getCalloutReportList();
+            calloutLogUpdate(calloutReportListl);
+        } catch (JAXBException e) {
+            logError("Error loading CalloutReports: ", e);
+        }
 
         try {
-			DeathReports deathReports = DeathReportUtils.loadDeathReports();
-			List<DeathReport> deathReportList = deathReports.getDeathReportList();
-			deathReportUpdate(deathReportList);
-		} catch (JAXBException e) {
-			logError("Error loading DeathReports: ", e);
-		}
-	}
+            DeathReports deathReports = DeathReportUtils.loadDeathReports();
+            List<DeathReport> deathReportList = deathReports.getDeathReportList();
+            deathReportUpdate(deathReportList);
+        } catch (JAXBException e) {
+            logError("Error loading DeathReports: ", e);
+        }
+    }
 
     public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		citationTable.getItems().clear();
-		citationTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        citationTable.getItems().clear();
+        citationTable.getItems().addAll(logEntries);
+    }
 
     public void patrolLogUpdate(List<PatrolReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		patrolTable.getItems().clear();
-		patrolTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        patrolTable.getItems().clear();
+        patrolTable.getItems().addAll(logEntries);
+    }
 
     public void arrestLogUpdate(List<ArrestReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		arrestTable.getItems().clear();
-		arrestTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        arrestTable.getItems().clear();
+        arrestTable.getItems().addAll(logEntries);
+    }
 
     public void searchLogUpdate(List<SearchReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		searchTable.getItems().clear();
-		searchTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        searchTable.getItems().clear();
+        searchTable.getItems().addAll(logEntries);
+    }
 
     public void incidentLogUpdate(List<IncidentReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		incidentTable.getItems().clear();
-		incidentTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        incidentTable.getItems().clear();
+        incidentTable.getItems().addAll(logEntries);
+    }
 
     public void trafficStopLogUpdate(List<TrafficStopReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		trafficStopTable.getItems().clear();
-		trafficStopTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        trafficStopTable.getItems().clear();
+        trafficStopTable.getItems().addAll(logEntries);
+    }
 
     public void calloutLogUpdate(List<CalloutReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		calloutTable.getItems().clear();
-		calloutTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        calloutTable.getItems().clear();
+        calloutTable.getItems().addAll(logEntries);
+    }
 
     public void impoundLogUpdate(List<ImpoundReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		impoundTable.getItems().clear();
-		impoundTable.getItems().addAll(logEntries);
-	}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
+        impoundTable.getItems().clear();
+        impoundTable.getItems().addAll(logEntries);
+    }
 
     public void deathReportUpdate(List<DeathReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
+        if (logEntries == null) {
+            logEntries = new ArrayList<>();
+        }
 
         deathReportTable.getItems().clear();
-		deathReportTable.getItems().addAll(logEntries);
-	}
+        deathReportTable.getItems().addAll(logEntries);
+    }
 
     @FXML
-	public void onDeathReportRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
+    public void onDeathReportRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
 
             if (deathReport != null) {
-				Map<String, Object> deathReportObj = newDeathReport(getReportChart(), getAreaReportChart());
+                Map<String, Object> deathReportObj = newDeathReport(getReportChart(), getAreaReportChart());
 
                 Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get("Death Report Map");
 
                 TextField name = (TextField) deathReport1.get("name");
-				TextField rank = (TextField) deathReport1.get("rank");
-				TextField div = (TextField) deathReport1.get("division");
-				TextField agen = (TextField) deathReport1.get("agency");
-				TextField num = (TextField) deathReport1.get("number");
-				TextField date = (TextField) deathReport1.get("date");
-				TextField time = (TextField) deathReport1.get("time");
-				TextField street = (TextField) deathReport1.get("street");
-				ComboBox area = (ComboBox) deathReport1.get("area");
-				TextField county = (TextField) deathReport1.get("county");
-				TextField deathNum = (TextField) deathReport1.get("death num");
-				TextField decedent = (TextField) deathReport1.get("decedent name");
-				TextField age = (TextField) deathReport1.get("age/dob");
-				TextField gender = (TextField) deathReport1.get("gender");
-				TextField address = (TextField) deathReport1.get("address");
-				TextField description = (TextField) deathReport1.get("description");
-				TextField causeofdeath = (TextField) deathReport1.get("cause of death");
-				TextField modeofdeath = (TextField) deathReport1.get("mode of death");
-				TextField witnesses = (TextField) deathReport1.get("witnesses");
-				TextArea notes = (TextArea) deathReport1.get("notes");
-				TextField timeofdeath = (TextField) deathReport1.get("time of death");
-				TextField dateofdeath = (TextField) deathReport1.get("date of death");
+                TextField rank = (TextField) deathReport1.get("rank");
+                TextField div = (TextField) deathReport1.get("division");
+                TextField agen = (TextField) deathReport1.get("agency");
+                TextField num = (TextField) deathReport1.get("number");
+                TextField date = (TextField) deathReport1.get("date");
+                TextField time = (TextField) deathReport1.get("time");
+                TextField street = (TextField) deathReport1.get("street");
+                ComboBox area = (ComboBox) deathReport1.get("area");
+                TextField county = (TextField) deathReport1.get("county");
+                TextField deathNum = (TextField) deathReport1.get("death num");
+                TextField decedent = (TextField) deathReport1.get("decedent name");
+                TextField age = (TextField) deathReport1.get("age/dob");
+                TextField gender = (TextField) deathReport1.get("gender");
+                TextField address = (TextField) deathReport1.get("address");
+                TextField description = (TextField) deathReport1.get("description");
+                TextField causeofdeath = (TextField) deathReport1.get("cause of death");
+                TextField modeofdeath = (TextField) deathReport1.get("mode of death");
+                TextField witnesses = (TextField) deathReport1.get("witnesses");
+                TextArea notes = (TextArea) deathReport1.get("notes");
+                TextField timeofdeath = (TextField) deathReport1.get("time of death");
+                TextField dateofdeath = (TextField) deathReport1.get("date of death");
 
                 timeofdeath.setText(deathReport.getTimeOfDeath());
-				dateofdeath.setText(deathReport.getDateOfDeath());
-				name.setText(deathReport.getName());
-				rank.setText(deathReport.getRank());
-				div.setText(deathReport.getDivision());
-				agen.setText(deathReport.getAgency());
-				num.setText(deathReport.getNumber());
-				date.setText(deathReport.getDate());
-				time.setText(deathReport.getTime());
-				street.setText(deathReport.getStreet());
-				area.setValue(deathReport.getArea());
-				county.setText(deathReport.getCounty());
-				deathNum.setText(deathReport.getDeathReportNumber());
-				decedent.setText(deathReport.getDecedent());
-				age.setText(deathReport.getAge());
-				gender.setText(deathReport.getGender());
-				address.setText(deathReport.getAddress());
-				description.setText(deathReport.getDescription());
-				causeofdeath.setText(deathReport.getCauseOfDeath());
-				modeofdeath.setText(deathReport.getModeOfDeath());
-				witnesses.setText(deathReport.getWitnesses());
-				notes.setText(deathReport.getNotesTextArea());
+                dateofdeath.setText(deathReport.getDateOfDeath());
+                name.setText(deathReport.getName());
+                rank.setText(deathReport.getRank());
+                div.setText(deathReport.getDivision());
+                agen.setText(deathReport.getAgency());
+                num.setText(deathReport.getNumber());
+                date.setText(deathReport.getDate());
+                time.setText(deathReport.getTime());
+                street.setText(deathReport.getStreet());
+                area.setValue(deathReport.getArea());
+                county.setText(deathReport.getCounty());
+                deathNum.setText(deathReport.getDeathReportNumber());
+                decedent.setText(deathReport.getDecedent());
+                age.setText(deathReport.getAge());
+                gender.setText(deathReport.getGender());
+                address.setText(deathReport.getAddress());
+                description.setText(deathReport.getDescription());
+                causeofdeath.setText(deathReport.getCauseOfDeath());
+                modeofdeath.setText(deathReport.getModeOfDeath());
+                witnesses.setText(deathReport.getWitnesses());
+                notes.setText(deathReport.getNotesTextArea());
 
                 BorderPane root = (BorderPane) deathReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) deathReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = deathNum.getText();
-					try {
-						DeathReportUtils.deleteDeathReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete DeathReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) deathReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = deathNum.getText();
+                    try {
+                        DeathReportUtils.deleteDeathReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete DeathReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 deathNum.setEditable(false);
-				Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
+                Button pullNotesBtn = (Button) deathReportObj.get("pullNotesBtn");
+                pullNotesBtn.setVisible(false);
 
                 Button submitBtn = (Button) deathReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 deathReportTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onCalloutRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
+    public void onCalloutRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
 
             if (calloutReport != null) {
 
@@ -2783,72 +2783,72 @@ public class actionController {
                 Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 
                 TextField officername = (TextField) calloutReportMap.get("name");
-				TextField officerrank = (TextField) calloutReportMap.get("rank");
-				TextField officerdiv = (TextField) calloutReportMap.get("division");
-				TextField officeragen = (TextField) calloutReportMap.get("agency");
-				TextField officernum = (TextField) calloutReportMap.get("number");
-				TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
-				ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
-				TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
-				TextField calloutcounty = (TextField) calloutReportMap.get("county");
-				TextField calloutstreet = (TextField) calloutReportMap.get("street");
-				TextField calloutdate = (TextField) calloutReportMap.get("date");
-				TextField callouttime = (TextField) calloutReportMap.get("time");
-				TextField callouttype = (TextField) calloutReportMap.get("type");
-				TextField calloutcode = (TextField) calloutReportMap.get("code");
+                TextField officerrank = (TextField) calloutReportMap.get("rank");
+                TextField officerdiv = (TextField) calloutReportMap.get("division");
+                TextField officeragen = (TextField) calloutReportMap.get("agency");
+                TextField officernum = (TextField) calloutReportMap.get("number");
+                TextField calloutnum = (TextField) calloutReportMap.get("calloutnumber");
+                ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
+                TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
+                TextField calloutcounty = (TextField) calloutReportMap.get("county");
+                TextField calloutstreet = (TextField) calloutReportMap.get("street");
+                TextField calloutdate = (TextField) calloutReportMap.get("date");
+                TextField callouttime = (TextField) calloutReportMap.get("time");
+                TextField callouttype = (TextField) calloutReportMap.get("type");
+                TextField calloutcode = (TextField) calloutReportMap.get("code");
 
                 officername.setText(calloutReport.getName());
-				officerrank.setText(calloutReport.getRank());
-				officerdiv.setText(calloutReport.getDivision());
-				officeragen.setText(calloutReport.getAgency());
-				officernum.setText(calloutReport.getNumber());
-				calloutdate.setText(calloutReport.getDate());
-				callouttime.setText(calloutReport.getTime());
-				calloutstreet.setText(calloutReport.getAddress());
-				calloutarea.setValue(calloutReport.getArea());
-				calloutcounty.setText(calloutReport.getCounty());
-				calloutnotes.setText(calloutReport.getNotesTextArea());
-				calloutnum.setText(calloutReport.getCalloutNumber());
-				callouttype.setText(calloutReport.getResponseType());
-				calloutcode.setText(calloutReport.getResponseGrade());
+                officerrank.setText(calloutReport.getRank());
+                officerdiv.setText(calloutReport.getDivision());
+                officeragen.setText(calloutReport.getAgency());
+                officernum.setText(calloutReport.getNumber());
+                calloutdate.setText(calloutReport.getDate());
+                callouttime.setText(calloutReport.getTime());
+                calloutstreet.setText(calloutReport.getAddress());
+                calloutarea.setValue(calloutReport.getArea());
+                calloutcounty.setText(calloutReport.getCounty());
+                calloutnotes.setText(calloutReport.getNotesTextArea());
+                calloutnum.setText(calloutReport.getCalloutNumber());
+                callouttype.setText(calloutReport.getResponseType());
+                calloutcode.setText(calloutReport.getResponseGrade());
 
                 BorderPane root = (BorderPane) calloutReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) calloutReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = calloutnum.getText();
-					try {
-						CalloutReportUtils.deleteCalloutReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete CalloutReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) calloutReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = calloutnum.getText();
+                    try {
+                        CalloutReportUtils.deleteCalloutReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete CalloutReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) calloutReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				calloutnum.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                calloutnum.setEditable(false);
 
                 Button submitBtn = (Button) calloutReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 calloutTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onPatrolRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
+    public void onPatrolRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
 
             if (patrolReport != null) {
 
@@ -2857,68 +2857,68 @@ public class actionController {
                 Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get("Patrol Report Map");
 
                 TextField name = (TextField) patrolReportMap.get("name");
-				TextField rank = (TextField) patrolReportMap.get("rank");
-				TextField div = (TextField) patrolReportMap.get("division");
-				TextField agen = (TextField) patrolReportMap.get("agency");
-				TextField num = (TextField) patrolReportMap.get("number");
-				TextField patrolnum = (TextField) patrolReportMap.get("patrolnumber");
-				TextArea notes = (TextArea) patrolReportMap.get("notes");
-				TextField date = (TextField) patrolReportMap.get("date");
-				TextField starttime = (TextField) patrolReportMap.get("starttime");
-				TextField stoptime = (TextField) patrolReportMap.get("stoptime");
-				TextField length = (TextField) patrolReportMap.get("length");
-				TextField vehicle = (TextField) patrolReportMap.get("vehicle");
+                TextField rank = (TextField) patrolReportMap.get("rank");
+                TextField div = (TextField) patrolReportMap.get("division");
+                TextField agen = (TextField) patrolReportMap.get("agency");
+                TextField num = (TextField) patrolReportMap.get("number");
+                TextField patrolnum = (TextField) patrolReportMap.get("patrolnumber");
+                TextArea notes = (TextArea) patrolReportMap.get("notes");
+                TextField date = (TextField) patrolReportMap.get("date");
+                TextField starttime = (TextField) patrolReportMap.get("starttime");
+                TextField stoptime = (TextField) patrolReportMap.get("stoptime");
+                TextField length = (TextField) patrolReportMap.get("length");
+                TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 
                 name.setText(patrolReport.getOfficerName());
-				patrolnum.setText(patrolReport.getPatrolNumber());
-				rank.setText(patrolReport.getOfficerRank());
-				div.setText(patrolReport.getOfficerDivision());
-				agen.setText(patrolReport.getOfficerAgency());
-				num.setText(patrolReport.getOfficerNumber());
-				date.setText(patrolReport.getPatrolDate());
-				starttime.setText(patrolReport.getPatrolStartTime());
-				stoptime.setText(patrolReport.getPatrolStopTime());
-				length.setText(patrolReport.getPatrolLength());
-				vehicle.setText(patrolReport.getOfficerVehicle());
-				notes.setText(patrolReport.getPatrolComments());
+                patrolnum.setText(patrolReport.getPatrolNumber());
+                rank.setText(patrolReport.getOfficerRank());
+                div.setText(patrolReport.getOfficerDivision());
+                agen.setText(patrolReport.getOfficerAgency());
+                num.setText(patrolReport.getOfficerNumber());
+                date.setText(patrolReport.getPatrolDate());
+                starttime.setText(patrolReport.getPatrolStartTime());
+                stoptime.setText(patrolReport.getPatrolStopTime());
+                length.setText(patrolReport.getPatrolLength());
+                vehicle.setText(patrolReport.getOfficerVehicle());
+                notes.setText(patrolReport.getPatrolComments());
 
                 BorderPane root = (BorderPane) patrolReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) patrolReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = patrolnum.getText();
-					try {
-						PatrolReportUtils.deletePatrolReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete PatrolReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) patrolReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = patrolnum.getText();
+                    try {
+                        PatrolReportUtils.deletePatrolReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete PatrolReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) patrolReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				patrolnum.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                patrolnum.setEditable(false);
 
                 Button submitBtn = (Button) patrolReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 patrolTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onTrafficStopRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel().getSelectedItem();
+    public void onTrafficStopRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel().getSelectedItem();
 
             if (trafficStopReport != null) {
 
@@ -2926,95 +2926,95 @@ public class actionController {
 
                 Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get("Traffic Stop Report Map");
 
-				TextField officernamets = (TextField) trafficStopReportMap.get("name");
-				TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
-				TextField officerdivts = (TextField) trafficStopReportMap.get("division");
-				TextField officeragents = (TextField) trafficStopReportMap.get("agency");
-				TextField officernumarrestts = (TextField) trafficStopReportMap.get("number");
+                TextField officernamets = (TextField) trafficStopReportMap.get("name");
+                TextField officerrankts = (TextField) trafficStopReportMap.get("rank");
+                TextField officerdivts = (TextField) trafficStopReportMap.get("division");
+                TextField officeragents = (TextField) trafficStopReportMap.get("agency");
+                TextField officernumarrestts = (TextField) trafficStopReportMap.get("number");
 
                 TextField offenderNamets = (TextField) trafficStopReportMap.get("offender name");
-				TextField offenderAgets = (TextField) trafficStopReportMap.get("offender age");
-				TextField offenderGenderts = (TextField) trafficStopReportMap.get("offender gender");
-				TextField offenderAddressts = (TextField) trafficStopReportMap.get("offender address");
-				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get("offender description");
+                TextField offenderAgets = (TextField) trafficStopReportMap.get("offender age");
+                TextField offenderGenderts = (TextField) trafficStopReportMap.get("offender gender");
+                TextField offenderAddressts = (TextField) trafficStopReportMap.get("offender address");
+                TextField offenderDescriptionts = (TextField) trafficStopReportMap.get("offender description");
 
                 ComboBox colorts = (ComboBox) trafficStopReportMap.get("color");
-				ComboBox typets = (ComboBox) trafficStopReportMap.get("type");
-				TextField plateNumberts = (TextField) trafficStopReportMap.get("plate number");
-				TextField otherInfots = (TextField) trafficStopReportMap.get("other info");
-				TextField modelts = (TextField) trafficStopReportMap.get("model");
+                ComboBox typets = (ComboBox) trafficStopReportMap.get("type");
+                TextField plateNumberts = (TextField) trafficStopReportMap.get("plate number");
+                TextField otherInfots = (TextField) trafficStopReportMap.get("other info");
+                TextField modelts = (TextField) trafficStopReportMap.get("model");
 
                 ComboBox areats = (ComboBox) trafficStopReportMap.get("area");
-				TextField streetts = (TextField) trafficStopReportMap.get("street");
-				TextField countyts = (TextField) trafficStopReportMap.get("county");
-				TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
-				TextField datets = (TextField) trafficStopReportMap.get("date");
-				TextField timets = (TextField) trafficStopReportMap.get("time");
+                TextField streetts = (TextField) trafficStopReportMap.get("street");
+                TextField countyts = (TextField) trafficStopReportMap.get("county");
+                TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
+                TextField datets = (TextField) trafficStopReportMap.get("date");
+                TextField timets = (TextField) trafficStopReportMap.get("time");
 
                 TextArea notests = (TextArea) trafficStopReportMap.get("notes");
 
                 stopnumts.setText(trafficStopReport.getStopNumber());
-				datets.setText(trafficStopReport.getDate());
-				timets.setText(trafficStopReport.getTime());
-				officerrankts.setText(trafficStopReport.getRank());
-				notests.setText(trafficStopReport.getCommentsTextArea());
-				plateNumberts.setText(trafficStopReport.getPlateNumber());
+                datets.setText(trafficStopReport.getDate());
+                timets.setText(trafficStopReport.getTime());
+                officerrankts.setText(trafficStopReport.getRank());
+                notests.setText(trafficStopReport.getCommentsTextArea());
+                plateNumberts.setText(trafficStopReport.getPlateNumber());
 
                 offenderDescriptionts.setText(trafficStopReport.getOperatorDescription());
-				otherInfots.setText(trafficStopReport.getResponseOtherInfo());
-				areats.setValue(trafficStopReport.getArea());
-				streetts.setText(trafficStopReport.getStreet());
-				countyts.setText(trafficStopReport.getCounty());
+                otherInfots.setText(trafficStopReport.getResponseOtherInfo());
+                areats.setValue(trafficStopReport.getArea());
+                streetts.setText(trafficStopReport.getStreet());
+                countyts.setText(trafficStopReport.getCounty());
 
                 offenderNamets.setText(trafficStopReport.getOperatorName());
-				officernamets.setText(trafficStopReport.getName());
-				officerdivts.setText(trafficStopReport.getDivision());
-				officeragents.setText(trafficStopReport.getAgency());
-				officernumarrestts.setText(trafficStopReport.getNumber());
-				offenderAgets.setText(trafficStopReport.getOperatorAge());
-				offenderGenderts.setText(trafficStopReport.getOperatorGender());
-				offenderAddressts.setText(trafficStopReport.getOperatorAddress());
-				colorts.setValue(trafficStopReport.getColor());
-				typets.setValue(trafficStopReport.getType());
-				modelts.setText(trafficStopReport.getResponseModel());
+                officernamets.setText(trafficStopReport.getName());
+                officerdivts.setText(trafficStopReport.getDivision());
+                officeragents.setText(trafficStopReport.getAgency());
+                officernumarrestts.setText(trafficStopReport.getNumber());
+                offenderAgets.setText(trafficStopReport.getOperatorAge());
+                offenderGenderts.setText(trafficStopReport.getOperatorGender());
+                offenderAddressts.setText(trafficStopReport.getOperatorAddress());
+                colorts.setValue(trafficStopReport.getColor());
+                typets.setValue(trafficStopReport.getType());
+                modelts.setText(trafficStopReport.getResponseModel());
 
                 BorderPane root = (BorderPane) trafficStopReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) trafficStopReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = stopnumts.getText();
-					try {
-						TrafficStopReportUtils.deleteTrafficStopReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete TrafficStopReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) trafficStopReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = stopnumts.getText();
+                    try {
+                        TrafficStopReportUtils.deleteTrafficStopReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete TrafficStopReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) trafficStopReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				stopnumts.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                stopnumts.setEditable(false);
 
                 Button submitBtn = (Button) trafficStopReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 trafficStopTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onIncidentRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
+    public void onIncidentRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
 
             if (incidentReport != null) {
 
@@ -3022,82 +3022,82 @@ public class actionController {
 
                 Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 
-				TextField name = (TextField) incidentReportMap.get("name");
-				TextField rank = (TextField) incidentReportMap.get("rank");
-				TextField div = (TextField) incidentReportMap.get("division");
-				TextField agen = (TextField) incidentReportMap.get("agency");
-				TextField num = (TextField) incidentReportMap.get("number");
+                TextField name = (TextField) incidentReportMap.get("name");
+                TextField rank = (TextField) incidentReportMap.get("rank");
+                TextField div = (TextField) incidentReportMap.get("division");
+                TextField agen = (TextField) incidentReportMap.get("agency");
+                TextField num = (TextField) incidentReportMap.get("number");
 
                 TextField incidentnum = (TextField) incidentReportMap.get("incident num");
-				TextField date = (TextField) incidentReportMap.get("date");
-				TextField time = (TextField) incidentReportMap.get("time");
-				TextField street = (TextField) incidentReportMap.get("street");
-				ComboBox area = (ComboBox) incidentReportMap.get("area");
-				TextField county = (TextField) incidentReportMap.get("county");
+                TextField date = (TextField) incidentReportMap.get("date");
+                TextField time = (TextField) incidentReportMap.get("time");
+                TextField street = (TextField) incidentReportMap.get("street");
+                ComboBox area = (ComboBox) incidentReportMap.get("area");
+                TextField county = (TextField) incidentReportMap.get("county");
 
                 TextField suspects = (TextField) incidentReportMap.get("suspect(s)");
-				TextField vicwit = (TextField) incidentReportMap.get("victim(s) / witness(s)");
-				TextArea statement = (TextArea) incidentReportMap.get("statement");
+                TextField vicwit = (TextField) incidentReportMap.get("victim(s) / witness(s)");
+                TextArea statement = (TextArea) incidentReportMap.get("statement");
 
                 TextArea summary = (TextArea) incidentReportMap.get("summary");
-				TextArea notes = (TextArea) incidentReportMap.get("notes");
+                TextArea notes = (TextArea) incidentReportMap.get("notes");
 
                 name.setText(incidentReport.getOfficerName());
-				incidentnum.setText(incidentReport.getIncidentNumber());
-				rank.setText(incidentReport.getOfficerRank());
-				div.setText(incidentReport.getOfficerDivision());
-				agen.setText(incidentReport.getOfficerAgency());
-				num.setText(incidentReport.getOfficerNumber());
+                incidentnum.setText(incidentReport.getIncidentNumber());
+                rank.setText(incidentReport.getOfficerRank());
+                div.setText(incidentReport.getOfficerDivision());
+                agen.setText(incidentReport.getOfficerAgency());
+                num.setText(incidentReport.getOfficerNumber());
 
                 street.setText(incidentReport.getIncidentStreet());
-				area.setValue(incidentReport.getIncidentArea());
-				county.setText(incidentReport.getIncidentCounty());
-				suspects.setText(incidentReport.getIncidentWitnesses());
-				vicwit.setText(incidentReport.getIncidentVictims());
-				statement.setText(incidentReport.getIncidentStatement());
+                area.setValue(incidentReport.getIncidentArea());
+                county.setText(incidentReport.getIncidentCounty());
+                suspects.setText(incidentReport.getIncidentWitnesses());
+                vicwit.setText(incidentReport.getIncidentVictims());
+                statement.setText(incidentReport.getIncidentStatement());
 
                 date.setText(incidentReport.getIncidentDate());
-				time.setText(incidentReport.getIncidentTime());
-				summary.setText(incidentReport.getIncidentActionsTaken());
-				notes.setText(incidentReport.getIncidentComments());
+                time.setText(incidentReport.getIncidentTime());
+                summary.setText(incidentReport.getIncidentActionsTaken());
+                notes.setText(incidentReport.getIncidentComments());
 
                 BorderPane root = (BorderPane) incidentReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) incidentReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = incidentnum.getText();
-					try {
-						IncidentReportUtils.deleteIncidentReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete IncidentReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) incidentReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = incidentnum.getText();
+                    try {
+                        IncidentReportUtils.deleteIncidentReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete IncidentReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) incidentReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				incidentnum.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                incidentnum.setEditable(false);
 
                 Button submitBtn = (Button) incidentReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 incidentTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onImpoundRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
+    public void onImpoundRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
 
             if (impoundReport != null) {
 
@@ -3106,366 +3106,366 @@ public class actionController {
                 Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 
                 TextField officername = (TextField) impoundReportMap.get("name");
-				TextField officerrank = (TextField) impoundReportMap.get("rank");
-				TextField officerdiv = (TextField) impoundReportMap.get("division");
-				TextField officeragen = (TextField) impoundReportMap.get("agency");
-				TextField officernum = (TextField) impoundReportMap.get("number");
+                TextField officerrank = (TextField) impoundReportMap.get("rank");
+                TextField officerdiv = (TextField) impoundReportMap.get("division");
+                TextField officeragen = (TextField) impoundReportMap.get("agency");
+                TextField officernum = (TextField) impoundReportMap.get("number");
 
                 TextField offenderName = (TextField) impoundReportMap.get("offender name");
-				TextField offenderAge = (TextField) impoundReportMap.get("offender age");
-				TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
-				TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
+                TextField offenderAge = (TextField) impoundReportMap.get("offender age");
+                TextField offenderGender = (TextField) impoundReportMap.get("offender gender");
+                TextField offenderAddress = (TextField) impoundReportMap.get("offender address");
 
                 TextField num = (TextField) impoundReportMap.get("impound number");
-				TextField date = (TextField) impoundReportMap.get("date");
-				TextField time = (TextField) impoundReportMap.get("time");
+                TextField date = (TextField) impoundReportMap.get("date");
+                TextField time = (TextField) impoundReportMap.get("time");
 
                 ComboBox color = (ComboBox) impoundReportMap.get("color");
-				ComboBox type = (ComboBox) impoundReportMap.get("type");
-				TextField plateNumber = (TextField) impoundReportMap.get("plate number");
-				TextField model = (TextField) impoundReportMap.get("model");
+                ComboBox type = (ComboBox) impoundReportMap.get("type");
+                TextField plateNumber = (TextField) impoundReportMap.get("plate number");
+                TextField model = (TextField) impoundReportMap.get("model");
 
                 TextArea notes = (TextArea) impoundReportMap.get("notes");
 
                 num.setText(impoundReport.getImpoundNumber());
-				date.setText(impoundReport.getImpoundDate());
-				time.setText(impoundReport.getImpoundTime());
-				officerrank.setText(impoundReport.getOfficerRank());
-				notes.setText(impoundReport.getImpoundComments());
-				plateNumber.setText(impoundReport.getImpoundPlateNumber());
+                date.setText(impoundReport.getImpoundDate());
+                time.setText(impoundReport.getImpoundTime());
+                officerrank.setText(impoundReport.getOfficerRank());
+                notes.setText(impoundReport.getImpoundComments());
+                plateNumber.setText(impoundReport.getImpoundPlateNumber());
 
                 offenderName.setText(impoundReport.getOwnerName());
-				officername.setText(impoundReport.getOfficerName());
-				officerdiv.setText(impoundReport.getOfficerDivision());
-				officeragen.setText(impoundReport.getOfficerAgency());
-				officernum.setText(impoundReport.getOfficerNumber());
-				offenderAge.setText(impoundReport.getOwnerAge());
-				offenderGender.setText(impoundReport.getOwnerGender());
-				offenderAddress.setText(impoundReport.getOwnerAddress());
-				color.setValue(impoundReport.getImpoundColor());
-				type.setValue(impoundReport.getImpoundType());
-				model.setText(impoundReport.getImpoundModel());
+                officername.setText(impoundReport.getOfficerName());
+                officerdiv.setText(impoundReport.getOfficerDivision());
+                officeragen.setText(impoundReport.getOfficerAgency());
+                officernum.setText(impoundReport.getOfficerNumber());
+                offenderAge.setText(impoundReport.getOwnerAge());
+                offenderGender.setText(impoundReport.getOwnerGender());
+                offenderAddress.setText(impoundReport.getOwnerAddress());
+                color.setValue(impoundReport.getImpoundColor());
+                type.setValue(impoundReport.getImpoundType());
+                model.setText(impoundReport.getImpoundModel());
 
                 BorderPane root = (BorderPane) impoundReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) impoundReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = num.getText();
-					try {
-						ImpoundReportUtils.deleteImpoundReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete ImpoundReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) impoundReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = num.getText();
+                    try {
+                        ImpoundReportUtils.deleteImpoundReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete ImpoundReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) impoundReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				num.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                num.setEditable(false);
 
                 Button submitBtn = (Button) impoundReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 impoundTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onCitationRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel().getSelectedItem();
+    public void onCitationRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel().getSelectedItem();
 
             if (trafficCitationReport != null) {
-				Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart());
+                Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart());
 
                 Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 
-				TextField officername = (TextField) citationReportMap.get("name");
-				TextField officerrank = (TextField) citationReportMap.get("rank");
-				TextField officerdiv = (TextField) citationReportMap.get("division");
-				TextField officeragen = (TextField) citationReportMap.get("agency");
-				TextField officernum = (TextField) citationReportMap.get("number");
+                TextField officername = (TextField) citationReportMap.get("name");
+                TextField officerrank = (TextField) citationReportMap.get("rank");
+                TextField officerdiv = (TextField) citationReportMap.get("division");
+                TextField officeragen = (TextField) citationReportMap.get("agency");
+                TextField officernum = (TextField) citationReportMap.get("number");
 
                 TextField offenderName = (TextField) citationReportMap.get("offender name");
-				TextField offenderAge = (TextField) citationReportMap.get("offender age");
-				TextField offenderGender = (TextField) citationReportMap.get("offender gender");
-				TextField offenderAddress = (TextField) citationReportMap.get("offender address");
-				TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+                TextField offenderAge = (TextField) citationReportMap.get("offender age");
+                TextField offenderGender = (TextField) citationReportMap.get("offender gender");
+                TextField offenderAddress = (TextField) citationReportMap.get("offender address");
+                TextField offenderDescription = (TextField) citationReportMap.get("offender description");
 
                 ComboBox area = (ComboBox) citationReportMap.get("area");
-				TextField street = (TextField) citationReportMap.get("street");
-				TextField county = (TextField) citationReportMap.get("county");
-				TextField num = (TextField) citationReportMap.get("citation number");
-				TextField date = (TextField) citationReportMap.get("date");
-				TextField time = (TextField) citationReportMap.get("time");
+                TextField street = (TextField) citationReportMap.get("street");
+                TextField county = (TextField) citationReportMap.get("county");
+                TextField num = (TextField) citationReportMap.get("citation number");
+                TextField date = (TextField) citationReportMap.get("date");
+                TextField time = (TextField) citationReportMap.get("time");
 
                 ComboBox color = (ComboBox) citationReportMap.get("color");
-				ComboBox type = (ComboBox) citationReportMap.get("type");
-				TextField plateNumber = (TextField) citationReportMap.get("plate number");
-				TextField otherInfo = (TextField) citationReportMap.get("other info");
-				TextField model = (TextField) citationReportMap.get("model");
+                ComboBox type = (ComboBox) citationReportMap.get("type");
+                TextField plateNumber = (TextField) citationReportMap.get("plate number");
+                TextField otherInfo = (TextField) citationReportMap.get("other info");
+                TextField model = (TextField) citationReportMap.get("model");
 
                 TextArea notes = (TextArea) citationReportMap.get("notes");
 
                 officername.setText(trafficCitationReport.getOfficerName());
-				officerrank.setText(trafficCitationReport.getOfficerRank());
-				officerdiv.setText(trafficCitationReport.getOfficerDivision());
-				officeragen.setText(trafficCitationReport.getOfficerAgency());
-				officernum.setText(trafficCitationReport.getOfficerNumber());
-				street.setText(trafficCitationReport.getCitationStreet());
-				area.setValue(trafficCitationReport.getCitationArea());
-				county.setText(trafficCitationReport.getCitationCounty());
-				type.setValue(trafficCitationReport.getOffenderVehicleType());
-				color.setValue(trafficCitationReport.getOffenderVehicleColor());
-				date.setText(trafficCitationReport.getCitationDate());
-				time.setText(trafficCitationReport.getCitationTime());
-				notes.setText(trafficCitationReport.getCitationComments());
-				num.setText(trafficCitationReport.getCitationNumber());
-				plateNumber.setText(trafficCitationReport.getOffenderVehiclePlate());
-				otherInfo.setText(trafficCitationReport.getOffenderVehicleOther());
-				model.setText(trafficCitationReport.getOffenderVehicleModel());
-				offenderName.setText(trafficCitationReport.getOffenderName());
-				offenderAge.setText(trafficCitationReport.getOffenderAge());
-				offenderGender.setText(trafficCitationReport.getOffenderGender());
-				offenderDescription.setText(trafficCitationReport.getOffenderDescription());
-				offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
+                officerrank.setText(trafficCitationReport.getOfficerRank());
+                officerdiv.setText(trafficCitationReport.getOfficerDivision());
+                officeragen.setText(trafficCitationReport.getOfficerAgency());
+                officernum.setText(trafficCitationReport.getOfficerNumber());
+                street.setText(trafficCitationReport.getCitationStreet());
+                area.setValue(trafficCitationReport.getCitationArea());
+                county.setText(trafficCitationReport.getCitationCounty());
+                type.setValue(trafficCitationReport.getOffenderVehicleType());
+                color.setValue(trafficCitationReport.getOffenderVehicleColor());
+                date.setText(trafficCitationReport.getCitationDate());
+                time.setText(trafficCitationReport.getCitationTime());
+                notes.setText(trafficCitationReport.getCitationComments());
+                num.setText(trafficCitationReport.getCitationNumber());
+                plateNumber.setText(trafficCitationReport.getOffenderVehiclePlate());
+                otherInfo.setText(trafficCitationReport.getOffenderVehicleOther());
+                model.setText(trafficCitationReport.getOffenderVehicleModel());
+                offenderName.setText(trafficCitationReport.getOffenderName());
+                offenderAge.setText(trafficCitationReport.getOffenderAge());
+                offenderGender.setText(trafficCitationReport.getOffenderGender());
+                offenderDescription.setText(trafficCitationReport.getOffenderDescription());
+                offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
 
                 BorderPane root = (BorderPane) trafficCitationObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) trafficCitationObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = num.getText();
-					try {
-						TrafficCitationUtils.deleteTrafficCitationReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete TrafficCitationReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) trafficCitationObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = num.getText();
+                    try {
+                        TrafficCitationUtils.deleteTrafficCitationReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete TrafficCitationReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) trafficCitationObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				num.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                num.setEditable(false);
 
                 TableView citationtable1 = (TableView) citationReportMap.get("CitationTableView");
-				ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
-				citationtable1.setItems(citationList);
+                ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
+                citationtable1.setItems(citationList);
 
                 addCitationsToTable(trafficCitationReport.getCitationCharges(), citationList);
 
                 Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 citationTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onSearchRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
+    public void onSearchRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
 
             if (searchReport != null) {
-				Map<String, Object> searchReportObj = newSearch(getReportChart(), getAreaReportChart());
+                Map<String, Object> searchReportObj = newSearch(getReportChart(), getAreaReportChart());
 
                 Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get("Search Report Map");
 
                 TextField name = (TextField) searchReportMap.get("name");
-				TextField rank = (TextField) searchReportMap.get("rank");
-				TextField div = (TextField) searchReportMap.get("division");
-				TextField agen = (TextField) searchReportMap.get("agency");
-				TextField num = (TextField) searchReportMap.get("number");
+                TextField rank = (TextField) searchReportMap.get("rank");
+                TextField div = (TextField) searchReportMap.get("division");
+                TextField agen = (TextField) searchReportMap.get("agency");
+                TextField num = (TextField) searchReportMap.get("number");
 
                 TextField searchnum = (TextField) searchReportMap.get("search num");
-				TextField date = (TextField) searchReportMap.get("date");
-				TextField time = (TextField) searchReportMap.get("time");
-				TextField street = (TextField) searchReportMap.get("street");
-				ComboBox area = (ComboBox) searchReportMap.get("area");
-				TextField county = (TextField) searchReportMap.get("county");
+                TextField date = (TextField) searchReportMap.get("date");
+                TextField time = (TextField) searchReportMap.get("time");
+                TextField street = (TextField) searchReportMap.get("street");
+                ComboBox area = (ComboBox) searchReportMap.get("area");
+                TextField county = (TextField) searchReportMap.get("county");
 
                 TextField grounds = (TextField) searchReportMap.get("grounds for search");
-				TextField witness = (TextField) searchReportMap.get("witness(s)");
-				TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
-				ComboBox type = (ComboBox) searchReportMap.get("search type");
-				ComboBox method = (ComboBox) searchReportMap.get("search method");
+                TextField witness = (TextField) searchReportMap.get("witness(s)");
+                TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
+                ComboBox type = (ComboBox) searchReportMap.get("search type");
+                ComboBox method = (ComboBox) searchReportMap.get("search method");
 
                 TextField testconducted = (TextField) searchReportMap.get("test(s) conducted");
-				TextField result = (TextField) searchReportMap.get("result");
-				TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
+                TextField result = (TextField) searchReportMap.get("result");
+                TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
 
                 TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
-				TextArea notes = (TextArea) searchReportMap.get("comments");
+                TextArea notes = (TextArea) searchReportMap.get("comments");
 
                 name.setText(searchReport.getOfficerName());
-				div.setText(searchReport.getOfficerDivision());
-				agen.setText(searchReport.getOfficerAgency());
-				num.setText(searchReport.getOfficerNumber());
+                div.setText(searchReport.getOfficerDivision());
+                agen.setText(searchReport.getOfficerAgency());
+                num.setText(searchReport.getOfficerNumber());
 
                 street.setText(searchReport.getSearchStreet());
-				area.setValue(searchReport.getSearchArea());
-				county.setText(searchReport.getSearchCounty());
+                area.setValue(searchReport.getSearchArea());
+                county.setText(searchReport.getSearchCounty());
 
                 testconducted.setText(searchReport.getTestsConducted());
-				grounds.setText(searchReport.getSearchGrounds());
-				witness.setText(searchReport.getSearchWitnesses());
-				searchedindividual.setText(searchReport.getSearchedPersons());
-				type.setValue(searchReport.getSearchType());
-				method.setValue(searchReport.getSearchMethod());
-				result.setText(searchReport.getTestResults());
-				bacmeasurement.setText(searchReport.getBreathalyzerBACMeasure());
+                grounds.setText(searchReport.getSearchGrounds());
+                witness.setText(searchReport.getSearchWitnesses());
+                searchedindividual.setText(searchReport.getSearchedPersons());
+                type.setValue(searchReport.getSearchType());
+                method.setValue(searchReport.getSearchMethod());
+                result.setText(searchReport.getTestResults());
+                bacmeasurement.setText(searchReport.getBreathalyzerBACMeasure());
 
                 searchnum.setText(searchReport.getSearchNumber());
-				rank.setText(searchReport.getOfficerRank());
-				date.setText(searchReport.getSearchDate());
-				time.setText(searchReport.getSearchTime());
-				seizeditems.setText(searchReport.getSearchSeizedItems());
-				notes.setText(searchReport.getSearchComments());
+                rank.setText(searchReport.getOfficerRank());
+                date.setText(searchReport.getSearchDate());
+                time.setText(searchReport.getSearchTime());
+                seizeditems.setText(searchReport.getSearchSeizedItems());
+                notes.setText(searchReport.getSearchComments());
 
                 BorderPane root = (BorderPane) searchReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) searchReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = searchnum.getText();
-					try {
-						SearchReportUtils.deleteSearchReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete SearchReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) searchReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = searchnum.getText();
+                    try {
+                        SearchReportUtils.deleteSearchReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete SearchReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) searchReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				searchnum.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                searchnum.setEditable(false);
 
                 Button submitBtn = (Button) searchReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 searchTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     @FXML
-	public void onArrestRowClick(MouseEvent event) {
-		if (event.getClickCount() == 1) {
-			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
+    public void onArrestRowClick(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
 
             if (arrestReport != null) {
-				Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart);
+                Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart);
 
                 Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 
                 TextField officername = (TextField) arrestReportMap.get("name");
-				TextField officerrank = (TextField) arrestReportMap.get("rank");
-				TextField officerdiv = (TextField) arrestReportMap.get("division");
-				TextField officeragen = (TextField) arrestReportMap.get("agency");
-				TextField officernumarrest = (TextField) arrestReportMap.get("number");
+                TextField officerrank = (TextField) arrestReportMap.get("rank");
+                TextField officerdiv = (TextField) arrestReportMap.get("division");
+                TextField officeragen = (TextField) arrestReportMap.get("agency");
+                TextField officernumarrest = (TextField) arrestReportMap.get("number");
 
                 TextField offenderName = (TextField) arrestReportMap.get("offender name");
-				TextField offenderAge = (TextField) arrestReportMap.get("offender age");
-				TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
-				TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
-				TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+                TextField offenderAge = (TextField) arrestReportMap.get("offender age");
+                TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
+                TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
+                TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
 
                 ComboBox area = (ComboBox) arrestReportMap.get("area");
-				TextField street = (TextField) arrestReportMap.get("street");
-				TextField county = (TextField) arrestReportMap.get("county");
-				TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
-				TextField date = (TextField) arrestReportMap.get("date");
-				TextField time = (TextField) arrestReportMap.get("time");
+                TextField street = (TextField) arrestReportMap.get("street");
+                TextField county = (TextField) arrestReportMap.get("county");
+                TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
+                TextField date = (TextField) arrestReportMap.get("date");
+                TextField time = (TextField) arrestReportMap.get("time");
 
                 TextField ambulancereq = (TextField) arrestReportMap.get("ambulance required (Y/N)");
-				TextField taserdep = (TextField) arrestReportMap.get("taser deployed (Y/N)");
-				TextField othermedinfo = (TextField) arrestReportMap.get("other information");
+                TextField taserdep = (TextField) arrestReportMap.get("taser deployed (Y/N)");
+                TextField othermedinfo = (TextField) arrestReportMap.get("other information");
 
                 TextArea notes = (TextArea) arrestReportMap.get("notes");
 
                 arrestnum.setText(arrestReport.getArrestNumber());
-				officername.setText(arrestReport.getOfficerName());
-				officerdiv.setText(arrestReport.getOfficerDivision());
-				officeragen.setText(arrestReport.getOfficerAgency());
-				officernumarrest.setText(arrestReport.getOfficerNumber());
-				officerrank.setText(arrestReport.getOfficerRank());
-				offenderName.setText(arrestReport.getArresteeName());
-				offenderAge.setText(arrestReport.getArresteeAge());
-				offenderGender.setText(arrestReport.getArresteeGender());
-				offenderAddress.setText(arrestReport.getArresteeHomeAddress());
-				offenderDescription.setText(arrestReport.getArresteeDescription());
-				street.setText(arrestReport.getArrestStreet());
-				county.setText(arrestReport.getArrestCounty());
-				ambulancereq.setText(arrestReport.getAmbulanceYesNo());
-				taserdep.setText(arrestReport.getTaserYesNo());
-				othermedinfo.setText(arrestReport.getArresteeMedicalInformation());
-				area.setValue(arrestReport.getArrestArea());
-				date.setText(arrestReport.getArrestDate());
-				time.setText(arrestReport.getArrestTime());
-				notes.setText(arrestReport.getArrestDetails());
+                officername.setText(arrestReport.getOfficerName());
+                officerdiv.setText(arrestReport.getOfficerDivision());
+                officeragen.setText(arrestReport.getOfficerAgency());
+                officernumarrest.setText(arrestReport.getOfficerNumber());
+                officerrank.setText(arrestReport.getOfficerRank());
+                offenderName.setText(arrestReport.getArresteeName());
+                offenderAge.setText(arrestReport.getArresteeAge());
+                offenderGender.setText(arrestReport.getArresteeGender());
+                offenderAddress.setText(arrestReport.getArresteeHomeAddress());
+                offenderDescription.setText(arrestReport.getArresteeDescription());
+                street.setText(arrestReport.getArrestStreet());
+                county.setText(arrestReport.getArrestCounty());
+                ambulancereq.setText(arrestReport.getAmbulanceYesNo());
+                taserdep.setText(arrestReport.getTaserYesNo());
+                othermedinfo.setText(arrestReport.getArresteeMedicalInformation());
+                area.setValue(arrestReport.getArrestArea());
+                date.setText(arrestReport.getArrestDate());
+                time.setText(arrestReport.getArrestTime());
+                notes.setText(arrestReport.getArrestDetails());
 
                 BorderPane root = (BorderPane) arrestReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
-				Button delBtn = (Button) arrestReportObj.get("delBtn");
-				delBtn.setVisible(true);
-				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
-					String numToDelete = arrestnum.getText();
-					try {
-						ArrestReportUtils.deleteArrestReport(numToDelete);
-						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
-					} catch (JAXBException e) {
-						logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
-					}
-					if (stage != null) {
-						stage.close();
-					}
-					actionController.needRefresh.set(1);
-					updateChartIfMismatch(reportChart);
-					controllerUtils.refreshChart(getAreaReportChart(), "area");
-				});
+                Stage stage = (Stage) root.getScene().getWindow();
+                Button delBtn = (Button) arrestReportObj.get("delBtn");
+                delBtn.setVisible(true);
+                delBtn.setDisable(false);
+                delBtn.setOnAction(actionEvent -> {
+                    String numToDelete = arrestnum.getText();
+                    try {
+                        ArrestReportUtils.deleteArrestReport(numToDelete);
+                        showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+                    } catch (JAXBException e) {
+                        logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
+                    }
+                    if (stage != null) {
+                        stage.close();
+                    }
+                    actionController.needRefresh.set(1);
+                    updateChartIfMismatch(reportChart);
+                    controllerUtils.refreshChart(getAreaReportChart(), "area");
+                });
 
                 Button pullNotesBtn = (Button) arrestReportObj.get("pullNotesBtn");
-				pullNotesBtn.setVisible(false);
-				arrestnum.setEditable(false);
+                pullNotesBtn.setVisible(false);
+                arrestnum.setEditable(false);
 
                 TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
-				ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
-				chargetable.setItems(chargeList);
+                ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
+                chargetable.setItems(chargeList);
 
                 addChargesToTable(arrestReport.getArrestCharges(), chargeList);
 
                 Button submitBtn = (Button) arrestReportObj.get("submitBtn");
-				submitBtn.setText("Update Information");
+                submitBtn.setText("Update Information");
 
                 arrestTable.getSelectionModel().clearSelection();
-			}
-		}
-	}
+            }
+        }
+    }
 
     //</editor-fold>
 
@@ -3498,7 +3498,7 @@ public class actionController {
     public static Screen NotesScreen = null;
     private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(2);
 
-	//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold desc="Events">
 
@@ -3538,33 +3538,33 @@ public class actionController {
         setActive(lookupPane);
     }
 
-	@FXML
-	public void onPedLookupCheckboxClick(ActionEvent actionEvent) {
-		if (lookupPedCheckbox.isSelected()) {
-			ConfigWriter.configwrite("lookupWindow", "pedLookupVisible", "true");
+    @FXML
+    public void onPedLookupCheckboxClick(ActionEvent actionEvent) {
+        if (lookupPedCheckbox.isSelected()) {
+            ConfigWriter.configwrite("lookupWindow", "pedLookupVisible", "true");
             if (!lookupSplitPane.getItems().contains(pedPane)) {
                 lookupSplitPane.getItems().add(pedPane);
             }
-		} else {
-			ConfigWriter.configwrite("lookupWindow", "pedLookupVisible", "false");
+        } else {
+            ConfigWriter.configwrite("lookupWindow", "pedLookupVisible", "false");
             lookupSplitPane.getItems().remove(pedPane);
-		}
+        }
         adjustDividerPositions();
-	}
+    }
 
     @FXML
-	public void onVehLookupCheckboxClick(ActionEvent actionEvent) {
-		if (lookupVehCheckbox.isSelected()) {
-			ConfigWriter.configwrite("lookupWindow", "vehLookupVisible", "true");
+    public void onVehLookupCheckboxClick(ActionEvent actionEvent) {
+        if (lookupVehCheckbox.isSelected()) {
+            ConfigWriter.configwrite("lookupWindow", "vehLookupVisible", "true");
             if (!lookupSplitPane.getItems().contains(vehPane)) {
                 lookupSplitPane.getItems().add(vehPane);
             }
-		} else {
-			ConfigWriter.configwrite("lookupWindow", "vehLookupVisible", "false");
+        } else {
+            ConfigWriter.configwrite("lookupWindow", "vehLookupVisible", "false");
             lookupSplitPane.getItems().remove(vehPane);
-		}
+        }
         adjustDividerPositions();
-	}
+    }
 
     @FXML
     public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) throws IOException {
@@ -3591,679 +3591,679 @@ public class actionController {
         probabilitySettingsStage.setMinWidth(probabilitySettingsStage.getWidth());
 
         probabilitySettingsStage.setOnHidden(event -> probabilitySettingsStage = null);
-	}
+    }
 
     @FXML
-	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
-		if (settingsStage != null && settingsStage.isShowing()) {
-			settingsStage.close();
-			settingsStage = null;
-			return;
-		}
-		settingsStage = new Stage();
-		settingsStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		settingsStage.setTitle("Settings");
-		settingsStage.setScene(newScene);
-		settingsStage.show();
-		settingsStage.centerOnScreen();
-		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
-		showAnimation(settingsBtn);
+    public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
+        if (settingsStage != null && settingsStage.isShowing()) {
+            settingsStage.close();
+            settingsStage = null;
+            return;
+        }
+        settingsStage = new Stage();
+        settingsStage.initStyle(StageStyle.UNDECORATED);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        settingsStage.setTitle("Settings");
+        settingsStage.setScene(newScene);
+        settingsStage.show();
+        settingsStage.centerOnScreen();
+        settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
+        showAnimation(settingsBtn);
 
         centerStageOnMainApp(settingsStage);
 
         settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				settingsStage = null;
-			}
-		});
-	}
+            @Override
+            public void handle(WindowEvent event) {
+                settingsStage = null;
+            }
+        });
+    }
 
     @FXML
-	public void deleteCaseBtnPress(ActionEvent actionEvent) {
-		String selectedCaseNum;
-		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
-			selectedCaseNum = caseNumField.getText();
-			try {
-				CourtUtils.deleteCase(selectedCaseNum);
-			} catch (JAXBException e) {
-				logError("Could not delete case, JAXBException:", e);
-			} catch (IOException e) {
-				logError("Could not delete case, IOException:", e);
-			}
-			blankCourtInfoPane.setVisible(true);
-			courtInfoPane.setVisible(false);
-			loadCaseLabels(caseList);
-		}
-	}
+    public void deleteCaseBtnPress(ActionEvent actionEvent) {
+        String selectedCaseNum;
+        if (!caseNumField.getText().isEmpty() && caseNumField != null) {
+            selectedCaseNum = caseNumField.getText();
+            try {
+                CourtUtils.deleteCase(selectedCaseNum);
+            } catch (JAXBException e) {
+                logError("Could not delete case, JAXBException:", e);
+            } catch (IOException e) {
+                logError("Could not delete case, IOException:", e);
+            }
+            blankCourtInfoPane.setVisible(true);
+            courtInfoPane.setVisible(false);
+            loadCaseLabels(caseList);
+        }
+    }
 
     @FXML
-	public void revealOutcomeBtnPress(ActionEvent actionEvent) {
-		String selectedCaseNum;
-		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
-			selectedCaseNum = caseNumField.getText();
-			Optional<Case> caseToUpdateOptional = findCaseByNumber(selectedCaseNum);
-			if (caseToUpdateOptional.isPresent()) {
-				Case caseToUpdate = caseToUpdateOptional.get();
-				if (!caseToUpdate.getStatus().equalsIgnoreCase("closed")) {
-					try {
-						caseToUpdate.setStatus("Closed");
-						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
-						log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed", LogUtils.Severity.INFO);
-						updateFields(caseToUpdate);
-						loadCaseLabels(caseList);
+    public void revealOutcomeBtnPress(ActionEvent actionEvent) {
+        String selectedCaseNum;
+        if (!caseNumField.getText().isEmpty() && caseNumField != null) {
+            selectedCaseNum = caseNumField.getText();
+            Optional<Case> caseToUpdateOptional = findCaseByNumber(selectedCaseNum);
+            if (caseToUpdateOptional.isPresent()) {
+                Case caseToUpdate = caseToUpdateOptional.get();
+                if (!caseToUpdate.getStatus().equalsIgnoreCase("closed")) {
+                    try {
+                        caseToUpdate.setStatus("Closed");
+                        modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
+                        log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed", LogUtils.Severity.INFO);
+                        updateFields(caseToUpdate);
+                        loadCaseLabels(caseList);
 
                     } catch (JAXBException e) {
                         logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ", e);
-					} catch (IOException e) {
+                    } catch (IOException e) {
                         logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ", e);
-					}
-				} else {
-					log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!", Severity.WARN);
+                    }
+                } else {
+                    log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!", Severity.WARN);
                     showNotificationWarning("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed", mainRT);
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 
     @FXML
-	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
-		setDisable(logPane, lookupPane, calloutPane, courtPane, shiftInformationPane);
-		setActive(courtPane);
-		showAnimation(showCourtCasesBtn);
+    public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
+        setDisable(logPane, lookupPane, calloutPane, courtPane, shiftInformationPane);
+        setActive(courtPane);
+        showAnimation(showCourtCasesBtn);
 
         blankCourtInfoPane.setVisible(true);
-		courtInfoPane.setVisible(false);
+        courtInfoPane.setVisible(false);
 
         loadCaseLabels(caseList);
-		caseList.getSelectionModel().clearSelection();
-	}
+        caseList.getSelectionModel().clearSelection();
+    }
 
     @FXML
-	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
-		if (IDStage != null && IDStage.isShowing()) {
-			IDStage.close();
-			IDStage = null;
-			return;
-		}
-		IDStage = new Stage();
-		IDStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("currentID-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		IDStage.setTitle("Current ID");
-		IDStage.setScene(newScene);
+    public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
+        if (IDStage != null && IDStage.isShowing()) {
+            IDStage.close();
+            IDStage = null;
+            return;
+        }
+        IDStage = new Stage();
+        IDStage.initStyle(StageStyle.UNDECORATED);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("currentID-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        IDStage.setTitle("Current ID");
+        IDStage.setScene(newScene);
 
         IDStage.show();
-		IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
-		showAnimation(showIDBtn);
+        IDStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
+        showAnimation(showIDBtn);
 
         if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
-			if (IDFirstShown) {
-				centerStageOnMainApp(IDStage);
-				log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
-			} else {
-				if (IDScreen != null) {
-					Rectangle2D screenBounds = IDScreen.getVisualBounds();
-					IDStage.setX(IDx);
-					IDStage.setY(IDy);
-					if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
-						centerStageOnMainApp(IDStage);
-					}
-				} else {
-					centerStageOnMainApp(IDStage);
-				}
-				log("IDStage opened via showIDBtn, XValue: " + IDx + " YValue: " + IDy, Severity.INFO);
-			}
-		} else {
-			centerStageOnMainApp(IDStage);
-		}
+            if (IDFirstShown) {
+                centerStageOnMainApp(IDStage);
+                log("IDStage opened via showIDBtn, first time centered", Severity.INFO);
+            } else {
+                if (IDScreen != null) {
+                    Rectangle2D screenBounds = IDScreen.getVisualBounds();
+                    IDStage.setX(IDx);
+                    IDStage.setY(IDy);
+                    if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
+                        centerStageOnMainApp(IDStage);
+                    }
+                } else {
+                    centerStageOnMainApp(IDStage);
+                }
+                log("IDStage opened via showIDBtn, XValue: " + IDx + " YValue: " + IDy, Severity.INFO);
+            }
+        } else {
+            centerStageOnMainApp(IDStage);
+        }
 
         IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				IDx = IDStage.getX();
-				IDy = IDStage.getY();
+            @Override
+            public void handle(WindowEvent event) {
+                IDx = IDStage.getX();
+                IDy = IDStage.getY();
                 IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(), IDStage.getHeight()).stream().findFirst().orElse(null);
-				log("IDStage closed via showIDBtn, set XValue: " + IDx + " YValue: " + IDy, Severity.DEBUG);
-				IDFirstShown = false;
-				IDStage = null;
-			}
-		});
-	}
+                log("IDStage closed via showIDBtn, set XValue: " + IDx + " YValue: " + IDy, Severity.DEBUG);
+                IDFirstShown = false;
+                IDStage = null;
+            }
+        });
+    }
 
     @FXML
-	public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
-		if (mapStage != null && mapStage.isShowing()) {
-			mapStage.close();
-			mapStage = null;
-			return;
-		}
+    public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
+        if (mapStage != null && mapStage.isShowing()) {
+            mapStage.close();
+            mapStage = null;
+            return;
+        }
 
         mapStage = new Stage();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("map-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		mapStage.setTitle("Los Santos Map");
-		mapStage.setScene(newScene);
-		mapStage.initStyle(StageStyle.UTILITY);
-		mapStage.setResizable(false);
-		mapStage.show();
-		mapStage.centerOnScreen();
-		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
-		showAnimation(mapButton);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("map-view.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        mapStage.setTitle("Los Santos Map");
+        mapStage.setScene(newScene);
+        mapStage.initStyle(StageStyle.UTILITY);
+        mapStage.setResizable(false);
+        mapStage.show();
+        mapStage.centerOnScreen();
+        mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
+        showAnimation(mapButton);
 
         centerStageOnMainApp(mapStage);
 
         mapStage.setOnHidden(event -> {
-			mapStage = null;
-		});
-	}
+            mapStage = null;
+        });
+    }
 
     @FXML
-	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
-		if (notesStage != null && notesStage.isShowing()) {
-			notesStage.close();
-			notesStage = null;
-			return;
-		}
+    public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
+        if (notesStage != null && notesStage.isShowing()) {
+            notesStage.close();
+            notesStage = null;
+            return;
+        }
 
         notesStage = new Stage();
-		notesStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
-		Parent root = loader.load();
-		notesViewController = loader.getController();
-		Scene newScene = new Scene(root);
-		notesStage.setTitle("Notes");
-		notesStage.setScene(newScene);
-		notesStage.setResizable(true);
+        notesStage.initStyle(StageStyle.UNDECORATED);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("notes-view.fxml"));
+        Parent root = loader.load();
+        notesViewController = loader.getController();
+        Scene newScene = new Scene(root);
+        notesStage.setTitle("Notes");
+        notesStage.setScene(newScene);
+        notesStage.setResizable(true);
 
         notesStage.show();
 
         centerStageOnMainApp(notesStage);
 
         String startupValue = ConfigReader.configRead("layout", "notesWindowLayout");
-		switch (startupValue) {
-			case "TopLeft" -> snapToTopLeft(notesStage);
-			case "TopRight" -> snapToTopRight(notesStage);
-			case "BottomLeft" -> snapToBottomLeft(notesStage);
-			case "BottomRight" -> snapToBottomRight(notesStage);
-			case "FullLeft" -> snapToLeft(notesStage);
-			case "FullRight" -> snapToRight(notesStage);
-			default -> {
-				if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
-					if (NotesFirstShown) {
-						centerStageOnMainApp(notesStage);
-						log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
-					} else {
-						if (NotesScreen != null) {
-							Rectangle2D screenBounds = NotesScreen.getVisualBounds();
-							notesStage.setX(notesx);
-							notesStage.setY(notesy);
-							if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
-								centerStageOnMainApp(notesStage);
-							}
-						} else {
-							centerStageOnMainApp(notesStage);
-						}
+        switch (startupValue) {
+            case "TopLeft" -> snapToTopLeft(notesStage);
+            case "TopRight" -> snapToTopRight(notesStage);
+            case "BottomLeft" -> snapToBottomLeft(notesStage);
+            case "BottomRight" -> snapToBottomRight(notesStage);
+            case "FullLeft" -> snapToLeft(notesStage);
+            case "FullRight" -> snapToRight(notesStage);
+            default -> {
+                if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
+                    if (NotesFirstShown) {
+                        centerStageOnMainApp(notesStage);
+                        log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
+                    } else {
+                        if (NotesScreen != null) {
+                            Rectangle2D screenBounds = NotesScreen.getVisualBounds();
+                            notesStage.setX(notesx);
+                            notesStage.setY(notesy);
+                            if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
+                                centerStageOnMainApp(notesStage);
+                            }
+                        } else {
+                            centerStageOnMainApp(notesStage);
+                        }
                         log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy, Severity.INFO);
-					}
-				} else {
-					centerStageOnMainApp(notesStage);
-					notesStage.setMinHeight(300);
-					notesStage.setMinWidth(300);
-				}
-			}
-		}
+                    }
+                } else {
+                    centerStageOnMainApp(notesStage);
+                    notesStage.setMinHeight(300);
+                    notesStage.setMinWidth(300);
+                }
+            }
+        }
         notesStage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/notification-styles.css")).toExternalForm());
-		showAnimation(notesButton);
-		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
+        showAnimation(notesButton);
+        notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
 
         notesStage.setOnHidden(new EventHandler<>() {
-			@Override
-			public void handle(WindowEvent event) {
-				notesx = notesStage.getX();
-				notesy = notesStage.getY();
+            @Override
+            public void handle(WindowEvent event) {
+                notesx = notesStage.getX();
+                notesy = notesStage.getY();
                 NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(), notesStage.getHeight()).stream().findFirst().orElse(null);
-				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy, Severity.DEBUG);
-				NotesFirstShown = false;
-				notesStage = null;
-				actionController.notesText = notesViewController.getNotepadTextArea().getText();
-			}
-		});
-	}
+                log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy, Severity.DEBUG);
+                NotesFirstShown = false;
+                notesStage = null;
+                actionController.notesText = notesViewController.getNotepadTextArea().getText();
+            }
+        });
+    }
 
     @FXML
-	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-		setDisable(logPane, lookupPane, calloutPane, courtPane);
-		setActive(shiftInformationPane);
-		showAnimation(shiftInfoBtn);
-		controllerUtils.refreshChart(areaReportChart, "area");
-	}
+    public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
+        setDisable(logPane, lookupPane, calloutPane, courtPane);
+        setActive(shiftInformationPane);
+        showAnimation(shiftInfoBtn);
+        controllerUtils.refreshChart(areaReportChart, "area");
+    }
 
     @FXML
-	public void onLogsButtonClick(ActionEvent actionEvent) {
-		showAnimation(logsButton);
-		setDisable(shiftInformationPane, lookupPane, calloutPane, courtPane);
-		setActive(logPane);
-	}
+    public void onLogsButtonClick(ActionEvent actionEvent) {
+        showAnimation(logsButton);
+        setDisable(shiftInformationPane, lookupPane, calloutPane, courtPane);
+        setActive(logPane);
+    }
 
     @FXML
-	public void onCalloutReportButtonClick(ActionEvent actionEvent) {
-		newCallout(reportChart, areaReportChart);
-	}
+    public void onCalloutReportButtonClick(ActionEvent actionEvent) {
+        newCallout(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void trafficStopReportButtonClick(ActionEvent actionEvent) {
-		newTrafficStop(reportChart, areaReportChart);
-	}
+    public void trafficStopReportButtonClick(ActionEvent actionEvent) {
+        newTrafficStop(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onIncidentReportBtnClick(ActionEvent actionEvent) {
-		newIncident(reportChart, areaReportChart);
-	}
+    public void onIncidentReportBtnClick(ActionEvent actionEvent) {
+        newIncident(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onSearchReportBtnClick(ActionEvent actionEvent) {
-		newSearch(reportChart, areaReportChart);
-	}
+    public void onSearchReportBtnClick(ActionEvent actionEvent) {
+        newSearch(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onArrestReportBtnClick(ActionEvent actionEvent) {
-		newArrest(reportChart, areaReportChart);
-	}
+    public void onArrestReportBtnClick(ActionEvent actionEvent) {
+        newArrest(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onCitationReportBtnClick(ActionEvent actionEvent) {
-		newCitation(reportChart, areaReportChart);
-	}
+    public void onCitationReportBtnClick(ActionEvent actionEvent) {
+        newCitation(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onPatrolButtonClick(ActionEvent actionEvent) {
-		newPatrol(reportChart, areaReportChart);
-	}
+    public void onPatrolButtonClick(ActionEvent actionEvent) {
+        newPatrol(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onImpoundReportBtnClick(ActionEvent actionEvent) {
-		newImpound(reportChart, areaReportChart);
-	}
+    public void onImpoundReportBtnClick(ActionEvent actionEvent) {
+        newImpound(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onDeathReportButtonClick(ActionEvent actionEvent) {
-		newDeathReport(reportChart, areaReportChart);
-	}
+    public void onDeathReportButtonClick(ActionEvent actionEvent) {
+        newDeathReport(reportChart, areaReportChart);
+    }
 
     @FXML
-	public void onServerStatusLabelClick(Event event) throws IOException {
+    public void onServerStatusLabelClick(Event event) throws IOException {
 
         if (clientStage != null && clientStage.isShowing()) {
-			clientStage.close();
-			clientStage = null;
-			return;
-		}
+            clientStage.close();
+            clientStage = null;
+            return;
+        }
 
         if (!ClientUtils.isConnected) {
-			clientStage = new Stage();
-			clientStage.initStyle(StageStyle.UNDECORATED);
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
-			Parent root = loader.load();
-			Scene newScene = new Scene(root);
-			clientStage.setTitle("Client Interface");
-			clientStage.setScene(newScene);
-			clientStage.initStyle(StageStyle.UNDECORATED);
-			clientStage.setResizable(false);
-			clientStage.show();
-			clientStage.centerOnScreen();
-			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
+            clientStage = new Stage();
+            clientStage.initStyle(StageStyle.UNDECORATED);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("client-view.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            clientStage.setTitle("Client Interface");
+            clientStage.setScene(newScene);
+            clientStage.initStyle(StageStyle.UNDECORATED);
+            clientStage.setResizable(false);
+            clientStage.show();
+            clientStage.centerOnScreen();
+            clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
 
             centerStageOnMainApp(clientStage);
 
             clientStage.setOnHidden(event1 -> {
-				clientStage = null;
-			});
+                clientStage = null;
+            });
 
             clientController = loader.getController();
-		}
-	}
+        }
+    }
 
     @FXML
-	public void updateInfoButtonClick(ActionEvent actionEvent) {
-		if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() || getOfficerInfoNumber().getText().isEmpty()) {
-			updatedNotification.setText("Fill Out Form.");
-			updatedNotification.setStyle("-fx-text-fill: red;");
-			updatedNotification.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				updatedNotification.setVisible(false);
-			}));
-			timeline1.play();
-		} else {
-			ConfigWriter.configwrite("userInfo", "Agency", getOfficerInfoAgency().getValue().toString());
-			ConfigWriter.configwrite("userInfo", "Division", getOfficerInfoDivision().getValue().toString());
-			ConfigWriter.configwrite("userInfo", "Name", getOfficerInfoName().getText());
-			ConfigWriter.configwrite("userInfo", "Rank", getOfficerInfoRank().getValue().toString());
-			ConfigWriter.configwrite("userInfo", "Number", getOfficerInfoNumber().getText());
-			ConfigWriter.configwrite("userInfo", "Callsign", getOfficerInfoCallsign().getText());
-			generatedByTag.setText("Generated By:" + " " + getOfficerInfoName().getText());
-			updatedNotification.setText("updated.");
-			updatedNotification.setStyle("-fx-text-fill: green;");
-			updatedNotification.setVisible(true);
-			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				updatedNotification.setVisible(false);
-			}));
-			timeline.play();
-		}
-		showAnimation(updateInfoBtn);
-	}
+    public void updateInfoButtonClick(ActionEvent actionEvent) {
+        if (getOfficerInfoAgency().getValue() == null || getOfficerInfoDivision().getValue() == null || getOfficerInfoRank().getValue() == null || getOfficerInfoName().getText().isEmpty() || getOfficerInfoNumber().getText().isEmpty()) {
+            updatedNotification.setText("Fill Out Form.");
+            updatedNotification.setStyle("-fx-text-fill: red;");
+            updatedNotification.setVisible(true);
+            Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                updatedNotification.setVisible(false);
+            }));
+            timeline1.play();
+        } else {
+            ConfigWriter.configwrite("userInfo", "Agency", getOfficerInfoAgency().getValue().toString());
+            ConfigWriter.configwrite("userInfo", "Division", getOfficerInfoDivision().getValue().toString());
+            ConfigWriter.configwrite("userInfo", "Name", getOfficerInfoName().getText());
+            ConfigWriter.configwrite("userInfo", "Rank", getOfficerInfoRank().getValue().toString());
+            ConfigWriter.configwrite("userInfo", "Number", getOfficerInfoNumber().getText());
+            ConfigWriter.configwrite("userInfo", "Callsign", getOfficerInfoCallsign().getText());
+            generatedByTag.setText("Generated By:" + " " + getOfficerInfoName().getText());
+            updatedNotification.setText("updated.");
+            updatedNotification.setStyle("-fx-text-fill: green;");
+            updatedNotification.setVisible(true);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
+                updatedNotification.setVisible(false);
+            }));
+            timeline.play();
+        }
+        showAnimation(updateInfoBtn);
+    }
 
     @FXML
-	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
-		String searchedPlate = vehSearchField.getText();
+    public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
+        String searchedPlate = vehSearchField.getText();
 
         Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
-		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
+        Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
 
         String model = vehData.getOrDefault("model", "Not available");
-		String isStolen = vehData.getOrDefault("isStolen", "Not available");
-		String isPolice = vehData.getOrDefault("isPolice", "Not available");
-		String registration = vehData.getOrDefault("registration", "Not available");
-		String insurance = vehData.getOrDefault("insurance", "Not available");
-		String colorValue = vehData.getOrDefault("color", "Not available");
-		String owner = vehData.getOrDefault("owner", "Not available");
-		String[] rgb = colorValue.split("-");
-		String color = "Not available";
+        String isStolen = vehData.getOrDefault("isStolen", "Not available");
+        String isPolice = vehData.getOrDefault("isPolice", "Not available");
+        String registration = vehData.getOrDefault("registration", "Not available");
+        String insurance = vehData.getOrDefault("insurance", "Not available");
+        String colorValue = vehData.getOrDefault("color", "Not available");
+        String owner = vehData.getOrDefault("owner", "Not available");
+        String[] rgb = colorValue.split("-");
+        String color = "Not available";
 
         String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
 
         if (vehOptional.isPresent()) {
-			log("Found: " + searchedPlate + " From VehHistory file", Severity.DEBUG);
-			vehRecordPane.setVisible(true);
-			noRecordFoundLabelVeh.setVisible(false);
-			Vehicle vehicle = vehOptional.get();
-			vehplatefield2.setText(vehicle.getPlateNumber());
-			vehmodelfield.setText(vehicle.getModel());
-			vehstolenfield.setText(vehicle.getStolenStatus());
-			vehownerfield.setText(vehicle.getOwner());
-			vehregfield.setText(vehicle.getRegistration());
-			vehinsfield.setText(vehicle.getInsurance());
-			vehpolicefield.setText(vehicle.getPoliceStatus());
-			if (!vehicle.getColor().equals("Not available")) {
-				vehnocolorlabel.setVisible(false);
+            log("Found: " + searchedPlate + " From VehHistory file", Severity.DEBUG);
+            vehRecordPane.setVisible(true);
+            noRecordFoundLabelVeh.setVisible(false);
+            Vehicle vehicle = vehOptional.get();
+            vehplatefield2.setText(vehicle.getPlateNumber());
+            vehmodelfield.setText(vehicle.getModel());
+            vehstolenfield.setText(vehicle.getStolenStatus());
+            vehownerfield.setText(vehicle.getOwner());
+            vehregfield.setText(vehicle.getRegistration());
+            vehinsfield.setText(vehicle.getInsurance());
+            vehpolicefield.setText(vehicle.getPoliceStatus());
+            if (!vehicle.getColor().equals("Not available")) {
+                vehnocolorlabel.setVisible(false);
                 vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
-			} else {
-				vehnocolorlabel.setVisible(true);
-				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
-			}
-		} else if (!licensePlate.equals("Not available")) {
-			log("Found: " + searchedPlate + " From WorldVeh file", Severity.DEBUG);
-			vehRecordPane.setVisible(true);
-			noRecordFoundLabelVeh.setVisible(false);
-			if (rgb.length == 3) {
-				color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
-			}
-			Vehicle vehicle = new Vehicle();
-			vehicle.setPlateNumber(licensePlate);
-			vehicle.setColor(color);
-			vehicle.setModel(model);
-			vehicle.setOwner(owner);
-			vehicle.setInsurance(insurance);
-			vehicle.setPoliceStatus(isPolice);
-			vehicle.setStolenStatus(isStolen);
-			vehicle.setRegistration(registration);
-			try {
-				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-			} catch (JAXBException e) {
-				logError("Could not add not vehicle from VehHistory:", e);
-			}
-			vehplatefield2.setText(vehicle.getPlateNumber());
-			vehmodelfield.setText(vehicle.getModel());
-			vehstolenfield.setText(vehicle.getStolenStatus());
-			vehownerfield.setText(vehicle.getOwner());
-			vehregfield.setText(vehicle.getRegistration());
-			vehinsfield.setText(vehicle.getInsurance());
-			vehpolicefield.setText(vehicle.getPoliceStatus());
-			if (!vehicle.getColor().equals("Not available")) {
-				vehnocolorlabel.setVisible(false);
+            } else {
+                vehnocolorlabel.setVisible(true);
+                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
+            }
+        } else if (!licensePlate.equals("Not available")) {
+            log("Found: " + searchedPlate + " From WorldVeh file", Severity.DEBUG);
+            vehRecordPane.setVisible(true);
+            noRecordFoundLabelVeh.setVisible(false);
+            if (rgb.length == 3) {
+                color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+            }
+            Vehicle vehicle = new Vehicle();
+            vehicle.setPlateNumber(licensePlate);
+            vehicle.setColor(color);
+            vehicle.setModel(model);
+            vehicle.setOwner(owner);
+            vehicle.setInsurance(insurance);
+            vehicle.setPoliceStatus(isPolice);
+            vehicle.setStolenStatus(isStolen);
+            vehicle.setRegistration(registration);
+            try {
+                Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+            } catch (JAXBException e) {
+                logError("Could not add not vehicle from VehHistory:", e);
+            }
+            vehplatefield2.setText(vehicle.getPlateNumber());
+            vehmodelfield.setText(vehicle.getModel());
+            vehstolenfield.setText(vehicle.getStolenStatus());
+            vehownerfield.setText(vehicle.getOwner());
+            vehregfield.setText(vehicle.getRegistration());
+            vehinsfield.setText(vehicle.getInsurance());
+            vehpolicefield.setText(vehicle.getPoliceStatus());
+            if (!vehicle.getColor().equals("Not available")) {
+                vehnocolorlabel.setVisible(false);
                 vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
-			} else {
-				vehnocolorlabel.setVisible(true);
-				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
-			}
-		} else {
-			vehRecordPane.setVisible(false);
-			noRecordFoundLabelVeh.setVisible(true);
-		}
+            } else {
+                vehnocolorlabel.setVisible(true);
+                vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
+            }
+        } else {
+            vehRecordPane.setVisible(false);
+            noRecordFoundLabelVeh.setVisible(true);
+        }
 
     }
 
     @FXML
-	public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
-		String searchedName = pedSearchField.getText();
-		log("Searched: " + searchedName, Severity.INFO);
-		String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
-		String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
+    public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
+        String searchedName = pedSearchField.getText();
+        log("Searched: " + searchedName, Severity.INFO);
+        String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
+        String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
 
         Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
-		Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
-		Optional<Ped> pedOptional = findPedByName(searchedName);
+        Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
+        Optional<Ped> pedOptional = findPedByName(searchedName);
 
         String gender = pedData.getOrDefault("gender", "Not available");
-		String birthday = pedData.getOrDefault("birthday", "Not available");
-		String address = pedData.getOrDefault("address", "Not available");
-		String isWanted = pedData.getOrDefault("iswanted", "Not available");
-		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
-		String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
-		String name = pedData.getOrDefault("name", "Not available");
+        String birthday = pedData.getOrDefault("birthday", "Not available");
+        String address = pedData.getOrDefault("address", "Not available");
+        String isWanted = pedData.getOrDefault("iswanted", "Not available");
+        String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
+        String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
+        String name = pedData.getOrDefault("name", "Not available");
 
         String owner = ownerSearch.getOrDefault("owner", "Not available");
-		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not available");
+        String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not available");
 
         if (pedOptional.isPresent()) {
-			log("Found: " + name + " From PedHistory file", Severity.DEBUG);
-			Ped ped = pedOptional.get();
+            log("Found: " + name + " From PedHistory file", Severity.DEBUG);
+            Ped ped = pedOptional.get();
             processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus());
-		} else if (!name.equals("Not available")) {
-			log("Found: " + name + " From WorldPed file", Severity.DEBUG);
-			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
+        } else if (!name.equals("Not available")) {
+            log("Found: " + name + " From WorldPed file", Severity.DEBUG);
+            processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
         } else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase("Los Santos Police Department") && !owner.equalsIgnoreCase("Los Santos Sheriff's Office") && !owner.equalsIgnoreCase("Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {
-			log("Found Vehicle Owner: " + owner + " From WorldVeh file, plate#: " + ownerPlateNum, Severity.DEBUG);
-			processOwnerData(owner, ownerPlateNum);
-		} else {
-			log("No Ped With Name: [" + searchedName + "] Found Anywhere", Severity.WARN);
-			pedRecordPane.setVisible(false);
-			noRecordFoundLabelPed.setVisible(true);
-		}
-	}
+            log("Found Vehicle Owner: " + owner + " From WorldVeh file, plate#: " + ownerPlateNum, Severity.DEBUG);
+            processOwnerData(owner, ownerPlateNum);
+        } else {
+            log("No Ped With Name: [" + searchedName + "] Found Anywhere", Severity.WARN);
+            pedRecordPane.setVisible(false);
+            noRecordFoundLabelPed.setVisible(true);
+        }
+    }
 
     @FXML
-	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
-		calActiveList.getSelectionModel().clearSelection();
-		calHistoryList.getSelectionModel().clearSelection();
-		if (!showCurrentCalToggle.isSelected()) {
-			double toHeight = 0;
+    public void onShowCurrentCalToggled(ActionEvent actionEvent) {
+        calActiveList.getSelectionModel().clearSelection();
+        calHistoryList.getSelectionModel().clearSelection();
+        if (!showCurrentCalToggle.isSelected()) {
+            double toHeight = 0;
 
             Timeline timeline = new Timeline();
 
             KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+            KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+            KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-			timeline.getKeyFrames().add(keyFrame);
+            timeline.getKeyFrames().add(keyFrame);
 
             timeline.play();
-			currentCalPane.setVisible(false);
-		} else {
-			double toHeight = 329;
+            currentCalPane.setVisible(false);
+        } else {
+            double toHeight = 329;
 
             Timeline timeline = new Timeline();
 
             KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+            KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+            KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-			timeline.getKeyFrames().add(keyFrame);
+            timeline.getKeyFrames().add(keyFrame);
 
             timeline.play();
-			currentCalPane.setVisible(true);
-		}
-	}
+            currentCalPane.setVisible(true);
+        }
+    }
 
     @FXML
-	public void onShowCalloutButtonClick(ActionEvent actionEvent) {
-		double toHeight = 0;
+    public void onShowCalloutButtonClick(ActionEvent actionEvent) {
+        double toHeight = 0;
 
         Timeline timeline = new Timeline();
 
         KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-		KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-		KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
+        KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
+        KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 
-		timeline.getKeyFrames().add(keyFrame);
+        timeline.getKeyFrames().add(keyFrame);
 
         timeline.play();
-		currentCalPane.setVisible(false);
+        currentCalPane.setVisible(false);
 
         setDisable(shiftInformationPane, logPane, lookupPane, courtPane);
-		setActive(calloutPane);
+        setActive(calloutPane);
 
         CalloutManager.loadActiveCallouts(calActiveList);
-		CalloutManager.loadHistoryCallouts(calHistoryList);
-	}
+        CalloutManager.loadHistoryCallouts(calHistoryList);
+    }
 
     @FXML
-	public void pedupdateafil(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+    public void pedupdateafil(ActionEvent actionEvent) {
+        String searchedLicenseNum = pedlicnumfield.getText();
+        Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
 
         if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String affiliationText = pedaffiliationfield.getText();
+            Ped ped = optionalPed.get();
+            String affiliationText = pedaffiliationfield.getText();
 
             if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
-				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
-				ped.setAffiliations(affiliationText.trim());
-			} else {
-				pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				pedaffiliationfield.setText("No Data In System");
-				ped.setAffiliations(null);
-			}
+                pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
+                ped.setAffiliations(affiliationText.trim());
+            } else {
+                pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+                pedaffiliationfield.setText("No Data In System");
+                ped.setAffiliations(null);
+            }
 
             try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update affiliations button: ", e);
-			}
-		}
-	}
+                Ped.PedHistoryUtils.addPed(ped);
+            } catch (JAXBException e) {
+                logError("Could not add ped from update affiliations button: ", e);
+            }
+        }
+    }
 
     @FXML
-	public void pedupdatedesc(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+    public void pedupdatedesc(ActionEvent actionEvent) {
+        String searchedLicenseNum = pedlicnumfield.getText();
+        Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
 
         if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String descText = peddescfield.getText();
+            Ped ped = optionalPed.get();
+            String descText = peddescfield.getText();
 
             if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
-				peddescfield.setStyle("-fx-text-fill: black !important;");
-				ped.setDescription(descText.trim());
-			} else {
-				peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				peddescfield.setText("No Data In System");
-				ped.setDescription(null);
-			}
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update Desc button: ", e);
-			}
-		}
-	}
+                peddescfield.setStyle("-fx-text-fill: black !important;");
+                ped.setDescription(descText.trim());
+            } else {
+                peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+                peddescfield.setText("No Data In System");
+                ped.setDescription(null);
+            }
+            try {
+                Ped.PedHistoryUtils.addPed(ped);
+            } catch (JAXBException e) {
+                logError("Could not add ped from update Desc button: ", e);
+            }
+        }
+    }
 
     @FXML
-	public void pedupdatealias(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+    public void pedupdatealias(ActionEvent actionEvent) {
+        String searchedLicenseNum = pedlicnumfield.getText();
+        Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
 
         if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String aliasText = pedaliasfield.getText();
+            Ped ped = optionalPed.get();
+            String aliasText = pedaliasfield.getText();
 
             if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
-				pedaliasfield.setStyle("-fx-text-fill: black !important;");
-				ped.setAliases(aliasText.trim());
-			} else {
-				pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				pedaliasfield.setText("No Data In System");
-				ped.setAliases(null);
-			}
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update Alias button: ", e);
-			}
-		}
-	}
+                pedaliasfield.setStyle("-fx-text-fill: black !important;");
+                ped.setAliases(aliasText.trim());
+            } else {
+                pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+                pedaliasfield.setText("No Data In System");
+                ped.setAliases(null);
+            }
+            try {
+                Ped.PedHistoryUtils.addPed(ped);
+            } catch (JAXBException e) {
+                logError("Could not add ped from update Alias button: ", e);
+            }
+        }
+    }
 
     @FXML
-	public void pedCreateCitationReport(ActionEvent actionEvent) {
-		String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
-		String age = calculateAge(peddobfield.getText().trim());
-		String gender = pedgenfield.getText().trim();
-		String address = pedaddressfield.getText().trim();
-		String desc = peddescfield.getText().trim();
+    public void pedCreateCitationReport(ActionEvent actionEvent) {
+        String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+        String age = calculateAge(peddobfield.getText().trim());
+        String gender = pedgenfield.getText().trim();
+        String address = pedaddressfield.getText().trim();
+        String desc = peddescfield.getText().trim();
 
         Map<String, Object> trafficCitationObj = newCitation(getReportChart(), getAreaReportChart());
 
         Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 
         TextField offenderName = (TextField) citationReportMap.get("offender name");
-		TextField offenderAge = (TextField) citationReportMap.get("offender age");
-		TextField offenderGender = (TextField) citationReportMap.get("offender gender");
-		TextField offenderAddress = (TextField) citationReportMap.get("offender address");
-		TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+        TextField offenderAge = (TextField) citationReportMap.get("offender age");
+        TextField offenderGender = (TextField) citationReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) citationReportMap.get("offender address");
+        TextField offenderDescription = (TextField) citationReportMap.get("offender description");
 
         offenderName.setText(name);
-		offenderAge.setText(age);
-		offenderGender.setText(gender);
-		offenderAddress.setText(address);
-		if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty()) {
-			offenderDescription.setText(desc);
-		}
-	}
+        offenderAge.setText(age);
+        offenderGender.setText(gender);
+        offenderAddress.setText(address);
+        if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty()) {
+            offenderDescription.setText(desc);
+        }
+    }
 
     @FXML
-	public void pedCreateArrestReport(ActionEvent actionEvent) {
-		String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
-		String age = calculateAge(peddobfield.getText().trim());
-		String gender = pedgenfield.getText().trim();
-		String address = pedaddressfield.getText().trim();
-		String desc = peddescfield.getText().trim();
+    public void pedCreateArrestReport(ActionEvent actionEvent) {
+        String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+        String age = calculateAge(peddobfield.getText().trim());
+        String gender = pedgenfield.getText().trim();
+        String address = pedaddressfield.getText().trim();
+        String desc = peddescfield.getText().trim();
 
         Map<String, Object> arrestReportObj = newArrest(reportChart, areaReportChart);
 
         Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 
         TextField offenderName = (TextField) arrestReportMap.get("offender name");
-		TextField offenderAge = (TextField) arrestReportMap.get("offender age");
-		TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
-		TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
-		TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+        TextField offenderAge = (TextField) arrestReportMap.get("offender age");
+        TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
+        TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
+        TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
 
         offenderName.setText(name);
-		offenderAge.setText(age);
-		offenderGender.setText(gender);
-		offenderAddress.setText(address);
-		if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty()) {
-			offenderDescription.setText(desc);
-		}
-	}
+        offenderAge.setText(age);
+        offenderGender.setText(gender);
+        offenderAddress.setText(address);
+        if (!desc.equalsIgnoreCase("No Data In System") && !desc.isEmpty()) {
+            offenderDescription.setText(desc);
+        }
+    }
 
 
     //</editor-fold>

@@ -12,7 +12,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.stringUtil.customizationURL;
 
 public class customizationDataLoader {
-    
+
     public static List<String> divisions = new ArrayList<>();
     public static List<String> agencies = new ArrayList<>();
     public static List<String> ranks = new ArrayList<>();
@@ -21,7 +21,7 @@ public class customizationDataLoader {
     public static List<String> searchTypes = new ArrayList<>();
     public static List<String> searchMethods = new ArrayList<>();
     public static List<String> areaList = new ArrayList<>();
-    
+
     static {
         try {
             log("Loading data from Json...", LogUtils.Severity.INFO);
@@ -30,51 +30,51 @@ public class customizationDataLoader {
             e.printStackTrace();
         }
     }
-    
+
     private static void loadDataFromJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(new File(customizationURL));
-        
+
         JsonNode vehicleTypesNode = rootNode.get("vehicleTypes");
         for (JsonNode node : vehicleTypesNode) {
             vehicleTypes.add(node.asText());
         }
-        
+
         JsonNode carColorsNode = rootNode.get("carColors");
         for (JsonNode node : carColorsNode) {
             carColors.add(node.asText());
         }
-        
+
         JsonNode searchTypesNode = rootNode.get("searchTypes");
         for (JsonNode node : searchTypesNode) {
             searchTypes.add(node.asText());
         }
-        
+
         JsonNode searchMethodsNode = rootNode.get("searchMethods");
         for (JsonNode node : searchMethodsNode) {
             searchMethods.add(node.asText());
         }
-        
+
         JsonNode areaListNode = rootNode.get("areaList");
         for (JsonNode node : areaListNode) {
             areaList.add(node.asText());
         }
-        
+
         JsonNode divisionsNode = rootNode.get("divisions");
         for (JsonNode node : divisionsNode) {
             divisions.add(node.asText());
         }
-        
+
         JsonNode agenciesNode = rootNode.get("agencies");
         for (JsonNode node : agenciesNode) {
             agencies.add(node.asText());
         }
-        
+
         JsonNode ranksNode = rootNode.get("ranks");
         for (JsonNode node : ranksNode) {
             ranks.add(node.asText());
         }
         log("loaded values from Json.", LogUtils.Severity.INFO);
     }
-	
+
 }

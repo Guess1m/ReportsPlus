@@ -60,7 +60,6 @@ public class PedHistoryMath {
             String message = "Check Config: Gun permitType chances do not add up to equal 100 they equal: " + totalChance + ". Concealed: " + chanceConcealed + " Open: " + chanceOpen + " Both: " + chanceBoth;
             log(message, LogUtils.Severity.ERROR);
             showNotificationError("Error", message, mainRT);
-            //todo put the default values here once I figure out good ones:
             chanceConcealed = 33;
             chanceOpen = 33;
             chanceBoth = 34;
@@ -88,7 +87,6 @@ public class PedHistoryMath {
             String message = "License status chances do not add up to 100, they equal: " + totalChance + ". Valid: " + chanceValid + " Suspended: " + chanceSuspended + " Expired: " + chanceExpired;
             log(message, LogUtils.Severity.ERROR);
             showNotificationError("Error", message, mainRT);
-            //todo put the default values here once I figure out good ones:
             chanceValid = 55;
             chanceExpired = 22;
             chanceSuspended = 23;
@@ -112,7 +110,6 @@ public class PedHistoryMath {
             String message = "Check Config: Permit chances do not add up to 100. They equal: " + totalChance + ". Handgun: " + chanceHandgun + " Shotgun: " + chanceShotgun + " Longgun: " + chanceLonggun;
             log(message, LogUtils.Severity.ERROR);
             showNotificationError("Error", message, mainRT);
-            //todo put the default values here once I figure out good ones:
             chanceHandgun = 50;
             chanceShotgun = 22;
             chanceLonggun = 28;
@@ -171,7 +168,6 @@ public class PedHistoryMath {
             String message = "Check Config: Probabilities do not add up to 100. They equal: " + totalProbability + ". No charges: " + noChargesProbability + " 1-2 charges: " + oneToTwoChargesProbability + " 2-3 charges: " + twoToThreeChargesProbability + " 3-5 charges: " + threeToFiveChargesProbability;
             log(message, LogUtils.Severity.ERROR);
             showNotificationError("Error", message, mainRT);
-            //todo put the default values here once I figure out good ones:
             noChargesProbability = 60;
             oneToTwoChargesProbability = 25;
             twoToThreeChargesProbability = 10;

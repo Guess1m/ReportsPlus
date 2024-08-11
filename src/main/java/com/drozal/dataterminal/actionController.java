@@ -582,9 +582,10 @@ public class actionController {
 
     public void initialize() throws IOException {
         // TODO undo
-        showLookupBtn.setVisible(true);
-        showCalloutBtn.setVisible(true);
-        showIDBtn.setVisible(true);
+        showLookupBtn.setVisible(false);
+        showCalloutBtn.setVisible(false);
+        showIDBtn.setVisible(false);
+        showLookupBtn.setVisible(false);
 
         blankCourtInfoPane.setVisible(true);
         courtInfoPane.setVisible(false);
@@ -1177,7 +1178,7 @@ public class actionController {
                     }
                     caseSuspensionDuration.setText(outcomeSuspension);
                 } else {
-                    caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
+                    caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
                     caseSuspensionDuration.setText("License Revoked");
                 }
             } else {

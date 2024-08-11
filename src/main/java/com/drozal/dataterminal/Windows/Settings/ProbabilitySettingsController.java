@@ -293,7 +293,6 @@ public class ProbabilitySettingsController {
 
     @javafx.fxml.FXML
     public void saveBtn(ActionEvent actionEvent) {
-
         if (runAllChecks()) {
             System.out.println("VALID");
         } else {

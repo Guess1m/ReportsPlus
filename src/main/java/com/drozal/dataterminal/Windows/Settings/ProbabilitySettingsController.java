@@ -1,7 +1,9 @@
 package com.drozal.dataterminal.Windows.Settings;
 
 import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Report.reportUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +16,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -294,9 +297,31 @@ public class ProbabilitySettingsController {
     @javafx.fxml.FXML
     public void saveBtn(ActionEvent actionEvent) {
         if (runAllChecks()) {
-            System.out.println("VALID");
+            ConfigWriter.configwrite("pedHistory", "courtTrialDelay", caseOutcomeDelay.getText());
+            ConfigWriter.configwrite("pedHistory", "onParoleChance", onParole.getText());
+            ConfigWriter.configwrite("pedHistory", "onProbationChance", onProbation.getText());
+            ConfigWriter.configwrite("pedHistory", "hasFishingLicense", fishingLicense.getText());
+            ConfigWriter.configwrite("pedHistory", "hasBoatingLicense", boatingLicense.getText());
+            ConfigWriter.configwrite("pedHistory", "hasHuntingLicense", huntingLicense.getText());
+            ConfigWriter.configwrite("pedHistoryArrest", "chanceNoCharges", noCharges.getText());
+            ConfigWriter.configwrite("pedHistoryArrest", "chanceMinimalCharges", minimalCharges.getText());
+            ConfigWriter.configwrite("pedHistoryArrest", "chanceFewCharges", fewCharges.getText());
+            ConfigWriter.configwrite("pedHistoryArrest", "chanceManyCharges", manyCharges.getText());
+            ConfigWriter.configwrite("pedHistoryCitation", "chanceNoCitations", noCitations.getText());
+            ConfigWriter.configwrite("pedHistoryCitation", "chanceMinimalCitations", minimalCitations.getText());
+            ConfigWriter.configwrite("pedHistoryCitation", "chanceFewCitations", fewCitations.getText());
+            ConfigWriter.configwrite("pedHistoryCitation", "chanceManyCitations", manyCitations.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermit", "hasGunLicense", gunLicense.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitType", "concealedCarryChance", permitTypeConcealed.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitType", "openCarryChance", permitTypeOpenCarry.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitType", "bothChance", permitTypeBoth.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitClass", "handgunChance", permitClassHandgun.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitClass", "longgunChance", permitClassLonggun.getText());
+            ConfigWriter.configwrite("pedHistoryGunPermitClass", "shotgunChance", permitClassShotgun.getText());
+            log("Wrote New Probabilities To Config", LogUtils.Severity.INFO);
+            NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config", mainRT);
         } else {
-            System.out.println("NOT VALID");
+            log("Could Not Write New Probabilities To Config, Check Values", LogUtils.Severity.ERROR);
         }
     }
 }

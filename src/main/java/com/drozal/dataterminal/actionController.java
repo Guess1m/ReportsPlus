@@ -582,10 +582,10 @@ public class actionController {
 
     public void initialize() throws IOException {
         // TODO undo
-        showLookupBtn.setVisible(false);
-        showCalloutBtn.setVisible(false);
-        showIDBtn.setVisible(false);
-        showLookupBtn.setVisible(false);
+        showLookupBtn.setVisible(true);
+        showCalloutBtn.setVisible(true);
+        showIDBtn.setVisible(true);
+        showLookupBtn.setVisible(true);
 
         blankCourtInfoPane.setVisible(true);
         courtInfoPane.setVisible(false);

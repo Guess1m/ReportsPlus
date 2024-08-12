@@ -8,7 +8,7 @@
             fx:id="borderPane"
             style="-fx-border-color: black; -fx-border-width: 1.5; -fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
             xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.NotesViewController">
+            fx:controller="com.drozal.dataterminal.Windows.Other.NotesViewController">
     <center>
         <HBox style="-fx-background-color: transparent;">
             <children>
@@ -18,7 +18,7 @@
                         <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="50.0" layoutY="43.0"
                                     prefHeight="242.0" prefWidth="200.0"
                                     style="-fx-border-color: transparent; -fx-background-color: transparent;"
-                                    stylesheets="@css/main/Logscrollpane.css" AnchorPane.bottomAnchor="6.0"
+                                    stylesheets="@../../css/main/Logscrollpane.css" AnchorPane.bottomAnchor="6.0"
                                     AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0"
                                     AnchorPane.topAnchor="39.0">
                             <content>
@@ -29,7 +29,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onName" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Name"
+                                                        stylesheets="@../../css/form/formButton.css" text="Name"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -38,7 +38,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onAge" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Age"
+                                                        stylesheets="@../../css/form/formButton.css" text="Age"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -47,7 +47,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onGender" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Gender"
+                                                        stylesheets="@../../css/form/formButton.css" text="Gender"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -56,7 +56,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onAddress" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Address"
+                                                        stylesheets="@../../css/form/formButton.css" text="Address"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -65,7 +65,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onDescription" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Description"
+                                                        stylesheets="@../../css/form/formButton.css" text="Description"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -74,7 +74,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onNumber" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Number"
+                                                        stylesheets="@../../css/form/formButton.css" text="Number"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -83,7 +83,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onCounty" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="County"
+                                                        stylesheets="@../../css/form/formButton.css" text="County"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -92,7 +92,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onArea" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Area"
+                                                        stylesheets="@../../css/form/formButton.css" text="Area"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -101,7 +101,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onStreet" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Street"
+                                                        stylesheets="@../../css/form/formButton.css" text="Street"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -110,7 +110,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onPlate" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Plate"
+                                                        stylesheets="@../../css/form/formButton.css" text="Plate"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -119,7 +119,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onModel" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Model"
+                                                        stylesheets="@../../css/form/formButton.css" text="Model"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -128,7 +128,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onNotes" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Notes"
+                                                        stylesheets="@../../css/form/formButton.css" text="Notes"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -137,7 +137,7 @@
                                             <children>
                                                 <Button layoutX="23.0" layoutY="88.0" mnemonicParsing="false"
                                                         onAction="#onSearchItems" styleClass="codesBtn"
-                                                        stylesheets="@css/form/formButton.css" text="Search Items"
+                                                        stylesheets="@../../css/form/formButton.css" text="Search Items"
                                                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
@@ -175,7 +175,7 @@
                         <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="337.0"
                                   promptText="Suspect Info / Vehicle Info / Witness Info / Etc."
                                   style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
-                                  styleClass="text-area" stylesheets="@css/form/formTextArea.css" wrapText="true"
+                                  styleClass="text-area" stylesheets="@../../css/form/formTextArea.css" wrapText="true"
                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                   AnchorPane.topAnchor="0.0">
                             <font>
@@ -185,7 +185,7 @@
                         <Button fx:id="clearbtnnotepad" alignment="CENTER" layoutX="560.0" layoutY="235.0"
                                 maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                                 mnemonicParsing="false" onAction="#onclearclick" styleClass="incidentbtn"
-                                stylesheets="@css/menu/menuStyles.css" text="Clear" textFill="#0074b3"
+                                stylesheets="@../../css/menu/menuStyles.css" text="Clear" textFill="#0074b3"
                                 AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
                             <font>
                                 <Font name="Segoe UI Bold" size="18.0"/>
@@ -199,7 +199,7 @@
                         <Button fx:id="codesbtnnotepad" alignment="CENTER" layoutX="523.0" layoutY="230.0"
                                 maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                                 mnemonicParsing="false" onAction="#showcodeselection" styleClass="incidentbtn"
-                                stylesheets="@css/menu/menuStyles.css" text="Codes" textFill="#0074b3"
+                                stylesheets="@../../css/menu/menuStyles.css" text="Codes" textFill="#0074b3"
                                 AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0">
                             <font>
                                 <Font name="Segoe UI Bold" size="18.0"/>

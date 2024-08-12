@@ -11,7 +11,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class updateUtil {
     public static String gitVersion;
-
+    
     public static void checkForUpdates() {
         String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
         try {
@@ -19,7 +19,7 @@ public class updateUtil {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
-
+            
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -32,12 +32,13 @@ public class updateUtil {
                 log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
             }
         } catch (UnknownHostException e) {
-            log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", LogUtils.Severity.ERROR);
+            log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
+                LogUtils.Severity.ERROR);
         } catch (IOException e) {
             logError("Cant check for updates: ", e);
         }
     }
-
+    
     public static void openWebpage(String url) {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
@@ -50,5 +51,5 @@ public class updateUtil {
             log("Desktop is not supported on this platform.", LogUtils.Severity.ERROR);
         }
     }
-
+	
 }

@@ -19,9 +19,9 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
 public class Launcher {
-
+    
     public static void main(String[] args) throws IOException {
-
+        
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "output.log";
             Path path = Path.of(filePath);
@@ -34,36 +34,36 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while clearing the log file: ", e);
         }
-
+        
         deleteFiles();
-
+        
         loadFonts();
-
+        
         createFilesFolders();
-
+        
         copyInternalFiles();
-
+        
         createDataLogsDir();
-
+        
         if (ConfigReader.doesConfigExist()) {
             ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-
+            
             checkAndSetDefaultValues();
-
+            
             DataTerminalHomeApplication.main(args);
         } else {
             newOfficerApplication.main(args);
         }
-
+        
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             log("Shutdown Request Recieved", Severity.DEBUG);
             endLog();
             Platform.exit();
             System.exit(0);
         }));
-
+        
     }
-
+    
     public static void loadFonts() {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
@@ -80,7 +80,7 @@ public class Launcher {
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
         Font.loadFont(Launcher.class.getResourceAsStream("fonts/Signerica_Fat.ttf"), 14);
     }
-
+    
     private static void deleteFiles() {
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
@@ -94,7 +94,7 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server callout file: ", e);
         }
-
+        
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml";
             Path path = Path.of(filePath);
@@ -107,7 +107,7 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server current ID file: ", e);
         }
-
+        
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
             Path path = Path.of(filePath);
@@ -120,7 +120,7 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server world peds file: ", e);
         }
-
+        
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
             Path path = Path.of(filePath);
@@ -134,11 +134,11 @@ public class Launcher {
             logError("An error occurred while deleting the server world cars file: ", e);
         }
     }
-
+    
     private static void createFilesFolders() {
         String dataFolderPath = getJarPath() + File.separator + "data";
         String serverData = getJarPath() + File.separator + "serverData";
-
+        
         File dataFolder = new File(dataFolderPath);
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
@@ -146,7 +146,7 @@ public class Launcher {
         } else {
             log("Data Folder Already Exists", LogUtils.Severity.INFO);
         }
-
+        
         File serverDataFolder = new File(serverData);
         if (!serverDataFolder.exists()) {
             serverDataFolder.mkdirs();
@@ -154,7 +154,7 @@ public class Launcher {
         } else {
             log("Server Data Folder Already Exists", LogUtils.Severity.INFO);
         }
-
+        
         File calloutDataFile = new File(calloutDataURL);
         if (!calloutDataFile.exists()) {
             log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
@@ -165,7 +165,7 @@ public class Launcher {
                 logError("Could not create Callout Data File: ", e);
             }
         }
-
+        
         File calloutHistoryFile = new File(calloutHistoryURL);
         if (!calloutHistoryFile.exists()) {
             log("Callout History File Doesn't Exist, Creating", Severity.INFO);
@@ -176,7 +176,7 @@ public class Launcher {
             }
         }
     }
-
+    
     private static void createDataLogsDir() {
         String folderPath = "";
         try {
@@ -199,7 +199,7 @@ public class Launcher {
             log("DataLogs Folder already exists.", LogUtils.Severity.INFO);
         }
     }
-
+    
     private static void copyInternalFiles() {
         File chargesFile = new File(chargesFilePath);
         String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
@@ -227,5 +227,5 @@ public class Launcher {
             }
         }
     }
-
+	
 }

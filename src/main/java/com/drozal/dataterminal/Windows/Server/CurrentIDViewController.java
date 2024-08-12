@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.Windows.Server;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
@@ -26,7 +26,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class CurrentIDViewController {
-
+    
     @javafx.fxml.FXML
     private BorderPane root;
     @javafx.fxml.FXML
@@ -45,27 +45,27 @@ public class CurrentIDViewController {
     private TextField first;
     @javafx.fxml.FXML
     private TextField address;
-
+    
     public static String generateRandomNumber() {
         Random random = new Random();
         int randomNumber = random.nextInt(9000000) + 1000000;
         return String.valueOf(randomNumber);
     }
-
+    
     public static ID getMostRecentID() {
         String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
         File file = new File(filePath);
-
+        
         if (!file.exists()) {
             log("File does not exist: " + filePath, LogUtils.Severity.WARN);
             return null;
         }
-
+        
         if (file.length() == 0) {
             log("File is empty: " + filePath, LogUtils.Severity.ERROR);
             return null;
         }
-
+        
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(IDs.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -77,12 +77,12 @@ public class CurrentIDViewController {
             return null;
         }
     }
-
+    
     public void initialize() {
         AnchorPane titleBar = reportUtil.createSimpleTitleBar("Current ID", false);
         root.setTop(titleBar);
         cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
-
+        
         Platform.runLater(() -> {
             ID mostRecentID = getMostRecentID();
             if (mostRecentID != null) {
@@ -91,19 +91,19 @@ public class CurrentIDViewController {
                 String birthday = mostRecentID.getBirthday();
                 String Gender = mostRecentID.getGender();
                 String Address = mostRecentID.getAddress();
-
+                
                 genNum1.setText(generateRandomNumber());
                 genNum2.setText(generateRandomNumber());
-
+                
                 first.setText(firstName);
                 cursiveName.setText(firstName);
                 last.setText(lastName);
                 dob.setText(birthday);
                 gender.setText(Gender);
                 address.setText(Address);
-
+                
             } else {
-
+                
                 log("No IDs found.", LogUtils.Severity.WARN);
                 first.setText(/*No Data*/"");
                 cursiveName.setText(/*No Data*/"");
@@ -111,23 +111,23 @@ public class CurrentIDViewController {
                 dob.setText(/*No Data*/"");
                 gender.setText(/*No Data*/"");
                 address.setText(/*No Data*/"");
-
+                
                 genNum1.setText(null);
                 genNum2.setText(null);
-
+                
             }
         });
-
+        
         watchIDChanges();
     }
-
+    
     public void watchIDChanges() {
         Path dir = Paths.get(getJarPath() + File.separator + "serverData");
-
+        
         Thread watchThread = new Thread(() -> {
             try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
                 dir.register(watcher, ENTRY_MODIFY);
-
+                
                 while (true) {
                     WatchKey key;
                     try {
@@ -136,20 +136,20 @@ public class CurrentIDViewController {
                         Thread.currentThread().interrupt();
                         return;
                     }
-
+                    
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
-
+                        
                         if (kind == OVERFLOW) {
                             continue;
                         }
-
+                        
                         WatchEvent<Path> ev = (WatchEvent<Path>) event;
                         Path fileName = ev.context();
-
+                        
                         if (fileName.toString().equals("ServerCurrentID.xml")) {
                             log("ID is being updated", LogUtils.Severity.INFO);
-
+                            
                             Platform.runLater(() -> {
                                 ID mostRecentID = getMostRecentID();
                                 if (mostRecentID != null) {
@@ -158,19 +158,19 @@ public class CurrentIDViewController {
                                     String birthday = mostRecentID.getBirthday();
                                     String Gender = mostRecentID.getGender();
                                     String Address = mostRecentID.getAddress();
-
+                                    
                                     genNum1.setText(generateRandomNumber());
                                     genNum2.setText(generateRandomNumber());
-
+                                    
                                     first.setText(firstName);
                                     cursiveName.setText(firstName);
                                     last.setText(lastName);
                                     dob.setText(birthday);
                                     gender.setText(Gender);
                                     address.setText(Address);
-
+                                    
                                 } else {
-
+                                    
                                     log("No IDs found.", LogUtils.Severity.WARN);
                                     first.setText(/*No Data*/"");
                                     last.setText(/*No Data*/"");
@@ -181,7 +181,7 @@ public class CurrentIDViewController {
                             });
                         }
                     }
-
+                    
                     boolean valid = key.reset();
                     if (!valid) {
                         break;
@@ -191,9 +191,9 @@ public class CurrentIDViewController {
                 logError("I/O Error: ", e);
             }
         });
-
+        
         watchThread.setDaemon(true);
         watchThread.start();
     }
-
+	
 }

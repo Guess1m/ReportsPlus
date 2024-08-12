@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.Windows.Misc;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Report.reportUtil;
@@ -13,7 +13,7 @@ public class OutputViewController {
     private ListView listView;
     @FXML
     private BorderPane root;
-
+    
     public void initialize() {
         titlebar = reportUtil.createSimpleTitleBar("Output Log View", true);
         root.setTop(titlebar);

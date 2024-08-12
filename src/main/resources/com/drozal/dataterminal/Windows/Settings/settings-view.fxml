@@ -8,7 +8,7 @@
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="350.0" prefWidth="637.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
             xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.drozal.dataterminal.settingsController">
+            fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -20,7 +20,7 @@
                     </font>
                 </Label>
                 <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0"
-                         styleClass="darktabpane" stylesheets="@css/main/SettingsTabPane.css"
+                         styleClass="darktabpane" stylesheets="@../../css/main/SettingsTabPane.css"
                          tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                     <tabs>
@@ -121,7 +121,8 @@
                                                                 mnemonicParsing="false" onAction="#clearLogsBtnClick"
                                                                 prefHeight="25.0" prefWidth="160.0"
                                                                 styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css" text="CLEAR LOGS"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                text="CLEAR LOGS"
                                                                 AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
@@ -147,7 +148,7 @@
                                                                 mnemonicParsing="false"
                                                                 onAction="#clearSaveDataBtnClick" prefHeight="26.0"
                                                                 prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
                                                                 text="CLEAR ALL SAVE DATA" AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
@@ -159,7 +160,7 @@
                                                                 mnemonicParsing="false"
                                                                 onAction="#openDebugLogsBtnClick" prefHeight="26.0"
                                                                 prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
                                                                 text="Open Debug Logs" AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
@@ -277,7 +278,7 @@
                                                         <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
                                                                 onAction="#resetDefaultsBtnPress"
                                                                 styleClass="purpleButton"
-                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
                                                                 text="Reset Defaults" GridPane.columnIndex="1"
                                                                 GridPane.halignment="CENTER" GridPane.rowIndex="4"
                                                                 GridPane.valignment="CENTER"/>
@@ -326,7 +327,7 @@
                                                                 <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/right-arrow.png"/>
+                                                                        <Image url="@../../imgs/icons/right-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
@@ -373,7 +374,7 @@
                                                                 <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/left-arrow.png"/>
+                                                                        <Image url="@../../imgs/icons/left-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
@@ -406,7 +407,7 @@
                                                                                 prefWidth="274.0"
                                                                                 style="-fx-padding: 3 14 3 14;"
                                                                                 styleClass="settingsBtn"
-                                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                                stylesheets="@../../css/menu/menuStyles.css"
                                                                                 text="Preview Notification"/>
                                                                     </center>
                                                                 </BorderPane>
@@ -459,7 +460,7 @@
                                                                                 prefWidth="274.0"
                                                                                 style="-fx-padding: 3 14 3 14;"
                                                                                 styleClass="settingsBtn"
-                                                                                stylesheets="@css/menu/menuStyles.css"
+                                                                                stylesheets="@../../css/menu/menuStyles.css"
                                                                                 text="Reset Defaults"/>
                                                                     </center>
                                                                     <padding>
@@ -665,7 +666,8 @@
                                                 </AnchorPane>
                                                 <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false"
                                                         onAction="#resetReportDefaultsBtnPress"
-                                                        styleClass="purpleButton" stylesheets="@css/menu/menuStyles.css"
+                                                        styleClass="purpleButton"
+                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                         text="Reset Defaults" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="4">
                                                     <GridPane.margin>
@@ -999,7 +1001,7 @@
                                                                 <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/right-arrow.png"/>
+                                                                        <Image url="@../../imgs/icons/right-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
@@ -1042,7 +1044,7 @@
                                                                 <ImageView fitHeight="14.0" fitWidth="15.0"
                                                                            pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@imgs/icons/left-arrow.png"/>
+                                                                        <Image url="@../../imgs/icons/left-arrow.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>

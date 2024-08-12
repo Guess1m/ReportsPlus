@@ -11,14 +11,14 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.actionController">
+            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
                     AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="115.0">
             <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@css/main/Logscrollpane.css"
+                <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                             AnchorPane.topAnchor="0.0">
                     <content>
@@ -45,7 +45,8 @@
                                             </GridPane.margin>
                                         </Label>
                                         <Label fx:id="mainColor8" alignment="CENTER" styleClass="headingBig"
-                                               stylesheets="@css/menu/menuLabels.css" text="Officer Shift Information"
+                                               stylesheets="@../../css/menu/menuLabels.css"
+                                               text="Officer Shift Information"
                                                textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1"
                                                GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <font>
@@ -68,7 +69,7 @@
                                     <children>
                                         <Label fx:id="secondaryColor3Bkg" alignment="CENTER" layoutX="35.0"
                                                prefHeight="35.0" prefWidth="747.0" styleClass="heading"
-                                               stylesheets="@css/menu/menuLabels.css" text="Officer Information"
+                                               stylesheets="@../../css/menu/menuLabels.css" text="Officer Information"
                                                textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="35.0"
                                                AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="0.0">
                                             <font>
@@ -78,7 +79,7 @@
                                         <Button fx:id="updateInfoBtn" layoutX="660.0" layoutY="150.0"
                                                 mnemonicParsing="false" onAction="#updateInfoButtonClick"
                                                 prefHeight="39.0" prefWidth="108.0" styleClass="purpleButton"
-                                                stylesheets="@css/menu/menuStyles.css" text="Update"
+                                                stylesheets="@../../css/menu/menuStyles.css" text="Update"
                                                 textFill="#b2b2b2c7" AnchorPane.rightAnchor="48.0">
                                             <font>
                                                 <Font name="Consolas Bold" size="15.0"/>
@@ -86,7 +87,8 @@
                                         </Button>
                                         <TextField fx:id="OfficerInfoName" layoutX="49.0" layoutY="49.0"
                                                    prefHeight="39.0" prefWidth="477.0" promptText="Name"
-                                                   styleClass="formFielddark" stylesheets="@css/form/formFields.css"
+                                                   styleClass="formFielddark"
+                                                   stylesheets="@../../css/form/formFields.css"
                                                    AnchorPane.leftAnchor="49.0">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="15.5"/>
@@ -94,7 +96,8 @@
                                         </TextField>
                                         <TextField fx:id="OfficerInfoCallsign" layoutX="50.0" layoutY="99.0"
                                                    prefHeight="39.0" prefWidth="324.0" promptText="Callsign"
-                                                   styleClass="formFielddark" stylesheets="@css/form/formFields.css"
+                                                   styleClass="formFielddark"
+                                                   stylesheets="@../../css/form/formFields.css"
                                                    AnchorPane.leftAnchor="50.0">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="15.5"/>
@@ -102,7 +105,8 @@
                                         </TextField>
                                         <TextField fx:id="OfficerInfoNumber" layoutX="264.0" layoutY="99.0"
                                                    prefHeight="39.0" prefWidth="139.0" promptText="Number"
-                                                   styleClass="formFielddark" stylesheets="@css/form/formFields.css"
+                                                   styleClass="formFielddark"
+                                                   stylesheets="@../../css/form/formFields.css"
                                                    AnchorPane.leftAnchor="386.0">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="15.5"/>
@@ -118,16 +122,19 @@
                                         </Label>
                                         <ComboBox fx:id="OfficerInfoRank" layoutX="49.0" layoutY="150.0"
                                                   prefHeight="39.0" prefWidth="477.0" promptText="Rank"
-                                                  styleClass="combo-boxdark" stylesheets="@css/form/formComboBox.css"
+                                                  styleClass="combo-boxdark"
+                                                  stylesheets="@../../css/form/formComboBox.css"
                                                   visibleRowCount="14" AnchorPane.leftAnchor="49.0"/>
                                         <ComboBox fx:id="OfficerInfoDivision" layoutX="419.0" layoutY="49.0"
                                                   prefHeight="39.0" prefWidth="350.0" promptText="Division"
-                                                  styleClass="combo-boxdark" stylesheets="@css/form/formComboBox.css"
+                                                  styleClass="combo-boxdark"
+                                                  stylesheets="@../../css/form/formComboBox.css"
                                                   visibleRowCount="14" AnchorPane.leftAnchor="541.0"
                                                   AnchorPane.rightAnchor="47.0"/>
                                         <ComboBox fx:id="OfficerInfoAgency" layoutX="419.0" layoutY="99.0"
                                                   prefHeight="39.0" prefWidth="350.0" promptText="Agency"
-                                                  styleClass="combo-boxdark" stylesheets="@css/form/formComboBox.css"
+                                                  styleClass="combo-boxdark"
+                                                  stylesheets="@../../css/form/formComboBox.css"
                                                   visibleRowCount="14" AnchorPane.leftAnchor="541.0"
                                                   AnchorPane.rightAnchor="47.0"/>
                                     </children>
@@ -136,7 +143,7 @@
                                     <children>
                                         <Label fx:id="secondaryColor4Bkg" alignment="CENTER" layoutX="30.0"
                                                prefHeight="35.0" prefWidth="747.0" styleClass="heading"
-                                               stylesheets="@css/menu/menuLabels.css" text="Frequency Of Reports"
+                                               stylesheets="@../../css/menu/menuLabels.css" text="Frequency Of Reports"
                                                textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="35.0"
                                                AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="0.0">
                                             <font>
@@ -145,7 +152,8 @@
                                         </Label>
                                         <BarChart fx:id="reportChart" layoutX="35.0" layoutY="37.0"
                                                   legendVisible="false" prefHeight="226.0" prefWidth="868.0"
-                                                  styleClass="customchartdark" stylesheets="@css/main/chartCSS.css"
+                                                  styleClass="customchartdark"
+                                                  stylesheets="@../../css/main/chartCSS.css"
                                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0"
                                                   AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
                                             <xAxis>
@@ -170,7 +178,8 @@
                                 <AnchorPane prefHeight="180.0" prefWidth="816.0" VBox.vgrow="SOMETIMES">
                                     <children>
                                         <AreaChart fx:id="areaReportChart" animated="false" legendVisible="false"
-                                                   styleClass="darkchart" stylesheets="@css/menu/statisticChart.css"
+                                                   styleClass="darkchart"
+                                                   stylesheets="@../../css/menu/statisticChart.css"
                                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0"
                                                    AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
                                             <xAxis>
@@ -193,7 +202,7 @@
                                         </AreaChart>
                                         <Label fx:id="secondaryColor5Bkg" alignment="CENTER" layoutX="35.0"
                                                prefHeight="35.0" prefWidth="747.0" styleClass="heading"
-                                               stylesheets="@css/menu/menuLabels.css" text="Reports By Area"
+                                               stylesheets="@../../css/menu/menuLabels.css" text="Reports By Area"
                                                textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="35.0"
                                                AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="0.0">
                                             <font>
@@ -209,14 +218,14 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
-                    stylesheets="@css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
+                    stylesheets="@../../css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <children>
                         <ListView fx:id="caseList" prefHeight="690.0" prefWidth="292.0"
-                                  stylesheets="@css/main/calList.css"/>
+                                  stylesheets="@../../css/main/calList.css"/>
                         <StackPane HBox.hgrow="ALWAYS">
                             <children>
                                 <AnchorPane fx:id="blankCourtInfoPane" prefHeight="200.0" prefWidth="200.0"
@@ -258,7 +267,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -284,7 +293,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -313,7 +322,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="5" GridPane.rowIndex="1">
                                                             <GridPane.margin>
                                                                 <Insets/>
@@ -374,7 +383,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -400,7 +409,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -428,7 +437,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <GridPane.margin>
                                                                 <Insets left="-5.0"/>
@@ -438,7 +447,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="2">
                                                             <GridPane.margin>
                                                                 <Insets left="-15.0"/>
@@ -466,7 +475,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.columnSpan="3"
                                                                    GridPane.rowIndex="3">
                                                             <GridPane.margin>
@@ -499,7 +508,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -524,7 +533,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="3" GridPane.rowIndex="1"
                                                                    GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
@@ -553,7 +562,7 @@
                                                                    focusTraversable="false"
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
-                                                                   stylesheets="@css/form/light/formFields.css"
+                                                                   stylesheets="@../../css/form/light/formFields.css"
                                                                    GridPane.columnIndex="5" GridPane.rowIndex="1">
                                                             <GridPane.margin>
                                                                 <Insets left="5.0"/>
@@ -585,7 +594,7 @@
                                                                 <TextArea fx:id="caseNotesField" editable="false"
                                                                           focusTraversable="false"
                                                                           styleClass="text-area-dark"
-                                                                          stylesheets="@css/main/courtTextArea.css"
+                                                                          stylesheets="@../../css/main/courtTextArea.css"
                                                                           GridPane.rowIndex="1">
                                                                     <GridPane.margin>
                                                                         <Insets left="10.0" right="10.0"/>
@@ -622,12 +631,12 @@
                                                                 <ListView fx:id="caseOffencesListView"
                                                                           style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;"
                                                                           styleClass="list-view-custom"
-                                                                          stylesheets="@css/courtListView.css"
+                                                                          stylesheets="@../../css/courtListView.css"
                                                                           GridPane.rowIndex="1"/>
                                                                 <ListView fx:id="caseOutcomesListView"
                                                                           style="-fx-border-color: rgb(0,0,0,0.3); -fx-border-width: 0 0.5 0 0;"
                                                                           styleClass="list-view-custom"
-                                                                          stylesheets="@css/courtListView.css"
+                                                                          stylesheets="@../../css/courtListView.css"
                                                                           GridPane.columnIndex="1"
                                                                           GridPane.rowIndex="1"/>
                                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0"
@@ -854,7 +863,7 @@
                                 </HBox>
                                 <ListView fx:id="calActiveList" layoutX="10.0" layoutY="47.0" prefHeight="599.0"
                                           prefWidth="281.0" style="-fx-border-color: gray; -fx-border-width: 2;"
-                                          stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0"
+                                          stylesheets="@../../css/main/calList.css" AnchorPane.bottomAnchor="0.0"
                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                           AnchorPane.topAnchor="61.0"/>
                             </children>
@@ -863,7 +872,7 @@
                             <children>
                                 <AnchorPane fx:id="currentCalPane" prefHeight="329.0" prefWidth="589.0"
                                             style="-fx-background-color: rgb(0,0,0,0.1); -fx-border-width: 2;"
-                                            styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css"
+                                            styleClass="menuSidePanel" stylesheets="@../../css/menu/menuStyles.css"
                                             VBox.vgrow="NEVER">
                                     <children>
                                         <GridPane hgap="10.0" vgap="25.0" AnchorPane.bottomAnchor="0.0"
@@ -895,7 +904,7 @@
                                                         <Label fx:id="calloutInfoTitle" alignment="CENTER"
                                                                maxHeight="-Infinity" minHeight="-Infinity"
                                                                prefHeight="38.0" styleClass="menuTopBar"
-                                                               stylesheets="@css/menu/menuStyles.css"
+                                                               stylesheets="@../../css/menu/menuStyles.css"
                                                                text="Callout Details" textFill="WHITE"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -908,7 +917,7 @@
                                                                       onAction="#onShowCurrentCalToggled"
                                                                       style="-fx-padding: 0 11 0 12; -fx-background-color: rgb(0,0,0,0.1);"
                                                                       styleClass="incidentformButton"
-                                                                      stylesheets="@css/form/dark/formButton.css"
+                                                                      stylesheets="@../../css/form/dark/formButton.css"
                                                                       text="Hide" AnchorPane.bottomAnchor="11.0"
                                                                       AnchorPane.rightAnchor="14.5"
                                                                       AnchorPane.topAnchor="11.0"/>
@@ -920,7 +929,7 @@
                                                                    prefHeight="29.0" prefWidth="93.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="80.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -944,7 +953,7 @@
                                                                    layoutY="-1.0" prefHeight="38.0" prefWidth="231.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="54.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -969,7 +978,7 @@
                                                                    layoutY="-1.0" prefHeight="29.0" prefWidth="97.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="66.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -995,7 +1004,7 @@
                                                                    layoutY="1.0" prefHeight="38.0" prefWidth="335.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="47.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -1020,7 +1029,7 @@
                                                                    layoutY="5.0" prefHeight="38.0" prefWidth="141.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="48.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -1044,7 +1053,7 @@
                                                                    layoutY="-8.0" prefHeight="29.0" prefWidth="102.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="71.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -1069,7 +1078,7 @@
                                                                    prefHeight="38.0" prefWidth="142.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="47.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -1094,7 +1103,7 @@
                                                                    prefHeight="29.0" prefWidth="111.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
                                                                    styleClass="formField"
-                                                                   stylesheets="@css/form/formFields.css"
+                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="52.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -1119,7 +1128,7 @@
                                                                   layoutY="26.0" minHeight="60.0" prefHeight="73.0"
                                                                   prefWidth="518.0"
                                                                   style="-fx-font-size: 15.5; -fx-background-color: rgb(255,255,255,0.8);"
-                                                                  stylesheets="@css/main/transparentTextArea.css"
+                                                                  stylesheets="@../../css/main/transparentTextArea.css"
                                                                   AnchorPane.bottomAnchor="10.0"
                                                                   AnchorPane.leftAnchor="10.0"
                                                                   AnchorPane.rightAnchor="10.0"
@@ -1141,7 +1150,8 @@
                                         <ListView fx:id="calHistoryList" layoutX="-29.0" layoutY="61.0"
                                                   prefHeight="282.0" prefWidth="589.0"
                                                   style="-fx-border-color: gray; -fx-border-width: 2;"
-                                                  stylesheets="@css/main/calList.css" AnchorPane.bottomAnchor="0.0"
+                                                  stylesheets="@../../css/main/calList.css"
+                                                  AnchorPane.bottomAnchor="0.0"
                                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                   AnchorPane.topAnchor="61.0"/>
                                         <BorderPane layoutX="225.0" layoutY="8.0" AnchorPane.leftAnchor="0.0"
@@ -1223,7 +1233,7 @@
                                     </children>
                                 </HBox>
                                 <Label fx:id="lookupmainlbl" style="-fx-font-size: 25; -fx-text-fill: #5e7387;"
-                                       styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
+                                       styleClass="headingBig" stylesheets="@../../css/menu/menuLabels.css"
                                        text="ReportsPlus Database Lookup" textAlignment="CENTER"
                                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
                                        AnchorPane.topAnchor="0.0">
@@ -1238,11 +1248,11 @@
                         </AnchorPane>
                         <SplitPane fx:id="lookupSplitPane" dividerPositions="0.5" orientation="VERTICAL"
                                    style="-fx-border-width: 0; -fx-background-color: transparent;"
-                                   stylesheets="@css/main/splitPane.css" VBox.vgrow="ALWAYS">
+                                   stylesheets="@../../css/main/splitPane.css" VBox.vgrow="ALWAYS">
                             <items>
                                 <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                            stylesheets="@css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css">
                                     <content>
                                         <AnchorPane fx:id="vehLookupPane"
                                                     style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -1260,7 +1270,7 @@
                                                     <children>
                                                         <Label style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
                                                                styleClass="headingBig"
-                                                               stylesheets="@css/menu/menuLabels.css"
+                                                               stylesheets="@../../css/menu/menuLabels.css"
                                                                text="Search Plate:" textAlignment="CENTER">
                                                             <font>
                                                                 <Font name="Segoe UI Black" size="20.0"/>
@@ -1284,7 +1294,8 @@
                                                                 prefWidth="103.0"
                                                                 style="-fx-label-padding: 0; -fx-padding: 0;"
                                                                 styleClass="incidentbtn"
-                                                                stylesheets="@css/menu/menuStyles.css" text="Search"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                text="Search"
                                                                 GridPane.columnIndex="2"/>
                                                     </children>
                                                 </GridPane>
@@ -1341,7 +1352,7 @@
                                                                                            editable="false"
                                                                                            layoutY="56.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1353,7 +1364,7 @@
                                                                                            editable="false"
                                                                                            layoutY="56.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1374,7 +1385,7 @@
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1432,7 +1443,7 @@
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1453,7 +1464,7 @@
                                                                        prefWidth="747.0"
                                                                        style="-fx-background-color: #5e7387;"
                                                                        styleClass="heading"
-                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                        text="Vehicle Information" textAlignment="CENTER"
                                                                        textFill="WHITE" AnchorPane.leftAnchor="0.0"
                                                                        AnchorPane.rightAnchor="0.0"
@@ -1497,7 +1508,7 @@
                                                                                            editable="false"
                                                                                            layoutY="50.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1517,7 +1528,7 @@
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1538,7 +1549,7 @@
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1559,7 +1570,7 @@
                                                                        prefWidth="747.0"
                                                                        style="-fx-background-color: #5e7387;"
                                                                        styleClass="heading"
-                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                        text="Owner Information" textAlignment="CENTER"
                                                                        textFill="WHITE" AnchorPane.leftAnchor="0.0"
                                                                        AnchorPane.rightAnchor="0.0"
@@ -1575,7 +1586,8 @@
                                                 <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0"
                                                        layoutY="298.0"
                                                        style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
-                                                       styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
+                                                       styleClass="headingBig"
+                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                        text="No Record In System." textAlignment="CENTER"
                                                        visible="false" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="298.0">
@@ -1589,7 +1601,7 @@
                                 </ScrollPane>
                                 <ScrollPane fx:id="pedPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent;"
-                                            stylesheets="@css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css">
                                     <content>
                                         <AnchorPane fx:id="pedLookupPane" style="-fx-background-color: transparent;">
                                             <children>
@@ -1656,7 +1668,7 @@
                                                                                            editable="false"
                                                                                            layoutX="13.0" layoutY="46.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1678,7 +1690,7 @@
                                                                                            editable="false"
                                                                                            layoutX="13.0" layoutY="48.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1699,7 +1711,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1722,7 +1734,7 @@
                                                                                            editable="false"
                                                                                            layoutX="27.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1745,7 +1757,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1766,7 +1778,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1788,7 +1800,7 @@
                                                                                        prefWidth="747.0"
                                                                                        style="-fx-background-color: #5e7387;"
                                                                                        styleClass="heading"
-                                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                                        text="Basic Information"
                                                                                        textAlignment="CENTER"
                                                                                        textFill="WHITE"
@@ -1811,7 +1823,7 @@
                                                                                            prefHeight="39.0"
                                                                                            prefWidth="143.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="60.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1831,7 +1843,7 @@
                                                                                         opacity="0.73"
                                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                                         styleClass="incidentbtn"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         text="Update" textOverrun="CLIP"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="34.0">
@@ -1849,7 +1861,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1872,7 +1884,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -1896,7 +1908,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -1919,7 +1931,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -1943,7 +1955,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -1967,7 +1979,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -1991,7 +2003,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -2014,7 +2026,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -2038,7 +2050,7 @@
                                                                                         editable="false" layoutX="26.0"
                                                                                         layoutY="47.0"
                                                                                         styleClass="calloutField"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="27.0"/>
@@ -2072,7 +2084,7 @@
                                                                                         layoutX="76.0" layoutY="55.0"
                                                                                         prefHeight="145.0"
                                                                                         prefWidth="200.0"
-                                                                                        stylesheets="@css/main/calList.css"
+                                                                                        stylesheets="@../../css/main/calList.css"
                                                                                         AnchorPane.bottomAnchor="0.0"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
@@ -2083,7 +2095,7 @@
                                                                                         opacity="0.73" prefHeight="25.0"
                                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                                         styleClass="incidentbtn"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         text="Create New Arrest"
                                                                                         textOverrun="CLIP"
                                                                                         AnchorPane.rightAnchor="45.0"
@@ -2114,7 +2126,7 @@
                                                                                         layoutX="137.0" layoutY="18.0"
                                                                                         prefHeight="145.0"
                                                                                         prefWidth="200.0"
-                                                                                        stylesheets="@css/main/calList.css"
+                                                                                        stylesheets="@../../css/main/calList.css"
                                                                                         AnchorPane.bottomAnchor="0.0"
                                                                                         AnchorPane.leftAnchor="0.0"
                                                                                         AnchorPane.rightAnchor="0.0"
@@ -2125,7 +2137,7 @@
                                                                                         opacity="0.73" prefHeight="25.0"
                                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                                         styleClass="incidentbtn"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         text="Create New Citation"
                                                                                         textOverrun="CLIP"
                                                                                         AnchorPane.rightAnchor="45.0"
@@ -2145,7 +2157,7 @@
                                                                                        prefWidth="747.0"
                                                                                        style="-fx-background-color: #5e7387;"
                                                                                        styleClass="heading"
-                                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                                        text="Legal Information"
                                                                                        textAlignment="CENTER"
                                                                                        textFill="WHITE"
@@ -2166,7 +2178,7 @@
                                                                                 <TextField fx:id="pedaliasfield"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="60.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -2185,7 +2197,7 @@
                                                                                         opacity="0.73"
                                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                                         styleClass="incidentbtn"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         text="Update" textOverrun="CLIP"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="34.0">
@@ -2204,7 +2216,7 @@
                                                                                        prefWidth="747.0"
                                                                                        style="-fx-background-color: #5e7387;"
                                                                                        styleClass="heading"
-                                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                                        text="Prior History"
                                                                                        textAlignment="CENTER"
                                                                                        textFill="WHITE"
@@ -2227,7 +2239,7 @@
                                                                                        prefWidth="747.0"
                                                                                        style="-fx-background-color: #5e7387;"
                                                                                        styleClass="heading"
-                                                                                       stylesheets="@css/menu/menuLabels.css"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                                                        text="Licensing Information"
                                                                                        textAlignment="CENTER"
                                                                                        textFill="WHITE"
@@ -2250,7 +2262,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -2272,7 +2284,7 @@
                                                                                 <TextField fx:id="pedaffiliationfield"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="60.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -2292,7 +2304,7 @@
                                                                                         opacity="0.73"
                                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                                         styleClass="incidentbtn"
-                                                                                        stylesheets="@css/menu/menuStyles.css"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
                                                                                         text="Update" textOverrun="CLIP"
                                                                                         AnchorPane.rightAnchor="0.0"
                                                                                         AnchorPane.topAnchor="34.0">
@@ -2310,7 +2322,7 @@
                                                                                            editable="false"
                                                                                            layoutX="26.0" layoutY="47.0"
                                                                                            styleClass="calloutField"
-                                                                                           stylesheets="@css/menu/menuStyles.css"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -2334,7 +2346,8 @@
                                                 <Label fx:id="noRecordFoundLabelPed" alignment="CENTER" layoutX="386.0"
                                                        layoutY="221.0"
                                                        style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
-                                                       styleClass="headingBig" stylesheets="@css/menu/menuLabels.css"
+                                                       styleClass="headingBig"
+                                                       stylesheets="@../../css/menu/menuLabels.css"
                                                        text="No Record In System." textAlignment="CENTER"
                                                        visible="false" AnchorPane.leftAnchor="0.0"
                                                        AnchorPane.rightAnchor="0.0">
@@ -2356,7 +2369,8 @@
                                                     <children>
                                                         <Label style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
                                                                styleClass="headingBig"
-                                                               stylesheets="@css/menu/menuLabels.css" text="Search Ped:"
+                                                               stylesheets="@../../css/menu/menuLabels.css"
+                                                               text="Search Ped:"
                                                                textAlignment="CENTER">
                                                             <font>
                                                                 <Font name="Segoe UI Black" size="20.0"/>
@@ -2377,7 +2391,8 @@
                                                                 prefWidth="103.0"
                                                                 style="-fx-label-padding: 0; -fx-padding: 0;"
                                                                 styleClass="incidentbtn"
-                                                                stylesheets="@css/menu/menuStyles.css" text="Search"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                text="Search"
                                                                 GridPane.columnIndex="2">
                                                             <GridPane.margin>
                                                                 <Insets/>
@@ -2419,7 +2434,8 @@
                                     </rowConstraints>
                                     <children>
                                         <Label fx:id="logbrwsrlbl" style="-fx-text-fill: grey;" styleClass="viewerLabel"
-                                               stylesheets="@css/tableCss.css" text="Log Browser" textOverrun="CLIP"
+                                               stylesheets="@../../css/tableCss.css" text="Log Browser"
+                                               textOverrun="CLIP"
                                                GridPane.columnIndex="1">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
@@ -2429,7 +2445,7 @@
                                             </GridPane.margin>
                                         </Label>
                                         <Label fx:id="reportPlusLabelFill" style="-fx-text-fill: #5e7387;"
-                                               styleClass="databaseReportLabel" stylesheets="@css/tableCss.css"
+                                               styleClass="databaseReportLabel" stylesheets="@../../css/tableCss.css"
                                                text="ReportsPlus" textOverrun="CLIP">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
@@ -2444,18 +2460,19 @@
                         </AnchorPane>
                         <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="951.0"
                                  style="-fx-border-color: transparent;" styleClass="darktabpane"
-                                 stylesheets="@css/main/SettingsTabPane.css" VBox.vgrow="ALWAYS">
+                                 stylesheets="@../../css/main/SettingsTabPane.css" VBox.vgrow="ALWAYS">
                             <tabs>
                                 <Tab fx:id="calloutTab" closable="false" text="Callouts">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2464,12 +2481,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="trafficStopTable"
                                                            onMouseClicked="#onTrafficStopRowClick" prefHeight="556.0"
                                                            prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2478,12 +2496,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2492,12 +2511,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="searchTable" onMouseClicked="#onSearchRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2506,12 +2526,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="arrestTable" onMouseClicked="#onArrestRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2520,12 +2541,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2534,12 +2556,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="citationTable" onMouseClicked="#onCitationRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2548,12 +2571,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="impoundTable" onMouseClicked="#onImpoundRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
                                                            style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2562,12 +2586,13 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
                                             <content>
                                                 <TableView fx:id="deathReportTable"
                                                            onMouseClicked="#onDeathReportRowClick" prefHeight="556.0"
                                                            prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable" stylesheets="@css/tableCss.css"/>
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
                                             </content>
                                         </ScrollPane>
                                     </content>
@@ -2589,7 +2614,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" prefHeight="86.0" prefWidth="947.0"
-                    styleClass="menuTopBar" stylesheets="@css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
+                    styleClass="menuTopBar" stylesheets="@../../css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <GridPane layoutX="12.0" layoutY="10.0" prefHeight="86.0" prefWidth="408.0"
@@ -2654,13 +2679,14 @@
                                 <Button fx:id="settingsBtn" graphicTextGap="7.0" layoutX="46.0" layoutY="10.0"
                                         mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="29.0"
                                         prefWidth="118.0" style="-fx-background-color: rgb(0,0,0,0.15);"
-                                        styleClass="settingsBtn" stylesheets="@css/menu/menuStyles.css" text="Settings"
+                                        styleClass="settingsBtn" stylesheets="@../../css/menu/menuStyles.css"
+                                        text="Settings"
                                         AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0">
                                     <graphic>
                                         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/settings.png"/>
+                                                <Image url="@../../imgs/icons/settings.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -2743,7 +2769,7 @@
             </effect>
         </AnchorPane>
         <AnchorPane fx:id="sidepane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0"
-                    prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@css/menu/menuStyles.css"
+                    prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@../../css/menu/menuStyles.css"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <GridPane layoutX="-2.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -2813,7 +2839,8 @@
                             <children>
                                 <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" mnemonicParsing="false"
                                         onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Shift Info"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
+                                        text="Shift Info"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2822,14 +2849,14 @@
                                         <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/shiftInfo.png"/>
+                                                <Image url="@../../imgs/icons/shiftInfo.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                                 <Button fx:id="notesButton" graphicTextGap="10.0" mnemonicParsing="false"
                                         onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Notes"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Notes"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2838,14 +2865,14 @@
                                         <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/writing.png"/>
+                                                <Image url="@../../imgs/icons/writing.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                                 <MenuButton fx:id="createReportBtn" alignment="CENTER_RIGHT" graphicTextGap="10.0"
                                             mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0"
-                                            styleClass="button" stylesheets="@css/menu/createReportDropdown.css"
+                                            styleClass="button" stylesheets="@../../css/menu/createReportDropdown.css"
                                             text="Create Report" textFill="#828797">
                                     <items>
                                         <MenuItem fx:id="trafficCitationReportButton" mnemonicParsing="false"
@@ -2875,14 +2902,15 @@
                                         <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/newReport.png"/>
+                                                <Image url="@../../imgs/icons/newReport.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </MenuButton>
                                 <Button fx:id="logsButton" graphicTextGap="10.0" mnemonicParsing="false"
                                         onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Browse Logs"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
+                                        text="Browse Logs"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2891,14 +2919,14 @@
                                         <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/logs.png"/>
+                                                <Image url="@../../imgs/icons/logs.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                                 <Button fx:id="mapButton" graphicTextGap="10.0" mnemonicParsing="false"
                                         onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Map"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Map"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2907,14 +2935,15 @@
                                         <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/map.png"/>
+                                                <Image url="@../../imgs/icons/map.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                                 <Button fx:id="showCourtCasesBtn" graphicTextGap="6.0" mnemonicParsing="false"
                                         onAction="#onShowCourtCasesButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Court Cases"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
+                                        text="Court Cases"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2923,7 +2952,7 @@
                                         <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/courtIcon.png"/>
+                                                <Image url="@../../imgs/icons/courtIcon.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -2933,7 +2962,7 @@
                                 </Button>
                                 <Button fx:id="showIDBtn" graphicTextGap="8.0" mnemonicParsing="false"
                                         onAction="#onShowIDButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Show ID"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Show ID"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2942,7 +2971,7 @@
                                         <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/license.png"/>
+                                                <Image url="@../../imgs/icons/license.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -2952,7 +2981,8 @@
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false"
                                         onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Callouts"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
+                                        text="Callouts"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2961,14 +2991,14 @@
                                         <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/callout.png"/>
+                                                <Image url="@../../imgs/icons/callout.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                                 <Button fx:id="showLookupBtn" graphicTextGap="6.0" mnemonicParsing="false"
                                         onAction="#onLookupBtnClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@css/menu/sidepanelBtns.css" text="Lookup"
+                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Lookup"
                                         textFill="#828797">
                                     <font>
                                         <Font size="18.0"/>
@@ -2977,7 +3007,7 @@
                                         <ImageView fitHeight="23.0" fitWidth="20.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
-                                                <Image url="@imgs/icons/search.png"/>
+                                                <Image url="@../../imgs/icons/search.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="274.0" prefWidth="514.0"
             style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.CurrentIDViewController">
+            fx:controller="com.drozal.dataterminal.Windows.Server.CurrentIDViewController">
     <center>
         <VBox>
             <children>
@@ -214,7 +214,7 @@
                                            AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="25.0"
                                            AnchorPane.topAnchor="7.0">
                                     <image>
-                                        <Image url="@imgs/CityLosSantosLogo.png"/>
+                                        <Image url="@../../imgs/CityLosSantosLogo.png"/>
                                     </image>
                                 </ImageView>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b9b9" height="2.0" layoutY="164.0"

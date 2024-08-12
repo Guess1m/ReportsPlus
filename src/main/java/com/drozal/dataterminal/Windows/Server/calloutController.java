@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.Windows.Server;
 
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
-import static com.drozal.dataterminal.actionController.*;
+import static com.drozal.dataterminal.Windows.Main.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -33,7 +33,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class calloutController {
-
+    
     static AnchorPane topBar;
     @FXML
     private BorderPane root;
@@ -60,10 +60,10 @@ public class calloutController {
     @FXML
     private ToggleButton ignoreBtn;
     private String status;
-
+    
     @FXML
     private Label statusLabel;
-
+    
     /**
      * Retrieves the most recent Callout from the XML file.
      * This method unmarshals the XML content into Callout objects and returns the last Callout in the list.
@@ -73,17 +73,17 @@ public class calloutController {
     public static Callout getCallout() {
         String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";
         File file = new File(filePath);
-
+        
         if (!file.exists()) {
             log("File does not exist: " + filePath, LogUtils.Severity.WARN);
             return null;
         }
-
+        
         if (file.length() == 0) {
             log("File is empty: " + filePath, LogUtils.Severity.ERROR);
             return null;
         }
-
+        
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -98,20 +98,20 @@ public class calloutController {
             return null;
         }
     }
-
+    
     public void initialize() {
         topBar = reportUtil.createTitleBar("Callout Manager");
         statusLabel.setVisible(false);
         respondBtn.setVisible(true);
         ignoreBtn.setVisible(true);
-
+        
         root.setTop(topBar);
-
+        
         Platform.runLater(() -> {
             Stage stage = (Stage) root.getScene().getWindow();
-
+            
             Callout callout = getCallout();
-
+            
             String message;
             String desc;
             if (callout != null) {
@@ -126,7 +126,7 @@ public class calloutController {
                 desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
                 message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
                 status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
-
+                
                 respondBtn.setOnAction(actionEvent -> {
                     status = "Responded";
                     statusLabel.setText("Responded.");
@@ -141,7 +141,7 @@ public class calloutController {
                     respondBtn.setVisible(false);
                     ignoreBtn.setVisible(false);
                 });
-
+                
                 streetField.setText(street);
                 numberField.setText(number);
                 areaField.setText(area);
@@ -151,7 +151,7 @@ public class calloutController {
                 countyField.setText(county);
                 typeField.setText(type);
                 descriptionField.setText(desc.isEmpty() ? message : desc + "\n" + message);
-
+                
             } else {
                 message = "No Data";
                 desc = "No Data";
@@ -165,36 +165,41 @@ public class calloutController {
                 countyField.setText("No Data");
                 descriptionField.setText("No Data");
                 typeField.setText("No Data");
-
+                
                 CalloutStage.close();
                 CalloutStage = null;
                 log("Closed Null Stage", LogUtils.Severity.ERROR);
             }
-
+            
             CalloutStage.setOnHidden(windowEvent -> {
                 log("Added Callout To Active", LogUtils.Severity.INFO);
-                CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
-
+                CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
+                                          priorityField.getText(), streetField.getText(), areaField.getText(),
+                                          countyField.getText(), timeField.getText(), dateField.getText(), status);
+                
                 Calloutx = CalloutStage.getX();
                 Callouty = CalloutStage.getY();
-                CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(), CalloutStage.getHeight()).stream().findFirst().orElse(null);
-                log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty, LogUtils.Severity.DEBUG);
+                CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(),
+                                                              CalloutStage.getHeight()).stream().findFirst().orElse(
+                        null);
+                log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
+                    LogUtils.Severity.DEBUG);
                 CalloutFirstShown = false;
                 CalloutStage.close();
                 CalloutStage = null;
             });
         });
-
+        
         watchCalloutChanges();
     }
-
+    
     public void watchCalloutChanges() {
         Path dir = Paths.get(getJarPath() + File.separator + "serverData");
-
+        
         Thread watchThread = new Thread(() -> {
             try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
                 dir.register(watcher, ENTRY_MODIFY);
-
+                
                 while (true) {
                     WatchKey key;
                     try {
@@ -203,20 +208,20 @@ public class calloutController {
                         Thread.currentThread().interrupt();
                         return;
                     }
-
+                    
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
-
+                        
                         if (kind == OVERFLOW) {
                             continue;
                         }
-
+                        
                         WatchEvent<Path> ev = (WatchEvent<Path>) event;
                         Path fileName = ev.context();
-
+                        
                         if (fileName.toString().equals("ServerCallout.xml")) {
                             log("Callout is being updated", LogUtils.Severity.INFO);
-
+                            
                             Platform.runLater(() -> {
                                 Callout callout = getCallout();
                                 if (callout != null) {
@@ -230,9 +235,9 @@ public class calloutController {
                                     descriptionField.setText(callout.getDescription());
                                     descriptionField.appendText("\n" + callout.getMessage());
                                     typeField.setText(callout.getType());
-
+                                    
                                 } else {
-
+                                    
                                     log("No Callouts found.", LogUtils.Severity.WARN);
                                     streetField.setText(/*No Data*/"");
                                     numberField.setText(/*No Data*/"");
@@ -247,7 +252,7 @@ public class calloutController {
                             });
                         }
                     }
-
+                    
                     boolean valid = key.reset();
                     if (!valid) {
                         break;
@@ -257,7 +262,7 @@ public class calloutController {
                 logError("I/O Error: ", e);
             }
         });
-
+        
         watchThread.setDaemon(true);
         watchThread.start();
     }

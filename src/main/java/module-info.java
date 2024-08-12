@@ -3,13 +3,13 @@ module com.drozal.dataterminal {
     requires javafx.fxml;
     requires transitive javafx.graphics;
     requires transitive javafx.base;
-
+    
     requires jakarta.activation;
     requires jakarta.xml.bind;
     requires org.controlsfx.controls;
     requires java.desktop;
     requires com.fasterxml.jackson.databind;
-
+    
     opens com.drozal.dataterminal.logs to javafx.base;
     opens com.drozal.dataterminal to javafx.fxml;
     opens com.drozal.dataterminal.logs.Callout to jakarta.xml.bind;
@@ -23,7 +23,7 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.util.CourtData to jakarta.xml.bind;
     opens com.drozal.dataterminal.logs.Death to jakarta.xml.bind, javafx.base;
     opens com.drozal.dataterminal.util.History to jakarta.xml.bind, javafx.base;
-
+    
     exports com.drozal.dataterminal;
     exports com.drozal.dataterminal.logs.Callout;
     exports com.drozal.dataterminal.logs.TrafficStop;
@@ -47,5 +47,13 @@ module com.drozal.dataterminal {
     opens com.drozal.dataterminal.util.Misc to jakarta.xml.bind, javafx.fxml;
     exports com.drozal.dataterminal.Windows.Settings;
     opens com.drozal.dataterminal.Windows.Settings to jakarta.xml.bind, javafx.fxml;
-
+    exports com.drozal.dataterminal.Windows.Misc;
+    opens com.drozal.dataterminal.Windows.Misc to javafx.fxml;
+    exports com.drozal.dataterminal.Windows.Server;
+    opens com.drozal.dataterminal.Windows.Server to javafx.fxml;
+    exports com.drozal.dataterminal.Windows.Main;
+    opens com.drozal.dataterminal.Windows.Main to javafx.fxml;
+    exports com.drozal.dataterminal.Windows.Other;
+    opens com.drozal.dataterminal.Windows.Other to javafx.fxml;
+	
 }

@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.Windows.Misc;
 
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.animation.KeyFrame;
@@ -17,7 +17,7 @@ import static com.drozal.dataterminal.util.Misc.updateUtil.*;
 import static com.drozal.dataterminal.util.Report.reportUtil.createSimpleTitleBar;
 
 public class updatesController {
-
+    
     private static final Duration ANIMATION_DURATION = Duration.seconds(1.2);
     AnchorPane topBar;
     @javafx.fxml.FXML
@@ -31,28 +31,28 @@ public class updatesController {
     List<String> updates = new ArrayList<>();
     @javafx.fxml.FXML
     private VBox changelogBox;
-
+    
     public void initialize() {
         topBar = createSimpleTitleBar("Version Information", true);
         root.setTop(topBar);
-
+        
         verChangelog.setText(version);
-
+        
         checkUpdates();
-
+        
         updates.addAll(List.of(stringUtil.updatesList));
-
+        
         updates.forEach(string -> {
             Label label = new Label("* " + string);
             label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Segoe UI\";");
             changelogBox.getChildren().add(label);
         });
-
+        
     }
-
+    
     private void checkUpdates() {
         checkForUpdates();
-
+        
         Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, event -> {
             currentVer.setText("Updating.");
             recentVer.setStyle("-fx-text-fill: #FDFFE2;");
@@ -83,10 +83,10 @@ public class updatesController {
         }));
         timeline.play();
     }
-
+    
     @javafx.fxml.FXML
     public void updateBtnAction() {
         checkUpdates();
     }
-
+	
 }

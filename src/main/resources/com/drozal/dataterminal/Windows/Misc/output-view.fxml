@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="339.0" prefWidth="709.0"
             style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.OutputViewController">
+            fx:controller="com.drozal.dataterminal.Windows.Misc.OutputViewController">
     <center>
         <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" styleClass="list-view-custom"
-                  stylesheets="@css/listView.css"/>
+                  stylesheets="@../../css/listView.css"/>
     </center>
 </BorderPane>

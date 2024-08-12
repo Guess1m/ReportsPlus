@@ -6,13 +6,13 @@
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" prefHeight="565.0" prefWidth="466.0" style="-fx-border-color: #5A72A0;"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.drozal.dataterminal.updatesController">
+            fx:controller="com.drozal.dataterminal.Windows.Misc.updatesController">
     <center>
         <AnchorPane prefHeight="514.0" prefWidth="389.0" style="-fx-background-color: #1A2130;">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="25.0" layoutY="238.0"
                             style="-fx-background-color: transparent; -fx-border-color: transparent;"
-                            styleClass="versionPane" stylesheets="@css/main/Logscrollpane.css"
+                            styleClass="versionPane" stylesheets="@../../css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
                             AnchorPane.topAnchor="238.0">
                     <content>

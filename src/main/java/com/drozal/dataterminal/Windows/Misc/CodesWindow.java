@@ -1,4 +1,4 @@
-package com.drozal.dataterminal;
+package com.drozal.dataterminal.Windows.Misc;
 
 import com.drozal.dataterminal.util.Report.reportUtil;
 import javafx.scene.layout.AnchorPane;
@@ -6,7 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Region;
 
-import static com.drozal.dataterminal.NotesViewController.codesStage;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.codesStage;
 
 public class CodesWindow {
     AnchorPane topBar;
@@ -15,13 +15,13 @@ public class CodesWindow {
     private BorderPane root;
     @javafx.fxml.FXML
     private ColumnConstraints usageColumn;
-
+    
     public void initialize() {
         topBar = reportUtil.createSimpleTitleBar("Notepad Codes", true);
         root.setTop(topBar);
         usageColumn.setMaxWidth(0);
     }
-
+    
     @javafx.fxml.FXML
     public void helpbtnpress() {
         if (!isToggled) {

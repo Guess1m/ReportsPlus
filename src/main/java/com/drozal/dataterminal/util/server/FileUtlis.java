@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.currentIDFileURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class FileUtlis {
@@ -20,8 +21,7 @@ public class FileUtlis {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
-			fos = new FileOutputStream(
-					getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml");
+			fos = new FileOutputStream(currentIDFileURL);
 			bos = new BufferedOutputStream(fos);
 			
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -29,8 +29,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml" + " downloaded (" + fileSize + " bytes read)",
-			    LogUtils.Severity.INFO);
+			log("File " + currentIDFileURL + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {

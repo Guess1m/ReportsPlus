@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
+import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
@@ -404,7 +405,7 @@ public class CalloutManager {
         });
         BorderPane statusPane = new BorderPane(statusDropdown);
         statusDropdown.getStylesheets().add(Objects.requireNonNull(
-                actionController.class.getResource("css/form/formComboBox.css")).toExternalForm());
+                Launcher.class.getResource("css/form/formComboBox.css")).toExternalForm());
         statusDropdown.getStyleClass().add("combo-boxCal");
         statusPane.setStyle("-fx-background-color: transparent;");
         gridPane.add(statusPane, 2, 1, 2, 2);

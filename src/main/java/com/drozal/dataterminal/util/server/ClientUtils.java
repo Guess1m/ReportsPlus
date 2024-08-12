@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
@@ -130,7 +131,7 @@ public class ClientUtils {
                                     IDStage = new Stage();
                                     IDStage.initStyle(StageStyle.UNDECORATED);
                                     FXMLLoader loader = new FXMLLoader(
-                                            actionController.class.getResource("Windows/Server/currentID-view.fxml"));
+                                            Launcher.class.getResource("Windows/Server/currentID-view.fxml"));
                                     Parent root = null;
                                     try {
                                         root = loader.load();
@@ -234,7 +235,7 @@ public class ClientUtils {
                                     }
                                     CalloutStage = new Stage();
                                     FXMLLoader loader = new FXMLLoader(
-                                            actionController.class.getResource("Windows/Server/callout-view.fxml"));
+                                            Launcher.class.getResource("Windows/Server/callout-view.fxml"));
                                     Parent root = null;
                                     try {
                                         root = loader.load();

@@ -586,9 +586,10 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		//TODO undo
+		showLookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -4046,10 +4047,33 @@ public class actionController {
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
+			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
+				vehstolenfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehstolenfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
+			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
+					"suspended")) {
+				vehregfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehregfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehinsfield.setText(vehicle.getInsurance());
+			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
+					"suspended")) {
+				vehinsfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehinsfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehpolicefield.setText(vehicle.getPoliceStatus());
+			if (vehicle.getPoliceStatus().equalsIgnoreCase("true")) {
+				vehpolicefield.setStyle("-fx-text-fill: green !important;");
+			} else {
+				vehpolicefield.setStyle("-fx-text-fill: black !important;");
+			}
+			
 			if (!vehicle.getColor().equals("Not available")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle(
@@ -4082,10 +4106,32 @@ public class actionController {
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
+			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
+				vehstolenfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehstolenfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
+			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
+					"suspended")) {
+				vehregfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehregfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehinsfield.setText(vehicle.getInsurance());
+			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
+					"suspended")) {
+				vehinsfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehinsfield.setStyle("-fx-text-fill: black !important;");
+			}
 			vehpolicefield.setText(vehicle.getPoliceStatus());
+			if (vehicle.getPoliceStatus().equalsIgnoreCase("true")) {
+				vehpolicefield.setStyle("-fx-text-fill: green !important;");
+			} else {
+				vehpolicefield.setStyle("-fx-text-fill: black !important;");
+			}
 			if (!vehicle.getColor().equals("Not available")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle(

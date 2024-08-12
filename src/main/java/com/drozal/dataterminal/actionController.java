@@ -936,9 +936,14 @@ public class actionController {
         try {
             CourtCases courtCases = loadCourtCases();
             ObservableList<String> caseNames = FXCollections.observableArrayList();
+
             if (courtCases.getCaseList() != null) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-                List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> LocalDateTime.parse(case1.getOffenceDate() + " " + case1.getCaseTime(), formatter)).reversed()).collect(Collectors.toList());
+
+                List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
+                    String dateTimeString = case1.getOffenceDate() + " " + case1.getCaseTime().replaceAll("\\.(?=M)", "");
+                    return LocalDateTime.parse(dateTimeString, formatter);
+                }).reversed()).collect(Collectors.toList());
 
                 for (Case case1 : sortedCases) {
                     if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
@@ -989,15 +994,10 @@ public class actionController {
                 Map<String, Case> caseMap = new HashMap<>();
                 for (Case case1 : courtCases.getCaseList()) {
                     String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime();
-                    if (caseMap.containsKey(dateTime)) {
-                        caseMap.put(dateTime, case1);
-                    } else {
-                        caseMap.put(dateTime, case1);
-                    }
+                    caseMap.put(dateTime, case1);
                 }
                 courtCases.setCaseList(new ArrayList<>(caseMap.values()));
                 saveCourtCases(courtCases);
-
             }
         } catch (JAXBException | IOException e) {
             logError("Error loading Case labels: ", e);

@@ -34,6 +34,7 @@ public class stringUtil {
 	public static final String vehicleHistoryURL = getJarPath() + File.separator + "data" + File.separator + "vehHistory.xml";
 	public static final String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
 	public static final String currentIDFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
+	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

@@ -103,7 +103,7 @@ public class ID {
 		this.status = status;
 	}
 
-	public static IDs loadIDs() throws JAXBException {
+	public static IDs loadServerIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
 		if (!file.exists()) {
 			return new IDs();
@@ -118,17 +118,17 @@ public class ID {
 			throw e;
 		}
 	}
-	
-	private static void saveIDs(IDs IDs) throws JAXBException {
+
+	private static void saveServerIDs(IDs IDs) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(IDs.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		File file = new File(currentIDFileURL);
 		marshaller.marshal(IDs, file);
 	}
-	
-	public static void addID(ID ID) throws JAXBException {
-		IDs IDs = loadIDs();
+
+	public static void addServerID(ID ID) throws JAXBException {
+		IDs IDs = loadServerIDs();
 		
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
@@ -140,22 +140,22 @@ public class ID {
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
-			log("ID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
+			log("ServerID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			IDs.getIdList().add(ID);
-			log("ID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
+			log("ServerID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
 		}
-		
-		saveIDs(IDs);
+
+		saveServerIDs(IDs);
 	}
-	
-	public static void deleteID(String fullName) throws JAXBException {
-		IDs IDs = loadIDs();
+
+	public static void deleteServerID(String fullName) throws JAXBException {
+		IDs IDs = loadServerIDs();
 		
 		if (IDs.getIdList() != null) {
 			IDs.getIdList().removeIf(e -> e.getName().equals(fullName));
-			saveIDs(IDs);
-			log("ID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
+			saveServerIDs(IDs);
+			log("ServerID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
 

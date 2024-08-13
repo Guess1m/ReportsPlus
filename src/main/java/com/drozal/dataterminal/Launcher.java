@@ -36,6 +36,8 @@ public class Launcher {
 		}
 		// TODO undo
 		//deleteFiles();
+
+		// TODO add delete IDHistory file on startup ^
 		
 		loadFonts();
 		

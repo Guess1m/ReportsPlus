@@ -586,10 +586,9 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		//TODO undo
-		showLookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
+		showLookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);

@@ -34,10 +34,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while clearing the log file: ", e);
 		}
-		// TODO undo
-		//deleteFiles();
-
-		// TODO add delete IDHistory file on startup ^
+		deleteFiles();
 		
 		loadFonts();
 		
@@ -89,12 +86,19 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server callout file deleted successfully.", Severity.INFO);
+				log("Server files deleted successfully.", Severity.INFO);
 			} else {
-				log("Server callout file does not exist.", Severity.WARN);
+				log("Server files do not exist.", Severity.WARN);
+			}
+			Path path2 = Path.of(IDHistoryURL);
+			if (Files.exists(path2)) {
+				Files.delete(path2);
+				log("IDHistory file deleted successfully.", Severity.INFO);
+			} else {
+				log("IDHistory file does not exist.", Severity.WARN);
 			}
 		} catch (IOException e) {
-			logError("An error occurred while deleting the server callout file: ", e);
+			logError("Error while deleting IDHistory file: ", e);
 		}
 		
 		try {

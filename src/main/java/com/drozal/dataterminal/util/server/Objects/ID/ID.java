@@ -33,7 +33,7 @@ public class ID {
 	
 	@XmlElement(name = "Index")
 	private int index;
-
+	
 	@XmlElement(name = "Status")
 	private String status;
 	
@@ -94,15 +94,15 @@ public class ID {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	
 	public String getStatus() {
 		return status;
 	}
-
+	
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	
 	public static IDs loadServerIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
 		if (!file.exists()) {
@@ -118,7 +118,7 @@ public class ID {
 			throw e;
 		}
 	}
-
+	
 	private static void saveServerIDs(IDs IDs) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(IDs.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -126,7 +126,7 @@ public class ID {
 		File file = new File(currentIDFileURL);
 		marshaller.marshal(IDs, file);
 	}
-
+	
 	public static void addServerID(ID ID) throws JAXBException {
 		IDs IDs = loadServerIDs();
 		
@@ -145,10 +145,10 @@ public class ID {
 			IDs.getIdList().add(ID);
 			log("ServerID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
 		}
-
+		
 		saveServerIDs(IDs);
 	}
-
+	
 	public static void deleteServerID(String fullName) throws JAXBException {
 		IDs IDs = loadServerIDs();
 		
@@ -158,6 +158,5 @@ public class ID {
 			log("ServerID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
-
-
+	
 }

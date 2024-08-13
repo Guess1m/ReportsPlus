@@ -33,6 +33,9 @@ public class ID {
 	
 	@XmlElement(name = "Index")
 	private int index;
+
+	@XmlElement(name = "Status")
+	private String status;
 	
 	public String getName() {
 		return name;
@@ -91,7 +94,15 @@ public class ID {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public static IDs loadIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
 		if (!file.exists()) {
@@ -129,10 +140,10 @@ public class ID {
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
-			log("ID with number " + ID.getName() + " updated.", LogUtils.Severity.INFO);
+			log("ID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			IDs.getIdList().add(ID);
-			log("ID with number " + ID.getName() + " added.", LogUtils.Severity.INFO);
+			log("ID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
 		}
 		
 		saveIDs(IDs);
@@ -144,7 +155,9 @@ public class ID {
 		if (IDs.getIdList() != null) {
 			IDs.getIdList().removeIf(e -> e.getName().equals(fullName));
 			saveIDs(IDs);
-			log("ID with number " + fullName + " deleted.", LogUtils.Severity.INFO);
+			log("ID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
 		}
 	}
+
+
 }

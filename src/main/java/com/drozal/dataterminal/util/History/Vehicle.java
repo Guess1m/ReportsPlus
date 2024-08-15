@@ -194,7 +194,8 @@ public class Vehicle {
             }
 
             if (Vehicles.getVehicleList() != null) {
-                return Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equals(Vehiclenumber)).findFirst();
+                return Vehicles.getVehicleList().stream().filter(
+                        e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
             }
 
             return Optional.empty();

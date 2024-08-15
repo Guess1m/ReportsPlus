@@ -88,8 +88,7 @@ public class TrafficCitationUtils {
 				                                                        "Location / Timestamp Information", true,
 				                                                        new nestedReportUtils.RowConfig(
 						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "street", 4,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                        "street", 4, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                        new nestedReportUtils.FieldConfig(
 								                                                        "area", 4,
 								                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -176,7 +175,7 @@ public class TrafficCitationUtils {
 		TextField offenderDescription = (TextField) citationReportMap.get("offender description");
 		
 		ComboBox area = (ComboBox) citationReportMap.get("area");
-		TextField street = (TextField) citationReportMap.get("street");
+		ComboBox street = (ComboBox) citationReportMap.get("street");
 		TextField county = (TextField) citationReportMap.get("county");
 		TextField num = (TextField) citationReportMap.get("citation number");
 		TextField date = (TextField) citationReportMap.get("date");
@@ -218,7 +217,7 @@ public class TrafficCitationUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(street.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
 				updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
 				updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
@@ -345,7 +344,7 @@ public class TrafficCitationUtils {
 				
 				trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
 				trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
-				trafficCitationReport.setCitationStreet(toTitleCase(street.getText()));
+				trafficCitationReport.setCitationStreet(toTitleCase(street.getEditor().getText()));
 				trafficCitationReport.setOffenderName(toTitleCase(offenderName.getText()));
 				trafficCitationReport.setOffenderGender(toTitleCase(offenderGender.getText()));
 				trafficCitationReport.setOffenderAge(toTitleCase(offenderAge.getText()));
@@ -383,14 +382,14 @@ public class TrafficCitationUtils {
 					String casenum = generateCaseNumber();
 					case1.setCaseNumber(casenum);
 					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText());
+					case1.setCaseTime(time.getText().replace(".", ""));
 					case1.setName(toTitleCase(offenderName.getText()));
 					case1.setOffenceDate(date.getText());
 					case1.setAge(toTitleCase(offenderAge.getText()));
 					case1.setAddress(toTitleCase(offenderAddress.getText()));
 					case1.setGender(toTitleCase(offenderGender.getText()));
 					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getText()));
+					case1.setStreet(toTitleCase(street.getEditor().getText()));
 					case1.setArea(area.getEditor().getText());
 					case1.setNotes(notes.getText());
 					case1.setOffences(stringBuilder.toString());

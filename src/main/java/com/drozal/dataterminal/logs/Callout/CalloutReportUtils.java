@@ -74,8 +74,7 @@ public class CalloutReportUtils {
 				                                                       "Location Information", true,
 				                                                       new nestedReportUtils.RowConfig(
 						                                                       new nestedReportUtils.FieldConfig(
-								                                                       "street", 5,
-								                                                       nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                       "street", 5, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                       new nestedReportUtils.FieldConfig("area",
 						                                                                                         4,
 						                                                                                         nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -125,7 +124,7 @@ public class CalloutReportUtils {
 		ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
 		TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
 		TextField calloutcounty = (TextField) calloutReportMap.get("county");
-		TextField calloutstreet = (TextField) calloutReportMap.get("street");
+		ComboBox calloutstreet = (ComboBox) calloutReportMap.get("street");
 		TextField calloutdate = (TextField) calloutReportMap.get("date");
 		TextField callouttime = (TextField) calloutReportMap.get("time");
 		TextField callouttype = (TextField) calloutReportMap.get("type");
@@ -150,7 +149,7 @@ public class CalloutReportUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(calloutarea.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(calloutcounty, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(calloutstreet, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(calloutstreet.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(calloutnum, notesViewController.getNotepadTextArea(), "-number");
 				updateTextFromNotepad(calloutnotes, notesViewController.getNotepadTextArea(), "-notes");
 			} else {
@@ -191,7 +190,7 @@ public class CalloutReportUtils {
 				callout1.setResponseGrade(toTitleCase(calloutcode.getText()));
 				callout1.setCalloutNumber(toTitleCase(calloutnum.getText()));
 				callout1.setNotesTextArea(calloutnotes.getText());
-				callout1.setAddress(toTitleCase(calloutstreet.getText()));
+				callout1.setAddress(toTitleCase(calloutstreet.getEditor().getText()));
 				callout1.setCounty(toTitleCase(calloutcounty.getText()));
 				callout1.setArea(toTitleCase(calloutarea.getEditor().getText()));
 				

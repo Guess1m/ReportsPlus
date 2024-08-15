@@ -85,8 +85,7 @@ public class TrafficStopReportUtils {
 				                                                           "Location / Timestamp Information", true,
 				                                                           new nestedReportUtils.RowConfig(
 						                                                           new nestedReportUtils.FieldConfig(
-								                                                           "street", 4,
-								                                                           nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                           "street", 4, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                           new nestedReportUtils.FieldConfig(
 								                                                           "area", 4,
 								                                                           nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -175,7 +174,7 @@ public class TrafficStopReportUtils {
 		TextField modelts = (TextField) trafficStopReportMap.get("model");
 		
 		ComboBox areats = (ComboBox) trafficStopReportMap.get("area");
-		TextField streetts = (TextField) trafficStopReportMap.get("street");
+		ComboBox streetts = (ComboBox) trafficStopReportMap.get("street");
 		TextField countyts = (TextField) trafficStopReportMap.get("county");
 		TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
 		TextField datets = (TextField) trafficStopReportMap.get("date");
@@ -211,7 +210,7 @@ public class TrafficStopReportUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(areats.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(countyts, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(streetts, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(streetts.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderNamets, notesViewController.getNotepadTextArea(), "-name");
 				updateTextFromNotepad(offenderAgets, notesViewController.getNotepadTextArea(), "-age");
 				updateTextFromNotepad(offenderGenderts, notesViewController.getNotepadTextArea(), "-gender");
@@ -244,7 +243,7 @@ public class TrafficStopReportUtils {
 			TextField offenderDescriptionarr = (TextField) arrestReportMap.get("offender description");
 			
 			ComboBox areaarr = (ComboBox) arrestReportMap.get("area");
-			TextField streetarr = (TextField) arrestReportMap.get("street");
+			ComboBox streetarr = (ComboBox) arrestReportMap.get("street");
 			TextField countyarr = (TextField) arrestReportMap.get("county");
 			TextField arrestnumarr = (TextField) arrestReportMap.get("arrest number");
 			TextField datearr = (TextField) arrestReportMap.get("date");
@@ -266,7 +265,7 @@ public class TrafficStopReportUtils {
 			offenderDescriptionarr.setText(offenderDescriptionts.getText());
 			areaarr.setValue(areats.getEditor().getText());
 			countyarr.setText(countyts.getText());
-			streetarr.setText(streetts.getText());
+			streetarr.getEditor().setText(streetts.getEditor().getText());
 			arrestnumarr.setText(stopnumts.getText());
 			notesarr.setText(notests.getText());
 		});
@@ -289,7 +288,7 @@ public class TrafficStopReportUtils {
 			TextField offenderDescriptioncit = (TextField) citationReportMap.get("offender description");
 			
 			ComboBox areacit = (ComboBox) citationReportMap.get("area");
-			TextField streetcit = (TextField) citationReportMap.get("street");
+			ComboBox streetcit = (ComboBox) citationReportMap.get("street");
 			TextField countycit = (TextField) citationReportMap.get("county");
 			TextField numcit = (TextField) citationReportMap.get("citation number");
 			TextField datecit = (TextField) citationReportMap.get("date");
@@ -319,7 +318,7 @@ public class TrafficStopReportUtils {
 			offenderDescriptioncit.setText(offenderDescriptionts.getText());
 			areacit.setValue(areats.getEditor().getText());
 			countycit.setText(countyts.getText());
-			streetcit.setText(streetts.getText());
+			streetcit.getEditor().setText(streetts.getEditor().getText());
 			modelcit.setText(modelts.getText());
 			plateNumbercit.setText(plateNumberts.getText());
 			otherInfocit.setText(otherInfots.getText());
@@ -367,7 +366,7 @@ public class TrafficStopReportUtils {
 				trafficStopReport1.setNumber(toTitleCase(officernumarrestts.getText()));
 				trafficStopReport1.setDivision(toTitleCase(officerdivts.getText()));
 				trafficStopReport1.setAgency(toTitleCase(officeragents.getText()));
-				trafficStopReport1.setStreet(toTitleCase(streetts.getText()));
+				trafficStopReport1.setStreet(toTitleCase(streetts.getEditor().getText()));
 				trafficStopReport1.setCounty(toTitleCase(countyts.getText()));
 				trafficStopReport1.setArea(toTitleCase(areats.getEditor().getText()));
 				trafficStopReport1.setColor(toTitleCase(colorts.getValue().toString()));

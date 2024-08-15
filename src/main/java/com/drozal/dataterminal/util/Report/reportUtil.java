@@ -694,6 +694,45 @@ public class reportUtil {
 					gridPane.add(comboBoxArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), comboBoxArea);
 					break;
+				case COMBO_BOX_STREET:
+					ComboBox<String> comboBoxStreet = new ComboBox<>();
+					new AutoCompleteComboBoxListener<>(comboBoxStreet);
+					comboBoxStreet.getStyleClass().add("comboboxnew");
+					comboBoxStreet.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+					comboBoxStreet.getEditor().setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+					comboBoxStreet.focusedProperty().addListener((observable, oldValue, newValue) -> {
+						if (newValue) {
+							comboBoxStreet.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						} else {
+							comboBoxStreet.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						}
+					});
+					comboBoxStreet.focusedProperty().addListener((observable, oldValue, newValue) -> {
+						if (newValue) {
+							comboBoxStreet.getEditor().setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						} else {
+							comboBoxStreet.getEditor().setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						}
+					});
+					comboBoxStreet.getItems().addAll(dropdownInfo.streetList);
+					comboBoxStreet.setPromptText(fieldConfig.getFieldName().toUpperCase());
+					comboBoxStreet.setButtonCell(new ListCell() {
+						@Override
+						protected void updateItem(Object item, boolean empty) {
+							super.updateItem(item, empty);
+							if (empty || item == null) {
+								setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+							} else {
+								setStyle("-fx-text-fill: " + placeholder + ";");
+								comboBoxStreet.getEditor().setStyle("-fx-text-fill: " + placeholder + ";");
+								setText(item.toString());
+							}
+						}
+					});
+					comboBoxStreet.setMaxWidth(Double.MAX_VALUE);
+					gridPane.add(comboBoxStreet, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					fieldsMap.put(fieldConfig.getFieldName(), comboBoxStreet);
+					break;
 				case COMBO_BOX_COLOR:
 					ComboBox<String> comboBoxColor = new ComboBox<>();
 					comboBoxColor.getStyleClass().add("comboboxnew");

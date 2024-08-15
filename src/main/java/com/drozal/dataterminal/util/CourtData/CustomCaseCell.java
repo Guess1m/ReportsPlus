@@ -79,7 +79,7 @@ public class CustomCaseCell extends GridPane {
 			caseNumLabel.setText(case1.getCaseNumber());
 			nameLabel.setText(case1.getName());
 			offenceDateLabel.setText(case1.getOffenceDate());
-			offenceTimeLabel.setText(case1.getCaseTime());
+			offenceTimeLabel.setText(case1.getCaseTime().replace(".", ""));
 		} else {
 			caseNumLabel.setText("");
 			nameLabel.setText("");

@@ -79,8 +79,7 @@ public class DeathReportUtils {
 				                                                     "Location / Timestamp Information", true,
 				                                                     new nestedReportUtils.RowConfig(
 						                                                     new nestedReportUtils.FieldConfig("street",
-						                                                                                       4,
-						                                                                                       nestedReportUtils.FieldType.TEXT_FIELD),
+						                                                                                       4, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                     new nestedReportUtils.FieldConfig("area",
 						                                                                                       4,
 						                                                                                       nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -169,7 +168,7 @@ public class DeathReportUtils {
 		
 		TextField date = (TextField) deathReportMap.get("date");
 		TextField time = (TextField) deathReportMap.get("time");
-		TextField street = (TextField) deathReportMap.get("street");
+		ComboBox street = (ComboBox) deathReportMap.get("street");
 		ComboBox area = (ComboBox) deathReportMap.get("area");
 		TextField county = (TextField) deathReportMap.get("county");
 		TextField deathNum = (TextField) deathReportMap.get("death num");
@@ -221,7 +220,7 @@ public class DeathReportUtils {
 				updateTextFromNotepad(deathNum, notesViewController.getNotepadTextArea(), "-number");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
 				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(street.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(gender, notesViewController.getNotepadTextArea(), "-gender");
 			} else {
 				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
@@ -263,7 +262,7 @@ public class DeathReportUtils {
 				deathReport1.setDecedent(toTitleCase(decedent.getText()));
 				deathReport1.setDivision(toTitleCase(div.getText()));
 				deathReport1.setWitnesses(toTitleCase(witnesses.getText()));
-				deathReport1.setStreet(toTitleCase(street.getText()));
+				deathReport1.setStreet(toTitleCase(street.getEditor().getText()));
 				deathReport1.setName(toTitleCase(name.getText()));
 				deathReport1.setNotesTextArea(notes.getText());
 				deathReport1.setNumber(toTitleCase(num.getText()));

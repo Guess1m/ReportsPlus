@@ -84,8 +84,7 @@ public class IncidentReportUtils {
 								                                                        nestedReportUtils.FieldType.TEXT_FIELD)),
 				                                                        new nestedReportUtils.RowConfig(
 						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "street", 5,
-								                                                        nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                        "street", 5, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                        new nestedReportUtils.FieldConfig(
 								                                                        "area", 4,
 								                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -137,7 +136,7 @@ public class IncidentReportUtils {
 		TextField incidentnum = (TextField) incidentReportMap.get("incident num");
 		TextField date = (TextField) incidentReportMap.get("date");
 		TextField time = (TextField) incidentReportMap.get("time");
-		TextField street = (TextField) incidentReportMap.get("street");
+		ComboBox street = (ComboBox) incidentReportMap.get("street");
 		ComboBox area = (ComboBox) incidentReportMap.get("area");
 		TextField county = (TextField) incidentReportMap.get("county");
 		
@@ -170,7 +169,7 @@ public class IncidentReportUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(street.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(vicwit, notesViewController.getNotepadTextArea(), "-name");
 				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
 				updateTextFromNotepad(incidentnum, notesViewController.getNotepadTextArea(), "-number");
@@ -208,7 +207,7 @@ public class IncidentReportUtils {
 				incidentReport1.setIncidentDate(date.getText());
 				incidentReport1.setIncidentNumber(toTitleCase(incidentnum.getText()));
 				incidentReport1.setIncidentStatement(toTitleCase(statement.getText()));
-				incidentReport1.setIncidentStreet(toTitleCase(street.getText()));
+				incidentReport1.setIncidentStreet(toTitleCase(street.getEditor().getText()));
 				incidentReport1.setIncidentTime(time.getText());
 				incidentReport1.setIncidentVictims(toTitleCase(vicwit.getText()));
 				incidentReport1.setIncidentWitnesses(toTitleCase(suspects.getText()));

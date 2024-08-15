@@ -101,8 +101,7 @@ public class ArrestReportUtils {
 				                                                      "Location / Timestamp Information", true,
 				                                                      new nestedReportUtils.RowConfig(
 						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "street", 4,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                      "street", 4, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                      new nestedReportUtils.FieldConfig("area",
 						                                                                                        4,
 						                                                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -184,7 +183,7 @@ public class ArrestReportUtils {
 		TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
 		
 		ComboBox area = (ComboBox) arrestReportMap.get("area");
-		TextField street = (TextField) arrestReportMap.get("street");
+		ComboBox street = (ComboBox) arrestReportMap.get("street");
 		TextField county = (TextField) arrestReportMap.get("county");
 		TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
 		TextField date = (TextField) arrestReportMap.get("date");
@@ -228,7 +227,7 @@ public class ArrestReportUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(street.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(offenderName, notesViewController.getNotepadTextArea(), "-name");
 				updateTextFromNotepad(offenderAge, notesViewController.getNotepadTextArea(), "-age");
 				updateTextFromNotepad(offenderGender, notesViewController.getNotepadTextArea(), "-gender");
@@ -293,7 +292,7 @@ public class ArrestReportUtils {
 			TextField incidentnum = (TextField) incidentReportMap.get("incident num");
 			TextField dateinc = (TextField) incidentReportMap.get("date");
 			TextField timeinc = (TextField) incidentReportMap.get("time");
-			TextField streetinc = (TextField) incidentReportMap.get("street");
+			ComboBox streetinc = (ComboBox) incidentReportMap.get("street");
 			ComboBox areainc = (ComboBox) incidentReportMap.get("area");
 			TextField countyinc = (TextField) incidentReportMap.get("county");
 			
@@ -310,7 +309,7 @@ public class ArrestReportUtils {
 			incidentnum.setText(arrestnum.getText());
 			countyinc.setText(county.getText());
 			areainc.setValue(area.getEditor().getText());
-			streetinc.setText(street.getText());
+			streetinc.getEditor().setText(street.getEditor().getText());
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
 		});
@@ -329,7 +328,7 @@ public class ArrestReportUtils {
 			TextField searchnum = (TextField) ArrestReportMap.get("search num");
 			TextField datesrch = (TextField) ArrestReportMap.get("date");
 			TextField timesrch = (TextField) ArrestReportMap.get("time");
-			TextField streetsrch = (TextField) ArrestReportMap.get("street");
+			ComboBox streetsrch = (ComboBox) ArrestReportMap.get("street");
 			ComboBox areasrch = (ComboBox) ArrestReportMap.get("area");
 			TextField countysrch = (TextField) ArrestReportMap.get("county");
 			
@@ -346,7 +345,7 @@ public class ArrestReportUtils {
 			searchedindividualsrch.setText(offenderName.getText());
 			countysrch.setText(county.getText());
 			areasrch.setValue(area.getEditor().getText());
-			streetsrch.setText(street.getText());
+			streetsrch.getEditor().setText(street.getEditor().getText());
 		});
 		
 		Button submitBtn = (Button) arrestReport.get("submitBtn");
@@ -410,7 +409,7 @@ public class ArrestReportUtils {
 				
 				arrestReport1.setArrestCounty(toTitleCase(county.getText()));
 				arrestReport1.setArrestArea(toTitleCase(area.getEditor().getText()));
-				arrestReport1.setArrestStreet(toTitleCase(street.getText()));
+				arrestReport1.setArrestStreet(toTitleCase(street.getEditor().getText()));
 				arrestReport1.setArresteeName(toTitleCase(offenderName.getText()));
 				arrestReport1.setArresteeAge(toTitleCase(offenderAge.getText()));
 				arrestReport1.setArresteeGender(toTitleCase(offenderGender.getText()));
@@ -447,14 +446,14 @@ public class ArrestReportUtils {
 					String casenum = generateCaseNumber();
 					case1.setCaseNumber(casenum);
 					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText());
+					case1.setCaseTime(time.getText().replace(".", ""));
 					case1.setName(toTitleCase(offenderName.getText()));
 					case1.setOffenceDate(date.getText());
 					case1.setAge(toTitleCase(offenderAge.getText()));
 					case1.setAddress(toTitleCase(offenderAddress.getText()));
 					case1.setGender(toTitleCase(offenderGender.getText()));
 					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getText()));
+					case1.setStreet(toTitleCase(street.getEditor().getText()));
 					case1.setArea(area.getEditor().getText());
 					case1.setNotes(notes.getText());
 					case1.setOffences(stringBuilder.toString());

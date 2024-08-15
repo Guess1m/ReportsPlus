@@ -946,13 +946,13 @@ public class actionController {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
 
 				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
-					String dateTimeString = case1.getOffenceDate() + " " + case1.getCaseTime().replaceAll("\\.(?=M)", "");
+					String dateTimeString = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
 					return LocalDateTime.parse(dateTimeString, formatter);
 				}).reversed()).collect(Collectors.toList());
 
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
-						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber());
+						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber());
 					}
 				}
 
@@ -971,7 +971,7 @@ public class actionController {
 									setGraphic(null);
 								} else {
 									for (Case case1 : sortedCases) {
-										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber())) {
+										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 											customCaseCell.updateCase(case1);
 											break;
 										}
@@ -988,7 +988,7 @@ public class actionController {
 						blankCourtInfoPane.setVisible(false);
 						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
-							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime() + " " + case1.getName() + " " + case1.getCaseNumber())) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 								updateFields(case1);
 								break;
 							}
@@ -998,7 +998,7 @@ public class actionController {
 
 				Map<String, Case> caseMap = new HashMap<>();
 				for (Case case1 : courtCases.getCaseList()) {
-					String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime();
+					String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
 					caseMap.put(dateTime, case1);
 				}
 				courtCases.setCaseList(new ArrayList<>(caseMap.values()));
@@ -2713,7 +2713,7 @@ public class actionController {
 				TextField num = (TextField) deathReport1.get("number");
 				TextField date = (TextField) deathReport1.get("date");
 				TextField time = (TextField) deathReport1.get("time");
-				TextField street = (TextField) deathReport1.get("street");
+				ComboBox street = (ComboBox) deathReport1.get("street");
 				ComboBox area = (ComboBox) deathReport1.get("area");
 				TextField county = (TextField) deathReport1.get("county");
 				TextField deathNum = (TextField) deathReport1.get("death num");
@@ -2738,7 +2738,7 @@ public class actionController {
 				num.setText(deathReport.getNumber());
 				date.setText(deathReport.getDate());
 				time.setText(deathReport.getTime());
-				street.setText(deathReport.getStreet());
+				street.getEditor().setText(deathReport.getStreet());
 				area.setValue(deathReport.getArea());
 				county.setText(deathReport.getCounty());
 				deathNum.setText(deathReport.getDeathReportNumber());
@@ -2805,7 +2805,7 @@ public class actionController {
 				ComboBox calloutarea = (ComboBox) calloutReportMap.get("area");
 				TextArea calloutnotes = (TextArea) calloutReportMap.get("notes");
 				TextField calloutcounty = (TextField) calloutReportMap.get("county");
-				TextField calloutstreet = (TextField) calloutReportMap.get("street");
+				ComboBox calloutstreet = (ComboBox) calloutReportMap.get("street");
 				TextField calloutdate = (TextField) calloutReportMap.get("date");
 				TextField callouttime = (TextField) calloutReportMap.get("time");
 				TextField callouttype = (TextField) calloutReportMap.get("type");
@@ -2818,7 +2818,7 @@ public class actionController {
 				officernum.setText(calloutReport.getNumber());
 				calloutdate.setText(calloutReport.getDate());
 				callouttime.setText(calloutReport.getTime());
-				calloutstreet.setText(calloutReport.getAddress());
+				calloutstreet.setValue(calloutReport.getAddress());
 				calloutarea.setValue(calloutReport.getArea());
 				calloutcounty.setText(calloutReport.getCounty());
 				calloutnotes.setText(calloutReport.getNotesTextArea());
@@ -2959,7 +2959,7 @@ public class actionController {
 				TextField modelts = (TextField) trafficStopReportMap.get("model");
 
 				ComboBox areats = (ComboBox) trafficStopReportMap.get("area");
-				TextField streetts = (TextField) trafficStopReportMap.get("street");
+				ComboBox streetts = (ComboBox) trafficStopReportMap.get("street");
 				TextField countyts = (TextField) trafficStopReportMap.get("county");
 				TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
 				TextField datets = (TextField) trafficStopReportMap.get("date");
@@ -2977,7 +2977,7 @@ public class actionController {
 				offenderDescriptionts.setText(trafficStopReport.getOperatorDescription());
 				otherInfots.setText(trafficStopReport.getResponseOtherInfo());
 				areats.setValue(trafficStopReport.getArea());
-				streetts.setText(trafficStopReport.getStreet());
+				streetts.getEditor().setText(trafficStopReport.getStreet());
 				countyts.setText(trafficStopReport.getCounty());
 
 				offenderNamets.setText(trafficStopReport.getOperatorName());
@@ -3045,7 +3045,7 @@ public class actionController {
 				TextField incidentnum = (TextField) incidentReportMap.get("incident num");
 				TextField date = (TextField) incidentReportMap.get("date");
 				TextField time = (TextField) incidentReportMap.get("time");
-				TextField street = (TextField) incidentReportMap.get("street");
+				ComboBox street = (ComboBox) incidentReportMap.get("street");
 				ComboBox area = (ComboBox) incidentReportMap.get("area");
 				TextField county = (TextField) incidentReportMap.get("county");
 
@@ -3063,7 +3063,7 @@ public class actionController {
 				agen.setText(incidentReport.getOfficerAgency());
 				num.setText(incidentReport.getOfficerNumber());
 
-				street.setText(incidentReport.getIncidentStreet());
+				street.getEditor().setText(incidentReport.getIncidentStreet());
 				area.setValue(incidentReport.getIncidentArea());
 				county.setText(incidentReport.getIncidentCounty());
 				suspects.setText(incidentReport.getIncidentWitnesses());
@@ -3216,7 +3216,7 @@ public class actionController {
 				TextField offenderDescription = (TextField) citationReportMap.get("offender description");
 
 				ComboBox area = (ComboBox) citationReportMap.get("area");
-				TextField street = (TextField) citationReportMap.get("street");
+				ComboBox street = (ComboBox) citationReportMap.get("street");
 				TextField county = (TextField) citationReportMap.get("county");
 				TextField num = (TextField) citationReportMap.get("citation number");
 				TextField date = (TextField) citationReportMap.get("date");
@@ -3235,7 +3235,7 @@ public class actionController {
 				officerdiv.setText(trafficCitationReport.getOfficerDivision());
 				officeragen.setText(trafficCitationReport.getOfficerAgency());
 				officernum.setText(trafficCitationReport.getOfficerNumber());
-				street.setText(trafficCitationReport.getCitationStreet());
+				street.getEditor().setText(trafficCitationReport.getCitationStreet());
 				area.setValue(trafficCitationReport.getCitationArea());
 				county.setText(trafficCitationReport.getCitationCounty());
 				type.setValue(trafficCitationReport.getOffenderVehicleType());
@@ -3311,7 +3311,7 @@ public class actionController {
 				TextField searchnum = (TextField) searchReportMap.get("search num");
 				TextField date = (TextField) searchReportMap.get("date");
 				TextField time = (TextField) searchReportMap.get("time");
-				TextField street = (TextField) searchReportMap.get("street");
+				ComboBox street = (ComboBox) searchReportMap.get("street");
 				ComboBox area = (ComboBox) searchReportMap.get("area");
 				TextField county = (TextField) searchReportMap.get("county");
 
@@ -3333,7 +3333,7 @@ public class actionController {
 				agen.setText(searchReport.getOfficerAgency());
 				num.setText(searchReport.getOfficerNumber());
 
-				street.setText(searchReport.getSearchStreet());
+				street.getEditor().setText(searchReport.getSearchStreet());
 				area.setValue(searchReport.getSearchArea());
 				county.setText(searchReport.getSearchCounty());
 
@@ -3409,7 +3409,7 @@ public class actionController {
 				TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
 
 				ComboBox area = (ComboBox) arrestReportMap.get("area");
-				TextField street = (TextField) arrestReportMap.get("street");
+				ComboBox street = (ComboBox) arrestReportMap.get("street");
 				TextField county = (TextField) arrestReportMap.get("county");
 				TextField arrestnum = (TextField) arrestReportMap.get("arrest number");
 				TextField date = (TextField) arrestReportMap.get("date");
@@ -3432,7 +3432,7 @@ public class actionController {
 				offenderGender.setText(arrestReport.getArresteeGender());
 				offenderAddress.setText(arrestReport.getArresteeHomeAddress());
 				offenderDescription.setText(arrestReport.getArresteeDescription());
-				street.setText(arrestReport.getArrestStreet());
+				street.getEditor().setText(arrestReport.getArrestStreet());
 				county.setText(arrestReport.getArrestCounty());
 				ambulancereq.setText(arrestReport.getAmbulanceYesNo());
 				taserdep.setText(arrestReport.getTaserYesNo());

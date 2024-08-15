@@ -89,8 +89,7 @@ public class SearchReportUtils {
 								                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
 				                                                      new nestedReportUtils.RowConfig(
 						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "street", 5,
-								                                                      nestedReportUtils.FieldType.TEXT_FIELD),
+								                                                      "street", 5, nestedReportUtils.FieldType.COMBO_BOX_STREET),
 						                                                      new nestedReportUtils.FieldConfig("area",
 						                                                                                        4,
 						                                                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
@@ -162,7 +161,7 @@ public class SearchReportUtils {
 		TextField searchnum = (TextField) searchReportMap.get("search num");
 		TextField date = (TextField) searchReportMap.get("date");
 		TextField time = (TextField) searchReportMap.get("time");
-		TextField street = (TextField) searchReportMap.get("street");
+		ComboBox street = (ComboBox) searchReportMap.get("street");
 		ComboBox area = (ComboBox) searchReportMap.get("area");
 		TextField county = (TextField) searchReportMap.get("county");
 		
@@ -203,7 +202,7 @@ public class SearchReportUtils {
 			if (notesViewController != null) {
 				updateTextFromNotepad(area.getEditor(), notesViewController.getNotepadTextArea(), "-area");
 				updateTextFromNotepad(county, notesViewController.getNotepadTextArea(), "-county");
-				updateTextFromNotepad(street, notesViewController.getNotepadTextArea(), "-street");
+				updateTextFromNotepad(street.getEditor(), notesViewController.getNotepadTextArea(), "-street");
 				updateTextFromNotepad(searchedindividual, notesViewController.getNotepadTextArea(), "-name");
 				updateTextFromNotepad(notes, notesViewController.getNotepadTextArea(), "-comments");
 				updateTextFromNotepad(searchnum, notesViewController.getNotepadTextArea(), "-number");
@@ -249,7 +248,7 @@ public class SearchReportUtils {
 				searchReport1.setOfficerNumber(toTitleCase(num.getText()));
 				searchReport1.setOfficerAgency(toTitleCase(agen.getText()));
 				searchReport1.setOfficerDivision(toTitleCase(div.getText()));
-				searchReport1.setSearchStreet(toTitleCase(street.getText()));
+				searchReport1.setSearchStreet(toTitleCase(street.getEditor().getText()));
 				searchReport1.setSearchArea(toTitleCase(area.getEditor().getText()));
 				searchReport1.setSearchCounty(toTitleCase(county.getText()));
 				searchReport1.setSearchedPersons(toTitleCase(searchedindividual.getText()));

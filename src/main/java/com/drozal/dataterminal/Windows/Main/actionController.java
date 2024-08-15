@@ -1029,7 +1029,6 @@ public class actionController {
     }
 
     private void updateFields(Case case1) {
-        revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
         if (case1.getStatus() != null) {
             if (case1.getStatus().equalsIgnoreCase("pending")) {
                 caseTotalLabel.setText("Pending");
@@ -1070,6 +1069,7 @@ public class actionController {
                 e.printStackTrace();
             }
         }
+        revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
         caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
         caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
         caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");

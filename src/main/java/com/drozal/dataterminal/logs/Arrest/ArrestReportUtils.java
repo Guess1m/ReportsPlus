@@ -499,7 +499,7 @@ public class ArrestReportUtils {
 					log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
 				}
 				if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
-					if (controllerVar.getPedSearchField().getText().equalsIgnoreCase(offenderName.getText())) {
+					if (controllerVar.getPedSearchField().getEditor().getText().equalsIgnoreCase(offenderName.getText())) {
 						try {
 							controllerVar.onPedSearchBtnClick(new ActionEvent());
 						} catch (IOException e) {

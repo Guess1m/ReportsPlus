@@ -1249,7 +1249,7 @@
                             <items>
                                 <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                            stylesheets="@../../css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="1.0">
                                     <content>
                                         <AnchorPane fx:id="vehLookupPane"
                                                     style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -1458,6 +1458,28 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
+                                                                        <BorderPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="1">
+                                                                            <center>
+                                                                                <Button mnemonicParsing="false"
+                                                                                        onAction="#vehcreateimpreport"
+                                                                                        opacity="0.73" prefHeight="33.0"
+                                                                                        prefWidth="161.0"
+                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                        styleClass="incidentbtn"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        text="Create Impound Report"
+                                                                                        textOverrun="CLIP">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                    <BorderPane.margin>
+                                                                                        <Insets bottom="25.0"/>
+                                                                                    </BorderPane.margin>
+                                                                                </Button>
+                                                                            </center>
+                                                                        </BorderPane>
                                                                     </children>
                                                                 </GridPane>
                                                                 <Label alignment="CENTER" prefHeight="35.0"

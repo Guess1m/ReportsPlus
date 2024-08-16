@@ -194,9 +194,9 @@ public class NotesViewController {
 			}
 			if (clrBtn != null) {
 				clrBtn.setOnAction(actionEvent -> {
-                    if (noteArea != null) {
-                        noteArea.setText("");
-                    }
+					if (noteArea != null) {
+						noteArea.setText("");
+					}
 				});
 			}
 			if (modeToggle != null) {
@@ -393,82 +393,89 @@ public class NotesViewController {
 		}
 	}
 	
+	private TextArea getSelectedTextArea() {
+		Tab tab = tabPane.getSelectionModel().getSelectedItem();
+		
+		Parent parentPane = tab.getContent().getParent();
+		return (TextArea) parentPane.lookup("#notepadTextArea");
+	}
+	
 	@javafx.fxml.FXML
 	public void onName(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-name ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-name ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onNumber(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-number ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-number ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onStreet(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-street ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-street ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onAddress(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-address ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-address ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onNotes(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-notes ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-notes ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onSearchItems(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-searchitems ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-searchitems ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onAge(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-age ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-age ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onModel(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-model ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-model ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onPlate(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-platenum ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-platenum ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onDescription(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-description ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-description ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onGender(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-gender ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-gender ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onArea(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-area ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-area ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
 	public void onCounty(ActionEvent actionEvent) {
-		notepadTextArea.appendText("-county ");
-		notepadTextArea.requestFocus();
+		getSelectedTextArea().appendText("-county ");
+		getSelectedTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML

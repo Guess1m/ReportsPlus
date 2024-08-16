@@ -1258,7 +1258,7 @@
                                                           AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
                                                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                     </columnConstraints>
@@ -1290,8 +1290,8 @@
                                                             </GridPane.margin>
                                                             <children>
                                                                 <ComboBox fx:id="vehSearchField" editable="true"
-                                                                          prefHeight="36.0" prefWidth="565.0"
-                                                                          visibleRowCount="5"
+                                                                          minWidth="100.0" prefHeight="36.0"
+                                                                          prefWidth="565.0" visibleRowCount="5"
                                                                           AnchorPane.bottomAnchor="0.0"
                                                                           AnchorPane.leftAnchor="0.0"
                                                                           AnchorPane.rightAnchor="0.0"
@@ -1305,7 +1305,7 @@
                                                                         style="-fx-padding: 4 10; -fx-font-size: 12;"
                                                                         styleClass="incidentbtn"
                                                                         stylesheets="@../../css/menu/menuStyles.css"
-                                                                        text="Add Data To Notes" textOverrun="CLIP">
+                                                                        text="Add Data To Notes">
                                                                     <font>
                                                                         <Font name="Segoe UI" size="12.0"/>
                                                                     </font>
@@ -2422,7 +2422,8 @@
                                                             </GridPane.margin>
                                                             <children>
                                                                 <ComboBox fx:id="pedSearchField" editable="true"
-                                                                          prefWidth="150.0" visibleRowCount="5"
+                                                                          minWidth="100.0" prefWidth="150.0"
+                                                                          visibleRowCount="5"
                                                                           AnchorPane.bottomAnchor="0.0"
                                                                           AnchorPane.leftAnchor="0.0"
                                                                           AnchorPane.rightAnchor="0.0"

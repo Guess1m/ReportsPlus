@@ -2,7 +2,7 @@
     -fx-background-color: rgb(94, 115, 135,0.8);
     -fx-border-width: 0;
     -fx-border-color: white;
-    -fx-text-fill: white;
+    -fx-text-fill: white !important;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }

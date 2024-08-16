@@ -9,7 +9,7 @@
     }
 
 /* Define styles for the vertical scroll bar */
-.formPane .scroll-bar:vertical {z
+.formPane .scroll-bar:vertical {
     -fx-background-color: transparent; /* Transparent background */
     -fx-pref-width: 14px; /* Thicker width */
 }

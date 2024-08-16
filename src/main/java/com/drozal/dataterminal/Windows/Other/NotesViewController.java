@@ -130,6 +130,7 @@ public class NotesViewController {
 		notesViewController.getTabPane().getTabs().removeIf(tab -> !tab.getText().equalsIgnoreCase("default"));
 		
 		for (NoteTab note : notesTabList) {
+			
 			Tab newTab = new Tab(note.getTabName());
 			
 			FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Templates/notes-template.fxml"));

@@ -382,6 +382,7 @@ public class reportUtil {
 		});
 		
 		MenuButton pullNotesBtn = new MenuButton("Pull From Notes");
+		pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
 		pullNotesBtn.getStyleClass().add("incidentformButton");
 		pullNotesBtn.setStyle("-fx-padding: 15;");
 		pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor());

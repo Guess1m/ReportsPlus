@@ -96,6 +96,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.createNoteTabs;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
@@ -4459,77 +4460,9 @@ public class actionController {
 		
 		notesTabList.add(new NoteTab(name, fullString.toString()));
 		
-		if (notesStage != null && notesStage.isShowing()) {
-			notesStage.close();
-			notesStage = null;
+		if (notesViewController != null) {
+			createNoteTabs();
 		}
-		
-		notesStage = new Stage();
-		notesStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Other/notes-view.fxml"));
-		Parent root = loader.load();
-		notesViewController = loader.getController();
-		Scene newScene = new Scene(root);
-		notesStage.setTitle("Notes");
-		notesStage.setScene(newScene);
-		notesStage.setResizable(true);
-		
-		notesStage.show();
-		
-		centerStageOnMainApp(notesStage);
-		
-		String startupValue = ConfigReader.configRead("layout", "notesWindowLayout");
-		switch (startupValue) {
-			case "TopLeft" -> snapToTopLeft(notesStage);
-			case "TopRight" -> snapToTopRight(notesStage);
-			case "BottomLeft" -> snapToBottomLeft(notesStage);
-			case "BottomRight" -> snapToBottomRight(notesStage);
-			case "FullLeft" -> snapToLeft(notesStage);
-			case "FullRight" -> snapToRight(notesStage);
-			default -> {
-				if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
-					if (NotesFirstShown) {
-						centerStageOnMainApp(notesStage);
-						log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
-					} else {
-						if (NotesScreen != null) {
-							Rectangle2D screenBounds = NotesScreen.getVisualBounds();
-							notesStage.setX(notesx);
-							notesStage.setY(notesy);
-							if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
-								centerStageOnMainApp(notesStage);
-							}
-						} else {
-							centerStageOnMainApp(notesStage);
-						}
-						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy,
-						    Severity.INFO);
-					}
-				} else {
-					centerStageOnMainApp(notesStage);
-					notesStage.setMinHeight(300);
-					notesStage.setMinWidth(300);
-				}
-			}
-		}
-		notesStage.getScene().getStylesheets().add(
-				Objects.requireNonNull(Launcher.class.getResource("css/notification-styles.css")).toExternalForm());
-		showAnimation(notesButton);
-		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
-		
-		notesStage.setOnHidden(new EventHandler<>() {
-			@Override
-			public void handle(WindowEvent event) {
-				notesx = notesStage.getX();
-				notesy = notesStage.getY();
-				NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(),
-				                                            notesStage.getHeight()).stream().findFirst().orElse(null);
-				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy, Severity.DEBUG);
-				NotesFirstShown = false;
-				notesStage = null;
-				actionController.notesText = notesViewController.getNotepadTextArea().getText();
-			}
-		});
 	}
 	
 	@FXML
@@ -4553,77 +4486,9 @@ public class actionController {
 		
 		notesTabList.add(new NoteTab(plate, fullString.toString()));
 		
-		if (notesStage != null && notesStage.isShowing()) {
-			notesStage.close();
-			notesStage = null;
+		if (notesViewController != null) {
+			createNoteTabs();
 		}
-		
-		notesStage = new Stage();
-		notesStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Other/notes-view.fxml"));
-		Parent root = loader.load();
-		notesViewController = loader.getController();
-		Scene newScene = new Scene(root);
-		notesStage.setTitle("Notes");
-		notesStage.setScene(newScene);
-		notesStage.setResizable(true);
-		
-		notesStage.show();
-		
-		centerStageOnMainApp(notesStage);
-		
-		String startupValue = ConfigReader.configRead("layout", "notesWindowLayout");
-		switch (startupValue) {
-			case "TopLeft" -> snapToTopLeft(notesStage);
-			case "TopRight" -> snapToTopRight(notesStage);
-			case "BottomLeft" -> snapToBottomLeft(notesStage);
-			case "BottomRight" -> snapToBottomRight(notesStage);
-			case "FullLeft" -> snapToLeft(notesStage);
-			case "FullRight" -> snapToRight(notesStage);
-			default -> {
-				if (ConfigReader.configRead("layout", "rememberNotesLocation").equals("true")) {
-					if (NotesFirstShown) {
-						centerStageOnMainApp(notesStage);
-						log("notesStage opened via showNotesBtn, first time centered", Severity.INFO);
-					} else {
-						if (NotesScreen != null) {
-							Rectangle2D screenBounds = NotesScreen.getVisualBounds();
-							notesStage.setX(notesx);
-							notesStage.setY(notesy);
-							if (notesx < screenBounds.getMinX() || notesx > screenBounds.getMaxX() || notesy < screenBounds.getMinY() || notesy > screenBounds.getMaxY()) {
-								centerStageOnMainApp(notesStage);
-							}
-						} else {
-							centerStageOnMainApp(notesStage);
-						}
-						log("notesStage opened via showNotesBtn, XValue: " + notesx + " YValue: " + notesy,
-						    Severity.INFO);
-					}
-				} else {
-					centerStageOnMainApp(notesStage);
-					notesStage.setMinHeight(300);
-					notesStage.setMinWidth(300);
-				}
-			}
-		}
-		notesStage.getScene().getStylesheets().add(
-				Objects.requireNonNull(Launcher.class.getResource("css/notification-styles.css")).toExternalForm());
-		showAnimation(notesButton);
-		notesStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
-		
-		notesStage.setOnHidden(new EventHandler<>() {
-			@Override
-			public void handle(WindowEvent event) {
-				notesx = notesStage.getX();
-				notesy = notesStage.getY();
-				NotesScreen = Screen.getScreensForRectangle(notesx, notesy, notesStage.getWidth(),
-				                                            notesStage.getHeight()).stream().findFirst().orElse(null);
-				log("NotesStage closed via showNotesBtn, set XValue: " + notesx + " YValue: " + notesy, Severity.DEBUG);
-				NotesFirstShown = false;
-				notesStage = null;
-				actionController.notesText = notesViewController.getNotepadTextArea().getText();
-			}
-		});
 	}
 	
 	//</editor-fold>

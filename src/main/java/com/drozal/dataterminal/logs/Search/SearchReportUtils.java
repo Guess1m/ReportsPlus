@@ -10,6 +10,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -199,6 +200,7 @@ public class SearchReportUtils {
 		searchnum.setText(generateReportNumber());
 		
 		MenuButton pullnotesbtn = (MenuButton) searchReport.get("pullNotesBtn");
+		pullnotesbtn.setPopupSide(Side.TOP);
 		
 		pullnotesbtn.setOnMouseEntered(actionEvent -> {
 			pullnotesbtn.getItems().clear();

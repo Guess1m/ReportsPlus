@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 
+import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class NotesViewController {
@@ -119,12 +120,14 @@ public class NotesViewController {
 		});
 	}
 	
-	public void createNoteTabs() throws IOException {
+	public static void createNoteTabs() throws IOException {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
 		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
 		String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
 		
 		String padding = " -fx-padding: 2 7 2 7;";
+		
+		notesViewController.getTabPane().getTabs().removeIf(tab -> !tab.getText().equalsIgnoreCase("default"));
 		
 		for (NoteTab note : notesTabList) {
 			Tab newTab = new Tab(note.getTabName());
@@ -142,7 +145,7 @@ public class NotesViewController {
 			
 			newTab.setContent(anchorPane);
 			
-			tabPane.getTabs().add(newTab);
+			notesViewController.getTabPane().getTabs().add(newTab);
 			
 			TextArea noteArea = (TextArea) anchorPane.lookup("#notepadTextArea");
 			Button clrBtn = (Button) anchorPane.lookup("#clearbtnnotepad");
@@ -207,10 +210,10 @@ public class NotesViewController {
 							}
 							modeToggle.setStyle(
 									"-fx-background-color: white; -fx-background-radius: 0; -fx-border-radius: 0;");
-							codeSelectionPane.setStyle("-fx-background-color: gray;");
-							codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
-							borderPane.setStyle("-fx-background-color: gray;");
-							codeSelectionlbl.setStyle("-fx-text-fill: #e2e2e2;");
+							notesViewController.getCodeSelectionPane().setStyle("-fx-background-color: gray;");
+							notesViewController.getCodevbox().setStyle("-fx-background-color: rgb(200,200,200,1);");
+							notesViewController.getBorderPane().setStyle("-fx-background-color: gray;");
+							notesViewController.getCodeSelectionlbl().setStyle("-fx-text-fill: #e2e2e2;");
 						} else {
 							if (ConfigReader.configRead("notepad", "notepadMode").equals("Dark")) {
 								ConfigWriter.configwrite("notepad", "notepadMode", "Light");
@@ -219,10 +222,12 @@ public class NotesViewController {
 											"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 								}
 								modeToggle.setStyle("-fx-background-color: grey;");
-								codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
-								codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
-								borderPane.setStyle("-fx-background-color: white;");
-								codeSelectionlbl.setStyle("-fx-text-fill: gray;");
+								notesViewController.getCodeSelectionPane().setStyle(
+										"-fx-background-color: rgb(240,240,240,0.1);");
+								notesViewController.getCodevbox().setStyle(
+										"-fx-background-color: rgb(210,210,210,0.3);");
+								notesViewController.getBorderPane().setStyle("-fx-background-color: white;");
+								notesViewController.getCodeSelectionlbl().setStyle("-fx-text-fill: gray;");
 							}
 						}
 					} catch (IOException e) {
@@ -232,42 +237,64 @@ public class NotesViewController {
 			}
 			if (codesbtnnotepad != null) {
 				codesbtnnotepad.setOnAction(actionEvent -> {
-					if (codeSelectionPane.isVisible()) {
+					if (notesViewController.getCodeSelectionPane().isVisible()) {
 						
 						double toWidth = 0;
 						
 						Timeline timeline = new Timeline();
 						
-						KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
-						KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
-						KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
+						KeyValue keyValuePrefHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
+						KeyValue keyValueMaxHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
+						KeyValue keyValueMinHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
 						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
 						                                 keyValueMinHeight);
 						
 						timeline.getKeyFrames().add(keyFrame);
 						
 						timeline.play();
-						codeSelectionPane.setVisible(false);
+						notesViewController.getCodeSelectionPane().setVisible(false);
 					} else {
 						
 						double toWidth = 200;
 						
 						Timeline timeline = new Timeline();
 						
-						KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
-						KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
-						KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
+						KeyValue keyValuePrefHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
+						KeyValue keyValueMaxHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
+						KeyValue keyValueMinHeight = new KeyValue(
+								notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
 						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
 						                                 keyValueMinHeight);
 						
 						timeline.getKeyFrames().add(keyFrame);
 						
 						timeline.play();
-						codeSelectionPane.setVisible(true);
+						notesViewController.getCodeSelectionPane().setVisible(true);
 					}
 				});
 			}
 		}
+	}
+	
+	public BorderPane getBorderPane() {
+		return borderPane;
+	}
+	
+	public Label getCodeSelectionlbl() {
+		return codeSelectionlbl;
+	}
+	
+	public VBox getCodevbox() {
+		return codevbox;
+	}
+	
+	public AnchorPane getCodeSelectionPane() {
+		return codeSelectionPane;
 	}
 	
 	public TabPane getTabPane() {
@@ -442,5 +469,15 @@ public class NotesViewController {
 	public void onCounty(ActionEvent actionEvent) {
 		notepadTextArea.appendText("-county ");
 		notepadTextArea.requestFocus();
+	}
+	
+	@javafx.fxml.FXML
+	public void addTabBtn(ActionEvent actionEvent) throws IOException {
+		int num = 1;
+		for (NoteTab tab : notesTabList) {
+			num++;
+		}
+		notesTabList.add(new NoteTab("Tab " + num));
+		createNoteTabs();
 	}
 }

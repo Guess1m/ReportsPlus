@@ -10,6 +10,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -155,6 +156,7 @@ public class ImpoundReportUtils {
 		BorderPane root = (BorderPane) impoundReport.get("root");
 		Stage stage = (Stage) root.getScene().getWindow();
 		MenuButton pullnotesbtn = (MenuButton) impoundReport.get("pullNotesBtn");
+		pullnotesbtn.setPopupSide(Side.TOP);
 		
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
 		

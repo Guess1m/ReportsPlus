@@ -12,6 +12,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -194,6 +195,7 @@ public class TrafficStopReportUtils {
 		
 		Label warningLabelts = (Label) trafficStopReport.get("warningLabel");
 		MenuButton pullNotesBtnts = (MenuButton) trafficStopReport.get("pullNotesBtn");
+		pullNotesBtnts.setPopupSide(Side.TOP);
 		
 		try {
 			officernamets.setText(ConfigReader.configRead("userInfo", "Name"));

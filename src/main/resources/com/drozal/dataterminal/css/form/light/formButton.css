@@ -6,6 +6,14 @@
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }
+
+.incidentformButton > .label {
+    -fx-text-fill: black !important; /* Change the text color to white */
+    -fx-alignment: center-left;
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 0 10.5;
+}
+
 .incidentformButton:hover {
     -fx-background-color: #546778; /* Background color */
     -fx-border-width: 0;

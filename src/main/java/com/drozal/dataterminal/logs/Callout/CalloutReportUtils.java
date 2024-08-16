@@ -10,6 +10,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -147,6 +148,8 @@ public class CalloutReportUtils {
 		calloutnum.setText(generateReportNumber());
 		
 		MenuButton pullNotesBtn = (MenuButton) calloutReport.get("pullNotesBtn");
+		pullNotesBtn.setPopupSide(Side.TOP);
+		
 		pullNotesBtn.setOnMouseEntered(actionEvent -> {
 			pullNotesBtn.getItems().clear();
 			if (notesViewController != null) {

@@ -18,6 +18,7 @@ import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
@@ -201,6 +202,7 @@ public class TrafficCitationUtils {
 		Stage stage = (Stage) root.getScene().getWindow();
 		
 		MenuButton pullnotesbtn = (MenuButton) citationReport.get("pullNotesBtn");
+		pullnotesbtn.setPopupSide(Side.TOP);
 		
 		try {
 			officername.setText(ConfigReader.configRead("userInfo", "Name"));

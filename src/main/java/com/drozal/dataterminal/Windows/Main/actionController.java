@@ -90,6 +90,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -958,29 +959,37 @@ public class actionController {
 		
 		getReportChart().getData().add(series1);
 	}
-	
+
 	public void loadCaseLabels(ListView<String> listView) {
 		listView.getItems().clear();
 		try {
 			CourtCases courtCases = loadCourtCases();
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
-			
+
 			if (courtCases.getCaseList() != null) {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-				
+				DateTimeFormatter formatter12Hour = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+				DateTimeFormatter formatter24Hour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
 					String dateTimeString = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
-					return LocalDateTime.parse(dateTimeString, formatter);
+					LocalDateTime dateTime = null;
+
+					try {
+						dateTime = LocalDateTime.parse(dateTimeString, formatter12Hour);
+					} catch (DateTimeParseException e) {
+						log("Parsing with 12hr failed, trying 24hr..", Severity.DEBUG);
+						dateTime = LocalDateTime.parse(dateTimeString, formatter24Hour);
+					}
+
+					return dateTime;
 				}).reversed()).collect(Collectors.toList());
-				
+
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
-						caseNames.add(
-								case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".",
-								                                                                                "") + " " + case1.getName() + " " + case1.getCaseNumber());
+						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber());
 					}
 				}
-				
+
 				listView.setItems(caseNames);
 				
 				listView.setCellFactory(new Callback<>() {

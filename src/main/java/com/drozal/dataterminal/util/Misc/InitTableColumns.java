@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.Misc;
 
+import com.drozal.dataterminal.logs.Accident.AccidentReport;
 import com.drozal.dataterminal.logs.Arrest.ArrestReport;
 import com.drozal.dataterminal.logs.Callout.CalloutReport;
 import com.drozal.dataterminal.logs.Death.DeathReport;
@@ -746,6 +747,129 @@ public class InitTableColumns {
 		setSmallColumnWidth(timeColumn);
 		setSmallColumnWidth(numberColumn);
 		setSmallColumnWidth(responseGradeColumn);
+	}
+	
+	public static void initializeAccidentColumns(TableView tableview) {
+		TableColumn<AccidentReport, String> accidentNumberColumn = new TableColumn<>("Accident #");
+		accidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentNumber"));
+		
+		TableColumn<AccidentReport, String> dateColumn = new TableColumn<>("Date");
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentDate"));
+		
+		TableColumn<AccidentReport, String> timeColumn = new TableColumn<>("Time");
+		timeColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentTime"));
+		
+		TableColumn<AccidentReport, String> streetColumn = new TableColumn<>("Street");
+		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
+		
+		TableColumn<AccidentReport, String> areaColumn = new TableColumn<>("Area");
+		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+		
+		TableColumn<AccidentReport, String> countyColumn = new TableColumn<>("County");
+		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+		
+		TableColumn<AccidentReport, String> weatherConditionsColumn = new TableColumn<>("Weather Conditions");
+		weatherConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("WeatherConditions"));
+		
+		TableColumn<AccidentReport, String> roadConditionsColumn = new TableColumn<>("Road Conditions");
+		roadConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("RoadConditions"));
+		
+		TableColumn<AccidentReport, String> otherVehiclesInvolvedColumn = new TableColumn<>("Other Vehicles Involved");
+		otherVehiclesInvolvedColumn.setCellValueFactory(new PropertyValueFactory<>("OtherVehiclesInvolved"));
+		
+		TableColumn<AccidentReport, String> plateNumberColumn = new TableColumn<>("Plate Number");
+		plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
+		
+		TableColumn<AccidentReport, String> colorColumn = new TableColumn<>("Color");
+		colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
+		
+		TableColumn<AccidentReport, String> typeColumn = new TableColumn<>("Type");
+		typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+		
+		TableColumn<AccidentReport, String> modelColumn = new TableColumn<>("Model");
+		modelColumn.setCellValueFactory(new PropertyValueFactory<>("Model"));
+		
+		TableColumn<AccidentReport, String> ownerNameColumn = new TableColumn<>("Owner Name");
+		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerName"));
+		
+		TableColumn<AccidentReport, String> ownerAgeColumn = new TableColumn<>("Owner Age");
+		ownerAgeColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerAge"));
+		
+		TableColumn<AccidentReport, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
+		ownerGenderColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerGender"));
+		
+		TableColumn<AccidentReport, String> ownerAddressColumn = new TableColumn<>("Owner Address");
+		ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerAddress"));
+		
+		TableColumn<AccidentReport, String> ownerDescriptionColumn = new TableColumn<>("Owner Description");
+		ownerDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerDescription"));
+		
+		TableColumn<AccidentReport, String> witnessesColumn = new TableColumn<>("Witnesses");
+		witnessesColumn.setCellValueFactory(new PropertyValueFactory<>("Witnesses"));
+		
+		TableColumn<AccidentReport, String> injuriesReportedColumn = new TableColumn<>("Injuries Reported");
+		injuriesReportedColumn.setCellValueFactory(new PropertyValueFactory<>("InjuriesReported"));
+		
+		TableColumn<AccidentReport, String> damageDetailsColumn = new TableColumn<>("Damage Details");
+		damageDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("DamageDetails"));
+		
+		TableColumn<AccidentReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
+		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerRank"));
+		
+		TableColumn<AccidentReport, String> officerNameColumn = new TableColumn<>("Officer Name");
+		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerName"));
+		
+		TableColumn<AccidentReport, String> officerNumberColumn = new TableColumn<>("Officer Number");
+		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerNumber"));
+		
+		TableColumn<AccidentReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
+		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerAgency"));
+		
+		TableColumn<AccidentReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
+		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerDivision"));
+		
+		TableColumn<AccidentReport, String> commentsColumn = new TableColumn<>("Notes");
+		commentsColumn.setCellValueFactory(new PropertyValueFactory<>("Comments"));
+		
+		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn,
+		                                                                                           dateColumn,
+		                                                                                           timeColumn,
+		                                                                                           streetColumn,
+		                                                                                           areaColumn,
+		                                                                                           countyColumn,
+		                                                                                           weatherConditionsColumn,
+		                                                                                           roadConditionsColumn,
+		                                                                                           otherVehiclesInvolvedColumn,
+		                                                                                           plateNumberColumn,
+		                                                                                           colorColumn,
+		                                                                                           typeColumn,
+		                                                                                           modelColumn,
+		                                                                                           ownerNameColumn,
+		                                                                                           ownerAgeColumn,
+		                                                                                           ownerGenderColumn,
+		                                                                                           ownerAddressColumn,
+		                                                                                           ownerDescriptionColumn,
+		                                                                                           witnessesColumn,
+		                                                                                           injuriesReportedColumn,
+		                                                                                           damageDetailsColumn,
+		                                                                                           officerRankColumn,
+		                                                                                           officerNameColumn,
+		                                                                                           officerNumberColumn,
+		                                                                                           officerAgencyColumn,
+		                                                                                           officerDivisionColumn,
+		                                                                                           commentsColumn);
+		tableview.getColumns().addAll(columns);
+		for (TableColumn<AccidentReport, ?> column : columns) {
+			column.setMinWidth(minColumnWidth);
+		}
+		setSmallColumnWidth(accidentNumberColumn);
+		setSmallColumnWidth(dateColumn);
+		setSmallColumnWidth(timeColumn);
+		setSmallColumnWidth(officerNumberColumn);
+		setSmallColumnWidth(colorColumn);
+		setSmallColumnWidth(typeColumn);
+		setSmallColumnWidth(modelColumn);
+		setSmallColumnWidth(countyColumn);
 	}
 	
 }

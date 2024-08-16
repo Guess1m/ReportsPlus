@@ -3,6 +3,7 @@ package com.drozal.dataterminal.util.Misc;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.logs.Accident.AccidentReportUtils;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.logs.Death.DeathReportUtils;
@@ -340,6 +341,7 @@ public class controllerUtils {
 					case 6 -> ImpoundReportUtils.countReports();
 					case 7 -> TrafficCitationUtils.countReports();
 					case 8 -> DeathReportUtils.countReports();
+					case 9 -> AccidentReportUtils.countReports();
 					default -> 0;
 				};
 				if (data.getYValue().intValue() != reportsCount) {

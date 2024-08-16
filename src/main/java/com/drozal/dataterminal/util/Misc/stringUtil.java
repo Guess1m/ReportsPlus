@@ -23,6 +23,7 @@ public class stringUtil {
 	public static final String incidentLogURL = getDataLogsFolderPath() + "incidentLogs.xml";
 	public static final String searchLogURL = getDataLogsFolderPath() + "searchLogs.xml";
 	public static final String arrestLogURL = getDataLogsFolderPath() + "arrestLogs.xml";
+	public static final String accidentLogURL = getDataLogsFolderPath() + "accidentLogs.xml";
 	public static final String patrolLogURL = getDataLogsFolderPath() + "patrolLogs.xml";
 	public static final String trafficCitationLogURL = getDataLogsFolderPath() + "trafficCitationLogs.xml";
 	public static final String impoundLogURL = getDataLogsFolderPath() + "impoundLogs.xml";

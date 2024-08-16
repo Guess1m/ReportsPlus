@@ -7,6 +7,9 @@ import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.logs.Accident.AccidentReport;
+import com.drozal.dataterminal.logs.Accident.AccidentReportUtils;
+import com.drozal.dataterminal.logs.Accident.AccidentReports;
 import com.drozal.dataterminal.logs.Arrest.ArrestReport;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
 import com.drozal.dataterminal.logs.Arrest.ArrestReports;
@@ -98,6 +101,7 @@ import java.util.stream.Collectors;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.createNoteTabs;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
+import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
 import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
@@ -583,6 +587,12 @@ public class actionController {
 	private ComboBox vehSearchField;
 	@FXML
 	private ComboBox pedSearchField;
+	@FXML
+	private MenuItem accidentReportButton;
+	@FXML
+	private Tab accidentTab;
+	@FXML
+	private TableView accidentReportTable;
 	
 	//</editor-fold>
 	
@@ -704,6 +714,7 @@ public class actionController {
 		initializeSearchColumns(searchTable);
 		initializeTrafficStopColumns(trafficStopTable);
 		initializeDeathReportColumns(deathReportTable);
+		initializeAccidentColumns(accidentReportTable);
 		loadLogs();
 		
 		vehSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -2672,6 +2683,14 @@ public class actionController {
 		} catch (JAXBException e) {
 			logError("Error loading DeathReports: ", e);
 		}
+		
+		try {
+			AccidentReports accidentReports = AccidentReportUtils.loadAccidentReports();
+			List<AccidentReport> accidentReportsList = accidentReports.getAccidentReportList();
+			accidentReportUpdate(accidentReportsList);
+		} catch (JAXBException e) {
+			logError("Error loading accidentReports: ", e);
+		}
 	}
 	
 	public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
@@ -2745,6 +2764,15 @@ public class actionController {
 		
 		deathReportTable.getItems().clear();
 		deathReportTable.getItems().addAll(logEntries);
+	}
+	
+	public void accidentReportUpdate(List<AccidentReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
+		
+		accidentReportTable.getItems().clear();
+		accidentReportTable.getItems().addAll(logEntries);
 	}
 	
 	@FXML
@@ -3289,7 +3317,7 @@ public class actionController {
 				officerdiv.setText(trafficCitationReport.getOfficerDivision());
 				officeragen.setText(trafficCitationReport.getOfficerAgency());
 				officernum.setText(trafficCitationReport.getOfficerNumber());
-				street.getEditor().setText(trafficCitationReport.getCitationStreet());
+				street.setValue(trafficCitationReport.getCitationStreet());
 				area.setValue(trafficCitationReport.getCitationArea());
 				county.setText(trafficCitationReport.getCitationCounty());
 				type.setValue(trafficCitationReport.getOffenderVehicleType());
@@ -3534,6 +3562,107 @@ public class actionController {
 			}
 		}
 	}
+	
+	@FXML
+	public void onAccidentReportRowClick(MouseEvent event) {
+		if (event.getClickCount() == 1) {
+			AccidentReport accidentReport = (AccidentReport) accidentReportTable.getSelectionModel().getSelectedItem();
+			
+			if (accidentReport != null) {
+				Map<String, Object> accidentReportObj = newAccident(reportChart, areaReportChart);
+				
+				Map<String, Object> accidentReportMap = (Map<String, Object>) accidentReportObj.get(
+						"Accident Report Map");
+				
+				TextField name = (TextField) accidentReportMap.get("name");
+				TextField rank = (TextField) accidentReportMap.get("rank");
+				TextField div = (TextField) accidentReportMap.get("division");
+				TextField agen = (TextField) accidentReportMap.get("agency");
+				TextField num = (TextField) accidentReportMap.get("number");
+				ComboBox street = (ComboBox) accidentReportMap.get("street");
+				ComboBox area = (ComboBox) accidentReportMap.get("area");
+				TextField county = (TextField) accidentReportMap.get("county");
+				TextField date = (TextField) accidentReportMap.get("date");
+				TextField time = (TextField) accidentReportMap.get("time");
+				TextField accidentnum = (TextField) accidentReportMap.get("accident number");
+				TextField weatherConditions = (TextField) accidentReportMap.get("weather conditions");
+				TextField roadConditions = (TextField) accidentReportMap.get("road conditions");
+				TextField otherVehiclesInvolved = (TextField) accidentReportMap.get("other vehicles involved");
+				TextField witnesses = (TextField) accidentReportMap.get("witnesses");
+				TextField injuries = (TextField) accidentReportMap.get("injuries");
+				TextField damages = (TextField) accidentReportMap.get("damages");
+				TextField offenderName = (TextField) accidentReportMap.get("offender name");
+				TextField offenderAge = (TextField) accidentReportMap.get("offender age");
+				TextField offenderGender = (TextField) accidentReportMap.get("offender gender");
+				TextField offenderAddress = (TextField) accidentReportMap.get("offender address");
+				TextField offenderDescription = (TextField) accidentReportMap.get("offender description");
+				TextField model = (TextField) accidentReportMap.get("model");
+				TextField plateNumber = (TextField) accidentReportMap.get("plate number");
+				ComboBox type = (ComboBox) accidentReportMap.get("type");
+				ComboBox color = (ComboBox) accidentReportMap.get("color");
+				TextArea notes = (TextArea) accidentReportMap.get("notes");
+				
+				accidentnum.setText(accidentReport.getAccidentNumber());
+				name.setText(accidentReport.getOfficerName());
+				rank.setText(accidentReport.getOfficerRank());
+				div.setText(accidentReport.getOfficerDivision());
+				agen.setText(accidentReport.getOfficerAgency());
+				num.setText(accidentReport.getOfficerNumber());
+				street.setValue(accidentReport.getStreet());
+				area.setValue(accidentReport.getArea());
+				county.setText(accidentReport.getCounty());
+				date.setText(accidentReport.getAccidentDate());
+				time.setText(accidentReport.getAccidentTime());
+				weatherConditions.setText(accidentReport.getWeatherConditions());
+				roadConditions.setText(accidentReport.getRoadConditions());
+				otherVehiclesInvolved.setText(accidentReport.getOtherVehiclesInvolved());
+				witnesses.setText(accidentReport.getWitnesses());
+				injuries.setText(accidentReport.getInjuriesReported());
+				damages.setText(accidentReport.getDamageDetails());
+				offenderName.setText(accidentReport.getOwnerName());
+				offenderAge.setText(accidentReport.getOwnerAge());
+				offenderGender.setText(accidentReport.getOwnerGender());
+				offenderAddress.setText(accidentReport.getOwnerAddress());
+				offenderDescription.setText(accidentReport.getOwnerDescription());
+				model.setText(accidentReport.getModel());
+				plateNumber.setText(accidentReport.getPlateNumber());
+				type.setValue(accidentReport.getType());
+				color.setValue(accidentReport.getColor());
+				notes.setText(accidentReport.getComments());
+				
+				BorderPane root = (BorderPane) accidentReportObj.get("root");
+				Stage stage = (Stage) root.getScene().getWindow();
+				Button delBtn = (Button) accidentReportObj.get("delBtn");
+				delBtn.setVisible(true);
+				delBtn.setDisable(false);
+				delBtn.setOnAction(actionEvent -> {
+					String numToDelete = accidentnum.getText();
+					try {
+						AccidentReportUtils.deleteAccidentReport(numToDelete);
+						showNotificationInfo("Report Manager", "Deleted Report#: " + numToDelete, mainRT);
+					} catch (JAXBException e) {
+						logError("Could not delete AccidentReport #" + numToDelete + ": ", e);
+					}
+					if (stage != null) {
+						stage.close();
+					}
+					actionController.needRefresh.set(1);
+					updateChartIfMismatch(reportChart);
+					controllerUtils.refreshChart(getAreaReportChart(), "area");
+				});
+				
+				MenuButton pullnotesbtn = (MenuButton) accidentReportObj.get("pullNotesBtn");
+				pullnotesbtn.setVisible(false);
+				accidentnum.setEditable(false);
+				
+				Button submitBtn = (Button) accidentReportObj.get("submitBtn");
+				submitBtn.setText("Update Information");
+				
+				accidentReportTable.getSelectionModel().clearSelection();
+			}
+		}
+	}
+	
 	
 	//</editor-fold>
 	
@@ -4494,6 +4623,12 @@ public class actionController {
 			}
 		}
 	}
+	
+	@FXML
+	public void onAccidentReportButtonClick(ActionEvent actionEvent) {
+		newAccident(reportChart, areaReportChart);
+	}
+	
 	
 	//</editor-fold>
 	

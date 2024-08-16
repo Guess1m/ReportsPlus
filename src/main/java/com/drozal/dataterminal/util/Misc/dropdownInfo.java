@@ -15,7 +15,7 @@ public class dropdownInfo {
 	public static final List<String> agencies = customizationDataLoader.agencies;
 	public static final List<String> ranks = customizationDataLoader.ranks;
 	
-	public static final List<String> streetList = Arrays.asList("Abattoir Avenue", "Abe Milton Parkway",
+	public static final List<String> streetList = Arrays.asList("N/A", "Abattoir Avenue", "Abe Milton Parkway",
 	                                                            "Ace Jones Drive", "Adam's Apple Boulevard",
 	                                                            "Aguja Street", "Alta Place", "Alta Street",
 	                                                            "Amarillo Vista", "Amarillo Way", "Americano Way",

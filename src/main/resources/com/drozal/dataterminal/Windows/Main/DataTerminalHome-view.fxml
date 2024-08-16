@@ -1171,7 +1171,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" AnchorPane.bottomAnchor="-2.0"
+        <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" visible="false" AnchorPane.bottomAnchor="-2.0"
                     AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="114.0">
             <children>
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
@@ -2470,7 +2470,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
+        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="115.0">
             <children>
@@ -2649,6 +2649,21 @@
                                             <content>
                                                 <TableView fx:id="deathReportTable"
                                                            onMouseClicked="#onDeathReportRowClick" prefHeight="556.0"
+                                                           prefWidth="779.0" style="-fx-border-color: transparent;"
+                                                           styleClass="chargesTable"
+                                                           stylesheets="@../../css/tableCss.css"/>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="accidentTab" closable="false" text="Accident Reports">
+                                    <content>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
+                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
+                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                            <content>
+                                                <TableView fx:id="accidentReportTable"
+                                                           onMouseClicked="#onAccidentReportRowClick" prefHeight="556.0"
                                                            prefWidth="779.0" style="-fx-border-color: transparent;"
                                                            styleClass="chargesTable"
                                                            stylesheets="@../../css/tableCss.css"/>
@@ -2951,6 +2966,8 @@
                                                   onAction="#onImpoundReportBtnClick" text="Impound Report"/>
                                         <MenuItem fx:id="deathReportButton" mnemonicParsing="false"
                                                   onAction="#onDeathReportButtonClick" text="Death Report"/>
+                                        <MenuItem fx:id="accidentReportButton" mnemonicParsing="false"
+                                                  onAction="#onAccidentReportButtonClick" text="Accident Report"/>
                                     </items>
                                     <font>
                                         <Font size="18.0"/>

@@ -586,9 +586,10 @@ public class actionController {
     //</editor-fold>
 
     public void initialize() throws IOException {
-        showLookupBtn.setVisible(false);
-        showCalloutBtn.setVisible(false);
-        showIDBtn.setVisible(false);
+        // TODO undo
+        showLookupBtn.setVisible(true);
+        showCalloutBtn.setVisible(true);
+        showIDBtn.setVisible(true);
 
         blankCourtInfoPane.setVisible(true);
         courtInfoPane.setVisible(false);
@@ -4346,7 +4347,79 @@ public class actionController {
         modelimp.setText(model);
         offenderNameimp.setText(owner);
     }
-
+    
+    @FXML
+    public void pedAddDataToNotes(ActionEvent actionEvent) {
+        String name;
+        String age;
+        String gender;
+        String address;
+        String description;
+        StringBuilder fullString = new StringBuilder();
+        if (pedfnamefield != null && !pedfnamefield.getText().isEmpty() && pedlnamefield != null && !pedlnamefield.getText().isEmpty()) {
+            name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+            fullString.append("-name ").append(name).append(" ");
+        }
+        if (peddobfield != null && !peddobfield.getText().isEmpty()) {
+            age = peddobfield.getText().trim();
+            fullString.append("-age ").append(age).append(" ");
+        }
+        if (pedgenfield != null && !pedgenfield.getText().isEmpty()) {
+            gender = pedgenfield.getText().trim();
+            fullString.append("-gender ").append(gender).append(" ");
+        }
+        if (pedaddressfield != null && !pedaddressfield.getText().isEmpty()) {
+            address = pedaddressfield.getText().trim();
+            fullString.append("-address ").append(address).append(" ");
+        }
+        if (peddescfield != null && !peddescfield.getText().isEmpty()) {
+            if (!peddescfield.getText().equalsIgnoreCase("no data in system")) {
+                description = peddescfield.getText().trim();
+                fullString.append("-description ").append(description).append(" ");
+            }
+        }
+        
+        if (notesViewController != null) {
+            if (notesStage != null && notesStage.isShowing()) {
+                notesViewController.getNotepadTextArea().appendText(String.valueOf(fullString));
+            } else {
+                notesText = notesText + fullString;
+            }
+        } else {
+            notesText = notesText + fullString;
+        }
+    }
+    
+    @FXML
+    public void vehAddDataToNotes(ActionEvent actionEvent) {
+        String plate;
+        String model;
+        String owner;
+        StringBuilder fullString = new StringBuilder();
+        if (vehplatefield2 != null && !vehplatefield2.getText().isEmpty()) {
+            plate = vehplatefield2.getText().trim();
+            fullString.append("-platenumber ").append(plate).append(" ");
+        }
+        if (vehmodelfield != null && !vehmodelfield.getText().isEmpty()) {
+            model = vehmodelfield.getText().trim();
+            fullString.append("-model ").append(model).append(" ");
+        }
+        if (vehownerfield != null && !vehownerfield.getText().isEmpty()) {
+            owner = vehownerfield.getText().trim();
+            fullString.append("-name ").append(owner).append(" ");
+        }
+        
+        if (notesViewController != null) {
+            if (notesStage != null && notesStage.isShowing()) {
+                notesViewController.getNotepadTextArea().appendText(String.valueOf(fullString));
+            } else {
+                notesText = notesText + fullString;
+            }
+        } else {
+            notesText = notesText + fullString;
+        }
+    }
+    
     //</editor-fold>
 
 }

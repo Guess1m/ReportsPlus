@@ -30,6 +30,7 @@ public class NotesViewController {
 
     public static AnchorPane titlebar = null;
     public static Stage codesStage = null;
+    
     @javafx.fxml.FXML
     private TextArea notepadTextArea;
     @javafx.fxml.FXML
@@ -66,6 +67,7 @@ public class NotesViewController {
         borderPane.setTop(titlebar);
 
         notepadTextArea.setText(actionController.notesText);
+        System.out.println("set to: " + actionController.notesText);
 
         String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
         if (notepadMode != null) {

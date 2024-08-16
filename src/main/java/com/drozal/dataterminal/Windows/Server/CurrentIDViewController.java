@@ -85,8 +85,9 @@ public class CurrentIDViewController {
                             String genNum1 = generateRandomNumber();
                             String genNum2 = generateRandomNumber();
                             String fullName = firstName + " " + lastName;
-
-                            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Server/IDTemplate.fxml"));
+                            
+                            FXMLLoader loader = new FXMLLoader(
+                                    Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
                             Parent vBoxParent = loader.load();
                             VBox vBox = (VBox) vBoxParent;
 
@@ -182,8 +183,9 @@ public class CurrentIDViewController {
                                                 String genNum1 = generateRandomNumber();
                                                 String genNum2 = generateRandomNumber();
                                                 String fullName = firstName + " " + lastName;
-
-                                                FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Server/IDTemplate.fxml"));
+                                                
+                                                FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(
+                                                        "Windows/Templates/IDTemplate.fxml"));
                                                 Parent vBoxParent = loader.load();
                                                 VBox vBox = (VBox) vBoxParent;
 

@@ -43,6 +43,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
@@ -104,9 +105,9 @@ public class controllerUtils {
 		}
 		
 		try {
-			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy");
-			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy");
+			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
+			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy", Locale.ENGLISH);
+			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH);
 			
 			LocalDate birthDate;
 			try {

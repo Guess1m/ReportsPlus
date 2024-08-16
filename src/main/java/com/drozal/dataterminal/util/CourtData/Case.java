@@ -6,6 +6,9 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Case {
+
+	@XmlElement(name = "Index")
+	private String index;
 	
 	@XmlElement(name = "CaseNumber")
 	private String caseNumber;
@@ -69,7 +72,15 @@ public class Case {
 		}
 		return "";
 	}
-	
+
+	public String getIndex() {
+		return index;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
+	}
+
 	public String getCaseTime() {
 		return caseTime;
 	}

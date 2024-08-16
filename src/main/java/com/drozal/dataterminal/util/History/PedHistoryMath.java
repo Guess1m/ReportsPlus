@@ -407,7 +407,7 @@ public class PedHistoryMath {
 		LocalDate minBirthDate = today.minusYears(maxAge);
 		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, today) + 1);
 		LocalDate birthDate = today.minusDays(randomDays);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
 		return birthDate.format(formatter);
 	}
 }

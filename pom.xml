@@ -76,7 +76,7 @@
     </dependencies>
 
     <build>
-        <finalName>ReportsPlus-v1.0.8-alpha</finalName>
+        <finalName>ReportsPlus-v1.0.7-alpha</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,7 +90,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.2</version> <!-- Replace with the latest version -->
+                <version>3.5.2</version>
                 <executions>
                     <execution>
                         <phase>package</phase>

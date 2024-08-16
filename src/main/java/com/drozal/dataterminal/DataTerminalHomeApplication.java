@@ -13,6 +13,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 
 import static com.drozal.dataterminal.util.Window.windowUtils.*;
@@ -24,13 +25,13 @@ public class DataTerminalHomeApplication extends Application {
 	
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		return currentTime.format(formatter);
 	}
 	
 	public static String getTime() {
 		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a", Locale.ENGLISH);
 		return currentTime.format(formatter);
 	}
 	

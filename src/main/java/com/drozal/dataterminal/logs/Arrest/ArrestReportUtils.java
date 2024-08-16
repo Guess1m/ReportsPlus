@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.Windows.Main.actionController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -475,17 +476,19 @@ public class ArrestReportUtils {
 					case1.setOutcomes(chargesBuilder.toString());
 					case1.setStatus("Pending");
 					try {
-						CourtUtils.addCase(case1);
-					} catch (JAXBException e) {
+						String index = getNextIndex(loadCourtCases());
+						case1.setIndex(index);
+					} catch (JAXBException | IOException e) {
 						throw new RuntimeException(e);
-					} catch (IOException e) {
+					}
+					try {
+						CourtUtils.addCase(case1);
+					} catch (JAXBException | IOException e) {
 						throw new RuntimeException(e);
 					}
 					try {
 						scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
-					} catch (IOException e) {
+					} catch (JAXBException | IOException e) {
 						throw new RuntimeException(e);
 					}
 					NotificationManager.showNotificationInfo("Report Manager",

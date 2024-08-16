@@ -41,6 +41,7 @@ import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReports;
 import com.drozal.dataterminal.util.CourtData.Case;
 import com.drozal.dataterminal.util.CourtData.CourtCases;
+import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
 import com.drozal.dataterminal.util.History.Ped;
 import com.drozal.dataterminal.util.History.Vehicle;
@@ -88,9 +89,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -960,6 +958,25 @@ public class actionController {
 		getReportChart().getData().add(series1);
 	}
 
+	public static String getNextIndex(CourtCases courtCases) {
+		int highestIndex = 0;
+
+		if (courtCases.getCaseList() != null) {
+			for (Case c : courtCases.getCaseList()) {
+				String indexString = c.getIndex();
+				if (indexString != null && !indexString.isEmpty()) {
+					try {
+						int index = Integer.parseInt(indexString);
+						highestIndex = Math.max(highestIndex, index);
+					} catch (NumberFormatException e) {
+						logError("Invalid index format: " + indexString, e);
+					}
+				}
+			}
+		}
+		return String.valueOf(highestIndex + 1);
+	}
+
 	public void loadCaseLabels(ListView<String> listView) {
 		listView.getItems().clear();
 		try {
@@ -967,22 +984,24 @@ public class actionController {
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
 
 			if (courtCases.getCaseList() != null) {
-				DateTimeFormatter formatter12Hour = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-				DateTimeFormatter formatter24Hour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
-					String dateTimeString = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
-					LocalDateTime dateTime = null;
 
-					try {
-						dateTime = LocalDateTime.parse(dateTimeString, formatter12Hour);
-					} catch (DateTimeParseException e) {
-						log("Parsing with 12hr failed, trying 24hr..", Severity.DEBUG);
-						dateTime = LocalDateTime.parse(dateTimeString, formatter24Hour);
+					String indexString = case1.getIndex();
+					if (indexString == null || indexString.isEmpty()) {
+						indexString = getNextIndex(courtCases);
+						case1.setIndex(indexString);
+						try {
+							CourtUtils.addCase(case1);
+						} catch (JAXBException | IOException e) {
+							throw new RuntimeException(e);
+						}
 					}
 
-					return dateTime;
-				}).reversed()).collect(Collectors.toList());
+					int index = Integer.parseInt(indexString);
+
+					return index;
+				}).reversed()).toList();
 
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
@@ -991,13 +1010,13 @@ public class actionController {
 				}
 
 				listView.setItems(caseNames);
-				
+
 				listView.setCellFactory(new Callback<>() {
 					@Override
 					public ListCell<String> call(ListView<String> param) {
 						return new ListCell<>() {
 							private final CustomCaseCell customCaseCell = new CustomCaseCell();
-							
+
 							@Override
 							protected void updateItem(String item, boolean empty) {
 								super.updateItem(item, empty);
@@ -1005,8 +1024,7 @@ public class actionController {
 									setGraphic(null);
 								} else {
 									for (Case case1 : sortedCases) {
-										if (item.equals(case1.getOffenceDate().replaceAll("-",
-										                                                  "/") + " " + case1.getCaseTime().replace(
+										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(
 												".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 											customCaseCell.updateCase(case1);
 											break;
@@ -1018,22 +1036,20 @@ public class actionController {
 						};
 					}
 				});
-				
+
 				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
 						blankCourtInfoPane.setVisible(false);
 						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
-							if (newValue.equals(
-									case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".",
-									                                                                                "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 								updateFields(case1);
 								break;
 							}
 						}
 					}
 				});
-				
+
 				Map<String, Case> caseMap = new HashMap<>();
 				for (Case case1 : courtCases.getCaseList()) {
 					String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");

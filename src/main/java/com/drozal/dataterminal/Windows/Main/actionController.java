@@ -4015,7 +4015,7 @@ public class actionController {
                 vehregfield.setStyle("-fx-text-fill: black !important;");
             }
             vehinsfield.setText(vehicle.getInsurance());
-            if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("suspended")) {
+            if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
                 vehinsfield.setStyle("-fx-text-fill: red !important;");
             } else {
                 vehinsfield.setStyle("-fx-text-fill: black !important;");

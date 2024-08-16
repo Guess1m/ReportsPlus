@@ -103,7 +103,8 @@
                 </AnchorPane>
                 <AnchorPane HBox.hgrow="ALWAYS">
                     <children>
-                        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0"
+                        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="650.0" styleClass="darktabpane"
+                                 stylesheets="@../../css/main/SettingsTabPane.css" AnchorPane.bottomAnchor="0.0"
                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <tabs>
                                 <Tab closable="false" text="Default">
@@ -113,7 +114,7 @@
                                             <children>
                                                 <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="337.0"
                                                           promptText="Suspect Info / Vehicle Info / Witness Info / Etc."
-                                                          style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
+                                                          style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: rgb(0,0,0,0.1); -fx-border-color: transparent;"
                                                           styleClass="text-area"
                                                           stylesheets="@../../css/form/formTextArea.css" wrapText="true"
                                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"

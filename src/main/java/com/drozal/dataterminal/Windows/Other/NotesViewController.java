@@ -90,7 +90,7 @@ public class NotesViewController {
 				modeToggle.setStyle(modeToggleStyle);
 			} else if (notepadMode.equals("Light")) {
 				modeToggle.setSelected(false);
-				notepadStyle = "-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+				notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
 				modeToggleStyle = "-fx-background-color: grey;";
 				codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
 				codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
@@ -102,7 +102,7 @@ public class NotesViewController {
 			
 		} else {
 			notepadTextArea.setStyle(
-					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 		}
 		
@@ -181,14 +181,14 @@ public class NotesViewController {
 						modeToggle.setStyle(modeToggleStyle);
 					} else if (notepadMode.equals("Light")) {
 						modeToggle.setSelected(false);
-						notepadStyle = "-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+						notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
 						modeToggleStyle = "-fx-background-color: grey;";
 						noteArea.setStyle(notepadStyle);
 						modeToggle.setStyle(modeToggleStyle);
 					}
 				} else {
 					noteArea.setStyle(
-							"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+							"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 					modeToggle.setStyle("-fx-background-color: grey;");
 				}
 			}
@@ -209,7 +209,7 @@ public class NotesViewController {
 										"-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
 							}
 							modeToggle.setStyle(
-									"-fx-background-color: white; -fx-background-radius: 0; -fx-border-radius: 0;");
+									"-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 0; -fx-border-radius: 0;");
 							notesViewController.getCodeSelectionPane().setStyle("-fx-background-color: gray;");
 							notesViewController.getCodevbox().setStyle("-fx-background-color: rgb(200,200,200,1);");
 							notesViewController.getBorderPane().setStyle("-fx-background-color: gray;");
@@ -219,7 +219,7 @@ public class NotesViewController {
 								ConfigWriter.configwrite("notepad", "notepadMode", "Light");
 								if (noteArea != null) {
 									noteArea.setStyle(
-											"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+											"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 								}
 								modeToggle.setStyle("-fx-background-color: grey;");
 								notesViewController.getCodeSelectionPane().setStyle(
@@ -279,6 +279,11 @@ public class NotesViewController {
 				});
 			}
 		}
+		
+		int tabCount = notesViewController.getTabPane().getTabs().size();
+		if (tabCount > 0) {
+			notesViewController.getTabPane().getSelectionModel().select(tabCount - 1);
+		}
 	}
 	
 	public BorderPane getBorderPane() {
@@ -319,7 +324,7 @@ public class NotesViewController {
 		} else if (ConfigReader.configRead("notepad", "notepadMode").equals("Dark")) {
 			ConfigWriter.configwrite("notepad", "notepadMode", "Light");
 			notepadTextArea.setStyle(
-					"-fx-background-color: white; -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 			codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
 			codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");

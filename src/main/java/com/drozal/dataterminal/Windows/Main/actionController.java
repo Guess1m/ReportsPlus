@@ -4429,65 +4429,69 @@ public class actionController {
 	
 	@FXML
 	public void pedAddDataToNotes(ActionEvent actionEvent) throws IOException {
-		String name = "";
-		String age;
-		String gender;
-		String address;
-		String description;
-		StringBuilder fullString = new StringBuilder();
-		if (pedfnamefield != null && !pedfnamefield.getText().isEmpty() && pedlnamefield != null && !pedlnamefield.getText().isEmpty()) {
-			name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
-			fullString.append("-name ").append(name).append(" ");
-		}
-		if (peddobfield != null && !peddobfield.getText().isEmpty()) {
-			age = peddobfield.getText().trim();
-			fullString.append("-age ").append(age).append(" ");
-		}
-		if (pedgenfield != null && !pedgenfield.getText().isEmpty()) {
-			gender = pedgenfield.getText().trim();
-			fullString.append("-gender ").append(gender).append(" ");
-		}
-		if (pedaddressfield != null && !pedaddressfield.getText().isEmpty()) {
-			address = pedaddressfield.getText().trim();
-			fullString.append("-address ").append(address).append(" ");
-		}
-		if (peddescfield != null && !peddescfield.getText().isEmpty()) {
-			if (!peddescfield.getText().equalsIgnoreCase("no data in system")) {
-				description = peddescfield.getText().trim();
-				fullString.append("-description ").append(description).append(" ");
+		if (!noRecordFoundLabelPed.isVisible()) {
+			String name = "";
+			String age;
+			String gender;
+			String address;
+			String description;
+			StringBuilder fullString = new StringBuilder();
+			if (pedfnamefield != null && !pedfnamefield.getText().isEmpty() && pedlnamefield != null && !pedlnamefield.getText().isEmpty()) {
+				name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
+				fullString.append("-name ").append(name).append(" ");
 			}
-		}
-		
-		notesTabList.add(new NoteTab(name, fullString.toString()));
-		
-		if (notesViewController != null) {
-			createNoteTabs();
+			if (peddobfield != null && !peddobfield.getText().isEmpty()) {
+				age = peddobfield.getText().trim();
+				fullString.append("-age ").append(age).append(" ");
+			}
+			if (pedgenfield != null && !pedgenfield.getText().isEmpty()) {
+				gender = pedgenfield.getText().trim();
+				fullString.append("-gender ").append(gender).append(" ");
+			}
+			if (pedaddressfield != null && !pedaddressfield.getText().isEmpty()) {
+				address = pedaddressfield.getText().trim();
+				fullString.append("-address ").append(address).append(" ");
+			}
+			if (peddescfield != null && !peddescfield.getText().isEmpty()) {
+				if (!peddescfield.getText().equalsIgnoreCase("no data in system")) {
+					description = peddescfield.getText().trim();
+					fullString.append("-description ").append(description).append(" ");
+				}
+			}
+			
+			notesTabList.add(new NoteTab(name, fullString.toString()));
+			
+			if (notesViewController != null) {
+				createNoteTabs();
+			}
 		}
 	}
 	
 	@FXML
 	public void vehAddDataToNotes(ActionEvent actionEvent) throws IOException {
-		String plate = "";
-		String model;
-		String owner;
-		StringBuilder fullString = new StringBuilder();
-		if (vehplatefield2 != null && !vehplatefield2.getText().isEmpty()) {
-			plate = vehplatefield2.getText().trim();
-			fullString.append("-platenum ").append(plate).append(" ");
-		}
-		if (vehmodelfield != null && !vehmodelfield.getText().isEmpty()) {
-			model = vehmodelfield.getText().trim();
-			fullString.append("-model ").append(model).append(" ");
-		}
-		if (vehownerfield != null && !vehownerfield.getText().isEmpty()) {
-			owner = vehownerfield.getText().trim();
-			fullString.append("-name ").append(owner).append(" ");
-		}
-		
-		notesTabList.add(new NoteTab(plate, fullString.toString()));
-		
-		if (notesViewController != null) {
-			createNoteTabs();
+		if (!noRecordFoundLabelVeh.isVisible()) {
+			String plate = "";
+			String model;
+			String owner;
+			StringBuilder fullString = new StringBuilder();
+			if (vehplatefield2 != null && !vehplatefield2.getText().isEmpty()) {
+				plate = vehplatefield2.getText().trim();
+				fullString.append("-platenum ").append(plate).append(" ");
+			}
+			if (vehmodelfield != null && !vehmodelfield.getText().isEmpty()) {
+				model = vehmodelfield.getText().trim();
+				fullString.append("-model ").append(model).append(" ");
+			}
+			if (vehownerfield != null && !vehownerfield.getText().isEmpty()) {
+				owner = vehownerfield.getText().trim();
+				fullString.append("-name ").append(owner).append(" ");
+			}
+			
+			notesTabList.add(new NoteTab(plate, fullString.toString()));
+			
+			if (notesViewController != null) {
+				createNoteTabs();
+			}
 		}
 	}
 	

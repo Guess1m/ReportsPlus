@@ -566,6 +566,7 @@ public class controllerUtils {
 		parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
 		parseLogData(stringUtil.DeathReportLogURL, combinedAreasMap, value);
+		parseLogData(stringUtil.accidentLogURL, combinedAreasMap, value);
 		
 		Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		sortedAreasMap.putAll(combinedAreasMap);

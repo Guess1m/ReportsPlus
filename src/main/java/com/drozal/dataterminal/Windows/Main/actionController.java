@@ -939,7 +939,7 @@ public class actionController {
 	public void refreshChart() throws IOException {
 		
 		reportChart.getData().clear();
-		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations", "Death Reports"};
+		String[] categories = {"Callout", "Arrests", "Traffic Stops", "Patrols", "Searches", "Incidents", "Impounds", "Citations", "Death Reports", "Accident Reports"};
 		CategoryAxis xAxis = (CategoryAxis) getReportChart().getXAxis();
 		
 		xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(categories)));

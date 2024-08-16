@@ -52,7 +52,7 @@ public class SearchReportUtils {
 	}
 	
 	public static Map<String, Object> searchLayout() {
-		Map<String, Object> searchReport = createReportWindow("Search Report", 5, 7, null,
+		Map<String, Object> searchReport = createReportWindow("Search Report", 6, 7, null,
 		                                                      new nestedReportUtils.SectionConfig("Officer Information",
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(

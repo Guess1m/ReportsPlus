@@ -52,7 +52,7 @@ public class PatrolReportUtils {
 	}
 	
 	public static Map<String, Object> patrolLayout() {
-		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 5, 7, null,
+		Map<String, Object> patrolReport = createReportWindow("Patrol Report", 6, 7, null,
 		                                                      new nestedReportUtils.SectionConfig("Officer Information",
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(

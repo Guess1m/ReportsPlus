@@ -52,7 +52,7 @@ public class CalloutReportUtils {
 	}
 	
 	public static Map<String, Object> calloutLayout() {
-		Map<String, Object> calloutReport = createReportWindow("Callout Report", 5, 7, null,
+		Map<String, Object> calloutReport = createReportWindow("Callout Report", 6, 7, null,
 		                                                       new nestedReportUtils.SectionConfig(
 				                                                       "Officer Information", true,
 				                                                       new nestedReportUtils.RowConfig(

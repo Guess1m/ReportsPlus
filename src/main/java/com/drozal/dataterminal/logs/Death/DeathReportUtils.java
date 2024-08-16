@@ -214,7 +214,6 @@ public class DeathReportUtils {
 		MenuButton pullnotesbtn = (MenuButton) deathReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 		
-		
 		pullnotesbtn.setOnMouseEntered(actionEvent -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {

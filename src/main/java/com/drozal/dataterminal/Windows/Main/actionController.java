@@ -3663,7 +3663,6 @@ public class actionController {
 		}
 	}
 	
-	
 	//</editor-fold>
 	
 	//<editor-fold desc="VARS">
@@ -4628,7 +4627,6 @@ public class actionController {
 	public void onAccidentReportButtonClick(ActionEvent actionEvent) {
 		newAccident(reportChart, areaReportChart);
 	}
-	
 	
 	//</editor-fold>
 	

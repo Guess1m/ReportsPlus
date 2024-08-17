@@ -4131,7 +4131,7 @@ public class actionController {
 
     @FXML
     public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
-        String searchedPlate = vehSearchField.getEditor().getText();
+        String searchedPlate = vehSearchField.getEditor().getText().trim();
         if (!searchedPlate.isEmpty()) {
             updateRecentSearches(recentVehicleSearches, vehSearchField, searchedPlate);
         }
@@ -4258,7 +4258,7 @@ public class actionController {
 
     @FXML
     public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
-        String searchedName = pedSearchField.getEditor().getText();
+        String searchedName = pedSearchField.getEditor().getText().trim();
         if (!searchedName.isEmpty()) {
             updateRecentSearches(recentPedSearches, pedSearchField, searchedName);
         }

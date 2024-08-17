@@ -216,7 +216,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
-                    stylesheets="@../../css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
+                    stylesheets="@../../css/form/formFields.css" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
@@ -493,7 +493,7 @@
                                                         <ColumnConstraints hgrow="SOMETIMES"/>
                                                         <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                         <ColumnConstraints hgrow="SOMETIMES"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                         <ColumnConstraints hgrow="SOMETIMES"/>
                                                     </columnConstraints>
                                                     <rowConstraints>
@@ -561,7 +561,8 @@
                                                                    style="-fx-padding: 2 10; -fx-font-size: 16;"
                                                                    styleClass="formFielddark"
                                                                    stylesheets="@../../css/form/light/formFields.css"
-                                                                   GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                                                   GridPane.columnIndex="5" GridPane.rowIndex="1"
+                                                                   GridPane.vgrow="ALWAYS">
                                                             <GridPane.margin>
                                                                 <Insets left="5.0"/>
                                                             </GridPane.margin>
@@ -2470,7 +2471,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
+        <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="115.0">
             <children>

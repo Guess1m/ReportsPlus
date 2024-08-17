@@ -10,10 +10,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -38,7 +35,7 @@ public class calloutController {
     @FXML
     private BorderPane root;
     @FXML
-    private TextField streetField;
+    private ComboBox streetField;
     @FXML
     private TextField numberField;
     @FXML
@@ -141,8 +138,8 @@ public class calloutController {
                     respondBtn.setVisible(false);
                     ignoreBtn.setVisible(false);
                 });
-
-                streetField.setText(street);
+                
+                streetField.setValue(street);
                 numberField.setText(number);
                 areaField.setText(area);
                 priorityField.setText(priority);
@@ -156,7 +153,7 @@ public class calloutController {
                 message = "No Data";
                 desc = "No Data";
                 log("No Callout found, callout == null", LogUtils.Severity.ERROR);
-                streetField.setText("No Data");
+                streetField.setValue("No Data");
                 numberField.setText("No Data");
                 areaField.setText("No Data");
                 priorityField.setText("No Data");
@@ -173,7 +170,10 @@ public class calloutController {
 
             CalloutStage.setOnHidden(windowEvent -> {
                 log("Added Callout To Active", LogUtils.Severity.INFO);
-                CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
+                CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
+                                          priorityField.getText(), streetField.getEditor().getText(),
+                                          areaField.getText(), countyField.getText(), timeField.getText(),
+                                          dateField.getText(), status);
 
                 Calloutx = CalloutStage.getX();
                 Callouty = CalloutStage.getY();
@@ -220,7 +220,7 @@ public class calloutController {
                             Platform.runLater(() -> {
                                 Callout callout = getCallout();
                                 if (callout != null) {
-                                    streetField.setText(callout.getStreet());
+                                    streetField.setValue(callout.getStreet());
                                     numberField.setText(callout.getNumber());
                                     areaField.setText(callout.getArea());
                                     priorityField.setText(callout.getPriority());
@@ -234,7 +234,7 @@ public class calloutController {
                                 } else {
 
                                     log("No Callouts found.", LogUtils.Severity.WARN);
-                                    streetField.setText(/*No Data*/"");
+                                    streetField.setValue(/*No Data*/"");
                                     numberField.setText(/*No Data*/"");
                                     areaField.setText(/*No Data*/"");
                                     priorityField.setText(/*No Data*/"");

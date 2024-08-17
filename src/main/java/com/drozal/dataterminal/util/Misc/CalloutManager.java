@@ -520,7 +520,7 @@ public class CalloutManager {
             ComboBox calloutarea = (ComboBox) callout.get("area");
             TextArea calloutnotes = (TextArea) callout.get("notes");
             TextField calloutcounty = (TextField) callout.get("county");
-            TextField calloutstreet = (TextField) callout.get("street");
+            ComboBox calloutstreet = (ComboBox) callout.get("street");
             TextField calloutdate = (TextField) callout.get("date");
             TextField callouttime = (TextField) callout.get("time");
             TextField callouttype = (TextField) callout.get("type");
@@ -543,7 +543,7 @@ public class CalloutManager {
                 calloutnotes.appendText("\n" + message1);
             }
             calloutcounty.setText(county1);
-            calloutstreet.setText(street1);
+            calloutstreet.setValue(street1);
             calloutdate.setText(startdate1);
             callouttime.setText(starttime1);
             callouttype.setText(type1);

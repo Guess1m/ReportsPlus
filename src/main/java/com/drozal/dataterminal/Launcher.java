@@ -34,8 +34,7 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while clearing the log file: ", e);
         }
-        //TODO undo
-        //deleteFiles();
+        deleteFiles();
 
         loadFonts();
 

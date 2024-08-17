@@ -120,7 +120,16 @@ public class AccidentReportUtils {
                     TextArea noteArea = (TextArea) anchorPane.lookup("#notepadTextArea");
                     if (noteArea != null) {
                         menuItem.setOnAction(event2 -> {
-                            //todo add the rest of the codes
+                            updateTextFromNotepad(plateNumber, noteArea, "-platenum");
+                            updateTextFromNotepad(model, noteArea, "-model");
+                            updateTextFromNotepad(area.getEditor(), noteArea, "-area");
+                            updateTextFromNotepad(county, noteArea, "-county");
+                            updateTextFromNotepad(street.getEditor(), noteArea, "-street");
+                            updateTextFromNotepad(offenderName, noteArea, "-name");
+                            updateTextFromNotepad(offenderAge, noteArea, "-age");
+                            updateTextFromNotepad(offenderGender, noteArea, "-gender");
+                            updateTextFromNotepad(offenderDescription, noteArea, "-description");
+                            updateTextFromNotepad(offenderAddress, noteArea, "-address");
                             updateTextFromNotepad(accidentnum, noteArea, "-number");
                             updateTextFromNotepad(notes, noteArea, "-comments");
                         });

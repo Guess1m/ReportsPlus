@@ -9,12 +9,12 @@ import java.net.URISyntaxException;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class stringUtil {
-    // version.txt GOOD
-    // version GOOD
-    // updatesList GOOD
-    // pom.xml GOOD
+    // version.txt
+    // version
+    // updatesList
+    // pom.xml
     public static final String version = "v1.0.8-alpha";
-    public static final String[] updatesList = {"test"};
+    public static final String[] updatesList = {"Fixed Court Case Bug", "Fixed Bug With Callouts Not Coming Up", "Added Accident Report"};
 
     public static final String name = "Reports Plus";
     public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

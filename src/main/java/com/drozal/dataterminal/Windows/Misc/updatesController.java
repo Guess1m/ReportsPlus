@@ -16,7 +16,6 @@ import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.stringUtil.version;
-import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.reportUtil.createSimpleTitleBar;
 
@@ -42,8 +41,6 @@ public class updatesController {
 
         verChangelog.setText(version);
 
-        checkUpdates();
-
         updates.addAll(List.of(stringUtil.updatesList));
 
         updates.forEach(string -> {
@@ -55,8 +52,6 @@ public class updatesController {
     }
 
     private void checkUpdates() {
-        checkForUpdates();
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, event -> {
             currentVer.setText("Updating.");
             recentVer.setStyle("-fx-text-fill: #FDFFE2;");
@@ -74,7 +69,7 @@ public class updatesController {
             if (!version.equals(gitVersion)) {
                 recentVer.setText(Objects.requireNonNullElse(gitVersion, "New Ver. Available!"));
                 recentVer.setStyle("-fx-text-fill: red;");
-                NotificationManager.showNotificationError("Update Available", "There is a New Verion Available! " + gitVersion, mainRT);
+                NotificationManager.showNotificationError("Update Available", "There is a New Verion Available! " + gitVersion + " Check LCPDFR Website!", mainRT);
             } else {
                 recentVer.setText(gitVersion);
             }

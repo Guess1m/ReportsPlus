@@ -761,17 +761,12 @@ public class actionController {
                 Scene newScene = new Scene(root);
                 versionStage.setTitle("Version Information");
                 versionStage.setScene(newScene);
+                versionStage.setAlwaysOnTop(true);
 
                 versionStage.show();
-                versionStage.centerOnScreen();
                 centerStageOnMainApp(versionStage);
 
-                versionStage.setOnHidden(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent event) {
-                        versionStage = null;
-                    }
-                });
+                versionStage.setOnHidden(event1 -> versionStage = null);
             });
 
             if (!stringUtil.version.equals(gitVersion)) {

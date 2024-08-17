@@ -30,7 +30,7 @@ public class updateUtil {
                 log("Git Version: " + latestVersion, LogUtils.Severity.INFO);
                 log("App Version: " + stringUtil.version, LogUtils.Severity.INFO);
                 if (!Objects.equals(latestVersion, stringUtil.version)) {
-                    NotificationManager.showNotificationError("Update Available", "There is a New Verion Available! " + latestVersion, mainRT);
+                    NotificationManager.showNotificationError("Update Available", "There is a New Verion Available! " + latestVersion + " Check LCPDFR Website!", mainRT);
                 }
                 reader.close();
             } else {

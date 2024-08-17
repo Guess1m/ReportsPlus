@@ -14,7 +14,7 @@ public class stringUtil {
     // updatesList GOOD
     // pom.xml GOOD
     public static final String version = "v1.0.8-alpha";
-    public static final String[] updatesList = {};
+    public static final String[] updatesList = {"test"};
 
     public static final String name = "Reports Plus";
     public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

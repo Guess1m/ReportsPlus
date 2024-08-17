@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.Windows.Misc;
 
+import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,9 +12,12 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.stringUtil.version;
-import static com.drozal.dataterminal.util.Misc.updateUtil.*;
+import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
+import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.reportUtil.createSimpleTitleBar;
 
 public class updatesController {
@@ -68,15 +72,9 @@ public class updatesController {
         }), new KeyFrame(ANIMATION_DURATION, event -> {
             currentVer.setText(version);
             if (!version.equals(gitVersion)) {
-                if (gitVersion == null) {
-                    recentVer.setText("New Ver. Available!");
-                    recentVer.setStyle("-fx-text-fill: red;");
-                    openWebpage("https://github.com/Guess1m/ReportsPlus/releases");
-                } else {
-                    recentVer.setText(gitVersion);
-                    recentVer.setStyle("-fx-text-fill: red;");
-                    openWebpage("https://github.com/Guess1m/ReportsPlus/releases");
-                }
+                recentVer.setText(Objects.requireNonNullElse(gitVersion, "New Ver. Available!"));
+                recentVer.setStyle("-fx-text-fill: red;");
+                NotificationManager.showNotificationError("Update Available", "There is a New Verion Available! " + gitVersion, mainRT);
             } else {
                 recentVer.setText(gitVersion);
             }

@@ -71,9 +71,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -798,6 +796,15 @@ public class actionController {
             } catch (IOException e) {
                 logError("Not able to read serverautoconnect: ", e);
             }
+            
+            locationDataLabel.setOnMouseClicked(mouseEvent -> {
+                if (locationDataLabel.isVisible()) {
+                    Clipboard clipboard = Clipboard.getSystemClipboard();
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(locationDataLabel.getText());
+                    clipboard.setContent(content);
+                }
+            });
         });
 
         currentCalPane.setPrefHeight(0);

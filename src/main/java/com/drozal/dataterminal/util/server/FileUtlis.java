@@ -7,8 +7,7 @@ import java.net.Socket;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.stringUtil.currentIDFileURL;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class FileUtlis {
 
@@ -29,7 +28,42 @@ public class FileUtlis {
             }
 
             bos.flush();
-            log("File " + currentIDFileURL + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+            log("CurrentID File Downloaded", LogUtils.Severity.INFO);
+        } finally {
+            try {
+                if (bos != null) {
+                    bos.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
+                if (sock != null) {
+                    sock.close();
+                }
+            } catch (IOException e) {
+                logError("Could Not Close All Elements: ", e);
+            }
+        }
+    }
+
+    public static void receiveLocationFromServer(int fileSize) throws IOException {
+        int bytesRead;
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        Socket sock = null;
+        try {
+            sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
+            byte[] mybytearray = new byte[fileSize];
+            InputStream is = sock.getInputStream();
+            fos = new FileOutputStream(currentLocationFileURL);
+            bos = new BufferedOutputStream(fos);
+
+            while ((bytesRead = is.read(mybytearray)) != -1) {
+                bos.write(mybytearray, 0, bytesRead);
+            }
+
+            bos.flush();
+            log("Location File Downloaded", LogUtils.Severity.INFO);
         } finally {
             try {
                 if (bos != null) {
@@ -64,7 +98,7 @@ public class FileUtlis {
             }
 
             bos.flush();
-            log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+            log("Callout File Downloaded", LogUtils.Severity.INFO);
         } finally {
             try {
                 if (bos != null) {
@@ -99,7 +133,7 @@ public class FileUtlis {
             }
 
             bos.flush();
-            log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldPeds.data" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+            log("WorldPed File Downloaded", LogUtils.Severity.INFO);
         } finally {
             try {
                 if (bos != null) {
@@ -134,7 +168,7 @@ public class FileUtlis {
             }
 
             bos.flush();
-            log("File " + getJarPath() + File.separator + "serverData" + File.separator + "serverWorldCars.data" + " downloaded (" + fileSize + " bytes read)", LogUtils.Severity.INFO);
+            log("WorldVeh File Downloaded", LogUtils.Severity.INFO);
         } finally {
             try {
                 if (bos != null) {

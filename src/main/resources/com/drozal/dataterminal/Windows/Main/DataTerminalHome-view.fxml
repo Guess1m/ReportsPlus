@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
@@ -2769,8 +2769,8 @@
                         </AnchorPane>
                         <AnchorPane>
                             <children>
-                                <Label alignment="CENTER" layoutY="16.0" text="Report Plus" textFill="WHITE"
-                                       textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="16.0">
+                                <Label alignment="CENTER" layoutY="7.0" text="Report Plus" textFill="WHITE"
+                                       textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="7.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="25.0"/>
                                     </font>
@@ -2786,9 +2786,9 @@
                                         <Insets left="15.0"/>
                                     </padding>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="17.0" layoutY="52.0" text="Version:"
+                                <Label alignment="CENTER" layoutX="17.0" layoutY="43.0" text="Version:"
                                        textFill="#dadada" textOverrun="CLIP" AnchorPane.leftAnchor="17.0"
-                                       AnchorPane.topAnchor="52.0">
+                                       AnchorPane.topAnchor="43.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="13.0"/>
                                     </font>
@@ -2801,7 +2801,7 @@
                                         </DropShadow>
                                     </effect>
                                 </Label>
-                                <Label fx:id="versionLabel" layoutX="76.0" layoutY="54.0" prefHeight="15.0"
+                                <Label fx:id="versionLabel" layoutX="76.0" layoutY="45.0" prefHeight="15.0"
                                        textFill="WHITE" textOverrun="CLIP" AnchorPane.leftAnchor="76.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="10.0"/>
@@ -2815,9 +2815,9 @@
                                         </DropShadow>
                                     </effect>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="163.0" layoutY="20.0" text="Report Tool"
+                                <Label alignment="CENTER" layoutX="163.0" layoutY="11.0" text="Report Tool"
                                        textFill="#d7d7d7" textOverrun="CLIP" AnchorPane.leftAnchor="163.0"
-                                       AnchorPane.topAnchor="20.0">
+                                       AnchorPane.topAnchor="11.0">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="18.0"/>
                                     </font>
@@ -2832,6 +2832,24 @@
                                     <padding>
                                         <Insets top="2.0"/>
                                     </padding>
+                                </Label>
+                                <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0" layoutX="653.0"
+                                       layoutY="53.0" textFill="#e1e1e1" visible="false" AnchorPane.bottomAnchor="5.0"
+                                       AnchorPane.leftAnchor="15.0">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../imgs/icons/location.png"/>
+                                            </image>
+                                            <effect>
+                                                <ColorAdjust brightness="-0.16"/>
+                                            </effect>
+                                        </ImageView>
+                                    </graphic>
                                 </Label>
                             </children>
                         </AnchorPane>

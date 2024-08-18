@@ -1,7 +1,9 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
@@ -26,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -36,6 +40,7 @@ import static com.drozal.dataterminal.Windows.Server.calloutController.getCallou
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.currentLocationFileURL;
 
 public class ClientUtils {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -44,6 +49,7 @@ public class ClientUtils {
     public static String inet;
     private static Socket socket = null;
     private static ServerStatusListener statusListener;
+    private static actionController controllerVar;
 
     public static void disconnectFromService() {
         try {
@@ -107,6 +113,13 @@ public class ClientUtils {
     }
 
     public static void receiveMessages(BufferedReader in) {
+        if (DataTerminalHomeApplication.controller != null) {
+            controllerVar = DataTerminalHomeApplication.controller;
+        } else if (newOfficerController.controller != null) {
+            controllerVar = newOfficerController.controller;
+        } else {
+            log("ClientUtils Controller Var could not be set", LogUtils.Severity.ERROR);
+        }
         new Thread(() -> {
             try {
                 String fromServer;
@@ -117,6 +130,18 @@ public class ClientUtils {
                             log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
                             disconnectFromService();
                             break label;
+                        case "UPDATE_LOCATION":
+                            log("Received Location update message from server.", LogUtils.Severity.DEBUG);
+                            FileUtlis.receiveLocationFromServer(1024);
+                            Platform.runLater(() -> {
+                                controllerVar.getLocationDataLabel().setVisible(true);
+                                try {
+                                    controllerVar.getLocationDataLabel().setText(Files.readString(Paths.get(currentLocationFileURL)));
+                                } catch (IOException e) {
+                                    logError("Could Not Read FileString For LocationData: ", e);
+                                }
+                            });
+                            break;
                         case "UPDATE_ID":
                             log("Received ID update message from server.", LogUtils.Severity.DEBUG);
                             FileUtlis.receiveIDFromServer(4096);

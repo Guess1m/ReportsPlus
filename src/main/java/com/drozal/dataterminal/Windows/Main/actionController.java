@@ -592,6 +592,8 @@ public class actionController {
     private Tab accidentTab;
     @FXML
     private TableView accidentReportTable;
+    @FXML
+    private Label locationDataLabel;
 
     //</editor-fold>
 
@@ -607,6 +609,7 @@ public class actionController {
         noRecordFoundLabelPed.setVisible(false);
         vehRecordPane.setVisible(false);
         noRecordFoundLabelVeh.setVisible(false);
+        locationDataLabel.setVisible(false);
 
         if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
             ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
@@ -872,10 +875,8 @@ public class actionController {
         Platform.runLater(() -> {
             int itemCount = lookupSplitPane.getItems().size();
             if (itemCount == 2) {
-                // Center the divider between the two panes
                 lookupSplitPane.setDividerPositions(0.5);
             } else if (itemCount == 1) {
-                // Position divider to give the single pane more space
                 lookupSplitPane.setDividerPositions(0.4);
             }
         });
@@ -887,6 +888,7 @@ public class actionController {
                 showLookupBtn.setVisible(false);
                 showCalloutBtn.setVisible(false);
                 showIDBtn.setVisible(false);
+                locationDataLabel.setVisible(false);
                 log("No Connection", Severity.WARN);
                 serverStatusLabel.setText("No Connection");
                 serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -2287,6 +2289,10 @@ public class actionController {
 
     public TextField getPedlicensefield() {
         return pedlicensefield;
+    }
+
+    public Label getLocationDataLabel() {
+        return locationDataLabel;
     }
 
     public TextField getPedlnamefield() {

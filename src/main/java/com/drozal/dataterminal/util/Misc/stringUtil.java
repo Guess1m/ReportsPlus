@@ -13,8 +13,8 @@ public class stringUtil {
     // version
     // updatesList
     // pom.xml
-    public static final String version = "v1.0.8-alpha";
-    public static final String[] updatesList = {"Fixed Court Case Bug", "Fixed Bug With Callouts Not Coming Up", "Added Accident Report"};
+    public static final String version = "v1.0.9-alpha";
+    public static final String[] updatesList = {""};
 
     public static final String name = "Reports Plus";
     public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
@@ -35,6 +35,7 @@ public class stringUtil {
     public static final String vehicleHistoryURL = getJarPath() + File.separator + "data" + File.separator + "vehHistory.xml";
     public static final String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
     public static final String currentIDFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
+    public static final String currentLocationFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverLocation.data";
     public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 
     public static String hexToRgba(String hex, double transparency) {

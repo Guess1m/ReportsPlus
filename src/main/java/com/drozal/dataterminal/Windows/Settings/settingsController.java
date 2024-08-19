@@ -235,7 +235,9 @@ public class settingsController {
     private Button windowPageOneBtn;
     @javafx.fxml.FXML
     private Label lbl10;
-
+    @javafx.fxml.FXML
+    private CheckBox enableNotificationsCheckbox;
+    
     //</editor-fold>
 
     public static void loadTheme() throws IOException {
@@ -586,7 +588,9 @@ public class settingsController {
         topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
 
         root.setTop(topBar);
-
+        
+        enableNotificationsCheckbox.setSelected(
+                ConfigReader.configRead("notificationSettings", "enabled").equals("true"));
         enableCalloutPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equals("true"));
         enableIDPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equals("true"));
         startupFullscreenCheckbox.setSelected(ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
@@ -1264,6 +1268,7 @@ public class settingsController {
         addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
         addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
         addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
+        addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
 
         addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
         addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
@@ -1678,5 +1683,15 @@ public class settingsController {
             enableCalloutPopupsCheckbox.setSelected(false);
         }
     }
-
+    
+    @javafx.fxml.FXML
+    public void enableNotiCheckboxClick(ActionEvent actionEvent) {
+        if (enableNotificationsCheckbox.isSelected()) {
+            ConfigWriter.configwrite("notificationSettings", "enabled", "true");
+            enableNotificationsCheckbox.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("notificationSettings", "enabled", "false");
+            enableNotificationsCheckbox.setSelected(false);
+        }
+    }
 }

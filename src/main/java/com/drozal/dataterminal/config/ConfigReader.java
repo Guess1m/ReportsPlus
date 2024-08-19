@@ -110,8 +110,9 @@ public class ConfigReader {
         checkAndSetDefaultValue("lookupWindow", "lookupOrientation", "horizontal");
 
         // Notification Settings
-        checkAndSetDefaultValue("notificationSettings", "displayDuration", "1.7");
-        checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.9");
+        checkAndSetDefaultValue("notificationSettings", "enabled", "true");
+        checkAndSetDefaultValue("notificationSettings", "displayDuration", "2.2");
+        checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.5");
         checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomLeft");
         checkAndSetDefaultValue("notificationSettings", "notificationPosition", "fadeOutDuration");
         checkAndSetDefaultValue("notificationSettings", "notificationPosition", "displayDuration");

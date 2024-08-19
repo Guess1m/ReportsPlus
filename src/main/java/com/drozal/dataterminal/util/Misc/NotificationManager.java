@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
 
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.changeImageColor;
 
@@ -45,8 +46,16 @@ public class NotificationManager {
     }
 
     private static void enqueueNotification(Notification notification) {
-        notificationQueue.offer(notification);
-        showNextNotification();
+        try {
+            if (ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true")) {
+                notificationQueue.offer(notification);
+                showNextNotification();
+            } else {
+                log("Notifications Are Disabled", LogUtils.Severity.DEBUG);
+            }
+        } catch (IOException e) {
+            logError("Error Getting NotificationsEnabled Setting: ", e);
+        }
     }
 
     private static void showNextNotification() {

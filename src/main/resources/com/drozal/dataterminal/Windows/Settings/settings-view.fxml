@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="350.0" prefWidth="637.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -122,8 +122,7 @@
                                                                 prefHeight="25.0" prefWidth="160.0"
                                                                 styleClass="settingsBtn"
                                                                 stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="CLEAR LOGS"
-                                                                AnchorPane.leftAnchor="35.0"
+                                                                text="CLEAR LOGS" AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
                                                     </children>
@@ -1079,6 +1078,26 @@
                                                                           onAction="#enableIDPopupClick"
                                                                           prefHeight="50.0" selected="true"
                                                                           text="Enable ID Popups"
+                                                                          AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="10.0"
+                                                                          AnchorPane.rightAnchor="20.0"
+                                                                          AnchorPane.topAnchor="0.0">
+                                                                    <font>
+                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                                                    </font>
+                                                                    <padding>
+                                                                        <Insets left="5.0"/>
+                                                                    </padding>
+                                                                </CheckBox>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane GridPane.rowIndex="3">
+                                                            <children>
+                                                                <CheckBox fx:id="enableNotificationsCheckbox"
+                                                                          alignment="CENTER" mnemonicParsing="false"
+                                                                          onAction="#enableNotiCheckboxClick"
+                                                                          prefHeight="50.0" selected="true"
+                                                                          text="Enable Notifications"
                                                                           AnchorPane.bottomAnchor="0.0"
                                                                           AnchorPane.leftAnchor="10.0"
                                                                           AnchorPane.rightAnchor="20.0"

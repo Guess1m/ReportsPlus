@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -64,7 +65,6 @@ public class NotificationManager {
         Platform.runLater(() -> {
             Stage ownerStage = (Stage) notification.owner;
             String textClr, primClr;
-
             try {
                 if (notification.type == NotificationType.INFO) {
                     textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
@@ -129,12 +129,12 @@ public class NotificationManager {
             AnchorPane.setTopAnchor(mainBox, 0.0);
 
             Stage popup = new Stage();
-            popup.initOwner(ownerStage);
-            popup.initStyle(StageStyle.TRANSPARENT);
             Scene scene = new Scene(anchorPane);
             scene.setFill(null);
             popup.setScene(scene);
-            popup.setAlwaysOnTop(true);
+            popup.setAlwaysOnTop(ownerStage.isFocused());
+            popup.initStyle(StageStyle.TRANSPARENT);
+            popup.initModality(Modality.NONE);
 
             closeButton.setOnAction(event -> popup.hide());
 

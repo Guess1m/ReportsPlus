@@ -317,7 +317,7 @@ public class ClientUtils {
                                     CalloutStage.setOnHidden(event -> CalloutStage = null);
                                 });
                             } else {
-                                log("Recieved Callout Update, but popups are disabled", LogUtils.Severity.INFO);
+                                log("Callout Popups are disabled", LogUtils.Severity.DEBUG);
                                 log("Adding Callout To Active", LogUtils.Severity.INFO);
                                 Callout callout = getCallout();
 

@@ -113,6 +113,19 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while deleting the server current ID file: ", e);
         }
+        
+        try {
+            String filePath = currentLocationFileURL;
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path);
+                log("Server Location file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server Location file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server Location file: ", e);
+        }
 
         try {
             String filePath = stringUtil.getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";

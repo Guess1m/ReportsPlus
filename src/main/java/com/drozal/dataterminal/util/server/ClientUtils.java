@@ -37,10 +37,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Main.actionController.*;
 import static com.drozal.dataterminal.Windows.Server.calloutController.getCallout;
+import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
-import static com.drozal.dataterminal.util.Misc.stringUtil.currentLocationFileURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class ClientUtils {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -264,6 +264,7 @@ public class ClientUtils {
                                     }
                                     CalloutStage.initStyle(StageStyle.UNDECORATED);
                                     CalloutStage.show();
+                                    playSound(getJarPath() + "/sounds/alert-callout.wav");
                                     CalloutStage.centerOnScreen();
 
                                     try {

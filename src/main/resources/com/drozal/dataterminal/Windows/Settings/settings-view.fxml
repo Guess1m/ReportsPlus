@@ -165,6 +165,21 @@
                                                                 AnchorPane.topAnchor="10.0"/>
                                                     </children>
                                                 </AnchorPane>
+                                                <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                    <children>
+                                                        <CheckBox fx:id="enableSoundCheckbox" alignment="CENTER"
+                                                                  layoutX="41.0" layoutY="4.0" mnemonicParsing="false"
+                                                                  onAction="#enableSoundCheckboxClick"
+                                                                  text="Enable Sounds (Requires SoundPack)"
+                                                                  AnchorPane.leftAnchor="20.0"
+                                                                  AnchorPane.rightAnchor="20.0"
+                                                                  AnchorPane.topAnchor="10.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                            </font>
+                                                        </CheckBox>
+                                                    </children>
+                                                </AnchorPane>
                                             </children>
                                         </GridPane>
                                     </children>

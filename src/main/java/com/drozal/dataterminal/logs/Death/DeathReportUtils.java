@@ -27,10 +27,12 @@ import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
+import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.DeathReportLogURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 
@@ -187,7 +189,8 @@ public class DeathReportUtils {
                 } catch (JAXBException e) {
                     logError("JAXB Error creating death report: ", e);
                 }
-
+                
+                playSound(getJarPath() + "/sounds/alert-success.wav");
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 refreshChart(areaReportChart, "area");

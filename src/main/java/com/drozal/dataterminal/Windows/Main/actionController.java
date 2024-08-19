@@ -112,6 +112,7 @@ import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedByName;
 import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
+import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.InitTableColumns.*;
@@ -2834,6 +2835,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2908,6 +2910,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2978,6 +2981,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3074,6 +3078,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3157,6 +3162,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3242,6 +3248,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3335,6 +3342,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3435,6 +3443,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3524,6 +3533,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3629,6 +3639,7 @@ public class actionController {
                     if (stage != null) {
                         stage.close();
                     }
+                    playSound(getJarPath() + "/sounds/alert-delete.wav");
                     actionController.needRefresh.set(1);
                     updateChartIfMismatch(reportChart);
                     controllerUtils.refreshChart(getAreaReportChart(), "area");

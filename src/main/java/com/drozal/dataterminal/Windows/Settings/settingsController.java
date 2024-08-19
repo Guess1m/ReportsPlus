@@ -237,6 +237,8 @@ public class settingsController {
     private Label lbl10;
     @javafx.fxml.FXML
     private CheckBox enableNotificationsCheckbox;
+    @javafx.fxml.FXML
+    private CheckBox enableSoundCheckbox;
     
     //</editor-fold>
 
@@ -590,23 +592,32 @@ public class settingsController {
         root.setTop(topBar);
         
         enableNotificationsCheckbox.setSelected(
-                ConfigReader.configRead("notificationSettings", "enabled").equals("true"));
-        enableCalloutPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equals("true"));
-        enableIDPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equals("true"));
-        startupFullscreenCheckbox.setSelected(ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true"));
-        serverAutoconnectCheckbox.setSelected(ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true"));
-        saveCalloutLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberCalloutLocation").equals("true"));
-        saveReportLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberReportLocation").equals("true"));
-        saveIDLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberIDLocation").equals("true"));
-        saveNotesLocationCheckbox.setSelected(ConfigReader.configRead("layout", "rememberNotesLocation").equals("true"));
-        AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equals("true"));
-        AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
-        AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
-        AOTID.setSelected(ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
-        AOTCallout.setSelected(ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
-        AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
-        AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
-        AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equals("true"));
+                ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
+        enableCalloutPopupsCheckbox.setSelected(
+                ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
+        enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
+        enableIDPopupsCheckbox.setSelected(
+                ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
+        startupFullscreenCheckbox.setSelected(
+                ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equalsIgnoreCase("true"));
+        serverAutoconnectCheckbox.setSelected(
+                ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
+        saveCalloutLocationCheckbox.setSelected(
+                ConfigReader.configRead("layout", "rememberCalloutLocation").equalsIgnoreCase("true"));
+        saveReportLocationCheckbox.setSelected(
+                ConfigReader.configRead("layout", "rememberReportLocation").equalsIgnoreCase("true"));
+        saveIDLocationCheckbox.setSelected(
+                ConfigReader.configRead("layout", "rememberIDLocation").equalsIgnoreCase("true"));
+        saveNotesLocationCheckbox.setSelected(
+                ConfigReader.configRead("layout", "rememberNotesLocation").equalsIgnoreCase("true"));
+        AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equalsIgnoreCase("true"));
+        AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equalsIgnoreCase("true"));
+        AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equalsIgnoreCase("true"));
+        AOTID.setSelected(ConfigReader.configRead("AOTSettings", "AOTID").equalsIgnoreCase("true"));
+        AOTCallout.setSelected(ConfigReader.configRead("AOTSettings", "AOTCallout").equalsIgnoreCase("true"));
+        AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equalsIgnoreCase("true"));
+        AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equalsIgnoreCase("true"));
+        AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equalsIgnoreCase("true"));
 
         String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
         mainWindowComboBox.getItems().addAll(displayPlacements);
@@ -1272,6 +1283,7 @@ public class settingsController {
 
         addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
         addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
+        addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
 
         addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
         addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
@@ -1694,4 +1706,16 @@ public class settingsController {
             enableNotificationsCheckbox.setSelected(false);
         }
     }
+    
+    @javafx.fxml.FXML
+    public void enableSoundCheckboxClick(ActionEvent actionEvent) {
+        if (enableSoundCheckbox.isSelected()) {
+            ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
+            enableSoundCheckbox.setSelected(true);
+        } else {
+            ConfigWriter.configwrite("uiSettings", "enableSounds", "false");
+            enableSoundCheckbox.setSelected(false);
+        }
+    }
+    
 }

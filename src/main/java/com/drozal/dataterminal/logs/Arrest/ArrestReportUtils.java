@@ -37,10 +37,12 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.Windows.Main.actionController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
+import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.arrestLogURL;
+import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
 import static com.drozal.dataterminal.util.Report.reportUtil.generateReportNumber;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.findXMLValue;
@@ -413,7 +415,8 @@ public class ArrestReportUtils {
                         }
                     }
                 }
-
+                
+                playSound(getJarPath() + "/sounds/alert-success.wav");
                 actionController.needRefresh.set(1);
                 updateChartIfMismatch(reportChart);
                 refreshChart(areaReportChart, "area");

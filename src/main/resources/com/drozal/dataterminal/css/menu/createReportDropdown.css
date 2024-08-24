@@ -6,7 +6,8 @@
 .button > .label {
     -fx-text-fill: white; /* Change the text color to white */
     -fx-alignment: center-left;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-padding: 0 0 0 10.5;
 }
 

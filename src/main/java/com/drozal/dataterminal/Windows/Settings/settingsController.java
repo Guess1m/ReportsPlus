@@ -256,7 +256,6 @@ public class settingsController {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
-		controllerVar.mainColor9Bkg.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
@@ -339,9 +338,6 @@ public class settingsController {
 		
 		controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
 		controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
-		controllerVar.getSettingsBtn().setOnMouseEntered(
-				e -> controllerVar.getSettingsBtn().setStyle("-fx-background-color: " + secclr + ";"));
-		controllerVar.getSettingsBtn().setOnMouseExited(e -> controllerVar.getSettingsBtn().setStyle(initialStyle));
 		controllerVar.notesButton.setOnMouseEntered(e -> controllerVar.notesButton.setStyle(hoverStyle));
 		controllerVar.notesButton.setOnMouseExited(e -> controllerVar.notesButton.setStyle(initialStyle));
 		controllerVar.getCreateReportBtn().setOnMouseEntered(

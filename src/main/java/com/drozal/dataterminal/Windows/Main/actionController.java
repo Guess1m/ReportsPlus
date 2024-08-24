@@ -285,8 +285,6 @@ public class actionController {
 	@FXML
 	public Label mainColor8;
 	@FXML
-	public Label mainColor9Bkg;
-	@FXML
 	public Button updateInfoBtn;
 	public static NotesViewController notesViewController;
 	actionController controller;
@@ -411,8 +409,6 @@ public class actionController {
 	private AnchorPane pedRecordPane;
 	@FXML
 	private Label noRecordFoundLabelPed;
-	@FXML
-	private Button settingsBtn;
 	@FXML
 	private TextField pedaddressfield;
 	@FXML
@@ -597,9 +593,9 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		showLookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -2301,10 +2297,6 @@ public class actionController {
 		return mainColor8;
 	}
 	
-	public Label getMainColor9Bkg() {
-		return mainColor9Bkg;
-	}
-	
 	public Label getNoRecordFoundLabelPed() {
 		return noRecordFoundLabelPed;
 	}
@@ -2587,10 +2579,6 @@ public class actionController {
 	
 	public Button getShowCalloutBtn() {
 		return showCalloutBtn;
-	}
-	
-	public Button getSettingsBtn() {
-		return settingsBtn;
 	}
 	
 	public ComboBox getOfficerInfoAgency() {
@@ -3839,35 +3827,6 @@ public class actionController {
 	}
 	
 	@FXML
-	public void onSettingsBtnClick(ActionEvent actionEvent) throws IOException {
-		if (settingsStage != null && settingsStage.isShowing()) {
-			settingsStage.close();
-			settingsStage = null;
-			return;
-		}
-		settingsStage = new Stage();
-		settingsStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Settings/settings-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		settingsStage.setTitle("Settings");
-		settingsStage.setScene(newScene);
-		settingsStage.show();
-		settingsStage.centerOnScreen();
-		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
-		showAnimation(settingsBtn);
-		
-		centerStageOnMainApp(settingsStage);
-		
-		settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				settingsStage = null;
-			}
-		});
-	}
-	
-	@FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
 		if (!caseNumField.getText().isEmpty() && caseNumField != null) {
@@ -4674,6 +4633,34 @@ public class actionController {
 	@FXML
 	public void onAccidentReportButtonClick(ActionEvent actionEvent) {
 		newAccident(reportChart, areaReportChart);
+	}
+	
+	@FXML
+	public void onSettingsBtnClick(Event event) throws IOException {
+		if (settingsStage != null && settingsStage.isShowing()) {
+			settingsStage.close();
+			settingsStage = null;
+			return;
+		}
+		settingsStage = new Stage();
+		settingsStage.initStyle(StageStyle.UNDECORATED);
+		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Settings/settings-view.fxml"));
+		Parent root = loader.load();
+		Scene newScene = new Scene(root);
+		settingsStage.setTitle("Settings");
+		settingsStage.setScene(newScene);
+		settingsStage.show();
+		settingsStage.centerOnScreen();
+		settingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
+		
+		centerStageOnMainApp(settingsStage);
+		
+		settingsStage.setOnHidden(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				settingsStage = null;
+			}
+		});
 	}
 	
 	//</editor-fold>

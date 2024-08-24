@@ -16,7 +16,7 @@
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
-                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="70.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -215,9 +215,9 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="120.0" prefHeight="641.0" prefWidth="797.0"
+        <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="69.0" prefHeight="756.0" prefWidth="947.0"
                     stylesheets="@../../css/form/formFields.css" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -833,7 +833,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"
                           AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
@@ -1173,7 +1173,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" visible="false" AnchorPane.bottomAnchor="-2.0"
-                    AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="114.0">
+                    AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="70.0">
             <children>
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -2473,7 +2473,7 @@
         </AnchorPane>
         <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="115.0">
+                    AnchorPane.topAnchor="70.0">
             <children>
                 <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
@@ -2688,16 +2688,15 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" prefHeight="86.0" prefWidth="947.0"
-                    styleClass="menuTopBar" stylesheets="@../../css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
+        <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" maxHeight="-Infinity" minHeight="-Infinity"
+                    prefHeight="39.0" prefWidth="947.0" styleClass="menuTopBar"
+                    stylesheets="@../../css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
-                <GridPane layoutX="12.0" layoutY="10.0" prefHeight="86.0" prefWidth="408.0"
-                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                          AnchorPane.topAnchor="0.0">
+                <GridPane alignment="CENTER_RIGHT" layoutX="12.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="761.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="186.0" prefWidth="186.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
                         <ColumnConstraints/>
                         <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0"/>
                         <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0"/>
@@ -2706,15 +2705,14 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <AnchorPane prefHeight="86.0" prefWidth="430.0" GridPane.columnIndex="1"
-                                    GridPane.columnSpan="4">
+                        <AnchorPane GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP"
+                                    GridPane.vgrow="ALWAYS">
                             <children>
-                                <HBox alignment="CENTER" layoutY="42.0" prefHeight="36.0" prefWidth="164.0"
-                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="18.0"
-                                      AnchorPane.topAnchor="42.0">
+                                <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0"
+                                      AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <Label alignment="CENTER" prefHeight="36.0" text="Server:" textFill="WHITE"
-                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                        <Label alignment="CENTER" text="Server:" textFill="WHITE" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Black" size="15.0"/>
                                             </font>
@@ -2746,111 +2744,11 @@
                                                 </DropShadow>
                                             </effect>
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" top="1.0"/>
                                             </HBox.margin>
                                         </Label>
                                     </children>
                                 </HBox>
-                                <Button fx:id="settingsBtn" graphicTextGap="7.0" layoutX="46.0" layoutY="10.0"
-                                        mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="29.0"
-                                        prefWidth="118.0" style="-fx-background-color: rgb(0,0,0,0.15);"
-                                        styleClass="settingsBtn" stylesheets="@../../css/menu/menuStyles.css"
-                                        text="Settings" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0">
-                                    <graphic>
-                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../imgs/icons/settings.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane>
-                            <children>
-                                <Label alignment="CENTER" layoutY="7.0" text="Report Plus" textFill="WHITE"
-                                       textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="7.0">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="25.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                    width="15.0">
-                                            <color>
-                                                <Color opacity="0.223709374666214"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                    <padding>
-                                        <Insets left="15.0"/>
-                                    </padding>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="17.0" layoutY="43.0" text="Version:"
-                                       textFill="#dadada" textOverrun="CLIP" AnchorPane.leftAnchor="17.0"
-                                       AnchorPane.topAnchor="43.0">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="13.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                    width="15.0">
-                                            <color>
-                                                <Color opacity="0.223709374666214"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                </Label>
-                                <Label fx:id="versionLabel" layoutX="76.0" layoutY="45.0" prefHeight="15.0"
-                                       textFill="WHITE" textOverrun="CLIP" AnchorPane.leftAnchor="76.0">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="10.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                    width="15.0">
-                                            <color>
-                                                <Color opacity="0.223709374666214"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="163.0" layoutY="11.0" text="Report Tool"
-                                       textFill="#d7d7d7" textOverrun="CLIP" AnchorPane.leftAnchor="163.0"
-                                       AnchorPane.topAnchor="11.0">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="18.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                    width="15.0">
-                                            <color>
-                                                <Color opacity="0.223709374666214"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                    <padding>
-                                        <Insets top="2.0"/>
-                                    </padding>
-                                </Label>
-                                <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0" layoutX="653.0"
-                                       layoutY="53.0" textFill="#e1e1e1" visible="false" AnchorPane.bottomAnchor="5.0"
-                                       AnchorPane.leftAnchor="15.0">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                    </font>
-                                    <graphic>
-                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../imgs/icons/location.png"/>
-                                            </image>
-                                            <effect>
-                                                <ColorAdjust brightness="-0.16"/>
-                                            </effect>
-                                        </ImageView>
-                                    </graphic>
-                                </Label>
                             </children>
                         </AnchorPane>
                     </children>
@@ -2870,74 +2768,26 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="NEVER"/>
-                        <RowConstraints maxHeight="566.0" minHeight="-Infinity" prefHeight="528.0" vgrow="NEVER"/>
-                        <RowConstraints maxHeight="246.0" minHeight="0.0" prefHeight="38.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="144.0"
-                                        valignment="BASELINE" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" vgrow="NEVER"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <VBox alignment="CENTER" spacing="5.0" GridPane.rowIndex="3" GridPane.valignment="BASELINE">
-                            <children>
-                                <Label fx:id="mainColor9Bkg" alignment="CENTER" prefHeight="26.0" prefWidth="208.0"
-                                       style="-fx-background-color: #7b72c0;" text="LOS SANTOS P.D"
-                                       textAlignment="CENTER" textFill="WHITE">
-                                    <font>
-                                        <Font name="Roboto" size="17.0"/>
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" text="(877)-275-5273" textAlignment="RIGHT" textFill="WHITE">
-                                    <font>
-                                        <Font name="Roboto" size="14.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow>
-                                            <color>
-                                                <Color opacity="0.17534351348876953"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                </Label>
-                                <Label alignment="CENTER" text="19020 Vanowen St, Los Santos" textAlignment="RIGHT"
-                                       textFill="WHITE">
-                                    <font>
-                                        <Font name="Roboto" size="14.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow>
-                                            <color>
-                                                <Color opacity="0.17534351348876953"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                </Label>
-                                <Label alignment="CENTER" text="lspdonline@gmail.com" textAlignment="RIGHT"
-                                       textFill="WHITE">
-                                    <font>
-                                        <Font name="Roboto" size="14.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow>
-                                            <color>
-                                                <Color opacity="0.17534351348876953"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                </Label>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="535.0" prefWidth="203.0" spacing="10.0"
-                              GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+                        <VBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="1" GridPane.valignment="TOP"
+                              GridPane.vgrow="NEVER">
                             <children>
                                 <Button fx:id="shiftInfoBtn" graphicTextGap="10.0" mnemonicParsing="false"
-                                        onAction="#onShiftInfoBtnClicked" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
-                                        text="Shift Info" textFill="#828797">
+                                        onAction="#onShiftInfoBtnClicked" opacity="0.87" prefHeight="50.0"
+                                        prefWidth="184.0" styleClass="menu"
+                                        stylesheets="@../../css/menu/sidepanelBtns.css" text="Shift Info"
+                                        textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/shiftInfo.png"/>
@@ -2946,14 +2796,14 @@
                                     </graphic>
                                 </Button>
                                 <Button fx:id="notesButton" graphicTextGap="10.0" mnemonicParsing="false"
-                                        onAction="#onNotesButtonClicked" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Notes"
-                                        textFill="#828797">
+                                        onAction="#onNotesButtonClicked" opacity="0.87" prefHeight="50.0"
+                                        prefWidth="184.0" styleClass="menu"
+                                        stylesheets="@../../css/menu/sidepanelBtns.css" text="Notes" textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/writing.png"/>
@@ -2962,7 +2812,7 @@
                                     </graphic>
                                 </Button>
                                 <MenuButton fx:id="createReportBtn" alignment="CENTER_RIGHT" graphicTextGap="10.0"
-                                            mnemonicParsing="false" prefHeight="51.0" prefWidth="184.0"
+                                            mnemonicParsing="false" opacity="0.87" prefHeight="51.0" prefWidth="184.0"
                                             styleClass="button" stylesheets="@../../css/menu/createReportDropdown.css"
                                             text="Create Report" textFill="#828797">
                                     <items>
@@ -2989,10 +2839,10 @@
                                                   onAction="#onAccidentReportButtonClick" text="Accident Report"/>
                                     </items>
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/newReport.png"/>
@@ -3001,14 +2851,14 @@
                                     </graphic>
                                 </MenuButton>
                                 <Button fx:id="logsButton" graphicTextGap="10.0" mnemonicParsing="false"
-                                        onAction="#onLogsButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        onAction="#onLogsButtonClick" opacity="0.87" prefHeight="50.0" prefWidth="184.0"
                                         styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
                                         text="Browse Logs" textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/logs.png"/>
@@ -3017,14 +2867,14 @@
                                     </graphic>
                                 </Button>
                                 <Button fx:id="mapButton" graphicTextGap="10.0" mnemonicParsing="false"
-                                        onAction="#onMapButtonClick" prefHeight="50.0" prefWidth="184.0"
+                                        onAction="#onMapButtonClick" opacity="0.87" prefHeight="50.0" prefWidth="184.0"
                                         styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Map"
                                         textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/map.png"/>
@@ -3033,14 +2883,15 @@
                                     </graphic>
                                 </Button>
                                 <Button fx:id="showCourtCasesBtn" graphicTextGap="6.0" mnemonicParsing="false"
-                                        onAction="#onShowCourtCasesButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
-                                        text="Court Cases" textFill="#828797">
+                                        onAction="#onShowCourtCasesButtonClick" opacity="0.87" prefHeight="50.0"
+                                        prefWidth="184.0" styleClass="menu"
+                                        stylesheets="@../../css/menu/sidepanelBtns.css" text="Court Cases"
+                                        textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/courtIcon.png"/>
@@ -3048,18 +2899,62 @@
                                         </ImageView>
                                     </graphic>
                                     <VBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </Button>
+                            </children>
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                            <GridPane.margin>
+                                <Insets top="15.0"/>
+                            </GridPane.margin>
+                        </VBox>
+                        <AnchorPane>
+                            <children>
+                                <Line endX="183.0" layoutX="11.0" layoutY="61.0" opacity="0.36" stroke="WHITE"
+                                      strokeWidth="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                      AnchorPane.topAnchor="60.0"/>
+                                <AnchorPane layoutX="14.0" layoutY="13.0" AnchorPane.bottomAnchor="13.0"
+                                            AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="13.0">
+                                    <children>
+                                        <Circle fill="#524992" radius="18.0" stroke="#00000014" strokeType="INSIDE"
+                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                        <Label alignment="CENTER" text="ZD" textFill="WHITE"
+                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <BorderPane layoutX="171.0" layoutY="22.0" AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                    <center>
+                                        <ImageView fitHeight="21.0" fitWidth="20.0" onMousePressed="#onSettingsBtnClick"
+                                                   opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../imgs/icons/settings.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </center>
+                                </BorderPane>
+                            </children>
+                        </AnchorPane>
+                        <VBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="3">
+                            <children>
                                 <Button fx:id="showIDBtn" graphicTextGap="8.0" mnemonicParsing="false"
-                                        onAction="#onShowIDButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Show ID"
+                                        onAction="#onShowIDButtonClick" opacity="0.87" prefHeight="50.0"
+                                        prefWidth="184.0" styleClass="menu"
+                                        stylesheets="@../../css/menu/sidepanelBtns.css" text="Show ID"
                                         textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/license.png"/>
@@ -3071,14 +2966,15 @@
                                     </VBox.margin>
                                 </Button>
                                 <Button fx:id="showCalloutBtn" graphicTextGap="6.0" mnemonicParsing="false"
-                                        onAction="#onShowCalloutButtonClick" prefHeight="50.0" prefWidth="184.0"
-                                        styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css"
-                                        text="Callouts" textFill="#828797">
+                                        onAction="#onShowCalloutButtonClick" opacity="0.87" prefHeight="50.0"
+                                        prefWidth="184.0" styleClass="menu"
+                                        stylesheets="@../../css/menu/sidepanelBtns.css" text="Callouts"
+                                        textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.92" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/callout.png"/>
@@ -3087,14 +2983,14 @@
                                     </graphic>
                                 </Button>
                                 <Button fx:id="showLookupBtn" graphicTextGap="6.0" mnemonicParsing="false"
-                                        onAction="#onLookupBtnClick" prefHeight="50.0" prefWidth="184.0"
+                                        onAction="#onLookupBtnClick" opacity="0.87" prefHeight="50.0" prefWidth="184.0"
                                         styleClass="menu" stylesheets="@../../css/menu/sidepanelBtns.css" text="Lookup"
                                         textFill="#828797">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="23.0" fitWidth="20.0" pickOnBounds="true"
+                                        <ImageView fitHeight="23.0" fitWidth="23.0" opacity="0.74" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../../imgs/icons/search.png"/>
@@ -3102,19 +2998,20 @@
                                         </ImageView>
                                     </graphic>
                                     <VBox.margin>
-                                        <Insets left="9.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </Button>
                             </children>
+                            <GridPane.margin>
+                                <Insets bottom="20.0"/>
+                            </GridPane.margin>
                         </VBox>
-                        <AnchorPane>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" spacing="2.0" GridPane.rowIndex="4">
                             <children>
-                                <Label alignment="CENTER" layoutX="2.0" layoutY="4.0" prefHeight="84.0"
-                                       prefWidth="203.0" style="-fx-font-family: Blanka;" text="R P" textFill="WHITE"
-                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <Line endX="183.0" opacity="0.36" stroke="WHITE" strokeWidth="2.0"/>
+                                <Label alignment="CENTER" text="Report Plus" textFill="WHITE" textOverrun="CLIP">
                                     <font>
-                                        <Font size="61.0"/>
+                                        <Font name="Segoe UI Black" size="25.0"/>
                                     </font>
                                     <effect>
                                         <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
@@ -3125,13 +3022,7 @@
                                         </DropShadow>
                                     </effect>
                                 </Label>
-                                <Line endX="183.0" layoutX="90.0" layoutY="89.0" opacity="0.36" stroke="WHITE"
-                                      strokeWidth="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-                                      AnchorPane.topAnchor="88.0"/>
-                                <Label alignment="CENTER" layoutX="140.0" layoutY="31.0"
-                                       style="-fx-font-size: 35; -fx-text-fill: white; -fx-font-family: Blanka;"
-                                       text="+" textFill="#d7d7d7" AnchorPane.leftAnchor="140.0"
-                                       AnchorPane.topAnchor="31.0">
+                                <Label alignment="CENTER" text="Report Tool" textFill="#d7d7d7" textOverrun="CLIP">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="18.0"/>
                                     </font>
@@ -3143,9 +3034,49 @@
                                             </color>
                                         </DropShadow>
                                     </effect>
+                                    <VBox.margin>
+                                        <Insets top="-6.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78" prefHeight="15.0"
+                                       text="v1.0.9-alpha" textFill="WHITE" textOverrun="CLIP">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="10.0"/>
+                                    </font>
+                                    <effect>
+                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                    width="15.0">
+                                            <color>
+                                                <Color opacity="0.223709374666214"/>
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Label>
+                                <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0" text="sadfsf"
+                                       textFill="#e1e1e1">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../imgs/icons/location.png"/>
+                                            </image>
+                                            <effect>
+                                                <ColorAdjust brightness="-0.16"/>
+                                            </effect>
+                                        </ImageView>
+                                    </graphic>
+                                    <VBox.margin>
+                                        <Insets top="3.0"/>
+                                    </VBox.margin>
                                 </Label>
                             </children>
-                        </AnchorPane>
+                            <GridPane.margin>
+                                <Insets bottom="15.0"/>
+                            </GridPane.margin>
+                        </VBox>
                     </children>
                 </GridPane>
             </children>

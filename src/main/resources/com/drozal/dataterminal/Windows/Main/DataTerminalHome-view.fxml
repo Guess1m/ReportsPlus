@@ -11,12 +11,12 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
+            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
                     visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="202.0"
-                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="70.0">
+                    AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="30.0">
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../css/main/Logscrollpane.css"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -217,7 +217,7 @@
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="69.0" prefHeight="756.0" prefWidth="947.0"
                     stylesheets="@../../css/form/formFields.css" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                    AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -833,7 +833,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="calloutPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <GridPane hgap="30.0" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0"
                           AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
@@ -1173,7 +1173,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" visible="false" AnchorPane.bottomAnchor="-2.0"
-                    AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="70.0">
+                    AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="30.0">
             <children>
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -2473,7 +2473,7 @@
         </AnchorPane>
         <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="70.0">
+                    AnchorPane.topAnchor="30.0">
             <children>
                 <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
@@ -2688,76 +2688,6 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="topPane" layoutX="203.0" layoutY="-1.0" maxHeight="-Infinity" minHeight="-Infinity"
-                    prefHeight="39.0" prefWidth="947.0" styleClass="menuTopBar"
-                    stylesheets="@../../css/menu/menuStyles.css" AnchorPane.leftAnchor="203.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-            <children>
-                <GridPane alignment="CENTER_RIGHT" layoutX="12.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0"
-                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                        <ColumnConstraints/>
-                        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0"/>
-                        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                    </rowConstraints>
-                    <children>
-                        <AnchorPane GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP"
-                                    GridPane.vgrow="ALWAYS">
-                            <children>
-                                <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0"
-                                      AnchorPane.topAnchor="0.0">
-                                    <children>
-                                        <Label alignment="CENTER" text="Server:" textFill="WHITE" textOverrun="CLIP"
-                                               HBox.hgrow="ALWAYS">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="15.0"/>
-                                            </font>
-                                            <effect>
-                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                            width="15.0">
-                                                    <color>
-                                                        <Color opacity="0.223709374666214"/>
-                                                    </color>
-                                                </DropShadow>
-                                            </effect>
-                                            <HBox.margin>
-                                                <Insets/>
-                                            </HBox.margin>
-                                        </Label>
-                                        <Label fx:id="serverStatusLabel" alignment="CENTER"
-                                               onMouseClicked="#onServerStatusLabelClick" text="Not Connected"
-                                               textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
-                                               HBox.hgrow="ALWAYS">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="12.0"/>
-                                            </font>
-                                            <effect>
-                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                            width="15.0">
-                                                    <color>
-                                                        <Color opacity="0.223709374666214"/>
-                                                    </color>
-                                                </DropShadow>
-                                            </effect>
-                                            <HBox.margin>
-                                                <Insets left="10.0" top="1.0"/>
-                                            </HBox.margin>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </AnchorPane>
-                    </children>
-                </GridPane>
-            </children>
-            <effect>
-                <DropShadow/>
-            </effect>
-        </AnchorPane>
         <AnchorPane fx:id="sidepane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0"
                     prefWidth="203.0" styleClass="menuSidePanel" stylesheets="@../../css/menu/menuStyles.css"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
@@ -2770,8 +2700,9 @@
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
                         <RowConstraints maxHeight="-Infinity" vgrow="NEVER"/>
-                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
                         <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
@@ -2918,14 +2849,15 @@
                                 <AnchorPane layoutX="14.0" layoutY="13.0" AnchorPane.bottomAnchor="13.0"
                                             AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="13.0">
                                     <children>
-                                        <Circle fill="#524992" radius="18.0" stroke="#00000014" strokeType="INSIDE"
-                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                                        <Label alignment="CENTER" text="ZD" textFill="WHITE"
+                                        <Circle fx:id="userCircle" fill="#524992" radius="18.0" stroke="#00000014"
+                                                strokeType="INSIDE" AnchorPane.bottomAnchor="0.0"
+                                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                AnchorPane.topAnchor="0.0"/>
+                                        <Label fx:id="userLabel" alignment="CENTER" textFill="WHITE"
                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="12.0"/>
+                                                <Font name="Segoe UI Black" size="19.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -3003,11 +2935,54 @@
                                 </Button>
                             </children>
                             <GridPane.margin>
-                                <Insets bottom="20.0"/>
+                                <Insets/>
                             </GridPane.margin>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" spacing="2.0" GridPane.rowIndex="4">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" spacing="2.0" GridPane.rowIndex="5">
                             <children>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <Label alignment="CENTER" text="Server:" textFill="WHITE" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="15.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                            width="15.0">
+                                                    <color>
+                                                        <Color opacity="0.223709374666214"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </Label>
+                                        <Label fx:id="serverStatusLabel" alignment="CENTER"
+                                               onMouseClicked="#onServerStatusLabelClick" text="Not Connected"
+                                               textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                            <effect>
+                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
+                                                            width="15.0">
+                                                    <color>
+                                                        <Color opacity="0.223709374666214"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                            <HBox.margin>
+                                                <Insets left="10.0" top="1.0"/>
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="25.0"/>
+                                    </VBox.margin>
+                                </HBox>
                                 <Line endX="183.0" opacity="0.36" stroke="WHITE" strokeWidth="2.0"/>
                                 <Label alignment="CENTER" text="Report Plus" textFill="WHITE" textOverrun="CLIP">
                                     <font>

@@ -255,7 +255,6 @@ public class settingsController {
 		
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
-		controllerVar.topPane.setStyle("-fx-background-color: " + mainclr + ";");
 		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
 		controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
@@ -302,6 +301,7 @@ public class settingsController {
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
 		controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
+		controllerVar.getUserCircle().setStyle("-fx-fill: " + accclr + ";");
 		
 		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
 		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
@@ -1306,57 +1306,7 @@ public class settingsController {
 		windowPageOne.setVisible(true);
 		windowPageTwo.setVisible(false);
 		
-		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
-		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
-		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
-		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
-		
-		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
-		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
-		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
-		
-		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
-		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
-		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
-		
-		addTooltip(AOTCallout, "Keep Callout Window On Top");
-		addTooltip(AOTClient, "Keep Client Window On Top");
-		addTooltip(AOTID, "Keep ID Window On Top");
-		addTooltip(AOTDebug, "Keep Debug Window On Top");
-		addTooltip(AOTMap, "Keep Map Window On Top");
-		addTooltip(AOTNotes, "Keep Notes Window On Top");
-		addTooltip(AOTReport, "Keep Report Window On Top");
-		addTooltip(AOTSettings, "Keep Settings Window On Top");
-		
-		addTooltip(tt1, "Main Window Location On Startup");
-		addTooltip(tt2, "Notes Window Location On Startup");
-		addTooltip(tt3, "Report Window Location On Startup");
-		addTooltip(tt4, "UI Theme Presets");
-		addTooltip(tt5, "UI Text Color");
-		addTooltip(tt6, "Report Theme Presets");
-		addTooltip(tt7, "Report TextField Color");
-		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
-		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
-		addTooltip(tt10,
-		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
-		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
-		
-		addTooltip(tt16, "Notification Type to be Modified");
-		addTooltip(tt12, "Primary Notification Color");
-		addTooltip(tt15, "Notification Text Color");
-		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
-		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
-		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
-		
-		addTooltip(bkgLabel, "Application Background Color");
-		addTooltip(primLabel, "Application Primary Color");
-		addTooltip(secLabel, "Application Secondary Color");
-		addTooltip(accLabel, "Application Accent Color");
-		
-		addTooltip(headingLabelReport, "Report Heading Color");
-		addTooltip(backgroundLabelReport, "Report Background Color");
-		addTooltip(secLabelReport, "Report Secondary Color");
-		addTooltip(accentLabelReport, "Report Accent Color");
+		addTooltips();
 	}
 	
 	@javafx.fxml.FXML
@@ -1417,6 +1367,60 @@ public class settingsController {
 		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
+	}
+	
+	private void addTooltips() {
+		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
+		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
+		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
+		
+		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
+		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
+		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
+		
+		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
+		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
+		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
+		
+		addTooltip(AOTCallout, "Keep Callout Window On Top");
+		addTooltip(AOTClient, "Keep Client Window On Top");
+		addTooltip(AOTID, "Keep ID Window On Top");
+		addTooltip(AOTDebug, "Keep Debug Window On Top");
+		addTooltip(AOTMap, "Keep Map Window On Top");
+		addTooltip(AOTNotes, "Keep Notes Window On Top");
+		addTooltip(AOTReport, "Keep Report Window On Top");
+		addTooltip(AOTSettings, "Keep Settings Window On Top");
+		
+		addTooltip(tt1, "Main Window Location On Startup");
+		addTooltip(tt2, "Notes Window Location On Startup");
+		addTooltip(tt3, "Report Window Location On Startup");
+		addTooltip(tt4, "UI Theme Presets");
+		addTooltip(tt5, "UI Text Color");
+		addTooltip(tt6, "Report Theme Presets");
+		addTooltip(tt7, "Report TextField Color");
+		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
+		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
+		addTooltip(tt10,
+		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
+		
+		addTooltip(tt16, "Notification Type to be Modified");
+		addTooltip(tt12, "Primary Notification Color");
+		addTooltip(tt15, "Notification Text Color");
+		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
+		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
+		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
+		
+		addTooltip(bkgLabel, "Application Background Color");
+		addTooltip(primLabel, "Application Primary Color");
+		addTooltip(secLabel, "Application Secondary Color");
+		addTooltip(accLabel, "Application Accent Color");
+		
+		addTooltip(headingLabelReport, "Report Heading Color");
+		addTooltip(backgroundLabelReport, "Report Background Color");
+		addTooltip(secLabelReport, "Report Secondary Color");
+		addTooltip(accentLabelReport, "Report Accent Color");
 	}
 	
 	private void loadColors() {

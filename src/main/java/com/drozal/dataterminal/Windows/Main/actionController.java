@@ -76,6 +76,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -278,8 +279,6 @@ public class actionController {
 	public AnchorPane vbox;
 	@FXML
 	public BarChart reportChart;
-	@FXML
-	public AnchorPane topPane;
 	@FXML
 	public AnchorPane sidepane;
 	@FXML
@@ -589,13 +588,17 @@ public class actionController {
 	private TableView accidentReportTable;
 	@FXML
 	private Label locationDataLabel;
+	@FXML
+	private Circle userCircle;
+	@FXML
+	private Label userLabel;
 	
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
+		showLookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -665,6 +668,7 @@ public class actionController {
 		getOfficerInfoAgency().getItems().addAll(dropdownInfo.agencies);
 		
 		OfficerInfoName.setText(name);
+		userLabel.setText(String.valueOf(name.charAt(0)).toUpperCase());
 		OfficerInfoDivision.setValue(division);
 		OfficerInfoRank.setValue(rank);
 		OfficerInfoAgency.setValue(agency);
@@ -1801,6 +1805,14 @@ public class actionController {
 	
 	//<editor-fold desc="Getters">
 	
+	public Circle getUserCircle() {
+		return userCircle;
+	}
+	
+	public Label getUserLabel() {
+		return userLabel;
+	}
+	
 	public Button getShowLookupBtn() {
 		return showLookupBtn;
 	}
@@ -2399,10 +2411,6 @@ public class actionController {
 	
 	public AnchorPane getTitlebar() {
 		return titlebar;
-	}
-	
-	public AnchorPane getTopPane() {
-		return topPane;
 	}
 	
 	public MenuItem getTrafficCitationReportButton() {
@@ -4162,6 +4170,7 @@ public class actionController {
 			updatedNotification.setText("updated.");
 			updatedNotification.setStyle("-fx-text-fill: green;");
 			updatedNotification.setVisible(true);
+			userLabel.setText(String.valueOf(getOfficerInfoName().getText().charAt(0)).toUpperCase());
 			Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
 				updatedNotification.setVisible(false);
 			}));

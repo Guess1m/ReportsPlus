@@ -49,6 +49,8 @@ public class updatesController {
 			changelogBox.getChildren().add(label);
 		});
 		
+		checkUpdates();
+		
 	}
 	
 	private void checkUpdates() {

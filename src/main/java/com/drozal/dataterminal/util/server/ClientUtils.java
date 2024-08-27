@@ -129,11 +129,11 @@ public class ClientUtils {
 				while ((fromServer = in.readLine()) != null) {
 					switch (fromServer) {
 						case "SHUTDOWN":
-							log("Received shutdown message from server. Disconnecting...", LogUtils.Severity.DEBUG);
+							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
 							disconnectFromService();
 							break label;
 						case "UPDATE_LOCATION":
-							log("Received Location update message from server.", LogUtils.Severity.DEBUG);
+							log("Received Location update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveLocationFromServer(1024);
 							Platform.runLater(() -> {
 								controllerVar.getLocationDataLabel().setVisible(true);
@@ -146,7 +146,7 @@ public class ClientUtils {
 							});
 							break;
 						case "UPDATE_ID":
-							log("Received ID update message from server.", LogUtils.Severity.DEBUG);
+							log("Received ID update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveIDFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
@@ -251,7 +251,7 @@ public class ClientUtils {
 							}
 							break;
 						case "UPDATE_CALLOUT":
-							log("Received Callout update message from server.", LogUtils.Severity.DEBUG);
+							log("Received Callout update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveCalloutFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
@@ -371,11 +371,11 @@ public class ClientUtils {
 							}
 							break;
 						case "UPDATE_WORLD_PED":
-							log("Received World Ped update message from server.", LogUtils.Severity.DEBUG);
+							log("Received World Ped update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldPedFromServer(4096);
 							break;
 						case "UPDATE_WORLD_VEH":
-							log("Received World Veh update message from server.", LogUtils.Severity.DEBUG);
+							log("Received World Veh update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldVehFromServer(4096);
 							
 							break;

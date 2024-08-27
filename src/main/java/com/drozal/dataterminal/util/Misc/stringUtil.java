@@ -14,7 +14,7 @@ public class stringUtil {
 	// updatesList
 	// pom.xml
 	public static final String version = "v1.0.9-alpha";
-	public static final String[] updatesList = {""};
+	public static final String[] updatesList = {"Added Ability To See Current Player Location", "Fixed Notification Owner Issue", "Added Sounds", "Redesigned The Top/Side Panels", "Fixed CheckUpdates Issue"};
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

@@ -216,7 +216,7 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="69.0" prefHeight="756.0" prefWidth="947.0"
-                    stylesheets="@../../css/form/formFields.css" AnchorPane.bottomAnchor="0.0"
+                    stylesheets="@../../css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
                 <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
@@ -1172,7 +1172,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" visible="false" AnchorPane.bottomAnchor="-2.0"
+        <AnchorPane fx:id="lookupPane" layoutX="202.0" layoutY="114.0" AnchorPane.bottomAnchor="-2.0"
                     AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="30.0">
             <children>
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"

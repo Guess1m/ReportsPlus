@@ -71,6 +71,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -121,8 +122,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationWarning;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.stringUtil.chargesFilePath;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
@@ -592,13 +592,16 @@ public class actionController {
 	private Circle userCircle;
 	@FXML
 	private Label userLabel;
+	@FXML
+	private ImageView tempimg;
 	
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
-		showCalloutBtn.setVisible(false);
-		showIDBtn.setVisible(false);
+		// todo undo
+		showLookupBtn.setVisible(true);
+		showCalloutBtn.setVisible(true);
+		showIDBtn.setVisible(true);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
@@ -1539,11 +1542,11 @@ public class actionController {
 		}
 	}
 	
-	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus) {
+	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) {
 		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
 		Ped ped = searchedPed.orElseGet(() -> {
 			try {
-				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
+				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
 			} catch (IOException e) {
 				logError("Error creating new ped: ", e);
 				return null;
@@ -1556,7 +1559,7 @@ public class actionController {
 		noRecordFoundLabelPed.setVisible(false);
 	}
 	
-	private Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus) throws IOException {
+	private Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
 		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
 		
 		if (isWanted.equalsIgnoreCase("true")) {
@@ -1568,6 +1571,12 @@ public class actionController {
 				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
 		ped.setBoatingLicenseStatus(String.valueOf(
 				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		if (!pedModel.equalsIgnoreCase("not available")) {
+			ped.setModel(pedModel);
+			System.out.println("set the ped model");
+		} else {
+			System.out.println("ped model is not available so not adding");
+		}
 		try {
 			setGunLicenseStatus(ped);
 		} catch (IOException e) {
@@ -1774,6 +1783,39 @@ public class actionController {
 		
 		// Birthday
 		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
+		
+		// Ped Image
+		// todo add setting the ped image here if it is not "not available"
+		String pedModel = ped.getModel();
+		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
+			File pedImgFolder = new File(pedImageFolderURL);
+			if (pedImgFolder.exists()) {
+				System.out.println("ped image folder exists");
+				
+				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+				
+				if (matchingFiles != null && matchingFiles.length > 0) {
+					File matchingFile = matchingFiles[0];
+					System.out.println("Matching image found: " + matchingFile.getName());
+					
+					// todo add image somewhere in application then have it set
+					/*
+					Working for setting ped image:
+					try {
+						String fileURI = matchingFile.toURI().toString();
+						tempimg.setImage(new Image(fileURI));
+					} catch (Exception e) {
+						System.out.println("Error loading image: " + e.getMessage());
+						e.printStackTrace();
+					}
+					*/
+				} else {
+					System.out.println("No matching image found for the model: " + pedModel);
+				}
+			} else {
+				System.out.println("ped image folder doesn't exist");
+			}
+		}
 		
 		String citationPriors = ped.getCitationPriors();
 		if (citationPriors == null) {
@@ -4337,23 +4379,33 @@ public class actionController {
 		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
 		String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
 		String name = pedData.getOrDefault("name", "Not available");
+		String pedModel = pedData.getOrDefault("pedmodel", "Not available");
 		
 		String owner = ownerSearch.getOrDefault("owner", "Not available");
 		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not available");
 		
 		if (pedOptional.isPresent()) {
-			log("Found: " + name + " From PedHistory file", Severity.DEBUG);
+			log("Found: [" + name + "] From PedHistory file", Severity.DEBUG);
 			Ped ped = pedOptional.get();
+			if (ped.getModel() == null) {
+				ped.setModel("Not available");
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Could not save new pedModel: ", e);
+				}
+				System.out.println("set ped not available since was created before model was added");
+			}
 			processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(),
-			               ped.getWantedStatus(), ped.getLicenseStatus());
+			               ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
 		} else if (!name.equals("Not available")) {
-			log("Found: " + name + " From WorldPed file", Severity.DEBUG);
-			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus);
+			log("Found: [" + name + "] From WorldPed file", Severity.DEBUG);
+			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
 		} else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase(
 				"Los Santos Police Department") && !owner.equalsIgnoreCase(
 				"Los Santos Sheriff's Office") && !owner.equalsIgnoreCase(
 				"Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {
-			log("Found Vehicle Owner: " + owner + " From WorldVeh file, plate#: " + ownerPlateNum, Severity.DEBUG);
+			log("Found Vehicle Owner: [" + owner + "] From WorldVeh file, plate#: " + ownerPlateNum, Severity.DEBUG);
 			processOwnerData(owner, ownerPlateNum);
 		} else {
 			log("No Ped With Name: [" + searchedName + "] Found Anywhere", Severity.WARN);

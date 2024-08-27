@@ -29,6 +29,9 @@ public class Ped {
 	@XmlElement(name = "LicenseNumber")
 	private String licenseNumber;
 	
+	@XmlElement(name = "Model")
+	private String model;
+	
 	@XmlElement(name = "Aliases")
 	private String aliases;
 	
@@ -115,6 +118,14 @@ public class Ped {
 			return calculateAge(birthday);
 		}
 		return "";
+	}
+	
+	public String getModel() {
+		return model;
+	}
+	
+	public void setModel(String model) {
+		this.model = model;
 	}
 	
 	public String getVehiclePlateNum() {

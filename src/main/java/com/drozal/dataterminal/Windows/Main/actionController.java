@@ -71,6 +71,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -593,7 +594,7 @@ public class actionController {
 	@FXML
 	private Label userLabel;
 	@FXML
-	private ImageView tempimg;
+	private ImageView pedImageView;
 	
 	//</editor-fold>
 	
@@ -1799,21 +1800,22 @@ public class actionController {
 					System.out.println("Matching image found: " + matchingFile.getName());
 					
 					// todo add image somewhere in application then have it set
-					/*
-					Working for setting ped image:
 					try {
 						String fileURI = matchingFile.toURI().toString();
-						tempimg.setImage(new Image(fileURI));
+						pedImageView.setImage(new Image(fileURI));
 					} catch (Exception e) {
 						System.out.println("Error loading image: " + e.getMessage());
 						e.printStackTrace();
 					}
-					*/
 				} else {
 					System.out.println("No matching image found for the model: " + pedModel);
+					pedImageView.setImage(null);
+					
 				}
 			} else {
 				System.out.println("ped image folder doesn't exist");
+				pedImageView.setImage(null);
+				
 			}
 		}
 		

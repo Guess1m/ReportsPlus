@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
@@ -1244,7 +1244,7 @@
                                 <Insets left="20.0" right="20.0" top="10.0"/>
                             </VBox.margin>
                         </AnchorPane>
-                        <SplitPane fx:id="lookupSplitPane" dividerPositions="0.5" orientation="VERTICAL"
+                        <SplitPane fx:id="lookupSplitPane" dividerPositions="0.1" orientation="VERTICAL"
                                    style="-fx-border-width: 0; -fx-background-color: transparent;"
                                    stylesheets="@../../css/main/splitPane.css" VBox.vgrow="ALWAYS">
                             <items>
@@ -1649,7 +1649,7 @@
                                                 <AnchorPane fx:id="pedRecordPane" layoutX="15.0" layoutY="65.0"
                                                             prefHeight="432.0" prefWidth="857.0"
                                                             AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
-                                                            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                                                            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="250.0">
                                                     <children>
                                                         <AnchorPane layoutY="36.0" AnchorPane.bottomAnchor="0.0"
                                                                     AnchorPane.leftAnchor="0.0"
@@ -2461,6 +2461,11 @@
                                                         </BorderPane>
                                                     </children>
                                                 </GridPane>
+                                                <ImageView fx:id="pedImageView" fitHeight="150.0" fitWidth="200.0"
+                                                           layoutX="689.0" layoutY="80.0" pickOnBounds="true"
+                                                           preserveRatio="true" AnchorPane.bottomAnchor="738.0"
+                                                           AnchorPane.leftAnchor="689.0" AnchorPane.rightAnchor="45.0"
+                                                           AnchorPane.topAnchor="80.0"/>
                                             </children>
                                         </AnchorPane>
                                     </content>

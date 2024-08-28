@@ -204,14 +204,17 @@
                 </VBox>
                 <AnchorPane layoutX="231.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView fx:id="pedImgaeView" fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0"
-                                   pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="40.0"
-                                   AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="25.0"
-                                   AnchorPane.topAnchor="7.0">
-                            <image>
-                                <Image url="@../../imgs/CityLosSantosLogo.png"/>
-                            </image>
-                        </ImageView>
+                        <BorderPane layoutX="21.0" layoutY="7.0" AnchorPane.bottomAnchor="40.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+                            <center>
+                                <ImageView fx:id="pedImgaeView" fitHeight="119.0" fitWidth="192.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../imgs/CityLosSantosLogo.png"/>
+                                    </image>
+                                </ImageView>
+                            </center>
+                        </BorderPane>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b9b9" height="2.0" layoutY="164.0"
                                    stroke="TRANSPARENT" strokeType="INSIDE" width="165.0"
                                    AnchorPane.bottomAnchor="0.0"/>

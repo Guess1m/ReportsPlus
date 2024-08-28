@@ -86,34 +86,36 @@ public class CurrentIDViewController {
 		if (address != null) {
 			address.setText(addressText);
 		}
-		if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
-			File pedImgFolder = new File(pedImageFolderURL);
-			if (pedImgFolder.exists()) {
-				System.out.println("ped image folder exists");
-				
-				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-				
-				if (matchingFiles != null && matchingFiles.length > 0) {
-					File matchingFile = matchingFiles[0];
-					System.out.println("Matching image found: " + matchingFile.getName());
+		if (pedModel != null) {
+			if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
+				File pedImgFolder = new File(pedImageFolderURL);
+				if (pedImgFolder.exists()) {
+					log("pedImage folder detected..", LogUtils.Severity.DEBUG);
 					
-					try {
-						String fileURI = matchingFile.toURI().toString();
-						pedImageView.setImage(new Image(fileURI));
-					} catch (Exception e) {
+					File[] matchingFiles = pedImgFolder.listFiles(
+							(dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+					
+					if (matchingFiles != null && matchingFiles.length > 0) {
+						File matchingFile = matchingFiles[0];
+						log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+						
+						try {
+							String fileURI = matchingFile.toURI().toString();
+							pedImageView.setImage(new Image(fileURI));
+						} catch (Exception e) {
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+							pedImageView.setImage(defImage);
+							logError("Could not set ped image: ", e);
+						}
+					} else {
+						log("No matching pedImage found for the model: " + pedModel, LogUtils.Severity.WARN);
 						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
 						pedImageView.setImage(defImage);
-						logError("Could not set ped image: ", e);
 					}
 				} else {
-					System.out.println("No matching image found for the model: " + pedModel);
 					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
 					pedImageView.setImage(defImage);
 				}
-			} else {
-				System.out.println("ped image folder doesn't exist");
-				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
-				pedImageView.setImage(defImage);
 			}
 		}
 	}

@@ -601,14 +601,12 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		// todo undo
-		showLookupBtn.setVisible(true);
-		showCalloutBtn.setVisible(true);
-		showIDBtn.setVisible(true);
+		showLookupBtn.setVisible(false);
+		showCalloutBtn.setVisible(false);
+		showIDBtn.setVisible(false);
 		
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
-		
 		noPedImageFoundlbl.setVisible(false);
 		pedRecordPane.setVisible(false);
 		noRecordFoundLabelPed.setVisible(false);
@@ -1579,9 +1577,8 @@ public class actionController {
 				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
 		if (!pedModel.equalsIgnoreCase("not available")) {
 			ped.setModel(pedModel);
-			System.out.println("set the ped model");
 		} else {
-			System.out.println("ped model is not available so not adding");
+			log("ped model is 'not available' so not adding", Severity.WARN);
 		}
 		try {
 			setGunLicenseStatus(ped);
@@ -1791,20 +1788,18 @@ public class actionController {
 		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
 		
 		// Ped Image
-		// todo add setting the ped image here if it is not "not available"
 		String pedModel = ped.getModel();
 		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
 			File pedImgFolder = new File(pedImageFolderURL);
 			if (pedImgFolder.exists()) {
-				System.out.println("ped image folder exists");
+				log("Detected pedImage folder..", Severity.DEBUG);
 				
 				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
 				
 				if (matchingFiles != null && matchingFiles.length > 0) {
 					File matchingFile = matchingFiles[0];
-					System.out.println("Matching image found: " + matchingFile.getName());
+					log("Matching pedImage found: " + matchingFile.getName(), Severity.INFO);
 					
-					// todo add image somewhere in application then have it set
 					try {
 						String fileURI = matchingFile.toURI().toString();
 						pedImageView.setImage(new Image(fileURI));
@@ -1814,12 +1809,12 @@ public class actionController {
 						logError("Could not set ped image: ", e);
 					}
 				} else {
-					System.out.println("No matching image found for the model: " + pedModel);
+					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
+					    Severity.WARN);
 					pedImageView.setImage(null);
 					noPedImageFoundlbl.setVisible(true);
 				}
 			} else {
-				System.out.println("ped image folder doesn't exist");
 				pedImageView.setImage(null);
 				noPedImageFoundlbl.setVisible(true);
 			}
@@ -4402,7 +4397,7 @@ public class actionController {
 				} catch (JAXBException e) {
 					logError("Could not save new pedModel: ", e);
 				}
-				System.out.println("set ped not available since was created before model was added");
+				log("Set ped as 'not available' since it created before pedModel was added", Severity.WARN);
 			}
 			processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(),
 			               ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());

@@ -595,6 +595,8 @@ public class actionController {
 	private Label userLabel;
 	@FXML
 	private ImageView pedImageView;
+	@FXML
+	private Label noPedImageFoundlbl;
 	
 	//</editor-fold>
 	
@@ -607,6 +609,7 @@ public class actionController {
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
 		
+		noPedImageFoundlbl.setVisible(false);
 		pedRecordPane.setVisible(false);
 		noRecordFoundLabelPed.setVisible(false);
 		vehRecordPane.setVisible(false);
@@ -1134,7 +1137,8 @@ public class actionController {
 				modifyCase(case1.getCaseNumber(), case1);
 				log("Case: #" + case1.getCaseNumber() + " has been set as closed", Severity.DEBUG);
 			} catch (JAXBException | IOException e) {
-				e.printStackTrace();
+				logError("Error setting case as closed (modifying): ", e);
+				
 			}
 		}
 		revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
@@ -1179,7 +1183,8 @@ public class actionController {
 						showNotificationInfo("Court Manager",
 						                     "Case: #" + pendingCase.getCaseNumber() + " has been closed", mainRT);
 					} catch (JAXBException | IOException e) {
-						e.printStackTrace();
+						logError("Error modifying case from scheduleOutcomeReveals: ", e);
+						
 					}
 				};
 				
@@ -1803,19 +1808,20 @@ public class actionController {
 					try {
 						String fileURI = matchingFile.toURI().toString();
 						pedImageView.setImage(new Image(fileURI));
+						noPedImageFoundlbl.setVisible(false);
 					} catch (Exception e) {
-						System.out.println("Error loading image: " + e.getMessage());
-						e.printStackTrace();
+						noPedImageFoundlbl.setVisible(true);
+						logError("Could not set ped image: ", e);
 					}
 				} else {
 					System.out.println("No matching image found for the model: " + pedModel);
 					pedImageView.setImage(null);
-					
+					noPedImageFoundlbl.setVisible(true);
 				}
 			} else {
 				System.out.println("ped image folder doesn't exist");
 				pedImageView.setImage(null);
-				
+				noPedImageFoundlbl.setVisible(true);
 			}
 		}
 		

@@ -81,7 +81,7 @@ public class CalloutManager {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(callouts, file);
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			logError("Error creating callout: ", e);
 		}
 	}
 	
@@ -123,7 +123,8 @@ public class CalloutManager {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(callouts, new File(xmlFile));
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			logError("Error deleting callout: ", e);
+			
 		}
 	}
 	
@@ -237,7 +238,8 @@ public class CalloutManager {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logError("Error getting callout value by num: ", e);
+			
 		}
 		
 		return null;
@@ -275,7 +277,7 @@ public class CalloutManager {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logError("Error getting callout value by num: ", e);
 		}
 		
 		return false;
@@ -309,7 +311,8 @@ public class CalloutManager {
 				}
 			}
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			logError("Error loading active callouts: ", e);
+			
 		}
 	}
 	
@@ -336,7 +339,8 @@ public class CalloutManager {
 				}
 			}
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			logError("Error loading callout history: ", e);
+			
 		}
 	}
 	

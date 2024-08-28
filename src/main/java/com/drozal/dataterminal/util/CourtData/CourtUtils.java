@@ -292,9 +292,7 @@ public class CourtUtils {
 						                     "Case: #" + caseToUpdate.getCaseNumber() + " has been closed", mainRT);
 					}
 				} catch (JAXBException | IOException e) {
-					log("Error processing case: #" + caseToUpdate.getCaseNumber() + ". Error: " + e.getMessage(),
-					    LogUtils.Severity.ERROR);
-					e.printStackTrace();
+					logError("Error processing case: #" + caseToUpdate.getCaseNumber() + ":  ", e);
 				}
 			};
 			

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.customizationURL;
 
 public class customizationDataLoader {
@@ -27,7 +28,7 @@ public class customizationDataLoader {
 			log("Loading data from Json...", LogUtils.Severity.INFO);
 			loadDataFromJson();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logError("Error Loading data from Json: ", e);
 		}
 	}
 	

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class AudioUtil {
 	private static final int BUFFER_SIZE = 128000;
@@ -38,7 +39,7 @@ public class AudioUtil {
 						sourceLine.drain();
 						closeResources(sourceLine, audioStream);
 					} catch (Exception e) {
-						e.printStackTrace();
+						logError("Error with closing audio resources: ", e);
 					}
 				}).start();
 			}
@@ -59,7 +60,8 @@ public class AudioUtil {
 		try {
 			audioStream.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logError("Error with closing audio resources (2): ", e);
+			
 		}
 	}
 }

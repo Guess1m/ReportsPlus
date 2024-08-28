@@ -35,6 +35,9 @@ public class Ped {
 	@XmlElement(name = "Aliases")
 	private String aliases;
 	
+	@XmlElement(name = "Flags")
+	private String flags;
+	
 	@XmlElement(name = "Description")
 	private String description;
 	
@@ -158,6 +161,14 @@ public class Ped {
 	
 	public void setAffiliations(String affiliations) {
 		this.affiliations = affiliations;
+	}
+	
+	public String getFlags() {
+		return flags;
+	}
+	
+	public void setFlags(String flags) {
+		this.flags = flags;
 	}
 	
 	public String getAliases() {

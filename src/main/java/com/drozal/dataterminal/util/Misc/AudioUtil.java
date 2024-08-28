@@ -44,7 +44,7 @@ public class AudioUtil {
 				}).start();
 			}
 		} catch (IOException e) {
-			System.err.println("Could not read enableSounds config: " + e.getMessage());
+			logError("Could not read enableSounds config: ", e);
 		}
 	}
 	

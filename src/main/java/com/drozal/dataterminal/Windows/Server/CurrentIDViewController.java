@@ -36,7 +36,7 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class CurrentIDViewController {
 	
-	private static final String defaultImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
+	public static final String defaultPedImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -103,19 +103,22 @@ public class CurrentIDViewController {
 							String fileURI = matchingFile.toURI().toString();
 							pedImageView.setImage(new Image(fileURI));
 						} catch (Exception e) {
-							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							pedImageView.setImage(defImage);
 							logError("Could not set ped image: ", e);
 						}
 					} else {
 						log("No matching pedImage found for the model: " + pedModel, LogUtils.Severity.WARN);
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 						pedImageView.setImage(defImage);
 					}
 				} else {
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 					pedImageView.setImage(defImage);
 				}
+			} else {
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+				pedImageView.setImage(defImage);
 			}
 		}
 	}

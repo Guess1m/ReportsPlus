@@ -101,6 +101,7 @@ import java.util.stream.Collectors;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.createNoteTabs;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
+import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
@@ -597,6 +598,10 @@ public class actionController {
 	private ImageView pedImageView;
 	@FXML
 	private Label noPedImageFoundlbl;
+	@FXML
+	private Label ped101;
+	@FXML
+	private TextField pedflagfield;
 	
 	//</editor-fold>
 	
@@ -1803,21 +1808,34 @@ public class actionController {
 					try {
 						String fileURI = matchingFile.toURI().toString();
 						pedImageView.setImage(new Image(fileURI));
-						noPedImageFoundlbl.setVisible(false);
-					} catch (Exception e) {
 						noPedImageFoundlbl.setVisible(true);
+						noPedImageFoundlbl.setText("Image Found On File:");
+					} catch (Exception e) {
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+						pedImageView.setImage(defImage);
+						noPedImageFoundlbl.setVisible(true);
+						noPedImageFoundlbl.setText("No Image Found In System");
 						logError("Could not set ped image: ", e);
 					}
 				} else {
 					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
 					    Severity.WARN);
-					pedImageView.setImage(null);
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+					pedImageView.setImage(defImage);
 					noPedImageFoundlbl.setVisible(true);
+					noPedImageFoundlbl.setText("No Image Found In System");
 				}
 			} else {
-				pedImageView.setImage(null);
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+				pedImageView.setImage(defImage);
 				noPedImageFoundlbl.setVisible(true);
+				noPedImageFoundlbl.setText("No Image Found In System");
 			}
+		} else {
+			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+			pedImageView.setImage(defImage);
+			noPedImageFoundlbl.setVisible(true);
+			noPedImageFoundlbl.setText("No Image Found In System");
 		}
 		
 		String citationPriors = ped.getCitationPriors();
@@ -4479,82 +4497,6 @@ public class actionController {
 	}
 	
 	@FXML
-	public void pedupdateafil(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String affiliationText = pedaffiliationfield.getText();
-			
-			if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
-				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
-				ped.setAffiliations(affiliationText.trim());
-			} else {
-				pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				pedaffiliationfield.setText("No Data In System");
-				ped.setAffiliations(null);
-			}
-			
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update affiliations button: ", e);
-			}
-		}
-	}
-	
-	@FXML
-	public void pedupdatedesc(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String descText = peddescfield.getText();
-			
-			if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
-				peddescfield.setStyle("-fx-text-fill: black !important;");
-				ped.setDescription(descText.trim());
-			} else {
-				peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				peddescfield.setText("No Data In System");
-				ped.setDescription(null);
-			}
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update Desc button: ", e);
-			}
-		}
-	}
-	
-	@FXML
-	public void pedupdatealias(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String aliasText = pedaliasfield.getText();
-			
-			if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
-				pedaliasfield.setStyle("-fx-text-fill: black !important;");
-				ped.setAliases(aliasText.trim());
-			} else {
-				pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
-				pedaliasfield.setText("No Data In System");
-				ped.setAliases(null);
-			}
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update Alias button: ", e);
-			}
-		}
-	}
-	
-	@FXML
 	public void pedCreateCitationReport(ActionEvent actionEvent) {
 		String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
 		String age = calculateAge(peddobfield.getText().trim());
@@ -4725,6 +4667,108 @@ public class actionController {
 				settingsStage = null;
 			}
 		});
+	}
+	
+	@FXML
+	public void pedupdateflags(ActionEvent actionEvent) {
+		String searchedLicenseNum = pedlicnumfield.getText();
+		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+		
+		if (optionalPed.isPresent()) {
+			Ped ped = optionalPed.get();
+			String pedflagfieldText = pedflagfield.getText();
+			
+			if (!pedflagfieldText.equalsIgnoreCase("No Data In System") && !pedflagfieldText.isEmpty()) {
+				pedflagfield.setStyle("-fx-text-fill: black !important;");
+				ped.setFlags(pedflagfieldText.trim());
+			} else {
+				pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedflagfield.setText("No Data In System");
+				ped.setFlags(null);
+			}
+			
+			try {
+				Ped.PedHistoryUtils.addPed(ped);
+			} catch (JAXBException e) {
+				logError("Could not add ped from update flags button: ", e);
+			}
+		}
+	}
+	
+	@FXML
+	public void pedupdateafil(ActionEvent actionEvent) {
+		String searchedLicenseNum = pedlicnumfield.getText();
+		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+		
+		if (optionalPed.isPresent()) {
+			Ped ped = optionalPed.get();
+			String affiliationText = pedaffiliationfield.getText();
+			
+			if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
+				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
+				ped.setAffiliations(affiliationText.trim());
+			} else {
+				pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaffiliationfield.setText("No Data In System");
+				ped.setAffiliations(null);
+			}
+			
+			try {
+				Ped.PedHistoryUtils.addPed(ped);
+			} catch (JAXBException e) {
+				logError("Could not add ped from update affiliations button: ", e);
+			}
+		}
+	}
+	
+	@FXML
+	public void pedupdatedesc(ActionEvent actionEvent) {
+		String searchedLicenseNum = pedlicnumfield.getText();
+		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+		
+		if (optionalPed.isPresent()) {
+			Ped ped = optionalPed.get();
+			String descText = peddescfield.getText();
+			
+			if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
+				peddescfield.setStyle("-fx-text-fill: black !important;");
+				ped.setDescription(descText.trim());
+			} else {
+				peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				peddescfield.setText("No Data In System");
+				ped.setDescription(null);
+			}
+			try {
+				Ped.PedHistoryUtils.addPed(ped);
+			} catch (JAXBException e) {
+				logError("Could not add ped from update Desc button: ", e);
+			}
+		}
+	}
+	
+	@FXML
+	public void pedupdatealias(ActionEvent actionEvent) {
+		String searchedLicenseNum = pedlicnumfield.getText();
+		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+		
+		if (optionalPed.isPresent()) {
+			Ped ped = optionalPed.get();
+			String aliasText = pedaliasfield.getText();
+			
+			if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
+				pedaliasfield.setStyle("-fx-text-fill: black !important;");
+				ped.setAliases(aliasText.trim());
+			} else {
+				pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaliasfield.setText("No Data In System");
+				ped.setAliases(null);
+			}
+			try {
+				Ped.PedHistoryUtils.addPed(ped);
+			} catch (JAXBException e) {
+				logError("Could not add ped from update Alias button: ", e);
+			}
+		}
 	}
 	
 	//</editor-fold>

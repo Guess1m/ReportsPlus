@@ -1796,7 +1796,7 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                        <AnchorPane GridPane.columnIndex="2"
                                                                                     GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <TextField fx:id="peddobfield"
@@ -1818,7 +1818,8 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <AnchorPane GridPane.rowIndex="2">
+                                                                        <AnchorPane GridPane.columnSpan="2"
+                                                                                    GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <TextField fx:id="pedaddressfield"
                                                                                            editable="false"
@@ -2412,23 +2413,80 @@
                                                                                 <StackPane
                                                                                         BorderPane.alignment="CENTER">
                                                                                     <children>
-                                                                                        <ImageView fx:id="pedImageView"
-                                                                                                   fitHeight="152.0"
-                                                                                                   fitWidth="200.0"
-                                                                                                   pickOnBounds="true"
-                                                                                                   preserveRatio="true"/>
-                                                                                        <Label fx:id="noPedImageFoundlbl"
-                                                                                               text="No Image Found In System"
-                                                                                               StackPane.alignment="CENTER">
-                                                                                            <font>
-                                                                                                <Font name="Segoe UI Black"
-                                                                                                      size="13.0"/>
-                                                                                            </font>
-                                                                                        </Label>
+                                                                                        <VBox>
+                                                                                            <children>
+                                                                                                <BorderPane
+                                                                                                        VBox.vgrow="NEVER">
+                                                                                                    <center>
+                                                                                                        <Label fx:id="noPedImageFoundlbl"
+                                                                                                               alignment="CENTER"
+                                                                                                               text="No Image Found In System">
+                                                                                                            <font>
+                                                                                                                <Font name="Segoe UI Black"
+                                                                                                                      size="13.0"/>
+                                                                                                            </font>
+                                                                                                        </Label>
+                                                                                                    </center>
+                                                                                                    <VBox.margin>
+                                                                                                        <Insets bottom="3.0"/>
+                                                                                                    </VBox.margin>
+                                                                                                </BorderPane>
+                                                                                                <BorderPane
+                                                                                                        VBox.vgrow="ALWAYS">
+                                                                                                    <center>
+                                                                                                        <ImageView
+                                                                                                                fx:id="pedImageView"
+                                                                                                                fitHeight="125.0"
+                                                                                                                fitWidth="150.0"
+                                                                                                                pickOnBounds="true"
+                                                                                                                BorderPane.alignment="CENTER"/>
+                                                                                                    </center>
+                                                                                                    <VBox.margin>
+                                                                                                        <Insets bottom="10.0"/>
+                                                                                                    </VBox.margin>
+                                                                                                </BorderPane>
+                                                                                            </children>
+                                                                                        </VBox>
                                                                                     </children>
                                                                                 </StackPane>
                                                                             </center>
                                                                         </BorderPane>
+                                                                        <AnchorPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="9">
+                                                                            <children>
+                                                                                <TextField fx:id="pedflagfield"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="60.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped101" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Flag(s):"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Button layoutX="149.0" layoutY="34.0"
+                                                                                        mnemonicParsing="false"
+                                                                                        onAction="#pedupdateflags"
+                                                                                        opacity="0.73"
+                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                        styleClass="incidentbtn"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        text="Update" textOverrun="CLIP"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="34.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Button>
+                                                                            </children>
+                                                                        </AnchorPane>
                                                                     </children>
                                                                 </GridPane>
                                                             </children>
@@ -2903,7 +2961,16 @@
                                         <Circle fx:id="userCircle" fill="#524992" radius="18.0" stroke="#00000014"
                                                 strokeType="INSIDE" AnchorPane.bottomAnchor="0.0"
                                                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                AnchorPane.topAnchor="0.0"/>
+                                                AnchorPane.topAnchor="0.0">
+                                            <effect>
+                                                <DropShadow height="30.0" offsetX="2.0" offsetY="2.0" radius="14.5"
+                                                            width="30.0">
+                                                    <color>
+                                                        <Color opacity="0.2045889049768448"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Circle>
                                         <Label fx:id="userLabel" alignment="CENTER" textFill="WHITE"
                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

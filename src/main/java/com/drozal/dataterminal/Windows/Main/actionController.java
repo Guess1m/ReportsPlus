@@ -602,6 +602,10 @@ public class actionController {
 	private Label ped101;
 	@FXML
 	private TextField pedflagfield;
+	@FXML
+	private ImageView vehImageView;
+	@FXML
+	private Label noVehImageFoundlbl;
 	
 	//</editor-fold>
 	
@@ -613,6 +617,7 @@ public class actionController {
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
 		noPedImageFoundlbl.setVisible(false);
+		noVehImageFoundlbl.setVisible(false);
 		pedRecordPane.setVisible(false);
 		noRecordFoundLabelPed.setVisible(false);
 		vehRecordPane.setVisible(false);
@@ -4273,6 +4278,7 @@ public class actionController {
 			vehRecordPane.setVisible(true);
 			noRecordFoundLabelVeh.setVisible(false);
 			Vehicle vehicle = vehOptional.get();
+			
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
@@ -4311,6 +4317,56 @@ public class actionController {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
 			}
+			
+			// todo requires testing
+			String vehModelString = vehicle.getModel();
+			if (vehModelString != null && !vehModelString.equalsIgnoreCase("not available")) {
+				File pedImgFolder = new File(vehImageFolderURL);
+				if (pedImgFolder.exists()) {
+					log("Detected vehImage folder..", Severity.DEBUG);
+					
+					File[] matchingFiles = pedImgFolder.listFiles(
+							(dir, name) -> name.equalsIgnoreCase(vehModelString + "f" + ".jpg"));
+					
+					if (matchingFiles != null && matchingFiles.length > 0) {
+						File matchingFile = matchingFiles[0];
+						log("Matching vehImage found: " + matchingFile.getName(), Severity.INFO);
+						
+						try {
+							String fileURI = matchingFile.toURI().toString();
+							vehImageView.setImage(new Image(fileURI));
+							noVehImageFoundlbl.setVisible(true);
+							noVehImageFoundlbl.setText("Image Found On File:");
+						} catch (Exception e) {
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+							vehImageView.setImage(defImage);
+							noVehImageFoundlbl.setVisible(true);
+							noVehImageFoundlbl.setText("No Image Found In System");
+							logError("Could not set vehImage: ", e);
+						}
+					} else {
+						log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.",
+						    Severity.WARN);
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+						vehImageView.setImage(defImage);
+						noVehImageFoundlbl.setVisible(true);
+						noVehImageFoundlbl.setText("No Image Found In System");
+					}
+				} else {
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+					vehImageView.setImage(defImage);
+					noVehImageFoundlbl.setVisible(true);
+					noVehImageFoundlbl.setText("No Image Found In System");
+				}
+			} else {
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+				vehImageView.setImage(defImage);
+				noVehImageFoundlbl.setVisible(true);
+				noVehImageFoundlbl.setText("No Image Found In System");
+			}
+			
+			
+			
 		} else if (!licensePlate.equals("Not available")) {
 			log("Found: " + searchedPlate + " From WorldVeh file", Severity.DEBUG);
 			vehRecordPane.setVisible(true);

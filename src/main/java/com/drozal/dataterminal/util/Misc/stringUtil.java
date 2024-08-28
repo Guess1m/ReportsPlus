@@ -14,7 +14,7 @@ public class stringUtil {
 	// updatesList
 	// pom.xml
 	public static final String version = "v1.0.9-alpha";
-	public static final String[] updatesList = {"Added Ability To See Current Player Location", "Fixed Notification Owner Issue", "Added Sounds", "Redesigned The Top/Side Panels", "Fixed CheckUpdates Issue"};
+	public static final String[] updatesList = {"Added Ability To See Current Player Location", "Fixed Notification Owner Issue", "Added Sounds", "Redesigned The Top/Side Panels", "Fixed CheckUpdates Issue", "Added PedModel Display To ID's And Lookups", "Added Ped Flags To Lookups", "Combined Update Buttons In PedLookup"};
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
@@ -38,6 +38,7 @@ public class stringUtil {
 	public static final String currentLocationFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverLocation.data";
 	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 	public static final String pedImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "peds";
+	public static final String vehImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "vehicles";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

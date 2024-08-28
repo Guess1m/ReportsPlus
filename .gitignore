@@ -42,3 +42,11 @@ dependency-reduced-pom.xml
 /.idea/intellij-javadocs-4.0.1.xml
 /.idea/statistic.xml
 /.idea/git_toolbox_prj.xml
+/ReportsPlus /data/calloutData.xml
+/ReportsPlus /data/calloutHistory.xml
+/ReportsPlus /data/Charges.xml
+/ReportsPlus /data/Citations.xml
+/ReportsPlus /config.properties
+/ReportsPlus /data/customization.json
+/ReportsPlus /output.log
+/ReportsPlus /ReportsPlus-v1.0.9-alpha.jar

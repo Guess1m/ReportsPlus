@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="vbox" prefHeight="800.0" prefWidth="1150.0" styleClass="menuBackground"
-            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/menu/menuStyles.css" xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <children>
         <AnchorPane fx:id="shiftInformationPane" layoutX="205.0" layoutY="116.0" prefHeight="709.0" prefWidth="947.0"
@@ -1250,7 +1250,7 @@
                             <items>
                                 <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                            stylesheets="@../../css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="0.11">
                                     <content>
                                         <AnchorPane fx:id="vehLookupPane"
                                                     style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -1322,7 +1322,7 @@
                                                             AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
                                                             AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                                                     <children>
-                                                        <VBox layoutY="5.0" AnchorPane.bottomAnchor="0.0"
+                                                        <VBox layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
                                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                               AnchorPane.topAnchor="5.0">
                                                             <children>
@@ -1341,18 +1341,18 @@
                                                                                 <ColumnConstraints hgrow="ALWAYS"
                                                                                                    minWidth="10.0"
                                                                                                    percentWidth="33.3"/>
-                                                                                <ColumnConstraints halignment="CENTER"
-                                                                                                   hgrow="NEVER"
-                                                                                                   maxWidth="-Infinity"
+                                                                                <ColumnConstraints hgrow="ALWAYS"
                                                                                                    minWidth="10.0"
-                                                                                                   percentWidth="33.3"
-                                                                                                   prefWidth="100.0"/>
+                                                                                                   percentWidth="33.3"/>
                                                                             </columnConstraints>
                                                                             <rowConstraints>
                                                                                 <RowConstraints maxHeight="-Infinity"
                                                                                                 minHeight="-Infinity"
                                                                                                 vgrow="SOMETIMES"/>
                                                                                 <RowConstraints minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints maxHeight="-Infinity"
+                                                                                                minHeight="-Infinity"
                                                                                                 vgrow="SOMETIMES"/>
                                                                             </rowConstraints>
                                                                             <children>
@@ -1424,7 +1424,8 @@
                                                                                         </Label>
                                                                                     </children>
                                                                                 </AnchorPane>
-                                                                                <AnchorPane GridPane.columnIndex="2">
+                                                                                <AnchorPane GridPane.columnSpan="2"
+                                                                                            GridPane.rowIndex="2">
                                                                                     <children>
                                                                                         <Label fx:id="plt4"
                                                                                                layoutX="1.0"
@@ -1487,7 +1488,7 @@
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                                 <BorderPane GridPane.columnIndex="2"
-                                                                                            GridPane.rowIndex="1">
+                                                                                            GridPane.rowSpan="3">
                                                                                     <center>
                                                                                         <StackPane
                                                                                                 BorderPane.alignment="CENTER">
@@ -1515,13 +1516,14 @@
                                                                                                             <center>
                                                                                                                 <ImageView
                                                                                                                         fx:id="vehImageView"
-                                                                                                                        fitHeight="97.0"
-                                                                                                                        fitWidth="212.0"
+                                                                                                                        fitHeight="207.0"
+                                                                                                                        fitWidth="242.0"
                                                                                                                         pickOnBounds="true"
+                                                                                                                        preserveRatio="true"
                                                                                                                         BorderPane.alignment="CENTER"/>
                                                                                                             </center>
                                                                                                             <VBox.margin>
-                                                                                                                <Insets bottom="10.0"/>
+                                                                                                                <Insets/>
                                                                                                             </VBox.margin>
                                                                                                         </BorderPane>
                                                                                                     </children>
@@ -2460,7 +2462,7 @@
                                                                                                                 BorderPane.alignment="CENTER"/>
                                                                                                     </center>
                                                                                                     <VBox.margin>
-                                                                                                        <Insets bottom="10.0"/>
+                                                                                                        <Insets bottom="5.0"/>
                                                                                                     </VBox.margin>
                                                                                                 </BorderPane>
                                                                                             </children>

@@ -31,6 +31,9 @@ public class ID {
 	@XmlElement(name = "Address")
 	private String address;
 	
+	@XmlElement(name = "PedModel")
+	private String pedModel;
+	
 	@XmlElement(name = "Index")
 	private int index;
 	
@@ -43,6 +46,14 @@ public class ID {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPedModel() {
+		return pedModel;
+	}
+	
+	public void setPedModel(String pedModel) {
+		this.pedModel = pedModel;
 	}
 	
 	public String getFirstName() {

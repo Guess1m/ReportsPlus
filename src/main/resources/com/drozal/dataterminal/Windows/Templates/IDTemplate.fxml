@@ -204,9 +204,10 @@
                 </VBox>
                 <AnchorPane layoutX="231.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0" pickOnBounds="true"
-                                   preserveRatio="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="21.0"
-                                   AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="7.0">
+                        <ImageView fx:id="pedImgaeView" fitHeight="119.0" fitWidth="192.0" layoutX="21.0" layoutY="5.0"
+                                   pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="40.0"
+                                   AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="25.0"
+                                   AnchorPane.topAnchor="7.0">
                             <image>
                                 <Image url="@../../imgs/CityLosSantosLogo.png"/>
                             </image>

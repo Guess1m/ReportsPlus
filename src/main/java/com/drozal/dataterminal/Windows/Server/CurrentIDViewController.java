@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -28,6 +30,7 @@ import static com.drozal.dataterminal.util.History.IDHistory.checkAllHistoryIDsC
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.Misc.stringUtil.pedImageFolderURL;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
@@ -39,6 +42,7 @@ public class CurrentIDViewController {
 	private TabPane tabPane;
 	@javafx.fxml.FXML
 	private Label noIDFoundlbl;
+	private static String defaultImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
 	
 	public static String generateRandomNumber() {
 		Random random = new Random();
@@ -82,6 +86,7 @@ public class CurrentIDViewController {
 							String birthday = historyID.getBirthday();
 							String gender = historyID.getGender();
 							String address = historyID.getAddress();
+							String pedModel = historyID.getPedModel();
 							String genNum1 = generateRandomNumber();
 							String genNum2 = generateRandomNumber();
 							String fullName = firstName + " " + lastName;
@@ -108,7 +113,7 @@ public class CurrentIDViewController {
 							tabPane.getTabs().add(newTab);
 							VBox main = (VBox) vBox.lookup("#main");
 							updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName, birthday, gender,
-							                 address);
+							                 address, pedModel);
 						}
 					}
 					if (checkAllHistoryIDsClosed()) {
@@ -181,6 +186,7 @@ public class CurrentIDViewController {
 												String birthday = historyID.getBirthday();
 												String gender = historyID.getGender();
 												String address = historyID.getAddress();
+												String pedModel = historyID.getPedModel();
 												String genNum1 = generateRandomNumber();
 												String genNum2 = generateRandomNumber();
 												String fullName = firstName + " " + lastName;
@@ -208,7 +214,7 @@ public class CurrentIDViewController {
 												tabPane.getTabs().add(newTab);
 												VBox main = (VBox) vBox.lookup("#main");
 												updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName,
-												                 birthday, gender, address);
+												                 birthday, gender, address, pedModel);
 											}
 										}
 										if (checkAllHistoryIDsClosed()) {
@@ -236,7 +242,7 @@ public class CurrentIDViewController {
 		watchThread.start();
 	}
 	
-	public void updateVBoxValues(VBox root, String cursiveNameText, String genNum1Text, String genNum2Text, String firstText, String lastText, String dobText, String genderText, String addressText) {
+	private static void updateVBoxValues(VBox root, String cursiveNameText, String genNum1Text, String genNum2Text, String firstText, String lastText, String dobText, String genderText, String addressText, String pedModel) {
 		Label cursiveName = (Label) root.lookup("#cursiveName");
 		Label genNum1 = (Label) root.lookup("#genNum1");
 		Label genNum2 = (Label) root.lookup("#genNum2");
@@ -245,6 +251,7 @@ public class CurrentIDViewController {
 		TextField dob = (TextField) root.lookup("#dob");
 		TextField gender = (TextField) root.lookup("#gender");
 		TextField address = (TextField) root.lookup("#address");
+		ImageView pedImageView = (ImageView) root.lookup("#pedImgaeView");
 		
 		if (cursiveName != null) {
 			cursiveName.setText(cursiveNameText);
@@ -270,6 +277,36 @@ public class CurrentIDViewController {
 		}
 		if (address != null) {
 			address.setText(addressText);
+		}
+		if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
+			File pedImgFolder = new File(pedImageFolderURL);
+			if (pedImgFolder.exists()) {
+				System.out.println("ped image folder exists");
+				
+				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+				
+				if (matchingFiles != null && matchingFiles.length > 0) {
+					File matchingFile = matchingFiles[0];
+					System.out.println("Matching image found: " + matchingFile.getName());
+					
+					try {
+						String fileURI = matchingFile.toURI().toString();
+						pedImageView.setImage(new Image(fileURI));
+					} catch (Exception e) {
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+						pedImageView.setImage(defImage);
+						logError("Could not set ped image: ", e);
+					}
+				} else {
+					System.out.println("No matching image found for the model: " + pedModel);
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+					pedImageView.setImage(defImage);
+				}
+			} else {
+				System.out.println("ped image folder doesn't exist");
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+				pedImageView.setImage(defImage);
+			}
 		}
 	}
 	

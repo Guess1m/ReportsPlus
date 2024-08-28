@@ -401,6 +401,8 @@ public class settingsController {
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -447,6 +449,8 @@ public class settingsController {
 		controllerVar.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		// todo test black/white fields all working on lookup pane
 		
 		controllerVar.getActivecalfill().setStyle(
 				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
@@ -504,6 +508,8 @@ public class settingsController {
 		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -550,6 +556,7 @@ public class settingsController {
 		controllerVar.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getActivecalfill().setStyle(
 				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));

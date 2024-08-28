@@ -175,6 +175,9 @@ public class ConfigReader {
 		checkAndSetDefaultValue("reportSettings", "reportSecondary", "#323C41");
 		checkAndSetDefaultValue("reportSettings", "reportWindowDarkMode", "false");
 		
+		// Veh Lookup Settings
+		checkAndSetDefaultValue("vehicleHistory", "hasValidInspection", "85");
+		
 		// Ped History Settings
 		checkAndSetDefaultValue("pedHistory", "courtTrialDelay", "600");
 		checkAndSetDefaultValue("pedHistory", "onParoleChance", "15");

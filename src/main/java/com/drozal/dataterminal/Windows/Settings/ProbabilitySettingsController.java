@@ -76,6 +76,8 @@ public class ProbabilitySettingsController {
 	private TextField fewCharges;
 	@javafx.fxml.FXML
 	private Label citationProbabilityLabel;
+	@javafx.fxml.FXML
+	private TextField vehInspection;
 	
 	private void setInitialValues() throws IOException {
 		// Gun Permit Type
@@ -112,6 +114,8 @@ public class ProbabilitySettingsController {
 		
 		// Court Trial Delay
 		caseOutcomeDelay.setText(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
+		
+		vehInspection.setText(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
 	}
 	
 	private void addNumericOnlyListener(TextField textField) {
@@ -173,6 +177,7 @@ public class ProbabilitySettingsController {
 		addNumericOnlyAndBeyondMaxListener(manyCharges);
 		addNumericOnlyAndBeyondMaxListener(noCharges);
 		addNumericOnlyAndBeyondMaxListener(fewCharges);
+		addNumericOnlyAndBeyondMaxListener(vehInspection);
 	}
 	
 	private boolean checkChargePrior() {
@@ -324,6 +329,7 @@ public class ProbabilitySettingsController {
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "handgunChance", permitClassHandgun.getText());
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "longgunChance", permitClassLonggun.getText());
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "shotgunChance", permitClassShotgun.getText());
+			ConfigWriter.configwrite("vehicleHistory", "hasValidInspection", vehInspection.getText());
 			log("Wrote New Probabilities To Config", LogUtils.Severity.INFO);
 			NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config",
 			                                         mainRT);

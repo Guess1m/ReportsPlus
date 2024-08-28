@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="705.0" prefWidth="768.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
+            prefHeight="806.0" prefWidth="768.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
             xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.ProbabilitySettingsController">
     <center>
@@ -29,6 +29,7 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
                         <RowConstraints vgrow="NEVER"/>
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
@@ -113,7 +114,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.rowIndex="3">
+                        <BorderPane GridPane.rowIndex="4">
                             <center>
                                 <TextField fx:id="onParole" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 15">
@@ -130,7 +131,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <center>
                                 <TextField fx:id="onProbation" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 20">
@@ -147,7 +148,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.rowIndex="6">
+                        <BorderPane GridPane.rowIndex="7">
                             <center>
                                 <TextField fx:id="noCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 60">
@@ -164,7 +165,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="7">
                             <center>
                                 <TextField fx:id="minimalCharges" maxWidth="-Infinity" prefHeight="23.0"
                                            prefWidth="456.0" promptText="Default: 25">
@@ -181,7 +182,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="7">
                             <center>
                                 <TextField fx:id="fewCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 10">
@@ -198,7 +199,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="6">
+                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="7">
                             <center>
                                 <TextField fx:id="manyCharges" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 5">
@@ -215,7 +216,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.rowIndex="8">
+                        <BorderPane GridPane.rowIndex="9">
                             <center>
                                 <TextField fx:id="noCitations" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 60">
@@ -232,7 +233,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="9">
                             <center>
                                 <TextField fx:id="minimalCitations" maxWidth="-Infinity" prefHeight="23.0"
                                            prefWidth="456.0" promptText="Default: 25">
@@ -249,7 +250,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="8">
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="9">
                             <center>
                                 <TextField fx:id="fewCitations" maxWidth="-Infinity" prefHeight="23.0" prefWidth="456.0"
                                            promptText="Default: 10">
@@ -266,7 +267,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="8">
+                        <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="9">
                             <center>
                                 <TextField fx:id="manyCitations" maxWidth="-Infinity" prefHeight="23.0"
                                            prefWidth="456.0" promptText="Default: 5">
@@ -283,7 +284,7 @@
                                 </Label>
                             </top>
                         </BorderPane>
-                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="11">
+                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="12">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
@@ -347,7 +348,7 @@
                                 </BorderPane>
                             </children>
                         </GridPane>
-                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="13">
+                        <GridPane hgap="15.0" GridPane.columnSpan="4" GridPane.rowIndex="14">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
@@ -410,7 +411,7 @@
                                 </BorderPane>
                             </children>
                         </GridPane>
-                        <BorderPane GridPane.rowIndex="14">
+                        <BorderPane GridPane.rowIndex="15">
                             <center>
                                 <TextField fx:id="huntingLicense" maxWidth="-Infinity" prefHeight="23.0"
                                            prefWidth="456.0" promptText="Default: 20">
@@ -444,7 +445,7 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="2">
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="3">
                             <children>
                                 <Label alignment="CENTER"
                                        style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
@@ -458,7 +459,7 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="4">
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="5">
                             <children>
                                 <Label alignment="CENTER"
                                        style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
@@ -474,19 +475,19 @@
                         </AnchorPane>
                         <Label fx:id="chargeProbabilityLabel" text="ALL FOUR MUST ADD UP TO 100 COMBINED"
                                textFill="#ffa3a3" GridPane.columnSpan="4" GridPane.halignment="CENTER"
-                               GridPane.rowIndex="5">
+                               GridPane.rowIndex="6">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
                         <Label fx:id="citationProbabilityLabel" text="ALL FOUR MUST ADD UP TO 100 COMBINED"
                                textFill="#ffa3a3" GridPane.columnSpan="4" GridPane.halignment="CENTER"
-                               GridPane.rowIndex="7">
+                               GridPane.rowIndex="8">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
-                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="9">
+                        <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="10">
                             <children>
                                 <Label alignment="CENTER"
                                        style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
@@ -502,19 +503,19 @@
                             </children>
                         </AnchorPane>
                         <Label fx:id="permitTypeLabel" text="ALL THREE MUST ADD UP TO 100 COMBINED" textFill="#ffa3a3"
-                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
                         <Label fx:id="permitClassLabel"
                                text="ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)" textFill="#ffa3a3"
-                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="12">
+                               GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="13">
                             <font>
                                 <Font name="Segoe UI Black" size="13.0"/>
                             </font>
                         </Label>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14">
+                        <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="15">
                             <children>
                                 <BorderPane layoutX="62.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                             AnchorPane.topAnchor="0.0">
@@ -530,6 +531,23 @@
                                 </BorderPane>
                             </children>
                         </AnchorPane>
+                        <BorderPane GridPane.columnSpan="2" GridPane.rowIndex="2">
+                            <center>
+                                <TextField fx:id="vehInspection" maxWidth="-Infinity" prefHeight="23.0"
+                                           prefWidth="456.0" promptText="Default: 85">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </TextField>
+                            </center>
+                            <top>
+                                <Label text="Chance Vehicle Inspection Is Valid:" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </top>
+                        </BorderPane>
                     </children>
                 </GridPane>
             </children>

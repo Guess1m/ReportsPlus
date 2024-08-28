@@ -21,8 +21,6 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.vehicleHistoryURL;
 @XmlRootElement(name = "vehicle")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vehicle {
-	//
-	//	licensePlate=46EEK572&model=0x361ca82c&isStolen=False&isPolice=True&owner=David McReary&driver=John Mckennedy&registration=Valid&insurance=Valid&color=
 	
 	@XmlElement(name = "PlateNumber")
 	private String plateNumber;
@@ -47,6 +45,28 @@ public class Vehicle {
 	
 	@XmlElement(name = "Insurance")
 	private String insurance;
+	
+	@XmlElement(name = "Type")
+	private String type;
+	
+	@XmlElement(name = "Inspection")
+	private String inspection;
+	
+	public String getInspection() {
+		return inspection;
+	}
+	
+	public void setInspection(String inspection) {
+		this.inspection = inspection;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	public String getColor() {
 		return color;
@@ -130,6 +150,14 @@ public class Vehicle {
 	
 	public static class VehicleHistoryUtils {
 		
+		public static String generateInspectionStatus(int validChance) {
+			if (validChance < 0 || validChance > 100) {
+				throw new IllegalArgumentException("Chance must be between 0 and 100 for Veh. inspection.");
+			}
+			int randomValue = (int) (Math.random() * 100) + 1;
+			return randomValue <= validChance ? "Valid" : "Invalid";
+		}
+		
 		public static Vehicles loadVehicles() throws JAXBException {
 			File file = new File(vehicleHistoryURL);
 			if (!file.exists()) {
@@ -176,16 +204,6 @@ public class Vehicle {
 			saveVehicles(Vehicles);
 		}
 		
-		public static void deleteVehicle(String Vehiclenumber) throws JAXBException {
-			Vehicles Vehicles = loadVehicles();
-			
-			if (Vehicles.getVehicleList() != null) {
-				Vehicles.getVehicleList().removeIf(e -> e.getPlateNumber().equals(Vehiclenumber));
-				saveVehicles(Vehicles);
-				log("Vehicle with plate number " + Vehiclenumber + " deleted.", LogUtils.Severity.INFO);
-			}
-		}
-		
 		public static Optional<Vehicle> findVehicleByNumber(String Vehiclenumber) {
 			Vehicles Vehicles = null;
 			try {
@@ -202,20 +220,6 @@ public class Vehicle {
 			return Optional.empty();
 		}
 		
-		public static void modifyVehicle(String number, Vehicle updatedVehicle) throws JAXBException {
-			Vehicles Vehicles = loadVehicles();
-			
-			if (Vehicles.getVehicleList() != null) {
-				for (int i = 0; i < Vehicles.getVehicleList().size(); i++) {
-					Vehicle e = Vehicles.getVehicleList().get(i);
-					if (e.getPlateNumber().equals(number)) {
-						Vehicles.getVehicleList().set(i, updatedVehicle);
-						saveVehicles(Vehicles);
-						return;
-					}
-				}
-			}
-		}
 		
 	}
 	

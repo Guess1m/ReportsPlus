@@ -116,6 +116,7 @@ import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedByName;
 import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
+import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
 import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
@@ -599,18 +600,26 @@ public class actionController {
 	@FXML
 	private Label noPedImageFoundlbl;
 	@FXML
-	private Label ped101;
-	@FXML
 	private TextField pedflagfield;
 	@FXML
 	private ImageView vehImageView;
 	@FXML
 	private Label noVehImageFoundlbl;
+	@FXML
+	private Label plt10;
+	@FXML
+	private ComboBox vehtypecombobox;
+	@FXML
+	private Label plt9;
+	@FXML
+	private Label ped23;
+	@FXML
+	private TextField vehinspectionfield;
 	
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
+		showLookupBtn.setVisible(true); //todo undo
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -1760,6 +1769,15 @@ public class actionController {
 			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
+		String flags = ped.getFlags();
+		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
+			pedflagfield.setText("No Data In System");
+			pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+		} else {
+			pedflagfield.setText(flags);
+			pedflagfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
 		// Description
 		String description = ped.getDescription();
 		if (description == null || description.equalsIgnoreCase("No Data In System")) {
@@ -2279,6 +2297,18 @@ public class actionController {
 	
 	public Label getPlt8() {
 		return plt8;
+	}
+	
+	public Label getPlt10() {
+		return plt10;
+	}
+	
+	public Label getPlt9() {
+		return plt9;
+	}
+	
+	public Label getPed23() {
+		return ped23;
 	}
 	
 	public MenuItem getArrestReportButton() {
@@ -4279,6 +4309,18 @@ public class actionController {
 			noRecordFoundLabelVeh.setVisible(false);
 			Vehicle vehicle = vehOptional.get();
 			
+			if (vehicle.getInspection() == null) {
+				vehicle.setInspection(generateInspectionStatus(
+						Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
+				try {
+					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+				} catch (JAXBException e) {
+					logError("Could not save new vehInspection: ", e);
+				}
+				log("Set vehInspection as '" + vehicle.getInspection() + "' since it created before pedModel was added",
+				    Severity.WARN);
+			}
+			
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
@@ -4294,6 +4336,13 @@ public class actionController {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
+			}
+			vehinspectionfield.setText(vehicle.getInspection());
+			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
+					"invalid")) {
+				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehinsfield.setText(vehicle.getInsurance());
 			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
@@ -4380,6 +4429,8 @@ public class actionController {
 			vehicle.setPoliceStatus(isPolice);
 			vehicle.setStolenStatus(isStolen);
 			vehicle.setRegistration(registration);
+			vehicle.setInspection(generateInspectionStatus(
+					Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
 			try {
 				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 			} catch (JAXBException e) {
@@ -4407,6 +4458,13 @@ public class actionController {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehinsfield.setStyle("-fx-text-fill: black !important;");
+			}
+			vehinspectionfield.setText(vehicle.getInspection());
+			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
+					"invalid")) {
+				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
+			} else {
+				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehpolicefield.setText(vehicle.getPoliceStatus());
 			if (vehicle.getPoliceStatus().equalsIgnoreCase("true")) {

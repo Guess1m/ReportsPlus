@@ -1250,7 +1250,7 @@
                             <items>
                                 <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="0.11">
+                                            stylesheets="@../../css/main/Logscrollpane.css">
                                     <content>
                                         <AnchorPane fx:id="vehLookupPane"
                                                     style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -1424,8 +1424,7 @@
                                                                                         </Label>
                                                                                     </children>
                                                                                 </AnchorPane>
-                                                                                <AnchorPane GridPane.columnSpan="2"
-                                                                                            GridPane.rowIndex="2">
+                                                                                <AnchorPane GridPane.rowIndex="2">
                                                                                     <children>
                                                                                         <Label fx:id="plt4"
                                                                                                layoutX="1.0"
@@ -1440,9 +1439,8 @@
                                                                                         <AnchorPane
                                                                                                 fx:id="vehcolordisplay"
                                                                                                 layoutY="-48.0"
-                                                                                                prefHeight="51.0"
-                                                                                                prefWidth="276.0"
                                                                                                 style="-fx-background-color: #f2f2f2; -fx-border-color: grey;"
+                                                                                                AnchorPane.bottomAnchor="0.0"
                                                                                                 AnchorPane.leftAnchor="0.0"
                                                                                                 AnchorPane.rightAnchor="0.0"
                                                                                                 AnchorPane.topAnchor="27.0">
@@ -1452,8 +1450,7 @@
                                                                                                        contentDisplay="CENTER"
                                                                                                        layoutX="2.0"
                                                                                                        layoutY="2.0"
-                                                                                                       prefHeight="60.0"
-                                                                                                       prefWidth="274.0"
+                                                                                                       style="-fx-padding: 10;"
                                                                                                        text="No Color on Record"
                                                                                                        AnchorPane.bottomAnchor="0.0"
                                                                                                        AnchorPane.leftAnchor="1.0"
@@ -1488,7 +1485,7 @@
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                                 <BorderPane GridPane.columnIndex="2"
-                                                                                            GridPane.rowSpan="3">
+                                                                                            GridPane.rowSpan="2">
                                                                                     <center>
                                                                                         <StackPane
                                                                                                 BorderPane.alignment="CENTER">
@@ -1516,8 +1513,8 @@
                                                                                                             <center>
                                                                                                                 <ImageView
                                                                                                                         fx:id="vehImageView"
-                                                                                                                        fitHeight="207.0"
-                                                                                                                        fitWidth="242.0"
+                                                                                                                        fitHeight="120.0"
+                                                                                                                        fitWidth="245.0"
                                                                                                                         pickOnBounds="true"
                                                                                                                         preserveRatio="true"
                                                                                                                         BorderPane.alignment="CENTER"/>
@@ -1532,6 +1529,31 @@
                                                                                         </StackPane>
                                                                                     </center>
                                                                                 </BorderPane>
+                                                                                <AnchorPane GridPane.columnIndex="1"
+                                                                                            GridPane.rowIndex="2">
+                                                                                    <children>
+                                                                                        <Label fx:id="plt10"
+                                                                                               text="Vehicle Type:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <ComboBox
+                                                                                                fx:id="vehtypecombobox"
+                                                                                                layoutX="61.0"
+                                                                                                layoutY="41.0"
+                                                                                                prefWidth="150.0"
+                                                                                                style="-fx-padding: 3;"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                    </children>
+                                                                                </AnchorPane>
                                                                             </children>
                                                                         </GridPane>
                                                                         <Label alignment="CENTER" prefHeight="35.0"
@@ -1572,6 +1594,9 @@
                                                                             </columnConstraints>
                                                                             <rowConstraints>
                                                                                 <RowConstraints minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints maxHeight="-Infinity"
+                                                                                                minHeight="-Infinity"
                                                                                                 vgrow="SOMETIMES"/>
                                                                                 <RowConstraints maxHeight="-Infinity"
                                                                                                 minHeight="-Infinity"
@@ -1654,7 +1679,7 @@
                                                                                         textOverrun="CLIP"
                                                                                         GridPane.columnIndex="2"
                                                                                         GridPane.halignment="RIGHT"
-                                                                                        GridPane.rowIndex="1">
+                                                                                        GridPane.rowIndex="2">
                                                                                     <font>
                                                                                         <Font name="Segoe UI"
                                                                                               size="12.0"/>
@@ -1663,6 +1688,28 @@
                                                                                         <Insets right="15.0"/>
                                                                                     </GridPane.margin>
                                                                                 </Button>
+                                                                                <AnchorPane GridPane.rowIndex="1">
+                                                                                    <children>
+                                                                                        <TextField
+                                                                                                fx:id="vehinspectionfield"
+                                                                                                editable="false"
+                                                                                                layoutY="50.0"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt9"
+                                                                                               text="Inspection Status:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
                                                                             </children>
                                                                         </GridPane>
                                                                         <Label alignment="CENTER" prefHeight="35.0"
@@ -2481,7 +2528,7 @@
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
-                                                                                <Label fx:id="ped101" layoutX="25.0"
+                                                                                <Label fx:id="ped23" layoutX="25.0"
                                                                                        layoutY="20.0" text="Flag(s):"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">

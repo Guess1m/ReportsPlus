@@ -1642,7 +1642,7 @@
                                 </ScrollPane>
                                 <ScrollPane fx:id="pedPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent;"
-                                            stylesheets="@../../css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="1.0">
                                     <content>
                                         <AnchorPane fx:id="pedLookupPane" style="-fx-background-color: transparent;">
                                             <children>
@@ -1700,6 +1700,9 @@
                                                                                         vgrow="NEVER"/>
                                                                         <RowConstraints minHeight="-Infinity"
                                                                                         vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
                                                                         <RowConstraints maxHeight="-Infinity"
                                                                                         minHeight="-Infinity"
                                                                                         vgrow="NEVER"/>
@@ -1871,7 +1874,7 @@
                                                                                            styleClass="calloutField"
                                                                                            stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                           AnchorPane.rightAnchor="60.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="ped8" layoutX="25.0"
                                                                                        layoutY="20.0"
@@ -1883,21 +1886,6 @@
                                                                                               size="16.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button layoutX="148.0" layoutY="34.0"
-                                                                                        mnemonicParsing="false"
-                                                                                        onAction="#pedupdatedesc"
-                                                                                        opacity="0.73"
-                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                        styleClass="incidentbtn"
-                                                                                        stylesheets="@../../css/menu/menuStyles.css"
-                                                                                        text="Update" textOverrun="CLIP"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="34.0">
-                                                                                    <font>
-                                                                                        <Font name="Segoe UI"
-                                                                                              size="12.0"/>
-                                                                                    </font>
-                                                                                </Button>
                                                                             </children>
                                                                         </AnchorPane>
                                                                         <AnchorPane GridPane.columnIndex="3"
@@ -2113,7 +2101,7 @@
                                                                             </children>
                                                                         </AnchorPane>
                                                                         <AnchorPane GridPane.columnSpan="2"
-                                                                                    GridPane.rowIndex="11">
+                                                                                    GridPane.rowIndex="12">
                                                                             <children>
                                                                                 <Label fx:id="ped21" layoutX="25.0"
                                                                                        layoutY="20.0"
@@ -2155,7 +2143,7 @@
                                                                         </AnchorPane>
                                                                         <AnchorPane GridPane.columnIndex="2"
                                                                                     GridPane.columnSpan="2"
-                                                                                    GridPane.rowIndex="11">
+                                                                                    GridPane.rowIndex="12">
                                                                             <children>
                                                                                 <Label fx:id="ped22" layoutX="25.0"
                                                                                        layoutY="20.0"
@@ -2226,7 +2214,7 @@
                                                                                            styleClass="calloutField"
                                                                                            stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                           AnchorPane.rightAnchor="60.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="ped10" layoutX="25.0"
                                                                                        layoutY="20.0" text="Alias(s):"
@@ -2237,25 +2225,10 @@
                                                                                               size="16.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button layoutX="149.0" layoutY="34.0"
-                                                                                        mnemonicParsing="false"
-                                                                                        onAction="#pedupdatealias"
-                                                                                        opacity="0.73"
-                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                        styleClass="incidentbtn"
-                                                                                        stylesheets="@../../css/menu/menuStyles.css"
-                                                                                        text="Update" textOverrun="CLIP"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="34.0">
-                                                                                    <font>
-                                                                                        <Font name="Segoe UI"
-                                                                                              size="12.0"/>
-                                                                                    </font>
-                                                                                </Button>
                                                                             </children>
                                                                         </AnchorPane>
                                                                         <AnchorPane GridPane.columnSpan="4"
-                                                                                    GridPane.rowIndex="10">
+                                                                                    GridPane.rowIndex="11">
                                                                             <children>
                                                                                 <Label alignment="CENTER"
                                                                                        prefHeight="35.0"
@@ -2332,7 +2305,7 @@
                                                                                            styleClass="calloutField"
                                                                                            stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                           AnchorPane.rightAnchor="60.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="ped11" layoutX="25.0"
                                                                                        layoutY="20.0"
@@ -2344,21 +2317,6 @@
                                                                                               size="16.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button layoutX="147.0" layoutY="26.0"
-                                                                                        mnemonicParsing="false"
-                                                                                        onAction="#pedupdateafil"
-                                                                                        opacity="0.73"
-                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                        styleClass="incidentbtn"
-                                                                                        stylesheets="@../../css/menu/menuStyles.css"
-                                                                                        text="Update" textOverrun="CLIP"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="34.0">
-                                                                                    <font>
-                                                                                        <Font name="Segoe UI"
-                                                                                              size="12.0"/>
-                                                                                    </font>
-                                                                                </Button>
                                                                             </children>
                                                                         </AnchorPane>
                                                                         <AnchorPane GridPane.columnIndex="2"
@@ -2459,7 +2417,7 @@
                                                                                            styleClass="calloutField"
                                                                                            stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                           AnchorPane.rightAnchor="60.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="ped101" layoutX="25.0"
                                                                                        layoutY="20.0" text="Flag(s):"
@@ -2470,23 +2428,25 @@
                                                                                               size="16.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button layoutX="149.0" layoutY="34.0"
-                                                                                        mnemonicParsing="false"
-                                                                                        onAction="#pedupdateflags"
-                                                                                        opacity="0.73"
-                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                        styleClass="incidentbtn"
-                                                                                        stylesheets="@../../css/menu/menuStyles.css"
-                                                                                        text="Update" textOverrun="CLIP"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="34.0">
-                                                                                    <font>
-                                                                                        <Font name="Segoe UI"
-                                                                                              size="12.0"/>
-                                                                                    </font>
-                                                                                </Button>
                                                                             </children>
                                                                         </AnchorPane>
+                                                                        <Button mnemonicParsing="false"
+                                                                                onAction="#pedUpdateInfo" opacity="0.73"
+                                                                                style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                styleClass="incidentbtn"
+                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                text="Update Other Information"
+                                                                                textOverrun="CLIP"
+                                                                                GridPane.columnIndex="3"
+                                                                                GridPane.halignment="RIGHT"
+                                                                                GridPane.rowIndex="10">
+                                                                            <font>
+                                                                                <Font name="Segoe UI" size="12.0"/>
+                                                                            </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets right="15.0"/>
+                                                                            </GridPane.margin>
+                                                                        </Button>
                                                                     </children>
                                                                 </GridPane>
                                                             </children>

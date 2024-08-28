@@ -4670,14 +4670,15 @@ public class actionController {
 	}
 	
 	@FXML
-	public void pedupdateflags(ActionEvent actionEvent) {
+	public void pedUpdateInfo(ActionEvent actionEvent) {
 		String searchedLicenseNum = pedlicnumfield.getText();
 		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
 		
 		if (optionalPed.isPresent()) {
 			Ped ped = optionalPed.get();
-			String pedflagfieldText = pedflagfield.getText();
 			
+			// Update flags
+			String pedflagfieldText = pedflagfield.getText();
 			if (!pedflagfieldText.equalsIgnoreCase("No Data In System") && !pedflagfieldText.isEmpty()) {
 				pedflagfield.setStyle("-fx-text-fill: black !important;");
 				ped.setFlags(pedflagfieldText.trim());
@@ -4687,23 +4688,8 @@ public class actionController {
 				ped.setFlags(null);
 			}
 			
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update flags button: ", e);
-			}
-		}
-	}
-	
-	@FXML
-	public void pedupdateafil(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
+			// Update affiliations
 			String affiliationText = pedaffiliationfield.getText();
-			
 			if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
 				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAffiliations(affiliationText.trim());
@@ -4713,23 +4699,8 @@ public class actionController {
 				ped.setAffiliations(null);
 			}
 			
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update affiliations button: ", e);
-			}
-		}
-	}
-	
-	@FXML
-	public void pedupdatedesc(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
+			// Update description
 			String descText = peddescfield.getText();
-			
 			if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
 				peddescfield.setStyle("-fx-text-fill: black !important;");
 				ped.setDescription(descText.trim());
@@ -4738,23 +4709,9 @@ public class actionController {
 				peddescfield.setText("No Data In System");
 				ped.setDescription(null);
 			}
-			try {
-				Ped.PedHistoryUtils.addPed(ped);
-			} catch (JAXBException e) {
-				logError("Could not add ped from update Desc button: ", e);
-			}
-		}
-	}
-	
-	@FXML
-	public void pedupdatealias(ActionEvent actionEvent) {
-		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-		
-		if (optionalPed.isPresent()) {
-			Ped ped = optionalPed.get();
-			String aliasText = pedaliasfield.getText();
 			
+			// Update aliases
+			String aliasText = pedaliasfield.getText();
 			if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
 				pedaliasfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAliases(aliasText.trim());
@@ -4763,10 +4720,12 @@ public class actionController {
 				pedaliasfield.setText("No Data In System");
 				ped.setAliases(null);
 			}
+			
+			// Save the updated Ped object
 			try {
 				Ped.PedHistoryUtils.addPed(ped);
 			} catch (JAXBException e) {
-				logError("Could not add ped from update Alias button: ", e);
+				logError("Could not add ped from update fields button: ", e);
 			}
 		}
 	}

@@ -40,6 +40,62 @@ public class ID {
 	@XmlElement(name = "Status")
 	private String status;
 	
+	public static IDs loadServerIDs() throws JAXBException {
+		File file = new File(currentIDFileURL);
+		if (!file.exists()) {
+			return new IDs();
+		}
+		
+		try {
+			JAXBContext context = JAXBContext.newInstance(IDs.class);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			return (IDs) unmarshaller.unmarshal(file);
+		} catch (JAXBException e) {
+			logError("Error loading IDs: ", e);
+			throw e;
+		}
+	}
+	
+	private static void saveServerIDs(IDs IDs) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(IDs.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		File file = new File(currentIDFileURL);
+		marshaller.marshal(IDs, file);
+	}
+	
+	public static void addServerID(ID ID) throws JAXBException {
+		IDs IDs = loadServerIDs();
+		
+		if (IDs.getIdList() == null) {
+			IDs.setIdList(new java.util.ArrayList<>());
+		}
+		
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(
+				e -> e.getName().equals(ID.getName())).findFirst();
+		
+		if (existingReport.isPresent()) {
+			IDs.getIdList().remove(existingReport.get());
+			IDs.getIdList().add(ID);
+			log("ServerID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
+		} else {
+			IDs.getIdList().add(ID);
+			log("ServerID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
+		}
+		
+		saveServerIDs(IDs);
+	}
+	
+	public static void deleteServerID(String fullName) throws JAXBException {
+		IDs IDs = loadServerIDs();
+		
+		if (IDs.getIdList() != null) {
+			IDs.getIdList().removeIf(e -> e.getName().equals(fullName));
+			saveServerIDs(IDs);
+			log("ServerID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -112,62 +168,6 @@ public class ID {
 	
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
-	public static IDs loadServerIDs() throws JAXBException {
-		File file = new File(currentIDFileURL);
-		if (!file.exists()) {
-			return new IDs();
-		}
-		
-		try {
-			JAXBContext context = JAXBContext.newInstance(IDs.class);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			return (IDs) unmarshaller.unmarshal(file);
-		} catch (JAXBException e) {
-			logError("Error loading IDs: ", e);
-			throw e;
-		}
-	}
-	
-	private static void saveServerIDs(IDs IDs) throws JAXBException {
-		JAXBContext context = JAXBContext.newInstance(IDs.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		File file = new File(currentIDFileURL);
-		marshaller.marshal(IDs, file);
-	}
-	
-	public static void addServerID(ID ID) throws JAXBException {
-		IDs IDs = loadServerIDs();
-		
-		if (IDs.getIdList() == null) {
-			IDs.setIdList(new java.util.ArrayList<>());
-		}
-		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(
-				e -> e.getName().equals(ID.getName())).findFirst();
-		
-		if (existingReport.isPresent()) {
-			IDs.getIdList().remove(existingReport.get());
-			IDs.getIdList().add(ID);
-			log("ServerID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
-		} else {
-			IDs.getIdList().add(ID);
-			log("ServerID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
-		}
-		
-		saveServerIDs(IDs);
-	}
-	
-	public static void deleteServerID(String fullName) throws JAXBException {
-		IDs IDs = loadServerIDs();
-		
-		if (IDs.getIdList() != null) {
-			IDs.getIdList().removeIf(e -> e.getName().equals(fullName));
-			saveServerIDs(IDs);
-			log("ServerID with name " + fullName + " deleted.", LogUtils.Severity.INFO);
-		}
 	}
 	
 }

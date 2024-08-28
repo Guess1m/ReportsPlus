@@ -23,6 +23,7 @@ public class updatesController {
 	
 	private static final Duration ANIMATION_DURATION = Duration.seconds(1.2);
 	AnchorPane topBar;
+	List<String> updates = new ArrayList<>();
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -31,7 +32,6 @@ public class updatesController {
 	private Label recentVer;
 	@javafx.fxml.FXML
 	private Label verChangelog;
-	List<String> updates = new ArrayList<>();
 	@javafx.fxml.FXML
 	private VBox changelogBox;
 	

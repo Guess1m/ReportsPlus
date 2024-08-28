@@ -56,70 +56,6 @@ public class NotesViewController {
 	@javafx.fxml.FXML
 	private TabPane tabPane;
 	
-	public void initialize() throws IOException {
-		titlebar = reportUtil.createTitleBar("NotePad");
-		borderPane.setTop(titlebar);
-		
-		notepadTextArea.setText(actionController.notesText);
-		
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
-		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
-		String padding = " -fx-padding: 2 7 2 7;";
-		
-		clearbtnnotepad.setStyle(initialStyle + padding);
-		clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle + padding));
-		clearbtnnotepad.setOnMouseExited(e -> clearbtnnotepad.setStyle(initialStyle + padding));
-		
-		codesbtnnotepad.setStyle(initialStyle + padding);
-		codesbtnnotepad.setOnMouseEntered(e -> codesbtnnotepad.setStyle(hoverStyle + padding));
-		codesbtnnotepad.setOnMouseExited(e -> codesbtnnotepad.setStyle(initialStyle + padding));
-		
-		String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
-		if (notepadMode != null) {
-			String notepadStyle;
-			String modeToggleStyle;
-			if (notepadMode.equals("Dark")) {
-				modeToggle.setSelected(true);
-				notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
-				modeToggleStyle = "-fx-background-color: white;";
-				codeSelectionPane.setStyle("-fx-background-color: gray;");
-				codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
-				borderPane.setStyle("-fx-background-color: gray;");
-				codeSelectionlbl.setStyle("-fx-text-fill: #f2f2f2;");
-				notepadTextArea.setStyle(notepadStyle);
-				modeToggle.setStyle(modeToggleStyle);
-			} else if (notepadMode.equals("Light")) {
-				modeToggle.setSelected(false);
-				notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
-				modeToggleStyle = "-fx-background-color: grey;";
-				codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
-				codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
-				borderPane.setStyle("-fx-background-color: white;");
-				codeSelectionlbl.setStyle("-fx-text-fill: gray;");
-				notepadTextArea.setStyle(notepadStyle);
-				modeToggle.setStyle(modeToggleStyle);
-			}
-			
-		} else {
-			notepadTextArea.setStyle(
-					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
-			modeToggle.setStyle("-fx-background-color: grey;");
-		}
-		
-		codeSelectionPane.setPrefWidth(0);
-		codeSelectionPane.setMaxWidth(0);
-		codeSelectionPane.setMinWidth(0);
-		codeSelectionPane.setVisible(false);
-		
-		Platform.runLater(() -> {
-			try {
-				createNoteTabs();
-			} catch (IOException e) {
-				logError("CreateNoteTabs; Exception error: ", e);
-			}
-		});
-	}
-	
 	public static void createNoteTabs() throws IOException {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
 		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
@@ -285,6 +221,70 @@ public class NotesViewController {
 		if (tabCount > 0) {
 			notesViewController.getTabPane().getSelectionModel().select(tabCount - 1);
 		}
+	}
+	
+	public void initialize() throws IOException {
+		titlebar = reportUtil.createTitleBar("NotePad");
+		borderPane.setTop(titlebar);
+		
+		notepadTextArea.setText(actionController.notesText);
+		
+		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
+		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";
+		String padding = " -fx-padding: 2 7 2 7;";
+		
+		clearbtnnotepad.setStyle(initialStyle + padding);
+		clearbtnnotepad.setOnMouseEntered(e -> clearbtnnotepad.setStyle(hoverStyle + padding));
+		clearbtnnotepad.setOnMouseExited(e -> clearbtnnotepad.setStyle(initialStyle + padding));
+		
+		codesbtnnotepad.setStyle(initialStyle + padding);
+		codesbtnnotepad.setOnMouseEntered(e -> codesbtnnotepad.setStyle(hoverStyle + padding));
+		codesbtnnotepad.setOnMouseExited(e -> codesbtnnotepad.setStyle(initialStyle + padding));
+		
+		String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
+		if (notepadMode != null) {
+			String notepadStyle;
+			String modeToggleStyle;
+			if (notepadMode.equals("Dark")) {
+				modeToggle.setSelected(true);
+				notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+				modeToggleStyle = "-fx-background-color: white;";
+				codeSelectionPane.setStyle("-fx-background-color: gray;");
+				codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
+				borderPane.setStyle("-fx-background-color: gray;");
+				codeSelectionlbl.setStyle("-fx-text-fill: #f2f2f2;");
+				notepadTextArea.setStyle(notepadStyle);
+				modeToggle.setStyle(modeToggleStyle);
+			} else if (notepadMode.equals("Light")) {
+				modeToggle.setSelected(false);
+				notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+				modeToggleStyle = "-fx-background-color: grey;";
+				codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
+				codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
+				borderPane.setStyle("-fx-background-color: white;");
+				codeSelectionlbl.setStyle("-fx-text-fill: gray;");
+				notepadTextArea.setStyle(notepadStyle);
+				modeToggle.setStyle(modeToggleStyle);
+			}
+			
+		} else {
+			notepadTextArea.setStyle(
+					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+			modeToggle.setStyle("-fx-background-color: grey;");
+		}
+		
+		codeSelectionPane.setPrefWidth(0);
+		codeSelectionPane.setMaxWidth(0);
+		codeSelectionPane.setMinWidth(0);
+		codeSelectionPane.setVisible(false);
+		
+		Platform.runLater(() -> {
+			try {
+				createNoteTabs();
+			} catch (IOException e) {
+				logError("CreateNoteTabs; Exception error: ", e);
+			}
+		});
 	}
 	
 	public BorderPane getBorderPane() {

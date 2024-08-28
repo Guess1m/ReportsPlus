@@ -36,18 +36,86 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class CurrentIDViewController {
 	
+	private static final String defaultImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
 	private TabPane tabPane;
 	@javafx.fxml.FXML
 	private Label noIDFoundlbl;
-	private static String defaultImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
 	
 	public static String generateRandomNumber() {
 		Random random = new Random();
 		int randomNumber = random.nextInt(9000000) + 1000000;
 		return String.valueOf(randomNumber);
+	}
+	
+	private static void updateVBoxValues(VBox root, String cursiveNameText, String genNum1Text, String genNum2Text, String firstText, String lastText, String dobText, String genderText, String addressText, String pedModel) {
+		Label cursiveName = (Label) root.lookup("#cursiveName");
+		Label genNum1 = (Label) root.lookup("#genNum1");
+		Label genNum2 = (Label) root.lookup("#genNum2");
+		TextField first = (TextField) root.lookup("#first");
+		TextField last = (TextField) root.lookup("#last");
+		TextField dob = (TextField) root.lookup("#dob");
+		TextField gender = (TextField) root.lookup("#gender");
+		TextField address = (TextField) root.lookup("#address");
+		ImageView pedImageView = (ImageView) root.lookup("#pedImgaeView");
+		
+		if (cursiveName != null) {
+			cursiveName.setText(cursiveNameText);
+			cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
+		}
+		if (genNum1 != null) {
+			genNum1.setText(genNum1Text);
+		}
+		if (genNum2 != null) {
+			genNum2.setText(genNum2Text);
+		}
+		if (first != null) {
+			first.setText(firstText);
+		}
+		if (last != null) {
+			last.setText(lastText);
+		}
+		if (dob != null) {
+			dob.setText(dobText);
+		}
+		if (gender != null) {
+			gender.setText(genderText);
+		}
+		if (address != null) {
+			address.setText(addressText);
+		}
+		if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
+			File pedImgFolder = new File(pedImageFolderURL);
+			if (pedImgFolder.exists()) {
+				System.out.println("ped image folder exists");
+				
+				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+				
+				if (matchingFiles != null && matchingFiles.length > 0) {
+					File matchingFile = matchingFiles[0];
+					System.out.println("Matching image found: " + matchingFile.getName());
+					
+					try {
+						String fileURI = matchingFile.toURI().toString();
+						pedImageView.setImage(new Image(fileURI));
+					} catch (Exception e) {
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+						pedImageView.setImage(defImage);
+						logError("Could not set ped image: ", e);
+					}
+				} else {
+					System.out.println("No matching image found for the model: " + pedModel);
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+					pedImageView.setImage(defImage);
+				}
+			} else {
+				System.out.println("ped image folder doesn't exist");
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
+				pedImageView.setImage(defImage);
+			}
+		}
 	}
 	
 	public void initialize() throws IOException {
@@ -240,74 +308,6 @@ public class CurrentIDViewController {
 		
 		watchThread.setDaemon(true);
 		watchThread.start();
-	}
-	
-	private static void updateVBoxValues(VBox root, String cursiveNameText, String genNum1Text, String genNum2Text, String firstText, String lastText, String dobText, String genderText, String addressText, String pedModel) {
-		Label cursiveName = (Label) root.lookup("#cursiveName");
-		Label genNum1 = (Label) root.lookup("#genNum1");
-		Label genNum2 = (Label) root.lookup("#genNum2");
-		TextField first = (TextField) root.lookup("#first");
-		TextField last = (TextField) root.lookup("#last");
-		TextField dob = (TextField) root.lookup("#dob");
-		TextField gender = (TextField) root.lookup("#gender");
-		TextField address = (TextField) root.lookup("#address");
-		ImageView pedImageView = (ImageView) root.lookup("#pedImgaeView");
-		
-		if (cursiveName != null) {
-			cursiveName.setText(cursiveNameText);
-			cursiveName.setStyle("-fx-font-family: 'Signerica Fat';");
-		}
-		if (genNum1 != null) {
-			genNum1.setText(genNum1Text);
-		}
-		if (genNum2 != null) {
-			genNum2.setText(genNum2Text);
-		}
-		if (first != null) {
-			first.setText(firstText);
-		}
-		if (last != null) {
-			last.setText(lastText);
-		}
-		if (dob != null) {
-			dob.setText(dobText);
-		}
-		if (gender != null) {
-			gender.setText(genderText);
-		}
-		if (address != null) {
-			address.setText(addressText);
-		}
-		if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
-			File pedImgFolder = new File(pedImageFolderURL);
-			if (pedImgFolder.exists()) {
-				System.out.println("ped image folder exists");
-				
-				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-				
-				if (matchingFiles != null && matchingFiles.length > 0) {
-					File matchingFile = matchingFiles[0];
-					System.out.println("Matching image found: " + matchingFile.getName());
-					
-					try {
-						String fileURI = matchingFile.toURI().toString();
-						pedImageView.setImage(new Image(fileURI));
-					} catch (Exception e) {
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
-						pedImageView.setImage(defImage);
-						logError("Could not set ped image: ", e);
-					}
-				} else {
-					System.out.println("No matching image found for the model: " + pedModel);
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
-					pedImageView.setImage(defImage);
-				}
-			} else {
-				System.out.println("ped image folder doesn't exist");
-				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultImagePath));
-				pedImageView.setImage(defImage);
-			}
-		}
 	}
 	
 }

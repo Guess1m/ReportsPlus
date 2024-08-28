@@ -17,15 +17,15 @@ public class NoteTab {
 		return tabName;
 	}
 	
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
 	public String getNoteText() {
 		return noteText;
 	}
 	
 	public void setNoteText(String noteText) {
 		this.noteText = noteText;
-	}
-	
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
 	}
 }

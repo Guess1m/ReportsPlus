@@ -24,6 +24,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
 	private static final int CASE_NUMBER_LENGTH = 7;
+	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);
 	
 	public static String generateCaseNumber() {
 		StringBuilder caseNumber = new StringBuilder("CN-");
@@ -264,8 +265,6 @@ public class CourtUtils {
 		
 		return Optional.empty();
 	}
-	
-	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);
 	
 	public static void scheduleOutcomeRevealForSingleCase(String caseNumber) throws JAXBException, IOException {
 		long delayInSeconds = Long.parseLong(ConfigReader.configRead("pedHistory", "courtTrialDelay"));

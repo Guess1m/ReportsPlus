@@ -21,9 +21,9 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ProbabilitySettingsController {
+	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private BorderPane root;
-	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private Label main1;
 	@javafx.fxml.FXML

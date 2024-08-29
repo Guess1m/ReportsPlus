@@ -1250,7 +1250,7 @@
                             <items>
                                 <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                            stylesheets="@../../css/main/Logscrollpane.css">
+                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="0.21">
                                     <content>
                                         <AnchorPane fx:id="vehLookupPane"
                                                     style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -1439,6 +1439,8 @@
                                                                                         <AnchorPane
                                                                                                 fx:id="vehcolordisplay"
                                                                                                 layoutY="-48.0"
+                                                                                                prefHeight="40.0"
+                                                                                                prefWidth="403.0"
                                                                                                 style="-fx-background-color: #f2f2f2; -fx-border-color: grey;"
                                                                                                 AnchorPane.bottomAnchor="0.0"
                                                                                                 AnchorPane.leftAnchor="0.0"
@@ -1530,9 +1532,12 @@
                                                                                     </center>
                                                                                 </BorderPane>
                                                                                 <AnchorPane GridPane.columnIndex="1"
+                                                                                            GridPane.columnSpan="2"
                                                                                             GridPane.rowIndex="2">
                                                                                     <children>
                                                                                         <Label fx:id="plt10"
+                                                                                               layoutX="130.0"
+                                                                                               layoutY="2.0"
                                                                                                text="Vehicle Type:"
                                                                                                AnchorPane.leftAnchor="0.0"
                                                                                                AnchorPane.topAnchor="0.0">
@@ -1550,8 +1555,25 @@
                                                                                                 styleClass="calloutField"
                                                                                                 stylesheets="@../../css/menu/menuStyles.css"
                                                                                                 AnchorPane.leftAnchor="0.0"
-                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="170.0"
                                                                                                 AnchorPane.topAnchor="27.0"/>
+                                                                                        <Button layoutX="395.0"
+                                                                                                layoutY="34.0"
+                                                                                                mnemonicParsing="false"
+                                                                                                onAction="#vehUpdateInfo"
+                                                                                                opacity="0.73"
+                                                                                                style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                                styleClass="incidentbtn"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                text="Update Vehicle Type"
+                                                                                                textOverrun="CLIP"
+                                                                                                AnchorPane.bottomAnchor="8.0"
+                                                                                                AnchorPane.rightAnchor="15.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Button>
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                             </children>

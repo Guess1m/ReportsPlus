@@ -450,7 +450,6 @@ public class settingsController {
 		controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		// todo test black/white fields all working on lookup pane
 		
 		controllerVar.getActivecalfill().setStyle(
 				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));

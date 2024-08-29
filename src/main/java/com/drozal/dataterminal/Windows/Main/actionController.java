@@ -125,6 +125,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationWarning;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.dropdownInfo.vehicleTypes;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
@@ -619,7 +620,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(true); //todo undo
+		showLookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -4304,6 +4305,9 @@ public class actionController {
 		String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
 		
 		if (vehOptional.isPresent()) {
+			vehtypecombobox.getItems().clear();
+			vehtypecombobox.getItems().addAll(vehicleTypes);
+			
 			log("Found: " + searchedPlate + " From VehHistory file", Severity.DEBUG);
 			vehRecordPane.setVisible(true);
 			noRecordFoundLabelVeh.setVisible(false);
@@ -4320,6 +4324,19 @@ public class actionController {
 				log("Set vehInspection as '" + vehicle.getInspection() + "' since it created before pedModel was added",
 				    Severity.WARN);
 			}
+			
+			if (vehicle.getType() == null) {
+				vehicle.setType("N/A");
+				try {
+					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+				} catch (JAXBException e) {
+					logError("Could not save new vehType: ", e);
+				}
+				log("Set vehType as '" + vehicle.getType() + "' since it created before pedModel was added",
+				    Severity.WARN);
+			}
+			vehtypecombobox.setValue(vehicle.getType());
+			
 			
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
@@ -4713,6 +4730,7 @@ public class actionController {
 		String plate = vehplatefield2.getText().trim();
 		String model = vehmodelfield.getText().trim();
 		String owner = vehownerfield.getText().trim();
+		Object type = vehtypecombobox.getValue();
 		
 		Map<String, Object> impoundReportObj = newImpound(reportChart, areaReportChart);
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
@@ -4720,10 +4738,13 @@ public class actionController {
 		TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
 		TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
 		TextField modelimp = (TextField) impoundReportMap.get("model");
+		ComboBox vehType = (ComboBox) impoundReportMap.get("type");
 		
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);
 		offenderNameimp.setText(owner);
+		offenderNameimp.setText(owner);
+		vehType.setValue(type);
 	}
 	
 	@FXML
@@ -4887,6 +4908,28 @@ public class actionController {
 			}
 		}
 	}
+	
+	@FXML
+	public void vehUpdateInfo(ActionEvent actionEvent) {
+		String searchedPlate = vehSearchField.getEditor().getText().trim();
+		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
+		
+		if (vehOptional.isPresent()) {
+			Vehicle vehicle = vehOptional.get();
+			
+			if (vehtypecombobox.getValue() != null) {
+				vehicle.setType(vehtypecombobox.getValue().toString());
+			}
+			
+			try {
+				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+			} catch (JAXBException e) {
+				logError("Could not add ped from update fields button: ", e);
+			}
+			
+		}
+	}
+	
 	
 	//</editor-fold>
 	

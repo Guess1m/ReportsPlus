@@ -2526,7 +2526,7 @@
                                                                                                         <ImageView
                                                                                                                 fx:id="pedImageView"
                                                                                                                 fitHeight="125.0"
-                                                                                                                fitWidth="150.0"
+                                                                                                                fitWidth="124.0"
                                                                                                                 pickOnBounds="true"
                                                                                                                 BorderPane.alignment="CENTER"/>
                                                                                                     </center>

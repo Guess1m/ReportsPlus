@@ -4439,6 +4439,7 @@ public class actionController {
 			}
 			Vehicle vehicle = new Vehicle();
 			vehicle.setPlateNumber(licensePlate);
+			vehicle.setType("N/A");
 			vehicle.setColor(color);
 			vehicle.setModel(model);
 			vehicle.setOwner(owner);
@@ -4471,7 +4472,7 @@ public class actionController {
 			}
 			vehinsfield.setText(vehicle.getInsurance());
 			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
-					"suspended")) {
+					"suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehinsfield.setStyle("-fx-text-fill: black !important;");
@@ -4497,6 +4498,9 @@ public class actionController {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
 			}
+			vehtypecombobox.getItems().clear();
+			vehtypecombobox.getItems().addAll(vehicleTypes);
+			vehtypecombobox.setValue(vehicle.getType());
 			
 			String vehModelString = vehicle.getModel();
 			if (vehModelString != null && !vehModelString.equalsIgnoreCase("not available")) {

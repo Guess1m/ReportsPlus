@@ -254,10 +254,13 @@ public class settingsController {
 		topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
 		root.setTop(topBar);
 		
+		try {
+			addActionEventsAndComboBoxes();
+		} catch (IOException e) {
+			logError("Error Loading Action Events: ", e);
+		}
 		displayPlacements();
 		addEventFilters();
-		loadColors();
-		addTooltips();
 		setupListeners();
 		try {
 			addDefaultCheckboxSelections();
@@ -265,15 +268,12 @@ public class settingsController {
 			logError("Error Loading Default Checkbox Values: ", e);
 		}
 		try {
-			addActionEventsAndComboBoxes();
-		} catch (IOException e) {
-			logError("Error Loading Action Events: ", e);
-		}
-		try {
 			loadTheme();
 		} catch (IOException e) {
 			logError("Error Loading Theme From Init: ", e);
 		}
+		loadColors();
+		addTooltips();
 		
 		colorPageOne.setVisible(true);
 		colorPageTwo.setVisible(false);
@@ -303,6 +303,7 @@ public class settingsController {
 	}
 	
 	public static void loadTheme() throws IOException {
+		System.out.println("ran loadtheme");
 		if (DataTerminalHomeApplication.controller != null) {
 			controllerVar = DataTerminalHomeApplication.controller;
 		} else if (newOfficerController.controller != null) {
@@ -866,12 +867,7 @@ public class settingsController {
 			
 			Color selectedColor = newValue;
 			updateReportBackground(selectedColor);
-			try {
-				loadTheme();
-				loadColors();
-			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 6", e);
-			}
+			loadColors();
 		});
 		
 		accentPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -881,12 +877,7 @@ public class settingsController {
 			
 			Color selectedColor = newValue;
 			updateReportAccent(selectedColor);
-			try {
-				loadTheme();
-				loadColors();
-			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 7", e);
-			}
+			loadColors();
 		});
 		
 		headingPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -896,12 +887,7 @@ public class settingsController {
 			
 			Color selectedColor = newValue;
 			updateReportHeading(selectedColor);
-			try {
-				loadTheme();
-				loadColors();
-			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 8", e);
-			}
+			loadColors();
 		});
 		
 		secPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -911,12 +897,7 @@ public class settingsController {
 			
 			Color selectedColor = newValue;
 			updateReportSecondary(selectedColor);
-			try {
-				loadTheme();
-				loadColors();
-			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 9", e);
-			}
+			loadColors();
 		});
 	}
 	
@@ -979,6 +960,8 @@ public class settingsController {
 		themeComboBox.getItems().addAll(themes);
 		themeComboBox.setOnAction(actionEvent -> {
 			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
+			
+			isInitialized = false;
 			
 			switch (selectedTheme) {
 				case "dark" -> {
@@ -1073,13 +1056,14 @@ public class settingsController {
 			} catch (IOException e) {
 				logError("LoadTheme Error", e);
 			}
+			isInitialized = true;
 		});
 		
 		String[] presets = {"dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal", "brown", "magenta", "indigo"};
 		presetComboBoxReport.getItems().addAll(presets);
 		presetComboBoxReport.setOnAction(actionEvent -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel().getSelectedItem();
-			
+			isInitialized = false;
 			switch (selectedTheme) {
 				case "dark" -> {
 					log("Dark Theme Selected: Report", LogUtils.Severity.DEBUG);
@@ -1173,13 +1157,8 @@ public class settingsController {
 					updateReportHeading(Color.valueOf("white"));
 				}
 			}
-			
-			try {
-				loadTheme();
-				loadColors();
-			} catch (IOException e) {
-				logError("LoadTheme Error", e);
-			}
+			loadColors();
+			isInitialized = true;
 		});
 		
 		String[] calloutDurations = {"infinite", "1", "3", "5", "7", "10", "12"};
@@ -1237,6 +1216,7 @@ public class settingsController {
 					}
 				}
 			}
+			
 		});
 		
 		String[] notificationPositions = {"BottomLeft", "BottomRight", "TopLeft", "TopRight"};
@@ -1292,6 +1272,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void resetDefaultsBtnPress(ActionEvent actionEvent) {
 		ConfigWriter.configwrite("uiColors", "UIDarkMode", "true");
+		isInitialized = false;
 		updateMain(Color.valueOf("#524992"));
 		updateSecondary(Color.valueOf("#665cb6"));
 		updateAccent(Color.valueOf("#544f7f"));
@@ -1305,10 +1286,12 @@ public class settingsController {
 		}
 		themeComboBox.getSelectionModel().select("purple");
 		textClrComboBox.getSelectionModel().select("dark");
+		isInitialized = true;
 	}
 	
 	@javafx.fxml.FXML
 	public void resetReportDefaultsBtnPress(ActionEvent actionEvent) {
+		isInitialized = false;
 		updateReportBackground(Color.valueOf("#505d62"));
 		updateReportSecondary(Color.valueOf("#323c41"));
 		updateReportAccent(Color.valueOf("#263238"));
@@ -1318,6 +1301,7 @@ public class settingsController {
 		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
+		isInitialized = true;
 	}
 	
 	@javafx.fxml.FXML

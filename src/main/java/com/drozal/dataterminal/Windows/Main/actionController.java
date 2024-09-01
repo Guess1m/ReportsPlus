@@ -4041,7 +4041,7 @@ public class actionController {
 					log("Detected vehImage folder..", Severity.DEBUG);
 					
 					File[] matchingFiles = pedImgFolder.listFiles(
-							(dir, name) -> name.equalsIgnoreCase(vehModelString + "f" + ".jpg"));
+							(dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
@@ -4159,7 +4159,7 @@ public class actionController {
 					log("Detected vehImage folder..", Severity.DEBUG);
 					
 					File[] matchingFiles = pedImgFolder.listFiles(
-							(dir, name) -> name.equalsIgnoreCase(vehModelString + "f" + ".jpg"));
+							(dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];

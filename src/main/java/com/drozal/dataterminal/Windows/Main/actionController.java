@@ -3999,7 +3999,7 @@ public class actionController {
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
 			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
-					"suspended")) {
+					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
@@ -4115,7 +4115,7 @@ public class actionController {
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
 			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
-					"suspended")) {
+					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");

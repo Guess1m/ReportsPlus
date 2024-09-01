@@ -40,6 +40,7 @@ public class settingsController {
 	private static final String UILightColor = "rgb(255,255,255,0.75)";
 	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	private static AtomicReference<String> selectedNotification;
+	private boolean isInitialized = false;
 	
 	//<editor-fold desc="FXML">
 	
@@ -242,6 +243,65 @@ public class settingsController {
 	
 	//</editor-fold>
 	
+	public void initialize() {
+		if (DataTerminalHomeApplication.controller != null) {
+			controllerVar = DataTerminalHomeApplication.controller;
+		} else if (newOfficerController.controller != null) {
+			controllerVar = newOfficerController.controller;
+		} else {
+			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+		}
+		topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
+		root.setTop(topBar);
+		
+		try {
+			addDefaultCheckboxSelections();
+		} catch (IOException e) {
+			logError("Error Loading Default Checkbox Values: ", e);
+		}
+		displayPlacements();
+		addEventFilters();
+		try {
+			addActionEventsAndComboBoxes();
+		} catch (IOException e) {
+			logError("Error Loading Action Events: ", e);
+		}
+		loadColors();
+		addTooltips();
+		setupListeners();
+		try {
+			loadTheme();
+		} catch (IOException e) {
+			logError("Error Loading Theme From Init: ", e);
+		}
+		
+		colorPageOne.setVisible(true);
+		colorPageTwo.setVisible(false);
+		windowPageOne.setVisible(true);
+		windowPageTwo.setVisible(false);
+		
+		Platform.runLater(() -> {
+			Stage stage = (Stage) root.getScene().getWindow();
+			stage.setMinWidth(stage.getWidth());
+			stage.setMinHeight(stage.getHeight());
+			
+			previewNotificationBtn.setOnAction(actionEvent -> {
+				if (selectedNotification.get().equals("Information")) {
+					NotificationManager.showNotificationInfo("Sample Info Notification",
+					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                         mainRT);
+				}
+				if (selectedNotification.get().equals("Warning")) {
+					NotificationManager.showNotificationWarning("Sample Warning Notification",
+					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
+					                                            mainRT);
+				}
+			});
+		});
+		
+		isInitialized = true;
+	}
+	
 	public static void loadTheme() throws IOException {
 		if (DataTerminalHomeApplication.controller != null) {
 			controllerVar = DataTerminalHomeApplication.controller;
@@ -382,241 +442,114 @@ public class settingsController {
 				updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 	}
 	
-	private static void addDarkStyles() {
-		controllerVar.getTabPane().getStyleClass().clear();
-		controllerVar.getTabPane().getStyleClass().add("darktabpane");
-		controllerVar.getCaseNotesField().getStyleClass().clear();
-		controllerVar.getCaseNotesField().getStyleClass().add("text-area-dark");
-		
-		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		
-		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		
-		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		
-		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		
-		controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		controllerVar.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
-		
-		controllerVar.getAreaReportChart().getStyleClass().clear();
-		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
-		controllerVar.getReportChart().getStyleClass().clear();
-		controllerVar.getReportChart().getStyleClass().add("customchartdark");
-		
-		addDarkForm(controllerVar.getOfficerInfoName());
-		addDarkForm(controllerVar.getOfficerInfoNumber());
-		addDarkForm(controllerVar.getOfficerInfoCallsign());
-		
-		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
-		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxdark");
-		controllerVar.getOfficerInfoRank().getStyleClass().clear();
-		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxdark");
-		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
-		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxdark");
-		
-		addDarkForm(controllerVar.getCaseNumField());
-		addDarkForm(controllerVar.getCaseCourtDateField());
-		addDarkForm(controllerVar.getCaseOffenceDateField());
-		addDarkForm(controllerVar.getCaseFirstNameField());
-		addDarkForm(controllerVar.getCaseLastNameField());
-		addDarkForm(controllerVar.getCaseAgeField());
-		addDarkForm(controllerVar.getCaseGenderField());
-		addDarkForm(controllerVar.getCaseAddressField());
-		addDarkForm(controllerVar.getCaseStreetField());
-		addDarkForm(controllerVar.getCaseAreaField());
-		addDarkForm(controllerVar.getCaseCountyField());
-	}
-	
-	private static void addLightStyles() {
-		controllerVar.getTabPane().getStyleClass().clear();
-		controllerVar.getTabPane().getStyleClass().add("lighttabpane");
-		controllerVar.getCaseNotesField().getStyleClass().clear();
-		controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
-		
-		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-		
-		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
-		
-		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
-		
-		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
-		
-		controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
-		controllerVar.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
-		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
-		
-		controllerVar.getAreaReportChart().getStyleClass().clear();
-		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");
-		controllerVar.getReportChart().getStyleClass().clear();
-		controllerVar.getReportChart().getStyleClass().add("customchartlight");
-		
-		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
-		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxlight");
-		controllerVar.getOfficerInfoRank().getStyleClass().clear();
-		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxlight");
-		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
-		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
-		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxlight");
-		
-		addLightForm(controllerVar.getOfficerInfoName());
-		addLightForm(controllerVar.getOfficerInfoNumber());
-		addLightForm(controllerVar.getOfficerInfoCallsign());
-		
-		addLightForm(controllerVar.getCaseNumField());
-		addLightForm(controllerVar.getCaseCourtDateField());
-		addLightForm(controllerVar.getCaseOffenceDateField());
-		addLightForm(controllerVar.getCaseFirstNameField());
-		addLightForm(controllerVar.getCaseLastNameField());
-		addLightForm(controllerVar.getCaseAgeField());
-		addLightForm(controllerVar.getCaseGenderField());
-		addLightForm(controllerVar.getCaseAddressField());
-		addLightForm(controllerVar.getCaseStreetField());
-		addLightForm(controllerVar.getCaseAreaField());
-		addLightForm(controllerVar.getCaseCountyField());
-	}
-	
-	private static void addLightForm(TextField textField) {
-		textField.getStyleClass().clear();
-		textField.getStyleClass().add("formFieldlight");
-	}
-	
-	private static void addDarkForm(TextField textField) {
-		textField.getStyleClass().clear();
-		textField.getStyleClass().add("formFielddark");
-	}
-	
-	public void initialize() throws IOException {
-		if (DataTerminalHomeApplication.controller != null) {
-			controllerVar = DataTerminalHomeApplication.controller;
-		} else if (newOfficerController.controller != null) {
-			controllerVar = newOfficerController.controller;
-		} else {
-			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
+	private void loadColors() {
+		try {
+			Color primary = Color.valueOf(ConfigReader.configRead("uiColors", "mainColor"));
+			Color secondary = Color.valueOf(ConfigReader.configRead("uiColors", "secondaryColor"));
+			Color accent = Color.valueOf(ConfigReader.configRead("uiColors", "accentColor"));
+			Color bkg = Color.valueOf(ConfigReader.configRead("uiColors", "bkgColor"));
+			
+			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportSettings", "reportBackground"));
+			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSettings", "reportSecondary"));
+			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
+			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
+			
+			primPicker.setValue(primary);
+			secPicker.setValue(secondary);
+			accPicker.setValue(accent);
+			bkgPicker.setValue(bkg);
+			primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
+			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
+			
+			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
+					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
+					"#cccccc")) {
+				bkgLabel.setStyle("-fx-text-fill: black;");
+			} else {
+				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
+			}
+			
+			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
+			
+			lbl0.setStyle("-fx-background-color: " + toHexString(primary) + ";");
+			lbl1.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl2.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			lbl10.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
+			
+			backgroundPickerReport.setValue(reportBackground);
+			accentPickerReport.setValue(reportAccent);
+			headingPickerReport.setValue(reportHeading);
+			secPickerReport.setValue(reportSecondary);
+			
+			if (selectedNotification.get().equals("Information")) {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+			} else {
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+			}
+			
+			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
+			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
+			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
+			
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+				tabpane.getStyleClass().clear();
+				tabpane.getStyleClass().add("darktabpane");
+			} else {
+				tabpane.getStyleClass().clear();
+				tabpane.getStyleClass().add("lighttabpane");
+			}
+			
+			try {
+				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
+				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
+				                                                                              "accentColor") + ";";
+				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
+				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
+				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));
+				previewNotificationBtn.setStyle(nonTransparentBtn);
+				previewNotificationBtn.setOnMouseEntered(e -> previewNotificationBtn.setStyle(hoverStyle));
+				previewNotificationBtn.setOnMouseExited(e -> previewNotificationBtn.setStyle(nonTransparentBtn));
+				resetDefaultsBtn.setStyle(nonTransparentBtn);
+				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
+				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
+				resetReportDefaultsBtn.setStyle(nonTransparentBtn);
+				resetReportDefaultsBtn.setOnMouseEntered(e -> resetReportDefaultsBtn.setStyle(hoverStyle));
+				resetReportDefaultsBtn.setOnMouseExited(e -> resetReportDefaultsBtn.setStyle(nonTransparentBtn));
+				clrLogsBtn.setStyle(nonTransparentBtn);
+				clrLogsBtn.setOnMouseEntered(e -> clrLogsBtn.setStyle(hoverStyle));
+				clrLogsBtn.setOnMouseExited(e -> clrLogsBtn.setStyle(nonTransparentBtn));
+				clrSaveDataBtn.setStyle(nonTransparentBtn);
+				clrSaveDataBtn.setOnMouseEntered(e -> clrSaveDataBtn.setStyle(hoverStyle));
+				clrSaveDataBtn.setOnMouseExited(e -> clrSaveDataBtn.setStyle(nonTransparentBtn));
+				debugLogBtn.setStyle(nonTransparentBtn);
+				debugLogBtn.setOnMouseEntered(e -> debugLogBtn.setStyle(hoverStyle));
+				debugLogBtn.setOnMouseExited(e -> debugLogBtn.setStyle(nonTransparentBtn));
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		} catch (IOException e) {
+			logError("LoadTheme IO Error Code 917 ", e);
 		}
-		
-		topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
-		
-		root.setTop(topBar);
-		
+	}
+	
+	private void addDefaultCheckboxSelections() throws IOException {
+		notiDisplayDurField.setText(ConfigReader.configRead("notificationSettings", "displayDuration"));
+		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
+		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
+		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
 		enableNotificationsCheckbox.setSelected(
 				ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 		enableCalloutPopupsCheckbox.setSelected(
@@ -644,19 +577,13 @@ public class settingsController {
 		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equalsIgnoreCase("true"));
 		AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equalsIgnoreCase("true"));
 		AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equalsIgnoreCase("true"));
-		
+	}
+	
+	private void displayPlacements() {
 		String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
 		mainWindowComboBox.getItems().addAll(displayPlacements);
 		notesWindowComboBox.getItems().addAll(displayPlacements);
 		ReportWindowComboBox.getItems().addAll(displayPlacements);
-		
-		try {
-			mainWindowComboBox.setValue(ConfigReader.configRead("layout", "mainWindowLayout"));
-			notesWindowComboBox.setValue(ConfigReader.configRead("layout", "notesWindowLayout"));
-			ReportWindowComboBox.setValue(ConfigReader.configRead("layout", "reportWindowLayout"));
-		} catch (IOException e) {
-			logError("Could not set reportwindowboxes from config: ", e);
-		}
 		
 		EventHandler<ActionEvent> comboBoxHandler = event -> {
 			ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
@@ -720,9 +647,16 @@ public class settingsController {
 		mainWindowComboBox.setOnAction(comboBoxHandler);
 		notesWindowComboBox.setOnAction(comboBoxHandler);
 		ReportWindowComboBox.setOnAction(comboBoxHandler);
-		
-		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
-		
+		try {
+			mainWindowComboBox.setValue(ConfigReader.configRead("layout", "mainWindowLayout"));
+			notesWindowComboBox.setValue(ConfigReader.configRead("layout", "notesWindowLayout"));
+			ReportWindowComboBox.setValue(ConfigReader.configRead("layout", "reportWindowLayout"));
+		} catch (IOException e) {
+			logError("Could not set reportwindowboxes from config: ", e);
+		}
+	}
+	
+	private void addEventFilters() {
 		broadcastPortField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = broadcastPortField.getText();
@@ -749,9 +683,65 @@ public class settingsController {
 			
 			ConfigWriter.configwrite("connectionSettings", "broadcastPort", newText);
 		});
-		
-		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
-		
+		notiDisplayDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiDisplayDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+			}
+			
+		});
+		notiFadeOutDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = notiFadeOutDurField.getText();
+			
+			if (!character.matches("[0-9]") && !character.equals(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (character.equals(".") && text.contains(".")) {
+				event.consume();
+				return;
+			}
+			
+			if (text.length() >= 5) {
+				event.consume();
+				return;
+			}
+			
+			String newText = text + character;
+			
+			try {
+				if (!newText.equals(".") && !newText.endsWith(".")) {
+					Double.parseDouble(newText);
+				}
+			} catch (NumberFormatException e) {
+				event.consume();
+			}
+		});
 		socketTimeoutField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = socketTimeoutField.getText();
@@ -778,95 +768,159 @@ public class settingsController {
 			
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
 		});
+	}
+	
+	private void setupListeners() {
+		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiPrim(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiPrim(selectedColor);
+			}
+		});
+		
+		notiTextColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
+			Color selectedColor = newValue;
+			if (selectedNotification.get().equals("Information")) {
+				updateInfoNotiTextColor(selectedColor);
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				updateWarnNotiTextColor(selectedColor);
+			}
+		});
 		
 		bkgPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updatebackground(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 33 ", e);
+				logError("LoadTheme IO Error Code 33", e);
 			}
 		});
 		
 		primPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateMain(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 3 ", e);
+				logError("LoadTheme IO Error Code 3", e);
 			}
 		});
 		
 		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateSecondary(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 4 ", e);
+				logError("LoadTheme IO Error Code 4", e);
 			}
 		});
 		
 		accPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateAccent(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 5 ", e);
+				logError("LoadTheme IO Error Code 5", e);
 			}
 		});
 		
 		backgroundPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateReportBackground(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 6 ", e);
+				logError("LoadTheme IO Error Code 6", e);
 			}
 		});
 		
 		accentPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateReportAccent(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 7 ", e);
+				logError("LoadTheme IO Error Code 7", e);
 			}
 		});
 		
 		headingPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateReportHeading(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 8 ", e);
+				logError("LoadTheme IO Error Code 8", e);
 			}
 		});
 		
 		secPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
 			Color selectedColor = newValue;
 			updateReportSecondary(selectedColor);
 			try {
 				loadTheme();
 				loadColors();
 			} catch (IOException e) {
-				logError("LoadTheme IO Error Code 9 ", e);
+				logError("LoadTheme IO Error Code 9", e);
 			}
 		});
-		
+	}
+	
+	private void addActionEventsAndComboBoxes() throws IOException {
 		String[] reportdarklight = {"dark", "light"};
 		String[] uidarklight = {"dark", "light"};
 		
@@ -1200,119 +1254,10 @@ public class settingsController {
 			}
 		});
 		
-		notiDisplayDurField.setText(ConfigReader.configRead("notificationSettings", "displayDuration"));
-		notiDisplayDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
-			String character = event.getCharacter();
-			String text = notiDisplayDurField.getText();
-			
-			if (!character.matches("[0-9]") && !character.equals(".")) {
-				event.consume();
-				return;
-			}
-			
-			if (character.equals(".") && text.contains(".")) {
-				event.consume();
-				return;
-			}
-			
-			if (text.length() >= 5) {
-				event.consume();
-				return;
-			}
-			
-			String newText = text + character;
-			
-			try {
-				if (!newText.equals(".") && !newText.endsWith(".")) {
-					Double.parseDouble(newText);
-				}
-			} catch (NumberFormatException e) {
-				event.consume();
-			}
-			
-		});
-		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
-		notiFadeOutDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
-			String character = event.getCharacter();
-			String text = notiFadeOutDurField.getText();
-			
-			if (!character.matches("[0-9]") && !character.equals(".")) {
-				event.consume();
-				return;
-			}
-			
-			if (character.equals(".") && text.contains(".")) {
-				event.consume();
-				return;
-			}
-			
-			if (text.length() >= 5) {
-				event.consume();
-				return;
-			}
-			
-			String newText = text + character;
-			
-			try {
-				if (!newText.equals(".") && !newText.endsWith(".")) {
-					Double.parseDouble(newText);
-				}
-			} catch (NumberFormatException e) {
-				event.consume();
-			}
-		});
 		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
 		                                                                   notiFadeOutDurField.getText()));
 		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
 		                                                                      notiDisplayDurField.getText()));
-		
-		notiPrimPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Color selectedColor = newValue;
-			if (selectedNotification.get().equals("Information")) {
-				updateInfoNotiPrim(selectedColor);
-			}
-			if (selectedNotification.get().equals("Warning")) {
-				updateWarnNotiPrim(selectedColor);
-			}
-		});
-		notiTextColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Color selectedColor = newValue;
-			if (selectedNotification.get().equals("Information")) {
-				updateInfoNotiTextColor(selectedColor);
-			}
-			if (selectedNotification.get().equals("Warning")) {
-				updateWarnNotiTextColor(selectedColor);
-			}
-		});
-		
-		Platform.runLater(() -> {
-			Stage stage = (Stage) root.getScene().getWindow();
-			stage.setMinWidth(stage.getWidth());
-			stage.setMinHeight(stage.getHeight());
-			
-			previewNotificationBtn.setOnAction(actionEvent -> {
-				if (selectedNotification.get().equals("Information")) {
-					NotificationManager.showNotificationInfo("Sample Info Notification",
-					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                         mainRT);
-				}
-				if (selectedNotification.get().equals("Warning")) {
-					NotificationManager.showNotificationWarning("Sample Warning Notification",
-					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                            mainRT);
-				}
-			});
-		});
-		loadColors();
-		loadTheme();
-		
-		colorPageOne.setVisible(true);
-		colorPageTwo.setVisible(false);
-		
-		windowPageOne.setVisible(true);
-		windowPageTwo.setVisible(false);
-		
-		addTooltips();
 	}
 	
 	@javafx.fxml.FXML
@@ -1373,163 +1318,6 @@ public class settingsController {
 		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
-	}
-	
-	private void addTooltips() {
-		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
-		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
-		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
-		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
-		
-		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
-		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
-		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
-		
-		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
-		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
-		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
-		
-		addTooltip(AOTCallout, "Keep Callout Window On Top");
-		addTooltip(AOTClient, "Keep Client Window On Top");
-		addTooltip(AOTID, "Keep ID Window On Top");
-		addTooltip(AOTDebug, "Keep Debug Window On Top");
-		addTooltip(AOTMap, "Keep Map Window On Top");
-		addTooltip(AOTNotes, "Keep Notes Window On Top");
-		addTooltip(AOTReport, "Keep Report Window On Top");
-		addTooltip(AOTSettings, "Keep Settings Window On Top");
-		
-		addTooltip(tt1, "Main Window Location On Startup");
-		addTooltip(tt2, "Notes Window Location On Startup");
-		addTooltip(tt3, "Report Window Location On Startup");
-		addTooltip(tt4, "UI Theme Presets");
-		addTooltip(tt5, "UI Text Color");
-		addTooltip(tt6, "Report Theme Presets");
-		addTooltip(tt7, "Report TextField Color");
-		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
-		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
-		addTooltip(tt10,
-		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
-		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
-		
-		addTooltip(tt16, "Notification Type to be Modified");
-		addTooltip(tt12, "Primary Notification Color");
-		addTooltip(tt15, "Notification Text Color");
-		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
-		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
-		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
-		
-		addTooltip(bkgLabel, "Application Background Color");
-		addTooltip(primLabel, "Application Primary Color");
-		addTooltip(secLabel, "Application Secondary Color");
-		addTooltip(accLabel, "Application Accent Color");
-		
-		addTooltip(headingLabelReport, "Report Heading Color");
-		addTooltip(backgroundLabelReport, "Report Background Color");
-		addTooltip(secLabelReport, "Report Secondary Color");
-		addTooltip(accentLabelReport, "Report Accent Color");
-	}
-	
-	private void loadColors() {
-		try {
-			Color primary = Color.valueOf(ConfigReader.configRead("uiColors", "mainColor"));
-			Color secondary = Color.valueOf(ConfigReader.configRead("uiColors", "secondaryColor"));
-			Color accent = Color.valueOf(ConfigReader.configRead("uiColors", "accentColor"));
-			Color bkg = Color.valueOf(ConfigReader.configRead("uiColors", "bkgColor"));
-			
-			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportSettings", "reportBackground"));
-			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSettings", "reportSecondary"));
-			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
-			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
-			
-			primPicker.setValue(primary);
-			secPicker.setValue(secondary);
-			accPicker.setValue(accent);
-			bkgPicker.setValue(bkg);
-			primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
-			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
-			
-			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
-					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
-					"#cccccc")) {
-				bkgLabel.setStyle("-fx-text-fill: black;");
-			} else {
-				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
-			}
-			
-			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
-			
-			lbl0.setStyle("-fx-background-color: " + toHexString(primary) + ";");
-			lbl1.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl2.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl10.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			
-			backgroundPickerReport.setValue(reportBackground);
-			accentPickerReport.setValue(reportAccent);
-			headingPickerReport.setValue(reportHeading);
-			secPickerReport.setValue(reportSecondary);
-			
-			if (selectedNotification.get().equals("Information")) {
-				notiTextColorPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
-				notiPrimPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
-			} else {
-				notiTextColorPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
-				notiPrimPicker.setValue(
-						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
-			}
-			
-			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
-			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
-			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
-			
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
-				tabpane.getStyleClass().clear();
-				tabpane.getStyleClass().add("darktabpane");
-			} else {
-				tabpane.getStyleClass().clear();
-				tabpane.getStyleClass().add("lighttabpane");
-			}
-			
-			try {
-				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
-				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
-				                                                                              "accentColor") + ";";
-				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
-				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
-				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));
-				previewNotificationBtn.setStyle(nonTransparentBtn);
-				previewNotificationBtn.setOnMouseEntered(e -> previewNotificationBtn.setStyle(hoverStyle));
-				previewNotificationBtn.setOnMouseExited(e -> previewNotificationBtn.setStyle(nonTransparentBtn));
-				resetDefaultsBtn.setStyle(nonTransparentBtn);
-				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
-				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
-				resetReportDefaultsBtn.setStyle(nonTransparentBtn);
-				resetReportDefaultsBtn.setOnMouseEntered(e -> resetReportDefaultsBtn.setStyle(hoverStyle));
-				resetReportDefaultsBtn.setOnMouseExited(e -> resetReportDefaultsBtn.setStyle(nonTransparentBtn));
-				clrLogsBtn.setStyle(nonTransparentBtn);
-				clrLogsBtn.setOnMouseEntered(e -> clrLogsBtn.setStyle(hoverStyle));
-				clrLogsBtn.setOnMouseExited(e -> clrLogsBtn.setStyle(nonTransparentBtn));
-				clrSaveDataBtn.setStyle(nonTransparentBtn);
-				clrSaveDataBtn.setOnMouseEntered(e -> clrSaveDataBtn.setStyle(hoverStyle));
-				clrSaveDataBtn.setOnMouseExited(e -> clrSaveDataBtn.setStyle(nonTransparentBtn));
-				debugLogBtn.setStyle(nonTransparentBtn);
-				debugLogBtn.setOnMouseEntered(e -> debugLogBtn.setStyle(hoverStyle));
-				debugLogBtn.setOnMouseExited(e -> debugLogBtn.setStyle(nonTransparentBtn));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		} catch (IOException e) {
-			logError("LoadTheme IO Error Code 917 ", e);
-		}
 	}
 	
 	@javafx.fxml.FXML
@@ -1766,4 +1554,279 @@ public class settingsController {
 		}
 	}
 	
+	private static void addDarkStyles() {
+		controllerVar.getTabPane().getStyleClass().clear();
+		controllerVar.getTabPane().getStyleClass().add("darktabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-dark");
+		
+		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		
+		controllerVar.getActivecalfill().setStyle(
+				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
+		controllerVar.getCalfill().setStyle(
+				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
+		
+		controllerVar.getAreaReportChart().getStyleClass().clear();
+		controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
+		controllerVar.getReportChart().getStyleClass().clear();
+		controllerVar.getReportChart().getStyleClass().add("customchartdark");
+		
+		addDarkForm(controllerVar.getOfficerInfoName());
+		addDarkForm(controllerVar.getOfficerInfoNumber());
+		addDarkForm(controllerVar.getOfficerInfoCallsign());
+		
+		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxdark");
+		controllerVar.getOfficerInfoRank().getStyleClass().clear();
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxdark");
+		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxdark");
+		
+		addDarkForm(controllerVar.getCaseNumField());
+		addDarkForm(controllerVar.getCaseCourtDateField());
+		addDarkForm(controllerVar.getCaseOffenceDateField());
+		addDarkForm(controllerVar.getCaseFirstNameField());
+		addDarkForm(controllerVar.getCaseLastNameField());
+		addDarkForm(controllerVar.getCaseAgeField());
+		addDarkForm(controllerVar.getCaseGenderField());
+		addDarkForm(controllerVar.getCaseAddressField());
+		addDarkForm(controllerVar.getCaseStreetField());
+		addDarkForm(controllerVar.getCaseAreaField());
+		addDarkForm(controllerVar.getCaseCountyField());
+	}
+	
+	private static void addLightStyles() {
+		controllerVar.getTabPane().getStyleClass().clear();
+		controllerVar.getTabPane().getStyleClass().add("lighttabpane");
+		controllerVar.getCaseNotesField().getStyleClass().clear();
+		controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
+		
+		controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
+		
+		controllerVar.getActivecalfill().setStyle(
+				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
+		controllerVar.getCalfill().setStyle(
+				updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
+		
+		controllerVar.getAreaReportChart().getStyleClass().clear();
+		controllerVar.getAreaReportChart().getStyleClass().add("lightchart");
+		controllerVar.getReportChart().getStyleClass().clear();
+		controllerVar.getReportChart().getStyleClass().add("customchartlight");
+		
+		controllerVar.getOfficerInfoAgency().getStyleClass().clear();
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoAgency().getStyleClass().add("combo-boxlight");
+		controllerVar.getOfficerInfoRank().getStyleClass().clear();
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoRank().getStyleClass().add("combo-boxlight");
+		controllerVar.getOfficerInfoDivision().getStyleClass().clear();
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
+		controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxlight");
+		
+		addLightForm(controllerVar.getOfficerInfoName());
+		addLightForm(controllerVar.getOfficerInfoNumber());
+		addLightForm(controllerVar.getOfficerInfoCallsign());
+		
+		addLightForm(controllerVar.getCaseNumField());
+		addLightForm(controllerVar.getCaseCourtDateField());
+		addLightForm(controllerVar.getCaseOffenceDateField());
+		addLightForm(controllerVar.getCaseFirstNameField());
+		addLightForm(controllerVar.getCaseLastNameField());
+		addLightForm(controllerVar.getCaseAgeField());
+		addLightForm(controllerVar.getCaseGenderField());
+		addLightForm(controllerVar.getCaseAddressField());
+		addLightForm(controllerVar.getCaseStreetField());
+		addLightForm(controllerVar.getCaseAreaField());
+		addLightForm(controllerVar.getCaseCountyField());
+	}
+	
+	private static void addLightForm(TextField textField) {
+		textField.getStyleClass().clear();
+		textField.getStyleClass().add("formFieldlight");
+	}
+	
+	private static void addDarkForm(TextField textField) {
+		textField.getStyleClass().clear();
+		textField.getStyleClass().add("formFielddark");
+	}
+	
+	private void addTooltips() {
+		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
+		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
+		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
+		
+		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
+		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
+		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
+		
+		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
+		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
+		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
+		
+		addTooltip(AOTCallout, "Keep Callout Window On Top");
+		addTooltip(AOTClient, "Keep Client Window On Top");
+		addTooltip(AOTID, "Keep ID Window On Top");
+		addTooltip(AOTDebug, "Keep Debug Window On Top");
+		addTooltip(AOTMap, "Keep Map Window On Top");
+		addTooltip(AOTNotes, "Keep Notes Window On Top");
+		addTooltip(AOTReport, "Keep Report Window On Top");
+		addTooltip(AOTSettings, "Keep Settings Window On Top");
+		
+		addTooltip(tt1, "Main Window Location On Startup");
+		addTooltip(tt2, "Notes Window Location On Startup");
+		addTooltip(tt3, "Report Window Location On Startup");
+		addTooltip(tt4, "UI Theme Presets");
+		addTooltip(tt5, "UI Text Color");
+		addTooltip(tt6, "Report Theme Presets");
+		addTooltip(tt7, "Report TextField Color");
+		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
+		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
+		addTooltip(tt10,
+		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
+		
+		addTooltip(tt16, "Notification Type to be Modified");
+		addTooltip(tt12, "Primary Notification Color");
+		addTooltip(tt15, "Notification Text Color");
+		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
+		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
+		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
+		
+		addTooltip(bkgLabel, "Application Background Color");
+		addTooltip(primLabel, "Application Primary Color");
+		addTooltip(secLabel, "Application Secondary Color");
+		addTooltip(accLabel, "Application Accent Color");
+		
+		addTooltip(headingLabelReport, "Report Heading Color");
+		addTooltip(backgroundLabelReport, "Report Background Color");
+		addTooltip(secLabelReport, "Report Secondary Color");
+		addTooltip(accentLabelReport, "Report Accent Color");
+	}
 }

@@ -13,8 +13,12 @@ import com.drozal.dataterminal.logs.Patrol.PatrolReportUtils;
 import com.drozal.dataterminal.logs.Search.SearchReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
 import com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils;
+import com.drozal.dataterminal.util.History.Ped;
+import com.drozal.dataterminal.util.server.ClientUtils;
+import jakarta.xml.bind.JAXBException;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
@@ -32,9 +36,11 @@ import javafx.util.Duration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,20 +48,15 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.drozal.dataterminal.Windows.Main.actionController.handleClose;
-import static com.drozal.dataterminal.util.Misc.LogUtils.log;
-import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getDataLogsFolderPath;
-import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
+import static com.drozal.dataterminal.util.Misc.LogUtils.*;
+import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class controllerUtils {
 	
@@ -688,6 +689,352 @@ public class controllerUtils {
 		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 			textArea.setText(extractedValue);
 		}
+	}
+	
+	public static void handleClose() {
+		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		endLog();
+		ClientUtils.disconnectFromService();
+		Platform.exit();
+		System.exit(0);
+	}
+	
+	public static String calculateTotalTime(String input, String key) {
+		String patternString = key + ": ([^\\.]+)\\.";
+		Pattern pattern = Pattern.compile(patternString);
+		Matcher matcher = pattern.matcher(input);
+		
+		int totalMonths = 0;
+		
+		while (matcher.find()) {
+			String timeString = matcher.group(1).trim();
+			
+			Pattern yearsPattern = Pattern.compile("(\\d+) years?");
+			Pattern monthsPattern = Pattern.compile("(\\d+) months?");
+			
+			Matcher yearsMatcher = yearsPattern.matcher(timeString);
+			Matcher monthsMatcher = monthsPattern.matcher(timeString);
+			
+			int months = 0;
+			
+			if (yearsMatcher.find()) {
+				int years = Integer.parseInt(yearsMatcher.group(1));
+				months += years * 12;
+			}
+			
+			if (monthsMatcher.find()) {
+				months += Integer.parseInt(monthsMatcher.group(1));
+			}
+			
+			totalMonths += months;
+		}
+		
+		int years = totalMonths / 12;
+		int months = totalMonths % 12;
+		
+		return (years > 0 ? years + " years " : "") + (months > 0 ? months + " months" : "").trim();
+	}
+	
+	public static List<String> parseCharges(String input, String key) {
+		List<String> results = new ArrayList<>();
+		
+		String patternString = key + ": ([^\\.]+)\\.";
+		Pattern pattern = Pattern.compile(patternString);
+		Matcher matcher = pattern.matcher(input);
+		
+		while (matcher.find()) {
+			results.add(matcher.group(1).trim());
+		}
+		return results;
+	}
+	
+	public static String extractInteger(String input) {
+		Pattern pattern = Pattern.compile("-?\\d+");
+		Matcher matcher = pattern.matcher(input);
+		
+		if (matcher.find()) {
+			return matcher.group();
+		} else {
+			return "";
+		}
+	}
+	
+	public static ObservableList<Label> createLabels(String text) {
+		ObservableList<Label> labels = FXCollections.observableArrayList();
+		if (text != null) {
+			String[] items = text.split("\\|");
+			for (String item : items) {
+				if (!item.trim().isEmpty()) {
+					Label label = new Label(item.trim());
+					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					labels.add(label);
+				}
+			}
+		}
+		return labels;
+	}
+	
+	public static ObservableList<Label> createPendingLabels(String text) {
+		ObservableList<Label> labels = FXCollections.observableArrayList();
+		if (text != null) {
+			String[] items = text.split("\\|");
+			for (String item : items) {
+				if (!item.trim().isEmpty()) {
+					Label label = new Label("Pending Trial");
+					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					labels.add(label);
+				}
+			}
+		}
+		return labels;
+	}
+	
+	public static int calculateFineTotal(String outcomes) {
+		int fineTotal = 0;
+		if (outcomes != null) {
+			Pattern FINE_PATTERN = Pattern.compile("Fined: (\\d+)");
+			Matcher matcher = FINE_PATTERN.matcher(outcomes);
+			while (matcher.find()) {
+				fineTotal += Integer.parseInt(matcher.group(1));
+			}
+		}
+		return fineTotal;
+	}
+	
+	public static Ped createPed(String licenseNumber, String name, String gender, String birthday, String address, String isWanted, String licenseStatus) {
+		Ped ped = new Ped();
+		ped.setLicenseNumber(licenseNumber);
+		ped.setName(name);
+		ped.setGender(gender);
+		ped.setBirthday(birthday);
+		ped.setAddress(address);
+		ped.setWantedStatus(isWanted);
+		ped.setLicenseStatus(licenseStatus);
+		return ped;
+	}
+	
+	public static void setGunLicenseStatus(Ped ped) throws IOException {
+		Boolean hasGunLicense = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
+		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
+		
+		if (hasGunLicense) {
+			String licenseType = getGunLicenseType();
+			ped.setGunLicenseType(licenseType);
+			
+			String licenseClasses = getGunLicenseClass();
+			ped.setGunLicenseClass(licenseClasses);
+			
+			ped.setHuntingLicenseStatus(String.valueOf(
+					calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
+		}
+	}
+	
+	public static int setArrestPriors(Ped ped) throws IOException {
+		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+		List<String> priorCharges;
+		try {
+			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new RuntimeException(e);
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		int chargeCount = 0;
+		for (String charge : priorCharges) {
+			chargeCount++;
+			stringBuilder.append(charge).append(" | ");
+		}
+		String chargelist = stringBuilder.toString().trim();
+		if (!chargelist.isEmpty()) {
+			ped.setArrestPriors(chargelist);
+		}
+		return chargeCount;
+	}
+	
+	public static int setCitationPriors(Ped ped) throws IOException {
+		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+		List<String> priorCitations;
+		try {
+			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(
+					ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new RuntimeException(e);
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		int citCount = 0;
+		for (String cit : priorCitations) {
+			citCount++;
+			stringBuilder.append(cit).append(" | ");
+		}
+		String citList = stringBuilder.toString().trim();
+		if (!citList.isEmpty()) {
+			ped.setCitationPriors(citList);
+		}
+		return citCount;
+	}
+	
+	public static String getGunLicenseType() throws IOException {
+		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
+		
+		if (licenseTypeSet.toLowerCase().contains("open")) {
+			return "Open Carry";
+		} else if (licenseTypeSet.toLowerCase().contains("concealed")) {
+			return "Concealed Carry";
+		} else {
+			return "Open Carry / Concealed Carry";
+		}
+	}
+	
+	public static String getGunLicenseClass() throws IOException {
+		Set<String> licenseClassSet = getPermitClassBasedOnChances(
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
+				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
+		
+		return String.join(" / ", licenseClassSet).trim();
+	}
+	
+	public static void setPedPriors(Ped ped) {
+		int totalChargePriors = 0;
+		try {
+			totalChargePriors = setArrestPriors(ped);
+		} catch (IOException e) {
+			logError("Could not fetch arrestPriors: ", e);
+		}
+		int totalCitationPriors = 0;
+		try {
+			totalCitationPriors = setCitationPriors(ped);
+		} catch (IOException e) {
+			logError("Could not fetch citationPriors: ", e);
+		}
+		
+		if (totalChargePriors >= 1) {
+			try {
+				ped.setParoleStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
+			} catch (IOException e) {
+				logError("Could not set ParoleStatus: ", e);
+			}
+			try {
+				ped.setProbationStatus(String.valueOf(
+						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
+			} catch (IOException e) {
+				logError("Could not set ProbationStatus: ", e);
+			}
+		}
+		
+		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
+		ped.setTimesStopped(totalStops);
+	}
+	
+	public static String formatLicenseStatus(String status) {
+		switch (status.toLowerCase()) {
+			case "expired":
+				return "EXPIRED";
+			case "suspended":
+				return "SUSPENDED";
+			default:
+				return "Valid";
+		}
+	}
+	
+	public static Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
+		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
+		
+		if (isWanted.equalsIgnoreCase("true")) {
+			setPedWarrantStatus(ped);
+		}
+		
+		setPedPriors(ped);
+		ped.setFishingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		if (!pedModel.equalsIgnoreCase("not available")) {
+			ped.setModel(pedModel);
+		} else {
+			log("ped model is 'not available' so not adding", Severity.WARN);
+		}
+		try {
+			setGunLicenseStatus(ped);
+		} catch (IOException e) {
+			logError("Could not set gunLicenseStatus: ", e);
+		}
+		
+		try {
+			Ped.PedHistoryUtils.addPed(ped);
+		} catch (JAXBException e) {
+			logError("Error adding ped to PedHistory: ", e);
+		}
+		return ped;
+	}
+	
+	public static void setPedWarrantStatus(Ped ped) {
+		try {
+			String warrant = null;
+			try {
+				warrant = getRandomCharge(chargesFilePath);
+			} catch (IOException e) {
+				logError("Error getting randomCharge: ", e);
+			}
+			if (warrant != null) {
+				ped.setOutstandingWarrants("WANTED(" + getRandomDepartment() + ") - " + warrant);
+			} else {
+				ped.setOutstandingWarrants("WANTED - No details");
+			}
+		} catch (ParserConfigurationException | SAXException e) {
+			logError("Error getting random charge: ", e);
+			ped.setOutstandingWarrants("WANTED - Error retrieving details");
+		}
+	}
+	
+	public static Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
+		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
+		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
+		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(),
+		                    isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+		
+		if (isWantedOutcome.equalsIgnoreCase("true")) {
+			setPedWarrantStatus(ped);
+		}
+		
+		setPedPriors(ped);
+		ped.setFishingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(
+				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		ped.setVehiclePlateNum(vehPlateNum);
+		try {
+			setGunLicenseStatus(ped);
+		} catch (IOException e) {
+			logError("Could not set gunLicenseStatus: ", e);
+		}
+		
+		try {
+			Ped.PedHistoryUtils.addPed(ped);
+		} catch (JAXBException e) {
+			logError("Error adding ped to PedHistory: ", e);
+		}
+		return ped;
+	}
+	
+	public static void updateRecentSearches(List<String> recentSearches, ComboBox<String> searchField, String newSearch) {
+		recentSearches.remove(newSearch);
+		recentSearches.add(0, newSearch);
+		if (recentSearches.size() > 5) {
+			recentSearches.remove(5);
+		}
+		searchField.getItems().setAll(recentSearches);
 	}
 	
 }

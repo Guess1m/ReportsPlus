@@ -85,9 +85,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -114,7 +112,6 @@ import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.
 import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedByName;
-import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
@@ -902,12 +899,237 @@ public class actionController {
 	
 	//<editor-fold desc="Utils">
 	
-	public static void handleClose() {
-		log("Stop Request Recieved", Severity.DEBUG);
-		endLog();
-		ClientUtils.disconnectFromService();
-		Platform.exit();
-		System.exit(0);
+	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) {
+		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
+		Ped ped = searchedPed.orElseGet(() -> {
+			try {
+				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
+			} catch (IOException e) {
+				logError("Error creating new ped: ", e);
+				return null;
+			}
+		});
+		if (ped != null) {
+			setPedRecordFields(ped);
+		}
+		pedRecordPane.setVisible(true);
+		noRecordFoundLabelPed.setVisible(false);
+	}
+	
+	private void processOwnerData(String owner, String vehPlateNum) {
+		Optional<Ped> searchedPed = findPedByName(owner);
+		Ped ped = searchedPed.orElseGet(() -> {
+			try {
+				return createOwnerPed(owner, vehPlateNum);
+			} catch (IOException e) {
+				logError("Error creating ownerPed: ", e);
+				return null;
+			}
+		});
+		
+		if (ped != null) {
+			setPedRecordFields(ped);
+		}
+		pedRecordPane.setVisible(true);
+		noRecordFoundLabelPed.setVisible(false);
+	}
+	
+	private void setPedRecordFields(Ped ped) {
+		pedfnamefield.setText(ped.getFirstName());
+		pedlnamefield.setText(ped.getLastName());
+		pedgenfield.setText(ped.getGender());
+		peddobfield.setText(ped.getBirthday());
+		pedaddressfield.setText(ped.getAddress());
+		
+		// License status fields
+		pedlicensefield.setText(ped.getLicenseStatus());
+		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
+			pedlicensefield.setStyle("-fx-text-fill: red !important;");
+		} else {
+			pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
+			pedlicensefield.setText("Valid");
+		}
+		
+		// Outstanding warrants
+		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
+		pedwantedfield.setStyle(
+				ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
+		
+		// Gun license status
+		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
+		if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
+			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
+		} else {
+			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedgunlicensestatusfield.setText("Valid");
+		}
+		
+		// Probation status
+		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
+		if (ped.getProbationStatus() != null && ped.getProbationStatus().equalsIgnoreCase("true")) {
+			pedprobationstatusfield.setStyle("-fx-text-fill: red !important;");
+			pedprobationstatusfield.setText("On Probation");
+		} else {
+			pedprobationstatusfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Fishing license status
+		pedfishinglicstatusfield.setText(
+				ped.getFishingLicenseStatus() != null ? ped.getFishingLicenseStatus() : "False");
+		if (ped.getFishingLicenseStatus() != null && ped.getFishingLicenseStatus().equalsIgnoreCase("true")) {
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedfishinglicstatusfield.setText("Valid");
+		} else {
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Boating license status
+		pedboatinglicstatusfield.setText(
+				ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
+		if (ped.getBoatingLicenseStatus() != null && ped.getBoatingLicenseStatus().equalsIgnoreCase("true")) {
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedboatinglicstatusfield.setText("Valid");
+		} else {
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Gun license class and type
+		pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
+		pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
+		
+		// Hunting license status
+		pedhuntinglicstatusfield.setText(
+				ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
+		if (ped.getHuntingLicenseStatus() != null && ped.getHuntingLicenseStatus().equalsIgnoreCase("true")) {
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedhuntinglicstatusfield.setText("Valid");
+		} else {
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// License number
+		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
+		pedlicnumfield.setStyle(
+				ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+		
+		// Affiliation
+		String affiliations = ped.getAffiliations();
+		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
+			pedaffiliationfield.setText("No Data In System");
+			pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+		} else {
+			pedaffiliationfield.setText(affiliations);
+			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		String flags = ped.getFlags();
+		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
+			pedflagfield.setText("No Data In System");
+			pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+		} else {
+			pedflagfield.setText(flags);
+			pedflagfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Description
+		String description = ped.getDescription();
+		if (description == null || description.equalsIgnoreCase("No Data In System")) {
+			peddescfield.setText("No Data In System");
+			peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+		} else {
+			peddescfield.setText(description);
+			peddescfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Aliases
+		String aliases = ped.getAliases();
+		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
+			pedaliasfield.setText("No Data In System");
+			pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+		} else {
+			pedaliasfield.setText(aliases);
+			pedaliasfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Parole status
+		pedparolestatusfield.setText(ped.getParoleStatus() != null ? ped.getParoleStatus() : "False");
+		if (ped.getParoleStatus() != null && ped.getParoleStatus().equalsIgnoreCase("true")) {
+			pedparolestatusfield.setStyle("-fx-text-fill: red !important;");
+			pedparolestatusfield.setText("On Parole");
+		} else {
+			pedparolestatusfield.setStyle("-fx-text-fill: black !important;");
+		}
+		
+		// Times stopped
+		pedtimesstoppedfield.setText(ped.getTimesStopped() != null ? ped.getTimesStopped() : "No Data");
+		pedtimesstoppedfield.setStyle(
+				ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+		
+		// Birthday
+		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
+		
+		// Ped Image
+		String pedModel = ped.getModel();
+		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
+			File pedImgFolder = new File(pedImageFolderURL);
+			if (pedImgFolder.exists()) {
+				log("Detected pedImage folder..", Severity.DEBUG);
+				
+				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+				
+				if (matchingFiles != null && matchingFiles.length > 0) {
+					File matchingFile = matchingFiles[0];
+					log("Matching pedImage found: " + matchingFile.getName(), Severity.INFO);
+					
+					try {
+						String fileURI = matchingFile.toURI().toString();
+						pedImageView.setImage(new Image(fileURI));
+						noPedImageFoundlbl.setVisible(true);
+						noPedImageFoundlbl.setText("Image Found On File:");
+					} catch (Exception e) {
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+						pedImageView.setImage(defImage);
+						noPedImageFoundlbl.setVisible(true);
+						noPedImageFoundlbl.setText("No Image Found In System");
+						logError("Could not set ped image: ", e);
+					}
+				} else {
+					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
+					    Severity.WARN);
+					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+					pedImageView.setImage(defImage);
+					noPedImageFoundlbl.setVisible(true);
+					noPedImageFoundlbl.setText("No Image Found In System");
+				}
+			} else {
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+				pedImageView.setImage(defImage);
+				noPedImageFoundlbl.setVisible(true);
+				noPedImageFoundlbl.setText("No Image Found In System");
+			}
+		} else {
+			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+			pedImageView.setImage(defImage);
+			noPedImageFoundlbl.setVisible(true);
+			noPedImageFoundlbl.setText("No Image Found In System");
+		}
+		
+		String citationPriors = ped.getCitationPriors();
+		if (citationPriors == null) {
+			citationPriors = "";
+		}
+		
+		Pattern pattern = Pattern.compile("MaxFine:\\S+");
+		Matcher matcher = pattern.matcher(citationPriors);
+		String updatedCitPriors = matcher.replaceAll("").trim();
+		
+		// Arrest and citation priors
+		ObservableList<Label> arrestPriors = createLabels(ped.getArrestPriors());
+		ObservableList<Label> citPriors = createLabels(updatedCitPriors);
+		
+		pedarrestpriorslistview.setItems(arrestPriors);
+		pedcitationpriorslistview.setItems(citPriors);
 	}
 	
 	private void adjustDividerPositions() {
@@ -1315,577 +1537,6 @@ public class actionController {
 			setCellFactory(caseOutcomesListView);
 			setCellFactory(caseOffencesListView);
 		});
-	}
-	
-	public static String calculateTotalTime(String input, String key) {
-		String patternString = key + ": ([^\\.]+)\\.";
-		Pattern pattern = Pattern.compile(patternString);
-		Matcher matcher = pattern.matcher(input);
-		
-		int totalMonths = 0;
-		
-		while (matcher.find()) {
-			String timeString = matcher.group(1).trim();
-			
-			Pattern yearsPattern = Pattern.compile("(\\d+) years?");
-			Pattern monthsPattern = Pattern.compile("(\\d+) months?");
-			
-			Matcher yearsMatcher = yearsPattern.matcher(timeString);
-			Matcher monthsMatcher = monthsPattern.matcher(timeString);
-			
-			int months = 0;
-			
-			if (yearsMatcher.find()) {
-				int years = Integer.parseInt(yearsMatcher.group(1));
-				months += years * 12;
-			}
-			
-			if (monthsMatcher.find()) {
-				months += Integer.parseInt(monthsMatcher.group(1));
-			}
-			
-			totalMonths += months;
-		}
-		
-		int years = totalMonths / 12;
-		int months = totalMonths % 12;
-		
-		return (years > 0 ? years + " years " : "") + (months > 0 ? months + " months" : "").trim();
-	}
-	
-	public List<String> parseCharges(String input, String key) {
-		List<String> results = new ArrayList<>();
-		
-		String patternString = key + ": ([^\\.]+)\\.";
-		Pattern pattern = Pattern.compile(patternString);
-		Matcher matcher = pattern.matcher(input);
-		
-		while (matcher.find()) {
-			results.add(matcher.group(1).trim());
-		}
-		return results;
-	}
-	
-	public String extractInteger(String input) {
-		Pattern pattern = Pattern.compile("-?\\d+");
-		Matcher matcher = pattern.matcher(input);
-		
-		if (matcher.find()) {
-			return matcher.group();
-		} else {
-			return "";
-		}
-	}
-	
-	private ObservableList<Label> createLabels(String text) {
-		ObservableList<Label> labels = FXCollections.observableArrayList();
-		if (text != null) {
-			String[] items = text.split("\\|");
-			for (String item : items) {
-				if (!item.trim().isEmpty()) {
-					Label label = new Label(item.trim());
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
-					labels.add(label);
-				}
-			}
-		}
-		return labels;
-	}
-	
-	private ObservableList<Label> createPendingLabels(String text) {
-		ObservableList<Label> labels = FXCollections.observableArrayList();
-		if (text != null) {
-			String[] items = text.split("\\|");
-			for (String item : items) {
-				if (!item.trim().isEmpty()) {
-					Label label = new Label("Pending Trial");
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
-					labels.add(label);
-				}
-			}
-		}
-		return labels;
-	}
-	
-	private int calculateFineTotal(String outcomes) {
-		int fineTotal = 0;
-		if (outcomes != null) {
-			Pattern FINE_PATTERN = Pattern.compile("Fined: (\\d+)");
-			Matcher matcher = FINE_PATTERN.matcher(outcomes);
-			while (matcher.find()) {
-				fineTotal += Integer.parseInt(matcher.group(1));
-			}
-		}
-		return fineTotal;
-	}
-	
-	private Ped createPed(String licenseNumber, String name, String gender, String birthday, String address, String isWanted, String licenseStatus) {
-		Ped ped = new Ped();
-		ped.setLicenseNumber(licenseNumber);
-		ped.setName(name);
-		ped.setGender(gender);
-		ped.setBirthday(birthday);
-		ped.setAddress(address);
-		ped.setWantedStatus(isWanted);
-		ped.setLicenseStatus(licenseStatus);
-		return ped;
-	}
-	
-	private void setGunLicenseStatus(Ped ped) throws IOException {
-		Boolean hasGunLicense = calculateTrueFalseProbability(
-				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
-		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
-		
-		if (hasGunLicense) {
-			String licenseType = getGunLicenseType();
-			ped.setGunLicenseType(licenseType);
-			
-			String licenseClasses = getGunLicenseClass();
-			ped.setGunLicenseClass(licenseClasses);
-			
-			ped.setHuntingLicenseStatus(String.valueOf(
-					calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
-		}
-	}
-	
-	private int setArrestPriors(Ped ped) throws IOException {
-		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
-		List<String> priorCharges;
-		try {
-			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
-		} catch (ParserConfigurationException | SAXException e) {
-			throw new RuntimeException(e);
-		}
-		StringBuilder stringBuilder = new StringBuilder();
-		int chargeCount = 0;
-		for (String charge : priorCharges) {
-			chargeCount++;
-			stringBuilder.append(charge).append(" | ");
-		}
-		String chargelist = stringBuilder.toString().trim();
-		if (!chargelist.isEmpty()) {
-			ped.setArrestPriors(chargelist);
-		}
-		return chargeCount;
-	}
-	
-	private int setCitationPriors(Ped ped) throws IOException {
-		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
-		List<String> priorCitations;
-		try {
-			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
-		} catch (ParserConfigurationException | SAXException e) {
-			throw new RuntimeException(e);
-		}
-		StringBuilder stringBuilder = new StringBuilder();
-		int citCount = 0;
-		for (String cit : priorCitations) {
-			citCount++;
-			stringBuilder.append(cit).append(" | ");
-		}
-		String citList = stringBuilder.toString().trim();
-		if (!citList.isEmpty()) {
-			ped.setCitationPriors(citList);
-		}
-		return citCount;
-	}
-	
-	private String getGunLicenseType() throws IOException {
-		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
-		
-		if (licenseTypeSet.toLowerCase().contains("open")) {
-			return "Open Carry";
-		} else if (licenseTypeSet.toLowerCase().contains("concealed")) {
-			return "Concealed Carry";
-		} else {
-			return "Open Carry / Concealed Carry";
-		}
-	}
-	
-	private String getGunLicenseClass() throws IOException {
-		Set<String> licenseClassSet = getPermitClassBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
-		
-		return String.join(" / ", licenseClassSet).trim();
-	}
-	
-	private void setPedPriors(Ped ped) {
-		int totalChargePriors = 0;
-		try {
-			totalChargePriors = setArrestPriors(ped);
-		} catch (IOException e) {
-			logError("Could not fetch arrestPriors: ", e);
-		}
-		int totalCitationPriors = 0;
-		try {
-			totalCitationPriors = setCitationPriors(ped);
-		} catch (IOException e) {
-			logError("Could not fetch citationPriors: ", e);
-		}
-		
-		if (totalChargePriors >= 1) {
-			try {
-				ped.setParoleStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
-			} catch (IOException e) {
-				logError("Could not set ParoleStatus: ", e);
-			}
-			try {
-				ped.setProbationStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
-			} catch (IOException e) {
-				logError("Could not set ProbationStatus: ", e);
-			}
-		}
-		
-		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
-		ped.setTimesStopped(totalStops);
-	}
-	
-	private String formatLicenseStatus(String status) {
-		switch (status.toLowerCase()) {
-			case "expired":
-				return "EXPIRED";
-			case "suspended":
-				return "SUSPENDED";
-			default:
-				return "Valid";
-		}
-	}
-	
-	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) {
-		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
-		Ped ped = searchedPed.orElseGet(() -> {
-			try {
-				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
-			} catch (IOException e) {
-				logError("Error creating new ped: ", e);
-				return null;
-			}
-		});
-		if (ped != null) {
-			setPedRecordFields(ped);
-		}
-		pedRecordPane.setVisible(true);
-		noRecordFoundLabelPed.setVisible(false);
-	}
-	
-	private Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
-		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
-		
-		if (isWanted.equalsIgnoreCase("true")) {
-			setPedWarrantStatus(ped);
-		}
-		
-		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
-		if (!pedModel.equalsIgnoreCase("not available")) {
-			ped.setModel(pedModel);
-		} else {
-			log("ped model is 'not available' so not adding", Severity.WARN);
-		}
-		try {
-			setGunLicenseStatus(ped);
-		} catch (IOException e) {
-			logError("Could not set gunLicenseStatus: ", e);
-		}
-		
-		try {
-			Ped.PedHistoryUtils.addPed(ped);
-		} catch (JAXBException e) {
-			logError("Error adding ped to PedHistory: ", e);
-		}
-		return ped;
-	}
-	
-	private void setPedWarrantStatus(Ped ped) {
-		try {
-			String warrant = null;
-			try {
-				warrant = getRandomCharge(chargesFilePath);
-			} catch (IOException e) {
-				logError("Error getting randomCharge: ", e);
-			}
-			if (warrant != null) {
-				ped.setOutstandingWarrants("WANTED(" + getRandomDepartment() + ") - " + warrant);
-			} else {
-				ped.setOutstandingWarrants("WANTED - No details");
-			}
-		} catch (ParserConfigurationException | SAXException e) {
-			logError("Error getting random charge: ", e);
-			ped.setOutstandingWarrants("WANTED - Error retrieving details");
-		}
-	}
-	
-	private void processOwnerData(String owner, String vehPlateNum) {
-		Optional<Ped> searchedPed = findPedByName(owner);
-		Ped ped = searchedPed.orElseGet(() -> {
-			try {
-				return createOwnerPed(owner, vehPlateNum);
-			} catch (IOException e) {
-				logError("Error creating ownerPed: ", e);
-				return null;
-			}
-		});
-		
-		if (ped != null) {
-			setPedRecordFields(ped);
-		}
-		pedRecordPane.setVisible(true);
-		noRecordFoundLabelPed.setVisible(false);
-	}
-	
-	private Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
-		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
-		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(),
-		                    isWantedOutcome, calculateLicenseStatus(55, 22, 23));
-		
-		if (isWantedOutcome.equalsIgnoreCase("true")) {
-			setPedWarrantStatus(ped);
-		}
-		
-		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
-		ped.setVehiclePlateNum(vehPlateNum);
-		try {
-			setGunLicenseStatus(ped);
-		} catch (IOException e) {
-			logError("Could not set gunLicenseStatus: ", e);
-		}
-		
-		try {
-			Ped.PedHistoryUtils.addPed(ped);
-		} catch (JAXBException e) {
-			logError("Error adding ped to PedHistory: ", e);
-		}
-		return ped;
-	}
-	
-	private void setPedRecordFields(Ped ped) {
-		pedfnamefield.setText(ped.getFirstName());
-		pedlnamefield.setText(ped.getLastName());
-		pedgenfield.setText(ped.getGender());
-		peddobfield.setText(ped.getBirthday());
-		pedaddressfield.setText(ped.getAddress());
-		
-		// License status fields
-		pedlicensefield.setText(ped.getLicenseStatus());
-		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
-				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
-			pedlicensefield.setStyle("-fx-text-fill: red !important;");
-		} else {
-			pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
-			pedlicensefield.setText("Valid");
-		}
-		
-		// Outstanding warrants
-		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
-		pedwantedfield.setStyle(
-				ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
-		
-		// Gun license status
-		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
-		if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
-			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
-		} else {
-			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
-			pedgunlicensestatusfield.setText("Valid");
-		}
-		
-		// Probation status
-		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
-		if (ped.getProbationStatus() != null && ped.getProbationStatus().equalsIgnoreCase("true")) {
-			pedprobationstatusfield.setStyle("-fx-text-fill: red !important;");
-			pedprobationstatusfield.setText("On Probation");
-		} else {
-			pedprobationstatusfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Fishing license status
-		pedfishinglicstatusfield.setText(
-				ped.getFishingLicenseStatus() != null ? ped.getFishingLicenseStatus() : "False");
-		if (ped.getFishingLicenseStatus() != null && ped.getFishingLicenseStatus().equalsIgnoreCase("true")) {
-			pedfishinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
-			pedfishinglicstatusfield.setText("Valid");
-		} else {
-			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Boating license status
-		pedboatinglicstatusfield.setText(
-				ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
-		if (ped.getBoatingLicenseStatus() != null && ped.getBoatingLicenseStatus().equalsIgnoreCase("true")) {
-			pedboatinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
-			pedboatinglicstatusfield.setText("Valid");
-		} else {
-			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Gun license class and type
-		pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
-		pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
-		
-		// Hunting license status
-		pedhuntinglicstatusfield.setText(
-				ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
-		if (ped.getHuntingLicenseStatus() != null && ped.getHuntingLicenseStatus().equalsIgnoreCase("true")) {
-			pedhuntinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
-			pedhuntinglicstatusfield.setText("Valid");
-		} else {
-			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// License number
-		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
-		pedlicnumfield.setStyle(
-				ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
-		
-		// Affiliation
-		String affiliations = ped.getAffiliations();
-		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
-			pedaffiliationfield.setText("No Data In System");
-			pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
-		} else {
-			pedaffiliationfield.setText(affiliations);
-			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		String flags = ped.getFlags();
-		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
-			pedflagfield.setText("No Data In System");
-			pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
-		} else {
-			pedflagfield.setText(flags);
-			pedflagfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Description
-		String description = ped.getDescription();
-		if (description == null || description.equalsIgnoreCase("No Data In System")) {
-			peddescfield.setText("No Data In System");
-			peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
-		} else {
-			peddescfield.setText(description);
-			peddescfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Aliases
-		String aliases = ped.getAliases();
-		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
-			pedaliasfield.setText("No Data In System");
-			pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
-		} else {
-			pedaliasfield.setText(aliases);
-			pedaliasfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Parole status
-		pedparolestatusfield.setText(ped.getParoleStatus() != null ? ped.getParoleStatus() : "False");
-		if (ped.getParoleStatus() != null && ped.getParoleStatus().equalsIgnoreCase("true")) {
-			pedparolestatusfield.setStyle("-fx-text-fill: red !important;");
-			pedparolestatusfield.setText("On Parole");
-		} else {
-			pedparolestatusfield.setStyle("-fx-text-fill: black !important;");
-		}
-		
-		// Times stopped
-		pedtimesstoppedfield.setText(ped.getTimesStopped() != null ? ped.getTimesStopped() : "No Data");
-		pedtimesstoppedfield.setStyle(
-				ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
-		
-		// Birthday
-		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
-		
-		// Ped Image
-		String pedModel = ped.getModel();
-		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
-			File pedImgFolder = new File(pedImageFolderURL);
-			if (pedImgFolder.exists()) {
-				log("Detected pedImage folder..", Severity.DEBUG);
-				
-				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-				
-				if (matchingFiles != null && matchingFiles.length > 0) {
-					File matchingFile = matchingFiles[0];
-					log("Matching pedImage found: " + matchingFile.getName(), Severity.INFO);
-					
-					try {
-						String fileURI = matchingFile.toURI().toString();
-						pedImageView.setImage(new Image(fileURI));
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText("Image Found On File:");
-					} catch (Exception e) {
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-						pedImageView.setImage(defImage);
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText("No Image Found In System");
-						logError("Could not set ped image: ", e);
-					}
-				} else {
-					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
-					    Severity.WARN);
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-					pedImageView.setImage(defImage);
-					noPedImageFoundlbl.setVisible(true);
-					noPedImageFoundlbl.setText("No Image Found In System");
-				}
-			} else {
-				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-				pedImageView.setImage(defImage);
-				noPedImageFoundlbl.setVisible(true);
-				noPedImageFoundlbl.setText("No Image Found In System");
-			}
-		} else {
-			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-			pedImageView.setImage(defImage);
-			noPedImageFoundlbl.setVisible(true);
-			noPedImageFoundlbl.setText("No Image Found In System");
-		}
-		
-		String citationPriors = ped.getCitationPriors();
-		if (citationPriors == null) {
-			citationPriors = "";
-		}
-		
-		Pattern pattern = Pattern.compile("MaxFine:\\S+");
-		Matcher matcher = pattern.matcher(citationPriors);
-		String updatedCitPriors = matcher.replaceAll("").trim();
-		
-		// Arrest and citation priors
-		ObservableList<Label> arrestPriors = createLabels(ped.getArrestPriors());
-		ObservableList<Label> citPriors = createLabels(updatedCitPriors);
-		
-		pedarrestpriorslistview.setItems(arrestPriors);
-		pedcitationpriorslistview.setItems(citPriors);
-	}
-	
-	private void updateRecentSearches(List<String> recentSearches, ComboBox<String> searchField, String newSearch) {
-		recentSearches.remove(newSearch);
-		recentSearches.add(0, newSearch);
-		if (recentSearches.size() > 5) {
-			recentSearches.remove(5);
-		}
-		searchField.getItems().setAll(recentSearches);
 	}
 	
 	//</editor-fold>
@@ -4337,7 +3988,6 @@ public class actionController {
 			}
 			vehtypecombobox.setValue(vehicle.getType());
 			
-			
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
@@ -4933,7 +4583,6 @@ public class actionController {
 			
 		}
 	}
-	
 	
 	//</editor-fold>
 	

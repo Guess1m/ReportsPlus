@@ -303,7 +303,6 @@ public class settingsController {
 	}
 	
 	public static void loadTheme() throws IOException {
-		System.out.println("ran loadtheme");
 		if (DataTerminalHomeApplication.controller != null) {
 			controllerVar = DataTerminalHomeApplication.controller;
 		} else if (newOfficerController.controller != null) {
@@ -1559,6 +1558,8 @@ public class settingsController {
 		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		
 		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1665,6 +1666,8 @@ public class settingsController {
 		controllerVar.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+		controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		
 		controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 		controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");

@@ -617,7 +617,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
+		showLookupBtn.setVisible(true);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -1542,6 +1542,14 @@ public class actionController {
 	//</editor-fold>
 	
 	//<editor-fold desc="Getters">
+	
+	public Label getNoVehImageFoundlbl() {
+		return noVehImageFoundlbl;
+	}
+	
+	public Label getNoPedImageFoundlbl() {
+		return noPedImageFoundlbl;
+	}
 	
 	public Circle getUserCircle() {
 		return userCircle;

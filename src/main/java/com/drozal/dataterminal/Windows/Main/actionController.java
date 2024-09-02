@@ -617,7 +617,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(true);
+		showLookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -4467,6 +4467,11 @@ public class actionController {
 			if (vehownerfield != null && !vehownerfield.getText().isEmpty()) {
 				owner = vehownerfield.getText().trim();
 				fullString.append("-name ").append(owner).append(" ");
+			}
+			if (vehtypecombobox != null && !vehtypecombobox.getValue().toString().isEmpty() && !vehtypecombobox.getValue().toString().equalsIgnoreCase(
+					"n/a")) {
+				owner = vehtypecombobox.getValue().toString().trim();
+				fullString.append("-type ").append(owner).append(" ");
 			}
 			
 			notesTabList.add(new NoteTab(plate, fullString.toString()));

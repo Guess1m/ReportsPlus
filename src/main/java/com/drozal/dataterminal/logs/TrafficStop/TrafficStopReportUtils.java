@@ -234,6 +234,7 @@ public class TrafficStopReportUtils {
 							updateTextFromNotepad(modelts, noteArea, "-model");
 							updateTextFromNotepad(plateNumberts, noteArea, "-plate");
 							updateTextFromNotepad(stopnumts, noteArea, "-number");
+							updateTextFromNotepad(typets, noteArea, "-type");
 						});
 					}
 				}

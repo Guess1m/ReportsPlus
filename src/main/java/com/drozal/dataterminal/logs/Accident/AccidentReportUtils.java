@@ -242,6 +242,7 @@ public class AccidentReportUtils {
 							updateTextFromNotepad(offenderAddress, noteArea, "-address");
 							updateTextFromNotepad(accidentnum, noteArea, "-number");
 							updateTextFromNotepad(notes, noteArea, "-comments");
+							updateTextFromNotepad(type, noteArea, "-type");
 						});
 					}
 				}

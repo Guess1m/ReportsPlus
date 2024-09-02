@@ -193,6 +193,7 @@ public class ImpoundReportUtils {
 							updateTextFromNotepad(model, noteArea, "-model");
 							updateTextFromNotepad(plateNumber, noteArea, "-plate");
 							updateTextFromNotepad(num, noteArea, "-number");
+							updateTextFromNotepad(type, noteArea, "-type");
 						});
 					}
 				}

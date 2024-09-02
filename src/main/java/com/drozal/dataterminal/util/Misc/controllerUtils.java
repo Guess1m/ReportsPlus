@@ -60,7 +60,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class controllerUtils {
 	
-	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}};
+	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}, {"-type", "-typ", "-tpe"}};
 	
 	public static String toTitleCase(String input) {
 		if (input != null && !input.isEmpty()) {
@@ -688,6 +688,39 @@ public class controllerUtils {
 		
 		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
 			textArea.setText(extractedValue);
+		}
+	}
+	
+	public static void updateTextFromNotepad(ComboBox comboBox, TextArea notepadText, String... keys) {
+		Map<String, String> values = pullNotesValues(notepadText.getText());
+		String extractedValue = null;
+		
+		for (String key : keys) {
+			extractedValue = values.get(key);
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+			
+			for (Map.Entry<String, String> entry : values.entrySet()) {
+				for (String altKey : entry.getKey().split("\\|")) {
+					if (altKey.equals(key)) {
+						extractedValue = entry.getValue();
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
+					}
+				}
+				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+					break;
+				}
+			}
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+		}
+		
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			comboBox.setValue(extractedValue);
 		}
 	}
 	

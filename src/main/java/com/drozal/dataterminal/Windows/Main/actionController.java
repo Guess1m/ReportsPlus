@@ -412,8 +412,6 @@ public class actionController {
 	@FXML
 	private TextField pedaddressfield;
 	@FXML
-	private AnchorPane tutorialOverlay;
-	@FXML
 	private AnchorPane calloutPane;
 	@FXML
 	private ListView calHistoryList;
@@ -633,15 +631,9 @@ public class actionController {
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-			
-			log("First Login, Showing Tutorial", Severity.DEBUG);
-			tutorialOverlay.setVisible(true);
-			tutorialOverlay.setOnMouseClicked(mouseEvent -> {
-				tutorialOverlay.setVisible(false);
-			});
+			log("First Login...", Severity.DEBUG);
 		} else {
-			tutorialOverlay.setVisible(false);
-			log("Not First Login", Severity.DEBUG);
+			log("Not First Login...", Severity.DEBUG);
 		}
 		
 		titlebar = reportUtil.createTitleBar("Reports Plus");
@@ -819,12 +811,11 @@ public class actionController {
 			} catch (IOException e) {
 				logError("Not able to read serverautoconnect: ", e);
 			}
-			
 			locationDataLabel.setOnMouseClicked(mouseEvent -> {
 				if (locationDataLabel.isVisible()) {
 					Clipboard clipboard = Clipboard.getSystemClipboard();
 					ClipboardContent content = new ClipboardContent();
-					content.putString(locationDataLabel.getText());
+					content.putString(locationDataLabel.getText().split(",")[0]);
 					clipboard.setContent(content);
 				}
 			});
@@ -2181,10 +2172,6 @@ public class actionController {
 	
 	public Tab getTrafficStopTab() {
 		return trafficStopTab;
-	}
-	
-	public AnchorPane getTutorialOverlay() {
-		return tutorialOverlay;
 	}
 	
 	public Label getUpdatedNotification() {

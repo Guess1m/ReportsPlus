@@ -615,7 +615,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
+		showLookupBtn.setVisible(true);//todo undo
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -901,7 +901,9 @@ public class actionController {
 			}
 		});
 		if (ped != null) {
-			setPedRecordFields(ped);
+			if (setPedRecordFields(ped)) {
+				System.out.println("*playing ped warning audio*"); //todo add actual audio
+			}
 		}
 		pedRecordPane.setVisible(true);
 		noRecordFoundLabelPed.setVisible(false);
@@ -919,13 +921,16 @@ public class actionController {
 		});
 		
 		if (ped != null) {
-			setPedRecordFields(ped);
+			if (setPedRecordFields(ped)) {
+				System.out.println("*playing owner warning audio*"); //todo add actual audio
+			}
 		}
 		pedRecordPane.setVisible(true);
 		noRecordFoundLabelPed.setVisible(false);
 	}
 	
-	private void setPedRecordFields(Ped ped) {
+	private boolean setPedRecordFields(Ped ped) {
+		boolean playAudio = false;
 		pedfnamefield.setText(ped.getFirstName());
 		pedlnamefield.setText(ped.getLastName());
 		pedgenfield.setText(ped.getGender());
@@ -937,6 +942,8 @@ public class actionController {
 		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
 				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
 			pedlicensefield.setStyle("-fx-text-fill: red !important;");
+			playAudio = true;
+			
 		} else {
 			pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
 			pedlicensefield.setText("Valid");
@@ -944,8 +951,14 @@ public class actionController {
 		
 		// Outstanding warrants
 		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
-		pedwantedfield.setStyle(
-				ped.getOutstandingWarrants() != null ? "-fx-text-fill: red !important;" : "-fx-text-fill: black;");
+		if (ped.getOutstandingWarrants() != null) {
+			pedwantedfield.setStyle("-fx-text-fill: red !important;");
+			playAudio = true;
+			
+		} else {
+			pedwantedfield.setStyle("-fx-text-fill: black;");
+		}
+		
 		
 		// Gun license status
 		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
@@ -1121,6 +1134,7 @@ public class actionController {
 		
 		pedarrestpriorslistview.setItems(arrestPriors);
 		pedcitationpriorslistview.setItems(citPriors);
+		return playAudio;
 	}
 	
 	private void adjustDividerPositions() {
@@ -3986,6 +4000,7 @@ public class actionController {
 	
 	@FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
+		boolean playAudio = false;
 		String searchedPlate = vehSearchField.getEditor().getText().trim();
 		if (!searchedPlate.isEmpty()) {
 			updateRecentSearches(recentVehicleSearches, vehSearchField, searchedPlate);
@@ -4048,6 +4063,7 @@ public class actionController {
 			vehstolenfield.setText(vehicle.getStolenStatus());
 			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
 				vehstolenfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
 			} else {
 				vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4056,6 +4072,7 @@ public class actionController {
 			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
 					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4063,6 +4080,7 @@ public class actionController {
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
 					"invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4070,6 +4088,7 @@ public class actionController {
 			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
 					"suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
 			} else {
 				vehinsfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4164,6 +4183,7 @@ public class actionController {
 			vehstolenfield.setText(vehicle.getStolenStatus());
 			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
 				vehstolenfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
 			} else {
 				vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4172,6 +4192,8 @@ public class actionController {
 			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
 					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
+				
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4179,6 +4201,8 @@ public class actionController {
 			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
 					"suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
+				
 			} else {
 				vehinsfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4186,6 +4210,8 @@ public class actionController {
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
 					"invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
+				
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -4257,6 +4283,9 @@ public class actionController {
 			log("No Vehicle With Plate: [" + searchedPlate + "] Found Anywhere", Severity.WARN);
 			vehRecordPane.setVisible(false);
 			noRecordFoundLabelVeh.setVisible(true);
+		}
+		if (playAudio) {
+			System.out.println("*playing vehicle warning audio*");//todo add actual audio
 		}
 	}
 	

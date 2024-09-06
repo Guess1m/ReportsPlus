@@ -2626,7 +2626,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2701,7 +2707,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2772,7 +2784,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2870,7 +2888,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -2955,7 +2979,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3041,7 +3071,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3136,7 +3172,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3237,7 +3279,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3327,7 +3375,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");
@@ -3434,7 +3488,13 @@ public class actionController {
 					if (stage != null) {
 						stage.close();
 					}
-					playSound(getJarPath() + "/sounds/alert-delete.wav");
+					try {
+						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+							playSound(getJarPath() + "/sounds/alert-delete.wav");
+						}
+					} catch (IOException e) {
+						logError("Error getting configValue for playDeleteReport: ", e);
+					}
 					actionController.needRefresh.set(1);
 					updateChartIfMismatch(reportChart);
 					controllerUtils.refreshChart(getAreaReportChart(), "area");

@@ -152,6 +152,11 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiSettings", "enableIDPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableSounds", "false");
 		
+		// Sound Settings
+		checkAndSetDefaultValue("soundSettings", "playCallout", "true");
+		checkAndSetDefaultValue("soundSettings", "playCreateReport", "true");
+		checkAndSetDefaultValue("soundSettings", "playDeleteReport", "true");
+		
 		// Connection Settings
 		checkAndSetDefaultValue("connectionSettings", "serverAutoConnect", "true");
 		checkAndSetDefaultValue("connectionSettings", "lastIPV4Connection", "");

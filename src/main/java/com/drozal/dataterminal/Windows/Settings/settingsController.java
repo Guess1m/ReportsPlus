@@ -240,6 +240,14 @@ public class settingsController {
 	private CheckBox enableNotificationsCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox enableSoundCheckbox;
+	@javafx.fxml.FXML
+	private Label lbl11;
+	@javafx.fxml.FXML
+	private CheckBox audioCalloutCheckbox;
+	@javafx.fxml.FXML
+	private CheckBox audioReportDeleteCheckbox;
+	@javafx.fxml.FXML
+	private CheckBox audioReportCreate;
 	
 	//</editor-fold>
 	
@@ -550,6 +558,13 @@ public class settingsController {
 		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
 		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
+		
+		audioCalloutCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
+		audioReportCreate.setSelected(
+				ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
+		audioReportDeleteCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
 		enableNotificationsCheckbox.setSelected(
 				ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 		enableCalloutPopupsCheckbox.setSelected(
@@ -1537,6 +1552,17 @@ public class settingsController {
 		}
 	}
 	
+	@javafx.fxml.FXML
+	public void audioCalloutClick(ActionEvent actionEvent) {
+		if (audioCalloutCheckbox.isSelected()) {
+			ConfigWriter.configwrite("soundSettings", "playCallout", "true");
+			audioCalloutCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("soundSettings", "playCallout", "false");
+			audioCalloutCheckbox.setSelected(false);
+		}
+	}
+	
 	private static void addDarkStyles() {
 		controllerVar.getTabPane().getStyleClass().clear();
 		controllerVar.getTabPane().getStyleClass().add("darktabpane");
@@ -1769,6 +1795,10 @@ public class settingsController {
 		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
 		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
 		
+		addTooltip(audioCalloutCheckbox, "Enable Sound When Recieving Callout");
+		addTooltip(audioReportCreate, "Enable Sound When Creating Report");
+		addTooltip(audioReportDeleteCheckbox, "Enable Sound When Deleting Report");
+		
 		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
 		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
 		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
@@ -1815,5 +1845,27 @@ public class settingsController {
 		addTooltip(backgroundLabelReport, "Report Background Color");
 		addTooltip(secLabelReport, "Report Secondary Color");
 		addTooltip(accentLabelReport, "Report Accent Color");
+	}
+	
+	@javafx.fxml.FXML
+	public void audioReportDeleteClick(ActionEvent actionEvent) {
+		if (audioReportDeleteCheckbox.isSelected()) {
+			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "true");
+			audioReportDeleteCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "false");
+			audioReportDeleteCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void audioReportCreateClick(ActionEvent actionEvent) {
+		if (audioReportCreate.isSelected()) {
+			ConfigWriter.configwrite("soundSettings", "playCreateReport", "true");
+			audioReportCreate.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("soundSettings", "playCreateReport", "false");
+			audioReportCreate.setSelected(false);
+		}
 	}
 }

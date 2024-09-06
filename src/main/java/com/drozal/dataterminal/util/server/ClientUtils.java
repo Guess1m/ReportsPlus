@@ -279,7 +279,15 @@ public class ClientUtils {
 									}
 									CalloutStage.initStyle(StageStyle.UNDECORATED);
 									CalloutStage.show();
-									playSound(getJarPath() + "/sounds/alert-callout.wav");
+									try {
+										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
+												"true")) {
+											playSound(getJarPath() + "/sounds/alert-callout.wav");
+										}
+									} catch (IOException e) {
+										logError("Error getting configValue for playCallout: ", e);
+									}
+									
 									CalloutStage.centerOnScreen();
 									
 									try {

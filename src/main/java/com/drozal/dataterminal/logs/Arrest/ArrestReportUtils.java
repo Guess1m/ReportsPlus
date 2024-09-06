@@ -530,7 +530,13 @@ public class ArrestReportUtils {
 					}
 				}
 				
-				playSound(getJarPath() + "/sounds/alert-success.wav");
+				try {
+					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
+						playSound(getJarPath() + "/sounds/alert-success.wav");
+					}
+				} catch (IOException e) {
+					logError("Error getting configValue for playCreateReport: ", e);
+				}
 				actionController.needRefresh.set(1);
 				updateChartIfMismatch(reportChart);
 				refreshChart(areaReportChart, "area");

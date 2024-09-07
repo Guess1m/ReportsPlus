@@ -28,7 +28,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("CurrentID File Downloaded", LogUtils.Severity.INFO);
+			log("'currentID.xml' File Downloaded From Server.. Saved As: " + currentIDFileURL, LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -63,7 +63,8 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("Location File Downloaded", LogUtils.Severity.INFO);
+			log("'Location.data' File Downloaded From Server.. Saved As: " + currentLocationFileURL,
+			    LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -99,7 +100,7 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("Callout File Downloaded", LogUtils.Severity.INFO);
+			log("'callout.xml' File Downloaded From Server.. Saved As: serverCallout.xml", LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -135,7 +136,8 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("WorldPed File Downloaded", LogUtils.Severity.INFO);
+			log("'worldPeds.data' File Downloaded From Server.. Saved As: serverWorldPeds.data",
+			    LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {
@@ -171,7 +173,8 @@ public class FileUtlis {
 			}
 			
 			bos.flush();
-			log("WorldVeh File Downloaded", LogUtils.Severity.INFO);
+			log("'worldCars.data' File Downloaded From Server.. Saved As: serverWorldCars.data",
+			    LogUtils.Severity.INFO);
 		} finally {
 			try {
 				if (bos != null) {

@@ -6,50 +6,55 @@
 .list-cell:even {
     -fx-background-color: transparent;
 }
+
 .list-cell:odd {
-    -fx-background-color:  transparent;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:hover {
     -fx-background-color: transparent;
     -fx-text-fill: black;
 }
+
 .text {
     -fx-fill: black;
 }
+
 .list-view {
     -fx-effect: none;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-background-color: transparent;
 }
-.list-cell{
+
+.list-cell {
     -fx-padding: 10 10 10 10;
-    -fx-border-color: rgb(0,0,0,0.2);
+    -fx-border-color: rgb(0, 0, 0, 0.2);
     -fx-border-width: 0 0 0.6 0;
 }
+
 .list-cell:filled:selected .text {
     -fx-text-fill: black;
 }
+
 .scroll-pane {
     -fx-background-color: transparent;
 }
 
 .virtual-flow > .corner {
-    -fx-background-color: transparent ;
+    -fx-background-color: transparent;
 }
 
 
-
 .scroll-bar:vertical,
-.scroll-bar:horizontal{
+.scroll-bar:horizontal {
     -fx-background-color: transparent;
     -fx-pref-width: 9.5px;
     -fx-pref-height: 9.5px;
 }
 
 .scroll-bar:vertical .thumb,
-.scroll-bar:horizontal .thumb{
+.scroll-bar:horizontal .thumb {
     -fx-background-color: #5e7387;
     -fx-min-height: 9.5px;
 }
@@ -57,7 +62,7 @@
 .scroll-bar:vertical .increment-button,
 .scroll-bar:vertical .decrement-button,
 .scroll-bar:horizontal .increment-button,
-.scroll-bar:horizontal .decrement-button{
+.scroll-bar:horizontal .decrement-button {
     -fx-background-color: transparent;
 }
 
@@ -73,6 +78,6 @@
 }
 
 .virtual-flow .increment-arrow,
-.virtual-flow .decrement-arrow{
+.virtual-flow .decrement-arrow {
     -fx-background-color: transparent;
 }

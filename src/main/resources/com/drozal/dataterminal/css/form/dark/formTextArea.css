@@ -10,19 +10,20 @@
 }
 
 .othertextarea .scroll-pane {
-    -fx-background-color:  transparent;
-}
-
-.othertextarea .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-.othertextarea .scroll-pane .content{
+.othertextarea .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.othertextarea .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
 .othertextarea .scroll-pane .corner {
     -fx-background-color: transparent;
-    }
+}
 
 /* Define styles for the vertical scroll bar */
 .othertextarea .scroll-pane .scroll-bar:vertical {
@@ -60,6 +61,7 @@
 .othertextarea .scroll-pane .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .othertextarea .scroll-pane .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */

@@ -9,7 +9,7 @@
     -fx-text-fill: white !important;
     -fx-padding: 4px 9px;
     -fx-background-radius: 8 8 0 0;
-    -fx-border-color: rgb(128, 128, 128,0.2);
+    -fx-border-color: rgb(128, 128, 128, 0.2);
     -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
 }
 
@@ -27,7 +27,7 @@
 
 .lighttabpane .tab:selected {
     -fx-background-color: transparent;
-    -fx-border-color: rgb(255,255,255,0.6); /* Change border color when focused */
+    -fx-border-color: rgb(255, 255, 255, 0.6); /* Change border color when focused */
     -fx-border-width: 0 0 2px 0; /* Increase bottom border width when focused */
     -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
 }
@@ -37,7 +37,7 @@
 }
 
 .lighttabpane .tab:hover {
-   -fx-background-color: rgb(200, 200, 200, 0.4);
+    -fx-background-color: rgb(200, 200, 200, 0.4);
 }
 
 .lighttabpane .tab:hover .tab-label {
@@ -47,8 +47,6 @@
 .lighttabpane .tab-header-background {
     -fx-background-color: transparent; /* Background color of the selected tab header */
 }
-
-
 
 
 .darktabpane .tab-pane {
@@ -62,7 +60,7 @@
     -fx-text-fill: white !important; /* Text color of tabs */
     -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
     -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
-    -fx-border-color: rgb(128, 128, 128,0.2); /* Change border color when focused */
+    -fx-border-color: rgb(128, 128, 128, 0.2); /* Change border color when focused */
     -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
 }
 
@@ -80,7 +78,7 @@
 
 .darktabpane .tab:selected {
     -fx-background-color: transparent;
-    -fx-border-color: rgb(30,30,30,0.6); /* Change border color when focused */
+    -fx-border-color: rgb(30, 30, 30, 0.6); /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
     -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
 }
@@ -90,7 +88,7 @@
 }
 
 .darktabpane .tab:hover {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .darktabpane .tab:hover .tab-label {

@@ -1,5 +1,5 @@
 .text-area-dark {
-    -fx-background-color: rgb(10, 10,10, 0.1);
+    -fx-background-color: rgb(10, 10, 10, 0.1);
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 17px;
@@ -9,25 +9,28 @@
     -fx-background-radius: 7px;
     -fx-padding: 6 6 6 13px;
 }
+
 .text-area-dark:focused {
     -fx-border-width: 1.2;
     -fx-border-color: #5e7387;
-    -fx-background-color: rgb(10, 10,10, 0.2);
+    -fx-background-color: rgb(10, 10, 10, 0.2);
 }
+
 .text-area-dark .scroll-pane {
-    -fx-background-color:  transparent;
-}
-
-.text-area-dark .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-.text-area-dark .scroll-pane .content{
+.text-area-dark .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.text-area-dark .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
 .text-area-dark .scroll-pane .corner {
     -fx-background-color: transparent;
-    }
+}
 
 /* Define styles for the vertical scroll bar */
 .text-area-dark .scroll-pane .scroll-bar:vertical {
@@ -65,6 +68,7 @@
 .text-area-dark .scroll-pane .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .text-area-dark .scroll-pane .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */
@@ -87,25 +91,28 @@
     -fx-background-radius: 7px;
     -fx-padding: 6 6 6 13px;
 }
+
 .text-area-light:focused {
     -fx-border-color: #5e7387; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
     -fx-background-color: rgb(240, 240, 240, 0.6);
 }
+
 .text-area-light .scroll-pane {
-    -fx-background-color:  transparent;
-}
-
-.text-area-light .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-.text-area-light .scroll-pane .content{
+.text-area-light .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.text-area-light .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
 .text-area-light .scroll-pane .corner {
     -fx-background-color: transparent;
-    }
+}
 
 /* Define styles for the vertical scroll bar */
 .text-area-light .scroll-pane .scroll-bar:vertical {
@@ -143,6 +150,7 @@
 .text-area-light .scroll-pane .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .text-area-light .scroll-pane .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */
@@ -151,4 +159,4 @@
 /* Define styles for the horizontal scroll bar when pressed */
 .text-area-light .scroll-pane .scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */
-    }
+}

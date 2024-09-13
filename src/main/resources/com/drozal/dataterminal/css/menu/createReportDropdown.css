@@ -21,20 +21,20 @@
 }
 
 .button:hover {
-    -fx-background-color:  rgba(94, 115, 135, 0.77); /* Hover background color */
+    -fx-background-color: rgba(94, 115, 135, 0.77); /* Hover background color */
 }
 
 .button:focused {
-    -fx-background-color:  rgba(94, 115, 135, 0.77); /* Hover background color */
+    -fx-background-color: rgba(94, 115, 135, 0.77); /* Hover background color */
 }
 
 /* Style the menu */
 .context-menu {
-    -fx-background-color:  #f2f2f2; /* Set the background color */
+    -fx-background-color: #f2f2f2; /* Set the background color */
 }
 
 .context-menu .label {
-    -fx-text-fill:  black; /* Set the text color */
+    -fx-text-fill: black; /* Set the text color */
     -fx-font-size: 13px;
 }
 
@@ -52,10 +52,12 @@
 .menu-item:hover .label {
     -fx-text-fill: white; /* Set the text color to white on hover */
 }
+
 /* Style the menu item when not hovered */
 .menu-item:focused {
     -fx-background-color: rgba(94, 115, 135, 0.77); /* Set default background color for menu items */
 }
+
 .menu-item:focused .label {
     -fx-text-fill: white; /* Set the text color to white on hover */
 }

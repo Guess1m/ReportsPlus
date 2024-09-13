@@ -38,8 +38,8 @@
 }
 
 .combo-box .list-view .list-cell:hover,
-.combo-box .text-field .list-view .list-cell:hover{
-    -fx-background-color: rgb(94, 115, 135,0.4); /* Set the hover background color */
+.combo-box .text-field .list-view .list-cell:hover {
+    -fx-background-color: rgb(94, 115, 135, 0.4); /* Set the hover background color */
     -fx-border-color: transparent;
 }
 
@@ -83,8 +83,9 @@
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
+
 .comboboxnew .arrow-button {
-    -fx-background-color: rgb(0,0,0,0.2);
+    -fx-background-color: rgb(0, 0, 0, 0.2);
     -fx-shape: "";
     -fx-background-insets: 0;
     -fx-padding: 8;
@@ -95,5 +96,5 @@
 }
 
 .comboboxnew .arrow-button:focused {
-    -fx-background-color: rgb(0,0,0,0.25);
+    -fx-background-color: rgb(0, 0, 0, 0.25);
 }

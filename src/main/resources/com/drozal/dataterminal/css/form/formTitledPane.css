@@ -1,9 +1,11 @@
 .paneoptions {
     -fx-text-fill: white;
 }
-.paneoptions .content{
+
+.paneoptions .content {
     -fx-border-color: #383838;
 }
+
 .paneoptions > .title {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 19;
@@ -13,18 +15,21 @@
     -fx-border-width: 0 0 0 0;
     -fx-border-color: transparent;
 }
+
 .paneoptions:expanded > .title {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 19;
     -fx-background-color: #383838; /* Change background color */
 }
+
 .paneoptions > .title > .arrow-button .arrow {
-  -fx-background-color: white;
-  -fx-border-color: transparent;
-  -fx-effect: null;
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-effect: null;
 }
+
 .paneoptions:expanded > .title > .arrow-button .arrow {
-  -fx-background-color: white;
-  -fx-border-color: transparent;
-  -fx-effect: null;
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-effect: null;
 }

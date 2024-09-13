@@ -1,49 +1,59 @@
-.calloutTABLE{
-   -fx-background-color: #323c41;
+.calloutTABLE {
+    -fx-background-color: #323c41;
     -fx-text-fill: white;
 }
+
 .calloutTABLE:focused {
     -fx-background-color: transparent; /* Set background color to transparent */
     -fx-border-color: transparent; /* Set border color to transparent */
     -fx-border-width: 0; /* Set border width to 0 */
     -fx-effect: none; /* Remove any effects */
 }
-.calloutTABLE .column-header-background{
+
+.calloutTABLE .column-header-background {
     -fx-background-color: transparent;
 }
-.calloutTABLE .column-header-background .label{
+
+.calloutTABLE .column-header-background .label {
     -fx-background-color: transparent;
     -fx-text-fill: #cccccc;
     -fx-font-size: 16.2px;
     -fx-padding: 5px;
     -fx-font-family: "Segoe UI Black"; /* Change the font family */
 }
+
 .calloutTABLE .column-header {
     -fx-background-color: #383838;
     -fx-border-width: 0 0 0 0;
     -fx-border-color: #d2d9e0;
 }
-.calloutTABLE .table-cell{
+
+.calloutTABLE .table-cell {
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI"; /* Change the font family */
     -fx-alignment: center; /* Center text horizontally */
     -fx-padding: 0 30px; /* Add padding to the left and right of the cells */
 }
-.calloutTABLE .table-row-cell{
+
+.calloutTABLE .table-row-cell {
     -fx-table-cell-border-color: transparent;
     -fx-cell-size: 30px; /* Adjust the row height as needed */
     -fx-alignment: center; /* Center text horizontally */
 }
-.calloutTABLE .table-row-cell:odd{
+
+.calloutTABLE .table-row-cell:odd {
     -fx-background-color: #f2f2f2;
 }
-.calloutTABLE .table-row-cell:even{
+
+.calloutTABLE .table-row-cell:even {
     -fx-background-color: white;
 }
+
 .calloutTABLE .table-row-cell:selected {
     -fx-text-fill: white; /* Set the text color to white */
     -fx-background-color: grey; /* Light grey color */
 }
+
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical,
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .track,
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .track-background,
@@ -52,15 +62,18 @@
 .calloutTABLE > .virtual-flow > .scroll-bar:horizontal > .track-background {
     -fx-background-color: transparent;
 }
+
 .calloutTABLE > .virtual-flow > .scroll-bar > .increment-button,
 .calloutTABLE > .virtual-flow > .scroll-bar > .decrement-button {
     -fx-opacity: 0;
 }
+
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb,
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
     -fx-background-color: #8c8c8c;
 
 }
+
 .calloutTABLE .filler {
     -fx-background-color: transparent;
 }
@@ -70,8 +83,9 @@
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 30px;
 }
+
 .viewerLabel {
-    -fx-text-fill:  #cdcdcd;
+    -fx-text-fill: #cdcdcd;
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 24px;
 }

@@ -971,7 +971,6 @@ public class actionController {
 			pedwantedfield.setStyle("-fx-text-fill: black;");
 		}
 		
-		
 		// Gun license status
 		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
 		if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {

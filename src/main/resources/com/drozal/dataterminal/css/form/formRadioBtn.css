@@ -24,6 +24,7 @@
     -fx-background-color: transparent; /* Transparent background */
     -fx-border-color: transparent; /* Border color */
 }
+
 .formRadioBtn .label {
     -fx-font-size: 16px; /* Adjust the font size as needed */
     -fx-text-fill: black; /* Text color */

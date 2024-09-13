@@ -7,6 +7,7 @@
     -fx-border-color: #698096;
     -fx-border-width: 0 0 0 0;
 }
+
 .toggle-button:selected {
     -fx-padding: 3px 6px 5px;
     -fx-border-width: 0 0 3.5 0;

@@ -6,17 +6,20 @@
     -fx-font-size: 15;
     -fx-font-family: "Segoe UI";
 }
+
 .CitationTree .tree-disclosure-node {
     -fx-background-color: transparent;
 }
+
 .CitationTree .tree-cell:hover {
-  -fx-background-color: rgb(94, 115, 135,0.3);
-  -fx-text-fill: black;
+    -fx-background-color: rgb(94, 115, 135, 0.3);
+    -fx-text-fill: black;
 }
+
 .CitationTree .tree-cell:selected {
-  -fx-background-color: rgb(94, 115, 135,0.8);
-  -fx-text-fill: white;
-  -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: rgb(94, 115, 135, 0.8);
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Semibold";
 }
 
 .CitationTree .scroll-bar:vertical {
@@ -31,7 +34,7 @@
 
 .CitationTree .corner {
     -fx-background-color: transparent;
-    }
+}
 
 .CitationTree .scroll-bar:vertical .increment-button,
 .CitationTree .scroll-bar:vertical .decrement-button {
@@ -58,6 +61,7 @@
 .CitationTree .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .CitationTree .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */

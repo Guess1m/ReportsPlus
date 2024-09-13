@@ -1,22 +1,25 @@
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-padding: 10 10 10 10;
-    -fx-background-color: rgb(180,180,180,0.5);
+    -fx-background-color: rgb(180, 180, 180, 0.5);
 }
 
 .list-cell:even {
-    -fx-background-color:  rgb(255,255,255,0.5);
+    -fx-background-color: rgb(255, 255, 255, 0.5);
 }
+
 .list-cell:odd {
-    -fx-background-color:  rgb(237,237,237,0.5);
+    -fx-background-color: rgb(237, 237, 237, 0.5);
 }
 
 .list-cell:filled:hover {
-    -fx-background-color: rgb(200,200,200,0.5);
+    -fx-background-color: rgb(200, 200, 200, 0.5);
     -fx-text-fill: black;
 }
+
 .text {
     -fx-fill: black;
 }
+
 .list-view {
     -fx-border-color: gray;
     -fx-effect: none;
@@ -27,27 +30,26 @@
     -fx-background-insets: 0;
     -fx-border-width: 0.5;
 }
-.list-cell{
+
+.list-cell {
     -fx-padding: 10 10 10 10;
-    -fx-border-color: rgb(0,0,0,0.2);
+    -fx-border-color: rgb(0, 0, 0, 0.2);
     -fx-border-width: 0 0 0.6 0;
 }
+
 .list-cell:filled:selected .text {
     -fx-text-fill: black;
 }
 
 
-
-
-
 .scroll-bar:vertical,
-.scroll-bar:horizontal{
+.scroll-bar:horizontal {
     -fx-background-color: transparent;
     -fx-pref-width: 14px;
 }
 
 .scroll-bar:vertical .thumb,
-.scroll-bar:horizontal .thumb{
+.scroll-bar:horizontal .thumb {
     -fx-background-color: #5e7387;
     -fx-min-height: 14px;
 }
@@ -55,7 +57,7 @@
 .scroll-bar:vertical .increment-button,
 .scroll-bar:vertical .decrement-button,
 .scroll-bar:horizontal .increment-button,
-.scroll-bar:horizontal .decrement-button{
+.scroll-bar:horizontal .decrement-button {
     -fx-background-color: transparent;
 }
 

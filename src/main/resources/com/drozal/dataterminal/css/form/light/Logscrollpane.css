@@ -1,12 +1,13 @@
 .formPane {
-    -fx-background-color:  transparent; /* Transparent background */
+    -fx-background-color: transparent; /* Transparent background */
     -fx-focus-color: transparent;
     -fx-border-color: transparent;
     -fx-border-width: 0;
 }
+
 .formPane .corner {
     -fx-background-color: transparent;
-    }
+}
 
 /* Define styles for the vertical scroll bar */
 .formPane .scroll-bar:vertical {
@@ -44,6 +45,7 @@
 .formPane .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .formPane .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #262626; /* Thumb color when pressed */

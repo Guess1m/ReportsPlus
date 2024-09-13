@@ -1,12 +1,15 @@
 .menuTopBar {
     -fx-background-color: #524992;
 }
+
 .menuBackground {
     -fx-background-color: white;
 }
+
 .menuSidePanel {
     -fx-background-color: #665cb6;
 }
+
 /*Button*/
 .menuButton {
     -fx-background-color: white; /* Background color */
@@ -18,36 +21,19 @@
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
 }
+
 .menuButton:hover {
     -fx-text-fill: #7b72c0; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
+
 .menuButton:pressed {
     -fx-background-color: #7b72c0; /* Background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
-}
-
-.dangerbutton {
-    background-color: red; /* Red background */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Add some padding */
-    font-size: 16px; /* Increase font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-}
-
-.dangerbutton:hover {
-    background-color: #cc0000; /* Darker red on hover */
-}
-
-.dangerbutton:active {
-    background-color: #990000; /* Even darker red on click */
 }
 
 /*TextFields*/
@@ -63,6 +49,7 @@
     -fx-border-width: 0 0 2px 0; /* Set bottom border width */
     -fx-border-color: grey; /* Set initial border color to transparent */
 }
+
 .menuField:focused {
     -fx-border-color: #665cb6; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
@@ -100,37 +87,46 @@
     -fx-border-width: 0 0 2px 0; /* Set bottom border width */
     -fx-border-color: grey; /* Set initial border color to transparent */
 }
+
 .menuCombobox .list-cell {
-    -fx-text-fill:  black; /* Set the text color */
+    -fx-text-fill: black; /* Set the text color */
 }
+
 .menuCombobox .list-view .list-cell {
     -fx-text-fill: black; /* Text color only for dropdown options */
-    -fx-background-color:  #f2f2f2;
+    -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
+
 .menuCombobox .scroll-bar {
     -fx-background-color: #f2f2f2; /* Transparent background */
-        -fx-pref-width: 11px; /* Thicker width */
+    -fx-pref-width: 11px; /* Thicker width */
 }
+
 .menuCombobox .scroll-bar .increment-arrow,
 .menuCombobox .scroll-bar .decrement-arrow {
     -fx-background-color: none; /* Change arrow color */
 }
+
 .menuCombobox .scroll-bar .thumb {
     -fx-background-color: #665cb6; /* Change arrow color */
 }
+
 .menuCombobox .scroll-bar .thumb:pressed {
     -fx-background-color: #51479e; /* Change arrow color */
 }
+
 .menuCombobox .list-view .list-cell:hover {
     -fx-background-color: #ada7d7; /* Set the hover background color */
 }
+
 .menuCombobox:focused {
-    -fx-border-color:#665cb6; /* Change border color when focused */
+    -fx-border-color: #665cb6; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
     -fx-effect: none;
     -fx-background-color: rgb(242, 242, 242);
 }
+
 /*Notes*/
 .purpleButton {
     -fx-background-color: rgb(102, 92, 182, 0.95); /* Background color */
@@ -138,21 +134,23 @@
     -fx-background-radius: 7px; /* Border radius */
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
-        -fx-font-size: 16px;
+    -fx-font-size: 16px;
 
 }
+
 .purpleButton:hover {
-    -fx-background-color:  rgb(102, 92, 182,0.8); /* Hover background color */
+    -fx-background-color: rgb(102, 92, 182, 0.8); /* Hover background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
+
 .purpleButton:pressed {
     -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
-        -fx-font-size: 16px;
+    -fx-font-size: 16px;
 }
 
 .incidentbtn {
@@ -161,22 +159,25 @@
     -fx-background-radius: 7px; /* Border radius */
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
-        -fx-font-size: 16px;
+    -fx-font-size: 16px;
 
 }
+
 .incidentbtn:hover {
-    -fx-background-color:  #495a69; /* Hover background color */
+    -fx-background-color: #495a69; /* Hover background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
+
 .incidentbtn:pressed {
     -fx-background-color: #34404b; /* Pressed background color */
     -fx-text-fill: white; /* Text color */
     -fx-font-family: "Segoe UI SemiBold";
-        -fx-font-size: 16px;
+    -fx-font-size: 16px;
 }
+
 .connField {
     -fx-text-fill: green !important;
     -fx-font-family: "Roboto";
@@ -189,6 +190,7 @@
     -fx-border-width: 0 0 2px 0; /* Set bottom border width */
     -fx-border-color: grey; /* Set initial border color to transparent */
 }
+
 .connField:focused {
     -fx-border-color: #665cb6; /* Change border color when focused */
     -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
@@ -202,14 +204,16 @@
     -fx-background-radius: 7px; /* Border radius */
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
-        -fx-font-size: 14px;
+    -fx-font-size: 14px;
 
 }
+
 .settingsBtn:hover {
-    -fx-background-color:  rgb(102, 92, 182,0.8); /* Hover background color */
+    -fx-background-color: rgb(102, 92, 182, 0.8); /* Hover background color */
     -fx-text-fill: white; /* Text color */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
+
 .settingsBtn:pressed {
     -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
     -fx-text-fill: white; /* Text color */

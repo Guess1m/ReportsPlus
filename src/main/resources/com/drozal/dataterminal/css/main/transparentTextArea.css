@@ -5,20 +5,22 @@
     -fx-font-size: 17px;
 
 }
+
 .text-area .scroll-pane {
-    -fx-background-color:  transparent;
-}
-
-.text-area .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-.text-area .scroll-pane .content{
+.text-area .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.text-area .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
 .text-area .scroll-pane .corner {
     -fx-background-color: transparent;
-    }
+}
 
 
 .text-area .scroll-pane .scroll-bar:vertical {
@@ -56,6 +58,7 @@
 .text-area .scroll-pane .scroll-bar .track {
     -fx-background-color: none; /* Transparent track */
 }
+
 /* Define styles for the vertical scroll bar when pressed */
 .text-area .scroll-pane .scroll-bar:vertical:pressed .thumb {
     -fx-background-color: #495a69; /* Thumb color when pressed */

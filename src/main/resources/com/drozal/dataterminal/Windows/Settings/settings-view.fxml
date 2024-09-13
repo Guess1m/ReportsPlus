@@ -1165,7 +1165,7 @@
                                                     </children>
                                                 </AnchorPane>
                                                 <Label fx:id="lbl11" style="-fx-text-fill: #665CB6;"
-                                                       text="Audio Settings" textFill="#505d64"
+                                                       text="Audio Settings" textFill="#505d64" GridPane.columnSpan="2"
                                                        GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                     <font>
                                                         <Font name="Segoe UI Black" size="17.0"/>
@@ -1208,6 +1208,25 @@
                                                                   mnemonicParsing="false"
                                                                   onAction="#audioReportDeleteClick" prefHeight="50.0"
                                                                   selected="true" text="Delete Report Sound"
+                                                                  AnchorPane.bottomAnchor="0.0"
+                                                                  AnchorPane.leftAnchor="14.0"
+                                                                  AnchorPane.rightAnchor="14.0"
+                                                                  AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Segoe UI Semibold" size="15.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="9.0"/>
+                                                            </padding>
+                                                        </CheckBox>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <children>
+                                                        <CheckBox fx:id="audioLookupWarningCheckbox" alignment="CENTER"
+                                                                  mnemonicParsing="false" onAction="#audioLookupWarning"
+                                                                  prefHeight="50.0" selected="true"
+                                                                  text="Lookup Warning Sound"
                                                                   AnchorPane.bottomAnchor="0.0"
                                                                   AnchorPane.leftAnchor="14.0"
                                                                   AnchorPane.rightAnchor="14.0"

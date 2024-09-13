@@ -248,6 +248,8 @@ public class settingsController {
 	private CheckBox audioReportDeleteCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox audioReportCreate;
+	@javafx.fxml.FXML
+	private CheckBox audioLookupWarningCheckbox;
 	
 	//</editor-fold>
 	
@@ -559,6 +561,8 @@ public class settingsController {
 		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
 		
+		audioLookupWarningCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
 		audioCalloutCheckbox.setSelected(
 				ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
 		audioReportCreate.setSelected(
@@ -1798,6 +1802,7 @@ public class settingsController {
 		addTooltip(audioCalloutCheckbox, "Enable Sound When Recieving Callout");
 		addTooltip(audioReportCreate, "Enable Sound When Creating Report");
 		addTooltip(audioReportDeleteCheckbox, "Enable Sound When Deleting Report");
+		addTooltip(audioLookupWarningCheckbox, "Enable Warning Sound When Looking Up Veh/Ped");
 		
 		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
 		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
@@ -1866,6 +1871,17 @@ public class settingsController {
 		} else {
 			ConfigWriter.configwrite("soundSettings", "playCreateReport", "false");
 			audioReportCreate.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void audioLookupWarning(ActionEvent actionEvent) {
+		if (audioLookupWarningCheckbox.isSelected()) {
+			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "true");
+			audioLookupWarningCheckbox.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "false");
+			audioLookupWarningCheckbox.setSelected(false);
 		}
 	}
 }

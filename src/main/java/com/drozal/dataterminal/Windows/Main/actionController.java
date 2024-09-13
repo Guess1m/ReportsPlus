@@ -615,7 +615,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(true);//todo undo
+		showLookupBtn.setVisible(false);
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -902,7 +902,13 @@ public class actionController {
 		});
 		if (ped != null) {
 			if (setPedRecordFields(ped)) {
-				System.out.println("*playing ped warning audio*"); //todo add actual audio
+				try {
+					if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
+						playSound(getJarPath() + "/sounds/alert-wanted.wav");
+					}
+				} catch (IOException e) {
+					logError("Error getting configValue for playLookupWarning: ", e);
+				}
 			}
 		}
 		pedRecordPane.setVisible(true);
@@ -922,7 +928,13 @@ public class actionController {
 		
 		if (ped != null) {
 			if (setPedRecordFields(ped)) {
-				System.out.println("*playing owner warning audio*"); //todo add actual audio
+				try {
+					if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
+						playSound(getJarPath() + "/sounds/alert-wanted.wav");
+					}
+				} catch (IOException e) {
+					logError("Error getting configValue for playLookupWarning: ", e);
+				}
 			}
 		}
 		pedRecordPane.setVisible(true);
@@ -4285,7 +4297,13 @@ public class actionController {
 			noRecordFoundLabelVeh.setVisible(true);
 		}
 		if (playAudio) {
-			System.out.println("*playing vehicle warning audio*");//todo add actual audio
+			try {
+				if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
+					playSound(getJarPath() + "/sounds/alert-wanted.wav");
+				}
+			} catch (IOException e) {
+				logError("Error getting configValue for playLookupWarning: ", e);
+			}
 		}
 	}
 	

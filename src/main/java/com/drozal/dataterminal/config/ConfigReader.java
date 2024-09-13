@@ -156,6 +156,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("soundSettings", "playCallout", "true");
 		checkAndSetDefaultValue("soundSettings", "playCreateReport", "true");
 		checkAndSetDefaultValue("soundSettings", "playDeleteReport", "true");
+		checkAndSetDefaultValue("soundSettings", "playLookupWarning", "true");
 		
 		// Connection Settings
 		checkAndSetDefaultValue("connectionSettings", "serverAutoConnect", "true");

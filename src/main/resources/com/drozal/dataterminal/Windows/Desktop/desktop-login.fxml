@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane prefHeight="577.0" prefWidth="1038.0" stylesheets="" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.desktopLoginController">
+    <center>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="550.0"
+                    style="-fx-background-color: rgb(0,0,0,0.7); -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: rgb(100,100,100);">
+            <children>
+                <Label alignment="CENTER" layoutX="224.0" layoutY="21.0" text="ReportsPlus Login" textFill="WHITE"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                    <font>
+                        <Font name="System Bold" size="35.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

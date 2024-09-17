@@ -9,6 +9,7 @@ module com.drozal.dataterminal {
 	requires org.controlsfx.controls;
 	requires java.desktop;
 	requires com.fasterxml.jackson.databind;
+	requires jdk.compiler;
 	
 	opens com.drozal.dataterminal.logs to javafx.base;
 	opens com.drozal.dataterminal to javafx.fxml;
@@ -56,5 +57,7 @@ module com.drozal.dataterminal {
 	opens com.drozal.dataterminal.Windows.Main to javafx.fxml;
 	exports com.drozal.dataterminal.Windows.Other;
 	opens com.drozal.dataterminal.Windows.Other to javafx.fxml;
+	exports com.drozal.dataterminal.Desktop;
+	opens com.drozal.dataterminal.Desktop to javafx.fxml;
 	
 }

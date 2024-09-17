@@ -1,22 +1,22 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.util.Window.ResizeHelper;
+import com.drozal.dataterminal.Desktop.mainDesktopController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.Objects;
 
 public class newOfficerApplication extends Application {
+	
+	public static mainDesktopController mainDesktopControllerObj;
+	public static Stage mainDesktopStage;
 	
 	public static void main(String[] args) {
 		launch();
 	}
 	
+	/*
+	todo remove old
 	@Override
 	public void start(Stage stage) throws Exception {
 		Stage newOfficerStage = new Stage();
@@ -34,5 +34,17 @@ public class newOfficerApplication extends Application {
 		newOfficerStage.setMinWidth(newOfficerStage.getWidth());
 		newOfficerStage.setMaxHeight(newOfficerStage.getHeight());
 		ResizeHelper.addResizeListener(newOfficerStage);
+	}*/
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
+		Scene scene = new Scene(fxmlLoader.load());
+		mainDesktopControllerObj = fxmlLoader.getController();
+		primaryStage.setTitle("Simulation Desktop");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		mainDesktopStage = primaryStage;
 	}
+	
 }

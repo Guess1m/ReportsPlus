@@ -30,9 +30,12 @@ public class windowUtils {
 	}
 	
 	public static void centerStageOnMainApp(Stage stage) {
-		Rectangle2D mainRTBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(), mainRT.getHeight());
-		List<Screen> screens = Screen.getScreensForRectangle(mainRTBounds.getMinX(), mainRTBounds.getMinY(),
-		                                                     mainRTBounds.getWidth(), mainRTBounds.getHeight());
+		Rectangle2D mainDesktopStageBounds = new Rectangle2D(mainRT.getX(), mainRT.getY(), mainRT.getWidth(),
+		                                                     mainRT.getHeight());
+		List<Screen> screens = Screen.getScreensForRectangle(mainDesktopStageBounds.getMinX(),
+		                                                     mainDesktopStageBounds.getMinY(),
+		                                                     mainDesktopStageBounds.getWidth(),
+		                                                     mainDesktopStageBounds.getHeight());
 		
 		if (!screens.isEmpty()) {
 			Screen screen = screens.get(0);

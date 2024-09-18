@@ -45,6 +45,9 @@ public class newOfficerApplication extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		mainDesktopStage = primaryStage;
+		
+		DataTerminalHomeApplication.mainRT = mainDesktopStage;
+		
 	}
 	
 }

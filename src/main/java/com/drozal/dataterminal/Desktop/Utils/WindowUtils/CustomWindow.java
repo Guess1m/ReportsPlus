@@ -19,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
@@ -38,15 +39,21 @@ public class CustomWindow {
 	private double originalX;
 	private double originalY;
 	private boolean isMaximized = false;
+	public Object controller;
 	private TaskbarApp taskbarApp;
 	
 	public CustomWindow(String fileName, String title, Stage stage, boolean resizable, int priority, HBox taskBarApps) throws IOException {
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(fileName));
+		URL fxmlUrl = Launcher.class.getResource(fileName);
+		if (fxmlUrl == null) {
+			throw new IOException("FXML file not found: " + fileName);
+		}
+		FXMLLoader loader = new FXMLLoader(fxmlUrl);
 		Parent root = loader.load();
 		this.windowPane = (BorderPane) root;
 		this.title = title;
 		this.stage = stage;
 		this.priority = priority;
+		controller = loader.getController();
 		
 		initializeWindow(resizable);
 		addMainStageResizeListener();
@@ -144,7 +151,7 @@ public class CustomWindow {
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
 		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/zdrozl/desktopsimulation/pictures/firefox.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -154,7 +161,7 @@ public class CustomWindow {
 		placeholderImageView.setEffect(colorAdjust);
 		
 		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/zdrozl/desktopsimulation/pictures/firefox.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -163,7 +170,7 @@ public class CustomWindow {
 		closeImageView.setEffect(colorAdjust);
 		
 		Image maximizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/zdrozl/desktopsimulation/pictures/firefox.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
 		maximizeImageView.setFitHeight(15);
@@ -172,7 +179,7 @@ public class CustomWindow {
 		maximizeImageView.setEffect(colorAdjust);
 		
 		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/zdrozl/desktopsimulation/pictures/firefox.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);

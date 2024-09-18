@@ -127,7 +127,7 @@ import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addChargesToTable;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.addCitationsToTable;
-import static com.drozal.dataterminal.util.Window.windowUtils.*;
+import static com.drozal.dataterminal.util.Window.windowUtils.centerStageOnMainApp;
 import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
 import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
@@ -613,7 +613,7 @@ public class actionController {
 	//</editor-fold>
 	
 	public void initialize() throws IOException {
-		showLookupBtn.setVisible(false);
+		showLookupBtn.setVisible(true); //todo undo
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
@@ -874,7 +874,9 @@ public class actionController {
 			lookupSplitPane.setOrientation(Orientation.VERTICAL);
 		}
 		
-		notesTabList = new ArrayList<>();
+		if (notesTabList == null) {
+			notesTabList = new ArrayList<>();
+		}
 	}
 	
 	//<editor-fold desc="Utils">
@@ -1810,10 +1812,6 @@ public class actionController {
 	
 	public static Stage getIDStage() {
 		return IDStage;
-	}
-	
-	public static Stage getMapStage() {
-		return mapStage;
 	}
 	
 	public static int getNeedRefresh() {
@@ -3536,7 +3534,6 @@ public class actionController {
 	public static ClientController clientController;
 	public static Stage notesStage = null;
 	public static Stage clientStage = null;
-	private static Stage mapStage = null;
 	private static Stage versionStage = null;
 	public static boolean IDFirstShown = true;
 	public static double IDx;
@@ -3769,35 +3766,13 @@ public class actionController {
 	
 	@FXML
 	public void onMapButtonClick(ActionEvent actionEvent) throws IOException {
-		if (mapStage != null && mapStage.isShowing()) {
-			mapStage.close();
-			mapStage = null;
-			return;
-		}
-		
-		mapStage = new Stage();
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Other/map-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		mapStage.setTitle("Los Santos Map");
-		mapStage.setScene(newScene);
-		mapStage.initStyle(StageStyle.UTILITY);
-		mapStage.setResizable(false);
-		mapStage.show();
-		mapStage.centerOnScreen();
-		mapStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTMap").equals("true"));
-		showAnimation(mapButton);
-		
-		centerStageOnMainApp(mapStage);
-		
-		mapStage.setOnHidden(event -> {
-			mapStage = null;
-		});
+		// todo removed map
 	}
 	
 	@FXML
 	public void onNotesButtonClicked(ActionEvent actionEvent) throws IOException {
-		if (notesStage != null && notesStage.isShowing()) {
+		// todo relocated to an app
+		/*if (notesStage != null && notesStage.isShowing()) {
 			notesStage.close();
 			notesStage = null;
 			return;
@@ -3868,7 +3843,7 @@ public class actionController {
 				notesStage = null;
 				actionController.notesText = notesViewController.getNotepadTextArea().getText();
 			}
-		});
+		});*/
 	}
 	
 	@FXML

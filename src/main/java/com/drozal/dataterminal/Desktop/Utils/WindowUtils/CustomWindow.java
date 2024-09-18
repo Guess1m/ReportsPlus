@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +31,6 @@ public class CustomWindow {
 	public final String title;
 	private final int priority;
 	private final Pane windowPane;
-	private final Stage stage;
 	public boolean isMinimized = false;
 	private double originalWidth;
 	private double originalHeight;
@@ -41,19 +39,20 @@ public class CustomWindow {
 	private boolean isMaximized = false;
 	public Object controller;
 	private TaskbarApp taskbarApp;
+	private final AnchorPane root;
 	
-	public CustomWindow(String fileName, String title, Stage stage, boolean resizable, int priority, HBox taskBarApps) throws IOException {
+	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root) throws IOException {
 		URL fxmlUrl = Launcher.class.getResource(fileName);
 		if (fxmlUrl == null) {
 			throw new IOException("FXML file not found: " + fileName);
 		}
 		FXMLLoader loader = new FXMLLoader(fxmlUrl);
-		Parent root = loader.load();
-		this.windowPane = (BorderPane) root;
+		Parent root1 = loader.load();
+		this.windowPane = (BorderPane) root1;
 		this.title = title;
-		this.stage = stage;
 		this.priority = priority;
 		controller = loader.getController();
+		this.root = root;
 		
 		initializeWindow(resizable);
 		addMainStageResizeListener();
@@ -62,13 +61,13 @@ public class CustomWindow {
 	}
 	
 	private void addMainStageResizeListener() {
-		stage.widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
-		stage.heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
+		root.widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
+		root.heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
 	}
 	
 	private void keepWithinBounds() {
-		double mainStageWidth = stage.getWidth();
-		double mainStageHeight = stage.getHeight();
+		double mainStageWidth = root.getWidth();
+		double mainStageHeight = root.getHeight();
 		
 		double windowX = windowPane.getLayoutX();
 		double windowY = windowPane.getLayoutY();
@@ -161,7 +160,7 @@ public class CustomWindow {
 		placeholderImageView.setEffect(colorAdjust);
 		
 		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -170,7 +169,7 @@ public class CustomWindow {
 		closeImageView.setEffect(colorAdjust);
 		
 		Image maximizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
 		maximizeImageView.setFitHeight(15);
@@ -179,7 +178,7 @@ public class CustomWindow {
 		maximizeImageView.setEffect(colorAdjust);
 		
 		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -221,8 +220,8 @@ public class CustomWindow {
 			double newX = windowPane.getLayoutX() + deltaX;
 			double newY = windowPane.getLayoutY() + deltaY;
 			
-			double maxWidth = stage.getWidth() - windowPane.getPrefWidth();
-			double maxHeight = stage.getHeight() - windowPane.getPrefHeight();
+			double maxWidth = root.getWidth() - windowPane.getPrefWidth();
+			double maxHeight = root.getHeight() - windowPane.getPrefHeight();
 			
 			if (newX < 0) {
 				newX = 0;
@@ -275,8 +274,8 @@ public class CustomWindow {
 				double newWidth = Math.max(x, 50);
 				double newHeight = Math.max(y, 50);
 				
-				double maxWidth = stage.getWidth() - windowPane.getLayoutX();
-				double maxHeight = stage.getHeight() - windowPane.getLayoutY();
+				double maxWidth = root.getWidth() - windowPane.getLayoutX();
+				double maxHeight = root.getHeight() - windowPane.getLayoutY();
 				
 				if (newWidth > maxWidth) {
 					newWidth = maxWidth;
@@ -341,9 +340,8 @@ public class CustomWindow {
 	}
 	
 	private void maximizeWindow() {
-		if (stage != null) {
-			double stageWidth = stage.getWidth();
-			double stageHeight = stage.getHeight();
+		double stageWidth = root.getWidth();
+		double stageHeight = root.getHeight();
 			
 			originalWidth = windowPane.getPrefWidth();
 			originalHeight = windowPane.getPrefHeight();
@@ -354,22 +352,19 @@ public class CustomWindow {
 			windowPane.setPrefHeight(stageHeight);
 			windowPane.setLayoutX(0);
 			windowPane.setLayoutY(0);
-		}
 	}
 	
 	private void restoreWindowSize() {
-		if (stage != null) {
 			windowPane.setPrefWidth(originalWidth);
 			windowPane.setPrefHeight(originalHeight);
 			windowPane.setLayoutX(originalX);
 			windowPane.setLayoutY(originalY);
-		}
 	}
 	
 	public void centerOnDesktop() {
-		if (stage != null && windowPane != null) {
-			double stageWidth = stage.getWidth();
-			double stageHeight = stage.getHeight();
+		if (windowPane != null) {
+			double stageWidth = root.getWidth();
+			double stageHeight = root.getHeight();
 			
 			double windowWidth = windowPane.getPrefWidth();
 			double windowHeight = windowPane.getPrefHeight();

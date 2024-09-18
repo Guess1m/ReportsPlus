@@ -5,7 +5,6 @@ import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.NoteTab;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,6 +23,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
@@ -31,7 +31,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class NotesViewController {
 	
-	public static AnchorPane titlebar = null;
 	public static Stage codesStage = null;
 	public static List<NoteTab> notesTabList;
 	
@@ -224,9 +223,6 @@ public class NotesViewController {
 	}
 	
 	public void initialize() throws IOException {
-		titlebar = reportUtil.createTitleBar("NotePad");
-		borderPane.setTop(titlebar);
-		
 		notepadTextArea.setText(actionController.notesText);
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
@@ -279,6 +275,9 @@ public class NotesViewController {
 		codeSelectionPane.setVisible(false);
 		
 		Platform.runLater(() -> {
+			if (notesTabList == null) {
+				notesTabList = new ArrayList<>();
+			}
 			try {
 				createNoteTabs();
 			} catch (IOException e) {

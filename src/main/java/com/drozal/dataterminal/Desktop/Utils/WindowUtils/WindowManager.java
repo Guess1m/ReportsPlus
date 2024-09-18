@@ -10,8 +10,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
-
 public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
 	public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
@@ -23,8 +21,7 @@ public class WindowManager {
 				if (fxmlUrl == null) {
 					throw new RuntimeException("FXML file not found: " + fileName);
 				}
-				CustomWindow customWindow = new CustomWindow(fileName, title, mainDesktopStage, resizable, priority,
-				                                             taskBarApps);
+				CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root);
 				
 				if (root != null) {
 					root.getChildren().add(customWindow.getWindowPane());

@@ -223,7 +223,7 @@
                         </ScrollPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="69.0" prefHeight="756.0" prefWidth="947.0"
+                <AnchorPane fx:id="courtPane" layoutX="237.0" layoutY="69.0"
                             stylesheets="@../../css/form/formFields.css" visible="false" AnchorPane.bottomAnchor="0.0"
                             AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -2842,9 +2842,9 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" prefHeight="641.0" prefWidth="797.0"
-                            visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="logPane" layoutX="217.0" layoutY="100.0" visible="false"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0">
                     <children>
                         <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0"
                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-3.0"
@@ -3071,8 +3071,7 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="sidepane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                            prefHeight="795.0" prefWidth="203.0" styleClass="menuSidePanel"
+                <AnchorPane fx:id="sidepane" maxWidth="-Infinity" prefWidth="203.0" styleClass="menuSidePanel"
                             stylesheets="@../../css/menu/menuStyles.css" AnchorPane.bottomAnchor="0.0"
                             AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -3083,10 +3082,10 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
-                                <RowConstraints maxHeight="-Infinity" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
-                                <RowConstraints vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="100.0" vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="ALWAYS"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="100.0" vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="ALWAYS"/>
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>

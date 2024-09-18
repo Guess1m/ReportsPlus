@@ -4,6 +4,7 @@ import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
+import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -14,10 +15,6 @@ import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.cr
 
 public class mainDesktopController {
 	
-	public static AnchorPane newApp;
-	public static AnchorPane newApp2;
-	@javafx.fxml.FXML
-	private AnchorPane root1;
 	@javafx.fxml.FXML
 	private Button button1;
 	@javafx.fxml.FXML
@@ -25,22 +22,48 @@ public class mainDesktopController {
 	@javafx.fxml.FXML
 	private HBox taskBarApps;
 	
+	double verticalSpacing = 100.0;
+	@javafx.fxml.FXML
+	private AnchorPane bottomBar;
+	@javafx.fxml.FXML
+	private AnchorPane desktopContainer;
+	@javafx.fxml.FXML
+	private VBox container;
+	
+	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, int appIndex) {
+		AnchorPane.setLeftAnchor(newApp, 28.0);
+		AnchorPane.setTopAnchor(newApp, 31.0 + (appIndex * verticalSpacing));
+		root.getChildren().add(newApp);
+	}
+	
 	public void initialize() {
 		button1.setOnAction(event -> editableDesktop = !editableDesktop);
 		
-		DesktopApp desktopApp = new DesktopApp("TestApp1", new Image(
+		DesktopApp desktopAppObj = new DesktopApp("TestApp1", new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
-		newApp = desktopApp.createDesktopApp((mouseEvent -> {
+		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(root1, "Windows/Main/DataTerminalHome-view.fxml", "Primary",
-					                                        true, 3, taskBarApps);
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Main/DataTerminalHome-view.fxml",
+					                                        "Primary", true, 1, taskBarApps);
 					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApp.controller;
 				}
 			}
-		}));
+		});
+		addAppToDesktop(desktopContainer, newApp, 0);
 		
-		root1.getChildren().add(newApp);
+		DesktopApp notesAppObj = new DesktopApp("Notes App", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml",
+					                                        "Notes Application", true, 2, taskBarApps);
+					actionController.notesViewController = (com.drozal.dataterminal.Windows.Other.NotesViewController) mainApp.controller;
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, notesApp, 1);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image
@@ -52,7 +75,7 @@ public class mainDesktopController {
 			                                                      new BackgroundSize(100, 100, true, true, false,
 			                                                                         true));
 			
-			root1.setBackground(new Background(backgroundImage));
+			container.setBackground(new Background(backgroundImage));
 		});
 	}
 	

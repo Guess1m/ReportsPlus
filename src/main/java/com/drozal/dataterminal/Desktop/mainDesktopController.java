@@ -40,16 +40,7 @@ public class mainDesktopController {
 			}
 		}));
 		
-		DesktopApp desktopApp2 = new DesktopApp("TestApp2", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
-		newApp2 = desktopApp2.createDesktopApp((mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(root1, "Windows/Main/newOfficer-view.fxml", "Primary", true, 3, taskBarApps);
-				}
-			}
-		}));
-		root1.getChildren().addAll(newApp, newApp2);
+		root1.getChildren().add(newApp);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

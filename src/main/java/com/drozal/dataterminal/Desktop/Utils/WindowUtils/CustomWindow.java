@@ -21,10 +21,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.windows;
-import static com.drozal.dataterminal.newOfficerApplication.mainDesktopControllerObj;
 
 public class CustomWindow {
 	private static double xOffset;
@@ -251,18 +251,29 @@ public class CustomWindow {
 	
 	private void enableResize(BorderPane pane) {
 		final double resizeMargin = 10;
+		
 		pane.setOnMouseMoved(event -> {
-			if (event.getX() > pane.getWidth() - resizeMargin && event.getY() > pane.getHeight() - resizeMargin) {
+			double x = event.getX();
+			double y = event.getY();
+			
+			if (x > pane.getWidth() - resizeMargin && y > pane.getHeight() - resizeMargin) {
 				pane.setCursor(javafx.scene.Cursor.SE_RESIZE);
+			} else if (x > pane.getWidth() - resizeMargin) {
+				pane.setCursor(javafx.scene.Cursor.E_RESIZE);
+			} else if (y > pane.getHeight() - resizeMargin) {
+				pane.setCursor(javafx.scene.Cursor.S_RESIZE);
 			} else {
 				pane.setCursor(javafx.scene.Cursor.DEFAULT);
 			}
 		});
 		
 		pane.setOnMouseDragged(event -> {
+			double x = event.getX();
+			double y = event.getY();
+			
 			if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
-				double newWidth = Math.max(event.getX(), 50);
-				double newHeight = Math.max(event.getY(), 50);
+				double newWidth = Math.max(x, 50);
+				double newHeight = Math.max(y, 50);
 				
 				double maxWidth = stage.getWidth() - windowPane.getLayoutX();
 				double maxHeight = stage.getHeight() - windowPane.getLayoutY();
@@ -275,9 +286,14 @@ public class CustomWindow {
 				}
 				
 				pane.setPrefSize(newWidth, newHeight);
+			} else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
+				double newWidth = Math.max(x, 50);
+				pane.setPrefWidth(newWidth);
+			} else if (pane.getCursor() == javafx.scene.Cursor.S_RESIZE) {
+				double newHeight = Math.max(y, 50);
+				pane.setPrefHeight(newHeight);
 			}
 		});
-		
 	}
 	
 	public void closeWindow() {

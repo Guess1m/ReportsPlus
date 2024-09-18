@@ -1,6 +1,5 @@
 package com.drozal.dataterminal;
 
-import com.drozal.dataterminal.Desktop.mainDesktopController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,15 +7,12 @@ import javafx.stage.Stage;
 
 public class newOfficerApplication extends Application {
 	
-	public static mainDesktopController mainDesktopControllerObj;
-	public static Stage mainDesktopStage;
-	
 	public static void main(String[] args) {
 		launch();
 	}
 	
 	/*
-	todo remove old
+	todo remove old new officer launch args
 	@Override
 	public void start(Stage stage) throws Exception {
 		Stage newOfficerStage = new Stage();
@@ -38,15 +34,11 @@ public class newOfficerApplication extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-login.fxml"));
 		Scene scene = new Scene(fxmlLoader.load());
-		mainDesktopControllerObj = fxmlLoader.getController();
-		primaryStage.setTitle("Simulation Desktop");
+		primaryStage.setTitle("Simulation Desktop Login");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		mainDesktopStage = primaryStage;
-		
-		DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		
 	}
 	

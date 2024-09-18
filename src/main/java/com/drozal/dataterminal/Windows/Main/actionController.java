@@ -46,7 +46,6 @@ import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
 import com.drozal.dataterminal.util.History.Ped;
 import com.drozal.dataterminal.util.History.Vehicle;
 import com.drozal.dataterminal.util.Misc.*;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
@@ -288,7 +287,6 @@ public class actionController {
 	public Button updateInfoBtn;
 	public static NotesViewController notesViewController;
 	actionController controller;
-	AnchorPane titlebar;
 	@FXML
 	private Label secondaryColor3Bkg;
 	@FXML
@@ -635,15 +633,6 @@ public class actionController {
 		} else {
 			log("Not First Login...", Severity.DEBUG);
 		}
-		
-		titlebar = reportUtil.createTitleBar("Reports Plus");
-		
-		vbox.getChildren().add(titlebar);
-		
-		AnchorPane.setTopAnchor(titlebar, 0.0);
-		AnchorPane.setLeftAnchor(titlebar, 0.0);
-		AnchorPane.setRightAnchor(titlebar, 0.0);
-		titlebar.setPrefHeight(30);
 		
 		checkForUpdates();
 		
@@ -2181,10 +2170,6 @@ public class actionController {
 	
 	public AnchorPane getSidepane() {
 		return sidepane;
-	}
-	
-	public AnchorPane getTitlebar() {
-		return titlebar;
 	}
 	
 	public MenuItem getTrafficCitationReportButton() {

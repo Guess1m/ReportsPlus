@@ -1,27 +1,22 @@
 package com.drozal.dataterminal;
 
+import com.drozal.dataterminal.Desktop.mainDesktopController;
 import com.drozal.dataterminal.Windows.Main.actionController;
-import com.drozal.dataterminal.config.ConfigReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Objects;
-
-import static com.drozal.dataterminal.util.Window.windowUtils.*;
 
 public class DataTerminalHomeApplication extends Application {
 	
 	public static Stage mainRT;
 	public static actionController controller;
+	public static mainDesktopController mainDesktopControllerObj;
+	public static Stage mainDesktopStage;
 	
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
@@ -39,7 +34,8 @@ public class DataTerminalHomeApplication extends Application {
 		launch();
 	}
 	
-	@Override
+	// todo remove old application launch args
+	/*@Override
 	public void start(Stage stage) throws IOException {
 		
 		mainRT = new Stage();
@@ -76,5 +72,18 @@ public class DataTerminalHomeApplication extends Application {
 		}
 		
 		mainRT.setAlwaysOnTop(false);
+	}*/
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
+		Scene scene = new Scene(fxmlLoader.load());
+		mainDesktopControllerObj = fxmlLoader.getController();
+		primaryStage.setTitle("Simulation Desktop");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		mainDesktopStage = primaryStage;
+		
+		DataTerminalHomeApplication.mainRT = mainDesktopStage;
+		
 	}
 }

@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.drozal.dataterminal.newOfficerApplication.mainDesktopStage;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 
 public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();

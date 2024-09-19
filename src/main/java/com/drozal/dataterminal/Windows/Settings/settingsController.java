@@ -9,7 +9,6 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -45,7 +43,6 @@ public class settingsController {
 	//<editor-fold desc="FXML">
 	
 	private static actionController controllerVar;
-	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private CheckBox startupFullscreenCheckbox;
 	@javafx.fxml.FXML
@@ -254,16 +251,6 @@ public class settingsController {
 	//</editor-fold>
 	
 	public void initialize() {
-		if (DataTerminalHomeApplication.controller != null) {
-			controllerVar = DataTerminalHomeApplication.controller;
-		} else if (newOfficerController.controller != null) {
-			controllerVar = newOfficerController.controller;
-		} else {
-			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
-		}
-		topBar = reportUtil.createSimpleTitleBar("ReportsPlus", true);
-		root.setTop(topBar);
-		
 		try {
 			addActionEventsAndComboBoxes();
 		} catch (IOException e) {
@@ -320,136 +307,142 @@ public class settingsController {
 		} else {
 			log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
 		}
-		changeBarColors(controllerVar.getReportChart());
-		changeStatisticColors(controllerVar.getAreaReportChart());
-		
-		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
-		controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
-		controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
-		controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
-		controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
-		controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
-		
-		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
-		controllerVar.getServerStatusLabel().setStyle(
-				"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
-		controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
-		controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
-		controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
-		controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
-		controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
-		
-		controllerVar.getLookupmainlblpane().setStyle("-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
-		controllerVar.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
-		
-		controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
-		controllerVar.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
-		controllerVar.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
-		controllerVar.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
-		controllerVar.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
-		controllerVar.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
-		
-		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
-		controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getBkgclr2().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getTabPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getArrestTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getCalloutTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getCitationTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getImpoundTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getIncidentTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
-		
-		String accclr = ConfigReader.configRead("uiColors", "accentColor");
-		controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
-		controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
-		controllerVar.getUserCircle().setStyle("-fx-fill: " + accclr + ";");
-		
-		CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
-		CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
-		
-		controllerVar.getCurrentCalPane().setStyle(
-				updateStyleProperty(controllerVar.getCurrentCalPane(), "-fx-border-color", accclr));
-		
-		controllerVar.getCalActiveList().setStyle(
-				updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
-		controllerVar.getCalHistoryList().setStyle(
-				updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
-		
-		controllerVar.getActivecalfill().setStyle(
-				updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
-		controllerVar.getCalfill().setStyle(
-				updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
-		
-		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
-		String initialStyle = "-fx-background-color: transparent;";
-		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
-		controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
-		
-		controllerVar.getOrientationBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-		controllerVar.getOrientationBtn().setOnMouseEntered(
-				e -> controllerVar.getOrientationBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-		controllerVar.getOrientationBtn().setOnMouseExited(
-				e -> controllerVar.getOrientationBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
-		
-		controllerVar.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-		controllerVar.getProbabilitySettingsBtn().setOnMouseEntered(
-				e -> controllerVar.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-		controllerVar.getProbabilitySettingsBtn().setOnMouseExited(
-				e -> controllerVar.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
-		
-		controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
-		controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
-		controllerVar.notesButton.setOnMouseEntered(e -> controllerVar.notesButton.setStyle(hoverStyle));
-		controllerVar.notesButton.setOnMouseExited(e -> controllerVar.notesButton.setStyle(initialStyle));
-		controllerVar.getCreateReportBtn().setOnMouseEntered(
-				e -> controllerVar.getCreateReportBtn().setStyle(hoverStyle));
-		controllerVar.getCreateReportBtn().setOnMouseExited(
-				e -> controllerVar.getCreateReportBtn().setStyle(initialStyle));
-		controllerVar.getLogsButton().setOnMouseEntered(e -> controllerVar.getLogsButton().setStyle(hoverStyle));
-		controllerVar.getLogsButton().setOnMouseExited(e -> controllerVar.getLogsButton().setStyle(initialStyle));
-		controllerVar.getMapButton().setOnMouseEntered(e -> controllerVar.getMapButton().setStyle(hoverStyle));
-		controllerVar.getMapButton().setOnMouseExited(e -> controllerVar.getMapButton().setStyle(initialStyle));
-		controllerVar.getShowIDBtn().setOnMouseEntered(e -> controllerVar.getShowIDBtn().setStyle(hoverStyle));
-		controllerVar.getShowIDBtn().setOnMouseExited(e -> controllerVar.getShowIDBtn().setStyle(initialStyle));
-		controllerVar.getShowCalloutBtn().setOnMouseEntered(
-				e -> controllerVar.getShowCalloutBtn().setStyle(hoverStyle));
-		controllerVar.getShowCalloutBtn().setOnMouseExited(
-				e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
-		controllerVar.getShowLookupBtn().setOnMouseEntered(e -> controllerVar.getShowLookupBtn().setStyle(hoverStyle));
-		controllerVar.getShowLookupBtn().setOnMouseExited(e -> controllerVar.getShowLookupBtn().setStyle(initialStyle));
-		controllerVar.getShowCourtCasesBtn().setOnMouseEntered(
-				e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
-		controllerVar.getShowCourtCasesBtn().setOnMouseExited(
-				e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
-		
-		controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
-		controllerVar.updateInfoBtn.setOnMouseExited(e -> controllerVar.updateInfoBtn.setStyle(nonTransparentBtn));
-		
-		if (isConnected) {
+		if (controllerVar != null) {
+			changeBarColors(controllerVar.getReportChart());
+			changeStatisticColors(controllerVar.getAreaReportChart());
+			
+			String mainclr = ConfigReader.configRead("uiColors", "mainColor");
+			controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
+			controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
+			controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
+			
+			String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 			controllerVar.getServerStatusLabel().setStyle(
-					"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-		} else {
+					"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
+			controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
+			controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
+			controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
+			controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
+			controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
+			
+			controllerVar.getLookupmainlblpane().setStyle(
+					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
+			controllerVar.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
+			
+			controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
+			controllerVar.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
+			controllerVar.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
+			controllerVar.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
+			controllerVar.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
+			controllerVar.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
+			
+			String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
+			controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getBkgclr2().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getTabPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getArrestTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getCalloutTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getCitationTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getImpoundTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getIncidentTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			
+			String accclr = ConfigReader.configRead("uiColors", "accentColor");
+			controllerVar.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
+			controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
+			controllerVar.getUserCircle().setStyle("-fx-fill: " + accclr + ";");
+			
+			CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
+			CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
+			
+			controllerVar.getCurrentCalPane().setStyle(
+					updateStyleProperty(controllerVar.getCurrentCalPane(), "-fx-border-color", accclr));
+			
+			controllerVar.getCalActiveList().setStyle(
+					updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
+			controllerVar.getCalHistoryList().setStyle(
+					updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
+			
+			controllerVar.getActivecalfill().setStyle(
+					updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
+			controllerVar.getCalfill().setStyle(
+					updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
+			
+			String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
+			String initialStyle = "-fx-background-color: transparent;";
+			String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
+			controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
+			
+			controllerVar.getOrientationBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			controllerVar.getOrientationBtn().setOnMouseEntered(
+					e -> controllerVar.getOrientationBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			controllerVar.getOrientationBtn().setOnMouseExited(
+					e -> controllerVar.getOrientationBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			controllerVar.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			controllerVar.getProbabilitySettingsBtn().setOnMouseEntered(
+					e -> controllerVar.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			controllerVar.getProbabilitySettingsBtn().setOnMouseExited(
+					e -> controllerVar.getProbabilitySettingsBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			controllerVar.shiftInfoBtn.setOnMouseEntered(e -> controllerVar.shiftInfoBtn.setStyle(hoverStyle));
+			controllerVar.shiftInfoBtn.setOnMouseExited(e -> controllerVar.shiftInfoBtn.setStyle(initialStyle));
+			controllerVar.notesButton.setOnMouseEntered(e -> controllerVar.notesButton.setStyle(hoverStyle));
+			controllerVar.notesButton.setOnMouseExited(e -> controllerVar.notesButton.setStyle(initialStyle));
+			controllerVar.getCreateReportBtn().setOnMouseEntered(
+					e -> controllerVar.getCreateReportBtn().setStyle(hoverStyle));
+			controllerVar.getCreateReportBtn().setOnMouseExited(
+					e -> controllerVar.getCreateReportBtn().setStyle(initialStyle));
+			controllerVar.getLogsButton().setOnMouseEntered(e -> controllerVar.getLogsButton().setStyle(hoverStyle));
+			controllerVar.getLogsButton().setOnMouseExited(e -> controllerVar.getLogsButton().setStyle(initialStyle));
+			controllerVar.getMapButton().setOnMouseEntered(e -> controllerVar.getMapButton().setStyle(hoverStyle));
+			controllerVar.getMapButton().setOnMouseExited(e -> controllerVar.getMapButton().setStyle(initialStyle));
+			controllerVar.getShowIDBtn().setOnMouseEntered(e -> controllerVar.getShowIDBtn().setStyle(hoverStyle));
+			controllerVar.getShowIDBtn().setOnMouseExited(e -> controllerVar.getShowIDBtn().setStyle(initialStyle));
+			controllerVar.getShowCalloutBtn().setOnMouseEntered(
+					e -> controllerVar.getShowCalloutBtn().setStyle(hoverStyle));
+			controllerVar.getShowCalloutBtn().setOnMouseExited(
+					e -> controllerVar.getShowCalloutBtn().setStyle(initialStyle));
+			controllerVar.getShowLookupBtn().setOnMouseEntered(
+					e -> controllerVar.getShowLookupBtn().setStyle(hoverStyle));
+			controllerVar.getShowLookupBtn().setOnMouseExited(
+					e -> controllerVar.getShowLookupBtn().setStyle(initialStyle));
+			controllerVar.getShowCourtCasesBtn().setOnMouseEntered(
+					e -> controllerVar.getShowCourtCasesBtn().setStyle(hoverStyle));
+			controllerVar.getShowCourtCasesBtn().setOnMouseExited(
+					e -> controllerVar.getShowCourtCasesBtn().setStyle(initialStyle));
+			
+			controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
+			controllerVar.updateInfoBtn.setOnMouseExited(e -> controllerVar.updateInfoBtn.setStyle(nonTransparentBtn));
+			
+			if (isConnected) {
+				controllerVar.getServerStatusLabel().setStyle(
+						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			} else {
+				controllerVar.getServerStatusLabel().setStyle(
+						"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			}
+			
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+				addDarkStyles();
+			} else {
+				addLightStyles();
+			}
+			
 			controllerVar.getServerStatusLabel().setStyle(
-					"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+					updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 		}
-		
-		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
-			addDarkStyles();
-		} else {
-			addLightStyles();
-		}
-		
-		controllerVar.getServerStatusLabel().setStyle(
-				updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 	}
 	
 	private void loadColors() {
@@ -939,14 +932,18 @@ public class settingsController {
 		try {
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
 				textClrComboBox.getSelectionModel().selectFirst();
-				controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-				controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-				controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				if (controllerVar != null) {
+					controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+					controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+					controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				}
 			} else {
 				textClrComboBox.getSelectionModel().selectLast();
-				controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
-				controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
-				controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+				if (controllerVar != null) {
+					controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
+					controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
+					controllerVar.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+				}
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);
@@ -1282,9 +1279,14 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void clearLogsBtnClick(ActionEvent actionEvent) {
-		Stage stage = (Stage) root.getScene().getWindow();
-		confirmLogClearDialog(stage, controllerVar.getReportChart(), controllerVar.getAreaReportChart());
-		NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.", mainRT);
+		if (controllerVar != null) {
+			Stage stage = (Stage) root.getScene().getWindow();
+			confirmLogClearDialog(stage, controllerVar.getReportChart(), controllerVar.getAreaReportChart());
+			NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.", mainRT);
+		} else {
+			//todo change later since actioncontroller wont be a thing anymore
+			NotificationManager.showNotificationError("Log Manager", "Please open the main window first!", mainRT);
+		}
 	}
 	
 	@javafx.fxml.FXML

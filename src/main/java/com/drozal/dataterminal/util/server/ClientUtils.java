@@ -453,6 +453,7 @@ public class ClientUtils {
 					}
 				} else {
 					log("Already connected", LogUtils.Severity.WARN);
+					break;
 				}
 			}
 		} catch (IOException e) {

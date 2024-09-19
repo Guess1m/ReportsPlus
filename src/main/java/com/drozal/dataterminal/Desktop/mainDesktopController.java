@@ -39,7 +39,7 @@ public class mainDesktopController {
 	public void initialize() {
 		button1.setOnAction(event -> editableDesktop = !editableDesktop);
 		
-		DesktopApp desktopAppObj = new DesktopApp("TestApp1", new Image(
+		DesktopApp desktopAppObj = new DesktopApp("Main App", new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
 		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
@@ -64,6 +64,30 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, notesApp, 1);
+		
+		DesktopApp settingsAppObj = new DesktopApp("Settings App", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml",
+					                                        "Settings Application", true, 2, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, settingsApp, 2);
+		
+		DesktopApp updatesAppObj = new DesktopApp("Updates App", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml",
+					                                        "Settings Application", true, 2, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, updatesApp, 3);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

@@ -749,7 +749,8 @@ public class actionController {
 			stge.setOnHiding(event -> handleClose());
 			
 			versionLabel.setOnMouseClicked(event -> {
-				if (versionStage != null && versionStage.isShowing()) {
+				// todo implemented as an app
+				/*if (versionStage != null && versionStage.isShowing()) {
 					versionStage.close();
 					versionStage = null;
 					return;
@@ -771,7 +772,7 @@ public class actionController {
 				versionStage.show();
 				centerStageOnMainApp(versionStage);
 				
-				versionStage.setOnHidden(event1 -> versionStage = null);
+				versionStage.setOnHidden(event1 -> versionStage = null);*/
 			});
 			
 			if (!stringUtil.version.equals(gitVersion)) {
@@ -4542,7 +4543,8 @@ public class actionController {
 	
 	@FXML
 	public void onSettingsBtnClick(Event event) throws IOException {
-		if (settingsStage != null && settingsStage.isShowing()) {
+		// todo relocated to an app
+		/*if (settingsStage != null && settingsStage.isShowing()) {
 			settingsStage.close();
 			settingsStage = null;
 			return;
@@ -4565,7 +4567,7 @@ public class actionController {
 			public void handle(WindowEvent event) {
 				settingsStage = null;
 			}
-		});
+		});*/
 	}
 	
 	@FXML

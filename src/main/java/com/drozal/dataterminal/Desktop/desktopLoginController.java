@@ -25,9 +25,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Window.windowUtils.toggleWindowedFullscreen;
 
 public class desktopLoginController {
 	@javafx.fxml.FXML
@@ -129,10 +131,13 @@ public class desktopLoginController {
 			FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
 			Scene scene = new Scene(fxmlLoader.load());
 			mainDesktopControllerObj = fxmlLoader.getController();
-			Stage mainDesktopStage = new Stage();
-			mainDesktopStage.setTitle("Simulation Desktop");
-			mainDesktopStage.setScene(scene);
-			mainDesktopStage.show();
+			Stage primaryStage = new Stage();
+			primaryStage.setTitle("Simulation Desktop");
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			mainDesktopStage = primaryStage;
+			
+			toggleWindowedFullscreen(mainDesktopStage, 850, 750);
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

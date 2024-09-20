@@ -18,11 +18,12 @@ import java.nio.file.Path;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationError;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.getOperatingSystemAndArch;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class LogUtils {
 	private static boolean inErrorBlock = false;
-	/* todo add back
+	
 	static {
 		try {
 			String logFilePath = getJarPath() + File.separator + "output.log";
@@ -38,7 +39,7 @@ public class LogUtils {
 		}
 		
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("Uncaught exception in thread " + thread, e));
-	}*/
+	}
 	
 	private static String checkFolderPermissions(Path folderPath) {
 		StringBuilder permissions = new StringBuilder();

@@ -1,24 +1,25 @@
 package com.drozal.dataterminal.Windows.Misc;
 
-import com.drozal.dataterminal.util.Report.reportUtil;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Region;
 
-import static com.drozal.dataterminal.Windows.Other.NotesViewController.codesStage;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.codesWindow;
 
 public class CodesWindow {
-	AnchorPane topBar;
 	Boolean isToggled = false;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
 	private ColumnConstraints usageColumn;
+	@javafx.fxml.FXML
+	private AnchorPane sidePane;
+	@javafx.fxml.FXML
+	private AnchorPane codesPane;
 	
 	public void initialize() {
-		topBar = reportUtil.createSimpleTitleBar("Notepad Codes", true);
-		root.setTop(topBar);
+		sidePane.setVisible(false);
 		usageColumn.setMaxWidth(0);
 	}
 	
@@ -26,13 +27,15 @@ public class CodesWindow {
 	public void helpbtnpress() {
 		if (!isToggled) {
 			usageColumn.setMaxWidth(Region.USE_COMPUTED_SIZE);
-			codesStage.setWidth(650);
-			codesStage.setMaxWidth(650);
+			codesWindow.getWindowPane().setPrefWidth(650);
+			codesWindow.getWindowPane().setMaxWidth(650);
+			sidePane.setVisible(true);
 			isToggled = true;
 		} else {
 			usageColumn.setMaxWidth(0);
-			codesStage.setWidth(333);
-			codesStage.setMaxWidth(650);
+			codesWindow.getWindowPane().setPrefWidth(333);
+			codesWindow.getWindowPane().setMaxWidth(650);
+			sidePane.setVisible(false);
 			isToggled = false;
 		}
 	}

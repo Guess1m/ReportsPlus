@@ -29,7 +29,6 @@ public class mainDesktopController {
 	private AnchorPane desktopContainer;
 	@javafx.fxml.FXML
 	private VBox container;
-	public static CustomWindow mainApplicationWindow;
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, int appIndex) {
 		AnchorPane.setLeftAnchor(newApp, 28.0);
@@ -45,17 +44,17 @@ public class mainDesktopController {
 		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					mainApplicationWindow = createFakeWindow(desktopContainer,
-					                                         "Windows/Main/DataTerminalHome-view.fxml", "Primary", true,
-					                                         1, false, taskBarApps);
-					assert mainApplicationWindow != null;
+					CustomWindow mainApplicationWindow = createFakeWindow(desktopContainer,
+					                                                      "Windows/Main/DataTerminalHome-view.fxml",
+					                                                      "Primary", true, 1, false, taskBarApps);
+					
 					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApplicationWindow.controller;
 				}
 			}
 		});
 		addAppToDesktop(desktopContainer, newApp, 0);
 		
-		DesktopApp notesAppObj = new DesktopApp("Notes App", new Image(
+		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
 		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
@@ -68,29 +67,41 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, notesApp, 1);
 		
-		DesktopApp settingsAppObj = new DesktopApp("Settings App", new Image(
+		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
 		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml",
-					                                        "Settings Application", true, 2, true, taskBarApps);
+					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Settings Application",
+					                 true, 2, true, taskBarApps);
 				}
 			}
 		});
 		addAppToDesktop(desktopContainer, settingsApp, 2);
 		
-		DesktopApp updatesAppObj = new DesktopApp("Updates App", new Image(
+		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
 		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml",
-					                                        "Settings Application", true, 2, true, taskBarApps);
+					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Settings Application", true,
+					                 2, true, taskBarApps);
 				}
 			}
 		});
 		addAppToDesktop(desktopContainer, updatesApp, 3);
+		
+		DesktopApp debugLogsAppObj = new DesktopApp("Output Logs", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane debugLogsApp = debugLogsAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					createFakeWindow(desktopContainer, "Windows/Misc/output-view.fxml", "Application Logs", false, 2,
+					                 true, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, debugLogsApp, 4);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image
@@ -106,11 +117,19 @@ public class mainDesktopController {
 		});
 	}
 	
+	public AnchorPane getDesktopContainer() {
+		return desktopContainer;
+	}
+	
 	public Button getButton1() {
 		return button1;
 	}
 	
 	public BorderPane getTaskBar() {
 		return taskBar;
+	}
+	
+	public HBox getTaskBarApps() {
+		return taskBarApps;
 	}
 }

@@ -1,7 +1,6 @@
 package com.drozal.dataterminal.Windows.Settings;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
-import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.config.ConfigReader;
@@ -9,19 +8,14 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
-import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -1162,7 +1156,8 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) throws IOException {
-		Stage stage = new Stage();
+		// todo remove old outputlogs since transferred to app
+		/*Stage stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
 		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/output-view.fxml"));
 		Parent root = loader.load();
@@ -1173,7 +1168,7 @@ public class settingsController {
 		stage.centerOnScreen();
 		stage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTDebug").equals("true"));
 		
-		windowUtils.centerStageOnMainApp(stage);
+		windowUtils.centerStageOnMainApp(stage);*/
 	}
 	
 	@javafx.fxml.FXML

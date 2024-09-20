@@ -1,11 +1,11 @@
 package com.drozal.dataterminal.Windows.Other;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.NoteTab;
-import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -13,19 +13,19 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -338,9 +338,19 @@ public class NotesViewController {
 		notepadTextArea.setText("");
 	}
 	
+	public static CustomWindow codesWindow;
+	
 	@javafx.fxml.FXML
 	public void oncodesclick() throws IOException {
-		if (codesStage != null && codesStage.isShowing()) {
+		// todo remove old codes inplementatino
+		// todo fix all priorities
+		if (mainDesktopControllerObj != null) {
+			codesWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
+			                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 2, true,
+			                               mainDesktopControllerObj.getTaskBarApps());
+		}
+		
+		/*if (codesStage != null && codesStage.isShowing()) {
 			codesStage.close();
 			codesStage = null;
 			return;
@@ -358,7 +368,7 @@ public class NotesViewController {
 		
 		windowUtils.centerStageOnMainApp(codesStage);
 		
-		codesStage.setOnHidden(event -> codesStage = null);
+		codesStage.setOnHidden(event -> codesStage = null);*/
 	}
 	
 	@javafx.fxml.FXML

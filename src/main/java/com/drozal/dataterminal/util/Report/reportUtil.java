@@ -43,7 +43,8 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
-import static com.drozal.dataterminal.util.Window.windowUtils.*;
+import static com.drozal.dataterminal.util.Window.windowUtils.centerStageOnMainApp;
+import static com.drozal.dataterminal.util.Window.windowUtils.toggleWindowedFullscreen;
 
 public class reportUtil {
 	static double windowX = 0;
@@ -536,40 +537,6 @@ public class reportUtil {
 			windowWidth = stage.getWidth();
 			windowHeight = stage.getHeight();
 		});
-		
-		String startupValue = null;
-		try {
-			startupValue = ConfigReader.configRead("layout", "reportWindowLayout");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		
-		switch (startupValue) {
-			case "TopLeft" -> snapToTopLeft(stage);
-			case "TopRight" -> snapToTopRight(stage);
-			case "BottomLeft" -> snapToBottomLeft(stage);
-			case "BottomRight" -> snapToBottomRight(stage);
-			case "FullLeft" -> snapToLeft(stage);
-			case "FullRight" -> snapToRight(stage);
-			default -> {
-				if (rememberLocationSize && windowHeight != 0 && windowWidth != 0) {
-					stage.setWidth(windowWidth);
-					stage.setHeight(windowHeight);
-				} else {
-					stage.setWidth(preferredWidth);
-					stage.setHeight(preferredHeight);
-					stage.setMinHeight(300);
-					stage.setMinWidth(300);
-				}
-				if (rememberLocationSize && windowX != 0 && windowY != 0) {
-					stage.setX(windowX);
-					stage.setY(windowY);
-				} else {
-					stage.centerOnScreen();
-					centerStageOnMainApp(stage);
-				}
-			}
-		}
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put(reportName + " Map", fieldsMap);

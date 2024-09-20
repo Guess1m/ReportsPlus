@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.logs.Search;
 
-import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
@@ -11,8 +11,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +28,8 @@ import static com.drozal.dataterminal.Windows.Main.actionController.notesViewCon
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.toTitleCase;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.updateTextFromNotepad;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.searchLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -152,7 +151,7 @@ public class SearchReportUtils {
 		return searchReport;
 	}
 	
-	public static Map<String, Object> newSearch(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
+	public static Map<String, Object> newSearch() {
 		Map<String, Object> searchReport = searchLayout();
 		
 		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
@@ -286,9 +285,8 @@ public class SearchReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
+				LogViewController.needRefresh.set(1);
+				
 				NotificationManager.showNotificationInfo("Report Manager", "A new Search Report has been submitted.",
 				                                         mainRT);
 				stage.close();

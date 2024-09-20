@@ -4,13 +4,11 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -21,7 +19,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class ProbabilitySettingsController {
-	AnchorPane topBar;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -146,10 +143,6 @@ public class ProbabilitySettingsController {
 	}
 	
 	public void initialize() {
-		topBar = reportUtil.createSimpleTitleBar("Probability Settings", true);
-		
-		root.setTop(topBar);
-		
 		try {
 			setInitialValues();
 		} catch (IOException e) {

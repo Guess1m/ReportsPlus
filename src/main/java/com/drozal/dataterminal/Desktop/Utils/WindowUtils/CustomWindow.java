@@ -127,7 +127,7 @@ public class CustomWindow {
 	}
 	
 	private void enableResize(BorderPane pane) {
-		final double resizeMargin = 10;
+		final double resizeMargin = 20;
 		
 		pane.setOnMouseMoved(event -> {
 			double x = event.getX();

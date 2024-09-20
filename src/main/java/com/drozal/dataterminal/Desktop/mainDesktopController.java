@@ -4,6 +4,7 @@ import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -102,6 +103,31 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, debugLogsApp, 4);
+		
+		DesktopApp lookupSettingsAppObj = new DesktopApp("Lookup Config", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane lookupSettingsApp = lookupSettingsAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					createFakeWindow(desktopContainer, "Windows/Settings/probability-settings-view.fxml",
+					                 "Lookup Probability Config", false, 2, true, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, lookupSettingsApp, 5);
+		
+		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
+					                                       true, 2, true, taskBarApps);
+					LogViewController.logController = (LogViewController) logapp.controller;
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, logBrowserApp, 6);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

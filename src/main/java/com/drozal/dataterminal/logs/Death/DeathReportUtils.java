@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.logs.Death;
 
-import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
@@ -11,8 +11,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +28,8 @@ import static com.drozal.dataterminal.Windows.Main.actionController.notesViewCon
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.toTitleCase;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.updateTextFromNotepad;
 import static com.drozal.dataterminal.util.Misc.stringUtil.DeathReportLogURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -160,7 +159,7 @@ public class DeathReportUtils {
 		return deathReport;
 	}
 	
-	public static Map<String, Object> newDeathReport(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
+	public static Map<String, Object> newDeathReport() {
 		Map<String, Object> deathReport = deathReportLayout();
 		
 		Map<String, Object> deathReportMap = (Map<String, Object>) deathReport.get("Death Report Map");
@@ -299,9 +298,7 @@ public class DeathReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
+				LogViewController.needRefresh.set(1);
 				NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.",
 				                                         mainRT);
 				

@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.Misc;
 
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
@@ -279,7 +280,7 @@ public class controllerUtils {
 				clearDataLogs();
 				updateChartIfMismatch(barChart);
 				controllerUtils.refreshChart(areaChart, "area");
-				actionController.needRefresh.set(1);
+				LogViewController.needRefresh.set(1);
 			}
 		});
 	}

@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.logs.TrafficStop;
 
-import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
 import com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils;
@@ -13,8 +13,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -32,7 +30,8 @@ import static com.drozal.dataterminal.Windows.Main.actionController.notesViewCon
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.toTitleCase;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.updateTextFromNotepad;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.trafficstopLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -154,7 +153,7 @@ public class TrafficStopReportUtils {
 		return trafficStopReport;
 	}
 	
-	public static Map<String, Object> newTrafficStop(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
+	public static Map<String, Object> newTrafficStop() {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
 		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(
@@ -244,7 +243,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transferarrestbtnts.setOnAction(event -> {
-			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest(reportChart, areaReportChart);
+			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest();
 			
 			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
 			
@@ -289,7 +288,7 @@ public class TrafficStopReportUtils {
 		});
 		
 		transfercitationbtnts.setOnAction(event -> {
-			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation(reportChart, areaReportChart);
+			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation();
 			
 			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
 			
@@ -402,9 +401,8 @@ public class TrafficStopReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
+				LogViewController.needRefresh.set(1);
+				
 				NotificationManager.showNotificationInfo("Report Manager",
 				                                         "A new Traffic Stop Report has been submitted.", mainRT);
 				stagets.close();

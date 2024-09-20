@@ -525,8 +525,7 @@ public class CalloutManager {
 				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
 			}
 			
-			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout(controllerVar.getReportChart(),
-			                                                                     controllerVar.getAreaReportChart());
+			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout();
 			
 			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
 			

@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.logs.Arrest;
 
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.config.ConfigReader;
@@ -21,8 +22,6 @@ import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Side;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -40,7 +39,8 @@ import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.toTitleCase;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.updateTextFromNotepad;
 import static com.drozal.dataterminal.util.Misc.stringUtil.arrestLogURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -171,7 +171,7 @@ public class ArrestReportUtils {
 		return arrestReport;
 	}
 	
-	public static Map<String, Object> newArrest(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
+	public static Map<String, Object> newArrest() {
 		Map<String, Object> arrestReport = arrestLayout();
 		
 		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport.get("Arrest Report Map");
@@ -260,7 +260,7 @@ public class ArrestReportUtils {
 		
 		transferimpoundbtn.setOnAction(event -> {
 			
-			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound(reportChart, areaReportChart);
+			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound();
 			
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
 			
@@ -297,7 +297,7 @@ public class ArrestReportUtils {
 		});
 		
 		transferincidentbtn.setOnAction(event -> {
-			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident(reportChart, areaReportChart);
+			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident();
 			
 			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get("Incident Report Map");
 			
@@ -333,7 +333,7 @@ public class ArrestReportUtils {
 		});
 		
 		transfersearchbtn.setOnAction(event -> {
-			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch(reportChart, areaReportChart);
+			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch();
 			
 			Map<String, Object> ArrestReportMap = (Map<String, Object>) ArrestReportObj.get("Search Report Map");
 			
@@ -537,9 +537,7 @@ public class ArrestReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
+				LogViewController.needRefresh.set(1);
 				
 				stage.close();
 			}

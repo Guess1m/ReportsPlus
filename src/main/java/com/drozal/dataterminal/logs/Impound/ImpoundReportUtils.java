@@ -1,6 +1,6 @@
 package com.drozal.dataterminal.logs.Impound;
 
-import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
@@ -11,8 +11,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +28,8 @@ import static com.drozal.dataterminal.Windows.Main.actionController.notesViewCon
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.toTitleCase;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.updateTextFromNotepad;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.impoundLogURL;
 import static com.drozal.dataterminal.util.Report.reportUtil.createReportWindow;
@@ -128,7 +127,7 @@ public class ImpoundReportUtils {
 		return impoundReport;
 	}
 	
-	public static Map<String, Object> newImpound(BarChart<String, Number> reportChart, AreaChart areaReportChart) {
+	public static Map<String, Object> newImpound() {
 		Map<String, Object> impoundReport = impoundLayout();
 		
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport.get("Impound Report Map");
@@ -253,9 +252,8 @@ public class ImpoundReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				
-				actionController.needRefresh.set(1);
-				updateChartIfMismatch(reportChart);
-				refreshChart(areaReportChart, "area");
+				LogViewController.needRefresh.set(1);
+				
 				NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.",
 				                                         mainRT);
 				stage.close();

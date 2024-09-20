@@ -14,7 +14,7 @@ public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
 	public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
 	
-	public static CustomWindow createFakeWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, HBox taskBarApps) {
+	public static CustomWindow createFakeWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, HBox taskBarApps) {
 		if (!windows.containsKey(title)) {
 			try {
 				URL fxmlUrl = Launcher.class.getResource(fileName);
@@ -25,7 +25,9 @@ public class WindowManager {
 				
 				if (root != null) {
 					root.getChildren().add(customWindow.getWindowPane());
-					customWindow.centerOnDesktop();
+					if (centerOnDesktop) {
+						customWindow.centerOnDesktop();
+					}
 					
 					windows.put(title, customWindow);
 					

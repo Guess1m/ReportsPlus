@@ -13,8 +13,8 @@ import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApp
 
 public class DesktopApp {
 	
-	private String name;
-	private Image image;
+	private final String name;
+	private final Image image;
 	private AnchorPane mainPane;
 	
 	public DesktopApp(String name, Image image) {

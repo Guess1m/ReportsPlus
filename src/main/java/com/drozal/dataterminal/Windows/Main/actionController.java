@@ -3535,7 +3535,7 @@ public class actionController {
 	public static ClientController clientController;
 	public static Stage notesStage = null;
 	public static Stage clientStage = null;
-	private static Stage versionStage = null;
+	private static final Stage versionStage = null;
 	public static boolean IDFirstShown = true;
 	public static double IDx;
 	public static double IDy;

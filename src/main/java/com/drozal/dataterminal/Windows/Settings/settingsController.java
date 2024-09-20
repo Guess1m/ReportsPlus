@@ -12,7 +12,6 @@ import com.drozal.dataterminal.util.Misc.NotificationManager;
 import com.drozal.dataterminal.util.Window.windowUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,15 +43,7 @@ public class settingsController {
 	
 	private static actionController controllerVar;
 	@javafx.fxml.FXML
-	private CheckBox startupFullscreenCheckbox;
-	@javafx.fxml.FXML
-	private ComboBox ReportWindowComboBox;
-	@javafx.fxml.FXML
-	private ComboBox mainWindowComboBox;
-	@javafx.fxml.FXML
 	private BorderPane root;
-	@javafx.fxml.FXML
-	private ComboBox notesWindowComboBox;
 	@javafx.fxml.FXML
 	private ComboBox reportStyleComboBox;
 	@javafx.fxml.FXML
@@ -79,10 +70,6 @@ public class settingsController {
 	private Button clrSaveDataBtn;
 	@javafx.fxml.FXML
 	private Label lbl0;
-	@javafx.fxml.FXML
-	private Label lbl1;
-	@javafx.fxml.FXML
-	private Label lbl2;
 	@javafx.fxml.FXML
 	private Label lbl3;
 	@javafx.fxml.FXML
@@ -147,12 +134,6 @@ public class settingsController {
 	private Button resetReportDefaultsBtn;
 	@javafx.fxml.FXML
 	private Label tt10;
-	@javafx.fxml.FXML
-	private Label tt1;
-	@javafx.fxml.FXML
-	private Label tt3;
-	@javafx.fxml.FXML
-	private Label tt2;
 	@javafx.fxml.FXML
 	private Label tt5;
 	@javafx.fxml.FXML
@@ -256,7 +237,6 @@ public class settingsController {
 		} catch (IOException e) {
 			logError("Error Loading Action Events: ", e);
 		}
-		displayPlacements();
 		addEventFilters();
 		setupListeners();
 		try {
@@ -476,8 +456,6 @@ public class settingsController {
 			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
 			
 			lbl0.setStyle("-fx-background-color: " + toHexString(primary) + ";");
-			lbl1.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl2.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
@@ -569,8 +547,6 @@ public class settingsController {
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
 		enableIDPopupsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
-		startupFullscreenCheckbox.setSelected(
-				ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equalsIgnoreCase("true"));
 		serverAutoconnectCheckbox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
 		saveCalloutLocationCheckbox.setSelected(
@@ -589,83 +565,6 @@ public class settingsController {
 		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equalsIgnoreCase("true"));
 		AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equalsIgnoreCase("true"));
 		AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equalsIgnoreCase("true"));
-	}
-	
-	private void displayPlacements() {
-		String[] displayPlacements = {"Default", "Top Left", "Top Right", "Bottom Left", "Bottom Right", "\n", "Full Left", "Full Right"};
-		mainWindowComboBox.getItems().addAll(displayPlacements);
-		notesWindowComboBox.getItems().addAll(displayPlacements);
-		ReportWindowComboBox.getItems().addAll(displayPlacements);
-		
-		EventHandler<ActionEvent> comboBoxHandler = event -> {
-			ComboBox<String> comboBox = (ComboBox<String>) event.getSource();
-			String selectedPlacement = comboBox.getSelectionModel().getSelectedItem();
-			
-			if (comboBox == mainWindowComboBox) {
-				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "Default");
-				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "TopLeft");
-				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "TopRight");
-				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "BottomLeft");
-				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "BottomRight");
-				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "FullLeft");
-				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "mainWindowLayout", "FullRight");
-				}
-			}
-			
-			if (comboBox == notesWindowComboBox) {
-				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "Default");
-				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "TopLeft");
-				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "TopRight");
-				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "BottomLeft");
-				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "BottomRight");
-				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "FullLeft");
-				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "notesWindowLayout", "FullRight");
-				}
-			}
-			
-			if (comboBox == ReportWindowComboBox) {
-				if ("Default".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "Default");
-				} else if ("Top Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "TopLeft");
-				} else if ("Top Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "TopRight");
-				} else if ("Bottom Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "BottomLeft");
-				} else if ("Bottom Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "BottomRight");
-				} else if ("Full Left".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "FullLeft");
-				} else if ("Full Right".equals(selectedPlacement)) {
-					ConfigWriter.configwrite("layout", "reportWindowLayout", "FullRight");
-				}
-			}
-		};
-		
-		mainWindowComboBox.setOnAction(comboBoxHandler);
-		notesWindowComboBox.setOnAction(comboBoxHandler);
-		ReportWindowComboBox.setOnAction(comboBoxHandler);
-		try {
-			mainWindowComboBox.setValue(ConfigReader.configRead("layout", "mainWindowLayout"));
-			notesWindowComboBox.setValue(ConfigReader.configRead("layout", "notesWindowLayout"));
-			ReportWindowComboBox.setValue(ConfigReader.configRead("layout", "reportWindowLayout"));
-		} catch (IOException e) {
-			logError("Could not set reportwindowboxes from config: ", e);
-		}
 	}
 	
 	private void addEventFilters() {
@@ -1325,17 +1224,6 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void startupFullscreenClick(ActionEvent actionEvent) {
-		if (startupFullscreenCheckbox.isSelected()) {
-			ConfigWriter.configwrite("uiSettings", "fullscreenOnStartup", "true");
-			startupFullscreenCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("uiSettings", "fullscreenOnStartup", "false");
-			startupFullscreenCheckbox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void settingsAOTClick(ActionEvent actionEvent) {
 		if (AOTSettings.isSelected()) {
 			ConfigWriter.configwrite("AOTSettings", "AOTSettings", "true");
@@ -1796,7 +1684,6 @@ public class settingsController {
 	}
 	
 	private void addTooltips() {
-		addTooltip(startupFullscreenCheckbox, "Start The Application Fullscreen");
 		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
 		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
 		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
@@ -1823,9 +1710,6 @@ public class settingsController {
 		addTooltip(AOTReport, "Keep Report Window On Top");
 		addTooltip(AOTSettings, "Keep Settings Window On Top");
 		
-		addTooltip(tt1, "Main Window Location On Startup");
-		addTooltip(tt2, "Notes Window Location On Startup");
-		addTooltip(tt3, "Report Window Location On Startup");
 		addTooltip(tt4, "UI Theme Presets");
 		addTooltip(tt5, "UI Text Color");
 		addTooltip(tt6, "Report Theme Presets");

@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import static com.drozal.dataterminal.util.Window.windowUtils.toggleWindowedFullscreen;
+
 public class DataTerminalHomeApplication extends Application {
 	
 	public static Stage mainRT;
@@ -82,6 +84,8 @@ public class DataTerminalHomeApplication extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		mainDesktopStage = primaryStage;
+		
+		toggleWindowedFullscreen(mainDesktopStage, 850, 750);
 		
 		DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		

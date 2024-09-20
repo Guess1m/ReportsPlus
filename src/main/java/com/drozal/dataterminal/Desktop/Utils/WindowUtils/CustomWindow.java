@@ -38,7 +38,7 @@ public class CustomWindow {
 	private double originalY;
 	private boolean isMaximized = false;
 	public Object controller;
-	private TaskbarApp taskbarApp;
+	private final TaskbarApp taskbarApp;
 	private final AnchorPane root;
 	
 	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root) throws IOException {
@@ -126,8 +126,134 @@ public class CustomWindow {
 		}
 	}
 	
-	public int getPriority() {
-		return priority;
+	private void enableResize(BorderPane pane) {
+		final double resizeMargin = 10;
+		
+		pane.setOnMouseMoved(event -> {
+			double x = event.getX();
+			double y = event.getY();
+			
+			if (x > pane.getWidth() - resizeMargin && y > pane.getHeight() - resizeMargin) {
+				pane.setCursor(javafx.scene.Cursor.SE_RESIZE);
+			} else if (x > pane.getWidth() - resizeMargin) {
+				pane.setCursor(javafx.scene.Cursor.E_RESIZE);
+			} else if (y > pane.getHeight() - resizeMargin) {
+				pane.setCursor(javafx.scene.Cursor.S_RESIZE);
+			} else {
+				pane.setCursor(javafx.scene.Cursor.DEFAULT);
+			}
+		});
+		
+		pane.setOnMouseDragged(event -> {
+			double x = event.getX();
+			double y = event.getY();
+			
+			if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
+				double newWidth = Math.max(x, 50);
+				double newHeight = Math.max(y, 50);
+				
+				double maxWidth = root.getWidth() - windowPane.getLayoutX();
+				double maxHeight = root.getHeight() - windowPane.getLayoutY();
+				
+				if (newWidth > maxWidth) {
+					newWidth = maxWidth;
+				}
+				if (newHeight > maxHeight) {
+					newHeight = maxHeight;
+				}
+				
+				pane.setPrefSize(newWidth, newHeight);
+			} else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
+				double newWidth = Math.max(x, 50);
+				pane.setPrefWidth(newWidth);
+			} else if (pane.getCursor() == javafx.scene.Cursor.S_RESIZE) {
+				double newHeight = Math.max(y, 50);
+				pane.setPrefHeight(newHeight);
+			}
+		});
+	}
+	
+	private void minimizeWindow() {
+		CustomWindow customWindow = windows.get(title);
+		if (customWindow != null) {
+			customWindow.getWindowPane().setVisible(false);
+			minimizedWindows.put(title, customWindow);
+			isMinimized = true;
+		}
+	}
+	
+	public void restoreWindow(String title) {
+		CustomWindow customWindow = minimizedWindows.get(title);
+		if (customWindow != null) {
+			customWindow.getWindowPane().setVisible(true);
+			AnchorPane parent = (AnchorPane) customWindow.getWindowPane().getParent();
+			if (parent != null && !parent.getChildren().contains(customWindow.getWindowPane())) {
+				parent.getChildren().add(customWindow.getWindowPane());
+			}
+			minimizedWindows.remove(title);
+			isMinimized = false;
+		}
+	}
+	
+	public void toggleMaximize() {
+		if (isMaximized) {
+			restoreWindowSize();
+		} else {
+			maximizeWindow();
+		}
+	}
+	
+	public void maximizeWindow() {
+		double stageWidth = root.getWidth();
+		double stageHeight = root.getHeight();
+		
+		originalWidth = windowPane.getPrefWidth();
+		originalHeight = windowPane.getPrefHeight();
+		originalX = windowPane.getLayoutX();
+		originalY = windowPane.getLayoutY();
+		
+		windowPane.setPrefWidth(stageWidth);
+		windowPane.setPrefHeight(stageHeight);
+		windowPane.setLayoutX(0);
+		windowPane.setLayoutY(0);
+		isMaximized = true;
+	}
+	
+	private void restoreWindowSize() {
+		windowPane.setPrefWidth(originalWidth);
+		windowPane.setPrefHeight(originalHeight);
+		windowPane.setLayoutX(originalX);
+		windowPane.setLayoutY(originalY);
+		isMaximized = false;
+	}
+	
+	public void centerOnDesktop() {
+		if (windowPane != null) {
+			double stageWidth = root.getWidth();
+			double stageHeight = root.getHeight();
+			
+			double windowWidth = windowPane.getPrefWidth();
+			double windowHeight = windowPane.getPrefHeight();
+			
+			double x = (stageWidth - windowWidth) / 2;
+			double y = (stageHeight - windowHeight) / 2;
+			
+			windowPane.setLayoutX(x);
+			windowPane.setLayoutY(y);
+		}
+	}
+	
+	public void closeWindow() {
+		CustomWindow customWindow = windows.get(title);
+		if (customWindow != null) {
+			if (customWindow.getWindowPane().getParent() != null) {
+				AnchorPane root = (AnchorPane) customWindow.getWindowPane().getParent();
+				root.getChildren().remove(customWindow.getWindowPane());
+			}
+			windows.remove(title);
+			minimizedWindows.remove(title);
+			taskbarApp.removeApp();
+		}
 	}
 	
 	public AnchorPane createTitleBar(String titleText) {
@@ -248,133 +374,8 @@ public class CustomWindow {
 		return titleBar;
 	}
 	
-	private void enableResize(BorderPane pane) {
-		final double resizeMargin = 10;
-		
-		pane.setOnMouseMoved(event -> {
-			double x = event.getX();
-			double y = event.getY();
-			
-			if (x > pane.getWidth() - resizeMargin && y > pane.getHeight() - resizeMargin) {
-				pane.setCursor(javafx.scene.Cursor.SE_RESIZE);
-			} else if (x > pane.getWidth() - resizeMargin) {
-				pane.setCursor(javafx.scene.Cursor.E_RESIZE);
-			} else if (y > pane.getHeight() - resizeMargin) {
-				pane.setCursor(javafx.scene.Cursor.S_RESIZE);
-			} else {
-				pane.setCursor(javafx.scene.Cursor.DEFAULT);
-			}
-		});
-		
-		pane.setOnMouseDragged(event -> {
-			double x = event.getX();
-			double y = event.getY();
-			
-			if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
-				double newWidth = Math.max(x, 50);
-				double newHeight = Math.max(y, 50);
-				
-				double maxWidth = root.getWidth() - windowPane.getLayoutX();
-				double maxHeight = root.getHeight() - windowPane.getLayoutY();
-				
-				if (newWidth > maxWidth) {
-					newWidth = maxWidth;
-				}
-				if (newHeight > maxHeight) {
-					newHeight = maxHeight;
-				}
-				
-				pane.setPrefSize(newWidth, newHeight);
-			} else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
-				double newWidth = Math.max(x, 50);
-				pane.setPrefWidth(newWidth);
-			} else if (pane.getCursor() == javafx.scene.Cursor.S_RESIZE) {
-				double newHeight = Math.max(y, 50);
-				pane.setPrefHeight(newHeight);
-			}
-		});
-	}
-	
-	public void closeWindow() {
-		CustomWindow customWindow = windows.get(title);
-		if (customWindow != null) {
-			if (customWindow.getWindowPane().getParent() != null) {
-				AnchorPane root = (AnchorPane) customWindow.getWindowPane().getParent();
-				root.getChildren().remove(customWindow.getWindowPane());
-			}
-			windows.remove(title);
-			minimizedWindows.remove(title);
-			taskbarApp.removeApp();
-		}
-	}
-	
-	private void minimizeWindow() {
-		CustomWindow customWindow = windows.get(title);
-		if (customWindow != null) {
-			customWindow.getWindowPane().setVisible(false);
-			minimizedWindows.put(title, customWindow);
-			isMinimized = true;
-		}
-	}
-	
-	public void restoreWindow(String title) {
-		CustomWindow customWindow = minimizedWindows.get(title);
-		if (customWindow != null) {
-			customWindow.getWindowPane().setVisible(true);
-			AnchorPane parent = (AnchorPane) customWindow.getWindowPane().getParent();
-			if (parent != null && !parent.getChildren().contains(customWindow.getWindowPane())) {
-				parent.getChildren().add(customWindow.getWindowPane());
-			}
-			minimizedWindows.remove(title);
-			isMinimized = false;
-		}
-	}
-	
-	private void toggleMaximize() {
-		if (isMaximized) {
-			restoreWindowSize();
-		} else {
-			maximizeWindow();
-		}
-		isMaximized = !isMaximized;
-	}
-	
-	private void maximizeWindow() {
-		double stageWidth = root.getWidth();
-		double stageHeight = root.getHeight();
-			
-			originalWidth = windowPane.getPrefWidth();
-			originalHeight = windowPane.getPrefHeight();
-			originalX = windowPane.getLayoutX();
-			originalY = windowPane.getLayoutY();
-			
-			windowPane.setPrefWidth(stageWidth);
-			windowPane.setPrefHeight(stageHeight);
-			windowPane.setLayoutX(0);
-			windowPane.setLayoutY(0);
-	}
-	
-	private void restoreWindowSize() {
-			windowPane.setPrefWidth(originalWidth);
-			windowPane.setPrefHeight(originalHeight);
-			windowPane.setLayoutX(originalX);
-			windowPane.setLayoutY(originalY);
-	}
-	
-	public void centerOnDesktop() {
-		if (windowPane != null) {
-			double stageWidth = root.getWidth();
-			double stageHeight = root.getHeight();
-			
-			double windowWidth = windowPane.getPrefWidth();
-			double windowHeight = windowPane.getPrefHeight();
-			
-			double x = (stageWidth - windowWidth) / 2;
-			double y = (stageHeight - windowHeight) / 2;
-			
-			windowPane.setLayoutX(x);
-			windowPane.setLayoutY(y);
-		}
+	public int getPriority() {
+		return priority;
 	}
 	
 	public Pane getWindowPane() {

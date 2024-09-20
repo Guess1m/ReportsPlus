@@ -29,6 +29,7 @@ public class mainDesktopController {
 	private AnchorPane desktopContainer;
 	@javafx.fxml.FXML
 	private VBox container;
+	public static CustomWindow mainApplicationWindow;
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, int appIndex) {
 		AnchorPane.setLeftAnchor(newApp, 28.0);
@@ -44,9 +45,11 @@ public class mainDesktopController {
 		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Main/DataTerminalHome-view.fxml",
-					                                        "Primary", true, 1, taskBarApps);
-					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApp.controller;
+					mainApplicationWindow = createFakeWindow(desktopContainer,
+					                                         "Windows/Main/DataTerminalHome-view.fxml", "Primary", true,
+					                                         1, false, taskBarApps);
+					assert mainApplicationWindow != null;
+					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApplicationWindow.controller;
 				}
 			}
 		});
@@ -58,7 +61,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml",
-					                                        "Notes Application", true, 2, taskBarApps);
+					                                        "Notes Application", true, 2, true, taskBarApps);
 					actionController.notesViewController = (com.drozal.dataterminal.Windows.Other.NotesViewController) mainApp.controller;
 				}
 			}
@@ -71,7 +74,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml",
-					                                        "Settings Application", true, 2, taskBarApps);
+					                                        "Settings Application", true, 2, true, taskBarApps);
 				}
 			}
 		});
@@ -83,7 +86,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml",
-					                                        "Settings Application", true, 2, taskBarApps);
+					                                        "Settings Application", true, 2, true, taskBarApps);
 				}
 			}
 		});

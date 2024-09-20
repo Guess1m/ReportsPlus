@@ -147,7 +147,6 @@ public class ConfigReader {
 		
 		// UI Settings (continued)
 		checkAndSetDefaultValue("uiSettings", "firstLogin", "false");
-		checkAndSetDefaultValue("uiSettings", "fullscreenOnStartup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableCalloutPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableIDPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableSounds", "false");
@@ -166,9 +165,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "10000");
 		
 		// Layout Settings
-		checkAndSetDefaultValue("layout", "mainWindowLayout", "Default");
-		checkAndSetDefaultValue("layout", "notesWindowLayout", "Default");
-		checkAndSetDefaultValue("layout", "reportWindowLayout", "Default");
 		checkAndSetDefaultValue("layout", "rememberIDLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
 		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");

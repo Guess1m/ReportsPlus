@@ -53,68 +53,6 @@
                                                                 vgrow="SOMETIMES"/>
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="lbl1" style="-fx-text-fill: #665CB6;"
-                                                       text="Default Display Placements" textFill="#505d64"
-                                                       GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                       GridPane.valignment="CENTER">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
-                                                    </font>
-                                                </Label>
-                                                <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                            GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                    <children>
-                                                        <Label fx:id="tt1" layoutX="9.0" layoutY="12.0"
-                                                               text="Main Window Placement:" AnchorPane.leftAnchor="9.0"
-                                                               AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="mainWindowComboBox" layoutX="205.0"
-                                                                  layoutY="10.0" prefHeight="25.0" prefWidth="119.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                                    <children>
-                                                        <Label fx:id="tt2" text="Notes Window Placement:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="notesWindowComboBox" layoutX="154.0"
-                                                                  layoutY="6.0" prefHeight="25.0" prefWidth="119.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                                    <children>
-                                                        <Label fx:id="tt3" text="Report Windows Placement:"
-                                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="ReportWindowComboBox" layoutX="210.0"
-                                                                  prefHeight="25.0" prefWidth="114.0"
-                                                                  AnchorPane.leftAnchor="210.0"
-                                                                  AnchorPane.rightAnchor="38.0"
-                                                                  AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <Label fx:id="lbl2" style="-fx-text-fill: #665CB6;"
-                                                       text="Application Settings" textFill="#505d64"
-                                                       GridPane.columnIndex="2">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="17.0"/>
-                                                    </font>
-                                                </Label>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                     <children>
                                                         <Button fx:id="clrLogsBtn" layoutX="35.0" layoutY="10.0"
@@ -125,20 +63,6 @@
                                                                 text="CLEAR LOGS" AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                    <children>
-                                                        <CheckBox fx:id="startupFullscreenCheckbox" alignment="CENTER"
-                                                                  layoutX="41.0" layoutY="4.0" mnemonicParsing="false"
-                                                                  onAction="#startupFullscreenClick" selected="true"
-                                                                  text="Startup Fullscreen" AnchorPane.leftAnchor="20.0"
-                                                                  AnchorPane.rightAnchor="20.0"
-                                                                  AnchorPane.topAnchor="10.0">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                        </CheckBox>
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">

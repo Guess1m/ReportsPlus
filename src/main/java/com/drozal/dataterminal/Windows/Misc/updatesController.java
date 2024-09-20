@@ -5,7 +5,6 @@ import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -17,12 +16,10 @@ import java.util.Objects;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.stringUtil.version;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
-import static com.drozal.dataterminal.util.Report.reportUtil.createSimpleTitleBar;
 
 public class updatesController {
 	
 	private static final Duration ANIMATION_DURATION = Duration.seconds(1.2);
-	AnchorPane topBar;
 	List<String> updates = new ArrayList<>();
 	@javafx.fxml.FXML
 	private BorderPane root;
@@ -36,9 +33,6 @@ public class updatesController {
 	private VBox changelogBox;
 	
 	public void initialize() {
-		topBar = createSimpleTitleBar("Version Information", true);
-		root.setTop(topBar);
-		
 		verChangelog.setText(version);
 		
 		updates.addAll(List.of(stringUtil.updatesList));

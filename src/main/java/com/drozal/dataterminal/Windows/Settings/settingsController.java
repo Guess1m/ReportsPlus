@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
+import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -295,37 +296,22 @@ public class settingsController {
 			changeBarColors(controllerVar.getReportChart());
 			changeStatisticColors(controllerVar.getAreaReportChart());
 			
-			controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
-			controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
-			controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
-			controllerVar.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
-			
 			controllerVar.getServerStatusLabel().setStyle(
 					"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 			controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
 			controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 			controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
 			controllerVar.getSecondaryColor5Bkg().setStyle("-fx-background-color: " + secclr + ";");
-			controllerVar.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
 			
 			controllerVar.getLookupmainlblpane().setStyle(
 					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
 			controllerVar.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
-			
-			controllerVar.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
-			controllerVar.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
-			controllerVar.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
-			controllerVar.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
-			controllerVar.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
-			controllerVar.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
 			
 			controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
 			
 			controllerVar.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			controllerVar.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			controllerVar.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			
 			controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
 			controllerVar.getUserCircle().setStyle("-fx-fill: " + accclr + ";");
@@ -391,6 +377,21 @@ public class settingsController {
 			
 			controllerVar.getServerStatusLabel().setStyle(
 					updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
+		}
+		if (courtViewController != null) {
+			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			courtViewController.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (logController != null) {
 			logController.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
@@ -1167,7 +1168,7 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void openDebugLogsBtnClick(ActionEvent actionEvent) throws IOException {
+	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
 		// todo remove old outputlogs since transferred to app
 		/*Stage stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
@@ -1465,6 +1466,34 @@ public class settingsController {
 	}
 	
 	private static void addDarkStyles() {
+		if (courtViewController != null) {
+			addDarkForm(courtViewController.getCaseNumField());
+			addDarkForm(courtViewController.getCaseCourtDateField());
+			addDarkForm(courtViewController.getCaseOffenceDateField());
+			addDarkForm(courtViewController.getCaseFirstNameField());
+			addDarkForm(courtViewController.getCaseLastNameField());
+			addDarkForm(courtViewController.getCaseAgeField());
+			addDarkForm(courtViewController.getCaseGenderField());
+			addDarkForm(courtViewController.getCaseAddressField());
+			addDarkForm(courtViewController.getCaseStreetField());
+			addDarkForm(courtViewController.getCaseAreaField());
+			addDarkForm(courtViewController.getCaseCountyField());
+			courtViewController.getCaseNotesField().getStyleClass().clear();
+			courtViewController.getCaseNotesField().getStyleClass().add("text-area-dark");
+			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
 		if (logController != null) {
 			logController.getTabPane().getStyleClass().clear();
 			logController.getTabPane().getStyleClass().add("darktabpane");
@@ -1488,13 +1517,8 @@ public class settingsController {
 			
 		}
 		if (controllerVar != null) {
-			
-			controllerVar.getCaseNotesField().getStyleClass().clear();
-			controllerVar.getCaseNotesField().getStyleClass().add("text-area-dark");
-			
 			controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			
 			controllerVar.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1508,19 +1532,6 @@ public class settingsController {
 			controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			
-			controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			
 			controllerVar.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1564,22 +1575,38 @@ public class settingsController {
 			controllerVar.getOfficerInfoDivision().getStyleClass().clear();
 			controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-box");
 			controllerVar.getOfficerInfoDivision().getStyleClass().add("combo-boxdark");
-			
-			addDarkForm(controllerVar.getCaseNumField());
-			addDarkForm(controllerVar.getCaseCourtDateField());
-			addDarkForm(controllerVar.getCaseOffenceDateField());
-			addDarkForm(controllerVar.getCaseFirstNameField());
-			addDarkForm(controllerVar.getCaseLastNameField());
-			addDarkForm(controllerVar.getCaseAgeField());
-			addDarkForm(controllerVar.getCaseGenderField());
-			addDarkForm(controllerVar.getCaseAddressField());
-			addDarkForm(controllerVar.getCaseStreetField());
-			addDarkForm(controllerVar.getCaseAreaField());
-			addDarkForm(controllerVar.getCaseCountyField());
 		}
 	}
 	
 	private static void addLightStyles() {
+		if (courtViewController != null) {
+			addLightForm(courtViewController.getCaseNumField());
+			addLightForm(courtViewController.getCaseCourtDateField());
+			addLightForm(courtViewController.getCaseOffenceDateField());
+			addLightForm(courtViewController.getCaseFirstNameField());
+			addLightForm(courtViewController.getCaseLastNameField());
+			addLightForm(courtViewController.getCaseAgeField());
+			addLightForm(courtViewController.getCaseGenderField());
+			addLightForm(courtViewController.getCaseAddressField());
+			addLightForm(courtViewController.getCaseStreetField());
+			addLightForm(courtViewController.getCaseAreaField());
+			addLightForm(courtViewController.getCaseCountyField());
+			courtViewController.getCaseNotesField().getStyleClass().clear();
+			courtViewController.getCaseNotesField().getStyleClass().add("text-area-light");
+			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
 		if (logController != null) {
 			logController.getTabPane().getStyleClass().clear();
 			logController.getTabPane().getStyleClass().add("lighttabpane");
@@ -1603,12 +1630,8 @@ public class settingsController {
 			
 		}
 		if (controllerVar != null) {
-			controllerVar.getCaseNotesField().getStyleClass().clear();
-			controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
-			
 			controllerVar.generatedByTag.setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.generatedDateTag.setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 			
 			controllerVar.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -1622,19 +1645,6 @@ public class settingsController {
 			controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			
-			controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
 			
 			controllerVar.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -1678,18 +1688,6 @@ public class settingsController {
 			addLightForm(controllerVar.getOfficerInfoName());
 			addLightForm(controllerVar.getOfficerInfoNumber());
 			addLightForm(controllerVar.getOfficerInfoCallsign());
-			
-			addLightForm(controllerVar.getCaseNumField());
-			addLightForm(controllerVar.getCaseCourtDateField());
-			addLightForm(controllerVar.getCaseOffenceDateField());
-			addLightForm(controllerVar.getCaseFirstNameField());
-			addLightForm(controllerVar.getCaseLastNameField());
-			addLightForm(controllerVar.getCaseAgeField());
-			addLightForm(controllerVar.getCaseGenderField());
-			addLightForm(controllerVar.getCaseAddressField());
-			addLightForm(controllerVar.getCaseStreetField());
-			addLightForm(controllerVar.getCaseAreaField());
-			addLightForm(controllerVar.getCaseCountyField());
 		}
 	}
 	

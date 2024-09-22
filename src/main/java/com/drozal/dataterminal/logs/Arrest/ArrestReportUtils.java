@@ -33,7 +33,8 @@ import java.io.IOException;
 import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
-import static com.drozal.dataterminal.Windows.Main.actionController.getNextIndex;
+import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
+import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
@@ -498,7 +499,7 @@ public class ArrestReportUtils {
 					                                         mainRT);
 					log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(),
 					    LogUtils.Severity.INFO);
-					actionController.needCourtRefresh.set(1);
+					needCourtRefresh.set(1);
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager",
 					                                         "A new Arrest Report has been submitted.", mainRT);

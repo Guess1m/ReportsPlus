@@ -5,6 +5,7 @@ import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
+import com.drozal.dataterminal.Windows.Apps.CourtViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Platform;
@@ -23,14 +24,14 @@ public class mainDesktopController {
 	private BorderPane taskBar;
 	@javafx.fxml.FXML
 	private HBox taskBarApps;
-	
-	double verticalSpacing = 100.0;
 	@javafx.fxml.FXML
 	private AnchorPane bottomBar;
 	@javafx.fxml.FXML
 	private AnchorPane desktopContainer;
 	@javafx.fxml.FXML
 	private VBox container;
+	
+	double verticalSpacing = 100.0;
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, int appIndex) {
 		AnchorPane.setLeftAnchor(newApp, 28.0);
@@ -142,6 +143,19 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, calloutManagerApp, 7);
+		
+		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
+					                                       "Court Case Manager", true, 2, true, taskBarApps);
+					CourtViewController.courtViewController = (CourtViewController) logapp.controller;
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, courtApp, 8);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

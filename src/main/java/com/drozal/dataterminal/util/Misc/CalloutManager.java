@@ -1,9 +1,6 @@
 package com.drozal.dataterminal.util.Misc;
 
-import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
-import com.drozal.dataterminal.Windows.Main.actionController;
-import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
@@ -32,8 +29,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class CalloutManager {
-	
-	private static actionController controllerVar;
 	
 	public static void addCallout(String xmlFile, String number, String type, String description, String message, String priority, String street, String area, String county, String startTime, String startDate, String status) {
 		Callouts callouts = null;
@@ -246,8 +241,7 @@ public class CalloutManager {
 		return null;
 	}
 	
-	public static boolean setValueByNumber(String xmlFile, String number, String fieldName, String newValue) {
-		//noinspection UnusedAssignment
+	public static void setValueByNumber(String xmlFile, String number, String fieldName, String newValue) {
 		Callouts callouts = null;
 		
 		try {
@@ -256,12 +250,12 @@ public class CalloutManager {
 				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 				callouts = (Callouts) unmarshaller.unmarshal(new File(xmlFile));
 			} else {
-				return false;
+				return;
 			}
 			
 			List<Callout> calloutList = callouts.getCalloutList();
 			if (calloutList == null) {
-				return false;
+				return;
 			}
 			
 			for (Callout callout : calloutList) {
@@ -274,14 +268,13 @@ public class CalloutManager {
 					marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 					marshaller.marshal(callouts, new File(xmlFile));
 					
-					return true;
+					return;
 				}
 			}
 		} catch (Exception e) {
 			logError("Error getting callout value by num: ", e);
 		}
 		
-		return false;
 	}
 	
 	public static void loadActiveCallouts(ListView<Node> listView) {
@@ -362,11 +355,11 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 		
-		Label numberLabel = createLabel("Number:", true);
+		Label numberLabel = createLabel("Number:");
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		
-		Label statusLabel = createLabel("Status:", true);
+		Label statusLabel = createLabel("Status:");
 		Label statusVal = new Label(status);
 		if (status.equals("Not Responded")) {
 			statusVal.setStyle("-fx-text-fill: red;");
@@ -376,19 +369,19 @@ public class CalloutManager {
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
 		
-		Label typeLabel = createLabel("Type:", true);
+		Label typeLabel = createLabel("Type:");
 		gridPane.add(typeLabel, 0, 1);
 		gridPane.add(new Label(type), 1, 1, 3, 1);
 		
-		Label streetLabel = createLabel("Street:", true);
+		Label streetLabel = createLabel("Street:");
 		gridPane.add(streetLabel, 0, 2);
 		gridPane.add(new Label(street), 1, 2, 3, 1);
 		
-		Label priorityLabel = createLabel("Priority:", true);
+		Label priorityLabel = createLabel("Priority:");
 		gridPane.add(priorityLabel, 0, 3);
 		gridPane.add(new Label(priority), 1, 3, 3, 1);
 		
-		Label areaLabel = createLabel("Area:", true);
+		Label areaLabel = createLabel("Area:");
 		gridPane.add(areaLabel, 0, 4);
 		gridPane.add(new Label(area), 1, 4, 3, 1);
 		
@@ -471,11 +464,11 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
-		Label numberLabel = createLabel("Number:", true);
+		Label numberLabel = createLabel("Number:");
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		
-		Label statusLabel = createLabel("Status:", true);
+		Label statusLabel = createLabel("Status:");
 		Label statusVal = new Label(status);
 		if (status.equals("Not Responded")) {
 			statusVal.setStyle("-fx-text-fill: red;");
@@ -485,19 +478,19 @@ public class CalloutManager {
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
 		
-		Label typeLabel = createLabel("Type:", true);
+		Label typeLabel = createLabel("Type:");
 		gridPane.add(typeLabel, 4, 0);
 		gridPane.add(new Label(type), 5, 0);
 		
-		Label streetLabel = createLabel("Street:", true);
+		Label streetLabel = createLabel("Street:");
 		gridPane.add(streetLabel, 0, 1);
 		gridPane.add(new Label(street), 1, 1, 6, 1);
 		
-		Label priorityLabel = createLabel("Priority:", true);
+		Label priorityLabel = createLabel("Priority:");
 		gridPane.add(priorityLabel, 0, 2);
 		gridPane.add(new Label(priority), 1, 2, 6, 1);
 		
-		Label areaLabel = createLabel("Area:", true);
+		Label areaLabel = createLabel("Area:");
 		gridPane.add(areaLabel, 0, 3);
 		gridPane.add(new Label(area), 1, 3, 6, 1);
 		
@@ -513,13 +506,6 @@ public class CalloutManager {
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
 		actionButton.setOnMouseClicked(actionEvent -> {
-			if (DataTerminalHomeApplication.controller != null) {
-				controllerVar = DataTerminalHomeApplication.controller;
-			} else if (newOfficerController.controller != null) {
-				controllerVar = newOfficerController.controller;
-			} else {
-				log("Callout Controller Var 2 could not be set", LogUtils.Severity.ERROR);
-			}
 			
 			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout();
 			
@@ -567,9 +553,9 @@ public class CalloutManager {
 		return gridPane;
 	}
 	
-	private static Label createLabel(String text, boolean bold) {
+	private static Label createLabel(String text) {
 		Label label = new Label(text);
-		label.setStyle("-fx-font-weight: " + (bold ? "bold" : "normal"));
+		label.setStyle("-fx-font-weight: " + ("bold"));
 		return label;
 	}
 	

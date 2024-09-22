@@ -14,11 +14,13 @@ import com.drozal.dataterminal.util.CourtData.CourtUtils;
 import com.drozal.dataterminal.util.CourtData.CustomCaseCell;
 import com.drozal.dataterminal.util.History.Ped;
 import com.drozal.dataterminal.util.History.Vehicle;
-import com.drozal.dataterminal.util.Misc.*;
+import com.drozal.dataterminal.util.Misc.NoteTab;
+import com.drozal.dataterminal.util.Misc.controllerUtils;
+import com.drozal.dataterminal.util.Misc.dropdownInfo;
+import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -85,8 +87,6 @@ import static com.drozal.dataterminal.util.History.Ped.PedHistoryUtils.findPedBy
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
 import static com.drozal.dataterminal.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
-import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeActive;
-import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNodeHistory;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationWarning;
@@ -109,24 +109,6 @@ public class actionController {
 	private Label plt8;
 	@FXML
 	private Button revealOutcomeBtn;
-	@FXML
-	private Label caldetlbl2;
-	@FXML
-	private Label caldetlbl1;
-	@FXML
-	private Label caldetlbl4;
-	@FXML
-	private Label caldetlbl3;
-	@FXML
-	private Label caldetlbl6;
-	@FXML
-	private Label caldetlbl5;
-	@FXML
-	private Label caldetlbl8;
-	@FXML
-	private Label caldetlbl7;
-	@FXML
-	private Label caldetlbl9;
 	@FXML
 	private TextField pedgunlicensestatusfield;
 	@FXML
@@ -336,40 +318,6 @@ public class actionController {
 	@FXML
 	private TextField pedaddressfield;
 	@FXML
-	private AnchorPane calloutPane;
-	@FXML
-	private ListView calHistoryList;
-	@FXML
-	private ListView calActiveList;
-	@FXML
-	private AnchorPane currentCalPane;
-	@FXML
-	private ToggleButton showCurrentCalToggle;
-	@FXML
-	private TextField calPriority;
-	@FXML
-	private TextField calCounty;
-	@FXML
-	private TextField calDate;
-	@FXML
-	private TextField calNum;
-	@FXML
-	private TextField calTime;
-	@FXML
-	private TextField calStreet;
-	@FXML
-	private Label calloutInfoTitle;
-	@FXML
-	private TextField calArea;
-	@FXML
-	private TextArea calDesc;
-	@FXML
-	private TextField calType;
-	@FXML
-	private Label calfill;
-	@FXML
-	private Label activecalfill;
-	@FXML
 	private VBox bkgclr1;
 	@FXML
 	private Label plt4;
@@ -554,7 +502,7 @@ public class actionController {
 		
 		checkForUpdates();
 		
-		setDisable(lookupPane, calloutPane, courtPane);
+		setDisable(lookupPane, courtPane);
 		setActive(shiftInformationPane);
 		
 		needCourtRefresh.set(0);
@@ -708,54 +656,6 @@ public class actionController {
 					clipboard.setContent(content);
 				}
 			});
-		});
-		
-		currentCalPane.setPrefHeight(0);
-		currentCalPane.setMaxHeight(0);
-		currentCalPane.setMinHeight(0);
-		currentCalPane.setVisible(false);
-		calActiveList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				double toHeight = 329;
-				
-				Timeline timeline = new Timeline();
-				
-				KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-				KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-				                                 keyValueMinHeight);
-				
-				timeline.getKeyFrames().add(keyFrame);
-				
-				timeline.play();
-				currentCalPane.setVisible(true);
-				handleSelectedNodeActive(calActiveList, currentCalPane, calNum, calArea, calCounty, calDate, calStreet,
-				                         calDesc, calType, calTime, calPriority);
-				showCurrentCalToggle.setSelected(true);
-			}
-		});
-		
-		calHistoryList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				double toHeight = 329;
-				
-				Timeline timeline = new Timeline();
-				
-				KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-				KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-				KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-				KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-				                                 keyValueMinHeight);
-				
-				timeline.getKeyFrames().add(keyFrame);
-				
-				timeline.play();
-				currentCalPane.setVisible(true);
-				handleSelectedNodeHistory(calHistoryList, currentCalPane, calNum, calArea, calCounty, calDate,
-				                          calStreet, calDesc, calType, calTime, calPriority);
-				showCurrentCalToggle.setSelected(true);
-			}
 		});
 		
 		try {
@@ -1490,42 +1390,6 @@ public class actionController {
 		return lookupPane;
 	}
 	
-	public Label getCaldetlbl1() {
-		return caldetlbl1;
-	}
-	
-	public Label getCaldetlbl2() {
-		return caldetlbl2;
-	}
-	
-	public Label getCaldetlbl3() {
-		return caldetlbl3;
-	}
-	
-	public Label getCaldetlbl4() {
-		return caldetlbl4;
-	}
-	
-	public Label getCaldetlbl5() {
-		return caldetlbl5;
-	}
-	
-	public Label getCaldetlbl6() {
-		return caldetlbl6;
-	}
-	
-	public Label getCaldetlbl7() {
-		return caldetlbl7;
-	}
-	
-	public Label getCaldetlbl8() {
-		return caldetlbl8;
-	}
-	
-	public Label getCaldetlbl9() {
-		return caldetlbl9;
-	}
-	
 	public Label getCaseprim1() {
 		return caseprim1;
 	}
@@ -1878,48 +1742,8 @@ public class actionController {
 		return arrestReportButton;
 	}
 	
-	public TextField getCalArea() {
-		return calArea;
-	}
-	
-	public TextField getCalCounty() {
-		return calCounty;
-	}
-	
-	public TextField getCalDate() {
-		return calDate;
-	}
-	
-	public TextArea getCalDesc() {
-		return calDesc;
-	}
-	
-	public AnchorPane getCalloutPane() {
-		return calloutPane;
-	}
-	
 	public MenuItem getCalloutReportButton() {
 		return calloutReportButton;
-	}
-	
-	public TextField getCalNum() {
-		return calNum;
-	}
-	
-	public TextField getCalPriority() {
-		return calPriority;
-	}
-	
-	public TextField getCalStreet() {
-		return calStreet;
-	}
-	
-	public TextField getCalTime() {
-		return calTime;
-	}
-	
-	public TextField getCalType() {
-		return calType;
 	}
 	
 	public actionController getController() {
@@ -2030,10 +1854,6 @@ public class actionController {
 		return shiftInformationPane;
 	}
 	
-	public ToggleButton getShowCurrentCalToggle() {
-		return showCurrentCalToggle;
-	}
-	
 	public AnchorPane getSidepane() {
 		return sidepane;
 	}
@@ -2112,30 +1932,6 @@ public class actionController {
 	
 	public VBox getBkgclr1() {
 		return bkgclr1;
-	}
-	
-	public ListView getCalHistoryList() {
-		return calHistoryList;
-	}
-	
-	public ListView getCalActiveList() {
-		return calActiveList;
-	}
-	
-	public Label getActivecalfill() {
-		return activecalfill;
-	}
-	
-	public Label getCalfill() {
-		return calfill;
-	}
-	
-	public Label getCalloutInfoTitle() {
-		return calloutInfoTitle;
-	}
-	
-	public AnchorPane getCurrentCalPane() {
-		return currentCalPane;
 	}
 	
 	public Label getServerStatusLabel() {
@@ -2258,7 +2054,7 @@ public class actionController {
 	@FXML
 	public void onLookupBtnClick(ActionEvent actionEvent) throws IOException {
 		showAnimation(showLookupBtn);
-		setDisable(shiftInformationPane, calloutPane, courtPane);
+		setDisable(shiftInformationPane, courtPane);
 		
 		if (ConfigReader.configRead("lookupWindow", "vehLookupVisible").equalsIgnoreCase("true")) {
 			if (!lookupSplitPane.getItems().contains(vehPane)) {
@@ -2389,7 +2185,7 @@ public class actionController {
 	
 	@FXML
 	public void onShowCourtCasesButtonClick(ActionEvent actionEvent) {
-		setDisable(lookupPane, calloutPane, courtPane, shiftInformationPane);
+		setDisable(lookupPane, courtPane, shiftInformationPane);
 		setActive(courtPane);
 		showAnimation(showCourtCasesBtn);
 		
@@ -2538,7 +2334,7 @@ public class actionController {
 	
 	@FXML
 	public void onShiftInfoBtnClicked(ActionEvent actionEvent) {
-		setDisable(lookupPane, calloutPane, courtPane);
+		setDisable(lookupPane, courtPane);
 		setActive(shiftInformationPane);
 		showAnimation(shiftInfoBtn);
 		controllerUtils.refreshChart(areaReportChart, "area");
@@ -2547,7 +2343,7 @@ public class actionController {
 	@FXML
 	public void onLogsButtonClick(ActionEvent actionEvent) {
 		//todo no longer needed
-		setDisable(shiftInformationPane, lookupPane, calloutPane, courtPane);
+		setDisable(shiftInformationPane, lookupPane, courtPane);
 	}
 	
 	@FXML
@@ -3015,45 +2811,9 @@ public class actionController {
 	}
 	
 	@FXML
-	public void onShowCurrentCalToggled(ActionEvent actionEvent) {
-		calActiveList.getSelectionModel().clearSelection();
-		calHistoryList.getSelectionModel().clearSelection();
-		if (!showCurrentCalToggle.isSelected()) {
-			double toHeight = 0;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames().add(keyFrame);
-			
-			timeline.play();
-			currentCalPane.setVisible(false);
-		} else {
-			double toHeight = 329;
-			
-			Timeline timeline = new Timeline();
-			
-			KeyValue keyValuePrefHeight = new KeyValue(currentCalPane.prefHeightProperty(), toHeight);
-			KeyValue keyValueMaxHeight = new KeyValue(currentCalPane.maxHeightProperty(), toHeight);
-			KeyValue keyValueMinHeight = new KeyValue(currentCalPane.minHeightProperty(), toHeight);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
-			
-			timeline.getKeyFrames().add(keyFrame);
-			
-			timeline.play();
-			currentCalPane.setVisible(true);
-		}
-	}
-	
-	@FXML
 	public void onShowCalloutButtonClick(ActionEvent actionEvent) {
-		double toHeight = 0;
+		// todo moved to callout controller
+		/*double toHeight = 0;
 		
 		Timeline timeline = new Timeline();
 		
@@ -3072,7 +2832,7 @@ public class actionController {
 		setActive(calloutPane);
 		
 		CalloutManager.loadActiveCallouts(calActiveList);
-		CalloutManager.loadHistoryCallouts(calHistoryList);
+		CalloutManager.loadHistoryCallouts(calHistoryList);*/
 	}
 	
 	@FXML

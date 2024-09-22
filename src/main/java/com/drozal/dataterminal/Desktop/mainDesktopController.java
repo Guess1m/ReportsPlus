@@ -4,6 +4,7 @@ import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
+import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Platform;
@@ -128,6 +129,19 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, logBrowserApp, 6);
+		
+		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
+					                                       "Callout Manager", true, 2, true, taskBarApps);
+					CalloutViewController.calloutViewController = (CalloutViewController) logapp.controller;
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, calloutManagerApp, 7);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

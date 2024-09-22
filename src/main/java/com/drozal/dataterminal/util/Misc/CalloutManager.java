@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
@@ -435,16 +436,11 @@ public class CalloutManager {
 		closeBtn.setOnAction(actionEvent -> {
 			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1,
 			           starttime1, startdate1, statusVal.getText());
-			if (DataTerminalHomeApplication.controller != null) {
-				controllerVar = DataTerminalHomeApplication.controller;
-			} else if (newOfficerController.controller != null) {
-				controllerVar = newOfficerController.controller;
-			} else {
-				log("Callout Controller Var 1 could not be set", LogUtils.Severity.ERROR);
-			}
 			deleteCallout(calloutDataURL, number);
-			CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
-			CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
+			if (calloutViewController != null) {
+				CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
+				CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+			}
 		});
 		
 		gridPane.add(closeBtn, 2, 3, 2, 2);

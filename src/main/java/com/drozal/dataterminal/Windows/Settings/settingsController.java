@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -294,7 +295,6 @@ public class settingsController {
 			changeBarColors(controllerVar.getReportChart());
 			changeStatisticColors(controllerVar.getAreaReportChart());
 			
-			controllerVar.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 			controllerVar.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
 			controllerVar.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
 			controllerVar.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
@@ -321,7 +321,6 @@ public class settingsController {
 			
 			controllerVar.getBkgclr1().setStyle("-fx-background-color: " + bkgclr + ";");
 			
-			controllerVar.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			controllerVar.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			controllerVar.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			controllerVar.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -330,22 +329,6 @@ public class settingsController {
 			
 			controllerVar.mainColor8.setStyle("-fx-text-fill: " + accclr + ";");
 			controllerVar.getUserCircle().setStyle("-fx-fill: " + accclr + ";");
-			
-			CalloutManager.loadActiveCallouts(controllerVar.getCalActiveList());
-			CalloutManager.loadHistoryCallouts(controllerVar.getCalHistoryList());
-			
-			controllerVar.getCurrentCalPane().setStyle(
-					updateStyleProperty(controllerVar.getCurrentCalPane(), "-fx-border-color", accclr));
-			
-			controllerVar.getCalActiveList().setStyle(
-					updateStyleProperty(controllerVar.getCalActiveList(), "-fx-border-color", accclr));
-			controllerVar.getCalHistoryList().setStyle(
-					updateStyleProperty(controllerVar.getCalHistoryList(), "-fx-border-color", accclr));
-			
-			controllerVar.getActivecalfill().setStyle(
-					updateStyleProperty(controllerVar.getActivecalfill(), "-fx-border-color", mainclr));
-			controllerVar.getCalfill().setStyle(
-					updateStyleProperty(controllerVar.getCalfill(), "-fx-border-color", mainclr));
 			
 			controllerVar.updateInfoBtn.setStyle(nonTransparentBtn);
 			
@@ -421,6 +404,26 @@ public class settingsController {
 			logController.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
+			calloutViewController.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
+			CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+			
+			calloutViewController.getCurrentCalPane().setStyle(
+					updateStyleProperty(calloutViewController.getCurrentCalPane(), "-fx-border-color", accclr));
+			
+			calloutViewController.getCalActiveList().setStyle(
+					updateStyleProperty(calloutViewController.getCalActiveList(), "-fx-border-color", accclr));
+			calloutViewController.getCalHistoryList().setStyle(
+					updateStyleProperty(calloutViewController.getCalHistoryList(), "-fx-border-color", accclr));
+			
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-border-color", mainclr));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
+			
 		}
 	}
 	
@@ -1467,6 +1470,23 @@ public class settingsController {
 			logController.getTabPane().getStyleClass().add("darktabpane");
 			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
+		if (calloutViewController != null) {
+			calloutViewController.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UIDarkColor));
+			
+		}
 		if (controllerVar != null) {
 			
 			controllerVar.getCaseNotesField().getStyleClass().clear();
@@ -1488,16 +1508,6 @@ public class settingsController {
 			controllerVar.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			
-			controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			
 			controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1535,11 +1545,6 @@ public class settingsController {
 			controllerVar.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			controllerVar.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			
-			controllerVar.getActivecalfill().setStyle(
-					updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UIDarkColor));
-			controllerVar.getCalfill().setStyle(
-					updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UIDarkColor));
 			
 			controllerVar.getAreaReportChart().getStyleClass().clear();
 			controllerVar.getAreaReportChart().getStyleClass().add("darkchart");
@@ -1580,6 +1585,23 @@ public class settingsController {
 			logController.getTabPane().getStyleClass().add("lighttabpane");
 			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
+		if (calloutViewController != null) {
+			calloutViewController.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UILightColor));
+			
+		}
 		if (controllerVar != null) {
 			controllerVar.getCaseNotesField().getStyleClass().clear();
 			controllerVar.getCaseNotesField().getStyleClass().add("text-area-light");
@@ -1600,16 +1622,6 @@ public class settingsController {
 			controllerVar.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			
-			controllerVar.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			controllerVar.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
 			
 			controllerVar.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -1647,11 +1659,6 @@ public class settingsController {
 			controllerVar.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
 			controllerVar.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
-			
-			controllerVar.getActivecalfill().setStyle(
-					updateStyleProperty(controllerVar.getActivecalfill(), "-fx-text-fill", UILightColor));
-			controllerVar.getCalfill().setStyle(
-					updateStyleProperty(controllerVar.getCalfill(), "-fx-text-fill", UILightColor));
 			
 			controllerVar.getAreaReportChart().getStyleClass().clear();
 			controllerVar.getAreaReportChart().getStyleClass().add("lightchart");

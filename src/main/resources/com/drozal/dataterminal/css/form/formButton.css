@@ -22,48 +22,48 @@
 .incidentformButton {
     -fx-background-color: rgb(94, 115, 135, 0.8);
     -fx-border-width: 0;
-    -fx-border-color: white; /* Border color */
+    -fx-border-color: white;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }
 
 .incidentformButton:hover {
-    -fx-background-color: #546778; /* Background color */
+    -fx-background-color: #546778;
     -fx-border-width: 0;
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495a69; /* Background color */
+    -fx-background-color: #495a69;
     -fx-border-width: 0;
 }
 
 
 .codesBtn {
-    -fx-background-color: transparent; /* Background color */
+    -fx-background-color: transparent;
     -fx-border-width: 0 0 1.5 0;
     -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3); /* Border color */
+    -fx-border-color: rgb(40, 40, 40, 0.3);
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14;
 }
 
 .codesBtn:hover {
-    -fx-background-color: rgb(200, 200, 200, 0.2); /* Background color */
+    -fx-background-color: rgb(200, 200, 200, 0.2);
     -fx-border-width: 0 0 1.5 0;
     -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3); /* Border color */
+    -fx-border-color: rgb(40, 40, 40, 0.3);
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.4;
 }
 
 .codesBtn:pressed {
-    -fx-background-color: rgb(200, 200, 200, 0.4); /* Background color */
+    -fx-background-color: rgb(200, 200, 200, 0.4);
     -fx-border-width: 0 0 1.5 0;
     -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3); /* Border color */
+    -fx-border-color: rgb(40, 40, 40, 0.3);
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5;

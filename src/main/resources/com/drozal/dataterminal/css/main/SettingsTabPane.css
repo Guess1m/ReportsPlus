@@ -10,26 +10,26 @@
     -fx-padding: 4px 9px;
     -fx-background-radius: 8 8 0 0;
     -fx-border-color: rgb(128, 128, 128, 0.2);
-    -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
+    -fx-border-width: 0 0 0px 0;
 }
 
 .lighttabpane .tab-label {
-    -fx-text-fill: white; /* Text color of the selected tab */
+    -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
 }
 
 .lighttabpane .tab:selected .tab-label {
-    -fx-text-fill: white; /* Text color of the selected tab */
+    -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-family: "Roboto Bold";
 }
 
 .lighttabpane .tab:selected {
     -fx-background-color: transparent;
-    -fx-border-color: rgb(255, 255, 255, 0.6); /* Change border color when focused */
-    -fx-border-width: 0 0 2px 0; /* Increase bottom border width when focused */
-    -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
+    -fx-border-color: rgb(255, 255, 255, 0.6);
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 5.3 12px;
 }
 
 .lighttabpane .tab:selected .focus-indicator {
@@ -41,46 +41,45 @@
 }
 
 .lighttabpane .tab:hover .tab-label {
-    /*-fx-text-fill: #b5b5b5;  Text color of the selected tab */
 }
 
 .lighttabpane .tab-header-background {
-    -fx-background-color: transparent; /* Background color of the selected tab header */
+    -fx-background-color: transparent;
 }
 
 
 .darktabpane .tab-pane {
-    -fx-background-color: white; /* Background color */
+    -fx-background-color: white;
 }
 
 .darktabpane .tab {
-    -fx-font-size: 15px; /* Font size of tab labels */
+    -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
     -fx-background-color: transparent;
-    -fx-text-fill: white !important; /* Text color of tabs */
-    -fx-padding: 4px 9px; /* Padding on the left and right of each tab */
-    -fx-background-radius: 8 8 0 0; /* Top-left and top-right corners rounded */
-    -fx-border-color: rgb(128, 128, 128, 0.2); /* Change border color when focused */
-    -fx-border-width: 0 0 0px 0; /* Increase bottom border width when focused */
+    -fx-text-fill: white !important;
+    -fx-padding: 4px 9px;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
+    -fx-border-width: 0 0 0px 0;
 }
 
 .darktabpane .tab-label {
-    -fx-text-fill: black; /* Text color of the selected tab */
+    -fx-text-fill: black;
     -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
 }
 
 .darktabpane .tab:selected .tab-label {
-    -fx-text-fill: black; /* Text color of the selected tab */
+    -fx-text-fill: black;
     -fx-font-size: 15px;
     -fx-font-family: "Roboto Bold";
 }
 
 .darktabpane .tab:selected {
     -fx-background-color: transparent;
-    -fx-border-color: rgb(30, 30, 30, 0.6); /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
-    -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
+    -fx-border-color: rgb(30, 30, 30, 0.6);
+    -fx-border-width: 0 0 3px 0;
+    -fx-padding: 5.3 12px;
 }
 
 .darktabpane .tab:selected .focus-indicator {
@@ -92,9 +91,8 @@
 }
 
 .darktabpane .tab:hover .tab-label {
-    /*-fx-text-fill: #b5b5b5;  Text color of the selected tab */
 }
 
 .darktabpane .tab-header-background {
-    -fx-background-color: transparent; /* Background color of the selected tab header */
+    -fx-background-color: transparent;
 }

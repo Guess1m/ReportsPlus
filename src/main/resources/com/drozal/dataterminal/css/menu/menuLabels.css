@@ -1,10 +1,9 @@
-/* Modern Subheader Style */
 .headingBig {
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #665cb6; /* Dark grey color */
-    -fx-padding: 4px 0; /* Adjust padding as needed */
+    -fx-text-fill: #665cb6;
+    -fx-padding: 4px 0;
 }
 
 .heading {
@@ -12,28 +11,28 @@
     -fx-background-color: rgb(102, 92, 182, 0.75);
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: white; /* Dark grey color */
-    -fx-padding: 4px 0; /* Adjust padding as needed */
+    -fx-text-fill: white;
+    -fx-padding: 4px 0;
 }
 
 .sub-heading {
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #404040; /* Dark grey color */
-    -fx-padding: 4px 0; /* Adjust padding as needed */
+    -fx-text-fill: #404040;
+    -fx-padding: 4px 0;
 }
 
 .statisticHeading {
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 25px;
-    -fx-text-fill: #665cb6; /* Dark grey color */
-    -fx-padding: 4px 0; /* Adjust padding as needed */
+    -fx-text-fill: #665cb6;
+    -fx-padding: 4px 0;
 }
 
 .statisticSubHeading {
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 19px;
-    -fx-text-fill: #404040; /* Dark grey color */
-    -fx-padding: 4px 0; /* Adjust padding as needed */
+    -fx-text-fill: #404040;
+    -fx-padding: 4px 0;
 }

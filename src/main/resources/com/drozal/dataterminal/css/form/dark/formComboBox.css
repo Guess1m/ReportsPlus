@@ -1,4 +1,3 @@
-/* Common ComboBox styles */
 .comboboxnew {
     -fx-text-fill: white !important;
     -fx-font-family: "Segoe UI Semibold";
@@ -6,12 +5,11 @@
     -fx-background-color: rgb(242, 242, 242, 0.6);
     -fx-prompt-text-fill: rgb(200, 200, 200, 0.6) !important;
     -fx-background-insets: 0;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: #262626; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #262626;
 }
 
-/* Editable TextField within ComboBox */
 .comboboxnew .text-field {
     -fx-text-fill: white !important;
     -fx-font-family: "Segoe UI Semibold";
@@ -20,26 +18,24 @@
     -fx-background-color: rgb(242, 242, 242, 0.6);
     -fx-prompt-text-fill: rgb(200, 200, 200, 0.6) !important;
     -fx-background-insets: 0;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 0.3px 0; /* Set bottom border width */
-    -fx-border-color: #262626; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 0.3px 0;
+    -fx-border-color: #262626;
 }
 
-/* List cells within ComboBox */
 .comboboxnew .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
-/* Popup list cells */
 .comboboxnew-popup .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-text-fill: black;
     -fx-background-color: #f2f2f2;
     -fx-border-color: transparent;
 }
 
 .combo-box .list-view .list-cell:hover,
 .combo-box .text-field .list-view .list-cell:hover {
-    -fx-background-color: rgb(94, 115, 135, 0.4); /* Set the hover background color */
+    -fx-background-color: rgb(94, 115, 135, 0.4);
     -fx-border-color: transparent;
 }
 
@@ -49,34 +45,31 @@
     -fx-background-color: transparent;
 }
 
-/* Scroll bar within ComboBox */
 .comboboxnew .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-    -fx-pref-width: 11px; /* Thicker width */
+    -fx-background-color: #f2f2f2;
+    -fx-pref-width: 11px;
 }
 
 .comboboxnew .scroll-bar .increment-arrow,
 .comboboxnew .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+    -fx-background-color: none;
 }
 
 .comboboxnew .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .comboboxnew .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
-/* Focused state */
 .comboboxnew:focused {
-    -fx-border-color: #e6e6e6; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #e6e6e6;
+    -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
 
-/* Focused state for the editable TextField within ComboBox */
 .comboboxnew .text-field:focused {
     -fx-border-color: #e6e6e6;
     -fx-border-width: 0 0 0.55px 0;

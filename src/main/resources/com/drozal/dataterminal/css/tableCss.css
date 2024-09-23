@@ -133,20 +133,20 @@
 
 .chargesTable .table-row-cell {
     -fx-table-cell-border-color: transparent;
-    -fx-cell-size: 40px; /* Adjust the row height as needed */
-    -fx-alignment: center; /* Center text horizontally */
+    -fx-cell-size: 40px;
+    -fx-alignment: center;
 }
 
 .chargesTable .table-row-cell:odd {
     -fx-background-color: rgb(242, 242, 242, 0.4);
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-    -fx-border-color: rgb(128, 128, 128, 0.2); /* Set border color */
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
 }
 
 .chargesTable .table-row-cell:even {
     -fx-background-color: rgb(255, 255, 255, 0.6);
-    -fx-border-width: 1px 0 0 0; /* Set border width to 1 pixel at the bottom */
-    -fx-border-color: rgb(128, 128, 128, 0.2); /* Set border color */
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
 }
 
 .chargesTable .table-row-cell:selected {

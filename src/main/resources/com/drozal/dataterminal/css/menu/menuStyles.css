@@ -10,33 +10,31 @@
     -fx-background-color: #665cb6;
 }
 
-/*Button*/
 .menuButton {
-    -fx-background-color: white; /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-border-radius: 4px; /* Border radius */
+    -fx-background-color: white;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 4px;
     -fx-border-width: 0.5;
-    -fx-border-color: grey; /* Border color */
+    -fx-border-color: grey;
     -fx-text-fill: rgb(0, 0, 0, 0.9);
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
 }
 
 .menuButton:hover {
-    -fx-text-fill: #7b72c0; /* Text color */
+    -fx-text-fill: #7b72c0;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .menuButton:pressed {
-    -fx-background-color: #7b72c0; /* Background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: #7b72c0;
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 14.5px;
 }
 
-/*TextFields*/
 .menuField {
     -fx-text-fill: black !important;
     -fx-font-family: "Roboto";
@@ -45,14 +43,14 @@
     -fx-prompt-text-fill: #524992 !important;
     -fx-background-insets: 0;
     -fx-padding: 8px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .menuField:focused {
-    -fx-border-color: #665cb6; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #665cb6;
+    -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
@@ -69,12 +67,11 @@
     -fx-prompt-text-fill: #524992 !important;
     -fx-background-insets: 0;
     -fx-padding: 8px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
-/*ComboBoxes*/
 .menuCombobox {
     -fx-text-fill: black !important;
     -fx-font-family: "Roboto";
@@ -83,55 +80,54 @@
     -fx-prompt-text-fill: #524992 !important;
     -fx-background-insets: 0;
     -fx-padding: 3px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .menuCombobox .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
 .menuCombobox .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-text-fill: black;
     -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
 
 .menuCombobox .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-    -fx-pref-width: 11px; /* Thicker width */
+    -fx-background-color: #f2f2f2;
+    -fx-pref-width: 11px;
 }
 
 .menuCombobox .scroll-bar .increment-arrow,
 .menuCombobox .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+    -fx-background-color: none;
 }
 
 .menuCombobox .scroll-bar .thumb {
-    -fx-background-color: #665cb6; /* Change arrow color */
+    -fx-background-color: #665cb6;
 }
 
 .menuCombobox .scroll-bar .thumb:pressed {
-    -fx-background-color: #51479e; /* Change arrow color */
+    -fx-background-color: #51479e;
 }
 
 .menuCombobox .list-view .list-cell:hover {
-    -fx-background-color: #ada7d7; /* Set the hover background color */
+    -fx-background-color: #ada7d7;
 }
 
 .menuCombobox:focused {
-    -fx-border-color: #665cb6; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #665cb6;
+    -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
     -fx-background-color: rgb(242, 242, 242);
 }
 
-/*Notes*/
 .purpleButton {
-    -fx-background-color: rgb(102, 92, 182, 0.95); /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-background-radius: 7px; /* Border radius */
+    -fx-background-color: rgb(102, 92, 182, 0.95);
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
@@ -139,24 +135,24 @@
 }
 
 .purpleButton:hover {
-    -fx-background-color: rgb(102, 92, 182, 0.8); /* Hover background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: rgb(102, 92, 182, 0.8);
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .purpleButton:pressed {
-    -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: rgb(102, 92, 182);
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }
 
 .incidentbtn {
-    -fx-background-color: #5e7387; /* Background color */
-    -fx-padding: 8px 16px; /* Padding */
-    -fx-background-radius: 7px; /* Border radius */
+    -fx-background-color: #5e7387;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
@@ -164,16 +160,16 @@
 }
 
 .incidentbtn:hover {
-    -fx-background-color: #495a69; /* Hover background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: #495a69;
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .incidentbtn:pressed {
-    -fx-background-color: #34404b; /* Pressed background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: #34404b;
+    -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;
 }
@@ -186,22 +182,22 @@
     -fx-prompt-text-fill: red !important;
     -fx-background-insets: 0;
     -fx-padding: 8px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .connField:focused {
-    -fx-border-color: #665cb6; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #665cb6;
+    -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
 
 .settingsBtn {
-    -fx-background-color: rgb(102, 92, 182, 0.95); /* Background color */
-    -fx-padding: 2px 4px; /* Padding */
-    -fx-background-radius: 7px; /* Border radius */
+    -fx-background-color: rgb(102, 92, 182, 0.95);
+    -fx-padding: 2px 4px;
+    -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 14px;
@@ -209,12 +205,12 @@
 }
 
 .settingsBtn:hover {
-    -fx-background-color: rgb(102, 92, 182, 0.8); /* Hover background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: rgb(102, 92, 182, 0.8);
+    -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .settingsBtn:pressed {
-    -fx-background-color: rgb(102, 92, 182); /* Pressed background color */
-    -fx-text-fill: white; /* Text color */
+    -fx-background-color: rgb(102, 92, 182);
+    -fx-text-fill: white;
 }

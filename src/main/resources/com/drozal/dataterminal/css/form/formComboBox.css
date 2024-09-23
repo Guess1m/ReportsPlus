@@ -6,13 +6,13 @@
     -fx-prompt-text-fill: rgb(115, 115, 115, 1) !important;
     -fx-background-insets: 0;
     -fx-padding: 3px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .combo-boxdark .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
 .combo-boxdark .list-view .list-cell {
@@ -32,20 +32,20 @@
 }
 
 .combo-boxdark .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .combo-boxdark .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
 .combo-boxdark .list-view .list-cell:hover {
-    -fx-background-color: rgb(94, 115, 135, 0.4); /* Set the hover background color */
+    -fx-background-color: rgb(94, 115, 135, 0.4);
 }
 
 .combo-boxdark:focused {
-    -fx-border-color: #5e7387; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
     -fx-background-color: rgb(10, 10, 10, 0.3);
 }
@@ -59,13 +59,13 @@
     -fx-prompt-text-fill: rgb(50, 50, 50, 1);
     -fx-background-insets: 0;
     -fx-padding: 3px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .combo-boxlight .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
 .combo-boxlight .list-view .list-cell {
@@ -85,20 +85,20 @@
 }
 
 .combo-boxlight .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .combo-boxlight .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
 .combo-boxlight .list-view .list-cell:hover {
-    -fx-background-color: rgb(94, 115, 135, 0.4); /* Set the hover background color */
+    -fx-background-color: rgb(94, 115, 135, 0.4);
 }
 
 .combo-boxlight:focused {
-    -fx-border-color: #5e7387; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
     -fx-background-color: rgb(240, 240, 240, 0.6);
 }
@@ -111,42 +111,42 @@
     -fx-background-color: rgb(242, 242, 242, 0.6);
     -fx-prompt-text-fill: rgb(200, 200, 200, 0.6) !important;
     -fx-background-insets: 0;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: #262626; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #262626;
 }
 
 .comboboxnew .list-cell {
-    -fx-text-fill: white; /* Set the text color */
+    -fx-text-fill: white;
 }
 
 .comboboxnew-popup .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-text-fill: black;
     -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
 
 .comboboxnew .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-    -fx-pref-width: 11px; /* Thicker width */
+    -fx-background-color: #f2f2f2;
+    -fx-pref-width: 11px;
 }
 
 .comboboxnew .scroll-bar .increment-arrow,
 .comboboxnew .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+    -fx-background-color: none;
 }
 
 .comboboxnew .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .comboboxnew .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
 .comboboxnew:focused {
-    -fx-border-color: #e6e6e6; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #e6e6e6;
+    -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
@@ -159,43 +159,43 @@
     -fx-prompt-text-fill: #737373 !important;
     -fx-background-insets: 0;
     -fx-padding: 3.9px;
-    -fx-border-radius: 5; /* Remove border-radius for a flat appearance */
+    -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-border-width: 0.35 0.35 0.35 0.35; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-width: 0.35 0.35 0.35 0.35;
+    -fx-border-color: grey;
 }
 
 .combo-box2 .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
 .combo-box2-popup .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-text-fill: black;
     -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
 
 .combo-box2 .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-    -fx-pref-width: 11px; /* Thicker width */
+    -fx-background-color: #f2f2f2;
+    -fx-pref-width: 11px;
 }
 
 .combo-box2 .scroll-bar .increment-arrow,
 .combo-box2 .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+    -fx-background-color: none;
 }
 
 .combo-box2 .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .combo-box2 .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
 .combo-box2:focused {
-    -fx-border-color: #5e7387; /* Change border color when focused */
-    -fx-border-width: 0.2 0.2 3px 0.2; /* Increase bottom border width when focused */
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0.2 0.2 3px 0.2;
     -fx-background-color: #f2f2f2;
     -fx-effect: none;
 }
@@ -207,46 +207,46 @@
     -fx-background-color: none;
     -fx-background-insets: 0;
     -fx-padding: 0px;
-    -fx-border-radius: 0; /* Remove border-radius for a flat appearance */
-    -fx-border-width: 0 0 2px 0; /* Set bottom border width */
-    -fx-border-color: grey; /* Set initial border color to transparent */
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
 }
 
 .combo-boxCal .list-cell {
-    -fx-text-fill: black; /* Set the text color */
+    -fx-text-fill: black;
 }
 
 .combo-boxCal .list-view .list-cell {
-    -fx-text-fill: black; /* Text color only for dropdown options */
+    -fx-text-fill: black;
     -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
 
 .combo-boxCal .scroll-bar {
-    -fx-background-color: #f2f2f2; /* Transparent background */
-    -fx-pref-width: 11px; /* Thicker width */
+    -fx-background-color: #f2f2f2;
+    -fx-pref-width: 11px;
 }
 
 .combo-boxCal .scroll-bar .increment-arrow,
 .combo-boxCal .scroll-bar .decrement-arrow {
-    -fx-background-color: none; /* Change arrow color */
+    -fx-background-color: none;
     -fx-fill: none;
 }
 
 .combo-boxCal .scroll-bar .thumb {
-    -fx-background-color: #5e7387; /* Change arrow color */
+    -fx-background-color: #5e7387;
 }
 
 .combo-boxCal .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69; /* Change arrow color */
+    -fx-background-color: #495a69;
 }
 
 .combo-boxCal .list-view .list-cell:hover {
-    -fx-background-color: rgb(94, 115, 135, 0.4); /* Set the hover background color */
+    -fx-background-color: rgb(94, 115, 135, 0.4);
 }
 
 .combo-boxCal:focused {
-    -fx-border-color: #5e7387; /* Change border color when focused */
-    -fx-border-width: 0 0 3px 0; /* Increase bottom border width when focused */
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
 }

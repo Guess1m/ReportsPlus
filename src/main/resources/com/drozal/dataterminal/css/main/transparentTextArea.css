@@ -38,33 +38,29 @@
     -fx-background-color: transparent;
 }
 
-/* Define styles for the horizontal scroll bar */
 .text-area .scroll-pane .scroll-bar:horizontal {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-pref-height: 15px; /* Thicker height */
+    -fx-background-color: transparent;
+    -fx-pref-height: 15px;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal .thumb {
-    -fx-background-color: #5e7387; /* Thumb color */
-    -fx-min-width: 15px; /* Thicker thumb */
+    -fx-background-color: #5e7387;
+    -fx-min-width: 15px;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal .increment-button,
 .text-area .scroll-pane .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: transparent; /* Transparent buttons */
+    -fx-background-color: transparent;
 }
 
-/* Define styles for the track of the scroll bars */
 .text-area .scroll-pane .scroll-bar .track {
-    -fx-background-color: none; /* Transparent track */
+    -fx-background-color: none;
 }
 
-/* Define styles for the vertical scroll bar when pressed */
 .text-area .scroll-pane .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #495a69; /* Thumb color when pressed */
+    -fx-background-color: #495a69;
 }
 
-/* Define styles for the horizontal scroll bar when pressed */
 .text-area .scroll-pane .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #495a69; /* Thumb color when pressed */
+    -fx-background-color: #495a69;
 }

@@ -4,10 +4,10 @@
 }
 
 .calloutTABLE:focused {
-    -fx-background-color: transparent; /* Set background color to transparent */
-    -fx-border-color: transparent; /* Set border color to transparent */
-    -fx-border-width: 0; /* Set border width to 0 */
-    -fx-effect: none; /* Remove any effects */
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-effect: none;
 }
 
 .calloutTABLE .column-header-background {
@@ -19,7 +19,7 @@
     -fx-text-fill: #cccccc;
     -fx-font-size: 16.2px;
     -fx-padding: 5px;
-    -fx-font-family: "Segoe UI Black"; /* Change the font family */
+    -fx-font-family: "Segoe UI Black";
 }
 
 .calloutTABLE .column-header {
@@ -30,15 +30,15 @@
 
 .calloutTABLE .table-cell {
     -fx-text-fill: black;
-    -fx-font-family: "Segoe UI"; /* Change the font family */
-    -fx-alignment: center; /* Center text horizontally */
-    -fx-padding: 0 30px; /* Add padding to the left and right of the cells */
+    -fx-font-family: "Segoe UI";
+    -fx-alignment: center;
+    -fx-padding: 0 30px;
 }
 
 .calloutTABLE .table-row-cell {
     -fx-table-cell-border-color: transparent;
-    -fx-cell-size: 30px; /* Adjust the row height as needed */
-    -fx-alignment: center; /* Center text horizontally */
+    -fx-cell-size: 30px;
+    -fx-alignment: center;
 }
 
 .calloutTABLE .table-row-cell:odd {
@@ -50,8 +50,8 @@
 }
 
 .calloutTABLE .table-row-cell:selected {
-    -fx-text-fill: white; /* Set the text color to white */
-    -fx-background-color: grey; /* Light grey color */
+    -fx-text-fill: white;
+    -fx-background-color: grey;
 }
 
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical,

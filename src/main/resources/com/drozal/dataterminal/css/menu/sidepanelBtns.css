@@ -1,13 +1,12 @@
-/* Modern Material Design Button */
 .menu {
-    -fx-background-color: transparent; /* Background color */
-    -fx-padding: 8px 13px; /* Padding */
-    -fx-background-radius: 5px; /* Border radius */
-    -fx-border-color: transparent; /* Border color */
+    -fx-background-color: transparent;
+    -fx-padding: 8px 13px;
+    -fx-background-radius: 5px;
+    -fx-border-color: transparent;
     -fx-text-fill: white;
     -fx-alignment: center-left;
 }
 
 .menu:hover {
-    -fx-background-color: #7b72c0; /* Hover background color */
+    -fx-background-color: #7b72c0;
 }

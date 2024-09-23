@@ -20,16 +20,16 @@
 }
 
 .tab:selected .tab-label {
-    -fx-text-fill: black; /* Text color of the selected tab */
+    -fx-text-fill: black;
     -fx-font-size: 15px;
     -fx-font-family: "Roboto Bold";
 }
 
 .tab:selected {
-    -fx-background-color: rgb(200, 200, 200, 0.5); /* Background color of the selected tab */
-    -fx-border-color: #383838; /* Change border color when focused */
-    -fx-border-width: 0 0 4px 0; /* Increase bottom border width when focused */
-    -fx-padding: 5.3 12px; /* Padding on the left and right of each tab */
+    -fx-background-color: rgb(200, 200, 200, 0.5);
+    -fx-border-color: #383838;
+    -fx-border-width: 0 0 4px 0;
+    -fx-padding: 5.3 12px;
 }
 
 .tab:selected .focus-indicator {
@@ -37,13 +37,12 @@
 }
 
 .tab:hover {
-    -fx-background-color: rgb(230, 230, 230, 0.5); /* Background color of the selected tab */
+    -fx-background-color: rgb(230, 230, 230, 0.5);
 }
 
 .tab:hover .tab-label {
-    /*-fx-text-fill: #b5b5b5;  Text color of the selected tab */
 }
 
 .tab-header-background {
-    -fx-background-color: transparent; /* Background color of the selected tab header */
+    -fx-background-color: transparent;
 }

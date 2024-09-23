@@ -41,33 +41,29 @@
     -fx-background-color: transparent;
 }
 
-/* Define styles for the horizontal scroll bar */
 .CitationTree .scroll-bar:horizontal {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-pref-width: 14px; /* Thicker width */
+    -fx-background-color: transparent;
+    -fx-pref-width: 14px;
 }
 
 .CitationTree .scroll-bar:horizontal .thumb {
-    -fx-background-color: #546778; /* Thumb color */
-    -fx-min-height: 14px; /* Thicker thumb */
+    -fx-background-color: #546778;
+    -fx-min-height: 14px;
 }
 
 .CitationTree .scroll-bar:horizontal .increment-button,
 .CitationTree .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: transparent; /* Transparent buttons */
+    -fx-background-color: transparent;
 }
 
-/* Define styles for the track of the scroll bars */
 .CitationTree .scroll-bar .track {
-    -fx-background-color: none; /* Transparent track */
+    -fx-background-color: none;
 }
 
-/* Define styles for the vertical scroll bar when pressed */
 .CitationTree .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #495a69; /* Thumb color when pressed */
+    -fx-background-color: #495a69;
 }
 
-/* Define styles for the horizontal scroll bar when pressed */
 .CitationTree .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #495a69; /* Thumb color when pressed */
+    -fx-background-color: #495a69;
 }

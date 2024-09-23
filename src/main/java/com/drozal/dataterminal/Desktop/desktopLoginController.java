@@ -29,7 +29,6 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopSta
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Window.windowUtils.toggleWindowedFullscreen;
 
 public class desktopLoginController {
 	@javafx.fxml.FXML
@@ -80,7 +79,6 @@ public class desktopLoginController {
 	
 	@javafx.fxml.FXML
 	public void loginButtonClick(ActionEvent actionEvent) throws IOException {
-		
 		if (agencyDropDown.getValue() == null || divisionDropDown.getValue() == null || rankDropdown.getValue() == null || nameField.getText().isEmpty() || numberField.getText().isEmpty()) {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
@@ -137,7 +135,7 @@ public class desktopLoginController {
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			
-			toggleWindowedFullscreen(mainDesktopStage, 850, 750);
+			mainDesktopStage.setMaximized(true);
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

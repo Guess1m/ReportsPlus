@@ -36,9 +36,11 @@ public class newOfficerApplication extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-login.fxml"));
 		Scene scene = new Scene(fxmlLoader.load());
-		primaryStage.setTitle("Simulation Desktop Login");
+		primaryStage.setTitle("ReportsPlus Login");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		primaryStage.setMaximized(true);
 		
 	}
 	

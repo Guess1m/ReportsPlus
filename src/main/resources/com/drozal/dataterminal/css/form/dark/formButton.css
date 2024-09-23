@@ -8,31 +8,31 @@
 }
 
 .incidentformButton > .label {
-    -fx-text-fill: white !important; /* Change the text color to white */
+    -fx-text-fill: white !important;
     -fx-alignment: center-left;
     -fx-font-size: 18px;
     -fx-padding: 0 0 0 10.5;
 }
 
 .incidentformButton .context-menu {
-    -fx-background-color: rgb(0, 0, 0, 0.15); /* Set the background color */
+    -fx-background-color: rgb(0, 0, 0, 0.15);
     -fx-padding: 0;
 }
 
 .incidentformButton .context-menu .label {
-    -fx-text-fill: white; /* Set the text color */
+    -fx-text-fill: white;
     -fx-font-size: 15;
 }
 
 
 .incidentformButton .context-menu .menu-item {
-    -fx-background-color: rgb(0, 0, 0, 0.15); /* Set the background color */
-    -fx-text-fill: white; /* Set the text color */
+    -fx-background-color: rgb(0, 0, 0, 0.15);
+    -fx-text-fill: white;
     -fx-font-size: 15;
 }
 
 .incidentformButton .context-menu .menu-item:hover {
-    -fx-background-color: rgb(0, 0, 0, 0.5); /* Set the background color on hover */
+    -fx-background-color: rgb(0, 0, 0, 0.5);
 }
 
 .incidentformButton:hover {
@@ -41,6 +41,6 @@
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495a69; /* Background color */
+    -fx-background-color: #495a69;
     -fx-border-width: 0;
 }

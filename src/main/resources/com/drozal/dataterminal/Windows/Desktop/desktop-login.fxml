@@ -1,126 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 <BorderPane prefHeight="577.0" prefWidth="1038.0" stylesheets="@../../css/desktop-login-background.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Desktop.desktopLoginController">
     <center>
-       <AnchorPane fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="395.0" minWidth="586.0"
-                   prefHeight="395.0" prefWidth="620.0" style="-fx-background-color: rgb(255,255,255,0.5);">
-          <children>
-             <AnchorPane layoutX="21.0" layoutY="6.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0"
-                         prefWidth="509.0" styleClass="menuTopBar" stylesheets="@../../css/menu/menuStyles.css"
-                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <children>
-                   <Label layoutX="83.0" layoutY="18.0" minHeight="-Infinity" minWidth="-Infinity"
-                          prefHeight="39.0" prefWidth="212.0" text="Reports Plus" textFill="WHITE"
-                          AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="83.0"
-                          AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="18.0">
-                      <font>
-                         <Font name="Segoe UI" size="27.0"/>
-                      </font>
-                   </Label>
-                   <Label layoutX="27.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0"
-                          prefWidth="97.0" text="Rp" textFill="WHITE" AnchorPane.bottomAnchor="9.0"
-                          AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="462.0" AnchorPane.topAnchor="9.0">
-                      <font>
-                         <Font name="Blanka-Regular" size="37.0"/>
-                      </font>
-                   </Label>
-                </children>
-             </AnchorPane>
-             <AnchorPane layoutX="9.0" layoutY="71.0" prefHeight="344.0" prefWidth="586.0"
-                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                         AnchorPane.topAnchor="71.0">
-                <children>
-                   <AnchorPane layoutX="8.0" layoutY="8.0" style="-fx-background-color: rgb(255,255,255,0.8);"
-                               AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0"
-                               AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
-                      <children>
-                         <VBox layoutX="25.0" layoutY="61.0" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="182.0" prefWidth="519.0" spacing="10.0" AnchorPane.bottomAnchor="65.0"
-                               AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="26.0"
-                               AnchorPane.topAnchor="61.0">
-                            <children>
-                               <AnchorPane>
-                                  <children>
-                                     <TextField fx:id="nameField" maxHeight="-Infinity" minHeight="-Infinity"
-                                                minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0"
-                                                promptText="Name" styleClass="menuField"
-                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="191.0">
-                                        <font>
-                                           <Font name="Segoe UI Semibold" size="19.0"/>
-                                        </font>
-                                     </TextField>
-                                     <TextField fx:id="numberField" layoutX="344.0" maxHeight="-Infinity"
-                                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
-                                                prefWidth="175.0" promptText="Number" styleClass="menuField"
-                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                AnchorPane.rightAnchor="0.0">
-                                        <font>
-                                           <Font name="Segoe UI Semibold" size="19.0"/>
-                                        </font>
-                                     </TextField>
-                                     <ComboBox fx:id="rankDropdown" layoutY="48.0" maxHeight="-Infinity"
-                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
-                                               prefWidth="519.0" styleClass="menuCombobox"
-                                               stylesheets="@../../css/menu/menuStyles.css"
-                                               visibleRowCount="14" AnchorPane.leftAnchor="0.0"
-                                               AnchorPane.rightAnchor="0.0"/>
-                                     <ComboBox fx:id="agencyDropDown" layoutY="96.0" maxHeight="-Infinity"
-                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
-                                               prefWidth="519.0" styleClass="menuCombobox"
-                                               stylesheets="@../../css/menu/menuStyles.css"
-                                               visibleRowCount="14" AnchorPane.leftAnchor="0.0"
-                                               AnchorPane.rightAnchor="0.0"/>
-                                     <ComboBox fx:id="divisionDropDown" layoutY="144.0" maxHeight="-Infinity"
-                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
-                                               prefWidth="519.0" styleClass="menuCombobox"
-                                               stylesheets="@../../css/menu/menuStyles.css"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-                                  </children>
-                               </AnchorPane>
-                            </children>
-                         </VBox>
-                         <Label alignment="CENTER" layoutX="17.0" layoutY="8.0" maxHeight="-Infinity"
-                                minHeight="-Infinity" prefHeight="38.0" prefWidth="460.0" styleClass="heading"
-                                stylesheets="@../../css/menu/menuLabels.css" text="New Officer Login"
-                                AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0"
-                                AnchorPane.topAnchor="8.0"/>
-                         <Button fx:id="loginBtn" defaultButton="true" layoutX="374.0" layoutY="272.0"
-                                 maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                 minWidth="-Infinity" mnemonicParsing="false" onAction="#loginButtonClick"
-                                 prefHeight="41.0" prefWidth="97.0" styleClass="purpleButton"
-                                 stylesheets="@../../css/menu/menuStyles.css" text="LOGIN" textFill="#008cd7"
-                                 AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
-                            <font>
-                               <Font name="Candara Bold" size="18.0"/>
-                            </font>
-                         </Button>
-                         <Label fx:id="incompleteLabel" alignment="CENTER" layoutX="348.0" layoutY="253.0"
-                                prefHeight="41.0" prefWidth="139.0" text="Please Fill Out the Form Completely."
-                                textAlignment="CENTER" textFill="#ff3c3c" visible="false"
-                                AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="117.0">
-                            <font>
-                               <Font name="Candara" size="16.0"/>
-                            </font>
-                         </Label>
-                      </children>
-                      <effect>
-                         <DropShadow>
-                            <color>
-                               <Color opacity="0.5343511700630188"/>
-                            </color>
-                         </DropShadow>
-                      </effect>
-                   </AnchorPane>
-                </children>
-             </AnchorPane>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="352.0" prefWidth="558.0">
+            <children>
+                <AnchorPane fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="325.0" minWidth="558.0"
+                            prefHeight="325.0" prefWidth="558.0"
+                            style="-fx-background-color: rgb(0,0,0,0.6); -fx-background-radius: 15;">
+                    <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <center>
+                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="519.0"
+                                      spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <AnchorPane>
+                                            <children>
+                                                <TextField fx:id="nameField" maxHeight="-Infinity" minHeight="-Infinity"
+                                                           minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0"
+                                                           promptText="Name"
+                                                           stylesheets="@../../css/desktopLogin/desktopLoginCSS.css"
+                                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="191.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                                <TextField fx:id="numberField" layoutX="344.0" maxHeight="-Infinity"
+                                                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
+                                                           prefWidth="175.0" promptText="Number"
+                                                           stylesheets="@../../css/desktopLogin/desktopLoginCSS.css"
+                                                           AnchorPane.rightAnchor="0.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                                <ComboBox fx:id="rankDropdown" layoutY="48.0" maxHeight="-Infinity"
+                                                          minHeight="-Infinity" minWidth="-Infinity"
+                                                          stylesheets="@../../css/desktopLogin/desktopLoginCSS.css"
+                                                          visibleRowCount="14" AnchorPane.leftAnchor="0.0"
+                                                          AnchorPane.rightAnchor="0.0"/>
+                                                <ComboBox fx:id="agencyDropDown" layoutY="96.0" maxHeight="-Infinity"
+                                                          minHeight="-Infinity" minWidth="-Infinity"
+                                                          stylesheets="@../../css/desktopLogin/desktopLoginCSS.css"
+                                                          visibleRowCount="14" AnchorPane.leftAnchor="0.0"
+                                                          AnchorPane.rightAnchor="0.0"/>
+                                                <ComboBox fx:id="divisionDropDown" layoutY="144.0" maxHeight="-Infinity"
+                                                          minHeight="-Infinity" minWidth="-Infinity"
+                                                          stylesheets="@../../css/desktopLogin/desktopLoginCSS.css"
+                                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
+                                </VBox>
+                            </center>
+                            <top>
+                                <Label alignment="CENTER" text="ReportsPlus Officer Login" textFill="WHITE"
+                                       BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="29.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="15.0"/>
+                                    </padding>
+                                </Label>
+                            </top>
+                            <bottom>
+                                <AnchorPane BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button fx:id="loginBtn" defaultButton="true" layoutX="137.0"
+                                                maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                                minWidth="-Infinity" mnemonicParsing="false"
+                                                onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0"
+                                                style="-fx-background-color: rgb(255,255,255,0.2); -fx-background-radius: 5;"
+                                                text="LOGIN" textFill="WHITE" AnchorPane.bottomAnchor="0.0"
+                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="17.0"/>
+                                            </font>
+                                        </Button>
+                                        <Label fx:id="incompleteLabel" alignment="CENTER_RIGHT" layoutY="1.0"
+                                               prefHeight="41.0" prefWidth="439.0"
+                                               text="Please Fill Out the Form Completely." textAlignment="CENTER"
+                                               textFill="#ff3c3c" visible="false" AnchorPane.bottomAnchor="0.0"
+                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="119.0"
+                                               AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="Candara" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </bottom>
+                            <padding>
+                                <Insets bottom="15.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </BorderPane>
+                    </children>
+                </AnchorPane>
             </children>
         </AnchorPane>
     </center>

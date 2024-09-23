@@ -9,7 +9,7 @@
 .paneoptions > .title {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 19;
-    -fx-background-color: transparent; /* Change background color */
+    -fx-background-color: transparent;
     -fx-padding: 6;
     -fx-alignment: center;
     -fx-border-width: 0 0 0 0;
@@ -19,7 +19,7 @@
 .paneoptions:expanded > .title {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 19;
-    -fx-background-color: #383838; /* Change background color */
+    -fx-background-color: #383838;
 }
 
 .paneoptions > .title > .arrow-button .arrow {

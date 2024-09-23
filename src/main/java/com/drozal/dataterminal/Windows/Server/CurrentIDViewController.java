@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,7 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 public class CurrentIDViewController {
 	
 	public static final String defaultPedImagePath = "/com/drozal/dataterminal/imgs/CityLosSantosLogo.png";
+	public static Stage IDStage = null;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML

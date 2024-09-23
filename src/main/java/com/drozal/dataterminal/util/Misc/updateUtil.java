@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Objects;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -32,7 +32,7 @@ public class updateUtil {
 				if (!Objects.equals(latestVersion, stringUtil.version)) {
 					NotificationManager.showNotificationError("Update Available",
 					                                          "There is a New Verion Available! " + latestVersion + " Check LCPDFR Website!",
-					                                          mainRT);
+					                                          mainDesktopStage);
 				}
 				reader.close();
 			} else {

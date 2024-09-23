@@ -3,14 +3,14 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/22"
+<BorderPane prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Main.actionController">
     <center>
         <AnchorPane fx:id="vbox" styleClass="menuBackground" stylesheets="@../../css/menu/menuStyles.css">
@@ -492,49 +492,6 @@
                                 </VBox>
                                 <VBox alignment="CENTER" maxHeight="-Infinity" spacing="2.0" GridPane.rowIndex="5">
                                     <children>
-                                        <HBox alignment="CENTER">
-                                            <children>
-                                                <Label alignment="CENTER" text="Server:" textFill="WHITE"
-                                                       textOverrun="CLIP" HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="15.0"/>
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0"
-                                                                    radius="7.25" width="15.0">
-                                                            <color>
-                                                                <Color opacity="0.223709374666214"/>
-                                                            </color>
-                                                        </DropShadow>
-                                                    </effect>
-                                                    <HBox.margin>
-                                                        <Insets/>
-                                                    </HBox.margin>
-                                                </Label>
-                                                <Label fx:id="serverStatusLabel" alignment="CENTER"
-                                                       onMouseClicked="#onServerStatusLabelClick" text="Not Connected"
-                                                       textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
-                                                       HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0"
-                                                                    radius="7.25" width="15.0">
-                                                            <color>
-                                                                <Color opacity="0.223709374666214"/>
-                                                            </color>
-                                                        </DropShadow>
-                                                    </effect>
-                                                    <HBox.margin>
-                                                        <Insets left="10.0" top="1.0"/>
-                                                    </HBox.margin>
-                                                </Label>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="25.0"/>
-                                            </VBox.margin>
-                                        </HBox>
                                         <Line endX="183.0" opacity="0.36" stroke="WHITE" strokeWidth="2.0"/>
                                         <Label alignment="CENTER" text="Report Plus" textFill="WHITE"
                                                textOverrun="CLIP">
@@ -565,40 +522,6 @@
                                             </effect>
                                             <VBox.margin>
                                                 <Insets top="-6.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78" prefHeight="15.0"
-                                               text="v1.0.9-alpha" textFill="WHITE" textOverrun="CLIP">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="10.0"/>
-                                            </font>
-                                            <effect>
-                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                            width="15.0">
-                                                    <color>
-                                                        <Color opacity="0.223709374666214"/>
-                                                    </color>
-                                                </DropShadow>
-                                            </effect>
-                                        </Label>
-                                        <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
-                                               text="sadfsf" textFill="#e1e1e1">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="12.0"/>
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
-                                                           preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../imgs/icons/location.png"/>
-                                                    </image>
-                                                    <effect>
-                                                        <ColorAdjust brightness="-0.16"/>
-                                                    </effect>
-                                                </ImageView>
-                                            </graphic>
-                                            <VBox.margin>
-                                                <Insets top="3.0"/>
                                             </VBox.margin>
                                         </Label>
                                     </children>

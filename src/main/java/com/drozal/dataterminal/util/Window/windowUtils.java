@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.Window;
 
+import com.drozal.dataterminal.Windows.Server.CurrentIDViewController;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -8,7 +9,8 @@ import javafx.stage.Stage;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
-import static com.drozal.dataterminal.Windows.Main.actionController.*;
+import static com.drozal.dataterminal.Windows.Main.actionController.CalloutStage;
+import static com.drozal.dataterminal.Windows.Main.actionController.notesStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {
@@ -168,9 +170,9 @@ public class windowUtils {
 			CalloutStage.setHeight(342);
 			CalloutStage.setWidth(618);
 		}
-		if (stage.equals(IDStage)) {
-			IDStage.setHeight(274);
-			IDStage.setWidth(514);
+		if (stage.equals(CurrentIDViewController.IDStage)) {
+			CurrentIDViewController.IDStage.setHeight(274);
+			CurrentIDViewController.IDStage.setWidth(514);
 		}
 		stage.centerOnScreen();
 	}

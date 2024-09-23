@@ -20,6 +20,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
 
 public class ClientController {
+	public static ClientController clientController;
 	@javafx.fxml.FXML
 	private TextField inetField;
 	@javafx.fxml.FXML

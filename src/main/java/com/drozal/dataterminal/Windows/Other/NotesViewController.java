@@ -2,7 +2,6 @@ package com.drozal.dataterminal.Windows.Other;
 
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
-import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.NoteTab;
@@ -33,6 +32,7 @@ public class NotesViewController {
 	
 	public static Stage codesStage = null;
 	public static List<NoteTab> notesTabList;
+	public static String notesText;
 	
 	@javafx.fxml.FXML
 	private TextArea notepadTextArea;
@@ -223,7 +223,7 @@ public class NotesViewController {
 	}
 	
 	public void initialize() throws IOException {
-		notepadTextArea.setText(actionController.notesText);
+		notepadTextArea.setText(notesText);
 		
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor") + ";";
 		String initialStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";";

@@ -1,17 +1,12 @@
 package com.drozal.dataterminal.Windows.Main;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
-import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Other.NotesViewController;
-import com.drozal.dataterminal.Windows.Server.ClientController;
-import com.drozal.dataterminal.Windows.Settings.settingsController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.controllerUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
-import com.drozal.dataterminal.util.Misc.stringUtil;
-import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -19,35 +14,24 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
 import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
@@ -58,11 +42,7 @@ import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
 import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
-import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
-import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
-import static com.drozal.dataterminal.util.Window.windowUtils.centerStageOnMainApp;
 
 public class actionController {
 	
@@ -137,13 +117,9 @@ public class actionController {
 	@FXML
 	private AreaChart areaReportChart;
 	@FXML
-	private Label serverStatusLabel;
-	@FXML
 	private Button showIDBtn;
 	@FXML
 	private Button showCalloutBtn;
-	@FXML
-	private Label versionLabel;
 	@FXML
 	private VBox bkgclr1;
 	@FXML
@@ -152,8 +128,6 @@ public class actionController {
 	private Button showLookupBtn;
 	@FXML
 	private MenuItem accidentReportButton;
-	@FXML
-	private Label locationDataLabel;
 	@FXML
 	private Circle userCircle;
 	@FXML
@@ -166,20 +140,9 @@ public class actionController {
 		showCalloutBtn.setVisible(false);
 		showIDBtn.setVisible(false);
 		
-		locationDataLabel.setVisible(false);
-		
-		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
-			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-			log("First Login...", Severity.DEBUG);
-		} else {
-			log("Not First Login...", Severity.DEBUG);
-		}
-		
-		checkForUpdates();
-		
 		setActive(shiftInformationPane);
 		
-		notesText = "";
+		NotesViewController.notesText = "";
 		
 		refreshChart();
 		updateChartIfMismatch(reportChart);
@@ -233,126 +196,13 @@ public class actionController {
 			}
 		});
 		
-		ClientUtils.setStatusListener(this::updateConnectionStatus);
-		
 		Platform.runLater(() -> {
 			
-			versionLabel.setText(stringUtil.version);
-			Stage stge = (Stage) vbox.getScene().getWindow();
-			
-			stge.setOnHiding(event -> handleClose());
-			
-			versionLabel.setOnMouseClicked(event -> {
-				// todo implemented as an app
-				/*if (versionStage != null && versionStage.isShowing()) {
-					versionStage.close();
-					versionStage = null;
-					return;
-				}
-				versionStage = new Stage();
-				versionStage.initStyle(StageStyle.UNDECORATED);
-				FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/updates-view.fxml"));
-				Parent root = null;
-				try {
-					root = loader.load();
-				} catch (IOException e) {
-					logError("Error starting VersionStage: ", e);
-				}
-				Scene newScene = new Scene(root);
-				versionStage.setTitle("Version Information");
-				versionStage.setScene(newScene);
-				versionStage.setAlwaysOnTop(true);
-				
-				versionStage.show();
-				centerStageOnMainApp(versionStage);
-				
-				versionStage.setOnHidden(event1 -> versionStage = null);*/
-			});
-			
-			if (!stringUtil.version.equals(gitVersion)) {
-				if (gitVersion == null) {
-					versionLabel.setText("New Version Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
-				} else {
-					versionLabel.setText(gitVersion + " Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
-				}
-			}
-			
-			try {
-				settingsController.loadTheme();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			
-			try {
-				if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true")) {
-					Platform.runLater(() -> {
-						log("Searching For Server...", Severity.DEBUG);
-						new Thread(ClientUtils::listenForServerBroadcasts).start();
-					});
-				}
-			} catch (IOException e) {
-				logError("Not able to read serverautoconnect: ", e);
-			}
-			locationDataLabel.setOnMouseClicked(mouseEvent -> {
-				if (locationDataLabel.isVisible()) {
-					Clipboard clipboard = Clipboard.getSystemClipboard();
-					ClipboardContent content = new ClipboardContent();
-					content.putString(locationDataLabel.getText().split(",")[0]);
-					clipboard.setContent(content);
-				}
-			});
 		});
 		
-		if (notesTabList == null) {
-			notesTabList = new ArrayList<>();
-		}
 	}
 	
 	//<editor-fold desc="Utils">
-	
-	private void updateConnectionStatus(boolean isConnected) {
-		Platform.runLater(() -> {
-			if (!isConnected) {
-				showLookupBtn.setVisible(false);
-				showCalloutBtn.setVisible(false);
-				showIDBtn.setVisible(false);
-				locationDataLabel.setVisible(false);
-				log("No Connection", Severity.WARN);
-				serverStatusLabel.setText("No Connection");
-				serverStatusLabel.setStyle(
-						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-				if (clientController != null) {
-					clientController.getPortField().setText("");
-					clientController.getInetField().setText("");
-					clientController.getStatusLabel().setText("Not Connected");
-					clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
-					serverStatusLabel.setStyle(
-							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-				}
-			} else {
-				showLookupBtn.setVisible(true);
-				showCalloutBtn.setVisible(true);
-				showIDBtn.setVisible(true);
-				serverStatusLabel.setText("Connected");
-				
-				serverStatusLabel.setStyle(
-						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-				if (clientController != null) {
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						throw new RuntimeException(e);
-					}
-					clientController.getPortField().setText(ClientUtils.port);
-					clientController.getInetField().setText(ClientUtils.inet);
-					clientController.getStatusLabel().setText("Connected");
-					clientController.getStatusLabel().setStyle("-fx-background-color: green;");
-				}
-			}
-		});
-	}
 	
 	public void refreshChart() throws IOException {
 		
@@ -406,16 +256,8 @@ public class actionController {
 		return CalloutStage;
 	}
 	
-	public static ClientController getClientController() {
-		return clientController;
-	}
-	
 	public static Stage getClientStage() {
 		return clientStage;
-	}
-	
-	public static Stage getIDStage() {
-		return IDStage;
 	}
 	
 	public static int getNeedRefresh() {
@@ -431,15 +273,11 @@ public class actionController {
 	}
 	
 	public static String getNotesText() {
-		return notesText;
+		return NotesViewController.notesText;
 	}
 	
 	public static Stage getSettingsStage() {
 		return settingsStage;
-	}
-	
-	public static Stage getVersionStage() {
-		return versionStage;
 	}
 	
 	public MenuItem getArrestReportButton() {
@@ -486,10 +324,6 @@ public class actionController {
 		return patrolReportButton;
 	}
 	
-	public Label getLocationDataLabel() {
-		return locationDataLabel;
-	}
-	
 	public MenuItem getSearchReportButton() {
 		return searchReportButton;
 	}
@@ -526,20 +360,12 @@ public class actionController {
 		return vbox;
 	}
 	
-	public Label getVersionLabel() {
-		return versionLabel;
-	}
-	
 	public TextField getOfficerInfoCallsign() {
 		return OfficerInfoCallsign;
 	}
 	
 	public VBox getBkgclr1() {
 		return bkgclr1;
-	}
-	
-	public Label getServerStatusLabel() {
-		return serverStatusLabel;
 	}
 	
 	public Button getShowIDBtn() {
@@ -602,14 +428,10 @@ public class actionController {
 	
 	//<editor-fold desc="VARS">
 	
-	public static String notesText;
-	public static Stage IDStage = null;
 	public static Stage settingsStage = null;
 	public static Stage CalloutStage = null;
-	public static ClientController clientController;
 	public static Stage notesStage = null;
 	public static Stage clientStage = null;
-	private static final Stage versionStage = null;
 	public static boolean IDFirstShown = true;
 	public static double IDx;
 	public static double IDy;
@@ -645,7 +467,8 @@ public class actionController {
 	
 	@FXML
 	public void onShowIDButtonClick(ActionEvent actionEvent) throws IOException {
-		if (IDStage != null && IDStage.isShowing()) {
+		// todo turned to app
+		/*if (IDStage != null && IDStage.isShowing()) {
 			IDStage.close();
 			IDStage = null;
 			return;
@@ -694,7 +517,7 @@ public class actionController {
 				IDFirstShown = false;
 				IDStage = null;
 			}
-		});
+		});*/
 	}
 	
 	@FXML
@@ -835,39 +658,6 @@ public class actionController {
 	@FXML
 	public void onDeathReportButtonClick(ActionEvent actionEvent) {
 		newDeathReport();
-	}
-	
-	@FXML
-	public void onServerStatusLabelClick(Event event) throws IOException {
-		
-		if (clientStage != null && clientStage.isShowing()) {
-			clientStage.close();
-			clientStage = null;
-			return;
-		}
-		
-		if (!ClientUtils.isConnected) {
-			clientStage = new Stage();
-			clientStage.initStyle(StageStyle.UNDECORATED);
-			FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Server/client-view.fxml"));
-			Parent root = loader.load();
-			Scene newScene = new Scene(root);
-			clientStage.setTitle("Client Interface");
-			clientStage.setScene(newScene);
-			clientStage.initStyle(StageStyle.UNDECORATED);
-			clientStage.setResizable(false);
-			clientStage.show();
-			clientStage.centerOnScreen();
-			clientStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTClient").equals("true"));
-			
-			centerStageOnMainApp(clientStage);
-			
-			clientStage.setOnHidden(event1 -> {
-				clientStage = null;
-			});
-			
-			clientController = loader.getController();
-		}
 	}
 	
 	@FXML

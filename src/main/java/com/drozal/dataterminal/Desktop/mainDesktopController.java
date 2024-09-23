@@ -9,42 +9,79 @@ import com.drozal.dataterminal.Windows.Apps.CourtViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Apps.LookupViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
+import com.drozal.dataterminal.Windows.Other.NotesViewController;
+import com.drozal.dataterminal.Windows.Server.ClientController;
+import com.drozal.dataterminal.Windows.Settings.settingsController;
+import com.drozal.dataterminal.config.ConfigReader;
+import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.Misc.LogUtils;
+import com.drozal.dataterminal.util.Misc.stringUtil;
+import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
+import static com.drozal.dataterminal.Windows.Server.ClientController.clientController;
+import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.controllerUtils.handleClose;
+import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
+import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 
 public class mainDesktopController {
 	
-	@javafx.fxml.FXML
+	@FXML
 	private Button button1;
-	@javafx.fxml.FXML
+	@FXML
 	private BorderPane taskBar;
-	@javafx.fxml.FXML
+	@FXML
 	private HBox taskBarApps;
-	@javafx.fxml.FXML
+	@FXML
 	private AnchorPane bottomBar;
-	@javafx.fxml.FXML
+	@FXML
 	private AnchorPane desktopContainer;
-	@javafx.fxml.FXML
+	@FXML
 	private VBox container;
+	@FXML
+	private Label locationDataLabel;
+	@FXML
+	private Label serverStatusLabel;
+	@FXML
+	private Label versionLabel;
 	
-	double verticalSpacing = 100.0;
-	
-	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, int appIndex) {
-		AnchorPane.setLeftAnchor(newApp, 28.0);
-		AnchorPane.setTopAnchor(newApp, 31.0 + (appIndex * verticalSpacing));
+	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
+		AnchorPane.setLeftAnchor(newApp, x);
+		AnchorPane.setTopAnchor(newApp, y);
 		root.getChildren().add(newApp);
 	}
 	
-	public void initialize() {
+	public void initialize() throws IOException {
 		button1.setOnAction(event -> editableDesktop = !editableDesktop);
 		
-		DesktopApp desktopAppObj = new DesktopApp("Main App", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		locationDataLabel.setVisible(false);
+		
+		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
+			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
+			log("First Login...", LogUtils.Severity.DEBUG);
+		} else {
+			log("Not First Login...", LogUtils.Severity.DEBUG);
+		}
+		
+		DesktopApp desktopAppObj = new DesktopApp("Main App", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -52,51 +89,51 @@ public class mainDesktopController {
 					                                                      "Windows/Main/DataTerminalHome-view.fxml",
 					                                                      "Primary", true, 1, true, taskBarApps);
 					
-					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApplicationWindow.controller;
+					DataTerminalHomeApplication.controller = (actionController) (mainApplicationWindow != null ? mainApplicationWindow.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, newApp, 0);
+		addAppToDesktop(desktopContainer, newApp, 20, 20);
 		
-		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml",
-					                                        "Notes Application", true, 2, true, taskBarApps);
-					actionController.notesViewController = (com.drozal.dataterminal.Windows.Other.NotesViewController) mainApp.controller;
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
+					                                        true, 2, true, taskBarApps);
+					actionController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, notesApp, 1);
+		addAppToDesktop(desktopContainer, notesApp, 115, 20);
 		
-		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Settings Application",
-					                 false, 2, true, taskBarApps);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, settingsApp, 2);
-		
-		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
-		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Settings Application", true,
+					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
 					                 2, true, taskBarApps);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, updatesApp, 3);
+		addAppToDesktop(desktopContainer, settingsApp, 210, 20);
 		
-		DesktopApp debugLogsAppObj = new DesktopApp("Output Logs", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
+		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
+					                 true, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
+		
+		DesktopApp debugLogsAppObj = new DesktopApp("Output Logs", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane debugLogsApp = debugLogsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -105,10 +142,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, debugLogsApp, 4);
+		addAppToDesktop(desktopContainer, debugLogsApp, 400, 20);
 		
-		DesktopApp lookupSettingsAppObj = new DesktopApp("Lookup Config", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp lookupSettingsAppObj = new DesktopApp("Lookup Config", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane lookupSettingsApp = lookupSettingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -117,64 +154,92 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupSettingsApp, 5);
+		addAppToDesktop(desktopContainer, lookupSettingsApp, 495, 20);
 		
-		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
 					                                       true, 2, true, taskBarApps);
-					LogViewController.logController = (LogViewController) logapp.controller;
+					LogViewController.logController = (LogViewController) (logapp != null ? logapp.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, logBrowserApp, 6);
+		addAppToDesktop(desktopContainer, logBrowserApp, 590, 20);
 		
-		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
 					                                       "Callout Manager", true, 2, true, taskBarApps);
-					CalloutViewController.calloutViewController = (CalloutViewController) logapp.controller;
+					CalloutViewController.calloutViewController = (CalloutViewController) (logapp != null ? logapp.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, calloutManagerApp, 7);
+		addAppToDesktop(desktopContainer, calloutManagerApp, 685, 20);
 		
-		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
 					                                       "Court Case Manager", true, 2, true, taskBarApps);
-					CourtViewController.courtViewController = (CourtViewController) logapp.controller;
+					CourtViewController.courtViewController = (CourtViewController) (logapp != null ? logapp.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, courtApp, 8);
+		addAppToDesktop(desktopContainer, courtApp, 780, 20);
 		
-		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane lookupApp = lookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
 					                                       "Database Lookup", true, 2, true, taskBarApps);
-					LookupViewController.lookupViewController = (LookupViewController) logapp.controller;
+					LookupViewController.lookupViewController = (LookupViewController) (logapp != null ? logapp.controller : null);
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupApp, 9);
+		addAppToDesktop(desktopContainer, lookupApp, 875, 20);
+		
+		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
+		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
+					                                          "Server Connection", false, 2, true, taskBarApps);
+					clientController = (ClientController) (serverApp != null ? serverApp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, connectionApp, 970, 20);
+		
+		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
+		AnchorPane showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
+					                                      "Current IDs", false, 2, true, taskBarApps);
+					
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, showIDApp, 1065, 20);
+		
+		ClientUtils.setStatusListener(this::updateConnectionStatus);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image
-			Image image = new Image(
-					Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg"));
+			Image image = new Image(Objects.requireNonNull(
+					Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg")));
 			BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
 			                                                      BackgroundRepeat.NO_REPEAT,
 			                                                      BackgroundPosition.DEFAULT,
@@ -182,6 +247,121 @@ public class mainDesktopController {
 			                                                                         true));
 			
 			container.setBackground(new Background(backgroundImage));
+			
+			versionLabel.setText(stringUtil.version);
+			versionLabel.setOnMouseClicked(event -> {
+				// todo implemented as an app
+				/*if (versionStage != null && versionStage.isShowing()) {
+					versionStage.close();
+					versionStage = null;
+					return;
+				}
+				versionStage = new Stage();
+				versionStage.initStyle(StageStyle.UNDECORATED);
+				FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/updates-view.fxml"));
+				Parent root = null;
+				try {
+					root = loader.load();
+				} catch (IOException e) {
+					logError("Error starting VersionStage: ", e);
+				}
+				Scene newScene = new Scene(root);
+				versionStage.setTitle("Version Information");
+				versionStage.setScene(newScene);
+				versionStage.setAlwaysOnTop(true);
+				
+				versionStage.show();
+				centerStageOnMainApp(versionStage);
+				
+				versionStage.setOnHidden(event1 -> versionStage = null);*/
+			});
+			if (!stringUtil.version.equals(gitVersion)) {
+				if (gitVersion == null) {
+					versionLabel.setText("New Version Available!");
+					versionLabel.setStyle("-fx-text-fill: red;");
+				} else {
+					versionLabel.setText(gitVersion + " Available!");
+					versionLabel.setStyle("-fx-text-fill: red;");
+				}
+			}
+			locationDataLabel.setOnMouseClicked(mouseEvent -> {
+				if (locationDataLabel.isVisible()) {
+					Clipboard clipboard = Clipboard.getSystemClipboard();
+					ClipboardContent content = new ClipboardContent();
+					content.putString(locationDataLabel.getText().split(",")[0]);
+					clipboard.setContent(content);
+				}
+			});
+			
+			Stage stge = (Stage) container.getScene().getWindow();
+			
+			stge.setOnHiding(event -> handleClose());
+			
+			try {
+				settingsController.loadTheme();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			
+			try {
+				if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true")) {
+					Platform.runLater(() -> {
+						log("Searching For Server...", LogUtils.Severity.DEBUG);
+						new Thread(ClientUtils::listenForServerBroadcasts).start();
+					});
+				}
+			} catch (IOException e) {
+				logError("Not able to read serverautoconnect: ", e);
+			}
+			
+			checkForUpdates();
+			
+		});
+		if (notesTabList == null) {
+			notesTabList = new ArrayList<>();
+		}
+	}
+	
+	private void updateConnectionStatus(boolean isConnected) {
+		Platform.runLater(() -> {
+			if (!isConnected) {
+				/* todo find soluation for
+				showLookupBtn.setVisible(false);
+				showCalloutBtn.setVisible(false);
+				showIDBtn.setVisible(false);*/
+				locationDataLabel.setVisible(false);
+				log("No Connection", LogUtils.Severity.WARN);
+				serverStatusLabel.setText("No Connection");
+				serverStatusLabel.setStyle(
+						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+				if (clientController != null) {
+					clientController.getPortField().setText("");
+					clientController.getInetField().setText("");
+					clientController.getStatusLabel().setText("Not Connected");
+					clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
+					serverStatusLabel.setStyle(
+							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+				}
+			} else {
+				/*showLookupBtn.setVisible(true);
+				showCalloutBtn.setVisible(true);
+				showIDBtn.setVisible(true);*/
+				serverStatusLabel.setText("Connected");
+				
+				serverStatusLabel.setStyle(
+						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+				if (clientController != null) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
+					clientController.getPortField().setText(ClientUtils.port);
+					clientController.getInetField().setText(ClientUtils.inet);
+					clientController.getStatusLabel().setText("Connected");
+					clientController.getStatusLabel().setStyle("-fx-background-color: green;");
+				}
+			}
 		});
 	}
 	
@@ -199,5 +379,13 @@ public class mainDesktopController {
 	
 	public HBox getTaskBarApps() {
 		return taskBarApps;
+	}
+	
+	public Label getLocationDataLabel() {
+		return locationDataLabel;
+	}
+	
+	public Label getServerStatusLabel() {
+		return serverStatusLabel;
 	}
 }

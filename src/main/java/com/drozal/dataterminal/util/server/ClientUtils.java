@@ -1,9 +1,8 @@
 package com.drozal.dataterminal.util.server;
 
-import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Launcher;
-import com.drozal.dataterminal.Windows.Main.actionController;
-import com.drozal.dataterminal.Windows.Main.newOfficerController;
+import com.drozal.dataterminal.Windows.Server.ClientController;
+import com.drozal.dataterminal.Windows.Server.CurrentIDViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
@@ -34,6 +33,7 @@ import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Main.actionController.*;
 import static com.drozal.dataterminal.Windows.Server.calloutController.getCallout;
@@ -49,7 +49,6 @@ public class ClientUtils {
 	public static String inet;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
-	private static actionController controllerVar;
 	
 	public static void disconnectFromService() {
 		try {
@@ -74,9 +73,9 @@ public class ClientUtils {
 				socket = new Socket();
 				
 				Platform.runLater(() -> {
-					if (actionController.clientController != null) {
-						actionController.clientController.getStatusLabel().setText("Testing Connection...");
-						actionController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
+					if (ClientController.clientController != null) {
+						ClientController.clientController.getStatusLabel().setText("Testing Connection...");
+						ClientController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 					}
 				});
 				
@@ -115,13 +114,6 @@ public class ClientUtils {
 	}
 	
 	public static void receiveMessages(BufferedReader in) {
-		if (DataTerminalHomeApplication.controller != null) {
-			controllerVar = DataTerminalHomeApplication.controller;
-		} else if (newOfficerController.controller != null) {
-			controllerVar = newOfficerController.controller;
-		} else {
-			log("ClientUtils Controller Var could not be set", LogUtils.Severity.ERROR);
-		}
 		new Thread(() -> {
 			try {
 				String fromServer;
@@ -136,9 +128,9 @@ public class ClientUtils {
 							log("Received Location update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveLocationFromServer(1024);
 							Platform.runLater(() -> {
-								controllerVar.getLocationDataLabel().setVisible(true);
+								mainDesktopControllerObj.getLocationDataLabel().setVisible(true);
 								try {
-									controllerVar.getLocationDataLabel().setText(
+									mainDesktopControllerObj.getLocationDataLabel().setText(
 											Files.readString(Paths.get(currentLocationFileURL)));
 								} catch (IOException e) {
 									logError("Could Not Read FileString For LocationData: ", e);
@@ -150,12 +142,12 @@ public class ClientUtils {
 							FileUtlis.receiveIDFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
-									if (IDStage != null && IDStage.isShowing()) {
-										IDStage.close();
-										IDStage = null;
+									if (CurrentIDViewController.IDStage != null && CurrentIDViewController.IDStage.isShowing()) {
+										CurrentIDViewController.IDStage.close();
+										CurrentIDViewController.IDStage = null;
 									}
-									IDStage = new Stage();
-									IDStage.initStyle(StageStyle.UNDECORATED);
+									CurrentIDViewController.IDStage = new Stage();
+									CurrentIDViewController.IDStage.initStyle(StageStyle.UNDECORATED);
 									FXMLLoader loader = new FXMLLoader(
 											Launcher.class.getResource("Windows/Server/currentID-view.fxml"));
 									Parent root = null;
@@ -165,12 +157,12 @@ public class ClientUtils {
 										throw new RuntimeException(e);
 									}
 									Scene newScene = new Scene(root);
-									IDStage.setTitle("Current ID");
-									IDStage.setScene(newScene);
-									IDStage.show();
-									IDStage.centerOnScreen();
+									CurrentIDViewController.IDStage.setTitle("Current ID");
+									CurrentIDViewController.IDStage.setScene(newScene);
+									CurrentIDViewController.IDStage.show();
+									CurrentIDViewController.IDStage.centerOnScreen();
 									try {
-										IDStage.setAlwaysOnTop(
+										CurrentIDViewController.IDStage.setAlwaysOnTop(
 												ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
 									} catch (IOException e) {
 										logError("Could not fetch AOTID: ", e);
@@ -179,26 +171,27 @@ public class ClientUtils {
 									try {
 										if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
 											if (IDFirstShown) {
-												windowUtils.centerStageOnMainApp(IDStage);
+												windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
 												log("IDStage opened via UPDATE_ID message, first time centered",
 												    LogUtils.Severity.INFO);
 											} else {
 												if (IDScreen != null) {
 													Rectangle2D screenBounds = IDScreen.getVisualBounds();
-													IDStage.setX(IDx);
-													IDStage.setY(IDy);
+													CurrentIDViewController.IDStage.setX(IDx);
+													CurrentIDViewController.IDStage.setY(IDy);
 													
 													if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
-														windowUtils.centerStageOnMainApp(IDStage);
+														windowUtils.centerStageOnMainApp(
+																CurrentIDViewController.IDStage);
 													}
 												} else {
-													windowUtils.centerStageOnMainApp(IDStage);
+													windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
 												}
 												log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy,
 												    LogUtils.Severity.INFO);
 											}
 										} else {
-											windowUtils.centerStageOnMainApp(IDStage);
+											windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
 										}
 									} catch (IOException e) {
 										logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
@@ -213,10 +206,10 @@ public class ClientUtils {
 											} catch (IOException e) {
 												logError("ID could not be closed: ", e);
 											}
-											if (IDStage != null) {
+											if (CurrentIDViewController.IDStage != null) {
 												delay.setOnFinished(event -> {
 													try {
-														IDStage.close();
+														CurrentIDViewController.IDStage.close();
 													} catch (NullPointerException e) {
 														log("IDStage was closed before it could be automtically closed",
 														    LogUtils.Severity.WARN);
@@ -229,18 +222,19 @@ public class ClientUtils {
 										logError("could not read IDDuration: ", e);
 									}
 									
-									IDStage.setOnHidden(new EventHandler<WindowEvent>() {
+									CurrentIDViewController.IDStage.setOnHidden(new EventHandler<WindowEvent>() {
 										@Override
 										public void handle(WindowEvent event) {
-											IDx = IDStage.getX();
-											IDy = IDStage.getY();
-											IDScreen = Screen.getScreensForRectangle(IDx, IDy, IDStage.getWidth(),
-											                                         IDStage.getHeight()).stream().findFirst().orElse(
+											IDx = CurrentIDViewController.IDStage.getX();
+											IDy = CurrentIDViewController.IDStage.getY();
+											IDScreen = Screen.getScreensForRectangle(IDx, IDy,
+											                                         CurrentIDViewController.IDStage.getWidth(),
+											                                         CurrentIDViewController.IDStage.getHeight()).stream().findFirst().orElse(
 													null);
 											log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy,
 											    LogUtils.Severity.DEBUG);
 											IDFirstShown = false;
-											IDStage = null;
+											CurrentIDViewController.IDStage = null;
 										}
 									});
 								});

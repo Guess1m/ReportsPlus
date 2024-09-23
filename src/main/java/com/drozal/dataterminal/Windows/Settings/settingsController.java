@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
@@ -294,9 +295,6 @@ public class settingsController {
 		if (controllerVar != null) {
 			changeBarColors(controllerVar.getReportChart());
 			changeStatisticColors(controllerVar.getAreaReportChart());
-			
-			controllerVar.getServerStatusLabel().setStyle(
-					"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
 			controllerVar.sidepane.setStyle("-fx-background-color: " + secclr + ";");
 			controllerVar.getSecondaryColor3Bkg().setStyle("-fx-background-color: " + secclr + ";");
 			controllerVar.getSecondaryColor4Bkg().setStyle("-fx-background-color: " + secclr + ";");
@@ -338,22 +336,12 @@ public class settingsController {
 			controllerVar.updateInfoBtn.setOnMouseEntered(e -> controllerVar.updateInfoBtn.setStyle(hoverStyle));
 			controllerVar.updateInfoBtn.setOnMouseExited(e -> controllerVar.updateInfoBtn.setStyle(nonTransparentBtn));
 			
-			if (isConnected) {
-				controllerVar.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-			} else {
-				controllerVar.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
-			}
-			
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
 				addDarkStyles();
 			} else {
 				addLightStyles();
 			}
 			
-			controllerVar.getServerStatusLabel().setStyle(
-					updateStyleProperty(controllerVar.getServerStatusLabel(), "-fx-border-color", secclr));
 		}
 		if (lookupViewController != null) {
 			lookupViewController.getLookupmainlblpane().setStyle(
@@ -423,6 +411,19 @@ public class settingsController {
 			calloutViewController.getCalfill().setStyle(
 					updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
 			
+		}
+		if (mainDesktopControllerObj != null) {
+			mainDesktopControllerObj.getServerStatusLabel().setStyle(
+					"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
+			if (isConnected) {
+				mainDesktopControllerObj.getServerStatusLabel().setStyle(
+						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			} else {
+				mainDesktopControllerObj.getServerStatusLabel().setStyle(
+						"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+			}
+			mainDesktopControllerObj.getServerStatusLabel().setStyle(
+					updateStyleProperty(mainDesktopControllerObj.getServerStatusLabel(), "-fx-border-color", secclr));
 		}
 	}
 	

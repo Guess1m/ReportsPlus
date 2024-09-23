@@ -4,9 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="borderPane" prefHeight="303.0" prefWidth="516.0"
-            style="-fx-border-color: black; -fx-border-width: 1.5; -fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="borderPane" prefHeight="303.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Other.NotesViewController">
     <center>
         <HBox style="-fx-background-color: transparent;">
@@ -236,6 +235,9 @@
                     </children>
                 </AnchorPane>
             </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
         </HBox>
     </center>
 </BorderPane>

@@ -5,24 +5,16 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="393.0" prefWidth="766.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="766.0"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="lbl0" alignment="CENTER" prefHeight="61.0" prefWidth="623.0"
-                       style="-fx-background-color: #524992;" text="Configuration Settings" textFill="WHITE"
-                       AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="20.0"/>
-                    </font>
-                </Label>
                 <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0"
                          styleClass="darktabpane" stylesheets="@../../css/main/SettingsTabPane.css"
                          tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                         <Tab text="UI Settings">
                             <content>
@@ -1269,6 +1261,9 @@
                     </tabs>
                 </TabPane>
             </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
         </AnchorPane>
     </center>
 </BorderPane>

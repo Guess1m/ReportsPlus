@@ -1,0 +1,1511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane fx:id="root" prefHeight="710.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.drozal.dataterminal.Windows.Apps.LookupViewController">
+    <center>
+        <AnchorPane fx:id="lookupPane">
+            <children>
+                <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <AnchorPane fx:id="lookupmainlblpane"
+                                    style="-fx-background-color: transparent; -fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 0 2 0;">
+                            <children>
+                                <HBox layoutX="9.0" spacing="15.0" AnchorPane.bottomAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <BorderPane>
+                                            <center>
+                                                <CheckBox fx:id="lookupVehCheckbox" mnemonicParsing="false"
+                                                          onAction="#onVehLookupCheckboxClick" text="Vehicle Lookup">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </CheckBox>
+                                            </center>
+                                        </BorderPane>
+                                        <BorderPane>
+                                            <center>
+                                                <CheckBox fx:id="lookupPedCheckbox" mnemonicParsing="false"
+                                                          onAction="#onPedLookupCheckboxClick" text="Ped Lookup">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </CheckBox>
+                                            </center>
+                                        </BorderPane>
+                                        <BorderPane>
+                                            <center>
+                                                <Button fx:id="orientationBtn" mnemonicParsing="false"
+                                                        onAction="#oritentationBtnPress"
+                                                        style="-fx-background-color: rgb(0,0,0,0.1);"
+                                                        text="Orientation">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </Button>
+                                            </center>
+                                        </BorderPane>
+                                        <BorderPane>
+                                            <center>
+                                                <Button fx:id="probabilitySettingsBtn" mnemonicParsing="false"
+                                                        onAction="#onLookupProbabilitySettingsClick"
+                                                        style="-fx-background-color: rgb(0,0,0,0.1);"
+                                                        text="Probability Settings">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </Button>
+                                            </center>
+                                        </BorderPane>
+                                    </children>
+                                </HBox>
+                                <Label fx:id="lookupmainlbl" style="-fx-font-size: 25; -fx-text-fill: #5e7387;"
+                                       styleClass="headingBig" stylesheets="@../../css/menu/menuLabels.css"
+                                       text="ReportsPlus Database Lookup" textAlignment="CENTER"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="20.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" top="10.0"/>
+                            </VBox.margin>
+                        </AnchorPane>
+                        <SplitPane fx:id="lookupSplitPane" dividerPositions="0.4" orientation="VERTICAL"
+                                   style="-fx-border-width: 0; -fx-background-color: transparent;"
+                                   stylesheets="@../../css/main/splitPane.css" VBox.vgrow="ALWAYS">
+                            <items>
+                                <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
+                                            style="-fx-background-color: transparent; -fx-border-width: 0;"
+                                            stylesheets="@../../css/main/Logscrollpane.css" vvalue="0.41">
+                                    <content>
+                                        <AnchorPane fx:id="vehLookupPane"
+                                                    style="-fx-background-color: transparent; -fx-border-width: 0;">
+                                            <children>
+                                                <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0"
+                                                          AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
+                                                               styleClass="headingBig"
+                                                               stylesheets="@../../css/menu/menuLabels.css"
+                                                               text="Search Plate:" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0"/>
+                                                            </font>
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Button fx:id="vehSearchBtn" mnemonicParsing="false"
+                                                                onAction="#onVehSearchBtnClick" prefHeight="36.0"
+                                                                prefWidth="103.0"
+                                                                style="-fx-label-padding: 0; -fx-padding: 0;"
+                                                                styleClass="incidentbtn"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                text="Search" GridPane.columnIndex="2"/>
+                                                        <AnchorPane GridPane.columnIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" right="10.0"/>
+                                                            </GridPane.margin>
+                                                            <children>
+                                                                <ComboBox fx:id="vehSearchField" editable="true"
+                                                                          minWidth="100.0" prefHeight="36.0"
+                                                                          prefWidth="565.0" visibleRowCount="5"
+                                                                          AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="0.0"
+                                                                          AnchorPane.rightAnchor="0.0"
+                                                                          AnchorPane.topAnchor="0.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <BorderPane GridPane.columnIndex="3">
+                                                            <center>
+                                                                <Button mnemonicParsing="false"
+                                                                        onAction="#vehAddDataToNotes" opacity="0.73"
+                                                                        style="-fx-padding: 4 10; -fx-font-size: 12;"
+                                                                        styleClass="incidentbtn"
+                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                        text="Add Data To Notes">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="12.0"/>
+                                                                    </font>
+                                                                    <BorderPane.margin>
+                                                                        <Insets left="10.0"/>
+                                                                    </BorderPane.margin>
+                                                                </Button>
+                                                            </center>
+                                                        </BorderPane>
+                                                    </children>
+                                                </GridPane>
+                                                <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0"
+                                                            AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
+                                                            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                                                    <children>
+                                                        <VBox layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                              AnchorPane.topAnchor="5.0">
+                                                            <children>
+                                                                <AnchorPane>
+                                                                    <children>
+                                                                        <GridPane hgap="25.0" layoutX="19.0"
+                                                                                  layoutY="35.0" prefHeight="221.0"
+                                                                                  prefWidth="709.0" vgap="10.0"
+                                                                                  AnchorPane.leftAnchor="19.0"
+                                                                                  AnchorPane.rightAnchor="19.0"
+                                                                                  AnchorPane.topAnchor="45.0">
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="ALWAYS"
+                                                                                                   minWidth="10.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                                <ColumnConstraints hgrow="ALWAYS"
+                                                                                                   minWidth="10.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                                <ColumnConstraints hgrow="ALWAYS"
+                                                                                                   minWidth="10.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints maxHeight="-Infinity"
+                                                                                                minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints maxHeight="-Infinity"
+                                                                                                minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <AnchorPane>
+                                                                                    <children>
+                                                                                        <Label fx:id="plt1"
+                                                                                               layoutY="14.0"
+                                                                                               text="License Plate:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <TextField
+                                                                                                fx:id="vehplatefield2"
+                                                                                                editable="false"
+                                                                                                layoutY="56.0"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.columnIndex="1">
+                                                                                    <children>
+                                                                                        <TextField fx:id="vehmodelfield"
+                                                                                                   editable="false"
+                                                                                                   layoutY="56.0"
+                                                                                                   styleClass="calloutField"
+                                                                                                   stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                                   AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt2"
+                                                                                               layoutY="14.0"
+                                                                                               text="Model:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.rowIndex="1">
+                                                                                    <children>
+                                                                                        <TextField
+                                                                                                fx:id="vehstolenfield"
+                                                                                                editable="false"
+                                                                                                layoutX="1.0"
+                                                                                                layoutY="27.0"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt3"
+                                                                                               text="Vehicle Stolen:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.rowIndex="2">
+                                                                                    <children>
+                                                                                        <Label fx:id="plt4"
+                                                                                               layoutX="1.0"
+                                                                                               text="Color:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <AnchorPane
+                                                                                                fx:id="vehcolordisplay"
+                                                                                                layoutY="-48.0"
+                                                                                                prefHeight="40.0"
+                                                                                                prefWidth="403.0"
+                                                                                                style="-fx-background-color: #f2f2f2; -fx-border-color: grey;"
+                                                                                                AnchorPane.bottomAnchor="0.0"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0">
+                                                                                            <children>
+                                                                                                <Label fx:id="vehnocolorlabel"
+                                                                                                       alignment="CENTER"
+                                                                                                       contentDisplay="CENTER"
+                                                                                                       layoutX="2.0"
+                                                                                                       layoutY="2.0"
+                                                                                                       style="-fx-padding: 10;"
+                                                                                                       text="No Color on Record"
+                                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                                       AnchorPane.leftAnchor="1.0"
+                                                                                                       AnchorPane.rightAnchor="1.0"
+                                                                                                       AnchorPane.topAnchor="1.0"/>
+                                                                                            </children>
+                                                                                        </AnchorPane>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.columnIndex="1"
+                                                                                            GridPane.rowIndex="1">
+                                                                                    <children>
+                                                                                        <TextField
+                                                                                                fx:id="vehpolicefield"
+                                                                                                editable="false"
+                                                                                                layoutX="1.0"
+                                                                                                layoutY="27.0"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt8"
+                                                                                               text="Police Vehicle:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <BorderPane GridPane.columnIndex="2"
+                                                                                            GridPane.rowSpan="2">
+                                                                                    <center>
+                                                                                        <StackPane
+                                                                                                BorderPane.alignment="CENTER">
+                                                                                            <children>
+                                                                                                <VBox>
+                                                                                                    <children>
+                                                                                                        <BorderPane
+                                                                                                                VBox.vgrow="NEVER">
+                                                                                                            <center>
+                                                                                                                <Label fx:id="noVehImageFoundlbl"
+                                                                                                                       alignment="CENTER"
+                                                                                                                       text="No Image Found In System">
+                                                                                                                    <font>
+                                                                                                                        <Font name="Segoe UI Black"
+                                                                                                                              size="13.0"/>
+                                                                                                                    </font>
+                                                                                                                </Label>
+                                                                                                            </center>
+                                                                                                            <VBox.margin>
+                                                                                                                <Insets bottom="3.0"/>
+                                                                                                            </VBox.margin>
+                                                                                                        </BorderPane>
+                                                                                                        <BorderPane
+                                                                                                                VBox.vgrow="ALWAYS">
+                                                                                                            <center>
+                                                                                                                <ImageView
+                                                                                                                        fx:id="vehImageView"
+                                                                                                                        fitHeight="120.0"
+                                                                                                                        fitWidth="245.0"
+                                                                                                                        pickOnBounds="true"
+                                                                                                                        preserveRatio="true"
+                                                                                                                        BorderPane.alignment="CENTER"/>
+                                                                                                            </center>
+                                                                                                            <VBox.margin>
+                                                                                                                <Insets/>
+                                                                                                            </VBox.margin>
+                                                                                                        </BorderPane>
+                                                                                                    </children>
+                                                                                                </VBox>
+                                                                                            </children>
+                                                                                        </StackPane>
+                                                                                    </center>
+                                                                                </BorderPane>
+                                                                                <AnchorPane GridPane.columnIndex="1"
+                                                                                            GridPane.columnSpan="2"
+                                                                                            GridPane.rowIndex="2">
+                                                                                    <children>
+                                                                                        <Label fx:id="plt10"
+                                                                                               layoutX="130.0"
+                                                                                               layoutY="2.0"
+                                                                                               text="Vehicle Type:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <ComboBox
+                                                                                                fx:id="vehtypecombobox"
+                                                                                                layoutX="61.0"
+                                                                                                layoutY="41.0"
+                                                                                                prefWidth="150.0"
+                                                                                                style="-fx-padding: 3;"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="170.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                        <Button layoutX="395.0"
+                                                                                                layoutY="34.0"
+                                                                                                mnemonicParsing="false"
+                                                                                                onAction="#vehUpdateInfo"
+                                                                                                opacity="0.73"
+                                                                                                style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                                styleClass="incidentbtn"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                text="Update Vehicle Type"
+                                                                                                textOverrun="CLIP"
+                                                                                                AnchorPane.bottomAnchor="8.0"
+                                                                                                AnchorPane.rightAnchor="15.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Button>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                        <Label alignment="CENTER" prefHeight="35.0"
+                                                                               prefWidth="747.0"
+                                                                               style="-fx-background-color: #5e7387;"
+                                                                               styleClass="heading"
+                                                                               stylesheets="@../../css/menu/menuLabels.css"
+                                                                               text="Vehicle Information"
+                                                                               textAlignment="CENTER" textFill="WHITE"
+                                                                               AnchorPane.leftAnchor="0.0"
+                                                                               AnchorPane.rightAnchor="0.0"
+                                                                               AnchorPane.topAnchor="0.0">
+                                                                            <font>
+                                                                                <Font name="Segoe UI Black"
+                                                                                      size="19.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                                <AnchorPane>
+                                                                    <children>
+                                                                        <GridPane hgap="25.0" layoutX="31.0"
+                                                                                  layoutY="35.0" prefHeight="74.0"
+                                                                                  prefWidth="866.0" vgap="15.0"
+                                                                                  AnchorPane.leftAnchor="19.0"
+                                                                                  AnchorPane.rightAnchor="19.0"
+                                                                                  AnchorPane.topAnchor="45.0">
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   minWidth="120.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   minWidth="120.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   minWidth="120.0"
+                                                                                                   percentWidth="33.3"/>
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints maxHeight="-Infinity"
+                                                                                                minHeight="-Infinity"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <AnchorPane>
+                                                                                    <children>
+                                                                                        <TextField fx:id="vehownerfield"
+                                                                                                   editable="false"
+                                                                                                   layoutY="50.0"
+                                                                                                   styleClass="calloutField"
+                                                                                                   stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                                   AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt5"
+                                                                                               text="Owner:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.columnIndex="1">
+                                                                                    <children>
+                                                                                        <TextField fx:id="vehregfield"
+                                                                                                   editable="false"
+                                                                                                   layoutX="1.0"
+                                                                                                   layoutY="27.0"
+                                                                                                   styleClass="calloutField"
+                                                                                                   stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                                   AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt6"
+                                                                                               text="Registration Status:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <AnchorPane GridPane.columnIndex="2">
+                                                                                    <children>
+                                                                                        <TextField fx:id="vehinsfield"
+                                                                                                   editable="false"
+                                                                                                   layoutX="1.0"
+                                                                                                   layoutY="27.0"
+                                                                                                   styleClass="calloutField"
+                                                                                                   stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                                   AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt7"
+                                                                                               text="Insurance Status:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                                <Button mnemonicParsing="false"
+                                                                                        onAction="#vehcreateimpreport"
+                                                                                        opacity="0.73" prefHeight="33.0"
+                                                                                        prefWidth="161.0"
+                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                        styleClass="incidentbtn"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        text="Create Impound Report"
+                                                                                        textOverrun="CLIP"
+                                                                                        GridPane.columnIndex="2"
+                                                                                        GridPane.halignment="RIGHT"
+                                                                                        GridPane.rowIndex="1">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets right="15.0"/>
+                                                                                    </GridPane.margin>
+                                                                                </Button>
+                                                                                <AnchorPane GridPane.rowIndex="1">
+                                                                                    <children>
+                                                                                        <TextField
+                                                                                                fx:id="vehinspectionfield"
+                                                                                                editable="false"
+                                                                                                layoutY="50.0"
+                                                                                                styleClass="calloutField"
+                                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                                AnchorPane.leftAnchor="0.0"
+                                                                                                AnchorPane.rightAnchor="0.0"
+                                                                                                AnchorPane.topAnchor="27.0"/>
+                                                                                        <Label fx:id="plt9"
+                                                                                               text="Inspection Status:"
+                                                                                               AnchorPane.leftAnchor="0.0"
+                                                                                               AnchorPane.topAnchor="0.0">
+                                                                                            <font>
+                                                                                                <Font name="Segoe UI Semibold"
+                                                                                                      size="16.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                        <Label alignment="CENTER" prefHeight="35.0"
+                                                                               prefWidth="747.0"
+                                                                               style="-fx-background-color: #5e7387;"
+                                                                               styleClass="heading"
+                                                                               stylesheets="@../../css/menu/menuLabels.css"
+                                                                               text="Owner Information"
+                                                                               textAlignment="CENTER" textFill="WHITE"
+                                                                               AnchorPane.leftAnchor="0.0"
+                                                                               AnchorPane.rightAnchor="0.0"
+                                                                               AnchorPane.topAnchor="0.0">
+                                                                            <font>
+                                                                                <Font name="Segoe UI Black"
+                                                                                      size="19.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                                <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0"
+                                                       layoutY="298.0"
+                                                       style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
+                                                       styleClass="headingBig"
+                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                       text="No Record In System." textAlignment="CENTER"
+                                                       visible="false" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="298.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
+                                <ScrollPane fx:id="pedPane" fitToHeight="true" fitToWidth="true"
+                                            style="-fx-background-color: transparent;"
+                                            stylesheets="@../../css/main/Logscrollpane.css">
+                                    <content>
+                                        <AnchorPane fx:id="pedLookupPane" style="-fx-background-color: transparent;">
+                                            <children>
+                                                <AnchorPane fx:id="pedRecordPane" layoutX="15.0" layoutY="65.0"
+                                                            prefHeight="432.0" prefWidth="857.0"
+                                                            AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
+                                                            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                                                    <children>
+                                                        <AnchorPane layoutY="36.0" AnchorPane.bottomAnchor="0.0"
+                                                                    AnchorPane.leftAnchor="0.0"
+                                                                    AnchorPane.rightAnchor="0.0"
+                                                                    AnchorPane.topAnchor="5.0">
+                                                            <children>
+                                                                <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0"
+                                                                          vgap="12.0" AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="15.0"
+                                                                          AnchorPane.rightAnchor="15.0"
+                                                                          AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="ALWAYS"
+                                                                                           minWidth="140.0"
+                                                                                           percentWidth="25.0"/>
+                                                                        <ColumnConstraints hgrow="ALWAYS"
+                                                                                           minWidth="140.0"
+                                                                                           percentWidth="25.0"/>
+                                                                        <ColumnConstraints hgrow="ALWAYS"
+                                                                                           minWidth="140.0"
+                                                                                           percentWidth="25.0"/>
+                                                                        <ColumnConstraints hgrow="ALWAYS"
+                                                                                           minWidth="140.0"
+                                                                                           percentWidth="25.0"/>
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        vgrow="NEVER"/>
+                                                                        <RowConstraints minHeight="-Infinity"
+                                                                                        prefHeight="120.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <AnchorPane GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <TextField fx:id="pedfnamefield"
+                                                                                           editable="false"
+                                                                                           layoutX="13.0" layoutY="46.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped1" layoutX="12.0"
+                                                                                       layoutY="19.0" text="First Name:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <TextField fx:id="pedlnamefield"
+                                                                                           editable="false"
+                                                                                           layoutX="13.0" layoutY="48.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped2" layoutX="12.0"
+                                                                                       layoutY="21.0" text="Last Name:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.rowIndex="4">
+                                                                            <children>
+                                                                                <TextField fx:id="pedwantedfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped4" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Wanted Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="6">
+                                                                            <children>
+                                                                                <TextField fx:id="pedlicensefield"
+                                                                                           editable="false"
+                                                                                           layoutX="27.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped5" layoutX="26.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="License Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="2">
+                                                                            <children>
+                                                                                <TextField fx:id="peddobfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped6" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Birthday:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="2"
+                                                                                    GridPane.rowIndex="2">
+                                                                            <children>
+                                                                                <TextField fx:id="pedaddressfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped7" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Address:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="4">
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       prefHeight="35.0"
+                                                                                       prefWidth="747.0"
+                                                                                       style="-fx-background-color: #5e7387;"
+                                                                                       styleClass="heading"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                                                       text="Basic Information"
+                                                                                       textAlignment="CENTER"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                       AnchorPane.leftAnchor="-15.0"
+                                                                                       AnchorPane.rightAnchor="-15.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="19.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.rowIndex="9">
+                                                                            <children>
+                                                                                <TextField fx:id="peddescfield"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           prefHeight="39.0"
+                                                                                           prefWidth="143.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped8" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Description:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="7">
+                                                                            <children>
+                                                                                <TextField fx:id="pedlicnumfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped9" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="License Number:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="4">
+                                                                            <children>
+                                                                                <TextField fx:id="pedparolestatusfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped12" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Parole Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="4">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedprobationstatusfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped13" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Probation Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.rowIndex="7">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedgunlicensestatusfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped15" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Gun License Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="7">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedgunlicensetypefield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped16" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Gun License Type:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="7">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedgunlicenseclassfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped17" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Gun License Class:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="6">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedfishinglicstatusfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped18" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Fishing License Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.rowIndex="6">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedboatinglicstatusfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped19" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Boating License Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="6">
+                                                                            <children>
+                                                                                <TextField
+                                                                                        fx:id="pedhuntinglicstatusfield"
+                                                                                        editable="false" layoutX="26.0"
+                                                                                        layoutY="47.0"
+                                                                                        styleClass="calloutField"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped20" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Hunting License Status:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="2"
+                                                                                    GridPane.rowIndex="12">
+                                                                            <children>
+                                                                                <Label fx:id="ped21" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Arrest History:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="-5.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <ListView
+                                                                                        fx:id="pedarrestpriorslistview"
+                                                                                        layoutX="76.0" layoutY="55.0"
+                                                                                        prefHeight="145.0"
+                                                                                        prefWidth="200.0"
+                                                                                        stylesheets="@../../css/main/calList.css"
+                                                                                        AnchorPane.bottomAnchor="0.0"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="25.0"/>
+                                                                                <Button layoutX="282.0" layoutY="-5.0"
+                                                                                        mnemonicParsing="false"
+                                                                                        onAction="#pedCreateArrestReport"
+                                                                                        opacity="0.73" prefHeight="25.0"
+                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                        styleClass="incidentbtn"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        text="Create New Arrest"
+                                                                                        textOverrun="CLIP"
+                                                                                        AnchorPane.rightAnchor="45.0"
+                                                                                        AnchorPane.topAnchor="-5.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Button>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.columnSpan="2"
+                                                                                    GridPane.rowIndex="12">
+                                                                            <children>
+                                                                                <Label fx:id="ped22" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Citation History:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="-5.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <ListView
+                                                                                        fx:id="pedcitationpriorslistview"
+                                                                                        layoutX="137.0" layoutY="18.0"
+                                                                                        prefHeight="145.0"
+                                                                                        prefWidth="200.0"
+                                                                                        stylesheets="@../../css/main/calList.css"
+                                                                                        AnchorPane.bottomAnchor="0.0"
+                                                                                        AnchorPane.leftAnchor="0.0"
+                                                                                        AnchorPane.rightAnchor="0.0"
+                                                                                        AnchorPane.topAnchor="25.0"/>
+                                                                                <Button layoutX="265.0" layoutY="1.0"
+                                                                                        mnemonicParsing="false"
+                                                                                        onAction="#pedCreateCitationReport"
+                                                                                        opacity="0.73" prefHeight="25.0"
+                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                        styleClass="incidentbtn"
+                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        text="Create New Citation"
+                                                                                        textOverrun="CLIP"
+                                                                                        AnchorPane.rightAnchor="45.0"
+                                                                                        AnchorPane.topAnchor="-5.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Button>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="4"
+                                                                                    GridPane.rowIndex="3">
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       prefHeight="35.0"
+                                                                                       prefWidth="747.0"
+                                                                                       style="-fx-background-color: #5e7387;"
+                                                                                       styleClass="heading"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                                                       text="Legal Information"
+                                                                                       textAlignment="CENTER"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                       AnchorPane.leftAnchor="-15.0"
+                                                                                       AnchorPane.rightAnchor="-15.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="19.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="9">
+                                                                            <children>
+                                                                                <TextField fx:id="pedaliasfield"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped10" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Alias(s):"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="4"
+                                                                                    GridPane.rowIndex="11">
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       prefHeight="35.0"
+                                                                                       prefWidth="747.0"
+                                                                                       style="-fx-background-color: #5e7387;"
+                                                                                       styleClass="heading"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                                                       text="Prior History"
+                                                                                       textAlignment="CENTER"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                       AnchorPane.leftAnchor="-15.0"
+                                                                                       AnchorPane.rightAnchor="-15.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="19.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="4"
+                                                                                    GridPane.rowIndex="5">
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       prefHeight="35.0"
+                                                                                       prefWidth="747.0"
+                                                                                       style="-fx-background-color: #5e7387;"
+                                                                                       styleClass="heading"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                                                       text="Licensing Information"
+                                                                                       textAlignment="CENTER"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                       AnchorPane.leftAnchor="-15.0"
+                                                                                       AnchorPane.rightAnchor="-15.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="19.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="4"
+                                                                                    GridPane.vgrow="NEVER">
+                                                                            <children>
+                                                                                <TextField fx:id="pedtimesstoppedfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped14" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Time(s) Stopped:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="9">
+                                                                            <children>
+                                                                                <TextField fx:id="pedaffiliationfield"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped11" layoutX="25.0"
+                                                                                       layoutY="20.0"
+                                                                                       text="Affiliation(s):"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnIndex="2"
+                                                                                    GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <TextField fx:id="pedgenfield"
+                                                                                           editable="false"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped3" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Gender:"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane GridPane.columnSpan="4"
+                                                                                    GridPane.rowIndex="8">
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       prefHeight="35.0"
+                                                                                       prefWidth="747.0"
+                                                                                       style="-fx-background-color: #5e7387;"
+                                                                                       styleClass="heading"
+                                                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                                                       text="Other Information"
+                                                                                       textAlignment="CENTER"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                                       AnchorPane.leftAnchor="-15.0"
+                                                                                       AnchorPane.rightAnchor="-15.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="19.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <BorderPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="1"
+                                                                                    GridPane.rowSpan="2">
+                                                                            <center>
+                                                                                <StackPane
+                                                                                        BorderPane.alignment="CENTER">
+                                                                                    <children>
+                                                                                        <VBox>
+                                                                                            <children>
+                                                                                                <BorderPane
+                                                                                                        VBox.vgrow="NEVER">
+                                                                                                    <center>
+                                                                                                        <Label fx:id="noPedImageFoundlbl"
+                                                                                                               alignment="CENTER"
+                                                                                                               text="No Image Found In System">
+                                                                                                            <font>
+                                                                                                                <Font name="Segoe UI Black"
+                                                                                                                      size="13.0"/>
+                                                                                                            </font>
+                                                                                                        </Label>
+                                                                                                    </center>
+                                                                                                    <VBox.margin>
+                                                                                                        <Insets bottom="3.0"/>
+                                                                                                    </VBox.margin>
+                                                                                                </BorderPane>
+                                                                                                <BorderPane
+                                                                                                        VBox.vgrow="ALWAYS">
+                                                                                                    <center>
+                                                                                                        <ImageView
+                                                                                                                fx:id="pedImageView"
+                                                                                                                fitHeight="125.0"
+                                                                                                                fitWidth="124.0"
+                                                                                                                pickOnBounds="true"
+                                                                                                                BorderPane.alignment="CENTER"/>
+                                                                                                    </center>
+                                                                                                    <VBox.margin>
+                                                                                                        <Insets bottom="5.0"/>
+                                                                                                    </VBox.margin>
+                                                                                                </BorderPane>
+                                                                                            </children>
+                                                                                        </VBox>
+                                                                                    </children>
+                                                                                </StackPane>
+                                                                            </center>
+                                                                        </BorderPane>
+                                                                        <AnchorPane GridPane.columnIndex="3"
+                                                                                    GridPane.rowIndex="9">
+                                                                            <children>
+                                                                                <TextField fx:id="pedflagfield"
+                                                                                           layoutX="26.0" layoutY="47.0"
+                                                                                           styleClass="calloutField"
+                                                                                           stylesheets="@../../css/menu/menuStyles.css"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="ped23" layoutX="25.0"
+                                                                                       layoutY="20.0" text="Flag(s):"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <Button mnemonicParsing="false"
+                                                                                onAction="#pedUpdateInfo" opacity="0.73"
+                                                                                style="-fx-padding: 4 8; -fx-font-size: 12;"
+                                                                                styleClass="incidentbtn"
+                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                text="Update Other Information"
+                                                                                textOverrun="CLIP"
+                                                                                GridPane.columnIndex="3"
+                                                                                GridPane.halignment="RIGHT"
+                                                                                GridPane.rowIndex="10">
+                                                                            <font>
+                                                                                <Font name="Segoe UI" size="12.0"/>
+                                                                            </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets right="15.0"/>
+                                                                            </GridPane.margin>
+                                                                        </Button>
+                                                                    </children>
+                                                                </GridPane>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </children>
+                                                </AnchorPane>
+                                                <Label fx:id="noRecordFoundLabelPed" alignment="CENTER" layoutX="386.0"
+                                                       layoutY="221.0"
+                                                       style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
+                                                       styleClass="headingBig"
+                                                       stylesheets="@../../css/menu/menuLabels.css"
+                                                       text="No Record In System." textAlignment="CENTER"
+                                                       visible="false" AnchorPane.leftAnchor="0.0"
+                                                       AnchorPane.rightAnchor="0.0">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <GridPane layoutX="45.0" layoutY="15.0" AnchorPane.leftAnchor="45.0"
+                                                          AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                        <ColumnConstraints hgrow="NEVER"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
+                                                               styleClass="headingBig"
+                                                               stylesheets="@../../css/menu/menuLabels.css"
+                                                               text="Search Ped:" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <AnchorPane GridPane.columnIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" right="10.0"/>
+                                                            </GridPane.margin>
+                                                            <children>
+                                                                <ComboBox fx:id="pedSearchField" editable="true"
+                                                                          minWidth="100.0" prefWidth="150.0"
+                                                                          visibleRowCount="5"
+                                                                          AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="0.0"
+                                                                          AnchorPane.rightAnchor="0.0"
+                                                                          AnchorPane.topAnchor="0.0"/>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <Button fx:id="pedSearchBtn" mnemonicParsing="false"
+                                                                onAction="#onPedSearchBtnClick" prefHeight="36.0"
+                                                                prefWidth="103.0"
+                                                                style="-fx-label-padding: 0; -fx-padding: 0;"
+                                                                styleClass="incidentbtn"
+                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                text="Search" GridPane.columnIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <BorderPane GridPane.columnIndex="3">
+                                                            <center>
+                                                                <Button mnemonicParsing="false"
+                                                                        onAction="#pedAddDataToNotes" opacity="0.73"
+                                                                        style="-fx-padding: 4 10; -fx-font-size: 12;"
+                                                                        styleClass="incidentbtn"
+                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                        text="Add Data To Notes" textOverrun="CLIP">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="12.0"/>
+                                                                    </font>
+                                                                    <BorderPane.margin>
+                                                                        <Insets left="10.0"/>
+                                                                    </BorderPane.margin>
+                                                                </Button>
+                                                            </center>
+                                                        </BorderPane>
+                                                    </children>
+                                                </GridPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </BorderPane.margin>
+        </AnchorPane>
+    </center>
+</BorderPane>

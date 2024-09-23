@@ -22,8 +22,6 @@ public class ProbabilitySettingsController {
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
-	private Label main1;
-	@javafx.fxml.FXML
 	private TextField permitTypeConcealed;
 	@javafx.fxml.FXML
 	private TextField onParole;

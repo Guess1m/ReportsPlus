@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="339.0" prefWidth="709.0"
-            style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="339.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Misc.OutputViewController">
     <center>
         <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" styleClass="list-view-custom"
-                  stylesheets="@../../css/listView.css"/>
+                  stylesheets="@../../css/listView.css">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </ListView>
     </center>
 </BorderPane>

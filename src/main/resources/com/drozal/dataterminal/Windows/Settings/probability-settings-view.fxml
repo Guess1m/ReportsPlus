@@ -5,22 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="806.0" prefWidth="768.0" style="-fx-border-color: black; -fx-border-width: 1.5;"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="702.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.ProbabilitySettingsController">
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="main1" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                       prefHeight="61.0" prefWidth="623.0" style="-fx-background-color: #524992;"
-                       text="Lookup Data Probabilities Configuration" textFill="WHITE" AnchorPane.leftAnchor="-1.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="20.0"/>
-                    </font>
-                </Label>
                 <GridPane hgap="15.0" layoutY="61.0" vgap="10.0" AnchorPane.bottomAnchor="10.0"
-                          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+                          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" percentWidth="25.0"/>
@@ -551,6 +542,9 @@
                     </children>
                 </GridPane>
             </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
         </AnchorPane>
     </center>
 </BorderPane>

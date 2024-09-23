@@ -7,6 +7,7 @@ import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
 import com.drozal.dataterminal.Windows.Apps.CourtViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
+import com.drozal.dataterminal.Windows.Apps.LookupViewController;
 import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -49,7 +50,7 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApplicationWindow = createFakeWindow(desktopContainer,
 					                                                      "Windows/Main/DataTerminalHome-view.fxml",
-					                                                      "Primary", true, 1, false, taskBarApps);
+					                                                      "Primary", true, 1, true, taskBarApps);
 					
 					DataTerminalHomeApplication.controller = (com.drozal.dataterminal.Windows.Main.actionController) mainApplicationWindow.controller;
 				}
@@ -76,7 +77,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Settings Application",
-					                 true, 2, true, taskBarApps);
+					                 false, 2, true, taskBarApps);
 				}
 			}
 		});
@@ -156,6 +157,19 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, courtApp, 8);
+		
+		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png")));
+		AnchorPane lookupApp = lookupAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
+					                                       "Database Lookup", true, 2, true, taskBarApps);
+					LookupViewController.lookupViewController = (LookupViewController) logapp.controller;
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, lookupApp, 9);
 		
 		Platform.runLater(() -> {
 			// todo add ability for custom image

@@ -1,8 +1,6 @@
 package com.drozal.dataterminal.logs.Arrest;
 
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
-import com.drozal.dataterminal.Windows.Main.actionController;
-import com.drozal.dataterminal.Windows.Main.newOfficerController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.ChargesData;
 import com.drozal.dataterminal.logs.Impound.ImpoundReportUtils;
@@ -35,6 +33,7 @@ import java.util.*;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
+import static com.drozal.dataterminal.Windows.Apps.LookupViewController.lookupViewController;
 import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
@@ -510,23 +509,17 @@ public class ArrestReportUtils {
 					    LogUtils.Severity.ERROR);
 				}
 				
-				actionController controllerVar = null;
-				if (controller != null) {
-					controllerVar = controller;
-				} else if (newOfficerController.controller != null) {
-					controllerVar = newOfficerController.controller;
-				} else {
-					log("Settings Controller Var could not be set", LogUtils.Severity.ERROR);
-				}
-				if (Objects.requireNonNull(controllerVar).getPedRecordPane().isVisible()) {
-					if (controllerVar.getPedSearchField().getEditor().getText().equalsIgnoreCase(
-							offenderName.getText())) {
-						try {
-							controllerVar.onPedSearchBtnClick(new ActionEvent());
-						} catch (IOException e) {
-							logError(
-									"Error searching name to update ped lookup from arrestreport: " + controllerVar.getPedfnamefield().getText().trim() + " " + controllerVar.getPedlnamefield().getText().trim(),
-									e);
+				if (lookupViewController != null) {
+					if (Objects.requireNonNull(lookupViewController).getPedRecordPane().isVisible()) {
+						if (lookupViewController.getPedSearchField().getEditor().getText().equalsIgnoreCase(
+								offenderName.getText())) {
+							try {
+								lookupViewController.onPedSearchBtnClick(new ActionEvent());
+							} catch (IOException e) {
+								logError(
+										"Error searching name to update ped lookup from arrestreport: " + lookupViewController.getPedfnamefield().getText().trim() + " " + lookupViewController.getPedlnamefield().getText().trim(),
+										e);
+							}
 						}
 					}
 				}

@@ -61,6 +61,9 @@ public class CustomWindow {
 	}
 	
 	private void addMainStageResizeListener() {
+		/* todo try out
+		this.getWindowPane().widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
+		this.getWindowPane().heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());*/
 		root.widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
 		root.heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
 	}

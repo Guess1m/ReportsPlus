@@ -413,17 +413,14 @@ public class settingsController {
 			
 		}
 		if (mainDesktopControllerObj != null) {
-			mainDesktopControllerObj.getServerStatusLabel().setStyle(
-					"-fx-border-color: " + secclr + "; -fx-label-padding: 5; -fx-border-radius: 5;");
+			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
 			if (isConnected) {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+						"-fx-text-fill: #00da16; -fx-label-padding: 5; -fx-border-radius: 5;");
 			} else {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+						"-fx-text-fill: #ff5e5e; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
-			mainDesktopControllerObj.getServerStatusLabel().setStyle(
-					updateStyleProperty(mainDesktopControllerObj.getServerStatusLabel(), "-fx-border-color", secclr));
 		}
 	}
 	

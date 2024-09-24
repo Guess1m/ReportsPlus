@@ -61,6 +61,8 @@ public class mainDesktopController {
 	private Label serverStatusLabel;
 	@FXML
 	private Label versionLabel;
+	@FXML
+	private VBox taskBarLeftVbox;
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
 		AnchorPane.setLeftAnchor(newApp, x);
@@ -71,7 +73,8 @@ public class mainDesktopController {
 	public void initialize() throws IOException {
 		button1.setOnAction(event -> editableDesktop = !editableDesktop);
 		
-		locationDataLabel.setVisible(false);
+		/*locationDataLabel.setVisible(false);*/
+		taskBarLeftVbox.getChildren().remove(locationDataLabel);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
@@ -285,7 +288,7 @@ public class mainDesktopController {
 				}
 			}
 			locationDataLabel.setOnMouseClicked(mouseEvent -> {
-				if (locationDataLabel.isVisible()) {
+				if (taskBarLeftVbox.getChildren().contains(locationDataLabel)) {
 					Clipboard clipboard = Clipboard.getSystemClipboard();
 					ClipboardContent content = new ClipboardContent();
 					content.putString(locationDataLabel.getText().split(",")[0]);
@@ -329,18 +332,17 @@ public class mainDesktopController {
 				showLookupBtn.setVisible(false);
 				showCalloutBtn.setVisible(false);
 				showIDBtn.setVisible(false);*/
-				locationDataLabel.setVisible(false);
+				taskBarLeftVbox.getChildren().remove(locationDataLabel);
+				
 				log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
-				serverStatusLabel.setStyle(
-						"-fx-text-fill: #ff5a5a; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+				serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					clientController.getPortField().setText("");
 					clientController.getInetField().setText("");
 					clientController.getStatusLabel().setText("Not Connected");
 					clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
-					serverStatusLabel.setStyle(
-							"-fx-text-fill: #ff5e5e; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+					serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e; -fx-label-padding: 5; -fx-border-radius: 5;");
 				}
 			} else {
 				/*showLookupBtn.setVisible(true);
@@ -348,8 +350,7 @@ public class mainDesktopController {
 				showIDBtn.setVisible(true);*/
 				serverStatusLabel.setText("Connected");
 				
-				serverStatusLabel.setStyle(
-						"-fx-text-fill: #00da16; -fx-border-color: #665CB6; -fx-label-padding: 5; -fx-border-radius: 5;");
+				serverStatusLabel.setStyle("-fx-text-fill: #00da16; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					try {
 						Thread.sleep(500);

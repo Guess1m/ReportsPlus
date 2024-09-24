@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -35,7 +35,7 @@
                         </BorderPane>
                         <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78" text="v1.0.9-alpha"
                                textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="0.0"
-                               AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
                                 <Font name="Segoe UI Black" size="10.0"/>
                             </font>
@@ -46,52 +46,13 @@
                                     </color>
                                 </DropShadow>
                             </effect>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0"/>
-                            </padding>
                         </Label>
-                        <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0" text="sadfsf"
-                               textFill="#e1e1e1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                               AnchorPane.topAnchor="0.0">
-                            <font>
-                                <Font name="Segoe UI Semibold" size="12.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../imgs/icons/location.png"/>
-                                    </image>
-                                    <effect>
-                                        <ColorAdjust brightness="-0.16"/>
-                                    </effect>
-                                </ImageView>
-                            </graphic>
-                            <padding>
-                                <Insets left="20.0" top="20.0"/>
-                            </padding>
-                        </Label>
-                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        <VBox fx:id="taskBarLeftVbox" alignment="CENTER" layoutX="708.0" prefHeight="55.0"
+                              prefWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                               AnchorPane.topAnchor="0.0">
                             <children>
-                                <Label alignment="CENTER" text="Server:" textFill="WHITE" textOverrun="CLIP"
-                                       HBox.hgrow="ALWAYS">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="15.0"/>
-                                    </font>
-                                    <effect>
-                                        <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                    width="15.0">
-                                            <color>
-                                                <Color opacity="0.223709374666214"/>
-                                            </color>
-                                        </DropShadow>
-                                    </effect>
-                                    <HBox.margin>
-                                        <Insets/>
-                                    </HBox.margin>
-                                </Label>
                                 <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
-                                       textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                       textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="12.0"/>
                                     </font>
@@ -103,15 +64,33 @@
                                             </color>
                                         </DropShadow>
                                     </effect>
-                                    <HBox.margin>
-                                        <Insets left="10.0" top="1.0"/>
-                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
+                                       prefHeight="17.0" prefWidth="168.0" text="sadfsf" textFill="#e1e1e1">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../imgs/icons/location.png"/>
+                                            </image>
+                                            <effect>
+                                                <ColorAdjust brightness="-0.16"/>
+                                            </effect>
+                                        </ImageView>
+                                    </graphic>
                                 </Label>
                             </children>
-                            <padding>
-                                <Insets right="20.0"/>
-                            </padding>
-                        </HBox>
+                        </VBox>
+                        <ImageView fitHeight="53.0" fitWidth="53.0" layoutY="29.0" pickOnBounds="true"
+                                   preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                   AnchorPane.topAnchor="0.0">
+                            <image>
+                                <Image url="@../../imgs/icons/Logo.png"/>
+                            </image>
+                        </ImageView>
                     </children>
                 </AnchorPane>
             </children>

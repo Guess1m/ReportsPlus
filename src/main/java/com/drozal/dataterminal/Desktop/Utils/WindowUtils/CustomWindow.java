@@ -31,15 +31,15 @@ public class CustomWindow {
 	public final String title;
 	private final int priority;
 	private final Pane windowPane;
+	private final TaskbarApp taskbarApp;
+	private final AnchorPane root;
 	public boolean isMinimized = false;
+	public Object controller;
 	private double originalWidth;
 	private double originalHeight;
 	private double originalX;
 	private double originalY;
 	private boolean isMaximized = false;
-	public Object controller;
-	private final TaskbarApp taskbarApp;
-	private final AnchorPane root;
 	
 	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root) throws IOException {
 		URL fxmlUrl = Launcher.class.getResource(fileName);

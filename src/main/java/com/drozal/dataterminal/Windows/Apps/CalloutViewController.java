@@ -15,6 +15,7 @@ import static com.drozal.dataterminal.util.Misc.CalloutManager.handleSelectedNod
 
 public class CalloutViewController {
 	
+	public static CalloutViewController calloutViewController;
 	@javafx.fxml.FXML
 	private TextField calType;
 	@javafx.fxml.FXML
@@ -69,8 +70,6 @@ public class CalloutViewController {
 	private TextField calDate;
 	@javafx.fxml.FXML
 	private AnchorPane currentCalPane;
-	
-	public static CalloutViewController calloutViewController;
 	
 	public void initialize() {
 		currentCalPane.setPrefHeight(0);

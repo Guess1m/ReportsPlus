@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
-import static com.drozal.dataterminal.Windows.Main.actionController.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
@@ -34,6 +33,11 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class calloutController {
 	
+	public static Screen CalloutScreen = null;
+	public static boolean CalloutFirstShown = true;
+	public static double Calloutx;
+	public static double Callouty;
+	public static Stage CalloutStage = null;
 	static AnchorPane topBar;
 	@FXML
 	private BorderPane root;
@@ -60,7 +64,6 @@ public class calloutController {
 	@FXML
 	private ToggleButton ignoreBtn;
 	private String status;
-	
 	@FXML
 	private Label statusLabel;
 	

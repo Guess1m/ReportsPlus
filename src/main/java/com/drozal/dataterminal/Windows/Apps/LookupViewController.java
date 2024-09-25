@@ -29,9 +29,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
-import static com.drozal.dataterminal.Windows.Other.NotesViewController.createNoteTabs;
-import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.*;
 import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Impound.ImpoundReportUtils.newImpound;
@@ -50,6 +48,9 @@ import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
 
 public class LookupViewController {
 	
+	public static LookupViewController lookupViewController;
+	private final List<String> recentPedSearches = new ArrayList<>();
+	private final List<String> recentVehicleSearches = new ArrayList<>();
 	@javafx.fxml.FXML
 	private Label plt4;
 	@javafx.fxml.FXML
@@ -235,10 +236,9 @@ public class LookupViewController {
 	@javafx.fxml.FXML
 	private TextField pedtimesstoppedfield;
 	
-	private final List<String> recentPedSearches = new ArrayList<>();
-	private final List<String> recentVehicleSearches = new ArrayList<>();
-	
-	public static LookupViewController lookupViewController;
+	public static LookupViewController getLookupViewController() {
+		return lookupViewController;
+	}
 	
 	public void initialize() throws IOException {
 		noPedImageFoundlbl.setVisible(false);
@@ -1594,9 +1594,5 @@ public class LookupViewController {
 	
 	public List<String> getRecentVehicleSearches() {
 		return recentVehicleSearches;
-	}
-	
-	public static LookupViewController getLookupViewController() {
-		return lookupViewController;
 	}
 }

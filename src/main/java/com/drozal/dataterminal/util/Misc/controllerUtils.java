@@ -1,7 +1,7 @@
 package com.drozal.dataterminal.util.Misc;
 
+import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
-import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.logs.Accident.AccidentReportUtils;
@@ -156,7 +156,7 @@ public class controllerUtils {
 	public static String getJarDirectoryPath() {
 		try {
 			
-			String jarPath = actionController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			
 			return new File(jarPath).getParent();
 		} catch (Exception e) {
@@ -254,7 +254,7 @@ public class controllerUtils {
 		}
 	}
 	
-	public static void confirmLogClearDialog(Stage ownerStage, BarChart barChart, AreaChart areaChart) {
+	public static void confirmLogClearDialog(Stage ownerStage) {
 		Dialog<Boolean> dialog = new Dialog<>();
 		dialog.initOwner(ownerStage);
 		dialog.setTitle("Confirm Action");
@@ -278,8 +278,6 @@ public class controllerUtils {
 		dialog.showAndWait().ifPresent(result -> {
 			if (result) {
 				clearDataLogs();
-				updateChartIfMismatch(barChart);
-				controllerUtils.refreshChart(areaChart, "area");
 				LogViewController.needRefresh.set(1);
 			}
 		});

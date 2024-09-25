@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.Desktop;
 
-import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
@@ -8,7 +7,6 @@ import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
 import com.drozal.dataterminal.Windows.Apps.CourtViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.Windows.Apps.LookupViewController;
-import com.drozal.dataterminal.Windows.Main.actionController;
 import com.drozal.dataterminal.Windows.Other.NotesViewController;
 import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
@@ -73,6 +71,8 @@ public class mainDesktopController {
 	public void initialize() throws IOException {
 		button1.setOnAction(event -> editableDesktop = !editableDesktop);
 		
+		NotesViewController.notesText = "";
+		
 		/*locationDataLabel.setVisible(false);*/
 		taskBarLeftVbox.getChildren().remove(locationDataLabel);
 		
@@ -83,21 +83,6 @@ public class mainDesktopController {
 			log("Not First Login...", LogUtils.Severity.DEBUG);
 		}
 		
-		DesktopApp desktopAppObj = new DesktopApp("Main App", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane newApp = desktopAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApplicationWindow = createFakeWindow(desktopContainer,
-					                                                      "Windows/Main/DataTerminalHome-view.fxml",
-					                                                      "Primary", true, 1, true, taskBarApps);
-					
-					DataTerminalHomeApplication.controller = (actionController) (mainApplicationWindow != null ? mainApplicationWindow.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, newApp, 20, 20);
-		
 		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
@@ -105,7 +90,7 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
 					                                        true, 2, true, taskBarApps);
-					actionController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
+					NotesViewController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
 				}
 			}
 		});

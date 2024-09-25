@@ -35,8 +35,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
-import static com.drozal.dataterminal.Windows.Main.actionController.*;
-import static com.drozal.dataterminal.Windows.Server.calloutController.getCallout;
+import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.*;
+import static com.drozal.dataterminal.Windows.Server.calloutController.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;

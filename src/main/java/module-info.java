@@ -53,8 +53,6 @@ module com.drozal.dataterminal {
 	opens com.drozal.dataterminal.Windows.Misc to javafx.fxml;
 	exports com.drozal.dataterminal.Windows.Server;
 	opens com.drozal.dataterminal.Windows.Server to javafx.fxml;
-	exports com.drozal.dataterminal.Windows.Main;
-	opens com.drozal.dataterminal.Windows.Main to javafx.fxml;
 	exports com.drozal.dataterminal.Windows.Other;
 	opens com.drozal.dataterminal.Windows.Other to javafx.fxml;
 	exports com.drozal.dataterminal.Desktop;

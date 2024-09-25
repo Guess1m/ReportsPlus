@@ -1,7 +1,6 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.Desktop.mainDesktopController;
-import com.drozal.dataterminal.Windows.Main.actionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import java.util.Locale;
 public class DataTerminalHomeApplication extends Application {
 	
 	public static Stage mainRT;
-	public static actionController controller;
 	public static mainDesktopController mainDesktopControllerObj;
 	public static Stage mainDesktopStage;
 	

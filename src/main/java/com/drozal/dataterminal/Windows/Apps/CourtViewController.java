@@ -37,9 +37,9 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 
 public class CourtViewController {
 	
-	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
 	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(2);
-	
+	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
+	public static CourtViewController courtViewController;
 	@javafx.fxml.FXML
 	private TextField caseAgeField;
 	@javafx.fxml.FXML
@@ -143,7 +143,36 @@ public class CourtViewController {
 	@javafx.fxml.FXML
 	private Label caseprim1;
 	
-	public static CourtViewController courtViewController;
+	public static String getNextIndex(CourtCases courtCases) {
+		int highestIndex = 0;
+		
+		if (courtCases.getCaseList() != null) {
+			for (Case c : courtCases.getCaseList()) {
+				String indexString = c.getIndex();
+				if (indexString != null && !indexString.isEmpty()) {
+					try {
+						int index = Integer.parseInt(indexString);
+						highestIndex = Math.max(highestIndex, index);
+					} catch (NumberFormatException e) {
+						logError("Invalid index format: " + indexString, e);
+					}
+				}
+			}
+		}
+		return String.valueOf(highestIndex + 1);
+	}
+	
+	public static int getNeedCourtRefresh() {
+		return needCourtRefresh.get();
+	}
+	
+	public static SimpleIntegerProperty needCourtRefreshProperty() {
+		return needCourtRefresh;
+	}
+	
+	public static CourtViewController getCourtViewController() {
+		return courtViewController;
+	}
 	
 	public void initialize() {
 		try {
@@ -166,25 +195,6 @@ public class CourtViewController {
 		
 		loadCaseLabels(caseList);
 		caseList.getSelectionModel().clearSelection();
-	}
-	
-	public static String getNextIndex(CourtCases courtCases) {
-		int highestIndex = 0;
-		
-		if (courtCases.getCaseList() != null) {
-			for (Case c : courtCases.getCaseList()) {
-				String indexString = c.getIndex();
-				if (indexString != null && !indexString.isEmpty()) {
-					try {
-						int index = Integer.parseInt(indexString);
-						highestIndex = Math.max(highestIndex, index);
-					} catch (NumberFormatException e) {
-						logError("Invalid index format: " + indexString, e);
-					}
-				}
-			}
-		}
-		return String.valueOf(highestIndex + 1);
 	}
 	
 	public void loadCaseLabels(ListView<String> listView) {
@@ -550,14 +560,6 @@ public class CourtViewController {
 		}
 	}
 	
-	public static int getNeedCourtRefresh() {
-		return needCourtRefresh.get();
-	}
-	
-	public static SimpleIntegerProperty needCourtRefreshProperty() {
-		return needCourtRefresh;
-	}
-	
 	public TextField getCaseAgeField() {
 		return caseAgeField;
 	}
@@ -760,9 +762,5 @@ public class CourtViewController {
 	
 	public Label getCaseprim1() {
 		return caseprim1;
-	}
-	
-	public static CourtViewController getCourtViewController() {
-		return courtViewController;
 	}
 }

@@ -34,7 +34,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
 import static com.drozal.dataterminal.Windows.Apps.LookupViewController.lookupViewController;
-import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;

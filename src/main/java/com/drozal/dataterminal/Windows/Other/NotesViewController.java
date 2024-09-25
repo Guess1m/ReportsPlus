@@ -25,7 +25,6 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
-import static com.drozal.dataterminal.Windows.Main.actionController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class NotesViewController {
@@ -33,7 +32,9 @@ public class NotesViewController {
 	public static Stage codesStage = null;
 	public static List<NoteTab> notesTabList;
 	public static String notesText;
-	
+	public static NotesViewController notesViewController;
+	public static Stage notesStage = null;
+	public static CustomWindow codesWindow;
 	@javafx.fxml.FXML
 	private TextArea notepadTextArea;
 	@javafx.fxml.FXML
@@ -337,8 +338,6 @@ public class NotesViewController {
 	public void onclearclick() {
 		notepadTextArea.setText("");
 	}
-	
-	public static CustomWindow codesWindow;
 	
 	@javafx.fxml.FXML
 	public void oncodesclick() throws IOException {

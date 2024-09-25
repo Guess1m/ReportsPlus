@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
-import static com.drozal.dataterminal.Windows.Main.actionController.CalloutStage;
-import static com.drozal.dataterminal.Windows.Main.actionController.notesStage;
+import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesStage;
+import static com.drozal.dataterminal.Windows.Server.calloutController.CalloutStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {

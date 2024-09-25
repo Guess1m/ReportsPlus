@@ -32,45 +32,6 @@ public class DataTerminalHomeApplication extends Application {
 		launch();
 	}
 	
-	// todo remove old application launch args
-	/*@Override
-	public void start(Stage stage) throws IOException {
-		
-		mainRT = new Stage();
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Main/DataTerminalHome-view.fxml"));
-		mainRT.initStyle(StageStyle.UNDECORATED);
-		Parent root = loader.load();
-		controller = loader.getController();
-		Scene scene = new Scene(root);
-		mainRT.setScene(scene);
-		mainRT.getIcons().add(new Image(
-				Objects.requireNonNull(newOfficerApplication.class.getResourceAsStream("imgs/icons/Icon.png"))));
-		mainRT.show();
-		
-		String startupValue = ConfigReader.configRead("layout", "mainWindowLayout");
-		switch (startupValue) {
-			case "TopLeft" -> snapToTopLeft(mainRT);
-			case "TopRight" -> snapToTopRight(mainRT);
-			case "BottomLeft" -> snapToBottomLeft(mainRT);
-			case "BottomRight" -> snapToBottomRight(mainRT);
-			case "FullLeft" -> snapToLeft(mainRT);
-			case "FullRight" -> snapToRight(mainRT);
-			default -> {
-				mainRT.centerOnScreen();
-				mainRT.setMinHeight(450);
-				mainRT.setMinWidth(450);
-				if (ConfigReader.configRead("uiSettings", "fullscreenOnStartup").equals("true")) {
-					setWindowedFullscreen(mainRT);
-					
-				} else {
-					mainRT.setHeight(800);
-					mainRT.setWidth(1150);
-				}
-			}
-		}
-		
-		mainRT.setAlwaysOnTop(false);
-	}*/
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));

@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<VBox fx:id="main" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="main" xmlns="http://javafx.com/javafx/21">
     <children>
         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="64.0" prefWidth="415.0"
                     style="-fx-background-color: #f2f2f2;" VBox.vgrow="NEVER">

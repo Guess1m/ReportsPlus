@@ -73,7 +73,16 @@ public class mainDesktopController {
 		
 		NotesViewController.notesText = "";
 		
-		/*locationDataLabel.setVisible(false);*/
+		// todo add ability for custom image
+		Image image = new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg")));
+		BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+		                                                      BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		                                                      new BackgroundSize(100, 100, true, true, false, true));
+		
+		container.setBackground(new Background(backgroundImage));
+		
+		/*todo requires more testing with removing locationDataLabel from parent locationDataLabel.setVisible(false);*/
 		taskBarLeftVbox.getChildren().remove(locationDataLabel);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
@@ -225,16 +234,7 @@ public class mainDesktopController {
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
 		
 		Platform.runLater(() -> {
-			// todo add ability for custom image
-			Image image = new Image(Objects.requireNonNull(
-					Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg")));
-			BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-			                                                      BackgroundRepeat.NO_REPEAT,
-			                                                      BackgroundPosition.DEFAULT,
-			                                                      new BackgroundSize(100, 100, true, true, false,
-			                                                                         true));
 			
-			container.setBackground(new Background(backgroundImage));
 			
 			versionLabel.setText(stringUtil.version);
 			versionLabel.setOnMouseClicked(event -> {

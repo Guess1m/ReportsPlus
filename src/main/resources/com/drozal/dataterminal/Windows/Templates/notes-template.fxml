@@ -3,9 +3,10 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="main" prefHeight="285.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main"
+            prefHeight="285.0"
             style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
-            HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+            HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/21">
     <children>
         <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="337.0"
                   promptText="Suspect Info / Vehicle Info / Witness Info / Etc."

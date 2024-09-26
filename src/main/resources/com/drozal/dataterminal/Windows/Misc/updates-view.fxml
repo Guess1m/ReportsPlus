@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="565.0" prefWidth="466.0" style="-fx-border-color: #5A72A0;"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="565.0" prefWidth="466.0"
+            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Misc.updatesController">
     <center>
         <AnchorPane prefHeight="514.0" prefWidth="389.0" style="-fx-background-color: #1A2130;">

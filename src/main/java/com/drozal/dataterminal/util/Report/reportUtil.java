@@ -529,8 +529,6 @@ public class reportUtil {
 			}
 		});
 		
-		centerStageOnMainApp(stage);
-		
 		stage.setOnHidden(event -> {
 			windowX = stage.getX();
 			windowY = stage.getY();
@@ -551,8 +549,12 @@ public class reportUtil {
 		} catch (IOException e) {
 			logError("Could not get AOTReport: ", e);
 		}
+		
+		stage.setWidth(preferredWidth);
+		stage.setHeight(preferredHeight);
+		centerStageOnMainApp(stage);
 		stage.show();
-		stage.toFront();
+		
 		return result;
 	}
 	

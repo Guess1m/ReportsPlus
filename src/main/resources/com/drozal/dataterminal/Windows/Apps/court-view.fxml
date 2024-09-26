@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="710.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1002.0"
+            xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CourtViewController">
     <center>
         <AnchorPane fx:id="courtPane" stylesheets="@../../css/form/formFields.css">

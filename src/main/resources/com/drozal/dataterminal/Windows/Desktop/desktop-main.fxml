@@ -33,9 +33,9 @@
                                       BorderPane.alignment="CENTER"/>
                             </center>
                         </BorderPane>
-                        <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78" text="v1.0.9-alpha"
-                               textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="0.0"
-                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="versionLabel" alignment="CENTER" layoutX="13.0" layoutY="36.0" opacity="0.78"
+                               text="v1.0.9-alpha" textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="4.0"
+                               AnchorPane.leftAnchor="13.0">
                             <font>
                                 <Font name="Segoe UI Black" size="10.0"/>
                             </font>
@@ -84,9 +84,9 @@
                                 </Label>
                             </children>
                         </VBox>
-                        <ImageView fitHeight="53.0" fitWidth="53.0" layoutY="29.0" pickOnBounds="true"
-                                   preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
-                                   AnchorPane.topAnchor="0.0">
+                        <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="2.0" layoutY="-7.0" pickOnBounds="true"
+                                   AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="2.0"
+                                   AnchorPane.topAnchor="-7.0">
                             <image>
                                 <Image url="@../../imgs/icons/Logo.png"/>
                             </image>

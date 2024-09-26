@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="borderPane" prefHeight="303.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" prefHeight="303.0" prefWidth="516.0"
+            xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Other.NotesViewController">
     <center>
         <HBox style="-fx-background-color: transparent;">

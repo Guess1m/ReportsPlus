@@ -162,7 +162,7 @@ public class NotificationManager {
 			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
 			switch (configPosition) {
 				case "BottomLeft" -> {
-					x = ownerStage.getX() + 223;
+					x = ownerStage.getX() + 20;
 					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
 				}
 				case "BottomRight" -> {
@@ -170,12 +170,12 @@ public class NotificationManager {
 					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
 				}
 				case "TopLeft" -> {
-					x = ownerStage.getX() + 223;
-					y = ownerStage.getY() + 136;
+					x = ownerStage.getX() + 20;
+					y = ownerStage.getY() + 50;
 				}
 				case "TopRight" -> {
 					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + 136;
+					y = ownerStage.getY() + 50;
 				}
 			}
 			

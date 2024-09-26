@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="577.0" prefWidth="1038.0" stylesheets="@../../css/desktop-login-background.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="577.0" prefWidth="1038.0"
+            stylesheets="@../../css/desktop-login-background.css" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Desktop.desktopLoginController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="352.0" prefWidth="558.0">

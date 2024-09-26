@@ -159,7 +159,6 @@ public class ClientUtils {
 									Scene newScene = new Scene(root);
 									CurrentIDViewController.IDStage.setTitle("Current ID");
 									CurrentIDViewController.IDStage.setScene(newScene);
-									CurrentIDViewController.IDStage.show();
 									CurrentIDViewController.IDStage.centerOnScreen();
 									try {
 										CurrentIDViewController.IDStage.setAlwaysOnTop(
@@ -196,6 +195,8 @@ public class ClientUtils {
 									} catch (IOException e) {
 										logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
 									}
+									/*todo moved from previous location so it doesnt flicker*/
+									CurrentIDViewController.IDStage.show();
 									
 									try {
 										if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
@@ -272,7 +273,6 @@ public class ClientUtils {
 										logError("Could not fetch AOTCallout: ", e);
 									}
 									CalloutStage.initStyle(StageStyle.UNDECORATED);
-									CalloutStage.show();
 									try {
 										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
 												"true")) {
@@ -310,6 +310,9 @@ public class ClientUtils {
 									} catch (IOException e) {
 										logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
 									}
+									
+									/*todo moved so it doesnt flicker*/
+									CalloutStage.show();
 									
 									try {
 										if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {

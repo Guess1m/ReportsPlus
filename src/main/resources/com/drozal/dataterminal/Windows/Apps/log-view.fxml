@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<BorderPane fx:id="root" prefHeight="710.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Windows.Apps.LogViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="956.0"
+            xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.Windows.Apps.LogViewController">
     <center>
         <AnchorPane fx:id="logPane">
             <children>

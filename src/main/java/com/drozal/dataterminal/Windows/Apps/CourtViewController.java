@@ -176,7 +176,7 @@ public class CourtViewController {
 	
 	public void initialize() {
 		try {
-			// todo move to maindesktopcontroller
+			// todo move to maindesktopcontroller somehow
 			scheduleOutcomeRevealsForPendingCases();
 		} catch (JAXBException | IOException e) {
 			logError("Error scheduling outcomes for cases: ", e);

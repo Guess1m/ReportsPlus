@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
@@ -1288,19 +1289,8 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
-		// todo remove old outputlogs since transferred to app
-		/*Stage stage = new Stage();
-		stage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/output-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		stage.setTitle("Report Manager");
-		stage.setScene(newScene);
-		stage.show();
-		stage.centerOnScreen();
-		stage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTDebug").equals("true"));
-		
-		windowUtils.centerStageOnMainApp(stage);*/
+		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/output-view.fxml",
+		                 "Application Logs", false, 2, true, mainDesktopControllerObj.getTaskBarApps());
 	}
 	
 	@javafx.fxml.FXML

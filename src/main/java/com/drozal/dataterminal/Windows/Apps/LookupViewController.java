@@ -29,6 +29,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.*;
 import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
@@ -923,31 +925,9 @@ public class LookupViewController {
 	
 	@javafx.fxml.FXML
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		// todo converted to app
-		/*if (probabilitySettingsStage != null && probabilitySettingsStage.isShowing()) {
-			probabilitySettingsStage.close();
-			probabilitySettingsStage = null;
-			return;
-		}
-		probabilitySettingsStage = new Stage();
-		probabilitySettingsStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(
-				Launcher.class.getResource("Windows/Settings/probability-settings-view.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		probabilitySettingsStage.setTitle("Probability Settings");
-		probabilitySettingsStage.setScene(newScene);
-		probabilitySettingsStage.show();
-		probabilitySettingsStage.centerOnScreen();
-		probabilitySettingsStage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTSettings").equals("true"));
-		
-		centerStageOnMainApp(probabilitySettingsStage);
-		
-		probabilitySettingsStage.setMaxHeight(probabilitySettingsStage.getHeight());
-		probabilitySettingsStage.setMinHeight(probabilitySettingsStage.getHeight());
-		probabilitySettingsStage.setMinWidth(probabilitySettingsStage.getWidth());
-		
-		probabilitySettingsStage.setOnHidden(event -> probabilitySettingsStage = null);*/
+		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
+		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 2, true,
+		                 mainDesktopControllerObj.getTaskBarApps());
 	}
 	
 	@javafx.fxml.FXML

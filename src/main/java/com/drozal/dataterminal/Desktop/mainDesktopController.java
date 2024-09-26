@@ -129,30 +129,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
 		
-		DesktopApp debugLogsAppObj = new DesktopApp("Output Logs", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane debugLogsApp = debugLogsAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Misc/output-view.fxml", "Application Logs", false, 2,
-					                 true, taskBarApps);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, debugLogsApp, 400, 20);
-		
-		DesktopApp lookupSettingsAppObj = new DesktopApp("Lookup Config", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane lookupSettingsApp = lookupSettingsAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Settings/probability-settings-view.fxml",
-					                 "Lookup Probability Config", false, 2, true, taskBarApps);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, lookupSettingsApp, 495, 20);
-		
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
 		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
@@ -235,34 +211,7 @@ public class mainDesktopController {
 		
 		Platform.runLater(() -> {
 			
-			
 			versionLabel.setText(stringUtil.version);
-			versionLabel.setOnMouseClicked(event -> {
-				// todo implemented as an app
-				/*if (versionStage != null && versionStage.isShowing()) {
-					versionStage.close();
-					versionStage = null;
-					return;
-				}
-				versionStage = new Stage();
-				versionStage.initStyle(StageStyle.UNDECORATED);
-				FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/updates-view.fxml"));
-				Parent root = null;
-				try {
-					root = loader.load();
-				} catch (IOException e) {
-					logError("Error starting VersionStage: ", e);
-				}
-				Scene newScene = new Scene(root);
-				versionStage.setTitle("Version Information");
-				versionStage.setScene(newScene);
-				versionStage.setAlwaysOnTop(true);
-				
-				versionStage.show();
-				centerStageOnMainApp(versionStage);
-				
-				versionStage.setOnHidden(event1 -> versionStage = null);*/
-			});
 			if (!stringUtil.version.equals(gitVersion)) {
 				if (gitVersion == null) {
 					versionLabel.setText("New Version Available!");
@@ -313,7 +262,7 @@ public class mainDesktopController {
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
 			if (!isConnected) {
-				/* todo find soluation for
+				/* todo find soluation for these being not available when not connected to server
 				showLookupBtn.setVisible(false);
 				showCalloutBtn.setVisible(false);
 				showIDBtn.setVisible(false);*/

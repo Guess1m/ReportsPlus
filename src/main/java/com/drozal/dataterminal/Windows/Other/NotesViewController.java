@@ -340,34 +340,12 @@ public class NotesViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void oncodesclick() throws IOException {
-		// todo remove old codes inplementatino
-		// todo fix all priorities
+	public void oncodesclick() {
 		if (mainDesktopControllerObj != null) {
 			codesWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
 			                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 2, true,
 			                               mainDesktopControllerObj.getTaskBarApps());
 		}
-		
-		/*if (codesStage != null && codesStage.isShowing()) {
-			codesStage.close();
-			codesStage = null;
-			return;
-		}
-		codesStage = new Stage();
-		codesStage.initStyle(StageStyle.UNDECORATED);
-		FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Misc/codes-window.fxml"));
-		Parent root = loader.load();
-		Scene newScene = new Scene(root);
-		codesStage.setTitle("Codes");
-		codesStage.setScene(newScene);
-		codesStage.setAlwaysOnTop(true);
-		
-		codesStage.show();
-		
-		windowUtils.centerStageOnMainApp(codesStage);
-		
-		codesStage.setOnHidden(event -> codesStage = null);*/
 	}
 	
 	@javafx.fxml.FXML

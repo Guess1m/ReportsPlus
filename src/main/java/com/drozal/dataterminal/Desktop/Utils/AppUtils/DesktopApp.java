@@ -31,7 +31,6 @@ public class DesktopApp {
 		AnchorPane.setLeftAnchor(anchorPane, 28.0);
 		AnchorPane.setTopAnchor(anchorPane, 31.0);
 		
-		// Create BorderPane for the button
 		BorderPane borderPaneButton = new BorderPane();
 		AnchorPane.setBottomAnchor(borderPaneButton, 20.0);
 		AnchorPane.setLeftAnchor(borderPaneButton, 0.0);
@@ -41,7 +40,6 @@ public class DesktopApp {
 		Button appButton = createImageButton(image);
 		borderPaneButton.setCenter(appButton);
 		
-		// Create BorderPane for the label
 		BorderPane borderPaneLabel = new BorderPane();
 		AnchorPane.setBottomAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneLabel, 0.0);
@@ -52,12 +50,10 @@ public class DesktopApp {
 		appLabel.setMouseTransparent(true);
 		borderPaneLabel.setCenter(appLabel);
 		
-		// Add BorderPane children to the AnchorPane
 		anchorPane.getChildren().addAll(borderPaneButton, borderPaneLabel);
 		
 		setUpDragEvents(appButton, anchorPane);
 		
-		// Setting up the mouse click event with the provided handler
 		appButton.setOnMouseClicked(mouseClickHandler);
 		
 		DesktopApps.add(this);

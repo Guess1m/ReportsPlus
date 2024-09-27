@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0"
-            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0" prefWidth="811.0"
+            style="-fx-background-color: transparent;" stylesheets="" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
             <children>
@@ -47,9 +47,8 @@
                                 </DropShadow>
                             </effect>
                         </Label>
-                        <VBox fx:id="taskBarLeftVbox" alignment="CENTER" layoutX="708.0" prefHeight="55.0"
-                              prefWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="taskBarLeftVbox" alignment="CENTER" layoutX="708.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
                                        textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP">
@@ -66,7 +65,7 @@
                                     </effect>
                                 </Label>
                                 <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
-                                       prefHeight="17.0" prefWidth="168.0" text="sadfsf" textFill="#e1e1e1">
+                                       text="Sandy Shores, Blaine County" textFill="#e1e1e1">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="12.0"/>
                                     </font>

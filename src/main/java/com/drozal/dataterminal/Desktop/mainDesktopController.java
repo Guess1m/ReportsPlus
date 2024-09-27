@@ -18,7 +18,9 @@ import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -128,6 +130,13 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
+		
+		DesktopApp createReportAppObj = new DesktopApp("Report\nManager", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
+		AnchorPane createReportApp = createReportAppObj.createDesktopApp(mouseEvent -> {
+		});
+		addReportContextMenu(createReportApp); // todo FIX
+		addAppToDesktop(desktopContainer, createReportApp, 400, 20);
 		
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
@@ -322,5 +331,29 @@ public class mainDesktopController {
 	
 	public Label getServerStatusLabel() {
 		return serverStatusLabel;
+	}
+	
+	public VBox getTaskBarLeftVbox() {
+		return taskBarLeftVbox;
+	}
+	
+	private static void addReportContextMenu(AnchorPane createReportApp) {
+		ContextMenu reportContextMenu = new ContextMenu();
+		
+		MenuItem editItem = new MenuItem("Edit Report");
+		MenuItem deleteItem = new MenuItem("Delete Report");
+		MenuItem openItem = new MenuItem("Open Report");
+		
+		editItem.setOnAction(event -> System.out.println("Edit Report selected"));
+		deleteItem.setOnAction(event -> System.out.println("Delete Report selected"));
+		openItem.setOnAction(event -> System.out.println("Open Report selected"));
+		
+		reportContextMenu.getItems().addAll(editItem, deleteItem, openItem);
+		
+		createReportApp.setOnMouseClicked(mouseEvent -> {
+			if (mouseEvent.getClickCount() == 2) {
+				reportContextMenu.show(createReportApp, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+			}
+		});
 	}
 }

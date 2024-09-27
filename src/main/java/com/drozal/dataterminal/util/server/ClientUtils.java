@@ -30,8 +30,6 @@ import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
@@ -43,7 +41,6 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
 public class ClientUtils {
-	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
@@ -128,7 +125,11 @@ public class ClientUtils {
 							log("Received Location update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveLocationFromServer(1024);
 							Platform.runLater(() -> {
-								mainDesktopControllerObj.getLocationDataLabel().setVisible(true);
+								if (!mainDesktopControllerObj.getTaskBarLeftVbox().getChildren().contains(
+										mainDesktopControllerObj.getLocationDataLabel())) {
+									mainDesktopControllerObj.getTaskBarLeftVbox().getChildren().add(
+											mainDesktopControllerObj.getLocationDataLabel());
+								}
 								try {
 									mainDesktopControllerObj.getLocationDataLabel().setText(
 											Files.readString(Paths.get(currentLocationFileURL)));
@@ -461,4 +462,5 @@ public class ClientUtils {
 	public interface ServerStatusListener {
 		void onStatusChanged(boolean isConnected);
 	}
+	
 }

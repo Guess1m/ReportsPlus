@@ -319,7 +319,8 @@ public class reportUtil {
 		
 		Label warningLabel = new Label("Please fill out the form");
 		warningLabel.setVisible(false);
-		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 14;");
+		warningLabel.setStyle(
+				"-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 14;");
 		
 		for (int i = 0; i < 12; i++) {
 			ColumnConstraints column = new ColumnConstraints();

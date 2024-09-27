@@ -16,7 +16,9 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -35,6 +37,16 @@ import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDe
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
 import static com.drozal.dataterminal.Windows.Server.ClientController.clientController;
+import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
+import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
+import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
+import static com.drozal.dataterminal.logs.Death.DeathReportUtils.newDeathReport;
+import static com.drozal.dataterminal.logs.Impound.ImpoundReportUtils.newImpound;
+import static com.drozal.dataterminal.logs.Incident.IncidentReportUtils.newIncident;
+import static com.drozal.dataterminal.logs.Patrol.PatrolReportUtils.newPatrol;
+import static com.drozal.dataterminal.logs.Search.SearchReportUtils.newSearch;
+import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.newCitation;
+import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.handleClose;
@@ -43,6 +55,7 @@ import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 
 public class mainDesktopController {
 	
+	private static final ContextMenu reportMenuOptions = createReportMenu();
 	@FXML
 	private Button button1;
 	@FXML
@@ -63,6 +76,39 @@ public class mainDesktopController {
 	private Label versionLabel;
 	@FXML
 	private VBox taskBarLeftVbox;
+	@FXML
+	private Button createReportBtn;
+	
+	private static ContextMenu createReportMenu() {
+		ContextMenu reportContextMenu = new ContextMenu();
+		
+		MenuItem accident = new MenuItem("Accident");
+		MenuItem arrest = new MenuItem("Arrest");
+		MenuItem callout = new MenuItem("Callout");
+		MenuItem death = new MenuItem("Death");
+		MenuItem impound = new MenuItem("Impound");
+		MenuItem incident = new MenuItem("Incident");
+		MenuItem patrol = new MenuItem("Patrol");
+		MenuItem search = new MenuItem("Search");
+		MenuItem trafficCitation = new MenuItem("Traffic Citation");
+		MenuItem trafficStop = new MenuItem("Traffic Stop");
+		
+		accident.setOnAction(event -> newAccident());
+		arrest.setOnAction(event -> newArrest());
+		callout.setOnAction(event -> newCallout());
+		death.setOnAction(event -> newDeathReport());
+		impound.setOnAction(event -> newImpound());
+		incident.setOnAction(event -> newIncident());
+		patrol.setOnAction(event -> newPatrol());
+		search.setOnAction(event -> newSearch());
+		trafficCitation.setOnAction(event -> newCitation());
+		trafficStop.setOnAction(event -> newTrafficStop());
+		
+		reportContextMenu.getItems().addAll(accident, arrest, callout, death, impound, incident, patrol, search,
+		                                    trafficCitation, trafficStop);
+		
+		return reportContextMenu;
+	}
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
 		AnchorPane.setLeftAnchor(newApp, x);
@@ -84,7 +130,6 @@ public class mainDesktopController {
 		
 		container.setBackground(new Background(backgroundImage));
 		
-		/*todo requires more testing with removing locationDataLabel from parent locationDataLabel.setVisible(false);*/
 		taskBarLeftVbox.getChildren().remove(locationDataLabel);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
@@ -94,127 +139,7 @@ public class mainDesktopController {
 			log("Not First Login...", LogUtils.Severity.DEBUG);
 		}
 		
-		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
-					                                        true, 2, true, taskBarApps);
-					NotesViewController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, notesApp, 115, 20);
-		
-		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
-					                 2, true, taskBarApps);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, settingsApp, 210, 20);
-		
-		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
-					                 true, taskBarApps);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
-		
-		DesktopApp createReportAppObj = new DesktopApp("Report\nManager", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane createReportApp = createReportAppObj.createDesktopApp(mouseEvent -> {
-		});
-		addReportContextMenu(createReportApp); // todo FIX
-		addAppToDesktop(desktopContainer, createReportApp, 400, 20);
-		
-		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
-					                                       true, 2, true, taskBarApps);
-					LogViewController.logController = (LogViewController) (logapp != null ? logapp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, logBrowserApp, 590, 20);
-		
-		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
-					                                       "Callout Manager", true, 2, true, taskBarApps);
-					CalloutViewController.calloutViewController = (CalloutViewController) (logapp != null ? logapp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, calloutManagerApp, 685, 20);
-		
-		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
-					                                       "Court Case Manager", true, 2, true, taskBarApps);
-					CourtViewController.courtViewController = (CourtViewController) (logapp != null ? logapp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, courtApp, 780, 20);
-		
-		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane lookupApp = lookupAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
-					                                       "Database Lookup", true, 2, true, taskBarApps);
-					LookupViewController.lookupViewController = (LookupViewController) (logapp != null ? logapp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, lookupApp, 875, 20);
-		
-		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
-					                                          "Server Connection", false, 2, true, taskBarApps);
-					clientController = (ClientController) (serverApp != null ? serverApp.controller : null);
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, connectionApp, 970, 20);
-		
-		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"))));
-		AnchorPane showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
-			if (!editableDesktop) {
-				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
-					                                      "Current IDs", false, 2, true, taskBarApps);
-					
-				}
-			}
-		});
-		addAppToDesktop(desktopContainer, showIDApp, 1065, 20);
+		addApps();
 		
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
 		
@@ -268,6 +193,123 @@ public class mainDesktopController {
 		}
 	}
 	
+	private void addApps() {
+		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/writing.png"))));
+		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
+					                                        true, 2, true, taskBarApps);
+					NotesViewController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, notesApp, 115, 20);
+		
+		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/settings.png"))));
+		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
+					                 2, true, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, settingsApp, 210, 20);
+		
+		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/update.png"))));
+		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
+					                 true, taskBarApps);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
+		
+		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/logs.png"))));
+		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
+					                                       true, 2, true, taskBarApps);
+					LogViewController.logController = (LogViewController) (logapp != null ? logapp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, logBrowserApp, 590, 20);
+		
+		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/callout.png"))));
+		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
+					                                       "Callout Manager", true, 2, true, taskBarApps);
+					CalloutViewController.calloutViewController = (CalloutViewController) (logapp != null ? logapp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, calloutManagerApp, 685, 20);
+		
+		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/courtIcon.png"))));
+		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
+					                                       "Court Case Manager", true, 2, true, taskBarApps);
+					CourtViewController.courtViewController = (CourtViewController) (logapp != null ? logapp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, courtApp, 780, 20);
+		
+		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/search.png"))));
+		AnchorPane lookupApp = lookupAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
+					                                       "Database Lookup", true, 2, true, taskBarApps);
+					LookupViewController.lookupViewController = (LookupViewController) (logapp != null ? logapp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, lookupApp, 875, 20);
+		
+		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/server.png"))));
+		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
+					                                          "Server Connection", false, 2, true, taskBarApps);
+					clientController = (ClientController) (serverApp != null ? serverApp.controller : null);
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, connectionApp, 970, 20);
+		
+		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/license.png"))));
+		AnchorPane showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
+					                                      "Current IDs", false, 2, true, taskBarApps);
+					
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, showIDApp, 1065, 20);
+	}
+	
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
 			if (!isConnected) {
@@ -313,14 +355,6 @@ public class mainDesktopController {
 		return desktopContainer;
 	}
 	
-	public Button getButton1() {
-		return button1;
-	}
-	
-	public BorderPane getTaskBar() {
-		return taskBar;
-	}
-	
 	public HBox getTaskBarApps() {
 		return taskBarApps;
 	}
@@ -337,23 +371,21 @@ public class mainDesktopController {
 		return taskBarLeftVbox;
 	}
 	
-	private static void addReportContextMenu(AnchorPane createReportApp) {
-		ContextMenu reportContextMenu = new ContextMenu();
+	@FXML
+	public void createReportBtn(ActionEvent actionEvent) {
+		double btnWidth = createReportBtn.getWidth();
 		
-		MenuItem editItem = new MenuItem("Edit Report");
-		MenuItem deleteItem = new MenuItem("Delete Report");
-		MenuItem openItem = new MenuItem("Open Report");
+		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
 		
-		editItem.setOnAction(event -> System.out.println("Edit Report selected"));
-		deleteItem.setOnAction(event -> System.out.println("Delete Report selected"));
-		openItem.setOnAction(event -> System.out.println("Open Report selected"));
+		reportMenuOptions.show(createReportBtn, 0, 0);
+		reportMenuOptions.hide();
 		
-		reportContextMenu.getItems().addAll(editItem, deleteItem, openItem);
+		double contextMenuWidth = reportMenuOptions.getWidth();
+		double contextMenuHeight = reportMenuOptions.getHeight();
 		
-		createReportApp.setOnMouseClicked(mouseEvent -> {
-			if (mouseEvent.getClickCount() == 2) {
-				reportContextMenu.show(createReportApp, mouseEvent.getScreenX(), mouseEvent.getScreenY());
-			}
-		});
+		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
+		double yPos = bounds.getMinY() - contextMenuHeight;
+		
+		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
 	}
 }

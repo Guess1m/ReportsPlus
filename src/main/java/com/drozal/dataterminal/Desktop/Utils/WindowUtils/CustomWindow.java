@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.Desktop.Utils.WindowUtils;
 
-import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.TaskbarApp;
 import com.drozal.dataterminal.Launcher;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +19,6 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
-import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.windows;
 
@@ -116,14 +113,6 @@ public class CustomWindow {
 		
 		windows.values().stream().filter(window -> window.getPriority() == currentPriority && window != this).forEach(
 				window -> window.getWindowPane().toBack());
-		
-		if (mainDesktopControllerObj != null) {
-			for (DesktopApp app : DesktopApps) {
-				app.getMainPane().toBack();
-			}
-			mainDesktopControllerObj.getButton1().toBack();
-			mainDesktopControllerObj.getTaskBar().toFront();
-		}
 	}
 	
 	private void enableResize(BorderPane pane) {

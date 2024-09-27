@@ -47,6 +47,7 @@ public class DesktopApp {
 		AnchorPane.setTopAnchor(borderPaneLabel, 65.0);
 		
 		Label appLabel = new Label(name);
+		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 13px;");
 		appLabel.setMouseTransparent(true);
 		borderPaneLabel.setCenter(appLabel);
 		
@@ -61,16 +62,12 @@ public class DesktopApp {
 		return anchorPane;
 	}
 	
-	public AnchorPane getMainPane() {
-		return mainPane;
-	}
-	
 	private Button createImageButton(Image image) {
 		Button button = new Button();
 		ImageView imageView = new ImageView(image);
-		imageView.setFitHeight(51.0);
-		imageView.setFitWidth(57.0);
-		imageView.setPreserveRatio(true);
+		imageView.setFitHeight(40);
+		imageView.setFitWidth(40);
+		imageView.setPreserveRatio(false);
 		imageView.setMouseTransparent(true);
 		button.setGraphic(imageView);
 		button.setStyle("-fx-background-color: transparent;");
@@ -79,7 +76,6 @@ public class DesktopApp {
 	}
 	
 	private void setUpDragEvents(Button button, AnchorPane app) {
-		// Assuming you're using AppUtils for drag functionality
 		AppUtils.setUpDragEvents(button, app);
 	}
 }

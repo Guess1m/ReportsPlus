@@ -202,6 +202,11 @@ public class mainDesktopController {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
 					                                        true, 2, true, taskBarApps);
 					NotesViewController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from notesApp", e);
+					}
 				}
 			}
 		});
@@ -214,6 +219,11 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
 					                 2, true, taskBarApps);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from settingsApp", e);
+					}
 				}
 			}
 		});
@@ -226,6 +236,11 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
 					                 true, taskBarApps);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from updatesApp", e);
+					}
 				}
 			}
 		});
@@ -239,6 +254,11 @@ public class mainDesktopController {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
 					                                       true, 2, true, taskBarApps);
 					LogViewController.logController = (LogViewController) (logapp != null ? logapp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from logBrowserApp", e);
+					}
 				}
 			}
 		});
@@ -252,6 +272,11 @@ public class mainDesktopController {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
 					                                       "Callout Manager", true, 2, true, taskBarApps);
 					CalloutViewController.calloutViewController = (CalloutViewController) (logapp != null ? logapp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from calloutManagerApp", e);
+					}
 				}
 			}
 		});
@@ -265,6 +290,11 @@ public class mainDesktopController {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
 					                                       "Court Case Manager", true, 2, true, taskBarApps);
 					CourtViewController.courtViewController = (CourtViewController) (logapp != null ? logapp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from courtCaseApp", e);
+					}
 				}
 			}
 		});
@@ -278,6 +308,11 @@ public class mainDesktopController {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
 					                                       "Database Lookup", true, 2, true, taskBarApps);
 					LookupViewController.lookupViewController = (LookupViewController) (logapp != null ? logapp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from lookupApp", e);
+					}
 				}
 			}
 		});
@@ -291,6 +326,11 @@ public class mainDesktopController {
 					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
 					                                          "Server Connection", false, 2, true, taskBarApps);
 					clientController = (ClientController) (serverApp != null ? serverApp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from connectionApp", e);
+					}
 				}
 			}
 		});
@@ -303,7 +343,11 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
 					                                      "Current IDs", false, 2, true, taskBarApps);
-					
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from showIDApp", e);
+					}
 				}
 			}
 		});
@@ -373,10 +417,6 @@ public class mainDesktopController {
 	
 	public Button getButton1() {
 		return button1;
-	}
-	
-	public BorderPane getTaskBar() {
-		return taskBar;
 	}
 	
 	@FXML

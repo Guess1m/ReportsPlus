@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.Desktop.Utils.WindowUtils;
 
+import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.TaskbarApp;
 import com.drozal.dataterminal.Launcher;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.windows;
 
@@ -91,14 +94,15 @@ public class CustomWindow {
 		windowPane.setPrefSize(windowPane.prefWidth(-1), windowPane.prefHeight(-1));
 		AnchorPane titleBar = createTitleBar(title);
 		((BorderPane) windowPane).setTop(titleBar);
+		
 		if (resizable) {
 			enableResize((BorderPane) windowPane);
 		}
-		windowPane.setOnMouseClicked(event -> bringToFront());
+		
+		windowPane.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> bringToFront());
 	}
 	
 	public void bringToFront() {
-		
 		int currentPriority = this.getPriority();
 		
 		boolean hasHigherPriorityWindow = windows.values().stream().anyMatch(
@@ -113,6 +117,13 @@ public class CustomWindow {
 		
 		windows.values().stream().filter(window -> window.getPriority() == currentPriority && window != this).forEach(
 				window -> window.getWindowPane().toBack());
+		
+		if (mainDesktopControllerObj != null) {
+			for (DesktopApp app : DesktopApps) {
+				app.getMainPane().toBack();
+			}
+			mainDesktopControllerObj.getButton1().toBack();
+		}
 	}
 	
 	private void enableResize(BorderPane pane) {

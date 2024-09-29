@@ -75,6 +75,10 @@ public class DesktopApp {
 		return button;
 	}
 	
+	public AnchorPane getMainPane() {
+		return mainPane;
+	}
+	
 	private void setUpDragEvents(Button button, AnchorPane app) {
 		AppUtils.setUpDragEvents(button, app);
 	}

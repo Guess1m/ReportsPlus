@@ -371,6 +371,14 @@ public class mainDesktopController {
 		return taskBarLeftVbox;
 	}
 	
+	public Button getButton1() {
+		return button1;
+	}
+	
+	public BorderPane getTaskBar() {
+		return taskBar;
+	}
+	
 	@FXML
 	public void createReportBtn(ActionEvent actionEvent) {
 		double btnWidth = createReportBtn.getWidth();

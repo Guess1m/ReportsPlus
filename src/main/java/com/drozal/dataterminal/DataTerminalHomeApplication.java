@@ -43,6 +43,7 @@ public class DataTerminalHomeApplication extends Application {
 		mainDesktopStage = primaryStage;
 		
 		primaryStage.setMaximized(true);
+		//primaryStage.setFullScreen(true); todo find fix for notifications
 		
 		DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		

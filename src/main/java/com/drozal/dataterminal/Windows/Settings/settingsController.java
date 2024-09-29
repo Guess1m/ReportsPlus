@@ -23,7 +23,8 @@ import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.cr
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
-import static com.drozal.dataterminal.Windows.Apps.LookupViewController.lookupViewController;
+import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
+import static com.drozal.dataterminal.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -233,25 +234,21 @@ public class settingsController {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		
-		if (lookupViewController != null) {
-			lookupViewController.getLookupmainlblpane().setStyle(
+		if (vehLookupViewController != null) {
+			vehLookupViewController.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (pedLookupViewController != null) {
+			pedLookupViewController.getLookupmainlblpane().setStyle(
 					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
-			lookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
-			lookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			lookupViewController.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			lookupViewController.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			lookupViewController.getOrientationBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			lookupViewController.getOrientationBtn().setOnMouseEntered(
-					e -> lookupViewController.getOrientationBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			lookupViewController.getOrientationBtn().setOnMouseExited(
-					e -> lookupViewController.getOrientationBtn().setStyle(
-							nonTransparentBtn + "-fx-text-fill: white;"));
-			lookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			lookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
-					e -> lookupViewController.getProbabilitySettingsBtn().setStyle(
+			pedLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
+			pedLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			pedLookupViewController.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
 							hoverStyle + ";-fx-text-fill: white;"));
-			lookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
-					e -> lookupViewController.getProbabilitySettingsBtn().setStyle(
+			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
+					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
 							nonTransparentBtn + "-fx-text-fill: white;"));
 		}
 		if (courtViewController != null) {
@@ -320,42 +317,44 @@ public class settingsController {
 	}
 	
 	private static void addDarkStyles() {
-		if (lookupViewController != null) {
-			lookupViewController.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			lookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		if (vehLookupViewController != null) {
+			vehLookupViewController.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
+		if (pedLookupViewController != null) {
+			pedLookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (courtViewController != null) {
 			addDarkForm(courtViewController.getCaseNumField());
@@ -410,42 +409,44 @@ public class settingsController {
 	}
 	
 	private static void addLightStyles() {
-		if (lookupViewController != null) {
-			lookupViewController.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
-			lookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
+		if (vehLookupViewController != null) {
+			vehLookupViewController.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+		if (pedLookupViewController != null) {
+			pedLookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (courtViewController != null) {
 			addLightForm(courtViewController.getCaseNumField());

@@ -6,7 +6,7 @@ import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
 import com.drozal.dataterminal.Windows.Apps.CourtViewController;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
-import com.drozal.dataterminal.Windows.Apps.LookupViewController;
+import com.drozal.dataterminal.Windows.Apps.PedLookupViewController;
 import com.drozal.dataterminal.Windows.Other.NotesViewController;
 import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
@@ -78,6 +78,8 @@ public class mainDesktopController {
 	private VBox taskBarLeftVbox;
 	@FXML
 	private Button createReportBtn;
+	@FXML
+	private AnchorPane topBar;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -300,14 +302,14 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, courtApp, 780, 20);
 		
-		DesktopApp lookupAppObj = new DesktopApp("Lookups", new Image(Objects.requireNonNull(
+		DesktopApp pedLookupAppObj = new DesktopApp("D.M.V Ped Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/search.png"))));
-		AnchorPane lookupApp = lookupAppObj.createDesktopApp(mouseEvent -> {
+		AnchorPane lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-view.fxml",
-					                                       "Database Lookup", true, 2, true, taskBarApps);
-					LookupViewController.lookupViewController = (LookupViewController) (logapp != null ? logapp.controller : null);
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-ped-view.fxml",
+					                                       "Pedestrian Lookup", true, 2, true, taskBarApps);
+					PedLookupViewController.pedLookupViewController = (PedLookupViewController) (logapp != null ? logapp.controller : null);
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {

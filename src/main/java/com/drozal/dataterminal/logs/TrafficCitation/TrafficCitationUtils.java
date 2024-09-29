@@ -31,7 +31,7 @@ import java.util.*;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
-import static com.drozal.dataterminal.Windows.Apps.LookupViewController.lookupViewController;
+import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
@@ -445,15 +445,15 @@ public class TrafficCitationUtils {
 					    LogUtils.Severity.ERROR);
 				}
 				
-				if (lookupViewController != null) {
-					if (Objects.requireNonNull(lookupViewController).getPedRecordPane().isVisible()) {
-						if (lookupViewController.getPedSearchField().getEditor().getText().equalsIgnoreCase(
+				if (pedLookupViewController != null) {
+					if (Objects.requireNonNull(pedLookupViewController).getPedRecordPane().isVisible()) {
+						if (pedLookupViewController.getPedSearchField().getEditor().getText().equalsIgnoreCase(
 								offenderName.getText())) {
 							try {
-								lookupViewController.onPedSearchBtnClick(new ActionEvent());
+								pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
 							} catch (IOException e) {
 								logError(
-										"Error searching name to update ped lookup from citationReport: " + lookupViewController.getPedfnamefield().getText().trim() + " " + lookupViewController.getPedlnamefield().getText().trim(),
+										"Error searching name to update ped lookup from citationReport: " + pedLookupViewController.getPedfnamefield().getText().trim() + " " + pedLookupViewController.getPedlnamefield().getText().trim(),
 										e);
 							}
 						}

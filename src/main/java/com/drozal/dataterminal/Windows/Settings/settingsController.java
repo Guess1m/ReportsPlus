@@ -357,25 +357,22 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (courtViewController != null) {
-			addDarkForm(courtViewController.getCaseNumField());
+			/*addDarkForm(courtViewController.getCaseNumField());
 			addDarkForm(courtViewController.getCaseCourtDateField());
 			addDarkForm(courtViewController.getCaseOffenceDateField());
-			addDarkForm(courtViewController.getCaseFirstNameField());
-			addDarkForm(courtViewController.getCaseLastNameField());
 			addDarkForm(courtViewController.getCaseAgeField());
 			addDarkForm(courtViewController.getCaseGenderField());
 			addDarkForm(courtViewController.getCaseAddressField());
 			addDarkForm(courtViewController.getCaseStreetField());
 			addDarkForm(courtViewController.getCaseAreaField());
 			addDarkForm(courtViewController.getCaseCountyField());
+			addDarkForm(courtViewController.getCaseNameField());*/
 			courtViewController.getCaseNotesField().getStyleClass().clear();
 			courtViewController.getCaseNotesField().getStyleClass().add("text-area-dark");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -449,25 +446,22 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (courtViewController != null) {
-			addLightForm(courtViewController.getCaseNumField());
+			/*addLightForm(courtViewController.getCaseNumField());
 			addLightForm(courtViewController.getCaseCourtDateField());
 			addLightForm(courtViewController.getCaseOffenceDateField());
-			addLightForm(courtViewController.getCaseFirstNameField());
-			addLightForm(courtViewController.getCaseLastNameField());
 			addLightForm(courtViewController.getCaseAgeField());
-			addLightForm(courtViewController.getCaseGenderField());
+			addLightForm(courtViewController.getCaseGenderField()); todo readd dark form too
 			addLightForm(courtViewController.getCaseAddressField());
 			addLightForm(courtViewController.getCaseStreetField());
 			addLightForm(courtViewController.getCaseAreaField());
 			addLightForm(courtViewController.getCaseCountyField());
+			addLightForm(courtViewController.getCaseNameField());*/
 			courtViewController.getCaseNotesField().getStyleClass().clear();
 			courtViewController.getCaseNotesField().getStyleClass().add("text-area-light");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");

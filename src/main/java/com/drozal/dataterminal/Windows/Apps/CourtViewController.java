@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -53,8 +52,6 @@ public class CourtViewController {
 	@javafx.fxml.FXML
 	private Label caselbl10;
 	@javafx.fxml.FXML
-	private TextField caseOffenceDateField;
-	@javafx.fxml.FXML
 	private Button revealOutcomeBtn;
 	@javafx.fxml.FXML
 	private Label caseSec1;
@@ -63,11 +60,7 @@ public class CourtViewController {
 	@javafx.fxml.FXML
 	private Label caseTotalProbationLabel;
 	@javafx.fxml.FXML
-	private Label caselbl5;
-	@javafx.fxml.FXML
 	private Label caselbl4;
-	@javafx.fxml.FXML
-	private Label caselbl3;
 	@javafx.fxml.FXML
 	private Label caselbl2;
 	@javafx.fxml.FXML
@@ -86,8 +79,6 @@ public class CourtViewController {
 	private TextField caseCourtDateField;
 	@javafx.fxml.FXML
 	private Label caseSuspensionDurationlbl;
-	@javafx.fxml.FXML
-	private TextField caseLastNameField;
 	@javafx.fxml.FXML
 	private TextField caseAddressField;
 	@javafx.fxml.FXML
@@ -109,8 +100,6 @@ public class CourtViewController {
 	@javafx.fxml.FXML
 	private Label casePrim1;
 	@javafx.fxml.FXML
-	private TextField caseFirstNameField;
-	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
 	private TextField caseNumField;
@@ -127,8 +116,6 @@ public class CourtViewController {
 	@javafx.fxml.FXML
 	private TextField caseCountyField;
 	@javafx.fxml.FXML
-	private GridPane caseVerdictPane;
-	@javafx.fxml.FXML
 	private Label caseTotalJailTimeLabel;
 	@javafx.fxml.FXML
 	private TextField caseGenderField;
@@ -142,6 +129,8 @@ public class CourtViewController {
 	private Label caseprim3;
 	@javafx.fxml.FXML
 	private Label caseprim1;
+	@javafx.fxml.FXML
+	private TextField caseNameField;
 	
 	public static String getNextIndex(CourtCases courtCases) {
 		int highestIndex = 0;
@@ -331,15 +320,13 @@ public class CourtViewController {
 			}
 		}
 		revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
-		caseOffenceDateField.setText(case1.getOffenceDate() != null ? case1.getOffenceDate() : "");
 		caseAgeField.setText(case1.getAge() != null ? String.valueOf(case1.getAge()) : "");
 		caseGenderField.setText(case1.getGender() != null ? String.valueOf(case1.getGender()) : "");
 		caseAreaField.setText(case1.getArea() != null ? case1.getArea() : "");
 		caseStreetField.setText(case1.getStreet() != null ? case1.getStreet() : "");
 		caseCountyField.setText(case1.getCounty() != null ? case1.getCounty() : "");
 		caseNotesField.setText(case1.getNotes() != null ? case1.getNotes() : "");
-		caseFirstNameField.setText(case1.getFirstName() != null ? case1.getFirstName() : "");
-		caseLastNameField.setText(case1.getLastName() != null ? case1.getLastName() : "");
+		caseNameField.setText(case1.getName() != null ? case1.getName() : "");
 		caseCourtDateField.setText(case1.getCourtDate() != null ? case1.getCourtDate() : "");
 		caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
 		caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
@@ -584,10 +571,6 @@ public class CourtViewController {
 		return caselbl10;
 	}
 	
-	public TextField getCaseOffenceDateField() {
-		return caseOffenceDateField;
-	}
-	
 	public Button getRevealOutcomeBtn() {
 		return revealOutcomeBtn;
 	}
@@ -604,16 +587,8 @@ public class CourtViewController {
 		return caseTotalProbationLabel;
 	}
 	
-	public Label getCaselbl5() {
-		return caselbl5;
-	}
-	
 	public Label getCaselbl4() {
 		return caselbl4;
-	}
-	
-	public Label getCaselbl3() {
-		return caselbl3;
 	}
 	
 	public Label getCaselbl2() {
@@ -652,12 +627,12 @@ public class CourtViewController {
 		return caseSuspensionDurationlbl;
 	}
 	
-	public TextField getCaseLastNameField() {
-		return caseLastNameField;
-	}
-	
 	public TextField getCaseAddressField() {
 		return caseAddressField;
+	}
+	
+	public TextField getCaseNameField() {
+		return caseNameField;
 	}
 	
 	public Label getCaseSuspensionDuration() {
@@ -696,10 +671,6 @@ public class CourtViewController {
 		return casePrim1;
 	}
 	
-	public TextField getCaseFirstNameField() {
-		return caseFirstNameField;
-	}
-	
 	public BorderPane getRoot() {
 		return root;
 	}
@@ -730,10 +701,6 @@ public class CourtViewController {
 	
 	public TextField getCaseCountyField() {
 		return caseCountyField;
-	}
-	
-	public GridPane getCaseVerdictPane() {
-		return caseVerdictPane;
 	}
 	
 	public Label getCaseTotalJailTimeLabel() {

@@ -1,0 +1,16 @@
+.text-field {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-background-color: rgb(255, 255, 255, 0.1);
+    -fx-prompt-text-fill: rgb(255, 255, 255, 0.5) !important;
+    -fx-background-insets: 0;
+    -fx-padding: 3px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: rgb(0, 0, 0, 0.6);
+}
+
+.text-field:focused {
+
+}

@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1002.0"
-            xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="617.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -279,7 +279,8 @@
                                                                                 <StackPane
                                                                                         BorderPane.alignment="CENTER">
                                                                                     <children>
-                                                                                        <VBox>
+                                                                                        <VBox alignment="CENTER"
+                                                                                              prefWidth="222.0">
                                                                                             <children>
                                                                                                 <BorderPane
                                                                                                         VBox.vgrow="NEVER">
@@ -303,7 +304,7 @@
                                                                                                         <ImageView
                                                                                                                 fx:id="vehImageView"
                                                                                                                 fitHeight="120.0"
-                                                                                                                fitWidth="245.0"
+                                                                                                                fitWidth="210.0"
                                                                                                                 pickOnBounds="true"
                                                                                                                 preserveRatio="true"
                                                                                                                 BorderPane.alignment="CENTER"/>
@@ -341,7 +342,8 @@
                                                                                           AnchorPane.leftAnchor="0.0"
                                                                                           AnchorPane.rightAnchor="170.0"
                                                                                           AnchorPane.topAnchor="27.0"/>
-                                                                                <Button layoutX="395.0" layoutY="34.0"
+                                                                                <Button fx:id="btninfo1" layoutX="395.0"
+                                                                                        layoutY="34.0"
                                                                                         mnemonicParsing="false"
                                                                                         onAction="#vehUpdateInfo"
                                                                                         opacity="0.73"
@@ -361,8 +363,8 @@
                                                                         </AnchorPane>
                                                                     </children>
                                                                 </GridPane>
-                                                                <Label alignment="CENTER" prefHeight="35.0"
-                                                                       prefWidth="747.0"
+                                                                <Label fx:id="info1" alignment="CENTER"
+                                                                       prefHeight="35.0" prefWidth="747.0"
                                                                        style="-fx-background-color: #5e7387;"
                                                                        styleClass="heading"
                                                                        stylesheets="@../../css/menu/menuLabels.css"
@@ -464,7 +466,7 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <Button mnemonicParsing="false"
+                                                                        <Button fx:id="btninfo2" mnemonicParsing="false"
                                                                                 onAction="#vehcreateimpreport"
                                                                                 opacity="0.73" prefHeight="33.0"
                                                                                 prefWidth="161.0"
@@ -506,8 +508,8 @@
                                                                         </AnchorPane>
                                                                     </children>
                                                                 </GridPane>
-                                                                <Label alignment="CENTER" prefHeight="35.0"
-                                                                       prefWidth="747.0"
+                                                                <Label fx:id="info2" alignment="CENTER"
+                                                                       prefHeight="35.0" prefWidth="747.0"
                                                                        style="-fx-background-color: #5e7387;"
                                                                        styleClass="heading"
                                                                        stylesheets="@../../css/menu/menuLabels.css"

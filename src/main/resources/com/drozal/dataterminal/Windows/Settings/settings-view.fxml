@@ -5,12 +5,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="393.0"
-            prefWidth="766.0" xmlns="http://javafx.com/javafx/22"
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="766.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="root2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0"
                          styleClass="darktabpane" stylesheets="@../../css/main/SettingsTabPane.css"
@@ -1262,9 +1261,9 @@
                     </tabs>
                 </TabPane>
             </children>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
         </AnchorPane>
     </center>
 </BorderPane>

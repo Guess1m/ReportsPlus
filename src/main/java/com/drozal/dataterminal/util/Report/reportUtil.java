@@ -104,7 +104,7 @@ public class reportUtil {
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
 		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -114,7 +114,7 @@ public class reportUtil {
 		placeholderImageView.setEffect(colorAdjust);
 		
 		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -123,7 +123,7 @@ public class reportUtil {
 		closeImageView.setEffect(colorAdjust);
 		
 		Image maximizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/maximize.png"));
 		ImageView maximizeImageView = new ImageView(maximizeImage);
 		maximizeImageView.setFitWidth(15);
 		maximizeImageView.setFitHeight(15);
@@ -132,7 +132,7 @@ public class reportUtil {
 		maximizeImageView.setEffect(colorAdjust);
 		
 		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -212,7 +212,7 @@ public class reportUtil {
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
 		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -222,7 +222,7 @@ public class reportUtil {
 		placeholderImageView.setEffect(colorAdjust);
 		
 		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);
 		closeImageView.setFitWidth(15);
 		closeImageView.setFitHeight(15);
@@ -231,7 +231,7 @@ public class reportUtil {
 		closeImageView.setEffect(colorAdjust);
 		
 		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);

@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -223,6 +224,8 @@ public class settingsController {
 	private CheckBox audioReportCreate;
 	@javafx.fxml.FXML
 	private CheckBox audioLookupWarningCheckbox;
+	@javafx.fxml.FXML
+	private AnchorPane root2;
 	
 	//</editor-fold>
 	
@@ -241,6 +244,10 @@ public class settingsController {
 			vehLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
 			vehLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			vehLookupViewController.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			vehLookupViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			
+			vehLookupViewController.getInfo1().setStyle("-fx-background-color: " + mainclr + ";");
+			vehLookupViewController.getInfo2().setStyle("-fx-background-color: " + mainclr + ";");
 			
 			vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
@@ -265,6 +272,20 @@ public class settingsController {
 			vehLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
 					e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
 							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			
+			vehLookupViewController.getBtninfo1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getBtninfo1().setOnMouseEntered(e -> vehLookupViewController.getBtninfo1().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo1().setOnMouseExited(e -> vehLookupViewController.getBtninfo1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			
+			vehLookupViewController.getBtninfo2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getBtninfo2().setOnMouseEntered(e -> vehLookupViewController.getBtninfo2().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo2().setOnMouseExited(e -> vehLookupViewController.getBtninfo2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (pedLookupViewController != null) {
 			pedLookupViewController.getLookupmainlblpane().setStyle(
@@ -273,6 +294,13 @@ public class settingsController {
 			pedLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
 			pedLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			pedLookupViewController.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			pedLookupViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			
+			pedLookupViewController.getInfo1().setStyle("-fx-background-color: " + mainclr + ";");
+			pedLookupViewController.getInfo2().setStyle("-fx-background-color: " + mainclr + ";");
+			pedLookupViewController.getInfo3().setStyle("-fx-background-color: " + mainclr + ";");
+			pedLookupViewController.getInfo4().setStyle("-fx-background-color: " + mainclr + ";");
+			pedLookupViewController.getInfo5().setStyle("-fx-background-color: " + mainclr + ";");
 			
 			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
@@ -297,10 +325,32 @@ public class settingsController {
 			pedLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
 					e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
 							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			
+			pedLookupViewController.getInfobtn1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn1().setOnMouseEntered(e -> pedLookupViewController.getInfobtn1().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn1().setOnMouseExited(e -> pedLookupViewController.getInfobtn1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			
+			pedLookupViewController.getInfobtn2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn2().setOnMouseEntered(e -> pedLookupViewController.getInfobtn2().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn2().setOnMouseExited(e -> pedLookupViewController.getInfobtn2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			
+			pedLookupViewController.getInfobtn3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn3().setOnMouseEntered(e -> pedLookupViewController.getInfobtn3().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn3().setOnMouseExited(e -> pedLookupViewController.getInfobtn3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (courtViewController != null) {
 			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCasePrim1().setStyle(
+					"-fx-text-fill: " + mainclr + "; -fx-border-color: black; -fx-border-width: 0 0 1.5 0;");
 			courtViewController.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
 			courtViewController.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
 			courtViewController.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
@@ -312,6 +362,7 @@ public class settingsController {
 			courtViewController.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
 			courtViewController.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			courtViewController.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			courtViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (logController != null) {
 			logController.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
@@ -327,6 +378,7 @@ public class settingsController {
 			logController.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getDeathReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getAccidentReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (calloutViewController != null) {
 			calloutViewController.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
@@ -346,6 +398,8 @@ public class settingsController {
 					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-border-color", mainclr));
 			calloutViewController.getCalfill().setStyle(
 					updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
+			
+			calloutViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 			
 		}
 		if (mainDesktopControllerObj != null) {

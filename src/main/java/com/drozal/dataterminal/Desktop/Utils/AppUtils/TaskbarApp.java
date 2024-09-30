@@ -74,7 +74,7 @@ public class TaskbarApp {
 	private void initializeApp() {
 		
 		appButton = new Button(appTitle.charAt(0) + "");
-		appButton.setPrefSize(42, 39);
+		appButton.setPrefSize(32, 35);
 		
 		appButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 		addTooltip(appButton, appTitle);

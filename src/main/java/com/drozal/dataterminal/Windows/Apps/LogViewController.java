@@ -1290,4 +1290,8 @@ public class LogViewController {
 	public TableView getTrafficStopTable() {
 		return trafficStopTable;
 	}
+	
+	public BorderPane getRoot() {
+		return root;
+	}
 }

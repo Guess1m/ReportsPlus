@@ -167,6 +167,22 @@ public class PedLookupViewController {
 	private Label lbl1;
 	@javafx.fxml.FXML
 	private Button addDataToNotesBtn;
+	@javafx.fxml.FXML
+	private Button infobtn1;
+	@javafx.fxml.FXML
+	private Button infobtn3;
+	@javafx.fxml.FXML
+	private Button infobtn2;
+	@javafx.fxml.FXML
+	private Label info1;
+	@javafx.fxml.FXML
+	private Label info5;
+	@javafx.fxml.FXML
+	private Label info4;
+	@javafx.fxml.FXML
+	private Label info3;
+	@javafx.fxml.FXML
+	private Label info2;
 	
 	public void initialize() throws IOException {
 		noPedImageFoundlbl.setVisible(false);
@@ -810,5 +826,37 @@ public class PedLookupViewController {
 	
 	public ComboBox getPedSearchField() {
 		return pedSearchField;
+	}
+	
+	public Label getInfo1() {
+		return info1;
+	}
+	
+	public Label getInfo2() {
+		return info2;
+	}
+	
+	public Label getInfo3() {
+		return info3;
+	}
+	
+	public Label getInfo4() {
+		return info4;
+	}
+	
+	public Label getInfo5() {
+		return info5;
+	}
+	
+	public Button getInfobtn1() {
+		return infobtn1;
+	}
+	
+	public Button getInfobtn2() {
+		return infobtn2;
+	}
+	
+	public Button getInfobtn3() {
+		return infobtn3;
 	}
 }

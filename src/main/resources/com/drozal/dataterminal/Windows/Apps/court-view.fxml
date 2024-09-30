@@ -4,23 +4,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="839.0" prefWidth="718.0"
-            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/22"
+<BorderPane fx:id="root" prefHeight="655.0" prefWidth="645.0" stylesheets="@../../css/courtCase/courtCaseCss.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CourtViewController">
     <center>
-        <AnchorPane fx:id="courtPane" stylesheets="@../../css/main/Logscrollpane.css">
+        <AnchorPane fx:id="courtPane" style="-fx-background-color: transparent;"
+                    stylesheets="@../../css/main/Logscrollpane.css">
             <children>
-                <SplitPane dividerPositions="0.28895184135977336" layoutX="15.0" layoutY="15.0"
-                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                           AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.33" layoutX="15.0" layoutY="15.0"
+                           style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <ListView fx:id="caseList" prefHeight="690.0" prefWidth="292.0"
                                   stylesheets="@../../css/main/calList.css"/>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
-                                        <AnchorPane fx:id="blankCourtInfoPane" visible="false"
+                                        <AnchorPane fx:id="blankCourtInfoPane"
+                                                    style="-fx-background-color: transparent;" visible="false"
                                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
@@ -38,9 +40,10 @@
                                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <VBox layoutX="15.0" spacing="5.0" AnchorPane.bottomAnchor="5.0"
-                                                      AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                                      AnchorPane.topAnchor="5.0">
+                                                <VBox layoutX="15.0" spacing="5.0"
+                                                      style="-fx-background-color: transparent;"
+                                                      AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+                                                      AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                     <children>
                                                         <AnchorPane VBox.vgrow="NEVER">
                                                             <children>
@@ -57,36 +60,11 @@
                                                                             </font>
                                                                         </Label>
                                                                     </center>
-                                                                    <right>
-                                                                        <Button fx:id="deleteCaseBtn"
-                                                                                mnemonicParsing="false"
-                                                                                onAction="#deleteCaseBtnPress"
-                                                                                opacity="0.82"
-                                                                                style="-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
-                                                                                text="Delete Case"
-                                                                                BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font name="Segoe UI Semibold"
-                                                                                      size="12.0"/>
-                                                                            </font>
-                                                                        </Button>
-                                                                    </right>
-                                                                    <left>
-                                                                        <Button fx:id="revealOutcomeBtn"
-                                                                                mnemonicParsing="false"
-                                                                                onAction="#revealOutcomeBtnPress"
-                                                                                opacity="0.82"
-                                                                                style="-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
-                                                                                text="Show Outcome(s)"
-                                                                                BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font name="Segoe UI Semibold"
-                                                                                      size="12.0"/>
-                                                                            </font>
-                                                                        </Button>
-                                                                    </left>
                                                                 </BorderPane>
                                                             </children>
+                                                            <VBox.margin>
+                                                                <Insets bottom="5.0"/>
+                                                            </VBox.margin>
                                                         </AnchorPane>
                                                         <GridPane hgap="5.0" vgap="10.0" VBox.vgrow="SOMETIMES">
                                                             <columnConstraints>
@@ -107,7 +85,7 @@
                                                                            styleClass="text-field"
                                                                            GridPane.columnIndex="1">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caselbl1" text="CASE#:">
@@ -122,7 +100,7 @@
                                                                            focusTraversable="false"
                                                                            GridPane.columnIndex="3">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caselbl2" text="COURT DATE:"
@@ -166,13 +144,12 @@
                                                                            GridPane.columnIndex="1"
                                                                            GridPane.rowIndex="1">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caseSec1" text="Defendant Information:"
                                                                        GridPane.columnSpan="2"
-                                                                       GridPane.halignment="CENTER"
-                                                                       GridPane.hgrow="ALWAYS">
+                                                                       GridPane.halignment="LEFT">
                                                                     <font>
                                                                         <Font name="Segoe UI Black" size="18.0"/>
                                                                     </font>
@@ -201,7 +178,7 @@
                                                                            GridPane.columnIndex="1"
                                                                            GridPane.rowIndex="2">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <TextField fx:id="caseGenderField" editable="false"
@@ -210,7 +187,7 @@
                                                                            GridPane.columnIndex="1"
                                                                            GridPane.rowIndex="4">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caselbl7" text="GENDER:"
@@ -237,7 +214,7 @@
                                                                            GridPane.columnIndex="1"
                                                                            GridPane.rowIndex="3">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                             </children>
@@ -273,12 +250,12 @@
                                                                            GridPane.rowIndex="1"
                                                                            GridPane.vgrow="ALWAYS">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caseSec2" text="Offence Information:"
                                                                        GridPane.columnSpan="2"
-                                                                       GridPane.halignment="CENTER">
+                                                                       GridPane.halignment="LEFT">
                                                                     <font>
                                                                         <Font name="Segoe UI Black" size="18.0"/>
                                                                     </font>
@@ -299,7 +276,7 @@
                                                                            GridPane.rowIndex="2"
                                                                            GridPane.vgrow="ALWAYS">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                                 <Label fx:id="caselbl10" text="AREA:"
@@ -327,7 +304,7 @@
                                                                            GridPane.rowIndex="3"
                                                                            GridPane.vgrow="ALWAYS">
                                                                     <GridPane.margin>
-                                                                        <Insets/>
+                                                                        <Insets left="10.0" right="10.0"/>
                                                                     </GridPane.margin>
                                                                 </TextField>
                                                             </children>
@@ -555,13 +532,40 @@
                                                                 <Separator layoutX="195.0" layoutY="12.0"
                                                                            prefWidth="200.0" AnchorPane.leftAnchor="5.0"
                                                                            AnchorPane.rightAnchor="5.0"
-                                                                           AnchorPane.topAnchor="25.0">
+                                                                           AnchorPane.topAnchor="27.0">
                                                                     <padding>
                                                                         <Insets bottom="5.0" top="5.0"/>
                                                                     </padding>
                                                                 </Separator>
                                                             </children>
+                                                            <VBox.margin>
+                                                                <Insets top="15.0"/>
+                                                            </VBox.margin>
                                                         </AnchorPane>
+                                                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0"
+                                                              prefWidth="200.0" spacing="15.0">
+                                                            <children>
+                                                                <Button fx:id="revealOutcomeBtn" mnemonicParsing="false"
+                                                                        onAction="#revealOutcomeBtnPress" opacity="0.82"
+                                                                        style="-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
+                                                                        text="Show Outcome(s)">
+                                                                    <font>
+                                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                                    </font>
+                                                                </Button>
+                                                                <Button fx:id="deleteCaseBtn" mnemonicParsing="false"
+                                                                        onAction="#deleteCaseBtnPress" opacity="0.82"
+                                                                        style="-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
+                                                                        text="Delete Case">
+                                                                    <font>
+                                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                                    </font>
+                                                                </Button>
+                                                            </children>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0"/>
+                                                            </VBox.margin>
+                                                        </HBox>
                                                     </children>
                                                 </VBox>
                                             </children>

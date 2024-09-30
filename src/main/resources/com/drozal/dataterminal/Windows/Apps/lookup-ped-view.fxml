@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1002.0"
-            xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="604.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.PedLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -238,8 +238,8 @@
                                                                 </AnchorPane>
                                                                 <AnchorPane GridPane.columnSpan="4">
                                                                     <children>
-                                                                        <Label alignment="CENTER" prefHeight="35.0"
-                                                                               prefWidth="747.0"
+                                                                        <Label fx:id="info1" alignment="CENTER"
+                                                                               prefHeight="35.0" prefWidth="747.0"
                                                                                style="-fx-background-color: #5e7387;"
                                                                                styleClass="heading"
                                                                                stylesheets="@../../css/menu/menuLabels.css"
@@ -496,8 +496,8 @@
                                                                                   AnchorPane.leftAnchor="0.0"
                                                                                   AnchorPane.rightAnchor="0.0"
                                                                                   AnchorPane.topAnchor="25.0"/>
-                                                                        <Button layoutX="282.0" layoutY="-5.0"
-                                                                                mnemonicParsing="false"
+                                                                        <Button fx:id="infobtn1" layoutX="282.0"
+                                                                                layoutY="-5.0" mnemonicParsing="false"
                                                                                 onAction="#pedCreateArrestReport"
                                                                                 opacity="0.73" prefHeight="25.0"
                                                                                 style="-fx-padding: 4 8; -fx-font-size: 12;"
@@ -534,8 +534,8 @@
                                                                                   AnchorPane.leftAnchor="0.0"
                                                                                   AnchorPane.rightAnchor="0.0"
                                                                                   AnchorPane.topAnchor="25.0"/>
-                                                                        <Button layoutX="265.0" layoutY="1.0"
-                                                                                mnemonicParsing="false"
+                                                                        <Button fx:id="infobtn2" layoutX="265.0"
+                                                                                layoutY="1.0" mnemonicParsing="false"
                                                                                 onAction="#pedCreateCitationReport"
                                                                                 opacity="0.73" prefHeight="25.0"
                                                                                 style="-fx-padding: 4 8; -fx-font-size: 12;"
@@ -554,8 +554,8 @@
                                                                 <AnchorPane GridPane.columnSpan="4"
                                                                             GridPane.rowIndex="3">
                                                                     <children>
-                                                                        <Label alignment="CENTER" prefHeight="35.0"
-                                                                               prefWidth="747.0"
+                                                                        <Label fx:id="info2" alignment="CENTER"
+                                                                               prefHeight="35.0" prefWidth="747.0"
                                                                                style="-fx-background-color: #5e7387;"
                                                                                styleClass="heading"
                                                                                stylesheets="@../../css/menu/menuLabels.css"
@@ -596,8 +596,8 @@
                                                                 <AnchorPane GridPane.columnSpan="4"
                                                                             GridPane.rowIndex="11">
                                                                     <children>
-                                                                        <Label alignment="CENTER" prefHeight="35.0"
-                                                                               prefWidth="747.0"
+                                                                        <Label fx:id="info5" alignment="CENTER"
+                                                                               prefHeight="35.0" prefWidth="747.0"
                                                                                style="-fx-background-color: #5e7387;"
                                                                                styleClass="heading"
                                                                                stylesheets="@../../css/menu/menuLabels.css"
@@ -617,8 +617,8 @@
                                                                 <AnchorPane GridPane.columnSpan="4"
                                                                             GridPane.rowIndex="5">
                                                                     <children>
-                                                                        <Label alignment="CENTER" prefHeight="35.0"
-                                                                               prefWidth="747.0"
+                                                                        <Label fx:id="info3" alignment="CENTER"
+                                                                               prefHeight="35.0" prefWidth="747.0"
                                                                                style="-fx-background-color: #5e7387;"
                                                                                styleClass="heading"
                                                                                stylesheets="@../../css/menu/menuLabels.css"
@@ -703,8 +703,8 @@
                                                                 <AnchorPane GridPane.columnSpan="4"
                                                                             GridPane.rowIndex="8">
                                                                     <children>
-                                                                        <Label alignment="CENTER" prefHeight="35.0"
-                                                                               prefWidth="747.0"
+                                                                        <Label fx:id="info4" alignment="CENTER"
+                                                                               prefHeight="35.0" prefWidth="747.0"
                                                                                style="-fx-background-color: #5e7387;"
                                                                                styleClass="heading"
                                                                                stylesheets="@../../css/menu/menuLabels.css"
@@ -783,7 +783,7 @@
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <Button mnemonicParsing="false"
+                                                                <Button fx:id="infobtn3" mnemonicParsing="false"
                                                                         onAction="#pedUpdateInfo" opacity="0.73"
                                                                         style="-fx-padding: 4 8; -fx-font-size: 12;"
                                                                         styleClass="incidentbtn"

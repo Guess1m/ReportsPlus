@@ -115,6 +115,14 @@ public class VehLookupViewController {
 	private Label lbl1;
 	@javafx.fxml.FXML
 	private Button addDataToNotesBtn;
+	@javafx.fxml.FXML
+	private Button btninfo1;
+	@javafx.fxml.FXML
+	private Button btninfo2;
+	@javafx.fxml.FXML
+	private Label info1;
+	@javafx.fxml.FXML
+	private Label info2;
 	
 	public void initialize() throws IOException {
 		noVehImageFoundlbl.setVisible(false);
@@ -590,5 +598,21 @@ public class VehLookupViewController {
 	
 	public Button getVehSearchBtn() {
 		return vehSearchBtn;
+	}
+	
+	public Label getInfo1() {
+		return info1;
+	}
+	
+	public Label getInfo2() {
+		return info2;
+	}
+	
+	public Button getBtninfo1() {
+		return btninfo1;
+	}
+	
+	public Button getBtninfo2() {
+		return btninfo2;
 	}
 }

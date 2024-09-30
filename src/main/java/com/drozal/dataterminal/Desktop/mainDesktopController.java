@@ -89,6 +89,8 @@ public class mainDesktopController {
 	private DateTimeFormatter dateFormatter;
 	@FXML
 	private Label dateLabel;
+	@FXML
+	private Label currentUser;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -119,12 +121,6 @@ public class mainDesktopController {
 		                                    trafficCitation, trafficStop);
 		
 		return reportContextMenu;
-	}
-	
-	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
-		AnchorPane.setLeftAnchor(newApp, x);
-		AnchorPane.setTopAnchor(newApp, y);
-		root.getChildren().add(newApp);
 	}
 	
 	public void initialize() throws IOException {
@@ -208,15 +204,45 @@ public class mainDesktopController {
 			} catch (IOException e) {
 				logError("Not able to read serverautoconnect: ", e);
 			}
+			
+			try {
+				currentUser.setText(ConfigReader.configRead("userInfo", "Name"));
+			} catch (IOException e) {
+				logError("error pulling userInfo name: ", e);
+			}
 		});
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
 		}
 	}
 	
+	@FXML
+	public void createReportBtn(ActionEvent actionEvent) {
+		double btnWidth = createReportBtn.getWidth();
+		
+		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
+		
+		reportMenuOptions.show(createReportBtn, 0, 0);
+		reportMenuOptions.hide();
+		
+		double contextMenuWidth = reportMenuOptions.getWidth();
+		double contextMenuHeight = reportMenuOptions.getHeight();
+		
+		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
+		double yPos = bounds.getMinY() - contextMenuHeight;
+		
+		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
+	}
+	
+	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
+		AnchorPane.setLeftAnchor(newApp, x);
+		AnchorPane.setTopAnchor(newApp, y);
+		root.getChildren().add(newApp);
+	}
+	
 	private void addApps() {
 		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/writing.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/notepad.png"))));
 		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -234,7 +260,7 @@ public class mainDesktopController {
 		addAppToDesktop(desktopContainer, notesApp, 115, 20);
 		
 		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/settings.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/setting.png"))));
 		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -248,10 +274,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, settingsApp, 210, 20);
+		addAppToDesktop(desktopContainer, settingsApp, 215, 20);
 		
 		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/update.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
 		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -265,10 +291,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, updatesApp, 305, 20);
+		addAppToDesktop(desktopContainer, updatesApp, 315, 20);
 		
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/logs.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/logs.png"))));
 		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -283,10 +309,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, logBrowserApp, 590, 20);
+		addAppToDesktop(desktopContainer, logBrowserApp, 415, 20);
 		
 		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/callout.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
 		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -301,10 +327,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, calloutManagerApp, 685, 20);
+		addAppToDesktop(desktopContainer, calloutManagerApp, 515, 20);
 		
 		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/courtIcon.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/courtIcon.png"))));
 		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -319,10 +345,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, courtApp, 780, 20);
+		addAppToDesktop(desktopContainer, courtApp, 615, 20);
 		
 		DesktopApp pedLookupAppObj = new DesktopApp("D.M.V Ped Lookup", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/search.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/ped-search.png"))));
 		AnchorPane lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -337,10 +363,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupApp, 875, 20);
+		addAppToDesktop(desktopContainer, lookupApp, 715, 175);
 		
 		DesktopApp vehLookupAppObj = new DesktopApp("D.M.V Veh Lookup", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/search.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/veh-search.png"))));
 		AnchorPane vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -355,10 +381,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, vehLookupApp, 875, 100);
+		addAppToDesktop(desktopContainer, vehLookupApp, 815, 300);
 		
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/server.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/server.png"))));
 		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -373,10 +399,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, connectionApp, 970, 20);
+		addAppToDesktop(desktopContainer, connectionApp, 915, 20);
 		
 		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/license.png"))));
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
 		AnchorPane showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -390,7 +416,17 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, showIDApp, 1065, 20);
+		addAppToDesktop(desktopContainer, showIDApp, 1015, 20);
+	}
+	
+	private void updateTime() {
+		LocalTime currentTime = LocalTime.now();
+		timeLabel.setText(currentTime.format(timeFormatter));
+	}
+	
+	private void updateDate() {
+		LocalDate currentDate = LocalDate.now();
+		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 	
 	private void updateConnectionStatus(boolean isConnected) {
@@ -456,33 +492,5 @@ public class mainDesktopController {
 	
 	public AnchorPane getTopBar() {
 		return topBar;
-	}
-	
-	@FXML
-	public void createReportBtn(ActionEvent actionEvent) {
-		double btnWidth = createReportBtn.getWidth();
-		
-		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
-		
-		reportMenuOptions.show(createReportBtn, 0, 0);
-		reportMenuOptions.hide();
-		
-		double contextMenuWidth = reportMenuOptions.getWidth();
-		double contextMenuHeight = reportMenuOptions.getHeight();
-		
-		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
-		double yPos = bounds.getMinY() - contextMenuHeight;
-		
-		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
-	}
-	
-	private void updateTime() {
-		LocalTime currentTime = LocalTime.now();
-		timeLabel.setText(currentTime.format(timeFormatter));
-	}
-	
-	private void updateDate() {
-		LocalDate currentDate = LocalDate.now();
-		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 }

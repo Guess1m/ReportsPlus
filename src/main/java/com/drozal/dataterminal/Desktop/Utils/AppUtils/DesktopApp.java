@@ -37,6 +37,7 @@ public class DesktopApp {
 		AnchorPane.setRightAnchor(borderPaneButton, 0.0);
 		AnchorPane.setTopAnchor(borderPaneButton, 0.0);
 		
+		// Increased size for the button and image
 		Button appButton = createImageButton(image);
 		borderPaneButton.setCenter(appButton);
 		
@@ -44,10 +45,12 @@ public class DesktopApp {
 		AnchorPane.setBottomAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setRightAnchor(borderPaneLabel, 0.0);
-		AnchorPane.setTopAnchor(borderPaneLabel, 65.0);
+		AnchorPane.setTopAnchor(borderPaneLabel, 70.0); // Adjusted to match larger size
 		
+		// Increased font size for the label
 		Label appLabel = new Label(name);
-		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 13px;");
+		appLabel.setStyle(
+				"-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 14px;"); // Increased font size
 		appLabel.setMouseTransparent(true);
 		borderPaneLabel.setCenter(appLabel);
 		
@@ -65,10 +68,13 @@ public class DesktopApp {
 	private Button createImageButton(Image image) {
 		Button button = new Button();
 		ImageView imageView = new ImageView(image);
-		imageView.setFitHeight(40);
-		imageView.setFitWidth(40);
+		
+		// Increased size for the image
+		imageView.setFitHeight(46); // Increased height
+		imageView.setFitWidth(46); // Increased width
 		imageView.setPreserveRatio(false);
 		imageView.setMouseTransparent(true);
+		
 		button.setGraphic(imageView);
 		button.setStyle("-fx-background-color: transparent;");
 		

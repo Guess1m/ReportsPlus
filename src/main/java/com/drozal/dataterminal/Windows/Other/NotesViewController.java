@@ -238,38 +238,6 @@ public class NotesViewController {
 		codesbtnnotepad.setOnMouseEntered(e -> codesbtnnotepad.setStyle(hoverStyle + padding));
 		codesbtnnotepad.setOnMouseExited(e -> codesbtnnotepad.setStyle(initialStyle + padding));
 		
-		String notepadMode = ConfigReader.configRead("notepad", "notepadMode");
-		if (notepadMode != null) {
-			String notepadStyle;
-			String modeToggleStyle;
-			if (notepadMode.equals("Dark")) {
-				modeToggle.setSelected(true);
-				notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
-				modeToggleStyle = "-fx-background-color: white;";
-				codeSelectionPane.setStyle("-fx-background-color: gray;");
-				codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
-				borderPane.setStyle("-fx-background-color: gray;");
-				codeSelectionlbl.setStyle("-fx-text-fill: #f2f2f2;");
-				notepadTextArea.setStyle(notepadStyle);
-				modeToggle.setStyle(modeToggleStyle);
-			} else if (notepadMode.equals("Light")) {
-				modeToggle.setSelected(false);
-				notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
-				modeToggleStyle = "-fx-background-color: grey;";
-				codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
-				codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
-				borderPane.setStyle("-fx-background-color: white;");
-				codeSelectionlbl.setStyle("-fx-text-fill: gray;");
-				notepadTextArea.setStyle(notepadStyle);
-				modeToggle.setStyle(modeToggleStyle);
-			}
-			
-		} else {
-			notepadTextArea.setStyle(
-					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
-			modeToggle.setStyle("-fx-background-color: grey;");
-		}
-		
 		codeSelectionPane.setPrefWidth(0);
 		codeSelectionPane.setMaxWidth(0);
 		codeSelectionPane.setMinWidth(0);
@@ -283,6 +251,42 @@ public class NotesViewController {
 				createNoteTabs();
 			} catch (IOException e) {
 				logError("CreateNoteTabs; Exception error: ", e);
+			}
+			
+			String notepadMode = null;
+			try {
+				notepadMode = ConfigReader.configRead("notepad", "notepadMode");
+			} catch (IOException e) {
+				logError("error getting notepadMode: ", e);
+			}
+			if (notepadMode != null) {
+				String notepadStyle;
+				String modeToggleStyle;
+				if (notepadMode.equals("Dark")) {
+					modeToggle.setSelected(true);
+					notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+					modeToggleStyle = "-fx-background-color: white;";
+					codeSelectionPane.setStyle("-fx-background-color: gray;");
+					codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
+					borderPane.setStyle("-fx-background-color: gray;");
+					codeSelectionlbl.setStyle("-fx-text-fill: #f2f2f2;");
+					notepadTextArea.setStyle(notepadStyle);
+					modeToggle.setStyle(modeToggleStyle);
+				} else if (notepadMode.equals("Light")) {
+					modeToggle.setSelected(false);
+					notepadStyle = "-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+					modeToggleStyle = "-fx-background-color: grey;";
+					codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
+					codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
+					borderPane.setStyle("-fx-background-color: white;");
+					codeSelectionlbl.setStyle("-fx-text-fill: gray;");
+					notepadTextArea.setStyle(notepadStyle);
+					modeToggle.setStyle(modeToggleStyle);
+				}
+			} else {
+				notepadTextArea.setStyle(
+						"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+				modeToggle.setStyle("-fx-background-color: grey;");
 			}
 		});
 	}

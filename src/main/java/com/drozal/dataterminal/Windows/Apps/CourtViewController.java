@@ -650,4 +650,5 @@ public class CourtViewController {
 	public Label getCaseprim1() {
 		return caseprim1;
 	}
+	
 }

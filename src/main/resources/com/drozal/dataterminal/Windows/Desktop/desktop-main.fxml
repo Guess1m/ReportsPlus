@@ -6,15 +6,15 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0"
-            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0" prefWidth="811.0"
+            style="-fx-background-color: transparent;" stylesheets="" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
             <children>
                 <AnchorPane fx:id="topBar" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                             prefHeight="25.0" prefWidth="811.0"
-                            style="-fx-background-color: rgb(255,255,255,0.9); -fx-border-width: 0 0 0.5 0; -fx-border-color: gray;"
+                            style="-fx-background-color: rgb(200,200,200,0.9); -fx-border-width: 0 0 0.5 0; -fx-border-color: gray;"
                             VBox.vgrow="NEVER">
                     <children>
                         <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
@@ -109,51 +109,48 @@
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="bottomBar" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                            prefHeight="55.0" VBox.vgrow="NEVER">
+                            prefHeight="45.0" prefWidth="811.0" VBox.vgrow="NEVER">
                     <children>
                         <BorderPane fx:id="taskBar" layoutY="696.0" maxHeight="-Infinity" minHeight="-Infinity"
-                                    prefHeight="55.0" style="-fx-background-color: rgb(0,0,0,0.4);"
+                                    prefHeight="45.0" style="-fx-background-color: rgb(0,0,0,0.4);"
                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <center>
                                 <HBox fx:id="taskBarApps" alignment="CENTER" spacing="10.0"
                                       BorderPane.alignment="CENTER"/>
                             </center>
-                        </BorderPane>
-                        <HBox layoutX="2.0" layoutY="-7.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0"
-                              AnchorPane.topAnchor="-7.0">
-                            <children>
-                                <AnchorPane>
+                            <left>
+                                <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReportBtn"
+                                        style="-fx-padding: 3 10; -fx-background-color: rgb(255,255,255,0.5);"
+                                        text="Create Report" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="13.0"/>
+                                    </font>
+                                    <BorderPane.margin>
+                                        <Insets left="20.0"/>
+                                    </BorderPane.margin>
+                                </Button>
+                            </left>
+                            <right>
+                                <VBox alignment="CENTER_LEFT" BorderPane.alignment="TOP_RIGHT">
                                     <children>
-                                        <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true"
-                                                   AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="18.5" AnchorPane.topAnchor="0.0">
-                                            <image>
-                                                <Image url="@../../imgs/icons/Logo.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </AnchorPane>
-                                <BorderPane prefHeight="200.0">
-                                    <center>
-                                        <Button fx:id="createReportBtn" mnemonicParsing="false"
-                                                onAction="#createReportBtn"
-                                                style="-fx-padding: 3 10; -fx-background-color: rgb(255,255,255,0.5);"
-                                                text="Create Report" BorderPane.alignment="CENTER">
-                                            <BorderPane.margin>
-                                                <Insets top="7.0"/>
-                                            </BorderPane.margin>
+                                        <Label text="Current User:" textFill="WHITE">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
                                             </font>
-                                        </Button>
-                                    </center>
-                                    <padding>
-                                        <Insets left="20.0"/>
-                                    </padding>
-                                </BorderPane>
-                            </children>
-                        </HBox>
+                                        </Label>
+                                        <Label fx:id="currentUser" textFill="#c3c3c3">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="13.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <BorderPane.margin>
+                                        <Insets right="20.0"/>
+                                    </BorderPane.margin>
+                                </VBox>
+                            </right>
+                        </BorderPane>
                     </children>
                 </AnchorPane>
             </children>

@@ -3,21 +3,105 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0" prefWidth="811.0"
-            style="-fx-background-color: transparent;" stylesheets="" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="679.0"
+            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
             <children>
                 <AnchorPane fx:id="topBar" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                            prefHeight="25.0" prefWidth="811.0" style="-fx-background-color: rgb(0,0,0,0.3);"
-                            VBox.vgrow="NEVER"/>
+                            prefHeight="25.0" prefWidth="811.0"
+                            style="-fx-background-color: rgb(255,255,255,0.9); -fx-border-width: 0 0 0.5 0; -fx-border-color: gray;"
+                            VBox.vgrow="NEVER">
+                    <children>
+                        <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
+                               text="Sandy Shores, Blaine County" textFill="#545454" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../imgs/icons/location.png"/>
+                                    </image>
+                                    <effect>
+                                        <ColorAdjust brightness="-0.52"/>
+                                    </effect>
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <right>
+                                <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78"
+                                               text="v1.0.9-alpha" textFill="#545454" textOverrun="CLIP">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="12.5"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="dateLabel" alignment="CENTER" graphicTextGap="5.5" text="Date"
+                                               textFill="#656565" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="13.0"/>
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitWidth="16.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../imgs/icons/calendar.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Label>
+                                        <Label fx:id="timeLabel" alignment="CENTER" graphicTextGap="5.0" text="Time"
+                                               textFill="#656565" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="13.0"/>
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitWidth="18.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../imgs/icons/clock.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Label>
+                                    </children>
+                                    <BorderPane.margin>
+                                        <Insets right="20.0"/>
+                                    </BorderPane.margin>
+                                </HBox>
+                            </right>
+                            <left>
+                                <HBox alignment="CENTER" spacing="3.5" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Label alignment="CENTER" text="Server Status:" textAlignment="CENTER"
+                                               textFill="#545454" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
+                                               textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <BorderPane.margin>
+                                        <Insets left="20.0"/>
+                                    </BorderPane.margin>
+                                </HBox>
+                            </left>
+                        </BorderPane>
+                    </children>
+                </AnchorPane>
                 <AnchorPane fx:id="desktopContainer" VBox.vgrow="ALWAYS">
                     <children>
                         <Button fx:id="button1" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="15.0"
@@ -41,22 +125,6 @@
                             <children>
                                 <AnchorPane>
                                     <children>
-                                        <Label fx:id="versionLabel" alignment="CENTER" layoutX="11.0" layoutY="43.0"
-                                               opacity="0.78" text="v1.0.9-alpha" textFill="WHITE" textOverrun="CLIP"
-                                               AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="11.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="10.0"/>
-                                            </font>
-                                            <effect>
-                                                <DropShadow height="16.0" offsetX="4.0" offsetY="2.0" radius="7.25"
-                                                            width="15.0">
-                                                    <color>
-                                                        <Color opacity="0.223709374666214"/>
-                                                    </color>
-                                                </DropShadow>
-                                            </effect>
-                                        </Label>
                                         <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true"
                                                    AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0"
                                                    AnchorPane.rightAnchor="18.5" AnchorPane.topAnchor="0.0">
@@ -86,34 +154,6 @@
                                 </BorderPane>
                             </children>
                         </HBox>
-                        <VBox fx:id="taskBarLeftVbox" alignment="CENTER" layoutX="708.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
-                                       textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
-                                       text="Sandy Shores, Blaine County" textFill="#e1e1e1">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                    </font>
-                                    <graphic>
-                                        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../imgs/icons/location.png"/>
-                                            </image>
-                                            <effect>
-                                                <ColorAdjust brightness="-0.16"/>
-                                            </effect>
-                                        </ImageView>
-                                    </graphic>
-                                </Label>
-                            </children>
-                        </VBox>
                     </children>
                 </AnchorPane>
             </children>

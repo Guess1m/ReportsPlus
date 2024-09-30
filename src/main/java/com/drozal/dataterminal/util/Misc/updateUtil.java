@@ -5,9 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.util.Objects;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -29,11 +27,6 @@ public class updateUtil {
 				gitVersion = latestVersion;
 				log("Git Version: " + latestVersion, LogUtils.Severity.INFO);
 				log("App Version: " + stringUtil.version, LogUtils.Severity.INFO);
-				if (!Objects.equals(latestVersion, stringUtil.version)) {
-					NotificationManager.showNotificationError("Update Available",
-					                                          "There is a New Verion Available! " + latestVersion + " Check LCPDFR Website!",
-					                                          mainDesktopStage);
-				}
 				reader.close();
 			} else {
 				log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);

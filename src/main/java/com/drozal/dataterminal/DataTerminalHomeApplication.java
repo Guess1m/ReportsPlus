@@ -37,7 +37,7 @@ public class DataTerminalHomeApplication extends Application {
 		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
 		Scene scene = new Scene(fxmlLoader.load());
 		mainDesktopControllerObj = fxmlLoader.getController();
-		primaryStage.setTitle("Simulation Desktop");
+		primaryStage.setTitle("ReportsPlus Desktop");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		mainDesktopStage = primaryStage;

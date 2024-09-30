@@ -125,9 +125,9 @@ public class ClientUtils {
 							log("Received Location update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveLocationFromServer(1024);
 							Platform.runLater(() -> {
-								if (!mainDesktopControllerObj.getTaskBarLeftVbox().getChildren().contains(
+								if (!mainDesktopControllerObj.getTopBar().getChildren().contains(
 										mainDesktopControllerObj.getLocationDataLabel())) {
-									mainDesktopControllerObj.getTaskBarLeftVbox().getChildren().add(
+									mainDesktopControllerObj.getTopBar().getChildren().add(
 											mainDesktopControllerObj.getLocationDataLabel());
 								}
 								try {

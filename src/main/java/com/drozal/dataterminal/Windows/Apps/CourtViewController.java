@@ -547,18 +547,6 @@ public class CourtViewController {
 		}
 	}
 	
-	public TextField getCaseAgeField() {
-		return caseAgeField;
-	}
-	
-	public TextField getCaseStreetField() {
-		return caseStreetField;
-	}
-	
-	public AnchorPane getCourtInfoPane() {
-		return courtInfoPane;
-	}
-	
 	public Label getCaselbl12() {
 		return caselbl12;
 	}
@@ -571,10 +559,6 @@ public class CourtViewController {
 		return caselbl10;
 	}
 	
-	public Button getRevealOutcomeBtn() {
-		return revealOutcomeBtn;
-	}
-	
 	public Label getCaseSec1() {
 		return caseSec1;
 	}
@@ -583,20 +567,12 @@ public class CourtViewController {
 		return caseSec2;
 	}
 	
-	public Label getCaseTotalProbationLabel() {
-		return caseTotalProbationLabel;
-	}
-	
 	public Label getCaselbl4() {
 		return caselbl4;
 	}
 	
 	public Label getCaselbl2() {
 		return caselbl2;
-	}
-	
-	public TextField getCaseAreaField() {
-		return caseAreaField;
 	}
 	
 	public Label getCaselbl1() {
@@ -615,32 +591,8 @@ public class CourtViewController {
 		return blankCourtInfoPane;
 	}
 	
-	public ListView getCaseList() {
-		return caseList;
-	}
-	
-	public TextField getCaseCourtDateField() {
-		return caseCourtDateField;
-	}
-	
 	public Label getCaseSuspensionDurationlbl() {
 		return caseSuspensionDurationlbl;
-	}
-	
-	public TextField getCaseAddressField() {
-		return caseAddressField;
-	}
-	
-	public TextField getCaseNameField() {
-		return caseNameField;
-	}
-	
-	public Label getCaseSuspensionDuration() {
-		return caseSuspensionDuration;
-	}
-	
-	public Button getDeleteCaseBtn() {
-		return deleteCaseBtn;
 	}
 	
 	public Label getCaselbl9() {
@@ -659,24 +611,12 @@ public class CourtViewController {
 		return caselbl6;
 	}
 	
-	public Label getCaseTotalLabel() {
-		return caseTotalLabel;
-	}
-	
-	public Label getCaseLicenseStatLabel() {
-		return caseLicenseStatLabel;
-	}
-	
 	public Label getCasePrim1() {
 		return casePrim1;
 	}
 	
 	public BorderPane getRoot() {
 		return root;
-	}
-	
-	public TextField getCaseNumField() {
-		return caseNumField;
 	}
 	
 	public Label getCasesec4() {
@@ -687,10 +627,6 @@ public class CourtViewController {
 		return casesec3;
 	}
 	
-	public ListView getCaseOutcomesListView() {
-		return caseOutcomesListView;
-	}
-	
 	public Label getCasesec2() {
 		return casesec2;
 	}
@@ -699,28 +635,12 @@ public class CourtViewController {
 		return casesec1;
 	}
 	
-	public TextField getCaseCountyField() {
-		return caseCountyField;
-	}
-	
-	public Label getCaseTotalJailTimeLabel() {
-		return caseTotalJailTimeLabel;
-	}
-	
-	public TextField getCaseGenderField() {
-		return caseGenderField;
-	}
-	
 	public AnchorPane getCourtPane() {
 		return courtPane;
 	}
 	
 	public Label getCaseprim2() {
 		return caseprim2;
-	}
-	
-	public ListView getCaseOffencesListView() {
-		return caseOffencesListView;
 	}
 	
 	public Label getCaseprim3() {

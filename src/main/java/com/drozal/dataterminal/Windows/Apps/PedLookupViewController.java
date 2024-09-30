@@ -163,6 +163,10 @@ public class PedLookupViewController {
 	private AnchorPane lookupPane;
 	@javafx.fxml.FXML
 	private TextField pedtimesstoppedfield;
+	@javafx.fxml.FXML
+	private Label lbl1;
+	@javafx.fxml.FXML
+	private Button addDataToNotesBtn;
 	
 	public void initialize() throws IOException {
 		noPedImageFoundlbl.setVisible(false);
@@ -780,14 +784,6 @@ public class PedLookupViewController {
 		return lookupPane;
 	}
 	
-	public TextField getPedgenfield() {
-		return pedgenfield;
-	}
-	
-	public TextField getPedaffiliationfield() {
-		return pedaffiliationfield;
-	}
-	
 	public TextField getPedlnamefield() {
 		return pedlnamefield;
 	}
@@ -800,107 +796,19 @@ public class PedLookupViewController {
 		return pedRecordPane;
 	}
 	
-	public TextField getPedgunlicensetypefield() {
-		return pedgunlicensetypefield;
-	}
-	
-	public TextField getPedgunlicensestatusfield() {
-		return pedgunlicensestatusfield;
-	}
-	
-	public TextField getPedprobationstatusfield() {
-		return pedprobationstatusfield;
-	}
-	
-	public TextField getPedfishinglicstatusfield() {
-		return pedfishinglicstatusfield;
-	}
-	
-	public TextField getPeddobfield() {
-		return peddobfield;
-	}
-	
-	public ScrollPane getPedPane() {
-		return pedPane;
-	}
-	
-	public TextField getPedlicnumfield() {
-		return pedlicnumfield;
-	}
-	
-	public TextField getPedboatinglicstatusfield() {
-		return pedboatinglicstatusfield;
-	}
-	
-	public TextField getPeddescfield() {
-		return peddescfield;
-	}
-	
-	public ListView getPedcitationpriorslistview() {
-		return pedcitationpriorslistview;
-	}
-	
-	public Label getNoRecordFoundLabelPed() {
-		return noRecordFoundLabelPed;
-	}
-	
-	public TextField getPedlicensefield() {
-		return pedlicensefield;
-	}
-	
-	public TextField getPedwantedfield() {
-		return pedwantedfield;
-	}
-	
-	public TextField getPedparolestatusfield() {
-		return pedparolestatusfield;
-	}
-	
-	public TextField getPedhuntinglicstatusfield() {
-		return pedhuntinglicstatusfield;
-	}
-	
-	public TextField getPedgunlicenseclassfield() {
-		return pedgunlicenseclassfield;
-	}
-	
 	public Button getPedSearchBtn() {
 		return pedSearchBtn;
 	}
 	
+	public Button getAddDataToNotesBtn() {
+		return addDataToNotesBtn;
+	}
+	
+	public Label getLbl1() {
+		return lbl1;
+	}
+	
 	public ComboBox getPedSearchField() {
 		return pedSearchField;
-	}
-	
-	public TextField getPedaddressfield() {
-		return pedaddressfield;
-	}
-	
-	public TextField getPedflagfield() {
-		return pedflagfield;
-	}
-	
-	public TextField getPedaliasfield() {
-		return pedaliasfield;
-	}
-	
-	public ImageView getPedImageView() {
-		return pedImageView;
-	}
-	
-	public ListView getPedarrestpriorslistview() {
-		return pedarrestpriorslistview;
-	}
-	
-	public TextField getPedtimesstoppedfield() {
-		return pedtimesstoppedfield;
-	}
-	
-	public List<String> getRecentPedSearches() {
-		return recentPedSearches;
-	}
-	
-	public List<String> getRecentVehicleSearches() {
-		return recentVehicleSearches;
 	}
 }

@@ -130,12 +130,13 @@ public class desktopLoginController {
 			Scene scene = new Scene(fxmlLoader.load());
 			mainDesktopControllerObj = fxmlLoader.getController();
 			Stage primaryStage = new Stage();
-			primaryStage.setTitle("Simulation Desktop");
+			primaryStage.setTitle("ReportsPlus Desktop");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			
-			mainDesktopStage.setMaximized(true);
+			primaryStage.setMaximized(true);
+			//primaryStage.setFullScreen(true); todo find fix for notifications
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

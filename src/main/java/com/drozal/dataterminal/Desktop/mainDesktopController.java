@@ -3,10 +3,7 @@ package com.drozal.dataterminal.Desktop;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
-import com.drozal.dataterminal.Windows.Apps.CalloutViewController;
-import com.drozal.dataterminal.Windows.Apps.CourtViewController;
-import com.drozal.dataterminal.Windows.Apps.LogViewController;
-import com.drozal.dataterminal.Windows.Apps.PedLookupViewController;
+import com.drozal.dataterminal.Windows.Apps.*;
 import com.drozal.dataterminal.Windows.Other.NotesViewController;
 import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
@@ -15,6 +12,9 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +28,12 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -75,11 +79,16 @@ public class mainDesktopController {
 	@FXML
 	private Label versionLabel;
 	@FXML
-	private VBox taskBarLeftVbox;
-	@FXML
 	private Button createReportBtn;
 	@FXML
 	private AnchorPane topBar;
+	@FXML
+	private Label timeLabel;
+	
+	private DateTimeFormatter timeFormatter;
+	private DateTimeFormatter dateFormatter;
+	@FXML
+	private Label dateLabel;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -132,7 +141,7 @@ public class mainDesktopController {
 		
 		container.setBackground(new Background(backgroundImage));
 		
-		taskBarLeftVbox.getChildren().remove(locationDataLabel);
+		getTopBar().getChildren().remove(locationDataLabel);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
@@ -145,7 +154,20 @@ public class mainDesktopController {
 		
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
 		
+		checkForUpdates();
+		
 		Platform.runLater(() -> {
+			
+			timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+			dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
+			
+			updateTime();
+			updateDate();
+			
+			Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> updateTime()),
+			                              new KeyFrame(Duration.seconds(1)));
+			clock.setCycleCount(Animation.INDEFINITE);
+			clock.play();
 			
 			versionLabel.setText(stringUtil.version);
 			if (!stringUtil.version.equals(gitVersion)) {
@@ -158,7 +180,7 @@ public class mainDesktopController {
 				}
 			}
 			locationDataLabel.setOnMouseClicked(mouseEvent -> {
-				if (taskBarLeftVbox.getChildren().contains(locationDataLabel)) {
+				if (getTopBar().getChildren().contains(locationDataLabel)) {
 					Clipboard clipboard = Clipboard.getSystemClipboard();
 					ClipboardContent content = new ClipboardContent();
 					content.putString(locationDataLabel.getText().split(",")[0]);
@@ -186,9 +208,6 @@ public class mainDesktopController {
 			} catch (IOException e) {
 				logError("Not able to read serverautoconnect: ", e);
 			}
-			
-			checkForUpdates();
-			
 		});
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
@@ -320,6 +339,24 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, lookupApp, 875, 20);
 		
+		DesktopApp vehLookupAppObj = new DesktopApp("D.M.V Veh Lookup", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/search.png"))));
+		AnchorPane vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-veh-view.fxml",
+					                                       "Vehicle Lookup", true, 2, true, taskBarApps);
+					VehLookupViewController.vehLookupViewController = (VehLookupViewController) (logapp != null ? logapp.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from lookupApp", e);
+					}
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, vehLookupApp, 875, 100);
+		
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/server.png"))));
 		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
@@ -363,7 +400,7 @@ public class mainDesktopController {
 				showLookupBtn.setVisible(false);
 				showCalloutBtn.setVisible(false);
 				showIDBtn.setVisible(false);*/
-				taskBarLeftVbox.getChildren().remove(locationDataLabel);
+				getTopBar().getChildren().remove(locationDataLabel);
 				
 				log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
@@ -381,7 +418,7 @@ public class mainDesktopController {
 				showIDBtn.setVisible(true);*/
 				serverStatusLabel.setText("Connected");
 				
-				serverStatusLabel.setStyle("-fx-text-fill: #00da16; -fx-label-padding: 5; -fx-border-radius: 5;");
+				serverStatusLabel.setStyle("-fx-text-fill: green; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					try {
 						Thread.sleep(500);
@@ -413,12 +450,12 @@ public class mainDesktopController {
 		return serverStatusLabel;
 	}
 	
-	public VBox getTaskBarLeftVbox() {
-		return taskBarLeftVbox;
-	}
-	
 	public Button getButton1() {
 		return button1;
+	}
+	
+	public AnchorPane getTopBar() {
+		return topBar;
 	}
 	
 	@FXML
@@ -437,5 +474,15 @@ public class mainDesktopController {
 		double yPos = bounds.getMinY() - contextMenuHeight;
 		
 		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
+	}
+	
+	private void updateTime() {
+		LocalTime currentTime = LocalTime.now();
+		timeLabel.setText(currentTime.format(timeFormatter));
+	}
+	
+	private void updateDate() {
+		LocalDate currentDate = LocalDate.now();
+		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 }

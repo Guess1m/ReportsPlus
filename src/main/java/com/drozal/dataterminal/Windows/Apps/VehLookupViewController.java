@@ -111,6 +111,10 @@ public class VehLookupViewController {
 	private TextField vehownerfield;
 	@javafx.fxml.FXML
 	private AnchorPane lookupPane;
+	@javafx.fxml.FXML
+	private Label lbl1;
+	@javafx.fxml.FXML
+	private Button addDataToNotesBtn;
 	
 	public void initialize() throws IOException {
 		noVehImageFoundlbl.setVisible(false);
@@ -508,6 +512,14 @@ public class VehLookupViewController {
 		}
 	}
 	
+	public Label getLbl1() {
+		return lbl1;
+	}
+	
+	public Button getAddDataToNotesBtn() {
+		return addDataToNotesBtn;
+	}
+	
 	public Label getPlt4() {
 		return plt4;
 	}
@@ -576,79 +588,7 @@ public class VehLookupViewController {
 		return lookupPane;
 	}
 	
-	public ImageView getVehImageView() {
-		return vehImageView;
-	}
-	
-	public TextField getVehpolicefield() {
-		return vehpolicefield;
-	}
-	
 	public Button getVehSearchBtn() {
 		return vehSearchBtn;
-	}
-	
-	public TextField getVehregfield() {
-		return vehregfield;
-	}
-	
-	public TextField getVehplatefield2() {
-		return vehplatefield2;
-	}
-	
-	public ComboBox getVehSearchField() {
-		return vehSearchField;
-	}
-	
-	public ComboBox getVehtypecombobox() {
-		return vehtypecombobox;
-	}
-	
-	public AnchorPane getVehRecordPane() {
-		return vehRecordPane;
-	}
-	
-	public AnchorPane getVehcolordisplay() {
-		return vehcolordisplay;
-	}
-	
-	public Label getNoRecordFoundLabelVeh() {
-		return noRecordFoundLabelVeh;
-	}
-	
-	public TextField getVehinsfield() {
-		return vehinsfield;
-	}
-	
-	public Label getVehnocolorlabel() {
-		return vehnocolorlabel;
-	}
-	
-	public TextField getVehstolenfield() {
-		return vehstolenfield;
-	}
-	
-	public TextField getVehmodelfield() {
-		return vehmodelfield;
-	}
-	
-	public TextField getVehinspectionfield() {
-		return vehinspectionfield;
-	}
-	
-	public ScrollPane getVehPane() {
-		return vehPane;
-	}
-	
-	public TextField getVehownerfield() {
-		return vehownerfield;
-	}
-	
-	public List<String> getRecentPedSearches() {
-		return recentPedSearches;
-	}
-	
-	public List<String> getRecentVehicleSearches() {
-		return recentVehicleSearches;
 	}
 }

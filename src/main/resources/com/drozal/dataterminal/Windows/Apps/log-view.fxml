@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="956.0"
-            xmlns="http://javafx.com/javafx/22" fx:controller="com.drozal.dataterminal.Windows.Apps.LogViewController">
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Windows.Apps.LogViewController">
     <center>
         <AnchorPane fx:id="logPane">
             <children>
@@ -58,7 +58,7 @@
                                  style="-fx-border-color: transparent;" styleClass="darktabpane"
                                  stylesheets="@../../css/main/SettingsTabPane.css" VBox.vgrow="ALWAYS">
                             <tabs>
-                                <Tab fx:id="calloutTab" closable="false" text="Callouts">
+                                <Tab closable="false" text="Callouts">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -73,7 +73,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="trafficStopTab" closable="false" text="Traffic Stops">
+                                <Tab closable="false" text="Traffic Stops">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -88,7 +88,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="incidentTab" closable="false" text="Incidents">
+                                <Tab closable="false" text="Incidents">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -103,7 +103,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="searchTab" closable="false" text="Searches">
+                                <Tab closable="false" text="Searches">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -118,7 +118,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="arrestTab" closable="false" text="Arrests">
+                                <Tab closable="false" text="Arrests">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -133,7 +133,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="patrolTab" closable="false" text="Patrols">
+                                <Tab closable="false" text="Patrols">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -148,7 +148,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="citationTab" closable="false" text="Citations">
+                                <Tab closable="false" text="Citations">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -163,7 +163,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="impoundTab" closable="false" text="Impounds">
+                                <Tab closable="false" text="Impounds">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -178,7 +178,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="deathTab" closable="false" text="Death Reports">
+                                <Tab closable="false" text="Death Reports">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
@@ -193,7 +193,7 @@
                                         </ScrollPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="accidentTab" closable="false" text="Accident Reports">
+                                <Tab closable="false" text="Accident Reports">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"

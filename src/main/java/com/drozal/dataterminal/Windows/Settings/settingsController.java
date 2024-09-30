@@ -235,14 +235,45 @@ public class settingsController {
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		
 		if (vehLookupViewController != null) {
+			vehLookupViewController.getLookupmainlblpane().setStyle(
+					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
+			vehLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
+			vehLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
+			vehLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			vehLookupViewController.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			
+			vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white;"));
+			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
+					e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			vehLookupViewController.getVehSearchBtn().setOnMouseExited(
+					e -> vehLookupViewController.getVehSearchBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			vehLookupViewController.getAddDataToNotesBtn().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
+					e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (pedLookupViewController != null) {
 			pedLookupViewController.getLookupmainlblpane().setStyle(
 					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
 			pedLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
+			pedLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
 			pedLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			pedLookupViewController.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			
 			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
 					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
@@ -250,6 +281,22 @@ public class settingsController {
 			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
 					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
 							nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
+			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			pedLookupViewController.getPedSearchBtn().setOnMouseExited(
+					e -> pedLookupViewController.getPedSearchBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
+			
+			pedLookupViewController.getAddDataToNotesBtn().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
+					e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (courtViewController != null) {
 			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
@@ -278,6 +325,8 @@ public class settingsController {
 			logController.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getDeathReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getAccidentReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (calloutViewController != null) {
 			calloutViewController.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
@@ -303,7 +352,7 @@ public class settingsController {
 			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
 			if (isConnected) {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #00da16; -fx-label-padding: 5; -fx-border-radius: 5;");
+						"-fx-text-fill: green; -fx-label-padding: 5; -fx-border-radius: 5;");
 			} else {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
 						"-fx-text-fill: #ff5e5e; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -357,16 +406,6 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (courtViewController != null) {
-			/*addDarkForm(courtViewController.getCaseNumField());
-			addDarkForm(courtViewController.getCaseCourtDateField());
-			addDarkForm(courtViewController.getCaseOffenceDateField());
-			addDarkForm(courtViewController.getCaseAgeField());
-			addDarkForm(courtViewController.getCaseGenderField());
-			addDarkForm(courtViewController.getCaseAddressField());
-			addDarkForm(courtViewController.getCaseStreetField());
-			addDarkForm(courtViewController.getCaseAreaField());
-			addDarkForm(courtViewController.getCaseCountyField());
-			addDarkForm(courtViewController.getCaseNameField());*/
 			courtViewController.getCaseNotesField().getStyleClass().clear();
 			courtViewController.getCaseNotesField().getStyleClass().add("text-area-dark");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -446,16 +485,6 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (courtViewController != null) {
-			/*addLightForm(courtViewController.getCaseNumField());
-			addLightForm(courtViewController.getCaseCourtDateField());
-			addLightForm(courtViewController.getCaseOffenceDateField());
-			addLightForm(courtViewController.getCaseAgeField());
-			addLightForm(courtViewController.getCaseGenderField()); todo readd dark form too
-			addLightForm(courtViewController.getCaseAddressField());
-			addLightForm(courtViewController.getCaseStreetField());
-			addLightForm(courtViewController.getCaseAreaField());
-			addLightForm(courtViewController.getCaseCountyField());
-			addLightForm(courtViewController.getCaseNameField());*/
 			courtViewController.getCaseNotesField().getStyleClass().clear();
 			courtViewController.getCaseNotesField().getStyleClass().add("text-area-light");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -492,16 +521,6 @@ public class settingsController {
 					updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UILightColor));
 			
 		}
-	}
-	
-	private static void addLightForm(TextField textField) {
-		textField.getStyleClass().clear();
-		textField.getStyleClass().add("formFieldlight");
-	}
-	
-	private static void addDarkForm(TextField textField) {
-		textField.getStyleClass().clear();
-		textField.getStyleClass().add("formFielddark");
 	}
 	
 	public void initialize() {

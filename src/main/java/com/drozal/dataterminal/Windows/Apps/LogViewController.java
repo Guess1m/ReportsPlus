@@ -72,15 +72,9 @@ public class LogViewController {
 	public static LogViewController logController;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
 	@javafx.fxml.FXML
-	private Tab calloutTab;
-	@javafx.fxml.FXML
 	private Label logbrwsrlbl;
 	@javafx.fxml.FXML
 	private Label reportPlusLabelFill;
-	@javafx.fxml.FXML
-	private Tab patrolTab;
-	@javafx.fxml.FXML
-	private Tab arrestTab;
 	@javafx.fxml.FXML
 	private AnchorPane logPane;
 	@javafx.fxml.FXML
@@ -96,21 +90,7 @@ public class LogViewController {
 	@javafx.fxml.FXML
 	private TableView citationTable;
 	@javafx.fxml.FXML
-	private Tab incidentTab;
-	@javafx.fxml.FXML
-	private Tab citationTab;
-	@javafx.fxml.FXML
-	private Tab trafficStopTab;
-	@javafx.fxml.FXML
-	private Tab deathTab;
-	@javafx.fxml.FXML
-	private Tab accidentTab;
-	@javafx.fxml.FXML
 	private TableView calloutTable;
-	@javafx.fxml.FXML
-	private Tab searchTab;
-	@javafx.fxml.FXML
-	private Tab impoundTab;
 	@javafx.fxml.FXML
 	private VBox bkgclr2;
 	@javafx.fxml.FXML

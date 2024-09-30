@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="710.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1002.0"
+            xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Apps.PedLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -827,7 +827,7 @@
                                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                             </rowConstraints>
                                             <children>
-                                                <Label style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
+                                                <Label fx:id="lbl1" style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
                                                        styleClass="headingBig"
                                                        stylesheets="@../../css/menu/menuLabels.css" text="Search Ped:"
                                                        textAlignment="CENTER">
@@ -860,8 +860,8 @@
                                                 </Button>
                                                 <BorderPane GridPane.columnIndex="3">
                                                     <center>
-                                                        <Button mnemonicParsing="false" onAction="#pedAddDataToNotes"
-                                                                opacity="0.73"
+                                                        <Button fx:id="addDataToNotesBtn" mnemonicParsing="false"
+                                                                onAction="#pedAddDataToNotes" opacity="0.73"
                                                                 style="-fx-padding: 4 10; -fx-font-size: 12;"
                                                                 styleClass="incidentbtn"
                                                                 stylesheets="@../../css/menu/menuStyles.css"

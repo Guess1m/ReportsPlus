@@ -105,11 +105,11 @@ public class appConfig {
 		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "x", "20");
 		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "y", "650");
 		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "x", "120");
-		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "y", "650");
+		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "y", "-22");
 		checkAndSetDefaultAppValue("Server", "x", "120");
-		checkAndSetDefaultAppValue("Server", "y", "760");
+		checkAndSetDefaultAppValue("Server", "y", "100");
 		checkAndSetDefaultAppValue("Show IDs", "x", "120");
-		checkAndSetDefaultAppValue("Show IDs", "y", "870");
+		checkAndSetDefaultAppValue("Show IDs", "y", "210");
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

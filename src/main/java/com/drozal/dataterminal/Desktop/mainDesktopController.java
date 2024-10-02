@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.Desktop;
 
+import com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
@@ -37,6 +38,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigRead;
+import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
@@ -124,7 +127,15 @@ public class mainDesktopController {
 	}
 	
 	public void initialize() throws IOException {
-		button1.setOnAction(event -> editableDesktop = !editableDesktop);
+		button1.setOnAction(event -> {
+			editableDesktop = !editableDesktop;
+			if (!editableDesktop) {
+				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
+					appConfigWrite(desktopApp.getName(), "x", String.valueOf(desktopApp.getX()));
+					appConfigWrite(desktopApp.getName(), "y", String.valueOf(desktopApp.getY()));
+				}
+			}
+		});
 		
 		NotesViewController.notesText = "";
 		
@@ -235,9 +246,9 @@ public class mainDesktopController {
 	}
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
-		AnchorPane.setLeftAnchor(newApp, x);
-		AnchorPane.setTopAnchor(newApp, y);
 		root.getChildren().add(newApp);
+		newApp.setTranslateX(x);
+		newApp.setTranslateY(y);
 	}
 	
 	private void addApps() {
@@ -257,7 +268,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, notesApp, 115, 20);
+		addAppToDesktop(desktopContainer, notesApp, appConfigRead("Notes", "x"), appConfigRead("Notes", "y"));
 		
 		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/setting.png"))));
@@ -274,7 +285,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, settingsApp, 215, 20);
+		addAppToDesktop(desktopContainer, settingsApp, appConfigRead("Settings", "x"), appConfigRead("Settings", "y"));
 		
 		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
@@ -291,7 +302,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, updatesApp, 315, 20);
+		addAppToDesktop(desktopContainer, updatesApp, appConfigRead("Updates", "x"), appConfigRead("Updates", "y"));
 		
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/logs.png"))));
@@ -309,7 +320,8 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, logBrowserApp, 415, 20);
+		addAppToDesktop(desktopContainer, logBrowserApp, appConfigRead("Log Browser", "x"),
+		                appConfigRead("Log Browser", "y"));
 		
 		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
@@ -327,7 +339,8 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, calloutManagerApp, 515, 20);
+		addAppToDesktop(desktopContainer, calloutManagerApp, appConfigRead("Callouts", "x"),
+		                appConfigRead("Callouts", "y"));
 		
 		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/courtIcon.png"))));
@@ -345,7 +358,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, courtApp, 615, 20);
+		addAppToDesktop(desktopContainer, courtApp, appConfigRead("CourtCase", "x"), appConfigRead("CourtCase", "y"));
 		
 		DesktopApp pedLookupAppObj = new DesktopApp("D.M.V Ped Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/ped-search.png"))));
@@ -363,7 +376,8 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupApp, 715, 175);
+		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("D.M.V Ped Lookup", "x"),
+		                appConfigRead("D.M.V Ped Lookup", "y"));
 		
 		DesktopApp vehLookupAppObj = new DesktopApp("D.M.V Veh Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/veh-search.png"))));
@@ -381,7 +395,8 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, vehLookupApp, 815, 300);
+		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("D.M.V Veh Lookup", "x"),
+		                appConfigRead("D.M.V Veh Lookup", "y"));
 		
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/server.png"))));
@@ -399,7 +414,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, connectionApp, 915, 20);
+		addAppToDesktop(desktopContainer, connectionApp, appConfigRead("Server", "x"), appConfigRead("Server", "y"));
 		
 		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
@@ -416,7 +431,7 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, showIDApp, 1015, 20);
+		addAppToDesktop(desktopContainer, showIDApp, appConfigRead("Show IDs", "x"), appConfigRead("Show IDs", "y"));
 	}
 	
 	private void updateTime() {

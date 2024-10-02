@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.Desktop;
 
 import com.drozal.dataterminal.DataTerminalHomeApplication;
+import com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.newOfficerApplication;
@@ -26,6 +27,7 @@ import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
+import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -111,6 +113,7 @@ public class desktopLoginController {
 					logError("Failed to create config file", e);
 				}
 			}
+			appConfig.createAppConfig();
 			
 			String agency = agencyDropDown.getValue().toString();
 			String division = divisionDropDown.getValue().toString();
@@ -122,6 +125,7 @@ public class desktopLoginController {
 			ConfigWriter.configwrite("userInfo", "Rank", rank);
 			ConfigWriter.configwrite("userInfo", "Number", numberField.getText());
 			checkAndSetDefaultValues();
+			checkAndSetDefaultAppValues();
 			
 			Stage stag = (Stage) vbox.getScene().getWindow();
 			stag.close();

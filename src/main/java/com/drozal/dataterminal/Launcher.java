@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.*;
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
@@ -49,6 +50,11 @@ public class Launcher {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			
 			checkAndSetDefaultValues();
+			if (!doesAppConfigExist()) {
+				createAppConfig();
+			}
+			
+			checkAndSetDefaultAppValues();
 			
 			DataTerminalHomeApplication.main(args);
 		} else {

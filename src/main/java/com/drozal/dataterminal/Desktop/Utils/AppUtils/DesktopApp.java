@@ -88,4 +88,16 @@ public class DesktopApp {
 	private void setUpDragEvents(Button button, AnchorPane app) {
 		AppUtils.setUpDragEvents(button, app);
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public double getX() {
+		return mainPane.getTranslateX();
+	}
+	
+	public double getY() {
+		return mainPane.getTranslateY();
+	}
 }

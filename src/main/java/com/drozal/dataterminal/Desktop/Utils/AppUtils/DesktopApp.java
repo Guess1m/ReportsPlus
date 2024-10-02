@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.Desktop.Utils.AppUtils;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.TextAlignment;
 
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 
@@ -37,7 +39,6 @@ public class DesktopApp {
 		AnchorPane.setRightAnchor(borderPaneButton, 0.0);
 		AnchorPane.setTopAnchor(borderPaneButton, 0.0);
 		
-		// Increased size for the button and image
 		Button appButton = createImageButton(image);
 		borderPaneButton.setCenter(appButton);
 		
@@ -45,13 +46,16 @@ public class DesktopApp {
 		AnchorPane.setBottomAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setRightAnchor(borderPaneLabel, 0.0);
-		AnchorPane.setTopAnchor(borderPaneLabel, 70.0); // Adjusted to match larger size
+		AnchorPane.setTopAnchor(borderPaneLabel, 83.0);
 		
-		// Increased font size for the label
 		Label appLabel = new Label(name);
-		appLabel.setStyle(
-				"-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 14px;"); // Increased font size
+		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
+		appLabel.setAlignment(Pos.CENTER);
+		appLabel.setTextAlignment(TextAlignment.CENTER);
+		appLabel.setWrapText(true);
+		appLabel.setMaxWidth(75);
+		appLabel.setMinWidth(75);
 		borderPaneLabel.setCenter(appLabel);
 		
 		anchorPane.getChildren().addAll(borderPaneButton, borderPaneLabel);
@@ -69,9 +73,8 @@ public class DesktopApp {
 		Button button = new Button();
 		ImageView imageView = new ImageView(image);
 		
-		// Increased size for the image
-		imageView.setFitHeight(46); // Increased height
-		imageView.setFitWidth(46); // Increased width
+		imageView.setFitHeight(53);
+		imageView.setFitWidth(53);
 		imageView.setPreserveRatio(false);
 		imageView.setMouseTransparent(true);
 		

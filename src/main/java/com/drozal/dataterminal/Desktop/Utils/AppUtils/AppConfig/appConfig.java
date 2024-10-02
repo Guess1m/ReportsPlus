@@ -78,8 +78,8 @@ public class appConfig {
 				try (OutputStream output = new FileOutputStream(appConfigFilePath)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property),
-				    LogUtils.Severity.DEBUG);
+				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(
+						newDatabase + "." + property), LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}
@@ -91,35 +91,25 @@ public class appConfig {
 	public static void checkAndSetDefaultAppValues() {
 		log("====================== App Config ======================", LogUtils.Severity.INFO);
 		checkAndSetDefaultAppValue("Notes", "x", "20");
-		checkAndSetDefaultAppValue("Notes", "y", "50");
-		
-		checkAndSetDefaultAppValue("Settings", "x", "110");
-		checkAndSetDefaultAppValue("Settings", "y", "50");
-		
-		checkAndSetDefaultAppValue("Updates", "x", "200");
-		checkAndSetDefaultAppValue("Updates", "y", "50");
-		
-		checkAndSetDefaultAppValue("Log Browser", "x", "290");
-		checkAndSetDefaultAppValue("Log Browser", "y", "50");
-		
-		checkAndSetDefaultAppValue("Callouts", "x", "380");
-		checkAndSetDefaultAppValue("Callouts", "y", "50");
-		
-		checkAndSetDefaultAppValue("CourtCase", "x", "470");
-		checkAndSetDefaultAppValue("CourtCase", "y", "50");
-		
-		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "x", "560");
-		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "y", "50");
-		
-		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "x", "650");
-		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "y", "50");
-		
-		checkAndSetDefaultAppValue("Server", "x", "740");
-		checkAndSetDefaultAppValue("Server", "y", "50");
-		
-		checkAndSetDefaultAppValue("Show IDs", "x", "830");
-		checkAndSetDefaultAppValue("Show IDs", "y", "50");
-		
+		checkAndSetDefaultAppValue("Notes", "y", "-10");
+		checkAndSetDefaultAppValue("Settings", "x", "20");
+		checkAndSetDefaultAppValue("Settings", "y", "100");
+		checkAndSetDefaultAppValue("Updates", "x", "20");
+		checkAndSetDefaultAppValue("Updates", "y", "210");
+		checkAndSetDefaultAppValue("Log Browser", "x", "20");
+		checkAndSetDefaultAppValue("Log Browser", "y", "320");
+		checkAndSetDefaultAppValue("Callouts", "x", "20");
+		checkAndSetDefaultAppValue("Callouts", "y", "430");
+		checkAndSetDefaultAppValue("CourtCase", "x", "20");
+		checkAndSetDefaultAppValue("CourtCase", "y", "540");
+		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "x", "20");
+		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "y", "650");
+		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "x", "120");
+		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "y", "650");
+		checkAndSetDefaultAppValue("Server", "x", "120");
+		checkAndSetDefaultAppValue("Server", "y", "760");
+		checkAndSetDefaultAppValue("Show IDs", "x", "120");
+		checkAndSetDefaultAppValue("Show IDs", "y", "870");
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

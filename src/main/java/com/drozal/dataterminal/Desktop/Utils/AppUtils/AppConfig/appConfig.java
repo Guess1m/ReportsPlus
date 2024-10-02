@@ -95,9 +95,9 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Settings", "x", "20");
 		checkAndSetDefaultAppValue("Settings", "y", "100");
 		checkAndSetDefaultAppValue("Updates", "x", "20");
-		checkAndSetDefaultAppValue("Updates", "y", "210");
+		checkAndSetDefaultAppValue("Updates", "y", "220");
 		checkAndSetDefaultAppValue("Log Browser", "x", "20");
-		checkAndSetDefaultAppValue("Log Browser", "y", "320");
+		checkAndSetDefaultAppValue("Log Browser", "y", "310");
 		checkAndSetDefaultAppValue("Callouts", "x", "20");
 		checkAndSetDefaultAppValue("Callouts", "y", "430");
 		checkAndSetDefaultAppValue("CourtCase", "x", "20");

@@ -30,11 +30,11 @@ public class DesktopApp {
 		}
 		
 		AnchorPane anchorPane = new AnchorPane();
-		AnchorPane.setLeftAnchor(anchorPane, 28.0);
-		AnchorPane.setTopAnchor(anchorPane, 31.0);
+		AnchorPane.setLeftAnchor(anchorPane, 0.0);
+		AnchorPane.setTopAnchor(anchorPane, 0.0);
 		
 		BorderPane borderPaneButton = new BorderPane();
-		AnchorPane.setBottomAnchor(borderPaneButton, 20.0);
+		AnchorPane.setBottomAnchor(borderPaneButton, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneButton, 0.0);
 		AnchorPane.setRightAnchor(borderPaneButton, 0.0);
 		AnchorPane.setTopAnchor(borderPaneButton, 0.0);
@@ -46,12 +46,12 @@ public class DesktopApp {
 		AnchorPane.setBottomAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setRightAnchor(borderPaneLabel, 0.0);
-		AnchorPane.setTopAnchor(borderPaneLabel, 83.0);
+		AnchorPane.setTopAnchor(borderPaneLabel, 100.0);
 		
 		Label appLabel = new Label(name);
 		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
-		appLabel.setAlignment(Pos.CENTER);
+		appLabel.setAlignment(Pos.BOTTOM_CENTER);
 		appLabel.setTextAlignment(TextAlignment.CENTER);
 		appLabel.setWrapText(true);
 		appLabel.setMaxWidth(75);
@@ -73,9 +73,9 @@ public class DesktopApp {
 		Button button = new Button();
 		ImageView imageView = new ImageView(image);
 		
-		imageView.setFitHeight(53);
-		imageView.setFitWidth(53);
-		imageView.setPreserveRatio(false);
+		imageView.setFitHeight(48);
+		imageView.setFitWidth(48);
+		imageView.setPreserveRatio(true);
 		imageView.setMouseTransparent(true);
 		
 		button.setGraphic(imageView);

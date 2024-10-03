@@ -7,8 +7,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="334.0" prefWidth="575.0"
-            style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.drozal.dataterminal.Windows.Server.ClientController">
+            style="-fx-border-color: black; -fx-border-width: 1.5;" stylesheets="@../../css/client/client.css"
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Windows.Server.ClientController">
     <center>
         <AnchorPane prefHeight="314.0" prefWidth="457.0" BorderPane.alignment="CENTER">
             <children>
@@ -51,7 +51,6 @@
                         <AnchorPane GridPane.rowIndex="1">
                             <children>
                                 <TextField fx:id="inputPortField" layoutX="14.0" layoutY="19.0" promptText="ex. 5000"
-                                           styleClass="menuField" stylesheets="@../../css/menu/menuStyles.css"
                                            AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
@@ -67,7 +66,6 @@
                         <AnchorPane GridPane.rowIndex="2">
                             <children>
                                 <TextField fx:id="inputHostField" layoutX="14.0" layoutY="19.0" promptText="Address"
-                                           styleClass="menuField" stylesheets="@../../css/menu/menuStyles.css"
                                            AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
@@ -83,8 +81,8 @@
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
                                 <TextField fx:id="inetField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="connField" stylesheets="@../../css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
+                                           styleClass="connField" AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -99,8 +97,8 @@
                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
                                 <TextField fx:id="portField" editable="false" layoutY="19.0" promptText="No Connection"
-                                           styleClass="connField" stylesheets="@../../css/menu/menuStyles.css"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0">
+                                           styleClass="connField" AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
@@ -112,8 +110,7 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress"
-                                styleClass="purpleButton" stylesheets="@../../css/menu/menuStyles.css" text="Connect"
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress" text="Connect"
                                 GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="8.0"/>
@@ -123,8 +120,7 @@
                             </GridPane.margin>
                         </Button>
                         <Button defaultButton="true" mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
-                                style="-fx-background-color: gray;" styleClass="purpleButton"
-                                stylesheets="@../../css/menu/menuStyles.css" text="Help" GridPane.columnIndex="1"
+                                style="-fx-background-color: gray;" text="Help" GridPane.columnIndex="1"
                                 GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="8.0"/>

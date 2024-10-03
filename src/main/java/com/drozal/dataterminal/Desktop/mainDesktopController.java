@@ -5,6 +5,7 @@ import com.drozal.dataterminal.Desktop.Utils.AppUtils.DesktopApp;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Apps.*;
+import com.drozal.dataterminal.Windows.Misc.UserManagerController;
 import com.drozal.dataterminal.Windows.Other.NotesViewController;
 import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
@@ -42,6 +43,7 @@ import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Windows.Misc.UserManagerController.userManagerController;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
 import static com.drozal.dataterminal.Windows.Server.ClientController.clientController;
 import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
@@ -63,6 +65,7 @@ import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 public class mainDesktopController {
 	
 	private static final ContextMenu reportMenuOptions = createReportMenu();
+	public static CustomWindow userManager;
 	@FXML
 	private Button button1;
 	@FXML
@@ -87,13 +90,22 @@ public class mainDesktopController {
 	private AnchorPane topBar;
 	@FXML
 	private Label timeLabel;
-	
 	private DateTimeFormatter timeFormatter;
 	private DateTimeFormatter dateFormatter;
 	@FXML
 	private Label dateLabel;
 	@FXML
-	private Label currentUser;
+	private AnchorPane sideMenu;
+	@FXML
+	private Label sideDivision;
+	@FXML
+	private Label sideName;
+	@FXML
+	private Label sideRank;
+	@FXML
+	private Label sideNumber;
+	@FXML
+	private Label sideAgency;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -131,6 +143,8 @@ public class mainDesktopController {
 			editableDesktop = !editableDesktop;
 			if (!editableDesktop) {
 				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
+					System.out.println(
+							"Name: " + desktopApp.getName() + " X: " + desktopApp.getX() + " Y: " + desktopApp.getY());
 					appConfigWrite(desktopApp.getName(), "x", String.valueOf(desktopApp.getX()));
 					appConfigWrite(desktopApp.getName(), "y", String.valueOf(desktopApp.getY()));
 				}
@@ -216,33 +230,21 @@ public class mainDesktopController {
 				logError("Not able to read serverautoconnect: ", e);
 			}
 			
-			try {
-				currentUser.setText(ConfigReader.configRead("userInfo", "Name"));
-			} catch (IOException e) {
-				logError("error pulling userInfo name: ", e);
-			}
 		});
+		
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
 		}
-	}
-	
-	@FXML
-	public void createReportBtn(ActionEvent actionEvent) {
-		double btnWidth = createReportBtn.getWidth();
 		
-		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
+		AnchorPane.setRightAnchor(sideMenu, -180.0);
+		sideMenu.setOnMouseEntered(event -> slideMenu(sideMenu, 0));
+		sideMenu.setOnMouseExited(event -> slideMenu(sideMenu, -180));
 		
-		reportMenuOptions.show(createReportBtn, 0, 0);
-		reportMenuOptions.hide();
-		
-		double contextMenuWidth = reportMenuOptions.getWidth();
-		double contextMenuHeight = reportMenuOptions.getHeight();
-		
-		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
-		double yPos = bounds.getMinY() - contextMenuHeight;
-		
-		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
+		sideName.setText(ConfigReader.configRead("userInfo", "Name"));
+		sideAgency.setText(ConfigReader.configRead("userInfo", "Agency"));
+		sideNumber.setText(ConfigReader.configRead("userInfo", "Number"));
+		sideDivision.setText(ConfigReader.configRead("userInfo", "Division"));
+		sideRank.setText(ConfigReader.configRead("userInfo", "Rank"));
 	}
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
@@ -360,7 +362,7 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, courtApp, appConfigRead("CourtCase", "x"), appConfigRead("CourtCase", "y"));
 		
-		DesktopApp pedLookupAppObj = new DesktopApp("D.M.V Ped Lookup", new Image(Objects.requireNonNull(
+		DesktopApp pedLookupAppObj = new DesktopApp("Ped Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/ped-search.png"))));
 		AnchorPane lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
@@ -376,10 +378,10 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("D.M.V Ped Lookup", "x"),
-		                appConfigRead("D.M.V Ped Lookup", "y"));
+		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("Ped Lookup", "x"),
+		                appConfigRead("Ped Lookup", "y"));
 		
-		DesktopApp vehLookupAppObj = new DesktopApp("D.M.V Veh Lookup", new Image(Objects.requireNonNull(
+		DesktopApp vehLookupAppObj = new DesktopApp("Veh Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/veh-search.png"))));
 		AnchorPane vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
@@ -395,8 +397,8 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("D.M.V Veh Lookup", "x"),
-		                appConfigRead("D.M.V Veh Lookup", "y"));
+		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"),
+		                appConfigRead("Veh Lookup", "y"));
 		
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/server.png"))));
@@ -466,7 +468,7 @@ public class mainDesktopController {
 			} else {
 				/*showLookupBtn.setVisible(true);
 				showCalloutBtn.setVisible(true);
-				showIDBtn.setVisible(true);*/
+				showIDBtn.setVisible(true); todo find solution*/
 				serverStatusLabel.setText("Connected");
 				
 				serverStatusLabel.setStyle("-fx-text-fill: green; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -483,6 +485,42 @@ public class mainDesktopController {
 				}
 			}
 		});
+	}
+	
+	private void slideMenu(Pane menu, double targetX) {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.millis(300), event -> AnchorPane.setRightAnchor(menu, targetX)));
+		timeline.play();
+	}
+	
+	@FXML
+	public void createReportBtn(ActionEvent actionEvent) {
+		double btnWidth = createReportBtn.getWidth();
+		
+		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
+		
+		reportMenuOptions.show(createReportBtn, 0, 0);
+		reportMenuOptions.hide();
+		
+		double contextMenuWidth = reportMenuOptions.getWidth();
+		double contextMenuHeight = reportMenuOptions.getHeight();
+		
+		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
+		double yPos = bounds.getMinY() - contextMenuHeight;
+		
+		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
+	}
+	
+	@FXML
+	public void editUser(ActionEvent actionEvent) {
+		userManager = createFakeWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "User Manager", false, 3,
+		                               true, taskBarApps);
+		userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
+		try {
+			settingsController.loadTheme();
+		} catch (IOException e) {
+			logError("Error loading theme from editUser", e);
+		}
 	}
 	
 	public AnchorPane getDesktopContainer() {
@@ -507,5 +545,29 @@ public class mainDesktopController {
 	
 	public AnchorPane getTopBar() {
 		return topBar;
+	}
+	
+	public AnchorPane getSideMenu() {
+		return sideMenu;
+	}
+	
+	public Label getSideAgency() {
+		return sideAgency;
+	}
+	
+	public Label getSideDivision() {
+		return sideDivision;
+	}
+	
+	public Label getSideName() {
+		return sideName;
+	}
+	
+	public Label getSideNumber() {
+		return sideNumber;
+	}
+	
+	public Label getSideRank() {
+		return sideRank;
 	}
 }

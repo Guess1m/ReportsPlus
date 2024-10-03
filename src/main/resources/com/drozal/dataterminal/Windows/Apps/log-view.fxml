@@ -56,13 +56,13 @@
                         </AnchorPane>
                         <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="951.0"
                                  style="-fx-border-color: transparent;" styleClass="darktabpane"
-                                 stylesheets="@../../css/main/SettingsTabPane.css" VBox.vgrow="ALWAYS">
+                                 stylesheets="@../../css/settings/SettingsTabPane.css" VBox.vgrow="ALWAYS">
                             <tabs>
                                 <Tab closable="false" text="Callouts">
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -77,7 +77,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="trafficStopTable"
                                                            onMouseClicked="#onTrafficStopRowClick" prefHeight="556.0"
@@ -92,7 +92,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -107,7 +107,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="searchTable" onMouseClicked="#onSearchRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -122,7 +122,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="arrestTable" onMouseClicked="#onArrestRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -137,7 +137,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -152,7 +152,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="citationTable" onMouseClicked="#onCitationRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -167,7 +167,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="impoundTable" onMouseClicked="#onImpoundRowClick"
                                                            prefHeight="556.0" prefWidth="779.0"
@@ -182,7 +182,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="deathReportTable"
                                                            onMouseClicked="#onDeathReportRowClick" prefHeight="556.0"
@@ -197,7 +197,7 @@
                                     <content>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
                                                     prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/Logscrollpane.css">
+                                                    stylesheets="@../../css/main/scrollPane.css">
                                             <content>
                                                 <TableView fx:id="accidentReportTable"
                                                            onMouseClicked="#onAccidentReportRowClick" prefHeight="556.0"

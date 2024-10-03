@@ -1,5 +1,5 @@
 .root {
-    -fx-background-image: url('../imgs/desktop-login-image.png');
+    -fx-background-image: url('../../imgs/desktop-login-image.png');
     -fx-background-size: 110% 100%;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;

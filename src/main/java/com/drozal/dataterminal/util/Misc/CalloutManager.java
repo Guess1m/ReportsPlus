@@ -82,7 +82,7 @@ public class CalloutManager {
 	}
 	
 	public static void deleteCallout(String xmlFile, String number) {
-		//noinspection UnusedAssignment
+		
 		Callouts callouts = null;
 		
 		try {
@@ -403,7 +403,7 @@ public class CalloutManager {
 		});
 		BorderPane statusPane = new BorderPane(statusDropdown);
 		statusDropdown.getStylesheets().add(
-				Objects.requireNonNull(Launcher.class.getResource("css/form/formComboBox.css")).toExternalForm());
+				Objects.requireNonNull(Launcher.class.getResource("css/callout/calloutManager.css")).toExternalForm());
 		statusDropdown.getStyleClass().add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);

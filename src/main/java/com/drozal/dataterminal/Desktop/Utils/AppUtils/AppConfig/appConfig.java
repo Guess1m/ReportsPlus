@@ -84,32 +84,45 @@ public class appConfig {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}
 		} catch (IOException e) {
-			log("Error reading or writing config.properties file ", LogUtils.Severity.ERROR);
+			log("Error reading or writing app.properties file ", LogUtils.Severity.ERROR);
 		}
 	}
 	
 	public static void checkAndSetDefaultAppValues() {
 		log("====================== App Config ======================", LogUtils.Severity.INFO);
-		checkAndSetDefaultAppValue("Notes", "x", "20");
-		checkAndSetDefaultAppValue("Notes", "y", "-10");
-		checkAndSetDefaultAppValue("Settings", "x", "20");
-		checkAndSetDefaultAppValue("Settings", "y", "100");
-		checkAndSetDefaultAppValue("Updates", "x", "20");
-		checkAndSetDefaultAppValue("Updates", "y", "220");
-		checkAndSetDefaultAppValue("Log Browser", "x", "20");
-		checkAndSetDefaultAppValue("Log Browser", "y", "310");
-		checkAndSetDefaultAppValue("Callouts", "x", "20");
-		checkAndSetDefaultAppValue("Callouts", "y", "430");
-		checkAndSetDefaultAppValue("CourtCase", "x", "20");
-		checkAndSetDefaultAppValue("CourtCase", "y", "540");
-		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "x", "20");
-		checkAndSetDefaultAppValue("D.M.V Ped Lookup", "y", "650");
-		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "x", "120");
-		checkAndSetDefaultAppValue("D.M.V Veh Lookup", "y", "-22");
-		checkAndSetDefaultAppValue("Server", "x", "120");
-		checkAndSetDefaultAppValue("Server", "y", "100");
-		checkAndSetDefaultAppValue("Show IDs", "x", "120");
-		checkAndSetDefaultAppValue("Show IDs", "y", "210");
+		// X 45
+		checkAndSetDefaultAppValue("Notes", "x", "45.0");
+		checkAndSetDefaultAppValue("Notes", "y", "100.0");
+		
+		checkAndSetDefaultAppValue("Log Browser", "x", "45.0");
+		checkAndSetDefaultAppValue("Log Browser", "y", "203.0");
+		
+		checkAndSetDefaultAppValue("Callouts", "x", "45.0");
+		checkAndSetDefaultAppValue("Callouts", "y", "0.0");
+		
+		checkAndSetDefaultAppValue("CourtCase", "x", "45.0");
+		checkAndSetDefaultAppValue("CourtCase", "y", "310.0");
+		
+		checkAndSetDefaultAppValue("Show IDs", "x", "45.0");
+		checkAndSetDefaultAppValue("Show IDs", "y", "417.0");
+		
+		// X 200
+		checkAndSetDefaultAppValue("Ped Lookup", "x", "200.0");
+		checkAndSetDefaultAppValue("Ped Lookup", "y", "0.0");
+		
+		checkAndSetDefaultAppValue("Veh Lookup", "x", "200.0");
+		checkAndSetDefaultAppValue("Veh Lookup", "y", "101.0");
+		
+		// X 376
+		checkAndSetDefaultAppValue("Server", "x", "376.0");
+		checkAndSetDefaultAppValue("Server", "y", "0.0");
+		
+		checkAndSetDefaultAppValue("Updates", "x", "376.0");
+		checkAndSetDefaultAppValue("Updates", "y", "100.0");
+		
+		checkAndSetDefaultAppValue("Settings", "x", "376.0");
+		checkAndSetDefaultAppValue("Settings", "y", "203.0");
+		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

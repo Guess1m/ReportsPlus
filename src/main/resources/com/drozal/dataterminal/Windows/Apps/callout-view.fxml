@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1003.0"
-            xmlns="http://javafx.com/javafx/22"
+            stylesheets="@../../css/callout/calloutManager.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CalloutViewController">
     <center>
         <AnchorPane fx:id="calloutPane">
@@ -37,7 +37,7 @@
                                 </HBox>
                                 <ListView fx:id="calActiveList" layoutX="10.0" layoutY="47.0" prefHeight="599.0"
                                           prefWidth="281.0" style="-fx-border-color: gray; -fx-border-width: 2;"
-                                          stylesheets="@../../css/main/calList.css" AnchorPane.bottomAnchor="0.0"
+                                          stylesheets="@../../css/main/listView.css" AnchorPane.bottomAnchor="0.0"
                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                           AnchorPane.topAnchor="61.0"/>
                             </children>
@@ -46,7 +46,6 @@
                             <children>
                                 <AnchorPane fx:id="currentCalPane" prefHeight="329.0" prefWidth="589.0"
                                             style="-fx-background-color: rgb(0,0,0,0.1); -fx-border-width: 2;"
-                                            styleClass="menuSidePanel" stylesheets="@../../css/menu/menuStyles.css"
                                             VBox.vgrow="NEVER">
                                     <children>
                                         <GridPane hgap="10.0" vgap="25.0" AnchorPane.bottomAnchor="0.0"
@@ -77,8 +76,7 @@
                                                     <children>
                                                         <Label fx:id="calloutInfoTitle" alignment="CENTER"
                                                                maxHeight="-Infinity" minHeight="-Infinity"
-                                                               prefHeight="38.0" styleClass="menuTopBar"
-                                                               stylesheets="@../../css/menu/menuStyles.css"
+                                                               prefHeight="38.0" style="-fx-background-color: #524992;"
                                                                text="Callout Details" textFill="WHITE"
                                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -89,10 +87,8 @@
                                                         <ToggleButton fx:id="showCurrentCalToggle" layoutX="530.0"
                                                                       layoutY="9.0" mnemonicParsing="false"
                                                                       onAction="#onShowCurrentCalToggled"
-                                                                      style="-fx-padding: 0 11 0 12; -fx-background-color: rgb(0,0,0,0.1);"
-                                                                      styleClass="incidentformButton"
-                                                                      stylesheets="@../../css/form/dark/formButton.css"
-                                                                      text="Hide" AnchorPane.bottomAnchor="11.0"
+                                                                      styleClass="Button" text="Hide"
+                                                                      AnchorPane.bottomAnchor="11.0"
                                                                       AnchorPane.rightAnchor="14.5"
                                                                       AnchorPane.topAnchor="11.0"/>
                                                     </children>
@@ -102,8 +98,6 @@
                                                         <TextField fx:id="calNum" editable="false" layoutX="80.0"
                                                                    prefHeight="29.0" prefWidth="93.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="80.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -126,8 +120,6 @@
                                                         <TextField fx:id="calDate" editable="false" layoutX="50.0"
                                                                    layoutY="-1.0" prefHeight="38.0" prefWidth="231.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="54.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -151,8 +143,6 @@
                                                         <TextField fx:id="calPriority" editable="false" layoutX="66.0"
                                                                    layoutY="-1.0" prefHeight="29.0" prefWidth="97.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="66.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -177,8 +167,6 @@
                                                         <TextField fx:id="calType" editable="false" layoutX="47.0"
                                                                    layoutY="1.0" prefHeight="38.0" prefWidth="335.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="47.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -202,8 +190,6 @@
                                                         <TextField fx:id="calTime" editable="false" layoutX="48.0"
                                                                    layoutY="5.0" prefHeight="38.0" prefWidth="141.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="48.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -226,8 +212,6 @@
                                                         <TextField fx:id="calCounty" editable="false" layoutX="71.0"
                                                                    layoutY="-8.0" prefHeight="29.0" prefWidth="102.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="71.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -251,8 +235,6 @@
                                                         <TextField fx:id="calArea" editable="false" layoutX="47.0"
                                                                    prefHeight="38.0" prefWidth="142.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="47.0"
                                                                    AnchorPane.rightAnchor="0.0"
@@ -276,8 +258,6 @@
                                                         <TextField fx:id="calStreet" editable="false" layoutX="52.0"
                                                                    prefHeight="29.0" prefWidth="111.0"
                                                                    style="-fx-background-color: rgb(255,255,255,0.85);"
-                                                                   styleClass="formField"
-                                                                   stylesheets="@../../css/form/formFields.css"
                                                                    AnchorPane.bottomAnchor="0.0"
                                                                    AnchorPane.leftAnchor="52.0"
                                                                    AnchorPane.rightAnchor="10.0"
@@ -324,7 +304,7 @@
                                         <ListView fx:id="calHistoryList" layoutX="-29.0" layoutY="61.0"
                                                   prefHeight="282.0" prefWidth="589.0"
                                                   style="-fx-border-color: gray; -fx-border-width: 2;"
-                                                  stylesheets="@../../css/main/calList.css"
+                                                  stylesheets="@../../css/main/listView.css"
                                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="61.0"/>
                                         <BorderPane layoutX="225.0" layoutY="8.0" AnchorPane.leftAnchor="0.0"

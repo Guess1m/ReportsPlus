@@ -42,8 +42,7 @@ public class DataTerminalHomeApplication extends Application {
 		primaryStage.show();
 		mainDesktopStage = primaryStage;
 		
-		primaryStage.setMaximized(true);
-		//primaryStage.setFullScreen(true); todo find fix for notifications
+		primaryStage.setFullScreen(true); // todo make callout and id windows part of the main window
 		
 		DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		

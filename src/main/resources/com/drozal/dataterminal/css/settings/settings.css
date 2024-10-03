@@ -1,0 +1,20 @@
+.button {
+    -fx-background-color: rgb(102, 92, 182, 0.95);
+    -fx-padding: 2px 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-size: 14px;
+
+}
+
+.button:hover {
+    -fx-background-color: rgb(102, 92, 182, 0.8);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(102, 92, 182);
+    -fx-text-fill: white;
+}

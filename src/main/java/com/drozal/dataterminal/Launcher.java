@@ -177,7 +177,6 @@ public class Launcher {
 		File calloutDataFile = new File(calloutDataURL);
 		if (!calloutDataFile.exists()) {
 			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
-			//noinspection ResultOfMethodCallIgnored
 			try {
 				calloutDataFile.createNewFile();
 			} catch (IOException e) {

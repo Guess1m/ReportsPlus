@@ -1,0 +1,25 @@
+.text-field {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-background-color: rgb(200, 200, 200, 0.3);
+    -fx-prompt-text-fill: rgb(40, 40, 40, 0.3) !important;
+    -fx-background-insets: 0;
+    -fx-padding: 3px 10px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: rgb(0, 0, 0, 0.6);
+}
+
+.combo-box {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-background-color: rgb(200, 200, 200, 0.3);
+    -fx-prompt-text-fill: rgb(40, 40, 40, 0.3) !important;
+    -fx-background-insets: 0;
+    -fx-padding: 3px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: rgb(0, 0, 0, 0.6);
+}

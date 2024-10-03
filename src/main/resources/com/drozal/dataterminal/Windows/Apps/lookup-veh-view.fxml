@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="617.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="617.0" prefWidth="668.0"
+            stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -34,10 +34,9 @@
                                         </BorderPane>
                                     </children>
                                 </HBox>
-                                <Label fx:id="lookupmainlbl" style="-fx-font-size: 25; -fx-text-fill: #5e7387;"
-                                       styleClass="headingBig" stylesheets="@../../css/menu/menuLabels.css"
-                                       text="D.M.V. Vehicle Lookup" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0"
-                                       AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V. Vehicle Lookup"
+                                       textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                                       AnchorPane.topAnchor="0.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="20.0"/>
                                     </font>
@@ -49,7 +48,7 @@
                         </AnchorPane>
                         <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                     style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                    stylesheets="@../../css/main/Logscrollpane.css" vvalue="0.41">
+                                    stylesheets="@../../css/main/scrollPane.css" vvalue="0.41">
                             <content>
                                 <AnchorPane fx:id="vehLookupPane"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -66,9 +65,7 @@
                                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="lbl1" style="-fx-font-size: 20; -fx-text-fill: #5e7387;"
-                                                       styleClass="headingBig"
-                                                       stylesheets="@../../css/menu/menuLabels.css" text="Search Plate:"
+                                                <Label fx:id="lbl1" styleClass="SubHeading" text="Search Plate:"
                                                        textAlignment="CENTER">
                                                     <font>
                                                         <Font name="Segoe UI Black" size="20.0"/>
@@ -79,9 +76,7 @@
                                                 </Label>
                                                 <Button fx:id="vehSearchBtn" mnemonicParsing="false"
                                                         onAction="#onVehSearchBtnClick" prefHeight="36.0"
-                                                        prefWidth="103.0" style="-fx-label-padding: 0; -fx-padding: 0;"
-                                                        styleClass="incidentbtn"
-                                                        stylesheets="@../../css/menu/menuStyles.css" text="Search"
+                                                        prefWidth="103.0" styleClass="searchBtn" text="Search"
                                                         GridPane.columnIndex="2"/>
                                                 <AnchorPane GridPane.columnIndex="1">
                                                     <GridPane.margin>
@@ -100,10 +95,7 @@
                                                     <center>
                                                         <Button fx:id="addDataToNotesBtn" mnemonicParsing="false"
                                                                 onAction="#vehAddDataToNotes" opacity="0.73"
-                                                                style="-fx-padding: 4 10; -fx-font-size: 12;"
-                                                                styleClass="incidentbtn"
-                                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="Add Data To Notes">
+                                                                styleClass="accentBtn" text="Add Data To Notes">
                                                             <font>
                                                                 <Font name="Segoe UI" size="12.0"/>
                                                             </font>
@@ -166,8 +158,6 @@
                                                                                 <TextField fx:id="vehplatefield2"
                                                                                            editable="false"
                                                                                            layoutY="56.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -178,8 +168,6 @@
                                                                                 <TextField fx:id="vehmodelfield"
                                                                                            editable="false"
                                                                                            layoutY="56.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -199,8 +187,6 @@
                                                                                 <TextField fx:id="vehstolenfield"
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -257,8 +243,6 @@
                                                                                 <TextField fx:id="vehpolicefield"
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -336,9 +320,7 @@
                                                                                 <ComboBox fx:id="vehtypecombobox"
                                                                                           layoutX="61.0" layoutY="41.0"
                                                                                           prefWidth="150.0"
-                                                                                          style="-fx-padding: 3;"
-                                                                                          styleClass="calloutField"
-                                                                                          stylesheets="@../../css/menu/menuStyles.css"
+                                                                                          styleClass="combo-boxVehicle"
                                                                                           AnchorPane.leftAnchor="0.0"
                                                                                           AnchorPane.rightAnchor="170.0"
                                                                                           AnchorPane.topAnchor="27.0"/>
@@ -347,9 +329,7 @@
                                                                                         mnemonicParsing="false"
                                                                                         onAction="#vehUpdateInfo"
                                                                                         opacity="0.73"
-                                                                                        style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                        styleClass="incidentbtn"
-                                                                                        stylesheets="@../../css/menu/menuStyles.css"
+                                                                                        styleClass="accentBtn"
                                                                                         text="Update Vehicle Type"
                                                                                         textOverrun="CLIP"
                                                                                         AnchorPane.bottomAnchor="8.0"
@@ -365,11 +345,9 @@
                                                                 </GridPane>
                                                                 <Label fx:id="info1" alignment="CENTER"
                                                                        prefHeight="35.0" prefWidth="747.0"
-                                                                       style="-fx-background-color: #5e7387;"
-                                                                       styleClass="heading"
-                                                                       stylesheets="@../../css/menu/menuLabels.css"
-                                                                       text="Vehicle Information" textAlignment="CENTER"
-                                                                       textFill="WHITE" AnchorPane.leftAnchor="0.0"
+                                                                       styleClass="Banner" text="Vehicle Information"
+                                                                       textAlignment="CENTER" textFill="WHITE"
+                                                                       AnchorPane.leftAnchor="0.0"
                                                                        AnchorPane.rightAnchor="0.0"
                                                                        AnchorPane.topAnchor="0.0">
                                                                     <font>
@@ -409,8 +387,6 @@
                                                                                 <TextField fx:id="vehownerfield"
                                                                                            editable="false"
                                                                                            layoutY="50.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -429,8 +405,6 @@
                                                                                 <TextField fx:id="vehregfield"
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -450,8 +424,6 @@
                                                                                 <TextField fx:id="vehinsfield"
                                                                                            editable="false"
                                                                                            layoutX="1.0" layoutY="27.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -469,10 +441,7 @@
                                                                         <Button fx:id="btninfo2" mnemonicParsing="false"
                                                                                 onAction="#vehcreateimpreport"
                                                                                 opacity="0.73" prefHeight="33.0"
-                                                                                prefWidth="161.0"
-                                                                                style="-fx-padding: 4 8; -fx-font-size: 12;"
-                                                                                styleClass="incidentbtn"
-                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                prefWidth="161.0" styleClass="accentBtn"
                                                                                 text="Create Impound Report"
                                                                                 textOverrun="CLIP"
                                                                                 GridPane.columnIndex="2"
@@ -490,8 +459,6 @@
                                                                                 <TextField fx:id="vehinspectionfield"
                                                                                            editable="false"
                                                                                            layoutY="50.0"
-                                                                                           styleClass="calloutField"
-                                                                                           stylesheets="@../../css/menu/menuStyles.css"
                                                                                            AnchorPane.leftAnchor="0.0"
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
@@ -510,11 +477,9 @@
                                                                 </GridPane>
                                                                 <Label fx:id="info2" alignment="CENTER"
                                                                        prefHeight="35.0" prefWidth="747.0"
-                                                                       style="-fx-background-color: #5e7387;"
-                                                                       styleClass="heading"
-                                                                       stylesheets="@../../css/menu/menuLabels.css"
-                                                                       text="Owner Information" textAlignment="CENTER"
-                                                                       textFill="WHITE" AnchorPane.leftAnchor="0.0"
+                                                                       styleClass="Banner" text="Owner Information"
+                                                                       textAlignment="CENTER" textFill="WHITE"
+                                                                       AnchorPane.leftAnchor="0.0"
                                                                        AnchorPane.rightAnchor="0.0"
                                                                        AnchorPane.topAnchor="0.0">
                                                                     <font>
@@ -529,7 +494,6 @@
                                         </AnchorPane>
                                         <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0"
                                                layoutY="298.0" style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
-                                               styleClass="headingBig" stylesheets="@../../css/menu/menuLabels.css"
                                                text="No Record In System." textAlignment="CENTER" visible="false"
                                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                                AnchorPane.topAnchor="298.0">

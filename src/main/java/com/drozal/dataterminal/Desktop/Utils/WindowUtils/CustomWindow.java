@@ -24,6 +24,7 @@ import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopCon
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.windows;
+import static com.drozal.dataterminal.util.Misc.NotificationManager.currentNotifications;
 
 public class CustomWindow {
 	private static double xOffset;
@@ -122,6 +123,10 @@ public class CustomWindow {
 			for (DesktopApp app : DesktopApps) {
 				app.getMainPane().toBack();
 			}
+			for (AnchorPane noti : currentNotifications) {
+				noti.toFront();
+			}
+			mainDesktopControllerObj.getSideMenu().toFront();
 			mainDesktopControllerObj.getButton1().toBack();
 		}
 	}

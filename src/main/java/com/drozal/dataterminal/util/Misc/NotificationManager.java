@@ -7,7 +7,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,34 +14,34 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.changeImageColor;
 
 public class NotificationManager {
+	public static final ArrayList<AnchorPane> currentNotifications = new ArrayList<>();
 	private static final Queue<Notification> notificationQueue = new LinkedList<>();
 	private static boolean isNotificationShowing = false;
 	
-	public static void showNotificationInfo(String title, String message, Object owner) {
-		enqueueNotification(new Notification(NotificationType.INFO, title, message, owner));
+	public static void showNotificationInfo(String title, String message) {
+		enqueueNotification(new Notification(NotificationType.INFO, title, message));
 	}
 	
-	public static void showNotificationError(String title, String message, Object owner) {
-		enqueueNotification(new Notification(NotificationType.ERROR, title, message, owner));
+	public static void showNotificationError(String title, String message) {
+		enqueueNotification(new Notification(NotificationType.ERROR, title, message));
 	}
 	
-	public static void showNotificationWarning(String title, String message, Object owner) {
-		enqueueNotification(new Notification(NotificationType.WARNING, title, message, owner));
+	public static void showNotificationWarning(String title, String message) {
+		enqueueNotification(new Notification(NotificationType.WARNING, title, message));
 	}
 	
 	private static void enqueueNotification(Notification notification) {
@@ -72,7 +71,6 @@ public class NotificationManager {
 	
 	private static void displayNotification(Notification notification) {
 		Platform.runLater(() -> {
-			Stage ownerStage = (Stage) notification.owner;
 			String textClr, primClr;
 			try {
 				if (notification.type == NotificationType.INFO) {
@@ -98,15 +96,13 @@ public class NotificationManager {
 			
 			ImageView icon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
-			Image coloredImage = changeImageColor(icon.getImage(), textClr);
-			icon.setImage(coloredImage);
+			icon.setImage(changeImageColor(icon.getImage(), textClr));
 			icon.setFitWidth(24);
 			icon.setFitHeight(24);
 			
 			ImageView closeIcon = new ImageView(
 					new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
-			Image coloredImageClose = changeImageColor(closeIcon.getImage(), textClr);
-			closeIcon.setImage(coloredImageClose);
+			closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
 			closeIcon.setFitWidth(12);
 			closeIcon.setFitHeight(13);
 			
@@ -114,40 +110,20 @@ public class NotificationManager {
 			closeButton.setGraphic(closeIcon);
 			closeButton.setStyle("-fx-background-color: transparent;");
 			
-			AnchorPane closePane = new AnchorPane(closeButton);
-			closePane.setStyle("-fx-background-color: rgba(50,50,50,0.2);");
-			closePane.setPrefSize(29, 66);
-			AnchorPane.setLeftAnchor(closeButton, 0.0);
-			AnchorPane.setRightAnchor(closeButton, 0.0);
-			AnchorPane.setTopAnchor(closeButton, 0.0);
-			AnchorPane.setBottomAnchor(closeButton, 0.0);
-			
 			VBox contentBox = new VBox(5, titleLabel, messageLabel);
 			contentBox.setAlignment(Pos.CENTER_LEFT);
 			contentBox.setPadding(new Insets(0));
 			contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
-			HBox mainBox = new HBox(10, icon, contentBox, closePane);
+			HBox mainBox = new HBox(10, icon, contentBox, closeButton);
 			mainBox.setAlignment(Pos.CENTER_LEFT);
-			mainBox.setPadding(new Insets(0, 0, 0, 10));
+			mainBox.setPadding(new Insets(10));
 			mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
 			
 			AnchorPane anchorPane = new AnchorPane(mainBox);
-			anchorPane.setStyle("-fx-background-color: " + primClr + ";");
-			AnchorPane.setBottomAnchor(mainBox, 0.0);
-			AnchorPane.setLeftAnchor(mainBox, 0.0);
-			AnchorPane.setRightAnchor(mainBox, 0.0);
-			AnchorPane.setTopAnchor(mainBox, 0.0);
 			
-			Stage popup = new Stage();
-			Scene scene = new Scene(anchorPane);
-			scene.setFill(null);
-			popup.setScene(scene);
-			popup.setAlwaysOnTop(ownerStage.isFocused());
-			popup.initStyle(StageStyle.TRANSPARENT);
-			popup.initModality(Modality.NONE);
-			
-			closeButton.setOnAction(event -> popup.hide());
+			mainDesktopControllerObj.getDesktopContainer().getChildren().add(anchorPane);
+			currentNotifications.add(anchorPane);
 			
 			String configPosition = "BottomLeft";
 			try {
@@ -156,61 +132,55 @@ public class NotificationManager {
 				logError("Could not pull notificationPosition from config: ", e);
 			}
 			
-			popup.show();
-			
-			double x = ownerStage.getX() + 30;
-			double y = ownerStage.getY() + ownerStage.getHeight() - 90;
 			switch (configPosition) {
 				case "BottomLeft" -> {
-					x = ownerStage.getX() + 20;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+					AnchorPane.setBottomAnchor(anchorPane, 20.0);
+					AnchorPane.setLeftAnchor(anchorPane, 20.0);
 				}
 				case "BottomRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + ownerStage.getHeight() - popup.getHeight() - 20;
+					AnchorPane.setBottomAnchor(anchorPane, 20.0);
+					AnchorPane.setRightAnchor(anchorPane, 20.0);
 				}
 				case "TopLeft" -> {
-					x = ownerStage.getX() + 20;
-					y = ownerStage.getY() + 50;
+					AnchorPane.setTopAnchor(anchorPane, 20.0);
+					AnchorPane.setLeftAnchor(anchorPane, 20.0);
 				}
 				case "TopRight" -> {
-					x = ownerStage.getX() + ownerStage.getWidth() - popup.getWidth() - 20;
-					y = ownerStage.getY() + 50;
+					AnchorPane.setTopAnchor(anchorPane, 20.0);
+					AnchorPane.setRightAnchor(anchorPane, 20.0);
 				}
 			}
 			
-			popup.setX(x);
-			popup.setY(y);
+			anchorPane.toFront();
 			
-			String displayDuration = "";
+			closeButton.setOnAction(event -> {
+				mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
+				currentNotifications.remove(anchorPane);
+				isNotificationShowing = false;
+				showNextNotification();
+			});
+			
+			String displayDuration = "5";
 			try {
 				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 			} catch (IOException e) {
 				logError("Could not pull displayDuration from config: ", e);
 			}
-			String fadeOutDuration = "";
-			try {
-				fadeOutDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
-			} catch (IOException e) {
-				logError("Could not pull fadeOutDuration from config: ", e);
-			}
 			
 			PauseTransition pauseTransition = new PauseTransition(
 					Duration.seconds(Double.parseDouble(displayDuration)));
-			String finalFadeOutDuration = fadeOutDuration;
 			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(
-						Duration.seconds(Double.parseDouble(finalFadeOutDuration)), popup.getScene().getRoot());
+				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), anchorPane);
 				fadeOutTransition.setFromValue(1);
 				fadeOutTransition.setToValue(0);
 				fadeOutTransition.setOnFinished(e -> {
-					popup.hide();
+					mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
+					currentNotifications.remove(anchorPane);
 					isNotificationShowing = false;
 					showNextNotification();
 				});
 				fadeOutTransition.play();
 			});
-			
 			pauseTransition.play();
 		});
 	}
@@ -223,13 +193,11 @@ public class NotificationManager {
 		NotificationType type;
 		String title;
 		String message;
-		Object owner;
 		
-		Notification(NotificationType type, String title, String message, Object owner) {
+		Notification(NotificationType type, String title, String message) {
 			this.type = type;
 			this.title = title;
 			this.message = message;
-			this.owner = owner;
 		}
 	}
 }

@@ -26,7 +26,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -482,7 +481,7 @@ public class CourtViewController {
 						modifyCase(pendingCase.getCaseNumber(), pendingCase);
 						log("Case: #" + pendingCase.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
 						showNotificationInfo("Court Manager",
-						                     "Case: #" + pendingCase.getCaseNumber() + " has been closed", mainRT);
+						                     "Case: #" + pendingCase.getCaseNumber() + " has been closed");
 					} catch (JAXBException | IOException e) {
 						logError("Error modifying case from scheduleOutcomeReveals: ", e);
 						
@@ -540,8 +539,7 @@ public class CourtViewController {
 					log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!",
 					    LogUtils.Severity.WARN);
 					showNotificationWarning("Court Manager",
-					                        "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed",
-					                        mainRT);
+					                        "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
 				}
 			}
 		}

@@ -46,16 +46,15 @@ public class DesktopApp {
 		AnchorPane.setBottomAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setLeftAnchor(borderPaneLabel, 0.0);
 		AnchorPane.setRightAnchor(borderPaneLabel, 0.0);
-		AnchorPane.setTopAnchor(borderPaneLabel, 100.0);
+		AnchorPane.setTopAnchor(borderPaneLabel, 90.0);
 		
 		Label appLabel = new Label(name);
 		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
 		appLabel.setAlignment(Pos.BOTTOM_CENTER);
 		appLabel.setTextAlignment(TextAlignment.CENTER);
-		appLabel.setWrapText(true);
-		appLabel.setMaxWidth(75);
-		appLabel.setMinWidth(75);
+		appLabel.setMaxWidth(95);
+		appLabel.setMinWidth(95);
 		borderPaneLabel.setCenter(appLabel);
 		
 		anchorPane.getChildren().addAll(borderPaneButton, borderPaneLabel);

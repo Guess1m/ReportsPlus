@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="283.0" prefWidth="333.0"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Windows.Misc.CodesWindow">
+            stylesheets="@../../css/codes/codes.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.drozal.dataterminal.Windows.Misc.CodesWindow">
     <center>
         <AnchorPane fx:id="codesPane" prefHeight="283.0" prefWidth="700.0"
                     style="-fx-background-color: rgb(255, 255, 255,0.98);">
@@ -227,8 +228,7 @@
                             </children>
                         </AnchorPane>
                         <Button mnemonicParsing="false" onAction="#helpbtnpress" prefHeight="25.0" prefWidth="20.0"
-                                style="-fx-padding: 0; -fx-label-padding: 0;" styleClass="incidentbtn"
-                                stylesheets="@../../css/menu/menuStyles.css" text="&gt;" GridPane.columnIndex="1"
+                                style="-fx-padding: 0; -fx-label-padding: 0;" text="&gt;" GridPane.columnIndex="1"
                                 GridPane.halignment="RIGHT"/>
                     </children>
                 </GridPane>

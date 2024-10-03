@@ -1,0 +1,64 @@
+.text-field {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
+    -fx-background-color: rgb(242, 242, 242, 0.6);
+    -fx-prompt-text-fill: #524992 !important;
+    -fx-background-insets: 0;
+    -fx-padding: 8px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
+}
+
+.text-field:focused {
+    -fx-border-color: #665cb6;
+    -fx-border-width: 0 0 3px 0;
+    -fx-background-color: rgb(242, 242, 242);
+    -fx-effect: none;
+}
+
+.connField {
+    -fx-text-fill: green !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 13px;
+    -fx-background-color: rgb(242, 242, 242, 0.6);
+    -fx-prompt-text-fill: red !important;
+    -fx-background-insets: 0;
+    -fx-padding: 8px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
+}
+
+.connField:focused {
+    -fx-border-color: #665cb6;
+    -fx-border-width: 0 0 3px 0;
+    -fx-background-color: rgb(242, 242, 242);
+    -fx-effect: none;
+}
+
+.button {
+    -fx-background-color: rgb(102, 92, 182, 0.95);
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-size: 16px;
+
+}
+
+.button:hover {
+    -fx-background-color: rgb(102, 92, 182, 0.8);
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(102, 92, 182);
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 16px;
+}

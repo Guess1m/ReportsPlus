@@ -259,7 +259,6 @@ public class PedLookupViewController {
 		peddobfield.setText(ped.getBirthday());
 		pedaddressfield.setText(ped.getAddress());
 		
-		// License status fields
 		pedlicensefield.setText(ped.getLicenseStatus());
 		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
 				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
@@ -281,7 +280,6 @@ public class PedLookupViewController {
 			pedwantedfield.setStyle("-fx-text-fill: black;");
 		}
 		
-		// Gun license status
 		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
 		if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
@@ -290,7 +288,6 @@ public class PedLookupViewController {
 			pedgunlicensestatusfield.setText("Valid");
 		}
 		
-		// Probation status
 		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
 		if (ped.getProbationStatus() != null && ped.getProbationStatus().equalsIgnoreCase("true")) {
 			pedprobationstatusfield.setStyle("-fx-text-fill: red !important;");
@@ -309,7 +306,6 @@ public class PedLookupViewController {
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Boating license status
 		pedboatinglicstatusfield.setText(
 				ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
 		if (ped.getBoatingLicenseStatus() != null && ped.getBoatingLicenseStatus().equalsIgnoreCase("true")) {
@@ -319,11 +315,9 @@ public class PedLookupViewController {
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Gun license class and type
 		pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
 		pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
 		
-		// Hunting license status
 		pedhuntinglicstatusfield.setText(
 				ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
 		if (ped.getHuntingLicenseStatus() != null && ped.getHuntingLicenseStatus().equalsIgnoreCase("true")) {
@@ -333,12 +327,10 @@ public class PedLookupViewController {
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// License number
 		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
 		pedlicnumfield.setStyle(
 				ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
 		
-		// Affiliation
 		String affiliations = ped.getAffiliations();
 		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
 			pedaffiliationfield.setText("No Data In System");
@@ -357,7 +349,6 @@ public class PedLookupViewController {
 			pedflagfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Description
 		String description = ped.getDescription();
 		if (description == null || description.equalsIgnoreCase("No Data In System")) {
 			peddescfield.setText("No Data In System");
@@ -367,7 +358,6 @@ public class PedLookupViewController {
 			peddescfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Aliases
 		String aliases = ped.getAliases();
 		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
 			pedaliasfield.setText("No Data In System");
@@ -377,7 +367,6 @@ public class PedLookupViewController {
 			pedaliasfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Parole status
 		pedparolestatusfield.setText(ped.getParoleStatus() != null ? ped.getParoleStatus() : "False");
 		if (ped.getParoleStatus() != null && ped.getParoleStatus().equalsIgnoreCase("true")) {
 			pedparolestatusfield.setStyle("-fx-text-fill: red !important;");
@@ -386,15 +375,12 @@ public class PedLookupViewController {
 			pedparolestatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Times stopped
 		pedtimesstoppedfield.setText(ped.getTimesStopped() != null ? ped.getTimesStopped() : "No Data");
 		pedtimesstoppedfield.setStyle(
 				ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
 		
-		// Birthday
 		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
 		
-		// Ped Image
 		String pedModel = ped.getModel();
 		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
 			File pedImgFolder = new File(pedImageFolderURL);
@@ -449,7 +435,6 @@ public class PedLookupViewController {
 		Matcher matcher = pattern.matcher(citationPriors);
 		String updatedCitPriors = matcher.replaceAll("").trim();
 		
-		// Arrest and citation priors
 		ObservableList<Label> arrestPriors = createLabels(ped.getArrestPriors());
 		ObservableList<Label> citPriors = createLabels(updatedCitPriors);
 		
@@ -521,7 +506,7 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 2, true,
+		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 3, true,
 		                 mainDesktopControllerObj.getTaskBarApps());
 	}
 	
@@ -638,7 +623,6 @@ public class PedLookupViewController {
 				ped.setFlags(null);
 			}
 			
-			// Update affiliations
 			String affiliationText = pedaffiliationfield.getText();
 			if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
 				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
@@ -649,7 +633,6 @@ public class PedLookupViewController {
 				ped.setAffiliations(null);
 			}
 			
-			// Update description
 			String descText = peddescfield.getText();
 			if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
 				peddescfield.setStyle("-fx-text-fill: black !important;");
@@ -660,7 +643,6 @@ public class PedLookupViewController {
 				ped.setDescription(null);
 			}
 			
-			// Update aliases
 			String aliasText = pedaliasfield.getText();
 			if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
 				pedaliasfield.setStyle("-fx-text-fill: black !important;");
@@ -671,7 +653,6 @@ public class PedLookupViewController {
 				ped.setAliases(null);
 			}
 			
-			// Save the updated Ped object
 			try {
 				Ped.PedHistoryUtils.addPed(ped);
 			} catch (JAXBException e) {

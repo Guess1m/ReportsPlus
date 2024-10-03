@@ -5,14 +5,15 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="766.0"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0"
+            prefWidth="766.0" stylesheets="@../../css/settings/settings.css"
+            xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
         <AnchorPane fx:id="root2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane fx:id="tabpane" layoutX="110.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0"
-                         styleClass="darktabpane" stylesheets="@../../css/main/SettingsTabPane.css"
+                         styleClass="darktabpane" stylesheets="@../../css/settings/SettingsTabPane.css"
                          tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
@@ -49,10 +50,8 @@
                                                     <children>
                                                         <Button fx:id="clrLogsBtn" layoutX="35.0" layoutY="10.0"
                                                                 mnemonicParsing="false" onAction="#clearLogsBtnClick"
-                                                                prefHeight="25.0" prefWidth="160.0"
-                                                                styleClass="settingsBtn"
-                                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="CLEAR LOGS" AnchorPane.leftAnchor="35.0"
+                                                                prefHeight="25.0" prefWidth="160.0" text="CLEAR LOGS"
+                                                                AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
                                                     </children>
@@ -62,9 +61,8 @@
                                                         <Button fx:id="clrSaveDataBtn" layoutX="35.0" layoutY="10.0"
                                                                 mnemonicParsing="false"
                                                                 onAction="#clearSaveDataBtnClick" prefHeight="26.0"
-                                                                prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="CLEAR ALL SAVE DATA" AnchorPane.leftAnchor="35.0"
+                                                                prefWidth="160.0" text="CLEAR ALL SAVE DATA"
+                                                                AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
                                                     </children>
@@ -74,9 +72,8 @@
                                                         <Button fx:id="debugLogBtn" layoutX="35.0" layoutY="10.0"
                                                                 mnemonicParsing="false"
                                                                 onAction="#openDebugLogsBtnClick" prefHeight="26.0"
-                                                                prefWidth="160.0" styleClass="settingsBtn"
-                                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="Open Debug Logs" AnchorPane.leftAnchor="35.0"
+                                                                prefWidth="160.0" text="Open Debug Logs"
+                                                                AnchorPane.leftAnchor="35.0"
                                                                 AnchorPane.rightAnchor="34.0"
                                                                 AnchorPane.topAnchor="10.0"/>
                                                     </children>
@@ -96,7 +93,7 @@
                                                    AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
                                                    AnchorPane.topAnchor="14.0">
                                             <children>
-                                                <GridPane fx:id="colorPageOne" visible="false">
+                                                <GridPane fx:id="colorPageOne">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
                                                                            minWidth="10.0" percentWidth="50.0"
@@ -191,12 +188,10 @@
                                                             </children>
                                                         </AnchorPane>
                                                         <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
-                                                                onAction="#resetDefaultsBtnPress"
-                                                                styleClass="purpleButton"
-                                                                stylesheets="@../../css/menu/menuStyles.css"
-                                                                text="Reset Defaults" GridPane.columnIndex="1"
-                                                                GridPane.halignment="CENTER" GridPane.rowIndex="4"
-                                                                GridPane.valignment="CENTER"/>
+                                                                onAction="#resetDefaultsBtnPress" prefHeight="30.0"
+                                                                prefWidth="165.0" text="Reset Defaults"
+                                                                GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                                GridPane.rowIndex="4" GridPane.valignment="CENTER"/>
                                                         <AnchorPane GridPane.rowIndex="1">
                                                             <children>
                                                                 <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0"
@@ -252,7 +247,8 @@
                                                         </Button>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane fx:id="colorPageTwo" layoutX="10.0" layoutY="10.0">
+                                                <GridPane fx:id="colorPageTwo" layoutX="10.0" layoutY="10.0"
+                                                          visible="false">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0"
                                                                            minWidth="10.0" percentWidth="50.0"
@@ -319,10 +315,7 @@
                                                                         <Button fx:id="previewNotificationBtn"
                                                                                 minWidth="-Infinity"
                                                                                 mnemonicParsing="false"
-                                                                                prefWidth="274.0"
-                                                                                style="-fx-padding: 3 14 3 14;"
-                                                                                styleClass="settingsBtn"
-                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                prefHeight="31.0" prefWidth="274.0"
                                                                                 text="Preview Notification"/>
                                                                     </center>
                                                                 </BorderPane>
@@ -372,10 +365,7 @@
                                                                                 minWidth="-Infinity"
                                                                                 mnemonicParsing="false"
                                                                                 onAction="#resetNotiDefaultsBtnPress"
-                                                                                prefWidth="274.0"
-                                                                                style="-fx-padding: 3 14 3 14;"
-                                                                                styleClass="settingsBtn"
-                                                                                stylesheets="@../../css/menu/menuStyles.css"
+                                                                                prefHeight="31.0" prefWidth="274.0"
                                                                                 text="Reset Defaults"/>
                                                                     </center>
                                                                     <padding>
@@ -580,10 +570,8 @@
                                                     </children>
                                                 </AnchorPane>
                                                 <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false"
-                                                        onAction="#resetReportDefaultsBtnPress"
-                                                        styleClass="purpleButton"
-                                                        stylesheets="@../../css/menu/menuStyles.css"
-                                                        text="Reset Defaults" GridPane.columnIndex="1"
+                                                        onAction="#resetReportDefaultsBtnPress" prefHeight="32.0"
+                                                        prefWidth="147.0" text="Reset Defaults" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="4">
                                                     <GridPane.margin>
                                                         <Insets bottom="2.0" top="2.0"/>
@@ -1167,9 +1155,9 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                             style="-fx-background-color: rgb(255,255,255,0.5);">
                                     <children>
-                                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0"
-                                                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
-                                                  AnchorPane.topAnchor="14.0">
+                                        <GridPane hgap="10.0" layoutX="14.0" layoutY="14.0" vgap="15.0"
+                                                  AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0"
+                                                  AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
@@ -1177,46 +1165,36 @@
                                                 <ColumnConstraints/>
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity"
-                                                                percentHeight="25.0" prefHeight="36.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="36.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="26.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" percentHeight="25.0"
-                                                                vgrow="SOMETIMES"/>
+                                                <RowConstraints maxHeight="36.0" minHeight="-Infinity" prefHeight="36.0"
+                                                                vgrow="NEVER"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="ALWAYS"/>
                                             </rowConstraints>
                                             <children>
-                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <HBox spacing="7.0" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                                                      GridPane.valignment="CENTER">
                                                     <children>
-                                                        <Label fx:id="tt10" layoutX="4.0" layoutY="12.0"
-                                                               text="Broadcast Port:" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt10" alignment="CENTER" text="Broadcast Port:"
+                                                               HBox.hgrow="NEVER">
                                                             <font>
                                                                 <Font name="Segoe UI Semibold" size="15.0"/>
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="broadcastPortField" layoutX="110.0"
-                                                                   layoutY="8.0" prefHeight="26.0" prefWidth="171.0"
-                                                                   promptText="Default: 8888"
-                                                                   AnchorPane.bottomAnchor="7.0"
-                                                                   AnchorPane.leftAnchor="110.0"
-                                                                   AnchorPane.rightAnchor="14.0"
-                                                                   AnchorPane.topAnchor="8.0"/>
+                                                        <TextField fx:id="broadcastPortField" promptText="Default: 8888"
+                                                                   HBox.hgrow="ALWAYS"/>
                                                     </children>
-                                                </AnchorPane>
-                                                <AnchorPane GridPane.rowIndex="1">
+                                                </HBox>
+                                                <AnchorPane GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                                                            GridPane.valignment="CENTER">
                                                     <children>
                                                         <CheckBox fx:id="serverAutoconnectCheckbox" alignment="CENTER"
                                                                   mnemonicParsing="false"
-                                                                  onAction="#serverAutoConnectClick" prefHeight="50.0"
-                                                                  selected="true" text="Server Autoconnect on Startup"
-                                                                  AnchorPane.bottomAnchor="0.0"
+                                                                  onAction="#serverAutoConnectClick" selected="true"
+                                                                  text="Server Autoconnect on Startup"
                                                                   AnchorPane.leftAnchor="14.0"
-                                                                  AnchorPane.rightAnchor="14.0"
-                                                                  AnchorPane.topAnchor="0.0">
+                                                                  AnchorPane.rightAnchor="14.0">
                                                             <font>
                                                                 <Font name="Segoe UI Semibold" size="15.0"/>
                                                             </font>
@@ -1234,24 +1212,18 @@
                                                         <Font name="Segoe UI Black" size="17.0"/>
                                                     </font>
                                                 </Label>
-                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <HBox spacing="7.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                     <children>
-                                                        <Label fx:id="tt11" layoutX="4.0" layoutY="12.0"
-                                                               text="Socket Timeout (ms):" AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.topAnchor="12.0">
+                                                        <Label fx:id="tt11" text="Socket Timeout (ms):"
+                                                               HBox.hgrow="NEVER">
                                                             <font>
                                                                 <Font name="Segoe UI Semibold" size="15.0"/>
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="socketTimeoutField" layoutX="152.0"
-                                                                   layoutY="8.0" prefHeight="29.0" prefWidth="129.0"
-                                                                   promptText="Default 10000"
-                                                                   AnchorPane.bottomAnchor="7.0"
-                                                                   AnchorPane.leftAnchor="152.0"
-                                                                   AnchorPane.rightAnchor="14.0"
-                                                                   AnchorPane.topAnchor="8.0"/>
+                                                        <TextField fx:id="socketTimeoutField" promptText="Default 10000"
+                                                                   HBox.hgrow="ALWAYS"/>
                                                     </children>
-                                                </AnchorPane>
+                                                </HBox>
                                             </children>
                                         </GridPane>
                                     </children>

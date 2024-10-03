@@ -4,19 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="655.0" prefWidth="645.0" stylesheets="@../../css/courtCase/courtCaseCss.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="655.0" prefWidth="645.0"
+            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CourtViewController">
     <center>
         <AnchorPane fx:id="courtPane" style="-fx-background-color: transparent;"
-                    stylesheets="@../../css/main/Logscrollpane.css">
+                    stylesheets="@../../css/main/scrollPane.css">
             <children>
                 <SplitPane dividerPositions="0.33" layoutX="15.0" layoutY="15.0"
                            style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <ListView fx:id="caseList" prefHeight="690.0" prefWidth="292.0"
-                                  stylesheets="@../../css/main/calList.css"/>
+                                  stylesheets="@../../css/main/listView.css"/>
                         <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;">
                             <content>
                                 <AnchorPane style="-fx-background-color: transparent;">

@@ -12,7 +12,7 @@
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="25.0" layoutY="238.0"
                             style="-fx-background-color: transparent; -fx-border-color: transparent;"
-                            styleClass="versionPane" stylesheets="@../../css/main/Logscrollpane.css"
+                            styleClass="versionPane" stylesheets="@../../css/main/scrollPane.css"
                             AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
                             AnchorPane.topAnchor="238.0">
                     <content>

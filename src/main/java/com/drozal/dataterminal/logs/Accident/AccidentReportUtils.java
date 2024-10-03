@@ -23,7 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -313,8 +314,7 @@ public class AccidentReportUtils {
 				}
 				LogViewController.needRefresh.set(1);
 				
-				NotificationManager.showNotificationInfo("Report Manager", "A new Accident Report has been submitted.",
-				                                         mainRT);
+				NotificationManager.showNotificationInfo("Report Manager", "A new Accident Report has been submitted.");
 				
 				stage.close();
 			}

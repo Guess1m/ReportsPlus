@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
 import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.drozal.dataterminal.Windows.Apps.VehLookupViewController.vehLookupViewController;
+import static com.drozal.dataterminal.Windows.Misc.UserManagerController.userManagerController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -237,6 +237,9 @@ public class settingsController {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		
+		if (userManagerController != null) {
+			userManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
 		if (vehLookupViewController != null) {
 			vehLookupViewController.getLookupmainlblpane().setStyle(
 					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
@@ -611,13 +614,11 @@ public class settingsController {
 			previewNotificationBtn.setOnAction(actionEvent -> {
 				if (selectedNotification.get().equals("Information")) {
 					NotificationManager.showNotificationInfo("Sample Info Notification",
-					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                         mainRT);
+					                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 				}
 				if (selectedNotification.get().equals("Warning")) {
 					NotificationManager.showNotificationWarning("Sample Warning Notification",
-					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.",
-					                                            mainRT);
+					                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 				}
 			});
 		});
@@ -1365,7 +1366,7 @@ public class settingsController {
 	public void clearLogsBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene().getWindow();
 		confirmLogClearDialog(stage);
-		NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.", mainRT);
+		NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.");
 	}
 	
 	@javafx.fxml.FXML

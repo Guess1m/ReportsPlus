@@ -67,12 +67,6 @@ public class calloutController {
 	@FXML
 	private Label statusLabel;
 	
-	/**
-	 * Retrieves the most recent Callout from the XML file.
-	 * This method unmarshals the XML content into Callout objects and returns the last Callout in the list.
-	 *
-	 * @return the most recent Callout object or null if no valid Callout is found.
-	 */
 	public static Callout getCallout() {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";
 		File file = new File(filePath);
@@ -242,15 +236,15 @@ public class calloutController {
 								} else {
 									
 									log("No Callouts found.", LogUtils.Severity.WARN);
-									streetField.setText(/*No Data*/"");
-									numberField.setText(/*No Data*/"");
-									areaField.setText(/*No Data*/"");
-									priorityField.setText(/*No Data*/"");
-									timeField.setText(/*No Data*/"");
-									dateField.setText(/*No Data*/"");
-									countyField.setText(/*No Data*/"");
-									descriptionField.setText(/*No Data*/"");
-									typeField.setText(/*No Data*/"");
+									streetField.setText("");
+									numberField.setText("");
+									areaField.setText("");
+									priorityField.setText("");
+									timeField.setText("");
+									dateField.setText("");
+									countyField.setText("");
+									descriptionField.setText("");
+									typeField.setText("");
 								}
 							});
 						}

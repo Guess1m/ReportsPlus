@@ -14,7 +14,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
@@ -75,39 +74,33 @@ public class ProbabilitySettingsController {
 	private TextField vehInspection;
 	
 	private void setInitialValues() throws IOException {
-		// Gun Permit Type
+		
 		permitTypeConcealed.setText(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance"));
 		permitTypeOpenCarry.setText(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance"));
 		permitTypeBoth.setText(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"));
 		
-		// Gun Permit Class
 		permitClassHandgun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance"));
 		permitClassLonggun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance"));
 		permitClassShotgun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance"));
 		
-		// Arrest
 		noCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges"));
 		minimalCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges"));
 		fewCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges"));
 		manyCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges"));
 		
-		// Citation
 		noCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations"));
 		minimalCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations"));
 		fewCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations"));
 		manyCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations"));
 		
-		// Other Licenses
 		fishingLicense.setText(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
 		boatingLicense.setText(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
 		huntingLicense.setText(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
 		gunLicense.setText(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
 		
-		// Probation and Parole
 		onProbation.setText(ConfigReader.configRead("pedHistory", "onProbationChance"));
 		onParole.setText(ConfigReader.configRead("pedHistory", "onParoleChance"));
 		
-		// Court Trial Delay
 		caseOutcomeDelay.setText(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
 		
 		vehInspection.setText(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
@@ -322,8 +315,7 @@ public class ProbabilitySettingsController {
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "shotgunChance", permitClassShotgun.getText());
 			ConfigWriter.configwrite("vehicleHistory", "hasValidInspection", vehInspection.getText());
 			log("Wrote New Probabilities To Config", LogUtils.Severity.INFO);
-			NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config",
-			                                         mainRT);
+			NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config");
 		} else {
 			log("Could Not Write New Probabilities To Config, Check Values", LogUtils.Severity.ERROR);
 		}

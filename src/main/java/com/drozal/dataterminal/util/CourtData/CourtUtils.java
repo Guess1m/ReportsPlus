@@ -16,7 +16,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
@@ -85,7 +84,7 @@ public class CourtUtils {
 		if (courtCases.getCaseList() != null) {
 			courtCases.getCaseList().removeIf(e -> e.getCaseNumber().equals(casenumber));
 			saveCourtCases(courtCases);
-			showNotificationInfo("Court Case Manager", "Deleted Court Case#: " + casenumber, mainRT);
+			showNotificationInfo("Court Case Manager", "Deleted Court Case#: " + casenumber);
 		}
 	}
 	
@@ -288,7 +287,7 @@ public class CourtUtils {
 						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
 						log("Case: #" + caseToUpdate.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
 						showNotificationInfo("Court Manager",
-						                     "Case: #" + caseToUpdate.getCaseNumber() + " has been closed", mainRT);
+						                     "Case: #" + caseToUpdate.getCaseNumber() + " has been closed");
 					}
 				} catch (JAXBException | IOException e) {
 					logError("Error processing case: #" + caseToUpdate.getCaseNumber() + ":  ", e);

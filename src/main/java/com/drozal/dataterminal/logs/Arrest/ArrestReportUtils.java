@@ -30,7 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
 import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
@@ -494,17 +495,15 @@ public class ArrestReportUtils {
 						throw new RuntimeException(e);
 					}
 					NotificationManager.showNotificationInfo("Report Manager",
-					                                         "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText(),
-					                                         mainRT);
+					                                         "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
 					log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(),
 					    LogUtils.Severity.INFO);
 					needCourtRefresh.set(1);
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager",
-					                                         "A new Arrest Report has been submitted.", mainRT);
+					                                         "A new Arrest Report has been submitted.");
 					NotificationManager.showNotificationWarning("Report Manager",
-					                                            "Could not create court case from arrest because either name or offences field(s) were empty.",
-					                                            mainRT);
+					                                            "Could not create court case from arrest because either name or offences field(s) were empty.");
 					log("Could not create court case from arrest because either name or offences field(s) were empty.",
 					    LogUtils.Severity.ERROR);
 				}

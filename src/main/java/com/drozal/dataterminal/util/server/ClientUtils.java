@@ -32,7 +32,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.*;
 import static com.drozal.dataterminal.Windows.Server.calloutController.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
@@ -242,8 +241,7 @@ public class ClientUtils {
 								});
 							} else {
 								log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
-								NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved",
-								                                         mainRT);
+								NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved");
 							}
 							break;
 						case "UPDATE_CALLOUT":
@@ -371,8 +369,7 @@ public class ClientUtils {
 									CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority,
 									                          street, area, county, time, date, status);
 									NotificationManager.showNotificationInfo("Callout Manager",
-									                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.",
-									                                         mainRT);
+									                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
 								}
 							}
 							break;

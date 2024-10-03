@@ -24,7 +24,6 @@
     -fx-font-size: 15;
 }
 
-
 .incidentformButton .context-menu .menu-item {
     -fx-background-color: rgb(0, 0, 0, 0.15);
     -fx-text-fill: white;

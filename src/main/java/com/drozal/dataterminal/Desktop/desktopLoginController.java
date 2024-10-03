@@ -85,9 +85,8 @@ public class desktopLoginController {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
-			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> {
-				incompleteLabel.setVisible(false);
-			}));
+			Timeline timeline1 = new Timeline(
+					new KeyFrame(Duration.seconds(1), evt -> incompleteLabel.setVisible(false)));
 			timeline1.play();
 		} else {
 			String jarPath = null;
@@ -115,15 +114,15 @@ public class desktopLoginController {
 			}
 			appConfig.createAppConfig();
 			
-			String agency = agencyDropDown.getValue().toString();
-			String division = divisionDropDown.getValue().toString();
-			String rank = rankDropdown.getValue().toString();
+			String agency = agencyDropDown.getValue().toString().trim();
+			String division = divisionDropDown.getValue().toString().trim();
+			String rank = rankDropdown.getValue().toString().trim();
 			
 			ConfigWriter.configwrite("userInfo", "Agency", agency);
 			ConfigWriter.configwrite("userInfo", "Division", division);
-			ConfigWriter.configwrite("userInfo", "Name", nameField.getText());
+			ConfigWriter.configwrite("userInfo", "Name", nameField.getText().trim());
 			ConfigWriter.configwrite("userInfo", "Rank", rank);
-			ConfigWriter.configwrite("userInfo", "Number", numberField.getText());
+			ConfigWriter.configwrite("userInfo", "Number", numberField.getText().trim());
 			checkAndSetDefaultValues();
 			checkAndSetDefaultAppValues();
 			
@@ -139,8 +138,7 @@ public class desktopLoginController {
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			
-			primaryStage.setMaximized(true);
-			//primaryStage.setFullScreen(true); todo find fix for notifications
+			primaryStage.setFullScreen(true); // todo make callout and id windows part of the main window
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

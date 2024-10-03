@@ -4,9 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="702.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/22"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="702.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Settings.ProbabilitySettingsController">
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
@@ -425,9 +424,7 @@
                         </BorderPane>
                         <AnchorPane GridPane.columnSpan="4">
                             <children>
-                                <Label alignment="CENTER"
-                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
-                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                <Label alignment="CENTER" style="-fx-background-color: #5e7387; -fx-padding: 2;"
                                        text="No Requirements" textAlignment="CENTER" textFill="WHITE"
                                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -439,9 +436,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="3">
                             <children>
-                                <Label alignment="CENTER"
-                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
-                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                <Label alignment="CENTER" style="-fx-background-color: #5e7387; -fx-padding: 2;"
                                        text="Require Ped To Have Prior Charges:" textAlignment="CENTER" textFill="WHITE"
                                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -453,9 +448,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="5">
                             <children>
-                                <Label alignment="CENTER"
-                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
-                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                <Label alignment="CENTER" style="-fx-background-color: #5e7387; -fx-padding: 2;"
                                        text="Prior Citations/Charges Probabilities" textAlignment="CENTER"
                                        textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -481,9 +474,7 @@
                         </Label>
                         <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="10">
                             <children>
-                                <Label alignment="CENTER"
-                                       style="-fx-background-color: #5e7387; -fx-padding: 2; -fx-font-size: 16;"
-                                       styleClass="heading" stylesheets="@../../css/menu/menuLabels.css"
+                                <Label alignment="CENTER" style="-fx-background-color: #5e7387; -fx-padding: 2;"
                                        text="Gun License Probabilities (Require Ped To Have A Gun License)"
                                        textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0"
                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"

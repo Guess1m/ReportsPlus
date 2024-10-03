@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.util.Misc.stringUtil.version;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 
@@ -66,8 +65,7 @@ public class updatesController {
 				recentVer.setText(Objects.requireNonNullElse(gitVersion, "New Ver. Available!"));
 				recentVer.setStyle("-fx-text-fill: red;");
 				NotificationManager.showNotificationError("Update Available",
-				                                          "There is a New Verion Available! " + gitVersion + " Check LCPDFR Website!",
-				                                          mainRT);
+				                                          "There is a New Verion Available! " + gitVersion + " Check LCPDFR Website!");
 			} else {
 				recentVer.setText(gitVersion);
 			}

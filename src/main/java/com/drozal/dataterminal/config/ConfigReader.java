@@ -199,11 +199,11 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryCitation", "chanceManyCitations", "5");
 		// Gun Permit
 		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "25");
-		/*Type*/
+		
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "concealedCarryChance", "30");
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "openCarryChance", "35");
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "bothChance", "35");
-		/*Class*/
+		
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "handgunChance", "50");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "longgunChance", "28");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");

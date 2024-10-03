@@ -6,7 +6,6 @@ module com.drozal.dataterminal {
 	
 	requires jakarta.activation;
 	requires jakarta.xml.bind;
-	requires org.controlsfx.controls;
 	requires java.desktop;
 	requires com.fasterxml.jackson.databind;
 	requires jdk.compiler;

@@ -1,6 +1,7 @@
 package com.drozal.dataterminal.Desktop.Utils.WindowUtils;
 
 import com.drozal.dataterminal.Launcher;
+import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
@@ -14,7 +15,7 @@ public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
 	public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
 	
-	public static CustomWindow createFakeWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, HBox taskBarApps) {
+	public static CustomWindow createFakeWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps) {
 		if (!windows.containsKey(title)) {
 			try {
 				URL fxmlUrl = Launcher.class.getResource(fileName);
@@ -36,6 +37,16 @@ public class WindowManager {
 				return customWindow;
 			} catch (IOException e) {
 				throw new RuntimeException("Could not create new CustomWindow: " + e);
+			}
+		}
+		{
+			CustomWindow customWindow = windows.get(title);
+			if (reopen) {
+				LogUtils.log(windows.get(title) + " is already created, closing", LogUtils.Severity.WARN);
+				customWindow.closeWindow();
+				createFakeWindow(root, fileName, title, resizable, priority, centerOnDesktop, true, taskBarApps);
+			} else {
+				customWindow.bringToFront();
 			}
 		}
 		return null;

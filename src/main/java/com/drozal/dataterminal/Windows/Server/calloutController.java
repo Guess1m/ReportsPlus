@@ -1,8 +1,6 @@
 package com.drozal.dataterminal.Windows.Server;
 
-import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -14,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,19 +21,12 @@ import java.util.List;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class calloutController {
 	
-	public static Screen CalloutScreen = null;
-	public static boolean CalloutFirstShown = true;
-	public static double Calloutx;
-	public static double Callouty;
-	public static Stage CalloutStage = null;
-	static AnchorPane topBar;
 	@FXML
 	private BorderPane root;
 	@FXML
@@ -97,16 +85,11 @@ public class calloutController {
 	}
 	
 	public void initialize() {
-		topBar = reportUtil.createTitleBar("Callout Manager");
 		statusLabel.setVisible(false);
 		respondBtn.setVisible(true);
 		ignoreBtn.setVisible(true);
 		
-		root.setTop(topBar);
-		
 		Platform.runLater(() -> {
-			Stage stage = (Stage) root.getScene().getWindow();
-			
 			Callout callout = getCallout();
 			
 			String message;
@@ -124,6 +107,7 @@ public class calloutController {
 				message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
 				status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
 				
+				// TODO fix buttons and adding to callout manager not working
 				respondBtn.setOnAction(actionEvent -> {
 					status = "Responded";
 					statusLabel.setText("Responded.");
@@ -162,29 +146,8 @@ public class calloutController {
 				countyField.setText("No Data");
 				descriptionField.setText("No Data");
 				typeField.setText("No Data");
-				
-				CalloutStage.close();
-				CalloutStage = null;
-				log("Closed Null Stage", LogUtils.Severity.ERROR);
+				log("Null Callout", LogUtils.Severity.ERROR);
 			}
-			
-			CalloutStage.setOnHidden(windowEvent -> {
-				log("Added Callout To Active", LogUtils.Severity.INFO);
-				CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
-				                          priorityField.getText(), streetField.getText(), areaField.getText(),
-				                          countyField.getText(), timeField.getText(), dateField.getText(), status);
-				
-				Calloutx = CalloutStage.getX();
-				Callouty = CalloutStage.getY();
-				CalloutScreen = Screen.getScreensForRectangle(Calloutx, Callouty, CalloutStage.getWidth(),
-				                                              CalloutStage.getHeight()).stream().findFirst().orElse(
-						null);
-				log("CalloutStage closed via UPDATE_CALLOUT message, set XValue: " + Calloutx + " YValue: " + Callouty,
-				    LogUtils.Severity.DEBUG);
-				CalloutFirstShown = false;
-				CalloutStage.close();
-				CalloutStage = null;
-			});
 		});
 		
 		watchCalloutChanges();

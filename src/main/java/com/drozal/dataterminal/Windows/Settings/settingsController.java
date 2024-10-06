@@ -761,6 +761,7 @@ public class settingsController {
 		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equalsIgnoreCase("true"));
 		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equalsIgnoreCase("true"));
 		AOTID.setSelected(ConfigReader.configRead("AOTSettings", "AOTID").equalsIgnoreCase("true"));
+		// todo remove all aotcallout references
 		AOTCallout.setSelected(ConfigReader.configRead("AOTSettings", "AOTCallout").equalsIgnoreCase("true"));
 		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equalsIgnoreCase("true"));
 		AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equalsIgnoreCase("true"));
@@ -1359,7 +1360,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/output-view.fxml",
-		                 "Application Logs", false, 2, true, mainDesktopControllerObj.getTaskBarApps());
+		                 "Application Logs", false, 2, true, false, mainDesktopControllerObj.getTaskBarApps());
 	}
 	
 	@javafx.fxml.FXML

@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="617.0" prefWidth="668.0"
-            stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="641.0" prefWidth="668.0" stylesheets="@../../css/lookups/lookup.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -48,7 +48,7 @@
                         </AnchorPane>
                         <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                     style="-fx-background-color: transparent; -fx-border-width: 0;"
-                                    stylesheets="@../../css/main/scrollPane.css" vvalue="0.41">
+                                    stylesheets="@../../css/main/scrollPane.css">
                             <content>
                                 <AnchorPane fx:id="vehLookupPane"
                                             style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -493,10 +493,9 @@
                                             </children>
                                         </AnchorPane>
                                         <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0"
-                                               layoutY="298.0" style="-fx-font-size: 20; -fx-text-fill: #4d4d4d;"
-                                               text="No Record In System." textAlignment="CENTER" visible="false"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="298.0">
+                                               layoutY="298.0" text="No Record In System." textAlignment="CENTER"
+                                               textFill="#4d4d4d" visible="false" AnchorPane.leftAnchor="0.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="298.0">
                                             <font>
                                                 <Font name="Segoe UI Black" size="20.0"/>
                                             </font>

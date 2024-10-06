@@ -10,7 +10,6 @@ import java.util.List;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainRT;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesStage;
-import static com.drozal.dataterminal.Windows.Server.calloutController.CalloutStage;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 
 public class windowUtils {
@@ -71,10 +70,6 @@ public class windowUtils {
 		if (stage.equals(notesStage)) {
 			notesStage.setHeight(285);
 			notesStage.setWidth(685);
-		}
-		if (stage.equals(CalloutStage)) {
-			CalloutStage.setHeight(342);
-			CalloutStage.setWidth(618);
 		}
 		if (stage.equals(CurrentIDViewController.IDStage)) {
 			CurrentIDViewController.IDStage.setHeight(274);

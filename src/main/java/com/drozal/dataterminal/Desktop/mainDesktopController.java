@@ -43,6 +43,7 @@ import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.drozal.dataterminal.Windows.Misc.UserManagerController.userManagerController;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
 import static com.drozal.dataterminal.Windows.Server.ClientController.clientController;
@@ -143,8 +144,6 @@ public class mainDesktopController {
 			editableDesktop = !editableDesktop;
 			if (!editableDesktop) {
 				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
-					System.out.println(
-							"Name: " + desktopApp.getName() + " X: " + desktopApp.getX() + " Y: " + desktopApp.getY());
 					appConfigWrite(desktopApp.getName(), "x", String.valueOf(desktopApp.getX()));
 					appConfigWrite(desktopApp.getName(), "y", String.valueOf(desktopApp.getY()));
 				}
@@ -260,8 +259,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
-					                                        true, 2, true, taskBarApps);
-					NotesViewController.notesViewController = (NotesViewController) (mainApp != null ? mainApp.controller : null);
+					                                        true, 2, true, false, taskBarApps);
+					if (mainApp != null && mainApp.controller != null) {
+						NotesViewController.notesViewController = (NotesViewController) mainApp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -278,7 +279,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
-					                 2, true, taskBarApps);
+					                 2, true, false, taskBarApps);
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -295,7 +296,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
-					                 true, taskBarApps);
+					                 true, false, taskBarApps);
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -312,8 +313,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
-					                                       true, 2, true, taskBarApps);
-					LogViewController.logController = (LogViewController) (logapp != null ? logapp.controller : null);
+					                                       true, 2, true, false, taskBarApps);
+					if (logapp != null && logapp.controller != null) {
+						LogViewController.logController = (LogViewController) logapp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -331,8 +334,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
-					                                       "Callout Manager", true, 2, true, taskBarApps);
-					CalloutViewController.calloutViewController = (CalloutViewController) (logapp != null ? logapp.controller : null);
+					                                       "Callout Manager", true, 2, true, false, taskBarApps);
+					if (logapp != null && logapp.controller != null) {
+						CalloutViewController.calloutViewController = (CalloutViewController) logapp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -350,8 +355,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
-					                                       "Court Case Manager", true, 2, true, taskBarApps);
-					CourtViewController.courtViewController = (CourtViewController) (logapp != null ? logapp.controller : null);
+					                                       "Court Case Manager", true, 2, true, false, taskBarApps);
+					if (logapp != null && logapp.controller != null) {
+						CourtViewController.courtViewController = (CourtViewController) logapp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -368,8 +375,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-ped-view.fxml",
-					                                       "Pedestrian Lookup", true, 2, true, taskBarApps);
-					PedLookupViewController.pedLookupViewController = (PedLookupViewController) (logapp != null ? logapp.controller : null);
+					                                       "Pedestrian Lookup", true, 2, true, false, taskBarApps);
+					if (logapp != null && logapp.controller != null) {
+						pedLookupViewController = (PedLookupViewController) logapp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -387,8 +396,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-veh-view.fxml",
-					                                       "Vehicle Lookup", true, 2, true, taskBarApps);
-					VehLookupViewController.vehLookupViewController = (VehLookupViewController) (logapp != null ? logapp.controller : null);
+					                                       "Vehicle Lookup", true, 2, true, false, taskBarApps);
+					if (logapp != null && logapp.controller != null) {
+						VehLookupViewController.vehLookupViewController = (VehLookupViewController) logapp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -406,8 +417,10 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
-					                                          "Server Connection", false, 2, true, taskBarApps);
-					clientController = (ClientController) (serverApp != null ? serverApp.controller : null);
+					                                          "Server Connection", false, 2, true, false, taskBarApps);
+					if (serverApp != null && serverApp.controller != null) {
+						clientController = (ClientController) serverApp.controller;
+					}
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -424,7 +437,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
-					                                      "Current IDs", false, 2, true, taskBarApps);
+					                                      "Current IDs", false, 2, true, false, taskBarApps);
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -514,7 +527,7 @@ public class mainDesktopController {
 	@FXML
 	public void editUser(ActionEvent actionEvent) {
 		userManager = createFakeWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "User Manager", false, 3,
-		                               true, taskBarApps);
+		                               true, false, taskBarApps);
 		userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
 		try {
 			settingsController.loadTheme();

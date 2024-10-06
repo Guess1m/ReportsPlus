@@ -347,7 +347,7 @@ public class NotesViewController {
 	public void oncodesclick() {
 		if (mainDesktopControllerObj != null) {
 			codesWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-			                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 2, true,
+			                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 3, true, false,
 			                               mainDesktopControllerObj.getTaskBarApps());
 		}
 	}

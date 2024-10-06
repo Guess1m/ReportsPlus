@@ -258,6 +258,7 @@ public class CustomWindow {
 			windows.remove(title);
 			minimizedWindows.remove(title);
 			taskbarApp.removeApp();
+			controller = null;
 		}
 	}
 	

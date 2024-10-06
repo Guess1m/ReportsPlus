@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.util.server;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Server.CurrentIDViewController;
@@ -32,8 +33,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.*;
-import static com.drozal.dataterminal.Windows.Server.calloutController.*;
+import static com.drozal.dataterminal.Windows.Server.calloutController.getCallout;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -249,29 +251,10 @@ public class ClientUtils {
 							FileUtlis.receiveCalloutFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
-									if (CalloutStage != null && CalloutStage.isShowing()) {
-										CalloutStage.close();
-										CalloutStage = null;
-									}
-									CalloutStage = new Stage();
-									FXMLLoader loader = new FXMLLoader(
-											Launcher.class.getResource("Windows/Server/callout-view.fxml"));
-									Parent root = null;
-									try {
-										root = loader.load();
-									} catch (IOException e) {
-										throw new RuntimeException(e);
-									}
-									Scene newScene = new Scene(root);
-									CalloutStage.setTitle("Callout Display");
-									CalloutStage.setScene(newScene);
-									try {
-										CalloutStage.setAlwaysOnTop(
-												ConfigReader.configRead("AOTSettings", "AOTCallout").equals("true"));
-									} catch (IOException e) {
-										logError("Could not fetch AOTCallout: ", e);
-									}
-									CalloutStage.initStyle(StageStyle.UNDECORATED);
+									CustomWindow calloutWindow = createFakeWindow(
+											mainDesktopControllerObj.getDesktopContainer(),
+											"Windows/Server/callout-view.fxml", "Callout Display", false, 4, true, true,
+											mainDesktopControllerObj.getTaskBarApps());
 									try {
 										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
 												"true")) {
@@ -280,38 +263,7 @@ public class ClientUtils {
 									} catch (IOException e) {
 										logError("Error getting configValue for playCallout: ", e);
 									}
-									
-									CalloutStage.centerOnScreen();
-									
-									try {
-										if (ConfigReader.configRead("layout", "rememberCalloutLocation").equals(
-												"true")) {
-											if (CalloutFirstShown) {
-												windowUtils.centerStageOnMainApp(CalloutStage);
-												log("CalloutStage opened via UPDATE_CALLOUT message, first time centered",
-												    LogUtils.Severity.INFO);
-											} else {
-												if (CalloutScreen != null) {
-													Rectangle2D screenBounds = CalloutScreen.getVisualBounds();
-													CalloutStage.setX(Calloutx);
-													CalloutStage.setY(Callouty);
-													
-													if (Calloutx < screenBounds.getMinX() || Calloutx > screenBounds.getMaxX() || Callouty < screenBounds.getMinY() || Callouty > screenBounds.getMaxY()) {
-														windowUtils.centerStageOnMainApp(CalloutStage);
-													}
-												} else {
-													windowUtils.centerStageOnMainApp(CalloutStage);
-												}
-												log("CalloutStage opened via UPDATE_CALLOUT message, XValue: " + Calloutx + " YValue: " + Callouty,
-												    LogUtils.Severity.INFO);
-											}
-										}
-									} catch (IOException e) {
-										logError("Could not read rememberCalloutLocation from UPDATE_CALLOUT: ", e);
-									}
-									
-									/*todo moved so it doesnt flicker*/
-									CalloutStage.show();
+									// todo remove all rememberCalloutLocation references
 									
 									try {
 										if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
@@ -322,13 +274,12 @@ public class ClientUtils {
 											} catch (IOException e) {
 												logError("Callout could not be closed: ", e);
 											}
-											if (CalloutStage != null) {
+											if (calloutWindow != null) {
 												delay.setOnFinished(event -> {
 													try {
-														CalloutStage.close();
-														CalloutStage = null;
+														calloutWindow.closeWindow();
 													} catch (NullPointerException e) {
-														log("CalloutStage was closed before it could be automatically closed",
+														log("Callout Window was closed before it could be automatically closed",
 														    LogUtils.Severity.WARN);
 													}
 												});
@@ -338,8 +289,6 @@ public class ClientUtils {
 									} catch (IOException e) {
 										logError("could not read calloutDuration: ", e);
 									}
-									
-									CalloutStage.setOnHidden(event -> CalloutStage = null);
 								});
 							} else {
 								log("Callout Popups are disabled", LogUtils.Severity.DEBUG);

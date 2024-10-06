@@ -123,7 +123,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
 		
 		// AOT (Always on Top) Settings
-		checkAndSetDefaultValue("AOTSettings", "AOTCallout", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTClient", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTDebug", "true");
 		checkAndSetDefaultValue("AOTSettings", "AOTID", "true");

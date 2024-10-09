@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
-            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0" prefWidth="811.0"
+            style="-fx-background-color: transparent;" stylesheets="" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
             <children>
@@ -18,7 +18,7 @@
                             VBox.vgrow="NEVER">
                     <children>
                         <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
-                               text="Sandy Shores, Blaine County" textFill="#545454" AnchorPane.bottomAnchor="0.0"
+                               text="Sandy Shores, Blaine County" AnchorPane.bottomAnchor="0.0"
                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
                                 <Font name="Segoe UI Semibold" size="12.0"/>
@@ -40,13 +40,13 @@
                                 <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78"
-                                               text="v1.0.9-alpha" textFill="#545454" textOverrun="CLIP">
+                                               text="v1.0.9-alpha" textOverrun="CLIP">
                                             <font>
                                                 <Font name="Segoe UI Black" size="12.5"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="dateLabel" alignment="CENTER" graphicTextGap="5.5" text="Date"
-                                               textFill="#656565" HBox.hgrow="ALWAYS">
+                                               HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
                                             </font>
@@ -59,7 +59,7 @@
                                             </graphic>
                                         </Label>
                                         <Label fx:id="timeLabel" alignment="CENTER" graphicTextGap="5.0" text="Time"
-                                               textFill="#656565" HBox.hgrow="ALWAYS">
+                                               HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Black" size="13.0"/>
                                             </font>
@@ -81,13 +81,13 @@
                                 <HBox alignment="CENTER" spacing="3.5" BorderPane.alignment="CENTER">
                                     <children>
                                         <Label alignment="CENTER" text="Server Status:" textAlignment="CENTER"
-                                               textFill="#545454" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Black" size="12.0"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
-                                               textAlignment="CENTER" textFill="#ff5a5a" textOverrun="CLIP"
+                                               textAlignment="CENTER" textFill="#c90000" textOverrun="CLIP"
                                                HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="12.0"/>
@@ -106,145 +106,42 @@
                     <children>
                         <Button fx:id="button1" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="15.0"
                                 AnchorPane.topAnchor="15.0"/>
-                        <AnchorPane fx:id="sideMenu" layoutX="611.0" layoutY="200.0" maxWidth="-Infinity"
-                                    minWidth="-Infinity" prefWidth="200.0"
-                                    style="-fx-background-color: rgb(10,10,10,0.6);" AnchorPane.bottomAnchor="100.0"
-                                    AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="14.0" spacing="15.0"
-                                      AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
-                                      AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                    <children>
-                                        <Label alignment="CENTER" prefWidth="160.0" text="Logged In:"
-                                               textAlignment="CENTER" textFill="WHITE" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="20.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Name:" textAlignment="CENTER" textFill="WHITE" wrapText="true"
-                                               VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="sideName" prefWidth="160.0" text="name" textFill="WHITE"
-                                               wrapText="true" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Number:" textAlignment="CENTER" textFill="WHITE" wrapText="true"
-                                               VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="sideNumber" prefWidth="160.0" text="number" textFill="WHITE"
-                                               wrapText="true" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Rank:" textAlignment="CENTER" textFill="WHITE" wrapText="true"
-                                               VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="sideRank" prefWidth="160.0" text="rank" textFill="WHITE"
-                                               wrapText="true" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Agency:" textAlignment="CENTER" textFill="WHITE" wrapText="true"
-                                               VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="sideAgency" prefWidth="160.0" text="agency" textFill="WHITE"
-                                               wrapText="true" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Division:" textAlignment="CENTER" textFill="WHITE" wrapText="true"
-                                               VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <Label fx:id="sideDivision" prefWidth="160.0" text="division" textFill="WHITE"
-                                               wrapText="true" VBox.vgrow="SOMETIMES">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <HBox alignment="CENTER">
-                                            <children>
-                                                <Button maxWidth="-Infinity" minWidth="-Infinity"
-                                                        mnemonicParsing="false" onAction="#editUser" prefWidth="160.0"
-                                                        style="-fx-background-color: rgb(255,255,255,0.1); -fx-padding: 3 20;"
-                                                        text="Edit" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="12.0"/>
-                                                    </font>
-                                                </Button>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets bottom="-20.0"/>
-                                            </VBox.margin>
-                                        </HBox>
-                                        <HBox alignment="CENTER" VBox.vgrow="SOMETIMES"/>
-                                        <HBox alignment="CENTER"/>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </AnchorPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="bottomBar" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                            prefHeight="45.0" prefWidth="811.0" VBox.vgrow="NEVER">
+                <GridPane maxHeight="-Infinity" minHeight="45.0" prefHeight="45.0" VBox.vgrow="NEVER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
                     <children>
-                        <BorderPane fx:id="taskBar" layoutY="696.0" maxHeight="-Infinity" minHeight="-Infinity"
-                                    prefHeight="45.0" style="-fx-background-color: rgb(0,0,0,0.4);"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane fx:id="taskBar" maxHeight="-Infinity" maxWidth="0.0" minHeight="-Infinity"
+                                    prefHeight="45.0"
+                                    style="-fx-background-color: rgb(0,0,0,0.4); -fx-background-radius: 20 20 0 0;"
+                                    GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                    GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                             <center>
-                                <HBox fx:id="taskBarApps" alignment="CENTER" spacing="10.0"
-                                      BorderPane.alignment="CENTER"/>
+                                <HBox fx:id="taskBarApps" alignment="CENTER" spacing="12.0"
+                                      BorderPane.alignment="CENTER">
+                                    <padding>
+                                        <Insets bottom="3.0" left="5.0" right="5.0" top="3.0"/>
+                                    </padding>
+                                </HBox>
                             </center>
-                            <left>
-                                <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReportBtn"
-                                        style="-fx-padding: 3 10; -fx-background-color: rgb(255,255,255,0.5);"
-                                        text="Create Report" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="13.0"/>
-                                    </font>
-                                    <BorderPane.margin>
-                                        <Insets left="20.0"/>
-                                    </BorderPane.margin>
-                                </Button>
-                            </left>
                         </BorderPane>
+                        <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReportBtn"
+                                style="-fx-padding: 3 10; -fx-background-color: rgb(0,0,0,0.1);" text="Create Report">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="10.0"/>
+                            </GridPane.margin>
+                        </Button>
                     </children>
-                </AnchorPane>
+                </GridPane>
             </children>
         </VBox>
     </center>

@@ -1,6 +1,5 @@
 package com.drozal.dataterminal.util.Window;
 
-import com.drozal.dataterminal.Windows.Server.CurrentIDViewController;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -70,10 +69,6 @@ public class windowUtils {
 		if (stage.equals(notesStage)) {
 			notesStage.setHeight(285);
 			notesStage.setWidth(685);
-		}
-		if (stage.equals(CurrentIDViewController.IDStage)) {
-			CurrentIDViewController.IDStage.setHeight(274);
-			CurrentIDViewController.IDStage.setWidth(514);
 		}
 		stage.centerOnScreen();
 	}

@@ -31,10 +31,9 @@
                                     GridPane.vgrow="NEVER">
                             <children>
                                 <Label fx:id="statusLabel" alignment="CENTER" layoutY="31.0" prefHeight="34.0"
-                                       prefWidth="559.0" style="-fx-background-color: rgb(82, 73, 146,0.65);"
-                                       text="No Connection" textFill="WHITE" AnchorPane.bottomAnchor="8.0"
-                                       AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"
-                                       AnchorPane.topAnchor="8.0">
+                                       prefWidth="559.0" style="-fx-background-color: gray;" text="No Connection"
+                                       textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="9.0"
+                                       AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="8.0">
                                     <font>
                                         <Font name="Segoe UI Black" size="16.0"/>
                                     </font>
@@ -110,8 +109,9 @@
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#connectBtnPress" text="Connect"
-                                GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="connectBtn" mnemonicParsing="false"
+                                onAction="#connectBtnPress" text="Connect" GridPane.halignment="CENTER"
+                                GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="8.0"/>
                             </font>
@@ -119,7 +119,7 @@
                                 <Insets bottom="17.0"/>
                             </GridPane.margin>
                         </Button>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
+                        <Button mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
                                 style="-fx-background-color: gray;" text="Help" GridPane.columnIndex="1"
                                 GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
@@ -138,7 +138,7 @@
                         </DropShadow>
                     </effect>
                 </GridPane>
-                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0"
+                <AnchorPane fx:id="mainHeader" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0"
                             style="-fx-background-color: #524992;" AnchorPane.leftAnchor="-1.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                     <children>

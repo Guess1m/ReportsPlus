@@ -292,12 +292,6 @@ public class reportUtil {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		boolean rememberLocationSize;
-		try {
-			rememberLocationSize = ConfigReader.configRead("layout", "rememberReportLocation").equals("true");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 		
 		Screen screen = Screen.getPrimary();
 		double screenWidth = screen.getVisualBounds().getWidth();
@@ -545,11 +539,7 @@ public class reportUtil {
 		result.put("submitBtn", submitBtn);
 		result.put("root", borderPane);
 		
-		try {
-			stage.setAlwaysOnTop(ConfigReader.configRead("AOTSettings", "AOTReport").equals("true"));
-		} catch (IOException e) {
-			logError("Could not get AOTReport: ", e);
-		}
+		stage.setAlwaysOnTop(true); //todo remove
 		
 		stage.setWidth(preferredWidth);
 		stage.setHeight(preferredHeight);

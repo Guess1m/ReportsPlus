@@ -14,6 +14,7 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
+import jakarta.xml.bind.JAXBException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,6 +22,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -29,6 +31,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -43,6 +46,7 @@ import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Windows.Apps.CourtViewController.scheduleOutcomeRevealsForPendingCases;
 import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.drozal.dataterminal.Windows.Misc.UserManagerController.userManagerController;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesTabList;
@@ -67,14 +71,11 @@ public class mainDesktopController {
 	
 	private static final ContextMenu reportMenuOptions = createReportMenu();
 	public static CustomWindow userManager;
+	
 	@FXML
 	private Button button1;
 	@FXML
-	private BorderPane taskBar;
-	@FXML
 	private HBox taskBarApps;
-	@FXML
-	private AnchorPane bottomBar;
 	@FXML
 	private AnchorPane desktopContainer;
 	@FXML
@@ -96,17 +97,7 @@ public class mainDesktopController {
 	@FXML
 	private Label dateLabel;
 	@FXML
-	private AnchorPane sideMenu;
-	@FXML
-	private Label sideDivision;
-	@FXML
-	private Label sideName;
-	@FXML
-	private Label sideRank;
-	@FXML
-	private Label sideNumber;
-	@FXML
-	private Label sideAgency;
+	private BorderPane taskBar;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -152,14 +143,11 @@ public class mainDesktopController {
 		
 		NotesViewController.notesText = "";
 		
-		// todo add ability for custom image
-		Image image = new Image(Objects.requireNonNull(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg")));
-		BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-		                                                      BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-		                                                      new BackgroundSize(100, 100, true, true, false, true));
-		
-		container.setBackground(new Background(backgroundImage));
+		// todo add ability for custom image\
+		BackgroundFill background_fill = new BackgroundFill(new Color(48 / 255.0, 100 / 255.0, 148 / 255.0, 1),
+		                                                    CornerRadii.EMPTY, Insets.EMPTY);
+		Background background = new Background(background_fill);
+		container.setBackground(background);
 		
 		getTopBar().getChildren().remove(locationDataLabel);
 		
@@ -193,10 +181,10 @@ public class mainDesktopController {
 			if (!stringUtil.version.equals(gitVersion)) {
 				if (gitVersion == null) {
 					versionLabel.setText("New Version Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
+					versionLabel.setStyle("-fx-text-fill: darkred;");
 				} else {
 					versionLabel.setText(gitVersion + " Available!");
-					versionLabel.setStyle("-fx-text-fill: red;");
+					versionLabel.setStyle("-fx-text-fill: darkred;");
 				}
 			}
 			locationDataLabel.setOnMouseClicked(mouseEvent -> {
@@ -229,21 +217,17 @@ public class mainDesktopController {
 				logError("Not able to read serverautoconnect: ", e);
 			}
 			
+			try {
+				scheduleOutcomeRevealsForPendingCases();
+			} catch (JAXBException | IOException e) {
+				logError("Error scheduling outcomes for cases: ", e);
+			}
+			
 		});
 		
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
 		}
-		
-		AnchorPane.setRightAnchor(sideMenu, -180.0);
-		sideMenu.setOnMouseEntered(event -> slideMenu(sideMenu, 0));
-		sideMenu.setOnMouseExited(event -> slideMenu(sideMenu, -180));
-		
-		sideName.setText(ConfigReader.configRead("userInfo", "Name"));
-		sideAgency.setText(ConfigReader.configRead("userInfo", "Agency"));
-		sideNumber.setText(ConfigReader.configRead("userInfo", "Number"));
-		sideDivision.setText(ConfigReader.configRead("userInfo", "Division"));
-		sideRank.setText(ConfigReader.configRead("userInfo", "Rank"));
 	}
 	
 	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
@@ -259,7 +243,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
-					                                        true, 2, true, false, taskBarApps);
+					                                        true, 2, true, false, taskBarApps, notesAppObj.getImage());
 					if (mainApp != null && mainApp.controller != null) {
 						NotesViewController.notesViewController = (NotesViewController) mainApp.controller;
 					}
@@ -279,7 +263,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
-					                 2, true, false, taskBarApps);
+					                 2, true, false, taskBarApps, settingsAppObj.getImage());
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -296,7 +280,7 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
-					                 true, false, taskBarApps);
+					                 true, false, taskBarApps, updatesAppObj.getImage());
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -313,7 +297,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
-					                                       true, 2, true, false, taskBarApps);
+					                                       true, 2, true, false, taskBarApps,
+					                                       logBrowserAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						LogViewController.logController = (LogViewController) logapp.controller;
 					}
@@ -334,7 +319,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
-					                                       "Callout Manager", true, 2, true, false, taskBarApps);
+					                                       "Callout Manager", true, 2, true, false, taskBarApps,
+					                                       calloutManagerAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						CalloutViewController.calloutViewController = (CalloutViewController) logapp.controller;
 					}
@@ -355,7 +341,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
-					                                       "Court Case Manager", true, 2, true, false, taskBarApps);
+					                                       "Court Case Manager", true, 2, true, false, taskBarApps,
+					                                       courtAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						CourtViewController.courtViewController = (CourtViewController) logapp.controller;
 					}
@@ -375,7 +362,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-ped-view.fxml",
-					                                       "Pedestrian Lookup", true, 2, true, false, taskBarApps);
+					                                       "Pedestrian Lookup", true, 2, true, false, taskBarApps,
+					                                       pedLookupAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						pedLookupViewController = (PedLookupViewController) logapp.controller;
 					}
@@ -396,7 +384,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-veh-view.fxml",
-					                                       "Vehicle Lookup", true, 2, true, false, taskBarApps);
+					                                       "Vehicle Lookup", true, 2, true, false, taskBarApps,
+					                                       vehLookupAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						VehLookupViewController.vehLookupViewController = (VehLookupViewController) logapp.controller;
 					}
@@ -411,13 +400,15 @@ public class mainDesktopController {
 		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"),
 		                appConfigRead("Veh Lookup", "y"));
 		
+		//todo fix connectionapp being able to mess up sizing of desktop
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/server.png"))));
 		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
-					                                          "Server Connection", false, 2, true, false, taskBarApps);
+					                                          "Server Connection", false, 2, true, false, taskBarApps,
+					                                          connectionAppObj.getImage());
 					if (serverApp != null && serverApp.controller != null) {
 						clientController = (ClientController) serverApp.controller;
 					}
@@ -437,7 +428,8 @@ public class mainDesktopController {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
-					                                      "Current IDs", false, 2, true, false, taskBarApps);
+					                                      "Current IDs", false, 2, true, true, taskBarApps,
+					                                      showIDAppObj.getImage());
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -447,6 +439,24 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, showIDApp, appConfigRead("Show IDs", "x"), appConfigRead("Show IDs", "y"));
+		
+		DesktopApp profileAppObj = new DesktopApp("Profile", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/profile.png"))));
+		AnchorPane profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					userManager = createFakeWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "Profile", false,
+					                               3, true, false, taskBarApps, profileAppObj.getImage());
+					userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from editUser", e);
+					}
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, profileApp, appConfigRead("Profile", "x"), appConfigRead("Profile", "y"));
 	}
 	
 	private void updateTime() {
@@ -462,29 +472,22 @@ public class mainDesktopController {
 	private void updateConnectionStatus(boolean isConnected) {
 		Platform.runLater(() -> {
 			if (!isConnected) {
-				/* todo find soluation for these being not available when not connected to server
-				showLookupBtn.setVisible(false);
-				showCalloutBtn.setVisible(false);
-				showIDBtn.setVisible(false);*/
 				getTopBar().getChildren().remove(locationDataLabel);
 				
 				log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
-				serverStatusLabel.setStyle("-fx-text-fill: #ff5a5a; -fx-label-padding: 5; -fx-border-radius: 5;");
+				serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					clientController.getPortField().setText("");
 					clientController.getInetField().setText("");
 					clientController.getStatusLabel().setText("Not Connected");
 					clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
-					serverStatusLabel.setStyle("-fx-text-fill: #ff5e5e; -fx-label-padding: 5; -fx-border-radius: 5;");
+					serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 				}
 			} else {
-				/*showLookupBtn.setVisible(true);
-				showCalloutBtn.setVisible(true);
-				showIDBtn.setVisible(true); todo find solution*/
 				serverStatusLabel.setText("Connected");
 				
-				serverStatusLabel.setStyle("-fx-text-fill: green; -fx-label-padding: 5; -fx-border-radius: 5;");
+				serverStatusLabel.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					try {
 						Thread.sleep(500);
@@ -498,12 +501,6 @@ public class mainDesktopController {
 				}
 			}
 		});
-	}
-	
-	private void slideMenu(Pane menu, double targetX) {
-		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(300), event -> AnchorPane.setRightAnchor(menu, targetX)));
-		timeline.play();
 	}
 	
 	@FXML
@@ -522,18 +519,6 @@ public class mainDesktopController {
 		double yPos = bounds.getMinY() - contextMenuHeight;
 		
 		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
-	}
-	
-	@FXML
-	public void editUser(ActionEvent actionEvent) {
-		userManager = createFakeWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "User Manager", false, 3,
-		                               true, false, taskBarApps);
-		userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
-		try {
-			settingsController.loadTheme();
-		} catch (IOException e) {
-			logError("Error loading theme from editUser", e);
-		}
 	}
 	
 	public AnchorPane getDesktopContainer() {
@@ -560,27 +545,4 @@ public class mainDesktopController {
 		return topBar;
 	}
 	
-	public AnchorPane getSideMenu() {
-		return sideMenu;
-	}
-	
-	public Label getSideAgency() {
-		return sideAgency;
-	}
-	
-	public Label getSideDivision() {
-		return sideDivision;
-	}
-	
-	public Label getSideName() {
-		return sideName;
-	}
-	
-	public Label getSideNumber() {
-		return sideNumber;
-	}
-	
-	public Label getSideRank() {
-		return sideRank;
-	}
 }

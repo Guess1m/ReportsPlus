@@ -102,4 +102,8 @@ public class DesktopApp {
 	public double getY() {
 		return mainPane.getTranslateY();
 	}
+	
+	public Image getImage() {
+		return image;
+	}
 }

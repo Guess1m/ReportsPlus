@@ -16,7 +16,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.mainDesktopController.userManager;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
@@ -106,13 +105,6 @@ public class UserManagerController {
 				
 				if (userManager != null) {
 					userManager.closeWindow();
-				}
-				if (mainDesktopControllerObj != null) {
-					mainDesktopControllerObj.getSideAgency().setText(agency);
-					mainDesktopControllerObj.getSideDivision().setText(division);
-					mainDesktopControllerObj.getSideName().setText(nameField.getText().trim());
-					mainDesktopControllerObj.getSideRank().setText(rank);
-					mainDesktopControllerObj.getSideNumber().setText(numberField.getText().trim());
 				}
 			}
 		}

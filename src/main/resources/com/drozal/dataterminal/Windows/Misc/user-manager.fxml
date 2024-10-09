@@ -65,7 +65,7 @@
                     <bottom>
                         <AnchorPane BorderPane.alignment="CENTER">
                             <children>
-                                <Button fx:id="loginBtn" defaultButton="true" layoutX="137.0" maxHeight="-Infinity"
+                                <Button fx:id="loginBtn" layoutX="137.0" maxHeight="-Infinity"
                                         maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                                         mnemonicParsing="false" onAction="#updateBtn"
                                         style="-fx-background-color: rgb(0,0,0,0.4); -fx-background-radius: 5; -fx-padding: 3 20;"

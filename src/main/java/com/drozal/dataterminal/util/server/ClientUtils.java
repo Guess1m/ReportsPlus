@@ -3,25 +3,15 @@ package com.drozal.dataterminal.util.server;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Server.ClientController;
-import com.drozal.dataterminal.Windows.Server.CurrentIDViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
-import com.drozal.dataterminal.util.Window.windowUtils;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
@@ -31,10 +21,10 @@ import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
-import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.*;
 import static com.drozal.dataterminal.Windows.Server.calloutController.getCallout;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -122,6 +112,7 @@ public class ClientUtils {
 							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
 							disconnectFromService();
 							break label;
+						
 						case "UPDATE_LOCATION":
 							log("Received Location update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveLocationFromServer(1024);
@@ -139,66 +130,18 @@ public class ClientUtils {
 								}
 							});
 							break;
+						
 						case "UPDATE_ID":
 							log("Received ID update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveIDFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
-									if (CurrentIDViewController.IDStage != null && CurrentIDViewController.IDStage.isShowing()) {
-										CurrentIDViewController.IDStage.close();
-										CurrentIDViewController.IDStage = null;
-									}
-									CurrentIDViewController.IDStage = new Stage();
-									CurrentIDViewController.IDStage.initStyle(StageStyle.UNDECORATED);
-									FXMLLoader loader = new FXMLLoader(
-											Launcher.class.getResource("Windows/Server/currentID-view.fxml"));
-									Parent root = null;
-									try {
-										root = loader.load();
-									} catch (IOException e) {
-										throw new RuntimeException(e);
-									}
-									Scene newScene = new Scene(root);
-									CurrentIDViewController.IDStage.setTitle("Current ID");
-									CurrentIDViewController.IDStage.setScene(newScene);
-									CurrentIDViewController.IDStage.centerOnScreen();
-									try {
-										CurrentIDViewController.IDStage.setAlwaysOnTop(
-												ConfigReader.configRead("AOTSettings", "AOTID").equals("true"));
-									} catch (IOException e) {
-										logError("Could not fetch AOTID: ", e);
-									}
-									
-									try {
-										if (ConfigReader.configRead("layout", "rememberIDLocation").equals("true")) {
-											if (IDFirstShown) {
-												windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
-												log("IDStage opened via UPDATE_ID message, first time centered",
-												    LogUtils.Severity.INFO);
-											} else {
-												if (IDScreen != null) {
-													Rectangle2D screenBounds = IDScreen.getVisualBounds();
-													CurrentIDViewController.IDStage.setX(IDx);
-													CurrentIDViewController.IDStage.setY(IDy);
-													
-													if (IDx < screenBounds.getMinX() || IDx > screenBounds.getMaxX() || IDy < screenBounds.getMinY() || IDy > screenBounds.getMaxY()) {
-														windowUtils.centerStageOnMainApp(
-																CurrentIDViewController.IDStage);
-													}
-												} else {
-													windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
-												}
-												log("IDStage opened via UPDATE_ID message, XValue: " + IDx + " YValue: " + IDy,
-												    LogUtils.Severity.INFO);
-											}
-										} else {
-											windowUtils.centerStageOnMainApp(CurrentIDViewController.IDStage);
-										}
-									} catch (IOException e) {
-										logError("Could not read rememberIDLocation from UPDATE_ID: ", e);
-									}
-									/*todo moved from previous location so it doesnt flicker*/
-									CurrentIDViewController.IDStage.show();
+									CustomWindow IDWindow = createFakeWindow(
+											mainDesktopControllerObj.getDesktopContainer(),
+											"Windows/Server/currentID-view.fxml", "Current IDs", false, 2, true, true,
+											mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+													Launcher.class.getResourceAsStream(
+															"/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
 									
 									try {
 										if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
@@ -209,12 +152,12 @@ public class ClientUtils {
 											} catch (IOException e) {
 												logError("ID could not be closed: ", e);
 											}
-											if (CurrentIDViewController.IDStage != null) {
+											if (IDWindow != null) {
 												delay.setOnFinished(event -> {
 													try {
-														CurrentIDViewController.IDStage.close();
+														IDWindow.closeWindow();
 													} catch (NullPointerException e) {
-														log("IDStage was closed before it could be automtically closed",
+														log("ID Window was closed before it could be automatically closed",
 														    LogUtils.Severity.WARN);
 													}
 												});
@@ -224,28 +167,13 @@ public class ClientUtils {
 									} catch (IOException e) {
 										logError("could not read IDDuration: ", e);
 									}
-									
-									CurrentIDViewController.IDStage.setOnHidden(new EventHandler<WindowEvent>() {
-										@Override
-										public void handle(WindowEvent event) {
-											IDx = CurrentIDViewController.IDStage.getX();
-											IDy = CurrentIDViewController.IDStage.getY();
-											IDScreen = Screen.getScreensForRectangle(IDx, IDy,
-											                                         CurrentIDViewController.IDStage.getWidth(),
-											                                         CurrentIDViewController.IDStage.getHeight()).stream().findFirst().orElse(
-													null);
-											log("IDStage closed via UPDATE_ID message, set XValue: " + IDx + " YValue: " + IDy,
-											    LogUtils.Severity.DEBUG);
-											IDFirstShown = false;
-											CurrentIDViewController.IDStage = null;
-										}
-									});
 								});
 							} else {
 								log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
 								NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved");
 							}
 							break;
+						
 						case "UPDATE_CALLOUT":
 							log("Received Callout update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveCalloutFromServer(4096);
@@ -254,7 +182,9 @@ public class ClientUtils {
 									CustomWindow calloutWindow = createFakeWindow(
 											mainDesktopControllerObj.getDesktopContainer(),
 											"Windows/Server/callout-view.fxml", "Callout Display", false, 4, true, true,
-											mainDesktopControllerObj.getTaskBarApps());
+											mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+													Launcher.class.getResourceAsStream(
+															"com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
 									try {
 										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
 												"true")) {
@@ -322,15 +252,17 @@ public class ClientUtils {
 								}
 							}
 							break;
+						
 						case "UPDATE_WORLD_PED":
 							log("Received World Ped update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldPedFromServer(4096);
 							break;
+						
 						case "UPDATE_WORLD_VEH":
 							log("Received World Veh update", LogUtils.Severity.DEBUG);
 							FileUtlis.receiveWorldVehFromServer(4096);
-							
 							break;
+						
 						default:
 							break;
 					}

@@ -507,7 +507,8 @@ public class PedLookupViewController {
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
 		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 3, true,
-		                 false, mainDesktopControllerObj.getTaskBarApps());
+		                 false, mainDesktopControllerObj.getTaskBarApps(), new Image(
+						Launcher.class.getResourceAsStream("com/drozal/dataterminal/imgs/icons/Apps/setting.png")));
 	}
 	
 	@javafx.fxml.FXML

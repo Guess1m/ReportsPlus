@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="root" prefHeight="641.0" prefWidth="668.0" stylesheets="@../../css/lookups/lookup.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="641.0" prefWidth="668.0"
+            stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -85,7 +85,8 @@
                                                     <children>
                                                         <ComboBox fx:id="vehSearchField" editable="true"
                                                                   minWidth="100.0" prefHeight="36.0" prefWidth="565.0"
-                                                                  visibleRowCount="5" AnchorPane.bottomAnchor="0.0"
+                                                                  styleClass="combo-boxSearch" visibleRowCount="5"
+                                                                  AnchorPane.bottomAnchor="0.0"
                                                                   AnchorPane.leftAnchor="0.0"
                                                                   AnchorPane.rightAnchor="0.0"
                                                                   AnchorPane.topAnchor="0.0"/>

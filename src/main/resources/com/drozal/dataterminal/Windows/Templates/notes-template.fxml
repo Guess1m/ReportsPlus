@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main"
             prefHeight="285.0"
-            style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" stylesheets="@../../css/notes/notes.css" HBox.hgrow="ALWAYS"
+            style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;"
+            stylesheets="@../../css/notes/notes.css" HBox.hgrow="ALWAYS"
             xmlns="http://javafx.com/javafx/21">
     <children>
         <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="337.0"

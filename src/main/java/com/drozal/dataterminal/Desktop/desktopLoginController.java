@@ -138,7 +138,9 @@ public class desktopLoginController {
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			
-			primaryStage.setFullScreen(true); // todo make callout and id windows part of the main window
+			// todo add a config for this
+			primaryStage.setFullScreen(
+					true); // todo make callout and id windows part of the main window (possibly completed)
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

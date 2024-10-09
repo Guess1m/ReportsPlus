@@ -122,15 +122,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoTextColor", "#ffffff");
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
 		
-		// AOT (Always on Top) Settings
-		checkAndSetDefaultValue("AOTSettings", "AOTClient", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTDebug", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTID", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTMap", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTNotes", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTReport", "true");
-		checkAndSetDefaultValue("AOTSettings", "AOTSettings", "true");
-		
 		// User Information
 		checkAndSetDefaultValue("userInfo", "Agency", "Error");
 		checkAndSetDefaultValue("userInfo", "Division", "Error");
@@ -162,12 +153,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
 		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "10000");
-		
-		// Layout Settings
-		checkAndSetDefaultValue("layout", "rememberIDLocation", "true");
-		checkAndSetDefaultValue("layout", "rememberCalloutLocation", "true");
-		checkAndSetDefaultValue("layout", "rememberReportLocation", "true");
-		checkAndSetDefaultValue("layout", "rememberNotesLocation", "true");
 		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");

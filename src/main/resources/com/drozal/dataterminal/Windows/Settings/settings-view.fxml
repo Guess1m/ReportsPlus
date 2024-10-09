@@ -5,9 +5,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0"
-            prefWidth="766.0" stylesheets="@../../css/settings/settings.css"
-            xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="766.0"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <center>
         <AnchorPane fx:id="root2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -634,126 +634,6 @@
                                                                         vgrow="SOMETIMES"/>
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="lbl5" style="-fx-text-fill: #665CB6;"
-                                                               text="Keep Window On Top" textFill="#505d64"
-                                                               GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                                               GridPane.valignment="CENTER">
-                                                            <font>
-                                                                <Font name="Segoe UI Black" size="17.0"/>
-                                                            </font>
-                                                        </Label>
-                                                        <CheckBox fx:id="AOTNotes" mnemonicParsing="false"
-                                                                  onAction="#NotesAOTClick" selected="true" text="Notes"
-                                                                  GridPane.halignment="LEFT" GridPane.rowIndex="1"
-                                                                  GridPane.valignment="CENTER">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets right="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTCallout" mnemonicParsing="false"
-                                                                  onAction="#calloutAOTClick" selected="true"
-                                                                  text="Callout" GridPane.halignment="LEFT"
-                                                                  GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets right="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTReport" mnemonicParsing="false"
-                                                                  onAction="#reportAOTClick" selected="true"
-                                                                  text="Report" GridPane.halignment="LEFT"
-                                                                  GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets right="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTID" mnemonicParsing="false"
-                                                                  onAction="#IDAOTClick" selected="true" text="ID"
-                                                                  GridPane.halignment="LEFT" GridPane.rowIndex="4"
-                                                                  GridPane.valignment="CENTER">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets right="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTSettings" mnemonicParsing="false"
-                                                                  onAction="#settingsAOTClick" selected="true"
-                                                                  text="Settings" GridPane.columnIndex="1"
-                                                                  GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets left="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTMap" mnemonicParsing="false"
-                                                                  onAction="#mapAOTClick" selected="true" text="Map"
-                                                                  GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                                                                  GridPane.rowIndex="2">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets left="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTClient" mnemonicParsing="false"
-                                                                  onAction="#ClientAOTClick" selected="true"
-                                                                  text="Client" GridPane.columnIndex="1"
-                                                                  GridPane.halignment="LEFT" GridPane.rowIndex="3">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets left="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="AOTDebug" mnemonicParsing="false"
-                                                                  onAction="#debugAOTClick" selected="true" text="Debug"
-                                                                  GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                                                                  GridPane.rowIndex="4">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                                            </font>
-                                                            <padding>
-                                                                <Insets left="20.0"/>
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets left="20.0"/>
-                                                            </GridPane.margin>
-                                                        </CheckBox>
                                                         <Label fx:id="lbl7" style="-fx-text-fill: #665CB6;"
                                                                text="Window Display Durations" textFill="#505d64"
                                                                GridPane.columnIndex="2">
@@ -834,66 +714,6 @@
                                                                 <Insets left="20.0"/>
                                                             </GridPane.margin>
                                                         </GridPane>
-                                                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                            <children>
-                                                                <CheckBox fx:id="saveCalloutLocationCheckbox"
-                                                                          alignment="CENTER" mnemonicParsing="false"
-                                                                          onAction="#rememberCalloutLocationClick"
-                                                                          prefHeight="50.0" selected="true"
-                                                                          text="Remember Callout Window Location"
-                                                                          AnchorPane.bottomAnchor="0.0"
-                                                                          AnchorPane.leftAnchor="10.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="0.0">
-                                                                    <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                                                    </font>
-                                                                    <padding>
-                                                                        <Insets left="5.0"/>
-                                                                    </padding>
-                                                                </CheckBox>
-                                                            </children>
-                                                        </AnchorPane>
-                                                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-                                                            <children>
-                                                                <CheckBox fx:id="saveIDLocationCheckbox"
-                                                                          alignment="CENTER" mnemonicParsing="false"
-                                                                          onAction="#rememberIDLocationClick"
-                                                                          prefHeight="50.0" selected="true"
-                                                                          text="Remember ID Window Location"
-                                                                          AnchorPane.bottomAnchor="0.0"
-                                                                          AnchorPane.leftAnchor="10.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="0.0">
-                                                                    <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                                                    </font>
-                                                                    <padding>
-                                                                        <Insets left="5.0"/>
-                                                                    </padding>
-                                                                </CheckBox>
-                                                            </children>
-                                                        </AnchorPane>
-                                                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                                            <children>
-                                                                <CheckBox fx:id="saveNotesLocationCheckbox"
-                                                                          alignment="CENTER" mnemonicParsing="false"
-                                                                          onAction="#rememberNotesLocationClick"
-                                                                          prefHeight="50.0" selected="true"
-                                                                          text="Remember Notes Window Location"
-                                                                          AnchorPane.bottomAnchor="0.0"
-                                                                          AnchorPane.leftAnchor="10.0"
-                                                                          AnchorPane.rightAnchor="20.0"
-                                                                          AnchorPane.topAnchor="0.0">
-                                                                    <font>
-                                                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                                                    </font>
-                                                                    <padding>
-                                                                        <Insets left="5.0"/>
-                                                                    </padding>
-                                                                </CheckBox>
-                                                            </children>
-                                                        </AnchorPane>
                                                         <Button fx:id="windowPageTwoBtn" contentDisplay="RIGHT"
                                                                 mnemonicParsing="false"
                                                                 onAction="#windowPageTwoBtnClick"

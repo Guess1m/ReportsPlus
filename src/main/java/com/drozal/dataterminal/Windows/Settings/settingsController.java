@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.Windows.Settings;
 
+import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
@@ -8,6 +9,7 @@ import com.drozal.dataterminal.util.Misc.NotificationManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -26,6 +28,7 @@ import static com.drozal.dataterminal.Windows.Apps.LogViewController.logControll
 import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.drozal.dataterminal.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.drozal.dataterminal.Windows.Misc.UserManagerController.userManagerController;
+import static com.drozal.dataterminal.Windows.Server.ClientController.clientController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
@@ -70,24 +73,6 @@ public class settingsController {
 	private Label lbl3;
 	@javafx.fxml.FXML
 	private ComboBox calloutDurComboBox;
-	@javafx.fxml.FXML
-	private Label lbl5;
-	@javafx.fxml.FXML
-	private CheckBox AOTReport;
-	@javafx.fxml.FXML
-	private CheckBox AOTSettings;
-	@javafx.fxml.FXML
-	private CheckBox AOTNotes;
-	@javafx.fxml.FXML
-	private CheckBox AOTCallout;
-	@javafx.fxml.FXML
-	private CheckBox AOTID;
-	@javafx.fxml.FXML
-	private CheckBox AOTMap;
-	@javafx.fxml.FXML
-	private CheckBox AOTDebug;
-	@javafx.fxml.FXML
-	private CheckBox AOTClient;
 	@javafx.fxml.FXML
 	private ColorPicker headingPickerReport;
 	@javafx.fxml.FXML
@@ -147,10 +132,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
 	@javafx.fxml.FXML
-	private CheckBox saveCalloutLocationCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox saveIDLocationCheckbox;
-	@javafx.fxml.FXML
 	private GridPane colorPageTwo;
 	@javafx.fxml.FXML
 	private GridPane colorPageOne;
@@ -195,8 +176,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private CheckBox saveReportLocationCheckbox;
 	@javafx.fxml.FXML
-	private CheckBox saveNotesLocationCheckbox;
-	@javafx.fxml.FXML
 	private CheckBox enableIDPopupsCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox enableCalloutPopupsCheckbox;
@@ -237,6 +216,11 @@ public class settingsController {
 		String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 		String nonTransparentBtn = "-fx-background-color: " + accclr + ";";
 		
+		if (clientController != null) {
+			clientController.getStatusLabel().setStyle("-fx-background-color: " + mainclr + ";");
+			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
+			clientController.getMainHeader().setStyle("-fx-background-color: " + mainclr + ";");
+		}
 		if (userManagerController != null) {
 			userManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
@@ -409,10 +393,10 @@ public class settingsController {
 			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
 			if (isConnected) {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
-						"-fx-text-fill: green; -fx-label-padding: 5; -fx-border-radius: 5;");
+						"-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 			} else {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle(
-						"-fx-text-fill: #ff5e5e; -fx-label-padding: 5; -fx-border-radius: 5;");
+						"-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
 		}
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
@@ -657,7 +641,6 @@ public class settingsController {
 			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
 			
 			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl5.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
@@ -749,23 +732,6 @@ public class settingsController {
 				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
 		serverAutoconnectCheckbox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
-		saveCalloutLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberCalloutLocation").equalsIgnoreCase("true"));
-		saveReportLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberReportLocation").equalsIgnoreCase("true"));
-		saveIDLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberIDLocation").equalsIgnoreCase("true"));
-		saveNotesLocationCheckbox.setSelected(
-				ConfigReader.configRead("layout", "rememberNotesLocation").equalsIgnoreCase("true"));
-		AOTNotes.setSelected(ConfigReader.configRead("AOTSettings", "AOTNotes").equalsIgnoreCase("true"));
-		AOTReport.setSelected(ConfigReader.configRead("AOTSettings", "AOTReport").equalsIgnoreCase("true"));
-		AOTMap.setSelected(ConfigReader.configRead("AOTSettings", "AOTMap").equalsIgnoreCase("true"));
-		AOTID.setSelected(ConfigReader.configRead("AOTSettings", "AOTID").equalsIgnoreCase("true"));
-		// todo remove all aotcallout references
-		AOTCallout.setSelected(ConfigReader.configRead("AOTSettings", "AOTCallout").equalsIgnoreCase("true"));
-		AOTSettings.setSelected(ConfigReader.configRead("AOTSettings", "AOTSettings").equalsIgnoreCase("true"));
-		AOTClient.setSelected(ConfigReader.configRead("AOTSettings", "AOTClient").equalsIgnoreCase("true"));
-		AOTDebug.setSelected(ConfigReader.configRead("AOTSettings", "AOTDebug").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -1360,7 +1326,9 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/output-view.fxml",
-		                 "Application Logs", false, 2, true, false, mainDesktopControllerObj.getTaskBarApps());
+		                 "Application Logs", false, 2, true, false, mainDesktopControllerObj.getTaskBarApps(),
+		                 new Image(Launcher.class.getResourceAsStream(
+				                 "com/drozal/dataterminal/imgs/icons/Apps/updates.png")));
 	}
 	
 	@javafx.fxml.FXML
@@ -1406,94 +1374,6 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void settingsAOTClick(ActionEvent actionEvent) {
-		if (AOTSettings.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTSettings", "true");
-			AOTSettings.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTSettings", "false");
-			AOTSettings.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void reportAOTClick(ActionEvent actionEvent) {
-		if (AOTReport.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTReport", "true");
-			AOTReport.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTReport", "false");
-			AOTReport.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void mapAOTClick(ActionEvent actionEvent) {
-		if (AOTMap.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTMap", "true");
-			AOTMap.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTMap", "false");
-			AOTMap.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void calloutAOTClick(ActionEvent actionEvent) {
-		if (AOTCallout.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTCallout", "true");
-			AOTCallout.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTCallout", "false");
-			AOTCallout.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void IDAOTClick(ActionEvent actionEvent) {
-		if (AOTID.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTID", "true");
-			AOTID.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTID", "false");
-			AOTID.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void NotesAOTClick(ActionEvent actionEvent) {
-		if (AOTNotes.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTNotes", "true");
-			AOTNotes.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTNotes", "false");
-			AOTNotes.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void ClientAOTClick(ActionEvent actionEvent) {
-		if (AOTClient.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTClient", "true");
-			AOTClient.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTClient", "false");
-			AOTClient.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void debugAOTClick(ActionEvent actionEvent) {
-		if (AOTDebug.isSelected()) {
-			ConfigWriter.configwrite("AOTSettings", "AOTDebug", "true");
-			AOTDebug.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("AOTSettings", "AOTDebug", "false");
-			AOTDebug.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void serverAutoConnectClick(ActionEvent actionEvent) {
 		if (serverAutoconnectCheckbox.isSelected()) {
 			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "true");
@@ -1501,28 +1381,6 @@ public class settingsController {
 		} else {
 			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "false");
 			serverAutoconnectCheckbox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void rememberIDLocationClick(ActionEvent actionEvent) {
-		if (saveIDLocationCheckbox.isSelected()) {
-			ConfigWriter.configwrite("layout", "rememberIDLocation", "true");
-			saveIDLocationCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("layout", "rememberIDLocation", "false");
-			saveIDLocationCheckbox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void rememberCalloutLocationClick(ActionEvent actionEvent) {
-		if (saveCalloutLocationCheckbox.isSelected()) {
-			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "true");
-			saveCalloutLocationCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("layout", "rememberCalloutLocation", "false");
-			saveCalloutLocationCheckbox.setSelected(false);
 		}
 	}
 	
@@ -1552,24 +1410,6 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void rememberReportLocationClick(ActionEvent actionEvent) {
-		if (saveReportLocationCheckbox.isSelected()) {
-			ConfigWriter.configwrite("layout", "rememberReportLocation", "true");
-			saveReportLocationCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("layout", "rememberReportLocation", "false");
-			saveReportLocationCheckbox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
-	public void rememberNotesLocationClick(ActionEvent actionEvent) {
-		if (saveNotesLocationCheckbox.isSelected()) {
-			ConfigWriter.configwrite("layout", "rememberNotesLocation", "true");
-			saveNotesLocationCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("layout", "rememberNotesLocation", "false");
-			saveNotesLocationCheckbox.setSelected(false);
-		}
 	}
 	
 	@javafx.fxml.FXML
@@ -1652,19 +1492,6 @@ public class settingsController {
 		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
 		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
 		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
-		
-		addTooltip(saveCalloutLocationCheckbox, "Keep Callout Window In Same Location");
-		addTooltip(saveIDLocationCheckbox, "Keep ID Window In Same Location");
-		addTooltip(saveNotesLocationCheckbox, "Keep Notes Window In Same Location");
-		
-		addTooltip(AOTCallout, "Keep Callout Window On Top");
-		addTooltip(AOTClient, "Keep Client Window On Top");
-		addTooltip(AOTID, "Keep ID Window On Top");
-		addTooltip(AOTDebug, "Keep Debug Window On Top");
-		addTooltip(AOTMap, "Keep Map Window On Top");
-		addTooltip(AOTNotes, "Keep Notes Window On Top");
-		addTooltip(AOTReport, "Keep Report Window On Top");
-		addTooltip(AOTSettings, "Keep Settings Window On Top");
 		
 		addTooltip(tt4, "UI Theme Presets");
 		addTooltip(tt5, "UI Text Color");

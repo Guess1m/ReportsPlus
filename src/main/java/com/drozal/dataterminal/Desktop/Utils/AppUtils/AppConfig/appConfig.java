@@ -90,38 +90,42 @@ public class appConfig {
 	
 	public static void checkAndSetDefaultAppValues() {
 		log("====================== App Config ======================", LogUtils.Severity.INFO);
-		// X 45
-		checkAndSetDefaultAppValue("Notes", "x", "45.0");
+		String x1 = String.valueOf(45.0);
+		checkAndSetDefaultAppValue("Notes", "x", x1);
 		checkAndSetDefaultAppValue("Notes", "y", "100.0");
 		
-		checkAndSetDefaultAppValue("Log Browser", "x", "45.0");
+		checkAndSetDefaultAppValue("Log Browser", "x", x1);
 		checkAndSetDefaultAppValue("Log Browser", "y", "203.0");
 		
-		checkAndSetDefaultAppValue("Callouts", "x", "45.0");
+		checkAndSetDefaultAppValue("Callouts", "x", x1);
 		checkAndSetDefaultAppValue("Callouts", "y", "0.0");
 		
-		checkAndSetDefaultAppValue("CourtCase", "x", "45.0");
+		checkAndSetDefaultAppValue("CourtCase", "x", x1);
 		checkAndSetDefaultAppValue("CourtCase", "y", "310.0");
 		
-		checkAndSetDefaultAppValue("Show IDs", "x", "45.0");
+		checkAndSetDefaultAppValue("Show IDs", "x", x1);
 		checkAndSetDefaultAppValue("Show IDs", "y", "417.0");
 		
-		// X 200
-		checkAndSetDefaultAppValue("Ped Lookup", "x", "200.0");
+		String x2 = String.valueOf(200.0);
+		checkAndSetDefaultAppValue("Ped Lookup", "x", x2);
 		checkAndSetDefaultAppValue("Ped Lookup", "y", "0.0");
 		
-		checkAndSetDefaultAppValue("Veh Lookup", "x", "200.0");
+		checkAndSetDefaultAppValue("Veh Lookup", "x", x2);
 		checkAndSetDefaultAppValue("Veh Lookup", "y", "101.0");
 		
-		// X 376
-		checkAndSetDefaultAppValue("Server", "x", "376.0");
+		String x3 = String.valueOf(355.0);
+		checkAndSetDefaultAppValue("Server", "x", x3);
 		checkAndSetDefaultAppValue("Server", "y", "0.0");
 		
-		checkAndSetDefaultAppValue("Updates", "x", "376.0");
+		checkAndSetDefaultAppValue("Updates", "x", x3);
 		checkAndSetDefaultAppValue("Updates", "y", "100.0");
 		
-		checkAndSetDefaultAppValue("Settings", "x", "376.0");
+		checkAndSetDefaultAppValue("Settings", "x", x3);
 		checkAndSetDefaultAppValue("Settings", "y", "203.0");
+		
+		String x4 = String.valueOf(510.0);
+		checkAndSetDefaultAppValue("Profile", "x", x4);
+		checkAndSetDefaultAppValue("Profile", "y", "0.0");
 		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}

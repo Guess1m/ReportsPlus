@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -41,8 +42,9 @@ public class CustomWindow {
 	private double originalX;
 	private double originalY;
 	private boolean isMaximized = false;
+	private Image image;
 	
-	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root) throws IOException {
+	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) throws IOException {
 		URL fxmlUrl = Launcher.class.getResource(fileName);
 		if (fxmlUrl == null) {
 			throw new IOException("FXML file not found: " + fileName);
@@ -54,11 +56,21 @@ public class CustomWindow {
 		this.priority = priority;
 		controller = loader.getController();
 		this.root = root;
+		this.image = image;
 		
 		initializeWindow(resizable);
 		addMainStageResizeListener();
 		
-		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this);
+		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
+		
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(new Color(0, 0, 0, 0.35));
+		dropShadow.setOffsetX(0);
+		dropShadow.setOffsetY(0);
+		dropShadow.setRadius(20.0);
+		dropShadow.setSpread(0.2);
+		windowPane.setEffect(dropShadow);
+		
 	}
 	
 	private void addMainStageResizeListener() {
@@ -106,17 +118,12 @@ public class CustomWindow {
 	public void bringToFront() {
 		int currentPriority = this.getPriority();
 		
-		boolean hasHigherPriorityWindow = windows.values().stream().anyMatch(
-				window -> window.getPriority() > currentPriority);
+		this.getWindowPane().toFront();
 		
-		if (!hasHigherPriorityWindow) {
-			this.getWindowPane().toFront();
-		}
+		windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(
+				window -> window.getWindowPane().toFront());
 		
 		windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(
-				window -> window.getWindowPane().toBack());
-		
-		windows.values().stream().filter(window -> window.getPriority() == currentPriority && window != this).forEach(
 				window -> window.getWindowPane().toBack());
 		
 		if (mainDesktopControllerObj != null) {
@@ -126,7 +133,6 @@ public class CustomWindow {
 			for (AnchorPane noti : currentNotifications) {
 				noti.toFront();
 			}
-			mainDesktopControllerObj.getSideMenu().toFront();
 			mainDesktopControllerObj.getButton1().toBack();
 		}
 	}
@@ -386,5 +392,9 @@ public class CustomWindow {
 	
 	public Pane getWindowPane() {
 		return windowPane;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 }

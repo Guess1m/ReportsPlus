@@ -6,6 +6,7 @@ import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +34,10 @@ public class ClientController {
 	private TextField inputHostField;
 	@javafx.fxml.FXML
 	private Label statusLabel;
+	@javafx.fxml.FXML
+	private Button connectBtn;
+	@javafx.fxml.FXML
+	private AnchorPane mainHeader;
 	
 	public Label getStatusLabel() {
 		return statusLabel;
@@ -44,6 +49,14 @@ public class ClientController {
 	
 	public TextField getPortField() {
 		return portField;
+	}
+	
+	public AnchorPane getMainHeader() {
+		return mainHeader;
+	}
+	
+	public Button getConnectBtn() {
+		return connectBtn;
 	}
 	
 	public void initialize() throws IOException {

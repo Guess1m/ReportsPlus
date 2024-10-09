@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -348,7 +349,9 @@ public class NotesViewController {
 		if (mainDesktopControllerObj != null) {
 			codesWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
 			                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 3, true, false,
-			                               mainDesktopControllerObj.getTaskBarApps());
+			                               mainDesktopControllerObj.getTaskBarApps(), new Image(
+							Launcher.class.getResourceAsStream(
+									"/com/drozal/dataterminal/imgs/icons/Apps/setting.png")));
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.Windows.Apps;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Accident.AccidentReport;
 import com.drozal.dataterminal.logs.Accident.AccidentReportUtils;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
@@ -346,7 +348,6 @@ public class LogViewController {
 				notes.setText(deathReport.getNotesTextArea());
 				
 				BorderPane root = (BorderPane) deathReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
 				Button delBtn = (Button) deathReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -358,8 +359,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete DeathReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Death Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -437,8 +439,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete CalloutReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Callout Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -512,8 +515,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete PatrolReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Patrol Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -614,8 +618,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete TrafficStopReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Traffic Stop Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -704,8 +709,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete IncidentReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Incident Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -795,8 +801,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete ImpoundReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Impound Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -895,8 +902,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete TrafficCitationReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Citation Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -1001,8 +1009,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete SearchReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Search Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -1096,8 +1105,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Arrest Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
@@ -1208,8 +1218,9 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete AccidentReport #" + numToDelete + ": ", e);
 					}
-					if (stage != null) {
-						stage.close();
+					CustomWindow window = getWindow("Accident Report");
+					if (window != null) {
+						window.closeWindow();
 					}
 					try {
 						if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {

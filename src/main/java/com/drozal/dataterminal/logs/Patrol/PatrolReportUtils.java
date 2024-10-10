@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.logs.Patrol;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -14,7 +15,6 @@ import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -25,6 +25,7 @@ import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -135,7 +136,6 @@ public class PatrolReportUtils {
 		TextField vehicle = (TextField) patrolReportMap.get("vehicle");
 		
 		BorderPane root = (BorderPane) patrolReport.get("root");
-		Stage stage = (Stage) root.getScene().getWindow();
 		
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
 		
@@ -225,7 +225,10 @@ public class PatrolReportUtils {
 				
 				NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.");
 				
-				stage.close();
+				CustomWindow window = getWindow("Patrol Report");
+				if (window != null) {
+					window.closeWindow();
+				}
 			}
 		});
 		return patrolReport;

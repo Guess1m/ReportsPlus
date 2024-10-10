@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.logs.Callout;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -14,7 +15,6 @@ import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -25,6 +25,7 @@ import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -228,8 +229,10 @@ public class CalloutReportUtils {
 				LogViewController.needRefresh.set(1);
 				
 				NotificationManager.showNotificationInfo("Report Manager", "A new Callout Report has been submitted.");
-				Stage rootstage = (Stage) root.getScene().getWindow();
-				rootstage.close();
+				CustomWindow window = getWindow("Callout Report");
+				if (window != null) {
+					window.closeWindow();
+				}
 			}
 		});
 		return calloutReport;

@@ -4,6 +4,7 @@ import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -51,5 +52,37 @@ public class WindowManager {
 			}
 		}
 		return null;
+	}
+	
+	public static CustomWindow createFakeWindow(AnchorPane root, BorderPane window, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
+		if (!windows.containsKey(title)) {
+			CustomWindow customWindow = new CustomWindow(window, title, resizable, priority, taskBarApps, root, image);
+			if (root != null) {
+				root.getChildren().add(customWindow.getWindowPane());
+				if (centerOnDesktop) {
+					customWindow.centerOnDesktop();
+				}
+				
+				windows.put(title, customWindow);
+				
+				customWindow.bringToFront();
+			}
+			return customWindow;
+		}
+		{
+			CustomWindow customWindow = windows.get(title);
+			if (reopen) {
+				LogUtils.log(windows.get(title) + " is already created, closing", LogUtils.Severity.WARN);
+				customWindow.closeWindow();
+				createFakeWindow(root, window, title, resizable, priority, centerOnDesktop, true, taskBarApps, image);
+			} else {
+				customWindow.bringToFront();
+			}
+		}
+		return null;
+	}
+	
+	public static CustomWindow getWindow(String title) {
+		return windows.get(title);
 	}
 }

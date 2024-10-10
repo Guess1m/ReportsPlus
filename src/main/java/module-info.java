@@ -42,8 +42,6 @@ module com.drozal.dataterminal {
 	opens com.drozal.dataterminal.util.server.Objects.ID to jakarta.xml.bind, javafx.fxml;
 	exports com.drozal.dataterminal.util.Report;
 	opens com.drozal.dataterminal.util.Report to jakarta.xml.bind, javafx.fxml;
-	exports com.drozal.dataterminal.util.Window;
-	opens com.drozal.dataterminal.util.Window to jakarta.xml.bind, javafx.fxml;
 	exports com.drozal.dataterminal.util.Misc;
 	opens com.drozal.dataterminal.util.Misc to jakarta.xml.bind, javafx.fxml;
 	exports com.drozal.dataterminal.Windows.Settings;

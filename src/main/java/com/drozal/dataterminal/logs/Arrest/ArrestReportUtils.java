@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.logs.Arrest;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.ChargesData;
@@ -23,7 +24,6 @@ import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -32,6 +32,7 @@ import java.util.*;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.getNextIndex;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.needCourtRefresh;
 import static com.drozal.dataterminal.Windows.Apps.PedLookupViewController.pedLookupViewController;
@@ -213,7 +214,6 @@ public class ArrestReportUtils {
 		transfersearchbtn.setText("New Search Report");
 		
 		BorderPane root = (BorderPane) arrestReport.get("root");
-		Stage stage = (Stage) root.getScene().getWindow();
 		
 		MenuButton pullnotesbtn = (MenuButton) arrestReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
@@ -532,7 +532,10 @@ public class ArrestReportUtils {
 				}
 				LogViewController.needRefresh.set(1);
 				
-				stage.close();
+				CustomWindow window = getWindow("Arrest Report");
+				if (window != null) {
+					window.closeWindow();
+				}
 			}
 		});
 		

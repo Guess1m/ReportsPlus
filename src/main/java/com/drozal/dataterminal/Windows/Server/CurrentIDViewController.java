@@ -3,7 +3,6 @@ package com.drozal.dataterminal.Windows.Server;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.util.History.IDHistory;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.Objects.ID.ID;
 import com.drozal.dataterminal.util.server.Objects.ID.IDs;
 import jakarta.xml.bind.JAXBException;
@@ -16,7 +15,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -124,9 +122,6 @@ public class CurrentIDViewController {
 	}
 	
 	public void initialize() throws IOException {
-		AnchorPane titleBar = reportUtil.createSimpleTitleBar("Current ID", false);
-		root.setTop(titleBar);
-		
 		noIDFoundlbl.setVisible(true);
 		
 		Platform.runLater(() -> {

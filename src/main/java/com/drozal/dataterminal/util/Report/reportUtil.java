@@ -7,24 +7,17 @@ import com.drozal.dataterminal.logs.CitationsData;
 import com.drozal.dataterminal.util.Misc.AutoCompleteComboBoxListener;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.dropdownInfo;
-import com.drozal.dataterminal.util.Window.ResizeHelper;
-import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -36,24 +29,18 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
-import static com.drozal.dataterminal.util.Window.windowUtils.centerStageOnMainApp;
-import static com.drozal.dataterminal.util.Window.windowUtils.toggleWindowedFullscreen;
 
 public class reportUtil {
-	static double windowX = 0;
-	static double windowY = 0;
-	static double windowWidth = 0;
-	static double windowHeight = 0;
-	private static double xOffset;
-	private static double yOffset;
-	
 	private static String getPrimaryColor() {
 		String primaryColor;
 		try {
@@ -84,207 +71,6 @@ public class reportUtil {
 		return accentColor;
 	}
 	
-	public static AnchorPane createTitleBar(String titleText) {
-		ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setSaturation(-1.0);
-		colorAdjust.setBrightness(-0.45);
-		
-		Label titleLabel = new Label(titleText);
-		titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
-		titleLabel.setAlignment(Pos.CENTER);
-		AnchorPane.setLeftAnchor(titleLabel, (double) 0);
-		AnchorPane.setRightAnchor(titleLabel, (double) 0);
-		AnchorPane.setTopAnchor(titleLabel, (double) 0);
-		AnchorPane.setBottomAnchor(titleLabel, (double) 0);
-		titleLabel.setEffect(colorAdjust);
-		titleLabel.setMouseTransparent(true);
-		
-		AnchorPane titleBar = new AnchorPane(titleLabel);
-		titleBar.setMinHeight(30);
-		titleBar.setStyle("-fx-background-color: #383838;");
-		
-		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
-		ImageView placeholderImageView = new ImageView(placeholderImage);
-		placeholderImageView.setFitWidth(49);
-		placeholderImageView.setFitHeight(49);
-		AnchorPane.setLeftAnchor(placeholderImageView, 0.0);
-		AnchorPane.setTopAnchor(placeholderImageView, -10.0);
-		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
-		placeholderImageView.setEffect(colorAdjust);
-		
-		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
-		ImageView closeImageView = new ImageView(closeImage);
-		closeImageView.setFitWidth(15);
-		closeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(closeImageView, 15.0);
-		AnchorPane.setTopAnchor(closeImageView, 7.0);
-		closeImageView.setEffect(colorAdjust);
-		
-		Image maximizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/maximize.png"));
-		ImageView maximizeImageView = new ImageView(maximizeImage);
-		maximizeImageView.setFitWidth(15);
-		maximizeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(maximizeImageView, 42.5);
-		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
-		maximizeImageView.setEffect(colorAdjust);
-		
-		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
-		ImageView minimizeImageView = new ImageView(minimizeImage);
-		minimizeImageView.setFitWidth(15);
-		minimizeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(minimizeImageView, 70.0);
-		AnchorPane.setTopAnchor(minimizeImageView, 7.0);
-		minimizeImageView.setEffect(colorAdjust);
-		
-		Rectangle closeRect = new Rectangle(20, 20);
-		Rectangle maximizeRect = new Rectangle(20, 20);
-		Rectangle minimizeRect = new Rectangle(20, 20);
-		
-		closeRect.setFill(Color.TRANSPARENT);
-		minimizeRect.setFill(Color.TRANSPARENT);
-		maximizeRect.setFill(Color.TRANSPARENT);
-		
-		closeRect.setOnMouseClicked(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.close();
-		});
-		
-		minimizeRect.setOnMouseClicked(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.setIconified(true);
-		});
-		maximizeRect.setOnMouseClicked(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			toggleWindowedFullscreen(stage, 850, 750);
-		});
-		
-		titleBar.setOnMouseDragged(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.setX(event.getScreenX() - xOffset);
-			stage.setY(event.getScreenY() - yOffset);
-		});
-		
-		titleBar.setOnMousePressed(event -> {
-			xOffset = event.getSceneX();
-			yOffset = event.getSceneY();
-		});
-		
-		AnchorPane.setRightAnchor(closeRect, 12.5);
-		AnchorPane.setTopAnchor(closeRect, 6.3);
-		AnchorPane.setRightAnchor(minimizeRect, 70.0);
-		AnchorPane.setTopAnchor(minimizeRect, 6.3);
-		AnchorPane.setRightAnchor(maximizeRect, 42.5);
-		AnchorPane.setTopAnchor(maximizeRect, 6.3);
-		
-		titleBar.getChildren().addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView,
-		                              maximizeImageView, minimizeImageView);
-		Platform.runLater(() -> {
-			Stage stage1 = (Stage) titleBar.getScene().getWindow();
-			ResizeHelper.addResizeListener(stage1);
-		});
-		closeRect.toFront();
-		minimizeRect.toFront();
-		maximizeRect.toFront();
-		return titleBar;
-	}
-	
-	public static AnchorPane createSimpleTitleBar(String titleText, boolean resizable) {
-		ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setSaturation(-1.0);
-		colorAdjust.setBrightness(-0.45);
-		
-		Label titleLabel = new Label(titleText);
-		titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
-		titleLabel.setAlignment(Pos.CENTER);
-		AnchorPane.setLeftAnchor(titleLabel, (double) 0);
-		AnchorPane.setRightAnchor(titleLabel, (double) 0);
-		AnchorPane.setTopAnchor(titleLabel, (double) 0);
-		AnchorPane.setBottomAnchor(titleLabel, (double) 0);
-		titleLabel.setEffect(colorAdjust);
-		titleLabel.setMouseTransparent(true);
-		
-		AnchorPane titleBar = new AnchorPane(titleLabel);
-		titleBar.setMinHeight(30);
-		titleBar.setStyle("-fx-background-color: #383838;");
-		
-		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Logo.png"));
-		ImageView placeholderImageView = new ImageView(placeholderImage);
-		placeholderImageView.setFitWidth(49);
-		placeholderImageView.setFitHeight(49);
-		AnchorPane.setLeftAnchor(placeholderImageView, 0.0);
-		AnchorPane.setTopAnchor(placeholderImageView, -10.0);
-		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
-		placeholderImageView.setEffect(colorAdjust);
-		
-		Image closeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/cross.png"));
-		ImageView closeImageView = new ImageView(closeImage);
-		closeImageView.setFitWidth(15);
-		closeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(closeImageView, 15.0);
-		AnchorPane.setTopAnchor(closeImageView, 7.0);
-		closeImageView.setEffect(colorAdjust);
-		
-		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/minimize.png"));
-		ImageView minimizeImageView = new ImageView(minimizeImage);
-		minimizeImageView.setFitWidth(15);
-		minimizeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(minimizeImageView, 42.5);
-		AnchorPane.setTopAnchor(minimizeImageView, 7.0);
-		minimizeImageView.setEffect(colorAdjust);
-		
-		Rectangle closeRect = new Rectangle(20, 20);
-		Rectangle minimizeRect = new Rectangle(20, 20);
-		
-		closeRect.setFill(Color.TRANSPARENT);
-		minimizeRect.setFill(Color.TRANSPARENT);
-		
-		closeRect.setOnMouseClicked(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.close();
-		});
-		
-		minimizeRect.setOnMouseClicked(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.setIconified(true);
-		});
-		
-		AnchorPane.setRightAnchor(closeRect, 12.5);
-		AnchorPane.setTopAnchor(closeRect, 6.3);
-		AnchorPane.setRightAnchor(minimizeRect, 42.5);
-		AnchorPane.setTopAnchor(minimizeRect, 6.3);
-		
-		titleBar.getChildren().addAll(placeholderImageView, closeRect, minimizeRect, closeImageView, minimizeImageView);
-		closeRect.toFront();
-		minimizeRect.toFront();
-		
-		titleBar.setOnMouseDragged(event -> {
-			Stage stage = (Stage) titleBar.getScene().getWindow();
-			stage.setX(event.getScreenX() - xOffset);
-			stage.setY(event.getScreenY() - yOffset);
-		});
-		
-		titleBar.setOnMousePressed(event -> {
-			xOffset = event.getSceneX();
-			yOffset = event.getSceneY();
-		});
-		
-		if (resizable) {
-			Platform.runLater(() -> {
-				Stage stage1 = (Stage) titleBar.getScene().getWindow();
-				ResizeHelper.addResizeListener(stage1);
-			});
-		}
-		
-		return titleBar;
-	}
-	
 	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
 		String placeholder;
 		try {
@@ -300,12 +86,8 @@ public class reportUtil {
 		double preferredWidth = screenWidth / 12 * numWidthUnits;
 		double preferredHeight = screenHeight / 12 * numHeightUnits;
 		
-		BorderPane borderPane = new BorderPane();
-		borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
-		
-		AnchorPane titleBar = createTitleBar("Report Manager");
-		
-		borderPane.setTop(titleBar);
+		BorderPane mainRoot = new BorderPane();
+		mainRoot.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
 		
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(10);
@@ -468,43 +250,38 @@ public class reportUtil {
 		ScrollPane scrollPane = new ScrollPane(root);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
-		borderPane.setCenter(scrollPane);
-		
-		Stage stage = new Stage();
-		stage.initStyle(StageStyle.UNDECORATED);
-		
-		Scene scene = new Scene(borderPane);
+		mainRoot.setCenter(scrollPane);
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formFields.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTextArea.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formButton.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formComboBox.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/Logscrollpane.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/tableCss.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/light/formTitledPane.css").toExternalForm());
 			} else {
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formFields.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTextArea.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formButton.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formComboBox.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/Logscrollpane.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/tableCss.css").toExternalForm());
-				scene.getStylesheets().add(Launcher.class.getResource(
+				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/drozal/dataterminal/css/form/dark/formTitledPane.css").toExternalForm());
 			}
 		} catch (IOException e) {
@@ -515,36 +292,24 @@ public class reportUtil {
 		scrollPane.setStyle(
 				"-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 		
-		stage.setScene(scene);
-		stage.setTitle(reportName);
-		
-		titleBar.setOnMouseClicked(event -> {
-			if (event.getClickCount() == 2) {
-				toggleWindowedFullscreen(stage, preferredWidth, preferredHeight);
-			}
-		});
-		
-		stage.setOnHidden(event -> {
-			windowX = stage.getX();
-			windowY = stage.getY();
-			windowWidth = stage.getWidth();
-			windowHeight = stage.getHeight();
-		});
-		
 		Map<String, Object> result = new HashMap<>();
 		result.put(reportName + " Map", fieldsMap);
 		result.put("delBtn", delBtn);
 		result.put("pullNotesBtn", pullNotesBtn);
 		result.put("warningLabel", warningLabel);
 		result.put("submitBtn", submitBtn);
-		result.put("root", borderPane);
+		result.put("root", mainRoot);
 		
-		stage.setAlwaysOnTop(true); //todo remove
+		BorderPane root1 = (BorderPane) result.get("root");
+		StringProperty reportNameProperty = new SimpleStringProperty(reportName);
+		root1.getProperties().put("reportName", reportNameProperty);
 		
-		stage.setWidth(preferredWidth);
-		stage.setHeight(preferredHeight);
-		centerStageOnMainApp(stage);
-		stage.show();
+		mainRoot.setPrefHeight(preferredHeight);
+		mainRoot.setPrefWidth(preferredWidth);
+		
+		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 2, true, false,
+		                 mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+						Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/newReport.png"))));
 		
 		return result;
 	}

@@ -35,6 +35,7 @@ public class CustomWindow {
 	private final Pane windowPane;
 	private final TaskbarApp taskbarApp;
 	private final AnchorPane root;
+	private final Image image;
 	public boolean isMinimized = false;
 	public Object controller;
 	private double originalWidth;
@@ -42,7 +43,6 @@ public class CustomWindow {
 	private double originalX;
 	private double originalY;
 	private boolean isMaximized = false;
-	private Image image;
 	
 	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) throws IOException {
 		URL fxmlUrl = Launcher.class.getResource(fileName);
@@ -55,6 +55,28 @@ public class CustomWindow {
 		this.title = title;
 		this.priority = priority;
 		controller = loader.getController();
+		this.root = root;
+		this.image = image;
+		
+		initializeWindow(resizable);
+		addMainStageResizeListener();
+		
+		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
+		
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(new Color(0, 0, 0, 0.35));
+		dropShadow.setOffsetX(0);
+		dropShadow.setOffsetY(0);
+		dropShadow.setRadius(20.0);
+		dropShadow.setSpread(0.2);
+		windowPane.setEffect(dropShadow);
+		
+	}
+	
+	public CustomWindow(BorderPane window, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) {
+		this.windowPane = window;
+		this.title = title;
+		this.priority = priority;
 		this.root = root;
 		this.image = image;
 		

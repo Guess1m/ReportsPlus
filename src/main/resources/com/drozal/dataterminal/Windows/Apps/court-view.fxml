@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="655.0" prefWidth="645.0"
-            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/21"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="724.0" prefWidth="670.0"
+            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CourtViewController">
     <center>
         <AnchorPane fx:id="courtPane" style="-fx-background-color: transparent;"
@@ -19,12 +19,10 @@
                                   stylesheets="@../../css/main/listView.css"/>
                         <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;">
                             <content>
-                                <AnchorPane style="-fx-background-color: transparent;">
+                                <StackPane>
                                     <children>
                                         <AnchorPane fx:id="blankCourtInfoPane"
-                                                    style="-fx-background-color: transparent;" visible="false"
-                                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    style="-fx-background-color: transparent;" visible="false">
                                             <children>
                                                 <Label fx:id="noCourtCaseSelectedlbl" alignment="CENTER" layoutX="257.0"
                                                        layoutY="304.0" text="No Court Case Selected."
@@ -36,9 +34,7 @@
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="courtInfoPane" style="-fx-background-color: transparent;"
-                                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <AnchorPane fx:id="courtInfoPane" style="-fx-background-color: transparent;">
                                             <children>
                                                 <VBox layoutX="15.0" spacing="5.0"
                                                       style="-fx-background-color: transparent;"
@@ -571,7 +567,7 @@
                                             </children>
                                         </AnchorPane>
                                     </children>
-                                </AnchorPane>
+                                </StackPane>
                             </content>
                         </ScrollPane>
                     </items>

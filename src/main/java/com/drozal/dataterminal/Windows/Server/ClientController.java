@@ -2,7 +2,6 @@ package com.drozal.dataterminal.Windows.Server;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.Report.reportUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
@@ -60,10 +59,6 @@ public class ClientController {
 	}
 	
 	public void initialize() throws IOException {
-		AnchorPane titleBar = reportUtil.createSimpleTitleBar("Client Interface", false);
-		
-		root.setTop(titleBar);
-		
 		if (ConfigReader.configRead("connectionSettings", "lastIPV4Connection") != null) {
 			inputHostField.setText(ConfigReader.configRead("connectionSettings", "lastIPV4Connection"));
 		}

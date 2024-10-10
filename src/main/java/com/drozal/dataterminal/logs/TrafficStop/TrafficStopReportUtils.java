@@ -1,5 +1,6 @@
 package com.drozal.dataterminal.logs.TrafficStop;
 
+import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.logs.Arrest.ArrestReportUtils;
@@ -16,7 +17,6 @@ import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getDate;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.getTime;
+import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.notesViewController;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.playSound;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
@@ -193,7 +194,6 @@ public class TrafficStopReportUtils {
 		transfercitationbtnts.setText("New Citation Report");
 		
 		BorderPane rootts = (BorderPane) trafficStopReport.get("root");
-		Stage stagets = (Stage) rootts.getScene().getWindow();
 		
 		Label warningLabelts = (Label) trafficStopReport.get("warningLabel");
 		MenuButton pullNotesBtnts = (MenuButton) trafficStopReport.get("pullNotesBtn");
@@ -406,7 +406,10 @@ public class TrafficStopReportUtils {
 				
 				NotificationManager.showNotificationInfo("Report Manager",
 				                                         "A new Traffic Stop Report has been submitted.");
-				stagets.close();
+				CustomWindow window = getWindow("Traffic Stop Report");
+				if (window != null) {
+					window.closeWindow();
+				}
 			}
 		});
 		return trafficStopReport;

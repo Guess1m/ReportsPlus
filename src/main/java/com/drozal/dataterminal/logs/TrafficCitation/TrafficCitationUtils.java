@@ -64,13 +64,10 @@ public class TrafficCitationUtils {
 	}
 	
 	public static Map<String, Object> citationLayout() {
-		Map<String, Object> citationReport = createReportWindow("Citation Report", 7, 9,
-		                                                        new nestedReportUtils.TransferConfig(
-				                                                        "Transfer Information To New Report",
-				                                                        new nestedReportUtils.RowConfig(
-						                                                        new nestedReportUtils.FieldConfig(
-								                                                        "transferimpoundbtn", 12,
-								                                                        nestedReportUtils.FieldType.TRANSFER_BUTTON))),
+		Map<String, Object> citationReport = createReportWindow("Citation Report", new nestedReportUtils.TransferConfig(
+				                                                        "Transfer Information To New Report", new nestedReportUtils.RowConfig(
+				                                                        new nestedReportUtils.FieldConfig("transferimpoundbtn", 12,
+				                                                                                          nestedReportUtils.FieldType.TRANSFER_BUTTON))),
 		                                                        new nestedReportUtils.SectionConfig(
 				                                                        "Officer Information", true,
 				                                                        new nestedReportUtils.RowConfig(

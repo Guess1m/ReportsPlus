@@ -8,7 +8,7 @@
             fx:controller="com.drozal.dataterminal.Windows.Misc.OutputViewController">
     <center>
         <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" styleClass="list-view-custom"
-                  stylesheets="@../../css/listView.css">
+                  stylesheets="@../../css/outputView/outputViewListview.css">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>

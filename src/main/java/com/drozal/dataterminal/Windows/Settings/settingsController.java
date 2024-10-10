@@ -8,16 +8,18 @@ import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
@@ -70,8 +72,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Button clrSaveDataBtn;
 	@javafx.fxml.FXML
-	private Label lbl3;
-	@javafx.fxml.FXML
 	private ComboBox calloutDurComboBox;
 	@javafx.fxml.FXML
 	private ColorPicker headingPickerReport;
@@ -88,29 +88,21 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private ColorPicker accentPickerReport;
 	@javafx.fxml.FXML
-	private Label lbl6;
-	@javafx.fxml.FXML
 	private Label headingLabelReport;
 	@javafx.fxml.FXML
 	private ComboBox presetComboBoxReport;
 	@javafx.fxml.FXML
 	private ComboBox idDurComboBox;
 	@javafx.fxml.FXML
-	private Label lbl7;
-	@javafx.fxml.FXML
 	private ColorPicker bkgPicker;
 	@javafx.fxml.FXML
 	private Label bkgLabel;
-	@javafx.fxml.FXML
-	private TabPane tabpane;
 	@javafx.fxml.FXML
 	private ComboBox textClrComboBox;
 	@javafx.fxml.FXML
 	private CheckBox serverAutoconnectCheckbox;
 	@javafx.fxml.FXML
 	private TextField broadcastPortField;
-	@javafx.fxml.FXML
-	private Label lbl8;
 	@javafx.fxml.FXML
 	private Button resetReportDefaultsBtn;
 	@javafx.fxml.FXML
@@ -132,69 +124,11 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
 	@javafx.fxml.FXML
-	private GridPane colorPageTwo;
-	@javafx.fxml.FXML
-	private GridPane colorPageOne;
-	@javafx.fxml.FXML
-	private Label lbl9;
-	@javafx.fxml.FXML
-	private Button colorPageTwoBtn;
-	@javafx.fxml.FXML
-	private Button colorPageOneBtn;
-	@javafx.fxml.FXML
-	private Label tt15;
-	@javafx.fxml.FXML
-	private Label tt16;
-	@javafx.fxml.FXML
-	private Label tt12;
-	@javafx.fxml.FXML
-	private Button previewNotificationBtn;
-	@javafx.fxml.FXML
-	private ColorPicker notiPrimPicker;
-	@javafx.fxml.FXML
-	private ColorPicker notiTextColorPicker;
-	@javafx.fxml.FXML
-	private ComboBox notificationComboBox;
-	@javafx.fxml.FXML
-	private Button resetNotiDefaultsBtn;
-	@javafx.fxml.FXML
-	private ComboBox notiPosCombobox;
-	@javafx.fxml.FXML
-	private Label tt17;
-	@javafx.fxml.FXML
-	private Label tt13;
-	@javafx.fxml.FXML
-	private Label tt14;
-	@javafx.fxml.FXML
-	private TextField notiFadeOutDurField;
-	@javafx.fxml.FXML
-	private TextField notiDisplayDurField;
-	@javafx.fxml.FXML
-	private Button saveDisplayDurBtn;
-	@javafx.fxml.FXML
-	private Button saveFadeDurBtn;
-	@javafx.fxml.FXML
-	private CheckBox saveReportLocationCheckbox;
-	@javafx.fxml.FXML
 	private CheckBox enableIDPopupsCheckbox;
 	@javafx.fxml.FXML
 	private CheckBox enableCalloutPopupsCheckbox;
 	@javafx.fxml.FXML
-	private GridPane windowPageOne;
-	@javafx.fxml.FXML
-	private GridPane windowPageTwo;
-	@javafx.fxml.FXML
-	private Button windowPageTwoBtn;
-	@javafx.fxml.FXML
-	private Button windowPageOneBtn;
-	@javafx.fxml.FXML
-	private Label lbl10;
-	@javafx.fxml.FXML
-	private CheckBox enableNotificationsCheckbox;
-	@javafx.fxml.FXML
 	private CheckBox enableSoundCheckbox;
-	@javafx.fxml.FXML
-	private Label lbl11;
 	@javafx.fxml.FXML
 	private CheckBox audioCalloutCheckbox;
 	@javafx.fxml.FXML
@@ -204,7 +138,57 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private CheckBox audioLookupWarningCheckbox;
 	@javafx.fxml.FXML
-	private AnchorPane root2;
+	private AnchorPane paneAudio;
+	@javafx.fxml.FXML
+	private AnchorPane paneApplication;
+	@javafx.fxml.FXML
+	private AnchorPane paneDeveloper;
+	@javafx.fxml.FXML
+	private AnchorPane paneNotification;
+	@javafx.fxml.FXML
+	private AnchorPane paneReport;
+	@javafx.fxml.FXML
+	private AnchorPane paneWindow;
+	@javafx.fxml.FXML
+	private AnchorPane paneNetworking;
+	@javafx.fxml.FXML
+	private ComboBox notiPosCombobox;
+	@javafx.fxml.FXML
+	private Button resetNotiDefaultsBtn;
+	@javafx.fxml.FXML
+	private TextField notiFadeOutDurField;
+	@javafx.fxml.FXML
+	private Button previewNotificationBtn;
+	@javafx.fxml.FXML
+	private ColorPicker notiPrimPicker;
+	@javafx.fxml.FXML
+	private TextField notiDisplayDurField;
+	@javafx.fxml.FXML
+	private ColorPicker notiTextColorPicker;
+	@javafx.fxml.FXML
+	private Button saveDisplayDurBtn;
+	@javafx.fxml.FXML
+	private Button saveFadeDurBtn;
+	@javafx.fxml.FXML
+	private ComboBox notificationComboBox;
+	@javafx.fxml.FXML
+	private Button audioBtn;
+	@javafx.fxml.FXML
+	private Button serverBtn;
+	@javafx.fxml.FXML
+	private Button notiSettingsBtn;
+	@javafx.fxml.FXML
+	private Button reportDesignBtn;
+	@javafx.fxml.FXML
+	private Button appDesignBtn;
+	@javafx.fxml.FXML
+	private Button devBtn;
+	@javafx.fxml.FXML
+	private Button windowSettingsBtn;
+	@javafx.fxml.FXML
+	private ToggleButton enableNotiTB;
+	@javafx.fxml.FXML
+	private BorderPane notiDisplayPane;
 	
 	//</editor-fold>
 	
@@ -564,6 +548,61 @@ public class settingsController {
 		}
 	}
 	
+	private static HBox createNotificationPreview(String type) throws IOException {
+		String textClr, primClr;
+		switch (type) {
+			case "info":
+				textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
+				primClr = ConfigReader.configRead("notificationSettings", "notificationInfoPrimary");
+				break;
+			case "warn":
+				textClr = ConfigReader.configRead("notificationSettings", "notificationWarnTextColor");
+				primClr = ConfigReader.configRead("notificationSettings", "notificationWarnPrimary");
+				break;
+			default:
+				textClr = "#ffffff";
+				primClr = "#db4437";
+				break;
+		}
+		
+		Label titleLabel = new Label("Sample Notification Title");
+		titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
+		
+		Label messageLabel = new Label("Lorum ipsum dolor sit amet, consectetur adipiscing.");
+		messageLabel.setWrapText(true);
+		messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
+		
+		ImageView icon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+		icon.setImage(changeImageColor(icon.getImage(), textClr));
+		icon.setFitWidth(24);
+		icon.setFitHeight(24);
+		
+		ImageView closeIcon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+		closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
+		closeIcon.setFitWidth(12);
+		closeIcon.setFitHeight(13);
+		
+		Button closeButton = new Button();
+		closeButton.setGraphic(closeIcon);
+		closeButton.setStyle("-fx-background-color: transparent;");
+		
+		VBox contentBox = new VBox(5, titleLabel, messageLabel);
+		contentBox.setAlignment(Pos.CENTER_LEFT);
+		contentBox.setPadding(new Insets(0));
+		contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
+		
+		HBox mainBox = new HBox(10, icon, contentBox, closeButton);
+		mainBox.setAlignment(Pos.CENTER_LEFT);
+		mainBox.setPadding(new Insets(10));
+		mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
+		
+		mainBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+		
+		return mainBox;
+	}
+	
 	public void initialize() {
 		try {
 			addActionEventsAndComboBoxes();
@@ -585,11 +624,6 @@ public class settingsController {
 		loadColors();
 		addTooltips();
 		
-		colorPageOne.setVisible(true);
-		colorPageTwo.setVisible(false);
-		windowPageOne.setVisible(true);
-		windowPageTwo.setVisible(false);
-		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene().getWindow();
 			stage.setMinWidth(stage.getWidth());
@@ -606,6 +640,12 @@ public class settingsController {
 				}
 			});
 		});
+		
+		setActive(paneNotification);
+		
+		loadPaneActions();
+		
+		refreshNotificationPreview("info");
 		
 		isInitialized = true;
 	}
@@ -638,15 +678,6 @@ public class settingsController {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
 			}
 			
-			tabpane.setStyle("-fx-background-color: " + toHexString(bkg));
-			
-			lbl3.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl6.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl7.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl8.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl9.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			lbl10.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
-			
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);
 			headingPickerReport.setValue(reportHeading);
@@ -667,14 +698,6 @@ public class settingsController {
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
-			
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
-				tabpane.getStyleClass().clear();
-				tabpane.getStyleClass().add("darktabpane");
-			} else {
-				tabpane.getStyleClass().clear();
-				tabpane.getStyleClass().add("lighttabpane");
-			}
 			
 			try {
 				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
@@ -709,6 +732,53 @@ public class settingsController {
 		}
 	}
 	
+	private void loadPaneActions() {
+		audioBtn.setOnAction(actionEvent -> {
+			setActive(paneAudio);
+		});
+		appDesignBtn.setOnAction(actionEvent -> {
+			setActive(paneApplication);
+		});
+		devBtn.setOnAction(actionEvent -> {
+			setActive(paneDeveloper);
+		});
+		notiSettingsBtn.setOnAction(actionEvent -> {
+			setActive(paneNotification);
+		});
+		reportDesignBtn.setOnAction(actionEvent -> {
+			setActive(paneReport);
+		});
+		windowSettingsBtn.setOnAction(actionEvent -> {
+			setActive(paneWindow);
+		});
+		serverBtn.setOnAction(actionEvent -> {
+			setActive(paneNetworking);
+		});
+	}
+	
+	private void closeWindows() {
+		paneAudio.setVisible(false);
+		paneApplication.setVisible(false);
+		paneDeveloper.setVisible(false);
+		paneNotification.setVisible(false);
+		paneReport.setVisible(false);
+		paneWindow.setVisible(false);
+		paneNetworking.setVisible(false);
+		paneAudio.setDisable(true);
+		paneApplication.setDisable(true);
+		paneDeveloper.setDisable(true);
+		paneNotification.setDisable(true);
+		paneReport.setDisable(true);
+		paneWindow.setDisable(true);
+		paneNetworking.setDisable(true);
+	}
+	
+	private void setActive(AnchorPane pane) {
+		closeWindows();
+		pane.setDisable(false);
+		pane.setVisible(true);
+	}
+	
 	private void addDefaultCheckboxSelections() throws IOException {
 		notiDisplayDurField.setText(ConfigReader.configRead("notificationSettings", "displayDuration"));
 		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
@@ -723,8 +793,6 @@ public class settingsController {
 				ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
 		audioReportDeleteCheckbox.setSelected(
 				ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
-		enableNotificationsCheckbox.setSelected(
-				ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 		enableCalloutPopupsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
@@ -732,6 +800,8 @@ public class settingsController {
 				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
 		serverAutoconnectCheckbox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
+		
+		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -857,9 +927,13 @@ public class settingsController {
 			Color selectedColor = newValue;
 			if (selectedNotification.get().equals("Information")) {
 				updateInfoNotiPrim(selectedColor);
+				
+				refreshNotificationPreview("info");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				updateWarnNotiPrim(selectedColor);
+				
+				refreshNotificationPreview("warn");
 			}
 		});
 		
@@ -871,9 +945,13 @@ public class settingsController {
 			Color selectedColor = newValue;
 			if (selectedNotification.get().equals("Information")) {
 				updateInfoNotiTextColor(selectedColor);
+				
+				refreshNotificationPreview("info");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				updateWarnNotiTextColor(selectedColor);
+				
+				refreshNotificationPreview("warn");
 			}
 		});
 		
@@ -1276,6 +1354,9 @@ public class settingsController {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
+					
+					refreshNotificationPreview("info");
+					
 				}
 				case "Warning" -> {
 					selectedNotification.set("Warning");
@@ -1291,6 +1372,7 @@ public class settingsController {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
+					refreshNotificationPreview("warn");
 				}
 			}
 			
@@ -1385,18 +1467,6 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void colorPageOneBtnClick(ActionEvent actionEvent) {
-		colorPageOne.setVisible(true);
-		colorPageTwo.setVisible(false);
-	}
-	
-	@javafx.fxml.FXML
-	public void colorPageTwoBtnClick(ActionEvent actionEvent) {
-		colorPageOne.setVisible(false);
-		colorPageTwo.setVisible(true);
-	}
-	
-	@javafx.fxml.FXML
 	public void resetNotiDefaultsBtnPress(ActionEvent actionEvent) {
 		if (selectedNotification.get().equals("Information")) {
 			ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", "#367af6");
@@ -1406,22 +1476,6 @@ public class settingsController {
 			ConfigWriter.configwrite("notificationSettings", "notificationWarnTextColor", "#ffffff");
 		}
 		loadColors();
-	}
-	
-	@javafx.fxml.FXML
-	public void rememberReportLocationClick(ActionEvent actionEvent) {
-	}
-	
-	@javafx.fxml.FXML
-	public void windowPageTwoBtnClick(ActionEvent actionEvent) {
-		windowPageOne.setVisible(false);
-		windowPageTwo.setVisible(true);
-	}
-	
-	@javafx.fxml.FXML
-	public void windowPageOneBtnClick(ActionEvent actionEvent) {
-		windowPageOne.setVisible(true);
-		windowPageTwo.setVisible(false);
 	}
 	
 	@javafx.fxml.FXML
@@ -1447,17 +1501,6 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void enableNotiCheckboxClick(ActionEvent actionEvent) {
-		if (enableNotificationsCheckbox.isSelected()) {
-			ConfigWriter.configwrite("notificationSettings", "enabled", "true");
-			enableNotificationsCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("notificationSettings", "enabled", "false");
-			enableNotificationsCheckbox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
 		if (enableSoundCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
@@ -1477,48 +1520,6 @@ public class settingsController {
 			ConfigWriter.configwrite("soundSettings", "playCallout", "false");
 			audioCalloutCheckbox.setSelected(false);
 		}
-	}
-	
-	private void addTooltips() {
-		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
-		addTooltip(saveReportLocationCheckbox, "Save Location and Size of Report Window");
-		addTooltip(enableNotificationsCheckbox, "Allow Recieving Notifications");
-		
-		addTooltip(audioCalloutCheckbox, "Enable Sound When Recieving Callout");
-		addTooltip(audioReportCreate, "Enable Sound When Creating Report");
-		addTooltip(audioReportDeleteCheckbox, "Enable Sound When Deleting Report");
-		addTooltip(audioLookupWarningCheckbox, "Enable Warning Sound When Looking Up Veh/Ped");
-		
-		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
-		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
-		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
-		
-		addTooltip(tt4, "UI Theme Presets");
-		addTooltip(tt5, "UI Text Color");
-		addTooltip(tt6, "Report Theme Presets");
-		addTooltip(tt7, "Report TextField Color");
-		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
-		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
-		addTooltip(tt10,
-		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
-		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
-		
-		addTooltip(tt16, "Notification Type to be Modified");
-		addTooltip(tt12, "Primary Notification Color");
-		addTooltip(tt15, "Notification Text Color");
-		addTooltip(tt13, "Duration the Notification is Displayed (Sec)");
-		addTooltip(tt14, "Duration Notification takes to fade out (Sec)");
-		addTooltip(tt17, "Corner Of The Window That The Notification Appears In");
-		
-		addTooltip(bkgLabel, "Application Background Color");
-		addTooltip(primLabel, "Application Primary Color");
-		addTooltip(secLabel, "Application Secondary Color");
-		addTooltip(accLabel, "Application Accent Color");
-		
-		addTooltip(headingLabelReport, "Report Heading Color");
-		addTooltip(backgroundLabelReport, "Report Background Color");
-		addTooltip(secLabelReport, "Report Secondary Color");
-		addTooltip(accentLabelReport, "Report Accent Color");
 	}
 	
 	@javafx.fxml.FXML
@@ -1551,6 +1552,59 @@ public class settingsController {
 		} else {
 			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "false");
 			audioLookupWarningCheckbox.setSelected(false);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void enableNoti(ActionEvent actionEvent) {
+		if (enableNotiTB.isSelected()) {
+			ConfigWriter.configwrite("notificationSettings", "enabled", "true");
+			enableNotiTB.setSelected(true);
+		} else {
+			ConfigWriter.configwrite("notificationSettings", "enabled", "false");
+			enableNotiTB.setSelected(false);
+		}
+	}
+	
+	private void addTooltips() {
+		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
+		
+		addTooltip(audioCalloutCheckbox, "Enable Sound When Recieving Callout");
+		addTooltip(audioReportCreate, "Enable Sound When Creating Report");
+		addTooltip(audioReportDeleteCheckbox, "Enable Sound When Deleting Report");
+		addTooltip(audioLookupWarningCheckbox, "Enable Warning Sound When Looking Up Veh/Ped");
+		
+		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
+		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
+		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
+		
+		addTooltip(tt4, "UI Theme Presets");
+		addTooltip(tt5, "UI Text Color");
+		addTooltip(tt6, "Report Theme Presets");
+		addTooltip(tt7, "Report TextField Color");
+		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
+		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
+		addTooltip(tt10,
+		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
+		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
+		
+		addTooltip(bkgLabel, "Application Background Color");
+		addTooltip(primLabel, "Application Primary Color");
+		addTooltip(secLabel, "Application Secondary Color");
+		addTooltip(accLabel, "Application Accent Color");
+		
+		addTooltip(headingLabelReport, "Report Heading Color");
+		addTooltip(backgroundLabelReport, "Report Background Color");
+		addTooltip(secLabelReport, "Report Secondary Color");
+		addTooltip(accentLabelReport, "Report Accent Color");
+	}
+	
+	private void refreshNotificationPreview(String type) {
+		try {
+			notiDisplayPane.getChildren().removeAll();
+			notiDisplayPane.setCenter(createNotificationPreview(type));
+		} catch (IOException e) {
+			logError("Error creating {" + type + "} notification preview: ", e);
 		}
 	}
 }

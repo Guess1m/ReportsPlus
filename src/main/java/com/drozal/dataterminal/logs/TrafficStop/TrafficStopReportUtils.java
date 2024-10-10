@@ -57,7 +57,7 @@ public class TrafficStopReportUtils {
 	}
 	
 	public static Map<String, Object> trafficStopLayout() {
-		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report", 6, 8,
+		Map<String, Object> trafficStopReport = createReportWindow("Traffic Stop Report",
 		                                                           new nestedReportUtils.TransferConfig(
 				                                                           "Transfer Information To New Report",
 				                                                           new nestedReportUtils.RowConfig(

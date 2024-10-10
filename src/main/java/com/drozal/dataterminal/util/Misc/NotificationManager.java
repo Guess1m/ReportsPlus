@@ -160,17 +160,25 @@ public class NotificationManager {
 				showNextNotification();
 			});
 			
-			String displayDuration = "5";
+			String displayDuration = "1.2";
 			try {
 				displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 			} catch (IOException e) {
 				logError("Could not pull displayDuration from config: ", e);
 			}
+			String fadeDuration = "1.7";
+			try {
+				fadeDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
+			} catch (IOException e) {
+				logError("Could not pull fadeOutDuration from config: ", e);
+			}
 			
 			PauseTransition pauseTransition = new PauseTransition(
 					Duration.seconds(Double.parseDouble(displayDuration)));
+			String finalFadeDuration = fadeDuration;
 			pauseTransition.setOnFinished(event -> {
-				FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), anchorPane);
+				FadeTransition fadeOutTransition = new FadeTransition(
+						Duration.seconds(Double.parseDouble(finalFadeDuration)), anchorPane);
 				fadeOutTransition.setFromValue(1);
 				fadeOutTransition.setToValue(0);
 				fadeOutTransition.setOnFinished(e -> {

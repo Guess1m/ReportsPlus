@@ -71,7 +71,7 @@ public class reportUtil {
 		return accentColor;
 	}
 	
-	public static Map<String, Object> createReportWindow(String reportName, int numWidthUnits, int numHeightUnits, nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
+	public static Map<String, Object> createReportWindow(String reportName, nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
 		String placeholder;
 		try {
 			placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
@@ -82,9 +82,6 @@ public class reportUtil {
 		Screen screen = Screen.getPrimary();
 		double screenWidth = screen.getVisualBounds().getWidth();
 		double screenHeight = screen.getVisualBounds().getHeight();
-		
-		double preferredWidth = screenWidth / 12 * numWidthUnits;
-		double preferredHeight = screenHeight / 12 * numHeightUnits;
 		
 		BorderPane mainRoot = new BorderPane();
 		mainRoot.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
@@ -304,13 +301,12 @@ public class reportUtil {
 		StringProperty reportNameProperty = new SimpleStringProperty(reportName);
 		root1.getProperties().put("reportName", reportNameProperty);
 		
-		mainRoot.setPrefHeight(preferredHeight);
-		mainRoot.setPrefWidth(preferredWidth);
+		mainRoot.setPrefHeight(570.0);
+		mainRoot.setPrefWidth(705.6);
 		
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 2, true, false,
 		                 mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/newReport.png"))));
-		
 		return result;
 	}
 	

@@ -62,15 +62,6 @@ public class CustomWindow {
 		addMainStageResizeListener();
 		
 		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
-		
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setColor(new Color(0, 0, 0, 0.35));
-		dropShadow.setOffsetX(0);
-		dropShadow.setOffsetY(0);
-		dropShadow.setRadius(20.0);
-		dropShadow.setSpread(0.2);
-		windowPane.setEffect(dropShadow);
-		
 	}
 	
 	public CustomWindow(BorderPane window, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) {
@@ -84,15 +75,6 @@ public class CustomWindow {
 		addMainStageResizeListener();
 		
 		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
-		
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setColor(new Color(0, 0, 0, 0.35));
-		dropShadow.setOffsetX(0);
-		dropShadow.setOffsetY(0);
-		dropShadow.setRadius(20.0);
-		dropShadow.setSpread(0.2);
-		windowPane.setEffect(dropShadow);
-		
 	}
 	
 	private void addMainStageResizeListener() {
@@ -125,10 +107,19 @@ public class CustomWindow {
 	}
 	
 	private void initializeWindow(boolean resizable) {
-		windowPane.setStyle("-fx-border-color: black; -fx-background-color: white;");
 		windowPane.setPrefSize(windowPane.prefWidth(-1), windowPane.prefHeight(-1));
 		AnchorPane titleBar = createTitleBar(title);
 		((BorderPane) windowPane).setTop(titleBar);
+		
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(new Color(0, 0, 0, 0.35));
+		dropShadow.setOffsetX(0);
+		dropShadow.setOffsetY(0);
+		dropShadow.setRadius(20.0);
+		dropShadow.setSpread(0.2);
+		windowPane.setEffect(dropShadow);
+		windowPane.setStyle(
+				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 5;");
 		
 		if (resizable) {
 			enableResize((BorderPane) windowPane);
@@ -156,6 +147,7 @@ public class CustomWindow {
 				noti.toFront();
 			}
 			mainDesktopControllerObj.getButton1().toBack();
+			mainDesktopControllerObj.getInfoHBox().toBack();
 		}
 	}
 	

@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" stylesheets="@../../css/userManager/userManager.css"
-            xmlns="http://javafx.com/javafx/21"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="343.0" prefWidth="620.0"
+            stylesheets="@../../css/userManager/userManager.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Misc.UserManagerController">
     <center>
-        <AnchorPane fx:id="mainPane" style="-fx-background-color: transparent;">
+        <AnchorPane fx:id="mainPane" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
             <children>
-                <BorderPane layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="200.0"
-                            AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <BorderPane layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <center>
                         <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="519.0"
-                              spacing="10.0" BorderPane.alignment="CENTER">
+                              spacing="20.0" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane>
+                                <HBox spacing="15.0">
                                     <children>
                                         <TextField fx:id="nameField" maxHeight="-Infinity" minHeight="-Infinity"
                                                    minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0"
-                                                   promptText="Name" AnchorPane.leftAnchor="0.0"
-                                                   AnchorPane.rightAnchor="191.0">
+                                                   promptText="Name">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="19.0"/>
                                             </font>
                                         </TextField>
-                                        <TextField fx:id="numberField" layoutX="344.0" maxHeight="-Infinity"
-                                                   minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0"
-                                                   prefWidth="175.0" promptText="Number" AnchorPane.rightAnchor="0.0">
+                                        <TextField fx:id="numberField" maxHeight="-Infinity" minHeight="-Infinity"
+                                                   minWidth="-Infinity" prefHeight="38.0" prefWidth="175.0"
+                                                   promptText="Number" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="19.0"/>
                                             </font>
                                         </TextField>
-                                        <ComboBox fx:id="rankDropdown" layoutY="48.0" maxHeight="-Infinity"
-                                                  minHeight="-Infinity" minWidth="-Infinity" visibleRowCount="14"
-                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-                                        <ComboBox fx:id="agencyDropDown" layoutY="96.0" maxHeight="-Infinity"
-                                                  minHeight="-Infinity" minWidth="-Infinity" visibleRowCount="14"
-                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-                                        <ComboBox fx:id="divisionDropDown" layoutY="144.0" maxHeight="-Infinity"
-                                                  minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0"
-                                                  AnchorPane.rightAnchor="0.0"/>
                                     </children>
-                                </AnchorPane>
+                                </HBox>
+                                <ComboBox fx:id="rankDropdown" maxHeight="-Infinity" minHeight="-Infinity"
+                                          minWidth="-Infinity" prefWidth="590.0" visibleRowCount="14"
+                                          VBox.vgrow="SOMETIMES"/>
+                                <ComboBox fx:id="agencyDropDown" maxHeight="-Infinity" minHeight="-Infinity"
+                                          minWidth="-Infinity" prefWidth="590.0" visibleRowCount="14"/>
+                                <ComboBox fx:id="divisionDropDown" maxHeight="-Infinity" minHeight="-Infinity"
+                                          minWidth="-Infinity" prefWidth="590.0"/>
                             </children>
+                            <BorderPane.margin>
+                                <Insets top="5.0"/>
+                            </BorderPane.margin>
                         </VBox>
                     </center>
                     <top>
@@ -65,9 +64,9 @@
                     <bottom>
                         <AnchorPane BorderPane.alignment="CENTER">
                             <children>
-                                <Button fx:id="loginBtn" layoutX="137.0" maxHeight="-Infinity"
-                                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                        mnemonicParsing="false" onAction="#updateBtn"
+                                <Button fx:id="loginBtn" layoutX="137.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                                        onAction="#updateBtn"
                                         style="-fx-background-color: rgb(0,0,0,0.4); -fx-background-radius: 5; -fx-padding: 3 20;"
                                         text="Update" textFill="WHITE" AnchorPane.bottomAnchor="0.0"
                                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -86,7 +85,7 @@
                                 </Label>
                             </children>
                             <BorderPane.margin>
-                                <Insets bottom="-10.0" top="5.0"/>
+                                <Insets bottom="-10.0" top="20.0"/>
                             </BorderPane.margin>
                         </AnchorPane>
                     </bottom>

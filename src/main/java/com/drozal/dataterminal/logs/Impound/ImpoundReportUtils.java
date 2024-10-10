@@ -55,7 +55,7 @@ public class ImpoundReportUtils {
 	}
 	
 	public static Map<String, Object> impoundLayout() {
-		Map<String, Object> impoundReport = createReportWindow("Impound Report", 7, 9, null,
+		Map<String, Object> impoundReport = createReportWindow("Impound Report", null,
 		                                                       new nestedReportUtils.SectionConfig(
 				                                                       "Officer Information", true,
 				                                                       new nestedReportUtils.RowConfig(

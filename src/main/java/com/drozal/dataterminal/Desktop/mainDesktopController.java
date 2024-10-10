@@ -22,7 +22,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -31,7 +30,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -98,6 +96,12 @@ public class mainDesktopController {
 	private Label dateLabel;
 	@FXML
 	private BorderPane taskBar;
+	@FXML
+	private HBox infoHBox;
+	@FXML
+	private Label infoLabelRight;
+	@FXML
+	private Label infoLabelLeft;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -131,23 +135,47 @@ public class mainDesktopController {
 	}
 	
 	public void initialize() throws IOException {
+		infoHBox.setVisible(false);
+		
 		button1.setOnAction(event -> {
 			editableDesktop = !editableDesktop;
 			if (!editableDesktop) {
 				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
 					appConfigWrite(desktopApp.getName(), "x", String.valueOf(desktopApp.getX()));
 					appConfigWrite(desktopApp.getName(), "y", String.valueOf(desktopApp.getY()));
+					desktopApp.getMainPane().setStyle("-fx-background-color: transparent;");
+					infoHBox.setVisible(false);
+				}
+			} else {
+				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
+					desktopApp.getMainPane().setStyle("-fx-background-color: rgb(0,0,0,0.25);");
+					infoHBox.setVisible(true);
+					infoLabelLeft.setText("Current Mode: ");
+					infoLabelRight.setText("Editing");
+					infoLabelRight.setStyle("-fx-text-fill: darkred;");
+					infoLabelRight.setUnderline(true);
 				}
 			}
 		});
 		
 		NotesViewController.notesText = "";
 		
-		// todo add ability for custom image\
-		BackgroundFill background_fill = new BackgroundFill(new Color(48 / 255.0, 100 / 255.0, 148 / 255.0, 1),
+		// todo add ability for custom image, remove old solid color
+		/*BackgroundFill background_fill = new BackgroundFill(new Color(48 / 255.0, 100 / 255.0, 148 / 255.0, 1),
 		                                                    CornerRadii.EMPTY, Insets.EMPTY);
+		
 		Background background = new Background(background_fill);
-		container.setBackground(background);
+		container.setBackground(background);*/
+		Image image = new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/desktopBackground.jpg")));
+		
+		BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+		                                                      BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+		                                                      new BackgroundSize(BackgroundSize.AUTO,
+		                                                                         BackgroundSize.AUTO, true, true, false,
+		                                                                         false));
+		
+		container.setBackground(new Background(backgroundImage));
 		
 		getTopBar().getChildren().remove(locationDataLabel);
 		
@@ -230,7 +258,7 @@ public class mainDesktopController {
 		}
 	}
 	
-	private void addAppToDesktop(AnchorPane root, AnchorPane newApp, double x, double y) {
+	private void addAppToDesktop(AnchorPane root, VBox newApp, double x, double y) {
 		root.getChildren().add(newApp);
 		newApp.setTranslateX(x);
 		newApp.setTranslateY(y);
@@ -239,7 +267,7 @@ public class mainDesktopController {
 	private void addApps() {
 		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/notepad.png"))));
-		AnchorPane notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
+		VBox notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow mainApp = createFakeWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes",
@@ -259,7 +287,7 @@ public class mainDesktopController {
 		
 		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/setting.png"))));
-		AnchorPane settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
+		VBox settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
@@ -276,7 +304,7 @@ public class mainDesktopController {
 		
 		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
-		AnchorPane updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
+		VBox updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					createFakeWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 2,
@@ -293,7 +321,7 @@ public class mainDesktopController {
 		
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/logs.png"))));
-		AnchorPane logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
+		VBox logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer",
@@ -315,7 +343,7 @@ public class mainDesktopController {
 		
 		DesktopApp calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
-		AnchorPane calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
+		VBox calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/callout-view.fxml",
@@ -337,7 +365,7 @@ public class mainDesktopController {
 		
 		DesktopApp courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/courtIcon.png"))));
-		AnchorPane courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
+		VBox courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/court-view.fxml",
@@ -358,7 +386,7 @@ public class mainDesktopController {
 		
 		DesktopApp pedLookupAppObj = new DesktopApp("Ped Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/ped-search.png"))));
-		AnchorPane lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
+		VBox lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-ped-view.fxml",
@@ -380,7 +408,7 @@ public class mainDesktopController {
 		
 		DesktopApp vehLookupAppObj = new DesktopApp("Veh Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/veh-search.png"))));
-		AnchorPane vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
+		VBox vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow logapp = createFakeWindow(desktopContainer, "Windows/Apps/lookup-veh-view.fxml",
@@ -400,10 +428,9 @@ public class mainDesktopController {
 		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"),
 		                appConfigRead("Veh Lookup", "y"));
 		
-		//todo fix connectionapp being able to mess up sizing of desktop
 		DesktopApp connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/server.png"))));
-		AnchorPane connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
+		VBox connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow serverApp = createFakeWindow(desktopContainer, "Windows/Server/client-view.fxml",
@@ -424,7 +451,7 @@ public class mainDesktopController {
 		
 		DesktopApp showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
-		AnchorPane showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
+		VBox showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow IDApp = createFakeWindow(desktopContainer, "Windows/Server/currentID-view.fxml",
@@ -442,7 +469,7 @@ public class mainDesktopController {
 		
 		DesktopApp profileAppObj = new DesktopApp("Profile", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/profile.png"))));
-		AnchorPane profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
+		VBox profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
 					userManager = createFakeWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "Profile", false,
@@ -545,4 +572,7 @@ public class mainDesktopController {
 		return topBar;
 	}
 	
+	public HBox getInfoHBox() {
+		return infoHBox;
+	}
 }

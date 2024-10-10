@@ -55,7 +55,7 @@ public class DeathReportUtils {
 	}
 	
 	public static Map<String, Object> deathReportLayout() {
-		Map<String, Object> deathReport = createReportWindow("Death Report", 7, 8, null,
+		Map<String, Object> deathReport = createReportWindow("Death Report", null,
 		                                                     new nestedReportUtils.SectionConfig("Officer Information",
 		                                                                                         true,
 		                                                                                         new nestedReportUtils.RowConfig(

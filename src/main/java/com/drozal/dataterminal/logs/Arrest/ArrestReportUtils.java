@@ -67,19 +67,13 @@ public class ArrestReportUtils {
 	}
 	
 	public static Map<String, Object> arrestLayout() {
-		Map<String, Object> arrestReport = createReportWindow("Arrest Report", 7, 9,
-		                                                      new nestedReportUtils.TransferConfig(
-				                                                      "Transfer Information To New Report",
-				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transferimpoundbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transferincidentbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "transfersearchbtn", 4,
-								                                                      nestedReportUtils.FieldType.TRANSFER_BUTTON))),
+		Map<String, Object> arrestReport = createReportWindow("Arrest Report", new nestedReportUtils.TransferConfig(
+				                                                      "Transfer Information To New Report", new nestedReportUtils.RowConfig(
+				                                                      new nestedReportUtils.FieldConfig("transferimpoundbtn", 4, nestedReportUtils.FieldType.TRANSFER_BUTTON),
+				                                                      new nestedReportUtils.FieldConfig("transferincidentbtn", 4,
+				                                                                                        nestedReportUtils.FieldType.TRANSFER_BUTTON),
+				                                                      new nestedReportUtils.FieldConfig("transfersearchbtn", 4,
+				                                                                                        nestedReportUtils.FieldType.TRANSFER_BUTTON))),
 		                                                      new nestedReportUtils.SectionConfig("Officer Information",
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(

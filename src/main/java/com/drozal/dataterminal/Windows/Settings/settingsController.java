@@ -100,43 +100,11 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private ComboBox textClrComboBox;
 	@javafx.fxml.FXML
-	private CheckBox serverAutoconnectCheckbox;
-	@javafx.fxml.FXML
 	private TextField broadcastPortField;
 	@javafx.fxml.FXML
 	private Button resetReportDefaultsBtn;
 	@javafx.fxml.FXML
-	private Label tt10;
-	@javafx.fxml.FXML
-	private Label tt5;
-	@javafx.fxml.FXML
-	private Label tt4;
-	@javafx.fxml.FXML
-	private Label tt7;
-	@javafx.fxml.FXML
-	private Label tt6;
-	@javafx.fxml.FXML
-	private Label tt9;
-	@javafx.fxml.FXML
-	private Label tt8;
-	@javafx.fxml.FXML
-	private Label tt11;
-	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
-	@javafx.fxml.FXML
-	private CheckBox enableIDPopupsCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox enableCalloutPopupsCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox enableSoundCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox audioCalloutCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox audioReportDeleteCheckbox;
-	@javafx.fxml.FXML
-	private CheckBox audioReportCreate;
-	@javafx.fxml.FXML
-	private CheckBox audioLookupWarningCheckbox;
 	@javafx.fxml.FXML
 	private AnchorPane paneAudio;
 	@javafx.fxml.FXML
@@ -189,6 +157,22 @@ public class settingsController {
 	private ToggleButton enableNotiTB;
 	@javafx.fxml.FXML
 	private BorderPane notiDisplayPane;
+	@javafx.fxml.FXML
+	private ToggleButton audioLookupWarningCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton audioReportCreate;
+	@javafx.fxml.FXML
+	private ToggleButton audioCalloutCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton audioReportDeleteCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton serverAutoconnectTogglebox;
+	@javafx.fxml.FXML
+	private ToggleButton enableSoundCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton enableIDPopupsCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton enableCalloutPopupsCheckbox;
 	
 	//</editor-fold>
 	
@@ -622,7 +606,6 @@ public class settingsController {
 			logError("Error Loading Theme From Init: ", e);
 		}
 		loadColors();
-		addTooltips();
 		
 		Platform.runLater(() -> {
 			Stage stage = (Stage) root.getScene().getWindow();
@@ -699,7 +682,7 @@ public class settingsController {
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
 			
-			try {
+			/*try { todo temp removed
 				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
 				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
 				                                                                              "accentColor") + ";";
@@ -726,7 +709,7 @@ public class settingsController {
 				debugLogBtn.setOnMouseExited(e -> debugLogBtn.setStyle(nonTransparentBtn));
 			} catch (IOException e) {
 				throw new RuntimeException(e);
-			}
+			}*/
 		} catch (IOException e) {
 			logError("LoadTheme IO Error Code 917 ", e);
 		}
@@ -798,7 +781,7 @@ public class settingsController {
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
 		enableIDPopupsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
-		serverAutoconnectCheckbox.setSelected(
+		serverAutoconnectTogglebox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
 		
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
@@ -1409,8 +1392,8 @@ public class settingsController {
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/output-view.fxml",
 		                 "Application Logs", false, 2, true, false, mainDesktopControllerObj.getTaskBarApps(),
-		                 new Image(Launcher.class.getResourceAsStream(
-				                 "com/drozal/dataterminal/imgs/icons/Apps/updates.png")));
+		                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream(
+				                 "/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
 	}
 	
 	@javafx.fxml.FXML
@@ -1455,14 +1438,14 @@ public class settingsController {
 		isInitialized = true;
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void serverAutoConnectClick(ActionEvent actionEvent) {
-		if (serverAutoconnectCheckbox.isSelected()) {
+		if (serverAutoconnectTogglebox.isSelected()) {
 			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "true");
-			serverAutoconnectCheckbox.setSelected(true);
+			serverAutoconnectTogglebox.setSelected(true);
 		} else {
 			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "false");
-			serverAutoconnectCheckbox.setSelected(false);
+			serverAutoconnectTogglebox.setSelected(false);
 		}
 	}
 	
@@ -1478,7 +1461,7 @@ public class settingsController {
 		loadColors();
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void enableIDPopupClick(ActionEvent actionEvent) {
 		if (enableIDPopupsCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableIDPopup", "true");
@@ -1489,7 +1472,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void enableCalloutPopupClick(ActionEvent actionEvent) {
 		if (enableCalloutPopupsCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "true");
@@ -1500,7 +1483,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
 		if (enableSoundCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
@@ -1511,7 +1494,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void audioCalloutClick(ActionEvent actionEvent) {
 		if (audioCalloutCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playCallout", "true");
@@ -1522,7 +1505,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void audioReportDeleteClick(ActionEvent actionEvent) {
 		if (audioReportDeleteCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "true");
@@ -1533,7 +1516,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void audioReportCreateClick(ActionEvent actionEvent) {
 		if (audioReportCreate.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playCreateReport", "true");
@@ -1544,7 +1527,7 @@ public class settingsController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@Deprecated
 	public void audioLookupWarning(ActionEvent actionEvent) {
 		if (audioLookupWarningCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "true");
@@ -1564,39 +1547,6 @@ public class settingsController {
 			ConfigWriter.configwrite("notificationSettings", "enabled", "false");
 			enableNotiTB.setSelected(false);
 		}
-	}
-	
-	private void addTooltips() {
-		addTooltip(serverAutoconnectCheckbox, "Try To Autoconnect To Server On Startup");
-		
-		addTooltip(audioCalloutCheckbox, "Enable Sound When Recieving Callout");
-		addTooltip(audioReportCreate, "Enable Sound When Creating Report");
-		addTooltip(audioReportDeleteCheckbox, "Enable Sound When Deleting Report");
-		addTooltip(audioLookupWarningCheckbox, "Enable Warning Sound When Looking Up Veh/Ped");
-		
-		addTooltip(enableCalloutPopupsCheckbox, "Allow Callouts To Pop Up On Screen");
-		addTooltip(enableIDPopupsCheckbox, "Allow IDs To Pop Up On Screen");
-		addTooltip(enableSoundCheckbox, "Requires Sound Pack From ReportsPlus LCPDFR Page");
-		
-		addTooltip(tt4, "UI Theme Presets");
-		addTooltip(tt5, "UI Text Color");
-		addTooltip(tt6, "Report Theme Presets");
-		addTooltip(tt7, "Report TextField Color");
-		addTooltip(tt8, "Duration (Sec) That Callout Window is shown");
-		addTooltip(tt9, "Duration (Sec) That ID Window is shown");
-		addTooltip(tt10,
-		           "Port Used To Receive Server Broadcast Info\nOnly Change If You Have Issues With Autoconnection\nMust Match With Broadcastport In Server Config");
-		addTooltip(tt11, "Set a maximum wait time for receiving data before disconnecting");
-		
-		addTooltip(bkgLabel, "Application Background Color");
-		addTooltip(primLabel, "Application Primary Color");
-		addTooltip(secLabel, "Application Secondary Color");
-		addTooltip(accLabel, "Application Accent Color");
-		
-		addTooltip(headingLabelReport, "Report Heading Color");
-		addTooltip(backgroundLabelReport, "Report Background Color");
-		addTooltip(secLabelReport, "Report Secondary Color");
-		addTooltip(accentLabelReport, "Report Accent Color");
 	}
 	
 	private void refreshNotificationPreview(String type) {

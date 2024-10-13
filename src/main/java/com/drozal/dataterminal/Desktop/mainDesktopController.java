@@ -290,7 +290,7 @@ public class mainDesktopController {
 		VBox settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", false,
+					createFakeWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", true,
 					                 2, true, false, taskBarApps, settingsAppObj.getImage());
 					try {
 						settingsController.loadTheme();

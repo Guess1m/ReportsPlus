@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="641.0" prefWidth="668.0"
-            stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="604.0" prefWidth="780.0" stylesheets="@../../css/lookups/lookup.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -47,67 +47,11 @@
                             </VBox.margin>
                         </AnchorPane>
                         <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
-                                    style="-fx-background-color: transparent; -fx-border-width: 0;"
+                                    style="-fx-background-color: transparent;"
                                     stylesheets="@../../css/main/scrollPane.css">
                             <content>
-                                <AnchorPane fx:id="vehLookupPane"
-                                            style="-fx-background-color: transparent; -fx-border-width: 0;">
+                                <AnchorPane fx:id="vehLookupPane" style="-fx-background-color: transparent;">
                                     <children>
-                                        <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0"
-                                                  AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="lbl1" styleClass="SubHeading" text="Search Plate:"
-                                                       textAlignment="CENTER">
-                                                    <font>
-                                                        <Font name="Segoe UI Black" size="20.0"/>
-                                                    </font>
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <Button fx:id="vehSearchBtn" mnemonicParsing="false"
-                                                        onAction="#onVehSearchBtnClick" prefHeight="36.0"
-                                                        prefWidth="103.0" styleClass="searchBtn" text="Search"
-                                                        GridPane.columnIndex="2"/>
-                                                <AnchorPane GridPane.columnIndex="1">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" right="10.0"/>
-                                                    </GridPane.margin>
-                                                    <children>
-                                                        <ComboBox fx:id="vehSearchField" editable="true"
-                                                                  minWidth="100.0" prefHeight="36.0" prefWidth="565.0"
-                                                                  styleClass="combo-boxSearch" visibleRowCount="5"
-                                                                  AnchorPane.bottomAnchor="0.0"
-                                                                  AnchorPane.leftAnchor="0.0"
-                                                                  AnchorPane.rightAnchor="0.0"
-                                                                  AnchorPane.topAnchor="0.0"/>
-                                                    </children>
-                                                </AnchorPane>
-                                                <BorderPane GridPane.columnIndex="3">
-                                                    <center>
-                                                        <Button fx:id="addDataToNotesBtn" mnemonicParsing="false"
-                                                                onAction="#vehAddDataToNotes" opacity="0.73"
-                                                                styleClass="accentBtn" text="Add Data To Notes">
-                                                            <font>
-                                                                <Font name="Segoe UI" size="12.0"/>
-                                                            </font>
-                                                            <BorderPane.margin>
-                                                                <Insets left="10.0"/>
-                                                            </BorderPane.margin>
-                                                        </Button>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </GridPane>
                                         <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0"
                                                     AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
                                                     AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
@@ -501,6 +445,61 @@
                                                 <Font name="Segoe UI Black" size="20.0"/>
                                             </font>
                                         </Label>
+                                        <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0"
+                                                  AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="ALWAYS"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label fx:id="lbl1" styleClass="SubHeading" text="Search Plate:"
+                                                       textAlignment="CENTER">
+                                                    <font>
+                                                        <Font name="Segoe UI Black" size="20.0"/>
+                                                    </font>
+                                                    <GridPane.margin>
+                                                        <Insets/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Button fx:id="vehSearchBtn" mnemonicParsing="false"
+                                                        onAction="#onVehSearchBtnClick" prefHeight="36.0"
+                                                        prefWidth="103.0" styleClass="searchBtn" text="Search"
+                                                        GridPane.columnIndex="2"/>
+                                                <AnchorPane GridPane.columnIndex="1">
+                                                    <GridPane.margin>
+                                                        <Insets left="10.0" right="10.0"/>
+                                                    </GridPane.margin>
+                                                    <children>
+                                                        <ComboBox fx:id="vehSearchField" editable="true"
+                                                                  minWidth="100.0" prefHeight="36.0" prefWidth="565.0"
+                                                                  styleClass="combo-boxSearch" visibleRowCount="5"
+                                                                  AnchorPane.bottomAnchor="0.0"
+                                                                  AnchorPane.leftAnchor="0.0"
+                                                                  AnchorPane.rightAnchor="0.0"
+                                                                  AnchorPane.topAnchor="0.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                                <BorderPane GridPane.columnIndex="3">
+                                                    <center>
+                                                        <Button fx:id="addDataToNotesBtn" mnemonicParsing="false"
+                                                                onAction="#vehAddDataToNotes" opacity="0.73"
+                                                                styleClass="accentBtn" text="Add Data To Notes">
+                                                            <font>
+                                                                <Font name="Segoe UI" size="12.0"/>
+                                                            </font>
+                                                            <BorderPane.margin>
+                                                                <Insets left="10.0"/>
+                                                            </BorderPane.margin>
+                                                        </Button>
+                                                    </center>
+                                                </BorderPane>
+                                            </children>
+                                        </GridPane>
                                     </children>
                                 </AnchorPane>
                             </content>

@@ -107,7 +107,6 @@ public class CustomWindow {
 	}
 	
 	private void initializeWindow(boolean resizable) {
-		windowPane.setPrefSize(windowPane.prefWidth(-1), windowPane.prefHeight(-1));
 		AnchorPane titleBar = createTitleBar(title);
 		((BorderPane) windowPane).setTop(titleBar);
 		

@@ -18,10 +18,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -507,8 +504,8 @@ public class PedLookupViewController {
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
 		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
 		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 3, true,
-		                 false, mainDesktopControllerObj.getTaskBarApps(), new Image(
-						Launcher.class.getResourceAsStream("com/drozal/dataterminal/imgs/icons/Apps/setting.png")));
+		                 false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+						Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/setting.png"))));
 	}
 	
 	@javafx.fxml.FXML

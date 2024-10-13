@@ -6,10 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="672.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="root" prefHeight="680.0" prefWidth="716.0" stylesheets="@../../css/settings/settings.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -119,540 +117,1122 @@
         </VBox>
     </left>
     <center>
-        <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
-            <content>
-                <AnchorPane>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane fx:id="paneWindow" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <AnchorPane fx:id="paneWindow" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="WINDOW SETTINGS"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="55.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
                             <children>
-                                <CheckBox fx:id="enableCalloutPopupsCheckbox" alignment="CENTER" layoutX="39.0"
-                                          layoutY="529.0" mnemonicParsing="false" onAction="#enableCalloutPopupClick"
-                                          prefHeight="50.0" selected="true" text="Enable Callout Popups">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="5.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <CheckBox fx:id="enableIDPopupsCheckbox" alignment="CENTER" layoutX="48.0"
-                                          layoutY="423.0" mnemonicParsing="false" onAction="#enableIDPopupClick"
-                                          prefHeight="50.0" selected="true" text="Enable ID Popups">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="5.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <Label fx:id="tt8" layoutX="98.0" layoutY="40.0" text="Callout:">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                </Label>
-                                <ComboBox fx:id="calloutDurComboBox" layoutX="168.0" layoutY="37.0" prefWidth="114.0"/>
-                                <Label fx:id="tt9" layoutX="215.0" layoutY="159.0" text="ID:">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                </Label>
-                                <ComboBox fx:id="idDurComboBox" layoutX="251.0" layoutY="156.0" prefWidth="114.0"/>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneNotification" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Label alignment="CENTER" layoutX="7.0" layoutY="14.0" styleClass="settingsLabel"
-                                       text="NOTIFICATION SETTINGS" AnchorPane.leftAnchor="15.0"
-                                       AnchorPane.topAnchor="10.0"/>
-                                <VBox layoutX="25.0" layoutY="47.5" spacing="20.0" AnchorPane.bottomAnchor="65.0"
-                                      AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
-                                      AnchorPane.topAnchor="65.0">
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
                                     <children>
-                                        <AnchorPane VBox.vgrow="SOMETIMES"/>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading"
-                                                       text="Recieve Notifications" GridPane.valignment="CENTER"/>
-                                                <ToggleButton fx:id="enableNotiTB" mnemonicParsing="false"
-                                                              onAction="#enableNoti" text="Status"
-                                                              GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                              GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Toggle whether ALL notifications will be enabled"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading" text="Fade out time"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Time it takes for notifications to fade away (Sec)"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Enable ID Popups"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggle whether IDs will pop up when recieved" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ToggleButton fx:id="enableIDPopupsCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
                                                       GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER">
-                                                    <children>
-                                                        <TextField fx:id="notiFadeOutDurField" maxWidth="-Infinity"
-                                                                   prefWidth="75.0" promptText="Def. 1.7"
-                                                                   HBox.hgrow="SOMETIMES"/>
-                                                        <Button fx:id="saveFadeDurBtn" minWidth="-Infinity"
-                                                                mnemonicParsing="false" styleClass="AuxButton"
-                                                                text="Save" HBox.hgrow="ALWAYS"/>
-                                                    </children>
-                                                </HBox>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
+                                                      GridPane.valignment="CENTER"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="30.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="ID Display Duration"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Duration ID window will be displayed" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
                                             <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading"
-                                                       text="Display Duration" GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Time notification is displayed before fading (Sec)"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER">
-                                                    <children>
-                                                        <TextField fx:id="notiDisplayDurField" maxWidth="-Infinity"
-                                                                   prefWidth="75.0" promptText="Def. 1.2"
-                                                                   HBox.hgrow="SOMETIMES"/>
-                                                        <Button fx:id="saveDisplayDurBtn" minWidth="-Infinity"
-                                                                mnemonicParsing="false" styleClass="AuxButton"
-                                                                text="Save" HBox.hgrow="ALWAYS"/>
-                                                    </children>
-                                                </HBox>
+                                                <ComboBox fx:id="idDurComboBox" prefWidth="135.0"/>
                                             </children>
-                                        </GridPane>
-                                        <AnchorPane VBox.vgrow="SOMETIMES"/>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="settingsLabel"
-                                                       text="Selected Notification" GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Notification to modify below" GridPane.rowIndex="1"
-                                                       GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ComboBox fx:id="notificationComboBox" minWidth="160.0"
-                                                          GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                          GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="30.0"/>
-                                            </VBox.margin>
-                                        </GridPane>
-                                        <BorderPane fx:id="notiDisplayPane" prefHeight="70.0" scaleShape="false"
-                                                    VBox.vgrow="SOMETIMES"/>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading" text="Position"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Location of notifications" GridPane.rowIndex="1"
-                                                       GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ComboBox fx:id="notiPosCombobox" minWidth="128.5"
-                                                          GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                          GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading" text="Primary Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Main color of the notification" GridPane.rowIndex="1"
-                                                       GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ColorPicker fx:id="notiPrimPicker" minWidth="100.0"
-                                                             GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                             GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" styleClass="paneHeading" text="Text Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label alignment="CENTER" styleClass="paneSubtext"
-                                                       text="Color of the text on the notification"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ColorPicker fx:id="notiTextColorPicker" GridPane.columnIndex="1"
-                                                             GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                             GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <HBox alignment="CENTER" spacing="45.0" VBox.vgrow="SOMETIMES">
-                                            <children>
-                                                <Button fx:id="previewNotificationBtn" mnemonicParsing="false"
-                                                        text="Preview Notification" HBox.hgrow="SOMETIMES"/>
-                                                <Button fx:id="resetNotiDefaultsBtn" mnemonicParsing="false"
-                                                        onAction="#resetNotiDefaultsBtnPress" text="Reset Defaults"
-                                                        HBox.hgrow="SOMETIMES"/>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="20.0"/>
-                                            </VBox.margin>
                                         </HBox>
                                     </children>
-                                </VBox>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Enable Callout Popups"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="enableCalloutPopupsCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggle whether callouts will pop up when recieved"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="45.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Callout Display Duration" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Duration callout window will be displayed" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="calloutDurComboBox" prefWidth="135.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneReport" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane layoutX="73.0" layoutY="564.0">
-                                    <children>
-                                        <Label fx:id="headingLabelReport" layoutX="9.0" layoutY="12.0"
-                                               text="Heading Color:" AnchorPane.leftAnchor="9.0"
-                                               AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="headingPickerReport" layoutX="134.0" layoutY="9.0"
-                                                     prefHeight="25.0" prefWidth="208.0" AnchorPane.leftAnchor="143.0"
-                                                     AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="42.0" layoutY="442.0">
-                                    <children>
-                                        <Label fx:id="secLabelReport" text="Secondary Color:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="secPickerReport" layoutX="134.0" layoutY="1.0"
-                                                     AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="47.0" layoutY="235.0">
-                                    <children>
-                                        <Label fx:id="backgroundLabelReport" text="Background Color:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="backgroundPickerReport" layoutX="143.0" layoutY="12.0"
-                                                     prefHeight="25.0" prefWidth="199.0" AnchorPane.leftAnchor="143.0"
-                                                     AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="48.0" layoutY="280.0">
-                                    <children>
-                                        <Label fx:id="accentLabelReport" text="Accent Color:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="accentPickerReport" layoutX="134.0" layoutY="1.0"
-                                                     AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="73.0" layoutY="150.0">
-                                    <children>
-                                        <Label fx:id="tt6" layoutX="9.0" layoutY="12.0" text="Preset:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="presetComboBoxReport" layoutX="65.0" layoutY="10.0"
-                                                  prefHeight="26.0" prefWidth="144.0" AnchorPane.leftAnchor="65.0"
-                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="55.0" layoutY="336.0">
-                                    <children>
-                                        <Label fx:id="tt7" layoutX="10.0" layoutY="12.0" text="Report Text Color:"
-                                               AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="reportStyleComboBox" layoutX="141.0" layoutY="10.0"
-                                                  prefHeight="26.0" prefWidth="105.0" AnchorPane.leftAnchor="141.0"
-                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <Button fx:id="resetReportDefaultsBtn" layoutX="235.0" layoutY="389.0"
-                                        mnemonicParsing="false" onAction="#resetReportDefaultsBtnPress"
-                                        prefHeight="32.0" prefWidth="147.0" text="Reset Defaults"/>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneApplication" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane layoutX="95.0" layoutY="346.0">
-                                    <children>
-                                        <Label fx:id="primLabel" layoutX="9.0" layoutY="12.0" text="Prim. Color:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="primPicker" layoutX="125.0" layoutY="9.0"
-                                                     AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="61.0" layoutY="393.0">
-                                    <children>
-                                        <Label fx:id="secLabel" text="Sec. Color:" AnchorPane.leftAnchor="9.0"
-                                               AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="secPicker" layoutX="134.0" layoutY="1.0"
-                                                     AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="24.0" layoutY="461.0">
-                                    <children>
-                                        <Label fx:id="accLabel" text="Accent Color:" AnchorPane.leftAnchor="9.0"
-                                               AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="accPicker" layoutX="144.0" layoutY="12.0"
-                                                     AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="10.0" layoutY="219.0">
-                                    <children>
-                                        <Label fx:id="tt4" layoutX="9.0" layoutY="12.0" text="UI Theme:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="themeComboBox" layoutX="94.0" layoutY="10.0" prefHeight="26.0"
-                                                  prefWidth="182.0" AnchorPane.leftAnchor="94.0"
-                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <Button fx:id="resetDefaultsBtn" layoutX="117.0" layoutY="297.0" mnemonicParsing="false"
-                                        onAction="#resetDefaultsBtnPress" prefHeight="30.0" prefWidth="165.0"
-                                        text="Reset Defaults"/>
-                                <AnchorPane layoutX="29.0" layoutY="147.0">
-                                    <children>
-                                        <Label fx:id="bkgLabel" layoutX="9.0" layoutY="12.0" text="Bkg. Color"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ColorPicker fx:id="bkgPicker" layoutX="125.0" layoutY="9.0"
-                                                     AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="20.0"
-                                                     AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="24.0" layoutY="87.0">
-                                    <children>
-                                        <Label fx:id="tt5" layoutX="9.0" layoutY="12.0" text="UI Text Color:"
-                                               AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="12.0">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="15.0"/>
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="textClrComboBox" layoutX="115.0" layoutY="10.0"
-                                                  prefHeight="26.0" prefWidth="160.0" AnchorPane.leftAnchor="115.0"
-                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneNetworking" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Label fx:id="tt10" alignment="CENTER" layoutX="87.0" layoutY="233.0"
-                                       text="Broadcast Port:">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                </Label>
-                                <TextField fx:id="broadcastPortField" layoutX="190.0" layoutY="230.0"
-                                           promptText="Default: 8888"/>
-                                <CheckBox fx:id="serverAutoconnectCheckbox" alignment="CENTER" layoutX="87.0"
-                                          layoutY="105.0" mnemonicParsing="false" onAction="#serverAutoConnectClick"
-                                          selected="true" text="Server Autoconnect on Startup">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="9.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <Label fx:id="tt11" layoutX="46.0" layoutY="286.0" text="Socket Timeout (ms):">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                </Label>
-                                <TextField fx:id="socketTimeoutField" layoutX="190.0" layoutY="283.0"
-                                           promptText="Default 10000"/>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneAudio" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <CheckBox fx:id="audioCalloutCheckbox" alignment="CENTER" layoutX="71.0" layoutY="142.0"
-                                          mnemonicParsing="false" onAction="#audioCalloutClick" prefHeight="50.0"
-                                          selected="true" text="Callout Sound">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="9.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <BorderPane layoutX="71.0" layoutY="142.0"/>
-                                <CheckBox fx:id="audioReportCreate" alignment="CENTER" layoutX="197.0" layoutY="192.0"
-                                          mnemonicParsing="false" onAction="#audioReportCreateClick" prefHeight="50.0"
-                                          selected="true" text="Create Report Sound">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="9.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <CheckBox fx:id="audioReportDeleteCheckbox" alignment="CENTER" layoutX="71.0"
-                                          layoutY="304.0" mnemonicParsing="false" onAction="#audioReportDeleteClick"
-                                          prefHeight="50.0" selected="true" text="Delete Report Sound">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="9.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <CheckBox fx:id="audioLookupWarningCheckbox" alignment="CENTER" layoutX="129.0"
-                                          layoutY="54.0" mnemonicParsing="false" onAction="#audioLookupWarning"
-                                          prefHeight="50.0" selected="true" text="Lookup Warning Sound">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                    <padding>
-                                        <Insets left="9.0"/>
-                                    </padding>
-                                </CheckBox>
-                                <CheckBox fx:id="enableSoundCheckbox" alignment="CENTER" layoutX="115.0" layoutY="456.0"
-                                          mnemonicParsing="false" onAction="#enableSoundCheckboxClick"
-                                          text="Enable Sounds (Requires SoundPack)">
-                                    <font>
-                                        <Font name="Segoe UI Semibold" size="15.0"/>
-                                    </font>
-                                </CheckBox>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Button fx:id="clrLogsBtn" layoutX="76.0" layoutY="111.0" mnemonicParsing="false"
-                                        onAction="#clearLogsBtnClick" prefHeight="25.0" prefWidth="160.0"
-                                        text="CLEAR LOGS"/>
-                                <Button fx:id="clrSaveDataBtn" layoutX="186.0" layoutY="150.0" mnemonicParsing="false"
-                                        onAction="#clearSaveDataBtnClick" prefHeight="26.0" prefWidth="160.0"
-                                        text="CLEAR ALL SAVE DATA"/>
-                                <Button fx:id="debugLogBtn" layoutX="143.0" layoutY="249.0" mnemonicParsing="false"
-                                        onAction="#openDebugLogsBtnClick" prefHeight="26.0" prefWidth="160.0"
-                                        text="Open Debug Logs"/>
-                            </children>
-                        </AnchorPane>
+                        </VBox>
                     </children>
                 </AnchorPane>
-            </content>
-        </ScrollPane>
+                <AnchorPane fx:id="paneNotification" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="7.0" layoutY="14.0" styleClass="settingsLabel"
+                               text="NOTIFICATION SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox layoutX="25.0" layoutY="47.5" spacing="25.0" AnchorPane.bottomAnchor="25.0"
+                              AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Recieve Notifications"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="enableNotiTB" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggle whether ALL notifications will be enabled"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Fade out time"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Time it takes for notifications to fade away (Sec)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <TextField fx:id="notiFadeOutDurField" maxWidth="-Infinity"
+                                                           prefWidth="75.0" promptText="Def. 1.7"
+                                                           HBox.hgrow="SOMETIMES"/>
+                                                <Button fx:id="saveFadeDurBtn" minWidth="-Infinity"
+                                                        mnemonicParsing="false" styleClass="AuxButton" text="Save"
+                                                        HBox.hgrow="ALWAYS"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Display Duration"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Time notification is displayed before fading (Sec)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <TextField fx:id="notiDisplayDurField" maxWidth="-Infinity"
+                                                           prefWidth="75.0" promptText="Def. 1.2"
+                                                           HBox.hgrow="SOMETIMES"/>
+                                                <Button fx:id="saveDisplayDurBtn" minWidth="-Infinity"
+                                                        mnemonicParsing="false" styleClass="AuxButton" text="Save"
+                                                        HBox.hgrow="ALWAYS"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="settingsLabel"
+                                               text="Selected Notification" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Notification to modify below" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ComboBox fx:id="notificationComboBox" minWidth="160.0" GridPane.columnIndex="1"
+                                                  GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                  GridPane.valignment="CENTER"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Position"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Location of notifications" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ComboBox fx:id="notiPosCombobox" minWidth="128.5" GridPane.columnIndex="1"
+                                                  GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                  GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Primary Color"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Main color of the notification" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ColorPicker fx:id="notiPrimPicker" minWidth="100.0" GridPane.columnIndex="1"
+                                                     GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                     GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Text Color"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Color of the text on the notification" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ColorPicker fx:id="notiTextColorPicker" GridPane.columnIndex="1"
+                                                     GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                     GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <BorderPane fx:id="notiDisplayPane" prefHeight="93.0" scaleShape="false"
+                                            VBox.vgrow="SOMETIMES">
+                                    <top>
+                                        <Label styleClass="paneHeading" text="Preview:"
+                                               BorderPane.alignment="CENTER_LEFT">
+                                            <BorderPane.margin>
+                                                <Insets/>
+                                            </BorderPane.margin>
+                                            <padding>
+                                                <Insets bottom="10.0"/>
+                                            </padding>
+                                        </Label>
+                                    </top>
+                                    <VBox.margin>
+                                        <Insets top="10.0"/>
+                                    </VBox.margin>
+                                </BorderPane>
+                                <HBox alignment="CENTER" spacing="45.0" VBox.vgrow="SOMETIMES">
+                                    <children>
+                                        <Button fx:id="previewNotificationBtn" mnemonicParsing="false"
+                                                text="Preview Notification" HBox.hgrow="SOMETIMES"/>
+                                        <Button fx:id="resetNotiDefaultsBtn" mnemonicParsing="false"
+                                                onAction="#resetNotiDefaultsBtnPress" text="Reset Defaults"
+                                                HBox.hgrow="SOMETIMES"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="15.0"/>
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneReport" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Design Preset"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Preset designs for reports (Replaces what you have)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ComboBox fx:id="presetComboBoxReport" prefWidth="144.0"
+                                                  GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                  GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Report Text Color"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the text color of textfields in the report window"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="reportStyleComboBox" prefWidth="144.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="headingLabelReport" alignment="CENTER" styleClass="paneHeading"
+                                               text="Heading Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the heading / subheading text"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="headingPickerReport" prefWidth="144.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="backgroundLabelReport" alignment="CENTER" styleClass="paneHeading"
+                                               text="Background Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the report window background"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="backgroundPickerReport" prefWidth="144.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="secLabelReport" alignment="CENTER" styleClass="paneHeading"
+                                               text="Secondary Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the fields in the report window"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="secPickerReport" prefWidth="144.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="accentLabelReport" alignment="CENTER" styleClass="paneHeading"
+                                               text="Accent Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color when selecting a button / field"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="accentPickerReport" prefWidth="144.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Reset Defaults"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Restore the default report color settings" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <Button fx:id="resetReportDefaultsBtn" mnemonicParsing="false"
+                                                        onAction="#resetReportDefaultsBtnPress" prefWidth="144.0"
+                                                        text="Reset Defaults"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneApplication" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Design Preset"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Preset designs for reports (Replaces what you have)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                              GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="themeComboBox" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Report Text Color"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the text color of textfields in the report window"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="textClrComboBox" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="primLabel" alignment="CENTER" styleClass="paneHeading"
+                                               text="Heading Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the heading / subheading text"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="primPicker" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="secLabel" alignment="CENTER" styleClass="paneHeading"
+                                               text="Secondary Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the fields in the report window"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="secPicker" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="accLabel" alignment="CENTER" styleClass="paneHeading"
+                                               text="Accent Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color when selecting a button / field"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="accPicker" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="bkgLabel" alignment="CENTER" styleClass="paneHeading"
+                                               text="Background Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the report window background"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="bkgPicker" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Reset Defaults"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Restore the default report color settings" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <Button fx:id="resetDefaultsBtn" mnemonicParsing="false"
+                                                        onAction="#resetDefaultsBtnPress" prefWidth="150.0"
+                                                        text="Reset Defaults"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneNetworking" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="SERVER / NETWORKING SETTINGS"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="40.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Server Autoconnect"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="serverAutoconnectTogglebox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggler whether application will try to autoconnect"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Broadcast Port"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Default port for the autoconnect broadcast" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <TextField fx:id="broadcastPortField" maxWidth="-Infinity"
+                                                           prefWidth="135.0" promptText="Default: 8888"
+                                                           HBox.hgrow="SOMETIMES"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Server Socket Timeout"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Timeout for server when connection is lost (ms)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <TextField fx:id="socketTimeoutField" maxWidth="-Infinity"
+                                                           prefWidth="135.0" promptText="Default 10000"
+                                                           HBox.hgrow="SOMETIMES"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneAudio" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="AUDIO SETTINGS"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="55.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Enable Sounds"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="enableSoundCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggle whether ALL sounds will be enabled" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Lookup Warning Sound"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="audioLookupWarningCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Sound when suspect has warnings when looked up"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="30.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Create Report Sound"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="audioReportCreate" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Sound when report is created" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Callout Sound"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="audioCalloutCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Sound when a callout is recieved" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Delete Report Sound"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="audioReportDeleteCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Sound when report is deleted" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="DEVELOPER SETTINGS / CLEAR DATA"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="60.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Clear Logs"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Delete all saved logs in log browser" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Button fx:id="clrLogsBtn" mnemonicParsing="false" onAction="#clearLogsBtnClick"
+                                                text="CLEAR LOGS" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="35.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Clear ALL Save Data"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Delete all save data / start fresh" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Button fx:id="clrSaveDataBtn" mnemonicParsing="false"
+                                                onAction="#clearSaveDataBtnClick" text="CLEAR ALL SAVE DATA"
+                                                GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Open Debug Logs"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Open realtime output.log browser for debugging"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Button fx:id="debugLogBtn" mnemonicParsing="false"
+                                                onAction="#openDebugLogsBtnClick" text="DEBUG LOGS"
+                                                GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
     </center>
 </BorderPane>

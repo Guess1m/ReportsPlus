@@ -102,6 +102,8 @@ public class mainDesktopController {
 	private Label infoLabelRight;
 	@FXML
 	private Label infoLabelLeft;
+	@FXML
+	private Label officerInfoName;
 	
 	private static ContextMenu createReportMenu() {
 		ContextMenu reportContextMenu = new ContextMenu();
@@ -249,6 +251,12 @@ public class mainDesktopController {
 				scheduleOutcomeRevealsForPendingCases();
 			} catch (JAXBException | IOException e) {
 				logError("Error scheduling outcomes for cases: ", e);
+			}
+			
+			try {
+				officerInfoName.setText(ConfigReader.configRead("userInfo", "Name"));
+			} catch (IOException e) {
+				logError("Unable to read userInfo name from config (2), ", e);
 			}
 			
 		});
@@ -574,5 +582,9 @@ public class mainDesktopController {
 	
 	public HBox getInfoHBox() {
 		return infoHBox;
+	}
+	
+	public Label getOfficerInfoName() {
+		return officerInfoName;
 	}
 }

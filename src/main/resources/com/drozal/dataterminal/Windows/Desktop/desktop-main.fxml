@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.*?>
@@ -93,6 +93,24 @@
                                                 <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>
                                         </Label>
+                                        <Label alignment="CENTER" text="Logged In:" textAlignment="CENTER"
+                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="12.0"/>
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets left="30.0"/>
+                                            </HBox.margin>
+                                        </Label>
+                                        <Label fx:id="officerInfoName" alignment="CENTER" textAlignment="CENTER"
+                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </Label>
                                     </children>
                                     <BorderPane.margin>
                                         <Insets left="20.0"/>
@@ -104,8 +122,13 @@
                 </AnchorPane>
                 <AnchorPane fx:id="desktopContainer" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button fx:id="button1" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="15.0"
-                                AnchorPane.topAnchor="15.0"/>
+                        <Button fx:id="button1" mnemonicParsing="false"
+                                style="-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black;" text="Edit Mode"
+                                AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                            <font>
+                                <Font name="Segoe UI Black" size="10.0"/>
+                            </font>
+                        </Button>
                         <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true"
                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                             <children>

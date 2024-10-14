@@ -35,6 +35,7 @@ public class ClientUtils {
 	public static Boolean isConnected = false;
 	public static String port;
 	public static String inet;
+	public static CustomWindow calloutWindow;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
 	
@@ -179,12 +180,13 @@ public class ClientUtils {
 							FileUtlis.receiveCalloutFromServer(4096);
 							if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
 								Platform.runLater(() -> {
-									CustomWindow calloutWindow = createFakeWindow(
-											mainDesktopControllerObj.getDesktopContainer(),
-											"Windows/Server/callout-view.fxml", "Callout Display", false, 4, true, true,
-											mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
-													Launcher.class.getResourceAsStream(
-															"/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
+									calloutWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
+									                                 "Windows/Server/callout-view.fxml",
+									                                 "Callout Display", false, 4, true, true,
+									                                 mainDesktopControllerObj.getTaskBarApps(),
+									                                 new Image(Objects.requireNonNull(
+											                                 Launcher.class.getResourceAsStream(
+													                                 "/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
 									try {
 										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
 												"true")) {

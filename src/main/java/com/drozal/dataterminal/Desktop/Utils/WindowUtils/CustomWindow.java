@@ -111,11 +111,11 @@ public class CustomWindow {
 		((BorderPane) windowPane).setTop(titleBar);
 		
 		DropShadow dropShadow = new DropShadow();
-		dropShadow.setColor(new Color(0, 0, 0, 0.35));
+		dropShadow.setColor(new Color(0, 0, 0, 0.2));
 		dropShadow.setOffsetX(0);
 		dropShadow.setOffsetY(0);
-		dropShadow.setRadius(20.0);
-		dropShadow.setSpread(0.2);
+		dropShadow.setRadius(40.0);
+		dropShadow.setSpread(0.65);
 		windowPane.setEffect(dropShadow);
 		windowPane.setStyle(
 				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 5;");

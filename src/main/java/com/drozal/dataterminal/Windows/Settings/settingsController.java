@@ -336,13 +336,9 @@ public class settingsController {
 			logController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (calloutViewController != null) {
-			calloutViewController.getCalloutInfoTitle().setStyle("-fx-background-color: " + mainclr + ";");
 			calloutViewController.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
 			CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
-			
-			calloutViewController.getCurrentCalPane().setStyle(
-					updateStyleProperty(calloutViewController.getCurrentCalPane(), "-fx-border-color", accclr));
 			
 			calloutViewController.getCalActiveList().setStyle(
 					updateStyleProperty(calloutViewController.getCalActiveList(), "-fx-border-color", accclr));
@@ -435,16 +431,6 @@ public class settingsController {
 			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (calloutViewController != null) {
-			calloutViewController.getCaldetlbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCaldetlbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			
 			calloutViewController.getActivecalfill().setStyle(
 					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
 			calloutViewController.getCalfill().setStyle(
@@ -514,16 +500,6 @@ public class settingsController {
 			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (calloutViewController != null) {
-			calloutViewController.getCaldetlbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCaldetlbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			
 			calloutViewController.getActivecalfill().setStyle(
 					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
 			calloutViewController.getCalfill().setStyle(

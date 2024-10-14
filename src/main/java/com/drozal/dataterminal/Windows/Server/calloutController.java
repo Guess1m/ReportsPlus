@@ -1,11 +1,13 @@
 package com.drozal.dataterminal.Windows.Server;
 
+import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
 import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,15 +15,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
+import static com.drozal.dataterminal.util.Misc.CalloutManager.loadActiveCallouts;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
+import static com.drozal.dataterminal.util.server.ClientUtils.calloutWindow;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
@@ -107,20 +114,15 @@ public class calloutController {
 				message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
 				status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
 				
-				// TODO fix buttons and adding to callout manager not working
 				respondBtn.setOnAction(actionEvent -> {
 					status = "Responded";
 					statusLabel.setText("Responded.");
-					statusLabel.setVisible(true);
-					respondBtn.setVisible(false);
-					ignoreBtn.setVisible(false);
+					addResponseCode(message, desc);
 				});
 				ignoreBtn.setOnAction(actionEvent -> {
 					status = "Not Responded";
 					statusLabel.setText("Ignored.");
-					statusLabel.setVisible(true);
-					respondBtn.setVisible(false);
-					ignoreBtn.setVisible(false);
+					addResponseCode(message, desc);
 				});
 				
 				streetField.setText(street);
@@ -148,9 +150,30 @@ public class calloutController {
 				typeField.setText("No Data");
 				log("Null Callout", LogUtils.Severity.ERROR);
 			}
+			
 		});
 		
 		watchCalloutChanges();
+	}
+	
+	private void addResponseCode(String message, String desc) {
+		statusLabel.setVisible(true);
+		respondBtn.setVisible(false);
+		ignoreBtn.setVisible(false);
+		
+		PauseTransition pause = new PauseTransition(Duration.seconds(2));
+		pause.setOnFinished(event -> {
+			log("Added Callout To Active as: " + status, LogUtils.Severity.INFO);
+			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
+			                          priorityField.getText(), streetField.getText(), areaField.getText(),
+			                          countyField.getText(), timeField.getText(), dateField.getText(), status);
+			calloutWindow.closeWindow();
+			
+			if (calloutViewController != null) {
+				loadActiveCallouts(calloutViewController.getCalActiveList());
+			}
+		});
+		pause.play();
 	}
 	
 	public void watchCalloutChanges() {

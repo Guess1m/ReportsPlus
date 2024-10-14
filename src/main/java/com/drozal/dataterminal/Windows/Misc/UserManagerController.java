@@ -16,8 +16,10 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.mainDesktopController.userManager;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
+import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 
 public class UserManagerController {
@@ -105,6 +107,14 @@ public class UserManagerController {
 				
 				if (userManager != null) {
 					userManager.closeWindow();
+				}
+				if (mainDesktopControllerObj != null) {
+					try {
+						mainDesktopControllerObj.getOfficerInfoName().setText(
+								ConfigReader.configRead("userInfo", "Name"));
+					} catch (IOException e) {
+						logError("Unable to read userInfo name from config, ", e);
+					}
 				}
 			}
 		}

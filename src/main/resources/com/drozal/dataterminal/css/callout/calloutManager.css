@@ -17,25 +17,33 @@
     -fx-border-color: grey;
 }
 
-.combo-boxCal .list-cell {
-    -fx-text-fill: black;
+.combo-boxCal:focused {
+    -fx-border-color: #5e7387;
+    -fx-border-width: 0 0 3px 0;
+    -fx-effect: none;
 }
 
 .combo-boxCal .list-view .list-cell {
     -fx-text-fill: black;
-    -fx-background-color: #f2f2f2;
     -fx-border-color: none;
 }
 
+.combo-boxCal .combo-box-popup .list-view .list-cell {
+    -fx-background-color: white;
+}
+
+.combo-boxCal .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgb(225, 225, 225, 1);
+}
+
 .combo-boxCal .scroll-bar {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: none;
     -fx-pref-width: 11px;
 }
 
 .combo-boxCal .scroll-bar .increment-arrow,
 .combo-boxCal .scroll-bar .decrement-arrow {
     -fx-background-color: none;
-    -fx-fill: none;
 }
 
 .combo-boxCal .scroll-bar .thumb {
@@ -43,15 +51,18 @@
 }
 
 .combo-boxCal .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69;
+    -fx-background-color: #34404b;
 }
 
-.combo-boxCal .list-view .list-cell:hover {
-    -fx-background-color: rgb(94, 115, 135, 0.4);
+.combo-boxCal .list-cell {
+    -fx-text-fill: white;
 }
 
-.combo-boxCal:focused {
-    -fx-border-color: #5e7387;
-    -fx-border-width: 0 0 3px 0;
-    -fx-effect: none;
+.split-pane .split-pane-divider {
+    -fx-background-color: rgb(0, 0, 0, 0.2);
+    -fx-padding: 3px;
+}
+
+.split-pane .split-pane-divider:pressed {
+    -fx-background-color: rgb(0, 0, 0, 0.45);
 }

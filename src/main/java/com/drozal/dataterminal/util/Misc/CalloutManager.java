@@ -310,34 +310,6 @@ public class CalloutManager {
 		}
 	}
 	
-	public static void loadHistoryCallouts(ListView<Node> listView) {
-		try {
-			listView.getItems().clear();
-			
-			File xmlFile = new File(calloutHistoryURL);
-			if (!xmlFile.exists() || xmlFile.length() == 0) {
-				return;
-			}
-			
-			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
-			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			Callouts callouts = (Callouts) unmarshaller.unmarshal(xmlFile);
-			
-			if (callouts != null && callouts.getCalloutList() != null) {
-				List<Callout> calloutList = callouts.getCalloutList();
-				for (Callout callout : calloutList) {
-					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
-					                                            callout.getType(), callout.getStreet(),
-					                                            callout.getPriority(), callout.getArea());
-					listView.getItems().add(calloutNode);
-				}
-			}
-		} catch (JAXBException e) {
-			logError("Error loading callout history: ", e);
-			
-		}
-	}
-	
 	private static Node createActiveCalloutNode(String number, String status, String type, String street, String priority, String area) {
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(6);
@@ -439,6 +411,34 @@ public class CalloutManager {
 		gridPane.add(closeBtn, 2, 3, 2, 2);
 		
 		return gridPane;
+	}
+	
+	public static void loadHistoryCallouts(ListView<Node> listView) {
+		try {
+			listView.getItems().clear();
+			
+			File xmlFile = new File(calloutHistoryURL);
+			if (!xmlFile.exists() || xmlFile.length() == 0) {
+				return;
+			}
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			Callouts callouts = (Callouts) unmarshaller.unmarshal(xmlFile);
+			
+			if (callouts != null && callouts.getCalloutList() != null) {
+				List<Callout> calloutList = callouts.getCalloutList();
+				for (Callout callout : calloutList) {
+					Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
+					                                            callout.getType(), callout.getStreet(),
+					                                            callout.getPriority(), callout.getArea());
+					listView.getItems().add(calloutNode);
+				}
+			}
+		} catch (JAXBException e) {
+			logError("Error loading callout history: ", e);
+			
+		}
 	}
 	
 	private static Node createHistoryCalloutNode(String number, String status, String type, String street, String priority, String area) {

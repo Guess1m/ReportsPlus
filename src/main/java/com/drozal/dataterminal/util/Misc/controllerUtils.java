@@ -52,10 +52,12 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
+import static com.drozal.dataterminal.util.Misc.AudioUtil.audioExecutor;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 
@@ -723,10 +725,22 @@ public class controllerUtils {
 		}
 	}
 	
+	public static void shutdownAudioExecutor() {
+		audioExecutor.shutdown();
+		try {
+			if (!audioExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+				audioExecutor.shutdownNow();
+			}
+		} catch (InterruptedException e) {
+			audioExecutor.shutdownNow();
+		}
+	}
+	
 	public static void handleClose() {
 		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
 		endLog();
 		ClientUtils.disconnectFromService();
+		shutdownAudioExecutor();
 		Platform.exit();
 		System.exit(0);
 	}

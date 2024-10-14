@@ -11,6 +11,12 @@ import com.drozal.dataterminal.Windows.Server.ClientController;
 import com.drozal.dataterminal.Windows.Settings.settingsController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.CommandPrompt.CommandRegistry;
+import com.drozal.dataterminal.util.CommandPrompt.CommandTextArea;
+import com.drozal.dataterminal.util.CommandPrompt.Commands.CalloutCommand;
+import com.drozal.dataterminal.util.CommandPrompt.Commands.HelpCommand;
+import com.drozal.dataterminal.util.CommandPrompt.Commands.ShowWindowsCommand;
+import com.drozal.dataterminal.util.CommandPrompt.DefaultCommandExecutor;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import com.drozal.dataterminal.util.server.ClientUtils;
@@ -61,6 +67,7 @@ import static com.drozal.dataterminal.logs.TrafficCitation.TrafficCitationUtils.
 import static com.drozal.dataterminal.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
+import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationWarning;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.handleClose;
 import static com.drozal.dataterminal.util.Misc.updateUtil.checkForUpdates;
 import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
@@ -68,8 +75,10 @@ import static com.drozal.dataterminal.util.Misc.updateUtil.gitVersion;
 public class mainDesktopController {
 	
 	private static final ContextMenu reportMenuOptions = createReportMenu();
+	private static final CommandRegistry commandRegistry = new CommandRegistry();
+	private static final DefaultCommandExecutor executor = new DefaultCommandExecutor(commandRegistry);
+	public static CommandTextArea commandTextArea = new CommandTextArea(executor);
 	public static CustomWindow userManager;
-	
 	@FXML
 	private Button button1;
 	@FXML
@@ -264,6 +273,15 @@ public class mainDesktopController {
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
 		}
+		
+		registerCommands();
+		
+	}
+	
+	private void registerCommands() {
+		commandRegistry.registerCommand("help", new HelpCommand());
+		commandRegistry.registerCommand("addCallout", new CalloutCommand());
+		commandRegistry.registerCommand("cWindows", new ShowWindowsCommand());
 	}
 	
 	private void addAppToDesktop(AnchorPane root, VBox newApp, double x, double y) {
@@ -508,7 +526,7 @@ public class mainDesktopController {
 		Platform.runLater(() -> {
 			if (!isConnected) {
 				getTopBar().getChildren().remove(locationDataLabel);
-				
+				showNotificationWarning("Server Connection", "Server Disconnected");
 				log("No Connection", LogUtils.Severity.WARN);
 				serverStatusLabel.setText("No Connection");
 				serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -522,6 +540,7 @@ public class mainDesktopController {
 			} else {
 				serverStatusLabel.setText("Connected");
 				
+				showNotificationWarning("Server Connection", "Server Connection Established");
 				serverStatusLabel.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 				if (clientController != null) {
 					try {

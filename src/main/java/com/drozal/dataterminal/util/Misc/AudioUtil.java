@@ -5,11 +5,14 @@ import com.drozal.dataterminal.config.ConfigReader;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 
 public class AudioUtil {
+	public static final ExecutorService audioExecutor = Executors.newCachedThreadPool();
 	private static final int BUFFER_SIZE = 128000;
 	
 	public static void playSound(String filename) {
@@ -22,7 +25,7 @@ public class AudioUtil {
 					return;
 				}
 				
-				new Thread(() -> {
+				audioExecutor.submit(() -> {
 					try {
 						AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
 						AudioFormat audioFormat = audioStream.getFormat();
@@ -35,13 +38,12 @@ public class AudioUtil {
 						while ((bytesRead = audioStream.read(buffer, 0, buffer.length)) != -1) {
 							sourceLine.write(buffer, 0, bytesRead);
 						}
-						
 						sourceLine.drain();
 						closeResources(sourceLine, audioStream);
 					} catch (Exception e) {
-						logError("Error with closing audio resources: ", e);
+						logError("Error playing sound: ", e);
 					}
-				}).start();
+				});
 			}
 		} catch (IOException e) {
 			logError("Could not read enableSounds config: ", e);

@@ -143,8 +143,6 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private Label lookupmainlbl;
 	@javafx.fxml.FXML
-	private AnchorPane lookupmainlblpane;
-	@javafx.fxml.FXML
 	private TextField pedflagfield;
 	@javafx.fxml.FXML
 	private TextField pedaliasfield;
@@ -761,10 +759,6 @@ public class PedLookupViewController {
 	
 	public Label getLookupmainlbl() {
 		return lookupmainlbl;
-	}
-	
-	public AnchorPane getLookupmainlblpane() {
-		return lookupmainlblpane;
 	}
 	
 	public Button getProbabilitySettingsBtn() {

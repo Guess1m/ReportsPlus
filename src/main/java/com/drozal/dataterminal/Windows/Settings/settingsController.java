@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Desktop.mainDesktopController.commandTextArea;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
 import static com.drozal.dataterminal.Windows.Apps.LogViewController.logController;
@@ -193,8 +194,6 @@ public class settingsController {
 			userManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (vehLookupViewController != null) {
-			vehLookupViewController.getLookupmainlblpane().setStyle(
-					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
 			vehLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
 			vehLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
 			vehLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -243,8 +242,6 @@ public class settingsController {
 					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (pedLookupViewController != null) {
-			pedLookupViewController.getLookupmainlblpane().setStyle(
-					"-fx-border-color: " + secclr + ";-fx-border-width: 0 0 2 0;");
 			pedLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
 			pedLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
 			pedLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -1366,10 +1363,11 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void openDebugLogsBtnClick(ActionEvent actionEvent) {
-		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/output-view.fxml",
-		                 "Application Logs", false, 2, true, false, mainDesktopControllerObj.getTaskBarApps(),
-		                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream(
-				                 "/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
+		BorderPane root = new BorderPane(commandTextArea.getTextArea());
+		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), root, "Command Prompt", false, 3, true, false,
+		                 mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+						Launcher.class.getResourceAsStream("/com/drozal/dataterminal/imgs/icons/Apps/updates.png"))));
+		commandTextArea.getTextArea().requestFocus();
 	}
 	
 	@javafx.fxml.FXML
@@ -1414,7 +1412,7 @@ public class settingsController {
 		isInitialized = true;
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void serverAutoConnectClick(ActionEvent actionEvent) {
 		if (serverAutoconnectTogglebox.isSelected()) {
 			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "true");
@@ -1437,7 +1435,7 @@ public class settingsController {
 		loadColors();
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void enableIDPopupClick(ActionEvent actionEvent) {
 		if (enableIDPopupsCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableIDPopup", "true");
@@ -1448,7 +1446,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void enableCalloutPopupClick(ActionEvent actionEvent) {
 		if (enableCalloutPopupsCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "true");
@@ -1459,7 +1457,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
 		if (enableSoundCheckbox.isSelected()) {
 			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
@@ -1470,7 +1468,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void audioCalloutClick(ActionEvent actionEvent) {
 		if (audioCalloutCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playCallout", "true");
@@ -1481,7 +1479,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void audioReportDeleteClick(ActionEvent actionEvent) {
 		if (audioReportDeleteCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "true");
@@ -1492,7 +1490,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void audioReportCreateClick(ActionEvent actionEvent) {
 		if (audioReportCreate.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playCreateReport", "true");
@@ -1503,7 +1501,7 @@ public class settingsController {
 		}
 	}
 	
-	@Deprecated
+	@javafx.fxml.FXML
 	public void audioLookupWarning(ActionEvent actionEvent) {
 		if (audioLookupWarningCheckbox.isSelected()) {
 			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "true");

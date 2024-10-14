@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" prefHeight="604.0" prefWidth="784.0" stylesheets="@../../css/lookups/lookup.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.PedLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -14,38 +14,33 @@
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <AnchorPane fx:id="lookupmainlblpane"
-                                    style="-fx-background-color: transparent; -fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 0 2 0;">
-                            <children>
-                                <HBox layoutX="9.0" spacing="15.0" AnchorPane.bottomAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <children>
-                                        <BorderPane>
-                                            <center>
-                                                <Button fx:id="probabilitySettingsBtn" mnemonicParsing="false"
-                                                        onAction="#onLookupProbabilitySettingsClick"
-                                                        style="-fx-background-color: rgb(0,0,0,0.1);"
-                                                        text="Probability Settings">
-                                                    <font>
-                                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                                    </font>
-                                                </Button>
-                                            </center>
-                                        </BorderPane>
-                                    </children>
-                                </HBox>
+                        <BorderPane>
+                            <left>
                                 <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V Pedestrian Lookup"
-                                       textAlignment="CENTER" textFill="#5e7387" AnchorPane.bottomAnchor="0.0"
-                                       AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                       textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS"
+                                       BorderPane.alignment="CENTER">
                                     <font>
                                         <Font name="Segoe UI Black" size="25.0"/>
                                     </font>
+                                    <BorderPane.margin>
+                                        <Insets left="15.0"/>
+                                    </BorderPane.margin>
                                 </Label>
-                            </children>
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0"/>
-                            </VBox.margin>
-                        </AnchorPane>
+                            </left>
+                            <right>
+                                <Button fx:id="probabilitySettingsBtn" mnemonicParsing="false"
+                                        onAction="#onLookupProbabilitySettingsClick"
+                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Probability Settings"
+                                        textOverrun="WORD_ELLIPSIS" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                    <BorderPane.margin>
+                                        <Insets right="15.0"/>
+                                    </BorderPane.margin>
+                                </Button>
+                            </right>
+                        </BorderPane>
                         <ScrollPane fx:id="pedPane" fitToHeight="true" fitToWidth="true"
                                     style="-fx-background-color: transparent;"
                                     stylesheets="@../../css/main/scrollPane.css">
@@ -115,6 +110,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped1" layoutX="12.0"
                                                                                layoutY="19.0" text="First Name:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -135,6 +131,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped2" layoutX="12.0"
                                                                                layoutY="21.0" text="Last Name:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -154,6 +151,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped4" layoutX="25.0"
                                                                                layoutY="20.0" text="Wanted Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -174,6 +172,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped5" layoutX="26.0"
                                                                                layoutY="20.0" text="License Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -193,6 +192,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped6" layoutX="25.0"
                                                                                layoutY="20.0" text="Birthday:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -213,6 +213,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped7" layoutX="25.0"
                                                                                layoutY="20.0" text="Address:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -245,6 +246,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped8" layoutX="25.0"
                                                                                layoutY="20.0" text="Description:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -265,6 +267,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped9" layoutX="25.0"
                                                                                layoutY="20.0" text="License Number:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -285,6 +288,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped12" layoutX="25.0"
                                                                                layoutY="20.0" text="Parole Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -305,6 +309,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped13" layoutX="25.0"
                                                                                layoutY="20.0" text="Probation Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -324,6 +329,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped15" layoutX="25.0"
                                                                                layoutY="20.0" text="Gun License Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -344,6 +350,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped16" layoutX="25.0"
                                                                                layoutY="20.0" text="Gun License Type:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -364,6 +371,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped17" layoutX="25.0"
                                                                                layoutY="20.0" text="Gun License Class:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -385,6 +393,7 @@
                                                                         <Label fx:id="ped18" layoutX="25.0"
                                                                                layoutY="20.0"
                                                                                text="Fishing License Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -405,6 +414,7 @@
                                                                         <Label fx:id="ped19" layoutX="25.0"
                                                                                layoutY="20.0"
                                                                                text="Boating License Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -426,6 +436,7 @@
                                                                         <Label fx:id="ped20" layoutX="25.0"
                                                                                layoutY="20.0"
                                                                                text="Hunting License Status:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -440,6 +451,7 @@
                                                                     <children>
                                                                         <Label fx:id="ped21" layoutX="25.0"
                                                                                layoutY="20.0" text="Arrest History:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="-5.0">
                                                                             <font>
@@ -461,7 +473,7 @@
                                                                                 opacity="0.73" prefHeight="25.0"
                                                                                 styleClass="accentBtn"
                                                                                 text="Create New Arrest"
-                                                                                textOverrun="CLIP"
+                                                                                textOverrun="WORD_ELLIPSIS"
                                                                                 AnchorPane.rightAnchor="45.0"
                                                                                 AnchorPane.topAnchor="-5.0"/>
                                                                     </children>
@@ -472,6 +484,7 @@
                                                                     <children>
                                                                         <Label fx:id="ped22" layoutX="25.0"
                                                                                layoutY="20.0" text="Citation History:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="-5.0">
                                                                             <font>
@@ -493,7 +506,7 @@
                                                                                 opacity="0.73" prefHeight="25.0"
                                                                                 styleClass="accentBtn"
                                                                                 text="Create New Citation"
-                                                                                textOverrun="CLIP"
+                                                                                textOverrun="WORD_ELLIPSIS"
                                                                                 AnchorPane.rightAnchor="45.0"
                                                                                 AnchorPane.topAnchor="-5.0"/>
                                                                     </children>
@@ -522,6 +535,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped10" layoutX="25.0"
                                                                                layoutY="20.0" text="Alias(s):"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -570,6 +584,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped14" layoutX="25.0"
                                                                                layoutY="20.0" text="Time(s) Stopped:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -589,6 +604,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped11" layoutX="25.0"
                                                                                layoutY="20.0" text="Affiliation(s):"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -608,6 +624,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped3" layoutX="25.0"
                                                                                layoutY="20.0" text="Gender:"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -642,7 +659,8 @@
                                                                                             <center>
                                                                                                 <Label fx:id="noPedImageFoundlbl"
                                                                                                        alignment="CENTER"
-                                                                                                       text="No Image Found In System">
+                                                                                                       text="No Image Found In System"
+                                                                                                       textOverrun="WORD_ELLIPSIS">
                                                                                                     <font>
                                                                                                         <Font name="Segoe UI Black"
                                                                                                               size="13.0"/>
@@ -682,6 +700,7 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped23" layoutX="25.0"
                                                                                layoutY="20.0" text="Flag(s):"
+                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
                                                                             <font>
@@ -695,8 +714,8 @@
                                                                         onAction="#pedUpdateInfo" opacity="0.73"
                                                                         styleClass="accentBtn"
                                                                         text="Update Other Information"
-                                                                        textOverrun="CLIP" GridPane.columnIndex="2"
-                                                                        GridPane.columnSpan="2"
+                                                                        textOverrun="WORD_ELLIPSIS"
+                                                                        GridPane.columnIndex="2" GridPane.columnSpan="2"
                                                                         GridPane.halignment="RIGHT"
                                                                         GridPane.rowIndex="10">
                                                                     <GridPane.margin>
@@ -718,8 +737,8 @@
                                                 <Font name="Segoe UI Black" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <GridPane layoutX="45.0" layoutY="15.0" AnchorPane.leftAnchor="45.0"
-                                                  AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
+                                        <GridPane layoutX="45.0" layoutY="15.0" AnchorPane.leftAnchor="20.0"
+                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                 <ColumnConstraints hgrow="ALWAYS"/>
@@ -732,7 +751,8 @@
                                             </rowConstraints>
                                             <children>
                                                 <Label fx:id="lbl1" styleClass="SubHeading" text="Search Ped:"
-                                                       textAlignment="CENTER" textFill="#5e7387">
+                                                       textAlignment="CENTER" textFill="#5e7387"
+                                                       textOverrun="WORD_ELLIPSIS">
                                                     <font>
                                                         <Font name="Segoe UI Black" size="20.0"/>
                                                     </font>
@@ -754,7 +774,8 @@
                                                 <Button fx:id="pedSearchBtn" mnemonicParsing="false"
                                                         onAction="#onPedSearchBtnClick" prefHeight="36.0"
                                                         prefWidth="103.0" styleClass="searchBtn" text="Search"
-                                                        textFill="WHITE" GridPane.columnIndex="2">
+                                                        textFill="WHITE" textOverrun="WORD_ELLIPSIS"
+                                                        GridPane.columnIndex="2">
                                                     <GridPane.margin>
                                                         <Insets/>
                                                     </GridPane.margin>
@@ -767,7 +788,7 @@
                                                         <Button fx:id="addDataToNotesBtn" mnemonicParsing="false"
                                                                 onAction="#pedAddDataToNotes" opacity="0.73"
                                                                 styleClass="accentBtn" text="Add Data To Notes"
-                                                                textOverrun="CLIP">
+                                                                textOverrun="WORD_ELLIPSIS">
                                                             <BorderPane.margin>
                                                                 <Insets left="10.0"/>
                                                             </BorderPane.margin>

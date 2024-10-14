@@ -91,8 +91,6 @@ public class VehLookupViewController {
 	@javafx.fxml.FXML
 	private TextField vehstolenfield;
 	@javafx.fxml.FXML
-	private AnchorPane lookupmainlblpane;
-	@javafx.fxml.FXML
 	private TextField vehmodelfield;
 	@javafx.fxml.FXML
 	private Label plt8;
@@ -572,10 +570,6 @@ public class VehLookupViewController {
 	
 	public Label getLookupmainlbl() {
 		return lookupmainlbl;
-	}
-	
-	public AnchorPane getLookupmainlblpane() {
-		return lookupmainlblpane;
 	}
 	
 	public Label getPlt8() {

@@ -104,11 +104,11 @@ public class TaskbarApp {
 	}
 	
 	public void removeApp() {
-		taskBarApps.getChildren().remove(container);
-		taskBarAppButtons.remove(name);
-		
-		if (customWindow != null) {
-			customWindow.closeWindow();
+		if (taskBarApps.getChildren().contains(container)) {
+			taskBarApps.getChildren().remove(container);
+		}
+		if (taskBarAppButtons.containsKey(name)) {
+			taskBarAppButtons.remove(name);
 		}
 	}
 }

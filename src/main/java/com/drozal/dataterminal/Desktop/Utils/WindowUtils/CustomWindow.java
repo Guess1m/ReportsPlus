@@ -33,17 +33,18 @@ public class CustomWindow {
 	public final String title;
 	private final int priority;
 	private final Pane windowPane;
-	private final TaskbarApp taskbarApp;
-	private final AnchorPane root;
-	private final Image image;
 	public boolean isMinimized = false;
 	public Object controller;
+	private TaskbarApp taskbarApp;
+	private AnchorPane root;
+	private Image image;
 	private double originalWidth;
 	private double originalHeight;
 	private double originalX;
 	private double originalY;
 	private boolean isMaximized = false;
 	
+	// From FXML
 	public CustomWindow(String fileName, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) throws IOException {
 		URL fxmlUrl = Launcher.class.getResource(fileName);
 		if (fxmlUrl == null) {
@@ -64,6 +65,7 @@ public class CustomWindow {
 		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
 	}
 	
+	// From Code
 	public CustomWindow(BorderPane window, String title, boolean resizable, int priority, HBox taskBarApps, AnchorPane root, Image image) {
 		this.windowPane = window;
 		this.title = title;
@@ -88,8 +90,8 @@ public class CustomWindow {
 		
 		double windowX = windowPane.getLayoutX();
 		double windowY = windowPane.getLayoutY();
-		double windowWidth = windowPane.getPrefWidth();
-		double windowHeight = windowPane.getPrefHeight();
+		double windowWidth = windowPane.getBoundsInParent().getWidth();
+		double windowHeight = windowPane.getBoundsInParent().getHeight();
 		
 		if (windowX + windowWidth > mainStageWidth) {
 			windowPane.setLayoutX(mainStageWidth - windowWidth);
@@ -267,18 +269,46 @@ public class CustomWindow {
 		}
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setWidth(double x) {
+		getWindowPane().setPrefWidth(x);
+	}
+	
+	public void setHeight(double y) {
+		getWindowPane().setPrefHeight(y);
+	}
+	
 	public void closeWindow() {
-		CustomWindow customWindow = windows.get(title);
-		if (customWindow != null) {
-			if (customWindow.getWindowPane().getParent() != null) {
-				AnchorPane root = (AnchorPane) customWindow.getWindowPane().getParent();
-				root.getChildren().remove(customWindow.getWindowPane());
-			}
-			windows.remove(title);
-			minimizedWindows.remove(title);
+		windows.remove(title);
+		
+		if (taskbarApp != null) {
 			taskbarApp.removeApp();
-			controller = null;
 		}
+		
+		windowPane.setOnMouseMoved(null);
+		windowPane.setOnMouseDragged(null);
+		windowPane.removeEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> bringToFront());
+		
+		Pane parent = (Pane) windowPane.getParent();
+		if (parent != null) {
+			parent.getChildren().remove(windowPane);
+		}
+		
+		controller = null;
+		windowPane.setEffect(null);
+		windowPane.setStyle(null);
+		
+		root.widthProperty().removeListener((obs, oldVal, newVal) -> keepWithinBounds());
+		root.heightProperty().removeListener((obs, oldVal, newVal) -> keepWithinBounds());
+		
+		taskbarApp = null;
+		image = null;
+		root = null;
+		
+		System.gc();
 	}
 	
 	public AnchorPane createTitleBar(String titleText) {
@@ -371,8 +401,8 @@ public class CustomWindow {
 			double newX = windowPane.getLayoutX() + deltaX;
 			double newY = windowPane.getLayoutY() + deltaY;
 			
-			double maxWidth = root.getWidth() - windowPane.getPrefWidth();
-			double maxHeight = root.getHeight() - windowPane.getPrefHeight();
+			double maxWidth = root.getWidth() - windowPane.getWidth();
+			double maxHeight = root.getHeight() - windowPane.getHeight();
 			
 			if (newX < 0) {
 				newX = 0;

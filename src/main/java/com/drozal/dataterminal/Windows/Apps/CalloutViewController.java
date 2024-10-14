@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.NotificationManager.showNotificationInfo;
-import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutHistoryURL;
 
 public class CalloutViewController {
@@ -32,9 +31,6 @@ public class CalloutViewController {
 	private ListView calActiveList;
 	
 	public void initialize() {
-		
-		CalloutManager.addCallout(calloutDataURL, "239283", "type", "Description", "Message", "priority", "street",
-		                          "area", "county", "randomstart", "startdate", "Not Responded");
 		CalloutManager.loadActiveCallouts(calActiveList);
 		CalloutManager.loadHistoryCallouts(calHistoryList);
 	}

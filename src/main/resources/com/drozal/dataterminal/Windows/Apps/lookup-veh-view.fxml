@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="root" prefHeight="604.0" prefWidth="780.0" stylesheets="@../../css/lookups/lookup.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.VehLookupViewController">
     <center>
         <AnchorPane fx:id="lookupPane">
@@ -14,38 +14,32 @@
                 <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <AnchorPane fx:id="lookupmainlblpane"
-                                    style="-fx-background-color: transparent; -fx-border-color: rgb(0,0,0,0.2); -fx-border-width: 0 0 2 0;">
-                            <children>
-                                <HBox layoutX="9.0" spacing="15.0" AnchorPane.bottomAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <children>
-                                        <BorderPane>
-                                            <center>
-                                                <Button fx:id="probabilitySettingsBtn" mnemonicParsing="false"
-                                                        onAction="#onLookupProbabilitySettingsClick"
-                                                        style="-fx-background-color: rgb(0,0,0,0.1);"
-                                                        text="Probability Settings">
-                                                    <font>
-                                                        <Font name="Segoe UI Semibold" size="12.0"/>
-                                                    </font>
-                                                </Button>
-                                            </center>
-                                        </BorderPane>
-                                    </children>
-                                </HBox>
+                        <BorderPane>
+                            <right>
+                                <Button fx:id="probabilitySettingsBtn" mnemonicParsing="false"
+                                        onAction="#onLookupProbabilitySettingsClick"
+                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Probability Settings"
+                                        BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                    </font>
+                                    <BorderPane.margin>
+                                        <Insets right="20.0"/>
+                                    </BorderPane.margin>
+                                </Button>
+                            </right>
+                            <left>
                                 <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V. Vehicle Lookup"
-                                       textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
-                                       AnchorPane.topAnchor="0.0">
+                                       textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font name="Segoe UI Black" size="20.0"/>
                                     </font>
+                                    <BorderPane.margin>
+                                        <Insets left="20.0"/>
+                                    </BorderPane.margin>
                                 </Label>
-                            </children>
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0"/>
-                            </VBox.margin>
-                        </AnchorPane>
+                            </left>
+                        </BorderPane>
                         <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true"
                                     style="-fx-background-color: transparent;"
                                     stylesheets="@../../css/main/scrollPane.css">
@@ -93,6 +87,7 @@
                                                                             <children>
                                                                                 <Label fx:id="plt1" layoutY="14.0"
                                                                                        text="License Plate:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -118,6 +113,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt2" layoutY="14.0"
                                                                                        text="Model:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -137,6 +133,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt3"
                                                                                        text="Vehicle Stolen:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -150,6 +147,7 @@
                                                                             <children>
                                                                                 <Label fx:id="plt4" layoutX="1.0"
                                                                                        text="Color:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -174,6 +172,7 @@
                                                                                                layoutY="2.0"
                                                                                                style="-fx-padding: 10;"
                                                                                                text="No Color on Record"
+                                                                                               textOverrun="WORD_ELLIPSIS"
                                                                                                AnchorPane.bottomAnchor="0.0"
                                                                                                AnchorPane.leftAnchor="1.0"
                                                                                                AnchorPane.rightAnchor="1.0"
@@ -193,6 +192,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt8"
                                                                                        text="Police Vehicle:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -205,48 +205,24 @@
                                                                         <BorderPane GridPane.columnIndex="2"
                                                                                     GridPane.rowSpan="2">
                                                                             <center>
-                                                                                <StackPane
-                                                                                        BorderPane.alignment="CENTER">
-                                                                                    <children>
-                                                                                        <VBox alignment="CENTER"
-                                                                                              prefWidth="222.0">
-                                                                                            <children>
-                                                                                                <BorderPane
-                                                                                                        VBox.vgrow="NEVER">
-                                                                                                    <center>
-                                                                                                        <Label fx:id="noVehImageFoundlbl"
-                                                                                                               alignment="CENTER"
-                                                                                                               text="No Image Found In System">
-                                                                                                            <font>
-                                                                                                                <Font name="Segoe UI Black"
-                                                                                                                      size="13.0"/>
-                                                                                                            </font>
-                                                                                                        </Label>
-                                                                                                    </center>
-                                                                                                    <VBox.margin>
-                                                                                                        <Insets bottom="3.0"/>
-                                                                                                    </VBox.margin>
-                                                                                                </BorderPane>
-                                                                                                <BorderPane
-                                                                                                        VBox.vgrow="ALWAYS">
-                                                                                                    <center>
-                                                                                                        <ImageView
-                                                                                                                fx:id="vehImageView"
-                                                                                                                fitHeight="120.0"
-                                                                                                                fitWidth="210.0"
-                                                                                                                pickOnBounds="true"
-                                                                                                                preserveRatio="true"
-                                                                                                                BorderPane.alignment="CENTER"/>
-                                                                                                    </center>
-                                                                                                    <VBox.margin>
-                                                                                                        <Insets/>
-                                                                                                    </VBox.margin>
-                                                                                                </BorderPane>
-                                                                                            </children>
-                                                                                        </VBox>
-                                                                                    </children>
-                                                                                </StackPane>
+                                                                                <ImageView fx:id="vehImageView"
+                                                                                           fitHeight="120.0"
+                                                                                           fitWidth="210.0"
+                                                                                           pickOnBounds="true"
+                                                                                           preserveRatio="true"/>
                                                                             </center>
+                                                                            <top>
+                                                                                <Label fx:id="noVehImageFoundlbl"
+                                                                                       alignment="CENTER"
+                                                                                       text="No Image Found In System"
+                                                                                       textOverrun="WORD_ELLIPSIS"
+                                                                                       BorderPane.alignment="CENTER">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Black"
+                                                                                              size="13.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </top>
                                                                         </BorderPane>
                                                                         <AnchorPane GridPane.columnIndex="1"
                                                                                     GridPane.columnSpan="2"
@@ -255,6 +231,7 @@
                                                                                 <Label fx:id="plt10" layoutX="130.0"
                                                                                        layoutY="2.0"
                                                                                        text="Vehicle Type:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -336,6 +313,7 @@
                                                                                            AnchorPane.rightAnchor="0.0"
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt5" text="Owner:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -355,6 +333,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt6"
                                                                                        text="Registration Status:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -374,6 +353,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt7"
                                                                                        text="Insurance Status:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -409,6 +389,7 @@
                                                                                            AnchorPane.topAnchor="27.0"/>
                                                                                 <Label fx:id="plt9"
                                                                                        text="Inspection Status:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
                                                                                        AnchorPane.leftAnchor="0.0"
                                                                                        AnchorPane.topAnchor="0.0">
                                                                                     <font>
@@ -445,12 +426,12 @@
                                                 <Font name="Segoe UI Black" size="20.0"/>
                                             </font>
                                         </Label>
-                                        <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="45.0"
-                                                  AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="10.0">
+                                        <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="20.0"
+                                                  AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                                 <ColumnConstraints hgrow="ALWAYS"/>
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="50.0"/>
                                                 <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
                                             </columnConstraints>
                                             <rowConstraints>
@@ -469,16 +450,15 @@
                                                 <Button fx:id="vehSearchBtn" mnemonicParsing="false"
                                                         onAction="#onVehSearchBtnClick" prefHeight="36.0"
                                                         prefWidth="103.0" styleClass="searchBtn" text="Search"
-                                                        GridPane.columnIndex="2"/>
+                                                        textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="2"/>
                                                 <AnchorPane GridPane.columnIndex="1">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" right="10.0"/>
                                                     </GridPane.margin>
                                                     <children>
                                                         <ComboBox fx:id="vehSearchField" editable="true"
-                                                                  minWidth="100.0" prefHeight="36.0" prefWidth="565.0"
-                                                                  styleClass="combo-boxSearch" visibleRowCount="5"
-                                                                  AnchorPane.bottomAnchor="0.0"
+                                                                  minWidth="100.0" styleClass="combo-boxSearch"
+                                                                  visibleRowCount="5" AnchorPane.bottomAnchor="0.0"
                                                                   AnchorPane.leftAnchor="0.0"
                                                                   AnchorPane.rightAnchor="0.0"
                                                                   AnchorPane.topAnchor="0.0"/>

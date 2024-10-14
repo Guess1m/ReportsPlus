@@ -55,7 +55,7 @@
 }
 
 .combo-boxCal .list-cell {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .split-pane .split-pane-divider {

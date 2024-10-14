@@ -6,8 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="root" prefHeight="680.0" prefWidth="716.0" stylesheets="@../../css/settings/settings.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="root" prefHeight="656.0" prefWidth="623.0" stylesheets="@../../css/settings/settings.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -147,9 +147,9 @@
                                             </GridPane.margin>
                                         </Label>
                                         <ToggleButton fx:id="enableIDPopupsCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#enableIDPopupClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
                                         <Insets top="30.0"/>
@@ -196,9 +196,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Enable Callout Popups"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="enableCalloutPopupsCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#enableCalloutPopupClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Toggle whether callouts will pop up when recieved"
                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -249,8 +249,8 @@
                     <children>
                         <Label alignment="CENTER" layoutX="7.0" layoutY="14.0" styleClass="settingsLabel"
                                text="NOTIFICATION SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox layoutX="25.0" layoutY="47.5" spacing="25.0" AnchorPane.bottomAnchor="25.0"
-                              AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox layoutX="25.0" layoutY="47.5" spacing="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                             <children>
                                 <AnchorPane VBox.vgrow="SOMETIMES"/>
                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -369,7 +369,7 @@
                                                   GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </GridPane>
                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -458,7 +458,7 @@
                                         </Label>
                                     </top>
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </BorderPane>
                                 <HBox alignment="CENTER" spacing="45.0" VBox.vgrow="SOMETIMES">
@@ -470,7 +470,7 @@
                                                 HBox.hgrow="SOMETIMES"/>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="15.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </HBox>
                             </children>
@@ -482,8 +482,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox spacing="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="65.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -682,18 +682,17 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneApplication" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="paneApplication" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox spacing="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="65.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -905,8 +904,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="SERVER / NETWORKING SETTINGS"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="40.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox spacing="40.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="65.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -921,9 +920,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Server Autoconnect"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="serverAutoconnectTogglebox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#serverAutoConnectClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Toggler whether application will try to autoconnect"
                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -993,7 +992,6 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>
@@ -1003,8 +1001,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="AUDIO SETTINGS"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="55.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox spacing="55.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="65.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -1019,9 +1017,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Enable Sounds"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="enableSoundCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#enableSoundCheckboxClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Toggle whether ALL sounds will be enabled" GridPane.rowIndex="1"
                                                GridPane.valignment="TOP">
@@ -1044,9 +1042,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Lookup Warning Sound"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="audioLookupWarningCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#audioLookupWarning" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Sound when suspect has warnings when looked up"
                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -1072,9 +1070,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Create Report Sound"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="audioReportCreate" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#audioReportCreateClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Sound when report is created" GridPane.rowIndex="1"
                                                GridPane.valignment="TOP">
@@ -1097,9 +1095,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Callout Sound"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="audioCalloutCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#audioCalloutClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Sound when a callout is recieved" GridPane.rowIndex="1"
                                                GridPane.valignment="TOP">
@@ -1122,9 +1120,9 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Delete Report Sound"
                                                GridPane.valignment="CENTER"/>
                                         <ToggleButton fx:id="audioReportDeleteCheckbox" mnemonicParsing="false"
-                                                      onAction="#enableNoti" text="Status" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER"/>
+                                                      onAction="#audioReportDeleteClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
                                                text="Sound when report is deleted" GridPane.rowIndex="1"
                                                GridPane.valignment="TOP">
@@ -1134,7 +1132,6 @@
                                         </Label>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>
@@ -1144,8 +1141,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="DEVELOPER SETTINGS / CLEAR DATA"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="60.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox spacing="60.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="65.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -1212,22 +1209,21 @@
                                         <RowConstraints vgrow="NEVER"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="CENTER" styleClass="paneHeading" text="Open Debug Logs"
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Open Dev Console"
                                                GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
-                                               text="Open realtime output.log browser for debugging"
-                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                               text="Open console to execute dev commands" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets/>
                                             </GridPane.margin>
                                         </Label>
                                         <Button fx:id="debugLogBtn" mnemonicParsing="false"
-                                                onAction="#openDebugLogsBtnClick" text="DEBUG LOGS"
+                                                onAction="#openDebugLogsBtnClick" text="Developer Console"
                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                 GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>

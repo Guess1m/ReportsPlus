@@ -293,7 +293,7 @@ public class CalloutManager {
 			if (callouts != null && callouts.getCalloutList() != null) {
 				List<Callout> calloutList = callouts.getCalloutList();
 				for (Callout callout : calloutList) {
-					String statusProp = "Not Available";
+					String statusProp = "Not Found";
 					if (callout.getStatus() != null) {
 						statusProp = callout.getStatus();
 					}

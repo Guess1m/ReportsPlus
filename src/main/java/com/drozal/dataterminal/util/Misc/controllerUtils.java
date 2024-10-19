@@ -105,7 +105,7 @@ public class controllerUtils {
 	public static String calculateAge(String dateOfBirth) {
 		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
 			log("Error calculating age, dateOfBirth is null or empty", LogUtils.Severity.ERROR);
-			return "Not Available";
+			return "Not Found";
 		}
 		
 		try {
@@ -127,17 +127,17 @@ public class controllerUtils {
 			LocalDate currentDate = LocalDate.now();
 			if (birthDate.isAfter(currentDate)) {
 				log("Error calculating age, birthdate after current date", LogUtils.Severity.ERROR);
-				return "Not Available";
+				return "Not Found";
 			}
 			
 			Period age = Period.between(birthDate, currentDate);
 			return String.valueOf(age.getYears());
 		} catch (DateTimeParseException e) {
 			log("Error calculating age, improper syntax", LogUtils.Severity.ERROR);
-			return "Not Available";
+			return "Not Found";
 		} catch (Exception e) {
 			log("Unexpected error calculating age", LogUtils.Severity.ERROR);
-			return "Not Available";
+			return "Not Found";
 		}
 	}
 	
@@ -1006,10 +1006,10 @@ public class controllerUtils {
 				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
 		ped.setBoatingLicenseStatus(String.valueOf(
 				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
-		if (!pedModel.equalsIgnoreCase("not available")) {
+		if (!pedModel.equalsIgnoreCase("Not Found")) {
 			ped.setModel(pedModel);
 		} else {
-			log("ped model is 'not available' so not adding", Severity.WARN);
+			log("ped model is 'Not Found' so not adding", Severity.WARN);
 		}
 		try {
 			setGunLicenseStatus(ped);

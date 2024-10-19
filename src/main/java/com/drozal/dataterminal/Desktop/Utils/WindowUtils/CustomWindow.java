@@ -85,26 +85,28 @@ public class CustomWindow {
 	}
 	
 	private void keepWithinBounds() {
-		double mainStageWidth = root.getWidth();
-		double mainStageHeight = root.getHeight();
-		
-		double windowX = windowPane.getLayoutX();
-		double windowY = windowPane.getLayoutY();
-		double windowWidth = windowPane.getBoundsInParent().getWidth();
-		double windowHeight = windowPane.getBoundsInParent().getHeight();
-		
-		if (windowX + windowWidth > mainStageWidth) {
-			windowPane.setLayoutX(mainStageWidth - windowWidth);
-		}
-		if (windowY + windowHeight > mainStageHeight) {
-			windowPane.setLayoutY(mainStageHeight - windowHeight);
-		}
-		
-		if (windowX < 0) {
-			windowPane.setLayoutX(0);
-		}
-		if (windowY < 0) {
-			windowPane.setLayoutY(0);
+		if (root != null && windowPane != null) {
+			double mainStageWidth = root.getWidth();
+			double mainStageHeight = root.getHeight();
+			
+			double windowX = windowPane.getLayoutX();
+			double windowY = windowPane.getLayoutY();
+			double windowWidth = windowPane.getBoundsInParent().getWidth();
+			double windowHeight = windowPane.getBoundsInParent().getHeight();
+			
+			if (windowX + windowWidth > mainStageWidth) {
+				windowPane.setLayoutX(mainStageWidth - windowWidth);
+			}
+			if (windowY + windowHeight > mainStageHeight) {
+				windowPane.setLayoutY(mainStageHeight - windowHeight);
+			}
+			
+			if (windowX < 0) {
+				windowPane.setLayoutX(0);
+			}
+			if (windowY < 0) {
+				windowPane.setLayoutY(0);
+			}
 		}
 	}
 	
@@ -120,7 +122,7 @@ public class CustomWindow {
 		dropShadow.setSpread(0.65);
 		windowPane.setEffect(dropShadow);
 		windowPane.setStyle(
-				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 5;");
+				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 0;");
 		
 		if (resizable) {
 			enableResize((BorderPane) windowPane);

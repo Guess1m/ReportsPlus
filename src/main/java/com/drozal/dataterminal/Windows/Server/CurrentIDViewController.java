@@ -85,7 +85,7 @@ public class CurrentIDViewController {
 			address.setText(addressText);
 		}
 		if (pedModel != null) {
-			if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("not available")) {
+			if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("Not Found")) {
 				File pedImgFolder = new File(pedImageFolderURL);
 				if (pedImgFolder.exists()) {
 					log("pedImage folder detected..", LogUtils.Severity.DEBUG);

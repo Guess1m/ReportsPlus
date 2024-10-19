@@ -377,7 +377,7 @@ public class PedLookupViewController {
 		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
 		
 		String pedModel = ped.getModel();
-		if (pedModel != null && !pedModel.equalsIgnoreCase("not available")) {
+		if (pedModel != null && !pedModel.equalsIgnoreCase("Not Found")) {
 			File pedImgFolder = new File(pedImageFolderURL);
 			if (pedImgFolder.exists()) {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
@@ -455,36 +455,36 @@ public class PedLookupViewController {
 		Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
 		Optional<Ped> pedOptional = findPedByName(searchedName);
 		
-		String gender = pedData.getOrDefault("gender", "Not available");
-		String birthday = pedData.getOrDefault("birthday", "Not available");
-		String address = pedData.getOrDefault("address", "Not available");
-		String isWanted = pedData.getOrDefault("iswanted", "Not available");
-		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not available"));
-		String licenseNumber = pedData.getOrDefault("licensenumber", "Not available");
-		String name = pedData.getOrDefault("name", "Not available");
-		String pedModel = pedData.getOrDefault("pedmodel", "Not available");
+		String gender = pedData.getOrDefault("gender", "Not Found");
+		String birthday = pedData.getOrDefault("birthday", "Not Found");
+		String address = pedData.getOrDefault("address", "Not Found");
+		String isWanted = pedData.getOrDefault("iswanted", "Not Found");
+		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not Found"));
+		String licenseNumber = pedData.getOrDefault("licensenumber", "Not Found");
+		String name = pedData.getOrDefault("name", "Not Found");
+		String pedModel = pedData.getOrDefault("pedmodel", "Not Found");
 		
-		String owner = ownerSearch.getOrDefault("owner", "Not available");
-		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not available");
+		String owner = ownerSearch.getOrDefault("owner", "Not Found");
+		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");
 		
 		if (pedOptional.isPresent()) {
 			log("Found: [" + name + "] From PedHistory file", LogUtils.Severity.DEBUG);
 			Ped ped = pedOptional.get();
 			if (ped.getModel() == null) {
-				ped.setModel("Not available");
+				ped.setModel("Not Found");
 				try {
 					Ped.PedHistoryUtils.addPed(ped);
 				} catch (JAXBException e) {
 					logError("Could not save new pedModel: ", e);
 				}
-				log("Set ped as 'not available' since it created before pedModel was added", LogUtils.Severity.WARN);
+				log("Set ped as 'Not Found' since it created before pedModel was added", LogUtils.Severity.WARN);
 			}
 			processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(),
 			               ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
-		} else if (!name.equals("Not available")) {
+		} else if (!name.equals("Not Found")) {
 			log("Found: [" + name + "] From WorldPed file", LogUtils.Severity.DEBUG);
 			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
-		} else if (owner != null && !owner.equalsIgnoreCase("not available") && !owner.equalsIgnoreCase(
+		} else if (owner != null && !owner.equalsIgnoreCase("Not Found") && !owner.equalsIgnoreCase(
 				"Los Santos Police Department") && !owner.equalsIgnoreCase(
 				"Los Santos Sheriff's Office") && !owner.equalsIgnoreCase(
 				"Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {

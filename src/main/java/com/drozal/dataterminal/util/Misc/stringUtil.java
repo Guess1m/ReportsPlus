@@ -34,8 +34,8 @@ public class stringUtil {
 	public static final String pedHistoryURL = getJarPath() + File.separator + "data" + File.separator + "pedHistory.xml";
 	public static final String vehicleHistoryURL = getJarPath() + File.separator + "data" + File.separator + "vehHistory.xml";
 	public static final String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
-	public static final String currentIDFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverCurrentID.xml";
-	public static final String currentLocationFileURL = getJarPath() + File.separator + "serverData" + File.separator + "serverLocation.data";
+	public static final String currentIDFileURL = getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml";
+	public static final String currentLocationFileURL = getJarPath() + File.separator + "serverData" + File.separator + "ServerLocation.data";
 	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 	public static final String pedImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "peds";
 	public static final String vehImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "vehicles";

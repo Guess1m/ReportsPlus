@@ -654,35 +654,6 @@ public class settingsController {
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
-			
-			/*try { todo temp removed
-				String hoverStyle = "-fx-background-color: " + ConfigReader.configRead("uiColors", "mainColor");
-				String nonTransparentBtn = "-fx-background-color: " + ConfigReader.configRead("uiColors",
-				                                                                              "accentColor") + ";";
-				resetNotiDefaultsBtn.setStyle(nonTransparentBtn);
-				resetNotiDefaultsBtn.setOnMouseEntered(e -> resetNotiDefaultsBtn.setStyle(hoverStyle));
-				resetNotiDefaultsBtn.setOnMouseExited(e -> resetNotiDefaultsBtn.setStyle(nonTransparentBtn));
-				previewNotificationBtn.setStyle(nonTransparentBtn);
-				previewNotificationBtn.setOnMouseEntered(e -> previewNotificationBtn.setStyle(hoverStyle));
-				previewNotificationBtn.setOnMouseExited(e -> previewNotificationBtn.setStyle(nonTransparentBtn));
-				resetDefaultsBtn.setStyle(nonTransparentBtn);
-				resetDefaultsBtn.setOnMouseEntered(e -> resetDefaultsBtn.setStyle(hoverStyle));
-				resetDefaultsBtn.setOnMouseExited(e -> resetDefaultsBtn.setStyle(nonTransparentBtn));
-				resetReportDefaultsBtn.setStyle(nonTransparentBtn);
-				resetReportDefaultsBtn.setOnMouseEntered(e -> resetReportDefaultsBtn.setStyle(hoverStyle));
-				resetReportDefaultsBtn.setOnMouseExited(e -> resetReportDefaultsBtn.setStyle(nonTransparentBtn));
-				clrLogsBtn.setStyle(nonTransparentBtn);
-				clrLogsBtn.setOnMouseEntered(e -> clrLogsBtn.setStyle(hoverStyle));
-				clrLogsBtn.setOnMouseExited(e -> clrLogsBtn.setStyle(nonTransparentBtn));
-				clrSaveDataBtn.setStyle(nonTransparentBtn);
-				clrSaveDataBtn.setOnMouseEntered(e -> clrSaveDataBtn.setStyle(hoverStyle));
-				clrSaveDataBtn.setOnMouseExited(e -> clrSaveDataBtn.setStyle(nonTransparentBtn));
-				debugLogBtn.setStyle(nonTransparentBtn);
-				debugLogBtn.setOnMouseEntered(e -> debugLogBtn.setStyle(hoverStyle));
-				debugLogBtn.setOnMouseExited(e -> debugLogBtn.setStyle(nonTransparentBtn));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}*/
 		} catch (IOException e) {
 			logError("LoadTheme IO Error Code 917 ", e);
 		}

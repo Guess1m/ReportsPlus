@@ -81,4 +81,35 @@ public class recordUtils {
 		return notFoundMap;
 	}
 	
+	public static Map<String, String> grabTrafficStop(String filePath) throws IOException {
+		if (!Files.exists(Paths.get(filePath))) {
+			log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
+			return new HashMap<>();
+		}
+		
+		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
+		String data = new String(encodedBytes);
+		
+		String[] vehicles = data.split(",");
+		for (String vehicle : vehicles) {
+			Map<String, String> attributesMap = new HashMap<>();
+			String[] attributes = vehicle.split("&");
+			for (String attribute : attributes) {
+				String[] keyValue = attribute.split("=");
+				if (keyValue.length > 1) {
+					attributesMap.put(keyValue[0], keyValue[1].trim());
+				} else {
+					attributesMap.put(keyValue[0], "no value provided");
+				}
+			}
+			
+			if (attributesMap.getOrDefault("licensePlate", "") != null) {
+				return attributesMap;
+			}
+		}
+		
+		Map<String, String> notFoundMap = new HashMap<>();
+		notFoundMap.put("error", "vehicle not found");
+		return notFoundMap;
+	}
 }

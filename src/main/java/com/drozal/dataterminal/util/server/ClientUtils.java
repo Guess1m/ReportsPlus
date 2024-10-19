@@ -3,6 +3,8 @@ package com.drozal.dataterminal.util.server;
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.Windows.Server.ClientController;
+import com.drozal.dataterminal.Windows.Server.trafficStopController;
+import com.drozal.dataterminal.Windows.Settings.settingsController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
@@ -14,9 +16,7 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -48,6 +48,41 @@ public class ClientUtils {
 			}
 		} catch (IOException e) {
 			log("Error disconnecting from service: " + e.getMessage(), LogUtils.Severity.ERROR);
+		}
+	}
+	
+	public static void receiveFileFromServer(int fileSize, String serverFileName, String fileName) throws IOException {
+		int bytesRead;
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
+		Socket sock = null;
+		try {
+			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
+			byte[] mybytearray = new byte[fileSize];
+			InputStream is = sock.getInputStream();
+			fos = new FileOutputStream(getJarPath() + File.separator + "serverData" + File.separator + serverFileName);
+			bos = new BufferedOutputStream(fos);
+			
+			while ((bytesRead = is.read(mybytearray)) != -1) {
+				bos.write(mybytearray, 0, bytesRead);
+			}
+			
+			bos.flush();
+			log("'" + fileName + "' File Downloaded From Server.. Saved As: " + serverFileName, LogUtils.Severity.INFO);
+		} finally {
+			try {
+				if (bos != null) {
+					bos.close();
+				}
+				if (fos != null) {
+					fos.close();
+				}
+				if (sock != null) {
+					sock.close();
+				}
+			} catch (IOException e) {
+				logError("Could Not Close All Elements: ", e);
+			}
 		}
 	}
 	
@@ -103,184 +138,223 @@ public class ClientUtils {
 	}
 	
 	public static void receiveMessages(BufferedReader in) {
-		try {
-			String fromServer;
-			label:
-			while ((fromServer = in.readLine()) != null) {
-				switch (fromServer) {
-					case "SHUTDOWN":
-						log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
-						disconnectFromService();
-						break label;
-					
-					case "UPDATE_LOCATION":
-						log("Received Location update", LogUtils.Severity.DEBUG);
-						FileUtlis.receiveLocationFromServer(1024);
-						Platform.runLater(() -> {
-							if (!mainDesktopControllerObj.getTopBar().getChildren().contains(
-									mainDesktopControllerObj.getLocationDataLabel())) {
-								mainDesktopControllerObj.getTopBar().getChildren().add(
-										mainDesktopControllerObj.getLocationDataLabel());
-							}
-							try {
-								mainDesktopControllerObj.getLocationDataLabel().setText(
-										Files.readString(Paths.get(currentLocationFileURL)));
-							} catch (IOException e) {
-								logError("Could Not Read FileString For LocationData: ", e);
-							}
-						});
-						break;
-					
-					case "UPDATE_ID":
-						log("Received ID update", LogUtils.Severity.DEBUG);
-						FileUtlis.receiveIDFromServer(4096);
-						if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
-							Platform.runLater(() -> {
-								CustomWindow IDWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-								                                         "Windows/Server/currentID-view.fxml",
-								                                         "Current IDs", false, 2, true, true,
-								                                         mainDesktopControllerObj.getTaskBarApps(),
-								                                         new Image(Objects.requireNonNull(
-										                                         Launcher.class.getResourceAsStream(
-												                                         "/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
-								
-								try {
-									if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
-										PauseTransition delay = null;
-										try {
-											delay = new PauseTransition(Duration.seconds(
-													Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
-										} catch (IOException e) {
-											logError("ID could not be closed: ", e);
-										}
-										if (IDWindow != null) {
-											delay.setOnFinished(event -> {
-												try {
-													IDWindow.closeWindow();
-												} catch (NullPointerException e) {
-													log("ID Window was closed before it could be automatically closed",
-													    LogUtils.Severity.WARN);
-												}
-											});
-										}
-										delay.play();
-									}
-								} catch (IOException e) {
-									logError("could not read IDDuration: ", e);
-								}
-							});
-						} else {
-							log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
-							NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved");
-						}
-						break;
-					
-					case "UPDATE_CALLOUT":
-						log("Received Callout update", LogUtils.Severity.DEBUG);
-						FileUtlis.receiveCalloutFromServer(4096);
-						if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
-							Platform.runLater(() -> {
-								calloutWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-								                                 "Windows/Server/callout-view.fxml", "Callout Display",
-								                                 false, 4, true, true,
-								                                 mainDesktopControllerObj.getTaskBarApps(), new Image(
-												Objects.requireNonNull(Launcher.class.getResourceAsStream(
-														"/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
-								try {
-									if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
-											"true")) {
-										playSound(getJarPath() + "/sounds/alert-callout.wav");
-									}
-								} catch (IOException e) {
-									logError("Error getting configValue for playCallout: ", e);
-								}
-								// todo remove all rememberCalloutLocation references
-								
-								try {
-									if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
-										PauseTransition delay = null;
-										try {
-											delay = new PauseTransition(Duration.seconds(Double.parseDouble(
-													ConfigReader.configRead("misc", "calloutDuration"))));
-										} catch (IOException e) {
-											logError("Callout could not be closed: ", e);
-										}
-										if (calloutWindow != null) {
-											delay.setOnFinished(event -> {
-												try {
-													calloutWindow.closeWindow();
-												} catch (NullPointerException e) {
-													log("Callout Window was closed before it could be automatically closed",
-													    LogUtils.Severity.WARN);
-												}
-											});
-										}
-										delay.play();
-									}
-								} catch (IOException e) {
-									logError("could not read calloutDuration: ", e);
-								}
-							});
-						} else {
-							log("Callout Popups are disabled", LogUtils.Severity.DEBUG);
-							log("Adding Callout To Active", LogUtils.Severity.INFO);
-							Callout callout = getCallout();
-							
-							String message;
-							String desc;
-							String status;
-							if (callout != null) {
-								String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
-								String type = callout.getType() != null ? callout.getType() : "Not Available";
-								String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
-								String area = callout.getArea() != null ? callout.getArea() : "Not Available";
-								String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
-								String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
-								String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
-								String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
-								desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
-								message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
-								status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
-								if (desc.isEmpty()) {
-									desc = message;
-								} else {
-									desc = desc + "\n" + message;
-								}
-								CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street,
-								                          area, county, time, date, status);
-								NotificationManager.showNotificationInfo("Callout Manager",
-								                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
-							}
-						}
-						break;
-					
-					case "UPDATE_WORLD_PED":
-						log("Received World Ped update", LogUtils.Severity.DEBUG);
-						FileUtlis.receiveWorldPedFromServer(4096);
-						break;
-					
-					case "UPDATE_WORLD_VEH":
-						log("Received World Veh update", LogUtils.Severity.DEBUG);
-						FileUtlis.receiveWorldVehFromServer(4096);
-						break;
-					
-					default:
-						break;
-				}
-			}
-		} catch (SocketTimeoutException e) {
-			isConnected = false;
-			notifyStatusChanged(isConnected);
+		new Thread(() -> {
 			try {
-				log("Read timed out after " + socket.getSoTimeout() + " milliseconds", LogUtils.Severity.ERROR);
-			} catch (SocketException ex) {
-				logError("Could not getSoTimeout: ", e);
+				String fromServer;
+				label:
+				while ((fromServer = in.readLine()) != null) {
+					switch (fromServer) {
+						case "SHUTDOWN":
+							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
+							disconnectFromService();
+							break label;
+						
+						case "UPDATE_LOCATION":
+							log("Received Location update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(1024, "ServerLocation.data", "location.data");
+							Platform.runLater(() -> {
+								if (!mainDesktopControllerObj.getTopBar().getChildren().contains(
+										mainDesktopControllerObj.getLocationDataLabel())) {
+									mainDesktopControllerObj.getTopBar().getChildren().add(
+											mainDesktopControllerObj.getLocationDataLabel());
+								}
+								try {
+									mainDesktopControllerObj.getLocationDataLabel().setText(
+											Files.readString(Paths.get(currentLocationFileURL)));
+								} catch (IOException e) {
+									logError("Could Not Read FileString For LocationData: ", e);
+								}
+							});
+							break;
+						
+						case "UPDATE_ID":
+							log("Received ID update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(4096, "ServerCurrentID.xml", "currentID.xml");
+							if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
+								Platform.runLater(() -> {
+									CustomWindow IDWindow = createFakeWindow(
+											mainDesktopControllerObj.getDesktopContainer(),
+											"Windows/Server/currentID-view.fxml", "Current IDs", false, 2, true, true,
+											mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+													Launcher.class.getResourceAsStream(
+															"/com/drozal/dataterminal/imgs/icons/Apps/license.png"))));
+									
+									try {
+										if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
+											PauseTransition delay = null;
+											try {
+												delay = new PauseTransition(Duration.seconds(Double.parseDouble(
+														ConfigReader.configRead("misc", "IDDuration"))));
+											} catch (IOException e) {
+												logError("ID could not be closed: ", e);
+											}
+											if (IDWindow != null) {
+												delay.setOnFinished(event -> {
+													try {
+														IDWindow.closeWindow();
+													} catch (NullPointerException e) {
+														log("ID Window was closed before it could be automatically closed",
+														    LogUtils.Severity.WARN);
+													}
+												});
+											}
+											delay.play();
+										}
+									} catch (IOException e) {
+										logError("could not read IDDuration: ", e);
+									}
+								});
+							} else {
+								log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
+								NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved");
+							}
+							break;
+						
+						case "UPDATE_CALLOUT":
+							log("Received Callout update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(4096, "ServerCallout.xml", "callout.xml");
+							if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
+								Platform.runLater(() -> {
+									calloutWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
+									                                 "Windows/Server/callout-view.fxml",
+									                                 "Callout Display", false, 4, true, true,
+									                                 mainDesktopControllerObj.getTaskBarApps(),
+									                                 new Image(Objects.requireNonNull(
+											                                 Launcher.class.getResourceAsStream(
+													                                 "/com/drozal/dataterminal/imgs/icons/Apps/callout.png"))));
+									try {
+										if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase(
+												"true")) {
+											playSound(getJarPath() + "/sounds/alert-callout.wav");
+										}
+									} catch (IOException e) {
+										logError("Error getting configValue for playCallout: ", e);
+									}
+									
+									try {
+										if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
+											PauseTransition delay = null;
+											try {
+												delay = new PauseTransition(Duration.seconds(Double.parseDouble(
+														ConfigReader.configRead("misc", "calloutDuration"))));
+											} catch (IOException e) {
+												logError("Callout could not be closed: ", e);
+											}
+											if (calloutWindow != null) {
+												delay.setOnFinished(event -> {
+													try {
+														calloutWindow.closeWindow();
+													} catch (NullPointerException e) {
+														log("Callout Window was closed before it could be automatically closed",
+														    LogUtils.Severity.WARN);
+													}
+												});
+											}
+											delay.play();
+										}
+									} catch (IOException e) {
+										logError("could not read calloutDuration: ", e);
+									}
+								});
+							} else {
+								log("Callout Popups are disabled", LogUtils.Severity.DEBUG);
+								log("Adding Callout To Active", LogUtils.Severity.INFO);
+								Callout callout = getCallout();
+								
+								String message;
+								String desc;
+								String status;
+								if (callout != null) {
+									String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
+									String type = callout.getType() != null ? callout.getType() : "Not Found";
+									String number = callout.getNumber() != null ? callout.getNumber() : "Not Found";
+									String area = callout.getArea() != null ? callout.getArea() : "Not Found";
+									String priority = callout.getPriority() != null ? callout.getPriority() : "Not Found";
+									String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Found";
+									String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Found";
+									String county = callout.getCounty() != null ? callout.getCounty() : "Not Found";
+									desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
+									message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
+									status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+									if (desc.isEmpty()) {
+										desc = message;
+									} else {
+										desc = desc + "\n" + message;
+									}
+									CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority,
+									                          street, area, county, time, date, status);
+									NotificationManager.showNotificationInfo("Callout Manager",
+									                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+								}
+							}
+							break;
+						
+						case "UPDATE_WORLD_PED":
+							log("Received World Ped update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(4096, "ServerWorldPeds.data", "worldPeds.data");
+							break;
+						
+						case "UPDATE_TRAFFIC_STOP":
+							log("Received Traffic Stop update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(2048, "ServerTrafficStop.data", "trafficStop.data");
+							try {
+								if (ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase(
+										"true")) {
+									Platform.runLater(() -> {
+										CustomWindow trafficStopWindow = createFakeWindow(
+												mainDesktopControllerObj.getDesktopContainer(),
+												"Windows/Server/trafficStop-view.fxml", "Traffic Stop Data", true, 2,
+												true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(
+														Objects.requireNonNull(Launcher.class.getResourceAsStream(
+																"/com/drozal/dataterminal/imgs/icons/trafficStop.png"))));
+										
+										if (trafficStopWindow != null && trafficStopWindow.controller != null) {
+											trafficStopController.trafficStopController = (trafficStopController) trafficStopWindow.controller;
+											
+											try {
+												trafficStopController.trafficStopController.updateTrafficStopFields();
+											} catch (IOException e) {
+												logError(
+														"Error updating traffic stop fields from UPDATE_TRAFFIC_STOP, ",
+														e);
+											}
+										}
+										try {
+											settingsController.loadTheme();
+										} catch (IOException e) {
+											logError("Error loading theme from trafficStop", e);
+										}
+										
+									});
+								}
+							} catch (IOException e) {
+								logError("Could not get enableTrafficStopPopup from config, ", e);
+							}
+							break;
+						
+						case "UPDATE_WORLD_VEH":
+							log("Received World Veh update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(4096, "ServerWorldCars.data", "worldCars.data");
+							break;
+						
+						default:
+							break;
+					}
+				}
+			} catch (SocketTimeoutException e) {
+				isConnected = false;
+				notifyStatusChanged(isConnected);
+				try {
+					log("Read timed out after " + socket.getSoTimeout() + " milliseconds", LogUtils.Severity.ERROR);
+				} catch (SocketException ex) {
+					logError("Could not getSoTimeout: ", e);
+				}
+			} catch (IOException e) {
+				isConnected = false;
+				notifyStatusChanged(isConnected);
+				log("Error reading from server: " + e.getMessage(), LogUtils.Severity.ERROR);
 			}
-		} catch (IOException e) {
-			isConnected = false;
-			notifyStatusChanged(isConnected);
-			log("Error reading from server: " + e.getMessage(), LogUtils.Severity.ERROR);
-		}
+		}).start();
 	}
 	
 	public static void setStatusListener(ServerStatusListener listener) {

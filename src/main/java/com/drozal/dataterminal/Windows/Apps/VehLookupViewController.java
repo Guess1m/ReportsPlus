@@ -150,17 +150,17 @@ public class VehLookupViewController {
 				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
 		
-		String model = vehData.getOrDefault("model", "Not available");
-		String isStolen = vehData.getOrDefault("isStolen", "Not available");
-		String isPolice = vehData.getOrDefault("isPolice", "Not available");
-		String registration = vehData.getOrDefault("registration", "Not available");
-		String insurance = vehData.getOrDefault("insurance", "Not available");
-		String colorValue = vehData.getOrDefault("color", "Not available");
-		String owner = vehData.getOrDefault("owner", "Not available");
+		String model = vehData.getOrDefault("model", "Not Found");
+		String isStolen = vehData.getOrDefault("isStolen", "Not Found");
+		String isPolice = vehData.getOrDefault("isPolice", "Not Found");
+		String registration = vehData.getOrDefault("registration", "Not Found");
+		String insurance = vehData.getOrDefault("insurance", "Not Found");
+		String colorValue = vehData.getOrDefault("color", "Not Found");
+		String owner = vehData.getOrDefault("owner", "Not Found");
 		String[] rgb = colorValue.split("-");
-		String color = "Not available";
+		String color = "Not Found";
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not available");
+		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
 		
 		if (vehOptional.isPresent()) {
 			vehtypecombobox.getItems().clear();
@@ -236,7 +236,7 @@ public class VehLookupViewController {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			if (!vehicle.getColor().equals("Not available")) {
+			if (!vehicle.getColor().equals("Not Found")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle(
 						"-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
@@ -246,7 +246,7 @@ public class VehLookupViewController {
 			}
 			
 			String vehModelString = vehicle.getModel();
-			if (vehModelString != null && !vehModelString.equalsIgnoreCase("not available")) {
+			if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
 				File pedImgFolder = new File(vehImageFolderURL);
 				if (pedImgFolder.exists()) {
 					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
@@ -291,7 +291,7 @@ public class VehLookupViewController {
 				noVehImageFoundlbl.setText("No Image Found In System");
 			}
 			
-		} else if (!licensePlate.equals("Not available")) {
+		} else if (!licensePlate.equals("Not Found")) {
 			log("Found: " + searchedPlate + " From WorldVeh file", LogUtils.Severity.DEBUG);
 			vehRecordPane.setVisible(true);
 			noRecordFoundLabelVeh.setVisible(false);
@@ -358,7 +358,7 @@ public class VehLookupViewController {
 			} else {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
-			if (!vehicle.getColor().equals("Not available")) {
+			if (!vehicle.getColor().equals("Not Found")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle(
 						"-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
@@ -371,7 +371,7 @@ public class VehLookupViewController {
 			vehtypecombobox.setValue(vehicle.getType());
 			
 			String vehModelString = vehicle.getModel();
-			if (vehModelString != null && !vehModelString.equalsIgnoreCase("not available")) {
+			if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
 				File pedImgFolder = new File(vehImageFolderURL);
 				if (pedImgFolder.exists()) {
 					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);

@@ -140,6 +140,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiSettings", "enableCalloutPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableIDPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableSounds", "false");
+		checkAndSetDefaultValue("uiSettings", "enableTrafficStopPopup", "true");
 		
 		// Sound Settings
 		checkAndSetDefaultValue("soundSettings", "playCallout", "true");

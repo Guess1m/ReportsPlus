@@ -63,7 +63,7 @@ public class calloutController {
 	private Label statusLabel;
 	
 	public static Callout getCallout() {
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "serverCallout.xml";
+		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
 		File file = new File(filePath);
 		
 		if (!file.exists()) {
@@ -102,16 +102,16 @@ public class calloutController {
 			String message;
 			String desc;
 			if (callout != null) {
-				String street = callout.getStreet() != null ? callout.getStreet() : "Not Available";
-				String type = callout.getType() != null ? callout.getType() : "Not Available";
-				String number = callout.getNumber() != null ? callout.getNumber() : "Not Available";
-				String area = callout.getArea() != null ? callout.getArea() : "Not Available";
-				String priority = callout.getPriority() != null ? callout.getPriority() : "Not Available";
-				String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Available";
-				String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Available";
-				String county = callout.getCounty() != null ? callout.getCounty() : "Not Available";
-				desc = callout.getDescription() != null ? callout.getDescription() : "Not Available";
-				message = callout.getMessage() != null ? callout.getMessage() : "Not Available";
+				String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
+				String type = callout.getType() != null ? callout.getType() : "Not Found";
+				String number = callout.getNumber() != null ? callout.getNumber() : "Not Found";
+				String area = callout.getArea() != null ? callout.getArea() : "Not Found";
+				String priority = callout.getPriority() != null ? callout.getPriority() : "Not Found";
+				String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Found";
+				String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Found";
+				String county = callout.getCounty() != null ? callout.getCounty() : "Not Found";
+				desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
+				message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
 				status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
 				
 				respondBtn.setOnAction(actionEvent -> {

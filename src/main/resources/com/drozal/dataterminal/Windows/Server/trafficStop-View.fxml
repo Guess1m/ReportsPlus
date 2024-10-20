@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane fx:id="root" prefHeight="450.0" prefWidth="703.0" stylesheets="@../../css/trafficStop/trafficStop.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="450.0" prefWidth="703.0"
+            stylesheets="@../../css/trafficStop/trafficStop.css" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Server.trafficStopController">
     <center>
         <AnchorPane>

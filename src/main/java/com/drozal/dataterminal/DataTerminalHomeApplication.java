@@ -1,6 +1,7 @@
 package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.Desktop.mainDesktopController;
+import com.drozal.dataterminal.config.ConfigReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -42,8 +43,16 @@ public class DataTerminalHomeApplication extends Application {
 		primaryStage.show();
 		mainDesktopStage = primaryStage;
 		
-		// todo add a config for this
-		primaryStage.setFullScreen(true);
+		String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");
+		if (windowConfig.equalsIgnoreCase("Fullscreen")) {
+			primaryStage.setMaximized(false);
+			primaryStage.setFullScreen(true);
+		} else {
+			primaryStage.setFullScreen(false);
+			primaryStage.setMaximized(true);
+			primaryStage.centerOnScreen();
+			primaryStage.setAlwaysOnTop(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+		}
 		
 		DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		

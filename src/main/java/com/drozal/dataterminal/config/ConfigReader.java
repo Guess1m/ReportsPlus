@@ -133,6 +133,7 @@ public class ConfigReader {
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
 		checkAndSetDefaultValue("misc", "IDDuration", "infinite");
+		checkAndSetDefaultValue("misc", "TrafficStopDuration", "infinite");
 		checkAndSetDefaultValue("notepad", "notepadMode", "Light");
 		
 		// UI Settings (continued)
@@ -141,6 +142,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiSettings", "enableIDPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "enableSounds", "false");
 		checkAndSetDefaultValue("uiSettings", "enableTrafficStopPopup", "true");
+		checkAndSetDefaultValue("uiSettings", "windowDisplaySetting", "Fullscreen");
+		checkAndSetDefaultValue("uiSettings", "windowAOT", "false");
 		
 		// Sound Settings
 		checkAndSetDefaultValue("soundSettings", "playCallout", "true");

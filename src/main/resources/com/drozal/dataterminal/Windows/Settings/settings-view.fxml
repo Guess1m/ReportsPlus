@@ -6,8 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="root" prefHeight="656.0" prefWidth="623.0" stylesheets="@../../css/settings/settings.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -119,15 +119,69 @@
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane fx:id="paneWindow" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                <AnchorPane fx:id="paneWindow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="WINDOW SETTINGS"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="55.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+                        <VBox AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="40.0">
                             <children>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Application Display Setting" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Change application window startup size" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="windowDisplaySettingCombobox" prefWidth="135.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Application Always On Top" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Keeps application above other windows (If set to windowed fullscreen)"
+                                               wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ToggleButton fx:id="alwaysOnTopCheckbox" mnemonicParsing="false"
+                                                      onAction="#AOTCheckbox" text="Status" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -152,10 +206,10 @@
                                                       GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="30.0"/>
+                                        <Insets top="5.0"/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -183,7 +237,8 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -208,10 +263,10 @@
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="45.0"/>
+                                        <Insets top="5.0"/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -240,6 +295,62 @@
                                     </children>
                                 </GridPane>
                                 <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Enable Traffic Stop Popups" GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="enableTrafficStopPopupsCheckbox" mnemonicParsing="false"
+                                                      onAction="#enableTrafficStopPopupClick" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Toggle whether traffic stop info window will come up when a traffic stop is initiated"
+                                               wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="5.0"/>
+                                    </VBox.margin>
+                                </GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Traffic Stop Display Duration" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Duration traffic stop window will be shown" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ComboBox fx:id="trafficStopDurComboBox" prefWidth="135.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
                             </children>
                         </VBox>
                     </children>
@@ -249,8 +360,8 @@
                     <children>
                         <Label alignment="CENTER" layoutX="7.0" layoutY="14.0" styleClass="settingsLabel"
                                text="NOTIFICATION SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox layoutX="25.0" layoutY="47.5" spacing="25.0" AnchorPane.leftAnchor="25.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                        <VBox layoutX="25.0" layoutY="47.5" spacing="25.0" AnchorPane.bottomAnchor="20.0"
+                              AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                             <children>
                                 <AnchorPane VBox.vgrow="SOMETIMES"/>
                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -344,7 +455,6 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                                 <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0"/>
@@ -444,6 +554,7 @@
                                                      GridPane.valignment="CENTER"/>
                                     </children>
                                 </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                                 <BorderPane fx:id="notiDisplayPane" prefHeight="93.0" scaleShape="false"
                                             VBox.vgrow="SOMETIMES">
                                     <top>
@@ -482,10 +593,10 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="65.0">
+                        <VBox spacing="45.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
                             <children>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -509,10 +620,10 @@
                                                   GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -540,7 +651,8 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -568,7 +680,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -596,7 +708,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -624,7 +736,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -652,7 +764,8 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -691,10 +804,10 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="65.0">
+                        <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
                             <children>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -721,10 +834,10 @@
                                         </HBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -752,7 +865,8 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -780,7 +894,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -808,7 +922,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -836,7 +950,7 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -864,7 +978,8 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -894,7 +1009,6 @@
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>
@@ -904,8 +1018,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="SERVER / NETWORKING SETTINGS"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="40.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="65.0">
+                        <VBox spacing="55.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -1001,10 +1115,10 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="AUDIO SETTINGS"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="55.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="65.0">
+                        <VBox spacing="55.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
                             <children>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1028,8 +1142,12 @@
                                             </GridPane.margin>
                                         </Label>
                                     </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1054,10 +1172,10 @@
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="30.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1081,8 +1199,11 @@
                                             </GridPane.margin>
                                         </Label>
                                     </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1106,8 +1227,11 @@
                                             </GridPane.margin>
                                         </Label>
                                     </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                                <GridPane VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1131,6 +1255,9 @@
                                             </GridPane.margin>
                                         </Label>
                                     </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </GridPane>
                             </children>
                         </VBox>
@@ -1141,8 +1268,8 @@
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="DEVELOPER SETTINGS / CLEAR DATA"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
-                        <VBox spacing="60.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="65.0">
+                        <VBox spacing="60.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -1168,7 +1295,7 @@
                                                 GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="35.0"/>
+                                        <Insets/>
                                     </VBox.margin>
                                 </GridPane>
                                 <GridPane>
@@ -1223,6 +1350,9 @@
                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                 GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </GridPane>
                             </children>
                         </VBox>

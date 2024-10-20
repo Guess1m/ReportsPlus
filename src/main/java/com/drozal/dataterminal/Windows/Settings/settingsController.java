@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.drozal.dataterminal.Desktop.mainDesktopController.commandTextArea;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
@@ -174,6 +175,14 @@ public class settingsController {
 	private ToggleButton enableIDPopupsCheckbox;
 	@javafx.fxml.FXML
 	private ToggleButton enableCalloutPopupsCheckbox;
+	@javafx.fxml.FXML
+	private ToggleButton enableTrafficStopPopupsCheckbox;
+	@javafx.fxml.FXML
+	private ComboBox trafficStopDurComboBox;
+	@javafx.fxml.FXML
+	private ComboBox windowDisplaySettingCombobox;
+	@javafx.fxml.FXML
+	private ToggleButton alwaysOnTopCheckbox;
 	
 	//</editor-fold>
 	
@@ -597,7 +606,7 @@ public class settingsController {
 			});
 		});
 		
-		setActive(paneNotification);
+		setActive(paneWindow);
 		
 		loadPaneActions();
 		
@@ -714,19 +723,31 @@ public class settingsController {
 		
 		audioLookupWarningCheckbox.setSelected(
 				ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
+		
 		audioCalloutCheckbox.setSelected(
 				ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
+		
 		audioReportCreate.setSelected(
 				ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
+		
 		audioReportDeleteCheckbox.setSelected(
 				ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
+		
 		enableCalloutPopupsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
+		
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
+		
 		enableIDPopupsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
+		
+		enableTrafficStopPopupsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
+		
 		serverAutoconnectTogglebox.setSelected(
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
+		
+		alwaysOnTopCheckbox.setSelected(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 		
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 	}
@@ -1259,6 +1280,13 @@ public class settingsController {
 			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
 		
+		trafficStopDurComboBox.getItems().addAll(idDurations);
+		trafficStopDurComboBox.setValue(ConfigReader.configRead("misc", "TrafficStopDuration"));
+		trafficStopDurComboBox.setOnAction(actionEvent -> {
+			String selectedDur = (String) trafficStopDurComboBox.getSelectionModel().getSelectedItem();
+			ConfigWriter.configwrite("misc", "TrafficStopDuration", selectedDur);
+		});
+		
 		String[] notifications = {"Information", "Warning"};
 		selectedNotification = new AtomicReference<>("Information");
 		notificationComboBox.getItems().addAll(notifications);
@@ -1307,7 +1335,7 @@ public class settingsController {
 		
 		String[] notificationPositions = {"BottomLeft", "BottomRight", "TopLeft", "TopRight"};
 		notiPosCombobox.getItems().addAll(notificationPositions);
-		notiPosCombobox.setValue(ConfigReader.configRead("notificationSettings", "notificationPosition"));
+		notiPosCombobox.setValue(ConfigReader.configRead("uiSettings", "DisplaySetting"));
 		notiPosCombobox.setOnAction(actionEvent -> {
 			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
 			switch (selectedPosition) {
@@ -1318,6 +1346,36 @@ public class settingsController {
 				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
 				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
+		});
+		
+		String[] windowSetting = {"Fullscreen", "WindowedFullscreen"};
+		windowDisplaySettingCombobox.getItems().addAll(windowSetting);
+		windowDisplaySettingCombobox.setValue(ConfigReader.configRead("uiSettings", "windowDisplaySetting"));
+		windowDisplaySettingCombobox.setOnAction(actionEvent -> {
+			String selectedItem = (String) windowDisplaySettingCombobox.getSelectionModel().getSelectedItem();
+			
+			switch (selectedItem) {
+				case "Fullscreen" -> {
+					mainDesktopStage.setFullScreen(true);
+					mainDesktopStage.centerOnScreen();
+					ConfigWriter.configwrite("uiSettings", "windowDisplaySetting", "Fullscreen");
+				}
+				case "WindowedFullscreen" -> {
+					if (mainDesktopStage.isFullScreen()) {
+						mainDesktopStage.setFullScreen(false);
+					}
+					mainDesktopStage.setMaximized(true);
+					mainDesktopStage.centerOnScreen();
+					try {
+						mainDesktopStage.setAlwaysOnTop(
+								ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+					} catch (IOException e) {
+						logError("Couldnt get windowAOT setting, ", e);
+					}
+					ConfigWriter.configwrite("uiSettings", "windowDisplaySetting", "WindowedFullscreen");
+				}
+			}
+			
 		});
 		
 		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
@@ -1384,17 +1442,6 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
-	public void serverAutoConnectClick(ActionEvent actionEvent) {
-		if (serverAutoconnectTogglebox.isSelected()) {
-			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "true");
-			serverAutoconnectTogglebox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("connectionSettings", "serverAutoConnect", "false");
-			serverAutoconnectTogglebox.setSelected(false);
-		}
-	}
-	
-	@javafx.fxml.FXML
 	public void resetNotiDefaultsBtnPress(ActionEvent actionEvent) {
 		if (selectedNotification.get().equals("Information")) {
 			ConfigWriter.configwrite("notificationSettings", "notificationInfoPrimary", "#367af6");
@@ -1407,91 +1454,64 @@ public class settingsController {
 	}
 	
 	@javafx.fxml.FXML
+	public void serverAutoConnectClick(ActionEvent actionEvent) {
+		handleCheckboxClick("connectionSettings", "serverAutoConnect", serverAutoconnectTogglebox);
+	}
+	
+	@javafx.fxml.FXML
 	public void enableIDPopupClick(ActionEvent actionEvent) {
-		if (enableIDPopupsCheckbox.isSelected()) {
-			ConfigWriter.configwrite("uiSettings", "enableIDPopup", "true");
-			enableIDPopupsCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("uiSettings", "enableIDPopup", "false");
-			enableIDPopupsCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("uiSettings", "enableIDPopup", enableIDPopupsCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void enableCalloutPopupClick(ActionEvent actionEvent) {
-		if (enableCalloutPopupsCheckbox.isSelected()) {
-			ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "true");
-			enableCalloutPopupsCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("uiSettings", "enableCalloutPopup", "false");
-			enableCalloutPopupsCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("uiSettings", "enableCalloutPopup", enableCalloutPopupsCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
-		if (enableSoundCheckbox.isSelected()) {
-			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
-			enableSoundCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("uiSettings", "enableSounds", "false");
-			enableSoundCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("uiSettings", "enableSounds", enableSoundCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void audioCalloutClick(ActionEvent actionEvent) {
-		if (audioCalloutCheckbox.isSelected()) {
-			ConfigWriter.configwrite("soundSettings", "playCallout", "true");
-			audioCalloutCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("soundSettings", "playCallout", "false");
-			audioCalloutCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("soundSettings", "playCallout", audioCalloutCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void audioReportDeleteClick(ActionEvent actionEvent) {
-		if (audioReportDeleteCheckbox.isSelected()) {
-			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "true");
-			audioReportDeleteCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("soundSettings", "playDeleteReport", "false");
-			audioReportDeleteCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("soundSettings", "playDeleteReport", audioReportDeleteCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void audioReportCreateClick(ActionEvent actionEvent) {
-		if (audioReportCreate.isSelected()) {
-			ConfigWriter.configwrite("soundSettings", "playCreateReport", "true");
-			audioReportCreate.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("soundSettings", "playCreateReport", "false");
-			audioReportCreate.setSelected(false);
-		}
+		handleCheckboxClick("soundSettings", "playCreateReport", audioReportCreate);
 	}
 	
 	@javafx.fxml.FXML
 	public void audioLookupWarning(ActionEvent actionEvent) {
-		if (audioLookupWarningCheckbox.isSelected()) {
-			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "true");
-			audioLookupWarningCheckbox.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("soundSettings", "playLookupWarning", "false");
-			audioLookupWarningCheckbox.setSelected(false);
-		}
+		handleCheckboxClick("soundSettings", "playLookupWarning", audioLookupWarningCheckbox);
 	}
 	
 	@javafx.fxml.FXML
 	public void enableNoti(ActionEvent actionEvent) {
-		if (enableNotiTB.isSelected()) {
-			ConfigWriter.configwrite("notificationSettings", "enabled", "true");
-			enableNotiTB.setSelected(true);
-		} else {
-			ConfigWriter.configwrite("notificationSettings", "enabled", "false");
-			enableNotiTB.setSelected(false);
-		}
+		handleCheckboxClick("notificationSettings", "enabled", enableNotiTB);
+	}
+	
+	@javafx.fxml.FXML
+	public void enableTrafficStopPopupClick(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "enableTrafficStopPopup", enableTrafficStopPopupsCheckbox);
+	}
+	
+	@javafx.fxml.FXML
+	public void AOTCheckbox(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "windowAOT", alwaysOnTopCheckbox);
+	}
+	
+	private void handleCheckboxClick(String section, String key, ToggleButton checkbox) {
+		String value = checkbox.isSelected() ? "true" : "false";
+		ConfigWriter.configwrite(section, key, value);
+		checkbox.setSelected(Boolean.parseBoolean(value));
 	}
 	
 	private void refreshNotificationPreview(String type) {

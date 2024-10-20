@@ -6,9 +6,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0" prefWidth="811.0"
-            style="-fx-background-color: transparent;" stylesheets="" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
+            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.drozal.dataterminal.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
             <children>

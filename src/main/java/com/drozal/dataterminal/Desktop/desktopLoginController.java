@@ -3,6 +3,7 @@ package com.drozal.dataterminal.Desktop;
 import com.drozal.dataterminal.DataTerminalHomeApplication;
 import com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig;
 import com.drozal.dataterminal.Launcher;
+import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.newOfficerApplication;
 import com.drozal.dataterminal.util.Misc.LogUtils;
@@ -138,8 +139,17 @@ public class desktopLoginController {
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			
-			// todo add a config for this
-			primaryStage.setFullScreen(true);
+			String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");
+			if (windowConfig.equalsIgnoreCase("Fullscreen")) {
+				primaryStage.setMaximized(false);
+				primaryStage.setFullScreen(true);
+			} else {
+				primaryStage.setFullScreen(false);
+				primaryStage.setMaximized(true);
+				primaryStage.centerOnScreen();
+				primaryStage.setAlwaysOnTop(
+						ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+			}
 			
 			DataTerminalHomeApplication.mainRT = mainDesktopStage;
 		}

@@ -11,6 +11,7 @@
     -fx-border-color: rgb(0, 0, 0, 0.6);
 }
 
+
 .combo-box {
     -fx-text-fill: black !important;
     -fx-font-family: "Segoe UI Semibold";
@@ -18,8 +19,43 @@
     -fx-background-color: rgb(200, 200, 200, 0.3);
     -fx-prompt-text-fill: rgb(40, 40, 40, 0.3) !important;
     -fx-background-insets: 0;
-    -fx-padding: 3px;
+    -fx-padding: 3px 10px;
     -fx-border-radius: 0;
     -fx-border-width: 0 0 2px 0;
     -fx-border-color: rgb(0, 0, 0, 0.6);
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-border-color: none;
+}
+
+.combo-box .combo-box-popup .list-view .list-cell {
+    -fx-background-color: rgb(255, 255, 255, 0.1);
+}
+
+.combo-box .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgb(0, 0, 0, 0.1);
+}
+
+.combo-box .scroll-bar {
+    -fx-background-color: none;
+    -fx-pref-width: 11px;
+}
+
+.combo-box .scroll-bar .increment-arrow,
+.combo-box .scroll-bar .decrement-arrow {
+    -fx-background-color: none;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: #5e7387;
+}
+
+.combo-box .scroll-bar .thumb:pressed {
+    -fx-background-color: #34404b;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: black;
 }

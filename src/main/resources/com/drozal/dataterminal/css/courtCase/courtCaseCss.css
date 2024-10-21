@@ -11,6 +11,11 @@
     -fx-border-color: rgb(0, 0, 0, 0.6);
 }
 
-.text-field:focused {
+.split-pane .split-pane-divider {
+    -fx-background-color: rgb(0, 0, 0, 0.2);
+    -fx-padding: 3px;
+}
 
+.split-pane .split-pane-divider:pressed {
+    -fx-background-color: rgb(0, 0, 0, 0.45);
 }

@@ -2,9 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="387.0" prefWidth="703.0"
             style="-fx-border-color: black; -fx-border-width: 1.5;" stylesheets="@../../css/client/client.css"
@@ -12,9 +12,9 @@
     <center>
         <AnchorPane>
             <children>
-                <GridPane alignment="CENTER" hgap="30.0" prefHeight="207.0" prefWidth="538.0"
-                          style="-fx-background-color: white;" vgap="15.0" AnchorPane.bottomAnchor="0.0"
-                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                <GridPane alignment="CENTER" hgap="30.0" prefHeight="207.0" prefWidth="538.0" vgap="15.0"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="72.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
@@ -55,7 +55,8 @@
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutX="14.0" layoutY="-1.0" text="Input Port:" AnchorPane.leftAnchor="14.0">
+                                <Label fx:id="lbl1" layoutX="14.0" layoutY="-1.0" text="Input Port:"
+                                       AnchorPane.leftAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="14.0"/>
                                     </font>
@@ -70,7 +71,8 @@
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutX="14.0" layoutY="-1.0" text="Input Address:" AnchorPane.leftAnchor="14.0">
+                                <Label fx:id="lbl3" layoutX="14.0" layoutY="-1.0" text="Input Address:"
+                                       AnchorPane.leftAnchor="14.0">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="14.0"/>
                                     </font>
@@ -86,7 +88,7 @@
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutY="-1.0" text="Connection  Ipv4:" AnchorPane.leftAnchor="0.0">
+                                <Label fx:id="lbl2" layoutY="-1.0" text="Connection  Ipv4:" AnchorPane.leftAnchor="0.0">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="14.0"/>
                                     </font>
@@ -102,7 +104,7 @@
                                         <Font name="Segoe UI" size="12.0"/>
                                     </font>
                                 </TextField>
-                                <Label layoutY="-1.0" text="Connection PORT:" AnchorPane.leftAnchor="0.0">
+                                <Label fx:id="lbl4" layoutY="-1.0" text="Connection PORT:" AnchorPane.leftAnchor="0.0">
                                     <font>
                                         <Font name="Segoe UI Semibold" size="14.0"/>
                                     </font>
@@ -119,7 +121,7 @@
                             </GridPane.margin>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#helpBtnPress" prefWidth="93.0"
-                                style="-fx-background-color: gray;" text="Help" GridPane.columnIndex="1"
+                                style="-fx-background-color: rgb(0,0,0,0.5);" text="Help" GridPane.columnIndex="1"
                                 GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="8.0"/>
@@ -129,13 +131,6 @@
                             </GridPane.margin>
                         </Button>
                     </children>
-                    <effect>
-                        <DropShadow>
-                            <color>
-                                <Color opacity="0.37022900581359863"/>
-                            </color>
-                        </DropShadow>
-                    </effect>
                 </GridPane>
                 <AnchorPane fx:id="mainHeader" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0"
                             style="-fx-background-color: #524992;" AnchorPane.leftAnchor="-1.0"

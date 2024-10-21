@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/22"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.drozal.dataterminal.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -48,6 +48,12 @@
                     <center>
                         <Button fx:id="notiSettingsBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0"
                                 prefWidth="150.0" styleClass="panelButton" text="Notification Settings"/>
+                    </center>
+                </BorderPane>
+                <BorderPane>
+                    <center>
+                        <Button fx:id="desktopSettingsBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0"
+                                prefWidth="150.0" styleClass="panelButton" text="Desktop Settings"/>
                     </center>
                 </BorderPane>
                 <Label styleClass="heading" text="COLOR SETTINGS">
@@ -117,9 +123,9 @@
         </VBox>
     </left>
     <center>
-        <AnchorPane BorderPane.alignment="CENTER">
+        <AnchorPane style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane fx:id="paneWindow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                <AnchorPane fx:id="paneWindow" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label alignment="CENTER" styleClass="settingsLabel" text="WINDOW SETTINGS"
@@ -150,7 +156,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="windowDisplaySettingCombobox" prefWidth="135.0"/>
+                                                <ComboBox fx:id="windowDisplaySettingCombobox" HBox.hgrow="ALWAYS"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -232,7 +238,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="idDurComboBox" prefWidth="135.0"/>
+                                                <ComboBox fx:id="idDurComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -289,7 +295,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="calloutDurComboBox" prefWidth="135.0"/>
+                                                <ComboBox fx:id="calloutDurComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -346,7 +352,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="trafficStopDurComboBox" prefWidth="135.0"/>
+                                                <ComboBox fx:id="trafficStopDurComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -412,9 +418,8 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <TextField fx:id="notiFadeOutDurField" maxWidth="-Infinity"
-                                                           prefWidth="75.0" promptText="Def. 1.7"
-                                                           HBox.hgrow="SOMETIMES"/>
+                                                <TextField fx:id="notiFadeOutDurField" maxWidth="80.0" prefWidth="80.0"
+                                                           promptText="Def. 1.7" HBox.hgrow="SOMETIMES"/>
                                                 <Button fx:id="saveFadeDurBtn" minWidth="-Infinity"
                                                         mnemonicParsing="false" styleClass="AuxButton" text="Save"
                                                         HBox.hgrow="ALWAYS"/>
@@ -445,9 +450,8 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <TextField fx:id="notiDisplayDurField" maxWidth="-Infinity"
-                                                           prefWidth="75.0" promptText="Def. 1.2"
-                                                           HBox.hgrow="SOMETIMES"/>
+                                                <TextField fx:id="notiDisplayDurField" maxWidth="80.0" prefWidth="80.0"
+                                                           promptText="Def. 1.2" HBox.hgrow="SOMETIMES"/>
                                                 <Button fx:id="saveDisplayDurBtn" minWidth="-Infinity"
                                                         mnemonicParsing="false" styleClass="AuxButton" text="Save"
                                                         HBox.hgrow="ALWAYS"/>
@@ -474,7 +478,7 @@
                                                 <Insets/>
                                             </GridPane.margin>
                                         </Label>
-                                        <ComboBox fx:id="notificationComboBox" minWidth="160.0" GridPane.columnIndex="1"
+                                        <ComboBox fx:id="notificationComboBox" GridPane.columnIndex="1"
                                                   GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                                   GridPane.valignment="CENTER"/>
                                     </children>
@@ -501,7 +505,7 @@
                                                 <Insets/>
                                             </GridPane.margin>
                                         </Label>
-                                        <ComboBox fx:id="notiPosCombobox" minWidth="128.5" GridPane.columnIndex="1"
+                                        <ComboBox fx:id="notiPosCombobox" GridPane.columnIndex="1"
                                                   GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                                   GridPane.valignment="CENTER"/>
                                     </children>
@@ -615,9 +619,9 @@
                                                 <Insets/>
                                             </GridPane.margin>
                                         </Label>
-                                        <ComboBox fx:id="presetComboBoxReport" prefWidth="144.0"
-                                                  GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                  GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                        <ComboBox fx:id="presetComboBoxReport" GridPane.columnIndex="1"
+                                                  GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                  GridPane.valignment="CENTER"/>
                                     </children>
                                     <VBox.margin>
                                         <Insets/>
@@ -646,7 +650,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="reportStyleComboBox" prefWidth="144.0"/>
+                                                <ComboBox fx:id="reportStyleComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -799,10 +803,10 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneApplication" visible="false" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="paneApplication" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION"
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="APPLICATION WINDOW CUSTOMIZATION"
                                AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                         <VBox spacing="45.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
@@ -820,7 +824,7 @@
                                         <Label alignment="CENTER" styleClass="paneHeading" text="Design Preset"
                                                GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
-                                               text="Preset designs for reports (Replaces what you have)"
+                                               text="Preset designs for application (Replaces what you have)"
                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets/>
@@ -829,7 +833,7 @@
                                         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                               GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="themeComboBox" prefWidth="150.0"/>
+                                                <ComboBox fx:id="themeComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -847,10 +851,10 @@
                                         <RowConstraints vgrow="NEVER"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="CENTER" styleClass="paneHeading" text="Report Text Color"
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Application Text Color"
                                                GridPane.valignment="CENTER"/>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
-                                               text="Set the text color of textfields in the report window"
+                                               text="Set the text color of textfields in the application windows"
                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets/>
@@ -860,7 +864,7 @@
                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
                                               GridPane.valignment="CENTER">
                                             <children>
-                                                <ComboBox fx:id="textClrComboBox" prefWidth="150.0"/>
+                                                <ComboBox fx:id="textClrComboBox"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -1070,8 +1074,7 @@
                                               GridPane.valignment="CENTER">
                                             <children>
                                                 <TextField fx:id="broadcastPortField" maxWidth="-Infinity"
-                                                           prefWidth="135.0" promptText="Default: 8888"
-                                                           HBox.hgrow="SOMETIMES"/>
+                                                           promptText="Default: 8888" HBox.hgrow="SOMETIMES"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -1100,8 +1103,7 @@
                                               GridPane.valignment="CENTER">
                                             <children>
                                                 <TextField fx:id="socketTimeoutField" maxWidth="-Infinity"
-                                                           prefWidth="135.0" promptText="Default 10000"
-                                                           HBox.hgrow="SOMETIMES"/>
+                                                           promptText="Default 10000" HBox.hgrow="SOMETIMES"/>
                                             </children>
                                         </HBox>
                                     </children>
@@ -1326,7 +1328,20 @@
                                         <Insets/>
                                     </VBox.margin>
                                 </GridPane>
-                                <GridPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="paneDesktop" layoutX="10.0" layoutY="10.0" visible="false"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label alignment="CENTER" styleClass="settingsLabel" text="DESKTOP SETTINGS"
+                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                        <VBox spacing="35.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                            <children>
+                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -1336,24 +1351,106 @@
                                         <RowConstraints vgrow="NEVER"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="CENTER" styleClass="paneHeading" text="Open Dev Console"
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Use Solid Color"
                                                GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="solidColorToggle" mnemonicParsing="false"
+                                                      onAction="#solidColorToggle" text="Status"
+                                                      GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                      GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="DesktopSetting"/>
+                                            </toggleGroup>
+                                        </ToggleButton>
                                         <Label alignment="CENTER" styleClass="paneSubtext"
-                                               text="Open console to execute dev commands" GridPane.rowIndex="1"
-                                               GridPane.valignment="TOP">
+                                               text="Desktop background will be set to a solid color"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets/>
                                             </GridPane.margin>
                                         </Label>
-                                        <Button fx:id="debugLogBtn" mnemonicParsing="false"
-                                                onAction="#openDebugLogsBtnClick" text="Developer Console"
-                                                GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                     </children>
-                                    <VBox.margin>
-                                        <Insets/>
-                                    </VBox.margin>
                                 </GridPane>
+                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading"
+                                               text="Desktop Background Color" GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the desktop background (If solid color enabled)"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                              GridPane.valignment="CENTER">
+                                            <children>
+                                                <ColorPicker fx:id="desktopBackgroundPicker" prefWidth="150.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Use Desktop Background"
+                                               GridPane.valignment="CENTER"/>
+                                        <ToggleButton fx:id="backgroundToggle" mnemonicParsing="false"
+                                                      onAction="#backgroundToggle" text="Status"
+                                                      toggleGroup="$DesktopSetting" GridPane.columnIndex="1"
+                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                      GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Desktop background will be set to a specified image"
+                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" styleClass="paneHeading" text="Desktop Image Chooser"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label alignment="CENTER" styleClass="paneSubtext"
+                                               text="Choose the image to use as the desktop background (1920 x 1080 ratio will work best)"
+                                               wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Button mnemonicParsing="false" onAction="#desktopImageBtn"
+                                                text="Choose Image File" GridPane.columnIndex="1"
+                                                GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                                                GridPane.rowSpan="2147483647" GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                             </children>
                         </VBox>
                     </children>

@@ -25,3 +25,11 @@
     -fx-border-color: rgb(70, 70, 70, 0.6);
     -fx-border-width: 0 0 1 0;
 }
+
+.button {
+    -fx-text-fill: black;
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 13;
+    -fx-padding: 7 15;
+    -fx-background-color: rgb(0, 0, 0, 0.15);
+}

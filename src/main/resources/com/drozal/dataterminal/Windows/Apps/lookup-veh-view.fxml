@@ -366,12 +366,13 @@
                                                                         <Button fx:id="btninfo2" mnemonicParsing="false"
                                                                                 onAction="#vehcreateimpreport"
                                                                                 opacity="0.73" prefHeight="33.0"
-                                                                                prefWidth="161.0" styleClass="accentBtn"
+                                                                                styleClass="accentBtn"
                                                                                 text="Create Impound Report"
                                                                                 textOverrun="CLIP"
                                                                                 GridPane.columnIndex="2"
                                                                                 GridPane.halignment="RIGHT"
-                                                                                GridPane.rowIndex="1">
+                                                                                GridPane.rowIndex="1"
+                                                                                GridPane.valignment="BOTTOM">
                                                                             <font>
                                                                                 <Font name="Segoe UI" size="12.0"/>
                                                                             </font>
@@ -399,6 +400,18 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
+                                                                        <Button fx:id="btninfo3" mnemonicParsing="false"
+                                                                                onAction="#ownerLookup" opacity="0.73"
+                                                                                prefHeight="33.0" styleClass="accentBtn"
+                                                                                text="Owner Lookup" textOverrun="CLIP"
+                                                                                GridPane.columnIndex="1"
+                                                                                GridPane.halignment="CENTER"
+                                                                                GridPane.rowIndex="1"
+                                                                                GridPane.valignment="BOTTOM">
+                                                                            <font>
+                                                                                <Font name="Segoe UI" size="12.0"/>
+                                                                            </font>
+                                                                        </Button>
                                                                     </children>
                                                                 </GridPane>
                                                                 <Label fx:id="info2" alignment="CENTER"

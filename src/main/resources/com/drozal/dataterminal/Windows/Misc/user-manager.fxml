@@ -51,7 +51,7 @@
                         </VBox>
                     </center>
                     <top>
-                        <Label alignment="CENTER" text="Edit Officer Data:" textFill="#464646"
+                        <Label fx:id="lbl1" alignment="CENTER" text="Edit Officer Data:" textFill="#464646"
                                BorderPane.alignment="CENTER_LEFT">
                             <font>
                                 <Font name="Segoe UI Black" size="24.0"/>

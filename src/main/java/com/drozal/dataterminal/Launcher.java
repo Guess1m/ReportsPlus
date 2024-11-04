@@ -4,7 +4,6 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
-import javafx.application.Platform;
 import javafx.scene.text.Font;
 
 import java.io.File;
@@ -60,14 +59,6 @@ public class Launcher {
         } else {
             newOfficerApplication.main(args);
         }
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log("Shutdown Request Recieved", Severity.DEBUG);
-            endLog();
-            Platform.exit();
-            System.exit(0);
-        }));
-
     }
 
     public static void loadFonts() {

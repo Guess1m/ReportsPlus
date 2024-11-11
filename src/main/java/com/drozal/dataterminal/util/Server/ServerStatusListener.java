@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server;
+package com.drozal.dataterminal.util.Server;
 
 @FunctionalInterface
 public interface ServerStatusListener {

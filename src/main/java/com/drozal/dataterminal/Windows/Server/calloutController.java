@@ -2,8 +2,8 @@ package com.drozal.dataterminal.Windows.Server;
 
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
+import com.drozal.dataterminal.util.Server.Objects.Callout.Callout;
+import com.drozal.dataterminal.util.Server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -27,7 +27,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.calloutDataURL;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.server.ClientUtils.calloutWindow;
+import static com.drozal.dataterminal.util.Server.ClientUtils.calloutWindow;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 

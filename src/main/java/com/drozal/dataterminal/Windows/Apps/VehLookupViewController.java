@@ -38,7 +38,7 @@ import static com.drozal.dataterminal.util.Misc.controllerUtils.updateRecentSear
 import static com.drozal.dataterminal.util.Misc.dropdownInfo.vehicleTypes;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.vehImageFolderURL;
-import static com.drozal.dataterminal.util.server.recordUtils.grabVehicleData;
+import static com.drozal.dataterminal.util.Server.recordUtils.grabVehicleData;
 
 public class VehLookupViewController {
 

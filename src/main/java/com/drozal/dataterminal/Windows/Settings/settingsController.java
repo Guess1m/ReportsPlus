@@ -24,7 +24,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.drozal.dataterminal.DataTerminalHomeApplication.*;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
+import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.Windows.Apps.CourtViewController.courtViewController;
@@ -36,7 +37,7 @@ import static com.drozal.dataterminal.Windows.Server.ClientController.clientCont
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
-import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
+import static com.drozal.dataterminal.util.Server.ClientUtils.isConnected;
 
 public class settingsController {
 	

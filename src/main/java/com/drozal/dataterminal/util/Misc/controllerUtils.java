@@ -5,7 +5,7 @@ import com.drozal.dataterminal.Windows.Apps.LogViewController;
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.History.Ped;
-import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.Server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -43,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.util.History.PedHistoryMath.*;
 import static com.drozal.dataterminal.util.Misc.AudioUtil.audioExecutor;
 import static com.drozal.dataterminal.util.Misc.LogUtils.*;
@@ -719,7 +720,8 @@ public class controllerUtils {
 			String[] items = text.split("\\|");
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
-					Label label = new Label("Pending Trial");
+					Label label = new Label(
+							localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
 					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
 					labels.add(label);
 				}

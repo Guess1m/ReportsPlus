@@ -29,6 +29,7 @@ import java.util.Objects;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopStage;
 import static com.drozal.dataterminal.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.config.ConfigReader.checkAndSetDefaultValues;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -50,7 +51,9 @@ public class desktopLoginController {
     private ComboBox rankDropdown;
     @javafx.fxml.FXML
     private Label incompleteLabel;
-
+    @javafx.fxml.FXML
+    private Label mainHeader;
+    
     public void initialize() {
         rankDropdown.getItems().addAll(dropdownInfo.ranks);
         divisionDropDown.getItems().addAll(dropdownInfo.divisions);
@@ -78,6 +81,15 @@ public class desktopLoginController {
             }
         });
         agencyDropDown.getItems().addAll(dropdownInfo.agencies);
+        
+        nameField.setPromptText(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
+        numberField.setPromptText(localization.getLocalizedMessage("Login_Window.NumberPromptText", "Number"));
+        
+        mainHeader.setText(
+                localization.getLocalizedMessage("Login_Window.MainHeaderLabel", "ReportsPlus Officer Login"));
+        loginBtn.setText(localization.getLocalizedMessage("Login_Window.LoginButton", "Login"));
+        incompleteLabel.setText(localization.getLocalizedMessage("Login_Window.IncompleteFormLabel",
+                                                                 "Please Fill Out the Form Completely."));
     }
 
     @javafx.fxml.FXML

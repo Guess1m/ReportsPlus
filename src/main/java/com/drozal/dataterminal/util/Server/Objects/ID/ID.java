@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server.Objects.ID;
+package com.drozal.dataterminal.util.Server.Objects.ID;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;

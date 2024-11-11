@@ -2,7 +2,7 @@ package com.drozal.dataterminal.Windows.Server;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.Server.ClientUtils;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
-import static com.drozal.dataterminal.util.server.ClientUtils.isConnected;
+import static com.drozal.dataterminal.util.Server.ClientUtils.isConnected;
 
 public class ClientController {
     public static ClientController clientController;

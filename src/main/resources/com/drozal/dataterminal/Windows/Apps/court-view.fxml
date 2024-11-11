@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="724.0" prefWidth="670.0"
-            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/22"
+<BorderPane fx:id="root" prefHeight="724.0" prefWidth="670.0" stylesheets="@../../css/courtCase/courtCaseCss.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CourtViewController">
     <center>
         <AnchorPane fx:id="courtPane" style="-fx-background-color: transparent;"
@@ -241,7 +241,6 @@
                                                                 <TextField fx:id="caseStreetField" editable="false"
                                                                            focusTraversable="false"
                                                                            styleClass="textfield"
-                                                                           text="sdfsdfasfdsadfsa"
                                                                            GridPane.columnIndex="1"
                                                                            GridPane.rowIndex="1"
                                                                            GridPane.vgrow="ALWAYS">

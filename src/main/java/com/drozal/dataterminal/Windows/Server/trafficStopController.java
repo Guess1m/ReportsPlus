@@ -23,7 +23,7 @@ import static com.drozal.dataterminal.Windows.Apps.VehLookupViewController.vehLo
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
-import static com.drozal.dataterminal.util.server.recordUtils.grabTrafficStop;
+import static com.drozal.dataterminal.util.Server.recordUtils.grabTrafficStop;
 
 public class trafficStopController {
 

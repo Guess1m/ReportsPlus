@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="577.0" prefWidth="998.0"
-            stylesheets="@../../css/desktopLogin/desktop-login-background.css" xmlns="http://javafx.com/javafx/22"
+<BorderPane prefHeight="577.0" prefWidth="998.0" stylesheets="@../../css/desktopLogin/desktop-login-background.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Desktop.desktopLoginController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="352.0" prefWidth="558.0">
@@ -60,8 +60,8 @@
                                 </VBox>
                             </center>
                             <top>
-                                <Label alignment="CENTER" text="ReportsPlus Officer Login" textFill="WHITE"
-                                       BorderPane.alignment="CENTER">
+                                <Label fx:id="mainHeader" alignment="CENTER" text="ReportsPlus Officer Login"
+                                       textFill="WHITE" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font name="Segoe UI Black" size="29.0"/>
                                     </font>

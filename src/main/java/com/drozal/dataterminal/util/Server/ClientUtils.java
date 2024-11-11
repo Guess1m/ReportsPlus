@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server;
+package com.drozal.dataterminal.util.Server;
 
 import com.drozal.dataterminal.Desktop.Utils.WindowUtils.CustomWindow;
 import com.drozal.dataterminal.Launcher;
@@ -10,7 +10,7 @@ import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.CalloutManager;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.NotificationManager;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
+import com.drozal.dataterminal.util.Server.Objects.Callout.Callout;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;

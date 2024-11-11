@@ -34,12 +34,12 @@ module com.drozal.dataterminal {
     exports com.drozal.dataterminal.logs.Patrol;
     exports com.drozal.dataterminal.logs.Impound;
     exports com.drozal.dataterminal.logs.TrafficCitation;
-    exports com.drozal.dataterminal.util.server;
-    opens com.drozal.dataterminal.util.server to jakarta.xml.bind, javafx.fxml;
-    exports com.drozal.dataterminal.util.server.Objects.Callout;
-    opens com.drozal.dataterminal.util.server.Objects.Callout to jakarta.xml.bind, javafx.fxml;
-    exports com.drozal.dataterminal.util.server.Objects.ID;
-    opens com.drozal.dataterminal.util.server.Objects.ID to jakarta.xml.bind, javafx.fxml;
+    exports com.drozal.dataterminal.util.Server;
+    opens com.drozal.dataterminal.util.Server to jakarta.xml.bind, javafx.fxml;
+    exports com.drozal.dataterminal.util.Server.Objects.Callout;
+    opens com.drozal.dataterminal.util.Server.Objects.Callout to jakarta.xml.bind, javafx.fxml;
+    exports com.drozal.dataterminal.util.Server.Objects.ID;
+    opens com.drozal.dataterminal.util.Server.Objects.ID to jakarta.xml.bind, javafx.fxml;
     exports com.drozal.dataterminal.util.Report;
     opens com.drozal.dataterminal.util.Report to jakarta.xml.bind, javafx.fxml;
     exports com.drozal.dataterminal.util.Misc;

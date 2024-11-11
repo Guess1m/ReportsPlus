@@ -1,8 +1,8 @@
 package com.drozal.dataterminal.util.History;
 
 import com.drozal.dataterminal.util.Misc.LogUtils;
-import com.drozal.dataterminal.util.server.Objects.ID.ID;
-import com.drozal.dataterminal.util.server.Objects.ID.IDs;
+import com.drozal.dataterminal.util.Server.Objects.ID.ID;
+import com.drozal.dataterminal.util.Server.Objects.ID.IDs;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

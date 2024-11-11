@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1003.0"
-            stylesheets="@../../css/callout/calloutManager.css" xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="710.0" prefWidth="1003.0" stylesheets="@../../css/callout/calloutManager.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.drozal.dataterminal.Windows.Apps.CalloutViewController">
     <center>
         <AnchorPane fx:id="calloutPane" style="-fx-border-color: none;">
@@ -59,7 +59,8 @@
                                         </Label>
                                     </center>
                                 </BorderPane>
-                                <Button layoutX="444.0" layoutY="17.0" mnemonicParsing="false" onAction="#delBtn"
+                                <Button fx:id="delBtn" layoutX="444.0" layoutY="17.0" mnemonicParsing="false"
+                                        onAction="#delBtn"
                                         style="-fx-background-color: rgb(200,0,0,0.6); -fx-padding: 0 10; -fx-text-fill: white;"
                                         text="Delete" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                                     <font>

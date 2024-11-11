@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.getWindow;
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.logs.Accident.AccidentReportUtils.newAccident;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.drozal.dataterminal.logs.Callout.CalloutReportUtils.newCallout;
@@ -125,6 +126,8 @@ public class LogViewController {
                 needRefresh.set(0);
             }
         });
+        
+        logbrwsrlbl.setText(localization.getLocalizedMessage("LogBrowser.SubHeading", "Log Browser"));
     }
 
     private void loadLogs() {
@@ -883,7 +886,6 @@ public class LogViewController {
                 offenderDescription.setText(trafficCitationReport.getOffenderDescription());
                 offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
 
-                BorderPane root = (BorderPane) trafficCitationObj.get("root");
                 Button delBtn = (Button) trafficCitationObj.get("delBtn");
                 delBtn.setVisible(true);
                 delBtn.setDisable(false);

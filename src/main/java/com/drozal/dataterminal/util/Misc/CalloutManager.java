@@ -2,8 +2,8 @@ package com.drozal.dataterminal.util.Misc;
 
 import com.drozal.dataterminal.Launcher;
 import com.drozal.dataterminal.logs.Callout.CalloutReportUtils;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callout;
-import com.drozal.dataterminal.util.server.Objects.Callout.Callouts;
+import com.drozal.dataterminal.util.Server.Objects.Callout.Callout;
+import com.drozal.dataterminal.util.Server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -121,89 +122,6 @@ public class CalloutManager {
 		} catch (JAXBException e) {
 			logError("Error deleting callout: ", e);
 			
-		}
-	}
-	
-	public static void handleSelectedNodeActive(ListView<Node> listView, AnchorPane pane, TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
-		Node selectedNode = listView.getSelectionModel().getSelectedItem();
-		if (selectedNode != null) {
-			pane.setVisible(true);
-			pane.setDisable(false);
-			if (selectedNode instanceof GridPane gridPane) {
-				String number = ((Label) gridPane.getChildren().get(1)).getText();
-				
-				String type = getValueByNumber(calloutDataURL, number, "Type");
-				String description = getValueByNumber(calloutDataURL, number, "Description");
-				String message = getValueByNumber(calloutDataURL, number, "Message");
-				String priority = getValueByNumber(calloutDataURL, number, "Priority");
-				String street = getValueByNumber(calloutDataURL, number, "Street");
-				String area = getValueByNumber(calloutDataURL, number, "Area");
-				String county = getValueByNumber(calloutDataURL, number, "County");
-				String time = getValueByNumber(calloutDataURL, number, "StartTime");
-				String date = getValueByNumber(calloutDataURL, number, "StartDate");
-				
-				calArea.setText(area);
-				calNum.setText(number);
-				calPriority.setText(priority);
-				caltype.setText(type);
-				calCounty.setText(county);
-				calDate.setText(date);
-				caladdress.setText(street);
-				calDesc.setText(description);
-				if (message != null) {
-					description = description + "\n" + message;
-				}
-				calTime.setText(time);
-				String text = description.trim();
-				if (!text.isEmpty() || !text.isBlank()) {
-					calDesc.setText(description);
-				} else {
-					calDesc.setText("No further Information");
-				}
-			}
-		} else {
-			pane.setVisible(false);
-		}
-	}
-	
-	public static void handleSelectedNodeHistory(ListView<Node> listView, AnchorPane pane, TextField calNum, TextField calArea, TextField calCounty, TextField calDate, TextField caladdress, TextArea calDesc, TextField caltype, TextField calTime, TextField calPriority) {
-		Node selectedNode = listView.getSelectionModel().getSelectedItem();
-		if (selectedNode != null) {
-			pane.setVisible(true);
-			pane.setDisable(false);
-			if (selectedNode instanceof GridPane gridPane) {
-				String number = ((Label) gridPane.getChildren().get(1)).getText();
-				
-				String type = getValueByNumber(calloutHistoryURL, number, "Type");
-				String description = getValueByNumber(calloutHistoryURL, number, "Description");
-				String message = getValueByNumber(calloutHistoryURL, number, "Message");
-				String priority = getValueByNumber(calloutHistoryURL, number, "Priority");
-				String street = getValueByNumber(calloutHistoryURL, number, "Street");
-				String area = getValueByNumber(calloutHistoryURL, number, "Area");
-				String county = getValueByNumber(calloutHistoryURL, number, "County");
-				String time = getValueByNumber(calloutHistoryURL, number, "StartTime");
-				String date = getValueByNumber(calloutHistoryURL, number, "StartDate");
-				
-				calArea.setText(area);
-				calNum.setText(number);
-				calPriority.setText(priority);
-				caltype.setText(type);
-				calCounty.setText(county);
-				calDate.setText(date);
-				caladdress.setText(street);
-				if (message != null) {
-					description = description + "\n" + message;
-				}
-				calTime.setText(time);
-				String text = description.trim();
-				if (!text.isEmpty() || !text.isBlank()) {
-					calDesc.setText(description);
-				} else {
-					calDesc.setText("No further Information");
-				}
-			}
-		} else {
-			pane.setVisible(false);
 		}
 	}
 	
@@ -325,11 +243,11 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 		
-		Label numberLabel = createLabel("Number:");
+		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		
-		Label statusLabel = createLabel("Status:");
+		Label statusLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:"));
 		Label statusVal = new Label(status);
 		if (status.equals("Not Responded")) {
 			statusVal.setStyle("-fx-text-fill: red;");
@@ -339,19 +257,20 @@ public class CalloutManager {
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
 		
-		Label typeLabel = createLabel("Type:");
+		Label typeLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutType", "Type:"));
 		gridPane.add(typeLabel, 0, 1);
 		gridPane.add(new Label(type), 1, 1, 3, 1);
 		
-		Label streetLabel = createLabel("Street:");
+		Label streetLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutStreet", "Street:"));
 		gridPane.add(streetLabel, 0, 2);
 		gridPane.add(new Label(street), 1, 2, 3, 1);
 		
-		Label priorityLabel = createLabel("Priority:");
+		Label priorityLabel = createLabel(
+				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
 		gridPane.add(priorityLabel, 0, 3);
 		gridPane.add(new Label(priority), 1, 3, 3, 1);
 		
-		Label areaLabel = createLabel("Area:");
+		Label areaLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutArea", "Area:"));
 		gridPane.add(areaLabel, 0, 4);
 		gridPane.add(new Label(area), 1, 4, 3, 1);
 		
@@ -378,7 +297,8 @@ public class CalloutManager {
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
-		Button closeBtn = new Button("Close Callout");
+		Button closeBtn = new Button(
+				localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
 		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
 		                                                  0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
 		closeBtn.setStyle(def);
@@ -462,11 +382,11 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
-		Label numberLabel = createLabel("Number:");
+		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNum", "Number:"));
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		
-		Label statusLabel = createLabel("Status:");
+		Label statusLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:"));
 		Label statusVal = new Label(status);
 		if (status.equals("Not Responded")) {
 			statusVal.setStyle("-fx-text-fill: red;");
@@ -476,23 +396,25 @@ public class CalloutManager {
 		gridPane.add(statusLabel, 2, 0);
 		gridPane.add(statusVal, 3, 0);
 		
-		Label typeLabel = createLabel("Type:");
+		Label typeLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutType", "Type:"));
 		gridPane.add(typeLabel, 4, 0);
 		gridPane.add(new Label(type), 5, 0);
 		
-		Label streetLabel = createLabel("Street:");
+		Label streetLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutStreet", "Street:"));
 		gridPane.add(streetLabel, 0, 1);
 		gridPane.add(new Label(street), 1, 1, 6, 1);
 		
-		Label priorityLabel = createLabel("Priority:");
+		Label priorityLabel = createLabel(
+				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
 		gridPane.add(priorityLabel, 0, 2);
 		gridPane.add(new Label(priority), 1, 2, 6, 1);
 		
-		Label areaLabel = createLabel("Area:");
+		Label areaLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutArea", "Area:"));
 		gridPane.add(areaLabel, 0, 3);
 		gridPane.add(new Label(area), 1, 3, 6, 1);
 		
-		Button actionButton = new Button("Create Callout Report");
+		Button actionButton = new Button(
+				localization.getLocalizedMessage("Callout_Manager.NewCalloutButton", "Create Callout Report"));
 		GridPane.setHalignment(actionButton, HPos.CENTER);
 		GridPane.setColumnSpan(actionButton, 1);
 		GridPane.setRowSpan(actionButton, 1);

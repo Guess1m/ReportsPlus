@@ -2,6 +2,7 @@ package com.drozal.dataterminal;
 
 import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
+import com.drozal.dataterminal.util.Localization.Localization;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
 import javafx.scene.text.Font;
@@ -19,6 +20,7 @@ import static com.drozal.dataterminal.util.Misc.stringUtil.*;
 import static com.drozal.dataterminal.util.Report.treeViewUtils.*;
 
 public class Launcher {
+    public static Localization localization;
 
     public static void main(String[] args) {
 
@@ -34,7 +36,9 @@ public class Launcher {
         } catch (IOException e) {
             logError("An error occurred while clearing the log file: ", e);
         }
-
+        
+        localization = new Localization();
+        
         deleteFiles();
 
         loadFonts();

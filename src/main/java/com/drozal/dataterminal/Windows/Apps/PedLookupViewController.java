@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 import static com.drozal.dataterminal.DataTerminalHomeApplication.mainDesktopControllerObj;
 import static com.drozal.dataterminal.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.Windows.Other.NotesViewController.*;
 import static com.drozal.dataterminal.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.drozal.dataterminal.logs.Arrest.ArrestReportUtils.newArrest;
@@ -35,7 +36,7 @@ import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
 import static com.drozal.dataterminal.util.Misc.controllerUtils.*;
 import static com.drozal.dataterminal.util.Misc.stringUtil.getJarPath;
 import static com.drozal.dataterminal.util.Misc.stringUtil.pedImageFolderURL;
-import static com.drozal.dataterminal.util.server.recordUtils.grabPedData;
+import static com.drozal.dataterminal.util.Server.recordUtils.grabPedData;
 
 public class PedLookupViewController {
 
@@ -191,8 +192,64 @@ public class PedLookupViewController {
                 }
             }
         });
+        
+        addLocalization();
     }
-
+    
+    private void addLocalization() {
+        lookupmainlbl.setText(localization.getLocalizedMessage("PedLookup.MainHeader", "D.M.V Pedestrian Lookup"));
+        lbl1.setText(localization.getLocalizedMessage("PedLookup.SearchPedLabel", "Search Ped:"));
+        noPedImageFoundlbl.setText(
+                localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+        noRecordFoundLabelPed.setText(
+                localization.getLocalizedMessage("PedLookup.NoPedFoundInSystem", "No Record Found In System"));
+        
+        addDataToNotesBtn.setText(
+                localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
+        pedSearchBtn.setText(localization.getLocalizedMessage("PedLookup.SearchPedButton", "Search"));
+        probabilitySettingsBtn.setText(
+                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
+        infobtn3.setText(
+                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Update Other Information"));
+        infobtn2.setText(
+                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Create New Citation"));
+        infobtn1.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Create New Arrest"));
+        
+        ped21.setText(localization.getLocalizedMessage("PedLookup.ArrestHistoryLabel", "Arrest History:"));
+        ped22.setText(localization.getLocalizedMessage("PedLookup.CitationHistoryLabel", "Citation History:"));
+        
+        info1.setText(localization.getLocalizedMessage("PedLookup.BasicInfoLabel", "Basic Information"));
+        info2.setText(localization.getLocalizedMessage("PedLookup.LegalInfoLabel", "Legal Information"));
+        info3.setText(localization.getLocalizedMessage("PedLookup.LicenseInfoLabel", "Licensing Information"));
+        info4.setText(localization.getLocalizedMessage("PedLookup.OtherInfoLabel", "Other Information"));
+        info5.setText(localization.getLocalizedMessage("PedLookup.PriorHistoryLabel", "Prior History"));
+        
+        ped1.setText(localization.getLocalizedMessage("PedLookup.FieldFirstName", "First Name:"));
+        ped2.setText(localization.getLocalizedMessage("PedLookup.FieldLastName", "Last Name:"));
+        ped3.setText(localization.getLocalizedMessage("PedLookup.FieldGender", "Gender:"));
+        ped4.setText(localization.getLocalizedMessage("PedLookup.FieldWantedStatus", "Wanted Status:"));
+        ped5.setText(localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+        ped6.setText(localization.getLocalizedMessage("PedLookup.FieldBirthday", "Birthday:"));
+        ped7.setText(localization.getLocalizedMessage("PedLookup.FieldAddress", "Address:"));
+        ped8.setText(localization.getLocalizedMessage("PedLookup.FieldDescription", "Description:"));
+        ped9.setText(localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+        ped10.setText(localization.getLocalizedMessage("PedLookup.FieldAlias", "Alias(s):"));
+        ped11.setText(localization.getLocalizedMessage("PedLookup.FieldAffiliations", "Affiliation(s):"));
+        ped12.setText(localization.getLocalizedMessage("PedLookup.FieldParoleStatus", "Parole Status:"));
+        ped13.setText(localization.getLocalizedMessage("PedLookup.FieldProbationStatus", "Probation Status:"));
+        ped14.setText(localization.getLocalizedMessage("PedLookup.FieldTimesStopped", "Times Stopped:"));
+        ped15.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseStatus", "Gun License Status:"));
+        ped16.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type"));
+        ped17.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class"));
+        ped18.setText(
+                localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
+        ped19.setText(
+                localization.getLocalizedMessage("PedLookup.FieldBoatingLicenseStatus", "Boating License Status"));
+        ped20.setText(
+                localization.getLocalizedMessage("PedLookup.FieldHuntingLicenseStatus", "Hunting License Status"));
+        ped23.setText(localization.getLocalizedMessage("PedLookup.FieldFlags", "Flag(s):"));
+    }
+    
     private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) {
         Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
         Ped ped = searchedPed.orElseGet(() -> {
@@ -390,12 +447,14 @@ public class PedLookupViewController {
                         String fileURI = matchingFile.toURI().toString();
                         pedImageView.setImage(new Image(fileURI));
                         noPedImageFoundlbl.setVisible(true);
-                        noPedImageFoundlbl.setText("Image Found On File:");
+                        noPedImageFoundlbl.setText(
+                                localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
                     } catch (Exception e) {
                         Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                         pedImageView.setImage(defImage);
                         noPedImageFoundlbl.setVisible(true);
-                        noPedImageFoundlbl.setText("No Image Found In System");
+                        noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+                                                                                    "No Image Found In System"));
                         logError("Could not set ped image: ", e);
                     }
                 } else {
@@ -404,19 +463,22 @@ public class PedLookupViewController {
                     Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                     pedImageView.setImage(defImage);
                     noPedImageFoundlbl.setVisible(true);
-                    noPedImageFoundlbl.setText("No Image Found In System");
+                    noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+                                                                                "No Image Found In System"));
                 }
             } else {
                 Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                 pedImageView.setImage(defImage);
                 noPedImageFoundlbl.setVisible(true);
-                noPedImageFoundlbl.setText("No Image Found In System");
+                noPedImageFoundlbl.setText(
+                        localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
             }
         } else {
             Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
             pedImageView.setImage(defImage);
             noPedImageFoundlbl.setVisible(true);
-            noPedImageFoundlbl.setText("No Image Found In System");
+            noPedImageFoundlbl.setText(
+                    localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
         }
 
         String citationPriors = ped.getCitationPriors();

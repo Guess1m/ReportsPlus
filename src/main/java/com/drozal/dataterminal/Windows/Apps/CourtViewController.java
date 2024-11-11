@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.drozal.dataterminal.Launcher.localization;
 import static com.drozal.dataterminal.util.CourtData.CourtUtils.*;
 import static com.drozal.dataterminal.util.Misc.LogUtils.log;
 import static com.drozal.dataterminal.util.Misc.LogUtils.logError;
@@ -129,7 +130,56 @@ public class CourtViewController {
     private Label caseprim1;
     @javafx.fxml.FXML
     private TextField caseNameField;
-
+    
+    public void initialize() {
+        blankCourtInfoPane.setVisible(true);
+        courtInfoPane.setVisible(false);
+        
+        needCourtRefresh.set(0);
+        needCourtRefresh.addListener((obs, oldValue, newValue) -> {
+            if (newValue.equals(1)) {
+                loadCaseLabels(caseList);
+                needCourtRefresh.set(0);
+            }
+        });
+        
+        loadCaseLabels(caseList);
+        caseList.getSelectionModel().clearSelection();
+        
+        casePrim1.setText(localization.getLocalizedMessage("CourtView.MainHeaderLabel", "COURT CASE REPORT"));
+        caselbl1.setText(localization.getLocalizedMessage("CourtView.CaseNumLabel", "CASE#:"));
+        caselbl2.setText(localization.getLocalizedMessage("CourtView.CaseDateLabel", "COURT DATE:"));
+        
+        caseSec1.setText(localization.getLocalizedMessage("CourtView.DefendantInfoLbl", "Defendant Information:"));
+        caselbl4.setText(localization.getLocalizedMessage("CourtView.DefendantNameLbl", "NAME:"));
+        caselbl6.setText(localization.getLocalizedMessage("CourtView.DefendantAgeLbl", "AGE/DOB:"));
+        caselbl8.setText(localization.getLocalizedMessage("CourtView.DefendantAddressLbl", "ADDRESS:"));
+        caselbl7.setText(localization.getLocalizedMessage("CourtView.DefendantGenderLbl", "GENDER:"));
+        
+        caseSec2.setText(localization.getLocalizedMessage("CourtView.OffenseInfoLbl", "Offence Information:"));
+        caselbl9.setText(localization.getLocalizedMessage("CourtView.OffenseStreetLbl", "STREET:"));
+        caselbl10.setText(localization.getLocalizedMessage("CourtView.OffenseAreaLbl", "AREA:"));
+        caselbl11.setText(localization.getLocalizedMessage("CourtView.OffenseCountyLbl", "COUNTY:"));
+        caselbl12.setText(localization.getLocalizedMessage("CourtView.OffenseNotesLbl", "CASE NOTES:"));
+        
+        caseprim2.setText(localization.getLocalizedMessage("CourtView.ChargesLabel", "Charges:"));
+        caseprim3.setText(localization.getLocalizedMessage("CourtView.OutcomesLabel", "Outcomes:"));
+        
+        caseprim1.setText(localization.getLocalizedMessage("CourtView.CaseVerdictLabel", "Case Verdict:"));
+        casesec1.setText(localization.getLocalizedMessage("CourtView.FineTotalLabel", "Fine Total:"));
+        casesec2.setText(localization.getLocalizedMessage("CourtView.TotalJailTimeLabel", "Total Jail Time:"));
+        casesec3.setText(localization.getLocalizedMessage("CourtView.TotalProbationLabel", "Total Probation Time:"));
+        casesec4.setText(localization.getLocalizedMessage("CourtView.LicenseStatusLabel", "License Status:"));
+        caseSuspensionDurationlbl.setText(
+                localization.getLocalizedMessage("CourtView.SuspensionDurationLabel", "Suspension Duration:"));
+        
+        revealOutcomeBtn.setText(localization.getLocalizedMessage("CourtView.ShowOutcomesButton", "Show Outcome(s)"));
+        deleteCaseBtn.setText(localization.getLocalizedMessage("CourtView.DeleteCaseButton", "Delete Case"));
+        
+        noCourtCaseSelectedlbl.setText(
+                localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
+    }
+    
     public static String getNextIndex(CourtCases courtCases) {
         int highestIndex = 0;
 
@@ -148,7 +198,7 @@ public class CourtViewController {
         }
         return String.valueOf(highestIndex + 1);
     }
-
+    
     private static void revealOutcomes(Case case1) {
         if (courtViewController != null) {
             List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
@@ -253,7 +303,7 @@ public class CourtViewController {
             setCellFactory(courtViewController.caseOffencesListView);
         }
     }
-
+    
     private static void setCellFactory(ListView<Label> listView) {
         listView.setCellFactory(new Callback<>() {
             @Override
@@ -310,22 +360,6 @@ public class CourtViewController {
             }
 
         }
-    }
-
-    public void initialize() {
-        blankCourtInfoPane.setVisible(true);
-        courtInfoPane.setVisible(false);
-
-        needCourtRefresh.set(0);
-        needCourtRefresh.addListener((obs, oldValue, newValue) -> {
-            if (newValue.equals(1)) {
-                loadCaseLabels(caseList);
-                needCourtRefresh.set(0);
-            }
-        });
-
-        loadCaseLabels(caseList);
-        caseList.getSelectionModel().clearSelection();
     }
 
     public void loadCaseLabels(ListView<String> listView) {
@@ -422,15 +456,16 @@ public class CourtViewController {
     private void updateFields(Case case1) {
         if (case1.getStatus() != null) {
             if (case1.getStatus().equalsIgnoreCase("pending")) {
-                caseTotalLabel.setText("Pending");
+                String pendingLabel = localization.getLocalizedMessage("CourtView.PendingLabel", "Pending");
+                caseTotalLabel.setText(pendingLabel);
                 caseTotalLabel.setStyle("-fx-text-fill: black;");
-                caseTotalJailTimeLabel.setText("Pending");
+                caseTotalJailTimeLabel.setText(pendingLabel);
                 caseTotalJailTimeLabel.setStyle("-fx-text-fill: black;");
-                caseTotalProbationLabel.setText("Pending");
+                caseTotalProbationLabel.setText(pendingLabel);
                 caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
-                caseLicenseStatLabel.setText("Pending");
+                caseLicenseStatLabel.setText(pendingLabel);
                 caseLicenseStatLabel.setStyle("-fx-text-fill: black;");
-                caseSuspensionDuration.setText("Pending");
+                caseSuspensionDuration.setText(pendingLabel);
                 caseSuspensionDuration.setStyle("-fx-text-fill: black;");
 
                 String offences = case1.getOffences() != null ? case1.getOffences() : "";

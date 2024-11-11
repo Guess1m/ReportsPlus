@@ -1,4 +1,4 @@
-package com.drozal.dataterminal.util.server.Objects.ID;
+package com.drozal.dataterminal.util.Server.Objects.ID;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

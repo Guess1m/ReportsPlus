@@ -13,7 +13,7 @@ import com.drozal.dataterminal.config.ConfigReader;
 import com.drozal.dataterminal.config.ConfigWriter;
 import com.drozal.dataterminal.util.Misc.LogUtils;
 import com.drozal.dataterminal.util.Misc.stringUtil;
-import com.drozal.dataterminal.util.server.ClientUtils;
+import com.drozal.dataterminal.util.Server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

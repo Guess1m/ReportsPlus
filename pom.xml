@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.drozal</groupId>
-    <artifactId>DataTerminal</artifactId>
+    <groupId>com.Guess</groupId>
+    <artifactId>ReportsPlus</artifactId>
     <version>1.1-ALPHA</version>
-    <name>DataTerminal</name>
+    <name>ReportsPlus</name>
 
     <!-- Packaging Commands
 
@@ -96,7 +96,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.drozal.dataterminal.Launcher</mainClass>
+                                    <mainClass>com.Guess.ReportsPlus.Launcher</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -115,7 +115,7 @@
                                 <compress>true</compress>
                                 <forced>true</forced>
                             </archive>
-                            <mainClass>com.drozal.dataterminal.Launcher
+                            <mainClass>com.Guess.ReportsPlus.Launcher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

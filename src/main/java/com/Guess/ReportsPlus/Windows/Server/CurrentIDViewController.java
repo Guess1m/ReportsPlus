@@ -19,7 +19,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.Random;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -27,10 +26,7 @@ import static com.Guess.ReportsPlus.util.History.IDHistory.addServerIDToHistoryI
 import static com.Guess.ReportsPlus.util.History.IDHistory.checkAllHistoryIDsClosed;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class CurrentIDViewController {
     
@@ -125,58 +121,11 @@ public class CurrentIDViewController {
         noIDFoundlbl.setVisible(true);
 
         IDUpdate();
-        watchIDChanges();
         
         noIDFoundlbl.setText(localization.getLocalizedMessage("CurrentIDWindow.NoIDFoundLabel", "No IDs Found."));
         
     }
 
-    public void watchIDChanges() {
-        Path dir = Paths.get(getJarPath() + File.separator + "serverData");
-
-        Thread watchThread = new Thread(() -> {
-            try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
-                dir.register(watcher, ENTRY_MODIFY);
-
-                while (true) {
-                    WatchKey key;
-                    try {
-                        key = watcher.take();
-                    } catch (InterruptedException x) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-
-                    for (WatchEvent<?> event : key.pollEvents()) {
-                        WatchEvent.Kind<?> kind = event.kind();
-
-                        if (kind == OVERFLOW) {
-                            continue;
-                        }
-
-                        WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                        Path fileName = ev.context();
-
-                        if (fileName.toString().equals("ServerCurrentID.xml")) {
-                            log("ID is being updated", LogUtils.Severity.INFO);
-
-                            IDUpdate();
-                        }
-                    }
-
-                    boolean valid = key.reset();
-                    if (!valid) {
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                logError("I/O Error: ", e);
-            }
-        });
-
-        watchThread.setDaemon(true);
-        watchThread.start();
-    }
 
     private void IDUpdate() {
         try {

@@ -1,6 +1,7 @@
 package com.Guess.ReportsPlus.util.Server;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Server.ClientController;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
@@ -23,7 +24,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Server.calloutController.getCallout;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
@@ -51,7 +52,9 @@ public class ClientUtils {
 				
 				if (ClientController.clientController != null) {
 					Platform.runLater(() -> {
-						ClientController.clientController.getStatusLabel().setText("Testing Connection...");
+						ClientController.clientController.getStatusLabel().setText(
+								localization.getLocalizedMessage("ServerConnectionWindow.TestingConnection",
+								                                 "Testing Connection..."));
 						ClientController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 					});
 				}
@@ -150,7 +153,7 @@ public class ClientUtils {
 						
 						case "UPDATE_CALLOUT":
 							log("Received Callout update", LogUtils.Severity.DEBUG);
-							receiveFileFromServer(4096, "ServerCallout.xml");
+							receiveFileFromServer(2048, "ServerCallout.xml");
 							runUpdateCallout();
 							break;
 						
@@ -208,10 +211,11 @@ public class ClientUtils {
 	private static void runUpdateID() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
-				CustomWindow IDWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-				                                         "Windows/Server/currentID-view.fxml", "Current IDs", false, 1,
-				                                         true, true, mainDesktopControllerObj.getTaskBarApps(),
-				                                         new Image(Objects.requireNonNull(
+				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+				                                                         "Windows/Server/currentID-view.fxml",
+				                                                         "Current IDs", false, 1, true, true,
+				                                                         mainDesktopControllerObj.getTaskBarApps(),
+				                                                         new Image(Objects.requireNonNull(
 						                                         Launcher.class.getResourceAsStream(
 								                                         "/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
 				
@@ -251,9 +255,10 @@ public class ClientUtils {
 	private static void runUpdateCallout() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
-				calloutWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-				                                 "Windows/Server/callout-view.fxml", "Callout Display", false, 1, true,
-				                                 true, mainDesktopControllerObj.getTaskBarApps(), new Image(
+				calloutWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+				                                                 "Windows/Server/callout-view.fxml", "Callout Display",
+				                                                 false, 1, true, true,
+				                                                 mainDesktopControllerObj.getTaskBarApps(), new Image(
 								Objects.requireNonNull(Launcher.class.getResourceAsStream(
 										"/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
 				try {
@@ -327,10 +332,9 @@ public class ClientUtils {
 	private static void runTrafficStopUpdate() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true")) {
-				CustomWindow trafficStopWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-				                                                  "Windows/Server/trafficStop-view.fxml",
-				                                                  "Traffic Stop Data", true, 1, true, true,
-				                                                  mainDesktopControllerObj.getTaskBarApps(), new Image(
+				CustomWindow trafficStopWindow = WindowManager.createCustomWindow(
+						mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/trafficStop-view.fxml",
+						"Traffic Stop Data", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(
 								Objects.requireNonNull(Launcher.class.getResourceAsStream(
 										"/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
 				

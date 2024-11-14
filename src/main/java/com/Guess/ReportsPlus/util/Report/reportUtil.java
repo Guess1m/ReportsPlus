@@ -33,7 +33,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
+import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createCustomWindow;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -305,8 +305,8 @@ public class reportUtil {
 		mainRoot.setPrefHeight(570.0);
 		mainRoot.setPrefWidth(705.6);
 		
-		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false,
-		                 mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false,
+		                   mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
 		return result;
 	}

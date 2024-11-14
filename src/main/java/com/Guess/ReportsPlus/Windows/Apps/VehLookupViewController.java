@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
@@ -490,9 +489,10 @@ public class VehLookupViewController {
 	
 	@javafx.fxml.FXML
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-		                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 1, true,
-		                 false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+		                                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
+		                                 false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
+		                                 new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}
 	
@@ -676,10 +676,11 @@ public class VehLookupViewController {
 	public void ownerLookup(ActionEvent actionEvent) {
 		CustomWindow pedWindow = WindowManager.getWindow("Pedestrian Lookup");
 		if (pedWindow == null) {
-			CustomWindow pedApp = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-			                                       "Windows/Apps/lookup-ped-view.fxml", "Pedestrian Lookup", true, 1,
-			                                       true, false, mainDesktopControllerObj.getTaskBarApps(),
-			                                       pedLookupAppObj.getImage());
+			CustomWindow pedApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+			                                                       "Windows/Apps/lookup-ped-view.fxml",
+			                                                       "Pedestrian Lookup", true, 1, true, false,
+			                                                       mainDesktopControllerObj.getTaskBarApps(),
+			                                                       pedLookupAppObj.getImage());
 			if (pedApp != null && pedApp.controller != null) {
 				pedLookupViewController = (PedLookupViewController) pedApp.controller;
 			}

@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="450.0" prefWidth="703.0"
-            stylesheets="@../../css/trafficStop/trafficStop.css" xmlns="http://javafx.com/javafx/21"
+<BorderPane fx:id="root" prefHeight="450.0" prefWidth="703.0" stylesheets="@../../css/trafficStop/trafficStop.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.Guess.ReportsPlus.Windows.Server.trafficStopController">
     <center>
         <AnchorPane>
@@ -18,8 +18,8 @@
                     <children>
                         <AnchorPane VBox.vgrow="NEVER">
                             <children>
-                                <Label styleClass="Heading" text="Traffic Stop Data:" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.topAnchor="0.0"/>
+                                <Label fx:id="header" styleClass="Heading" text="Traffic Stop Data:"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                 <Separator layoutX="1.0" layoutY="31.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                             </children>
@@ -35,14 +35,16 @@
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label styleClass="SubHeading" text="Plate Number:"/>
+                                <Label fx:id="plt" styleClass="SubHeading" text="Plate Number:"/>
                                 <TextField fx:id="platenum" editable="false" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
                                 </TextField>
-                                <Label styleClass="SubHeading" text="Vehicle Model:" GridPane.columnIndex="1"/>
-                                <Label styleClass="SubHeading" text="Vehicle Color:" GridPane.columnIndex="2"/>
+                                <Label fx:id="mod" styleClass="SubHeading" text="Vehicle Model:"
+                                       GridPane.columnIndex="1"/>
+                                <Label fx:id="col" styleClass="SubHeading" text="Vehicle Color:"
+                                       GridPane.columnIndex="2"/>
                                 <TextField fx:id="model" editable="false" GridPane.columnIndex="1"
                                            GridPane.rowIndex="1"/>
                                 <AnchorPane fx:id="color" style="-fx-border-color: black;" GridPane.columnIndex="2"
@@ -73,7 +75,7 @@
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label styleClass="SubHeading" text="Stolen Vehicle:"/>
+                                <Label fx:id="stln" styleClass="SubHeading" text="Stolen Vehicle:"/>
                                 <TextField fx:id="stolen" editable="false" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets/>
@@ -88,7 +90,7 @@
                                         <RowConstraints vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label styleClass="SubHeading" text="Police Vehicle:"/>
+                                        <Label fx:id="plce" styleClass="SubHeading" text="Police Vehicle:"/>
                                         <TextField fx:id="police" editable="false" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets/>
@@ -114,7 +116,7 @@
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label styleClass="SubHeading" text="Registration Status:"/>
+                                <Label fx:id="reg" styleClass="SubHeading" text="Registration Status:"/>
                                 <TextField fx:id="registration" editable="false" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets/>
@@ -129,7 +131,7 @@
                                         <RowConstraints vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label styleClass="SubHeading" text="Insurance Status:"/>
+                                        <Label fx:id="ins" styleClass="SubHeading" text="Insurance Status:"/>
                                         <TextField fx:id="insurance" editable="false" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets/>
@@ -155,7 +157,7 @@
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label styleClass="SubHeading" text="Traffic Stop Street:"/>
+                                <Label fx:id="str" styleClass="SubHeading" text="Traffic Stop Street:"/>
                                 <TextField fx:id="street" editable="false" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets/>
@@ -170,7 +172,7 @@
                                         <RowConstraints vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label styleClass="SubHeading" text="Traffic Stop Area:"/>
+                                        <Label fx:id="ar" styleClass="SubHeading" text="Traffic Stop Area:"/>
                                         <TextField fx:id="area" editable="false" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets/>
@@ -196,7 +198,7 @@
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label styleClass="SubHeading" text="Registered Owner:"
+                                <Label fx:id="own" styleClass="SubHeading" text="Registered Owner:"
                                        GridPane.columnSpan="2147483647"/>
                                 <HBox alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                     <GridPane.margin>
@@ -208,8 +210,8 @@
                                                 <Insets/>
                                             </HBox.margin>
                                         </TextField>
-                                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchDMV"
-                                                text="Search D.M.V Lookup" HBox.hgrow="NEVER">
+                                        <Button fx:id="searchDMVButton" alignment="CENTER" mnemonicParsing="false"
+                                                onAction="#searchDMV" text="Search D.M.V Lookup" HBox.hgrow="NEVER">
                                             <HBox.margin>
                                                 <Insets left="50.0" right="50.0"/>
                                             </HBox.margin>

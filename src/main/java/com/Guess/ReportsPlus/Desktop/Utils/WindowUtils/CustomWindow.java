@@ -23,8 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.minimizedWindows;
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
+import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.*;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.currentNotifications;
 
@@ -135,26 +134,28 @@ public class CustomWindow {
 	}
 	
 	public void bringToFront() {
-		int currentPriority = this.getPriority();
-		
-		this.getWindowPane().toFront();
-		
-		windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(
-				window -> window.getWindowPane().toFront());
-		
-		windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(
-				window -> window.getWindowPane().toBack());
-		
-		if (mainDesktopControllerObj != null) {
-			for (DesktopApp app : DesktopApps) {
-				app.getMainPane().toBack();
+		Platform.runLater(() -> {
+			int currentPriority = this.getPriority();
+			
+			this.getWindowPane().toFront();
+			
+			windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(
+					window -> window.getWindowPane().toFront());
+			
+			windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(
+					window -> window.getWindowPane().toBack());
+			
+			if (mainDesktopControllerObj != null) {
+				for (DesktopApp app : DesktopApps) {
+					app.getMainPane().toBack();
+				}
+				for (AnchorPane noti : currentNotifications) {
+					noti.toFront();
+				}
+				mainDesktopControllerObj.getButton1().toBack();
+				mainDesktopControllerObj.getInfoHBox().toBack();
 			}
-			for (AnchorPane noti : currentNotifications) {
-				noti.toFront();
-			}
-			mainDesktopControllerObj.getButton1().toBack();
-			mainDesktopControllerObj.getInfoHBox().toBack();
-		}
+		});
 	}
 	
 	private void enableResize(BorderPane pane) {
@@ -276,6 +277,9 @@ public class CustomWindow {
 	
 	public void closeWindow() {
 		Platform.runLater(() -> {
+			double[] position = {windowPane.getLayoutX(), windowPane.getLayoutY()};
+			windowPositions.put(title, position);
+			
 			windows.remove(title);
 			
 			if (taskbarApp != null) {
@@ -299,6 +303,7 @@ public class CustomWindow {
 				root.widthProperty().removeListener((obs, oldVal, newVal) -> keepWithinBounds());
 				root.heightProperty().removeListener((obs, oldVal, newVal) -> keepWithinBounds());
 			}
+			
 			taskbarApp = null;
 			image = null;
 			root = null;
@@ -430,6 +435,11 @@ public class CustomWindow {
 	
 	public Pane getWindowPane() {
 		return windowPane;
+	}
+	
+	public void setPosition(double x, double y) {
+		this.getWindowPane().setLayoutX(x);
+		this.getWindowPane().setLayoutY(y);
 	}
 	
 }

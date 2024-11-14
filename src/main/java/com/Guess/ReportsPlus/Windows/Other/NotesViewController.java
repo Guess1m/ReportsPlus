@@ -1,6 +1,7 @@
 package com.Guess.ReportsPlus.Windows.Other;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
@@ -23,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -351,9 +351,10 @@ public class NotesViewController {
     @javafx.fxml.FXML
     public void oncodesclick() {
         if (mainDesktopControllerObj != null) {
-            codesWindow = createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-                    "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 1, true, false,
-                    mainDesktopControllerObj.getTaskBarApps(), new Image(
+            codesWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+                                                           "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 1,
+                                                           true, false, mainDesktopControllerObj.getTaskBarApps(),
+                                                           new Image(
                             Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png")));
         }
     }

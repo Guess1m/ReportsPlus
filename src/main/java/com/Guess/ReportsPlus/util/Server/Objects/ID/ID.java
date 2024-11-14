@@ -42,7 +42,8 @@ public class ID {
 	
 	public static IDs loadServerIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
-		if (!file.exists()) {
+		
+		if (!file.exists() || file.length() == 0) {
 			return new IDs();
 		}
 		

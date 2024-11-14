@@ -1,5 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.History.Ped;
@@ -22,7 +23,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createFakeWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.*;
@@ -210,10 +210,9 @@ public class PedLookupViewController {
         probabilitySettingsBtn.setText(
                 localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
         infobtn3.setText(
-                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Update Other Information"));
-        infobtn2.setText(
-                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Create New Citation"));
-        infobtn1.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Create New Arrest"));
+                localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
+        infobtn2.setText(localization.getLocalizedMessage("PedLookup.CreateCitationButton", "Create New Citation"));
+        infobtn1.setText(localization.getLocalizedMessage("PedLookup.CreateArrestButton", "Create New Arrest"));
         
         ped21.setText(localization.getLocalizedMessage("PedLookup.ArrestHistoryLabel", "Arrest History:"));
         ped22.setText(localization.getLocalizedMessage("PedLookup.CitationHistoryLabel", "Citation History:"));
@@ -560,9 +559,10 @@ public class PedLookupViewController {
 
     @javafx.fxml.FXML
     public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-        createFakeWindow(mainDesktopControllerObj.getDesktopContainer(),
-                "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 1, true,
-                false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
+        WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+                                         "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
+                                         false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
+                                         new Image(Objects.requireNonNull(
                         Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
     }
 

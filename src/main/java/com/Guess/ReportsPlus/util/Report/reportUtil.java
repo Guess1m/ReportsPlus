@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createCustomWindow;
+import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -102,7 +103,8 @@ public class reportUtil {
 			gridPane.getColumnConstraints().add(column);
 		}
 		
-		Label mainHeaderLabel = new Label("New " + reportName);
+		Label mainHeaderLabel = new Label(
+				localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
 		mainHeaderLabel.setStyle(
 				"-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
 		mainHeaderLabel.setAlignment(Pos.CENTER);
@@ -145,7 +147,8 @@ public class reportUtil {
 			}
 		}
 		
-		Button submitBtn = new Button("Collect Values");
+		Button submitBtn = new Button(
+				localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
 		submitBtn.getStyleClass().add("incidentformButton");
 		submitBtn.setStyle("-fx-padding: 15;");
 		submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -157,7 +160,8 @@ public class reportUtil {
 			}
 		});
 		
-		MenuButton pullNotesBtn = new MenuButton("Pull From Notes");
+		MenuButton pullNotesBtn = new MenuButton(
+				localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
 		pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
 		pullNotesBtn.getStyleClass().add("incidentformButton");
 		pullNotesBtn.setStyle("-fx-padding: 15;");
@@ -170,7 +174,8 @@ public class reportUtil {
 			}
 		});
 		
-		Button delBtn = new Button("Delete Report");
+		Button delBtn = new Button(
+				localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
 		delBtn.setVisible(false);
 		delBtn.setDisable(true);
 		delBtn.getStyleClass().add("incidentformButton");
@@ -585,7 +590,8 @@ public class reportUtil {
 					treeView.setMaxHeight(350);
 					
 					TextField searchCitationField = new TextField();
-					searchCitationField.setPromptText("Search Citation");
+					searchCitationField.setPromptText(
+							localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
 					searchCitationField.setStyle("-fx-background-color: " + getPrimaryColor());
 					searchCitationField.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {
@@ -631,14 +637,20 @@ public class reportUtil {
 					expandTreeItem(rootItem);
 					
 					TextField citationNameField = new TextField();
-					citationNameField.setPromptText("Citation Name");
+					citationNameField.setPromptText(
+							localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
 					TextField citationFineField = new TextField();
-					citationFineField.setPromptText("Citation Maximum Fine");
+					citationFineField.setPromptText(
+							localization.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt",
+							                                 "Citation Maximum Fine"));
 					
-					Button addButton = new Button("Add");
-					Button removeButton = new Button("Remove");
+					Button addButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
+					Button removeButton = new Button(
+							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 					
-					Label citationInfoLabel = new Label("Citation Information");
+					Label citationInfoLabel = new Label(
+							localization.getLocalizedMessage("ReportWindows.CitationInformationHeader",
+							                                 "Citation Information"));
 					citationInfoLabel.setAlignment(Pos.CENTER);
 					
 					TableView<CitationsData> citationTableView = new TableView<>();
@@ -788,7 +800,8 @@ public class reportUtil {
 					chargestreeView.setMaxHeight(350);
 					
 					TextField searchChargeField = new TextField();
-					searchChargeField.setPromptText("Search Charge");
+					searchChargeField.setPromptText(
+							localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
 					searchChargeField.setStyle("-fx-background-color: " + getPrimaryColor());
 					searchChargeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {
@@ -834,12 +847,16 @@ public class reportUtil {
 					
 					TextField chargeNameField = new TextField();
 					chargeNameField.setEditable(false);
-					chargeNameField.setPromptText("Charge Name");
+					chargeNameField.setPromptText(
+							localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
 					
-					Button addButton2 = new Button("Add");
-					Button removeButton2 = new Button("Remove");
+					Button addButton2 = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
+					Button removeButton2 = new Button(
+							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 					
-					Label chargeInfoLabel = new Label("Charge Information");
+					Label chargeInfoLabel = new Label(
+							localization.getLocalizedMessage("ReportWindows.ChargeInformationHeader",
+							                                 "Charge Information"));
 					chargeInfoLabel.setAlignment(Pos.CENTER);
 					
 					TableView<ChargesData> chargeTableView = new TableView<>();

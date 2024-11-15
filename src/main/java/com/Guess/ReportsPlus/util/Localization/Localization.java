@@ -51,7 +51,8 @@ public class Localization {
 	
 	private void saveProperties() {
 		try (OutputStream output = new FileOutputStream(filePath)) {
-			properties.storeWithComments(output, "ReportPlus Localization");
+			properties.storeWithComments(output,
+			                             "ReportPlus Localization\n# Reccomended to keep capital words capital");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

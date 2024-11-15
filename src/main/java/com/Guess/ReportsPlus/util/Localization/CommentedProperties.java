@@ -33,10 +33,10 @@ public class CommentedProperties extends Properties {
 	
 	public void storeWithComments(OutputStream out, String header) throws IOException {
 		try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8))) {
+			writer.println("# " + new Date());
 			if (header != null) {
 				writer.println("# " + header);
 			}
-			writer.println("# " + new Date());
 			writer.println();
 			Map<String, List<String>> sectionedKeys = organizeBySections();
 			

@@ -429,17 +429,27 @@ public class CalloutManager {
 			
 			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout();
 			
-			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get("Callout Report Map");
+			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get(
+					localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report") + " Map");
 			
-			TextField calloutnum = (TextField) callout.get("calloutnumber");
-			ComboBox calloutarea = (ComboBox) callout.get("area");
-			TextArea calloutnotes = (TextArea) callout.get("notes");
-			TextField calloutcounty = (TextField) callout.get("county");
-			ComboBox calloutstreet = (ComboBox) callout.get("street");
-			TextField calloutdate = (TextField) callout.get("date");
-			TextField callouttime = (TextField) callout.get("time");
-			TextField callouttype = (TextField) callout.get("type");
-			TextField calloutcode = (TextField) callout.get("code");
+			TextField calloutnum = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
+			ComboBox calloutarea = (ComboBox) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+			TextArea calloutnotes = (TextArea) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
+			TextField calloutcounty = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+			ComboBox calloutstreet = (ComboBox) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+			TextField calloutdate = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+			TextField callouttime = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+			TextField callouttype = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+			TextField calloutcode = (TextField) callout.get(
+					localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 			
 			String number1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Number");
 			String type1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Type");

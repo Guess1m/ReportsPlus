@@ -615,14 +615,20 @@ public class PedLookupViewController {
         String desc = peddescfield.getText().trim();
 
         Map<String, Object> trafficCitationObj = newCitation();
-
-        Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get("Citation Report Map");
-
-        TextField offenderName = (TextField) citationReportMap.get("offender name");
-        TextField offenderAge = (TextField) citationReportMap.get("offender age");
-        TextField offenderGender = (TextField) citationReportMap.get("offender gender");
-        TextField offenderAddress = (TextField) citationReportMap.get("offender address");
-        TextField offenderDescription = (TextField) citationReportMap.get("offender description");
+        
+        Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
+                localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
+        
+        TextField offenderName = (TextField) citationReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+        TextField offenderAge = (TextField) citationReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+        TextField offenderGender = (TextField) citationReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+        TextField offenderAddress = (TextField) citationReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+        TextField offenderDescription = (TextField) citationReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 
         offenderName.setText(name);
         offenderAge.setText(age);
@@ -642,14 +648,20 @@ public class PedLookupViewController {
         String desc = peddescfield.getText().trim();
 
         Map<String, Object> arrestReportObj = newArrest();
-
-        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get("Arrest Report Map");
-
-        TextField offenderName = (TextField) arrestReportMap.get("offender name");
-        TextField offenderAge = (TextField) arrestReportMap.get("offender age");
-        TextField offenderGender = (TextField) arrestReportMap.get("offender gender");
-        TextField offenderAddress = (TextField) arrestReportMap.get("offender address");
-        TextField offenderDescription = (TextField) arrestReportMap.get("offender description");
+        
+        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
+                localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
+        
+        TextField offenderName = (TextField) arrestReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+        TextField offenderAge = (TextField) arrestReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+        TextField offenderGender = (TextField) arrestReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+        TextField offenderAddress = (TextField) arrestReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+        TextField offenderDescription = (TextField) arrestReportMap.get(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 
         offenderName.setText(name);
         offenderAge.setText(age);

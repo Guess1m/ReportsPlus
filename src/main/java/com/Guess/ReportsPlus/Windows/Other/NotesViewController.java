@@ -129,6 +129,7 @@ public class NotesViewController {
                 }
             }
             if (clrBtn != null) {
+                clrBtn.setText(localization.getLocalizedMessage("NotesWindow.ClearNotesButton", "Clear"));
                 clrBtn.setOnAction(actionEvent -> {
                     if (noteArea != null) {
                         noteArea.setText("");
@@ -172,6 +173,7 @@ public class NotesViewController {
                 });
             }
             if (codesbtnnotepad != null) {
+                codesbtnnotepad.setText(localization.getLocalizedMessage("NotesWindow.CodesButton", "Codes"));
                 codesbtnnotepad.setOnAction(actionEvent -> {
                     if (notesViewController.getCodeSelectionPane().isVisible()) {
 

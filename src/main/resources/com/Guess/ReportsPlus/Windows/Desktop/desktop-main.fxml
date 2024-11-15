@@ -113,7 +113,8 @@
                                 <Font name="Segoe UI Black" size="10.0" />
                             </font>
                         </Button>
-                        <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                        <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true" spacing="10.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                             <children>
                                 <Label fx:id="infoLabelLeft">
                                     <font>

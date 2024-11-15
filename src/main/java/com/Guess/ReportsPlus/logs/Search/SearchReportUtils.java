@@ -14,16 +14,15 @@ import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
+import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.getDate;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
@@ -39,115 +38,158 @@ import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
 
 public class SearchReportUtils {
 	
-	public static int countReports() {
-		try {
-			List<SearchReport> logs = SearchReportUtils.loadSearchReports().getSearchReportList();
-			
-			if (logs == null) {
-				return 0;
-			}
-			
-			return logs.size();
-		} catch (Exception e) {
-			logError("Exception", e);
-			return -1;
-		}
-	}
-	
 	public static Map<String, Object> searchLayout() {
-		Map<String, Object> searchReport = createReportWindow("Search Report", null,
-		                                                      new nestedReportUtils.SectionConfig("Officer Information",
+		Map<String, Object> searchReport = createReportWindow(
+				localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report"), null,
+		                                                      new nestedReportUtils.SectionConfig(
+				                                                      localization.getLocalizedMessage(
+						                                                      "ReportWindows.OfficerInfoSectionHeading",
+						                                                      localization.getLocalizedMessage(
+								                                                      "ReportWindows.OfficerInfoSectionHeading",
+								                                                      "Officer Information")),
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "name",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.FieldOfficerName",
+								                                                                                          "name"),
 						                                                                                          5,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "rank",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.FieldOfficerRank",
+								                                                                                          "rank"),
 						                                                                                          5,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "number",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.FieldOfficerNumber",
+								                                                                                          "number"),
 						                                                                                          2,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "division",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.FieldOfficerDivision",
+								                                                                                          "division"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "agency",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.FieldOfficerAgency",
+								                                                                                          "agency"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD))),
 		                                                      new nestedReportUtils.SectionConfig(
-				                                                      "Timestamp / Location Information", true,
+				                                                      localization.getLocalizedMessage(
+						                                                      "ReportWindows.TimeLocationInfoheader",
+						                                                      "Timestamp / Location Information"), true,
 				                                                      new nestedReportUtils.RowConfig(
-						                                                      new nestedReportUtils.FieldConfig("date",
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.FieldDate",
+										                                                      "date"),
 						                                                                                        3,
 						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
-						                                                      new nestedReportUtils.FieldConfig("time",
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.FieldTime",
+										                                                      "time"),
 						                                                                                        4,
 						                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
 						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "search num", 5,
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.SearchNumField",
+										                                                      "search num"), 5,
 								                                                      nestedReportUtils.FieldType.TEXT_FIELD)),
 				                                                      new nestedReportUtils.RowConfig(
 						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "street", 5,
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.FieldStreet",
+										                                                      "street"), 5,
 								                                                      nestedReportUtils.FieldType.COMBO_BOX_STREET),
-						                                                      new nestedReportUtils.FieldConfig("area",
+						                                                      new nestedReportUtils.FieldConfig(
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.FieldArea",
+										                                                      "area"),
 						                                                                                        4,
 						                                                                                        nestedReportUtils.FieldType.COMBO_BOX_AREA),
 						                                                      new nestedReportUtils.FieldConfig(
-								                                                      "county", 3,
+								                                                      localization.getLocalizedMessage(
+										                                                      "ReportWindows.FieldCounty",
+										                                                      "county"), 3,
 								                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Search Information",
+				new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.SearchInfoheader", "Search Information"),
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "grounds for search",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.GroundsForSearchField",
+								                                                                                          "grounds for search"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "witness(s)",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.WitnessesField",
+								                                                                                          "witness(s)"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "searched individual",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.SearchedIndividualField",
+								                                                                                          "searched individual"),
 						                                                                                          12,
 						                                                                                          nestedReportUtils.FieldType.TEXT_FIELD)),
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "search type",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.SearchTypeField",
+								                                                                                          "search type"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.COMBO_BOX_SEARCH_TYPE),
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "search method",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.SearchMethodField",
+								                                                                                          "search method"),
 						                                                                                          6,
 						                                                                                          nestedReportUtils.FieldType.COMBO_BOX_SEARCH_METHOD))),
 		                                                      new nestedReportUtils.SectionConfig(
-				                                                      "Field Sobriety Information (If Applicable)",
+				                                                      localization.getLocalizedMessage(
+						                                                      "ReportWindows.FieldSobInfoheader",
+						                                                      "Field Sobriety Information (If Applicable)"),
 				                                                      false, new nestedReportUtils.RowConfig(
 				                                                      new nestedReportUtils.FieldConfig(
-						                                                      "test(s) conducted", 4,
+						                                                      localization.getLocalizedMessage(
+								                                                      "ReportWindows.TestsConductedField",
+								                                                      "test(s) conducted"), 4,
 						                                                      nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig("result", 4,
+				                                                      new nestedReportUtils.FieldConfig(
+						                                                      localization.getLocalizedMessage(
+								                                                      "ReportWindows.TestResultField",
+								                                                      "result"), 4,
 				                                                                                        nestedReportUtils.FieldType.TEXT_FIELD),
 				                                                      new nestedReportUtils.FieldConfig(
-						                                                      "bac measurement", 4,
+						                                                      localization.getLocalizedMessage(
+								                                                      "ReportWindows.BACMeasurementField",
+								                                                      "bac measurement"), 4,
 						                                                      nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig("Notes / Summary",
+				new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.NotesSummarySectionheader", "Notes / Summary"),
 		                                                                                          true,
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "seized item(s)",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.SeizedItemsField",
+								                                                                                          "seized item(s)"),
 						                                                                                          12,
 						                                                                                          nestedReportUtils.FieldType.TEXT_AREA)),
 		                                                                                          new nestedReportUtils.RowConfig(
 				                                                                                          new nestedReportUtils.FieldConfig(
-						                                                                                          "comments",
+						                                                                                          localization.getLocalizedMessage(
+								                                                                                          "ReportWindows.CommentsField",
+								                                                                                          "comments"),
 						                                                                                          12,
 						                                                                                          nestedReportUtils.FieldType.TEXT_AREA))));
 		return searchReport;
@@ -156,35 +198,55 @@ public class SearchReportUtils {
 	public static Map<String, Object> newSearch() {
 		Map<String, Object> searchReport = searchLayout();
 		
-		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get("Search Report Map");
+		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get(
+				localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
 		
-		TextField name = (TextField) searchReportMap.get("name");
-		TextField rank = (TextField) searchReportMap.get("rank");
-		TextField div = (TextField) searchReportMap.get("division");
-		TextField agen = (TextField) searchReportMap.get("agency");
-		TextField num = (TextField) searchReportMap.get("number");
+		TextField name = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+		TextField rank = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+		TextField div = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+		TextField agen = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+		TextField num = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 		
-		TextField searchnum = (TextField) searchReportMap.get("search num");
-		TextField date = (TextField) searchReportMap.get("date");
-		TextField time = (TextField) searchReportMap.get("time");
-		ComboBox street = (ComboBox) searchReportMap.get("street");
-		ComboBox area = (ComboBox) searchReportMap.get("area");
-		TextField county = (TextField) searchReportMap.get("county");
+		TextField searchnum = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
+		TextField date = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+		TextField time = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+		ComboBox street = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		ComboBox area = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		TextField county = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 		
-		TextField grounds = (TextField) searchReportMap.get("grounds for search");
-		TextField witness = (TextField) searchReportMap.get("witness(s)");
-		TextField searchedindividual = (TextField) searchReportMap.get("searched individual");
-		ComboBox type = (ComboBox) searchReportMap.get("search type");
-		ComboBox method = (ComboBox) searchReportMap.get("search method");
+		TextField grounds = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
+		TextField witness = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"));
+		TextField searchedindividual = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"));
+		ComboBox type = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
+		ComboBox method = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
 		
-		TextField testconducted = (TextField) searchReportMap.get("test(s) conducted");
-		TextField result = (TextField) searchReportMap.get("result");
-		TextField bacmeasurement = (TextField) searchReportMap.get("bac measurement");
+		TextField testconducted = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
+		TextField result = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
+		TextField bacmeasurement = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
 		
-		TextArea seizeditems = (TextArea) searchReportMap.get("seized item(s)");
-		TextArea notes = (TextArea) searchReportMap.get("comments");
-		
-		BorderPane root = (BorderPane) searchReport.get("root");
+		TextArea seizeditems = (TextArea) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
+		TextArea notes = (TextArea) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
 		
 		Label warningLabel = (Label) searchReport.get("warningLabel");
 		

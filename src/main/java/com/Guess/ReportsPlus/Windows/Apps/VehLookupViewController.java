@@ -504,12 +504,19 @@ public class VehLookupViewController {
 		Object type = vehtypecombobox.getValue();
 		
 		Map<String, Object> impoundReportObj = newImpound();
-		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get("Impound Report Map");
+		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(
+				localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
 		
-		TextField offenderNameimp = (TextField) impoundReportMap.get("offender name");
-		TextField plateNumberimp = (TextField) impoundReportMap.get("plate number");
-		TextField modelimp = (TextField) impoundReportMap.get("model");
-		ComboBox vehType = (ComboBox) impoundReportMap.get("type");
+		TextField offenderNameimp = (TextField) impoundReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField plateNumberimp = (TextField) impoundReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField modelimp = (TextField) impoundReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox vehType = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType",
+		                                                                                    localization.getLocalizedMessage(
+				                                                                                    "ReportWindows.FieldType",
+				                                                                                    "type")));
 		
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);

@@ -83,10 +83,12 @@ public class updatesController {
         }), new KeyFrame(ANIMATION_DURATION, event -> {
             currentVer.setText(version);
             if (!version.equals(gitVersion)) {
-                recentVer.setText(Objects.requireNonNullElse(gitVersion, "New Ver. Available!"));
+                recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage(
+                        "Desktop.NewVersionAvailable", "New Version Available!")));
                 recentVer.setStyle("-fx-text-fill: red;");
-                NotificationManager.showNotificationError("Update Available",
-                        "There is a New Verion Available! " + gitVersion + " Check LCPDFR Website!");
+                NotificationManager.showNotificationError("Update Available", localization.getLocalizedMessage(
+                        "Desktop.NewVersionAvailable",
+                        "New Version Available!") + " " + gitVersion + " Visit LCPDFR Website!");
             } else {
                 recentVer.setText(gitVersion);
             }

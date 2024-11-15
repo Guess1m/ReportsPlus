@@ -232,8 +232,9 @@ public class mainDesktopController {
 				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
 					desktopApp.getMainPane().setStyle("-fx-background-color: rgb(0,0,0,0.25);");
 					infoHBox.setVisible(true);
-					infoLabelLeft.setText("Current Mode: ");
-					infoLabelRight.setText("Editing");
+					infoLabelLeft.setText(
+							localization.getLocalizedMessage("Desktop.CurrentModeLabel", "Current Mode:"));
+					infoLabelRight.setText(localization.getLocalizedMessage("Desktop.EditingMode", "Editing"));
 					infoLabelRight.setStyle("-fx-text-fill: darkred;");
 					infoLabelRight.setUnderline(true);
 				}
@@ -273,10 +274,12 @@ public class mainDesktopController {
 		versionLabel.setText(stringUtil.version);
 		if (!stringUtil.version.equals(gitVersion)) {
 			if (gitVersion == null) {
-				versionLabel.setText("New Version Available!");
+				versionLabel.setText(
+						localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
 				versionLabel.setStyle("-fx-text-fill: darkred;");
 			} else {
-				versionLabel.setText(gitVersion + " Available!");
+				versionLabel.setText(
+						gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel", "Available!"));
 				versionLabel.setStyle("-fx-text-fill: darkred;");
 			}
 		}
@@ -328,6 +331,15 @@ public class mainDesktopController {
 			notesTabList = new ArrayList<>();
 		}
 		
+		addLocale();
+		
+	}
+	
+	private void addLocale() {
+		topBar1.setText(localization.getLocalizedMessage("Desktop.ServerStatusLabel", "Server Status:"));
+		topBar2.setText(localization.getLocalizedMessage("Desktop.LoggedInLabel", "Logged In:"));
+		button1.setText(localization.getLocalizedMessage("Desktop.EditModeButton", "Edit Mode"));
+		createReportBtn.setText(localization.getLocalizedMessage("Desktop.CreateReportButton", "Create Report"));
 	}
 	
 	private void addAppToDesktop(AnchorPane root, VBox newApp, double x, double y) {

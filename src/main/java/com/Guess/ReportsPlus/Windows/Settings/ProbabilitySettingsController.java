@@ -72,40 +72,40 @@ public class ProbabilitySettingsController {
     private Label citationProbabilityLabel;
     @javafx.fxml.FXML
     private TextField vehInspection;
-
+    
     private void setInitialValues() throws IOException {
-
+        
         permitTypeConcealed.setText(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance"));
         permitTypeOpenCarry.setText(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance"));
         permitTypeBoth.setText(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"));
-
+        
         permitClassHandgun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance"));
         permitClassLonggun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance"));
         permitClassShotgun.setText(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance"));
-
+        
         noCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges"));
         minimalCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges"));
         fewCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges"));
         manyCharges.setText(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges"));
-
+        
         noCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations"));
         minimalCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations"));
         fewCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations"));
         manyCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations"));
-
+        
         fishingLicense.setText(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
         boatingLicense.setText(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
         huntingLicense.setText(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
         gunLicense.setText(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
-
+        
         onProbation.setText(ConfigReader.configRead("pedHistory", "onProbationChance"));
         onParole.setText(ConfigReader.configRead("pedHistory", "onParoleChance"));
-
+        
         caseOutcomeDelay.setText(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
-
+        
         vehInspection.setText(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
     }
-
+    
     private void addNumericOnlyListener(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -113,13 +113,13 @@ public class ProbabilitySettingsController {
             }
         });
     }
-
+    
     private void addNumericOnlyAndBeyondMaxListener(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
             }
-
+            
             if (!newValue.isEmpty()) {
                 try {
                     int value = Integer.parseInt(textField.getText());
@@ -132,14 +132,14 @@ public class ProbabilitySettingsController {
             }
         });
     }
-
+    
     public void initialize() {
         try {
             setInitialValues();
         } catch (IOException e) {
             logError("Could not set InitialValues for ProbabilitySettings: ", e);
         }
-
+        
         addNumericOnlyAndBeyondMaxListener(permitTypeConcealed);
         addNumericOnlyAndBeyondMaxListener(onParole);
         addNumericOnlyListener(caseOutcomeDelay);
@@ -163,11 +163,9 @@ public class ProbabilitySettingsController {
         addNumericOnlyAndBeyondMaxListener(fewCharges);
         addNumericOnlyAndBeyondMaxListener(vehInspection);
     }
-
+    
     private boolean checkChargePrior() {
-        int chargePriors = Integer.parseInt(noCharges.getText()) + Integer.parseInt(
-                minimalCharges.getText()) + Integer.parseInt(fewCharges.getText()) + Integer.parseInt(
-                manyCharges.getText());
+        int chargePriors = Integer.parseInt(noCharges.getText()) + Integer.parseInt(minimalCharges.getText()) + Integer.parseInt(fewCharges.getText()) + Integer.parseInt(manyCharges.getText());
         if (chargePriors != 100) {
             log("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors, LogUtils.Severity.ERROR);
             chargeProbabilityLabel.setText("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors);
@@ -192,10 +190,9 @@ public class ProbabilitySettingsController {
             return true;
         }
     }
-
+    
     private boolean checkCitationPrior() {
-        int citationPriors = Integer.parseInt(noCitations.getText()) + Integer.parseInt(
-                minimalCitations.getText()) + Integer.parseInt(fewCitations.getText()) + Integer.parseInt(
+        int citationPriors = Integer.parseInt(noCitations.getText()) + Integer.parseInt(minimalCitations.getText()) + Integer.parseInt(fewCitations.getText()) + Integer.parseInt(
                 manyCitations.getText());
         if (citationPriors != 100) {
             log("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors, LogUtils.Severity.ERROR);
@@ -221,10 +218,9 @@ public class ProbabilitySettingsController {
             return true;
         }
     }
-
+    
     private boolean checkPermitType() {
-        int permitTypeTotal = Integer.parseInt(permitTypeConcealed.getText()) + Integer.parseInt(
-                permitTypeOpenCarry.getText()) + Integer.parseInt(permitTypeBoth.getText());
+        int permitTypeTotal = Integer.parseInt(permitTypeConcealed.getText()) + Integer.parseInt(permitTypeOpenCarry.getText()) + Integer.parseInt(permitTypeBoth.getText());
         if (permitTypeTotal != 100) {
             log("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal, LogUtils.Severity.ERROR);
             permitTypeLabel.setText("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal);
@@ -249,10 +245,9 @@ public class ProbabilitySettingsController {
             return true;
         }
     }
-
+    
     private boolean checkPermitClass() {
-        int permitClassTotal = Integer.parseInt(permitClassHandgun.getText()) + Integer.parseInt(
-                permitClassLonggun.getText()) + Integer.parseInt(permitClassShotgun.getText());
+        int permitClassTotal = Integer.parseInt(permitClassHandgun.getText()) + Integer.parseInt(permitClassLonggun.getText()) + Integer.parseInt(permitClassShotgun.getText());
         if (permitClassTotal != 100) {
             log("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal, LogUtils.Severity.ERROR);
             permitClassLabel.setText("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal);
@@ -277,18 +272,18 @@ public class ProbabilitySettingsController {
             return true;
         }
     }
-
+    
     private boolean runAllChecks() {
         boolean allTrue = true;
-
+        
         allTrue &= checkChargePrior();
         allTrue &= checkPermitType();
         allTrue &= checkCitationPrior();
         allTrue &= checkPermitClass();
-
+        
         return allTrue;
     }
-
+    
     @javafx.fxml.FXML
     public void saveBtn(ActionEvent actionEvent) {
         if (runAllChecks()) {

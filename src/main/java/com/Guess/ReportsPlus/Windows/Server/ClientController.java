@@ -71,23 +71,18 @@ public class ClientController {
 	private void addLocalization() {
 		clientLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.ClientHeading", "Client"));
 		lbl1.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputPortLabel", "Input Port:"));
-		lbl2.setText(
-				localization.getLocalizedMessage("ServerConnectionWindow.ConnectionIPV4Label", "Connection IPV4:"));
+		lbl2.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectionIPV4Label", "Connection IPV4:"));
 		lbl3.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputAddressLabel", "Input Address:"));
-		lbl4.setText(
-				localization.getLocalizedMessage("ServerConnectionWindow.ConnectionPortLabel", "Connection Port:"));
+		lbl4.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectionPortLabel", "Connection Port:"));
 		
 		connectBtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectButton", "Connect"));
 		helpbtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
 		helpbtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
 		statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
 		
-		inetField.setPromptText(
-				localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
-		portField.setPromptText(
-				localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
-		inputHostField.setPromptText(
-				localization.getLocalizedMessage("ServerConnectionWindow.AddressPrompt", "Address"));
+		inetField.setPromptText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
+		portField.setPromptText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
+		inputHostField.setPromptText(localization.getLocalizedMessage("ServerConnectionWindow.AddressPrompt", "Address"));
 	}
 	
 	@javafx.fxml.FXML
@@ -97,8 +92,7 @@ public class ClientController {
 				ClientUtils.connectToService(inputHostField.getText(), Integer.parseInt(inputPortField.getText()));
 			} else {
 				String beforeText = statusLabel.getText();
-				statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.MissingFields",
-				                                                     "Please Input The Server Address and Port"));
+				statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.MissingFields", "Please Input The Server Address and Port"));
 				PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
 				pause.setOnFinished(event -> statusLabel.setText(beforeText));
 				pause.play();
@@ -117,16 +111,13 @@ public class ClientController {
 	private void showHelpDialog(Stage owner) {
 		Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
 		helpDialog.setTitle(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
-		helpDialog.setHeaderText(
-				localization.getLocalizedMessage("ServerConnectionWindow.HowTo", "How To Use The Client"));
+		helpDialog.setHeaderText(localization.getLocalizedMessage("ServerConnectionWindow.HowTo", "How To Use The Client"));
 		helpDialog.setContentText(localization.getLocalizedMessage("ServerConnectionWindow.HelpLineOne",
 		                                                           "1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.") + "\n\n" + localization.getLocalizedMessage(
 				"ServerConnectionWindow.HelpLineTwo",
 				"2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.") + "\n\n" + localization.getLocalizedMessage(
-				"ServerConnectionWindow.HelpLineThree",
-				"3. The top right field is the internal IP of the server the client is connected to.") + "\n\n" + localization.getLocalizedMessage(
-				"ServerConnectionWindow.HelpLineFour",
-				"4. The bottom right field is the port of the established connection.") + "\n\n");
+				"ServerConnectionWindow.HelpLineThree", "3. The top right field is the internal IP of the server the client is connected to.") + "\n\n" + localization.getLocalizedMessage(
+				"ServerConnectionWindow.HelpLineFour", "4. The bottom right field is the port of the established connection.") + "\n\n");
 		
 		helpDialog.initOwner(owner);
 		helpDialog.initModality(Modality.APPLICATION_MODAL);

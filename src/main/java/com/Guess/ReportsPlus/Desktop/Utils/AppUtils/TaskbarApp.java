@@ -49,10 +49,8 @@ public class TaskbarApp {
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(event -> popup.hide());
 		
-		tooltipButton.widthProperty().addListener(
-				(obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
-		tooltipButton.heightProperty().addListener(
-				(obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
+		tooltipButton.widthProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
+		tooltipButton.heightProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
 		
 		container.setOnMouseEntered(event -> {
 			updatePopupPosition(icon, popup, tooltipButton);

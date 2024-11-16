@@ -39,7 +39,7 @@ import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabPedData;
 
 public class PedLookupViewController {
-
+    
     public static PedLookupViewController pedLookupViewController;
     private final List<String> recentPedSearches = new ArrayList<>();
     @javafx.fxml.FXML
@@ -177,12 +177,12 @@ public class PedLookupViewController {
     private Label info3;
     @javafx.fxml.FXML
     private Label info2;
-
+    
     public void initialize() {
         noPedImageFoundlbl.setVisible(false);
         pedRecordPane.setVisible(false);
         noRecordFoundLabelPed.setVisible(false);
-
+        
         pedSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
@@ -199,18 +199,13 @@ public class PedLookupViewController {
     private void addLocalization() {
         lookupmainlbl.setText(localization.getLocalizedMessage("PedLookup.MainHeader", "D.M.V Pedestrian Lookup"));
         lbl1.setText(localization.getLocalizedMessage("PedLookup.SearchPedLabel", "Search Ped:"));
-        noPedImageFoundlbl.setText(
-                localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
-        noRecordFoundLabelPed.setText(
-                localization.getLocalizedMessage("PedLookup.NoPedFoundInSystem", "No Record Found In System"));
+        noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+        noRecordFoundLabelPed.setText(localization.getLocalizedMessage("PedLookup.NoPedFoundInSystem", "No Record Found In System"));
         
-        addDataToNotesBtn.setText(
-                localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
+        addDataToNotesBtn.setText(localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
         pedSearchBtn.setText(localization.getLocalizedMessage("PedLookup.SearchPedButton", "Search"));
-        probabilitySettingsBtn.setText(
-                localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
-        infobtn3.setText(
-                localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
+        probabilitySettingsBtn.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
+        infobtn3.setText(localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
         infobtn2.setText(localization.getLocalizedMessage("PedLookup.CreateCitationButton", "Create New Citation"));
         infobtn1.setText(localization.getLocalizedMessage("PedLookup.CreateArrestButton", "Create New Arrest"));
         
@@ -240,12 +235,9 @@ public class PedLookupViewController {
         ped15.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseStatus", "Gun License Status:"));
         ped16.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type"));
         ped17.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class"));
-        ped18.setText(
-                localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
-        ped19.setText(
-                localization.getLocalizedMessage("PedLookup.FieldBoatingLicenseStatus", "Boating License Status"));
-        ped20.setText(
-                localization.getLocalizedMessage("PedLookup.FieldHuntingLicenseStatus", "Hunting License Status"));
+        ped18.setText(localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
+        ped19.setText(localization.getLocalizedMessage("PedLookup.FieldBoatingLicenseStatus", "Boating License Status"));
+        ped20.setText(localization.getLocalizedMessage("PedLookup.FieldHuntingLicenseStatus", "Hunting License Status"));
         ped23.setText(localization.getLocalizedMessage("PedLookup.FieldFlags", "Flag(s):"));
     }
     
@@ -273,7 +265,7 @@ public class PedLookupViewController {
         pedRecordPane.setVisible(true);
         noRecordFoundLabelPed.setVisible(false);
     }
-
+    
     private void processOwnerData(String owner, String vehPlateNum) {
         Optional<Ped> searchedPed = findPedByName(owner);
         Ped ped = searchedPed.orElseGet(() -> {
@@ -284,7 +276,7 @@ public class PedLookupViewController {
                 return null;
             }
         });
-
+        
         if (ped != null) {
             if (setPedRecordFields(ped)) {
                 try {
@@ -299,7 +291,7 @@ public class PedLookupViewController {
         pedRecordPane.setVisible(true);
         noRecordFoundLabelPed.setVisible(false);
     }
-
+    
     private boolean setPedRecordFields(Ped ped) {
         boolean playAudio = false;
         pedfnamefield.setText(ped.getFirstName());
@@ -307,28 +299,27 @@ public class PedLookupViewController {
         pedgenfield.setText(ped.getGender());
         peddobfield.setText(ped.getBirthday());
         pedaddressfield.setText(ped.getAddress());
-
+        
         pedlicensefield.setText(ped.getLicenseStatus());
-        if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
-                "SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
+        if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase("SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
             pedlicensefield.setStyle("-fx-text-fill: red !important;");
             playAudio = true;
-
+            
         } else {
             pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
             pedlicensefield.setText("Valid");
         }
-
+        
         // Outstanding warrants
         pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
         if (ped.getOutstandingWarrants() != null) {
             pedwantedfield.setStyle("-fx-text-fill: red !important;");
             playAudio = true;
-
+            
         } else {
             pedwantedfield.setStyle("-fx-text-fill: black;");
         }
-
+        
         pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
         if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
             pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
@@ -336,7 +327,7 @@ public class PedLookupViewController {
             pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
             pedgunlicensestatusfield.setText("Valid");
         }
-
+        
         pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
         if (ped.getProbationStatus() != null && ped.getProbationStatus().equalsIgnoreCase("true")) {
             pedprobationstatusfield.setStyle("-fx-text-fill: red !important;");
@@ -344,42 +335,38 @@ public class PedLookupViewController {
         } else {
             pedprobationstatusfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         // Fishing license status
-        pedfishinglicstatusfield.setText(
-                ped.getFishingLicenseStatus() != null ? ped.getFishingLicenseStatus() : "False");
+        pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus() != null ? ped.getFishingLicenseStatus() : "False");
         if (ped.getFishingLicenseStatus() != null && ped.getFishingLicenseStatus().equalsIgnoreCase("true")) {
             pedfishinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
             pedfishinglicstatusfield.setText("Valid");
         } else {
             pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
         }
-
-        pedboatinglicstatusfield.setText(
-                ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
+        
+        pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
         if (ped.getBoatingLicenseStatus() != null && ped.getBoatingLicenseStatus().equalsIgnoreCase("true")) {
             pedboatinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
             pedboatinglicstatusfield.setText("Valid");
         } else {
             pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
         pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
-
-        pedhuntinglicstatusfield.setText(
-                ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
+        
+        pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
         if (ped.getHuntingLicenseStatus() != null && ped.getHuntingLicenseStatus().equalsIgnoreCase("true")) {
             pedhuntinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
             pedhuntinglicstatusfield.setText("Valid");
         } else {
             pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
-        pedlicnumfield.setStyle(
-                ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
-
+        pedlicnumfield.setStyle(ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+        
         String affiliations = ped.getAffiliations();
         if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
             pedaffiliationfield.setText("No Data In System");
@@ -388,7 +375,7 @@ public class PedLookupViewController {
             pedaffiliationfield.setText(affiliations);
             pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         String flags = ped.getFlags();
         if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
             pedflagfield.setText("No Data In System");
@@ -397,7 +384,7 @@ public class PedLookupViewController {
             pedflagfield.setText(flags);
             pedflagfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         String description = ped.getDescription();
         if (description == null || description.equalsIgnoreCase("No Data In System")) {
             peddescfield.setText("No Data In System");
@@ -406,7 +393,7 @@ public class PedLookupViewController {
             peddescfield.setText(description);
             peddescfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         String aliases = ped.getAliases();
         if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
             pedaliasfield.setText("No Data In System");
@@ -415,7 +402,7 @@ public class PedLookupViewController {
             pedaliasfield.setText(aliases);
             pedaliasfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         pedparolestatusfield.setText(ped.getParoleStatus() != null ? ped.getParoleStatus() : "False");
         if (ped.getParoleStatus() != null && ped.getParoleStatus().equalsIgnoreCase("true")) {
             pedparolestatusfield.setStyle("-fx-text-fill: red !important;");
@@ -423,80 +410,73 @@ public class PedLookupViewController {
         } else {
             pedparolestatusfield.setStyle("-fx-text-fill: black !important;");
         }
-
+        
         pedtimesstoppedfield.setText(ped.getTimesStopped() != null ? ped.getTimesStopped() : "No Data");
-        pedtimesstoppedfield.setStyle(
-                ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
-
+        pedtimesstoppedfield.setStyle(ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+        
         ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
-
+        
         String pedModel = ped.getModel();
         if (pedModel != null && !pedModel.equalsIgnoreCase("Not Found")) {
             File pedImgFolder = new File(pedImageFolderURL);
             if (pedImgFolder.exists()) {
                 log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
-
+                
                 File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-
+                
                 if (matchingFiles != null && matchingFiles.length > 0) {
                     File matchingFile = matchingFiles[0];
                     log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
-
+                    
                     try {
                         String fileURI = matchingFile.toURI().toString();
                         pedImageView.setImage(new Image(fileURI));
                         noPedImageFoundlbl.setVisible(true);
-                        noPedImageFoundlbl.setText(
-                                localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
+                        noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
                     } catch (Exception e) {
                         Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                         pedImageView.setImage(defImage);
                         noPedImageFoundlbl.setVisible(true);
-                        noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-                                                                                    "No Image Found In System"));
+                        noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
                         logError("Could not set ped image: ", e);
                     }
                 } else {
-                    log("No matching image found for the model: " + pedModel + ", displaying no image found.",
-                            LogUtils.Severity.WARN);
+                    log("No matching image found for the model: " + pedModel + ", displaying no image found.", LogUtils.Severity.WARN);
                     Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                     pedImageView.setImage(defImage);
                     noPedImageFoundlbl.setVisible(true);
-                    noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-                                                                                "No Image Found In System"));
+                    noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
                 }
             } else {
                 Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
                 pedImageView.setImage(defImage);
                 noPedImageFoundlbl.setVisible(true);
-                noPedImageFoundlbl.setText(
-                        localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+                noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
             }
         } else {
             Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
             pedImageView.setImage(defImage);
             noPedImageFoundlbl.setVisible(true);
-            noPedImageFoundlbl.setText(
-                    localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+            noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
         }
-
+        
         String citationPriors = ped.getCitationPriors();
         if (citationPriors == null) {
             citationPriors = "";
         }
-
+        
         Pattern pattern = Pattern.compile("MaxFine:\\S+");
         Matcher matcher = pattern.matcher(citationPriors);
         String updatedCitPriors = matcher.replaceAll("").trim();
-
+        
         ObservableList<Label> arrestPriors = createLabels(ped.getArrestPriors());
         ObservableList<Label> citPriors = createLabels(updatedCitPriors);
-
+        
         pedarrestpriorslistview.setItems(arrestPriors);
         pedcitationpriorslistview.setItems(citPriors);
         return playAudio;
     }
-
+    
     @javafx.fxml.FXML
     public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
         String searchedName = pedSearchField.getEditor().getText().trim();
@@ -505,15 +485,15 @@ public class PedLookupViewController {
         }
         pedSearchField.getEditor().setText(searchedName);
         pedSearchField.getEditor().positionCaret(pedSearchField.getEditor().getText().length());
-
+        
         log("Searched: " + searchedName, LogUtils.Severity.INFO);
         String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
         String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
-
+        
         Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
         Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
         Optional<Ped> pedOptional = findPedByName(searchedName);
-
+        
         String gender = pedData.getOrDefault("gender", "Not Found");
         String birthday = pedData.getOrDefault("birthday", "Not Found");
         String address = pedData.getOrDefault("address", "Not Found");
@@ -522,10 +502,10 @@ public class PedLookupViewController {
         String licenseNumber = pedData.getOrDefault("licensenumber", "Not Found");
         String name = pedData.getOrDefault("name", "Not Found");
         String pedModel = pedData.getOrDefault("pedmodel", "Not Found");
-
+        
         String owner = ownerSearch.getOrDefault("owner", "Not Found");
         String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");
-
+        
         if (pedOptional.isPresent()) {
             log("Found: [" + name + "] From PedHistory file", LogUtils.Severity.DEBUG);
             Ped ped = pedOptional.get();
@@ -538,17 +518,13 @@ public class PedLookupViewController {
                 }
                 log("Set ped as 'Not Found' since it created before pedModel was added", LogUtils.Severity.WARN);
             }
-            processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(),
-                    ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
+            processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
         } else if (!name.equals("Not Found")) {
             log("Found: [" + name + "] From WorldPed file", LogUtils.Severity.DEBUG);
             processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
-        } else if (owner != null && !owner.equalsIgnoreCase("Not Found") && !owner.equalsIgnoreCase(
-                "Los Santos Police Department") && !owner.equalsIgnoreCase(
-                "Los Santos Sheriff's Office") && !owner.equalsIgnoreCase(
-                "Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {
-            log("Found Vehicle Owner: [" + owner + "] From WorldVeh file, plate#: " + ownerPlateNum,
-                    LogUtils.Severity.DEBUG);
+        } else if (owner != null && !owner.equalsIgnoreCase("Not Found") && !owner.equalsIgnoreCase("Los Santos Police Department") && !owner.equalsIgnoreCase(
+                "Los Santos Sheriff's Office") && !owner.equalsIgnoreCase("Blaine County Sheriff's Office") && !owner.equalsIgnoreCase("San Andreas Highway Patrol")) {
+            log("Found Vehicle Owner: [" + owner + "] From WorldVeh file, plate#: " + ownerPlateNum, LogUtils.Severity.DEBUG);
             processOwnerData(owner, ownerPlateNum);
         } else {
             log("No Ped With Name: [" + searchedName + "] Found Anywhere", LogUtils.Severity.WARN);
@@ -556,16 +532,14 @@ public class PedLookupViewController {
             noRecordFoundLabelPed.setVisible(true);
         }
     }
-
+    
     @javafx.fxml.FXML
     public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-        WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-                                         "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
-                                         false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
-                                         new Image(Objects.requireNonNull(
-                        Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+        WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 1, true, false,
+                                         mainDesktopControllerObj.getTaskBarApps(),
+                                         new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
     }
-
+    
     @javafx.fxml.FXML
     public void pedAddDataToNotes(ActionEvent actionEvent) throws IOException {
         if (!noRecordFoundLabelPed.isVisible()) {
@@ -597,15 +571,15 @@ public class PedLookupViewController {
                     fullString.append("-description ").append(description).append(" ");
                 }
             }
-
+            
             notesTabList.add(new NoteTab(name, fullString.toString()));
-
+            
             if (notesViewController != null) {
                 createNoteTabs();
             }
         }
     }
-
+    
     @javafx.fxml.FXML
     public void pedCreateCitationReport(ActionEvent actionEvent) {
         String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
@@ -613,23 +587,17 @@ public class PedLookupViewController {
         String gender = pedgenfield.getText().trim();
         String address = pedaddressfield.getText().trim();
         String desc = peddescfield.getText().trim();
-
+        
         Map<String, Object> trafficCitationObj = newCitation();
         
-        Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
-                localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
+        Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
         
-        TextField offenderName = (TextField) citationReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-        TextField offenderAge = (TextField) citationReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-        TextField offenderGender = (TextField) citationReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-        TextField offenderAddress = (TextField) citationReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-        TextField offenderDescription = (TextField) citationReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
+        TextField offenderName = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+        TextField offenderAge = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+        TextField offenderGender = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+        TextField offenderAddress = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+        TextField offenderDescription = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+        
         offenderName.setText(name);
         offenderAge.setText(age);
         offenderGender.setText(gender);
@@ -638,7 +606,7 @@ public class PedLookupViewController {
             offenderDescription.setText(desc);
         }
     }
-
+    
     @javafx.fxml.FXML
     public void pedCreateArrestReport(ActionEvent actionEvent) {
         String name = pedfnamefield.getText().trim() + " " + pedlnamefield.getText().trim();
@@ -646,23 +614,17 @@ public class PedLookupViewController {
         String gender = pedgenfield.getText().trim();
         String address = pedaddressfield.getText().trim();
         String desc = peddescfield.getText().trim();
-
+        
         Map<String, Object> arrestReportObj = newArrest();
         
-        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
-                localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
+        Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
         
-        TextField offenderName = (TextField) arrestReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-        TextField offenderAge = (TextField) arrestReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-        TextField offenderGender = (TextField) arrestReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-        TextField offenderAddress = (TextField) arrestReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-        TextField offenderDescription = (TextField) arrestReportMap.get(
-                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
+        TextField offenderName = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+        TextField offenderAge = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+        TextField offenderGender = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+        TextField offenderAddress = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+        TextField offenderDescription = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+        
         offenderName.setText(name);
         offenderAge.setText(age);
         offenderGender.setText(gender);
@@ -671,15 +633,15 @@ public class PedLookupViewController {
             offenderDescription.setText(desc);
         }
     }
-
+    
     @javafx.fxml.FXML
     public void pedUpdateInfo(ActionEvent actionEvent) {
         String searchedLicenseNum = pedlicnumfield.getText();
         Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
-
+        
         if (optionalPed.isPresent()) {
             Ped ped = optionalPed.get();
-
+            
             // Update flags
             String pedflagfieldText = pedflagfield.getText();
             if (!pedflagfieldText.equalsIgnoreCase("No Data In System") && !pedflagfieldText.isEmpty()) {
@@ -690,7 +652,7 @@ public class PedLookupViewController {
                 pedflagfield.setText("No Data In System");
                 ped.setFlags(null);
             }
-
+            
             String affiliationText = pedaffiliationfield.getText();
             if (!affiliationText.equalsIgnoreCase("No Data In System") && !affiliationText.isEmpty()) {
                 pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
@@ -700,7 +662,7 @@ public class PedLookupViewController {
                 pedaffiliationfield.setText("No Data In System");
                 ped.setAffiliations(null);
             }
-
+            
             String descText = peddescfield.getText();
             if (!descText.equalsIgnoreCase("No Data In System") && !descText.isEmpty()) {
                 peddescfield.setStyle("-fx-text-fill: black !important;");
@@ -710,7 +672,7 @@ public class PedLookupViewController {
                 peddescfield.setText("No Data In System");
                 ped.setDescription(null);
             }
-
+            
             String aliasText = pedaliasfield.getText();
             if (!aliasText.equalsIgnoreCase("No Data In System") && !aliasText.isEmpty()) {
                 pedaliasfield.setStyle("-fx-text-fill: black !important;");
@@ -720,7 +682,7 @@ public class PedLookupViewController {
                 pedaliasfield.setText("No Data In System");
                 ped.setAliases(null);
             }
-
+            
             try {
                 Ped.PedHistoryUtils.addPed(ped);
             } catch (JAXBException e) {
@@ -728,179 +690,179 @@ public class PedLookupViewController {
             }
         }
     }
-
+    
     public Label getNoPedImageFoundlbl() {
         return noPedImageFoundlbl;
     }
-
+    
     public Label getPed13() {
         return ped13;
     }
-
+    
     public Label getPed12() {
         return ped12;
     }
-
+    
     public Label getPed15() {
         return ped15;
     }
-
+    
     public Label getPed14() {
         return ped14;
     }
-
+    
     public Label getPed17() {
         return ped17;
     }
-
+    
     public Label getPed16() {
         return ped16;
     }
-
+    
     public Label getPed19() {
         return ped19;
     }
-
+    
     public Label getPed18() {
         return ped18;
     }
-
+    
     public Label getPed3() {
         return ped3;
     }
-
+    
     public Label getPed4() {
         return ped4;
     }
-
+    
     public Label getPed5() {
         return ped5;
     }
-
+    
     public Label getPed6() {
         return ped6;
     }
-
+    
     public Label getPed1() {
         return ped1;
     }
-
+    
     public Label getPed11() {
         return ped11;
     }
-
+    
     public Label getPed2() {
         return ped2;
     }
-
+    
     public Label getPed10() {
         return ped10;
     }
-
+    
     public Label getPed7() {
         return ped7;
     }
-
+    
     public Label getPed8() {
         return ped8;
     }
-
+    
     public Label getPed9() {
         return ped9;
     }
-
+    
     public Label getPed23() {
         return ped23;
     }
-
+    
     public Label getPed20() {
         return ped20;
     }
-
+    
     public Label getPed22() {
         return ped22;
     }
-
+    
     public BorderPane getRoot() {
         return root;
     }
-
+    
     public Label getPed21() {
         return ped21;
     }
-
+    
     public Label getLookupmainlbl() {
         return lookupmainlbl;
     }
-
+    
     public Button getProbabilitySettingsBtn() {
         return probabilitySettingsBtn;
     }
-
+    
     public AnchorPane getPedLookupPane() {
         return pedLookupPane;
     }
-
+    
     public AnchorPane getLookupPane() {
         return lookupPane;
     }
-
+    
     public TextField getPedlnamefield() {
         return pedlnamefield;
     }
-
+    
     public TextField getPedfnamefield() {
         return pedfnamefield;
     }
-
+    
     public AnchorPane getPedRecordPane() {
         return pedRecordPane;
     }
-
+    
     public Button getPedSearchBtn() {
         return pedSearchBtn;
     }
-
+    
     public Button getAddDataToNotesBtn() {
         return addDataToNotesBtn;
     }
-
+    
     public Label getLbl1() {
         return lbl1;
     }
-
+    
     public ComboBox getPedSearchField() {
         return pedSearchField;
     }
-
+    
     public Label getInfo1() {
         return info1;
     }
-
+    
     public Label getInfo2() {
         return info2;
     }
-
+    
     public Label getInfo3() {
         return info3;
     }
-
+    
     public Label getInfo4() {
         return info4;
     }
-
+    
     public Label getInfo5() {
         return info5;
     }
-
+    
     public Button getInfobtn1() {
         return infobtn1;
     }
-
+    
     public Button getInfobtn2() {
         return infobtn2;
     }
-
+    
     public Button getInfobtn3() {
         return infobtn3;
     }

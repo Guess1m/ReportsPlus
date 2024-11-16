@@ -1,6 +1,7 @@
 package com.Guess.ReportsPlus.util.Localization;
 
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Misc.stringUtil;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -51,8 +52,7 @@ public class Localization {
 	
 	private void saveProperties() {
 		try (OutputStream output = new FileOutputStream(filePath)) {
-			properties.storeWithComments(output,
-			                             "ReportPlus Localization\n# Reccomended to keep capital words capital");
+			properties.storeWithComments(output, "ReportPlus Localization For Version: " + stringUtil.version + "\n# Reccomended to keep capital words capital");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

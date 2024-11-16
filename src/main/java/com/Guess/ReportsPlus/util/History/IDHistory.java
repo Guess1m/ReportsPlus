@@ -50,8 +50,7 @@ public class IDHistory {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
 		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(
-				e -> e.getName().equals(ID.getName())).findFirst();
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
@@ -71,8 +70,7 @@ public class IDHistory {
 		if (historyIDs.getIdList() == null) {
 			historyIDs.setIdList(new ArrayList<>());
 		}
-		Optional<ID> existingID = historyIDs.getIdList().stream().filter(
-				id -> id.getName().equals(serverID.getName())).findFirst();
+		Optional<ID> existingID = historyIDs.getIdList().stream().filter(id -> id.getName().equals(serverID.getName())).findFirst();
 		
 		if (existingID.isEmpty()) {
 			if (historyIDs.getIdList() == null) {

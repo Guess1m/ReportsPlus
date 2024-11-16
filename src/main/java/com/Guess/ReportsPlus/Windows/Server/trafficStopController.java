@@ -105,8 +105,7 @@ public class trafficStopController {
 		str.setText(localization.getLocalizedMessage("TrafficStopWindow.StreetLabel", "Traffic Stop Street:"));
 		ar.setText(localization.getLocalizedMessage("TrafficStopWindow.AreaLabel", "Traffic Stop Area:"));
 		own.setText(localization.getLocalizedMessage("TrafficStopWindow.OwnerLabel", "Registered Owner:"));
-		searchDMVButton.setText(
-				localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
+		searchDMVButton.setText(localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
 	}
 	
 	public void updateTrafficStopFields() throws IOException {
@@ -153,8 +152,7 @@ public class trafficStopController {
 	}
 	
 	private void setStyleBasedOnCondition(String condition, TextInputControl control) {
-		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase(
-				"suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
+		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase("suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
 			control.setStyle("-fx-text-fill: red !important;");
 		} else {
 			control.setStyle("-fx-text-fill: rgb(140, 140, 140) !important;");
@@ -213,11 +211,8 @@ public class trafficStopController {
 	public void searchDMV(ActionEvent actionEvent) {
 		CustomWindow vehWindow = WindowManager.getWindow("Vehicle Lookup");
 		if (vehWindow == null) {
-			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-			                                                       "Windows/Apps/lookup-veh-view.fxml",
-			                                                       "Vehicle Lookup", true, 1, true, false,
-			                                                       mainDesktopControllerObj.getTaskBarApps(),
-			                                                       vehLookupAppObj.getImage());
+			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Apps/lookup-veh-view.fxml", "Vehicle Lookup", true, 1, true, false,
+			                                                       mainDesktopControllerObj.getTaskBarApps(), vehLookupAppObj.getImage());
 			if (vehApp != null && vehApp.controller != null) {
 				vehLookupViewController = (VehLookupViewController) vehApp.controller;
 			}
@@ -237,8 +232,7 @@ public class trafficStopController {
 				try {
 					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
 					vehWindow.bringToFront();
-					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV",
-					    LogUtils.Severity.DEBUG);
+					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV", LogUtils.Severity.DEBUG);
 				} catch (IOException e) {
 					logError("Error searching plate from traffic stop window plate: " + platenum.getText(), e);
 				}

@@ -72,8 +72,7 @@ public class ID {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
 		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(
-				e -> e.getName().equals(ID.getName())).findFirst();
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());

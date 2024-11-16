@@ -52,9 +52,7 @@ public class ClientUtils {
 				
 				if (ClientController.clientController != null) {
 					Platform.runLater(() -> {
-						ClientController.clientController.getStatusLabel().setText(
-								localization.getLocalizedMessage("ServerConnectionWindow.TestingConnection",
-								                                 "Testing Connection..."));
+						ClientController.clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.TestingConnection", "Testing Connection..."));
 						ClientController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 					});
 				}
@@ -64,8 +62,7 @@ public class ClientUtils {
 				log("Socket connected successfully.", LogUtils.Severity.INFO);
 				
 				socket.setSoTimeout(Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
-				log("Socket timeout set to " + Integer.parseInt(
-						ConfigReader.configRead("connectionSettings", "socketTimeout")), LogUtils.Severity.INFO);
+				log("Socket timeout set to " + Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")), LogUtils.Severity.INFO);
 				
 				isConnected = true;
 				notifyStatusChanged(isConnected);
@@ -80,8 +77,7 @@ public class ClientUtils {
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
 				
-				log("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort,
-				    LogUtils.Severity.INFO);
+				log("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort, LogUtils.Severity.INFO);
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
 			} catch (IOException e) {
@@ -195,13 +191,11 @@ public class ClientUtils {
 	
 	private static void runUpdateLocation() {
 		Platform.runLater(() -> {
-			if (!mainDesktopControllerObj.getTopBar().getChildren().contains(
-					mainDesktopControllerObj.getLocationDataLabel())) {
+			if (!mainDesktopControllerObj.getTopBar().getChildren().contains(mainDesktopControllerObj.getLocationDataLabel())) {
 				mainDesktopControllerObj.getTopBar().getChildren().add(mainDesktopControllerObj.getLocationDataLabel());
 			}
 			try {
-				mainDesktopControllerObj.getLocationDataLabel().setText(
-						Files.readString(Paths.get(currentLocationFileURL)));
+				mainDesktopControllerObj.getLocationDataLabel().setText(Files.readString(Paths.get(currentLocationFileURL)));
 			} catch (IOException e) {
 				logError("Could Not Read FileString For LocationData: ", e);
 			}
@@ -211,20 +205,15 @@ public class ClientUtils {
 	private static void runUpdateID() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
-				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-				                                                         "Windows/Server/currentID-view.fxml",
-				                                                         "Current IDs", false, 1, true, true,
+				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/currentID-view.fxml", "Current IDs", false, 1, true, true,
 				                                                         mainDesktopControllerObj.getTaskBarApps(),
-				                                                         new Image(Objects.requireNonNull(
-						                                         Launcher.class.getResourceAsStream(
-								                                         "/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
+				                                                         new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
 				
 				try {
 					if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(
-									Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
+							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
 						} catch (IOException e) {
 							logError("ID could not be closed: ", e);
 						}
@@ -233,8 +222,7 @@ public class ClientUtils {
 								try {
 									IDWindow.closeWindow();
 								} catch (NullPointerException e) {
-									log("ID Window was closed before it could be automatically closed",
-									    LogUtils.Severity.WARN);
+									log("ID Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
 								}
 							});
 						}
@@ -255,12 +243,9 @@ public class ClientUtils {
 	private static void runUpdateCallout() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
-				calloutWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-				                                                 "Windows/Server/callout-view.fxml", "Callout Display",
-				                                                 false, 1, true, true,
-				                                                 mainDesktopControllerObj.getTaskBarApps(), new Image(
-								Objects.requireNonNull(Launcher.class.getResourceAsStream(
-										"/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
+				calloutWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/callout-view.fxml", "Callout Display", false, 1, true, true,
+				                                                 mainDesktopControllerObj.getTaskBarApps(),
+				                                                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-callout.wav");
@@ -273,8 +258,7 @@ public class ClientUtils {
 					if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(
-									Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
+							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
 						} catch (IOException e) {
 							logError("Callout could not be closed: ", e);
 						}
@@ -283,8 +267,7 @@ public class ClientUtils {
 								try {
 									calloutWindow.closeWindow();
 								} catch (NullPointerException e) {
-									log("Callout Window was closed before it could be automatically closed",
-									    LogUtils.Severity.WARN);
+									log("Callout Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
 								}
 							});
 						}
@@ -318,10 +301,8 @@ public class ClientUtils {
 					} else {
 						desc = desc + "\n" + message;
 					}
-					CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area,
-					                          county, time, date, status);
-					NotificationManager.showNotificationInfo("Callout Manager",
-					                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+					CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
+					NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
 				}
 			}
 		} catch (IOException e) {
@@ -332,11 +313,9 @@ public class ClientUtils {
 	private static void runTrafficStopUpdate() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true")) {
-				CustomWindow trafficStopWindow = WindowManager.createCustomWindow(
-						mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/trafficStop-view.fxml",
-						"Traffic Stop Data", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(
-								Objects.requireNonNull(Launcher.class.getResourceAsStream(
-										"/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
+				CustomWindow trafficStopWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/trafficStop-view.fxml", "Traffic Stop Data", true, 1,
+				                                                                  true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(
+								Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
 				
 				if (trafficStopWindow != null && trafficStopWindow.controller != null) {
 					trafficStopController.trafficStopController = (trafficStopController) trafficStopWindow.controller;
@@ -357,8 +336,7 @@ public class ClientUtils {
 					if (!ConfigReader.configRead("misc", "TrafficStopDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(
-									Double.parseDouble(ConfigReader.configRead("misc", "TrafficStopDuration"))));
+							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "TrafficStopDuration"))));
 						} catch (IOException e) {
 							logError("TrafficStop could not be closed: ", e);
 						}
@@ -367,8 +345,7 @@ public class ClientUtils {
 								try {
 									trafficStopWindow.closeWindow();
 								} catch (NullPointerException e) {
-									log("TrafficStop Window was closed before it could be automatically closed",
-									    LogUtils.Severity.WARN);
+									log("TrafficStop Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
 								}
 							});
 						}
@@ -435,8 +412,7 @@ public class ClientUtils {
 						try {
 							connectToService(serverAddress, serverPort);
 						} catch (IOException e) {
-							log("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage(),
-							    LogUtils.Severity.ERROR);
+							log("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage(), LogUtils.Severity.ERROR);
 						}
 					}
 				} else {

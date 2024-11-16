@@ -86,8 +86,7 @@ public class ConfigReader {
 				try (OutputStream output = new FileOutputStream(configFile)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property),
-				    LogUtils.Severity.DEBUG);
+				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}

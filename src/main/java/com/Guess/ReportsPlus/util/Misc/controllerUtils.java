@@ -62,8 +62,7 @@ public class controllerUtils {
 			for (String word : words) {
 				if (word.length() > 0) {
 					String lowerCasedWord = word.toLowerCase();
-					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(
-							lowerCasedWord.substring(1)).append(" ");
+					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(lowerCasedWord.substring(1)).append(" ");
 				}
 			}
 			return titleCased.toString().trim();
@@ -260,8 +259,7 @@ public class controllerUtils {
 	}
 	
 	public static String toHexString(Color color) {
-		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255),
-		                     (int) (color.getBlue() * 255));
+		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
 	}
 	
 	public static void clearDataLogs() {
@@ -387,8 +385,7 @@ public class controllerUtils {
 		dialog.setTitle("Confirm Action");
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		
-		Label messageLabel = new Label(
-				"Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
+		Label messageLabel = new Label("Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
 		Button yesButton = new Button("Yes");
 		yesButton.setOnAction(e -> {
 			dialog.setResult(true);
@@ -720,8 +717,7 @@ public class controllerUtils {
 			String[] items = text.split("\\|");
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
-					Label label = new Label(
-							localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
+					Label label = new Label(localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
 					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
 					labels.add(label);
 				}
@@ -755,8 +751,7 @@ public class controllerUtils {
 	}
 	
 	public static void setGunLicenseStatus(Ped ped) throws IOException {
-		Boolean hasGunLicense = calculateTrueFalseProbability(
-				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
+		Boolean hasGunLicense = calculateTrueFalseProbability(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
 		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
 		
 		if (hasGunLicense) {
@@ -766,8 +761,7 @@ public class controllerUtils {
 			String licenseClasses = getGunLicenseClass();
 			ped.setGunLicenseClass(licenseClasses);
 			
-			ped.setHuntingLicenseStatus(String.valueOf(
-					calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
+			ped.setHuntingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
 		}
 	}
 	
@@ -775,11 +769,10 @@ public class controllerUtils {
 		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
 		List<String> priorCharges;
 		try {
-			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
+			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")),
+			                                Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")),
+			                                Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")),
+			                                Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
 		} catch (ParserConfigurationException | SAXException e) {
 			throw new RuntimeException(e);
 		}
@@ -800,11 +793,10 @@ public class controllerUtils {
 		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
 		List<String> priorCitations;
 		try {
-			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
+			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")),
+			                                    Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")),
+			                                    Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")),
+			                                    Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
 		} catch (ParserConfigurationException | SAXException e) {
 			throw new RuntimeException(e);
 		}
@@ -822,10 +814,9 @@ public class controllerUtils {
 	}
 	
 	public static String getGunLicenseType() throws IOException {
-		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
+		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
+		                                                                   Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
+		                                                                   Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
 		
 		if (licenseTypeSet.toLowerCase().contains("open")) {
 			return "Open Carry";
@@ -837,10 +828,9 @@ public class controllerUtils {
 	}
 	
 	public static String getGunLicenseClass() throws IOException {
-		Set<String> licenseClassSet = getPermitClassBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
+		Set<String> licenseClassSet = getPermitClassBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
+		                                                           Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
+		                                                           Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
 		
 		return String.join(" / ", licenseClassSet).trim();
 	}
@@ -861,14 +851,12 @@ public class controllerUtils {
 		
 		if (totalChargePriors >= 1) {
 			try {
-				ped.setParoleStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
+				ped.setParoleStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
 			} catch (IOException e) {
 				logError("Could not set ParoleStatus: ", e);
 			}
 			try {
-				ped.setProbationStatus(String.valueOf(
-						calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
+				ped.setProbationStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
 			} catch (IOException e) {
 				logError("Could not set ProbationStatus: ", e);
 			}
@@ -897,10 +885,8 @@ public class controllerUtils {
 		}
 		
 		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		ped.setFishingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
 		if (!pedModel.equalsIgnoreCase("Not Found")) {
 			ped.setModel(pedModel);
 		} else {
@@ -942,18 +928,15 @@ public class controllerUtils {
 	public static Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
 		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
 		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(),
-		                    isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
 		
 		if (isWantedOutcome.equalsIgnoreCase("true")) {
 			setPedWarrantStatus(ped);
 		}
 		
 		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		ped.setFishingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
+		ped.setBoatingLicenseStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
 		ped.setVehiclePlateNum(vehPlateNum);
 		try {
 			setGunLicenseStatus(ped);

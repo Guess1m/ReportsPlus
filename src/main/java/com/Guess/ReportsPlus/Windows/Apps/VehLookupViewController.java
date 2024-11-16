@@ -145,23 +145,17 @@ public class VehLookupViewController {
 	
 	private void addLocalization() {
 		lookupmainlbl.setText(localization.getLocalizedMessage("VehicleLookup.MainHeader", "D.M.V Vehicle Lookup"));
-		vehnocolorlabel.setText(
-				localization.getLocalizedMessage("VehicleLookup.NoColorFoundLabel", "No Color On Record"));
-		noVehImageFoundlbl.setText(
-				localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-		noRecordFoundLabelVeh.setText(
-				localization.getLocalizedMessage("VehicleLookup.NoVehFoundInSystem", "No Record Found In System"));
+		vehnocolorlabel.setText(localization.getLocalizedMessage("VehicleLookup.NoColorFoundLabel", "No Color On Record"));
+		noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+		noRecordFoundLabelVeh.setText(localization.getLocalizedMessage("VehicleLookup.NoVehFoundInSystem", "No Record Found In System"));
 		lbl1.setText(localization.getLocalizedMessage("VehicleLookup.SubHeading", "Search Plate:"));
 		
 		vehSearchBtn.setText(localization.getLocalizedMessage("VehicleLookup.SearchButton", "Search"));
-		addDataToNotesBtn.setText(
-				localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
-		probabilitySettingsBtn.setText(
-				localization.getLocalizedMessage("VehicleLookup.ProbabilitySettingsBtn", "Probability Settings"));
+		addDataToNotesBtn.setText(localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
+		probabilitySettingsBtn.setText(localization.getLocalizedMessage("VehicleLookup.ProbabilitySettingsBtn", "Probability Settings"));
 		
 		btninfo3.setText(localization.getLocalizedMessage("VehicleLookup.OwnerLookupBtn", "Owner Lookup"));
-		btninfo2.setText(
-				localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
+		btninfo2.setText(localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
 		btninfo1.setText(localization.getLocalizedMessage("VehicleLookup.UpdateVehicleTypeBtn", "Update Vehicle Type"));
 		
 		info1.setText(localization.getLocalizedMessage("VehicleLookup.VehicleInfoHeader", "Vehicle Information"));
@@ -191,8 +185,7 @@ public class VehLookupViewController {
 		vehSearchField.getEditor().positionCaret(vehSearchField.getEditor().getText().length());
 		
 		log("Searched: " + searchedPlate, LogUtils.Severity.INFO);
-		Map<String, String> vehData = grabVehicleData(
-				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
+		Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
 		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
 		
 		String model = vehData.getOrDefault("model", "Not Found");
@@ -217,15 +210,13 @@ public class VehLookupViewController {
 			Vehicle vehicle = vehOptional.get();
 			
 			if (vehicle.getInspection() == null) {
-				vehicle.setInspection(generateInspectionStatus(
-						Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
+				vehicle.setInspection(generateInspectionStatus(Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
 				try {
 					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 				} catch (JAXBException e) {
 					logError("Could not save new vehInspection: ", e);
 				}
-				log("Set vehInspection as '" + vehicle.getInspection() + "' since it created before pedModel was added",
-				    LogUtils.Severity.WARN);
+				log("Set vehInspection as '" + vehicle.getInspection() + "' since it created before pedModel was added", LogUtils.Severity.WARN);
 			}
 			
 			if (vehicle.getType() == null) {
@@ -235,8 +226,7 @@ public class VehLookupViewController {
 				} catch (JAXBException e) {
 					logError("Could not save new vehType: ", e);
 				}
-				log("Set vehType as '" + vehicle.getType() + "' since it created before pedModel was added",
-				    LogUtils.Severity.WARN);
+				log("Set vehType as '" + vehicle.getType() + "' since it created before pedModel was added", LogUtils.Severity.WARN);
 			}
 			vehtypecombobox.setValue(vehicle.getType());
 			
@@ -251,24 +241,21 @@ public class VehLookupViewController {
 			}
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
-			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
-					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
+			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase("suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 			} else {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehinspectionfield.setText(vehicle.getInspection());
-			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
-					"invalid")) {
+			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehinsfield.setText(vehicle.getInsurance());
-			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
-					"suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
+			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 			} else {
@@ -283,8 +270,7 @@ public class VehLookupViewController {
 			
 			if (!vehicle.getColor().equals("Not Found")) {
 				vehnocolorlabel.setVisible(false);
-				vehcolordisplay.setStyle(
-						"-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
+				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
@@ -296,8 +282,7 @@ public class VehLookupViewController {
 				if (pedImgFolder.exists()) {
 					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
 					
-					File[] matchingFiles = pedImgFolder.listFiles(
-							(dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
+					File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
@@ -312,33 +297,27 @@ public class VehLookupViewController {
 							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							vehImageView.setImage(defImage);
 							noVehImageFoundlbl.setVisible(true);
-							noVehImageFoundlbl.setText(
-									localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-									                                 "No Image Found In System"));
+							noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 							logError("Could not set vehImage: ", e);
 						}
 					} else {
-						log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.",
-						    LogUtils.Severity.WARN);
+						log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.", LogUtils.Severity.WARN);
 						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 						vehImageView.setImage(defImage);
 						noVehImageFoundlbl.setVisible(true);
-						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-						                                                            "No Image Found In System"));
+						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 					}
 				} else {
 					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 					vehImageView.setImage(defImage);
 					noVehImageFoundlbl.setVisible(true);
-					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-					                                                            "No Image Found In System"));
+					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 				}
 			} else {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 				vehImageView.setImage(defImage);
 				noVehImageFoundlbl.setVisible(true);
-				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-				                                                            "No Image Found In System"));
+				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 			}
 			
 		} else if (!licensePlate.equals("Not Found")) {
@@ -358,8 +337,7 @@ public class VehLookupViewController {
 			vehicle.setPoliceStatus(isPolice);
 			vehicle.setStolenStatus(isStolen);
 			vehicle.setRegistration(registration);
-			vehicle.setInspection(generateInspectionStatus(
-					Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
+			vehicle.setInspection(generateInspectionStatus(Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
 			try {
 				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 			} catch (JAXBException e) {
@@ -376,8 +354,7 @@ public class VehLookupViewController {
 			}
 			vehownerfield.setText(vehicle.getOwner());
 			vehregfield.setText(vehicle.getRegistration());
-			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase(
-					"suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
+			if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase("suspended") || vehicle.getRegistration().equalsIgnoreCase("none")) {
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 				
@@ -385,8 +362,7 @@ public class VehLookupViewController {
 				vehregfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehinsfield.setText(vehicle.getInsurance());
-			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase(
-					"suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
+			if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("suspended") || vehicle.getInsurance().equalsIgnoreCase("none")) {
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 				
@@ -394,8 +370,7 @@ public class VehLookupViewController {
 				vehinsfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehinspectionfield.setText(vehicle.getInspection());
-			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
-					"invalid")) {
+			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 				
@@ -410,8 +385,7 @@ public class VehLookupViewController {
 			}
 			if (!vehicle.getColor().equals("Not Found")) {
 				vehnocolorlabel.setVisible(false);
-				vehcolordisplay.setStyle(
-						"-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
+				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
@@ -426,8 +400,7 @@ public class VehLookupViewController {
 				if (pedImgFolder.exists()) {
 					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
 					
-					File[] matchingFiles = pedImgFolder.listFiles(
-							(dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
+					File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
@@ -442,33 +415,27 @@ public class VehLookupViewController {
 							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							vehImageView.setImage(defImage);
 							noVehImageFoundlbl.setVisible(true);
-							noVehImageFoundlbl.setText(
-									localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-									                                 "No Image Found In System"));
+							noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 							logError("Could not set vehImage: ", e);
 						}
 					} else {
-						log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.",
-						    LogUtils.Severity.WARN);
+						log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.", LogUtils.Severity.WARN);
 						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 						vehImageView.setImage(defImage);
 						noVehImageFoundlbl.setVisible(true);
-						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-						                                                            "No Image Found In System"));
+						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 					}
 				} else {
 					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 					vehImageView.setImage(defImage);
 					noVehImageFoundlbl.setVisible(true);
-					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-					                                                            "No Image Found In System"));
+					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 				}
 			} else {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 				vehImageView.setImage(defImage);
 				noVehImageFoundlbl.setVisible(true);
-				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
-				                                                            "No Image Found In System"));
+				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 			}
 			
 		} else {
@@ -489,11 +456,9 @@ public class VehLookupViewController {
 	
 	@javafx.fxml.FXML
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-		                                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
-		                                 false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
-		                                 new Image(Objects.requireNonNull(
-						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", false, 1, true, false,
+		                                 mainDesktopControllerObj.getTaskBarApps(),
+		                                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}
 	
 	@javafx.fxml.FXML
@@ -504,19 +469,12 @@ public class VehLookupViewController {
 		Object type = vehtypecombobox.getValue();
 		
 		Map<String, Object> impoundReportObj = newImpound();
-		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(
-				localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
+		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
 		
-		TextField offenderNameimp = (TextField) impoundReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField plateNumberimp = (TextField) impoundReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-		TextField modelimp = (TextField) impoundReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-		ComboBox vehType = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType",
-		                                                                                    localization.getLocalizedMessage(
-				                                                                                    "ReportWindows.FieldType",
-				                                                                                    "type")));
+		TextField offenderNameimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField plateNumberimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField modelimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox vehType = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
 		
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);
@@ -565,8 +523,7 @@ public class VehLookupViewController {
 				owner = vehownerfield.getText().trim();
 				fullString.append("-name ").append(owner).append(" ");
 			}
-			if (vehtypecombobox != null && !vehtypecombobox.getValue().toString().isEmpty() && !vehtypecombobox.getValue().toString().equalsIgnoreCase(
-					"n/a")) {
+			if (vehtypecombobox != null && !vehtypecombobox.getValue().toString().isEmpty() && !vehtypecombobox.getValue().toString().equalsIgnoreCase("n/a")) {
 				owner = vehtypecombobox.getValue().toString().trim();
 				fullString.append("-type ").append(owner).append(" ");
 			}
@@ -683,11 +640,8 @@ public class VehLookupViewController {
 	public void ownerLookup(ActionEvent actionEvent) {
 		CustomWindow pedWindow = WindowManager.getWindow("Pedestrian Lookup");
 		if (pedWindow == null) {
-			CustomWindow pedApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-			                                                       "Windows/Apps/lookup-ped-view.fxml",
-			                                                       "Pedestrian Lookup", true, 1, true, false,
-			                                                       mainDesktopControllerObj.getTaskBarApps(),
-			                                                       pedLookupAppObj.getImage());
+			CustomWindow pedApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Apps/lookup-ped-view.fxml", "Pedestrian Lookup", true, 1, true, false,
+			                                                       mainDesktopControllerObj.getTaskBarApps(), pedLookupAppObj.getImage());
 			if (pedApp != null && pedApp.controller != null) {
 				pedLookupViewController = (PedLookupViewController) pedApp.controller;
 			}
@@ -707,8 +661,7 @@ public class VehLookupViewController {
 				try {
 					pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
 					pedWindow.bringToFront();
-					log("Bringing up ped search for: " + vehownerfield.getText().strip() + " from ownerLookup",
-					    LogUtils.Severity.DEBUG);
+					log("Bringing up ped search for: " + vehownerfield.getText().strip() + " from ownerLookup", LogUtils.Severity.DEBUG);
 				} catch (IOException e) {
 					logError("Error searching owner from ownerLookup, owner: " + vehownerfield.getText().strip(), e);
 				}

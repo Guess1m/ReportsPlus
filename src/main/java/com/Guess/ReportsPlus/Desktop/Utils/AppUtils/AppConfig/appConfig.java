@@ -78,8 +78,7 @@ public class appConfig {
 				try (OutputStream output = new FileOutputStream(appConfigFilePath)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(
-						newDatabase + "." + property), LogUtils.Severity.DEBUG);
+				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}

@@ -15,7 +15,7 @@ import java.util.Map;
 public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
 	public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
-	public static Map<String, double[]> windowPositions = new HashMap<>(); // Store x, y positions for each window
+	public static Map<String, double[]> windowPositions = new HashMap<>();
 	
 	public static CustomWindow createCustomWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
 		if (!windows.containsKey(title)) {
@@ -24,13 +24,13 @@ public class WindowManager {
 				throw new RuntimeException("FXML file not found: " + fileName);
 			}
 			
-			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root, image);
+			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root,
+			                                             image);
 			
 			if (root != null) {
 				Platform.runLater(() -> {
 					root.getChildren().add(customWindow.getWindowPane());
 					
-					// Restore position if available
 					double[] savedPosition = windowPositions.get(title);
 					if (savedPosition != null) {
 						customWindow.setPosition(savedPosition[0], savedPosition[1]);
@@ -47,7 +47,6 @@ public class WindowManager {
 		} else {
 			CustomWindow customWindow = windows.get(title);
 			if (reopen) {
-				// Save the current position before closing
 				double x = customWindow.getWindowPane().getLayoutX();
 				double y = customWindow.getWindowPane().getLayoutY();
 				windowPositions.put(title, new double[]{x, y});
@@ -56,8 +55,8 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				// Recreate the window with the saved position
-				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
+				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
+				                          taskBarApps, image);
 			} else {
 				customWindow.bringToFront();
 			}
@@ -72,7 +71,6 @@ public class WindowManager {
 			if (root != null) {
 				root.getChildren().add(customWindow.getWindowPane());
 				
-				// Restore position if available
 				double[] savedPosition = windowPositions.get(title);
 				if (savedPosition != null) {
 					customWindow.setPosition(savedPosition[0], savedPosition[1]);
@@ -86,7 +84,6 @@ public class WindowManager {
 		} else {
 			CustomWindow customWindow = windows.get(title);
 			if (reopen) {
-				// Save the current position before closing
 				double x = customWindow.getWindowPane().getLayoutX();
 				double y = customWindow.getWindowPane().getLayoutY();
 				windowPositions.put(title, new double[]{x, y});
@@ -95,8 +92,8 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				// Recreate the window with the saved position
-				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
+				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps,
+				                   image);
 			} else {
 				customWindow.bringToFront();
 			}

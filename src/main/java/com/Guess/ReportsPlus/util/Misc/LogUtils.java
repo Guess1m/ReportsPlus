@@ -59,7 +59,8 @@ public class LogUtils {
 	}
 	
 	public static void endLog() {
-		System.out.println("----------------------------- END LOG [" + MainApplication.getTime() + "] -----------------------------");
+		System.out.println(
+				"----------------------------- END LOG [" + MainApplication.getTime() + "] -----------------------------");
 		System.out.println();
 	}
 	

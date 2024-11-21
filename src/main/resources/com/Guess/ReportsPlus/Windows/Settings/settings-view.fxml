@@ -647,7 +647,7 @@
                                                styleClass="paneHeading" text="Desktop Image Chooser"
                                                GridPane.valignment="CENTER"/>
                                         <Label fx:id="desktopImageChooserTT" alignment="CENTER" styleClass="paneSubtext"
-                                               text="Choose the image to use as the desktop background (Matching monitor aspect ratio will work best)"
+                                               text="Choose the image to use as the desktop background (Matching monitor size will work best)"
                                                wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets/>

@@ -135,21 +135,33 @@ public class mainDesktopController {
 						Image image = loadImageFromAbsolutePath(path);
 						log("Loading image from path: " + path, LogUtils.Severity.DEBUG);
 						
-						BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-						                                                      new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
+						BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+						                                                      BackgroundRepeat.NO_REPEAT,
+						                                                      BackgroundPosition.CENTER,
+						                                                      new BackgroundSize(BackgroundSize.AUTO,
+						                                                                         BackgroundSize.AUTO,
+						                                                                         true, true, false,
+						                                                                         false));
 						
 						container.setBackground(new Background(backgroundImage));
 					} else {
-						Image errorImg = new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/IMGNotFound.png")));
-						BackgroundImage errorBkgImg = new BackgroundImage(errorImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-						                                                  new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
+						Image errorImg = new Image(Objects.requireNonNull(
+								Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/IMGNotFound.png")));
+						BackgroundImage errorBkgImg = new BackgroundImage(errorImg, BackgroundRepeat.NO_REPEAT,
+						                                                  BackgroundRepeat.NO_REPEAT,
+						                                                  BackgroundPosition.CENTER,
+						                                                  new BackgroundSize(BackgroundSize.AUTO,
+						                                                                     BackgroundSize.AUTO, true,
+						                                                                     true, false, false));
 						container.setBackground(new Background(errorBkgImg));
-						log("Cant update image, path is empty, showing noImgFound bkg: " + path, LogUtils.Severity.WARN);
+						log("Cant update image, path is empty, showing noImgFound bkg: " + path,
+						    LogUtils.Severity.WARN);
 						
 					}
 				} else {
 					String color = ConfigReader.configRead("desktopSettings", "desktopColor");
-					BackgroundFill background_fill = new BackgroundFill(Color.web(color), CornerRadii.EMPTY, Insets.EMPTY);
+					BackgroundFill background_fill = new BackgroundFill(Color.web(color), CornerRadii.EMPTY,
+					                                                    Insets.EMPTY);
 					
 					Background background = new Background(background_fill);
 					container.setBackground(background);
@@ -194,11 +206,13 @@ public class mainDesktopController {
 		search.setOnAction(event -> newSearch());
 		trafficCitation.setOnAction(event -> newCitation());
 		trafficStop.setOnAction(event -> newTrafficStop());
+		// todo rem test button
 		testBtn.setOnAction(event -> {
 			showNotificationInfo("Dev", "Test button clicked...");
 		});
 		
-		reportContextMenu.getItems().addAll(accident, arrest, callout, death, impound, incident, patrol, search, trafficCitation, trafficStop, testBtn);
+		reportContextMenu.getItems().addAll(accident, arrest, callout, death, impound, incident, patrol, search,
+		                                    trafficCitation, trafficStop, testBtn);
 		
 		return reportContextMenu;
 	}
@@ -219,7 +233,8 @@ public class mainDesktopController {
 				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
 					desktopApp.getMainPane().setStyle("-fx-background-color: rgb(0,0,0,0.25);");
 					infoHBox.setVisible(true);
-					infoLabelLeft.setText(localization.getLocalizedMessage("Desktop.CurrentModeLabel", "Current Mode:"));
+					infoLabelLeft.setText(
+							localization.getLocalizedMessage("Desktop.CurrentModeLabel", "Current Mode:"));
 					infoLabelRight.setText(localization.getLocalizedMessage("Desktop.EditingMode", "Editing"));
 					infoLabelRight.setStyle("-fx-text-fill: darkred;");
 					infoLabelRight.setUnderline(true);
@@ -252,17 +267,20 @@ public class mainDesktopController {
 		updateTime();
 		updateDate();
 		
-		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> updateTime()), new KeyFrame(Duration.seconds(1)));
+		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> updateTime()),
+		                              new KeyFrame(Duration.seconds(1)));
 		clock.setCycleCount(Animation.INDEFINITE);
 		clock.play();
 		
 		versionLabel.setText(stringUtil.version);
 		if (!stringUtil.version.equals(gitVersion)) {
 			if (gitVersion == null) {
-				versionLabel.setText(localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
+				versionLabel.setText(
+						localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
 				versionLabel.setStyle("-fx-text-fill: darkred;");
 			} else {
-				versionLabel.setText(gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel", "Available!"));
+				versionLabel.setText(
+						gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel", "Available!"));
 				versionLabel.setStyle("-fx-text-fill: darkred;");
 			}
 		}
@@ -332,11 +350,15 @@ public class mainDesktopController {
 	}
 	
 	private void addApps() {
-		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/notepad.png"))));
+		DesktopApp notesAppObj = new DesktopApp("Notes", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/notepad.png"))));
 		VBox notesApp = notesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow mainApp = WindowManager.createCustomWindow(desktopContainer, "Windows/Other/notes-view.fxml", "Notes", true, 1, true, false, taskBarApps, notesAppObj.getImage());
+					CustomWindow mainApp = WindowManager.createCustomWindow(desktopContainer,
+					                                                        "Windows/Other/notes-view.fxml", "Notes",
+					                                                        true, 1, true, false, taskBarApps,
+					                                                        notesAppObj.getImage());
 					if (mainApp != null && mainApp.controller != null) {
 						NotesViewController.notesViewController = (NotesViewController) mainApp.controller;
 					}
@@ -350,11 +372,15 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, notesApp, appConfigRead("Notes", "x"), appConfigRead("Notes", "y"));
 		
-		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+		DesktopApp settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 		VBox settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow settingsWindow = WindowManager.createCustomWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", true, 1, true, false, taskBarApps,
+					CustomWindow settingsWindow = WindowManager.createCustomWindow(desktopContainer,
+					                                                               "Windows/Settings/settings-view.fxml",
+					                                                               "Program Settings", true, 1, true,
+					                                                               false, taskBarApps,
 					                                                               settingsAppObj.getImage());
 					if (settingsWindow != null && settingsWindow.controller != null) {
 						settingsController.SettingsController = (settingsController) settingsWindow.controller;
@@ -364,11 +390,14 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, settingsApp, appConfigRead("Settings", "x"), appConfigRead("Settings", "y"));
 		
-		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/updates.png"))));
+		DesktopApp updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/updates.png"))));
 		VBox updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/updates-view.fxml", "Version Information", true, 1, true, false, taskBarApps, updatesAppObj.getImage());
+					WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/updates-view.fxml",
+					                                 "Version Information", true, 1, true, false, taskBarApps,
+					                                 updatesAppObj.getImage());
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -379,11 +408,14 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, updatesApp, appConfigRead("Updates", "x"), appConfigRead("Updates", "y"));
 		
-		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/logs.png"))));
+		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/logs.png"))));
 		VBox logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer", true, 1, true, false, taskBarApps,
+					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer,
+					                                                       "Windows/Apps/log-view.fxml", "Log Viewer",
+					                                                       true, 1, true, false, taskBarApps,
 					                                                       logBrowserAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						LogViewController.logController = (LogViewController) logapp.controller;
@@ -396,13 +428,18 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, logBrowserApp, appConfigRead("Log Browser", "x"), appConfigRead("Log Browser", "y"));
+		addAppToDesktop(desktopContainer, logBrowserApp, appConfigRead("Log Browser", "x"),
+		                appConfigRead("Log Browser", "y"));
 		
-		calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
+		calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
 		VBox calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/callout-view.fxml", "Callout Manager", true, 1, true, false, taskBarApps,
+					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer,
+					                                                       "Windows/Apps/callout-view.fxml",
+					                                                       "Callout Manager", true, 1, true, false,
+					                                                       taskBarApps,
 					                                                       calloutManagerAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						CalloutViewController.calloutViewController = (CalloutViewController) logapp.controller;
@@ -415,14 +452,18 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, calloutManagerApp, appConfigRead("Callouts", "x"), appConfigRead("Callouts", "y"));
+		addAppToDesktop(desktopContainer, calloutManagerApp, appConfigRead("Callouts", "x"),
+		                appConfigRead("Callouts", "y"));
 		
-		courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/courtIcon.png"))));
+		courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/courtIcon.png"))));
 		VBox courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/court-view.fxml", "Court Case Manager", true, 1, true, false, taskBarApps,
-					                                                       courtAppObj.getImage());
+					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer,
+					                                                       "Windows/Apps/court-view.fxml",
+					                                                       "Court Case Manager", true, 1, true, false,
+					                                                       taskBarApps, courtAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						CourtViewController.courtViewController = (CourtViewController) logapp.controller;
 					}
@@ -436,12 +477,15 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, courtApp, appConfigRead("CourtCase", "x"), appConfigRead("CourtCase", "y"));
 		
-		pedLookupAppObj = new DesktopApp("Ped Lookup", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/ped-search.png"))));
+		pedLookupAppObj = new DesktopApp("Ped Lookup", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/ped-search.png"))));
 		VBox lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/lookup-ped-view.fxml", "Pedestrian Lookup", true, 1, true, false, taskBarApps,
-					                                                       pedLookupAppObj.getImage());
+					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer,
+					                                                       "Windows/Apps/lookup-ped-view.fxml",
+					                                                       "Pedestrian Lookup", true, 1, true, false,
+					                                                       taskBarApps, pedLookupAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						pedLookupViewController = (PedLookupViewController) logapp.controller;
 					}
@@ -453,14 +497,18 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("Ped Lookup", "x"), appConfigRead("Ped Lookup", "y"));
+		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("Ped Lookup", "x"),
+		                appConfigRead("Ped Lookup", "y"));
 		
-		vehLookupAppObj = new DesktopApp("Veh Lookup", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/veh-search.png"))));
+		vehLookupAppObj = new DesktopApp("Veh Lookup", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/veh-search.png"))));
 		VBox vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/lookup-veh-view.fxml", "Vehicle Lookup", true, 1, true, false, taskBarApps,
-					                                                       vehLookupAppObj.getImage());
+					CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer,
+					                                                       "Windows/Apps/lookup-veh-view.fxml",
+					                                                       "Vehicle Lookup", true, 1, true, false,
+					                                                       taskBarApps, vehLookupAppObj.getImage());
 					if (logapp != null && logapp.controller != null) {
 						VehLookupViewController.vehLookupViewController = (VehLookupViewController) logapp.controller;
 					}
@@ -472,13 +520,18 @@ public class mainDesktopController {
 				}
 			}
 		});
-		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"), appConfigRead("Veh Lookup", "y"));
+		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"),
+		                appConfigRead("Veh Lookup", "y"));
 		
-		connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/server.png"))));
+		connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/server.png"))));
 		VBox connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow serverApp = WindowManager.createCustomWindow(desktopContainer, "Windows/Server/client-view.fxml", "Server Connection", false, 1, true, false, taskBarApps,
+					CustomWindow serverApp = WindowManager.createCustomWindow(desktopContainer,
+					                                                          "Windows/Server/client-view.fxml",
+					                                                          "Server Connection", false, 1, true,
+					                                                          false, taskBarApps,
 					                                                          connectionAppObj.getImage());
 					if (serverApp != null && serverApp.controller != null) {
 						clientController = (ClientController) serverApp.controller;
@@ -493,12 +546,15 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, connectionApp, appConfigRead("Server", "x"), appConfigRead("Server", "y"));
 		
-		showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
+		showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
 		VBox showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					CustomWindow IDApp = WindowManager.createCustomWindow(desktopContainer, "Windows/Server/currentID-view.fxml", "Current IDs", false, 1, true, true, taskBarApps,
-					                                                      showIDAppObj.getImage());
+					CustomWindow IDApp = WindowManager.createCustomWindow(desktopContainer,
+					                                                      "Windows/Server/currentID-view.fxml",
+					                                                      "Current IDs", false, 1, true, true,
+					                                                      taskBarApps, showIDAppObj.getImage());
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -509,11 +565,14 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, showIDApp, appConfigRead("Show IDs", "x"), appConfigRead("Show IDs", "y"));
 		
-		profileAppObj = new DesktopApp("Profile", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/profile.png"))));
+		profileAppObj = new DesktopApp("Profile", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/profile.png"))));
 		VBox profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					userManager = WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "Profile", false, 1, true, false, taskBarApps, profileAppObj.getImage());
+					userManager = WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/user-manager.fxml",
+					                                               "Profile", false, 1, true, false, taskBarApps,
+					                                               profileAppObj.getImage());
 					userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
 					try {
 						settingsController.loadTheme();
@@ -546,7 +605,8 @@ public class mainDesktopController {
 			if (clientController != null) {
 				clientController.getPortField().setText("");
 				clientController.getInetField().setText("");
-				clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
+				clientController.getStatusLabel().setText(
+						localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
 				clientController.getStatusLabel().setStyle("-fx-background-color: #ff5e5e;");
 				serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
@@ -563,7 +623,8 @@ public class mainDesktopController {
 				}
 				clientController.getPortField().setText(ClientUtils.port);
 				clientController.getInetField().setText(ClientUtils.inet);
-				clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.Connected", "Connected"));
+				clientController.getStatusLabel().setText(
+						localization.getLocalizedMessage("ServerConnectionWindow.Connected", "Connected"));
 				clientController.getStatusLabel().setStyle("-fx-background-color: green;");
 			}
 		}

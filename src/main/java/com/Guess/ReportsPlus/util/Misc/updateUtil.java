@@ -33,7 +33,8 @@ public class updateUtil {
 				log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", LogUtils.Severity.ERROR);
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
+			    LogUtils.Severity.ERROR);
 		} catch (IOException e) {
 			logError("Cant check for updates: ", e);
 		}

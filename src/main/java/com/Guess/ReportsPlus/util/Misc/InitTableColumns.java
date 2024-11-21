@@ -88,10 +88,28 @@ public class InitTableColumns {
 		TableColumn<DeathReport, String> dateOfDeathColumn = new TableColumn<>("Date of Death");
 		dateOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfDeath"));
 		
-		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(notesColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn,
-		                                                                                                   streetColumn, countyColumn, areaColumn, dateColumn, timeColumn, deathReportNumberColumn,
-		                                                                                                   decedentColumn, ageColumn, genderColumn, descriptionColumn, addressColumn, witnessesColumn,
-		                                                                                                   causeOfDeathColumn, modeOfDeathColumn, timeofDeathColumn, dateOfDeathColumn);
+		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(notesColumn,
+		                                                                                                   divisionColumn,
+		                                                                                                   agencyColumn,
+		                                                                                                   numberColumn,
+		                                                                                                   rankColumn,
+		                                                                                                   nameColumn,
+		                                                                                                   streetColumn,
+		                                                                                                   countyColumn,
+		                                                                                                   areaColumn,
+		                                                                                                   dateColumn,
+		                                                                                                   timeColumn,
+		                                                                                                   deathReportNumberColumn,
+		                                                                                                   decedentColumn,
+		                                                                                                   ageColumn,
+		                                                                                                   genderColumn,
+		                                                                                                   descriptionColumn,
+		                                                                                                   addressColumn,
+		                                                                                                   witnessesColumn,
+		                                                                                                   causeOfDeathColumn,
+		                                                                                                   modeOfDeathColumn,
+		                                                                                                   timeofDeathColumn,
+		                                                                                                   dateOfDeathColumn);
 		
 		tableview.getColumns().addAll(deathReportColumns);
 		
@@ -162,10 +180,11 @@ public class InitTableColumns {
 		TableColumn<ImpoundReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn,
-		                                                                                                 ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn,
-		                                                                                                 impoundTypeColumn, impoundColorColumn, impoundCommentsColumn, officerRankColumn,
-		                                                                                                 officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
+		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(
+				impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn,
+				ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn,
+				impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
+				officerDivisionColumn, officerAgencyColumn);
 		
 		tableview.getColumns().addAll(impoundColumns);
 		
@@ -221,9 +240,10 @@ public class InitTableColumns {
 		TableColumn<PatrolReport, String> patrolCommentsColumn = new TableColumn<>("Comments");
 		patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
 		
-		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn,
-		                                                                                               patrolStopTimeColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
-		                                                                                               officerDivisionColumn, officerAgencyColumn, officerVehicleColumn, patrolCommentsColumn);
+		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(
+				patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn,
+				officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn,
+				officerVehicleColumn, patrolCommentsColumn);
 		
 		tableview.getColumns().addAll(patrolColumns);
 		
@@ -309,13 +329,13 @@ public class InitTableColumns {
 		TableColumn<TrafficCitationReport, String> citationCommentsColumn = new TableColumn<>("Comments");
 		citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
 		
-		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn,
-		                                                                                                          citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn,
-		                                                                                                          offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn,
-		                                                                                                          offenderDescriptionColumn, offenderVehicleModelColumn, offenderVehicleColorColumn,
-		                                                                                                          offenderVehicleTypeColumn, offenderVehiclePlateColumn, offenderVehicleOtherColumn,
-		                                                                                                          officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn,
-		                                                                                                          officerAgencyColumn, citationCommentsColumn);
+		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(
+				citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn,
+				citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn,
+				offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn,
+				offenderVehicleModelColumn, offenderVehicleColorColumn, offenderVehicleTypeColumn,
+				offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
 		
 		tableview.getColumns().addAll(citationColumns);
 		
@@ -397,12 +417,12 @@ public class InitTableColumns {
 		TableColumn<ArrestReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
 		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
 		
-		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn,
-		                                                                                               arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn,
-		                                                                                               arresteeGenderColumn, arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn,
-		                                                                                               arresteeMedicalInformationColumn, arresteeHomeAddressColumn, arrestDetailsColumn,
-		                                                                                               officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn,
-		                                                                                               officerAgencyColumn);
+		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(
+				arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn,
+				arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn,
+				arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn,
+				arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
 		
 		tableview.getColumns().addAll(arrestColumns);
 		
@@ -469,11 +489,11 @@ public class InitTableColumns {
 		TableColumn<IncidentReport, String> incidentCommentsColumn = new TableColumn<>("Comments");
 		incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
 		
-		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn,
-		                                                                                                   incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn,
-		                                                                                                   officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
-		                                                                                                   incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn,
-		                                                                                                   incidentCommentsColumn);
+		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(
+				incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn,
+				incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn,
+				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
+				incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
 		
 		tableview.getColumns().addAll(incidentColumns);
 		for (TableColumn<IncidentReport, ?> column : incidentColumns) {
@@ -550,12 +570,12 @@ public class InitTableColumns {
 		TableColumn<SearchReport, String> BACMeasurementColumn = new TableColumn<>("BAC");
 		BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
 		
-		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn,
-		                                                                                               searchGroundsColumn, searchTypeColumn, searchMethodColumn, searchWitnessesColumn,
-		                                                                                               officerRankColumn, officerNameColumn, officerNumberColumn, officerAgencyColumn,
-		                                                                                               officerDivisionColumn, searchStreetColumn, searchAreaColumn, searchCountyColumn,
-		                                                                                               searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn,
-		                                                                                               BACMeasurementColumn);
+		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(
+				searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn,
+				searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn,
+				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn,
+				searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn,
+				BACMeasurementColumn);
 		
 		tableview.getColumns().addAll(searchColumns);
 		
@@ -638,11 +658,11 @@ public class InitTableColumns {
 		TableColumn<TrafficStopReport, String> operatorAddressColumn = new TableColumn<>("Operator Address");
 		operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
 		
-		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn,
-		                                                                                                         operatorNameColumn, operatorAgeColumn, operatorAddressColumn,
-		                                                                                                         operatorDescriptionColumn, operatorGenderColumn, nameColumn, rankColumn, numberColumn,
-		                                                                                                         divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn, countyColumn,
-		                                                                                                         areaColumn, plateNumberColumn, colorColumn, typeColumn);
+		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(
+				stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn,
+				operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn,
+				rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn,
+				countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
 		
 		tableview.getColumns().addAll(trafficStopColumns);
 		for (TableColumn<TrafficStopReport, ?> column : trafficStopColumns) {
@@ -704,9 +724,20 @@ public class InitTableColumns {
 		TableColumn<CalloutReport, String> areaColumn = new TableColumn<>("Area");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		
-		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn, dateColumn, timeColumn, notesTextAreaColumn, responseGradeColumn,
-		                                                                                          responseTypeColumn, divisionColumn, agencyColumn, numberColumn, rankColumn, nameColumn, addressColumn,
-		                                                                                          countyColumn, areaColumn);
+		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
+		                                                                                          dateColumn,
+		                                                                                          timeColumn,
+		                                                                                          notesTextAreaColumn,
+		                                                                                          responseGradeColumn,
+		                                                                                          responseTypeColumn,
+		                                                                                          divisionColumn,
+		                                                                                          agencyColumn,
+		                                                                                          numberColumn,
+		                                                                                          rankColumn,
+		                                                                                          nameColumn,
+		                                                                                          addressColumn,
+		                                                                                          countyColumn,
+		                                                                                          areaColumn);
 		tableview.getColumns().addAll(columns);
 		for (TableColumn<CalloutReport, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);
@@ -800,12 +831,33 @@ public class InitTableColumns {
 		TableColumn<AccidentReport, String> commentsColumn = new TableColumn<>("Notes");
 		commentsColumn.setCellValueFactory(new PropertyValueFactory<>("Comments"));
 		
-		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn, dateColumn, timeColumn, streetColumn, areaColumn, countyColumn,
-		                                                                                           weatherConditionsColumn, roadConditionsColumn, otherVehiclesInvolvedColumn, plateNumberColumn,
-		                                                                                           colorColumn, typeColumn, modelColumn, ownerNameColumn, ownerAgeColumn, ownerGenderColumn,
-		                                                                                           ownerAddressColumn, ownerDescriptionColumn, witnessesColumn, injuriesReportedColumn,
-		                                                                                           damageDetailsColumn, officerRankColumn, officerNameColumn, officerNumberColumn, officerAgencyColumn,
-		                                                                                           officerDivisionColumn, commentsColumn);
+		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn,
+		                                                                                           dateColumn,
+		                                                                                           timeColumn,
+		                                                                                           streetColumn,
+		                                                                                           areaColumn,
+		                                                                                           countyColumn,
+		                                                                                           weatherConditionsColumn,
+		                                                                                           roadConditionsColumn,
+		                                                                                           otherVehiclesInvolvedColumn,
+		                                                                                           plateNumberColumn,
+		                                                                                           colorColumn,
+		                                                                                           typeColumn,
+		                                                                                           modelColumn,
+		                                                                                           ownerNameColumn,
+		                                                                                           ownerAgeColumn,
+		                                                                                           ownerGenderColumn,
+		                                                                                           ownerAddressColumn,
+		                                                                                           ownerDescriptionColumn,
+		                                                                                           witnessesColumn,
+		                                                                                           injuriesReportedColumn,
+		                                                                                           damageDetailsColumn,
+		                                                                                           officerRankColumn,
+		                                                                                           officerNameColumn,
+		                                                                                           officerNumberColumn,
+		                                                                                           officerAgencyColumn,
+		                                                                                           officerDivisionColumn,
+		                                                                                           commentsColumn);
 		tableview.getColumns().addAll(columns);
 		for (TableColumn<AccidentReport, ?> column : columns) {
 			column.setMinWidth(minColumnWidth);

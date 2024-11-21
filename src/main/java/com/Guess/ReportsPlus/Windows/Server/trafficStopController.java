@@ -6,10 +6,7 @@ import com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -21,6 +18,7 @@ import static com.Guess.ReportsPlus.Desktop.mainDesktopController.vehLookupAppOb
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
+import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
@@ -77,6 +75,8 @@ public class trafficStopController {
 	private Button searchDMVButton;
 	@javafx.fxml.FXML
 	private Label plt;
+	@javafx.fxml.FXML
+	private Button createTrafficStopBtn;
 	
 	public void initialize() {
 		noColorFoundlbl.setVisible(true);
@@ -105,7 +105,10 @@ public class trafficStopController {
 		str.setText(localization.getLocalizedMessage("TrafficStopWindow.StreetLabel", "Traffic Stop Street:"));
 		ar.setText(localization.getLocalizedMessage("TrafficStopWindow.AreaLabel", "Traffic Stop Area:"));
 		own.setText(localization.getLocalizedMessage("TrafficStopWindow.OwnerLabel", "Registered Owner:"));
-		searchDMVButton.setText(localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
+		searchDMVButton.setText(
+				localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
+		createTrafficStopBtn.setText(localization.getLocalizedMessage("TrafficStopWindow.CreateTrafficStopButton",
+		                                                              "New Traffic Stop Report"));
 	}
 	
 	public void updateTrafficStopFields() throws IOException {
@@ -152,7 +155,8 @@ public class trafficStopController {
 	}
 	
 	private void setStyleBasedOnCondition(String condition, TextInputControl control) {
-		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase("suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
+		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase(
+				"suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
 			control.setStyle("-fx-text-fill: red !important;");
 		} else {
 			control.setStyle("-fx-text-fill: rgb(140, 140, 140) !important;");
@@ -211,8 +215,11 @@ public class trafficStopController {
 	public void searchDMV(ActionEvent actionEvent) {
 		CustomWindow vehWindow = WindowManager.getWindow("Vehicle Lookup");
 		if (vehWindow == null) {
-			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Apps/lookup-veh-view.fxml", "Vehicle Lookup", true, 1, true, false,
-			                                                       mainDesktopControllerObj.getTaskBarApps(), vehLookupAppObj.getImage());
+			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+			                                                       "Windows/Apps/lookup-veh-view.fxml",
+			                                                       "Vehicle Lookup", true, 1, true, false,
+			                                                       mainDesktopControllerObj.getTaskBarApps(),
+			                                                       vehLookupAppObj.getImage());
 			if (vehApp != null && vehApp.controller != null) {
 				vehLookupViewController = (VehLookupViewController) vehApp.controller;
 			}
@@ -232,11 +239,53 @@ public class trafficStopController {
 				try {
 					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
 					vehWindow.bringToFront();
-					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV", LogUtils.Severity.DEBUG);
+					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV",
+					    LogUtils.Severity.DEBUG);
 				} catch (IOException e) {
 					logError("Error searching plate from traffic stop window plate: " + platenum.getText(), e);
 				}
 			}
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void createTrafficStop(ActionEvent actionEvent) {
+		Map<String, Object> trafficStopReportObj = newTrafficStop();
+		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(
+				localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle",
+				                                 "Traffic Stop Report") + " Map");
+		
+		TextField offenderNamets = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		ComboBox colorts = (ComboBox) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+		TextField plateNumberts = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField modelts = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox areats = (ComboBox) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		ComboBox streetts = (ComboBox) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		
+		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
+		Map<String, String> vehData;
+		try {
+			vehData = grabTrafficStop(filePath);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
+		String model = vehData.getOrDefault("model", "Not Found");
+		String owner = vehData.getOrDefault("owner", "Not Found");
+		String street = vehData.getOrDefault("street", "Not Found");
+		String area = vehData.getOrDefault("area", "Not Found");
+		
+		plateNumberts.setText(licensePlate);
+		areats.setValue(area);
+		streetts.getEditor().setText(street);
+		offenderNamets.setText(owner);
+		modelts.setText(model);
 	}
 }

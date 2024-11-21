@@ -80,7 +80,8 @@ public class treeViewUtils {
 		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCustomization)) {
 			if (inputStream != null) {
 				
-				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCustomization).getFileName());
+				Path destinationPathCitations = destinationDir.resolve(
+						Paths.get(sourcePathCustomization).getFileName());
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {

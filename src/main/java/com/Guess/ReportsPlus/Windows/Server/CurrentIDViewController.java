@@ -87,7 +87,8 @@ public class CurrentIDViewController {
 				if (pedImgFolder.exists()) {
 					log("pedImage folder detected..", LogUtils.Severity.DEBUG);
 					
-					File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+					File[] matchingFiles = pedImgFolder.listFiles(
+							(dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
@@ -162,7 +163,8 @@ public class CurrentIDViewController {
 							String genNum2 = generateRandomNumber();
 							String fullName = firstName + " " + lastName;
 							
-							FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
+							FXMLLoader loader = new FXMLLoader(
+									Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
 							Parent vBoxParent = loader.load();
 							VBox vBox = (VBox) vBoxParent;
 							
@@ -182,7 +184,8 @@ public class CurrentIDViewController {
 							newTab.setContent(vBox);
 							tabPane.getTabs().add(newTab);
 							VBox main = (VBox) vBox.lookup("#main");
-							updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName, birthday, gender, address, pedModel);
+							updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName, birthday, gender,
+							                 address, pedModel);
 						}
 					}
 					if (checkAllHistoryIDsClosed()) {

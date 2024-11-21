@@ -91,12 +91,14 @@ public class NotificationManager {
 					messageLabel.setWrapText(true);
 					messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 					
-					ImageView icon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+					ImageView icon = new ImageView(new Image(
+							Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 					icon.setImage(changeImageColor(icon.getImage(), textClr));
 					icon.setFitWidth(24);
 					icon.setFitHeight(24);
 					
-					ImageView closeIcon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+					ImageView closeIcon = new ImageView(new Image(
+							Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 					closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
 					closeIcon.setFitWidth(12);
 					closeIcon.setFitHeight(13);
@@ -168,10 +170,12 @@ public class NotificationManager {
 						logError("Could not pull fadeOutDuration from config: ", e);
 					}
 					
-					PauseTransition pauseTransition = new PauseTransition(Duration.seconds(Double.parseDouble(displayDuration)));
+					PauseTransition pauseTransition = new PauseTransition(
+							Duration.seconds(Double.parseDouble(displayDuration)));
 					String finalFadeDuration = fadeDuration;
 					pauseTransition.setOnFinished(event -> {
-						FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(Double.parseDouble(finalFadeDuration)), anchorPane);
+						FadeTransition fadeOutTransition = new FadeTransition(
+								Duration.seconds(Double.parseDouble(finalFadeDuration)), anchorPane);
 						fadeOutTransition.setFromValue(1);
 						fadeOutTransition.setToValue(0);
 						fadeOutTransition.setOnFinished(e -> {

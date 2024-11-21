@@ -372,7 +372,8 @@ public class Ped {
 				Peds.setPedList(new java.util.ArrayList<>());
 			}
 			
-			Optional<Ped> existingReport = Peds.getPedList().stream().filter(e -> e.getLicenseNumber().equals(Ped.getLicenseNumber())).findFirst();
+			Optional<Ped> existingReport = Peds.getPedList().stream().filter(
+					e -> e.getLicenseNumber().equals(Ped.getLicenseNumber())).findFirst();
 			
 			if (existingReport.isPresent()) {
 				Peds.getPedList().remove(existingReport.get());

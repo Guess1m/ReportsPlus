@@ -56,10 +56,13 @@ public class updatesController {
 		
 		checkUpdates();
 		
-		checkupdatesbtn.setText(localization.getLocalizedMessage("UpdatesWindow.CheckUpdatesButton", "Check For Updates"));
-		currentverlabel.setText(localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
+		checkupdatesbtn.setText(
+				localization.getLocalizedMessage("UpdatesWindow.CheckUpdatesButton", "Check For Updates"));
+		currentverlabel.setText(
+				localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
 		changeloglabel.setText(localization.getLocalizedMessage("UpdatesWindow.ChangelogLabel", "Changelog"));
-		mostrecentlabel.setText(localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
+		mostrecentlabel.setText(
+				localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
 		verinfolabel.setText(localization.getLocalizedMessage("UpdatesWindow.VersionInfoLabel", "Version Information"));
 		
 	}
@@ -80,10 +83,12 @@ public class updatesController {
 		}), new KeyFrame(ANIMATION_DURATION, event -> {
 			currentVer.setText(version);
 			if (!version.equals(gitVersion)) {
-				recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!")));
+				recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage(
+						"Desktop.NewVersionAvailable", "New Version Available!")));
 				recentVer.setStyle("-fx-text-fill: red;");
-				NotificationManager.showNotificationError("Update Available",
-				                                          localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + " Visit LCPDFR Website!");
+				NotificationManager.showNotificationError("Update Available", localization.getLocalizedMessage(
+						"Desktop.NewVersionAvailable",
+						"New Version Available!") + " " + gitVersion + " Visit LCPDFR Website!");
 			} else {
 				recentVer.setText(gitVersion);
 			}

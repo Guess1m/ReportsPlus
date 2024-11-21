@@ -188,7 +188,8 @@ public class calloutController {
 		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 		pause.setOnFinished(event -> {
 			log("Added Callout To Active as: " + status, LogUtils.Severity.INFO);
-			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(),
+			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
+			                          priorityField.getText(), streetField.getText(), areaField.getText(),
 			                          countyField.getText(), timeField.getText(), dateField.getText(), status);
 			calloutWindow.closeWindow();
 			

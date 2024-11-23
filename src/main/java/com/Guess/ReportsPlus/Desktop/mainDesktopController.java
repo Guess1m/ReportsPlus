@@ -206,13 +206,9 @@ public class mainDesktopController {
 		search.setOnAction(event -> newSearch());
 		trafficCitation.setOnAction(event -> newCitation());
 		trafficStop.setOnAction(event -> newTrafficStop());
-		// todo rem test button
-		testBtn.setOnAction(event -> {
-			showNotificationInfo("Dev", "Test button clicked...");
-		});
 		
 		reportContextMenu.getItems().addAll(accident, arrest, callout, death, impound, incident, patrol, search,
-		                                    trafficCitation, trafficStop, testBtn);
+		                                    trafficCitation, trafficStop);
 		
 		return reportContextMenu;
 	}

@@ -132,65 +132,68 @@ public class CurrentIDViewController {
 			try {
 				IDs idList = ID.loadServerIDs();
 				if (idList == null || idList.getIdList() == null) {
-					log("ID list or getIdList() is null", LogUtils.Severity.WARN);
-				} else {
-					log("ID list not null", LogUtils.Severity.INFO);
-					tabPane.getTabs().clear();
-					noIDFoundlbl.setVisible(false);
+					log("ID list or getIdList() is null, creating", LogUtils.Severity.WARN);
 					
-					for (ID mostRecentID : idList.getIdList()) {
-						String status = mostRecentID.getStatus();
-						if (status == null) {
-							mostRecentID.setStatus("Open");
+					idList.setIdList(new java.util.ArrayList<>());
+					
+				}
+				
+				log("ID list not null", LogUtils.Severity.INFO);
+				tabPane.getTabs().clear();
+				noIDFoundlbl.setVisible(false);
+				
+				for (ID mostRecentID : idList.getIdList()) {
+					String status = mostRecentID.getStatus();
+					if (status == null) {
+						mostRecentID.setStatus("Open");
+						try {
+							ID.addServerID(mostRecentID);
+						} catch (JAXBException e) {
+							logError("Could not add ID with null status", e);
+						}
+					}
+					addServerIDToHistoryIfNotExists(mostRecentID);
+				}
+				
+				for (ID historyID : IDHistory.loadHistoryIDs().getIdList()) {
+					if (!historyID.getStatus().equalsIgnoreCase("closed")) {
+						String firstName = historyID.getFirstName();
+						String lastName = historyID.getLastName();
+						String birthday = historyID.getBirthday();
+						String gender = historyID.getGender();
+						String address = historyID.getAddress();
+						String pedModel = historyID.getPedModel();
+						String genNum1 = generateRandomNumber();
+						String genNum2 = generateRandomNumber();
+						String fullName = firstName + " " + lastName;
+						
+						FXMLLoader loader = new FXMLLoader(
+								Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
+						Parent vBoxParent = loader.load();
+						VBox vBox = (VBox) vBoxParent;
+						
+						Tab newTab = new Tab(firstName);
+						newTab.setOnClosed(event2 -> {
 							try {
-								ID.addServerID(mostRecentID);
+								historyID.setStatus("Closed");
+								IDHistory.addHistoryID(historyID);
 							} catch (JAXBException e) {
-								logError("Could not add ID with null status", e);
+								logError("Could update ID status for: " + fullName, e);
 							}
-						}
-						addServerIDToHistoryIfNotExists(mostRecentID);
+							if (tabPane.getTabs().isEmpty()) {
+								log("TabPane has no more tabs, displaying noIDlbl", LogUtils.Severity.WARN);
+								noIDFoundlbl.setVisible(true);
+							}
+						});
+						newTab.setContent(vBox);
+						tabPane.getTabs().add(newTab);
+						VBox main = (VBox) vBox.lookup("#main");
+						updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName, birthday, gender,
+						                 address, pedModel);
 					}
-					
-					for (ID historyID : IDHistory.loadHistoryIDs().getIdList()) {
-						if (!historyID.getStatus().equalsIgnoreCase("closed")) {
-							String firstName = historyID.getFirstName();
-							String lastName = historyID.getLastName();
-							String birthday = historyID.getBirthday();
-							String gender = historyID.getGender();
-							String address = historyID.getAddress();
-							String pedModel = historyID.getPedModel();
-							String genNum1 = generateRandomNumber();
-							String genNum2 = generateRandomNumber();
-							String fullName = firstName + " " + lastName;
-							
-							FXMLLoader loader = new FXMLLoader(
-									Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
-							Parent vBoxParent = loader.load();
-							VBox vBox = (VBox) vBoxParent;
-							
-							Tab newTab = new Tab(firstName);
-							newTab.setOnClosed(event2 -> {
-								try {
-									historyID.setStatus("Closed");
-									IDHistory.addHistoryID(historyID);
-								} catch (JAXBException e) {
-									logError("Could update ID status for: " + fullName, e);
-								}
-								if (tabPane.getTabs().isEmpty()) {
-									log("TabPane has no more tabs, displaying noIDlbl", LogUtils.Severity.WARN);
-									noIDFoundlbl.setVisible(true);
-								}
-							});
-							newTab.setContent(vBox);
-							tabPane.getTabs().add(newTab);
-							VBox main = (VBox) vBox.lookup("#main");
-							updateVBoxValues(main, firstName, genNum1, genNum2, firstName, lastName, birthday, gender,
-							                 address, pedModel);
-						}
-					}
-					if (checkAllHistoryIDsClosed()) {
-						noIDFoundlbl.setVisible(true);
-					}
+				}
+				if (checkAllHistoryIDsClosed()) {
+					noIDFoundlbl.setVisible(true);
 				}
 			} catch (JAXBException | IOException e) {
 				throw new RuntimeException(e);

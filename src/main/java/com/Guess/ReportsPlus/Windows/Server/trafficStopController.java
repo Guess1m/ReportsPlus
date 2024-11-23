@@ -257,8 +257,6 @@ public class trafficStopController {
 		
 		TextField offenderNamets = (TextField) trafficStopReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		ComboBox colorts = (ComboBox) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 		TextField plateNumberts = (TextField) trafficStopReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 		TextField modelts = (TextField) trafficStopReportMap.get(
@@ -284,7 +282,7 @@ public class trafficStopController {
 		
 		plateNumberts.setText(licensePlate);
 		areats.setValue(area);
-		streetts.getEditor().setText(street);
+		streetts.setValue(street);
 		offenderNamets.setText(owner);
 		modelts.setText(model);
 	}

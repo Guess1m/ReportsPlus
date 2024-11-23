@@ -2,10 +2,6 @@
 
 <h3 align="center">
     <a href="https://github.com/Guess1m/ReportsPlus/releases">Download Latest Release</a>
-    |
-    <a href="https://github.com/Guess1m/ReportsPlus/issues/new?assignees=zainrd123&labels=enhancement&projects=&template=feature_request.md&title=">Feature Request</a>
-    |
-    <a href="https://github.com/Guess1m/ReportsPlus/issues/new?assignees=zainrd123&labels=bug&projects=&template=bug_report.md&title=">Report Bug</a>
 </h3>
 
 ## Overview
@@ -35,7 +31,7 @@ and other interactions more realistic and thorough.
 
 Ensure you have the following installed:
 
-- [Java JDK 22](https://www.oracle.com/java/technologies/downloads/)
+- [Java JDK 22/23](https://www.oracle.com/java/technologies/downloads/)
 - [Java](https://www.java.com/en/download/)
 
 ## Installation

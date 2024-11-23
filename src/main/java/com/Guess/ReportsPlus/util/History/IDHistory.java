@@ -43,6 +43,40 @@ public class IDHistory {
 		marshaller.marshal(IDs, file);
 	}
 	
+	public static boolean searchIDHisForName(String name) {
+		IDs IDs = null;
+		try {
+			IDs = loadHistoryIDs();
+		} catch (JAXBException e) {
+			logError("Error loading IDs from searchIDHisForName: ", e);
+		}
+		
+		if (IDs.getIdList() == null) {
+			IDs.setIdList(new java.util.ArrayList<>());
+		}
+		
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(
+				e -> e.getName().equalsIgnoreCase(name)).findFirst();
+		return existingReport.isPresent();
+	}
+	
+	public static ID getHistoryIDFromName(String name) {
+		IDs IDs = null;
+		try {
+			IDs = loadHistoryIDs();
+		} catch (JAXBException e) {
+			logError("Error loading IDs from searchIDHisForName: ", e);
+		}
+		
+		if (IDs.getIdList() == null) {
+			IDs.setIdList(new java.util.ArrayList<>());
+		}
+		
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(
+				e -> e.getName().equalsIgnoreCase(name)).findFirst();
+		return existingReport.orElse(null);
+	}
+	
 	public static void addHistoryID(ID ID) throws JAXBException {
 		IDs IDs = loadHistoryIDs();
 		

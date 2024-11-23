@@ -6,6 +6,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NoteTab;
+import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +30,10 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.*;
 import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.newCitation;
+import static com.Guess.ReportsPlus.util.History.IDHistory.getHistoryIDFromName;
+import static com.Guess.ReportsPlus.util.History.IDHistory.searchIDHisForName;
 import static com.Guess.ReportsPlus.util.History.Ped.PedHistoryUtils.findPedByName;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -329,12 +333,13 @@ public class PedLookupViewController {
 			pedwantedfield.setStyle("-fx-text-fill: black;");
 		}
 		
-		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus() != null ? ped.getGunLicenseStatus() : "False");
-		if (ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
+		String gunLicenseStatus = ped.getGunLicenseStatus();
+		if (gunLicenseStatus == null || gunLicenseStatus.equalsIgnoreCase("false")) {
+			pedgunlicensestatusfield.setText("False");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
 		} else {
-			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
 			pedgunlicensestatusfield.setText("Valid");
+			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
 		}
 		
 		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
@@ -424,9 +429,21 @@ public class PedLookupViewController {
 			pedparolestatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		pedtimesstoppedfield.setText(ped.getTimesStopped() != null ? ped.getTimesStopped() : "No Data");
-		pedtimesstoppedfield.setStyle(
-				ped.getTimesStopped() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+		String timesStopped = ped.getTimesStopped();
+		if (timesStopped == null || timesStopped.trim().isEmpty()) {
+			pedtimesstoppedfield.setText("0");
+			pedtimesstoppedfield.setStyle("-fx-text-fill: black;");
+		} else {
+			try {
+				int timesStoppedValue = Integer.parseInt(timesStopped.trim());
+				pedtimesstoppedfield.setText(timesStopped);
+				pedtimesstoppedfield.setStyle(
+						timesStoppedValue > 0 ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+			} catch (NumberFormatException e) {
+				pedtimesstoppedfield.setText("0");
+				pedtimesstoppedfield.setStyle("-fx-text-fill: black;");
+			}
+		}
 		
 		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
 		
@@ -550,6 +567,25 @@ public class PedLookupViewController {
 			log("Found Vehicle Owner: [" + owner + "] From WorldVeh file, plate#: " + ownerPlateNum,
 			    LogUtils.Severity.DEBUG);
 			processOwnerData(owner, ownerPlateNum);
+		} else if (searchIDHisForName(searchedName)) {
+			log("Found Ped: [" + searchedName + "] From IDHistory (Possible Dead Ped)", LogUtils.Severity.DEBUG);
+			ID searchedNameID = getHistoryIDFromName(searchedName);
+			if (searchedNameID != null) {
+				log(searchedName + " HistoryID not null", LogUtils.Severity.DEBUG);
+				String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
+				Ped ped = createPed(generateLicenseNumber(), searchedNameID.getName(), searchedNameID.getGender(),
+				                    searchedNameID.getBirthday(), searchedNameID.getAddress(), isWantedOutcome,
+				                    calculateLicenseStatus(55, 22, 23));
+				
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Could not save new pedModel (2): ", e);
+				}
+				log("Created Dead Ped Object", LogUtils.Severity.DEBUG);
+				processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(),
+				               ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
+			}
 		} else {
 			log("No Ped With Name: [" + searchedName + "] Found Anywhere", LogUtils.Severity.WARN);
 			pedRecordPane.setVisible(false);

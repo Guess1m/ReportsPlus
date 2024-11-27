@@ -2,6 +2,7 @@ package com.Guess.ReportsPlus.Windows.Apps;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.Windows.Other.LicenseInfo;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
@@ -10,13 +11,18 @@ import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 
 import java.io.File;
 import java.io.IOException;
@@ -511,7 +517,61 @@ public class PedLookupViewController {
 		
 		pedarrestpriorslistview.setItems(arrestPriors);
 		pedcitationpriorslistview.setItems(citPriors);
+		
+		createLicenseInfoPopup(pedboatinglicstatusfield);
+		createLicenseInfoPopup(pedhuntinglicstatusfield);
+		
 		return playAudio;
+	}
+	
+	public void createLicenseInfoPopup(TextField label) {
+		try {
+			FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Other/license-info.fxml"));
+			Pane popupContent = loader.load();
+			LicenseInfo controller = loader.getController();
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			controller.getExitbtn().setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+		} catch (IOException e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
 	}
 	
 	@javafx.fxml.FXML

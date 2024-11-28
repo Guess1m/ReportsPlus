@@ -6,7 +6,7 @@
 
     <groupId>com.Guess</groupId>
     <artifactId>ReportsPlus</artifactId>
-    <version>1.1-ALPHA</version>
+    <version>1.2-ALPHA</version>
     <name>ReportsPlus</name>
 
     <!-- Packaging Commands

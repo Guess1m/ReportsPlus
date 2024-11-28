@@ -46,6 +46,24 @@
     -fx-border-color: grey;
 }
 
+.valid-field {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14px;
+    -fx-background-color: rgb(242, 242, 242, 0.6) !important;
+    -fx-prompt-text-fill: #524992 !important;
+    -fx-background-insets: 0;
+    -fx-padding: 8px;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: grey;
+}
+
+.valid-field .text {
+    -fx-underline: true;
+}
+
+
 .combo-boxVehicle {
     -fx-text-fill: black !important;
     -fx-font-family: "Roboto";

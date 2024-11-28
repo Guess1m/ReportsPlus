@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
@@ -104,6 +105,34 @@ public class PedHistoryMath {
 			}
 		}
 		return departments[0];
+	}
+	
+	public static String generateValidLicenseExpirationDate() {
+		int maxYears = 4;
+		LocalDate currentDate = LocalDate.now();
+		
+		long minDaysAhead = 0;
+		long maxDaysAhead = maxYears * 365L + (maxYears / 4);
+		long randomDaysAhead = ThreadLocalRandom.current().nextLong(minDaysAhead, maxDaysAhead + 1);
+		
+		LocalDate expirationDate = currentDate.plusDays(randomDaysAhead);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		return expirationDate.format(formatter);
+	}
+	
+	public static String generateExpiredLicenseExpirationDate() {
+		int maxYearsAgo = 5;
+		LocalDate currentDate = LocalDate.now();
+		
+		long minDaysAgo = 1;
+		long maxDaysAgo = maxYearsAgo * 365L + (maxYearsAgo / 4);
+		long randomDaysAgo = ThreadLocalRandom.current().nextLong(minDaysAgo, maxDaysAgo + 1);
+		
+		LocalDate expirationDate = currentDate.minusDays(randomDaysAgo);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		return expirationDate.format(formatter);
 	}
 	
 	public static boolean calculateTrueFalseProbability(String percentage) {

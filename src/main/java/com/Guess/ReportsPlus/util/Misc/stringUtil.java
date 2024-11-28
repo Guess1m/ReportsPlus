@@ -13,8 +13,8 @@ public class stringUtil {
 	// version
 	// updatesList
 	// pom.xml
-	public static final String version = "v1.1-alpha";
-	public static final String[] updatesList = {"Overhauled Settings / Lookup Windows", "Complete Reformat", "Many More Customization Options", "Changes To Report Windows", "Added Full Localization", "Traffic Stop Window", "Fixed Dead Peds Not Found", "Many Small Bug Fixes", "New Login Screen", "Overhauled Main Application", "Better Resource Cleanup", "Reduced Application Size", "Better looking Windows", "Stability Updates", "Server File Syncronization Fixes"};
+	public static final String version = "v1.2-alpha";
+	public static final String[] updatesList = {};
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

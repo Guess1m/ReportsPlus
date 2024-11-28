@@ -83,8 +83,26 @@ public class Ped {
 	@XmlElement(name = "FishingLicenseStatus")
 	private String fishingLicenseStatus;
 	
+	@XmlElement(name = "FishingLicenseExpiration")
+	private String fishingLicenseExpiration;
+	
+	@XmlElement(name = "FishingLicenseNumber")
+	private String fishingLicenseNumber;
+	
 	@XmlElement(name = "BoatingLicenseStatus")
 	private String boatingLicenseStatus;
+	
+	@XmlElement(name = "BoatingLicenseExpiration")
+	private String boatingLicenseExpiration;
+	
+	@XmlElement(name = "BoatingLicenseNumber")
+	private String boatingLicenseNumber;
+	
+	@XmlElement(name = "HuntingLicenseExpiration")
+	private String huntingLicenseExpiration;
+	
+	@XmlElement(name = "HuntingLicenseNumber")
+	private String huntingLicenseNumber;
 	
 	@XmlElement(name = "HuntingLicenseStatus")
 	private String huntingLicenseStatus;
@@ -129,6 +147,22 @@ public class Ped {
 	
 	public void setModel(String model) {
 		this.model = model;
+	}
+	
+	public String getFishingLicenseExpiration() {
+		return fishingLicenseExpiration;
+	}
+	
+	public void setFishingLicenseExpiration(String fishingLicenseExpiration) {
+		this.fishingLicenseExpiration = fishingLicenseExpiration;
+	}
+	
+	public String getFishingLicenseNumber() {
+		return fishingLicenseNumber;
+	}
+	
+	public void setFishingLicenseNumber(String fishingLicenseNumber) {
+		this.fishingLicenseNumber = fishingLicenseNumber;
 	}
 	
 	public String getVehiclePlateNum() {
@@ -321,6 +355,38 @@ public class Ped {
 	
 	public void setHuntingLicenseStatus(String huntingLicenseStatus) {
 		this.huntingLicenseStatus = huntingLicenseStatus;
+	}
+	
+	public String getHuntingLicenseExpiration() {
+		return huntingLicenseExpiration;
+	}
+	
+	public void setHuntingLicenseExpiration(String huntingLicenseExpiration) {
+		this.huntingLicenseExpiration = huntingLicenseExpiration;
+	}
+	
+	public String getHuntingLicenseNumber() {
+		return huntingLicenseNumber;
+	}
+	
+	public void setHuntingLicenseNumber(String huntingLicenseNumber) {
+		this.huntingLicenseNumber = huntingLicenseNumber;
+	}
+	
+	public String getBoatingLicenseExpiration() {
+		return boatingLicenseExpiration;
+	}
+	
+	public void setBoatingLicenseExpiration(String boatingLicenseExpiration) {
+		this.boatingLicenseExpiration = boatingLicenseExpiration;
+	}
+	
+	public String getBoatingLicenseNumber() {
+		return boatingLicenseNumber;
+	}
+	
+	public void setBoatingLicenseNumber(String boatingLicenseNumber) {
+		this.boatingLicenseNumber = boatingLicenseNumber;
 	}
 	
 	@XmlRootElement(name = "PedDatabase")

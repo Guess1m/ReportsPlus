@@ -307,7 +307,6 @@ public class PedLookupViewController {
 	boolean playAudio = false;
 	
 	private boolean setPedRecordFields(Ped ped) {
-		
 		pedfnamefield.setText(ped.getFirstName());
 		pedlnamefield.setText(ped.getLastName());
 		pedgenfield.setText(ped.getGender());
@@ -373,7 +372,7 @@ public class PedLookupViewController {
 		} else if (ped.getGunLicenseStatus().equalsIgnoreCase(
 				"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
 			pedgunlicensestatusfield.getStyleClass().add("valid-field");
-			pedgunlicensestatusfield.setStyle("-fx-text-fill: red !important;");
+			pedgunlicensestatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedgunlicensestatusfield.setText(ped.getGunLicenseStatus().toUpperCase());
 			
 			boolean updated = false;
@@ -449,7 +448,7 @@ public class PedLookupViewController {
 		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase(
 				"suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedfishinglicstatusfield.getStyleClass().add("valid-field");
-			pedfishinglicstatusfield.setStyle("-fx-text-fill: red !important;");
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus().toUpperCase());
 			
 			boolean updated = false;
@@ -517,7 +516,7 @@ public class PedLookupViewController {
 		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase(
 				"suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedboatinglicstatusfield.getStyleClass().add("valid-field");
-			pedboatinglicstatusfield.setStyle("-fx-text-fill: red !important;");
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus().toUpperCase());
 			
 			boolean updated = false;
@@ -586,7 +585,7 @@ public class PedLookupViewController {
 		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase(
 				"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
-			pedhuntinglicstatusfield.setStyle("-fx-text-fill: red !important;");
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus().toUpperCase());
 			
 			boolean updated = false;

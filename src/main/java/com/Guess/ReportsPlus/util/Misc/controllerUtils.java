@@ -686,23 +686,42 @@ public class controllerUtils {
 	public static void setGunLicenseStatus(Ped ped) throws IOException {
 		Boolean hasGunLicense = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
-		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
 		
 		if (hasGunLicense) {
-			String licenseType = getGunLicenseType();
-			ped.setGunLicenseType(licenseType);
+			String gunlicstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setGunLicenseStatus(gunlicstatus);
 			
-			String licenseClasses = getGunLicenseClass();
-			ped.setGunLicenseClass(licenseClasses);
+			if (gunlicstatus.equalsIgnoreCase("suspended")) {
+				ped.setGunLicenseExpiration("Suspended License");
+			} else if (gunlicstatus.equalsIgnoreCase("expired")) {
+				ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+			}
 			
-			ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+			ped.setGunLicenseType(getGunLicenseType());
+			ped.setGunLicenseClass(getGunLicenseClass());
 			ped.setGunLicenseNumber(generateLicenseNumber());
 			
 			boolean huntlic = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
-			String huntlicexp = generateValidLicenseExpirationDate();
-			ped.setHuntingLicenseStatus(String.valueOf(huntlic));
 			if (huntlic) {
-				ped.setHuntingLicenseExpiration(huntlicexp);
+				String licstatus = calculateLicenseStatus(
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+				ped.setHuntingLicenseStatus(licstatus);
+				
+				if (licstatus.equalsIgnoreCase("suspended")) {
+					ped.setHuntingLicenseExpiration("Suspended License");
+				} else if (licstatus.equalsIgnoreCase("expired")) {
+					ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				} else {
+					ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
+				}
+				
 				ped.setHuntingLicenseNumber(generateLicenseNumber());
 			}
 		}
@@ -837,19 +856,42 @@ public class controllerUtils {
 		
 		boolean fishLicStatus = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistory", "hasFishingLicense"));
-		String fishLicExp = generateValidLicenseExpirationDate();
-		ped.setFishingLicenseStatus(String.valueOf(fishLicStatus));
 		if (fishLicStatus) {
-			ped.setBoatingLicenseExpiration(fishLicExp);
-			ped.setBoatingLicenseNumber(generateLicenseNumber());
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setFishingLicenseStatus(licstatus);
+			System.out.println("set fishing license status: " + licstatus);
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setFishingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setFishingLicenseNumber(generateLicenseNumber());
 		}
 		
 		boolean boatLicStatus = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
-		String boatlicexp = generateValidLicenseExpirationDate();
-		ped.setBoatingLicenseStatus(String.valueOf(boatLicStatus));
 		if (boatLicStatus) {
-			ped.setBoatingLicenseExpiration(boatlicexp);
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setBoatingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setBoatingLicenseStatus(licstatus);
 			ped.setBoatingLicenseNumber(generateLicenseNumber());
 		}
 		
@@ -911,19 +953,41 @@ public class controllerUtils {
 		
 		boolean fishLicStatus = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistory", "hasFishingLicense"));
-		String fishLicExp = generateValidLicenseExpirationDate();
-		ped.setFishingLicenseStatus(String.valueOf(fishLicStatus));
 		if (fishLicStatus) {
-			ped.setBoatingLicenseExpiration(fishLicExp);
-			ped.setBoatingLicenseNumber(generateLicenseNumber());
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setFishingLicenseStatus(licstatus);
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setFishingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setFishingLicenseNumber(generateLicenseNumber());
 		}
 		
 		boolean boatLicStatus = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
-		String boatlicexp = generateValidLicenseExpirationDate();
-		ped.setBoatingLicenseStatus(String.valueOf(boatLicStatus));
 		if (boatLicStatus) {
-			ped.setBoatingLicenseExpiration(boatlicexp);
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setBoatingLicenseStatus(licstatus);
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setBoatingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
 			ped.setBoatingLicenseNumber(generateLicenseNumber());
 		}
 		ped.setVehiclePlateNum(vehPlateNum);

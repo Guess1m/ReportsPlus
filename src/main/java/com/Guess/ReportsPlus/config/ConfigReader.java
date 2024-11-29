@@ -180,9 +180,13 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistory", "courtTrialDelay", "600");
 		checkAndSetDefaultValue("pedHistory", "onParoleChance", "15");
 		checkAndSetDefaultValue("pedHistory", "onProbationChance", "25");
-		checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "20");
-		checkAndSetDefaultValue("pedHistory", "hasBoatingLicense", "20");
-		checkAndSetDefaultValue("pedHistory", "hasHuntingLicense", "20");
+		checkAndSetDefaultValue("pedHistory", "hasFishingLicense", "40");
+		checkAndSetDefaultValue("pedHistory", "hasBoatingLicense", "35");
+		checkAndSetDefaultValue("pedHistory", "hasHuntingLicense", "40");
+		checkAndSetDefaultValue("pedHistory", "validLicenseChance", "80");
+		checkAndSetDefaultValue("pedHistory", "expiredLicenseChance", "15");
+		checkAndSetDefaultValue("pedHistory", "suspendedLicenseChance", "5");
+		
 		// Arrest
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceMinimalCharges", "25");
@@ -194,7 +198,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryCitation", "chanceFewCitations", "10");
 		checkAndSetDefaultValue("pedHistoryCitation", "chanceManyCitations", "5");
 		// Gun Permit
-		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "25");
+		checkAndSetDefaultValue("pedHistoryGunPermit", "hasGunLicense", "33");
 		
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "concealedCarryChance", "30");
 		checkAndSetDefaultValue("pedHistoryGunPermitType", "openCarryChance", "35");

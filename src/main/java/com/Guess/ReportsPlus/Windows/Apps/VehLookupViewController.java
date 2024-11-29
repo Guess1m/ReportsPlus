@@ -491,7 +491,7 @@ public class VehLookupViewController {
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
 		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 		                                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
-		                                 false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(
+		                                 true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(
 						Objects.requireNonNull(Launcher.class.getResourceAsStream(
 								"/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}

@@ -121,8 +121,8 @@ public class PedHistoryMath {
 		return expirationDate.format(formatter);
 	}
 	
-	public static String generateExpiredLicenseExpirationDate() {
-		int maxYearsAgo = 5;
+	public static String generateExpiredLicenseExpirationDate(int maxYears) {
+		int maxYearsAgo = maxYears;
 		LocalDate currentDate = LocalDate.now();
 		
 		long minDaysAgo = 1;

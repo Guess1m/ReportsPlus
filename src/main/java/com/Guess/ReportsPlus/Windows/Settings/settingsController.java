@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -39,7 +40,9 @@ import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManag
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
+import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 public class settingsController {
@@ -401,6 +404,12 @@ public class settingsController {
 	private Label reportDesignPresetTT;
 	@javafx.fxml.FXML
 	private Label accentLabelReportTT;
+	@javafx.fxml.FXML
+	private Label clearSaveDataLabel1;
+	@javafx.fxml.FXML
+	private Label clearSaveDataTT1;
+	@javafx.fxml.FXML
+	private Button clrLookupDataBtn;
 	
 	//</editor-fold>
 	
@@ -707,8 +716,6 @@ public class settingsController {
 			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -791,8 +798,6 @@ public class settingsController {
 			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -866,8 +871,8 @@ public class settingsController {
 		
 		previewNotificationBtn.setOnAction(actionEvent -> {
 			if (selectedNotification.get().equals("Information")) {
-				NotificationManager.showNotificationInfo("Sample Info Notification",
-				                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+				showNotificationInfo("Sample Info Notification",
+				                     "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				NotificationManager.showNotificationWarning("Sample Warning Notification",
@@ -1097,6 +1102,7 @@ public class settingsController {
 		centerWindowsTT.setText(localization.getLocalizedMessage("Settings.CenterWindowsTT",
 		                                                         "Center all windows on the screen in case of issues"));
 		centerWindowsBtn.setText(localization.getLocalizedMessage("Settings.CenterWindowsBtn", "CENTER WINDOWS"));
+		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -1120,7 +1126,7 @@ public class settingsController {
 	public void clearLogsBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene().getWindow();
 		confirmLogClearDialog(stage);
-		NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.");
+		showNotificationInfo("Log Manager", "Logs have been cleared.");
 	}
 	
 	@javafx.fxml.FXML
@@ -2130,5 +2136,34 @@ public class settingsController {
 	
 	public BorderPane getRoot() {
 		return root;
+	}
+	
+	@javafx.fxml.FXML
+	public void clearLookupDataBtnClick(ActionEvent actionEvent) {
+		try {
+			log("Clear lookup data btn pressed: ", LogUtils.Severity.DEBUG);
+			String dataFolderPath = getJarPath() + File.separator + "data";
+			
+			File pedHistoryFile = new File(dataFolderPath + File.separator + "pedHistory.xml");
+			if (pedHistoryFile.exists() && pedHistoryFile.isFile()) {
+				log("pedHistory.xml exists.", LogUtils.Severity.INFO);
+				Files.deleteIfExists(pedHistoryFile.toPath());
+				log("pedHistory.xml deleted.", LogUtils.Severity.INFO);
+			} else {
+				log("pedHistory.xml does not exist.", LogUtils.Severity.WARN);
+			}
+			
+			File vehHistoryFile = new File(dataFolderPath + File.separator + "vehHistory.xml");
+			if (vehHistoryFile.exists() && vehHistoryFile.isFile()) {
+				log("vehHistory.xml exists.", LogUtils.Severity.INFO);
+				Files.deleteIfExists(vehHistoryFile.toPath());
+				log("vehHistory.xml deleted.", LogUtils.Severity.INFO);
+			} else {
+				log("vehHistory.xml does not exist.", LogUtils.Severity.WARN);
+			}
+			showNotificationInfo("Developer", "Successfully Cleared Lookup Data");
+		} catch (Exception e) {
+			logError("Clear lookup data error: ", e);
+		}
 	}
 }

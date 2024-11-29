@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="702.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21"
+            minWidth="-Infinity" prefWidth="768.0" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.ProbabilitySettingsController">
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
@@ -403,7 +403,7 @@
                                 </BorderPane>
                             </children>
                         </GridPane>
-                        <BorderPane GridPane.rowIndex="15">
+                        <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                             <center>
                                 <TextField fx:id="huntingLicense" maxWidth="-Infinity" prefHeight="23.0"
                                            prefWidth="456.0" promptText="Default: 20">
@@ -420,7 +420,7 @@
                                 </Label>
                             </top>
                             <GridPane.margin>
-                                <Insets top="10.0"/>
+                                <Insets/>
                             </GridPane.margin>
                         </BorderPane>
                         <AnchorPane GridPane.columnSpan="4">

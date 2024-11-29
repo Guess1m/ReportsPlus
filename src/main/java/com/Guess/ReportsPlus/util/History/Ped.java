@@ -56,6 +56,15 @@ public class Ped {
 	@XmlElement(name = "WantedStatus")
 	private String wantedStatus;
 	
+	@XmlElement(name = "DateWarrantIssued")
+	private String dateWarrantIssued;
+	
+	@XmlElement(name = "WarrantNumber")
+	private String warrantNumber;
+	
+	@XmlElement(name = "WarrantAgency")
+	private String warrantAgency;
+	
 	@XmlElement(name = "OutstandingWarrants")
 	private String outstandingWarrants;
 	
@@ -73,6 +82,12 @@ public class Ped {
 	
 	@XmlElement(name = "GunLicenseStatus")
 	private String gunLicenseStatus;
+	
+	@XmlElement(name = "GunLicenseExpiration")
+	private String gunLicenseExpiration;
+	
+	@XmlElement(name = "GunLicenseNumber")
+	private String gunLicenseNumber;
 	
 	@XmlElement(name = "GunLicenseType")
 	private String gunLicenseType;
@@ -139,6 +154,46 @@ public class Ped {
 			return calculateAge(birthday);
 		}
 		return "";
+	}
+	
+	public String getGunLicenseExpiration() {
+		return gunLicenseExpiration;
+	}
+	
+	public void setGunLicenseExpiration(String gunLicenseExpiration) {
+		this.gunLicenseExpiration = gunLicenseExpiration;
+	}
+	
+	public String getGunLicenseNumber() {
+		return gunLicenseNumber;
+	}
+	
+	public void setGunLicenseNumber(String gunLicenseNumber) {
+		this.gunLicenseNumber = gunLicenseNumber;
+	}
+	
+	public String getDateWarrantIssued() {
+		return dateWarrantIssued;
+	}
+	
+	public void setDateWarrantIssued(String dateWarrantIssued) {
+		this.dateWarrantIssued = dateWarrantIssued;
+	}
+	
+	public String getWarrantNumber() {
+		return warrantNumber;
+	}
+	
+	public void setWarrantNumber(String warrantNumber) {
+		this.warrantNumber = warrantNumber;
+	}
+	
+	public String getWarrantAgency() {
+		return warrantAgency;
+	}
+	
+	public void setWarrantAgency(String warrantAgency) {
+		this.warrantAgency = warrantAgency;
 	}
 	
 	public String getModel() {

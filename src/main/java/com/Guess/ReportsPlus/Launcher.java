@@ -39,7 +39,7 @@ public class Launcher {
 		
 		localization = new Localization();
 		
-		deleteFiles();
+		//todo undo deleteFiles();
 		
 		loadFonts();
 		

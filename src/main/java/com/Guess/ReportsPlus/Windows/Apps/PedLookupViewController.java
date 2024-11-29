@@ -65,8 +65,6 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private AnchorPane pedRecordPane;
 	@javafx.fxml.FXML
-	private TextField pedgunlicensetypefield;
-	@javafx.fxml.FXML
 	private TextField pedgunlicensestatusfield;
 	@javafx.fxml.FXML
 	private Label noPedImageFoundlbl;
@@ -85,11 +83,7 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private Label ped14;
 	@javafx.fxml.FXML
-	private Label ped17;
-	@javafx.fxml.FXML
 	private ScrollPane pedPane;
-	@javafx.fxml.FXML
-	private Label ped16;
 	@javafx.fxml.FXML
 	private Label ped19;
 	@javafx.fxml.FXML
@@ -136,8 +130,6 @@ public class PedLookupViewController {
 	private Label ped23;
 	@javafx.fxml.FXML
 	private TextField pedhuntinglicstatusfield;
-	@javafx.fxml.FXML
-	private TextField pedgunlicenseclassfield;
 	@javafx.fxml.FXML
 	private Label ped20;
 	@javafx.fxml.FXML
@@ -251,8 +243,6 @@ public class PedLookupViewController {
 		ped13.setText(localization.getLocalizedMessage("PedLookup.FieldProbationStatus", "Probation Status:"));
 		ped14.setText(localization.getLocalizedMessage("PedLookup.FieldTimesStopped", "Times Stopped:"));
 		ped15.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseStatus", "Gun License Status:"));
-		ped16.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type"));
-		ped17.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class"));
 		ped18.setText(
 				localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
 		ped19.setText(
@@ -332,22 +322,79 @@ public class PedLookupViewController {
 			pedlicensefield.setText("Valid");
 		}
 		
-		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
+		pedwantedfield.getStyleClass().clear();
+		pedwantedfield.setOnMouseClicked(null);
 		if (ped.getOutstandingWarrants() != null) {
 			pedwantedfield.setStyle("-fx-text-fill: red !important;");
 			playAudio = true;
+			pedwantedfield.setText("WARRANT");
 			
+			boolean updated = false;
+			if (ped.getDateWarrantIssued() == null) {
+				ped.setDateWarrantIssued(generateExpiredLicenseExpirationDate(5));
+				updated = true;
+			}
+			if (ped.getWarrantNumber() == null) {
+				ped.setWarrantNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (ped.getWarrantAgency() == null) {
+				ped.setWarrantAgency(getRandomDepartment());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for warrant license info: ", e);
+				}
+			}
+			pedwantedfield.getStyleClass().add("valid-field");
+			
+			createWarrantInfoPopup(pedwantedfield, localization.getLocalizedMessage("PedLookup.WarrantInformationTitle",
+			                                                                        "Issued Warrant Information:"),
+			                       ped.getName(), ped.getBirthday(), ped.getDateWarrantIssued(), ped.getWarrantNumber(),
+			                       ped.getWarrantAgency(), ped.getOutstandingWarrants());
 		} else {
-			pedwantedfield.setStyle("-fx-text-fill: black;");
+			pedwantedfield.setText("False");
+			pedwantedfield.getStyleClass().add("text-field");
+			pedwantedfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
+		pedgunlicensestatusfield.getStyleClass().clear();
+		pedgunlicensestatusfield.setOnMouseClicked(null);
 		String gunLicenseStatus = ped.getGunLicenseStatus();
 		if (gunLicenseStatus == null || gunLicenseStatus.equalsIgnoreCase("false")) {
 			pedgunlicensestatusfield.setText("False");
+			pedgunlicensestatusfield.getStyleClass().add("text-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
 		} else {
-			pedgunlicensestatusfield.setText("Valid");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedgunlicensestatusfield.setText("Valid");
+			
+			boolean updated = false;
+			if (ped.getGunLicenseExpiration() == null) {
+				ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+				updated = true;
+			}
+			if (ped.getGunLicenseNumber() == null) {
+				ped.setGunLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for gun license info: ", e);
+				}
+			}
+			pedgunlicensestatusfield.getStyleClass().add("valid-field");
+			
+			createGunLicenseInfoPopup(pedgunlicensestatusfield,
+			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
+			                                                           "Gun License Information:"), ped.getName(),
+			                          ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(),
+			                          ped.getGunLicenseNumber(), ped.getGunLicenseType(), ped.getGunLicenseClass());
 		}
 		
 		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
@@ -382,7 +429,9 @@ public class PedLookupViewController {
 				}
 			}
 			pedfishinglicstatusfield.getStyleClass().add("valid-field");
-			createLicenseInfoPopup(pedfishinglicstatusfield, "Fishing License Information:", ped.getName(),
+			createLicenseInfoPopup(pedfishinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
+			                                                        "Fishing License Information:"), ped.getName(),
 			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
 			                       ped.getFishingLicenseNumber());
 		} else {
@@ -414,16 +463,15 @@ public class PedLookupViewController {
 				}
 			}
 			pedboatinglicstatusfield.getStyleClass().add("valid-field");
-			createLicenseInfoPopup(pedboatinglicstatusfield, "Boating License Information:", ped.getName(),
+			createLicenseInfoPopup(pedboatinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
+			                                                        "Boating License Information:"), ped.getName(),
 			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
 			                       ped.getBoatingLicenseNumber());
 		} else {
 			pedboatinglicstatusfield.getStyleClass().add("text-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		}
-		
-		pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
-		pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
 		
 		pedhuntinglicstatusfield.getStyleClass().clear();
 		pedhuntinglicstatusfield.setOnMouseClicked(null);
@@ -449,7 +497,9 @@ public class PedLookupViewController {
 				}
 			}
 			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
-			createLicenseInfoPopup(pedhuntinglicstatusfield, "Hunting License Information:", ped.getName(),
+			createLicenseInfoPopup(pedhuntinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
+			                                                        "Hunting License Information:"), ped.getName(),
 			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
 			                       ped.getHuntingLicenseNumber());
 		} else {
@@ -591,6 +641,182 @@ public class PedLookupViewController {
 		return playAudio;
 	}
 	
+	public void createWarrantInfoPopup(TextField label, String headerText, String name, String dob, String issuedDate, String warrantNumber, String agency, String warrant) {
+		try {
+			AnchorPane popupContent = new AnchorPane();
+			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			popupContent.getStylesheets().add(Launcher.class.getResource(
+					"/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+			
+			Label titleLabel = new Label(headerText);
+			titleLabel.setPadding(new Insets(0, 33, 0, 33));
+			titleLabel.setAlignment(Pos.CENTER);
+			titleLabel.setPrefHeight(33.0);
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
+			titleLabel.setTextFill(Paint.valueOf("WHITE"));
+			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			AnchorPane.setTopAnchor(titleLabel, 0.0);
+			AnchorPane.setLeftAnchor(titleLabel, 0.0);
+			AnchorPane.setRightAnchor(titleLabel, 0.0);
+			
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			exitBtn.setFitHeight(33.0);
+			exitBtn.setFitWidth(15.0);
+			exitBtn.setPickOnBounds(true);
+			exitBtn.setPreserveRatio(true);
+			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
+			AnchorPane.setTopAnchor(exitBtn, 5.0);
+			AnchorPane.setRightAnchor(exitBtn, 5.0);
+			
+			GridPane gridPane = new GridPane();
+			gridPane.setPadding(new Insets(3, 10, 10, 10));
+			gridPane.setHgap(15.0);
+			gridPane.setVgap(3.0);
+			AnchorPane.setTopAnchor(gridPane, 33.0);
+			AnchorPane.setBottomAnchor(gridPane, 0.0);
+			AnchorPane.setLeftAnchor(gridPane, 0.0);
+			AnchorPane.setRightAnchor(gridPane, 0.0);
+			
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			for (int i = 0; i < 6; i++) {
+				gridPane.getRowConstraints().add(new RowConstraints());
+			}
+			
+			TextField nameField = new TextField();
+			nameField.setEditable(false);
+			GridPane.setRowIndex(nameField, 1);
+			
+			TextField dobField = new TextField();
+			dobField.setEditable(false);
+			GridPane.setColumnIndex(dobField, 1);
+			GridPane.setRowIndex(dobField, 1);
+			
+			TextField dateIssuedField = new TextField();
+			dateIssuedField.setEditable(false);
+			GridPane.setRowIndex(dateIssuedField, 3);
+			
+			TextField warrantNumField = new TextField();
+			warrantNumField.setEditable(false);
+			GridPane.setColumnIndex(warrantNumField, 1);
+			GridPane.setRowIndex(warrantNumField, 3);
+			
+			TextField agencyField = new TextField();
+			agencyField.setEditable(false);
+			agencyField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(agencyField, 5);
+			GridPane.setColumnSpan(agencyField, 2);
+			
+			TextField warrantField = new TextField();
+			warrantField.setEditable(false);
+			warrantField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(warrantField, 7);
+			GridPane.setColumnSpan(warrantField, 2);
+			
+			nameField.setText(name);
+			dobField.setText(dob);
+			dateIssuedField.setText(issuedDate);
+			warrantNumField.setText(warrantNumber);
+			agencyField.setText(agency);
+			warrantField.setText(warrant);
+			
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label dateIssuedLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateIssuedLabel", "Date Issued:"));
+			GridPane.setRowIndex(dateIssuedLabel, 2);
+			dateIssuedLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label warrantNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.WarrantNumberLabel", "Warrant Number:"));
+			GridPane.setColumnIndex(warrantNumLabel, 1);
+			GridPane.setRowIndex(warrantNumLabel, 2);
+			warrantNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label agencyLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.IssuingAuthorityLabel", "Issuing Authority:"));
+			GridPane.setRowIndex(agencyLabel, 4);
+			agencyLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label warrantLabel = createLabel(localization.getLocalizedMessage("PedLookup.WarrantLabel", "Warrant:"));
+			GridPane.setRowIndex(warrantLabel, 6);
+			warrantLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dateIssuedLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				warrantNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				agencyLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				warrantLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dateIssuedLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				warrantNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				agencyLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				warrantLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
+			
+			gridPane.getChildren().addAll(nameField, dobField, dateIssuedField, warrantNumField, agencyField, nameLabel,
+			                              dobLabel, dateIssuedLabel, warrantNumLabel, agencyLabel, warrantLabel,
+			                              warrantField);
+			
+			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(0.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			exitBtn.setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+			exitBtn.requestFocus();
+		} catch (Exception e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
+	}
+	
 	public void createLicenseInfoPopup(TextField label, String headerText, String name, String dob, String exp, String status, String licnum) {
 		try {
 			AnchorPane popupContent = new AnchorPane();
@@ -602,7 +828,7 @@ public class PedLookupViewController {
 			titleLabel.setPadding(new Insets(0, 33, 0, 33));
 			titleLabel.setAlignment(Pos.CENTER);
 			titleLabel.setPrefHeight(33.0);
-			titleLabel.setStyle("-fx-background-color: #607D8B;");
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
 			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
@@ -665,19 +891,43 @@ public class PedLookupViewController {
 			statusField.setText(status.equalsIgnoreCase("true") ? "Valid" : "Invalid");
 			licNumField.setText(licnum);
 			
-			Label nameLabel = createLabel("Name:");
-			Label dobLabel = createLabel("Date of Birth:");
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
 			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label expDateLabel = createLabel("Expiration Date:");
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
 			GridPane.setRowIndex(expDateLabel, 2);
+			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licStatusLabel = createLabel("License Status:");
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
 			GridPane.setColumnIndex(licStatusLabel, 1);
 			GridPane.setRowIndex(licStatusLabel, 2);
+			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licNumLabel = createLabel("License Number:");
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
 			GridPane.setRowIndex(licNumLabel, 4);
+			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
 			
 			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
 			                              expDateLabel, licStatusLabel, licNumLabel);
@@ -691,7 +941,198 @@ public class PedLookupViewController {
 			dropShadow.setRadius(15);
 			dropShadow.setSpread(0.3);
 			popupContent.setEffect(dropShadow);
-			popupContent.setStyle("-fx-background-color: white;");
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			exitBtn.setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+			exitBtn.requestFocus();
+		} catch (Exception e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
+	}
+	
+	public void createGunLicenseInfoPopup(TextField label, String headerText, String name, String dob, String exp, String status, String licnum, String gunLicType, String gunLicClass) {
+		try {
+			AnchorPane popupContent = new AnchorPane();
+			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			popupContent.getStylesheets().add(
+					Launcher.class.getResource("/com/Guess/ReportsPlus/css/lookups/lookup.css").toExternalForm());
+			
+			Label titleLabel = new Label(headerText);
+			titleLabel.setPadding(new Insets(0, 40, 0, 40));
+			titleLabel.setAlignment(Pos.CENTER);
+			titleLabel.setPrefHeight(33.0);
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
+			titleLabel.setTextFill(Paint.valueOf("WHITE"));
+			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			AnchorPane.setTopAnchor(titleLabel, 0.0);
+			AnchorPane.setLeftAnchor(titleLabel, 0.0);
+			AnchorPane.setRightAnchor(titleLabel, 0.0);
+			
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			exitBtn.setFitHeight(33.0);
+			exitBtn.setFitWidth(15.0);
+			exitBtn.setPickOnBounds(true);
+			exitBtn.setPreserveRatio(true);
+			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
+			AnchorPane.setTopAnchor(exitBtn, 5.0);
+			AnchorPane.setRightAnchor(exitBtn, 5.0);
+			
+			GridPane gridPane = new GridPane();
+			gridPane.setPadding(new Insets(3, 10, 10, 10));
+			gridPane.setHgap(15.0);
+			gridPane.setVgap(3.0);
+			AnchorPane.setTopAnchor(gridPane, 33.0);
+			AnchorPane.setBottomAnchor(gridPane, 0.0);
+			AnchorPane.setLeftAnchor(gridPane, 0.0);
+			AnchorPane.setRightAnchor(gridPane, 0.0);
+			
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			for (int i = 0; i < 7; i++) {
+				gridPane.getRowConstraints().add(new RowConstraints());
+			}
+			
+			TextField nameField = new TextField();
+			nameField.setEditable(false);
+			GridPane.setRowIndex(nameField, 1);
+			
+			TextField dobField = new TextField();
+			dobField.setEditable(false);
+			GridPane.setColumnIndex(dobField, 1);
+			GridPane.setRowIndex(dobField, 1);
+			
+			TextField expField = new TextField();
+			expField.setEditable(false);
+			GridPane.setRowIndex(expField, 3);
+			
+			TextField statusField = new TextField();
+			statusField.setEditable(false);
+			GridPane.setColumnIndex(statusField, 1);
+			GridPane.setRowIndex(statusField, 3);
+			
+			TextField licNumField = new TextField();
+			licNumField.setEditable(false);
+			licNumField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(licNumField, 5);
+			
+			TextField gunLicTypeField = new TextField();
+			gunLicTypeField.setEditable(false);
+			GridPane.setRowIndex(gunLicTypeField, 5);
+			GridPane.setColumnIndex(gunLicTypeField, 1);
+			
+			TextField gunLicClassField = new TextField();
+			gunLicClassField.setEditable(false);
+			GridPane.setRowIndex(gunLicClassField, 7);
+			GridPane.setColumnSpan(gunLicClassField, 2);
+			
+			nameField.setText(name);
+			dobField.setText(dob);
+			expField.setText(exp);
+			statusField.setText(status.equalsIgnoreCase("true") ? "Valid" : "Invalid");
+			licNumField.setText(licnum);
+			gunLicTypeField.setText(gunLicType);
+			gunLicClassField.setText(gunLicClass);
+			
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
+			dobLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+			GridPane.setRowIndex(expDateLabel, 2);
+			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+			GridPane.setColumnIndex(licStatusLabel, 1);
+			GridPane.setRowIndex(licStatusLabel, 2);
+			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+			GridPane.setRowIndex(licNumLabel, 4);
+			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label gunLicTypeLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type:"));
+			GridPane.setRowIndex(gunLicTypeLabel, 4);
+			GridPane.setColumnIndex(gunLicTypeLabel, 1);
+			gunLicTypeLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label gunLicClassLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class:"));
+			GridPane.setRowIndex(gunLicClassLabel, 6);
+			GridPane.setColumnSpan(gunLicClassLabel, 2);
+			gunLicClassLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				gunLicTypeLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				gunLicClassLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				gunLicTypeLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				gunLicClassLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
+			
+			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
+			                              expDateLabel, licStatusLabel, licNumLabel, gunLicTypeField, gunLicClassField,
+			                              gunLicTypeLabel, gunLicClassLabel);
+			
+			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(0.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
 			
 			Popup popup = new Popup();
 			popup.getContent().add(popupContent);
@@ -1004,14 +1445,6 @@ public class PedLookupViewController {
 	
 	public Label getPed14() {
 		return ped14;
-	}
-	
-	public Label getPed17() {
-		return ped17;
-	}
-	
-	public Label getPed16() {
-		return ped16;
 	}
 	
 	public Label getPed19() {

@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/22"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -773,7 +773,7 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneReport" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                <AnchorPane fx:id="paneReport" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="reportWindowCustomizationHeader" alignment="CENTER" styleClass="settingsLabel"
@@ -1455,8 +1455,8 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="paneDeveloper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="devSettingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                text="DEVELOPER SETTINGS / CLEAR DATA" AnchorPane.leftAnchor="15.0"
@@ -1518,6 +1518,31 @@
                                     <VBox.margin>
                                         <Insets/>
                                     </VBox.margin>
+                                </GridPane>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="clearSaveDataLabel1" alignment="CENTER" styleClass="paneHeading"
+                                               text="Clear Old Ped / Veh Data" GridPane.valignment="CENTER"/>
+                                        <Label fx:id="clearSaveDataTT1" alignment="CENTER" styleClass="paneSubtext"
+                                               text="ONLY delete saved ped / veh history data from previous lookups to free space"
+                                               wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Button fx:id="clrLookupDataBtn" mnemonicParsing="false"
+                                                onAction="#clearLookupDataBtnClick" text="CLEAR LOOKUP DATA"
+                                                GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                    </children>
                                 </GridPane>
                                 <GridPane layoutX="10.0" layoutY="10.0">
                                     <columnConstraints>

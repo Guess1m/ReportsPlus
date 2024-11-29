@@ -161,8 +161,8 @@
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.columnIndex="3"
-                                                                            GridPane.rowIndex="6">
+                                                                <AnchorPane GridPane.columnSpan="2"
+                                                                            GridPane.rowIndex="7">
                                                                     <children>
                                                                         <TextField fx:id="pedlicensefield"
                                                                                    editable="false" layoutX="27.0"
@@ -171,7 +171,8 @@
                                                                                    AnchorPane.rightAnchor="0.0"
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped5" layoutX="26.0"
-                                                                               layoutY="20.0" text="License Status:"
+                                                                               layoutY="20.0"
+                                                                               text="Driver License Status:"
                                                                                textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">
@@ -256,7 +257,8 @@
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.columnIndex="3"
+                                                                <AnchorPane GridPane.columnIndex="2"
+                                                                            GridPane.columnSpan="2"
                                                                             GridPane.rowIndex="7">
                                                                     <children>
                                                                         <TextField fx:id="pedlicnumfield"
@@ -319,7 +321,8 @@
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.rowIndex="7">
+                                                                <AnchorPane GridPane.columnIndex="3"
+                                                                            GridPane.rowIndex="6">
                                                                     <children>
                                                                         <TextField fx:id="pedgunlicensestatusfield"
                                                                                    editable="false" layoutX="26.0"
@@ -329,48 +332,6 @@
                                                                                    AnchorPane.topAnchor="27.0"/>
                                                                         <Label fx:id="ped15" layoutX="25.0"
                                                                                layoutY="20.0" text="Gun License Status:"
-                                                                               textOverrun="WORD_ELLIPSIS"
-                                                                               AnchorPane.leftAnchor="0.0"
-                                                                               AnchorPane.topAnchor="0.0">
-                                                                            <font>
-                                                                                <Font name="Segoe UI Semibold"
-                                                                                      size="16.0"/>
-                                                                            </font>
-                                                                        </Label>
-                                                                    </children>
-                                                                </AnchorPane>
-                                                                <AnchorPane GridPane.columnIndex="1"
-                                                                            GridPane.rowIndex="7">
-                                                                    <children>
-                                                                        <TextField fx:id="pedgunlicensetypefield"
-                                                                                   editable="false" layoutX="26.0"
-                                                                                   layoutY="47.0"
-                                                                                   AnchorPane.leftAnchor="0.0"
-                                                                                   AnchorPane.rightAnchor="0.0"
-                                                                                   AnchorPane.topAnchor="27.0"/>
-                                                                        <Label fx:id="ped16" layoutX="25.0"
-                                                                               layoutY="20.0" text="Gun License Type:"
-                                                                               textOverrun="WORD_ELLIPSIS"
-                                                                               AnchorPane.leftAnchor="0.0"
-                                                                               AnchorPane.topAnchor="0.0">
-                                                                            <font>
-                                                                                <Font name="Segoe UI Semibold"
-                                                                                      size="16.0"/>
-                                                                            </font>
-                                                                        </Label>
-                                                                    </children>
-                                                                </AnchorPane>
-                                                                <AnchorPane GridPane.columnIndex="2"
-                                                                            GridPane.rowIndex="7">
-                                                                    <children>
-                                                                        <TextField fx:id="pedgunlicenseclassfield"
-                                                                                   editable="false" layoutX="26.0"
-                                                                                   layoutY="47.0"
-                                                                                   AnchorPane.leftAnchor="0.0"
-                                                                                   AnchorPane.rightAnchor="0.0"
-                                                                                   AnchorPane.topAnchor="27.0"/>
-                                                                        <Label fx:id="ped17" layoutX="25.0"
-                                                                               layoutY="20.0" text="Gun License Class:"
                                                                                textOverrun="WORD_ELLIPSIS"
                                                                                AnchorPane.leftAnchor="0.0"
                                                                                AnchorPane.topAnchor="0.0">

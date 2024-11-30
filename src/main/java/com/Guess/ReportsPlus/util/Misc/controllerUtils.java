@@ -831,6 +831,13 @@ public class controllerUtils {
 		}
 		
 		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
+		
+		String flags = assignFlagsBasedOnPriors(totalChargePriors);
+		
+		if (flags != null && flags.length() > 0 && !flags.equals("")) {
+			ped.setFlags(flags);
+		}
+		
 		ped.setTimesStopped(totalStops);
 	}
 	
@@ -862,7 +869,6 @@ public class controllerUtils {
 					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
 					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 			ped.setFishingLicenseStatus(licstatus);
-			System.out.println("set fishing license status: " + licstatus);
 			
 			if (licstatus.equalsIgnoreCase("suspended")) {
 				ped.setFishingLicenseExpiration("Suspended License");

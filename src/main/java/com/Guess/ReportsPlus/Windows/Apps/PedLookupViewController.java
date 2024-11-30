@@ -523,7 +523,6 @@ public class PedLookupViewController {
 			if (ped.getBoatingLicenseExpiration() == null) {
 				if (ped.getBoatingLicenseStatus().equalsIgnoreCase("suspended")) {
 					ped.setBoatingLicenseExpiration("Suspended License");
-					System.out.println("set boating suspended");
 				} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
 					ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
 				}
@@ -649,7 +648,7 @@ public class PedLookupViewController {
 		String affiliations = ped.getAffiliations();
 		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
 			pedaffiliationfield.setText("No Data In System");
-			pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedaffiliationfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaffiliationfield.setText(affiliations);
 			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
@@ -658,16 +657,16 @@ public class PedLookupViewController {
 		String flags = ped.getFlags();
 		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
 			pedflagfield.setText("No Data In System");
-			pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedflagfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedflagfield.setText(flags);
-			pedflagfield.setStyle("-fx-text-fill: black !important;");
+			pedflagfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		String description = ped.getDescription();
 		if (description == null || description.equalsIgnoreCase("No Data In System")) {
 			peddescfield.setText("No Data In System");
-			peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			peddescfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			peddescfield.setText(description);
 			peddescfield.setStyle("-fx-text-fill: black !important;");
@@ -676,7 +675,7 @@ public class PedLookupViewController {
 		String aliases = ped.getAliases();
 		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
 			pedaliasfield.setText("No Data In System");
-			pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedaliasfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaliasfield.setText(aliases);
 			pedaliasfield.setStyle("-fx-text-fill: black !important;");
@@ -1576,13 +1575,12 @@ public class PedLookupViewController {
 		if (optionalPed.isPresent()) {
 			Ped ped = optionalPed.get();
 			
-			// Update flags
 			String pedflagfieldText = pedflagfield.getText();
 			if (!pedflagfieldText.equalsIgnoreCase("No Data In System") && !pedflagfieldText.isEmpty()) {
-				pedflagfield.setStyle("-fx-text-fill: black !important;");
+				pedflagfield.setStyle("-fx-text-fill: red !important;");
 				ped.setFlags(pedflagfieldText.trim());
 			} else {
-				pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedflagfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedflagfield.setText("No Data In System");
 				ped.setFlags(null);
 			}
@@ -1592,7 +1590,7 @@ public class PedLookupViewController {
 				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAffiliations(affiliationText.trim());
 			} else {
-				pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaffiliationfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedaffiliationfield.setText("No Data In System");
 				ped.setAffiliations(null);
 			}
@@ -1602,7 +1600,7 @@ public class PedLookupViewController {
 				peddescfield.setStyle("-fx-text-fill: black !important;");
 				ped.setDescription(descText.trim());
 			} else {
-				peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				peddescfield.setStyle("-fx-text-fill: #603417 !important;");
 				peddescfield.setText("No Data In System");
 				ped.setDescription(null);
 			}
@@ -1612,7 +1610,7 @@ public class PedLookupViewController {
 				pedaliasfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAliases(aliasText.trim());
 			} else {
-				pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaliasfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedaliasfield.setText("No Data In System");
 				ped.setAliases(null);
 			}

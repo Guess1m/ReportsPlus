@@ -486,7 +486,7 @@ public class CalloutManager {
 		return gridPane;
 	}
 	
-	private static Label createLabel(String text) {
+	public static Label createLabel(String text) {
 		Label label = new Label(text);
 		label.setStyle("-fx-font-weight: " + ("bold"));
 		return label;

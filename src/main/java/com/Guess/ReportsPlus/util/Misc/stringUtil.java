@@ -14,7 +14,7 @@ public class stringUtil {
 	// updatesList
 	// pom.xml
 	public static final String version = "v1.2-alpha";
-	public static final String[] updatesList = {"Hunting/Boating/Fishing License Info", "More License Outcomes", "Fixed FX Thread Bugs", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	public static final String[] updatesList = {"Hunting/Boating/Fishing License Info", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

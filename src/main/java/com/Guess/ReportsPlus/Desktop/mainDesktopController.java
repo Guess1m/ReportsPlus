@@ -244,7 +244,7 @@ public class mainDesktopController {
 		
 		getTopBar().getChildren().remove(locationDataLabel);
 		
-		if (ConfigReader.configRead("uiSettings", "firstLogin").equals("true")) {
+		if (ConfigReader.configRead("uiSettings", "firstLogin").equalsIgnoreCase("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			log("First Login...", LogUtils.Severity.DEBUG);
 		} else {
@@ -304,7 +304,7 @@ public class mainDesktopController {
 		});
 		
 		try {
-			if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equals("true")) {
+			if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
 				log("Searching For Server...", LogUtils.Severity.DEBUG);
 				new Thread(ClientUtils::listenForServerBroadcasts).start();
 			}

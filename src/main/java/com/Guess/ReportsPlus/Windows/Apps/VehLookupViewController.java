@@ -282,7 +282,6 @@ public class VehLookupViewController {
 				vehregfield.getStyleClass().add("valid-field");
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 				vehregfield.setText(vehicle.getRegistration().toUpperCase());
-				playAudio = true;
 				
 				boolean updated = false;
 				if (vehicle.getRegistrationExpiration() == null) {
@@ -343,7 +342,6 @@ public class VehLookupViewController {
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
 					"invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
-				playAudio = true;
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -360,7 +358,6 @@ public class VehLookupViewController {
 				vehinsfield.getStyleClass().add("valid-field");
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 				vehinsfield.setText(vehicle.getInsurance().toUpperCase());
-				playAudio = true;
 				
 				boolean updated = false;
 				if (vehicle.getInsuranceExpiration() == null) {
@@ -531,7 +528,6 @@ public class VehLookupViewController {
 				vehregfield.getStyleClass().add("valid-field");
 				vehregfield.setStyle("-fx-text-fill: red !important;");
 				vehregfield.setText(vehicle.getRegistration().toUpperCase());
-				playAudio = true;
 				
 				boolean updated = false;
 				if (vehicle.getRegistrationExpiration() == null) {
@@ -600,7 +596,6 @@ public class VehLookupViewController {
 				vehinsfield.getStyleClass().add("valid-field");
 				vehinsfield.setStyle("-fx-text-fill: red !important;");
 				vehinsfield.setText(vehicle.getInsurance().toUpperCase());
-				playAudio = true;
 				
 				boolean updated = false;
 				if (vehicle.getInsuranceExpiration() == null) {
@@ -661,7 +656,6 @@ public class VehLookupViewController {
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase(
 					"invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
-				playAudio = true;
 				
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
@@ -841,7 +835,7 @@ public class VehLookupViewController {
 			
 			final String UILightColor = "rgb(255,255,255,0.75)";
 			final String UIDarkColor = "rgb(0,0,0,0.75)";
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				licStatusLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");

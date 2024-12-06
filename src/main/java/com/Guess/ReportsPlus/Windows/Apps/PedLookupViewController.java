@@ -46,6 +46,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
@@ -304,9 +305,8 @@ public class PedLookupViewController {
 		noRecordFoundLabelPed.setVisible(false);
 	}
 	
-	boolean playAudio = false;
-	
 	private boolean setPedRecordFields(Ped ped) {
+		boolean playAudio = false;
 		pedfnamefield.setText(ped.getFirstName());
 		pedlnamefield.setText(ped.getLastName());
 		pedgenfield.setText(ped.getGender());
@@ -315,12 +315,13 @@ public class PedLookupViewController {
 		
 		pedlicensefield.setText(ped.getLicenseStatus());
 		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
-				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
+				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"REVOKED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"NONE") || ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
 			pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			playAudio = true;
-		} else {
+		} else if (ped.getLicenseStatus().equalsIgnoreCase("VALID")) {
 			pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
-			pedlicensefield.setText("Valid");
 		}
 		
 		pedwantedfield.getStyleClass().clear();
@@ -504,11 +505,17 @@ public class PedLookupViewController {
 			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
 			                       ped.getFishingLicenseNumber());
 			
+		} else {
+			log("Unexpected fishing license status: " + ped.getFishingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected fishing license status: " + ped.getFishingLicenseStatus());
+			
+			pedfishinglicstatusfield.setText("Unknown");
+			pedfishinglicstatusfield.getStyleClass().add("text-field");
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		pedboatinglicstatusfield.getStyleClass().clear();
 		pedboatinglicstatusfield.setOnMouseClicked(null);
-		pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus());
 		if (ped.getBoatingLicenseStatus() == null) {
 			pedboatinglicstatusfield.setText("False");
 			pedboatinglicstatusfield.getStyleClass().add("text-field");
@@ -571,7 +578,12 @@ public class PedLookupViewController {
 			                                                        "Boating License Information:"), ped.getName(),
 			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
 			                       ped.getBoatingLicenseNumber());
-			
+		} else {
+			log("Unexpected boating license status: " + ped.getBoatingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected boating license status: " + ped.getBoatingLicenseStatus());
+			pedboatinglicstatusfield.setText("Unknown");
+			pedboatinglicstatusfield.getStyleClass().add("text-field");
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		pedhuntinglicstatusfield.getStyleClass().clear();
@@ -639,6 +651,12 @@ public class PedLookupViewController {
 			                                                        "Hunting License Information:"), ped.getName(),
 			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
 			                       ped.getHuntingLicenseNumber());
+		} else {
+			log("Unexpected hunting license status: " + ped.getHuntingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected hunting license status: " + ped.getHuntingLicenseStatus());
+			pedhuntinglicstatusfield.setText("Unknown");
+			pedhuntinglicstatusfield.getStyleClass().add("text-field");
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
@@ -884,7 +902,7 @@ public class PedLookupViewController {
 			
 			final String UILightColor = "rgb(255,255,255,0.75)";
 			final String UIDarkColor = "rgb(0,0,0,0.75)";
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				dateIssuedLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1070,7 +1088,7 @@ public class PedLookupViewController {
 			
 			final String UILightColor = "rgb(255,255,255,0.75)";
 			final String UIDarkColor = "rgb(0,0,0,0.75)";
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1277,7 +1295,7 @@ public class PedLookupViewController {
 			
 			final String UILightColor = "rgb(255,255,255,0.75)";
 			final String UIDarkColor = "rgb(0,0,0,0.75)";
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -1394,7 +1412,7 @@ public class PedLookupViewController {
 		String birthday = pedData.getOrDefault("birthday", "Not Found");
 		String address = pedData.getOrDefault("address", "Not Found");
 		String isWanted = pedData.getOrDefault("iswanted", "Not Found");
-		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not Found"));
+		String licenseStatus = pedData.getOrDefault("licensestatus", "Not Found");
 		String licenseNumber = pedData.getOrDefault("licensenumber", "Not Found");
 		String name = pedData.getOrDefault("name", "Not Found");
 		String pedModel = pedData.getOrDefault("pedmodel", "Not Found");

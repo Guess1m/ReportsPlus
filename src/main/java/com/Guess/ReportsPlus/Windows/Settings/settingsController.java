@@ -623,7 +623,7 @@ public class settingsController {
 			}
 		}
 		
-		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			addDarkStyles();
 		} else {
 			addLightStyles();
@@ -1734,7 +1734,7 @@ public class settingsController {
 		textClrComboBox.getItems().addAll(uidarklight);
 		
 		try {
-			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				reportStyleComboBox.getSelectionModel().selectFirst();
 			} else {
 				reportStyleComboBox.getSelectionModel().selectLast();
@@ -1744,7 +1744,7 @@ public class settingsController {
 			
 		}
 		try {
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				textClrComboBox.getSelectionModel().selectFirst();
 				if (logController != null) {
 					logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");

@@ -841,17 +841,6 @@ public class controllerUtils {
 		ped.setTimesStopped(totalStops);
 	}
 	
-	public static String formatLicenseStatus(String status) {
-		switch (status.toLowerCase()) {
-			case "expired":
-				return "EXPIRED";
-			case "suspended":
-				return "SUSPENDED";
-			default:
-				return "Valid";
-		}
-	}
-	
 	public static Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
 		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
 		
@@ -984,7 +973,6 @@ public class controllerUtils {
 					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
 					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
 					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			ped.setBoatingLicenseStatus(licstatus);
 			
 			if (licstatus.equalsIgnoreCase("suspended")) {
 				ped.setBoatingLicenseExpiration("Suspended License");
@@ -993,7 +981,7 @@ public class controllerUtils {
 			} else {
 				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
 			}
-			
+			ped.setBoatingLicenseStatus(licstatus);
 			ped.setBoatingLicenseNumber(generateLicenseNumber());
 		}
 		ped.setVehiclePlateNum(vehPlateNum);

@@ -256,7 +256,7 @@ public class reportUtil {
 		mainRoot.setCenter(scrollPane);
 		
 		try {
-			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				mainRoot.getStylesheets().add(Launcher.class.getResource(
 						"/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource(
@@ -319,7 +319,7 @@ public class reportUtil {
 	private static void addRowToGridPane(GridPane gridPane, nestedReportUtils.RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
 		String placeholder;
 		try {
-			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				placeholder = "black";
 			} else {
 				placeholder = "white";

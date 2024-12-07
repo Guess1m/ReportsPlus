@@ -6,8 +6,8 @@
 
 ## Overview
 
-Reports Plus is designed for users who appreciate the realism aspect of LSPDFR, aiming to make stops, arrests, searches,
-and other interactions more realistic and thorough.
+Reports Plus is designed for users who appreciate the realism aspect of LSPDFR, and aims to make stops, arrests, searches,
+and other interactions, more realistic and thorough.
 
 ### Key Features
 
@@ -36,14 +36,14 @@ Ensure you have the following installed:
 
 ## Installation
 
-### `Please view the page on lcpdfr.com for installation`
+### Please view [the page on lcpdfr.com](https://www.oracle.com/java/technologies/downloads/) for installation instructions.
 
 ## Troubleshooting
 
-- If on Mac, I have had issues with the application if it's in a folder that is backed up by iCloud, I believe this has
+- If on Mac, I have had issues with the application if it's in a folder that iCloud backs up, I believe this has
   to do with the Sync messing with the files, I recommend moving the application to a folder that is not backed up by
   iCloud. Putting the ReportsPlus folder in the `{user}\Applications` folder has worked fine for me, this directory
   shouldn't be getting backed up by iCloud.
-- If you are getting blank ID or Callout windows, try closing both the application and server and relaunching both then
-  reconnecting to the server. This is likely caused by the messages from the server getting out of sync, im currently
+- If you are getting a blank ID or Callout windows, try closing both the application and server and relaunching both then
+  reconnecting to the server. This is likely caused by the messages from the server getting out of sync, I'm currently
   working on a fix.

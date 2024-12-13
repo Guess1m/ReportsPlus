@@ -137,6 +137,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "desktopColor", "#306494");
 		checkAndSetDefaultValue("desktopSettings", "topBarColor", "#e6e6e6");
 		checkAndSetDefaultValue("desktopSettings", "topBarTextColor", "#000000");
+		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
 		
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");

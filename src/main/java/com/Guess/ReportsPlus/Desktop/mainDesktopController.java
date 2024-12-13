@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.Desktop;
 
-import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils;
 import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
@@ -47,6 +46,7 @@ import java.util.Objects;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigRead;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.scheduleOutcomeRevealsForPendingCases;
@@ -207,6 +207,10 @@ public class mainDesktopController {
 		trafficCitation.setOnAction(event -> newCitation());
 		trafficStop.setOnAction(event -> newTrafficStop());
 		
+		testBtn.setOnAction(event -> {
+		
+		});
+		
 		reportContextMenu.getItems().addAll(accident, arrest, callout, death, impound, incident, patrol, search,
 		                                    trafficCitation, trafficStop);
 		
@@ -219,14 +223,14 @@ public class mainDesktopController {
 		button1.setOnAction(event -> {
 			editableDesktop = !editableDesktop;
 			if (!editableDesktop) {
-				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
+				for (DesktopApp desktopApp : DesktopApps) {
 					appConfigWrite(desktopApp.getName(), "x", String.valueOf(desktopApp.getX()));
 					appConfigWrite(desktopApp.getName(), "y", String.valueOf(desktopApp.getY()));
 					desktopApp.getMainPane().setStyle("-fx-background-color: transparent;");
 					infoHBox.setVisible(false);
 				}
 			} else {
-				for (DesktopApp desktopApp : AppUtils.DesktopApps) {
+				for (DesktopApp desktopApp : DesktopApps) {
 					desktopApp.getMainPane().setStyle("-fx-background-color: rgb(0,0,0,0.25);");
 					infoHBox.setVisible(true);
 					infoLabelLeft.setText(

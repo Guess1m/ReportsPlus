@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/23.0.1"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <left>
         <VBox maxWidth="-Infinity" prefWidth="190.0" spacing="10.0" style="-fx-background-color: rgb(0,0,0,0.08);"
@@ -594,9 +594,8 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneDesktop" layoutX="10.0" layoutY="10.0" visible="false"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="paneDesktop" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="desktopSetingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                text="DESKTOP SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
@@ -765,6 +764,31 @@
                                             </GridPane.margin>
                                         </Label>
                                         <ColorPicker fx:id="topBarTextPicker" prefWidth="150.0" GridPane.columnIndex="1"
+                                                     GridPane.halignment="CENTER" GridPane.rowSpan="2147483647"
+                                                     GridPane.valignment="CENTER"/>
+                                    </children>
+                                </GridPane>
+                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="desktopAppTextClrLabel" alignment="CENTER"
+                                               styleClass="paneHeading" text="App Text Color"
+                                               GridPane.valignment="CENTER"/>
+                                        <Label fx:id="desktopAppTextClrTT" alignment="CENTER" styleClass="paneSubtext"
+                                               text="Set the color of the app name text" GridPane.rowIndex="1"
+                                               GridPane.valignment="TOP">
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ColorPicker fx:id="appTextPicker" prefWidth="150.0" GridPane.columnIndex="1"
                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2147483647"
                                                      GridPane.valignment="CENTER"/>
                                     </children>
@@ -1455,8 +1479,8 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneDeveloper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="devSettingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                text="DEVELOPER SETTINGS / CLEAR DATA" AnchorPane.leftAnchor="15.0"

@@ -1,5 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Settings;
 
+import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
@@ -17,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -26,6 +28,7 @@ import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -410,6 +413,12 @@ public class settingsController {
 	private Label clearSaveDataTT1;
 	@javafx.fxml.FXML
 	private Button clrLookupDataBtn;
+	@javafx.fxml.FXML
+	private Label desktopAppTextClrLabel;
+	@javafx.fxml.FXML
+	private ColorPicker appTextPicker;
+	@javafx.fxml.FXML
+	private Label desktopAppTextClrTT;
 	
 	//</editor-fold>
 	
@@ -611,6 +620,10 @@ public class settingsController {
 			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + topBarText + ";");
 			mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + topBarText + ";");
+			for (DesktopApp desktopApp : DesktopApps) {
+				desktopApp.getAppLabel().setTextFill(
+						Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
+			}
 			if (mainDesktopControllerObj.getLocationDataLabel() != null) {
 				mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
@@ -990,6 +1003,11 @@ public class settingsController {
 		desktopTopBarTextClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrTT",
 		                                                                "Set the color of the text on the top bar"));
 		
+		desktopAppTextClrLabel.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrLabel", "App Text Color"));
+		desktopAppTextClrTT.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrTT", "Set the color of the app name text"));
+		
 		//Report
 		reportWindowCustomizationHeader.setText(
 				localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader",
@@ -1298,6 +1316,7 @@ public class settingsController {
 			desktopBackgroundPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "desktopColor")));
 			topBarPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarColor")));
 			topBarTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarTextColor")));
+			appTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
 			bkgPicker.setValue(bkg);
@@ -1653,6 +1672,19 @@ public class settingsController {
 				}
 			}
 			ConfigWriter.configwrite("desktopSettings", "topBarTextColor", toHexString(newValue));
+		});
+		
+		appTextPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
+			if (mainDesktopControllerObj != null) {
+				for (DesktopApp desktopApp : DesktopApps) {
+					desktopApp.getAppLabel().setTextFill(Paint.valueOf(toHexString(newValue)));
+				}
+			}
+			ConfigWriter.configwrite("desktopSettings", "appTextColor", toHexString(newValue));
 		});
 		
 		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {

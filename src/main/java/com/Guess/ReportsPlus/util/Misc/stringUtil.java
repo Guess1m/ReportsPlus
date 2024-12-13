@@ -13,8 +13,16 @@ public class stringUtil {
 	// version
 	// updatesList
 	// pom.xml
+	// New locale
 	public static final String version = "v1.2-alpha";
-	public static final String[] updatesList = {"Hunting/Boating/Fishing License Info", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	public static final String[] updatesList = {"Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	/* New Version Locale
+	Desktop.AvailableLabel=Available!
+	Desktop.NewVersionAvailable=New Version Available!
+	Settings.desktopAppTextClrLabel=App Text Color
+	Settings.ClearLookupDataBtn=CLEAR LOOKUP DATA
+	Settings.desktopAppTextClrTT=Set the color of the app name text
+	*/
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

@@ -18,6 +18,7 @@ public class DesktopApp {
 	
 	private final String name;
 	private final Image image;
+	private Label appLabel;
 	private VBox mainPane;
 	
 	public DesktopApp(String name, Image image) {
@@ -39,7 +40,7 @@ public class DesktopApp {
 		
 		BorderPane borderPaneLabel = new BorderPane();
 		
-		Label appLabel = new Label(name);
+		appLabel = new Label(name);
 		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
 		appLabel.setAlignment(Pos.BOTTOM_CENTER);
@@ -98,5 +99,9 @@ public class DesktopApp {
 	
 	public Image getImage() {
 		return image;
+	}
+	
+	public Label getAppLabel() {
+		return appLabel;
 	}
 }

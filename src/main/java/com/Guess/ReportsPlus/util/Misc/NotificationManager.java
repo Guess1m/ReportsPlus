@@ -40,6 +40,10 @@ public class NotificationManager {
 		enqueueNotification(new Notification(NotificationType.ERROR, title, message));
 	}
 	
+	public static void showNotificationErrorPersistent(String title, String message) {
+		enqueueNotification(new Notification(NotificationType.ERROR_PERSISTENT, title, message));
+	}
+	
 	public static void showNotificationWarning(String title, String message) {
 		enqueueNotification(new Notification(NotificationType.WARNING, title, message));
 	}
@@ -157,36 +161,39 @@ public class NotificationManager {
 						showNextNotification();
 					});
 					
-					String displayDuration = "1.2";
-					try {
-						displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
-					} catch (IOException e) {
-						logError("Could not pull displayDuration from config: ", e);
-					}
-					String fadeDuration = "1.7";
-					try {
-						fadeDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
-					} catch (IOException e) {
-						logError("Could not pull fadeOutDuration from config: ", e);
+					if (notification.type != NotificationType.ERROR_PERSISTENT) {
+						String displayDuration = "1.2";
+						try {
+							displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
+						} catch (IOException e) {
+							logError("Could not pull displayDuration from config: ", e);
+						}
+						String fadeDuration = "1.7";
+						try {
+							fadeDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
+						} catch (IOException e) {
+							logError("Could not pull fadeOutDuration from config: ", e);
+						}
+						
+						PauseTransition pauseTransition = new PauseTransition(
+								Duration.seconds(Double.parseDouble(displayDuration)));
+						String finalFadeDuration = fadeDuration;
+						pauseTransition.setOnFinished(event -> {
+							FadeTransition fadeOutTransition = new FadeTransition(
+									Duration.seconds(Double.parseDouble(finalFadeDuration)), anchorPane);
+							fadeOutTransition.setFromValue(1);
+							fadeOutTransition.setToValue(0);
+							fadeOutTransition.setOnFinished(e -> {
+								mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
+								currentNotifications.remove(anchorPane);
+								isNotificationShowing = false;
+								showNextNotification();
+							});
+							fadeOutTransition.play();
+						});
+						pauseTransition.play();
 					}
 					
-					PauseTransition pauseTransition = new PauseTransition(
-							Duration.seconds(Double.parseDouble(displayDuration)));
-					String finalFadeDuration = fadeDuration;
-					pauseTransition.setOnFinished(event -> {
-						FadeTransition fadeOutTransition = new FadeTransition(
-								Duration.seconds(Double.parseDouble(finalFadeDuration)), anchorPane);
-						fadeOutTransition.setFromValue(1);
-						fadeOutTransition.setToValue(0);
-						fadeOutTransition.setOnFinished(e -> {
-							mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
-							currentNotifications.remove(anchorPane);
-							isNotificationShowing = false;
-							showNextNotification();
-						});
-						fadeOutTransition.play();
-					});
-					pauseTransition.play();
 				} else {
 					log("Notifications Are Disabled", LogUtils.Severity.DEBUG);
 				}
@@ -199,7 +206,7 @@ public class NotificationManager {
 	}
 	
 	private enum NotificationType {
-		INFO, WARNING, ERROR
+		INFO, WARNING, ERROR, ERROR_PERSISTENT
 	}
 	
 	private static class Notification {

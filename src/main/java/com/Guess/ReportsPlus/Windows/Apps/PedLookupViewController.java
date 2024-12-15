@@ -730,35 +730,46 @@ public class PedLookupViewController {
 			File pedImgFolder = new File(pedImageFolderURL);
 			if (pedImgFolder.exists()) {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
-				
-				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-				
-				if (matchingFiles != null && matchingFiles.length > 0) {
-					File matchingFile = matchingFiles[0];
-					log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
-					
-					try {
-						String fileURI = matchingFile.toURI().toString();
-						pedImageView.setImage(new Image(fileURI));
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText(
-								localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
-					} catch (Exception e) {
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-						pedImageView.setImage(defImage);
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-						                                                            "No Image Found In System"));
-						logError("Could not set ped image: ", e);
+				try {
+					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
+						File[] matchingFiles = pedImgFolder.listFiles(
+								(dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+						
+						if (matchingFiles != null && matchingFiles.length > 0) {
+							File matchingFile = matchingFiles[0];
+							log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+							
+							try {
+								String fileURI = matchingFile.toURI().toString();
+								pedImageView.setImage(new Image(fileURI));
+								noPedImageFoundlbl.setVisible(true);
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.PedImageFoundlbl",
+										                                 "Image Found in File:"));
+							} catch (Exception e) {
+								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+								pedImageView.setImage(defImage);
+								noPedImageFoundlbl.setVisible(true);
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+										                                 "No Image Found In System"));
+								logError("Could not set ped image: ", e);
+							}
+						} else {
+							log("No matching image found for the model: " + pedModel + ", displaying no image found.",
+							    LogUtils.Severity.WARN);
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+							pedImageView.setImage(defImage);
+							noPedImageFoundlbl.setVisible(true);
+							noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+							                                                            "No Image Found In System"));
+						}
+					} else {
+						log("enablePedVehImages is disabled in settings so not displaying ped image",
+						    LogUtils.Severity.WARN);
 					}
-				} else {
-					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
-					    LogUtils.Severity.WARN);
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-					pedImageView.setImage(defImage);
-					noPedImageFoundlbl.setVisible(true);
-					noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-					                                                            "No Image Found In System"));
+				} catch (IOException e) {
+					logError("Could not get enablePedVehImages setting from config", e);
 				}
 			} else {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));

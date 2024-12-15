@@ -259,8 +259,6 @@ public class mainDesktopController {
 		
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
 		
-		checkForUpdates();
-		
 		timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
 		
@@ -305,6 +303,7 @@ public class mainDesktopController {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+			checkForUpdates();
 		});
 		
 		try {

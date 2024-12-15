@@ -14,9 +14,11 @@ public class stringUtil {
 	// updatesList
 	// pom.xml
 	// New locale
+	// Sound List If Changed
 	public static final String version = "v1.2-alpha";
-	public static final String[] updatesList = {"AutoUpdater Implementation (BETA)", "Recieve Server Version", "Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
-	/* New Version Locale
+	public static final String[] updatesList = {"AutoUpdater Implementation (BETA)", "Sound Pack / PedVeh Images Installer", "Recieve Server Version", "Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
+	/* New Version Locale.properies changes
 	NEW:
 	Desktop.AvailableLabel=Available!
 	Desktop.NewVersionAvailable=New Version Available!
@@ -26,9 +28,22 @@ public class stringUtil {
 	UpdatesWindow.UpdateButton=AutoUpdate (BETA)
 	UpdatesWindow.CantUpdateLabel=No Update Available!
 	UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
+	UpdatesWindow.MissingUpdater=Missing UpdateUtility!
+	Settings.installSoundsBtn=INSTALL/UPDATE
+	Settings.soundPackNotDetectedLbl=Sound Pack Not Detected
+	Settings.imagesNotDetectedLbl=Ped/Veh Images Not Detected
+	Settings.enablePedVehImages=Enable Ped/Veh Images
+	Settings.enablePedVehImagesTT=Toggle whether ped/veh images will be shown in lookup
+	Settings.clearLookupDataLabel=Clear Old Ped / Veh Data
+	Settings.clearLookupDataLabelTT=ONLY delete saved ped / veh history data from previous lookups to free space
+	PedLookup.PedImageFoundlbl=Image Found in File:
 	
 	REMOVED:
 	UpdatesWindow.CheckUpdatesButton=Check For Updates
+	
+	CHANGED:
+	Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
+	Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals
 	*/
 	
 	public static final String name = "Reports Plus";
@@ -54,6 +69,8 @@ public class stringUtil {
 	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 	public static final String pedImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "peds";
 	public static final String vehImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "vehicles";
+	public static final String soundPackDownloadURL = "https://github.com/Guess1m/ReportsPlus/releases/latest/download/sounds-optional.zip";
+	public static final String imagePackDownloadURL = "https://github.com/Guess1m/ReportsPlus/releases/latest/download/images-optional.zip";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

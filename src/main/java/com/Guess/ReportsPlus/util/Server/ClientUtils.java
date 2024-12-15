@@ -30,7 +30,7 @@ import static com.Guess.ReportsPlus.Windows.Server.calloutController.getCallout;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 
 public class ClientUtils {
@@ -143,8 +143,8 @@ public class ClientUtils {
 							log("Versions dont match!", LogUtils.Severity.ERROR);
 							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
 							log("App Version: " + version, LogUtils.Severity.DEBUG);
-							showNotificationError("Mismatched Versions",
-							                      "Your Application and Server have mismatched versions, check logs!");
+							showNotificationErrorPersistent("Mismatched Versions",
+							                                "Your Application and Server have mismatched versions, check logs!");
 						} else {
 							log("Versions Match!", LogUtils.Severity.INFO);
 							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);

@@ -4,8 +4,6 @@ import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.stringUtil;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -30,7 +28,7 @@ import static com.Guess.ReportsPlus.util.Misc.updateUtil.runJar;
 
 public class updatesController {
 	
-	private static final Duration ANIMATION_DURATION = Duration.seconds(1.2);
+	private static final Duration ANIMATION_DURATION = Duration.seconds(0.4);
 	List<String> updates = new ArrayList<>();
 	@javafx.fxml.FXML
 	private BorderPane root;
@@ -95,33 +93,19 @@ public class updatesController {
 	}
 	
 	private void checkUpdates() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, event -> {
-			currentVer.setText("Updating.");
-			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
-			recentVer.setText("Updating.");
-		}), new KeyFrame(Duration.seconds(0.2), event -> {
-			currentVer.setText("Updating..");
-			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
-			recentVer.setText("Updating..");
-		}), new KeyFrame(Duration.seconds(0.4), event -> {
-			currentVer.setText("Updating...");
-			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
-			recentVer.setText("Updating...");
-		}), new KeyFrame(ANIMATION_DURATION, event -> {
-			currentVer.setText(version);
-			if (!version.equals(gitVersion)) {
-				recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage(
-						"Desktop.NewVersionAvailable", "New Version Available!")));
-				recentVer.setStyle("-fx-text-fill: red;");
-				NotificationManager.showNotificationError("Update Available", localization.getLocalizedMessage(
-						"Desktop.NewVersionAvailable",
-						"New Version Available!") + " " + gitVersion + " Visit LCPDFR Website!");
-				updateAvailable = true;
-			} else {
-				recentVer.setText(gitVersion);
-			}
-		}));
-		timeline.play();
+		currentVer.setText(version);
+		if (!version.equals(gitVersion)) {
+			recentVer.setText(Objects.requireNonNullElse(gitVersion,
+			                                             localization.getLocalizedMessage("Desktop.NewVersionAvailable",
+			                                                                              "New Version Available!")));
+			recentVer.setStyle("-fx-text-fill: red;");
+			NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage(
+					"Desktop.NewVersionAvailable",
+					"New Version Available!") + " " + gitVersion + " Check Updates App!");
+			updateAvailable = true;
+		} else {
+			recentVer.setText(gitVersion);
+		}
 	}
 	
 	@javafx.fxml.FXML
@@ -132,8 +116,15 @@ public class updatesController {
 			}
 			updateStatusLabel.setText("Updating...");
 			log("Shutting Down For AutoUpdate..", LogUtils.Severity.DEBUG);
-			runJar(getJarPath() + File.separator + "tools" + File.separator + "Updater.jar");
-			handleClose();
+			boolean canUpdate = runJar(getJarPath() + File.separator + "tools" + File.separator + "Updater.jar");
+			if (canUpdate) {
+				handleClose();
+			} else {
+				log("Not able to update", LogUtils.Severity.WARN);
+				updateStatusLabel.setText(
+						localization.getLocalizedMessage("UpdatesWindow.MissingUpdater", "Missing UpdateUtility!"));
+			}
+			
 		} else {
 			log("No Update Available, Cant Launch Updater", LogUtils.Severity.WARN);
 			updateStatusLabel.setText(

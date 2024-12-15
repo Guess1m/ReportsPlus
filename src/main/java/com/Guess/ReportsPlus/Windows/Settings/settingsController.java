@@ -45,7 +45,8 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
+import static com.Guess.ReportsPlus.util.Misc.updateUtil.startUpdate;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 public class settingsController {
@@ -55,6 +56,8 @@ public class settingsController {
 	public static settingsController SettingsController;
 	private static AtomicReference<String> selectedNotification;
 	private boolean isInitialized = false;
+	private boolean soundPackInstalled = false;
+	private boolean imgPackInstalled = false;
 	
 	//<editor-fold desc="FXML">
 	@javafx.fxml.FXML
@@ -408,10 +411,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Label accentLabelReportTT;
 	@javafx.fxml.FXML
-	private Label clearSaveDataLabel1;
-	@javafx.fxml.FXML
-	private Label clearSaveDataTT1;
-	@javafx.fxml.FXML
 	private Button clrLookupDataBtn;
 	@javafx.fxml.FXML
 	private Label desktopAppTextClrLabel;
@@ -419,8 +418,101 @@ public class settingsController {
 	private ColorPicker appTextPicker;
 	@javafx.fxml.FXML
 	private Label desktopAppTextClrTT;
+	@javafx.fxml.FXML
+	private GridPane installSoundsPane;
+	@javafx.fxml.FXML
+	private Button installSoundsBtn;
+	@javafx.fxml.FXML
+	private VBox audioVBox;
+	@javafx.fxml.FXML
+	private Label soundPackNotDetectedLbl;
+	@javafx.fxml.FXML
+	private Label imagesNotDetectedLbl;
+	@javafx.fxml.FXML
+	private Button installImagesBtn;
+	@javafx.fxml.FXML
+	private ToggleButton enablePedVehImgsCheckbox;
+	@javafx.fxml.FXML
+	private Label enablePedVehImagesTT;
+	@javafx.fxml.FXML
+	private GridPane installImagesPane;
+	@javafx.fxml.FXML
+	private Label enablePedVehImages;
+	@javafx.fxml.FXML
+	private Label clearLookupDataLabel;
+	@javafx.fxml.FXML
+	private Label clearLookupDataLabelTT;
 	
 	//</editor-fold>
+	private boolean checkSoundsInstalled() {
+		log("Checking if sounds are installed", LogUtils.Severity.INFO);
+		String soundPath = getJarPath() + "/sounds/";
+		File soundFolder = new File(soundPath);
+		boolean soundsInstalled = true;
+		
+		if (!soundFolder.exists() || !soundFolder.isDirectory()) {
+			log("Sound folder not found", LogUtils.Severity.WARN);
+			soundsInstalled = false;
+		}
+		
+		for (String soundFile : soundList) {
+			File file = new File(soundPath + soundFile);
+			if (!file.exists()) {
+				log("Sound file: '" + file.getName() + "' not found", LogUtils.Severity.WARN);
+				soundsInstalled = false;
+			}
+		}
+		
+		if (audioVBox.getChildren().contains(installSoundsPane)) {
+			audioVBox.getChildren().remove(installSoundsPane);
+		}
+		soundPackInstalled = soundsInstalled;
+		
+		if (!soundPackInstalled) {
+			audioVBox.getChildren().add(installSoundsPane);
+			installSoundsPane.toBack();
+		}
+		
+		log("Sounds Installed/Updated: " + soundsInstalled, LogUtils.Severity.DEBUG);
+		return soundsInstalled;
+	}
+	
+	private boolean checkImagesInstalled() {
+		log("Checking if ped/veh images are installed", LogUtils.Severity.INFO);
+		boolean imgsInstalled = true;
+		String imgPath = getJarPath() + "/images/";
+		
+		File imagesFolder = new File(imgPath);
+		if (!imagesFolder.exists() || !imagesFolder.isDirectory()) {
+			log("Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		File pedImagesFolder = new File(imgPath + "/peds");
+		if (!pedImagesFolder.exists() || !pedImagesFolder.isDirectory()) {
+			log("Ped Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		File vehImagesFolder = new File(imgPath + "/vehicles");
+		if (!vehImagesFolder.exists() || !vehImagesFolder.isDirectory()) {
+			log("Vehicle Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		if (audioVBox.getChildren().contains(installImagesPane)) {
+			audioVBox.getChildren().remove(installImagesPane);
+		}
+		imgPackInstalled = imgsInstalled;
+		
+		if (!imgPackInstalled) {
+			audioVBox.getChildren().add(installImagesPane);
+			installImagesPane.toBack();
+		}
+		
+		log("Ped/Veh Images Installed: " + imgsInstalled, LogUtils.Severity.DEBUG);
+		return imgsInstalled;
+	}
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -863,6 +955,9 @@ public class settingsController {
 	}
 	
 	public void initialize() {
+		checkSoundsInstalled();
+		checkImagesInstalled();
+		
 		try {
 			addActionEventsAndComboBoxes();
 		} catch (IOException e) {
@@ -1085,7 +1180,8 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
 		
 		//Audio
-		audioSettingsHeader.setText(localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO SETTINGS"));
+		audioSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
 		enableSoundsLabel.setText(localization.getLocalizedMessage("Settings.EnableSoundsLabel", "Enable Sounds"));
 		enableSoundsTT.setText(localization.getLocalizedMessage("Settings.EnableSoundsTT",
 		                                                        "Toggle whether ALL sounds will be enabled"));
@@ -1102,6 +1198,18 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.CalloutSoundTT", "Sound when a callout is recieved"));
 		delReportLabel.setText(localization.getLocalizedMessage("Settings.DelReportLabel", "Delete Report Sound"));
 		delReportTT.setText(localization.getLocalizedMessage("Settings.DelReportTT", "Sound when report is deleted"));
+		
+		enablePedVehImages.setText(
+				localization.getLocalizedMessage("Settings.enablePedVehImages", "Enable Ped/Veh Images"));
+		enablePedVehImagesTT.setText(localization.getLocalizedMessage("Settings.enablePedVehImagesTT",
+		                                                              "Toggle whether ped/veh images will be shown in lookup"));
+		
+		soundPackNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.soundPackNotDetectedLbl", "Sound Pack Not Detected"));
+		installSoundsBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
+		imagesNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.imagesNotDetectedLbl", "Ped/Veh Images Not Detected"));
+		installImagesBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
 		
 		//Developer
 		devSettingsHeader.setText(
@@ -1120,7 +1228,12 @@ public class settingsController {
 		centerWindowsTT.setText(localization.getLocalizedMessage("Settings.CenterWindowsTT",
 		                                                         "Center all windows on the screen in case of issues"));
 		centerWindowsBtn.setText(localization.getLocalizedMessage("Settings.CenterWindowsBtn", "CENTER WINDOWS"));
+		
 		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
+		clearLookupDataLabel.setText(
+				localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
+		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT",
+		                                                                "ONLY delete saved ped / veh history data from previous lookups to free space"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -1129,7 +1242,7 @@ public class settingsController {
 		reportDesignBtn.setText(localization.getLocalizedMessage("Settings.ReportDesignBtn", "Report Design"));
 		appDesignBtn.setText(localization.getLocalizedMessage("Settings.AppDesignBtn", "Application Design"));
 		serverBtn.setText(localization.getLocalizedMessage("Settings.ServerBtn", "Networking / Server"));
-		audioBtn.setText(localization.getLocalizedMessage("Settings.AudioBtn", "Audio"));
+		audioBtn.setText(localization.getLocalizedMessage("Settings.AudioBtn", "Audio/Optionals"));
 		devBtn.setText(localization.getLocalizedMessage("Settings.DevBtn", "Developer"));
 		
 	}
@@ -1449,6 +1562,8 @@ public class settingsController {
 		backgroundToggle.setSelected(
 				ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
 		
+		enablePedVehImgsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 	}
 	
@@ -2197,5 +2312,34 @@ public class settingsController {
 		} catch (Exception e) {
 			logError("Clear lookup data error: ", e);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void installUpdateSounds(ActionEvent actionEvent) {
+		log("Running Install/Update Sounds", LogUtils.Severity.INFO);
+		startUpdate(soundPackDownloadURL, getJarPath(), "Sounds", false);
+		
+		if (checkSoundsInstalled()) {
+			enableSoundCheckbox.setSelected(true);
+			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
+			showNotificationInfo("Updater", "Successfully Installed Latest SoundPack!");
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void installUpdateImages(ActionEvent actionEvent) {
+		log("Running Install Ped/Veh Images", LogUtils.Severity.INFO);
+		startUpdate(imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
+		
+		if (checkImagesInstalled()) {
+			enablePedVehImgsCheckbox.setSelected(true);
+			ConfigWriter.configwrite("uiSettings", "enablePedVehImages", "true");
+			showNotificationInfo("Updater", "Successfully Installed Ped/Vehicle Image Pack!");
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void enableImagesCheckboxClick(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "enablePedVehImages", enablePedVehImgsCheckbox);
 	}
 }

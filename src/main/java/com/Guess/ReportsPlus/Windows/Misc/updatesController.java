@@ -1,22 +1,32 @@
 package com.Guess.ReportsPlus.Windows.Misc;
 
+import com.Guess.ReportsPlus.config.ConfigWriter;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.stringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.handleClose;
+import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.version;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
+import static com.Guess.ReportsPlus.util.Misc.updateUtil.runJar;
 
 public class updatesController {
 	
@@ -33,8 +43,6 @@ public class updatesController {
 	@javafx.fxml.FXML
 	private VBox changelogBox;
 	@javafx.fxml.FXML
-	private Button checkupdatesbtn;
-	@javafx.fxml.FXML
 	private Label currentverlabel;
 	@javafx.fxml.FXML
 	private Label changeloglabel;
@@ -42,6 +50,16 @@ public class updatesController {
 	private Label mostrecentlabel;
 	@javafx.fxml.FXML
 	private Label verinfolabel;
+	boolean updateAvailable = false;
+	boolean useIntelApplication = false;
+	@javafx.fxml.FXML
+	private Button updateBtn;
+	@javafx.fxml.FXML
+	private HBox hbox;
+	@javafx.fxml.FXML
+	private Label updateStatusLabel;
+	@javafx.fxml.FXML
+	private CheckBox intelChipCheckbox;
 	
 	public void initialize() {
 		verChangelog.setText(version);
@@ -56,14 +74,23 @@ public class updatesController {
 		
 		checkUpdates();
 		
-		checkupdatesbtn.setText(
-				localization.getLocalizedMessage("UpdatesWindow.CheckUpdatesButton", "Check For Updates"));
+		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox",
+		                                                           "Intel Chip (ONLY For Intel MacOS!)"));
+		updateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.UpdateButton", "AutoUpdate (BETA)"));
 		currentverlabel.setText(
 				localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
 		changeloglabel.setText(localization.getLocalizedMessage("UpdatesWindow.ChangelogLabel", "Changelog"));
 		mostrecentlabel.setText(
 				localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
 		verinfolabel.setText(localization.getLocalizedMessage("UpdatesWindow.VersionInfoLabel", "Version Information"));
+		
+		intelChipCheckbox.setOnAction(event -> {
+			if (intelChipCheckbox.isSelected()) {
+				useIntelApplication = true;
+			} else {
+				useIntelApplication = false;
+			}
+		});
 		
 	}
 	
@@ -72,11 +99,11 @@ public class updatesController {
 			currentVer.setText("Updating.");
 			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
 			recentVer.setText("Updating.");
-		}), new KeyFrame(Duration.seconds(0.4), event -> {
+		}), new KeyFrame(Duration.seconds(0.2), event -> {
 			currentVer.setText("Updating..");
 			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
 			recentVer.setText("Updating..");
-		}), new KeyFrame(Duration.seconds(0.8), event -> {
+		}), new KeyFrame(Duration.seconds(0.4), event -> {
 			currentVer.setText("Updating...");
 			recentVer.setStyle("-fx-text-fill: #FDFFE2;");
 			recentVer.setText("Updating...");
@@ -89,6 +116,7 @@ public class updatesController {
 				NotificationManager.showNotificationError("Update Available", localization.getLocalizedMessage(
 						"Desktop.NewVersionAvailable",
 						"New Version Available!") + " " + gitVersion + " Visit LCPDFR Website!");
+				updateAvailable = true;
 			} else {
 				recentVer.setText(gitVersion);
 			}
@@ -97,8 +125,19 @@ public class updatesController {
 	}
 	
 	@javafx.fxml.FXML
-	public void updateBtnAction() {
-		checkUpdates();
+	public void LaunchUpdater(ActionEvent actionEvent) {
+		if (updateAvailable) {
+			if (useIntelApplication) {
+				ConfigWriter.configwrite("updater", "useIntel", "true");
+			}
+			updateStatusLabel.setText("Updating...");
+			log("Shutting Down For AutoUpdate..", LogUtils.Severity.DEBUG);
+			runJar(getJarPath() + File.separator + "tools" + File.separator + "Updater.jar");
+			handleClose();
+		} else {
+			log("No Update Available, Cant Launch Updater", LogUtils.Severity.WARN);
+			updateStatusLabel.setText(
+					localization.getLocalizedMessage("UpdatesWindow.CantUpdateLabel", "No Update Available!"));
+		}
 	}
-	
 }

@@ -1,6 +1,7 @@
 package com.Guess.ReportsPlus.util.Misc;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -12,6 +13,20 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class updateUtil {
 	public static String gitVersion;
+	
+	public static void runJar(String jarPath) {
+		File jarFile = new File(jarPath);
+		if (jarFile.exists()) {
+			try {
+				ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", jarPath);
+				processBuilder.start();
+			} catch (IOException e) {
+				logError("Error Starting Updater: " + jarPath, e);
+			}
+		} else {
+			log("Updater Not Found At: " + jarPath, LogUtils.Severity.ERROR);
+		}
+	}
 	
 	public static void checkForUpdates() {
 		String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";

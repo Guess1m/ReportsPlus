@@ -98,6 +98,9 @@ public class ConfigReader {
 	
 	public static void checkAndSetDefaultValues() {
 		log("====================== Configuration ======================", LogUtils.Severity.INFO);
+		// Updater Settings
+		checkAndSetDefaultValue("updater", "useIntel", "false");
+		
 		// UI Settings
 		checkAndSetDefaultValue("uiColors", "UIDarkMode", "true");
 		checkAndSetDefaultValue("uiColors", "accentColor", "#544f7f");

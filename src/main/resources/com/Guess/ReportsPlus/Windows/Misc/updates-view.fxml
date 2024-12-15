@@ -5,27 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="565.0" prefWidth="466.0"
-            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/21"
+            style="-fx-border-color: #5A72A0;" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Misc.updatesController">
     <center>
         <AnchorPane prefHeight="514.0" prefWidth="389.0" style="-fx-background-color: #1A2130;">
             <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="25.0" layoutY="238.0"
-                            style="-fx-background-color: transparent; -fx-border-color: transparent;"
-                            styleClass="versionPane" stylesheets="@../../css/main/scrollPane.css"
-                            AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
-                            AnchorPane.topAnchor="238.0">
-                    <content>
-                        <AnchorPane style="-fx-background-color: #1A2130;">
-                            <children>
-                                <VBox fx:id="changelogBox" spacing="3.0"
-                                      style="-fx-background-radius: 10; -fx-padding: 8 13 8 13; -fx-background-color: RGB(36,43,58);"
-                                      AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
-                                      AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </ScrollPane>
                 <Label alignment="CENTER" layoutY="9.0" style="-fx-text-fill: #FDFFE2;" text="ReportsPlus"
                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="9.0">
                     <font>
@@ -39,8 +23,8 @@
                         <Font name="Segoe UI Black" size="21.0"/>
                     </font>
                 </Label>
-                <BorderPane layoutY="92.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="92.0">
+                <BorderPane layoutX="5.0" layoutY="86.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                            AnchorPane.topAnchor="86.0">
                     <center>
                         <GridPane>
                             <columnConstraints>
@@ -70,8 +54,8 @@
                         </GridPane>
                     </center>
                 </BorderPane>
-                <BorderPane layoutY="119.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="119.0">
+                <BorderPane layoutX="5.0" layoutY="113.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                            AnchorPane.topAnchor="113.0">
                     <center>
                         <GridPane>
                             <columnConstraints>
@@ -101,7 +85,52 @@
                         </GridPane>
                     </center>
                 </BorderPane>
-                <GridPane layoutX="14.0" layoutY="204.0" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="204.0">
+                <Separator layoutX="50.0" layoutY="83.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
+                           AnchorPane.rightAnchor="50.0"/>
+                <Separator layoutX="50.0" layoutY="152.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
+                           AnchorPane.rightAnchor="50.0"/>
+                <HBox fx:id="hbox" alignment="CENTER" layoutX="5.0" layoutY="161.0" spacing="20.0"
+                      AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="158.0">
+                    <children>
+                        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#LaunchUpdater"
+                                style="-fx-background-color: rgb(0,0,0,0.2); -fx-padding: 5 25;"
+                                text="AutoUpdate (BETA)" textFill="#5a72a0">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <Label fx:id="updateStatusLabel" alignment="CENTER" layoutX="26.0" layoutY="223.0" textFill="#5a72a0"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="210.0">
+                    <font>
+                        <Font name="Segoe UI" size="12.0"/>
+                    </font>
+                </Label>
+                <CheckBox fx:id="intelChipCheckbox" alignment="CENTER" layoutX="50.0" layoutY="195.0"
+                          mnemonicParsing="false" text="Intel Chip (ONLY For Intel MacOS!)" textFill="#797979"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                    <font>
+                        <Font size="10.0"/>
+                    </font>
+                </CheckBox>
+                <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="286.0"
+                            style="-fx-background-color: transparent; -fx-border-color: transparent;"
+                            styleClass="versionPane" stylesheets="@../../css/main/scrollPane.css"
+                            AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="39.0"
+                            AnchorPane.topAnchor="286.0">
+                    <content>
+                        <AnchorPane style="-fx-background-color: #1A2130;">
+                            <children>
+                                <VBox fx:id="changelogBox" spacing="3.0"
+                                      style="-fx-background-radius: 10; -fx-padding: 8 13 8 13; -fx-background-color: RGB(36,43,58);"
+                                      AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+                                      AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+                <GridPane layoutX="40.0" layoutY="252.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="252.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES"/>
                         <ColumnConstraints hgrow="SOMETIMES"/>
@@ -126,18 +155,6 @@
                         </Label>
                     </children>
                 </GridPane>
-                <Separator layoutX="50.0" layoutY="83.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
-                           AnchorPane.rightAnchor="50.0"/>
-                <Separator layoutX="50.0" layoutY="152.0" opacity="0.18" prefWidth="200.0" AnchorPane.leftAnchor="50.0"
-                           AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="checkupdatesbtn" layoutX="110.0" layoutY="165.0" mnemonicParsing="false"
-                        onAction="#updateBtnAction" prefHeight="25.0" prefWidth="182.0"
-                        style="-fx-background-color: rgb(0,0,0,0.2);" text="Check For Updates" textFill="#5a72a0"
-                        AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="165.0">
-                    <font>
-                        <Font name="Segoe UI Black" size="12.0"/>
-                    </font>
-                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

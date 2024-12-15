@@ -30,6 +30,7 @@ import static com.Guess.ReportsPlus.Windows.Server.calloutController.getCallout;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 
 public class ClientUtils {
@@ -133,6 +134,24 @@ public class ClientUtils {
 				String fromServer;
 				label:
 				while ((fromServer = in.readLine()) != null) {
+					if (fromServer.contains("VERSION=")) {
+						String[] split = fromServer.split("=");
+						String serverVer = split[1];
+						log("Checking Server / Application Versions", LogUtils.Severity.INFO);
+						
+						if (!serverVer.equalsIgnoreCase(version)) {
+							log("Versions dont match!", LogUtils.Severity.ERROR);
+							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
+							log("App Version: " + version, LogUtils.Severity.DEBUG);
+							showNotificationError("Mismatched Versions",
+							                      "Your Application and Server have mismatched versions, check logs!");
+						} else {
+							log("Versions Match!", LogUtils.Severity.INFO);
+							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
+							log("App Version: " + version, LogUtils.Severity.DEBUG);
+						}
+						continue;
+					}
 					switch (fromServer) {
 						case "SHUTDOWN":
 							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);

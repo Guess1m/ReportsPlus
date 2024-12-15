@@ -192,6 +192,8 @@ public class NotificationManager {
 				}
 			} catch (IOException e) {
 				logError("Error Getting NotificationsEnabled Setting: ", e);
+			} catch (NullPointerException e) {
+				log("Notification config is null", LogUtils.Severity.ERROR);
 			}
 		});
 	}

@@ -270,18 +270,6 @@ public class mainDesktopController {
 		clock.setCycleCount(Animation.INDEFINITE);
 		clock.play();
 		
-		versionLabel.setText(stringUtil.version);
-		if (!stringUtil.version.equals(gitVersion)) {
-			if (gitVersion == null) {
-				versionLabel.setText(
-						localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
-				versionLabel.setStyle("-fx-text-fill: darkred;");
-			} else {
-				versionLabel.setText(
-						gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel", "Available!"));
-				versionLabel.setStyle("-fx-text-fill: darkred;");
-			}
-		}
 		locationDataLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBar().getChildren().contains(locationDataLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -304,6 +292,19 @@ public class mainDesktopController {
 				throw new RuntimeException(e);
 			}
 			checkForUpdates();
+			
+			versionLabel.setText(stringUtil.version);
+			if (!stringUtil.version.equalsIgnoreCase(gitVersion)) {
+				if (gitVersion == null) {
+					versionLabel.setText(
+							localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
+					versionLabel.setStyle("-fx-text-fill: darkred;");
+				} else {
+					versionLabel.setText(gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel",
+					                                                                         "Available!"));
+					versionLabel.setStyle("-fx-text-fill: darkred;");
+				}
+			}
 		});
 		
 		try {

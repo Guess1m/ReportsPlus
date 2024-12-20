@@ -15,35 +15,22 @@ public class stringUtil {
 	// pom.xml
 	// New locale
 	// Sound List If Changed
-	public static final String version = "v1.2-alpha";
-	public static final String[] updatesList = {"AutoUpdater Implementation (BETA)", "Sound Pack / PedVeh Images Installer", "Recieve Server Version", "Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	public static final String version = "v1.3-alpha";
+	public static final String[] updatesList = {};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	/* New Version Locale.properies changes
 	NEW:
-	Desktop.AvailableLabel=Available!
-	Desktop.NewVersionAvailable=New Version Available!
-	Settings.desktopAppTextClrLabel=App Text Color
-	Settings.ClearLookupDataBtn=CLEAR LOOKUP DATA
-	Settings.desktopAppTextClrTT=Set the color of the app name text
-	UpdatesWindow.UpdateButton=AutoUpdate (BETA)
-	UpdatesWindow.CantUpdateLabel=No Update Available!
-	UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
-	UpdatesWindow.MissingUpdater=Missing UpdateUtility!
-	Settings.installSoundsBtn=INSTALL/UPDATE
-	Settings.soundPackNotDetectedLbl=Sound Pack Not Detected
-	Settings.imagesNotDetectedLbl=Ped/Veh Images Not Detected
-	Settings.enablePedVehImages=Enable Ped/Veh Images
-	Settings.enablePedVehImagesTT=Toggle whether ped/veh images will be shown in lookup
-	Settings.clearLookupDataLabel=Clear Old Ped / Veh Data
-	Settings.clearLookupDataLabelTT=ONLY delete saved ped / veh history data from previous lookups to free space
-	PedLookup.PedImageFoundlbl=Image Found in File:
+	Settings.mainSettingsSubheader=MAIN SETTINGS
+	Settings.colorSettingsSubheader=COLOR SETTINGS
+	Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
+	Settings.developerSubheader=DEVELOPER / RESET DATA
 	
 	REMOVED:
-	UpdatesWindow.CheckUpdatesButton=Check For Updates
+	
 	
 	CHANGED:
-	Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
-	Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals
+	
+	
 	*/
 	
 	public static final String name = "Reports Plus";

@@ -1002,10 +1002,14 @@ public class settingsController {
 	private void addLocale() {
 		//Main
 		mainHeader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
-		mainSettingsSubheader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
-		colorSettingsSubheader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
-		MiscSettingsSubheader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
-		developerSubheader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
+		mainSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.mainSettingsSubheader", "MAIN SETTINGS"));
+		colorSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.colorSettingsSubheader", "COLOR SETTINGS"));
+		MiscSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.MiscSettingsSubheader", "MISC / SERVER SETTINGS"));
+		developerSubheader.setText(
+				localization.getLocalizedMessage("Settings.developerSubheader", "DEVELOPER / RESET DATA"));
 		
 		//Window
 		winSettingsHeader.setText(localization.getLocalizedMessage("Settings.WindowSettingsHeader", "WINDOW SETTINGS"));

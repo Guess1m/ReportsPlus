@@ -73,23 +73,57 @@ public class updateUtil {
 	public static void startUpdate(String url, String destination, String nameOfUpdate, boolean replaceFiles) {
 		try {
 			log("Starting " + nameOfUpdate + " Update!", Severity.INFO);
+			
+			if (!isInternetAvailable()) {
+				log("Internet connection is unavailable. Aborting update.", Severity.ERROR);
+				return;
+			}
+			
 			double startTime = System.currentTimeMillis();
+			
+			log("Preparing to download file from: " + url, Severity.DEBUG);
+			log("Target destination: " + destination, Severity.DEBUG);
 			Path downloadedFile = downloadFile(url, destination);
+			
+			log("Extracting downloaded file to: " + destination, Severity.DEBUG);
 			extractZip(downloadedFile, destination, replaceFiles);
+			
 			double endTime = System.currentTimeMillis();
 			log(nameOfUpdate + " Update Finished: " + (endTime - startTime) / 1000 + "sec", Severity.INFO);
 		} catch (FileNotFoundException e) {
 			logError(nameOfUpdate + " Zip Not Found: ", e);
 		} catch (IOException e) {
-			logError("An error occurred while downloading the " + nameOfUpdate + " Zip: ", e);
+			logError("An error occurred while downloading or extracting the " + nameOfUpdate + " Zip: ", e);
+		} catch (Exception e) {
+			logError("An unexpected error occurred during the update process: ", e);
+		}
+	}
+	
+	private static boolean isInternetAvailable() {
+		try {
+			log("Checking internet connection...", Severity.DEBUG);
+			URL testUrl = new URL("https://www.google.com");
+			HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
+			connection.setRequestMethod("HEAD");
+			connection.setConnectTimeout(5000);
+			connection.setReadTimeout(5000);
+			int responseCode = connection.getResponseCode();
+			boolean isConnected = (responseCode == 200);
+			log("Internet connection status: " + (isConnected ? "Available" : "Unavailable"), Severity.INFO);
+			return isConnected;
+		} catch (IOException e) {
+			log("Internet connection check failed: " + e.getMessage(), Severity.ERROR);
+			return false;
 		}
 	}
 	
 	private static Path downloadFile(String fileUrl, String destinationPath) throws IOException {
 		if (destinationPath == null) {
+			log("Destination path is null. Aborting download.", Severity.ERROR);
 			return null;
 		}
-		log("Starting Download..", Severity.DEBUG);
+		
+		log("Starting download from: " + fileUrl, Severity.INFO);
 		double startTime = System.currentTimeMillis();
 		URL url = new URL(fileUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -98,6 +132,7 @@ public class updateUtil {
 		
 		Path destinationDir = Path.of(destinationPath);
 		if (!Files.exists(destinationDir)) {
+			log("Destination directory does not exist. Creating: " + destinationDir, Severity.DEBUG);
 			Files.createDirectories(destinationDir);
 		}
 		
@@ -113,22 +148,26 @@ public class updateUtil {
 				out.write(buffer, 0, bytesRead);
 			}
 		}
+		
 		double endTime = System.currentTimeMillis();
-		log("Download Finished: " + (endTime - startTime) / 1000 + "sec", Severity.INFO);
-		log("Download Extracted To: " + destinationPath, Severity.INFO);
+		log("Download completed in " + (endTime - startTime) / 1000 + " seconds.", Severity.INFO);
+		log("File saved to: " + destinationFile, Severity.INFO);
 		return destinationFile;
 	}
 	
 	private static void extractZip(Path zipFile, String destinationDir, boolean replaceExisting) throws IOException {
 		if (destinationDir == null) {
+			log("Destination directory is null. Aborting extraction.", Severity.ERROR);
 			return;
 		}
-		log("Starting Extract Zip...", Severity.DEBUG);
+		
+		log("Starting extraction from: " + zipFile + " to " + destinationDir, Severity.INFO);
 		
 		try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
 			ZipEntry entry;
 			while ((entry = zipInputStream.getNextEntry()) != null) {
 				String entryName = entry.getName();
+				
 				if (entryName.startsWith("Sounds/")) {
 					entryName = entryName.substring("Sounds/".length());
 				}
@@ -163,13 +202,16 @@ public class updateUtil {
 				}
 				zipInputStream.closeEntry();
 			}
-			log("Extract Zip Finished: " + destinationDir, Severity.INFO);
+			
+			log("Extraction completed to: " + destinationDir, Severity.INFO);
+		} catch (IOException e) {
+			logError("Error occurred during ZIP extraction: ", e);
+			throw e;
 		}
 		
 		if (Files.exists(zipFile)) {
 			Files.delete(zipFile);
-			log("ZIP file deleted.", Severity.INFO);
+			log("ZIP file deleted after extraction.", Severity.INFO);
 		}
 	}
-	
 }

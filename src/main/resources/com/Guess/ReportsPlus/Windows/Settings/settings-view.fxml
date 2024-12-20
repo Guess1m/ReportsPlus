@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
         <SplitPane dividerPositions="0.31831610044313147" BorderPane.alignment="CENTER">
@@ -1383,8 +1383,8 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="paneAudio" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="paneAudio" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label fx:id="audioSettingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                        text="AUDIO SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
@@ -1630,8 +1630,8 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="paneDeveloper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label fx:id="devSettingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                        text="DEVELOPER SETTINGS / CLEAR DATA" AnchorPane.leftAnchor="15.0"

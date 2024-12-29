@@ -233,8 +233,7 @@ public class Vehicle {
 				Vehicles.setVehicleList(new java.util.ArrayList<>());
 			}
 			
-			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(
-					e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
+			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
 			
 			if (existingReport.isPresent()) {
 				Vehicles.getVehicleList().remove(existingReport.get());
@@ -257,8 +256,7 @@ public class Vehicle {
 			}
 			
 			if (Vehicles.getVehicleList() != null) {
-				return Vehicles.getVehicleList().stream().filter(
-						e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
+				return Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
 			}
 			
 			return Optional.empty();

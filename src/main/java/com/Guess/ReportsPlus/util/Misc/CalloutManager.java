@@ -111,8 +111,7 @@ public class CalloutManager {
 				return;
 			}
 			
-			calloutList = calloutList.stream().filter(callout -> !callout.getNumber().equals(number)).collect(
-					Collectors.toList());
+			calloutList = calloutList.stream().filter(callout -> !callout.getNumber().equals(number)).collect(Collectors.toList());
 			
 			callouts.setCalloutList(calloutList);
 			
@@ -215,9 +214,7 @@ public class CalloutManager {
 						statusProp = callout.getStatus();
 					}
 					
-					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp, callout.getType(),
-					                                           callout.getStreet(), callout.getPriority(),
-					                                           callout.getArea());
+					Node calloutNode = createActiveCalloutNode(callout.getNumber(), statusProp, callout.getType(), callout.getStreet(), callout.getPriority(), callout.getArea());
 					listView.getItems().add(calloutNode);
 				}
 			}
@@ -266,8 +263,7 @@ public class CalloutManager {
 		gridPane.add(streetLabel, 0, 2);
 		gridPane.add(new Label(street), 1, 2, 3, 1);
 		
-		Label priorityLabel = createLabel(
-				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
+		Label priorityLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
 		gridPane.add(priorityLabel, 0, 3);
 		gridPane.add(new Label(priority), 1, 3, 3, 1);
 		
@@ -292,16 +288,13 @@ public class CalloutManager {
 			}
 		});
 		BorderPane statusPane = new BorderPane(statusDropdown);
-		statusDropdown.getStylesheets().add(
-				Objects.requireNonNull(Launcher.class.getResource("css/callout/calloutManager.css")).toExternalForm());
+		statusDropdown.getStylesheets().add(Objects.requireNonNull(Launcher.class.getResource("css/callout/calloutManager.css")).toExternalForm());
 		statusDropdown.getStyleClass().add("combo-boxCal");
 		statusPane.setStyle("-fx-background-color: transparent;");
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
-		Button closeBtn = new Button(
-				localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
-		                                                  0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
+		Button closeBtn = new Button(localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
 		closeBtn.setStyle(def);
 		GridPane.setHalignment(closeBtn, HPos.RIGHT);
 		GridPane.setValignment(closeBtn, VPos.CENTER);
@@ -318,8 +311,7 @@ public class CalloutManager {
 		String starttime1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartTime");
 		
 		closeBtn.setOnAction(actionEvent -> {
-			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1,
-			           starttime1, startdate1, statusVal.getText());
+			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1, starttime1, startdate1, statusVal.getText());
 			deleteCallout(calloutDataURL, number);
 			if (calloutViewController != null) {
 				CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
@@ -349,9 +341,7 @@ public class CalloutManager {
 				if (callouts != null && callouts.getCalloutList() != null) {
 					List<Callout> calloutList = callouts.getCalloutList();
 					for (Callout callout : calloutList) {
-						Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(),
-						                                            callout.getType(), callout.getStreet(),
-						                                            callout.getPriority(), callout.getArea());
+						Node calloutNode = createHistoryCalloutNode(callout.getNumber(), callout.getStatus(), callout.getType(), callout.getStreet(), callout.getPriority(), callout.getArea());
 						listView.getItems().add(calloutNode);
 					}
 				}
@@ -407,8 +397,7 @@ public class CalloutManager {
 		gridPane.add(streetLabel, 0, 1);
 		gridPane.add(new Label(street), 1, 1, 6, 1);
 		
-		Label priorityLabel = createLabel(
-				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
+		Label priorityLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority:"));
 		gridPane.add(priorityLabel, 0, 2);
 		gridPane.add(new Label(priority), 1, 2, 6, 1);
 		
@@ -416,15 +405,13 @@ public class CalloutManager {
 		gridPane.add(areaLabel, 0, 3);
 		gridPane.add(new Label(area), 1, 3, 6, 1);
 		
-		Button actionButton = new Button(
-				localization.getLocalizedMessage("Callout_Manager.NewCalloutButton", "Create Callout Report"));
+		Button actionButton = new Button(localization.getLocalizedMessage("Callout_Manager.NewCalloutButton", "Create Callout Report"));
 		GridPane.setHalignment(actionButton, HPos.CENTER);
 		GridPane.setColumnSpan(actionButton, 1);
 		GridPane.setRowSpan(actionButton, 1);
 		actionButton.setPadding(new Insets(5, 10, 5, 10));
 		
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(),
-		                                                  0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
+		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
 		actionButton.setStyle(def);
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
@@ -432,27 +419,17 @@ public class CalloutManager {
 			
 			Map<String, Object> calloutReportObj = CalloutReportUtils.newCallout();
 			
-			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get(
-					localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report") + " Map");
+			Map<String, Object> callout = (Map<String, Object>) calloutReportObj.get(localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report") + " Map");
 			
-			TextField calloutnum = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
-			ComboBox calloutarea = (ComboBox) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-			TextArea calloutnotes = (TextArea) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-			TextField calloutcounty = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-			ComboBox calloutstreet = (ComboBox) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-			TextField calloutdate = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-			TextField callouttime = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-			TextField callouttype = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-			TextField calloutcode = (TextField) callout.get(
-					localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
+			TextField calloutnum = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
+			ComboBox calloutarea = (ComboBox) callout.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+			TextArea calloutnotes = (TextArea) callout.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
+			TextField calloutcounty = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+			ComboBox calloutstreet = (ComboBox) callout.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+			TextField calloutdate = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+			TextField callouttime = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+			TextField callouttype = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+			TextField calloutcode = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 			
 			String number1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Number");
 			String type1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Type");

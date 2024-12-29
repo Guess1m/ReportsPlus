@@ -30,6 +30,8 @@ public class updatesController {
 	
 	private static final Duration ANIMATION_DURATION = Duration.seconds(0.4);
 	List<String> updates = new ArrayList<>();
+	boolean updateAvailable = false;
+	boolean useIntelApplication = false;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -48,8 +50,6 @@ public class updatesController {
 	private Label mostrecentlabel;
 	@javafx.fxml.FXML
 	private Label verinfolabel;
-	boolean updateAvailable = false;
-	boolean useIntelApplication = false;
 	@javafx.fxml.FXML
 	private Button updateBtn;
 	@javafx.fxml.FXML
@@ -72,14 +72,11 @@ public class updatesController {
 		
 		checkUpdates();
 		
-		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox",
-		                                                           "Intel Chip (ONLY For Intel MacOS!)"));
+		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox", "Intel Chip (ONLY For Intel MacOS!)"));
 		updateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.UpdateButton", "AutoUpdate (BETA)"));
-		currentverlabel.setText(
-				localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
+		currentverlabel.setText(localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
 		changeloglabel.setText(localization.getLocalizedMessage("UpdatesWindow.ChangelogLabel", "Changelog"));
-		mostrecentlabel.setText(
-				localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
+		mostrecentlabel.setText(localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
 		verinfolabel.setText(localization.getLocalizedMessage("UpdatesWindow.VersionInfoLabel", "Version Information"));
 		
 		intelChipCheckbox.setOnAction(event -> {
@@ -95,13 +92,9 @@ public class updatesController {
 	private void checkUpdates() {
 		currentVer.setText(version);
 		if (!version.equals(gitVersion)) {
-			recentVer.setText(Objects.requireNonNullElse(gitVersion,
-			                                             localization.getLocalizedMessage("Desktop.NewVersionAvailable",
-			                                                                              "New Version Available!")));
+			recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!")));
 			recentVer.setStyle("-fx-text-fill: red;");
-			NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage(
-					"Desktop.NewVersionAvailable",
-					"New Version Available!") + " " + gitVersion + " Check Updates App!");
+			NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + " Check Updates App!");
 			updateAvailable = true;
 		} else {
 			recentVer.setText(gitVersion);
@@ -121,14 +114,12 @@ public class updatesController {
 				handleClose();
 			} else {
 				log("Not able to update", LogUtils.Severity.WARN);
-				updateStatusLabel.setText(
-						localization.getLocalizedMessage("UpdatesWindow.MissingUpdater", "Missing UpdateUtility!"));
+				updateStatusLabel.setText(localization.getLocalizedMessage("UpdatesWindow.MissingUpdater", "Missing UpdateUtility!"));
 			}
 			
 		} else {
 			log("No Update Available, Cant Launch Updater", LogUtils.Severity.WARN);
-			updateStatusLabel.setText(
-					localization.getLocalizedMessage("UpdatesWindow.CantUpdateLabel", "No Update Available!"));
+			updateStatusLabel.setText(localization.getLocalizedMessage("UpdatesWindow.CantUpdateLabel", "No Update Available!"));
 		}
 	}
 }

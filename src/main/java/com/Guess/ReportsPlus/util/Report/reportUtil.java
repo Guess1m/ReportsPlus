@@ -94,8 +94,7 @@ public class reportUtil {
 		
 		Label warningLabel = new Label("Please fill out the form");
 		warningLabel.setVisible(false);
-		warningLabel.setStyle(
-				"-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 14;");
+		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 14;");
 		
 		for (int i = 0; i < 12; i++) {
 			ColumnConstraints column = new ColumnConstraints();
@@ -103,10 +102,8 @@ public class reportUtil {
 			gridPane.getColumnConstraints().add(column);
 		}
 		
-		Label mainHeaderLabel = new Label(
-				localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
-		mainHeaderLabel.setStyle(
-				"-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
+		Label mainHeaderLabel = new Label(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
+		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
 		mainHeaderLabel.setAlignment(Pos.CENTER);
 		GridPane.setColumnSpan(mainHeaderLabel, 12);
 		gridPane.add(mainHeaderLabel, 0, 0);
@@ -118,8 +115,7 @@ public class reportUtil {
 			
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 			sectionLabel.setFont(Font.font("Segoe UI Black"));
-			sectionLabel.setStyle(
-					"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+			sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
 			rowIndex++;
 			
@@ -147,8 +143,7 @@ public class reportUtil {
 			}
 		}
 		
-		Button submitBtn = new Button(
-				localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
+		Button submitBtn = new Button(localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
 		submitBtn.getStyleClass().add("incidentformButton");
 		submitBtn.setStyle("-fx-padding: 15;");
 		submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -160,8 +155,7 @@ public class reportUtil {
 			}
 		});
 		
-		MenuButton pullNotesBtn = new MenuButton(
-				localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
+		MenuButton pullNotesBtn = new MenuButton(localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
 		pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
 		pullNotesBtn.getStyleClass().add("incidentformButton");
 		pullNotesBtn.setStyle("-fx-padding: 15;");
@@ -174,8 +168,7 @@ public class reportUtil {
 			}
 		});
 		
-		Button delBtn = new Button(
-				localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
+		Button delBtn = new Button(localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
 		delBtn.setVisible(false);
 		delBtn.setDisable(true);
 		delBtn.getStyleClass().add("incidentformButton");
@@ -183,11 +176,9 @@ public class reportUtil {
 		delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 		delBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
-				delBtn.setStyle(
-						"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+				delBtn.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 			} else {
-				delBtn.setStyle(
-						"-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+				delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 			}
 		});
 		
@@ -234,12 +225,9 @@ public class reportUtil {
 			accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
 			accordion.setMaxHeight(Region.USE_PREF_SIZE);
 			
-			paneGrid.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			accordion.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-			titledPane.setStyle(
-					"-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+			titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 			
 			root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
 		}
@@ -257,43 +245,28 @@ public class reportUtil {
 		
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/formTextArea.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/formButton.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/formComboBox.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/Logscrollpane.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/tableCss.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/light/formTitledPane.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTextArea.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formButton.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formComboBox.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/Logscrollpane.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/tableCss.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTitledPane.css").toExternalForm());
 			} else {
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/formFields.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/formTextArea.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/formButton.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/formComboBox.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/Logscrollpane.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/tableCss.css").toExternalForm());
-				mainRoot.getStylesheets().add(Launcher.class.getResource(
-						"/com/Guess/ReportsPlus/css/form/dark/formTitledPane.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formFields.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formTextArea.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formButton.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formComboBox.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/Logscrollpane.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/tableCss.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formTitledPane.css").toExternalForm());
 			}
 		} catch (IOException e) {
 			logError("Could not add stylesheets to reports: ", e);
 		}
 		
 		scrollPane.getStyleClass().add("formPane");
-		scrollPane.setStyle(
-				"-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
+		scrollPane.setStyle("-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put(reportName + " Map", fieldsMap);
@@ -310,9 +283,7 @@ public class reportUtil {
 		mainRoot.setPrefHeight(570.0);
 		mainRoot.setPrefWidth(705.6);
 		
-		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false,
-		                   mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
-						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
+		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
 		return result;
 	}
 	
@@ -590,8 +561,7 @@ public class reportUtil {
 					treeView.setMaxHeight(350);
 					
 					TextField searchCitationField = new TextField();
-					searchCitationField.setPromptText(
-							localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
+					searchCitationField.setPromptText(localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
 					searchCitationField.setStyle("-fx-background-color: " + getPrimaryColor());
 					searchCitationField.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {
@@ -637,20 +607,14 @@ public class reportUtil {
 					expandTreeItem(rootItem);
 					
 					TextField citationNameField = new TextField();
-					citationNameField.setPromptText(
-							localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
+					citationNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
 					TextField citationFineField = new TextField();
-					citationFineField.setPromptText(
-							localization.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt",
-							                                 "Citation Maximum Fine"));
+					citationFineField.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt", "Citation Maximum Fine"));
 					
 					Button addButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
-					Button removeButton = new Button(
-							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
+					Button removeButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 					
-					Label citationInfoLabel = new Label(
-							localization.getLocalizedMessage("ReportWindows.CitationInformationHeader",
-							                                 "Citation Information"));
+					Label citationInfoLabel = new Label(localization.getLocalizedMessage("ReportWindows.CitationInformationHeader", "Citation Information"));
 					citationInfoLabel.setAlignment(Pos.CENTER);
 					
 					TableView<CitationsData> citationTableView = new TableView<>();
@@ -686,8 +650,7 @@ public class reportUtil {
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
 					
-					citationInfoLabel.setStyle(
-							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					citationInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton.getStyleClass().add("incidentformButton");
 					addButton.setStyle("-fx-padding: 15;");
@@ -739,8 +702,7 @@ public class reportUtil {
 						TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							citationNameField.setText(selectedItem.getValue());
-							citationFineField.setText(
-									findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
+							citationFineField.setText(findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
 						} else {
 							citationNameField.setText("");
 							citationFineField.setText("");
@@ -755,8 +717,7 @@ public class reportUtil {
 							if (fine != null) {
 								formData = new CitationsData(citation);
 							} else {
-								log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(),
-								    LogUtils.Severity.DEBUG);
+								log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(), LogUtils.Severity.DEBUG);
 								formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
 							}
 							
@@ -800,8 +761,7 @@ public class reportUtil {
 					chargestreeView.setMaxHeight(350);
 					
 					TextField searchChargeField = new TextField();
-					searchChargeField.setPromptText(
-							localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
+					searchChargeField.setPromptText(localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
 					searchChargeField.setStyle("-fx-background-color: " + getPrimaryColor());
 					searchChargeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {
@@ -847,16 +807,12 @@ public class reportUtil {
 					
 					TextField chargeNameField = new TextField();
 					chargeNameField.setEditable(false);
-					chargeNameField.setPromptText(
-							localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
+					chargeNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
 					
 					Button addButton2 = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
-					Button removeButton2 = new Button(
-							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
+					Button removeButton2 = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 					
-					Label chargeInfoLabel = new Label(
-							localization.getLocalizedMessage("ReportWindows.ChargeInformationHeader",
-							                                 "Charge Information"));
+					Label chargeInfoLabel = new Label(localization.getLocalizedMessage("ReportWindows.ChargeInformationHeader", "Charge Information"));
 					chargeInfoLabel.setAlignment(Pos.CENTER);
 					
 					TableView<ChargesData> chargeTableView = new TableView<>();
@@ -889,8 +845,7 @@ public class reportUtil {
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 					
-					chargeInfoLabel.setStyle(
-							"-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
 					addButton2.getStyleClass().add("incidentformButton");
 					addButton2.setStyle("-fx-padding: 15;");

@@ -85,11 +85,9 @@ public class desktopLoginController {
 		nameField.setPromptText(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
 		numberField.setPromptText(localization.getLocalizedMessage("Login_Window.NumberPromptText", "Number"));
 		
-		mainHeader.setText(
-				localization.getLocalizedMessage("Login_Window.MainHeaderLabel", "ReportsPlus Officer Login"));
+		mainHeader.setText(localization.getLocalizedMessage("Login_Window.MainHeaderLabel", "ReportsPlus Officer Login"));
 		loginBtn.setText(localization.getLocalizedMessage("Login_Window.LoginButton", "Login"));
-		incompleteLabel.setText(localization.getLocalizedMessage("Login_Window.IncompleteFormLabel",
-		                                                         "Please Fill Out the Form Completely."));
+		incompleteLabel.setText(localization.getLocalizedMessage("Login_Window.IncompleteFormLabel", "Please Fill Out the Form Completely."));
 	}
 	
 	@javafx.fxml.FXML
@@ -98,8 +96,7 @@ public class desktopLoginController {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
-			Timeline timeline1 = new Timeline(
-					new KeyFrame(Duration.seconds(1), evt -> incompleteLabel.setVisible(false)));
+			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> incompleteLabel.setVisible(false)));
 			timeline1.play();
 		} else {
 			String jarPath = null;
@@ -159,8 +156,7 @@ public class desktopLoginController {
 				primaryStage.setFullScreen(false);
 				primaryStage.setMaximized(true);
 				primaryStage.centerOnScreen();
-				primaryStage.setAlwaysOnTop(
-						ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+				primaryStage.setAlwaysOnTop(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 			}
 			
 			MainApplication.mainRT = mainDesktopStage;

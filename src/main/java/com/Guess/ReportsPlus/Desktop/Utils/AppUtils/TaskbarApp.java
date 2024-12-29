@@ -49,10 +49,8 @@ public class TaskbarApp {
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(event -> popup.hide());
 		
-		tooltipButton.widthProperty().addListener(
-				(obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
-		tooltipButton.heightProperty().addListener(
-				(obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
+		tooltipButton.widthProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
+		tooltipButton.heightProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, popup, tooltipButton));
 		
 		container.setOnMouseEntered(event -> {
 			updatePopupPosition(icon, popup, tooltipButton);
@@ -81,8 +79,8 @@ public class TaskbarApp {
 	
 	private void initializeApp() {
 		appButton = new ImageView(image);
-		appButton.setFitWidth(35);
-		appButton.setFitHeight(35);
+		appButton.setFitWidth(30);
+		appButton.setFitHeight(30);
 		appButton.setPreserveRatio(true);
 		
 		container = new BorderPane(appButton);

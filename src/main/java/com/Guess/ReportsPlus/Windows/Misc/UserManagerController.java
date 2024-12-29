@@ -91,8 +91,7 @@ public class UserManagerController {
 			incompleteLabel.setText("Fill Out Form.");
 			incompleteLabel.setStyle("-fx-text-fill: red;");
 			incompleteLabel.setVisible(true);
-			Timeline timeline1 = new Timeline(
-					new KeyFrame(Duration.seconds(1), evt -> incompleteLabel.setVisible(false)));
+			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1), evt -> incompleteLabel.setVisible(false)));
 			timeline1.play();
 		} else {
 			String configFilePath = getJarPath() + File.separator + "config.properties";
@@ -115,8 +114,7 @@ public class UserManagerController {
 				}
 				if (mainDesktopControllerObj != null) {
 					try {
-						mainDesktopControllerObj.getOfficerInfoName().setText(
-								ConfigReader.configRead("userInfo", "Name"));
+						mainDesktopControllerObj.getOfficerInfoName().setText(ConfigReader.configRead("userInfo", "Name"));
 					} catch (IOException e) {
 						logError("Unable to read userInfo name from config, ", e);
 					}

@@ -52,10 +52,7 @@ public class updateUtil {
 				log("App Version: " + stringUtil.version, Severity.INFO);
 				
 				if (!gitVersion.equalsIgnoreCase(stringUtil.version)) {
-					NotificationManager.showNotificationErrorPersistent("Update Available",
-					                                                    localization.getLocalizedMessage(
-							                                                    "Desktop.NewVersionAvailable",
-							                                                    "New Version Available!") + " " + gitVersion + " Check Updates App!");
+					NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + " Check Updates App!");
 				}
 				
 				reader.close();
@@ -63,8 +60,7 @@ public class updateUtil {
 				log("Failed to fetch version file: HTTP error code " + responseCode, Severity.ERROR);
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
-			    Severity.ERROR);
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
 		} catch (IOException e) {
 			logError("Cant check for updates: ", e);
 		}
@@ -139,8 +135,7 @@ public class updateUtil {
 		String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
 		Path destinationFile = destinationDir.resolve(fileName);
 		
-		try (BufferedInputStream in = new BufferedInputStream(
-				connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
+		try (BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
 			
 			byte[] buffer = new byte[1024];
 			int bytesRead;

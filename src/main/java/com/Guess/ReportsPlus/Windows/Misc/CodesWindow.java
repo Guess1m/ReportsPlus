@@ -38,8 +38,7 @@ public class CodesWindow {
 		codelbl.setText(localization.getLocalizedMessage("CodesWindow.CodeLabel", "CODE:"));
 		usagelbl.setText(localization.getLocalizedMessage("CodesWindow.UsageLabel", "USAGE:"));
 		examplelbl.setText(localization.getLocalizedMessage("CodesWindow.ExampleLabel", "Example Usage:"));
-		lbl2.setText(localization.getLocalizedMessage("CodesWindow.Explanation",
-		                                              "Use -{code} to automatically pull the values from your notes to reports with the \"Pull From Notes\" button on the report windows. "));
+		lbl2.setText(localization.getLocalizedMessage("CodesWindow.Explanation", "Use -{code} to automatically pull the values from your notes to reports with the \"Pull From Notes\" button on the report windows. "));
 	}
 	
 	@javafx.fxml.FXML

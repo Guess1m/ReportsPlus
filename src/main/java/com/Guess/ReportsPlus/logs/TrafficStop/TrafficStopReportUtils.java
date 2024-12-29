@@ -41,148 +41,79 @@ import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
 public class TrafficStopReportUtils {
 	
 	public static Map<String, Object> trafficStopLayout() {
-		Map<String, Object> trafficStopReport = createReportWindow(
-				localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report"),
-				new nestedReportUtils.TransferConfig(
-						localization.getLocalizedMessage("ReportWindows.TransferReportInfoButton",
-						                                 "Transfer Information To New Report"),
-						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("transferarrestbtn", 6,
-						                                                                  nestedReportUtils.FieldType.TRANSFER_BUTTON),
-						                                new nestedReportUtils.FieldConfig("transfercitationbtn", 6,
-						                                                                  nestedReportUtils.FieldType.TRANSFER_BUTTON))),
-				new nestedReportUtils.SectionConfig(
-						localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading",
-						                                 "Officer Information"), true, new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
-						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2,
-						nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6,
-						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
-						localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading",
-						                                 "Location / Timestamp Information"), true,
-						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 4,
-								nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4,
-								nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 4,
-								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5,
-						nestedReportUtils.FieldType.TEXT_FIELD),
-						new nestedReportUtils.FieldConfig("stop number", 2, nestedReportUtils.FieldType.TEXT_FIELD))),
-				new nestedReportUtils.SectionConfig(
-						localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
-						                                 "Offender Information"), true, new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4,
-						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
-						nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress",
-								                                 "offender address"), 6,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-						                                 "offender description"), 6,
-						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
-						localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
-						                                 "Offender Vehicle Information"), true,
-						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 4,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 4,
-								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 4,
-								nestedReportUtils.FieldType.COMBO_BOX_COLOR)), new nestedReportUtils.RowConfig(
-						new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 4,
-								nestedReportUtils.FieldType.COMBO_BOX_TYPE), new nestedReportUtils.FieldConfig(
-						localization.getLocalizedMessage("ReportWindows.OtherInfoField",
-						                                 localization.getLocalizedMessage(
-								                                 "ReportWindows.OtherInfoField", "other info")), 8,
-						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
-						localization.getLocalizedMessage("ReportWindows.CommentsSectionHeading", "Comments"), true,
-						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-								localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"), 12,
-								nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> trafficStopReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report"),
+		                                                           new nestedReportUtils.TransferConfig(localization.getLocalizedMessage("ReportWindows.TransferReportInfoButton", "Transfer Information To New Report"),
+		                                                                                                new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig("transferarrestbtn", 6, nestedReportUtils.FieldType.TRANSFER_BUTTON),
+		                                                                                                                                new nestedReportUtils.FieldConfig("transfercitationbtn", 6, nestedReportUtils.FieldType.TRANSFER_BUTTON))),
+		                                                           new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), true,
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                           new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading", "Location / Timestamp Information"), true,
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 4, nestedReportUtils.FieldType.COMBO_BOX_STREET),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4, nestedReportUtils.FieldType.COMBO_BOX_AREA),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 4, nestedReportUtils.FieldType.TEXT_FIELD)),
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig("stop number", 2, nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                           new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"), true,
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
+		                                                                                                                                                                 nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+				                                                           new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"), 6, nestedReportUtils.FieldType.TEXT_FIELD),
+				                                                           new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"), 6, nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                           new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading", "Offender Vehicle Information"), true,
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
+		                                                                                                                               new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 4, nestedReportUtils.FieldType.COMBO_BOX_COLOR)),
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 4, nestedReportUtils.FieldType.COMBO_BOX_TYPE),
+		                                                                                                                               new nestedReportUtils.FieldConfig(
+				                                                                                                                               localization.getLocalizedMessage("ReportWindows.OtherInfoField", localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info")), 8,
+				                                                                                                                               nestedReportUtils.FieldType.TEXT_FIELD))),
+		                                                           new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.CommentsSectionHeading", "Comments"), true,
+		                                                                                               new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"), 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return trafficStopReport;
 	}
 	
 	public static Map<String, Object> newTrafficStop() {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
 		
-		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(
-				localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle",
-				                                 "Traffic Stop Report") + " Map");
+		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport.get(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report") + " Map");
 		
-		TextField officernamets = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-		TextField officerrankts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-		TextField officerdivts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-		TextField officeragents = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-		TextField officernumarrestts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+		TextField officernamets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+		TextField officerrankts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+		TextField officerdivts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+		TextField officeragents = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+		TextField officernumarrestts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 		
-		TextField offenderNamets = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField offenderAgets = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-		TextField offenderGenderts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-		TextField offenderAddressts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-		TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+		TextField offenderNamets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField offenderAgets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+		TextField offenderGenderts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+		TextField offenderAddressts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+		TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 		
-		ComboBox colorts = (ComboBox) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-		ComboBox typets = (ComboBox) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-		TextField plateNumberts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-		TextField otherInfots = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
-		TextField modelts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox colorts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+		ComboBox typets = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+		TextField plateNumberts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField otherInfots = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
+		TextField modelts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 		
-		ComboBox areats = (ComboBox) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-		ComboBox streetts = (ComboBox) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-		TextField countyts = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+		ComboBox areats = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		ComboBox streetts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		TextField countyts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 		TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
-		TextField datets = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-		TextField timets = (TextField) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+		TextField datets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+		TextField timets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 		
-		TextArea notests = (TextArea) trafficStopReportMap.get(
-				localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
+		TextArea notests = (TextArea) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
 		
 		Button transferarrestbtnts = (Button) trafficStopReportMap.get("transferarrestbtn");
-		transferarrestbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel",
-		                                                             "New") + " " + localization.getLocalizedMessage(
-				"ReportWindows.ArrestReportTitle", "Arrest Report"));
+		transferarrestbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"));
 		Button transfercitationbtnts = (Button) trafficStopReportMap.get("transfercitationbtn");
-		transfercitationbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel",
-		                                                               "New") + " " + localization.getLocalizedMessage(
-				"ReportWindows.CitationReportTitle", "Citation Report"));
+		transfercitationbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report"));
 		
 		MenuButton pullNotesBtnts = (MenuButton) trafficStopReport.get("pullNotesBtn");
 		pullNotesBtnts.setPopupSide(Side.TOP);
@@ -234,46 +165,28 @@ public class TrafficStopReportUtils {
 		transferarrestbtnts.setOnAction(event -> {
 			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest();
 			
-			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
-					localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
+			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
 			
-			TextField officernamearr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-			TextField officerrankarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-			TextField officerdivarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-			TextField officeragenarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-			TextField officernumarrestarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+			TextField officernamearr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+			TextField officerrankarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+			TextField officerdivarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+			TextField officeragenarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+			TextField officernumarrestarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 			
-			TextField offenderNamearr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-			TextField offenderAgearr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-			TextField offenderGenderarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-			TextField offenderAddressarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-			TextField offenderDescriptionarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+			TextField offenderNamearr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+			TextField offenderAgearr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+			TextField offenderGenderarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+			TextField offenderAddressarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+			TextField offenderDescriptionarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 			
-			ComboBox areaarr = (ComboBox) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-			ComboBox streetarr = (ComboBox) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-			TextField countyarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-			TextField arrestnumarr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.ArrestNumberField", "arrest number"));
-			TextField datearr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-			TextField timearr = (TextField) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+			ComboBox areaarr = (ComboBox) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+			ComboBox streetarr = (ComboBox) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+			TextField countyarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+			TextField arrestnumarr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.ArrestNumberField", "arrest number"));
+			TextField datearr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+			TextField timearr = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 			
-			TextArea notesarr = (TextArea) arrestReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
+			TextArea notesarr = (TextArea) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
 			
 			officernamearr.setText(officernamets.getText());
 			officerdivarr.setText(officerdivts.getText());
@@ -297,57 +210,34 @@ public class TrafficStopReportUtils {
 		transfercitationbtnts.setOnAction(event -> {
 			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation();
 			
-			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
-					localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
+			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
 			
-			TextField officernamecit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-			TextField officerrankcit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-			TextField officerdivcit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-			TextField officeragencit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-			TextField officernumcit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+			TextField officernamecit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+			TextField officerrankcit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+			TextField officerdivcit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+			TextField officeragencit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+			TextField officernumcit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 			
-			TextField offenderNamecit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-			TextField offenderAgecit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-			TextField offenderGendercit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-			TextField offenderAddresscit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-			TextField offenderDescriptioncit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+			TextField offenderNamecit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+			TextField offenderAgecit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+			TextField offenderGendercit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+			TextField offenderAddresscit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+			TextField offenderDescriptioncit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 			
-			ComboBox areacit = (ComboBox) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-			ComboBox streetcit = (ComboBox) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-			TextField countycit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-			TextField numcit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.CitationNumField", "citation number"));
-			TextField datecit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-			TextField timecit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+			ComboBox areacit = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+			ComboBox streetcit = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+			TextField countycit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+			TextField numcit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.CitationNumField", "citation number"));
+			TextField datecit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+			TextField timecit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 			
-			ComboBox colorcit = (ComboBox) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-			ComboBox typecit = (ComboBox) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-			TextField plateNumbercit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-			TextField otherInfocit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
-			TextField modelcit = (TextField) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+			ComboBox colorcit = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+			ComboBox typecit = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+			TextField plateNumbercit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+			TextField otherInfocit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
+			TextField modelcit = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 			
-			TextArea notescit = (TextArea) citationReportMap.get(
-					localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
+			TextArea notescit = (TextArea) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
 			
 			officernamecit.setText(officernamets.getText());
 			officerdivcit.setText(officerdivts.getText());
@@ -433,8 +323,7 @@ public class TrafficStopReportUtils {
 				}
 				LogViewController.needRefresh.set(1);
 				
-				NotificationManager.showNotificationInfo("Report Manager",
-				                                         "A new Traffic Stop Report has been submitted.");
+				NotificationManager.showNotificationInfo("Report Manager", "A new Traffic Stop Report has been submitted.");
 				CustomWindow window = getWindow("Traffic Stop Report");
 				if (window != null) {
 					window.closeWindow();
@@ -476,18 +365,15 @@ public class TrafficStopReportUtils {
 			TrafficStopReports.setTrafficStopReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<TrafficStopReport> existingReport = TrafficStopReports.getTrafficStopReportList().stream().filter(
-				e -> e.getStopNumber().equals(TrafficStopReport.getStopNumber())).findFirst();
+		Optional<TrafficStopReport> existingReport = TrafficStopReports.getTrafficStopReportList().stream().filter(e -> e.getStopNumber().equals(TrafficStopReport.getStopNumber())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			TrafficStopReports.getTrafficStopReportList().remove(existingReport.get());
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.",
-			    LogUtils.Severity.INFO);
+			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.", LogUtils.Severity.INFO);
 		} else {
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.",
-			    LogUtils.Severity.INFO);
+			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.", LogUtils.Severity.INFO);
 		}
 		
 		saveTrafficStopReports(TrafficStopReports);
@@ -497,8 +383,7 @@ public class TrafficStopReportUtils {
 		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
 		
 		if (TrafficStopReports.getTrafficStopReportList() != null) {
-			TrafficStopReports.getTrafficStopReportList().removeIf(
-					e -> e.getStopNumber().equals(TrafficStopReportnumber));
+			TrafficStopReports.getTrafficStopReportList().removeIf(e -> e.getStopNumber().equals(TrafficStopReportnumber));
 			saveTrafficStopReports(TrafficStopReports);
 			log("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.", LogUtils.Severity.INFO);
 		}

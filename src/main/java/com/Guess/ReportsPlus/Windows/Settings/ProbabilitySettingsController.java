@@ -179,12 +179,10 @@ public class ProbabilitySettingsController {
 	}
 	
 	private boolean checkLicenseChances() {
-		int licenseChanceTotal = Integer.parseInt(validLicense.getText()) + Integer.parseInt(
-				suspendedLicense.getText()) + Integer.parseInt(expiredLicense.getText());
+		int licenseChanceTotal = Integer.parseInt(validLicense.getText()) + Integer.parseInt(suspendedLicense.getText()) + Integer.parseInt(expiredLicense.getText());
 		if (licenseChanceTotal != 100) {
 			log("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal, LogUtils.Severity.ERROR);
-			licenseProbabilityLabel.setText(
-					"License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal);
+			licenseProbabilityLabel.setText("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal);
 			licenseProbabilityLabel.setStyle("-fx-text-fill: red;");
 			licenseProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
@@ -208,9 +206,7 @@ public class ProbabilitySettingsController {
 	}
 	
 	private boolean checkChargePrior() {
-		int chargePriors = Integer.parseInt(noCharges.getText()) + Integer.parseInt(
-				minimalCharges.getText()) + Integer.parseInt(fewCharges.getText()) + Integer.parseInt(
-				manyCharges.getText());
+		int chargePriors = Integer.parseInt(noCharges.getText()) + Integer.parseInt(minimalCharges.getText()) + Integer.parseInt(fewCharges.getText()) + Integer.parseInt(manyCharges.getText());
 		if (chargePriors != 100) {
 			log("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors, LogUtils.Severity.ERROR);
 			chargeProbabilityLabel.setText("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors);
@@ -237,9 +233,7 @@ public class ProbabilitySettingsController {
 	}
 	
 	private boolean checkCitationPrior() {
-		int citationPriors = Integer.parseInt(noCitations.getText()) + Integer.parseInt(
-				minimalCitations.getText()) + Integer.parseInt(fewCitations.getText()) + Integer.parseInt(
-				manyCitations.getText());
+		int citationPriors = Integer.parseInt(noCitations.getText()) + Integer.parseInt(minimalCitations.getText()) + Integer.parseInt(fewCitations.getText()) + Integer.parseInt(manyCitations.getText());
 		if (citationPriors != 100) {
 			log("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors, LogUtils.Severity.ERROR);
 			citationProbabilityLabel.setText("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors);
@@ -266,8 +260,7 @@ public class ProbabilitySettingsController {
 	}
 	
 	private boolean checkPermitType() {
-		int permitTypeTotal = Integer.parseInt(permitTypeConcealed.getText()) + Integer.parseInt(
-				permitTypeOpenCarry.getText()) + Integer.parseInt(permitTypeBoth.getText());
+		int permitTypeTotal = Integer.parseInt(permitTypeConcealed.getText()) + Integer.parseInt(permitTypeOpenCarry.getText()) + Integer.parseInt(permitTypeBoth.getText());
 		if (permitTypeTotal != 100) {
 			log("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal, LogUtils.Severity.ERROR);
 			permitTypeLabel.setText("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal);
@@ -294,8 +287,7 @@ public class ProbabilitySettingsController {
 	}
 	
 	private boolean checkPermitClass() {
-		int permitClassTotal = Integer.parseInt(permitClassHandgun.getText()) + Integer.parseInt(
-				permitClassLonggun.getText()) + Integer.parseInt(permitClassShotgun.getText());
+		int permitClassTotal = Integer.parseInt(permitClassHandgun.getText()) + Integer.parseInt(permitClassLonggun.getText()) + Integer.parseInt(permitClassShotgun.getText());
 		if (permitClassTotal != 100) {
 			log("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal, LogUtils.Severity.ERROR);
 			permitClassLabel.setText("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal);

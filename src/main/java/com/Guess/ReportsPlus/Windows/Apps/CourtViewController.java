@@ -191,8 +191,7 @@ public class CourtViewController {
 			if (!outcomeProbation.isEmpty()) {
 				if (outcomeProbation.contains("years")) {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
-				} else if (outcomeProbation.contains("months") && Integer.parseInt(
-						extractInteger(outcomeProbation)) >= 7) {
+				} else if (outcomeProbation.contains("months") && Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: #cc5200;");
 				} else {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
@@ -206,8 +205,7 @@ public class CourtViewController {
 			if (areTrafficChargesPresent) {
 				courtViewController.caseLicenseStatLabel.setText(licenseStatus);
 				if (!outcomeSuspension.isEmpty() && !licenseStatusList.contains("Revoked")) {
-					if (outcomeSuspension.contains("years") && Integer.parseInt(
-							extractInteger(outcomeSuspension)) >= 2) {
+					if (outcomeSuspension.contains("years") && Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
 						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: red;");
 					} else {
 						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
@@ -283,13 +281,11 @@ public class CourtViewController {
 		CourtCases courtCases = loadCourtCases();
 		
 		if (courtCases.getCaseList() != null) {
-			List<Case> pendingCases = courtCases.getCaseList().stream().filter(
-					c -> "pending".equalsIgnoreCase(c.getStatus())).collect(Collectors.toList());
+			List<Case> pendingCases = courtCases.getCaseList().stream().filter(c -> "pending".equalsIgnoreCase(c.getStatus())).collect(Collectors.toList());
 			
 			for (Case pendingCase : pendingCases) {
 				long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
-				log("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec",
-				    LogUtils.Severity.DEBUG);
+				log("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", LogUtils.Severity.DEBUG);
 				
 				Runnable revealTask = () -> {
 					
@@ -299,8 +295,7 @@ public class CourtViewController {
 					try {
 						modifyCase(pendingCase.getCaseNumber(), pendingCase);
 						log("Case: #" + pendingCase.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
-						showNotificationInfo("Court Manager",
-						                     "Case: #" + pendingCase.getCaseNumber() + " has been closed");
+						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + " has been closed");
 					} catch (JAXBException | IOException e) {
 						logError("Error modifying case from scheduleOutcomeReveals: ", e);
 						
@@ -352,14 +347,12 @@ public class CourtViewController {
 		casesec2.setText(localization.getLocalizedMessage("CourtView.TotalJailTimeLabel", "Total Jail Time:"));
 		casesec3.setText(localization.getLocalizedMessage("CourtView.TotalProbationLabel", "Total Probation Time:"));
 		casesec4.setText(localization.getLocalizedMessage("CourtView.LicenseStatusLabel", "License Status:"));
-		caseSuspensionDurationlbl.setText(
-				localization.getLocalizedMessage("CourtView.SuspensionDurationLabel", "Suspension Duration:"));
+		caseSuspensionDurationlbl.setText(localization.getLocalizedMessage("CourtView.SuspensionDurationLabel", "Suspension Duration:"));
 		
 		revealOutcomeBtn.setText(localization.getLocalizedMessage("CourtView.ShowOutcomesButton", "Show Outcome(s)"));
 		deleteCaseBtn.setText(localization.getLocalizedMessage("CourtView.DeleteCaseButton", "Delete Case"));
 		
-		noCourtCaseSelectedlbl.setText(
-				localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
+		noCourtCaseSelectedlbl.setText(localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
 	}
 	
 	public void loadCaseLabels(ListView<String> listView) {
@@ -390,9 +383,7 @@ public class CourtViewController {
 				
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
-						caseNames.add(
-								case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".",
-								                                                                                "") + " " + case1.getName() + " " + case1.getCaseNumber());
+						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber());
 					}
 				}
 				
@@ -411,9 +402,7 @@ public class CourtViewController {
 									setGraphic(null);
 								} else {
 									for (Case case1 : sortedCases) {
-										if (item.equals(case1.getOffenceDate().replaceAll("-",
-										                                                  "/") + " " + case1.getCaseTime().replace(
-												".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
+										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 											customCaseCell.updateCase(case1);
 											break;
 										}
@@ -430,9 +419,7 @@ public class CourtViewController {
 						blankCourtInfoPane.setVisible(false);
 						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
-							if (newValue.equals(
-									case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".",
-									                                                                                "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
 								updateFields(case1);
 								break;
 							}
@@ -544,17 +531,13 @@ public class CourtViewController {
 						loadCaseLabels(caseList);
 						
 					} catch (JAXBException e) {
-						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ",
-						         e);
+						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ", e);
 					} catch (IOException e) {
-						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ",
-						         e);
+						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ", e);
 					}
 				} else {
-					log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!",
-					    LogUtils.Severity.WARN);
-					showNotificationWarning("Court Manager",
-					                        "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
+					log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!", LogUtils.Severity.WARN);
+					showNotificationWarning("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
 				}
 			}
 		}

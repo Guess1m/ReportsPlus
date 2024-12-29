@@ -24,8 +24,7 @@ public class WindowManager {
 				throw new RuntimeException("FXML file not found: " + fileName);
 			}
 			
-			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root,
-			                                             image);
+			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root, image);
 			
 			if (root != null) {
 				Platform.runLater(() -> {
@@ -55,8 +54,7 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
-				                          taskBarApps, image);
+				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
 			} else {
 				customWindow.bringToFront();
 			}
@@ -92,8 +90,7 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps,
-				                   image);
+				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
 			} else {
 				customWindow.bringToFront();
 			}

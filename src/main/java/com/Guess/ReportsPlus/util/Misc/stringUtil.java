@@ -16,7 +16,7 @@ public class stringUtil {
 	// New locale
 	// Sound List If Changed
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {};
+	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Delayed Loading Window Until Initialization Is Complete", "Rearrange Topbar/Taskbar Elements"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	/* New Version Locale.properies changes
 	NEW:
@@ -24,6 +24,10 @@ public class stringUtil {
 	Settings.colorSettingsSubheader=COLOR SETTINGS
 	Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
 	Settings.developerSubheader=DEVELOPER / RESET DATA
+	Settings.desktopTaskBarClrLabel=Taskbar Color
+	Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
+	Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
+	Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
 	
 	REMOVED:
 	

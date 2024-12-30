@@ -53,6 +53,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLook
 import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesTabList;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
+import static com.Guess.ReportsPlus.Windows.Settings.settingsController.SettingsController;
 import static com.Guess.ReportsPlus.logs.Accident.AccidentReportUtils.newAccident;
 import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils.newCallout;
@@ -355,7 +356,7 @@ public class mainDesktopController {
 				if (mouseEvent.getClickCount() == 2) {
 					CustomWindow settingsWindow = WindowManager.createCustomWindow(desktopContainer, "Windows/Settings/settings-view.fxml", "Program Settings", true, 1, true, false, taskBarApps, settingsAppObj.getImage());
 					if (settingsWindow != null && settingsWindow.controller != null) {
-						settingsController.SettingsController = (settingsController) settingsWindow.controller;
+						SettingsController = (settingsController) settingsWindow.controller;
 					}
 				}
 			}
@@ -547,11 +548,6 @@ public class mainDesktopController {
 			showNotificationInfo("Server Connection", "Server Connection Established");
 			serverStatusLabel.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 			if (clientController != null) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
 				clientController.getPortField().setText(ClientUtils.port);
 				clientController.getInetField().setText(ClientUtils.inet);
 				clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.Connected", "Connected"));
@@ -562,6 +558,7 @@ public class mainDesktopController {
 	
 	@FXML
 	public void createReportBtn(ActionEvent actionEvent) {
+		//TODO: Re-Enable create report btn in new app
 		double btnWidth = createReportBtn.getWidth();
 		
 		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());

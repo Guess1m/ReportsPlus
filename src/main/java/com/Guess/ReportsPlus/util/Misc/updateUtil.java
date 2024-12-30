@@ -95,7 +95,7 @@ public class updateUtil {
 		}
 	}
 	
-	private static boolean isInternetAvailable() {
+	public static boolean isInternetAvailable() {
 		try {
 			log("Checking internet connection...", Severity.DEBUG);
 			URL testUrl = new URL("https://www.google.com");

@@ -38,6 +38,7 @@ public class ClientUtils {
 	public static String port;
 	public static String inet;
 	public static CustomWindow calloutWindow;
+	public static String serverVersion = null;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
 	
@@ -124,16 +125,34 @@ public class ClientUtils {
 		}
 	}
 	
+	public static void sendMessageToServer(String message) {
+		if (socket != null && socket.isConnected()) {
+			try {
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				out.println(message);
+				if (!message.equalsIgnoreCase("HEARTBEAT")) {
+					log("Message sent to server: " + message, LogUtils.Severity.INFO);
+				}
+			} catch (IOException e) {
+				log("Error sending message to server: " + e.getMessage(), LogUtils.Severity.ERROR);
+			}
+		} else {
+			log("Socket is not connected. Unable to send message: " + message, LogUtils.Severity.WARN);
+		}
+	}
+	
 	public static void receiveMessages(BufferedReader in) {
 		new Thread(() -> {
 			try {
 				String fromServer;
+				long lastUpdate = System.currentTimeMillis();
 				label:
 				while ((fromServer = in.readLine()) != null) {
 					if (fromServer.contains("VERSION=")) {
 						String[] split = fromServer.split("=");
 						String serverVer = split[1];
 						log("Checking Server / Application Versions", LogUtils.Severity.INFO);
+						serverVersion = serverVer;
 						
 						if (!serverVer.equalsIgnoreCase(version)) {
 							log("Versions dont match!", LogUtils.Severity.ERROR);
@@ -187,7 +206,16 @@ public class ClientUtils {
 							receiveFileFromServer(4096, "ServerWorldCars.data");
 							break;
 						
+						case "HEARTBEAT":
+							long now = System.currentTimeMillis();
+							long delta = now - lastUpdate;
+							log("Server Heartbeat: " + Math.round(delta) + "ms", LogUtils.Severity.DEBUG);
+							sendMessageToServer("HEARTBEAT");
+							lastUpdate = now;
+							break;
+						
 						default:
+							log("Received unknown message: " + fromServer, LogUtils.Severity.DEBUG);
 							break;
 					}
 				}
@@ -195,7 +223,7 @@ public class ClientUtils {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				try {
-					log("Read timed out after " + socket.getSoTimeout() + " milliseconds", LogUtils.Severity.ERROR);
+					log("Read timed out after " + socket.getSoTimeout() + " milliseconds, missed heartbeat", LogUtils.Severity.ERROR);
 				} catch (SocketException ex) {
 					logError("Could not getSoTimeout: ", e);
 				}

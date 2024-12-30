@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="539.0" prefWidth="447.0" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Misc.AutoUpdaterToolController">
+    <center>
+        <GridPane alignment="CENTER" hgap="15.0" vgap="10.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+            </rowConstraints>
+            <children>
+                <Label fx:id="autoUpdateUtilityHeader" text="AutoUpdate Utility" GridPane.columnSpan="2147483647">
+                    <GridPane.margin>
+                        <Insets left="15.0" top="15.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Segoe UI Black" size="18.0"/>
+                    </font>
+                </Label>
+                <Label text="Update Utility:" GridPane.halignment="LEFT" GridPane.rowIndex="5"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Segoe UI Black" size="13.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                </Label>
+                <VBox alignment="CENTER_LEFT" spacing="6.0" GridPane.rowIndex="7">
+                    <children>
+                        <Label text="Download URL:">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" text="Found Version:" textFill="#616161">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="10.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="Application Download Type:">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <CheckBox fx:id="armChipCheckbox" alignment="CENTER" mnemonicParsing="false"
+                                  onAction="#armChecked" selected="true" text="Use Windows / ARM MacOS Download">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="11.0"/>
+                            </font>
+                        </CheckBox>
+                        <CheckBox fx:id="intelChipCheckbox" alignment="CENTER" minHeight="41.0" mnemonicParsing="false"
+                                  onAction="#intelChecked"
+                                  text="Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"
+                                  wrapText="true">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="11.0"/>
+                            </font>
+                        </CheckBox>
+                        <Label text="Options:">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <CheckBox fx:id="updateServerCheckbox" alignment="CENTER" minHeight="41.0"
+                                  mnemonicParsing="false" onAction="#intelChecked"
+                                  text="Update Server (Requires you to be connected)" wrapText="true">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="11.0"/>
+                            </font>
+                        </CheckBox>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="20.0" right="15.0"/>
+                    </GridPane.margin>
+                </VBox>
+                <Label text="Connection Status:" GridPane.halignment="LEFT" GridPane.rowIndex="4"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Segoe UI Black" size="13.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="validInternetConnectionLabel" GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                       GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="foundUpdateUtilityLabel" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="13.0"/>
+                    </font>
+                </Label>
+                <VBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <children>
+                        <Label fx:id="foundDownloadURLLabel">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="foundDownloadVersionLabel" textFill="#616161">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="10.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <Button fx:id="startAutoUpdateBtn" mnemonicParsing="false" onAction="#updateBtn"
+                        style="-fx-background-color: rgb(0,0,0,0.2);" text="Start AutoUpdate"
+                        GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Segoe UI Black" size="13.0"/>
+                    </font>
+                </Button>
+                <Label text="AutoUpdate Status:" GridPane.halignment="LEFT" GridPane.rowIndex="3"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Segoe UI Black" size="13.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="updateStatusLabel" text="Not Started" textFill="#5e7938" GridPane.columnIndex="1"
+                       GridPane.rowIndex="3">
+                    <font>
+                        <Font name="Segoe UI Black" size="13.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="helpLabel" alignment="CENTER_RIGHT" textFill="#e86464" GridPane.columnSpan="2147483647"
+                       GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="11.0"/>
+                    </font>
+                </Label>
+                <VBox alignment="CENTER_LEFT" spacing="6.0" GridPane.rowIndex="6">
+                    <GridPane.margin>
+                        <Insets left="25.0"/>
+                    </GridPane.margin>
+                    <children>
+                        <Label text="Server Connection:">
+                            <font>
+                                <Font name="Segoe UI Black" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" text="Current Server Version:" textFill="#616161">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="10.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <children>
+                        <Label fx:id="validServerConnectionLabel">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="13.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="foundServerVersionLabel" textFill="#616161">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="10.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="10.0"/>
+            </BorderPane.margin>
+        </GridPane>
+    </center>
+</BorderPane>

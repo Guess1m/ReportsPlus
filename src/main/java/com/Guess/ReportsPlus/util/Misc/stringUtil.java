@@ -9,33 +9,48 @@ import java.net.URISyntaxException;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class stringUtil {
-	// version.txt
-	// version
-	// updatesList
-	// pom.xml
-	// New locale
-	// Sound List If Changed
+	/*
+	UPDATE:
+	 version.txt
+	 version
+	 updatesList
+	 pom.xml
+	 New locale
+	 Sound List If Changed
+	 */
+	
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Delayed Loading Window Until Initialization Is Complete", "Rearrange Topbar/Taskbar Elements"};
+	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Added AutoUpdate Utility With Update Checks", "Autoupdate Server With Application If Connected", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Rearrange Topbar/Taskbar Elements"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
-	/* New Version Locale.properies changes
-	NEW:
-	Settings.mainSettingsSubheader=MAIN SETTINGS
-	Settings.colorSettingsSubheader=COLOR SETTINGS
-	Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
-	Settings.developerSubheader=DEVELOPER / RESET DATA
-	Settings.desktopTaskBarClrLabel=Taskbar Color
-	Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
-	Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
-	Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
-	
-	REMOVED:
-	
-	
-	CHANGED:
-	
-	
-	*/
+	public static final String localeChanges = """
+			NEW:
+			Settings.mainSettingsSubheader=MAIN SETTINGS
+			Settings.colorSettingsSubheader=COLOR SETTINGS
+			Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
+			Settings.developerSubheader=DEVELOPER / RESET DATA
+			Settings.desktopTaskBarClrLabel=Taskbar Color
+			Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
+			Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
+			Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
+			UpdatesWindow.notStartedLabel=Not Started
+			UpdatesWindow.armChipCheckbox=Use Windows / ARM MacOS Download
+			UpdatesWindow.startAutoUpdateBtn=Start AutoUpdate
+			UpdatesWindow.autoUpdateUtilityHeader=AutoUpdate Utility
+			UpdatesWindow.validAutoUpdateCheck=OK
+			UpdatesWindow.invalidAutoUpdateCheck=Invalid
+			UpdatesWindow.successfulAutoUpdateCheck=Successful Check!
+			UpdatesWindow.failedAutoUpdateCheck=Issues Found
+			UpdatesWindow.checksDidntPassLabel=Can't Update:
+			UpdatesWindow.LocaleChangesButton=Locale Changes
+			
+			REMOVED:
+			
+			
+			CHANGED:
+			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!) -> Use Intel Chip MacOS Download (Only select if using a Intel chip mac)
+			
+			UpdatesWindow.UpdateButton=AutoUpdate (BETA) -> Launch Update Utility (BETA)
+			""";
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

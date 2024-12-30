@@ -163,7 +163,7 @@ public class CourtViewController {
 			
 			boolean areTrafficChargesPresent = !licenseStatusList.isEmpty() || !outcomeSuspension.isEmpty();
 			String licenseStatus = "";
-			if (licenseStatusList.contains("Valid")) {
+			if (licenseStatusList.contains("OK")) {
 				licenseStatus = "N/A";
 				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
 			} else if (licenseStatusList.contains("Suspended")) {

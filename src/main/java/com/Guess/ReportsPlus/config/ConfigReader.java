@@ -171,7 +171,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "lastIPV4Connection", "");
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
-		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "10000");
+		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "13000");
 		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");

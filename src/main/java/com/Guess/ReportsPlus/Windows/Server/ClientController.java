@@ -4,6 +4,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -66,6 +67,18 @@ public class ClientController {
 		});
 		
 		addLocalization();
+		
+		Platform.runLater(() -> {
+			if (isConnected) {
+				portField.setText(ClientUtils.port);
+				inetField.setText(ClientUtils.inet);
+				statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.Connected", "Connected"));
+				statusLabel.setStyle("-fx-background-color: green;");
+			} else {
+				statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
+				statusLabel.setStyle("-fx-background-color: #ff5e5e;");
+			}
+		});
 	}
 	
 	private void addLocalization() {

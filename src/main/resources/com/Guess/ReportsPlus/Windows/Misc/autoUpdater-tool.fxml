@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="539.0" prefWidth="447.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Misc.AutoUpdaterToolController">
     <center>
@@ -68,7 +67,8 @@
                             </font>
                         </Label>
                         <CheckBox fx:id="armChipCheckbox" alignment="CENTER" mnemonicParsing="false"
-                                  onAction="#armChecked" selected="true" text="Use Windows / ARM MacOS Download">
+                                  onAction="#armChecked" selected="true" text="Use Windows / ARM MacOS Download"
+                                  wrapText="true">
                             <font>
                                 <Font name="Segoe UI Semibold" size="11.0"/>
                             </font>
@@ -87,8 +87,8 @@
                             </font>
                         </Label>
                         <CheckBox fx:id="updateServerCheckbox" alignment="CENTER" minHeight="41.0"
-                                  mnemonicParsing="false" onAction="#intelChecked"
-                                  text="Update Server (Requires you to be connected)" wrapText="true">
+                                  mnemonicParsing="false" text="Update Server (Requires you to be connected)"
+                                  wrapText="true">
                             <font>
                                 <Font name="Segoe UI Semibold" size="11.0"/>
                             </font>

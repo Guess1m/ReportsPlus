@@ -1,22 +1,24 @@
 package com.Guess.ReportsPlus.Windows.Misc;
 
+import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,34 +44,46 @@ public class AutoUpdaterToolController {
 	private boolean foundDownloadURL = false;
 	private String foundDownloadVersion = null;
 	
-	@javafx.fxml.FXML
+	@FXML
 	private Label validInternetConnectionLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private Label foundDownloadVersionLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private Label helpLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private CheckBox armChipCheckbox;
-	@javafx.fxml.FXML
+	@FXML
 	private BorderPane root;
-	@javafx.fxml.FXML
+	@FXML
 	private Label foundDownloadURLLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private Label updateStatusLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private CheckBox intelChipCheckbox;
-	@javafx.fxml.FXML
+	@FXML
 	private Label foundUpdateUtilityLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private Label autoUpdateUtilityHeader;
-	@javafx.fxml.FXML
+	@FXML
 	private Button startAutoUpdateBtn;
-	@javafx.fxml.FXML
+	@FXML
 	private Label validServerConnectionLabel;
-	@javafx.fxml.FXML
+	@FXML
 	private CheckBox updateServerCheckbox;
-	@javafx.fxml.FXML
+	@FXML
 	private Label foundServerVersionLabel;
+	
+	public static String getParentDirectory() {
+		try {
+			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			File currentDir = new File(jarPath).getParentFile();
+			
+			return currentDir.getParent();
+		} catch (Exception e) {
+			logError("Could not get parent directory: ", e);
+			return null;
+		}
+	}
 	
 	public void initialize() {
 		updateLocale();
@@ -95,15 +109,16 @@ public class AutoUpdaterToolController {
 	}
 	
 	private void updateLocale() {
+		//TODO: add locale for updateservercheckbox
 		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox", "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
 		armChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.armChipCheckbox", "Use Windows / ARM MacOS Download"));
 		startAutoUpdateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.startAutoUpdateBtn", "Start AutoUpdate"));
 		autoUpdateUtilityHeader.setText(localization.getLocalizedMessage("UpdatesWindow.autoUpdateUtilityHeader", "AutoUpdate Utility"));
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void updateBtn(ActionEvent actionEvent) {
-		log("AutoUpdate button pressed", LogUtils.Severity.DEBUG);
+		log("AutoUpdate button pressed", Severity.DEBUG);
 		updateStatus(updateStatusLabel, "Performing Checks...", "blue");
 		
 		final boolean[] updateServer = {false};
@@ -112,19 +127,19 @@ public class AutoUpdaterToolController {
 		} else {
 			updateServer[0] = false;
 		}
-		log("Attempting Server Update: " + updateServer[0], LogUtils.Severity.DEBUG);
+		log("Attempting Server Update: " + updateServer[0], Severity.DEBUG);
 		
 		String downloadURL = null;
 		if (intelChipCheckbox.isSelected()) {
 			downloadURL = intelChipApplicationDownloadURL;
-			log("Intel Download Selected", LogUtils.Severity.DEBUG);
+			log("Intel Download Selected", Severity.DEBUG);
 			ConfigWriter.configwrite("updater", "useIntel", "true");
 		} else {
 			downloadURL = applicationDownloadURL;
-			log("ARM/Win Download Selected", LogUtils.Severity.DEBUG);
+			log("ARM/Win Download Selected", Severity.DEBUG);
 			ConfigWriter.configwrite("updater", "useIntel", "false");
 		}
-		log("Using Download URL: " + downloadURL, LogUtils.Severity.DEBUG);
+		log("Using Download URL: " + downloadURL, Severity.DEBUG);
 		
 		final boolean[] errorsFound = {false};
 		StringBuilder errors = new StringBuilder();
@@ -133,10 +148,10 @@ public class AutoUpdaterToolController {
 		Platform.runLater(() -> {
 			validInternetConnection = isInternetAvailable();
 			if (validInternetConnection) {
-				log("Valid Internet Connection", LogUtils.Severity.DEBUG);
+				log("Valid Internet Connection", Severity.DEBUG);
 				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Invalid Internet Connection", LogUtils.Severity.DEBUG);
+				log("Invalid Internet Connection", Severity.DEBUG);
 				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Invalid Internet Connection ");
@@ -144,10 +159,10 @@ public class AutoUpdaterToolController {
 			
 			foundUpdateUtility = checkForUpdateUtility();
 			if (foundUpdateUtility) {
-				log("Found Update Utility", LogUtils.Severity.DEBUG);
+				log("Found Update Utility", Severity.DEBUG);
 				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Update Utility Was Not Found!", LogUtils.Severity.DEBUG);
+				log("Update Utility Was Not Found!", Severity.DEBUG);
 				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Update Utility Was Not Found, ");
@@ -155,10 +170,10 @@ public class AutoUpdaterToolController {
 			
 			validServerConnection = isConnected;
 			if (validServerConnection) {
-				log("Valid Server Connection Found", LogUtils.Severity.DEBUG);
+				log("Valid Server Connection Found", Severity.DEBUG);
 				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Invalid Server Connection", LogUtils.Severity.WARN);
+				log("Invalid Server Connection", Severity.WARN);
 				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
@@ -168,10 +183,10 @@ public class AutoUpdaterToolController {
 			
 			foundServerDownloadVersion = serverVersion;
 			if (foundServerDownloadVersion != null) {
-				log("Current Server Version: " + foundServerDownloadVersion, LogUtils.Severity.DEBUG);
+				log("Current Server Version: " + foundServerDownloadVersion, Severity.DEBUG);
 				updateStatus(foundServerVersionLabel, foundServerDownloadVersion, "green");
 			} else {
-				log("Current Server Version Not Found!", LogUtils.Severity.WARN);
+				log("Current Server Version Not Found!", Severity.WARN);
 				updateStatus(foundServerVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
@@ -181,10 +196,10 @@ public class AutoUpdaterToolController {
 			
 			foundDownloadURL = checkForDownloadURL(finalDownloadURL);
 			if (foundDownloadURL) {
-				log("Found Download URL: " + finalDownloadURL, LogUtils.Severity.DEBUG);
+				log("Found Download URL: " + finalDownloadURL, Severity.DEBUG);
 				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Download URL Was Not Found!", LogUtils.Severity.WARN);
+				log("Download URL Was Not Found!", Severity.WARN);
 				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Download URL Was Not Found, ");
@@ -192,10 +207,10 @@ public class AutoUpdaterToolController {
 			
 			foundDownloadVersion = checkForDownloadVersion();
 			if (foundDownloadVersion != null) {
-				log("Found Download Version: " + foundDownloadVersion, LogUtils.Severity.DEBUG);
+				log("Found Download Version: " + foundDownloadVersion, Severity.DEBUG);
 				updateStatus(foundDownloadVersionLabel, foundDownloadVersion, "green");
 			} else {
-				log("Download Version Was Not Found!", LogUtils.Severity.WARN);
+				log("Download Version Was Not Found!", Severity.WARN);
 				updateStatus(foundDownloadVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Download Version Was Not Found, ");
@@ -207,39 +222,121 @@ public class AutoUpdaterToolController {
 			}
 			
 			if (errorsFound[0]) {
-				log("Update Check Finished With Errors!: " + ErrorsString, LogUtils.Severity.ERROR);
+				log("Update Check Finished With Errors!: " + ErrorsString, Severity.ERROR);
 				showNotificationError("AutoUpdate Utility", "Autoupdate check finished with errors!");
 				updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.failedAutoUpdateCheck", "Issues Found"), "red");
 				updateStatus(helpLabel, localization.getLocalizedMessage("UpdatesWindow.checksDidntPassLabel", "Can't Update:") + " " + ErrorsString, "red");
 			} else {
 				updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.successfulAutoUpdateCheck", "Successful Check!"), "green");
-				updateStatus(helpLabel, "Performing Update..", "green");
+				updateStatus(helpLabel, "Downloading Update..", "green");
 				
 				if (updateServer[0]) {
-					log("Sending update message to server", LogUtils.Severity.DEBUG);
+					log("Sending update message to server", Severity.DEBUG);
 					sendMessageToServer("UPDATE_MESSAGE");
 				}
 				
-				Timer timer = new Timer();
-				timer.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						runUpdate();
-					}
-				}, 2500);
+				downloadFile(finalDownloadURL, getJarPath());
+				
 				showNotificationInfo("AutoUpdate Utility", "Autoupdate check successful!");
 			}
 		});
 		
 	}
 	
-	private void runUpdate() {
-		log("Attempting to run Updater and Close application!", LogUtils.Severity.WARN);
+	private void downloadFile(String fileUrl, String destinationPath) {
+		if (destinationPath == null) {
+			log("Destination path is null. Aborting download.", Severity.ERROR);
+			return;
+		}
+		
+		Task<Boolean> downloadTask = new Task<>() {
+			@Override
+			protected Boolean call() throws IOException {
+				log("Preparing to download file from: " + fileUrl, Severity.DEBUG);
+				URL url = new URL(fileUrl);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+				
+				int totalFileSize = connection.getContentLength();
+				if (totalFileSize == -1) {
+					log("Failed to retrieve file size. Progress tracking unavailable.", Severity.WARN);
+				}
+				
+				Path destinationDir = Path.of(destinationPath);
+				if (!Files.exists(destinationDir)) {
+					Files.createDirectories(destinationDir);
+				}
+				
+				String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+				Path destinationFile = destinationDir.resolve(fileName);
+				
+				try (BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
+					
+					byte[] buffer = new byte[8192];
+					int bytesRead;
+					long totalBytesRead = 0;
+					
+					long start = System.currentTimeMillis();
+					while ((bytesRead = in.read(buffer)) != -1) {
+						out.write(buffer, 0, bytesRead);
+						totalBytesRead += bytesRead;
+						
+						if (totalFileSize > 0) {
+							updateProgress(totalBytesRead, totalFileSize);
+						}
+					}
+					long end = System.currentTimeMillis();
+					long delta = end - start;
+					log("Download completed in " + Math.round(delta) + "ms. Total bytes read: " + totalBytesRead, Severity.DEBUG);
+					return true;
+				} catch (IOException e) {
+					log("Error during file download: " + e.getMessage(), Severity.ERROR);
+					return false;
+				}
+			}
+		};
+		
+		downloadTask.setOnSucceeded(e -> {
+			updateStatus(updateStatusLabel, "Download Complete", "green");
+			showNotificationInfo("Download", "Download finished successfully.");
+			
+			log("Application Update Download was Successful, launching updater", Severity.DEBUG);
+			updateStatus(helpLabel, "Downloaded Update! Running Updater..", "green");
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					runUpdater();
+				}
+			}, 3000);
+		});
+		
+		downloadTask.setOnFailed(e -> {
+			updateStatus(updateStatusLabel, "Download Failed", "red");
+			showNotificationError("Download", "Download failed: " + downloadTask.getException().getMessage());
+		});
+		
+		downloadTask.progressProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.doubleValue() >= 0) {
+				int percentComplete = (int) (newValue.doubleValue() * 100);
+				String colorToUse = percentComplete <= 25 ? "red" : percentComplete <= 50 ? "#cc6600" : percentComplete <= 75 ? "orange" : "green";
+				updateStatus(updateStatusLabel, percentComplete + "%", colorToUse);
+			}
+		});
+		
+		Thread thread = new Thread(downloadTask);
+		thread.setDaemon(true);
+		thread.start();
+		
+	}
+	
+	private void runUpdater() {
+		log("Attempting to run Updater and Close application!", Severity.WARN);
 		boolean canUpdate = runJar(getJarPath() + File.separator + "tools" + File.separator + "Updater.jar");
 		if (canUpdate) {
 			handleClose();
 		} else {
-			log("Not able to update, issue running Updater", LogUtils.Severity.ERROR);
+			log("Not able to update, issue running Updater", Severity.ERROR);
 			updateStatus(helpLabel, "Not able to update, issue running Updater", "red");
 		}
 	}
@@ -248,10 +345,10 @@ public class AutoUpdaterToolController {
 		String updaterPath = getJarPath() + File.separator + "tools" + File.separator + "Updater.jar";
 		File jarFile = new File(updaterPath);
 		if (jarFile.exists()) {
-			log("Updater Found At: " + updaterPath, LogUtils.Severity.DEBUG);
+			log("Updater Found At: " + updaterPath, Severity.DEBUG);
 			return true;
 		} else {
-			log("Updater Not Found At: " + updaterPath, LogUtils.Severity.ERROR);
+			log("Updater Not Found At: " + updaterPath, Severity.ERROR);
 			return false;
 		}
 	}
@@ -284,7 +381,7 @@ public class AutoUpdaterToolController {
 			try {
 				responseCode = connection.getResponseCode();
 			} catch (IOException e) {
-				log("Failed to fetch version file: Unable to get response code. URL might not exist.", LogUtils.Severity.ERROR);
+				log("Failed to fetch version file: Unable to get response code. URL might not exist.", Severity.ERROR);
 				return null;
 			}
 			if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -297,11 +394,11 @@ public class AutoUpdaterToolController {
 				reader.close();
 				return content.toString().trim();
 			} else {
-				log("Failed to fetch version file: HTTP error code " + responseCode, LogUtils.Severity.ERROR);
+				log("Failed to fetch version file: HTTP error code " + responseCode, Severity.ERROR);
 				return null;
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", LogUtils.Severity.ERROR);
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
 			return null;
 		} catch (IOException e) {
 			logError("Can't check for updates: ", e);
@@ -313,14 +410,14 @@ public class AutoUpdaterToolController {
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void intelChecked(ActionEvent actionEvent) {
 		if (armChipCheckbox.isSelected()) {
 			armChipCheckbox.setSelected(false);
 		}
 	}
 	
-	@javafx.fxml.FXML
+	@FXML
 	public void armChecked(ActionEvent actionEvent) {
 		if (intelChipCheckbox.isSelected()) {
 			intelChipCheckbox.setSelected(false);

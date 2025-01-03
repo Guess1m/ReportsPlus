@@ -158,7 +158,12 @@ public class CustomWindow {
 	}
 	
 	private void initializeWindow(boolean resizable) {
-		AnchorPane titleBar = createTitleBar(title);
+		AnchorPane titleBar;
+		if (resizable) {
+			titleBar = createTitleBar(title, true);
+		} else {
+			titleBar = createTitleBar(title, false);
+		}
 		((BorderPane) windowPane).setTop(titleBar);
 		
 		DropShadow dropShadow = new DropShadow();
@@ -307,7 +312,7 @@ public class CustomWindow {
 		});
 	}
 	
-	public AnchorPane createTitleBar(String titleText) {
+	public AnchorPane createTitleBar(String titleText, boolean enableMaximize) {
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setSaturation(-1.0);
 		colorAdjust.setBrightness(-0.45);
@@ -343,14 +348,6 @@ public class CustomWindow {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
-		ImageView maximizeImageView = new ImageView(maximizeImage);
-		maximizeImageView.setFitWidth(15);
-		maximizeImageView.setFitHeight(15);
-		AnchorPane.setRightAnchor(maximizeImageView, 42.5);
-		AnchorPane.setTopAnchor(maximizeImageView, 7.0);
-		maximizeImageView.setEffect(colorAdjust);
-		
 		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
@@ -360,25 +357,41 @@ public class CustomWindow {
 		minimizeImageView.setEffect(colorAdjust);
 		
 		Rectangle closeRect = new Rectangle(20, 20);
-		Rectangle maximizeRect = new Rectangle(20, 20);
-		Rectangle minimizeRect = new Rectangle(20, 20);
-		
 		closeRect.setFill(Color.TRANSPARENT);
-		minimizeRect.setFill(Color.TRANSPARENT);
-		maximizeRect.setFill(Color.TRANSPARENT);
-		
 		closeRect.setOnMouseClicked(event -> closeWindow());
-		minimizeRect.setOnMouseClicked(event -> minimizeWindow());
-		maximizeRect.setOnMouseClicked(event -> toggleMaximize());
-		
 		AnchorPane.setRightAnchor(closeRect, 12.5);
 		AnchorPane.setTopAnchor(closeRect, 6.3);
-		AnchorPane.setRightAnchor(minimizeRect, 70.0);
-		AnchorPane.setTopAnchor(minimizeRect, 6.3);
-		AnchorPane.setRightAnchor(maximizeRect, 42.5);
-		AnchorPane.setTopAnchor(maximizeRect, 6.3);
 		
-		titleBar.getChildren().addAll(placeholderImageView, closeRect, maximizeRect, minimizeRect, closeImageView, maximizeImageView, minimizeImageView);
+		Rectangle minimizeRect = new Rectangle(20, 20);
+		minimizeRect.setFill(Color.TRANSPARENT);
+		minimizeRect.setOnMouseClicked(event -> minimizeWindow());
+		AnchorPane.setTopAnchor(minimizeRect, 6.3);
+		
+		if (enableMaximize) {
+			Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
+			ImageView maximizeImageView = new ImageView(maximizeImage);
+			maximizeImageView.setFitWidth(15);
+			maximizeImageView.setFitHeight(15);
+			maximizeImageView.setEffect(colorAdjust);
+			AnchorPane.setRightAnchor(maximizeImageView, 42.5);
+			AnchorPane.setTopAnchor(maximizeImageView, 7.0);
+			titleBar.getChildren().add(maximizeImageView);
+			
+			Rectangle maximizeRect = new Rectangle(20, 20);
+			maximizeRect.setFill(Color.TRANSPARENT);
+			maximizeRect.setOnMouseClicked(event -> toggleMaximize());
+			AnchorPane.setRightAnchor(maximizeRect, 42.5);
+			AnchorPane.setTopAnchor(maximizeRect, 6.3);
+			titleBar.getChildren().add(maximizeRect);
+			
+			AnchorPane.setRightAnchor(minimizeImageView, 70.0);
+			AnchorPane.setRightAnchor(minimizeRect, 70.0);
+		} else {
+			AnchorPane.setRightAnchor(minimizeImageView, 42.5);
+			AnchorPane.setRightAnchor(minimizeRect, 42.5);
+		}
+		
+		titleBar.getChildren().addAll(placeholderImageView, closeImageView, minimizeImageView, closeRect, minimizeRect);
 		
 		titleBar.setOnMousePressed(event -> {
 			xOffset = event.getSceneX();
@@ -414,9 +427,6 @@ public class CustomWindow {
 			yOffset = event.getSceneY();
 		});
 		
-		closeRect.toFront();
-		minimizeRect.toFront();
-		maximizeRect.toFront();
 		return titleBar;
 	}
 	

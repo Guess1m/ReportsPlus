@@ -71,6 +71,7 @@ public class PedHistoryMath {
 		return departments[0];
 	}
 	
+	//BUG: date can be before ped is old enough
 	public static String generateValidLicenseExpirationDate() {
 		int maxYears = 4;
 		LocalDate currentDate = LocalDate.now();
@@ -85,6 +86,7 @@ public class PedHistoryMath {
 		return expirationDate.format(formatter);
 	}
 	
+	//BUG: date can be before ped is old enough
 	public static String generateExpiredLicenseExpirationDate(int maxYears) {
 		int maxYearsAgo = maxYears;
 		LocalDate currentDate = LocalDate.now();
@@ -384,17 +386,18 @@ public class PedHistoryMath {
 		return address;
 	}
 	
-	public static String generateBirthday(int maxAge) {
+	public static String generateBirthday(int minAge, int maxAge) {
 		Random random = new Random();
 		LocalDate today = LocalDate.now();
+		LocalDate maxBirthDate = today.minusYears(minAge);
 		LocalDate minBirthDate = today.minusYears(maxAge);
-		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, today) + 1);
-		LocalDate birthDate = today.minusDays(randomDays);
+		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, maxBirthDate) + 1);
+		LocalDate birthDate = minBirthDate.plusDays(randomDays);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
 		return birthDate.format(formatter);
 	}
 	
-	public static String assignFlagsBasedOnPriors(int chargePriors) {
+	public static String assignFlagsBasedOnPriors(int chargePriors, int baseFactorPercent, double maxProbability, int flagIncrement) {
 		ArrayList<String> flags = new ArrayList<>(
 				List.of(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"), localization.getLocalizedMessage("Other.FlagGangAffiliation", "Gang Affiliation"), localization.getLocalizedMessage("Other.FlagDomesticHistory", "Domestic Violence History"),
 				        localization.getLocalizedMessage("Other.FlagOffender", "Sex Offender"), localization.getLocalizedMessage("Other.FlagUnderInvestigation", "Under Investigation"), localization.getLocalizedMessage("Other.FlagHighRick", "High Risk"),
@@ -425,9 +428,9 @@ public class PedHistoryMath {
 		Random random = new Random();
 		ArrayList<String> assignedFlags = new ArrayList<>();
 		
-		double baseProbability = Math.min(0.05 * chargePriors, 0.9);
+		double baseProbability = Math.min((baseFactorPercent / 100.0) * chargePriors, maxProbability);
 		
-		int maxFlags = Math.min((chargePriors / 2) + random.nextInt(2), flags.size());
+		int maxFlags = Math.min((chargePriors / flagIncrement) + random.nextInt(2), flags.size());
 		Collections.shuffle(flags);
 		
 		for (String flag : flags) {
@@ -442,4 +445,5 @@ public class PedHistoryMath {
 		
 		return String.join(", ", assignedFlags);
 	}
+	
 }

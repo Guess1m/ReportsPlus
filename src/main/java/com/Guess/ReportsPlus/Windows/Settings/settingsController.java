@@ -28,6 +28,8 @@ import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigRead;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
@@ -37,6 +39,7 @@ import static com.Guess.ReportsPlus.MainApplication.mainDesktopStage;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.courtViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.logController;
+import static com.Guess.ReportsPlus.Windows.Apps.NewReportVewController.newReportVewController;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
@@ -59,7 +62,6 @@ public class settingsController {
 	private boolean soundPackInstalled = false;
 	private boolean imgPackInstalled = false;
 	
-	//<editor-fold desc="FXML">
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -454,6 +456,12 @@ public class settingsController {
 	private Label desktopTaskBarClrTT;
 	@javafx.fxml.FXML
 	private Label desktopTaskBarClrLabel;
+	@javafx.fxml.FXML
+	private Label resetAppPosTT;
+	@javafx.fxml.FXML
+	private Button resetAppPosBtn;
+	@javafx.fxml.FXML
+	private Label resetAppPosLabel;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -548,6 +556,9 @@ public class settingsController {
 			pedLookupViewController.getInfobtn3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
 			pedLookupViewController.getInfobtn3().setOnMouseEntered(e -> pedLookupViewController.getInfobtn3().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			pedLookupViewController.getInfobtn3().setOnMouseExited(e -> pedLookupViewController.getInfobtn3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+		}
+		if (newReportVewController != null) {
+			newReportVewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (courtViewController != null) {
 			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
@@ -756,6 +767,19 @@ public class settingsController {
 			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UIDarkColor));
 			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UIDarkColor));
 		}
+		if (newReportVewController != null) {
+			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getCallout().setStyle(updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getCitation().setStyle(updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getDeath().setStyle(updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getImpound().setStyle(updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getIncident().setStyle(updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getPatrol().setStyle(updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UIDarkColor));
+		}
 	}
 	
 	private static void addLightStyles() {
@@ -833,9 +857,21 @@ public class settingsController {
 			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UILightColor));
 			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UILightColor));
 		}
+		if (newReportVewController != null) {
+			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
+			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UILightColor));
+			newReportVewController.getCallout().setStyle(updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UILightColor));
+			newReportVewController.getCitation().setStyle(updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UILightColor));
+			newReportVewController.getDeath().setStyle(updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UILightColor));
+			newReportVewController.getImpound().setStyle(updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UILightColor));
+			newReportVewController.getIncident().setStyle(updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UILightColor));
+			newReportVewController.getPatrol().setStyle(updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UILightColor));
+			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UILightColor));
+			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UILightColor));
+			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UILightColor));
+		}
 	}
 	
-	//</editor-fold>
 	private boolean checkSoundsInstalled() {
 		log("Checking if sounds are installed", LogUtils.Severity.INFO);
 		String soundPath = getJarPath() + "/sounds/";
@@ -1106,6 +1142,10 @@ public class settingsController {
 		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
 		clearLookupDataLabel.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
 		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT", "ONLY delete saved ped / veh history data from previous lookups to free space"));
+		
+		resetAppPosBtn.setText(localization.getLocalizedMessage("Settings.resetAppPosBtn", "RESET APP POSITIONS"));
+		resetAppPosLabel.setText(localization.getLocalizedMessage("Settings.resetAppPosLabel", "Reset App Positions"));
+		resetAppPosTT.setText(localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -2217,5 +2257,52 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void enableImagesCheckboxClick(ActionEvent actionEvent) {
 		handleCheckboxClick("uiSettings", "enablePedVehImages", enablePedVehImgsCheckbox);
+	}
+	
+	@javafx.fxml.FXML
+	public void resetAppPosClick(ActionEvent actionEvent) {
+		log("Running Reset App Pos", LogUtils.Severity.DEBUG);
+		String x1 = String.valueOf(45.0);
+		appConfigWrite("Notes", "x", x1);
+		appConfigWrite("Notes", "y", String.valueOf(100.0 + 20));
+		
+		appConfigWrite("Log Browser", "x", x1);
+		appConfigWrite("Log Browser", "y", String.valueOf(203.0 + 20));
+		appConfigWrite("Callouts", "x", x1);
+		appConfigWrite("Callouts", "y", String.valueOf(0.0 + 20));
+		appConfigWrite("CourtCase", "x", x1);
+		appConfigWrite("CourtCase", "y", String.valueOf(310.0 + 20));
+		appConfigWrite("Show IDs", "x", x1);
+		appConfigWrite("Show IDs", "y", String.valueOf(417.0 + 20));
+		
+		String x2 = String.valueOf(200.0);
+		appConfigWrite("Ped Lookup", "x", x2);
+		appConfigWrite("Ped Lookup", "y", String.valueOf(0.0 + 20));
+		appConfigWrite("Veh Lookup", "x", x2);
+		appConfigWrite("Veh Lookup", "y", String.valueOf(101.0 + 20));
+		
+		appConfigWrite("New Report", "x", x2);
+		appConfigWrite("New Report", "y", String.valueOf(202.0 + 20));
+		
+		String x3 = String.valueOf(355.0);
+		appConfigWrite("Server", "x", x3);
+		appConfigWrite("Server", "y", String.valueOf(0.0 + 20));
+		appConfigWrite("Updates", "x", x3);
+		appConfigWrite("Updates", "y", String.valueOf(100.0 + 20));
+		appConfigWrite("Settings", "x", x3);
+		appConfigWrite("Settings", "y", String.valueOf(203.0 + 20));
+		
+		String x4 = String.valueOf(500.0);
+		appConfigWrite("Profile", "x", x4);
+		appConfigWrite("Profile", "y", String.valueOf(0.0 + 20));
+		
+		for (DesktopApp desktopApp : DesktopApps) {
+			double appX = appConfigRead(desktopApp.getName(), "x");
+			double appY = appConfigRead(desktopApp.getName(), "y");
+			
+			desktopApp.getMainPane().setTranslateX(appX);
+			desktopApp.getMainPane().setTranslateY(appY);
+			log("Reset App Position for: " + desktopApp.getName(), LogUtils.Severity.INFO);
+		}
 	}
 }

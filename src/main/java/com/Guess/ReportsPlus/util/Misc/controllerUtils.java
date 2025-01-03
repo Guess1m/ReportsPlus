@@ -810,7 +810,14 @@ public class controllerUtils {
 		
 		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
 		
-		String flags = assignFlagsBasedOnPriors(totalChargePriors);
+		int baseFlagFactor = 5;
+		try {
+			baseFlagFactor = Integer.parseInt(ConfigReader.configRead("pedHistory", "baseFlagProbability"));
+		} catch (IOException e) {
+			logError("Could not fetch baseFlagFactor: ", e);
+		}
+		
+		String flags = assignFlagsBasedOnPriors(totalChargePriors, baseFlagFactor, 0.9, 2);
 		
 		if (flags != null && flags.length() > 0 && !flags.equals("")) {
 			ped.setFlags(flags);
@@ -907,7 +914,7 @@ public class controllerUtils {
 	public static Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
 		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
 		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(60), getRandomAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(22, 60), getRandomAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
 		
 		if (isWantedOutcome.equalsIgnoreCase("true")) {
 			setPedWarrantStatus(ped);

@@ -19,9 +19,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -80,8 +78,10 @@ public class mainDesktopController {
 	public static DesktopApp courtAppObj;
 	public static DesktopApp pedLookupAppObj;
 	public static DesktopApp vehLookupAppObj;
+	public static DesktopApp newReportAppObj;
 	public static DesktopApp connectionAppObj;
 	public static DesktopApp showIDAppObj;
+	public static CustomWindow newReportWindow;
 	private final ContextMenu reportMenuOptions = createReportMenu();
 	@FXML
 	private Button button1;
@@ -97,8 +97,6 @@ public class mainDesktopController {
 	private Label serverStatusLabel;
 	@FXML
 	private Label versionLabel;
-	@FXML
-	private Button createReportBtn;
 	@FXML
 	private AnchorPane topBar;
 	@FXML
@@ -315,14 +313,12 @@ public class mainDesktopController {
 			});
 			stge.show();
 		});
-		
 	}
 	
 	private void addLocale() {
 		topBar1.setText(localization.getLocalizedMessage("Desktop.ServerStatusLabel", "Server Status:"));
 		topBar2.setText(localization.getLocalizedMessage("Desktop.LoggedInLabel", "Logged In:"));
 		button1.setText(localization.getLocalizedMessage("Desktop.EditModeButton", "Edit Mode"));
-		createReportBtn.setText(localization.getLocalizedMessage("Desktop.CreateReportButton", "Create Report"));
 	}
 	
 	private void addAppToDesktop(AnchorPane root, VBox newApp, double x, double y) {
@@ -468,6 +464,24 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"), appConfigRead("Veh Lookup", "y"));
 		
+		newReportAppObj = new DesktopApp("New Report", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/new-report.png"))));
+		VBox newReportApp = newReportAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					newReportWindow = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/new-report-view.fxml", "New Report", true, 2, true, false, taskBarApps, newReportAppObj.getImage());
+					if (newReportWindow != null && newReportWindow.controller != null) {
+						NewReportVewController.newReportVewController = (NewReportVewController) newReportWindow.controller;
+					}
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from newReportApp", e);
+					}
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, newReportApp, appConfigRead("New Report", "x"), appConfigRead("New Report", "y"));
+		
 		connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/server.png"))));
 		VBox connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
@@ -554,25 +568,6 @@ public class mainDesktopController {
 				clientController.getStatusLabel().setStyle("-fx-background-color: green;");
 			}
 		}
-	}
-	
-	@FXML
-	public void createReportBtn(ActionEvent actionEvent) {
-		//TODO: Re-Enable create report btn in new app
-		double btnWidth = createReportBtn.getWidth();
-		
-		Bounds bounds = createReportBtn.localToScreen(createReportBtn.getBoundsInLocal());
-		
-		reportMenuOptions.show(createReportBtn, 0, 0);
-		reportMenuOptions.hide();
-		
-		double contextMenuWidth = reportMenuOptions.getWidth();
-		double contextMenuHeight = reportMenuOptions.getHeight();
-		
-		double xPos = bounds.getMinX() + (btnWidth / 2) - (contextMenuWidth / 2);
-		double yPos = bounds.getMinY() - contextMenuHeight;
-		
-		reportMenuOptions.show(createReportBtn, xPos + 10, yPos + 10);
 	}
 	
 	public VBox getContainer() {

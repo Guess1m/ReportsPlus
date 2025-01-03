@@ -11,6 +11,7 @@ import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils;
+import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -49,6 +50,7 @@ import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.trafficCitationLogURL;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
+import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 public class TrafficCitationUtils {
 	
@@ -360,6 +362,13 @@ public class TrafficCitationUtils {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
 					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
 					needCourtRefresh.set(1);
+					
+					if (isConnected) {
+						log("Trying to send Citation_Update Signal to server...", LogUtils.Severity.DEBUG);
+						ClientUtils.sendMessageToServer("CITATION_UPDATE");
+					} else {
+						log("Not connected to send Citation_Update Signal to server...", LogUtils.Severity.WARN);
+					}
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.");
 					NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.");

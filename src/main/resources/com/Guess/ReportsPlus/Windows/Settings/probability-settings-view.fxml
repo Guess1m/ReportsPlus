@@ -4,10 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="429.0" prefWidth="768.0"
-            xmlns="http://javafx.com/javafx/23.0.1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="429.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.ProbabilitySettingsController">
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
@@ -593,7 +591,7 @@
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
-                                <BorderPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                                     <center>
                                         <TextField fx:id="vehInspection" maxWidth="-Infinity" prefHeight="23.0"
                                                    prefWidth="456.0" promptText="Default: 85">
@@ -603,7 +601,7 @@
                                         </TextField>
                                     </center>
                                     <top>
-                                        <Label text="Chance Vehicle Inspection Is Valid:"
+                                        <Label text="Chance Vehicle Inspection Is Valid:" wrapText="true"
                                                BorderPane.alignment="TOP_LEFT">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="12.0"/>
@@ -642,6 +640,23 @@
                                     </center>
                                     <top>
                                         <Label text="Chance Boating License:" BorderPane.alignment="TOP_LEFT">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                </BorderPane>
+                                <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <center>
+                                        <TextField fx:id="flagProbability" maxWidth="-Infinity" prefHeight="23.0"
+                                                   prefWidth="456.0" promptText="Default: 5">
+                                            <font>
+                                                <Font name="Segoe UI" size="12.0"/>
+                                            </font>
+                                        </TextField>
+                                    </center>
+                                    <top>
+                                        <Label text="Base Ped Flag Probability:" BorderPane.alignment="TOP_LEFT">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="12.0"/>
                                             </font>

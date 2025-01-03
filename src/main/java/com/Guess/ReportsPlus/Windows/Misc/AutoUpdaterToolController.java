@@ -109,11 +109,11 @@ public class AutoUpdaterToolController {
 	}
 	
 	private void updateLocale() {
-		//TODO: add locale for updateservercheckbox
 		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox", "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
 		armChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.armChipCheckbox", "Use Windows / ARM MacOS Download"));
 		startAutoUpdateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.startAutoUpdateBtn", "Start AutoUpdate"));
 		autoUpdateUtilityHeader.setText(localization.getLocalizedMessage("UpdatesWindow.autoUpdateUtilityHeader", "AutoUpdate Utility"));
+		updateServerCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.updateServerCheckbox", "Update Server (Requires you to be connected)"));
 	}
 	
 	@FXML

@@ -17,10 +17,14 @@ public class stringUtil {
 	 pom.xml
 	 New locale
 	 Sound List If Changed
+	 Server Updates
+	 Plugin Updates
+	 Updater Updates
+	 UserGuide Version / Changes
 	 */
 	
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Added AutoUpdate Utility With Update Checks", "Autoupdate Server With Application If Connected", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Rearrange Topbar/Taskbar Elements"};
+	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Support For Handing Suspects Citations", "Added AutoUpdate Utility With Update Checks", "New Report App For Creating Blank Reports", "Autoupdate Server With Application If Connected", "Reset App Positions Button", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Fix Vehicle Owners Able To Be Below 18", "Added Ped Flag Probility Setting", "Rearrange Topbar/Taskbar Elements", "Hide Maximize For Non-Resizable Windows"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			NEW:
@@ -32,6 +36,9 @@ public class stringUtil {
 			Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
 			Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
 			Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
+			Settings.resetAppPosBtn=RESET APP POSITIONS
+			Settings.resetAppPosLabel=Reset App Positions
+			Settings.resetAppPosTT=Reset apps to their default positions
 			UpdatesWindow.notStartedLabel=Not Started
 			UpdatesWindow.armChipCheckbox=Use Windows / ARM MacOS Download
 			UpdatesWindow.startAutoUpdateBtn=Start AutoUpdate
@@ -42,9 +49,11 @@ public class stringUtil {
 			UpdatesWindow.failedAutoUpdateCheck=Issues Found
 			UpdatesWindow.checksDidntPassLabel=Can't Update:
 			UpdatesWindow.LocaleChangesButton=Locale Changes
+			UpdatesWindow.updateServerCheckbox=Update Server (Requires you to be connected)
+			NewReportApp.selectReportTypeLabel=Select a Report Type:
 			
 			REMOVED:
-			
+			Desktop.CreateReportButton=Create Report
 			
 			CHANGED:
 			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!) -> Use Intel Chip MacOS Download (Only select if using a Intel chip mac)

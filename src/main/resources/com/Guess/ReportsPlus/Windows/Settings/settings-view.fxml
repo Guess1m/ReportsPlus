@@ -620,8 +620,8 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <ScrollPane fx:id="paneDesktop" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneDesktop" visible="false" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
                                 <AnchorPane>
                                     <children>
@@ -1706,8 +1706,8 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="paneDeveloper" visible="false" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="paneDeveloper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label fx:id="devSettingsHeader" alignment="CENTER" styleClass="settingsLabel"
                                        text="DEVELOPER SETTINGS / CLEAR DATA" AnchorPane.leftAnchor="15.0"
@@ -1824,6 +1824,32 @@
                                                 </Label>
                                                 <Button fx:id="centerWindowsBtn" mnemonicParsing="false"
                                                         onAction="#centerWindowsBtnClick" text="CENTER WINDOWS"
+                                                        GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                        GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                            </children>
+                                        </GridPane>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="NEVER"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label fx:id="resetAppPosLabel" alignment="CENTER"
+                                                       styleClass="paneHeading" text="Reset App Positions"
+                                                       GridPane.valignment="CENTER"/>
+                                                <Label fx:id="resetAppPosTT" alignment="CENTER" styleClass="paneSubtext"
+                                                       text="Reset apps to their default positions"
+                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                    <GridPane.margin>
+                                                        <Insets/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Button fx:id="resetAppPosBtn" mnemonicParsing="false"
+                                                        onAction="#resetAppPosClick" text="RESET APP POSITIONS"
                                                         GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                         GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                             </children>

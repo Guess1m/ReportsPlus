@@ -274,7 +274,7 @@ public class CourtUtils {
 						caseToUpdate.setStatus("Closed");
 						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
 						log("Case: #" + caseToUpdate.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
-						showNotificationInfo("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " has been closed");
+						showNotificationInfo("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + ", " + caseToUpdate.getName() + ", has been closed");
 					}
 				} catch (JAXBException | IOException e) {
 					logError("Error processing case: #" + caseToUpdate.getCaseNumber() + ":  ", e);

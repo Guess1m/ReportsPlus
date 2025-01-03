@@ -80,6 +80,8 @@ public class ProbabilitySettingsController {
 	private TextField boatingLicense;
 	@javafx.fxml.FXML
 	private TextField huntingLicense;
+	@javafx.fxml.FXML
+	private TextField flagProbability;
 	
 	private void setInitialValues() throws IOException {
 		permitTypeConcealed.setText(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance"));
@@ -101,6 +103,7 @@ public class ProbabilitySettingsController {
 		manyCitations.setText(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations"));
 		
 		fishingLicense.setText(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
+		flagProbability.setText(ConfigReader.configRead("pedHistory", "baseFlagProbability"));
 		boatingLicense.setText(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
 		huntingLicense.setText(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
 		gunLicense.setText(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
@@ -156,6 +159,7 @@ public class ProbabilitySettingsController {
 		addNumericOnlyListener(caseOutcomeDelay);
 		addNumericOnlyAndBeyondMaxListener(manyCitations);
 		addNumericOnlyAndBeyondMaxListener(fishingLicense);
+		addNumericOnlyAndBeyondMaxListener(flagProbability);
 		addNumericOnlyAndBeyondMaxListener(boatingLicense);
 		addNumericOnlyAndBeyondMaxListener(permitTypeBoth);
 		addNumericOnlyAndBeyondMaxListener(permitClassHandgun);
@@ -332,6 +336,7 @@ public class ProbabilitySettingsController {
 			ConfigWriter.configwrite("pedHistory", "onParoleChance", onParole.getText());
 			ConfigWriter.configwrite("pedHistory", "onProbationChance", onProbation.getText());
 			ConfigWriter.configwrite("pedHistory", "hasFishingLicense", fishingLicense.getText());
+			ConfigWriter.configwrite("pedHistory", "baseFlagProbability", flagProbability.getText());
 			ConfigWriter.configwrite("pedHistory", "hasBoatingLicense", boatingLicense.getText());
 			ConfigWriter.configwrite("pedHistory", "hasHuntingLicense", huntingLicense.getText());
 			ConfigWriter.configwrite("pedHistoryArrest", "chanceNoCharges", noCharges.getText());

@@ -74,7 +74,7 @@ public class AccidentReportUtils {
 		                                                                                            new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")), 7,
 		                                                                                                                                                              nestedReportUtils.FieldType.COMBO_BOX_TYPE),
 		                                                                                                                            new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5, nestedReportUtils.FieldType.COMBO_BOX_COLOR))),
-		                                                        new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.CitationNotesHeading", "Citation Notes"), true, new nestedReportUtils.RowConfig(
+		                                                        new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"), true, new nestedReportUtils.RowConfig(
 				                                                        new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")), 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return accidentReport;
 	}

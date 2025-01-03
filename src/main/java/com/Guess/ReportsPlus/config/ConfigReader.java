@@ -193,6 +193,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistory", "validLicenseChance", "80");
 		checkAndSetDefaultValue("pedHistory", "expiredLicenseChance", "15");
 		checkAndSetDefaultValue("pedHistory", "suspendedLicenseChance", "5");
+		checkAndSetDefaultValue("pedHistory", "baseFlagProbability", "5");
 		
 		// Arrest
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");
@@ -214,6 +215,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "handgunChance", "50");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "longgunChance", "28");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");
+		
+		checkAndSetDefaultValue("update", "type", "client");
 		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}

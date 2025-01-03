@@ -295,7 +295,7 @@ public class CourtViewController {
 					try {
 						modifyCase(pendingCase.getCaseNumber(), pendingCase);
 						log("Case: #" + pendingCase.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
-						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + " has been closed");
+						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + ", " + pendingCase.getName() + ", has been closed");
 					} catch (JAXBException | IOException e) {
 						logError("Error modifying case from scheduleOutcomeReveals: ", e);
 						

@@ -107,6 +107,8 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Ped Lookup", "y", String.valueOf(0.0 + 20));
 		checkAndSetDefaultAppValue("Veh Lookup", "x", x2);
 		checkAndSetDefaultAppValue("Veh Lookup", "y", String.valueOf(101.0 + 20));
+		checkAndSetDefaultAppValue("New Report", "x", x2);
+		checkAndSetDefaultAppValue("New Report", "y", String.valueOf(202.0 + 20));
 		
 		String x3 = String.valueOf(355.0);
 		checkAndSetDefaultAppValue("Server", "x", x3);

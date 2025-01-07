@@ -14,6 +14,9 @@ public class TrafficStopReport {
 	@XmlElement(name = "Color")
 	private String Color;
 	
+	@XmlElement(name = "stopStatus")
+	private String stopStatus;
+	
 	@XmlElement(name = "Type")
 	private String Type;
 	
@@ -120,6 +123,14 @@ public class TrafficStopReport {
 	
 	public void setDate(String date) {
 		Date = date;
+	}
+	
+	public String getStatus() {
+		return stopStatus != null ? stopStatus : "Closed";
+	}
+	
+	public void setStatus(String stopStatus) {
+		this.stopStatus = stopStatus;
 	}
 	
 	public String getDivision() {

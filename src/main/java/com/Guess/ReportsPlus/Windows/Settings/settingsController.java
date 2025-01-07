@@ -577,9 +577,6 @@ public class settingsController {
 			courtViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (logController != null) {
-			logController.getReportPlusLabelFill().setStyle("-fx-text-fill: " + accclr + ";");
-			logController.getBkgclr2().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getTabPane().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getArrestTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getCalloutTable().setStyle("-fx-background-color: " + bkgclr + ";");
 			logController.getCitationTable().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -617,6 +614,8 @@ public class settingsController {
 			String taskBarText = ConfigReader.configRead("desktopSettings", "taskBarTextColor");
 			mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
 			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
+			mainDesktopControllerObj.getShutdownBtn().setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
+			mainDesktopControllerObj.getButton1().setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
 			
 			mainDesktopControllerObj.getBottomBar().setStyle("-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
 			for (DesktopApp desktopApp : DesktopApps) {
@@ -731,8 +730,6 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (courtViewController != null) {
-			courtViewController.getCaseNotesField().getStyleClass().clear();
-			courtViewController.getCaseNotesField().getStyleClass().add("text-area-dark");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -744,11 +741,6 @@ public class settingsController {
 			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-		if (logController != null) {
-			logController.getTabPane().getStyleClass().clear();
-			logController.getTabPane().getStyleClass().add("darktabpane");
-			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (calloutViewController != null) {
 			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
@@ -821,8 +813,6 @@ public class settingsController {
 			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (courtViewController != null) {
-			courtViewController.getCaseNotesField().getStyleClass().clear();
-			courtViewController.getCaseNotesField().getStyleClass().add("text-area-light");
 			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -834,11 +824,6 @@ public class settingsController {
 			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (logController != null) {
-			logController.getTabPane().getStyleClass().clear();
-			logController.getTabPane().getStyleClass().add("lighttabpane");
-			logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (calloutViewController != null) {
 			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
@@ -1710,6 +1695,8 @@ public class settingsController {
 			if (mainDesktopControllerObj != null) {
 				mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
+				mainDesktopControllerObj.getShutdownBtn().setStyle("-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
+				mainDesktopControllerObj.getButton1().setStyle("-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
 			}
 			ConfigWriter.configwrite("desktopSettings", "taskBarTextColor", toHexString(newValue));
 		});
@@ -1818,14 +1805,8 @@ public class settingsController {
 		try {
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				textClrComboBox.getSelectionModel().selectFirst();
-				if (logController != null) {
-					logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-				}
 			} else {
 				textClrComboBox.getSelectionModel().selectLast();
-				if (logController != null) {
-					logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-				}
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);

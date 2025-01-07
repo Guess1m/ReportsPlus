@@ -35,18 +35,22 @@ import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReports;
 import jakarta.xml.bind.JAXBException;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -73,10 +77,9 @@ import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addCitationsToTabl
 public class LogViewController {
 	public static LogViewController logController;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-	@javafx.fxml.FXML
-	private Label logbrwsrlbl;
-	@javafx.fxml.FXML
-	private Label reportPlusLabelFill;
+	List<BorderPane> sideButtons = new ArrayList<>();
+	private BorderPane activePane;
+	
 	@javafx.fxml.FXML
 	private AnchorPane logPane;
 	@javafx.fxml.FXML
@@ -94,19 +97,57 @@ public class LogViewController {
 	@javafx.fxml.FXML
 	private TableView calloutTable;
 	@javafx.fxml.FXML
-	private VBox bkgclr2;
-	@javafx.fxml.FXML
 	private TableView patrolTable;
 	@javafx.fxml.FXML
 	private TableView accidentReportTable;
 	@javafx.fxml.FXML
-	private TabPane tabPane;
-	@javafx.fxml.FXML
 	private TableView incidentTable;
 	@javafx.fxml.FXML
 	private TableView searchTable;
+	@javafx.fxml.FXML
+	private Label reportsInProgressLabel;
+	@javafx.fxml.FXML
+	private Label totalReportsHeader;
+	@javafx.fxml.FXML
+	private Label totalReportsLabel;
+	@javafx.fxml.FXML
+	private ProgressBar closedReportsProgressBar;
+	@javafx.fxml.FXML
+	private Label closedReportsHeader;
+	@javafx.fxml.FXML
+	private Label reportsInProgressHeader;
+	@javafx.fxml.FXML
+	private Label closedReportsLabel;
+	@javafx.fxml.FXML
+	private BorderPane callout;
+	@javafx.fxml.FXML
+	private BorderPane arrest;
+	@javafx.fxml.FXML
+	private BorderPane death;
+	@javafx.fxml.FXML
+	private BorderPane accident;
+	@javafx.fxml.FXML
+	private BorderPane search;
+	@javafx.fxml.FXML
+	private BorderPane patrol;
+	@javafx.fxml.FXML
+	private BorderPane trafficStop;
+	@javafx.fxml.FXML
+	private BorderPane citation;
+	@javafx.fxml.FXML
+	private BorderPane impound;
+	@javafx.fxml.FXML
+	private BorderPane incident;
+	@javafx.fxml.FXML
+	private StackPane tableStackPane;
+	@javafx.fxml.FXML
+	private ProgressBar reportsInProgressBar;
+	@javafx.fxml.FXML
+	private Label subHeading;
 	
 	public void initialize() {
+		sideButtons.addAll(Arrays.asList(callout, arrest, death, accident, search, patrol, trafficStop, citation, impound, incident));
+		
 		initializeCalloutColumns(calloutTable);
 		initializeArrestColumns(arrestTable);
 		initializeCitationColumns(citationTable);
@@ -127,7 +168,46 @@ public class LogViewController {
 			}
 		});
 		
-		logbrwsrlbl.setText(localization.getLocalizedMessage("LogBrowser.SubHeading", "Log Browser"));
+		addHoverListener(calloutTable, callout);
+		addHoverListener(arrestTable, arrest);
+		addHoverListener(deathReportTable, death);
+		addHoverListener(accidentReportTable, accident);
+		addHoverListener(searchTable, search);
+		addHoverListener(patrolTable, patrol);
+		addHoverListener(trafficStopTable, trafficStop);
+		addHoverListener(citationTable, citation);
+		addHoverListener(impoundTable, impound);
+		addHoverListener(incidentTable, incident);
+		
+		Platform.runLater(() -> {
+			List<Node> nodesToRemove = new ArrayList<>();
+			for (Node table : tableStackPane.getChildren()) {
+				if (table instanceof TableView) {
+					nodesToRemove.add(table);
+				}
+			}
+			
+			setActive(calloutTable, callout);
+			
+			for (BorderPane otherPane : sideButtons) {
+				otherPane.setStyle("-fx-background-color: transparent;");
+				for (Node node : otherPane.getChildren()) {
+					if (node instanceof Label) {
+						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					}
+				}
+			}
+			
+			activePane = callout;
+			callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
+			for (Node node : callout.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
+		
+		subHeading.setText(localization.getLocalizedMessage("LogBrowser.reportDatabaseLabel", "Report Database"));
 	}
 	
 	private void loadLogs() {
@@ -212,6 +292,14 @@ public class LogViewController {
 		}
 	}
 	
+	public void calloutLogUpdate(List<CalloutReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
+		calloutTable.getItems().clear();
+		calloutTable.getItems().addAll(logEntries);
+	}
+	
 	public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
 		if (logEntries == null) {
 			logEntries = new ArrayList<>();
@@ -260,14 +348,6 @@ public class LogViewController {
 		trafficStopTable.getItems().addAll(logEntries);
 	}
 	
-	public void calloutLogUpdate(List<CalloutReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		calloutTable.getItems().clear();
-		calloutTable.getItems().addAll(logEntries);
-	}
-	
 	public void impoundLogUpdate(List<ImpoundReport> logEntries) {
 		if (logEntries == null) {
 			logEntries = new ArrayList<>();
@@ -292,6 +372,57 @@ public class LogViewController {
 		
 		accidentReportTable.getItems().clear();
 		accidentReportTable.getItems().addAll(logEntries);
+	}
+	
+	private void addHoverListener(TableView table, BorderPane pane) {
+		pane.setOnMouseEntered(event -> {
+			if (activePane == pane) {
+				return;
+			}
+			pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
+		
+		pane.setOnMouseExited(event -> {
+			if (activePane == pane) {
+				return;
+			}
+			pane.setStyle("-fx-background-color: transparent;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+				}
+			}
+		});
+		
+		pane.setOnMouseClicked(event -> {
+			
+			if (activePane == pane) {
+				return;
+			}
+			setActive(table, pane);
+			
+			for (BorderPane otherPane : sideButtons) {
+				otherPane.setStyle("-fx-background-color: transparent;");
+				for (Node node : otherPane.getChildren()) {
+					if (node instanceof Label) {
+						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					}
+				}
+			}
+			
+			activePane = pane;
+			pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
 	}
 	
 	@javafx.fxml.FXML
@@ -379,6 +510,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) deathReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) deathReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) deathReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -428,7 +562,9 @@ public class LogViewController {
 				callouttype.setText(calloutReport.getResponseType());
 				calloutcode.setText(calloutReport.getResponseGrade());
 				
-				BorderPane root = (BorderPane) calloutReportObj.get("root");
+				ComboBox<String> statusValue = (ComboBox<String>) calloutReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button delBtn = (Button) calloutReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -533,6 +669,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				patrolnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) patrolReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) patrolReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -635,6 +774,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				stopnumts.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) trafficStopReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) trafficStopReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -722,6 +864,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) incidentReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				incidentnum.setEditable(false);
+				
+				ComboBox<String> statusValue = (ComboBox<String>) incidentReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
 				
 				Button submitBtn = (Button) incidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
@@ -813,6 +958,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) impoundReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				num.setEditable(false);
+				
+				ComboBox<String> statusValue = (ComboBox<String>) impoundReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
 				
 				Button submitBtn = (Button) impoundReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
@@ -916,6 +1064,9 @@ public class LogViewController {
 				ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
 				citationtable1.setItems(citationList);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) trafficCitationObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				addCitationsToTable(trafficCitationReport.getCitationCharges(), citationList);
 				
 				Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
@@ -1018,6 +1169,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				searchnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) searchReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) searchReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -1083,7 +1237,6 @@ public class LogViewController {
 				notes.setText(arrestReport.getArrestDetails());
 				
 				BorderPane root = (BorderPane) arrestReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
 				Button delBtn = (Button) arrestReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1113,6 +1266,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) arrestReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				arrestnum.setEditable(false);
+				
+				ComboBox<String> statusValue = (ComboBox<String>) arrestReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
 				
 				TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
 				ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
@@ -1225,6 +1381,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				accidentnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) accidentReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) accidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -1233,20 +1392,50 @@ public class LogViewController {
 		}
 	}
 	
-	public Label getLogbrwsrlbl() {
-		return logbrwsrlbl;
-	}
-	
-	public VBox getBkgclr2() {
-		return bkgclr2;
-	}
-	
-	public Label getReportPlusLabelFill() {
-		return reportPlusLabelFill;
-	}
-	
-	public TabPane getTabPane() {
-		return tabPane;
+	private <T> void setActive(TableView<T> table, BorderPane sideButton) {
+		tableStackPane.getChildren().clear();
+		tableStackPane.getChildren().add(table);
+		
+		ObservableList<T> items = table.getItems();
+		
+		long closed = 0, inProg = 0, pending = 0, cancelled = 0, reOpen = 0;
+		
+		for (T item : items) {
+			try {
+				Method getStatusMethod = item.getClass().getMethod("getStatus");
+				String status = (String) getStatusMethod.invoke(item);
+				
+				if ("Closed".equalsIgnoreCase(status)) {
+					closed++;
+				} else if ("In Progress".equalsIgnoreCase(status)) {
+					inProg++;
+				} else if ("Pending".equalsIgnoreCase(status)) {
+					pending++;
+				} else if ("Cancelled".equalsIgnoreCase(status)) {
+					cancelled++;
+				} else if ("Reopened".equalsIgnoreCase(status)) {
+					reOpen++;
+				}
+			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+				logError("Could not obtain getStatus method for update: ", e);
+			}
+		}
+		
+		long totalReports = (closed + inProg + reOpen + pending + cancelled);
+		long totalInProgress = (reOpen + inProg + pending);
+		long totalClosed = (closed + cancelled);
+		
+		double closedPercentage = ((double) totalClosed / totalReports) * 100;
+		double inProgressPercentage = ((double) totalInProgress / totalReports) * 100;
+		
+		closedReportsProgressBar.setProgress(closedPercentage / 100);
+		reportsInProgressBar.setProgress(inProgressPercentage / 100);
+		
+		reportsInProgressLabel.setText(String.valueOf(totalInProgress));
+		closedReportsLabel.setText(String.valueOf(totalClosed));
+		totalReportsLabel.setText(String.valueOf(totalReports));
+		
+		activePane = sideButton;
 	}
 	
 	public TableView getArrestTable() {

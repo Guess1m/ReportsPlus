@@ -122,6 +122,8 @@ public class PatrolReportUtils {
 		
 		Button submitBtn = (Button) patrolReport.get("submitBtn");
 		
+		ComboBox<String> statusValue = (ComboBox) patrolReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (patrolnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -140,6 +142,7 @@ public class PatrolReportUtils {
 					}
 				}
 				PatrolReport patrolReport1 = new PatrolReport();
+				patrolReport1.setStatus(statusValue.getValue());
 				patrolReport1.setPatrolNumber(toTitleCase(patrolnum.getText()));
 				patrolReport1.setPatrolDate(date.getText());
 				patrolReport1.setPatrolLength(toTitleCase(length.getText()));

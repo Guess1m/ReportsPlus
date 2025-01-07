@@ -230,6 +230,8 @@ public class TrafficCitationUtils {
 		Button submitBtn = (Button) citationReport.get("submitBtn");
 		Label warningLabel = (Label) citationReport.get("warningLabel");
 		
+		ComboBox<String> statusValue = (ComboBox) citationReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -282,6 +284,7 @@ public class TrafficCitationUtils {
 				}
 				
 				TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
+				trafficCitationReport.setStatus(statusValue.getValue());
 				trafficCitationReport.setOfficerRank(officerrank.getText());
 				trafficCitationReport.setCitationNumber(num.getText());
 				trafficCitationReport.setCitationDate(date.getText());
@@ -326,48 +329,54 @@ public class TrafficCitationUtils {
 				}
 				
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
-					Case case1 = new Case();
-					String casenum = generateCaseNumber();
-					case1.setCaseNumber(casenum);
-					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText().replace(".", ""));
-					case1.setName(toTitleCase(offenderName.getText()));
-					case1.setOffenceDate(date.getText());
-					case1.setAge(toTitleCase(offenderAge.getText()));
-					case1.setAddress(toTitleCase(offenderAddress.getText()));
-					case1.setGender(toTitleCase(offenderGender.getText()));
-					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getEditor().getText()));
-					case1.setArea(area.getEditor().getText());
-					case1.setNotes(notes.getText());
-					case1.setOffences(stringBuilder.toString());
-					case1.setOutcomes(chargesBuilder.toString());
-					case1.setStatus("Pending");
-					try {
-						String index = getNextIndex(loadCourtCases());
-						case1.setIndex(index);
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
-					}
-					try {
-						CourtUtils.addCase(case1);
-					} catch (JAXBException | IOException e) {
-						throw new RuntimeException(e);
-					}
-					try {
-						scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
-					} catch (JAXBException | IOException e) {
-						throw new RuntimeException(e);
-					}
-					NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
-					log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
-					needCourtRefresh.set(1);
+					String casenum = generateCaseNumber(num.getText());
 					
-					if (isConnected) {
-						log("Trying to send Citation_Update Signal to server...", LogUtils.Severity.DEBUG);
-						ClientUtils.sendMessageToServer("CITATION_UPDATE");
+					Optional<Case> caseToUpdateOptional = findCaseByNumber(casenum);
+					if (!caseToUpdateOptional.isPresent()) {
+						Case case1 = new Case();
+						case1.setCaseNumber(casenum);
+						case1.setCourtDate(date.getText());
+						case1.setCaseTime(time.getText().replace(".", ""));
+						case1.setName(toTitleCase(offenderName.getText()));
+						case1.setOffenceDate(date.getText());
+						case1.setAge(toTitleCase(offenderAge.getText()));
+						case1.setAddress(toTitleCase(offenderAddress.getText()));
+						case1.setGender(toTitleCase(offenderGender.getText()));
+						case1.setCounty(toTitleCase(county.getText()));
+						case1.setStreet(toTitleCase(street.getEditor().getText()));
+						case1.setArea(area.getEditor().getText());
+						case1.setNotes(notes.getText());
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						case1.setStatus("Pending");
+						try {
+							String index = getNextIndex(loadCourtCases());
+							case1.setIndex(index);
+						} catch (JAXBException e) {
+							throw new RuntimeException(e);
+						}
+						try {
+							CourtUtils.addCase(case1);
+						} catch (JAXBException | IOException e) {
+							throw new RuntimeException(e);
+						}
+						try {
+							scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+						} catch (JAXBException | IOException e) {
+							throw new RuntimeException(e);
+						}
+						NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
+						log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+						needCourtRefresh.set(1);
+						
+						if (isConnected) {
+							log("Trying to send Citation_Update Signal to server...", LogUtils.Severity.DEBUG);
+							ClientUtils.sendMessageToServer("CITATION_UPDATE");
+						} else {
+							log("Not connected to send Citation_Update Signal to server...", LogUtils.Severity.WARN);
+						}
 					} else {
-						log("Not connected to send Citation_Update Signal to server...", LogUtils.Severity.WARN);
+						log("Case #: " + casenum + " already exists, not adding new case", LogUtils.Severity.WARN);
 					}
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.");

@@ -199,7 +199,6 @@ public class CustomWindow {
 				for (AnchorPane noti : currentNotifications) {
 					noti.toFront();
 				}
-				mainDesktopControllerObj.getButton1().toBack();
 				mainDesktopControllerObj.getInfoHBox().toBack();
 			}
 		});

@@ -1308,6 +1308,21 @@ public class PedLookupViewController {
 	private Label createLabel(String text) {
 		Label label = new Label(text);
 		label.setFont(new Font("Segoe UI Black", 12.0));
+		
+		final String UILightColor = "rgba(255,255,255,0.75)";
+		final String UIDarkColor = "rgba(0,0,0,0.75)";
+		
+		try {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
+				label.setTextFill(Color.web(UIDarkColor));
+			} else {
+				label.setTextFill(Color.web(UILightColor));
+				
+			}
+		} catch (IOException e) {
+			logError("Error creating license label, cannot get uiColors.UIDarkMode: ", e);
+		}
+		
 		return label;
 	}
 	

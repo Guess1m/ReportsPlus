@@ -11,6 +11,9 @@ public class PatrolReport {
 	@XmlElement(name = "patrolNumber")
 	private String patrolNumber;
 	
+	@XmlElement(name = "patrolStatus")
+	private String patrolStatus;
+	
 	@XmlElement(name = "patrolDate")
 	private String patrolDate;
 	
@@ -138,5 +141,13 @@ public class PatrolReport {
 	
 	public void setPatrolStopTime(String patrolStopTime) {
 		this.patrolStopTime = patrolStopTime;
+	}
+	
+	public String getStatus() {
+		return patrolStatus != null ? patrolStatus : "Closed";
+	}
+	
+	public void setStatus(String patrolStatus) {
+		this.patrolStatus = patrolStatus;
 	}
 }

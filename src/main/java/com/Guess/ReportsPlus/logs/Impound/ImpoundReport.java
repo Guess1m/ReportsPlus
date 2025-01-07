@@ -15,6 +15,9 @@ public class ImpoundReport {
 	@XmlElement(name = "impoundDate")
 	private String impoundDate;
 	
+	@XmlElement(name = "impoundStatus")
+	private String impoundStatus;
+	
 	@XmlElement(name = "impoundTime")
 	private String impoundTime;
 	
@@ -138,6 +141,14 @@ public class ImpoundReport {
 	
 	public void setOfficerDivision(String officerDivision) {
 		this.officerDivision = officerDivision;
+	}
+	
+	public String getStatus() {
+		return impoundStatus != null ? impoundStatus : "Closed";
+	}
+	
+	public void setStatus(String impoundStatus) {
+		this.impoundStatus = impoundStatus;
 	}
 	
 	public String getOfficerName() {

@@ -19,6 +19,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -123,6 +124,8 @@ public class mainDesktopController {
 	private HBox topBarHboxRight;
 	@FXML
 	private GridPane bottomBar;
+	@FXML
+	private Button shutdownBtn;
 	
 	public static void updateDesktopBackground(VBox container) {
 		if (container != null) {
@@ -542,6 +545,12 @@ public class mainDesktopController {
 		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 	
+	@FXML
+	public void shutdownButtonPress(ActionEvent actionEvent) {
+		log("Shutdown button pressed!", LogUtils.Severity.DEBUG);
+		handleClose();
+	}
+	
 	private void updateConnectionStatus(boolean isConnected) {
 		if (!isConnected) {
 			getTopBarHboxRight().getChildren().remove(locationDataLabel);
@@ -632,5 +641,9 @@ public class mainDesktopController {
 	
 	public GridPane getBottomBar() {
 		return bottomBar;
+	}
+	
+	public Button getShutdownBtn() {
+		return shutdownBtn;
 	}
 }

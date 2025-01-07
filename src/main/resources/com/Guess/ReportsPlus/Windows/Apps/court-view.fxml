@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="724.0" prefWidth="670.0"
-            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/22"
+            stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.CourtViewController">
     <center>
         <AnchorPane fx:id="courtPane" style="-fx-background-color: transparent;"
@@ -15,7 +15,7 @@
                            style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <ListView fx:id="caseList" prefHeight="690.0" prefWidth="292.0"
+                        <ListView fx:id="caseList" maxWidth="400.0" prefHeight="690.0" prefWidth="292.0"
                                   stylesheets="@../../css/main/listView.css"/>
                         <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;">
                             <content>
@@ -325,8 +325,9 @@
                                                                         <TextArea fx:id="caseNotesField"
                                                                                   editable="false"
                                                                                   focusTraversable="false"
-                                                                                  style="-fx-background-color: rgb(0,0,0,0.05);"
-                                                                                  stylesheets="@../../css/main/transparentTextArea.css"/>
+                                                                                  style="-fx-background-color: rgb(0,0,0,0.05); -fx-font-size: 13; -fx-padding: 0;"
+                                                                                  stylesheets="@../../css/main/transparentTextArea.css"
+                                                                                  wrapText="true"/>
                                                                     </children>
                                                                 </VBox>
                                                                 <SplitPane dividerPositions="0.5" GridPane.rowIndex="1">

@@ -21,10 +21,11 @@ public class stringUtil {
 	 Plugin Updates
 	 Updater Updates
 	 UserGuide Version / Changes
+	 Copy Over Updater To Resources
 	 */
 	
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Support For Handing Suspects Citations", "Added AutoUpdate Utility With Update Checks", "New Report App For Creating Blank Reports", "Autoupdate Server With Application If Connected", "Reset App Positions Button", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Fix Vehicle Owners Able To Be Below 18", "Added Ped Flag Probility Setting", "Rearrange Topbar/Taskbar Elements", "Hide Maximize For Non-Resizable Windows"};
+	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Support For Handing Suspects Citations", "Fix Creating New Court Case When Updating Report", "Fixed CourtCase Note Area", "Added AutoUpdate Utility With Update Checks", "New Report App For Creating Blank Reports", "Display All IPv4 Addresses In Server Rather Than Just First", "Autoupdate Server With Application If Connected", "Reset App Positions Button", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Fix Spacing On Report MenuButtons", "Added Shutdown Button", "Added Missing Freeways", "Fix Vehicle Owners Able To Be Below 18", "Added Ped Flag Probility Setting", "Rearrange Topbar/Taskbar Elements", "Hide Maximize For Non-Resizable Windows"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			NEW:
@@ -51,14 +52,16 @@ public class stringUtil {
 			UpdatesWindow.LocaleChangesButton=Locale Changes
 			UpdatesWindow.updateServerCheckbox=Update Server (Requires you to be connected)
 			NewReportApp.selectReportTypeLabel=Select a Report Type:
+			UpdatesWindow.intelChipCheckbox=Use Intel Chip MacOS Download (Only select if using a Intel chip mac)
+			UpdatesWindow.launchAutoUpdateBtn=Launch Update Utility (BETA)
+			LogBrowser.SubHeading=Log Browser
+			LogBrowser.reportDatabaseLabel=Report Database
 			
 			REMOVED:
 			Desktop.CreateReportButton=Create Report
-			
-			CHANGED:
-			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!) -> Use Intel Chip MacOS Download (Only select if using a Intel chip mac)
-			
-			UpdatesWindow.UpdateButton=AutoUpdate (BETA) -> Launch Update Utility (BETA)
+			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
+			UpdatesWindow.UpdateButton=AutoUpdate
+			LogBrowser.SubHeading=Log Browser
 			""";
 	
 	public static final String name = "Reports Plus";

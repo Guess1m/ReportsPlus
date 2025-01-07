@@ -98,13 +98,6 @@
                 </AnchorPane>
                 <AnchorPane fx:id="desktopContainer" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button fx:id="button1" mnemonicParsing="false"
-                                style="-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black;" text="Edit Mode"
-                                AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-                            <font>
-                                <Font name="Segoe UI Black" size="10.0"/>
-                            </font>
-                        </Button>
                         <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true" spacing="10.0"
                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                             <children>
@@ -148,6 +141,25 @@
                                 <Insets right="20.0"/>
                             </GridPane.margin>
                         </VBox>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <Button fx:id="shutdownBtn" mnemonicParsing="false" onAction="#shutdownButtonPress"
+                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Shutdown">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="10.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="button1" mnemonicParsing="false"
+                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Edit Mode">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="10.0"/>
+                                    </font>
+                                </Button>
+                            </children>
+                            <GridPane.margin>
+                                <Insets left="20.0"/>
+                            </GridPane.margin>
+                        </HBox>
                         <BorderPane fx:id="taskBar" maxHeight="-Infinity" maxWidth="0.0" minHeight="-Infinity"
                                     prefHeight="45.0" style="-fx-background-radius: 20 20 0 0;"
                                     GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"

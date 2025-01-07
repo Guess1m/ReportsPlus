@@ -16,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.stage.Screen;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -81,10 +79,6 @@ public class reportUtil {
 			throw new RuntimeException(e);
 		}
 		
-		Screen screen = Screen.getPrimary();
-		double screenWidth = screen.getVisualBounds().getWidth();
-		double screenHeight = screen.getVisualBounds().getHeight();
-		
 		BorderPane mainRoot = new BorderPane();
 		mainRoot.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
 		
@@ -94,7 +88,7 @@ public class reportUtil {
 		
 		Label warningLabel = new Label("Please fill out the form");
 		warningLabel.setVisible(false);
-		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 14;");
+		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-size: 14;");
 		
 		for (int i = 0; i < 12; i++) {
 			ColumnConstraints column = new ColumnConstraints();
@@ -103,10 +97,64 @@ public class reportUtil {
 		}
 		
 		Label mainHeaderLabel = new Label(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
-		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-font-family: Segoe UI Black;");
-		mainHeaderLabel.setAlignment(Pos.CENTER);
-		GridPane.setColumnSpan(mainHeaderLabel, 12);
-		gridPane.add(mainHeaderLabel, 0, 0);
+		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Segoe UI Black\";");
+		
+		Label statusLabel = new Label(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:") + " ");
+		statusLabel.setStyle("-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Segoe UI Semibold\";");
+		
+		ComboBox<String> statusValue = new ComboBox<>();
+		statusValue.getStyleClass().add("comboboxnew");
+		statusValue.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
+		statusValue.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue) {
+				statusValue.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-font-size: 10;");
+			} else {
+				statusValue.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
+			}
+		});
+		statusValue.getItems().addAll("Closed", "In Progress", "Pending", "Reopened", "Cancelled");
+		statusValue.setValue("Closed");
+		statusValue.setPromptText("Report Status");
+		statusValue.setButtonCell(new ListCell() {
+			@Override
+			protected void updateItem(Object item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+				} else {
+					if (item.equals("Closed")) {
+						setStyle("-fx-text-fill: #ff8e69;");
+					} else if (item.equals("In Progress")) {
+						setStyle("-fx-text-fill: #79afff;");
+					} else if (item.equals("Reopened")) {
+						setStyle("-fx-text-fill: #b05ef3;");
+					} else if (item.equals("Pending")) {
+						setStyle("-fx-text-fill: #f3c95e;");
+					} else if (item.equals("Cancelled")) {
+						setStyle("-fx-text-fill: #f35645;");
+					} else {
+						setStyle("-fx-text-fill: " + placeholder + ";");
+					}
+					setText(item.toString());
+				}
+			}
+		});
+		statusValue.setMaxWidth(Region.USE_COMPUTED_SIZE);
+		
+		HBox statusBox = new HBox(statusLabel, statusValue);
+		statusBox.setAlignment(Pos.CENTER_RIGHT);
+		
+		GridPane topHeaderGridPane = new GridPane();
+		topHeaderGridPane.add(mainHeaderLabel, 0, 0);
+		topHeaderGridPane.add(statusBox, 1, 0);
+		GridPane.setHalignment(statusBox, HPos.RIGHT);
+		GridPane.setHalignment(mainHeaderLabel, HPos.CENTER);
+		GridPane.setColumnSpan(mainHeaderLabel, GridPane.REMAINING);
+		ColumnConstraints col3 = new ColumnConstraints();
+		col3.setPercentWidth(50);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col2.setPercentWidth(50);
+		topHeaderGridPane.getColumnConstraints().addAll(col2, col3);
 		
 		Map<String, Object> fieldsMap = new HashMap<>();
 		int rowIndex = 1;
@@ -114,8 +162,7 @@ public class reportUtil {
 		for (nestedReportUtils.SectionConfig sectionConfig : sectionConfigs) {
 			
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
-			sectionLabel.setFont(Font.font("Segoe UI Black"));
-			sectionLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+			sectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: " + placeholder + "; -fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
 			rowIndex++;
 			
@@ -144,8 +191,8 @@ public class reportUtil {
 		}
 		
 		Button submitBtn = new Button(localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
+		submitBtn.setMinWidth(Region.USE_PREF_SIZE);
 		submitBtn.getStyleClass().add("incidentformButton");
-		submitBtn.setStyle("-fx-padding: 15;");
 		submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
 		submitBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
@@ -184,7 +231,7 @@ public class reportUtil {
 		
 		HBox buttonBox = new HBox(10, delBtn, pullNotesBtn, warningLabel, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
-		VBox root = new VBox(10, mainHeaderLabel, gridPane);
+		VBox root = new VBox(10, topHeaderGridPane, gridPane);
 		
 		if (transferConfig != null) {
 			TitledPane titledPane = new TitledPane();
@@ -223,7 +270,7 @@ public class reportUtil {
 			accordion.setMaxWidth(Double.MAX_VALUE);
 			accordion.setMinHeight(Region.USE_PREF_SIZE);
 			accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
-			accordion.setMaxHeight(Region.USE_PREF_SIZE);
+			accordion.setMaxHeight(Region.USE_COMPUTED_SIZE);
 			
 			paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 			accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
@@ -272,6 +319,7 @@ public class reportUtil {
 		result.put(reportName + " Map", fieldsMap);
 		result.put("delBtn", delBtn);
 		result.put("pullNotesBtn", pullNotesBtn);
+		result.put("statusValue", statusValue);
 		result.put("warningLabel", warningLabel);
 		result.put("submitBtn", submitBtn);
 		result.put("root", mainRoot);
@@ -281,7 +329,7 @@ public class reportUtil {
 		root1.getProperties().put("reportName", reportNameProperty);
 		
 		mainRoot.setPrefHeight(570.0);
-		mainRoot.setPrefWidth(705.6);
+		mainRoot.setPrefWidth(780.0);
 		
 		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
 		return result;
@@ -632,10 +680,10 @@ public class reportUtil {
 					
 					int remainingColumns = gridPane.getColumnCount() - additionalColumnIndex;
 					
-					gridPane.add(citationInfoLabel, additionalColumnIndex, rowIndex, remainingColumns, 1);
+					gridPane.add(citationInfoLabel, additionalColumnIndex, rowIndex - 2, remainingColumns, 1);
 					GridPane.setHalignment(citationInfoLabel, HPos.CENTER);
-					gridPane.add(citationNameField, additionalColumnIndex, rowIndex + 1, remainingColumns, 1);
-					gridPane.add(citationFineField, additionalColumnIndex, rowIndex + 2, remainingColumns, 1);
+					gridPane.add(citationNameField, additionalColumnIndex, rowIndex - 1, remainingColumns, 1);
+					gridPane.add(citationFineField, additionalColumnIndex, rowIndex + 1, remainingColumns, 1);
 					
 					HBox buttonBox = new HBox(40, addButton, removeButton);
 					buttonBox.setAlignment(Pos.CENTER);
@@ -650,8 +698,7 @@ public class reportUtil {
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
 					
-					citationInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
-					citationInfoLabel.setFont(Font.font("Segoe UI Black"));
+					citationInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton.getStyleClass().add("incidentformButton");
 					addButton.setStyle("-fx-padding: 15;");
 					addButton.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -829,13 +876,13 @@ public class reportUtil {
 					
 					int remainingColumns2 = gridPane.getColumnCount() - additionalColumnIndex2;
 					
-					gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex, remainingColumns2, 1);
+					gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex - 2, remainingColumns2, 1);
 					GridPane.setHalignment(chargeInfoLabel, HPos.CENTER);
-					gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex + 1, remainingColumns2, 1);
+					gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex - 1, remainingColumns2, 1);
 					
 					HBox buttonBox2 = new HBox(40, addButton2, removeButton2);
 					buttonBox2.setAlignment(Pos.CENTER);
-					gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 3, remainingColumns2, 1);
+					gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 2, remainingColumns2, 1);
 					
 					gridPane.add(chargeTableView, additionalColumnIndex2, rowIndex + 4, remainingColumns2, 1);
 					
@@ -845,8 +892,7 @@ public class reportUtil {
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 					
-					chargeInfoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + placeholder + "; -fx-background-color: transparent; -fx-padding: 0px 40px;");
-					chargeInfoLabel.setFont(Font.font("Segoe UI Black"));
+					chargeInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton2.getStyleClass().add("incidentformButton");
 					addButton2.setStyle("-fx-padding: 15;");
 					addButton2.setStyle("-fx-background-color: " + getPrimaryColor());

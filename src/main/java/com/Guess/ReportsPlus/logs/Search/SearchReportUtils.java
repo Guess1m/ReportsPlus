@@ -146,6 +146,8 @@ public class SearchReportUtils {
 		
 		Button submitBtn = (Button) searchReport.get("submitBtn");
 		
+		ComboBox<String> statusValue = (ComboBox) searchReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (searchnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -165,6 +167,7 @@ public class SearchReportUtils {
 				}
 				
 				SearchReport searchReport1 = new SearchReport();
+				searchReport1.setStatus(statusValue.getValue());
 				searchReport1.setSearchNumber(searchnum.getText());
 				searchReport1.setSearchDate(date.getText());
 				searchReport1.setSearchTime(time.getText());

@@ -74,7 +74,7 @@ public class AccidentReportUtils {
 		                                                                                            new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")), 7,
 		                                                                                                                                                              nestedReportUtils.FieldType.COMBO_BOX_TYPE),
 		                                                                                                                            new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5, nestedReportUtils.FieldType.COMBO_BOX_COLOR))),
-		                                                        new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"), true, new nestedReportUtils.RowConfig(
+		                                                        new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), true, new nestedReportUtils.RowConfig(
 				                                                        new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")), 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return accidentReport;
 	}
@@ -163,6 +163,8 @@ public class AccidentReportUtils {
 		
 		Button submitBtn = (Button) accidentReport.get("submitBtn");
 		
+		ComboBox<String> statusValue = (ComboBox) accidentReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (accidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -181,6 +183,7 @@ public class AccidentReportUtils {
 					}
 				}
 				AccidentReport accidentReport1 = new AccidentReport();
+				accidentReport1.setStatus(statusValue.getValue());
 				accidentReport1.setAccidentNumber(accidentnum.getText());
 				accidentReport1.setAccidentDate(date.getText());
 				accidentReport1.setAccidentTime(time.getText());

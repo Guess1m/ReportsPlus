@@ -71,7 +71,6 @@ public class PedHistoryMath {
 		return departments[0];
 	}
 	
-	//BUG: date can be before ped is old enough
 	public static String generateValidLicenseExpirationDate() {
 		int maxYears = 4;
 		LocalDate currentDate = LocalDate.now();
@@ -86,7 +85,6 @@ public class PedHistoryMath {
 		return expirationDate.format(formatter);
 	}
 	
-	//BUG: date can be before ped is old enough
 	public static String generateExpiredLicenseExpirationDate(int maxYears) {
 		int maxYearsAgo = maxYears;
 		LocalDate currentDate = LocalDate.now();

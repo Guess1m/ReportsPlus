@@ -15,6 +15,9 @@ public class SearchReport {
 	@XmlElement(name = "searchDate")
 	private String searchDate;
 	
+	@XmlElement(name = "searchStatus")
+	private String searchStatus;
+	
 	@XmlElement(name = "searchTime")
 	private String searchTime;
 	
@@ -238,5 +241,13 @@ public class SearchReport {
 	
 	public void setTestsConducted(String testsConducted) {
 		this.testsConducted = testsConducted;
+	}
+	
+	public String getStatus() {
+		return searchStatus != null ? searchStatus : "Closed";
+	}
+	
+	public void setStatus(String searchStatus) {
+		this.searchStatus = searchStatus;
 	}
 }

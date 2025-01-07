@@ -9,7 +9,6 @@ import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -22,16 +21,12 @@ import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificati
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.courtDataURL;
 
 public class CourtUtils {
-	private static final int CASE_NUMBER_LENGTH = 7;
 	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);
 	
-	public static String generateCaseNumber() {
+	public static String generateCaseNumber(String number) {
 		StringBuilder caseNumber = new StringBuilder("CN-");
-		for (int i = 0; i < CASE_NUMBER_LENGTH; i++) {
-			SecureRandom RANDOM = new SecureRandom();
-			int digit = RANDOM.nextInt(10);
-			caseNumber.append(digit);
-		}
+		caseNumber.append(number);
+		log("Generated Case#: " + caseNumber.toString(), LogUtils.Severity.DEBUG);
 		return caseNumber.toString();
 	}
 	

@@ -285,6 +285,8 @@ public class ArrestReportUtils {
 		Button submitBtn = (Button) arrestReport.get("submitBtn");
 		Label warningLabel = (Label) arrestReport.get("warningLabel");
 		
+		ComboBox<String> statusValue = (ComboBox) arrestReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (arrestnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -332,6 +334,7 @@ public class ArrestReportUtils {
 				}
 				
 				ArrestReport arrestReport1 = new ArrestReport();
+				arrestReport1.setStatus(statusValue.getValue());
 				arrestReport1.setArrestNumber((arrestnum.getText()));
 				arrestReport1.setArrestDate((date.getText()));
 				arrestReport1.setArrestTime((time.getText()));
@@ -375,41 +378,47 @@ public class ArrestReportUtils {
 				
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null && !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					Case case1 = new Case();
-					String casenum = generateCaseNumber();
-					case1.setCaseNumber(casenum);
-					case1.setCourtDate(date.getText());
-					case1.setCaseTime(time.getText().replace(".", ""));
-					case1.setName(toTitleCase(offenderName.getText()));
-					case1.setOffenceDate(date.getText());
-					case1.setAge(toTitleCase(offenderAge.getText()));
-					case1.setAddress(toTitleCase(offenderAddress.getText()));
-					case1.setGender(toTitleCase(offenderGender.getText()));
-					case1.setCounty(toTitleCase(county.getText()));
-					case1.setStreet(toTitleCase(street.getEditor().getText()));
-					case1.setArea(area.getEditor().getText());
-					case1.setNotes(notes.getText());
-					case1.setOffences(stringBuilder.toString());
-					case1.setOutcomes(chargesBuilder.toString());
-					case1.setStatus("Pending");
-					try {
-						String index = getNextIndex(loadCourtCases());
-						case1.setIndex(index);
-					} catch (JAXBException e) {
-						throw new RuntimeException(e);
+					String casenum = generateCaseNumber(arrestnum.getText());
+					
+					Optional<Case> caseToUpdateOptional = findCaseByNumber(casenum);
+					if (!caseToUpdateOptional.isPresent()) {
+						case1.setCaseNumber(casenum);
+						case1.setCourtDate(date.getText());
+						case1.setCaseTime(time.getText().replace(".", ""));
+						case1.setName(toTitleCase(offenderName.getText()));
+						case1.setOffenceDate(date.getText());
+						case1.setAge(toTitleCase(offenderAge.getText()));
+						case1.setAddress(toTitleCase(offenderAddress.getText()));
+						case1.setGender(toTitleCase(offenderGender.getText()));
+						case1.setCounty(toTitleCase(county.getText()));
+						case1.setStreet(toTitleCase(street.getEditor().getText()));
+						case1.setArea(area.getEditor().getText());
+						case1.setNotes(notes.getText());
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						case1.setStatus("Pending");
+						try {
+							String index = getNextIndex(loadCourtCases());
+							case1.setIndex(index);
+						} catch (JAXBException e) {
+							throw new RuntimeException(e);
+						}
+						try {
+							CourtUtils.addCase(case1);
+						} catch (JAXBException | IOException e) {
+							throw new RuntimeException(e);
+						}
+						try {
+							scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+						} catch (JAXBException | IOException e) {
+							throw new RuntimeException(e);
+						}
+						NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
+						log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+						needCourtRefresh.set(1);
+					} else {
+						log("Case #: " + casenum + " already exists, not adding new case", LogUtils.Severity.WARN);
 					}
-					try {
-						CourtUtils.addCase(case1);
-					} catch (JAXBException | IOException e) {
-						throw new RuntimeException(e);
-					}
-					try {
-						scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
-					} catch (JAXBException | IOException e) {
-						throw new RuntimeException(e);
-					}
-					NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
-					log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
-					needCourtRefresh.set(1);
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.");
 					NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from arrest because either name or offences field(s) were empty.");

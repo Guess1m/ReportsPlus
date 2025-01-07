@@ -125,7 +125,6 @@ public class DeathReportUtils {
 		
 		MenuButton pullnotesbtn = (MenuButton) deathReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-		
 		pullnotesbtn.setOnMouseEntered(actionEvent -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -155,6 +154,7 @@ public class DeathReportUtils {
 		});
 		
 		Button submitBtn = (Button) deathReport.get("submitBtn");
+		ComboBox<String> statusValue = (ComboBox) deathReport.get("statusValue");
 		
 		submitBtn.setOnAction(event -> {
 			if (deathNum.getText().trim().isEmpty()) {
@@ -174,6 +174,7 @@ public class DeathReportUtils {
 					}
 				}
 				DeathReport deathReport1 = new DeathReport();
+				deathReport1.setStatus(statusValue.getValue());
 				deathReport1.setAddress(toTitleCase(address.getText()));
 				deathReport1.setCauseOfDeath(toTitleCase(causeofdeath.getText()));
 				deathReport1.setDeathReportNumber(deathNum.getText());

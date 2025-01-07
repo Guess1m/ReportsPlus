@@ -125,6 +125,7 @@ public class CalloutReportUtils {
 		
 		Button submitBtn = (Button) calloutReport.get("submitBtn");
 		Label warningLabel = (Label) calloutReport.get("warningLabel");
+		ComboBox<String> statusValue = (ComboBox) calloutReport.get("statusValue");
 		
 		submitBtn.setOnAction(event -> {
 			if (calloutnum.getText().trim().isEmpty()) {
@@ -145,6 +146,7 @@ public class CalloutReportUtils {
 				}
 				
 				CalloutReport callout1 = new CalloutReport();
+				callout1.setStatus(statusValue.getValue());
 				callout1.setDate(calloutdate.getText());
 				callout1.setTime(callouttime.getText());
 				callout1.setName(toTitleCase(officername.getText()));

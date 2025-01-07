@@ -143,6 +143,8 @@ public class ImpoundReportUtils {
 		});
 		
 		Button submitBtn = (Button) impoundReport.get("submitBtn");
+		ComboBox<String> statusValue = (ComboBox) impoundReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -162,6 +164,7 @@ public class ImpoundReportUtils {
 				}
 				
 				ImpoundReport impoundReport1 = new ImpoundReport();
+				impoundReport1.setStatus(statusValue.getValue());
 				impoundReport1.setImpoundNumber(num.getText());
 				impoundReport1.setImpoundDate(date.getText());
 				impoundReport1.setImpoundTime(time.getText());

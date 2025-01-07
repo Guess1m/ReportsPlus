@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -145,6 +146,7 @@ public class desktopLoginController {
 			Stage primaryStage = new Stage();
 			primaryStage.setTitle("ReportsPlus Desktop");
 			primaryStage.setScene(scene);
+			primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
 			primaryStage.show();
 			mainDesktopStage = primaryStage;
 			

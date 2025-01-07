@@ -266,6 +266,8 @@ public class TrafficStopReportUtils {
 		Button submitBtn = (Button) trafficStopReport.get("submitBtn");
 		Label warningLabel = (Label) trafficStopReport.get("warningLabel");
 		
+		ComboBox<String> statusValue = (ComboBox) trafficStopReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (stopnumts.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -285,6 +287,7 @@ public class TrafficStopReportUtils {
 				}
 				
 				TrafficStopReport trafficStopReport1 = new TrafficStopReport();
+				trafficStopReport1.setStatus(statusValue.getValue());
 				trafficStopReport1.setDate((datets.getText()));
 				trafficStopReport1.setTime((timets.getText()));
 				trafficStopReport1.setRank((officerrankts.getText()));

@@ -29,8 +29,7 @@ import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificati
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.handleClose;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.updateUtil.isInternetAvailable;
-import static com.Guess.ReportsPlus.util.Misc.updateUtil.runJar;
+import static com.Guess.ReportsPlus.util.Misc.updateUtil.*;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.*;
 
 public class AutoUpdaterToolController {
@@ -109,7 +108,7 @@ public class AutoUpdaterToolController {
 	}
 	
 	private void updateLocale() {
-		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.IntelChipCheckbox", "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
+		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.intelChipCheckbox", "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
 		armChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.armChipCheckbox", "Use Windows / ARM MacOS Download"));
 		startAutoUpdateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.startAutoUpdateBtn", "Start AutoUpdate"));
 		autoUpdateUtilityHeader.setText(localization.getLocalizedMessage("UpdatesWindow.autoUpdateUtilityHeader", "AutoUpdate Utility"));
@@ -157,14 +156,27 @@ public class AutoUpdaterToolController {
 				errors.append("Invalid Internet Connection ");
 			}
 			
+			log("Attempting to copy updater", Severity.DEBUG);
+			try {
+				if (copyUpdaterJar()) {
+					log("Finished Copying UpdaterJar.", Severity.DEBUG);
+				} else {
+					log("Could not copy updater", Severity.ERROR);
+					updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+					errors.append("Update Utility Was Not Copied, ");
+				}
+			} catch (IOException e) {
+				logError("Error copying updater", e);
+			}
+			
 			foundUpdateUtility = checkForUpdateUtility();
 			if (foundUpdateUtility) {
 				log("Found Update Utility", Severity.DEBUG);
 				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Update Utility Was Not Found!", Severity.DEBUG);
-				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				log("Update Utility Was Not Found!", Severity.ERROR);
 				errorsFound[0] = true;
+				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errors.append("Update Utility Was Not Found, ");
 			}
 			
@@ -337,7 +349,9 @@ public class AutoUpdaterToolController {
 			handleClose();
 		} else {
 			log("Not able to update, issue running Updater", Severity.ERROR);
-			updateStatus(helpLabel, "Not able to update, issue running Updater", "red");
+			Platform.runLater(() -> {
+				updateStatus(helpLabel, "Not able to update, issue running Updater", "red");
+			});
 		}
 	}
 	

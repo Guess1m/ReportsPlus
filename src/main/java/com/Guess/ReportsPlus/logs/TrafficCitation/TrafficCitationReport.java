@@ -14,6 +14,9 @@ public class TrafficCitationReport {
 	@XmlElement(name = "citationDate")
 	private String citationDate;
 	
+	@XmlElement(name = "citationStatus")
+	private String citationStatus;
+	
 	@XmlElement(name = "citationTime")
 	private String citationTime;
 	
@@ -131,6 +134,14 @@ public class TrafficCitationReport {
 	
 	public void setCitationStreet(String citationStreet) {
 		this.citationStreet = citationStreet;
+	}
+	
+	public String getStatus() {
+		return citationStatus != null ? citationStatus : "Closed";
+	}
+	
+	public void setStatus(String citationStatus) {
+		this.citationStatus = citationStatus;
 	}
 	
 	public String getCitationTime() {

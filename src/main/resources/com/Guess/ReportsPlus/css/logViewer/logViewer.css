@@ -1,0 +1,110 @@
+ScrollPane {
+    -fx-background-color: transparent;
+}
+
+Separator .line {
+    -fx-opacity: 0;
+}
+
+Separator {
+    -fx-background-color: rgb(0, 0, 0, 0.2);
+}
+
+ProgressBar .track {
+    -fx-background-color: rgb(0, 0, 0, 0.06);
+}
+
+.progress-bar-InProgress .bar {
+    -fx-background-color: rgba(0, 148, 0, 0.7);
+    -fx-padding: 10;
+}
+
+.progress-bar-Closed .bar {
+    -fx-background-color: rgb(255, 0, 0, 0.7);
+}
+
+
+TableView .filler {
+    -fx-background-color: transparent;
+}
+
+TableView {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+TableView:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+TableView .column-header-background {
+    -fx-background-color: rgb(255, 255, 255, 0.6);
+    -fx-padding: 4;
+}
+
+TableView .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #232323;
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+TableView .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0px;
+}
+
+TableView .table-cell {
+    -fx-text-fill: #262626;
+    -fx-font-family: "Segoe UI";
+    -fx-alignment: center;
+    -fx-padding: 0 5.5 0 5.5;
+    -fx-border-width: 0 0 0 0;
+}
+
+TableView .table-row-cell {
+    -fx-table-cell-border-color: transparent;
+    -fx-cell-size: 40px;
+    -fx-alignment: center;
+}
+
+TableView .table-row-cell:odd {
+    -fx-background-color: rgb(255, 255, 255, 0.6);
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
+}
+
+TableView .table-row-cell:even {
+    -fx-background-color: rgb(242, 242, 242, 0.4);
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
+}
+
+TableView .table-row-cell:hover {
+    -fx-background-color: rgba(188, 188, 188, 0.45);
+}
+
+TableView .table-row-cell:selected {
+    -fx-background-color: rgba(188, 188, 188, 0.5);
+}
+
+TableView > .virtual-flow > .scroll-bar:vertical,
+TableView > .virtual-flow > .scroll-bar:vertical > .track,
+TableView > .virtual-flow > .scroll-bar:vertical > .track-background,
+TableView > .virtual-flow > .scroll-bar:horizontal,
+TableView > .virtual-flow > .scroll-bar:horizontal > .track,
+TableView > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+TableView > .virtual-flow > .scroll-bar:horizontal > .thumb,
+TableView > .virtual-flow > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #383838;
+}
+
+TableView > .virtual-flow > .scroll-bar:horizontal > .thumb:pressed,
+TableView > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
+    -fx-background-color: #262626;
+}

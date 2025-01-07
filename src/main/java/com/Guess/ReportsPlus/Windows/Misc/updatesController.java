@@ -80,7 +80,7 @@ public class updatesController {
 			hbox.setVisible(false);
 		}
 		
-		updateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.UpdateButton", "Launch Update Utility (BETA)"));
+		updateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.launchAutoUpdateBtn", "Launch Update Utility (BETA)"));
 		currentverlabel.setText(localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
 		changeloglabel.setText(localization.getLocalizedMessage("UpdatesWindow.ChangelogLabel", "Changelog"));
 		mostrecentlabel.setText(localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));

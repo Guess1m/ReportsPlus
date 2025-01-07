@@ -134,6 +134,8 @@ public class IncidentReportUtils {
 		Button submitBtn = (Button) incidentReport.get("submitBtn");
 		Label warningLabel = (Label) incidentReport.get("warningLabel");
 		
+		ComboBox<String> statusValue = (ComboBox) incidentReport.get("statusValue");
+		
 		submitBtn.setOnAction(event -> {
 			if (incidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -153,6 +155,7 @@ public class IncidentReportUtils {
 				}
 				
 				IncidentReport incidentReport1 = new IncidentReport();
+				incidentReport1.setStatus(statusValue.getValue());
 				incidentReport1.setIncidentArea(toTitleCase(area.getEditor().getText()));
 				incidentReport1.setIncidentComments(notes.getText());
 				incidentReport1.setIncidentActionsTaken(summary.getText());

@@ -14,6 +14,9 @@ public class AccidentReport {
 	@XmlElement(name = "AccidentDate")
 	private String accidentDate;
 	
+	@XmlElement(name = "accidentStatus")
+	private String accidentStatus;
+	
 	@XmlElement(name = "AccidentTime")
 	private String accidentTime;
 	
@@ -303,5 +306,13 @@ public class AccidentReport {
 	
 	public void setWitnesses(String witnesses) {
 		this.witnesses = witnesses;
+	}
+	
+	public String getStatus() {
+		return accidentStatus != null ? accidentStatus : "Closed";
+	}
+	
+	public void setStatus(String accidentStatus) {
+		this.accidentStatus = accidentStatus;
 	}
 }

@@ -5,6 +5,7 @@ import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
+import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
@@ -24,7 +25,11 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -237,9 +242,8 @@ public class controllerUtils {
 	}
 	
 	public static void setSmallColumnWidth(TableColumn column) {
-		double minColumnWidthSmall = 120.0;
-		column.setMinWidth(minColumnWidthSmall);
-		column.setPrefWidth(minColumnWidthSmall);
+		double minColumnWidthSmall = 150.0;
+		column.setMaxWidth(minColumnWidthSmall);
 	}
 	
 	public static String toHexString(Color color) {
@@ -976,4 +980,66 @@ public class controllerUtils {
 		searchField.getItems().setAll(recentSearches);
 	}
 	
+	public static void copyChargeDataFile() throws IOException {
+		
+		String sourcePathCharges = "/com/Guess/ReportsPlus/data/Charges.xml";
+		Path destinationDir = Paths.get(getJarPath(), "data");
+		
+		if (!Files.exists(destinationDir)) {
+			Files.createDirectories(destinationDir);
+		}
+		
+		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCharges)) {
+			if (inputStream != null) {
+				
+				Path destinationPathCharges = destinationDir.resolve(Paths.get(sourcePathCharges).getFileName());
+				
+				Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
+			} else {
+				log("Resource not found: " + sourcePathCharges, Severity.ERROR);
+			}
+		}
+	}
+	
+	public static void copyCitationDataFile() throws IOException {
+		
+		String sourcePathCitations = "/com/Guess/ReportsPlus/data/Citations.xml";
+		Path destinationDir = Paths.get(getJarPath(), "data");
+		
+		if (!Files.exists(destinationDir)) {
+			Files.createDirectories(destinationDir);
+		}
+		
+		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCitations)) {
+			if (inputStream != null) {
+				
+				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCitations).getFileName());
+				
+				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
+			} else {
+				log("Resource not found: " + sourcePathCitations, Severity.ERROR);
+			}
+		}
+	}
+	
+	public static void copyCustomizationDataFile() throws IOException {
+		
+		String sourcePathCustomization = "/com/Guess/ReportsPlus/data/customization.json";
+		Path destinationDir = Paths.get(getJarPath(), "data");
+		
+		if (!Files.exists(destinationDir)) {
+			Files.createDirectories(destinationDir);
+		}
+		
+		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCustomization)) {
+			if (inputStream != null) {
+				
+				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCustomization).getFileName());
+				
+				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
+			} else {
+				log("Resource not found: " + sourcePathCustomization, Severity.ERROR);
+			}
+		}
+	}
 }

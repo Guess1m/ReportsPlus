@@ -63,6 +63,7 @@ public class Launcher {
 		} else {
 			newOfficerApplication.main(args);
 		}
+		
 	}
 	
 	public static void loadFonts() {

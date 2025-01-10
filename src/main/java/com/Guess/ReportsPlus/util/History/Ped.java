@@ -56,6 +56,15 @@ public class Ped {
 	@XmlElement(name = "WantedStatus")
 	private String wantedStatus;
 	
+	@XmlElement(name = "DateWarrantIssued")
+	private String dateWarrantIssued;
+	
+	@XmlElement(name = "WarrantNumber")
+	private String warrantNumber;
+	
+	@XmlElement(name = "WarrantAgency")
+	private String warrantAgency;
+	
 	@XmlElement(name = "OutstandingWarrants")
 	private String outstandingWarrants;
 	
@@ -74,6 +83,12 @@ public class Ped {
 	@XmlElement(name = "GunLicenseStatus")
 	private String gunLicenseStatus;
 	
+	@XmlElement(name = "GunLicenseExpiration")
+	private String gunLicenseExpiration;
+	
+	@XmlElement(name = "GunLicenseNumber")
+	private String gunLicenseNumber;
+	
 	@XmlElement(name = "GunLicenseType")
 	private String gunLicenseType;
 	
@@ -83,8 +98,26 @@ public class Ped {
 	@XmlElement(name = "FishingLicenseStatus")
 	private String fishingLicenseStatus;
 	
+	@XmlElement(name = "FishingLicenseExpiration")
+	private String fishingLicenseExpiration;
+	
+	@XmlElement(name = "FishingLicenseNumber")
+	private String fishingLicenseNumber;
+	
 	@XmlElement(name = "BoatingLicenseStatus")
 	private String boatingLicenseStatus;
+	
+	@XmlElement(name = "BoatingLicenseExpiration")
+	private String boatingLicenseExpiration;
+	
+	@XmlElement(name = "BoatingLicenseNumber")
+	private String boatingLicenseNumber;
+	
+	@XmlElement(name = "HuntingLicenseExpiration")
+	private String huntingLicenseExpiration;
+	
+	@XmlElement(name = "HuntingLicenseNumber")
+	private String huntingLicenseNumber;
 	
 	@XmlElement(name = "HuntingLicenseStatus")
 	private String huntingLicenseStatus;
@@ -123,12 +156,68 @@ public class Ped {
 		return "";
 	}
 	
+	public String getGunLicenseExpiration() {
+		return gunLicenseExpiration;
+	}
+	
+	public void setGunLicenseExpiration(String gunLicenseExpiration) {
+		this.gunLicenseExpiration = gunLicenseExpiration;
+	}
+	
+	public String getGunLicenseNumber() {
+		return gunLicenseNumber;
+	}
+	
+	public void setGunLicenseNumber(String gunLicenseNumber) {
+		this.gunLicenseNumber = gunLicenseNumber;
+	}
+	
+	public String getDateWarrantIssued() {
+		return dateWarrantIssued;
+	}
+	
+	public void setDateWarrantIssued(String dateWarrantIssued) {
+		this.dateWarrantIssued = dateWarrantIssued;
+	}
+	
+	public String getWarrantNumber() {
+		return warrantNumber;
+	}
+	
+	public void setWarrantNumber(String warrantNumber) {
+		this.warrantNumber = warrantNumber;
+	}
+	
+	public String getWarrantAgency() {
+		return warrantAgency;
+	}
+	
+	public void setWarrantAgency(String warrantAgency) {
+		this.warrantAgency = warrantAgency;
+	}
+	
 	public String getModel() {
 		return model;
 	}
 	
 	public void setModel(String model) {
 		this.model = model;
+	}
+	
+	public String getFishingLicenseExpiration() {
+		return fishingLicenseExpiration;
+	}
+	
+	public void setFishingLicenseExpiration(String fishingLicenseExpiration) {
+		this.fishingLicenseExpiration = fishingLicenseExpiration;
+	}
+	
+	public String getFishingLicenseNumber() {
+		return fishingLicenseNumber;
+	}
+	
+	public void setFishingLicenseNumber(String fishingLicenseNumber) {
+		this.fishingLicenseNumber = fishingLicenseNumber;
 	}
 	
 	public String getVehiclePlateNum() {
@@ -321,6 +410,38 @@ public class Ped {
 	
 	public void setHuntingLicenseStatus(String huntingLicenseStatus) {
 		this.huntingLicenseStatus = huntingLicenseStatus;
+	}
+	
+	public String getHuntingLicenseExpiration() {
+		return huntingLicenseExpiration;
+	}
+	
+	public void setHuntingLicenseExpiration(String huntingLicenseExpiration) {
+		this.huntingLicenseExpiration = huntingLicenseExpiration;
+	}
+	
+	public String getHuntingLicenseNumber() {
+		return huntingLicenseNumber;
+	}
+	
+	public void setHuntingLicenseNumber(String huntingLicenseNumber) {
+		this.huntingLicenseNumber = huntingLicenseNumber;
+	}
+	
+	public String getBoatingLicenseExpiration() {
+		return boatingLicenseExpiration;
+	}
+	
+	public void setBoatingLicenseExpiration(String boatingLicenseExpiration) {
+		this.boatingLicenseExpiration = boatingLicenseExpiration;
+	}
+	
+	public String getBoatingLicenseNumber() {
+		return boatingLicenseNumber;
+	}
+	
+	public void setBoatingLicenseNumber(String boatingLicenseNumber) {
+		this.boatingLicenseNumber = boatingLicenseNumber;
 	}
 	
 	@XmlRootElement(name = "PedDatabase")

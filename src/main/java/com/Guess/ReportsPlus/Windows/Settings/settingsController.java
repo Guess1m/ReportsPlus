@@ -1,5 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Settings;
 
+import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
@@ -17,14 +18,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -39,7 +43,10 @@ import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManag
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
+import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
+import static com.Guess.ReportsPlus.util.Misc.updateUtil.startUpdate;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 public class settingsController {
@@ -49,6 +56,8 @@ public class settingsController {
 	public static settingsController SettingsController;
 	private static AtomicReference<String> selectedNotification;
 	private boolean isInitialized = false;
+	private boolean soundPackInstalled = false;
+	private boolean imgPackInstalled = false;
 	
 	//<editor-fold desc="FXML">
 	@javafx.fxml.FXML
@@ -401,8 +410,109 @@ public class settingsController {
 	private Label reportDesignPresetTT;
 	@javafx.fxml.FXML
 	private Label accentLabelReportTT;
+	@javafx.fxml.FXML
+	private Button clrLookupDataBtn;
+	@javafx.fxml.FXML
+	private Label desktopAppTextClrLabel;
+	@javafx.fxml.FXML
+	private ColorPicker appTextPicker;
+	@javafx.fxml.FXML
+	private Label desktopAppTextClrTT;
+	@javafx.fxml.FXML
+	private GridPane installSoundsPane;
+	@javafx.fxml.FXML
+	private Button installSoundsBtn;
+	@javafx.fxml.FXML
+	private VBox audioVBox;
+	@javafx.fxml.FXML
+	private Label soundPackNotDetectedLbl;
+	@javafx.fxml.FXML
+	private Label imagesNotDetectedLbl;
+	@javafx.fxml.FXML
+	private Button installImagesBtn;
+	@javafx.fxml.FXML
+	private ToggleButton enablePedVehImgsCheckbox;
+	@javafx.fxml.FXML
+	private Label enablePedVehImagesTT;
+	@javafx.fxml.FXML
+	private GridPane installImagesPane;
+	@javafx.fxml.FXML
+	private Label enablePedVehImages;
+	@javafx.fxml.FXML
+	private Label clearLookupDataLabel;
+	@javafx.fxml.FXML
+	private Label clearLookupDataLabelTT;
 	
 	//</editor-fold>
+	private boolean checkSoundsInstalled() {
+		log("Checking if sounds are installed", LogUtils.Severity.INFO);
+		String soundPath = getJarPath() + "/sounds/";
+		File soundFolder = new File(soundPath);
+		boolean soundsInstalled = true;
+		
+		if (!soundFolder.exists() || !soundFolder.isDirectory()) {
+			log("Sound folder not found", LogUtils.Severity.WARN);
+			soundsInstalled = false;
+		}
+		
+		for (String soundFile : soundList) {
+			File file = new File(soundPath + soundFile);
+			if (!file.exists()) {
+				log("Sound file: '" + file.getName() + "' not found", LogUtils.Severity.WARN);
+				soundsInstalled = false;
+			}
+		}
+		
+		if (audioVBox.getChildren().contains(installSoundsPane)) {
+			audioVBox.getChildren().remove(installSoundsPane);
+		}
+		soundPackInstalled = soundsInstalled;
+		
+		if (!soundPackInstalled) {
+			audioVBox.getChildren().add(installSoundsPane);
+			installSoundsPane.toBack();
+		}
+		
+		log("Sounds Installed/Updated: " + soundsInstalled, LogUtils.Severity.DEBUG);
+		return soundsInstalled;
+	}
+	
+	private boolean checkImagesInstalled() {
+		log("Checking if ped/veh images are installed", LogUtils.Severity.INFO);
+		boolean imgsInstalled = true;
+		String imgPath = getJarPath() + "/images/";
+		
+		File imagesFolder = new File(imgPath);
+		if (!imagesFolder.exists() || !imagesFolder.isDirectory()) {
+			log("Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		File pedImagesFolder = new File(imgPath + "/peds");
+		if (!pedImagesFolder.exists() || !pedImagesFolder.isDirectory()) {
+			log("Ped Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		File vehImagesFolder = new File(imgPath + "/vehicles");
+		if (!vehImagesFolder.exists() || !vehImagesFolder.isDirectory()) {
+			log("Vehicle Images folder not found", LogUtils.Severity.WARN);
+			imgsInstalled = false;
+		}
+		
+		if (audioVBox.getChildren().contains(installImagesPane)) {
+			audioVBox.getChildren().remove(installImagesPane);
+		}
+		imgPackInstalled = imgsInstalled;
+		
+		if (!imgPackInstalled) {
+			audioVBox.getChildren().add(installImagesPane);
+			installImagesPane.toBack();
+		}
+		
+		log("Ped/Veh Images Installed: " + imgsInstalled, LogUtils.Severity.DEBUG);
+		return imgsInstalled;
+	}
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -602,6 +712,10 @@ public class settingsController {
 			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + topBarText + ";");
 			mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + topBarText + ";");
+			for (DesktopApp desktopApp : DesktopApps) {
+				desktopApp.getAppLabel().setTextFill(
+						Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
+			}
 			if (mainDesktopControllerObj.getLocationDataLabel() != null) {
 				mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
@@ -614,7 +728,7 @@ public class settingsController {
 			}
 		}
 		
-		if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			addDarkStyles();
 		} else {
 			addLightStyles();
@@ -707,8 +821,6 @@ public class settingsController {
 			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -791,8 +903,6 @@ public class settingsController {
 			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed16().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed17().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
 			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
@@ -845,6 +955,9 @@ public class settingsController {
 	}
 	
 	public void initialize() {
+		checkSoundsInstalled();
+		checkImagesInstalled();
+		
 		try {
 			addActionEventsAndComboBoxes();
 		} catch (IOException e) {
@@ -866,8 +979,8 @@ public class settingsController {
 		
 		previewNotificationBtn.setOnAction(actionEvent -> {
 			if (selectedNotification.get().equals("Information")) {
-				NotificationManager.showNotificationInfo("Sample Info Notification",
-				                                         "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+				showNotificationInfo("Sample Info Notification",
+				                     "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				NotificationManager.showNotificationWarning("Sample Warning Notification",
@@ -985,6 +1098,11 @@ public class settingsController {
 		desktopTopBarTextClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrTT",
 		                                                                "Set the color of the text on the top bar"));
 		
+		desktopAppTextClrLabel.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrLabel", "App Text Color"));
+		desktopAppTextClrTT.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrTT", "Set the color of the app name text"));
+		
 		//Report
 		reportWindowCustomizationHeader.setText(
 				localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader",
@@ -1062,7 +1180,8 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
 		
 		//Audio
-		audioSettingsHeader.setText(localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO SETTINGS"));
+		audioSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
 		enableSoundsLabel.setText(localization.getLocalizedMessage("Settings.EnableSoundsLabel", "Enable Sounds"));
 		enableSoundsTT.setText(localization.getLocalizedMessage("Settings.EnableSoundsTT",
 		                                                        "Toggle whether ALL sounds will be enabled"));
@@ -1079,6 +1198,18 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.CalloutSoundTT", "Sound when a callout is recieved"));
 		delReportLabel.setText(localization.getLocalizedMessage("Settings.DelReportLabel", "Delete Report Sound"));
 		delReportTT.setText(localization.getLocalizedMessage("Settings.DelReportTT", "Sound when report is deleted"));
+		
+		enablePedVehImages.setText(
+				localization.getLocalizedMessage("Settings.enablePedVehImages", "Enable Ped/Veh Images"));
+		enablePedVehImagesTT.setText(localization.getLocalizedMessage("Settings.enablePedVehImagesTT",
+		                                                              "Toggle whether ped/veh images will be shown in lookup"));
+		
+		soundPackNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.soundPackNotDetectedLbl", "Sound Pack Not Detected"));
+		installSoundsBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
+		imagesNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.imagesNotDetectedLbl", "Ped/Veh Images Not Detected"));
+		installImagesBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
 		
 		//Developer
 		devSettingsHeader.setText(
@@ -1098,6 +1229,12 @@ public class settingsController {
 		                                                         "Center all windows on the screen in case of issues"));
 		centerWindowsBtn.setText(localization.getLocalizedMessage("Settings.CenterWindowsBtn", "CENTER WINDOWS"));
 		
+		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
+		clearLookupDataLabel.setText(
+				localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
+		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT",
+		                                                                "ONLY delete saved ped / veh history data from previous lookups to free space"));
+		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
 		notiSettingsBtn.setText(localization.getLocalizedMessage("Settings.NotiSettingsBtn", "Notification Settings"));
@@ -1105,7 +1242,7 @@ public class settingsController {
 		reportDesignBtn.setText(localization.getLocalizedMessage("Settings.ReportDesignBtn", "Report Design"));
 		appDesignBtn.setText(localization.getLocalizedMessage("Settings.AppDesignBtn", "Application Design"));
 		serverBtn.setText(localization.getLocalizedMessage("Settings.ServerBtn", "Networking / Server"));
-		audioBtn.setText(localization.getLocalizedMessage("Settings.AudioBtn", "Audio"));
+		audioBtn.setText(localization.getLocalizedMessage("Settings.AudioBtn", "Audio/Optionals"));
 		devBtn.setText(localization.getLocalizedMessage("Settings.DevBtn", "Developer"));
 		
 	}
@@ -1120,7 +1257,7 @@ public class settingsController {
 	public void clearLogsBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene().getWindow();
 		confirmLogClearDialog(stage);
-		NotificationManager.showNotificationInfo("Log Manager", "Logs have been cleared.");
+		showNotificationInfo("Log Manager", "Logs have been cleared.");
 	}
 	
 	@javafx.fxml.FXML
@@ -1292,6 +1429,7 @@ public class settingsController {
 			desktopBackgroundPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "desktopColor")));
 			topBarPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarColor")));
 			topBarTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarTextColor")));
+			appTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
 			bkgPicker.setValue(bkg);
@@ -1424,6 +1562,8 @@ public class settingsController {
 		backgroundToggle.setSelected(
 				ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
 		
+		enablePedVehImgsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 	}
 	
@@ -1649,6 +1789,19 @@ public class settingsController {
 			ConfigWriter.configwrite("desktopSettings", "topBarTextColor", toHexString(newValue));
 		});
 		
+		appTextPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!isInitialized) {
+				return;
+			}
+			
+			if (mainDesktopControllerObj != null) {
+				for (DesktopApp desktopApp : DesktopApps) {
+					desktopApp.getAppLabel().setTextFill(Paint.valueOf(toHexString(newValue)));
+				}
+			}
+			ConfigWriter.configwrite("desktopSettings", "appTextColor", toHexString(newValue));
+		});
+		
 		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
@@ -1728,7 +1881,7 @@ public class settingsController {
 		textClrComboBox.getItems().addAll(uidarklight);
 		
 		try {
-			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equals("true")) {
+			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				reportStyleComboBox.getSelectionModel().selectFirst();
 			} else {
 				reportStyleComboBox.getSelectionModel().selectLast();
@@ -1738,7 +1891,7 @@ public class settingsController {
 			
 		}
 		try {
-			if (ConfigReader.configRead("uiColors", "UIDarkMode").equals("true")) {
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				textClrComboBox.getSelectionModel().selectFirst();
 				if (logController != null) {
 					logController.getLogbrwsrlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -2130,5 +2283,63 @@ public class settingsController {
 	
 	public BorderPane getRoot() {
 		return root;
+	}
+	
+	@javafx.fxml.FXML
+	public void clearLookupDataBtnClick(ActionEvent actionEvent) {
+		try {
+			log("Clear lookup data btn pressed: ", LogUtils.Severity.DEBUG);
+			String dataFolderPath = getJarPath() + File.separator + "data";
+			
+			File pedHistoryFile = new File(dataFolderPath + File.separator + "pedHistory.xml");
+			if (pedHistoryFile.exists() && pedHistoryFile.isFile()) {
+				log("pedHistory.xml exists.", LogUtils.Severity.INFO);
+				Files.deleteIfExists(pedHistoryFile.toPath());
+				log("pedHistory.xml deleted.", LogUtils.Severity.INFO);
+			} else {
+				log("pedHistory.xml does not exist.", LogUtils.Severity.WARN);
+			}
+			
+			File vehHistoryFile = new File(dataFolderPath + File.separator + "vehHistory.xml");
+			if (vehHistoryFile.exists() && vehHistoryFile.isFile()) {
+				log("vehHistory.xml exists.", LogUtils.Severity.INFO);
+				Files.deleteIfExists(vehHistoryFile.toPath());
+				log("vehHistory.xml deleted.", LogUtils.Severity.INFO);
+			} else {
+				log("vehHistory.xml does not exist.", LogUtils.Severity.WARN);
+			}
+			showNotificationInfo("Developer", "Successfully Cleared Lookup Data");
+		} catch (Exception e) {
+			logError("Clear lookup data error: ", e);
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void installUpdateSounds(ActionEvent actionEvent) {
+		log("Running Install/Update Sounds", LogUtils.Severity.INFO);
+		startUpdate(soundPackDownloadURL, getJarPath(), "Sounds", false);
+		
+		if (checkSoundsInstalled()) {
+			enableSoundCheckbox.setSelected(true);
+			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
+			showNotificationInfo("Updater", "Successfully Installed Latest SoundPack!");
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void installUpdateImages(ActionEvent actionEvent) {
+		log("Running Install Ped/Veh Images", LogUtils.Severity.INFO);
+		startUpdate(imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
+		
+		if (checkImagesInstalled()) {
+			enablePedVehImgsCheckbox.setSelected(true);
+			ConfigWriter.configwrite("uiSettings", "enablePedVehImages", "true");
+			showNotificationInfo("Updater", "Successfully Installed Ped/Vehicle Image Pack!");
+		}
+	}
+	
+	@javafx.fxml.FXML
+	public void enableImagesCheckboxClick(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "enablePedVehImages", enablePedVehImgsCheckbox);
 	}
 }

@@ -30,6 +30,7 @@ import static com.Guess.ReportsPlus.Windows.Server.calloutController.getCallout;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 
 public class ClientUtils {
@@ -133,6 +134,24 @@ public class ClientUtils {
 				String fromServer;
 				label:
 				while ((fromServer = in.readLine()) != null) {
+					if (fromServer.contains("VERSION=")) {
+						String[] split = fromServer.split("=");
+						String serverVer = split[1];
+						log("Checking Server / Application Versions", LogUtils.Severity.INFO);
+						
+						if (!serverVer.equalsIgnoreCase(version)) {
+							log("Versions dont match!", LogUtils.Severity.ERROR);
+							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
+							log("App Version: " + version, LogUtils.Severity.DEBUG);
+							showNotificationErrorPersistent("Mismatched Versions",
+							                                "Your Application and Server have mismatched versions, check logs!");
+						} else {
+							log("Versions Match!", LogUtils.Severity.INFO);
+							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
+							log("App Version: " + version, LogUtils.Severity.DEBUG);
+						}
+						continue;
+					}
 					switch (fromServer) {
 						case "SHUTDOWN":
 							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
@@ -282,6 +301,30 @@ public class ClientUtils {
 							delay.setOnFinished(event -> {
 								try {
 									calloutWindow.closeWindow();
+									Callout callout = getCallout();
+									
+									if (callout != null) {
+										String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
+										String type = callout.getType() != null ? callout.getType() : "Not Found";
+										String number = callout.getNumber() != null ? callout.getNumber() : "Not Found";
+										String area = callout.getArea() != null ? callout.getArea() : "Not Found";
+										String priority = callout.getPriority() != null ? callout.getPriority() : "Not Found";
+										String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Found";
+										String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Found";
+										String county = callout.getCounty() != null ? callout.getCounty() : "Not Found";
+										String desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
+										String message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
+										String status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+										if (desc.isEmpty()) {
+											desc = message;
+										} else {
+											desc = desc + "\n" + message;
+										}
+										CalloutManager.addCallout(calloutDataURL, number, type, desc, message, priority,
+										                          street, area, county, time, date, status);
+										NotificationManager.showNotificationInfo("Callout Manager",
+										                                         "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+									}
 								} catch (NullPointerException e) {
 									log("Callout Window was closed before it could be automatically closed",
 									    LogUtils.Severity.WARN);
@@ -298,9 +341,6 @@ public class ClientUtils {
 				log("Adding Callout To Active", LogUtils.Severity.INFO);
 				Callout callout = getCallout();
 				
-				String message;
-				String desc;
-				String status;
 				if (callout != null) {
 					String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
 					String type = callout.getType() != null ? callout.getType() : "Not Found";
@@ -310,9 +350,9 @@ public class ClientUtils {
 					String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Found";
 					String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Found";
 					String county = callout.getCounty() != null ? callout.getCounty() : "Not Found";
-					desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
-					message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
-					status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+					String desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
+					String message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
+					String status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
 					if (desc.isEmpty()) {
 						desc = message;
 					} else {

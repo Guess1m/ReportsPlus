@@ -43,8 +43,20 @@ public class Vehicle {
 	@XmlElement(name = "Registration")
 	private String registration;
 	
+	@XmlElement(name = "RegistrationNumber")
+	private String registrationNumber;
+	
+	@XmlElement(name = "RegistrationExpiration")
+	private String registrationExpiration;
+	
 	@XmlElement(name = "Insurance")
 	private String insurance;
+	
+	@XmlElement(name = "InsuranceNumber")
+	private String insuranceNumber;
+	
+	@XmlElement(name = "InsuranceExpiration")
+	private String insuranceExpiration;
 	
 	@XmlElement(name = "Type")
 	private String type;
@@ -130,6 +142,38 @@ public class Vehicle {
 	
 	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
+	}
+	
+	public String getInsuranceExpiration() {
+		return insuranceExpiration;
+	}
+	
+	public void setInsuranceExpiration(String insuranceExpiration) {
+		this.insuranceExpiration = insuranceExpiration;
+	}
+	
+	public String getInsuranceNumber() {
+		return insuranceNumber;
+	}
+	
+	public void setInsuranceNumber(String insuranceNumber) {
+		this.insuranceNumber = insuranceNumber;
+	}
+	
+	public String getRegistrationExpiration() {
+		return registrationExpiration;
+	}
+	
+	public void setRegistrationExpiration(String registrationExpiration) {
+		this.registrationExpiration = registrationExpiration;
+	}
+	
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+	
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 	
 	@XmlRootElement(name = "VehicleDatabase")

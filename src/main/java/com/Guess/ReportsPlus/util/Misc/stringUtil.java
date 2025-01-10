@@ -13,8 +13,38 @@ public class stringUtil {
 	// version
 	// updatesList
 	// pom.xml
-	public static final String version = "v1.1-alpha";
-	public static final String[] updatesList = {"Overhauled Settings / Lookup Windows", "Complete Reformat", "Many More Customization Options", "Changes To Report Windows", "Added Full Localization", "Traffic Stop Window", "Fixed Dead Peds Not Found", "Many Small Bug Fixes", "New Login Screen", "Overhauled Main Application", "Better Resource Cleanup", "Reduced Application Size", "Better looking Windows", "Stability Updates", "Server File Syncronization Fixes"};
+	// New locale
+	// Sound List If Changed
+	public static final String version = "v1.2-alpha";
+	public static final String[] updatesList = {"AutoUpdater Implementation (BETA)", "Sound Pack / PedVeh Images Installer", "Recieve Server Version", "Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
+	/* New Version Locale.properies changes
+	NEW:
+	Desktop.AvailableLabel=Available!
+	Desktop.NewVersionAvailable=New Version Available!
+	Settings.desktopAppTextClrLabel=App Text Color
+	Settings.ClearLookupDataBtn=CLEAR LOOKUP DATA
+	Settings.desktopAppTextClrTT=Set the color of the app name text
+	UpdatesWindow.UpdateButton=AutoUpdate (BETA)
+	UpdatesWindow.CantUpdateLabel=No Update Available!
+	UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
+	UpdatesWindow.MissingUpdater=Missing UpdateUtility!
+	Settings.installSoundsBtn=INSTALL/UPDATE
+	Settings.soundPackNotDetectedLbl=Sound Pack Not Detected
+	Settings.imagesNotDetectedLbl=Ped/Veh Images Not Detected
+	Settings.enablePedVehImages=Enable Ped/Veh Images
+	Settings.enablePedVehImagesTT=Toggle whether ped/veh images will be shown in lookup
+	Settings.clearLookupDataLabel=Clear Old Ped / Veh Data
+	Settings.clearLookupDataLabelTT=ONLY delete saved ped / veh history data from previous lookups to free space
+	PedLookup.PedImageFoundlbl=Image Found in File:
+	
+	REMOVED:
+	UpdatesWindow.CheckUpdatesButton=Check For Updates
+	
+	CHANGED:
+	Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
+	Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals
+	*/
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";
@@ -39,6 +69,8 @@ public class stringUtil {
 	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
 	public static final String pedImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "peds";
 	public static final String vehImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "vehicles";
+	public static final String soundPackDownloadURL = "https://github.com/Guess1m/ReportsPlus/releases/latest/download/sounds-optional.zip";
+	public static final String imagePackDownloadURL = "https://github.com/Guess1m/ReportsPlus/releases/latest/download/images-optional.zip";
 	
 	public static String hexToRgba(String hex, double transparency) {
 		if (hex.startsWith("#")) {

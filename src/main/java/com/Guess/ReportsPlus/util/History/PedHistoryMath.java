@@ -16,7 +16,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
+import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 
@@ -104,6 +106,34 @@ public class PedHistoryMath {
 			}
 		}
 		return departments[0];
+	}
+	
+	public static String generateValidLicenseExpirationDate() {
+		int maxYears = 4;
+		LocalDate currentDate = LocalDate.now();
+		
+		long minDaysAhead = 0;
+		long maxDaysAhead = maxYears * 365L + (maxYears / 4);
+		long randomDaysAhead = ThreadLocalRandom.current().nextLong(minDaysAhead, maxDaysAhead + 1);
+		
+		LocalDate expirationDate = currentDate.plusDays(randomDaysAhead);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		return expirationDate.format(formatter);
+	}
+	
+	public static String generateExpiredLicenseExpirationDate(int maxYears) {
+		int maxYearsAgo = maxYears;
+		LocalDate currentDate = LocalDate.now();
+		
+		long minDaysAgo = 1;
+		long maxDaysAgo = maxYearsAgo * 365L + (maxYearsAgo / 4);
+		long randomDaysAgo = ThreadLocalRandom.current().nextLong(minDaysAgo, maxDaysAgo + 1);
+		
+		LocalDate expirationDate = currentDate.minusDays(randomDaysAgo);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		return expirationDate.format(formatter);
 	}
 	
 	public static boolean calculateTrueFalseProbability(String percentage) {
@@ -403,5 +433,62 @@ public class PedHistoryMath {
 		LocalDate birthDate = today.minusDays(randomDays);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
 		return birthDate.format(formatter);
+	}
+	
+	public static String assignFlagsBasedOnPriors(int chargePriors) {
+		ArrayList<String> flags = new ArrayList<>(
+				List.of(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"),
+				        localization.getLocalizedMessage("Other.FlagGangAffiliation", "Gang Affiliation"),
+				        localization.getLocalizedMessage("Other.FlagDomesticHistory", "Domestic Violence History"),
+				        localization.getLocalizedMessage("Other.FlagOffender", "Sex Offender"),
+				        localization.getLocalizedMessage("Other.FlagUnderInvestigation", "Under Investigation"),
+				        localization.getLocalizedMessage("Other.FlagHighRick", "High Risk"),
+				        localization.getLocalizedMessage("Other.FlagMentalHealth", "Mental Health Flag"),
+				        localization.getLocalizedMessage("Other.FlagDrug", "Drug-related"),
+				        localization.getLocalizedMessage("Other.FlagImmigration", "Immigration Status"),
+				        localization.getLocalizedMessage("Other.FLagNoContact", "No Contact"),
+				        localization.getLocalizedMessage("Other.FlagFlightRisk", "Flight Risk"),
+				        localization.getLocalizedMessage("Other.FlagViolent", "Violent"),
+				        localization.getLocalizedMessage("Other.FLagArgumentative", "Argumentative")));
+		
+		Map<String, Double> flagWeights = new HashMap<>() {{
+			put(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"), 0.20);
+			put(localization.getLocalizedMessage("Other.FlagGangAffiliation", "Gang Affiliation"), 0.10);
+			put(localization.getLocalizedMessage("Other.FlagDomesticHistory", "Domestic Violence History"), 0.50);
+			put(localization.getLocalizedMessage("Other.FlagOffender", "Sex Offender"), 0.10);
+			put(localization.getLocalizedMessage("Other.FlagUnderInvestigation", "Under Investigation"), 0.30);
+			put(localization.getLocalizedMessage("Other.FlagHighRick", "High Risk"), 0.40);
+			put(localization.getLocalizedMessage("Other.FlagMentalHealth", "Mental Health Flag"), 0.30);
+			put(localization.getLocalizedMessage("Other.FlagDrug", "Drug-related"), 0.60);
+			put(localization.getLocalizedMessage("Other.FlagImmigration", "Immigration Status"), 0.10);
+			put(localization.getLocalizedMessage("Other.FLagNoContact", "No Contact"), 0.20);
+			put(localization.getLocalizedMessage("Other.FlagFlightRisk", "Flight Risk"), 0.30);
+			put(localization.getLocalizedMessage("Other.FlagViolent", "Violent"), 0.50);
+			put(localization.getLocalizedMessage("Other.FLagArgumentative", "Argumentative"), 0.65);
+		}};
+		
+		if (chargePriors <= 0) {
+			return null;
+		}
+		
+		Random random = new Random();
+		ArrayList<String> assignedFlags = new ArrayList<>();
+		
+		double baseProbability = Math.min(0.05 * chargePriors, 0.9);
+		
+		int maxFlags = Math.min((chargePriors / 2) + random.nextInt(2), flags.size());
+		Collections.shuffle(flags);
+		
+		for (String flag : flags) {
+			double weightedProbability = baseProbability * flagWeights.get(flag);
+			if (random.nextDouble() < weightedProbability) {
+				assignedFlags.add(flag);
+				if (assignedFlags.size() >= maxFlags) {
+					break;
+				}
+			}
+		}
+		
+		return String.join(", ", assignedFlags);
 	}
 }

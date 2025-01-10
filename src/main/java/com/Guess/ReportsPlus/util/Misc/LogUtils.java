@@ -31,7 +31,7 @@ public class LogUtils {
 			logError("Unable to create output.log file, Check folder permissions: ", e);
 		}
 		
-		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("Uncaught exception in thread " + thread, e));
+		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("ERROR: ", e));
 	}
 	
 	private static String checkFolderPermissions(Path folderPath) {

@@ -31,10 +31,6 @@ public class ProbabilitySettingsController {
 	@javafx.fxml.FXML
 	private TextField manyCitations;
 	@javafx.fxml.FXML
-	private TextField fishingLicense;
-	@javafx.fxml.FXML
-	private TextField boatingLicense;
-	@javafx.fxml.FXML
 	private TextField permitTypeBoth;
 	@javafx.fxml.FXML
 	private TextField permitClassHandgun;
@@ -61,8 +57,6 @@ public class ProbabilitySettingsController {
 	@javafx.fxml.FXML
 	private TextField noCitations;
 	@javafx.fxml.FXML
-	private TextField huntingLicense;
-	@javafx.fxml.FXML
 	private TextField manyCharges;
 	@javafx.fxml.FXML
 	private TextField noCharges;
@@ -72,9 +66,22 @@ public class ProbabilitySettingsController {
 	private Label citationProbabilityLabel;
 	@javafx.fxml.FXML
 	private TextField vehInspection;
+	@javafx.fxml.FXML
+	private TextField suspendedLicense;
+	@javafx.fxml.FXML
+	private TextField validLicense;
+	@javafx.fxml.FXML
+	private TextField expiredLicense;
+	@javafx.fxml.FXML
+	private Label licenseProbabilityLabel;
+	@javafx.fxml.FXML
+	private TextField fishingLicense;
+	@javafx.fxml.FXML
+	private TextField boatingLicense;
+	@javafx.fxml.FXML
+	private TextField huntingLicense;
 	
 	private void setInitialValues() throws IOException {
-		
 		permitTypeConcealed.setText(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance"));
 		permitTypeOpenCarry.setText(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance"));
 		permitTypeBoth.setText(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"));
@@ -104,6 +111,11 @@ public class ProbabilitySettingsController {
 		caseOutcomeDelay.setText(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
 		
 		vehInspection.setText(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
+		
+		validLicense.setText(ConfigReader.configRead("pedHistory", "validLicenseChance"));
+		suspendedLicense.setText(ConfigReader.configRead("pedHistory", "suspendedLicenseChance"));
+		expiredLicense.setText(ConfigReader.configRead("pedHistory", "expiredLicenseChance"));
+		
 	}
 	
 	private void addNumericOnlyListener(TextField textField) {
@@ -139,7 +151,6 @@ public class ProbabilitySettingsController {
 		} catch (IOException e) {
 			logError("Could not set InitialValues for ProbabilitySettings: ", e);
 		}
-		
 		addNumericOnlyAndBeyondMaxListener(permitTypeConcealed);
 		addNumericOnlyAndBeyondMaxListener(onParole);
 		addNumericOnlyListener(caseOutcomeDelay);
@@ -162,6 +173,38 @@ public class ProbabilitySettingsController {
 		addNumericOnlyAndBeyondMaxListener(noCharges);
 		addNumericOnlyAndBeyondMaxListener(fewCharges);
 		addNumericOnlyAndBeyondMaxListener(vehInspection);
+		addNumericOnlyAndBeyondMaxListener(validLicense);
+		addNumericOnlyAndBeyondMaxListener(suspendedLicense);
+		addNumericOnlyAndBeyondMaxListener(expiredLicense);
+	}
+	
+	private boolean checkLicenseChances() {
+		int licenseChanceTotal = Integer.parseInt(validLicense.getText()) + Integer.parseInt(
+				suspendedLicense.getText()) + Integer.parseInt(expiredLicense.getText());
+		if (licenseChanceTotal != 100) {
+			log("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal, LogUtils.Severity.ERROR);
+			licenseProbabilityLabel.setText(
+					"License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal);
+			licenseProbabilityLabel.setStyle("-fx-text-fill: red;");
+			licenseProbabilityLabel.setVisible(true);
+			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
+				licenseProbabilityLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
+				licenseProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+			}));
+			timeline1.play();
+			return false;
+		} else {
+			log("License Types Validated, They = " + licenseChanceTotal + "%", LogUtils.Severity.INFO);
+			licenseProbabilityLabel.setText("Validated, They = " + licenseChanceTotal + "%");
+			licenseProbabilityLabel.setStyle("-fx-text-fill: green;");
+			licenseProbabilityLabel.setVisible(true);
+			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
+				licenseProbabilityLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
+				licenseProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+			}));
+			timeline1.play();
+			return true;
+		}
 	}
 	
 	private boolean checkChargePrior() {
@@ -281,6 +324,7 @@ public class ProbabilitySettingsController {
 	private boolean runAllChecks() {
 		boolean allTrue = true;
 		
+		allTrue &= checkLicenseChances();
 		allTrue &= checkChargePrior();
 		allTrue &= checkPermitType();
 		allTrue &= checkCitationPrior();
@@ -314,6 +358,9 @@ public class ProbabilitySettingsController {
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "longgunChance", permitClassLonggun.getText());
 			ConfigWriter.configwrite("pedHistoryGunPermitClass", "shotgunChance", permitClassShotgun.getText());
 			ConfigWriter.configwrite("vehicleHistory", "hasValidInspection", vehInspection.getText());
+			ConfigWriter.configwrite("pedHistory", "validLicenseChance", validLicense.getText());
+			ConfigWriter.configwrite("pedHistory", "suspendedLicenseChance", suspendedLicense.getText());
+			ConfigWriter.configwrite("pedHistory", "expiredLicenseChance", expiredLicense.getText());
 			log("Wrote New Probabilities To Config", LogUtils.Severity.INFO);
 			NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config");
 		} else {

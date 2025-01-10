@@ -58,6 +58,5 @@ public class MainApplication extends Application {
 		}
 		
 		MainApplication.mainRT = mainDesktopStage;
-		
 	}
 }

@@ -11,8 +11,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -21,13 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
@@ -244,15 +237,6 @@ public class controllerUtils {
 		});
 	}
 	
-	public static void changeStatisticColors(AreaChart chart) throws IOException {
-		
-		String accclr = ConfigReader.configRead("uiColors", "accentColor");
-		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
-		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
-		chart.lookup(".chart-series-area-fill").setStyle("-fx-fill: " + accclr + ";");
-		chart.lookup(".chart-series-area-line").setStyle("-fx-fill: " + secclr + "; -fx-stroke: " + mainclr + ";");
-	}
-	
 	public static void setSmallColumnWidth(TableColumn column) {
 		double minColumnWidthSmall = 120.0;
 		column.setMinWidth(minColumnWidthSmall);
@@ -435,61 +419,6 @@ public class controllerUtils {
 		} finally {
 			Platform.exit();
 		}
-	}
-	
-	public static void parseLogData(String logURL, Map<String, Integer> combinedAreasMap, String value) {
-		File xmlFile = new File(logURL);
-		if (!xmlFile.exists()) {
-			return;
-		}
-		
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(xmlFile);
-			doc.getDocumentElement().normalize();
-			
-			NodeList nodeList = doc.getElementsByTagName("*");
-			
-			for (int temp = 0; temp < nodeList.getLength(); temp++) {
-				Element element = (Element) nodeList.item(temp);
-				String nodeName = element.getNodeName();
-				if (nodeName.toLowerCase().contains(value) && !nodeName.toLowerCase().contains("textarea")) {
-					String area = element.getTextContent().trim();
-					if (!area.isEmpty()) {
-						combinedAreasMap.put(area, combinedAreasMap.getOrDefault(area, 0) + 1);
-					}
-				}
-			}
-		} catch (Exception e) {
-			logError("ParseLogData Exception", e);
-		}
-	}
-	
-	public static XYChart.Series<String, Number> parseEveryLog(String value) {
-		Map<String, Integer> combinedAreasMap = new HashMap<>();
-		parseLogData(stringUtil.arrestLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.calloutLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.impoundLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.incidentLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.patrolLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.searchLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.trafficCitationLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.trafficstopLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.DeathReportLogURL, combinedAreasMap, value);
-		parseLogData(stringUtil.accidentLogURL, combinedAreasMap, value);
-		
-		Map<String, Integer> sortedAreasMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-		sortedAreasMap.putAll(combinedAreasMap);
-		
-		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		
-		for (Map.Entry<String, Integer> entry : sortedAreasMap.entrySet()) {
-			if (!entry.getKey().equalsIgnoreCase("N/A")) {
-				series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
-			}
-		}
-		return series;
 	}
 	
 	private static Map<String, String> pullNotesValues(String notepad) {
@@ -757,17 +686,44 @@ public class controllerUtils {
 	public static void setGunLicenseStatus(Ped ped) throws IOException {
 		Boolean hasGunLicense = calculateTrueFalseProbability(
 				ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
-		ped.setGunLicenseStatus(String.valueOf(hasGunLicense));
 		
 		if (hasGunLicense) {
-			String licenseType = getGunLicenseType();
-			ped.setGunLicenseType(licenseType);
+			String gunlicstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setGunLicenseStatus(gunlicstatus);
 			
-			String licenseClasses = getGunLicenseClass();
-			ped.setGunLicenseClass(licenseClasses);
+			if (gunlicstatus.equalsIgnoreCase("suspended")) {
+				ped.setGunLicenseExpiration("Suspended License");
+			} else if (gunlicstatus.equalsIgnoreCase("expired")) {
+				ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+			}
 			
-			ped.setHuntingLicenseStatus(String.valueOf(
-					calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"))));
+			ped.setGunLicenseType(getGunLicenseType());
+			ped.setGunLicenseClass(getGunLicenseClass());
+			ped.setGunLicenseNumber(generateLicenseNumber());
+			
+			boolean huntlic = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
+			if (huntlic) {
+				String licstatus = calculateLicenseStatus(
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+						Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+				ped.setHuntingLicenseStatus(licstatus);
+				
+				if (licstatus.equalsIgnoreCase("suspended")) {
+					ped.setHuntingLicenseExpiration("Suspended License");
+				} else if (licstatus.equalsIgnoreCase("expired")) {
+					ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				} else {
+					ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
+				}
+				
+				ped.setHuntingLicenseNumber(generateLicenseNumber());
+			}
 		}
 	}
 	
@@ -875,18 +831,14 @@ public class controllerUtils {
 		}
 		
 		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
-		ped.setTimesStopped(totalStops);
-	}
-	
-	public static String formatLicenseStatus(String status) {
-		switch (status.toLowerCase()) {
-			case "expired":
-				return "EXPIRED";
-			case "suspended":
-				return "SUSPENDED";
-			default:
-				return "Valid";
+		
+		String flags = assignFlagsBasedOnPriors(totalChargePriors);
+		
+		if (flags != null && flags.length() > 0 && !flags.equals("")) {
+			ped.setFlags(flags);
 		}
+		
+		ped.setTimesStopped(totalStops);
 	}
 	
 	public static Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
@@ -897,10 +849,47 @@ public class controllerUtils {
 		}
 		
 		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		
+		boolean fishLicStatus = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistory", "hasFishingLicense"));
+		if (fishLicStatus) {
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setFishingLicenseStatus(licstatus);
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setFishingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setFishingLicenseNumber(generateLicenseNumber());
+		}
+		
+		boolean boatLicStatus = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
+		if (boatLicStatus) {
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setBoatingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setBoatingLicenseStatus(licstatus);
+			ped.setBoatingLicenseNumber(generateLicenseNumber());
+		}
+		
 		if (!pedModel.equalsIgnoreCase("Not Found")) {
 			ped.setModel(pedModel);
 		} else {
@@ -929,7 +918,13 @@ public class controllerUtils {
 				logError("Error getting randomCharge: ", e);
 			}
 			if (warrant != null) {
-				ped.setOutstandingWarrants("WANTED(" + getRandomDepartment() + ") - " + warrant);
+				String department = getRandomDepartment();
+				String number = generateLicenseNumber();
+				String issuedDate = generateExpiredLicenseExpirationDate(5);
+				ped.setOutstandingWarrants(warrant);
+				ped.setWarrantAgency(department);
+				ped.setWarrantNumber(number);
+				ped.setDateWarrantIssued(issuedDate);
 			} else {
 				ped.setOutstandingWarrants("WANTED - No details");
 			}
@@ -950,10 +945,45 @@ public class controllerUtils {
 		}
 		
 		setPedPriors(ped);
-		ped.setFishingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"))));
-		ped.setBoatingLicenseStatus(String.valueOf(
-				calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"))));
+		
+		boolean fishLicStatus = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistory", "hasFishingLicense"));
+		if (fishLicStatus) {
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			ped.setFishingLicenseStatus(licstatus);
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setFishingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			
+			ped.setFishingLicenseNumber(generateLicenseNumber());
+		}
+		
+		boolean boatLicStatus = calculateTrueFalseProbability(
+				ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
+		if (boatLicStatus) {
+			String licstatus = calculateLicenseStatus(
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+			
+			if (licstatus.equalsIgnoreCase("suspended")) {
+				ped.setBoatingLicenseExpiration("Suspended License");
+			} else if (licstatus.equalsIgnoreCase("expired")) {
+				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+			} else {
+				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+			}
+			ped.setBoatingLicenseStatus(licstatus);
+			ped.setBoatingLicenseNumber(generateLicenseNumber());
+		}
 		ped.setVehiclePlateNum(vehPlateNum);
 		try {
 			setGunLicenseStatus(ped);

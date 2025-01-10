@@ -10,13 +10,22 @@ import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +46,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
@@ -57,8 +67,6 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private AnchorPane pedRecordPane;
 	@javafx.fxml.FXML
-	private TextField pedgunlicensetypefield;
-	@javafx.fxml.FXML
 	private TextField pedgunlicensestatusfield;
 	@javafx.fxml.FXML
 	private Label noPedImageFoundlbl;
@@ -77,10 +85,7 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private Label ped14;
 	@javafx.fxml.FXML
-	private Label ped17;
 	private ScrollPane pedPane;
-	@javafx.fxml.FXML
-	private Label ped16;
 	@javafx.fxml.FXML
 	private Label ped19;
 	@javafx.fxml.FXML
@@ -127,8 +132,6 @@ public class PedLookupViewController {
 	private Label ped23;
 	@javafx.fxml.FXML
 	private TextField pedhuntinglicstatusfield;
-	@javafx.fxml.FXML
-	private TextField pedgunlicenseclassfield;
 	@javafx.fxml.FXML
 	private Label ped20;
 	@javafx.fxml.FXML
@@ -242,8 +245,6 @@ public class PedLookupViewController {
 		ped13.setText(localization.getLocalizedMessage("PedLookup.FieldProbationStatus", "Probation Status:"));
 		ped14.setText(localization.getLocalizedMessage("PedLookup.FieldTimesStopped", "Times Stopped:"));
 		ped15.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseStatus", "Gun License Status:"));
-		ped16.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type"));
-		ped17.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class"));
 		ped18.setText(
 				localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
 		ped19.setText(
@@ -314,32 +315,120 @@ public class PedLookupViewController {
 		
 		pedlicensefield.setText(ped.getLicenseStatus());
 		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
-				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
+				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"REVOKED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"NONE") || ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
 			pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			playAudio = true;
-			
-		} else {
+		} else if (ped.getLicenseStatus().equalsIgnoreCase("VALID")) {
 			pedlicensefield.setStyle("-fx-text-fill: #006600 !important;");
-			pedlicensefield.setText("Valid");
 		}
 		
-		// Outstanding warrants
-		pedwantedfield.setText(ped.getOutstandingWarrants() != null ? ped.getOutstandingWarrants() : "False");
+		pedwantedfield.getStyleClass().clear();
+		pedwantedfield.setOnMouseClicked(null);
 		if (ped.getOutstandingWarrants() != null) {
 			pedwantedfield.setStyle("-fx-text-fill: red !important;");
 			playAudio = true;
+			pedwantedfield.setText("WARRANT");
 			
+			boolean updated = false;
+			if (ped.getDateWarrantIssued() == null) {
+				ped.setDateWarrantIssued(generateExpiredLicenseExpirationDate(5));
+				updated = true;
+			}
+			if (ped.getWarrantNumber() == null) {
+				ped.setWarrantNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (ped.getWarrantAgency() == null) {
+				ped.setWarrantAgency(getRandomDepartment());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for warrant license info: ", e);
+				}
+			}
+			pedwantedfield.getStyleClass().add("valid-field");
+			
+			createWarrantInfoPopup(pedwantedfield, localization.getLocalizedMessage("PedLookup.WarrantInformationTitle",
+			                                                                        "Issued Warrant Information:"),
+			                       ped.getName(), ped.getBirthday(), ped.getDateWarrantIssued(), ped.getWarrantNumber(),
+			                       ped.getWarrantAgency(), ped.getOutstandingWarrants());
 		} else {
-			pedwantedfield.setStyle("-fx-text-fill: black;");
+			pedwantedfield.setText("False");
+			pedwantedfield.getStyleClass().add("text-field");
+			pedwantedfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		String gunLicenseStatus = ped.getGunLicenseStatus();
-		if (gunLicenseStatus == null || gunLicenseStatus.equalsIgnoreCase("false")) {
+		pedgunlicensestatusfield.getStyleClass().clear();
+		pedgunlicensestatusfield.setOnMouseClicked(null);
+		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus());
+		if (ped.getGunLicenseStatus() == null || ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
 			pedgunlicensestatusfield.setText("False");
+			pedgunlicensestatusfield.getStyleClass().add("text-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
-		} else {
-			pedgunlicensestatusfield.setText("Valid");
+		} else if (ped.getGunLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
+			pedgunlicensestatusfield.getStyleClass().add("valid-field");
+			pedgunlicensestatusfield.setStyle("-fx-text-fill: orange !important;");
+			pedgunlicensestatusfield.setText(ped.getGunLicenseStatus().toUpperCase());
+			
+			boolean updated = false;
+			if (ped.getGunLicenseExpiration() == null) {
+				if (ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
+					ped.setGunLicenseExpiration("Suspended License");
+				} else if (ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
+					ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				}
+				updated = true;
+			}
+			if (ped.getGunLicenseNumber() == null) {
+				ped.setGunLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for gun license info 1: ", e);
+				}
+			}
+			createGunLicenseInfoPopup(pedgunlicensestatusfield,
+			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
+			                                                           "Gun License Information:"), ped.getName(),
+			                          ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(),
+			                          ped.getGunLicenseNumber(), ped.getGunLicenseType(), ped.getGunLicenseClass());
+			
+		} else if (ped.getGunLicenseStatus().equalsIgnoreCase("valid")) {
+			pedgunlicensestatusfield.getStyleClass().add("valid-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: #006600 !important;");
+			pedgunlicensestatusfield.setText("Valid");
+			
+			boolean updated = false;
+			if (ped.getGunLicenseExpiration() == null) {
+				ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+				updated = true;
+			}
+			if (ped.getGunLicenseNumber() == null) {
+				ped.setGunLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for gun license info 2: ", e);
+				}
+			}
+			createGunLicenseInfoPopup(pedgunlicensestatusfield,
+			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
+			                                                           "Gun License Information:"), ped.getName(),
+			                          ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(),
+			                          ped.getGunLicenseNumber(), ped.getGunLicenseType(), ped.getGunLicenseClass());
+			
 		}
 		
 		pedprobationstatusfield.setText(ped.getProbationStatus() != null ? ped.getProbationStatus() : "False");
@@ -350,35 +439,224 @@ public class PedLookupViewController {
 			pedprobationstatusfield.setStyle("-fx-text-fill: black !important;");
 		}
 		
-		// Fishing license status
-		pedfishinglicstatusfield.setText(
-				ped.getFishingLicenseStatus() != null ? ped.getFishingLicenseStatus() : "False");
-		if (ped.getFishingLicenseStatus() != null && ped.getFishingLicenseStatus().equalsIgnoreCase("true")) {
+		pedfishinglicstatusfield.getStyleClass().clear();
+		pedfishinglicstatusfield.setOnMouseClicked(null);
+		pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus());
+		if (ped.getFishingLicenseStatus() == null || ped.getFishingLicenseStatus().equalsIgnoreCase("false")) {
+			pedfishinglicstatusfield.setText("False");
+			pedfishinglicstatusfield.getStyleClass().add("text-field");
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+			pedfishinglicstatusfield.getStyleClass().add("valid-field");
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
+			pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus().toUpperCase());
+			
+			boolean updated = false;
+			if (ped.getFishingLicenseExpiration() == null) {
+				if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
+					ped.setFishingLicenseExpiration("Suspended License");
+				} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+					ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				}
+				updated = true;
+			}
+			if (ped.getFishingLicenseNumber() == null) {
+				ped.setFishingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for fishing license info 1: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedfishinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
+			                                                        "Fishing License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
+			                       ped.getFishingLicenseNumber());
+			
+		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
+			pedfishinglicstatusfield.getStyleClass().add("valid-field");
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
 			pedfishinglicstatusfield.setText("Valid");
+			
+			boolean updated = false;
+			if (ped.getFishingLicenseExpiration() == null) {
+				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+				updated = true;
+			}
+			if (ped.getFishingLicenseNumber() == null) {
+				ped.setFishingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for fishing license info 2: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedfishinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
+			                                                        "Fishing License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
+			                       ped.getFishingLicenseNumber());
+			
 		} else {
-			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+			log("Unexpected fishing license status: " + ped.getFishingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected fishing license status: " + ped.getFishingLicenseStatus());
+			
+			pedfishinglicstatusfield.setText("Unknown");
+			pedfishinglicstatusfield.getStyleClass().add("text-field");
+			pedfishinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
-		pedboatinglicstatusfield.setText(
-				ped.getBoatingLicenseStatus() != null ? ped.getBoatingLicenseStatus() : "False");
-		if (ped.getBoatingLicenseStatus() != null && ped.getBoatingLicenseStatus().equalsIgnoreCase("true")) {
+		pedboatinglicstatusfield.getStyleClass().clear();
+		pedboatinglicstatusfield.setOnMouseClicked(null);
+		if (ped.getBoatingLicenseStatus() == null) {
+			pedboatinglicstatusfield.setText("False");
+			pedboatinglicstatusfield.getStyleClass().add("text-field");
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
+			pedboatinglicstatusfield.getStyleClass().add("valid-field");
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
+			pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus().toUpperCase());
+			
+			boolean updated = false;
+			if (ped.getBoatingLicenseExpiration() == null) {
+				if (ped.getBoatingLicenseStatus().equalsIgnoreCase("suspended")) {
+					ped.setBoatingLicenseExpiration("Suspended License");
+				} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
+					ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				}
+				updated = true;
+			}
+			if (ped.getBoatingLicenseNumber() == null) {
+				ped.setBoatingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for boating license info 1: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedboatinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
+			                                                        "Boating License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
+			                       ped.getBoatingLicenseNumber());
+			
+		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("valid")) {
+			pedboatinglicstatusfield.getStyleClass().add("valid-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
 			pedboatinglicstatusfield.setText("Valid");
+			
+			boolean updated = false;
+			if (ped.getBoatingLicenseExpiration() == null) {
+				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+				updated = true;
+			}
+			if (ped.getBoatingLicenseNumber() == null) {
+				ped.setBoatingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for boating license info 2: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedboatinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
+			                                                        "Boating License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
+			                       ped.getBoatingLicenseNumber());
 		} else {
-			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+			log("Unexpected boating license status: " + ped.getBoatingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected boating license status: " + ped.getBoatingLicenseStatus());
+			pedboatinglicstatusfield.setText("Unknown");
+			pedboatinglicstatusfield.getStyleClass().add("text-field");
+			pedboatinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
-		pedgunlicenseclassfield.setText(ped.getGunLicenseClass() != null ? ped.getGunLicenseClass() : "No License");
-		pedgunlicensetypefield.setText(ped.getGunLicenseType() != null ? ped.getGunLicenseType() : "No License");
-		
-		pedhuntinglicstatusfield.setText(
-				ped.getHuntingLicenseStatus() != null ? ped.getHuntingLicenseStatus() : "False");
-		if (ped.getHuntingLicenseStatus() != null && ped.getHuntingLicenseStatus().equalsIgnoreCase("true")) {
+		pedhuntinglicstatusfield.getStyleClass().clear();
+		pedhuntinglicstatusfield.setOnMouseClicked(null);
+		pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus());
+		if (ped.getHuntingLicenseStatus() == null) {
+			pedhuntinglicstatusfield.setText("False");
+			pedhuntinglicstatusfield.getStyleClass().add("text-field");
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
+			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
+			pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus().toUpperCase());
+			
+			boolean updated = false;
+			if (ped.getHuntingLicenseExpiration() == null) {
+				if (ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended")) {
+					ped.setHuntingLicenseExpiration("Suspended License");
+				} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
+					ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+				}
+				updated = true;
+			}
+			if (ped.getHuntingLicenseNumber() == null) {
+				ped.setHuntingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for hunting license info 1: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedhuntinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
+			                                                        "Hunting License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
+			                       ped.getHuntingLicenseNumber());
+			
+		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid")) {
+			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: #006600 !important;");
 			pedhuntinglicstatusfield.setText("Valid");
+			
+			boolean updated = false;
+			if (ped.getHuntingLicenseExpiration() == null) {
+				ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
+				updated = true;
+			}
+			if (ped.getHuntingLicenseNumber() == null) {
+				ped.setHuntingLicenseNumber(generateLicenseNumber());
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Ped.PedHistoryUtils.addPed(ped);
+				} catch (JAXBException e) {
+					logError("Error updating Ped for hunting license info 2: ", e);
+				}
+			}
+			createLicenseInfoPopup(pedhuntinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
+			                                                        "Hunting License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
+			                       ped.getHuntingLicenseNumber());
 		} else {
-			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
+			log("Unexpected hunting license status: " + ped.getHuntingLicenseStatus(), LogUtils.Severity.ERROR);
+			showNotificationError("Ped Lookup", "Unexpected hunting license status: " + ped.getHuntingLicenseStatus());
+			pedhuntinglicstatusfield.setText("Unknown");
+			pedhuntinglicstatusfield.getStyleClass().add("text-field");
+			pedhuntinglicstatusfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
@@ -388,7 +666,7 @@ public class PedLookupViewController {
 		String affiliations = ped.getAffiliations();
 		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
 			pedaffiliationfield.setText("No Data In System");
-			pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedaffiliationfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaffiliationfield.setText(affiliations);
 			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
@@ -397,16 +675,16 @@ public class PedLookupViewController {
 		String flags = ped.getFlags();
 		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
 			pedflagfield.setText("No Data In System");
-			pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedflagfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedflagfield.setText(flags);
-			pedflagfield.setStyle("-fx-text-fill: black !important;");
+			pedflagfield.setStyle("-fx-text-fill: red !important;");
 		}
 		
 		String description = ped.getDescription();
 		if (description == null || description.equalsIgnoreCase("No Data In System")) {
 			peddescfield.setText("No Data In System");
-			peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			peddescfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			peddescfield.setText(description);
 			peddescfield.setStyle("-fx-text-fill: black !important;");
@@ -415,7 +693,7 @@ public class PedLookupViewController {
 		String aliases = ped.getAliases();
 		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
 			pedaliasfield.setText("No Data In System");
-			pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+			pedaliasfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaliasfield.setText(aliases);
 			pedaliasfield.setStyle("-fx-text-fill: black !important;");
@@ -452,35 +730,46 @@ public class PedLookupViewController {
 			File pedImgFolder = new File(pedImageFolderURL);
 			if (pedImgFolder.exists()) {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
-				
-				File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-				
-				if (matchingFiles != null && matchingFiles.length > 0) {
-					File matchingFile = matchingFiles[0];
-					log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
-					
-					try {
-						String fileURI = matchingFile.toURI().toString();
-						pedImageView.setImage(new Image(fileURI));
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText(
-								localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
-					} catch (Exception e) {
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-						pedImageView.setImage(defImage);
-						noPedImageFoundlbl.setVisible(true);
-						noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-						                                                            "No Image Found In System"));
-						logError("Could not set ped image: ", e);
+				try {
+					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
+						File[] matchingFiles = pedImgFolder.listFiles(
+								(dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+						
+						if (matchingFiles != null && matchingFiles.length > 0) {
+							File matchingFile = matchingFiles[0];
+							log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+							
+							try {
+								String fileURI = matchingFile.toURI().toString();
+								pedImageView.setImage(new Image(fileURI));
+								noPedImageFoundlbl.setVisible(true);
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.PedImageFoundlbl",
+										                                 "Image Found in File:"));
+							} catch (Exception e) {
+								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+								pedImageView.setImage(defImage);
+								noPedImageFoundlbl.setVisible(true);
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+										                                 "No Image Found In System"));
+								logError("Could not set ped image: ", e);
+							}
+						} else {
+							log("No matching image found for the model: " + pedModel + ", displaying no image found.",
+							    LogUtils.Severity.WARN);
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+							pedImageView.setImage(defImage);
+							noPedImageFoundlbl.setVisible(true);
+							noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+							                                                            "No Image Found In System"));
+						}
+					} else {
+						log("enablePedVehImages is disabled in settings so not displaying ped image",
+						    LogUtils.Severity.WARN);
 					}
-				} else {
-					log("No matching image found for the model: " + pedModel + ", displaying no image found.",
-					    LogUtils.Severity.WARN);
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-					pedImageView.setImage(defImage);
-					noPedImageFoundlbl.setVisible(true);
-					noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
-					                                                            "No Image Found In System"));
+				} catch (IOException e) {
+					logError("Could not get enablePedVehImages setting from config", e);
 				}
 			} else {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
@@ -511,7 +800,606 @@ public class PedLookupViewController {
 		
 		pedarrestpriorslistview.setItems(arrestPriors);
 		pedcitationpriorslistview.setItems(citPriors);
+		
 		return playAudio;
+	}
+	
+	public void createWarrantInfoPopup(TextField label, String headerText, String name, String dob, String issuedDate, String warrantNumber, String agency, String warrant) {
+		try {
+			AnchorPane popupContent = new AnchorPane();
+			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			popupContent.getStylesheets().add(Launcher.class.getResource(
+					"/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+			
+			Label titleLabel = new Label(headerText);
+			titleLabel.setPadding(new Insets(0, 33, 0, 33));
+			titleLabel.setAlignment(Pos.CENTER);
+			titleLabel.setPrefHeight(33.0);
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
+			titleLabel.setTextFill(Paint.valueOf("WHITE"));
+			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			AnchorPane.setTopAnchor(titleLabel, 0.0);
+			AnchorPane.setLeftAnchor(titleLabel, 0.0);
+			AnchorPane.setRightAnchor(titleLabel, 0.0);
+			
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			exitBtn.setFitHeight(33.0);
+			exitBtn.setFitWidth(15.0);
+			exitBtn.setPickOnBounds(true);
+			exitBtn.setPreserveRatio(true);
+			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
+			AnchorPane.setTopAnchor(exitBtn, 5.0);
+			AnchorPane.setRightAnchor(exitBtn, 5.0);
+			
+			GridPane gridPane = new GridPane();
+			gridPane.setPadding(new Insets(3, 10, 10, 10));
+			gridPane.setHgap(15.0);
+			gridPane.setVgap(3.0);
+			AnchorPane.setTopAnchor(gridPane, 33.0);
+			AnchorPane.setBottomAnchor(gridPane, 0.0);
+			AnchorPane.setLeftAnchor(gridPane, 0.0);
+			AnchorPane.setRightAnchor(gridPane, 0.0);
+			
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			for (int i = 0; i < 6; i++) {
+				gridPane.getRowConstraints().add(new RowConstraints());
+			}
+			
+			TextField nameField = new TextField();
+			nameField.setEditable(false);
+			GridPane.setRowIndex(nameField, 1);
+			
+			TextField dobField = new TextField();
+			dobField.setEditable(false);
+			GridPane.setColumnIndex(dobField, 1);
+			GridPane.setRowIndex(dobField, 1);
+			
+			TextField dateIssuedField = new TextField();
+			dateIssuedField.setEditable(false);
+			GridPane.setRowIndex(dateIssuedField, 3);
+			
+			TextField warrantNumField = new TextField();
+			warrantNumField.setEditable(false);
+			GridPane.setColumnIndex(warrantNumField, 1);
+			GridPane.setRowIndex(warrantNumField, 3);
+			
+			TextField agencyField = new TextField();
+			agencyField.setEditable(false);
+			agencyField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(agencyField, 5);
+			GridPane.setColumnSpan(agencyField, 2);
+			
+			TextField warrantField = new TextField();
+			warrantField.setEditable(false);
+			warrantField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(warrantField, 7);
+			GridPane.setColumnSpan(warrantField, 2);
+			
+			nameField.setText(name);
+			dobField.setText(dob);
+			dateIssuedField.setText(issuedDate);
+			warrantNumField.setText(warrantNumber);
+			agencyField.setText(agency);
+			warrantField.setText(warrant);
+			
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label dateIssuedLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateIssuedLabel", "Date Issued:"));
+			GridPane.setRowIndex(dateIssuedLabel, 2);
+			dateIssuedLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label warrantNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.WarrantNumberLabel", "Warrant Number:"));
+			GridPane.setColumnIndex(warrantNumLabel, 1);
+			GridPane.setRowIndex(warrantNumLabel, 2);
+			warrantNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label agencyLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.IssuingAuthorityLabel", "Issuing Authority:"));
+			GridPane.setRowIndex(agencyLabel, 4);
+			agencyLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label warrantLabel = createLabel(localization.getLocalizedMessage("PedLookup.WarrantLabel", "Warrant:"));
+			GridPane.setRowIndex(warrantLabel, 6);
+			warrantLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dateIssuedLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				warrantNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				agencyLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				warrantLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dateIssuedLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				warrantNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				agencyLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				warrantLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
+			
+			gridPane.getChildren().addAll(nameField, dobField, dateIssuedField, warrantNumField, agencyField, nameLabel,
+			                              dobLabel, dateIssuedLabel, warrantNumLabel, agencyLabel, warrantLabel,
+			                              warrantField);
+			
+			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
+			
+			popupContent.setOnMouseMoved(event -> {
+				double x = event.getX();
+				boolean isOnRightEdge = x > popupContent.getWidth() - 10;
+				
+				if (isOnRightEdge) {
+					popupContent.setCursor(Cursor.E_RESIZE);
+				} else {
+					popupContent.setCursor(Cursor.DEFAULT);
+				}
+			});
+			
+			popupContent.setOnMouseDragged(event -> {
+				double x = event.getX();
+				
+				double minWidth = 200;
+				
+				if (popupContent.getCursor() == Cursor.E_RESIZE) {
+					popupContent.setPrefWidth(Math.max(x, minWidth));
+				}
+			});
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(0.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			exitBtn.setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+			exitBtn.requestFocus();
+		} catch (Exception e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
+	}
+	
+	public void createLicenseInfoPopup(TextField label, String headerText, String name, String dob, String exp, String status, String licnum) {
+		try {
+			AnchorPane popupContent = new AnchorPane();
+			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			popupContent.getStylesheets().add(Launcher.class.getResource(
+					"/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+			
+			Label titleLabel = new Label(headerText);
+			titleLabel.setPadding(new Insets(0, 33, 0, 33));
+			titleLabel.setAlignment(Pos.CENTER);
+			titleLabel.setPrefHeight(33.0);
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
+			titleLabel.setTextFill(Paint.valueOf("WHITE"));
+			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			AnchorPane.setTopAnchor(titleLabel, 0.0);
+			AnchorPane.setLeftAnchor(titleLabel, 0.0);
+			AnchorPane.setRightAnchor(titleLabel, 0.0);
+			
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			exitBtn.setFitHeight(33.0);
+			exitBtn.setFitWidth(15.0);
+			exitBtn.setPickOnBounds(true);
+			exitBtn.setPreserveRatio(true);
+			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
+			AnchorPane.setTopAnchor(exitBtn, 5.0);
+			AnchorPane.setRightAnchor(exitBtn, 5.0);
+			
+			GridPane gridPane = new GridPane();
+			gridPane.setPadding(new Insets(3, 10, 10, 10));
+			gridPane.setHgap(15.0);
+			gridPane.setVgap(3.0);
+			AnchorPane.setTopAnchor(gridPane, 33.0);
+			AnchorPane.setBottomAnchor(gridPane, 0.0);
+			AnchorPane.setLeftAnchor(gridPane, 0.0);
+			AnchorPane.setRightAnchor(gridPane, 0.0);
+			
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			for (int i = 0; i < 6; i++) {
+				gridPane.getRowConstraints().add(new RowConstraints());
+			}
+			
+			TextField nameField = new TextField();
+			nameField.setEditable(false);
+			GridPane.setRowIndex(nameField, 1);
+			
+			TextField dobField = new TextField();
+			dobField.setEditable(false);
+			GridPane.setColumnIndex(dobField, 1);
+			GridPane.setRowIndex(dobField, 1);
+			
+			TextField expField = new TextField();
+			expField.setEditable(false);
+			GridPane.setRowIndex(expField, 3);
+			
+			TextField statusField = new TextField();
+			statusField.setEditable(false);
+			GridPane.setColumnIndex(statusField, 1);
+			GridPane.setRowIndex(statusField, 3);
+			
+			TextField licNumField = new TextField();
+			licNumField.setEditable(false);
+			licNumField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(licNumField, 5);
+			GridPane.setColumnSpan(licNumField, 2);
+			
+			nameField.setText(name);
+			dobField.setText(dob);
+			expField.setText(exp);
+			statusField.setText(status);
+			licNumField.setText(licnum);
+			
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+			GridPane.setRowIndex(expDateLabel, 2);
+			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+			GridPane.setColumnIndex(licStatusLabel, 1);
+			GridPane.setRowIndex(licStatusLabel, 2);
+			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+			GridPane.setRowIndex(licNumLabel, 4);
+			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
+			
+			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
+			                              expDateLabel, licStatusLabel, licNumLabel);
+			
+			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
+			
+			popupContent.setOnMouseMoved(event -> {
+				double x = event.getX();
+				boolean isOnRightEdge = x > popupContent.getWidth() - 10;
+				
+				if (isOnRightEdge) {
+					popupContent.setCursor(Cursor.E_RESIZE);
+				} else {
+					popupContent.setCursor(Cursor.DEFAULT);
+				}
+			});
+			
+			popupContent.setOnMouseDragged(event -> {
+				double x = event.getX();
+				
+				double minWidth = 200;
+				
+				if (popupContent.getCursor() == Cursor.E_RESIZE) {
+					popupContent.setPrefWidth(Math.max(x, minWidth));
+				}
+			});
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(0.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			exitBtn.setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+			exitBtn.requestFocus();
+		} catch (Exception e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
+	}
+	
+	public void createGunLicenseInfoPopup(TextField label, String headerText, String name, String dob, String exp, String status, String licnum, String gunLicType, String gunLicClass) {
+		try {
+			AnchorPane popupContent = new AnchorPane();
+			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			popupContent.getStylesheets().add(
+					Launcher.class.getResource("/com/Guess/ReportsPlus/css/lookups/lookup.css").toExternalForm());
+			
+			Label titleLabel = new Label(headerText);
+			titleLabel.setPadding(new Insets(0, 50, 0, 50));
+			titleLabel.setAlignment(Pos.CENTER);
+			titleLabel.setPrefHeight(33.0);
+			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
+			titleLabel.setTextFill(Paint.valueOf("WHITE"));
+			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			AnchorPane.setTopAnchor(titleLabel, 0.0);
+			AnchorPane.setLeftAnchor(titleLabel, 0.0);
+			AnchorPane.setRightAnchor(titleLabel, 0.0);
+			
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			exitBtn.setFitHeight(33.0);
+			exitBtn.setFitWidth(15.0);
+			exitBtn.setPickOnBounds(true);
+			exitBtn.setPreserveRatio(true);
+			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
+			AnchorPane.setTopAnchor(exitBtn, 5.0);
+			AnchorPane.setRightAnchor(exitBtn, 5.0);
+			
+			GridPane gridPane = new GridPane();
+			gridPane.setPadding(new Insets(3, 10, 10, 10));
+			gridPane.setHgap(15.0);
+			gridPane.setVgap(3.0);
+			AnchorPane.setTopAnchor(gridPane, 33.0);
+			AnchorPane.setBottomAnchor(gridPane, 0.0);
+			AnchorPane.setLeftAnchor(gridPane, 0.0);
+			AnchorPane.setRightAnchor(gridPane, 0.0);
+			
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			for (int i = 0; i < 7; i++) {
+				gridPane.getRowConstraints().add(new RowConstraints());
+			}
+			
+			TextField nameField = new TextField();
+			nameField.setEditable(false);
+			GridPane.setRowIndex(nameField, 1);
+			
+			TextField dobField = new TextField();
+			dobField.setEditable(false);
+			GridPane.setColumnIndex(dobField, 1);
+			GridPane.setRowIndex(dobField, 1);
+			
+			TextField expField = new TextField();
+			expField.setEditable(false);
+			GridPane.setRowIndex(expField, 3);
+			
+			TextField statusField = new TextField();
+			statusField.setEditable(false);
+			GridPane.setColumnIndex(statusField, 1);
+			GridPane.setRowIndex(statusField, 3);
+			
+			TextField licNumField = new TextField();
+			licNumField.setEditable(false);
+			licNumField.setPrefColumnCount(Integer.MAX_VALUE);
+			GridPane.setRowIndex(licNumField, 5);
+			
+			TextField gunLicTypeField = new TextField();
+			gunLicTypeField.setEditable(false);
+			GridPane.setRowIndex(gunLicTypeField, 5);
+			GridPane.setColumnIndex(gunLicTypeField, 1);
+			
+			TextField gunLicClassField = new TextField();
+			gunLicClassField.setEditable(false);
+			GridPane.setRowIndex(gunLicClassField, 7);
+			GridPane.setColumnSpan(gunLicClassField, 2);
+			
+			nameField.setText(name);
+			dobField.setText(dob);
+			expField.setText(exp);
+			statusField.setText(status);
+			licNumField.setText(licnum);
+			gunLicTypeField.setText(gunLicType);
+			gunLicClassField.setText(gunLicClass);
+			
+			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			GridPane.setColumnIndex(dobLabel, 1);
+			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
+			dobLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+			GridPane.setRowIndex(expDateLabel, 2);
+			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+			GridPane.setColumnIndex(licStatusLabel, 1);
+			GridPane.setRowIndex(licStatusLabel, 2);
+			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+			GridPane.setRowIndex(licNumLabel, 4);
+			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label gunLicTypeLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type:"));
+			GridPane.setRowIndex(gunLicTypeLabel, 4);
+			GridPane.setColumnIndex(gunLicTypeLabel, 1);
+			gunLicTypeLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			Label gunLicClassLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class:"));
+			GridPane.setRowIndex(gunLicClassLabel, 6);
+			GridPane.setColumnSpan(gunLicClassLabel, 2);
+			gunLicClassLabel.setMinWidth(Region.USE_PREF_SIZE);
+			
+			final String UILightColor = "rgb(255,255,255,0.75)";
+			final String UIDarkColor = "rgb(0,0,0,0.75)";
+			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
+				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				gunLicTypeLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+				gunLicClassLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			} else {
+				nameLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				dobLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				expDateLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licStatusLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				licNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				gunLicTypeLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+				gunLicClassLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
+			}
+			
+			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
+			                              expDateLabel, licStatusLabel, licNumLabel, gunLicTypeField, gunLicClassField,
+			                              gunLicTypeLabel, gunLicClassLabel);
+			
+			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
+			
+			popupContent.setOnMouseMoved(event -> {
+				double x = event.getX();
+				boolean isOnRightEdge = x > popupContent.getWidth() - 10;
+				
+				if (isOnRightEdge) {
+					popupContent.setCursor(Cursor.E_RESIZE);
+				} else {
+					popupContent.setCursor(Cursor.DEFAULT);
+				}
+			});
+			
+			popupContent.setOnMouseDragged(event -> {
+				double x = event.getX();
+				
+				double minWidth = 200;
+				
+				if (popupContent.getCursor() == Cursor.E_RESIZE) {
+					popupContent.setPrefWidth(Math.max(x, minWidth));
+				}
+			});
+			
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setColor(new Color(0, 0, 0, 0.3));
+			dropShadow.setOffsetX(0);
+			dropShadow.setOffsetY(0);
+			dropShadow.setRadius(15);
+			dropShadow.setSpread(0.3);
+			popupContent.setEffect(dropShadow);
+			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
+			
+			Popup popup = new Popup();
+			popup.getContent().add(popupContent);
+			
+			final boolean[] isPopupShown = {false};
+			
+			exitBtn.setOnMouseClicked(event -> {
+				popup.hide();
+				isPopupShown[0] = false;
+			});
+			
+			label.setOnMouseClicked(event -> {
+				if (isPopupShown[0]) {
+					popup.hide();
+					isPopupShown[0] = false;
+				} else {
+					popup.show(label.getScene().getWindow(), -9999, -9999);
+					
+					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
+					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
+					double labelWidth = label.getWidth();
+					
+					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
+					double popupY = labelScreenY - popupContent.getHeight();
+					
+					popup.setX(popupX);
+					popup.setY(popupY - 15);
+					
+					isPopupShown[0] = true;
+				}
+			});
+			exitBtn.requestFocus();
+		} catch (Exception e) {
+			logError("Error creating license popup from field " + label.getText() + ": ", e);
+		}
+	}
+	
+	private Label createLabel(String text) {
+		Label label = new Label(text);
+		label.setFont(new Font("Segoe UI Black", 12.0));
+		return label;
 	}
 	
 	@javafx.fxml.FXML
@@ -535,7 +1423,7 @@ public class PedLookupViewController {
 		String birthday = pedData.getOrDefault("birthday", "Not Found");
 		String address = pedData.getOrDefault("address", "Not Found");
 		String isWanted = pedData.getOrDefault("iswanted", "Not Found");
-		String licenseStatus = formatLicenseStatus(pedData.getOrDefault("licensestatus", "Not Found"));
+		String licenseStatus = pedData.getOrDefault("licensestatus", "Not Found");
 		String licenseNumber = pedData.getOrDefault("licensenumber", "Not Found");
 		String name = pedData.getOrDefault("name", "Not Found");
 		String pedModel = pedData.getOrDefault("pedmodel", "Not Found");
@@ -544,7 +1432,7 @@ public class PedLookupViewController {
 		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");
 		
 		if (pedOptional.isPresent()) {
-			log("Found: [" + name + "] From PedHistory file", LogUtils.Severity.DEBUG);
+			log("Found: [" + pedOptional.get().getName() + "] From PedHistory file", LogUtils.Severity.DEBUG);
 			Ped ped = pedOptional.get();
 			if (ped.getModel() == null) {
 				ped.setModel("Not Found");
@@ -597,7 +1485,7 @@ public class PedLookupViewController {
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
 		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 		                                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
-		                                 false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(
+		                                 true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(
 						Objects.requireNonNull(Launcher.class.getResourceAsStream(
 								"/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}
@@ -716,13 +1604,12 @@ public class PedLookupViewController {
 		if (optionalPed.isPresent()) {
 			Ped ped = optionalPed.get();
 			
-			// Update flags
 			String pedflagfieldText = pedflagfield.getText();
 			if (!pedflagfieldText.equalsIgnoreCase("No Data In System") && !pedflagfieldText.isEmpty()) {
-				pedflagfield.setStyle("-fx-text-fill: black !important;");
+				pedflagfield.setStyle("-fx-text-fill: red !important;");
 				ped.setFlags(pedflagfieldText.trim());
 			} else {
-				pedflagfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedflagfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedflagfield.setText("No Data In System");
 				ped.setFlags(null);
 			}
@@ -732,7 +1619,7 @@ public class PedLookupViewController {
 				pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAffiliations(affiliationText.trim());
 			} else {
-				pedaffiliationfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaffiliationfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedaffiliationfield.setText("No Data In System");
 				ped.setAffiliations(null);
 			}
@@ -742,7 +1629,7 @@ public class PedLookupViewController {
 				peddescfield.setStyle("-fx-text-fill: black !important;");
 				ped.setDescription(descText.trim());
 			} else {
-				peddescfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				peddescfield.setStyle("-fx-text-fill: #603417 !important;");
 				peddescfield.setText("No Data In System");
 				ped.setDescription(null);
 			}
@@ -752,7 +1639,7 @@ public class PedLookupViewController {
 				pedaliasfield.setStyle("-fx-text-fill: black !important;");
 				ped.setAliases(aliasText.trim());
 			} else {
-				pedaliasfield.setStyle("-fx-text-fill: #e65c00 !important;");
+				pedaliasfield.setStyle("-fx-text-fill: #603417 !important;");
 				pedaliasfield.setText("No Data In System");
 				ped.setAliases(null);
 			}
@@ -783,14 +1670,6 @@ public class PedLookupViewController {
 	
 	public Label getPed14() {
 		return ped14;
-	}
-	
-	public Label getPed17() {
-		return ped17;
-	}
-	
-	public Label getPed16() {
-		return ped16;
 	}
 	
 	public Label getPed19() {

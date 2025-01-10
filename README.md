@@ -11,7 +11,7 @@ and other interactions, more realistic and thorough.
 
 ### Key Features
 
-- Function as an MDT for use from another computer.
+- It functions as an MDT for use on another computer.
 - Perform ped and vehicle lookups.
 - Display IDs and show callouts.
 - Create in-depth reports for Citations, Callouts, Patrols, Traffic Stops, Impounds, Searches, Incidents, and Arrests.
@@ -20,7 +20,7 @@ and other interactions, more realistic and thorough.
   you can quickly generate a search report by transferring details like the suspect's name and location of arrest,
   saving a lot of time.
 - High-quality zoomable map.
-- Notepad text area, useful for remembering location info and search items.
+- The notepad text area is useful for remembering location info and search items.
 - Customizable UI. Plans to make the entire UI fully customizable.
 - Fully modifiable arrest charges and citations through XML, compatible with plugins like Realistic Charges and
   Citations for Compulite.
@@ -36,7 +36,7 @@ Ensure you have the following installed:
 
 ## Installation
 
-### Please view [the page on lcpdfr.com](https://www.oracle.com/java/technologies/downloads/) for installation instructions.
+### Please view [the page on lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/46968-reportsplus-report-manager-new-court-system-pedveh-lookup/) for installation instructions.
 
 ## Troubleshooting
 

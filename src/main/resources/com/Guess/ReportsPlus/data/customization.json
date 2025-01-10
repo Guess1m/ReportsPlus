@@ -1,12 +1,17 @@
 {
   "agencies": [
-    "Los Santos Police Department",
-    "Los Santos Sheriff's Office",
-    "Blaine County Sheriff's Office",
-    "San Andreas Highway Patrol",
-    "Federal Investigation Bureau",
-    "International Affairs Agency",
-    "San Andreas Parks and Recreation"
+    "Los Santos Police Department [LSPD]",
+    "Los Santos Sheriff's Office [LSSD]",
+    "Blaine County Sheriff's Office [BCSO]",
+    "San Andreas Highway Patrol [SAHP]",
+    "Federal Investigation Bureau [FIB]",
+    "International Affairs Agency [IAA]",
+    "San Andreas State Parks [SASP]",
+    "Drug Obeservation Agency [DOA]",
+    "Burea of Alcohol, Tobacco, Firearms and Explosives [ATF]",
+    "Patriotism and Immigration Authority [PIA]",
+    "United States Marshal Service [USMS]"
+
   ],
   "ranks": [
     "======= LSPD =======",
